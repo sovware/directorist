@@ -762,7 +762,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $listing_type = isset($_GET['listing_type']) ? sanitize_text_field($_GET['listing_type']) : '';
 
             if ('yes' == $logged_in_user_only) {
-                if (is_user_logged_in()) {
+                if (atbdp_logged_in_user()) {
                     if (class_exists('Post_Your_Need') && ($listing_type === 'need')) {
                         include PYN_TEMPLATES_DIR . "/need-card.php";
                     } else {
@@ -1307,7 +1307,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 return $redirect;
             }
             if ('yes' == $logged_in_user_only) {
-                if (is_user_logged_in()) {
+                if (atbdp_logged_in_user()) {
                     if ('listings_with_map' == $view) {
                         include BDM_TEMPLATES_DIR . '/map-view.php';
                     } else {
@@ -1353,7 +1353,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 include ATBDP_DIR . 'public/assets/css/style.php';
             }
             // show user dashboard if the user is logged in, else kick him out of this page or show a message
-            if (is_user_logged_in()) {
+            if (atbdp_logged_in_user()) {
                 $atts = shortcode_atts(array(
                     'show_title' => '',
                 ), $atts);
@@ -1420,7 +1420,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 return $redirect;
             }
             if ('yes' == $logged_in_user_only) {
-                if (is_user_logged_in()) {
+                if (atbdp_logged_in_user()) {
                     if (!empty($terms) && !is_wp_error($terms)) {
                         if ('grid' == $atts['view']) {
                             include ATBDP_TEMPLATES_DIR . 'front-end/categories-page/categories-grid.php';
@@ -1835,7 +1835,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     return $redirect;
                 }
                 if ('yes' == $logged_in_user_only) {
-                    if (is_user_logged_in()) {
+                    if (atbdp_logged_in_user()) {
                         if ('listings_with_map' == $view) {
                             include BDM_TEMPLATES_DIR . '/map-view.php';
                         } else {
@@ -1913,7 +1913,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 return $redirect;
             }
             if ('yes' == $logged_in_user_only) {
-                if (is_user_logged_in()) {
+                if (atbdp_logged_in_user()) {
                     if (!empty($terms) && !is_wp_error($terms)) {
                         if ('grid' == $atts['view']) {
                             include ATBDP_TEMPLATES_DIR . 'front-end/locations-page/locations-grid.php';
@@ -2325,7 +2325,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     return $redirect;
                 }
                 if ('yes' == $logged_in_user_only) {
-                    if (is_user_logged_in()) {
+                    if (atbdp_logged_in_user()) {
                         if ('listings_with_map' == $view) {
                             include BDM_TEMPLATES_DIR . '/map-view.php';
                         } else {
@@ -2730,7 +2730,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     return $redirect;
                 }
                 if ('yes' == $logged_in_user_only) {
-                    if (is_user_logged_in()) {
+                    if (atbdp_logged_in_user()) {
                         if ('listings_with_map' == $view) {
                             include BDM_TEMPLATES_DIR . '/map-view.php';
                         } else {
@@ -2850,7 +2850,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 return $redirect;
             }
             if ('yes' == $logged_in_user_only) {
-                if (is_user_logged_in()) {
+                if (atbdp_logged_in_user()) {
                     include ATBDP_TEMPLATES_DIR . 'listing-home.php';
                     include ATBDP_TEMPLATES_DIR . 'listing-home.php';
                 } else {
@@ -2872,6 +2872,7 @@ if (!class_exists('ATBDP_Shortcode')):
 
         public function author_profile($atts)
         {
+            wp_enqueue_script('adminmainassets');
             wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
                 'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
@@ -2948,7 +2949,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 return $redirect;
             }
             if ('yes' == $logged_in_user_only) {
-                if (is_user_logged_in()) {
+                if (atbdp_logged_in_user()) {
                     ATBDP()->load_template('front-end/public-profile', array('data' => $data_for_template));
                 } else {
                     // user not logged in;
@@ -2974,7 +2975,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
             wp_enqueue_script('adminmainassets');
             $guest = get_directorist_option('guest_listings', 0);
-            if (is_user_logged_in() || $guest) {
+            if (atbdp_logged_in_user() || $guest) {
                 global $wp;
                 global $pagenow;
                 $current_url = home_url(add_query_arg(array(), $wp->request));
@@ -3018,7 +3019,7 @@ if (!class_exists('ATBDP_Shortcode')):
             if ($include) {
                 include ATBDP_DIR . 'public/assets/css/style.php';
             }
-            if (!is_user_logged_in()) {
+            if (!atbdp_logged_in_user()) {
                 // start recovery stuff
                 $recovery = isset($_GET['user']) ? $_GET['user'] : '';
                 $key = isset($_GET['key']) ? $_GET['key'] : '';
@@ -3246,7 +3247,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 include ATBDP_DIR . 'public/assets/css/style.php';
             }
             // show registration form if the user is not
-            if (!is_user_logged_in()) {
+            if (!atbdp_logged_in_user()) {
                 ATBDP()->user->registration_form();
             } else {
                 $error_message = sprintf(__('Registration page is only for unregistered user. <a href="%s">Go to Dashboard</a>', 'directorist'), esc_url(ATBDP_Permalink::get_dashboard_page_link()));

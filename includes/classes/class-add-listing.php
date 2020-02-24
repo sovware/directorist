@@ -80,7 +80,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 // add listing form has been submitted
                 //if (ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action, $_REQUEST['data'] ))
                 // guest user
-                if (!is_user_logged_in()) {
+                if (!atbdp_logged_in_user()) {
                     $guest = get_directorist_option('guest_listings', 0);
                     $guest_email = isset($p['guest_user_email']) ? esc_attr($p['guest_user_email']) : '';
                     if (!empty($guest && $guest_email)) {
@@ -122,7 +122,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $display_social_info_for = get_directorist_option('display_social_info_for', 0);
                 $display_prv_field = get_directorist_option('display_prv_field', 1);
                 $display_prv_img_for = get_directorist_option('display_prv_img_for', 0);
-                $display_gellery_field = get_directorist_option('display_gellery_field', 1);
+                $display_gallery_field = get_directorist_option('display_gallery_field', 1);
                 $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
                 $display_video_field = get_directorist_option('display_video_field', 1);
                 $display_video_for = get_directorist_option('display_video_for', 0);
@@ -299,7 +299,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                      */
                     do_action('atbdp_before_processing_to_update_listing');
                     $edit_l_status = get_directorist_option('edit_listing_status');
-                    if ('pending' === $edit_l_status){
+                    if ('pending' === $edit_l_status) {
                         $data['pending'] = true;
                     }
                     // update the post
@@ -454,7 +454,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     // the post is a new post, so insert it as new post.
                     if (current_user_can('publish_at_biz_dirs')) {
                         $new_l_status = get_directorist_option('new_listing_status', 'pending');
-                        if ('pending' === $new_l_status){
+                        if ('pending' === $new_l_status) {
                             $data['pending'] = true;
                         }
                         $monitization = get_directorist_option('enable_monetization', 0);
@@ -588,7 +588,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 if (count($admin_category_select) > 1) {
                                     foreach ($admin_category_select as $category) {
                                         $term_by_id = get_term_by('term_id', $category, ATBDP_CATEGORY);
-                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_CATEGORY, true);//update the term relationship when a listing updated by author
+                                        $term_name = !empty($term_by_id) ? (object)$term_by_id->name : '';
+                                        wp_set_object_terms($post_id, $term_name, ATBDP_CATEGORY, true);//update the term relationship when a listing updated by author
                                     }
                                 } else {
                                     $term_by_id = get_term_by('term_id', $admin_category_select[0], ATBDP_CATEGORY);
@@ -614,7 +615,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 if (count($tag) > 1) {
                                     foreach ($tag as $single_tag) {
                                         $term_by_id = get_term_by('term_id', $single_tag, ATBDP_TAGS);
-                                        wp_set_object_terms($post_id, $term_by_id->name, ATBDP_TAGS, true);//update the term relationship when a listing updated by author
+                                        $term_name = !empty($term_by_id) ? (object)$term_by_id->name : '';
+                                        wp_set_object_terms($post_id, $term_name, ATBDP_TAGS, true);//update the term relationship when a listing updated by author
                                     }
                                 } else {
                                     wp_set_object_terms($post_id, $tag[0], ATBDP_TAGS);//update the term relationship when a listing updated by author
@@ -632,7 +634,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $listing_images = atbdp_get_listing_attachment_ids($post_id);
                     $files = !empty($_FILES["listing_img"]) ? $_FILES["listing_img"] : array();
                     $files_meta = !empty($_POST['files_meta']) ? $_POST['files_meta'] : array();
-                    if (!empty($listing_images)){
+                    if (!empty($listing_images)) {
                         foreach ($listing_images as $__old_id) {
                             $match_found = false;
                             foreach ($files_meta as $__new_id) {
@@ -698,7 +700,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
                     }
-                    if (empty($display_glr_img_for) && !empty($display_gellery_field)) {
+                    if (empty($display_glr_img_for) && !empty($display_gallery_field)) {
                         update_post_meta($post_id, '_listing_img', $new_files_meta);
                     }
 
@@ -803,10 +805,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if (!empty($data['success']) && $data['success'] === true) {
                     $data['success_msg'] = __('Your Submission is Completed! redirecting..', 'directorist');
                 }
-                if (!empty($data['error'])&&$data['error'] === true) {
+                if (!empty($data['error']) && $data['error'] === true) {
                     $data['error_msg'] = __('Sorry! Something Wrong with Your Submission', 'directorist');
                 }
-                if (!empty($data['need_payment'])&&$data['need_payment'] === true) {
+                if (!empty($data['need_payment']) && $data['need_payment'] === true) {
                     $data['success_msg'] = __('Payment Required! redirecting to checkout..', 'directorist');
                 }
                 if ($preview_enable) {

@@ -327,7 +327,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         $author_id = $review->by_user_id;
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-                        $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
+                        $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
 
                         // Set the desired output into a variable
                         $msg .= '<div class="atbd_single_review atbdp_static" id="single_review_' . $review->id . '">';
@@ -336,7 +336,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         if (!empty($enable_reviewer_img)) {
                             $msg .= '<div class="atbd_review_avatar">';
                             if (empty($u_pro_pic)) {
-                                $msg .= $avata_img;
+                                $msg .= $avatar_img;
                             }
                             if (!empty($u_pro_pic)) {
                                 $msg .= '<img src="' . esc_url($u_pro_pic[0]) . '" alt="Avatar Image">';

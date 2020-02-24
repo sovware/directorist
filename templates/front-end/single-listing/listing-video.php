@@ -17,7 +17,7 @@ $display_video_for        = get_directorist_option('display_video_for', 'admin_u
             }
             if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for && $plan_video) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
-                    <div class="atbd_content_module__tittle_area">
+                    <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">
                             <h4>
                                 <span class="<?php atbdp_icon_type(true);?>-video-camera atbd_area_icon"></span><?php _e($video_label, 'directorist') ?>

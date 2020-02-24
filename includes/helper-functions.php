@@ -1359,7 +1359,7 @@ if (!function_exists('atbdp_only_logged_in_user')) {
      */
     function atbdp_is_user_logged_in($message = '')
     {
-        if (!is_user_logged_in()) {
+        if (!atbdp_logged_in_user()) {
             // user not logged in;
             $error_message = (empty($message))
                 ? sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters("atbdp_login_page_link", "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters("atbdp_signup_page_link", "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign up', 'directorist') . "</a>"))
@@ -2128,7 +2128,7 @@ function directorist_clean($var)
 function the_atbdp_favourites_link($post_id = 0)
 {
 
-    if (is_user_logged_in()) {
+    if (atbdp_logged_in_user()) {
 
         if ($post_id == 0) {
             global $post;
@@ -2191,7 +2191,7 @@ function atbdp_get_remove_favourites_page_link($listing_id)
 /*function the_atbdp_favourites_all_listing($post_id = 0)
 {
 
-    if (is_user_logged_in()) {
+    if (atbdp_logged_in_user()) {
 
         if ($post_id == 0) {
             global $post;
@@ -2313,7 +2313,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                     $author_id = get_the_author_meta('ID');
                     $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                     $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-                    $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
+                    $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                     $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                     $display_pricing_field = get_directorist_option('display_pricing_field', 1);
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
@@ -2368,7 +2368,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                             }
 
                                             if ($has_thumbnail) {
-                                                ATBDP()->helper::the_thumbnail_card($thumbnail_img);
+                                                the_thumbnail_card($thumbnail_img);
                                                 // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                             }
                                             if (empty($disable_single_listing)) {
@@ -2382,7 +2382,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                     <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
                                                        class="<?php echo $class; ?>"
                                                        aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
-                                                            echo $avata_img;
+                                                            echo $avatar_img;
                                                         }
                                                         if (!empty($u_pro_pic)) { ?>
                                                             <img
@@ -2633,7 +2633,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                             if (!empty($cats)) {
                                                 $totalTerm = count($cats);
                                                 $catViewCount .= '<div class="atbd_content_left">';
-                                                $catViewCount .= '<div class="atbd_listting_category">';
+                                                $catViewCount .= '<div class="atbd_listing_category">';
                                                 $catViewCount .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
                                                 $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                                 $catViewCount .= $cats[0]->name;
@@ -2657,7 +2657,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                 $catViewCount .= '</div>';
                                             } else {
                                                 $catViewCount .= '<div class="atbd_content_left">';
-                                                $catViewCount .= '<div class="atbd_listting_category">';
+                                                $catViewCount .= '<div class="atbd_listing_category">';
                                                 $catViewCount .= '<a href="">';
                                                 $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                                 $catViewCount .= __('Uncategorized', 'directorist');
@@ -2784,7 +2784,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                         $author_id = get_the_author_meta('ID');
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-                        $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
+                        $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                         $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                         $display_pricing_field = get_directorist_option('display_pricing_field', 1);
                         $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
@@ -2830,7 +2830,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                 }
 
                                                 if ($has_thumbnail) {
-                                                    ATBDP()->helper::the_thumbnail_card($thumbnail_img);
+                                                    the_thumbnail_card($thumbnail_img);
                                                     // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                                 }
                                                 if (empty($disable_single_listing)) {
@@ -2844,7 +2844,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                         <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
                                                            class="<?php echo $class; ?>"
                                                            aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
-                                                                echo $avata_img;
+                                                                echo $avatar_img;
                                                             }
                                                             if (!empty($u_pro_pic)) { ?>
                                                                 <img
@@ -3091,7 +3091,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                         $totalTerm = count($cats);
                                                         ?>
                                                         <div class="atbd_content_left">
-                                                            <div class="atbd_listting_category">
+                                                            <div class="atbd_listing_category">
                                                                 <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0])); ?>"><span class="<?php atbdp_icon_type(true); ?>-tags"></span><?php echo $cats[0]->name; ?>
                                                                 </a>
                                                                 <?php
@@ -3116,7 +3116,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                     <?php } else {
                                                         ?>
                                                         <div class="atbd_content_left">
-                                                            <div class="atbd_listting_category">
+                                                            <div class="atbd_listing_category">
                                                                 <a href=""><span
                                                                             class="<?php atbdp_icon_type(true); ?>-tags"></span><?php echo __('Uncategorized', 'directorist'); ?>
                                                                 </a>
@@ -3227,7 +3227,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                     $author_id = get_the_author_meta('ID');
                     $u_pro_pic_meta = get_user_meta($author_id, 'pro_pic', true);
                     $u_pro_pic = wp_get_attachment_image_src($u_pro_pic_meta, 'thumbnail');
-                    $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
+                    $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                     $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                     $display_pricing_field = get_directorist_option('display_pricing_field', 1);
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
@@ -3252,7 +3252,31 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                 <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
                                     <?php
                                     }
+<<<<<<< HEAD
                                     the_thumbnail_card();
+=======
+                                    $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                                    $has_thumbnail = false;
+                                    $thumbnail_img = '';
+
+                                    if (!empty($listing_prv_img)) {
+                                        $thumbnail_img = $prv_image_full;
+                                        $has_thumbnail = true;
+                                    }
+                                    if (!empty($listing_img[0]) && empty($listing_prv_img)) {
+                                        $thumbnail_img = $gallery_img_full;
+                                        $has_thumbnail = true;
+                                    }
+                                    if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
+                                        $thumbnail_img = $default_image;
+                                        $has_thumbnail = true;
+                                    }
+
+                                    if ($has_thumbnail) {
+                                        the_thumbnail_card($thumbnail_img);
+                                        // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
+                                    }
+>>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
                                     if (empty($disable_single_listing)) {
                                         echo '</a>';
                                     }
@@ -3467,7 +3491,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                         if (!empty($cats)) {
                                             $totalTerm = count($cats);
                                             $catViewCountAuthor .= '<div class="atbd_content_left">';
-                                            $catViewCountAuthor .= '<div class="atbd_listting_category">';
+                                            $catViewCountAuthor .= '<div class="atbd_listing_category">';
                                             $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
                                             $catViewCountAuthor .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                             $catViewCountAuthor .= $cats[0]->name;
@@ -3491,7 +3515,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                             $catViewCountAuthor .= '</div>';
                                         } else {
                                             $catViewCountAuthor .= '<div class="atbd_content_left">';
-                                            $catViewCountAuthor .= '<div class="atbd_listting_category">';
+                                            $catViewCountAuthor .= '<div class="atbd_listing_category">';
                                             $catViewCountAuthor .= '<a href="">';
                                             $catViewCountAuthor .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                             $catViewCountAuthor .= __('Uncategorized', 'directorist');
@@ -3515,7 +3539,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                             $catViewCountAuthor .= '<li class="atbd_author">';
                                             $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::get_user_profile_page_link($author_id) . '" class="'. $class .'" aria-label="' . $author_first_last_name . '">';
                                             if (empty($u_pro_pic)) {
-                                                $catViewCountAuthor .= $avata_img;
+                                                $catViewCountAuthor .= $avatar_img;
                                             }
                                             if (!empty($u_pro_pic)) {
                                                 $catViewCountAuthor .= '<img src="' . esc_url($u_pro_pic[0]) . '" alt="Author Image">';
@@ -4642,9 +4666,16 @@ function atbdp_create_required_pages(){
     }
 }
 
+<<<<<<< HEAD
 
 
 // the_thumbnail_card
+=======
+function atbdp_logged_in_user(){
+    return _wp_get_current_user()->exists();
+}
+
+>>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
 function the_thumbnail_card($img_src = '', $_args = array())
 {
     $args = apply_filters('atbdp_preview_image_args', $_args);
@@ -4653,13 +4684,18 @@ function the_thumbnail_card($img_src = '', $_args = array())
     $is_blur = get_directorist_option('prv_background_type', 'blur');
     $is_blur = ('blur' === $is_blur ? true : false);
     $alt = esc_html(get_the_title());
+<<<<<<< HEAD
     $container_size_by = get_directorist_option('prv_container_size_by', 'px');
     $by_ratio = ( 'px' === $container_size_by ) ? false : true;
     $image_size = get_directorist_option('way_to_show_preview', 'cover'); // contain / full / cover
+=======
+    $image_size = get_directorist_option('way_to_show_preview', 'contain'); // contain / full / cover
+>>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
     $ratio_width = get_directorist_option('crop_width', 360);
     $ratio_height = get_directorist_option('crop_height', 300);
     $blur_background = $is_blur;
     $background_color = get_directorist_option('prv_background_color', 'gainsboro');
+<<<<<<< HEAD
 
     $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
     $listing_img_src = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
@@ -4697,6 +4733,9 @@ function the_thumbnail_card($img_src = '', $_args = array())
 
     if ( !$has_thumbnail ) { return ''; }
     $image = $thumbnail_img; 
+=======
+    $image = $img_src;
+>>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
 
     // Extend Default
     if ( isset($args['image']) ) {
@@ -4723,6 +4762,7 @@ function the_thumbnail_card($img_src = '', $_args = array())
 
     // Style
     $style = '';
+<<<<<<< HEAD
 
     if ( $by_ratio ) {
         $padding_top_value = (int) $ratio_height / (int) $ratio_width * 100;
@@ -4734,6 +4774,11 @@ function the_thumbnail_card($img_src = '', $_args = array())
         $style .= $height_css;
     }
 
+=======
+    $padding_top_value = (int) $ratio_height / (int) $ratio_width * 100;
+    $padding_top_css = "padding-top: $padding_top_value%;";
+    $style .= $padding_top_css;
+>>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
     $background_color_css = '';
     if ( $image_size !== 'full' && !$blur_background ) {
         $background_color_css = "background-color: $background_color";
@@ -4752,7 +4797,11 @@ function the_thumbnail_card($img_src = '', $_args = array())
 
     $blur_bg = ( $blur_background ) ? $back_wrap_html : '';
 
+<<<<<<< HEAD
     // Card Contain 
+=======
+    // Card Contain
+>>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
     $card_contain_wrap = "<div class='atbd-thumbnail-card card-contain' style='$style'>";
     $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
     $image_contain_html = $card_contain_wrap . $blur_bg . $front_wrap_html . "</div>";
@@ -4780,4 +4829,13 @@ function the_thumbnail_card($img_src = '', $_args = array())
     }
 
     echo $the_html;
+<<<<<<< HEAD
+=======
+}
+
+
+function atbdp_style_example_image ($src) {
+    $img = sprintf("<img src='%s'>", $src );
+    echo $img;
+>>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
 }

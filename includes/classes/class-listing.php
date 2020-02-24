@@ -164,7 +164,7 @@ if (!class_exists('ATBDP_Listing')):
                                 <?php
                                 $html_edit_back = '';
                                 //is current user is logged in and the original author of the listing
-                                if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
+                                if (atbdp_logged_in_user() && $listing_author_id == get_current_user_id()) {
                                     //ok show the edit option
 
                                     $html_edit_back .= '<div class="edit_btn_wrap">';
@@ -273,7 +273,7 @@ if (!class_exists('ATBDP_Listing')):
             // vail if user is logged in or if the post is not single..
 
             $count_loggedin = get_directorist_option('count_loggedin_user');
-            if (!is_single() || is_user_logged_in() && empty($count_loggedin)) return;
+            if (!is_single() || atbdp_logged_in_user() && empty($count_loggedin)) return;
 
             if (empty ($postID)) {
                 global $post;

@@ -55,7 +55,7 @@ if (is_fee_manager_active()) {
 if (!empty($has_field) && $plan_custom_field) {
     ?>
     <div class="atbd_content_module atbd_custom_fields_contents">
-        <div class="atbd_content_module__tittle_area">
+        <div class="atbd_content_module_title_area">
             <div class="atbd_area_title">
                 <h4>
                     <span class="<?php atbdp_icon_type(true); ?>-bars atbd_area_icon"></span><?php _e($custom_section_lable, 'directorist') ?>

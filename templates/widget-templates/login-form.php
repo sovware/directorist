@@ -1,5 +1,5 @@
 <?php
-if (!is_user_logged_in()) {
+if (!atbdp_logged_in_user()) {
 
     $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', 'directorist');
     echo $args['before_widget'];

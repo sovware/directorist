@@ -187,26 +187,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'name' => 'color_settings',
                     'icon' => 'font-awesome:fa-home',
                     'controls' => apply_filters('atbdp_style_settings_controls', array(
-                        'primary_button' => array(
+                        'button_type' => array(
                             'type' => 'section',
-                            'title' => __('Button', 'directorist'),
-                            'fields' => $this->get_listings_primary_button_fields(),
+                            'title' => __('Button Color', 'directorist'),
+                            'fields' => $this->get_listings_button_type_fields(),
                         ),
-                        /*'secondary_button' => array(
-                            'type' => 'section',
-                            'title' => __('Secondary Button', 'directorist'),
-                            'fields' => $this->get_listings_secondary_button_fields(),
-                        ),*/
-                        'danger_button' => array(
-                            'type' => 'section',
-                            'title' => __('Danger Button', 'directorist'),
-                            'fields' => $this->get_listings_danger_button_fields(),
-                        ),
-                        'success_button' => array(
-                            'type' => 'section',
-                            'title' => __('Success Button', 'directorist'),
-                            'fields' => $this->get_listings_success_button_fields(),
-                        ),
+
                         'badge_color' => array(
                             'type' => 'section',
                             'title' => __('Badge Color', 'directorist'),
@@ -1180,158 +1166,355 @@ if (!class_exists('ATBDP_Settings_Manager')):
         public function get_listings_primary_button_fields()
         {
             return apply_filters('atbdp_parimary_color', array(
+
+
+
+
+            ));
+        }
+
+        public function get_listings_button_type_fields()
+        {
+            return apply_filters('atbdp_button_type', array(
+                'button_type' => array(
+                    'type' => 'select',
+                    'name' => 'button_type',
+                    'label' => __('Button Type', 'directorist'),
+                    'items' => array(
+                        array(
+                            'value' => 'solid_primary',
+                            'label' => __('Solid Primary', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'solid_secondary',
+                            'label' => __('Solid Secondary', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'solid_danger',
+                            'label' => __('Solid Danger', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'solid_success',
+                            'label' => __('Solid Success', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'primary_outline',
+                            'label' => __('Primary Outline', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'primary_outline_light',
+                            'label' => __('Primary Outline Light', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'danger_outline',
+                            'label' => __('Danger Outline', 'directorist'),
+                        ),
+                    ),
+
+                ),
                 array(
                     'type' => 'color',
                     'name' => 'primary_color',
-                    'label' => __('Text Color', 'directorist'),
+                    'label' => __('Primary Text Color', 'directorist'),
                     'default' => '#ffffff',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'primary_hover_color',
-                    'label' => __('Hover Color', 'directorist'),
+                    'label' => __('Primary Hover Color', 'directorist'),
                     'default' => '#ffffff',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_primary_color',
-                    'label' => __('Background Color', 'directorist'),
+                    'label' => __('Primary Background Color', 'directorist'),
                     'default' => '#444752',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_primary_hover_color',
-                    'label' => __('Background Hover Color', 'directorist'),
+                    'label' => __('Primary Background Hover Color', 'directorist'),
                     'default' => '#222222',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'border_primary_color',
-                    'label' => __('Border Color', 'directorist'),
+                    'label' => __('Primary Border Color', 'directorist'),
                     'default' => '#444752',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'border_primary_hover_color',
-                    'label' => __('Border Hover Color', 'directorist'),
+                    'label' => __('Primary Border Hover Color', 'directorist'),
                     'default' => '#222222',
                 ),
-
-            ));
-        }
-
-        /**
-         * Get all the settings for secondary button
-         * @return array It returns an array of submenus
-         * @since 5.10.0
-         */
-        public function get_listings_secondary_button_fields()
-        {
-            return apply_filters('atbdp_secondary_color', array(
+                array(
+                    'type' => 'upload',
+                    'name' => 'primary_example',
+                    'label' => __('Primary Button Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/solid-primary.png',
+                ),
+                // solid secondary color
+                array(
+                    'type' => 'color',
+                    'name' => 'secondary_color',
+                    'label' => __('Secondary Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'secondary_hover_color',
+                    'label' => __('Secondary Hover Color', 'directorist'),
+                    'default' => '#000',
+                ),
                 array(
                     'type' => 'color',
                     'name' => 'back_secondary_color',
-                    'label' => __('Background Color', 'directorist'),
+                    'label' => __('Secondary Background Color', 'directorist'),
                     'default' => '#122069',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_secondary_hover_color',
-                    'label' => __('Background Hover Color', 'directorist'),
+                    'label' => __('Secondary Background Hover Color', 'directorist'),
                     'default' => '#131469',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'secondary_border_color',
-                    'label' => __('Border Color', 'directorist'),
-                    'default' => '#122069',
+                    'label' => __('Secondary Border Color', 'directorist'),
+                    'default' => '#131469',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'secondary_border_hover_color',
-                    'label' => __('Border Hover Color', 'directorist'),
+                    'label' => __('Secondary Border Hover Color', 'directorist'),
                     'default' => '#131469',
                 ),
-            ));
-        }
-
-        /**
-         * Get all the settings for danger button
-         * @return array It returns an array of submenus
-         * @since 5.10.0
-         */
-        public function get_listings_danger_button_fields()
-        {
-            return apply_filters('atbdp_danger_color', array(
+                array(
+                    'type' => 'upload',
+                    'name' => 'secondary_example',
+                    'label' => __('Secondary Button Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/solid-secondary.png',
+                ),
+                // solid danger color
                 array(
                     'type' => 'color',
                     'name' => 'danger_color',
-                    'label' => __('Text Color', 'directorist'),
-                    'default' => '#e23636',
+                    'label' => __('Danger Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'danger_hover_color',
+                    'label' => __('Danger Hover Color', 'directorist'),
+                    'default' => '#fff',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_danger_color',
-                    'label' => __('Background Color', 'directorist'),
+                    'label' => __('Danger Background Color', 'directorist'),
                     'default' => '#e23636',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_danger_hover_color',
-                    'label' => __('Background Hover Color', 'directorist'),
+                    'label' => __('Danger Background Hover Color', 'directorist'),
                     'default' => '#c5001e',
                 ),
                 array(
                     'type' => 'color',
-                    'name' => 'border_danger_color',
-                    'label' => __('Border Color', 'directorist'),
+                    'name' => 'danger_border_color',
+                    'label' => __('Danger Border Color', 'directorist'),
                     'default' => '#e23636',
                 ),
                 array(
                     'type' => 'color',
-                    'name' => 'border_danger_hover_color',
-                    'label' => __('Border Hover Color', 'directorist'),
+                    'name' => 'danger_border_hover_color',
+                    'label' => __('Danger Border Hover Color', 'directorist'),
                     'default' => '#c5001e',
                 ),
-
-            ));
-        }
-
-        /**
-         * Get all the settings for success button
-         * @return array It returns an array of submenus
-         * @since 5.10.0
-         */
-        public function get_listings_success_button_fields()
-        {
-            return apply_filters('atbdp_success_color', array(
+                array(
+                    'type' => 'upload',
+                    'name' => 'danger_example',
+                    'label' => __('Danger Button Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/solid-danger.png',
+                ),
+                // solid success color
+                array(
+                    'type' => 'color',
+                    'name' => 'success_color',
+                    'label' => __('Success Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'success_hover_color',
+                    'label' => __('Success Hover Color', 'directorist'),
+                    'default' => '#fff',
+                ),
                 array(
                     'type' => 'color',
                     'name' => 'back_success_color',
-                    'label' => __('Background Color', 'directorist'),
+                    'label' => __('Success Background Color', 'directorist'),
                     'default' => '#32cc6f',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'back_success_hover_color',
-                    'label' => __('Background Hover Color', 'directorist'),
+                    'label' => __('Success Background Hover Color', 'directorist'),
                     'default' => '#2ba251',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'border_success_color',
-                    'label' => __('Border Color', 'directorist'),
+                    'label' => __('Success Border Color', 'directorist'),
                     'default' => '#32cc6f',
                 ),
                 array(
                     'type' => 'color',
                     'name' => 'border_success_hover_color',
-                    'label' => __('Border Hover Color', 'directorist'),
+                    'label' => __('Success Border Hover Color', 'directorist'),
                     'default' => '#2ba251',
                 ),
-
+                array(
+                    'type' => 'upload',
+                    'name' => 'success_example',
+                    'label' => __('Success Button Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/solid-success.png',
+                ),
+                // primary outline
+                array(
+                    'type' => 'color',
+                    'name' => 'priout_color',
+                    'label' => __('Primary Outline Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'priout_hover_color',
+                    'label' => __('Primary Outline Hover Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_priout_color',
+                    'label' => __('Primary Outline Background Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_priout_hover_color',
+                    'label' => __('Primary Outline Background Hover Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_priout_color',
+                    'label' => __('Primary Outline Border Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_priout_hover_color',
+                    'label' => __('Primary Outline Border Hover Color', 'directorist'),
+                    'default' => '#9299b8',
+                ),
+                array(
+                    'type' => 'upload',
+                    'name' => 'priout_example',
+                    'label' => __('Primary Outline Button Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/outline-primary.png',
+                ),
+                // primary outline light
+                array(
+                    'type' => 'color',
+                    'name' => 'prioutlight_color',
+                    'label' => __('Primary Outline Light Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'prioutlight_hover_color',
+                    'label' => __('Primary Outline Light Hover Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_prioutlight_color',
+                    'label' => __('Primary Outline Light Background Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_prioutlight_hover_color',
+                    'label' => __('Primary Outline Light Background Hover Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_prioutlight_color',
+                    'label' => __('Primary Outline Light Border Color', 'directorist'),
+                    'default' => '#e3e6ef',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_prioutlight_hover_color',
+                    'label' => __('Primary Outline Light Border Hover Color', 'directorist'),
+                    'default' => '#444752',
+                ),
+                array(
+                    'type' => 'upload',
+                    'name' => 'prioutlight_example',
+                    'label' => __('Primary Button Light Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/outline-primary-light.png',
+                ),
+                // Danger outline
+                array(
+                    'type' => 'color',
+                    'name' => 'danout_color',
+                    'label' => __('Danger Outline Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'danout_hover_color',
+                    'label' => __('Danger Outline Hover Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_danout_color',
+                    'label' => __('Danger Outline Background Color', 'directorist'),
+                    'default' => '#fff',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'back_danout_hover_color',
+                    'label' => __('Danger Outline Background Hover Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_danout_color',
+                    'label' => __('Danger Outline Border Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'border_danout_hover_color',
+                    'label' => __('Danger Outline Border Hover Color', 'directorist'),
+                    'default' => '#e23636',
+                ),
+                array(
+                    'type' => 'upload',
+                    'name' => 'danout_example',
+                    'label' => __('Danger Outline Button Example', 'directorist'),
+                    'default' => 'https://directorist.com/wp-content/uploads/2020/02/outline-danger.png',
+                ),
             ));
         }
+
 
         /**
          * Get all the settings for badge color
@@ -2353,7 +2536,6 @@ The Administrator of ==SITE_NAME==
          */
         function get_extension_settings_submenus()
         {
-
             return apply_filters('atbdp_extension_settings_submenus', array(
                 'submenu_1' => array(
                     'title' => __('Extensions General', 'directorist'),
@@ -5091,13 +5273,13 @@ The Administrator of ==SITE_NAME==
             return apply_filters('atbdp_image_field_setting', array(
                 array(
                     'type' => 'toggle',
-                    'name' => 'display_gellery_field',
+                    'name' => 'display_gallery_field',
                     'label' => __('Enable Gallery Image', 'directorist'),
                     'default' => 1,
                 ),
                 array(
                     'type' => 'textbox',
-                    'name' => 'gellery_label',
+                    'name' => 'gallery_label',
                     'label' => __('Gallery Image Label', 'directorist'),
                     'default' => __('Upload Slider Images', 'directorist'),
                 ),
@@ -6279,7 +6461,7 @@ The Administrator of ==SITE_NAME==
          * @return array
          * @since 3.0.0
          */
-        function get_extension_settings_fields()
+        function  get_extension_settings_fields()
         {
             return apply_filters('atbdp_extension_settings_fields', array(
                     'extension_promotion_set' => array(

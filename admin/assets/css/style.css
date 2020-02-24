@@ -799,4 +799,32 @@ div#need_post_area label input:checked + span {
   padding-right: 20px;
 }
 
+/* hide button example image top upload fields */
+#primary_example,
+#secondary_example,
+#success_example,
+#danger_example,
+#priout_example,
+#prioutlight_example,
+#danout_example {
+  display: flex;
+  align-items: center;
+}
+
+#primary_example input[type="text"], #primary_example .button,
+#secondary_example input[type="text"],
+#secondary_example .button,
+#success_example input[type="text"],
+#success_example .button,
+#danger_example input[type="text"],
+#danger_example .button,
+#priout_example input[type="text"],
+#priout_example .button,
+#prioutlight_example input[type="text"],
+#prioutlight_example .button,
+#danout_example input[type="text"],
+#danout_example .button {
+  display: none !important;
+}
+
 /*# sourceMappingURL=map/style.css.map */

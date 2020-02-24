@@ -126,7 +126,7 @@ $display_map_field = get_directorist_option('display_map_field', 1);
 $display_map_for = get_directorist_option('display_map_for', 0);
 $address_placeholder = get_directorist_option('address_placeholder', __('Listing address eg. New York, USA', 'directorist'));
 $website_placeholder = get_directorist_option('website_placeholder', __('Listing Website eg. http://example.com', 'directorist'));
-$display_gellery_field = get_directorist_option('display_gellery_field', 1);
+$display_gallery_field = get_directorist_option('display_gallery_field', 1);
 $display_video_field = get_directorist_option('display_video_field', 1);
 $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
 $display_video_for = get_directorist_option('display_video_for', 0);
@@ -186,7 +186,7 @@ $query_args = array(
                             do_action('atbdp_edit_before_title_fields', 'add_listing_page_frontend');
                             ?>
                             <div class="atbd_content_module atbd_general_information_module">
-                                <div class="atbd_content_module__tittle_area">
+                                <div class="atbd_content_module_title_area">
                                     <div class="atbd_area_title">
                                         <h4><?php esc_html_e('General information', 'directorist') ?></h4>
                                     </div>
@@ -736,7 +736,7 @@ $query_args = array(
                             <div class="atbdb_content_module">
                                 <?php if ((empty($display_fax_for) || empty($display_phone2_for) || empty($display_phone_for) || empty($display_address_for) || empty($display_email_for) || empty($display_website_for) || empty($display_zip_for) || empty($display_social_info_for)) && (!empty($display_address_field) || !empty($display_phone_field) || !empty($display_phone2_field) || !empty($display_fax_field) || !empty($display_email_field) || !empty($display_website_field) || !empty($display_zip_field) || !empty($display_social_info_field))) { ?>
                                     <div class="atbd_content_module atbd_contact_information">
-                                        <div class="atbd_content_module__tittle_area">
+                                        <div class="atbd_content_module_title_area">
                                             <div class="atbd_area_title">
                                                 <h4><?php esc_html_e('Contact Information', 'directorist') ?></h4>
                                             </div>
@@ -924,7 +924,7 @@ $query_args = array(
                                     if (is_business_hour_active() && $plan_hours) {
                                         ?>
                                         <div class="atbd_content_module atbd_business_hour_module">
-                                            <div class="atbd_content_module__tittle_area">
+                                            <div class="atbd_content_module_title_area">
                                                 <div class="atbd_area_title">
                                                     <h4><?php _e('Opening/Business Hour Information', 'directorist'); ?></h4>
                                                 </div>
@@ -957,7 +957,7 @@ $query_args = array(
 
                                 if (empty($display_map_for) && !empty($display_map_field)) { ?>
                                     <div class="atbd_content_module">
-                                        <div class="atbd_content_module__tittle_area">
+                                        <div class="atbd_content_module_title_area">
                                             <div class="atbd_area_title">
                                                 <h4><?php esc_html_e('Map', 'directorist') ?></h4>
                                             </div>
@@ -1104,17 +1104,17 @@ $query_args = array(
                                         $plan_slider = is_plan_allowed_slider($fm_plan);
                                     }
                                     ?>
-                                    <?php if ((!empty($display_gellery_field) && empty($display_glr_img_for)) || (empty($display_video_for) && !empty($display_video_field) && $plan_video)) { ?>
+                                    <?php if ((!empty($display_gallery_field) && empty($display_glr_img_for)) || (empty($display_video_for) && !empty($display_video_field) && $plan_video)) { ?>
                                         <div class="atbd_content_module" id="atbdp_front_media_wrap">
-                                            <div class="atbd_content_module__tittle_area">
+                                            <div class="atbd_content_module_title_area">
                                                 <div class="atbd_area_title">
                                                     <h4>
                                                         <?php
-                                                        if ($plan_video && $display_gellery_field) {
+                                                        if ($plan_video && $display_gallery_field) {
                                                             _e("Images & Video", 'directorist');
                                                         } elseif(!$plan_video) {
                                                             _e("Images", 'directorist');
-                                                        }elseif (!$display_gellery_field){
+                                                        }elseif (!$display_gallery_field){
                                                             _e("Video", 'directorist');
                                                         }
                                                         ?></h4>
@@ -1123,7 +1123,7 @@ $query_args = array(
 
                                             <div class="atbdb_content_module_contents atbdp_video_field">
                                                 <!--Image Uploader-->
-                                                <?php if (!empty($display_gellery_field) && empty($display_glr_img_for) && $plan_slider) {
+                                                <?php if (!empty($display_gallery_field) && empty($display_glr_img_for) && $plan_slider) {
                                                     $plan_image = get_directorist_option('max_gallery_image_limit', 5);
                                                     $slider_unl = '';
                                                     if (is_fee_manager_active()) {
@@ -1226,7 +1226,7 @@ $query_args = array(
                                                     </div>
                                                     <?php do_action('atbdp_video_field', $p_id); ?>
                                                 <?php }
-                                                if ($guest_listings && !is_user_logged_in()) { //$guest_listings && !is_user_logged_in()
+                                                if ($guest_listings && !atbdp_logged_in_user()) { //$guest_listings && !atbdp_logged_in_user()
                                                     ?>
                                                     <div class="form-group">
                                                         <label for="guest_user"><?php

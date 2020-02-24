@@ -43,7 +43,7 @@ $disable_contact_info = apply_filters('atbdp_single_listing_contact_info', $is_i
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
     <div class="atbd_content_module atbd_contact_information_module">
-        <div class="atbd_content_module__tittle_area">
+        <div class="atbd_content_module_title_area">
             <div class="atbd_area_title">
                 <h4>
                     <span class="<?php atbdp_icon_type(true);?>-envelope-o"></span><?php _e($contact_info_text, 'directorist'); ?>

@@ -14,7 +14,7 @@ if (is_fee_manager_active()) {
 }
 if ($plan_permission && !$hide_contact_owner && empty($disable_contact_owner)) { ?>
                 <div class="atbd_content_module atbd_contact_information_module">
-                    <div class="atbd_content_module__tittle_area">
+                    <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">
                             <h4>
                                 <span class="fa fa-paper-plane"></span><?php _e($contact_listing_owner, 'directorist'); ?>

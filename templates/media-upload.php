@@ -3,7 +3,7 @@ $listing_imgs           = (!empty($args['listing_img'])) ? $args['listing_img'] 
 $listing_prv_img_id     = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] :'';
 $listing_prv_img        = wp_get_attachment_image_src($listing_prv_img_id);
 $display_prv_field      = get_directorist_option('display_prv_field', 1);
-$display_gellery_field  = get_directorist_option('display_gellery_field', 1);
+$display_gallery_field  = get_directorist_option('display_gallery_field', 1);
 $image_links = []; // define a link placeholder variable
 foreach ($listing_imgs as $id) {
     $image_links[$id] = wp_get_attachment_image_src($id)[0]; // store the attachment id and url
@@ -35,7 +35,7 @@ $active_mi_ext = is_multiple_images_active(); // default is no
         </p>
     </div>
     <?php } ?>
-    <?php if(!empty($display_gellery_field)) { ?>
+    <?php if(!empty($display_gallery_field)) { ?>
     <div class="form-group">
         <!-- image container, which can be manipulated with js -->
         <div class="listing-img-container">
@@ -65,8 +65,8 @@ $active_mi_ext = is_multiple_images_active(); // default is no
         <p class="hide-if-no-js">
             <a href="#" id="listing_image_btn" class="btn btn-primary">
                 <span class="dashicons dashicons-format-image"></span>
-                <?php $gellery_label = get_directorist_option('gellery_label', __('Upload Slider Images', 'directorist'));
-                esc_html_e($gellery_label, 'directorist'); ?>
+                <?php $gallery_label = get_directorist_option('gallery_label', __('Upload Slider Images', 'directorist'));
+                esc_html_e($gallery_label, 'directorist'); ?>
             </a>
             <a id="delete-custom-img" class="btn btn-danger <?php echo (!empty($image_links)) ? '' : 'hidden' ?>"
                href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images','directorist') : esc_html__('Remove Image','directorist'); ?></a>

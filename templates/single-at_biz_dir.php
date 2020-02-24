@@ -186,7 +186,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
         $html_edit_back = '';
         $html_edit_back .= '<div class="' . esc_attr($main_col_size) . ' col-md-12 atbd_col_left">';
         //is current user is logged in and the original author of the listing
-        if (is_user_logged_in() && $listing_author_id == get_current_user_id()) {
+        if (atbdp_logged_in_user() && $listing_author_id == get_current_user_id()) {
             //ok show the edit option
 
             $html_edit_back .= '<div class="edit_btn_wrap">';
@@ -236,7 +236,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
             do_action('atbdp_before_single_listing_details_section');
             ?>
             <div class="atbd_content_module atbd_listing_details <?php do_action('atbdp_single_listing_details_class') ?>">
-                <div class="atbd_content_module__tittle_area">
+                <div class="atbd_content_module_title_area">
                     <?php if (!empty($listing_details_text)) { ?>
                         <div class="atbd_area_title">
                             <h4>
@@ -280,7 +280,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
                     }
                     if ($enable_report_abuse) {
                         $listing_header .= '<div class="atbd_action atbd_report">';
-                        if (is_user_logged_in()) {
+                        if (atbdp_logged_in_user()) {
                             $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href="javascript:void(0)" data-target="atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
                         } else {
                             $listing_header .= '<a href="javascript:void(0)"
@@ -463,7 +463,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
                             }
                             $data_info .= ' </div>';
                         }
-                        $data_info .= '<div class="atbd_listting_category"><ul class="directory_cats">';
+                        $data_info .= '<div class="atbd_listing_category"><ul class="directory_cats">';
                         if (!empty($cats)) {
                             $data_info .= '<li><span class="' . atbdp_icon_type() . '-tags"></span></li>';
                             $numberOfCat = count($cats);
@@ -587,7 +587,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
             if (!empty($has_field) && $plan_custom_field) {
                 ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
-                    <div class="atbd_content_module__tittle_area">
+                    <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">
                             <h4>
                                 <span class="<?php atbdp_icon_type(true); ?>-bars atbd_area_icon"></span><?php _e($custom_section_lable, 'directorist') ?>
@@ -673,7 +673,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
             }
             if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for && $plan_video) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
-                    <div class="atbd_content_module__tittle_area">
+                    <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">
                             <h4>
                                 <span class="<?php atbdp_icon_type(true); ?>-video-camera atbd_area_icon"></span><?php _e($video_label, 'directorist') ?>
@@ -691,7 +691,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
             <?php do_action('atbdp_after_video_gallery');
             if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) && !empty($display_map_field)) { ?>
                 <div class="atbd_content_module">
-                    <div class="atbd_content_module__tittle_area">
+                    <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">
                             <h4>
                                 <span class="<?php atbdp_icon_type(true); ?>-map atbd_area_icon"></span><?php _e($listing_location_text, 'directorist'); ?>
@@ -719,7 +719,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
                 $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', 'directorist'));
                 ?>
                 <div class="atbd_content_module atbd_contact_information_module">
-                    <div class="atbd_content_module__tittle_area">
+                    <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">
                             <h4>
                                 <span class="<?php atbdp_icon_type(true); ?>-envelope-o"></span><?php _e($contact_info_text, 'directorist'); ?>
@@ -853,7 +853,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
             }
             if ($plan_permission && !$hide_contact_owner && empty($disable_contact_owner)) { ?>
                 <div class="atbd_content_module atbd_contact_information_module">
-                    <div class="atbd_content_module__tittle_area">
+                    <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">
                             <h4>
                                 <span class="<?php atbdp_icon_type(true); ?>-paper-plane"></span><?php _e($contact_listing_owner, 'directorist'); ?>

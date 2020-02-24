@@ -17,7 +17,7 @@ $container_fluid = 'container-fluid';
                 $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                 $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
                 $bio = get_user_meta($author_id, 'description', true);
-                $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 96));
+                $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 96));
                 $address = esc_attr(get_user_meta($author_id, 'address', true));
                 $phone = esc_attr(get_user_meta($author_id, 'atbdp_phone', true));
                 $email = get_the_author_meta('user_email', $author_id);
@@ -31,7 +31,7 @@ $container_fluid = 'container-fluid';
                 <div class="atbd_auhor_profile_area">
                     <div class="atbd_author_avatar">
                         <?php if (empty($u_pro_pic)) {
-                            echo $avata_img;
+                            echo $avatar_img;
                         }
                         if (!empty($u_pro_pic)) { ?><img
                             src="<?php echo esc_url($u_pro_pic[0]); ?>"
@@ -92,7 +92,7 @@ $container_fluid = 'container-fluid';
             <div class="col-md-8">
                 <div class="atbd_author_module">
                     <div class="atbd_content_module">
-                        <div class="atbd_content_module__tittle_area">
+                        <div class="atbd_content_module_title_area">
                             <div class="atbd_area_title">
                                 <h4>
                                     <span class="<?php atbdp_icon_type(true); ?>-user"></span><?php _e('About', 'directorist'); ?>
@@ -148,7 +148,7 @@ $container_fluid = 'container-fluid';
                                         <?php
                                     }
                                 } elseif ('logged_in' === $email_show) {
-                                    if (is_user_logged_in()) {
+                                    if (atbdp_logged_in_user()) {
                                         if (!empty($email)) {
                                             ?>
                                             <li>
@@ -217,16 +217,16 @@ $container_fluid = 'container-fluid';
                          */
                         do_action('atbpd_before_author_listings_category_dropdown', $all_listings);
                         ?>
-                        <div class="dropdown">
-                            <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button"
-                               id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <?php _e("Filter by category", 'directorist'); ?> <span class="caret"></span>
+                        <div class="atbd_dropdown">
+                            <a class="atbd_dropdown-toggle" href="#"
+                               id="dropdownMenuLink">
+                                <?php _e("Filter by category", 'directorist'); ?> <span class="atbd_drop-caret"></span>
                             </a>
 
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <div class="atbd_dropdown-menu atbd_dropdown-menu--lg" aria-labelledby="dropdownMenuLink">
                                 <?php
                                 foreach ($categories as $category) {
-                                    printf('<a class="dropdown-item" href="%s">%s</a>', add_query_arg('category', $category->slug), $category->name);
+                                    printf('<a class="atbd_dropdown-item" href="%s">%s</a>', add_query_arg('category', $category->slug), $category->name);
                                 }
                                 ?>
                             </div>

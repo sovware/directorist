@@ -83,7 +83,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $display_author_image = get_directorist_option('display_author_image', 1);
                     $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                     $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-                    $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
+                    $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                     $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                     $display_pricing_field = get_directorist_option('display_pricing_field', 1);
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
@@ -120,7 +120,33 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
                                             <?php
                                             }
+<<<<<<< HEAD
                                             the_thumbnail_card();
+=======
+
+                                            $has_thumbnail = false;
+                                            $thumbnail_img = '';
+
+                                            
+                                            if (!empty($listing_img[0]) && empty($listing_prv_img)) {
+                                                $thumbnail_img = $gallery_img_full;
+                                                $has_thumbnail = true;
+                                            }
+                                            if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
+                                                $thumbnail_img = $default_image;
+                                                $has_thumbnail = true;
+                                            }
+                                            if (!empty($listing_prv_img)) {
+                                                $thumbnail_img = $prv_image_full;
+                                                $has_thumbnail = true;
+                                            }
+
+                                            if ($has_thumbnail) {
+                                                the_thumbnail_card($thumbnail_img);
+                                                // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
+                                            }
+
+>>>>>>> b04212de97d65ffba0833f69ae85147810e673ec
                                             if (empty($disable_single_listing)) {
                                                 echo '</a>';
                                             }
@@ -135,7 +161,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                        aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"
                                                        class="<?php echo $class; ?>">
                                                         <?php if (empty($u_pro_pic)) {
-                                                            echo $avata_img;
+                                                            echo $avatar_img;
                                                         }
                                                         if (!empty($u_pro_pic)) { ?>
                                                             <img src="<?php echo esc_url($u_pro_pic[0]); ?>"
@@ -395,7 +421,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                             if (!empty($cats)) {
                                                 $totalTerm = count($cats);
                                                 $catViewCount .= '<div class="atbd_content_left">';
-                                                $catViewCount .= '<div class="atbd_listting_category">';
+                                                $catViewCount .= '<div class="atbd_listing_category">';
                                                 $catViewCount .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
                                                 $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                                 $catViewCount .= $cats[0]->name;
@@ -419,7 +445,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                 $catViewCount .= '</div>';
                                             } else {
                                                 $catViewCount .= '<div class="atbd_content_left">';
-                                                $catViewCount .= '<div class="atbd_listting_category">';
+                                                $catViewCount .= '<div class="atbd_listing_category">';
                                                 $catViewCount .= '<a href="">';
                                                 $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
                                                 $catViewCount .= __('Uncategorized', 'directorist');

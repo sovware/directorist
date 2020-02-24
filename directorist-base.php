@@ -1125,14 +1125,14 @@ final class Directorist_Base
             $count_review = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
             ?>
             <div class="atbd_content_module atbd_review_module" id="atbd_reviews_block">
-                <div class="atbd_content_module__tittle_area">
+                <div class="atbd_content_module_title_area">
                     <div class="atbd_area_title">
                         <h4><span class="<?php atbdp_icon_type(true); ?>-star atbd_area_icon"></span><span
                                     id="reviewCounter"><?php echo $reviews_count; ?></span><?php
                             echo $count_review;
                             ?></h4>
                     </div>
-                    <?php if (is_user_logged_in() || $guest_review) { ?>
+                    <?php if (atbdp_logged_in_user() || $guest_review) { ?>
                         <label for="review_content"
                                class="btn btn-primary btn-sm"><?php _e('Add a review', 'directorist'); ?></label>
                     <?php } ?>
@@ -1147,7 +1147,7 @@ final class Directorist_Base
             </div><!-- end .atbd_review_module -->
             <?php
             // check if the user is logged in and the current user is not the owner of this listing.
-            if (is_user_logged_in() || $guest_review) {
+            if (atbdp_logged_in_user() || $guest_review) {
                 global $wpdb;
                 // if the current user is NOT the owner of the listing print review form
                 // get the settings of the admin whether to display review form even if the user is the owner of the listing.
@@ -1157,7 +1157,7 @@ final class Directorist_Base
                     $cur_user_review = ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), get_the_ID());
                     ?>
                     <div class="atbd_content_module">
-                        <div class="atbd_content_module__tittle_area">
+                        <div class="atbd_content_module_title_area">
                             <div class="atbd_area_title">
                                 <h4><span class="<?php atbdp_icon_type(true); ?>-star"
                                           aria-hidden="true"></span><?php echo !empty($cur_user_review) ? __('Update Review', 'directorist') : __('Leave a Review', 'directorist'); ?>
@@ -1179,8 +1179,8 @@ final class Directorist_Base
                                 $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                                 $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail')[0];
                                 $custom_gravatar = "<img src='$u_pro_pic' alt='Author'>";
-                                $avata_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
-                                $user_img = !empty($u_pro_pic) ? $custom_gravatar : $avata_img;
+                                $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
+                                $user_img = !empty($u_pro_pic) ? $custom_gravatar : $avatar_img;
                                 ?>
                                 <input type="hidden" name="name" id="reviewer_img" class="btn btn-default"
                                        value='<?php echo esc_attr($user_img); ?>'>
@@ -1216,7 +1216,7 @@ final class Directorist_Base
                                 </div>
 
                                 <?php
-                                if ($guest_review && !is_user_logged_in()){
+                                if ($guest_review && !atbdp_logged_in_user()){
                                 ?>
                                 <div class="form-group">
                                     <label for="guest_user"><?php

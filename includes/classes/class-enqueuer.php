@@ -584,7 +584,7 @@ class ATBDP_Enqueuer {
         $display_preview_image = get_directorist_option('display_prv_field',1);
         $gallery_image = '';
         $req_gallery_image = get_directorist_option('require_gallery_img');
-        $display_gallery_image = get_directorist_option('display_gellery_field',1);
+        $display_gallery_image = get_directorist_option('display_gallery_field',1);
         if(!empty($req_preview_image && $display_preview_image) && empty($preview_visable)){
             $preview_image = __('Preview image is required!', 'directorist');
         }if(!empty($req_gallery_image && $display_gallery_image) && $plan_slider && empty($gallery_visable)){

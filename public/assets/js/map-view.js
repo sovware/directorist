@@ -118,7 +118,8 @@ MarkerLabel.prototype.draw = function () {
             center: new google.maps.LatLng(0, 0),
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             zoomControl: true,
-            scrollwheel: false
+            scrollwheel: true,
+            gestureHandling: 'cooperative'
         };
 
         // create map

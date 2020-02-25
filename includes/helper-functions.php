@@ -4630,7 +4630,7 @@ function the_thumbnail_card($img_src = '', $_args = array())
 
     $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
-    if ( 'cover' === $image_size ) {
+    if ( 'cover' === $image_size && false === $by_ratio ) {
         $listing_img_src = atbdp_image_cropping($listing_img, $ratio_width, $ratio_height, true, 100)['url'];
         $prv_image_src = atbdp_image_cropping($listing_prv_img, $ratio_width, $ratio_height, true, 100)['url'];
         $default_image_src = atbdp_image_cropping($default_image_src, $ratio_width, $ratio_height, true, 100)['url'];

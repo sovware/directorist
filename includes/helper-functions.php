@@ -4624,7 +4624,7 @@ function the_thumbnail_card($img_src = '', $_args = array())
 
     $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
     $listing_img_src = '';
-    if ( count($listing_img)  ) {
+    if ( is_array($listing_img) && count($listing_img)  ) {
         $listing_img_src = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
     }
 

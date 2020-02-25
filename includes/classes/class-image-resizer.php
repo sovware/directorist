@@ -43,7 +43,7 @@ class Atbdp_Image_resizer
 
         // Bail if we don't have an attachment URL
         if ( ! $attachmentUrl) {
-            return array('url' => $attachmentUrl, 'width' => $width, 'height' => $height);
+            return array('url' => $this->attachmentId, 'width' => $width, 'height' => $height);
         }
 
         // Get the image file path

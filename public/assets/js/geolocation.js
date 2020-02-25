@@ -1,7 +1,7 @@
 
 (function ($) {
     // Price Range Slider
-    var adbdp_geolocation = '';
+    //var adbdp_geolocation = '';
     var slider_range = $(".atbd_slider-range");
     var miles = atbdp_search_listing.i18n_text.Miles;
     var dvalue = $("#atbd_rs_value").val();
@@ -37,7 +37,6 @@
         });
         $("#at_biz_dir-location, #at_biz_dir-category").val('').trigger('change');
     });
-
     /* get current location */
     if('google' === adbdp_geolocation.select_listing_map) {
         (function () {

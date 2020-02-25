@@ -291,19 +291,19 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
     }
     /* border color hover */
     .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover, #directorist.atbd_wrapper .btn-outline-primary:hover, .atbd_dropdown .atbd_dropdown-toggle:hover{
-        border-color: <?php echo !empty($border_priOut_hover_color) ? $border_priOut_hover_color : '#9299b8';?> !important;
+        border-color: <?php echo !empty($border_priout_hover_color) ? $border_priout_hover_color : '#9299b8';?> !important;
     }
     .atbd_dropdown .atbd_dropdown-toggle:hover .atbd_drop-caret:before{
-        border-left-color: <?php echo !empty($border_priOut_hover_color) ? $border_priOut_hover_color : '#9299b8';?> !important;
-        border-bottom-color: <?php echo !empty($border_priOut_hover_color) ? $border_priOut_hover_color : '#9299b8';?> !important;
+        border-left-color: <?php echo !empty($border_priout_hover_color) ? $border_priout_hover_color : '#9299b8';?> !important;
+        border-bottom-color: <?php echo !empty($border_priout_hover_color) ? $border_priout_hover_color : '#9299b8';?> !important;
     }
     /* background */
     .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter, #directorist.atbd_wrapper .btn-outline-primary, .atbd_dropdown .atbd_dropdown-toggle{
-        background: <?php echo !empty($back_priOut_color) ? $back_priOut_color : '#fff';?> !important;
+        background: <?php echo !empty($back_priout_color) ? $back_priout_color : '#fff';?> !important;
     }
     /* background hover */
     .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter:hover, #directorist.atbd_wrapper .btn-outline-primary:hover, .atbd_dropdown .atbd_dropdown-toggle:hover{
-        background: <?php echo !empty($back_priOut_hover_color) ? $back_priOut_hover_color : '#fff';?> !important;
+        background: <?php echo !empty($back_priout_hover_color) ? $back_priout_hover_color : '#fff';?> !important;
     }
 
     /* =======================================

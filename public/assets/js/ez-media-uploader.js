@@ -807,7 +807,7 @@
       if (!this.layoutIsReady()) {
         return;
       }
-
+      var self = this;
       var files = this.filesMeta;
       if (!files.length) {
         this.updateLayout("default");
@@ -819,8 +819,9 @@
       thumbnail_area.innerHTML = "";
       var thumbnail_list = createThumbnailListElm();
 
-      forEach(files, function(file) {
-        var thumbnail_list_item = createThumbnailListItemElm(file);
+      forEach(files, function(file, index) {
+        var meta_data = {index: index, options: self.options};
+        var thumbnail_list_item = createThumbnailListItemElm(file, meta_data);
         thumbnail_list.appendChild(thumbnail_list_item);
       });
 
@@ -1057,7 +1058,7 @@
     return thumbnail_list;
   }
 
-  function createThumbnailListItemElm(data) {
+  function createThumbnailListItemElm(data, metaData) {
     var id = data && "id" in data ? data.id : "";
 
     var thumbnail_list_item = createElementWithClass(
@@ -1065,7 +1066,7 @@
     );
     thumbnail_list_item.setAttribute("data-id", id);
 
-    var thumbnail_list_item_front = createThumbnailListItemFrontElm(data);
+    var thumbnail_list_item_front = createThumbnailListItemFrontElm(data, metaData);
     var thumbnail_list_item_back = createThumbnailListItemBackElm(data);
 
     thumbnail_list_item.appendChild(thumbnail_list_item_front);
@@ -1074,9 +1075,15 @@
     return thumbnail_list_item;
   }
 
-  function createThumbnailListItemFrontElm(data) {
+  function createThumbnailListItemFrontElm(data, metaData) {
     var thumbnail_list_item_front = document.createElement("div");
     addClass(thumbnail_list_item_front, "ezmu__thumbnail-list-item_front");
+
+    if ( 0 === metaData.index ) {
+      var tag_txt = metaData.options.dictionary.label.featured;
+      var featured_elm = createElementWithClass( 'ezmu__featured_tag', 'span', tag_txt);
+      thumbnail_list_item_front.appendChild(featured_elm);
+    }
 
     var thumbnail_list_item_close = createThumbnailListItemCloseElm(data);
     var thumbnail_list_item_sort_buttons = createThumbnailListItemSortButtonsElm();

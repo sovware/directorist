@@ -248,6 +248,15 @@ jQuery(function ($) {
         }
     }
 
+    function atbdp_element_value(element) {
+        var field = $(element);
+        if (field.length){
+            return field.val();
+        }else {
+            return '';
+        }
+    }
+
     var qs = (function (a) {
         if (a == "") return {};
         var b = {};
@@ -357,42 +366,42 @@ jQuery(function ($) {
         var serviceIframe = $('#service_offer_ifr');
         var content = iframe.length ? tinymce.get('listing_content').getContent() : '';
         var service_offer = serviceIframe.length ? tinymce.get('service_offer').getContent() : '';
-        var excerpt = $("textarea#atbdp_excerpt").val();
+        var excerpt = atbdp_element_value("textarea#atbdp_excerpt");
         form_data.append('add_listing_nonce', atbdp_add_listing.nonce);
         //form_data.append('add_listing_form', $('input[name="add_listing_form"]').val());
         form_data.append('listing_id', $('input[name="listing_id"]').val());
         form_data.append('listing_title', $('input[name="listing_title"]').val());
         form_data.append('listing_content', content);
         form_data.append('service_offer', service_offer);
-        form_data.append('price', $('input[name="price"]').val());
-        form_data.append('atbdp_post_views_count', $('input[name="atbdp_post_views_count"]').val());
+        form_data.append('price', atbdp_element_value('input[name="price"]'));
+        form_data.append('atbdp_post_views_count', atbdp_element_value('input[name="atbdp_post_views_count"]'));
         form_data.append('excerpt', excerpt);
-        form_data.append('atbd_listing_pricing', $('input[name="atbd_listing_pricing"]:checked').val());
-        form_data.append('price_range', $('select[name="price_range"]').val());
+        form_data.append('atbd_listing_pricing', atbdp_element_value('input[name="atbd_listing_pricing"]:checked'));
+        form_data.append('price_range', atbdp_element_value('select[name="price_range"]'));
         //post your need
-        form_data.append('need_post', $('input[name="need_post"]:checked').val());
-        form_data.append('pyn_deadline', $('input[name="pyn_deadline"]').val());
+        form_data.append('need_post', atbdp_element_value('input[name="need_post"]:checked'));
+        form_data.append('pyn_deadline', atbdp_element_value('input[name="pyn_deadline"]'));
         form_data.append('is_hourly', atbdp_is_checked('is_hourly'));
         //plans
-        form_data.append('listing_type', $('input[name="listing_type"]:checked').val());
+        form_data.append('listing_type', atbdp_element_value('input[name="listing_type"]:checked'));
         form_data.append('plan', qs['plan']);
         // contact info
-        form_data.append('zip', $('input[name="zip"]').val());
+        form_data.append('zip', atbdp_element_value('input[name="zip"]'));
         form_data.append('hide_contact_info', atbdp_is_checked('hide_contact_info'));
-        form_data.append('address', $('input[name="address"]').val());
-        form_data.append('phone', $('input[name="phone"]').val());
-        form_data.append('phone2', $('input[name="phone2"]').val());
-        form_data.append('fax', $('input[name="fax"]').val());
-        form_data.append('email', $('input[name="email"]').val());
-        form_data.append('website', $('input[name="website"]').val());
-        form_data.append('manual_lat', $('input[name="manual_lat"]').val());
-        form_data.append('manual_lng', $('input[name="manual_lng"]').val());
-        form_data.append('manual_coordinate', $('input[name="manual_coordinate"]').val());
+        form_data.append('address', atbdp_element_value('input[name="address"]'));
+        form_data.append('phone', atbdp_element_value('input[name="phone"]'));
+        form_data.append('phone2', atbdp_element_value('input[name="phone2"]'));
+        form_data.append('fax', atbdp_element_value('input[name="fax"]'));
+        form_data.append('email', atbdp_element_value('input[name="email"]'));
+        form_data.append('website', atbdp_element_value('input[name="website"]'));
+        form_data.append('manual_lat', atbdp_element_value('input[name="manual_lat"]'));
+        form_data.append('manual_lng', atbdp_element_value('input[name="manual_lng"]'));
+        form_data.append('manual_coordinate', atbdp_element_value('input[name="manual_coordinate"]'));
         form_data.append('hide_map', atbdp_is_checked('hide_map'));
-        form_data.append('videourl', $('input[name="videourl"]').val());
-        form_data.append('guest_user_email', $('input[name="guest_user_email"]').val());
-        form_data.append('privacy_policy', $('input[name="privacy_policy"]:checked').val());
-        form_data.append('t_c_check', $('input[name="t_c_check"]:checked').val());
+        form_data.append('videourl', atbdp_element_value('input[name="videourl"]'));
+        form_data.append('guest_user_email', atbdp_element_value('input[name="guest_user_email"]'));
+        form_data.append('privacy_policy', atbdp_element_value('input[name="privacy_policy"]:checked'));
+        form_data.append('t_c_check', atbdp_element_value('input[name="t_c_check"]:checked'));
         // custom fields
         atbdp_multi_select('input', 'custom_field');
         atbdp_multi_select('textarea', 'custom_field');
@@ -434,29 +443,39 @@ jQuery(function ($) {
             }
         }
         // social
-        $('select[name^="social"]').each(function () {
-            var name = $(this).attr("name");
-            var value = $(this).val();
-            form_data.append(name, value);
-        });
+        if ($('select[name^="social"]').length){
+            $('select[name^="social"]').each(function () {
+                var name = $(this).attr("name");
+                var value = $(this).val();
+                form_data.append(name, value);
+            });
+        }
+        if ($('input[name^="social"]').length){
+            $('input[name^="social"]').each(function () {
+                var name = $(this).attr("name");
+                var value = $(this).val();
+                form_data.append(name, value);
+            });
+        }
 
-        $('input[name^="social"]').each(function () {
-            var name = $(this).attr("name");
-            var value = $(this).val();
-            form_data.append(name, value);
-        });
         // faqs
-        $('input[name^="faqs"]').each(function () {
-            var name = $(this).attr("name");
-            var value = $(this).val();
-            form_data.append(name, value);
-        });
+        if ($('input[name^="faqs"]').length){
+            $('input[name^="faqs"]').each(function () {
+                var name = $(this).attr("name");
+                var value = $(this).val();
+                form_data.append(name, value);
+            });
+        }
+
         // findbiz video
-        $('input[name^="findbiz_video"]').each(function () {
-            var name = $(this).attr("name");
-            var value = $(this).val();
-            form_data.append(name, value);
-        });
+        if ($('input[name^="findbiz_video"]').length){
+            $('input[name^="findbiz_video"]').each(function () {
+                var name = $(this).attr("name");
+                var value = $(this).val();
+                form_data.append(name, value);
+            });
+        }
+
         atbdp_multi_select('textarea', 'faqs');
         // google recaptcha
         atbdp_multi_select('textarea', 'g-recaptcha-response');
@@ -490,7 +509,7 @@ jQuery(function ($) {
             var value = bh_field.val();
             form_data.append(name, value);
         }
-        form_data.append('timezone', $('select[name="timezone"]').val());
+        form_data.append('timezone', atbdp_element_value('select[name="timezone"]'));
 
         $.ajax({
             method: 'POST',

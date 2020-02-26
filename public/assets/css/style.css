@@ -1183,6 +1183,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
   justify-content: space-between;
 }
 
+.atbdp_login_form_shortcode #login .keep_signed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.atbdp_login_form_shortcode .atbd_social_login {
+  margin-bottom: 10px;
+}
+
 .atbdp_login_form_shortcode .status span {
   padding: 7px 15px;
   display: block;

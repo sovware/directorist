@@ -529,6 +529,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
       align-items: center;
       justify-content: space-between;
     }
+    .keep_signed{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .atbd_social_login{
+    margin-bottom: 10px;
   }
 
   .status {

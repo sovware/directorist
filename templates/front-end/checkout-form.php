@@ -101,6 +101,8 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
             $url = ATBDP_Permalink::get_dashboard_page_link();
         }
         if (!empty($monitization && $featured_enabled)){
+            $url = add_query_arg('listing_status', 'pending',  ATBDP_Permalink::get_dashboard_page_link().'?listing_id='.$listing_id );
+        }else{
             $url = add_query_arg('listing_status', $new_l_status,  ATBDP_Permalink::get_dashboard_page_link().'?listing_id='.$listing_id );
         }
         ?>

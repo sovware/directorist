@@ -31,13 +31,9 @@ if (!class_exists('ATBDP_Helper')) :
 
             // Default
             $data['show-slider'] = get_directorist_option('dsiplay_slider_single_page', true);
-            $is_enabled = ( $data['show-slider'] == true || $data['show-slider'] === '1' ) ? true : false ; 
-            
-            if ( !$is_enabled ) {
-                return '';
-            }
+            $is_enabled = ( $data['show-slider'] == true || $data['show-slider'] === '1' ) ? true : false;
 
-            if ( $data['show-slider'] !== true && $data['show-slider'] !== '1' ) {
+            if ( !$is_enabled ) {
                 return '';
             }
 

@@ -48,7 +48,8 @@
       }
     }
   }
-  .atbd_content_module_title_area {
+  .atbd_content_module_title_area,
+  .atbd_content_module__tittle_area{
     border-bottom: 1px solid $border-color;
     display: flex;
     justify-content: space-between;

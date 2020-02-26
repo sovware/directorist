@@ -1172,7 +1172,8 @@ $query_args = array(
                                                         <!-- translatable string-->
                                                         <div class="ezmu-dictionary">
                                                             <!-- Label Texts -->
-                                                            <span class="ezmu-dictionary-label-featured"><?php echo __('Featured', 'directorist') ?></span>
+                                                            <span class="ezmu-dictionary-label-drop-here"><?php echo __('Drop Here', 'directorist') ?></span>
+                                                            <span class="ezmu-dictionary-label-featured"><?php echo __('Preview', 'directorist') ?></span>
                                                             <span class="ezmu-dictionary-label-drag-n-drop"><?php echo __('Drag & Drop', 'directorist') ?></span>
                                                             <span class="ezmu-dictionary-label-or"><?php echo __('or', 'directorist') ?></span>
                                                             <span class="ezmu-dictionary-label-select-files"><?php echo __('Select Files', 'directorist') ?></span>

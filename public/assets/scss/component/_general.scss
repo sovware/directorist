@@ -529,6 +529,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
       align-items: center;
       justify-content: space-between;
     }
+    .keep_signed{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .atbd_social_login{
+    margin-bottom: 10px;
   }
 
   .status {
@@ -1471,4 +1480,8 @@ div#listing_notifier span {
       visibility: visible;
     }
   }
+}
+
+.atbd_content_active #directorist.atbd_wrapper #my_needs .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title{
+  padding: 15px 15px 10px;
 }

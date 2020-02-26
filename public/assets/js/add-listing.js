@@ -366,7 +366,7 @@ jQuery(function ($) {
         var serviceIframe = $('#service_offer_ifr');
         var content = iframe.length ? tinymce.get('listing_content').getContent() : '';
         var service_offer = serviceIframe.length ? tinymce.get('service_offer').getContent() : '';
-        var excerpt = $("textarea#atbdp_excerpt").val();
+        var excerpt = atbdp_element_value("textarea#atbdp_excerpt");
         form_data.append('add_listing_nonce', atbdp_add_listing.nonce);
         //form_data.append('add_listing_form', $('input[name="add_listing_form"]').val());
         form_data.append('listing_id', $('input[name="listing_id"]').val());

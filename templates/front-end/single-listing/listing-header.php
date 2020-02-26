@@ -209,12 +209,10 @@ do_action('atbdp_before_listing_section');
 
         $args = array(
             'image_links' => $full_image_links,
+            'display_prv_image' => $display_prv_image,
             'listing_prv_imgurl' => $listing_prv_imgurl,
             'plan_slider' => $plan_slider,
             'listing_prv_img' => $listing_prv_img,
-            'display_prv_image' => $display_prv_image,
-            'custom_gl_width' => $custom_gl_width,
-            'custom_gl_height' => $custom_gl_height,
             'p_title' => $p_title,
         );
         // $slider = ATBDP()->helper::get_default_slider($args);

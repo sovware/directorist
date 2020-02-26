@@ -343,12 +343,9 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
                     $args = array(
                         // 'image_links' => $image_links,
                         'image_links' => $full_image_links,
+                        'display_prv_image' => $display_prv_image,
                         'listing_prv_imgurl' => $listing_prv_imgurl,
                         'plan_slider' => $plan_slider,
-                        'listing_prv_img' => $listing_prv_img,
-                        'display_prv_image' => $display_prv_image,
-                        'custom_gl_width' => $custom_gl_width,
-                        'custom_gl_height' => $custom_gl_height,
                         'p_title' => $p_title,
                         'display_thumbnail_img' => $display_thumbnail_img,
                     );
@@ -674,7 +671,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
             if (is_fee_manager_active()) {
                 $plan_video = is_plan_allowed_listing_video($fm_plan);
             }
-            if ($enable_video_url && !empty($videourl) && 'none' != $display_video_for && $plan_video) { ?>
+            if ($enable_video_url && !empty($videourl) && $plan_video) { ?>
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">

@@ -443,9 +443,9 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             if (!empty($icon)){
                 $icon_type = explode('-', $icon);
             }
-            if ($icon_type[0] === 'fa'){
+            if (!empty($icon_type[0]) && $icon_type[0] === 'fa'){
                 $class = 'fa '.$icon;
-            }elseif ($icon_type[0] === 'la'){
+            }elseif (!empty($icon_type[0]) && $icon_type[0] === 'la'){
                 $class = 'la '.$icon;
             }else{
                 $class = 'none';

@@ -516,7 +516,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
           color: #fff !important;
           background: #444752 !important;
           border-color: #444752 !important;
-          padding: 8px 13px !important;
+          padding: 8px 25px !important;
           border-radius: 4px !important;
           width: auto;
           line-height: normal;
@@ -538,6 +538,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
   .atbd_social_login{
     margin-bottom: 10px;
+    margin-top: 10px;
+    .btn.fb-login{
+      margin-right: 8px !important;
+    }
+    & + p{
+      a{
+        color: $primary !important;
+        font-weight: 600;
+      }
+    }
   }
 
   .status {

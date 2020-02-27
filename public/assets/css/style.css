@@ -2132,6 +2132,10 @@ div#listing_notifier span {
   padding: 15px 15px 10px;
 }
 
+.form-group#atbdp_categories {
+  margin-top: 15px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

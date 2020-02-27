@@ -152,9 +152,6 @@ if (!class_exists('ATBDP_Listing')):
                     $content = do_shortcode($content);
                     $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
                     $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
-                    if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
-                        atbdp_status_after_previewed_listing($post->ID);
-                    }
                     // run block content if its available
                     ?>
                     <section id="directorist" class="directorist atbd_wrapper">

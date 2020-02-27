@@ -250,12 +250,10 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
   overflow: hidden;
 }
 
-.ezmu__thumbnail-list-item:first-child
-.ezmu__thumbnail-list-item_front::before {
-  content: "Featured";
+.ezmu__featured_tag {
   position: absolute;
   top: 5px;
-  right: 5px;
+  left: 5px;
   padding: 5px 10px;
   color: #000;
   border-radius: 3px;

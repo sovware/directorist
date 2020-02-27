@@ -2136,6 +2136,10 @@ div#listing_notifier span {
   margin-top: 15px;
 }
 
+.sweet-alert button:hover {
+  color: #202428;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

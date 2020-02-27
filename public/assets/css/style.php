@@ -7,7 +7,7 @@ $back_primary_hover_color         = get_directorist_option('back_primary_hover_c
 $border_primary_color             = get_directorist_option('border_primary_color','#444752');
 $border_primary_hover_color       = get_directorist_option('border_primary_hover_color','#222222');
 $secondary_color                  = get_directorist_option('secondary_color','#fff');
-$secondary_hover_color            = get_directorist_option('secondary_hover_color','#000');
+$secondary_hover_color            = get_directorist_option('secondary_hover_color','#fff');
 $back_secondary_color             = get_directorist_option('back_secondary_color','#122069');
 $back_secondary_hover_color       = get_directorist_option('back_secondary_hover_color','#131469');
 $secondary_border_color           = get_directorist_option('secondary_border_color','#131469');
@@ -31,7 +31,7 @@ $back_priout_hover_color          = get_directorist_option('back_priout_hover_co
 $border_priout_color              = get_directorist_option('border_priout_color','#444752');
 $border_priout_hover_color        = get_directorist_option('border_priout_hover_color','#9299b8');
 $prioutlight_color                = get_directorist_option('prioutlight_color','#444752');
-$prioutlight_hover_color          = get_directorist_option('prioutlight_hover_color','#444752');
+$prioutlight_hover_color          = get_directorist_option('prioutlight_hover_color','#ffffff');
 $back_prioutlight_color           = get_directorist_option('back_prioutlight_color','#fff');
 $back_prioutlight_hover_color     = get_directorist_option('back_prioutlight_hover_color','#444752');
 $border_prioutlight_color         = get_directorist_option('border_prioutlight_color','#e3e6ef');
@@ -155,7 +155,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
     }
 
     /* Hover Background */
-    .pricing .price_action .price_action--btn:hover, #directorist.atbd_wrapper .btn-primary:hover, #directorist.atbd_wrapper .at-modal .at-modal-close:hover, .default-ad-search .submit_btn .btn-default:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic:hover, .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover, #directorist.atbd_wrapper .ezmu__btn{
+    .pricing .price_action .price_action--btn:hover, #directorist.atbd_wrapper .btn-primary:hover, #directorist.atbd_wrapper .at-modal .at-modal-close:hover, .default-ad-search .submit_btn .btn-default:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic:hover, .atbdp_login_form_shortcode #loginform p input[type="submit"]:hover, #directorist.atbd_wrapper .ezmu__btn:hover{
         background: <?php echo !empty($back_primary_hover_color) ? $back_primary_hover_color : '#222222';?> !important;
     }
 
@@ -177,7 +177,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
         color: <?php echo !empty($secondary_color) ? $secondary_color : '#fff';?> !important;
     }
     #directorist.atbd_wrapper .btn-secondary:hover{
-        color: <?php echo !empty($secondary_hover_color) ? $secondary_hover_color : '#000';?> !important;
+        color: <?php echo !empty($secondary_hover_color) ? $secondary_hover_color : '#fff';?> !important;
     }
 
     /* Background */
@@ -205,22 +205,22 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
      Button: Danger
     ======================================== */
     /* Color*/
-    #directorist.atbd_wrapper .btn-danger, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic{
+    #directorist.atbd_wrapper .btn-danger, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic, .sweet-alert button.confirm{
         color: <?php echo !empty($danger_color) ? $danger_color : '#fff';?> !important;
     }
 
     /* color hover */
-    #directorist.atbd_wrapper .btn-danger:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic{
+    #directorist.atbd_wrapper .btn-danger:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic, .sweet-alert button.confirm:hover{
         color: <?php echo !empty($danger_hover_color) ? $danger_hover_color : '#fff';?> !important;
     }
 
     /* Background */
-    #directorist.atbd_wrapper .btn-danger, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic{
+    #directorist.atbd_wrapper .btn-danger, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic, .sweet-alert button.confirm{
         background: <?php echo !empty($back_danger_color) ? $back_danger_color : '#e23636';?> !important;
     }
 
     /* Hover Background */
-    #directorist.atbd_wrapper .btn-danger:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic:hover{
+    #directorist.atbd_wrapper .btn-danger:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic:hover, .sweet-alert button.confirm:hover{
         background: <?php echo !empty($back_danger_hover_color) ? $back_danger_hover_color : '#c5001e';?> !important;
     }
 
@@ -316,7 +316,7 @@ $marker_icon_color                = get_directorist_option('marker_icon_color','
     }
     /* color hover */
     .atbdp_float_none .btn.btn-outline-light:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a:hover{
-        color: <?php echo !empty($prioutlight_hover_color) ? $prioutlight_hover_color : '#444752';?> !important;
+        color: <?php echo !empty($prioutlight_hover_color) ? $prioutlight_hover_color : '#ffffff';?> !important;
     }
 
     /* border color */

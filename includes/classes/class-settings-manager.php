@@ -5888,7 +5888,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'color',
                     'name' => 'single_slider_background_color',
                     'label' => __('Slider Background Color', 'directorist'),
-                    'default' => 'gainsboro',
+                    'default' => '#fff',
                 ),
                 array(
                     'type' => 'toggle',

@@ -22,7 +22,6 @@ if (!class_exists('ATBDP_Helper')) :
         // get_plasma_slider
         public static function get_plasma_slider( $args )
         {
-            $slider = '';
             $data = array();
             $default_image = get_directorist_option(
                 'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'

@@ -9,10 +9,11 @@
     data-thumbnail-background-color="<?php echo $data['thumbnail-background-color']; ?>">
     <div class="plasmaSliderTempImage" style="padding-top: <?php echo $data['padding-top']; ?>%">
         <?php if (count($data['images']) > 0):
+            $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlider__cover';
             if (  'contain' === $data['background-size'] && $data['blur-background']) {
                 echo "<img class='plasmaSliderTempImgBlur' src='". $data['images'][0] ."'>";
-            }; 
-            echo "<img class='plasmaSliderTempImg' src='". $data['images'][0] ."' alt='". $data['alt'] ."'/>";
+            } 
+            echo "<img class='plasmaSliderTempImg$img_size_class' src='". $data['images'][0] ."' alt='". $data['alt'] ."'/>";
         endif; ?>
     </div>
     <div class="plasmaSliderImages">

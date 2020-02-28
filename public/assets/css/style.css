@@ -1199,7 +1199,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #fff !important;
   background: #444752 !important;
   border-color: #444752 !important;
-  padding: 8px 13px !important;
+  padding: 8px 25px !important;
   border-radius: 4px !important;
   width: auto;
   line-height: normal;
@@ -1219,6 +1219,16 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbdp_login_form_shortcode .atbd_social_login {
   margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.atbdp_login_form_shortcode .atbd_social_login .btn.fb-login {
+  margin-right: 8px !important;
+}
+
+.atbdp_login_form_shortcode .atbd_social_login + p a {
+  color: #444752 !important;
+  font-weight: 600;
 }
 
 .atbdp_login_form_shortcode .status span {
@@ -2148,6 +2158,14 @@ div#listing_notifier span {
 
 .atbd_content_active #directorist.atbd_wrapper #my_needs .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title {
   padding: 15px 15px 10px;
+}
+
+.form-group#atbdp_categories {
+  margin-top: 15px;
+}
+
+.sweet-alert button:hover {
+  color: #202428;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {

@@ -266,6 +266,10 @@ function atbdp_listing_status_controller()
         );
         wp_update_post($args);
     }
+    if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
+        $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
+        atbdp_status_after_previewed_listing($listing_id);
+    }
 }
 
 add_action('template_redirect', 'atbdp_listing_status_controller');

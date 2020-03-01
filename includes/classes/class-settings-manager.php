@@ -1271,7 +1271,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'type' => 'color',
                     'name' => 'secondary_hover_color',
                     'label' => __('Text Hover Color', 'directorist'),
-                    'default' => '#000',
+                    'default' => '#fff',
                 ),
                 array(
                     'type' => 'color',
@@ -1443,7 +1443,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'type' => 'color',
                     'name' => 'prioutlight_hover_color',
                     'label' => __('Text Hover Color', 'directorist'),
-                    'default' => '#444752',
+                    'default' => '#ffffff',
                 ),
                 array(
                     'type' => 'color',
@@ -3228,7 +3228,7 @@ The Administrator of ==SITE_NAME==
                         'description' => __('Hide/show preview image from all listing page.', 'directorist'),
                         'default' => 'px',
                     ),
-                    
+
                     'way_to_show_preview' => array(
                         'type' => 'select',
                         'name' => 'way_to_show_preview',
@@ -5888,7 +5888,7 @@ The Administrator of ==SITE_NAME==
                     'type' => 'color',
                     'name' => 'single_slider_background_color',
                     'label' => __('Slider Background Color', 'directorist'),
-                    'default' => 'gainsboro',
+                    'default' => '#fff',
                 ),
                 array(
                     'type' => 'toggle',

@@ -763,8 +763,12 @@ if (!class_exists('ATBDP_Ajax_Handler')):
              * If fires sending processing the submitted contact information
              * @since 4.4.0
              */
-            do_action('atbdp_before_processing_contact_to_owner');
-            if (!in_array('listing_contact_form', get_directorist_option('notify_user', array()))) return false;
+            // do_action('atbdp_before_processing_contact_to_owner');
+            /* if ( !in_array( 'listing_contact_form', get_directorist_option('notify_user', array()) ) ) { 
+                return false;
+            } */
+
+            return true;
             // sanitize form values
             $post_id = (int)$_POST["post_id"];
             $name = sanitize_text_field($_POST["name"]);

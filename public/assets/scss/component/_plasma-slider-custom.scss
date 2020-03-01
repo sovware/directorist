@@ -232,6 +232,13 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderTempImage .plasm
      object-fit: contain;
 }
 
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderTempImage .plasmaSliderTempImg.plasmaSlider__cover {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderImages,
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderImageItem {
   display: none;

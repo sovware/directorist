@@ -1499,3 +1499,11 @@ div#listing_notifier span {
 .form-group#atbdp_categories{
   margin-top: 15px;
 }
+
+.sweet-alert{
+  button{
+    &:hover{
+      color: $dark;
+    }
+  }
+}

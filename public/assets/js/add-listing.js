@@ -439,7 +439,7 @@ jQuery(function ($) {
         if (categories) {
             for (var key in categories) {
                 var value = categories[key];
-                form_data.append("admin_category_select[]", value);
+                form_data.append("tax_input[at_biz_dir-category][]", value);
             }
         }
         // social
@@ -518,6 +518,7 @@ jQuery(function ($) {
             url: atbdp_add_listing.ajaxurl,
             data: form_data,
             success: function (response) {
+
                 // show the error notice
                 if (response.error === true) {
                     $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);

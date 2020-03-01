@@ -173,7 +173,6 @@ $display_map_field = get_directorist_option('display_map_field', 1);
 $display_map_field = apply_filters('atbdp_show_single_listing_map', $display_map_field);
 $display_video_for = get_directorist_option('display_video_for', 'admin_users');
 $preview_enable = get_directorist_option('preview_enable', 1);
-// make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 ?>

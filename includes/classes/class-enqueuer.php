@@ -200,7 +200,11 @@ class ATBDP_Enqueuer {
         wp_register_style( 'atmodal', ATBDP_PUBLIC_ASSETS.'css/atmodal.css', false, ATBDP_VERSION );
         wp_register_style( 'atbd_googlefonts', '//fonts.googleapis.com/css?family=Roboto:400,500', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-style', ATBDP_PUBLIC_ASSETS . 'css/style.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
-        wp_register_style( 'atbdp-media-uploader-style', ATBDP_PUBLIC_ASSETS . 'css/ez-media-uploader.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
+        if (is_rtl()){
+            wp_register_style( 'atbdp-media-uploader-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/ez-media-uploader-rtl.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
+        }else{
+            wp_register_style( 'atbdp-media-uploader-style', ATBDP_PUBLIC_ASSETS . 'css/ez-media-uploader.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
+        }
         wp_register_style( 'atbdp-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/style-rtl.css', array( 'atbdp-font-awesome','atbdp-line-awesome',), ATBDP_VERSION);
         wp_register_style( 'atbdp-pluploadcss', ATBDP_ADMIN_ASSETS . 'css/directorist-plupload.min.css', array( 'atbdp-font-awesome', 'select2style'), ATBDP_VERSION);
 
@@ -244,6 +248,7 @@ class ATBDP_Enqueuer {
         if (is_rtl()){
             wp_enqueue_style('atbdp-bootstrap-style-rtl');
             wp_enqueue_style('atbdp-style-rtl');
+            wp_enqueue_style('atbdp-media-uploader-style-rtl');
         }else{
             wp_enqueue_style('atbdp-bootstrap-style');
             wp_enqueue_style('atbdp-style');

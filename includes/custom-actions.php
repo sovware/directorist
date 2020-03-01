@@ -175,14 +175,20 @@ function atbdp_handle_attachment($file_handler, $post_id, $set_thu = false)
 
 function atbdp_get_preview_button()
 {
-    if (isset($_GET['redirect'])) {
-        $preview_enable = get_directorist_option('preview_enable', 1);
-        $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
-        $id = isset($_GET['p']) ? $_GET['p'] : '';
-        $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : '';
-        $id = empty($id) ? $post_id : $id;
-        $url = $preview_enable ? add_query_arg(array(!empty($payment) ? 'atbdp_listing_id' : 'p' => $id, 'reviewed' => 'yes'), $_GET['redirect']) : $_GET['redirect'];
-        return '<a href="' . esc_url($url) . '" class="btn btn-success">' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment) ? esc_html__(' Pay & Submit', 'directorist') : esc_html__(' Submit', 'directorist')) . '</a>';
+    $preview_enable = get_directorist_option('preview_enable', 1);
+    if (!empty($preview_enable)){
+        if (isset($_GET['redirect'])) {
+            $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
+            $id = isset($_GET['p']) ? $_GET['p'] : '';
+            $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : get_the_ID();
+            $id = empty($id) ? $post_id : $id;
+            if (empty($payment)){
+                $url = add_query_arg(array('post_id' => $id, 'reviewed' => 'yes'), $_GET['redirect']);
+            }else{
+                $url = add_query_arg(array('atbdp_listing_id' => $id, 'reviewed' => 'yes'), $_GET['redirect']);
+            }
+            return '<a href="' . esc_url($url) . '" class="btn btn-success">' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment) ? esc_html__(' Pay & Submit', 'directorist') : esc_html__(' Submit', 'directorist')) . '</a>';
+        }
     }
 }
 

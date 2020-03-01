@@ -307,6 +307,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if (!empty($edit_l_status)) {
                         $args['post_status'] = $edit_l_status; // set the status of edit listing.
                     }
+                    if (!empty($preview_enable)) {
+                        $args['post_status'] = 'private';
+                    }
                     // Check if the current user is the owner of the post
                     $post = get_post($args['ID']);
                     // update the post if the current user own the listing he is trying to edit. or we and give access to the editor or the admin of the post.
@@ -480,7 +483,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $args['post_status'] = $new_l_status;
                         }
                         if (!empty($preview_enable)) {
-                            $args['post_status'] = 'draft';
+                            $args['post_status'] = 'private';
                         }
 
                         if (isset($args['tax_input'])) {
@@ -649,11 +652,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if (!empty($listing_images)) {
                         foreach ($listing_images as $__old_id) {
                             $match_found = false;
-                            foreach ($files_meta as $__new_id) {
-                                $new_id = (int)$__new_id['attachmentID'];
-                                if ($new_id === (int)$__old_id) {
-                                    $match_found = true;
-                                    break;
+                            if (!empty($files_meta)){
+                                foreach ($files_meta as $__new_id) {
+                                    $new_id = isset($__new_id['attachmentID']) ? (int)$__new_id['attachmentID'] : '';
+                                    if ($new_id === (int)$__old_id) {
+                                        $match_found = true;
+                                        break;
+                                    }
                                 }
                             }
                             if (!$match_found) {

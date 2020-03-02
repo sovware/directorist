@@ -375,6 +375,7 @@ jQuery(function ($) {
         form_data.append('service_offer', service_offer);
         form_data.append('price', atbdp_element_value('input[name="price"]'));
         form_data.append('atbdp_post_views_count', atbdp_element_value('input[name="atbdp_post_views_count"]'));
+        form_data.append('tagline', atbdp_element_value('input[name="tagline"]'));
         form_data.append('excerpt', excerpt);
         form_data.append('atbd_listing_pricing', atbdp_element_value('input[name="atbd_listing_pricing"]:checked'));
         form_data.append('price_range', atbdp_element_value('select[name="price_range"]'));

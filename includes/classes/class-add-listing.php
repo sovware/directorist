@@ -258,13 +258,14 @@ if (!class_exists('ATBDP_Add_Listing')):
                         if ((($plan_meta['num_regular'][0] < $total_regular_listing) || (0 >= $total_regular_listing)) && empty($plan_meta['num_regular_unl'][0])) {
                             $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing!', 'directorist') . '</strong></div>';
                             $data['message'] = $msg;
+                            $data['error'] = true;
                         }
                     }
                     if (('featured' === $listing_type) && ('package' === $plan_type)) {
                         if ((($plan_meta['num_featured'][0] < $total_featured_listing) || (0 === $total_featured_listing)) && empty($plan_meta['num_featured_unl'][0])) {
                             $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for featured listing!', 'directorist') . '</strong></div>';
                             $data['message'] = $msg;
-
+                            $data['error'] = true;
                         }
                     }
 
@@ -274,6 +275,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         if ($plan_meta['num_gallery_image'][0] < $_gallery_img && empty($plan_meta['num_gallery_image_unl'][0])) {
                             $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of ' . $plan_meta['num_gallery_image'][0] . ' gallery image(s)', 'directorist') . '</strong></div>';
                             $data['message'] = $msg;
+                            $data['error'] = true;
                         }
                     }
                 }

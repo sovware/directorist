@@ -89,6 +89,7 @@ if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
         do_action('atbdp_before_cc_form');/*Hook for dev*/
         do_action('atbdp_cc_form'); // placeholder action for credit card form
         do_action('atbdp_after_cc_form'); /*Hook for dev*/
+
         ?>
 
         <p id="atbdp_checkout_errors" class="text-danger"></p>

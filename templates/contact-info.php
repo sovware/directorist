@@ -175,7 +175,8 @@ $info_content .= "<p> {$ad}</p></div>";
         </div>
         <?php } ?>
         <!--phone2-->
-        <?php if(!empty($display_phone2_field) ) { ?>
+        <?php if(!empty($display_phone2_field) ) {
+            ?>
         <div class="form-group" id="atbdp_phone__number2">
             <label for="atbdp_phone_number2"><?php $phone_label2 = get_directorist_option('phone_label2', __('Phone Number Two', 'directorist'));
                 esc_html_e($phone_label2.':', 'directorist'); ?></label>

@@ -375,6 +375,7 @@ jQuery(function ($) {
         form_data.append('service_offer', service_offer);
         form_data.append('price', atbdp_element_value('input[name="price"]'));
         form_data.append('atbdp_post_views_count', atbdp_element_value('input[name="atbdp_post_views_count"]'));
+        form_data.append('tagline', atbdp_element_value('input[name="tagline"]'));
         form_data.append('excerpt', excerpt);
         form_data.append('atbd_listing_pricing', atbdp_element_value('input[name="atbd_listing_pricing"]:checked'));
         form_data.append('price_range', atbdp_element_value('select[name="price_range"]'));
@@ -439,7 +440,7 @@ jQuery(function ($) {
         if (categories) {
             for (var key in categories) {
                 var value = categories[key];
-                form_data.append("admin_category_select[]", value);
+                form_data.append("tax_input[at_biz_dir-category][]", value);
             }
         }
         // social
@@ -540,7 +541,7 @@ jQuery(function ($) {
                         }
                         // preview mode active and need payment
                     } else if ((response.preview_mode === true) && (response.need_payment === true)) {
-                        window.location.href = response.preview_url + '&preview=1&payment=1&redirect=' + response.redirect_url;
+                        window.location.href = response.preview_url + '?preview=1&payment=1&redirect=' + response.redirect_url;
                     } else {
                         $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
                         window.location.href = response.redirect_url;

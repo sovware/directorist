@@ -268,7 +268,12 @@ function atbdp_listing_status_controller()
     }
     if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
         $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
-        atbdp_status_after_previewed_listing($listing_id);
+        $listing_id = isset($_GET['post_id']) ? $_GET['post_id'] : $listing_id;
+        $args = array(
+            'ID' => $listing_id,
+            'post_status' => $post_status,
+        );
+        wp_update_post($args);
     }
 }
 

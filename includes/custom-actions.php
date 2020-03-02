@@ -175,48 +175,21 @@ function atbdp_handle_attachment($file_handler, $post_id, $set_thu = false)
 
 function atbdp_get_preview_button()
 {
-    if (isset($_GET['redirect'])) {
-        $preview_enable = get_directorist_option('preview_enable', 1);
-        $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
-        $id = isset($_GET['p']) ? $_GET['p'] : '';
-        $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : '';
-        $id = empty($id) ? $post_id : $id;
-        $url = $preview_enable ? add_query_arg(array(!empty($payment) ? 'atbdp_listing_id' : 'p' => $id, 'reviewed' => 'yes'), $_GET['redirect']) : $_GET['redirect'];
-        return '<a href="' . esc_url($url) . '" class="btn btn-success">' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment) ? esc_html__(' Pay & Submit', 'directorist') : esc_html__(' Submit', 'directorist')) . '</a>';
-    }
-}
-
-/**
- * @param $listing_id
- * @since 6.3.0
- */
-
-function atbdp_status_after_previewed_listing($listing_id)
-{
-    $new_l_status = get_directorist_option('new_listing_status', 'pending');
-    $monitization = get_directorist_option('enable_monetization', 0);
-    $featured_enabled = get_directorist_option('enable_featured_listing');
-    //if listing under a purchased package
-    if (is_fee_manager_active()) {
-        $plan_id = get_post_meta($listing_id, '_fm_plans', true);
-        $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id);
-        if (('package' === package_or_PPL($plan = null)) && $plan_purchased && ('publish' === $new_l_status)) {
-            // status for paid users
-            $post_status = $new_l_status;
-        } else {
-            // status for non paid users
-            $post_status = 'pending';
+    $preview_enable = get_directorist_option('preview_enable', 1);
+    if (!empty($preview_enable)){
+        if (isset($_GET['redirect'])) {
+            $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
+            $id = isset($_GET['p']) ? $_GET['p'] : '';
+            $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : get_the_ID();
+            $id = empty($id) ? $post_id : $id;
+            if (empty($payment)){
+                $url = add_query_arg(array('post_id' => $id, 'reviewed' => 'yes'), $_GET['redirect']);
+            }else{
+                $url = add_query_arg(array('atbdp_listing_id' => $id, 'reviewed' => 'yes'), $_GET['redirect']);
+            }
+            return '<a href="' . esc_url($url) . '" class="btn btn-success">' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment) ? esc_html__(' Pay & Submit', 'directorist') : esc_html__(' Submit', 'directorist')) . '</a>';
         }
-    } elseif (!empty($featured_enabled && $monitization)) {
-        $post_status = 'pending';
-    } else {
-        $post_status = $new_l_status;
     }
-    $my_post = array();
-    $my_post['ID'] = $listing_id;
-    $my_post['post_status'] = $post_status;
-    // Update the post into the database
-    wp_update_post($my_post);
 }
 
 /**

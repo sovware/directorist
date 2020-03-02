@@ -256,15 +256,15 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     if (('regular' === $listing_type) && ('package' === $plan_type)) {
                         if ((($plan_meta['num_regular'][0] < $total_regular_listing) || (0 >= $total_regular_listing)) && empty($plan_meta['num_regular_unl'][0])) {
-                            $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing!', 'directorist') . '</strong></div>';
-                            $data['message'] = $msg;
+                            $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing, please try again.', 'directorist') . '</strong></div>';
+                            $data['error_msg'] = $msg;
                             $data['error'] = true;
                         }
                     }
                     if (('featured' === $listing_type) && ('package' === $plan_type)) {
                         if ((($plan_meta['num_featured'][0] < $total_featured_listing) || (0 === $total_featured_listing)) && empty($plan_meta['num_featured_unl'][0])) {
-                            $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for featured listing!', 'directorist') . '</strong></div>';
-                            $data['message'] = $msg;
+                            $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for featured listing, please try again', 'directorist') . '</strong></div>';
+                            $data['error_msg'] = $msg;
                             $data['error'] = true;
                         }
                     }
@@ -274,7 +274,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $_gallery_img = count($gallery_images);
                         if ($plan_meta['num_gallery_image'][0] < $_gallery_img && empty($plan_meta['num_gallery_image_unl'][0])) {
                             $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of ' . $plan_meta['num_gallery_image'][0] . ' gallery image(s)', 'directorist') . '</strong></div>';
-                            $data['message'] = $msg;
+                            $data['error_msg'] = $msg;
                             $data['error'] = true;
                         }
                     }
@@ -825,7 +825,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $data['success_msg'] = __('Your Submission is Completed! redirecting..', 'directorist');
                 }
                 if (!empty($data['error']) && $data['error'] === true) {
-                    $data['error_msg'] = __('Sorry! Something Wrong with Your Submission', 'directorist');
+                    $data['error_msg'] = isset($data['error_msg']) ? $data['error_msg'] : __('Sorry! Something Wrong with Your Submission', 'directorist');
                 }
                 if (!empty($data['need_payment']) && $data['need_payment'] === true) {
                     $data['success_msg'] = __('Payment Required! redirecting to checkout..', 'directorist');

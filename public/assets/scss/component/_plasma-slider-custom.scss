@@ -122,25 +122,25 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bgImgBlur {
   -webkit-transform: scale(1.5);
   -ms-transform: scale(1.5);
   transform: scale(1.5);
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: cover !important;
+     object-fit: cover !important;
   -webkit-filter: blur(10px);
           filter: blur(10px);
 }
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bgImg {
   z-index: 88;
-  -o-object-fit: contain;
-     object-fit: contain;
+  -o-object-fit: contain !important;
+     object-fit: contain !important;
 }
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bgImg.plasmaSlider__contain {
   z-index: 88;
-  -o-object-fit: contain;
-     object-fit: contain;
+  -o-object-fit: contain !important;
+     object-fit: contain !important;
 }
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__bgImg.plasmaSlider__cover  {
   z-index: 88;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: cover !important;
+     object-fit: cover !important;
 }
 
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__sliderItem {
@@ -228,15 +228,15 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderTempImage .plasm
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderTempImage .plasmaSliderTempImg {
   width: 100%;
   height: 100%;
-  -o-object-fit: contain;
-     object-fit: contain;
+  -o-object-fit: contain !important;
+     object-fit: contain !important;
 }
 
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderTempImage .plasmaSliderTempImg.plasmaSlider__cover {
   width: 100%;
   height: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: cover !important;
+     object-fit: cover !important;
 }
 
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderImages,
@@ -248,7 +248,7 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSliderIcon {
   display: inline-block;
   font-size: 1rem;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: contain !important;
   background-position: center;
 }
 

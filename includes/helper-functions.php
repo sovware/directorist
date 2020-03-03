@@ -4751,8 +4751,95 @@ function the_thumbnail_card($img_src = '', $_args = array())
     echo $the_html;
 }
 
+// get_plasma_slider
+function get_plasma_slider( $args )
+{
+    $data = array();
+    $default_image = get_directorist_option(
+        'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'
+    );
+    $background_type = get_directorist_option('single_slider_background_type', 'custom-color');
+
+    // Default
+    $data['show-slider'] = get_directorist_option('dsiplay_slider_single_page', true);
+    $is_enabled = ( $data['show-slider'] == true || $data['show-slider'] === '1' ) ? true : false;
+
+    if ( !$is_enabled ) {
+        return '';
+    }
+
+    $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+    $data['images'] = [];
+    $data['alt'] = '';
+    $data['background-size'] = get_directorist_option('single_slider_image_size', 'cover');
+    $data['blur-background'] = ( 'blur' === $background_type ) ? true : false;
+    $data['width'] = get_directorist_option('gallery_crop_width', 670);
+    $data['height'] = get_directorist_option('gallery_crop_height', 750);
+    $data['background-color'] = get_directorist_option('single_slider_background_color', 'gainsboro');
+    $data['thumbnail-background-color'] = '#fff';
+    $data['show-thumbnails'] = get_directorist_option('dsiplay_thumbnail_img', true);
+    $data['gallery'] = true;
+    $data['rtl'] = is_rtl();
+
+    // Extend Default
+    if ( isset($args['plan_slider']) ) {
+        $data['gallery'] = $args['plan_slider'];
+    }
+
+    if ( isset($args['listing_prv_imgurl']) && !empty($args['listing_prv_imgurl'])) {
+        array_push($data['images'], $args['listing_prv_imgurl']);
+    }
+    if ( $data['gallery'] && isset($args['image_links']) && is_array($args['image_links'])) {
+        foreach ( $args['image_links'] as $image ) {
+            array_push($data['images'], $image);
+        }
+    }
+    
+    if ( count($data['images']) < 1 ) {
+        array_push($data['images'], $default_image);
+    }
+
+    if ( count($data['images']) < 1 ) {
+        array_push($data['images'], $default_image);
+    }
+
+    if ( isset($args['p_title']) ) {
+        $data['alt'] = $args['p_title'];
+    }
+    if ( isset($args['thumbnail-background-color']) ) {
+        $data['thumbnail-background-color'] = $args['thumbnail-background-color'];
+    }
+    if ( isset($args['background-color']) ) {
+        $data['background-color'] = $args['background-color'];
+    }
+
+    $padding_top = $data['height'] / $data['width'] * 100;
+    $data['padding-top'] = $padding_top;
+
+    return get_view('plasma-slider', $data);
+}
+
 
 function atbdp_style_example_image ($src) {
     $img = sprintf("<img src='%s'>", $src );
     echo $img;
+}
+
+function view( $file_path, $data = null )
+{
+    $path = ATBDP_VIEW_DIR . $file_path . '.php';
+    if ( file_exists($path) ) {
+        require_once($path);
+    }
+}
+
+function get_view( $file_path, $data = null )
+{
+    $view = '';
+    ob_start();
+    view( $file_path, $data );
+    $view =  ob_get_contents();
+    ob_end_clean();
+
+    return $view;
 }

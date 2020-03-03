@@ -534,9 +534,9 @@ jQuery(function ($) {
                             $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
                             if (qs['redirect']) {
                                 var is_pending = response.pending ? '&' : '?';
-                                window.location.href = response.preview_url + is_pending + 'post_id=' + response.id + '&preview=1&payment=1&redirect=' + qs['redirect'];
+                                window.location.href = response.preview_url + is_pending + 'post_id=' + response.id + '&preview=1&payment=1&edited=1&redirect=' + qs['redirect'];
                             } else {
-                                window.location.href = response.preview_url + '?preview=1&redirect=' + response.redirect_url;
+                                window.location.href = response.preview_url + '?preview=1&edited=1&redirect=' + response.redirect_url;
                             }
                         }
                         // preview mode active and need payment

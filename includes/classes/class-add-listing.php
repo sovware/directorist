@@ -312,6 +312,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if (!empty($preview_enable)) {
                         $args['post_status'] = 'private';
                     }
+                    if ('publish' === get_post_status( $p['listing_id'] )){
+                        $args['post_status'] = $edit_l_status;
+                    }
                     // Check if the current user is the owner of the post
                     $post = get_post($args['ID']);
                     // update the post if the current user own the listing he is trying to edit. or we and give access to the editor or the admin of the post.

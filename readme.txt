@@ -4,6 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.3
+Requires PHP: 5.6
 Stable tag: 6.3.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html

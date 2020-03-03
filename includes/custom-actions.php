@@ -181,9 +181,10 @@ function atbdp_get_preview_button()
             $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
             $id = isset($_GET['p']) ? $_GET['p'] : '';
             $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : get_the_ID();
+            $edited = isset($_GET['edited']) ? $_GET['edited'] : '';
             $id = empty($id) ? $post_id : $id;
             if (empty($payment)){
-                $url = add_query_arg(array('post_id' => $id, 'reviewed' => 'yes'), $_GET['redirect']);
+                $url = add_query_arg(array('post_id' => $id, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $_GET['redirect']);
             }else{
                 $url = add_query_arg(array('atbdp_listing_id' => $id, 'reviewed' => 'yes'), $_GET['redirect']);
             }

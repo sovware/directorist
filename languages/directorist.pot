@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2020-03-04 14:55+0600\n"
+"POT-Creation-Date: 2020-03-04 18:55+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -5465,6 +5465,13 @@ msgstr ""
 
 #: includes/custom-actions.php:225
 msgid "Active License"
+msgstr ""
+
+#: includes/custom-actions.php:232
+#, php-format
+msgid ""
+"Enter your extension license keys here to receive updates for purchased "
+"extensions. Click %s to know more about licensing."
 msgstr ""
 
 #: includes/custom-fields/class-custom-field.php:261

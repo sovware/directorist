@@ -230,7 +230,7 @@ function atbdp_extend_extension_settings_submenus($default)
                     'type' => 'notebox',
                     'name' => 'businedfssdfss_hours_license',
                     'description' => sprintf(__('Enter your extension license keys here to receive updates for purchased extensions. Click %s to know more about licensing.', 'directorist'), '<a target="_blank" href="https://directorist.com/documentation/extensions/license">here</a>'),
-                    'status' => 'success',
+                    'status' => 'info',
                 ),
 
             )),

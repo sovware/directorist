@@ -360,11 +360,9 @@ jQuery(function ($) {
                 return;
             }
         }
-
-
         var iframe = $('#listing_content_ifr');
         var serviceIframe = $('#service_offer_ifr');
-        var content = iframe.length ? tinymce.get('listing_content').getContent() : '';
+        var content = iframe.length ? tinymce.get('listing_content').getContent() : atbdp_element_value('textarea[name="listing_content"]');
         var service_offer = serviceIframe.length ? tinymce.get('service_offer').getContent() : '';
         var excerpt = atbdp_element_value("textarea#atbdp_excerpt");
         form_data.append('add_listing_nonce', atbdp_add_listing.nonce);

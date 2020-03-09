@@ -1578,7 +1578,6 @@ if (!class_exists('ATBDP_Shortcode')):
 
                 }
 
-
                 switch ($current_order) {
                     case 'title-asc' :
                         if ($has_featured) {

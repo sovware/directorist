@@ -345,8 +345,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         'p_title' => $p_title,
                         'display_thumbnail_img' => $display_thumbnail_img,
                     );
-                    // $slider = ATBDP()->helper::get_default_slider($args);
-                    $slider = ATBDP()->helper::get_plasma_slider($args);
+                    $slider = get_plasma_slider($args);
                     echo apply_filters('atbdp_single_listing_gallery_section', $slider);
 
                     ?>

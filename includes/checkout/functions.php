@@ -240,14 +240,19 @@ function atbdp_listing_status_controller()
 {
     $status = isset($_GET['listing_status']) ? esc_attr($_GET['listing_status']) : '';
     $id = isset($_GET['listing_id']) ? (int)($_GET['listing_id']) : '';
+    $edited = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
     $new_l_status = get_directorist_option('new_listing_status', 'pending');
     $monitization = get_directorist_option('enable_monetization', 0);
     $featured_enabled = get_directorist_option('enable_featured_listing');
+    $edit_l_status = get_directorist_option('edit_listing_status');
+    $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
+    $listing_id = isset($_GET['post_id']) ? $_GET['post_id'] : $listing_id;
+    $id = $id ? $id : $listing_id;
     //if listing under a purchased package
     if (is_fee_manager_active()) {
         $plan_id = get_post_meta($id, '_fm_plans', true);
         $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id);
-        if (('package' === package_or_PPL($plan = null)) && $plan_purchased && ('publish' === $new_l_status)) {
+        if (('package' === package_or_PPL($plan_id)) && $plan_purchased && ('publish' === $new_l_status)) {
             // status for paid users
             $post_status = $new_l_status;
         } else {
@@ -267,10 +272,14 @@ function atbdp_listing_status_controller()
         wp_update_post($args);
     }
     if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
-        $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
-        $listing_id = isset($_GET['post_id']) ? $_GET['post_id'] : $listing_id;
+        // status for edited listing
+        if ($edited){
+            if ('yes' === $edited){
+                $post_status = $edit_l_status;
+            }
+        }
         $args = array(
-            'ID' => $listing_id,
+            'ID' => $id,
             'post_status' => $post_status,
         );
         wp_update_post($args);

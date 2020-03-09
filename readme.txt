@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.3
-Stable tag: 6.3.1
+Stable tag: 6.3.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -137,6 +137,22 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.3.2 - Mar 4, 2020 =
+
+* Fix - Add Listing form redirection issue
+* Fix - Issues of PHP older version
+* Fix - Price formatting issue
+* Fix - Style settings
+* Fix - Typos
+* Fix - Tag and Category issues of add listing form
+* Add - Options to customize single listing slider
+* Fix - Current location issue
+* Fix - Tagline saving issue of add listing form
+* Fix - Get Direction link issue of Google Map's info window
+* Improve - Logged-in user identification
+* Improve - Date format of payment receipt
+* Improve - RTL
 
 = 6.3.1 - Feb 15, 2020 =
 

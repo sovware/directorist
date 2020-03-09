@@ -181,9 +181,10 @@ function atbdp_get_preview_button()
             $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
             $id = isset($_GET['p']) ? $_GET['p'] : '';
             $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : get_the_ID();
+            $edited = isset($_GET['edited']) ? $_GET['edited'] : '';
             $id = empty($id) ? $post_id : $id;
             if (empty($payment)){
-                $url = add_query_arg(array('post_id' => $id, 'reviewed' => 'yes'), $_GET['redirect']);
+                $url = add_query_arg(array('p' => $id, 'post_id' => $id, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $_GET['redirect']);
             }else{
                 $url = add_query_arg(array('atbdp_listing_id' => $id, 'reviewed' => 'yes'), $_GET['redirect']);
             }
@@ -224,7 +225,15 @@ function atbdp_extend_extension_settings_submenus($default)
             'title' => __('Active License', 'directorist'),
             'name' => 'extensions_license',
             'icon' => 'font-awesome:fa-id-card',
-            'controls' => apply_filters('atbdp_license_settings_controls', array()),
+            'controls' => apply_filters('atbdp_license_settings_controls', array(
+                array(
+                    'type' => 'notebox',
+                    'name' => 'businedfssdfss_hours_license',
+                    'description' => sprintf(__('Enter your extension license keys here to receive updates for purchased extensions. Click %s to know more about licensing.', 'directorist'), '<a target="_blank" href="https://directorist.com/documentation/extensions/license">here</a>'),
+                    'status' => 'info',
+                ),
+
+            )),
         );
         array_push($default, $array_license);
     }

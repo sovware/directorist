@@ -92,7 +92,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                         <div class="map_addr"><span class="<?php atbdp_icon_type(true); ?>-map-marker"></span> <a href="" class="map-info-link"><?php echo $address;?></a></div>
                         <?php } ?>
                             <?php if(!empty($display_direction_map)) {?>
-                            <div class="map_get_dir"><a href='http://www.google.com/maps?daddr=<?php echo $manual_lat; ?>,<?php echo $manual_lng; ?></div>' target='_blank'><?php _e('Get Direction', 'directorist') ?></a> <span class="<?php atbdp_icon_type(true); ?>-arrow-right"></span>
+                            <div class="map_get_dir"><a href='http://www.google.com/maps?daddr=<?php echo $manual_lat; ?>,<?php echo $manual_lng; ?>' target='_blank'><?php _e('Get Direction', 'directorist') ?></a> <span class="<?php atbdp_icon_type(true); ?>-arrow-right"></span>
                             </div>
                         <?php } } ?>
 

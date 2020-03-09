@@ -19,6 +19,10 @@
 @import "component/location-category";
 @import "component/range-slider";
 
+.ads-advanced .bottom-inputs {
+  flex-grow: 1;
+}
+
 /*responsive css */
 @media (min-width: 992px) and (max-width: 1199px) {
   .atbd_content_active .widget.atbd_widget,

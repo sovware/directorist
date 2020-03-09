@@ -215,8 +215,7 @@ do_action('atbdp_before_listing_section');
             'listing_prv_img' => $listing_prv_img,
             'p_title' => $p_title,
         );
-        // $slider = ATBDP()->helper::get_default_slider($args);
-        $slider = ATBDP()->helper::get_plasma_slider($args);
+        $slider = get_plasma_slider($args);
         echo apply_filters('atbdp_single_listing_gallery_section', $slider);
         ?>
         <div class="atbd_listing_detail">

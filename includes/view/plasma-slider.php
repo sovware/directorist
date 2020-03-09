@@ -7,7 +7,7 @@
     data-blur-background="<?php echo ($data['blur-background']) ? '1' : '0'; ?>"
     data-background-color="<?php echo $data['background-color']; ?>"
     data-thumbnail-background-color="<?php echo $data['thumbnail-background-color']; ?>">
-    <div class="plasmaSliderTempImage" style="padding-top: <?php echo $data['padding-top']; ?>%">
+    <div class="plasmaSliderTempImage" style="padding-top: <?php echo $data['padding-top'] ."%;" ?>">
         <?php if (count($data['images']) > 0):
             $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlider__cover';
             if (  'contain' === $data['background-size'] && $data['blur-background']) {

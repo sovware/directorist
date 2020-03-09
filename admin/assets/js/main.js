@@ -1101,6 +1101,21 @@ jQuery(function ($) {
         lf_opt36.hide();
     }
 
+    //Email header
+    var email_header = $("#email_header_color");
+    email_header.hide();
+    $('input[name="allow_email_header"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            email_header.show();
+        }else{
+            email_header.hide();
+        }
+    });
+    if($('input[name="allow_email_header"]').is(":checked") === true){
+        email_header.show();
+    }
+
+
     //Display email notification
     var lf_opt36 = $("#enable_featured_listing,#featured_listing_title,#featured_listing_desc,#featured_listing_price");
     lf_opt36.hide();

@@ -4390,13 +4390,19 @@ function get_uninstall_settings_submenus() {
 
 function atbdp_email_html($subject, $message){
     $site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );
-    $header = apply_filters('atbdp_email_header', '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: #8569fb; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 3px 3px 0 0;\'>
+    $header = '';
+    $email_header_color = get_directorist_option('email_header_color', '#8569fb');
+    $allow_email_header = get_directorist_option('allow_email_header', 1);
+    if ($allow_email_header){
+        $header = apply_filters('atbdp_email_header', '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: '.$email_header_color.'; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 3px 3px 0 0;\'>
 										<tr>
 											<td id="header_wrapper" style="padding: 36px 48px; display: block;">
 												<h1 style=\'font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: left; text-shadow: 0 1px 0 #ab79a1; color: #ffffff;\'>'.$subject.'</h1>
 											</td>
 										</tr>
 									</table>');
+    }
+
     return '<!DOCTYPE html>
 <html lang="en-US">
 	<head>

@@ -7,6 +7,9 @@ $display_title_map              = get_directorist_option('display_title_map', 1)
 $display_address_map            = get_directorist_option('display_address_map', 1);
 $display_direction_map          = get_directorist_option('display_direction_map', 1);
 
+$disable_single_listing         = get_directorist_option('disable_single_listing', false);
+$disable_single_listing         = ( $disable_single_listing === true || $disable_single_listing === '1' ) ? true : false;
+
 if(empty($display_map_info)) {
     $disable_info_window = 'yes';
 }elseif (empty($display_image_map || $display_title_map || $display_address_map || $display_direction_map)){
@@ -84,7 +87,13 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                     <div class="map-info-details">
                         <?php if(!empty($display_title_map)) { ?>
                         <div class="atbdp-listings-title-block">
-                            <h3 class="atbdp-no-margin"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                            <h3 class="atbdp-no-margin">
+                                <?php if ( !$disable_single_listing ) : ?>
+                                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                <?php else: 
+                                    the_title();
+                                endif ; ?>
+                            </h3>
                         </div>
                         <?php } ?>
                         <?php if(!empty($address)) { ?>

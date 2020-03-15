@@ -61,7 +61,7 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
             $html .= "<div class='atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom'>";
             if (!empty($display_image_map)) {
                 $html .= "<div class='media-left'>";
-                $html .= "<a href='" . get_the_permalink() . "'>";
+                $html .= ( !$disable_single_listing ) ? "<a href='" . get_the_permalink() . "'>" : '';
                 $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                 if (!empty($listing_prv_img)) {
                     $html .= "<img src='" . esc_url($prv_image) . "' alt='" . esc_html(stripslashes(get_the_title())) . "'>";
@@ -72,7 +72,7 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
                 if (empty($listing_img[0]) && empty($listing_prv_img)) {
                     $html .= "<img src='" . $default_image . "' alt='" . esc_html(stripslashes(get_the_title())) . "'>";
                 }
-                $html .= "</a>";
+                $html .= ( !$disable_single_listing ) ? "</a>" : '';
                 $html .= "</div>";
             }
             $html .= "<div class='media-body'>";
@@ -133,7 +133,6 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
     } else {
         load();
     }
-    load();
     function load() {
         var url = window.location.href;
         var urlParts = URI.parse(url);

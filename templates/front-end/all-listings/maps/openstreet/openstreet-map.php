@@ -38,6 +38,9 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
         $display_address_map            = get_directorist_option('display_address_map', 1);
         $display_direction_map          = get_directorist_option('display_direction_map', 1);
 
+        $disable_single_listing         = get_directorist_option('disable_single_listing', false);
+        $disable_single_listing         = ( $disable_single_listing === true || $disable_single_listing === '1' ) ? true : false;
+
         wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
                 'lat'=>$manual_lat,
                 'lon'=>$manual_lng,
@@ -58,7 +61,7 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
             $html .= "<div class='atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom'>";
             if (!empty($display_image_map)) {
                 $html .= "<div class='media-left'>";
-                $html .= "<a href='" . get_the_permalink() . "'>";
+                $html .= ( !$disable_single_listing ) ? "<a href='" . get_the_permalink() . "'>" : '';
                 $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                 if (!empty($listing_prv_img)) {
                     $html .= "<img src='" . esc_url($prv_image) . "' alt='" . esc_html(stripslashes(get_the_title())) . "'>";
@@ -69,13 +72,19 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
                 if (empty($listing_img[0]) && empty($listing_prv_img)) {
                     $html .= "<img src='" . $default_image . "' alt='" . esc_html(stripslashes(get_the_title())) . "'>";
                 }
-                $html .= "</a>";
+                $html .= ( !$disable_single_listing ) ? "</a>" : '';
                 $html .= "</div>";
             }
             $html .= "<div class='media-body'>";
             if (!empty($display_title_map)) {
                 $html .= "<div class='atbdp-listings-title-block'>";
-                $html .= "<h3 class='atbdp-no-margin'><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h3>";
+                
+                if ( !$disable_single_listing ) {
+                    $html .= "<h3 class='atbdp-no-margin'><a href='" . get_the_permalink() . "'>" . get_the_title() . "</a></h3>";
+                } else {
+                    $html .= "<h3 class='atbdp-no-margin'>" . get_the_title() . "</h3>";
+                }
+                
                 $html .= "</div>";
             }
             if (!empty($address)) {

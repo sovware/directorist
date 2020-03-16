@@ -773,7 +773,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             $post_id = (int)$_POST["post_id"];
             $name = sanitize_text_field($_POST["name"]);
             $email = sanitize_email($_POST["email"]);
-            $listing_email = sanitize_email($_POST["listing_email"]);
+            $listing_email = get_post_meta($post_id, '_email', true);
             $message = stripslashes(esc_textarea($_POST["message"]));
 
             // vars
@@ -896,10 +896,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             $data = array('error' => 0);
 
 
-            if ($this->atbdp_email_listing_owner_listing_contact()) {
-
-                // Send a copy to admin( only if applicable ).
-                $this->atbdp_email_admin_listing_contact();
+            if ($this->atbdp_email_listing_owner_listing_contact() && $this->atbdp_email_admin_listing_contact()) {
 
                 $data['message'] = __('Your message sent successfully.', 'directorist');
 

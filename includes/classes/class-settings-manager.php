@@ -1632,6 +1632,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'name' => 'emails_templates',
                     'icon' => 'font-awesome:fa-envelope',
                     'controls' => apply_filters('atbdp_email_templates_settings_controls', array(
+                        'general' => array(
+                            'type' => 'section',
+                            'title' => __('General', 'directorist'),
+                            'description' => __('You can Customize Email header color here. Do not forget to save the changes.', 'directorist'),
+                            'fields' => $this->email_general(),
+                        ),
                         'new_eml_templates' => array(
                             'type' => 'section',
                             'title' => __('For New Listing', 'directorist'),
@@ -2219,6 +2225,29 @@ The Administrator of ==SITE_NAME==
 
 
         /**
+         * Get all the settings fields for the offline new order email template section
+         * @return array
+         * @since 6.3.0
+         */
+        public function email_general()
+        {
+            return apply_filters('atbdp_email_general_field', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'allow_email_header',
+                    'label' => __('Email Header', 'directorist'),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'color',
+                    'name' => 'email_header_color',
+                    'label' => __('Email Header Color', 'directorist'),
+                    'default' => '#8569fb',
+                ),
+
+
+            ));
+        }      /**
          * Get all the settings fields for the offline new order email template section
          * @return array
          * @since 3.1.0

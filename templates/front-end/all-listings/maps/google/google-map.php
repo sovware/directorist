@@ -7,6 +7,9 @@ $display_title_map              = get_directorist_option('display_title_map', 1)
 $display_address_map            = get_directorist_option('display_address_map', 1);
 $display_direction_map          = get_directorist_option('display_direction_map', 1);
 
+$disable_single_listing         = get_directorist_option('disable_single_listing', false);
+$disable_single_listing         = ( $disable_single_listing === true || $disable_single_listing === '1' ) ? true : false;
+
 if(empty($display_map_info)) {
     $disable_info_window = 'yes';
 }elseif (empty($display_image_map || $display_title_map || $display_address_map || $display_direction_map)){
@@ -60,31 +63,41 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                     <input type="hidden" id="icon" value="fa fa-flag">
                     <?php if(!empty($display_image_map)) { ?>
                     <div class="map-info-img">
-                        <a href="<?php the_permalink(); ?>">
-                            <?php
-                            $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-                            if(!empty($listing_prv_img)){
+                        <?php
+                        if ( !$disable_single_listing ) {
+                            echo "<a href=". the_permalink() .">";
+                        }
+                        $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                        if(!empty($listing_prv_img)){
 
-                                echo '<img src="'.esc_url($prv_image).'" alt="'.esc_html(stripslashes(get_the_title())).'">';
+                            echo '<img src="'.esc_url($prv_image).'" alt="'.esc_html(stripslashes(get_the_title())).'">';
 
-                            }if(!empty($listing_img[0]) && empty($listing_prv_img)) {
+                        }if(!empty($listing_img[0]) && empty($listing_prv_img)) {
 
-                                echo '<img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
+                            echo '<img src="' . esc_url($gallery_img) . '" alt="'.esc_html(stripslashes(get_the_title())).'">';
 
-                            }if (empty($listing_img[0]) && empty($listing_prv_img)){
+                        }if (empty($listing_img[0]) && empty($listing_prv_img)){
 
-                                echo '<img src="'.$default_image.'" alt="'.esc_html(stripslashes(get_the_title())).'">';
+                            echo '<img src="'.$default_image.'" alt="'.esc_html(stripslashes(get_the_title())).'">';
 
-                            }
-                            ?>
-                        </a>
+                        }
+                        if ( !$disable_single_listing ) {
+                            echo "</a>";
+                        }
+                        ?>
                     </div>
                     <?php } ?>
                     <?php if(!empty($display_title_map) || !empty($display_address_map) || !empty($display_direction_map)) { ?>
                     <div class="map-info-details">
                         <?php if(!empty($display_title_map)) { ?>
                         <div class="atbdp-listings-title-block">
-                            <h3 class="atbdp-no-margin"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                            <h3 class="atbdp-no-margin">
+                                <?php if ( !$disable_single_listing ) : ?>
+                                    <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                                <?php else: 
+                                    the_title();
+                                endif ; ?>
+                            </h3>
                         </div>
                         <?php } ?>
                         <?php if(!empty($address)) { ?>

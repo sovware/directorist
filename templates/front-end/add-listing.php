@@ -217,11 +217,11 @@ $query_args = array(
                                             <?php wp_editor(
                                                 !empty($listing->post_content) ? wp_kses_post($listing->post_content) : '',
                                                 'listing_content',
-                                                array(
+                                                apply_filters('atbdp_add_listing_wp_editor_settings', array(
                                                     'media_buttons' => false,
                                                     'quicktags' => true,
                                                     'editor_height' => 200
-                                                )); ?>
+                                                ))); ?>
                                         </div>
                                     <?php } ?>
                                     <?php if (!empty($display_tagline_field) && empty($display_tagline_for)) { ?>

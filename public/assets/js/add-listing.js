@@ -282,11 +282,6 @@ jQuery(function ($) {
 
     var formID = $('#add-listing-form');
 
-    /*$('input[name="bdbh[monday][remain_close]"]').on('change', function(e){
-        var elm = $(this).val();
-        console.log(elm);
-    });*/
-
     $('body').on('submit', formID, function (e) {
         e.preventDefault();
         var form_data = new FormData();
@@ -294,19 +289,21 @@ jQuery(function ($) {
 
         function atbdp_multi_select(field, name) {
             var field = $('' + field + '[name^="' + name + '"]');
-            if (field.length > 1) {
-                field.each(function (index, value) {
-                    var type = $(value).attr('type');
-                    if (type !== "checkbox") {
-                        var name = $(this).attr("name");
-                        var value = $(this).val();
-                        form_data.append(name, value);
-                    }
-                });
-            } else {
-                var name = field.attr("name");
-                var value = field.val();
-                form_data.append(name, value);
+            if (field.length){
+                if (field.length > 1) {
+                    field.each(function (index, value) {
+                        var type = $(value).attr('type');
+                        if (type !== "checkbox") {
+                            var name = $(this).attr("name");
+                            var value = $(this).val();
+                            form_data.append(name, value);
+                        }
+                    });
+                } else {
+                    var name = field.attr("name");
+                    var value = field.val();
+                    form_data.append(name, value);
+                }
             }
         }
 
@@ -360,11 +357,9 @@ jQuery(function ($) {
                 return;
             }
         }
-
-
         var iframe = $('#listing_content_ifr');
         var serviceIframe = $('#service_offer_ifr');
-        var content = iframe.length ? tinymce.get('listing_content').getContent() : '';
+        var content = iframe.length ? tinymce.get('listing_content').getContent() : atbdp_element_value('textarea[name="listing_content"]');
         var service_offer = serviceIframe.length ? tinymce.get('service_offer').getContent() : '';
         var excerpt = atbdp_element_value("textarea#atbdp_excerpt");
         form_data.append('add_listing_nonce', atbdp_add_listing.nonce);
@@ -511,6 +506,30 @@ jQuery(function ($) {
             form_data.append(name, value);
         }
         form_data.append('timezone', atbdp_element_value('select[name="timezone"]'));
+        // booking
+        var booking_field = $('.bdb-wrapper').find('input[name^="bdb"]');
+        if (booking_field.length > 1) {
+            booking_field.each(function (index, value) {
+                    var type = $(value).attr('type');
+                    if (type === "checkbox") {
+                        var name = $(this).attr("name");
+                        var value = atbdp_is_checked(name);
+                        form_data.append(name, value);
+                    }else {
+                        var name = $(this).attr("name");
+                        var value = $(this).val();
+                        if (!value) {
+                            value = $(this).attr('data-time');
+                        }
+                        form_data.append(name, value);
+                    }
+            });
+        } else {
+            var name = booking_field.attr("name");
+            var value = booking_field.val();
+            form_data.append(name, value);
+        }
+
 
         $.ajax({
             method: 'POST',
@@ -533,7 +552,8 @@ jQuery(function ($) {
                         } else {
                             $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
                             if (qs['redirect']) {
-                                var is_pending = response.pending ? '&' : '?';
+                                //var is_pending = response.pending ? '&' : '?';
+                                var is_pending = '?';
                                 window.location.href = response.preview_url + is_pending + 'post_id=' + response.id + '&preview=1&payment=1&edited=1&redirect=' + qs['redirect'];
                             } else {
                                 window.location.href = response.preview_url + '?preview=1&edited=1&redirect=' + response.redirect_url;

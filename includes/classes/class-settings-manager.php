@@ -4643,7 +4643,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'cat_placeholder',
-                    'label' => __('Placeholder for User', 'directorist'),
+                    'label' => __('Placeholder', 'directorist'),
                     'default' => __('Select Category', 'directorist'),
                 ),
                 array(
@@ -4697,7 +4697,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'loc_placeholder',
-                    'label' => __('Placeholder for User', 'directorist'),
+                    'label' => __('Placeholder', 'directorist'),
                     'default' => __('Select Location', 'directorist'),
                 ),
                 array(
@@ -4732,7 +4732,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'tag_placeholder',
-                    'label' => __('Placeholder for User', 'directorist'),
+                    'label' => __('Placeholder', 'directorist'),
                     'default' => __('Select or insert new tags separated by a comma, or space', 'directorist'),
                 ),
                 array(

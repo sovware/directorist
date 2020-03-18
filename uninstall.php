@@ -2,9 +2,7 @@
 /**
  * @package Directorist
  */
-if ( ! defined ('WP_UNINSTALL_PLUGIN')) {
-    die;
-}
+defined( 'WP_UNINSTALL_PLUGIN' ) || exit;
 // Access the database via SQL
 global $wpdb;
 include_once("directorist-base.php");
@@ -31,32 +29,31 @@ if(!empty($enable_uninstall)) {
     wp_delete_post(get_directorist_option('checkout_page'), true);
     wp_delete_post(get_directorist_option('payment_receipt_page'), true);
     wp_delete_post(get_directorist_option('transaction_failure_page'), true);
-    //Delete all custom post
-    $wpdb->query("DELETE FROM wp_posts WHERE post_type = 'at_biz_dir'"); // delete all listing
-    $wpdb->query("DELETE FROM wp_posts WHERE post_type = 'atbdp_fields'"); // delete all custom field
-    $wpdb->query("DELETE FROM wp_posts WHERE post_type = 'atbdp_orders'"); // delete all order
-    $wpdb->query("DELETE FROM wp_posts WHERE post_type = 'atbdp_listing_review'"); // delete all approval review
+    // Delete posts + data.
+    $wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type IN ( 'at_biz_dir', 'atbdp_fields', 'atbdp_orders', 'atbdp_listing_review' );" );
+
     //Delete all metabox
-    $wpdb->query("DELETE FROM wp_postmeta WHERE post_id Not IN  (SELECT id FROM wp_posts)");
+    $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id Not IN  (SELECT id FROM wp_posts)");
     //Delete term relationships
-    $wpdb->query("DELETE FROM wp_term_relationships WHERE object_id Not IN  (SELECT id FROM wp_posts)");
+
+    $wpdb->query("DELETE FROM {$wpdb->term_relationships} WHERE object_id Not IN  (SELECT id FROM wp_posts)");
 
     //Delete all taxonomy
-    $wpdb->query("DELETE FROM wp_term_taxonomy WHERE taxonomy = 'at_biz_dir-location'");
-    $wpdb->query("DELETE FROM wp_term_taxonomy WHERE taxonomy = 'at_biz_dir-category'");
-    $wpdb->query("DELETE FROM wp_term_taxonomy WHERE taxonomy = 'at_biz_dir-tags'");
+    $wpdb->query("DELETE FROM {$wpdb->term_taxonomy} WHERE taxonomy = 'at_biz_dir-location'");
+    $wpdb->query("DELETE FROM {$wpdb->term_taxonomy} WHERE taxonomy = 'at_biz_dir-category'");
+    $wpdb->query("DELETE FROM {$wpdb->term_taxonomy} WHERE taxonomy = 'at_biz_dir-tags'");
     //Delete all term meta
-    $wpdb->query("DELETE FROM wp_termmeta WHERE term_id Not IN  (SELECT term_id FROM wp_term_taxonomy)");
-    $wpdb->query("DELETE FROM wp_terms WHERE term_id Not IN  (SELECT term_id FROM wp_term_taxonomy)");
+    $wpdb->query("DELETE FROM {$wpdb->termmeta} WHERE term_id Not IN  (SELECT term_id FROM {$wpdb->term_taxonomy})");
+    $wpdb->query("DELETE FROM {$wpdb->terms} WHERE term_id Not IN  (SELECT term_id FROM {$wpdb->term_taxonomy})");
     //Delete raview database
-    $wpdb->query("DROP TABLE IF EXISTS wp_atbdp_review");
+    $wpdb->query("DROP TABLE IF EXISTS {$wpdb->prefix}atbdp_review");
     //Delete usermeta.
     $wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key LIKE '%atbdp%';");
     $wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key = 'pro_pic';");
 
     // Delete all the Plugin Options
     $atbdp_settings = array(
-        'wp_atbdp_review_db_version',
+        "{$wpdb->prefix}atbdp_review_db_version",
         'atbdp_option',
         'widget_bdpl_widget',
         'widget_bdvd_widget',

@@ -145,7 +145,7 @@ $order_id = (!empty($order_id)) ? $order_id : '';
         </div>
         <?php
         $url = apply_filters('atbdp_payment_receipt_button_link', ATBDP_Permalink::get_dashboard_page_link(), $order_id);
-        $text = apply_filters('atbdp_payment_receipt_button_text', __( 'View your listings', 'directorist' ));
+        $text = apply_filters('atbdp_payment_receipt_button_text', __( 'View your listings', 'directorist' ), $order_id);
         ?>
         <div class="atbd-text-center"><a href="<?php echo esc_url($url); ?>" class="btn btn-primary"><?php  echo esc_attr($text); ?></a></div>
     </div>

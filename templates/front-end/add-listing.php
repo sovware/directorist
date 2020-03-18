@@ -1080,7 +1080,7 @@ $query_args = array(
                                  * @param array $listing_info Information of the current listing
                                  * @since 4.0
                                  **/
-                                apply_filters('atbdp_after_contact_info_section', 'add_listing_page_frontend', $listing_info, $p_id);
+                                do_action('atbdp_after_contact_info_section', 'add_listing_page_frontend', $listing_info, $p_id);
                                 ?>
                                 <div class="directorist-contact-fields atbdp_info_module">
                                     <div class="atbdp_info_module">

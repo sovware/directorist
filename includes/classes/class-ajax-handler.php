@@ -764,11 +764,10 @@ if (!class_exists('ATBDP_Ajax_Handler')):
              * @since 4.4.0
              */
             // do_action('atbdp_before_processing_contact_to_owner');
-            /* if ( !in_array( 'listing_contact_form', get_directorist_option('notify_user', array()) ) ) { 
+             if ( !in_array( 'listing_contact_form', get_directorist_option('notify_user', array()) ) ) {
                 return false;
-            } */
+            }
 
-            return true;
             // sanitize form values
             $post_id = (int)$_POST["post_id"];
             $name = sanitize_text_field($_POST["name"]);
@@ -892,25 +891,16 @@ if (!class_exists('ATBDP_Ajax_Handler')):
          */
         public function ajax_callback_send_contact_email()
         {
-
             $data = array('error' => 0);
-
-
-            if ($this->atbdp_email_listing_owner_listing_contact() && $this->atbdp_email_admin_listing_contact()) {
-
+            if ($this->atbdp_email_listing_owner_listing_contact() || $this->atbdp_email_admin_listing_contact()) {
                 $data['message'] = __('Your message sent successfully.', 'directorist');
-
             } else {
 
                 $data['error'] = 1;
                 $data['message'] = __('Sorry! Please try again.', 'directorist');
-
             }
-
-
             echo wp_json_encode($data);
             wp_die();
-
         }
 
 

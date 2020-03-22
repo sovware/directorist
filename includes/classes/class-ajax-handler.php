@@ -893,6 +893,12 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         {
             $data = array('error' => 0);
             if ($this->atbdp_email_listing_owner_listing_contact() || $this->atbdp_email_admin_listing_contact()) {
+                /**
+                 * @package Directorist
+                 * @since 6.3.3
+                 * It fires when a contact is made by visitor with listing owner
+                 */
+                do_action('atbdp_listing_contact_owner_submitted');
                 $data['message'] = __('Your message sent successfully.', 'directorist');
             } else {
 

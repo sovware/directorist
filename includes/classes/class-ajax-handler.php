@@ -354,7 +354,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                     foreach ($reviews as $key => $review):
                         $author_id = $review->by_user_id;
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-                        $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
+                        $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
                         $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
 
                         // Set the desired output into a variable
@@ -792,11 +792,10 @@ if (!class_exists('ATBDP_Ajax_Handler')):
              * @since 4.4.0
              */
             // do_action('atbdp_before_processing_contact_to_owner');
-            /* if ( !in_array( 'listing_contact_form', get_directorist_option('notify_user', array()) ) ) { 
+             if ( !in_array( 'listing_contact_form', get_directorist_option('notify_user', array()) ) ) {
                 return false;
-            } */
+            }
 
-            return true;
             // sanitize form values
             $post_id = (int)$_POST["post_id"];
             $name = sanitize_text_field($_POST["name"]);
@@ -920,25 +919,22 @@ if (!class_exists('ATBDP_Ajax_Handler')):
          */
         public function ajax_callback_send_contact_email()
         {
-
             $data = array('error' => 0);
-
-
-            if ($this->atbdp_email_listing_owner_listing_contact() && $this->atbdp_email_admin_listing_contact()) {
-
+            if ($this->atbdp_email_listing_owner_listing_contact() || $this->atbdp_email_admin_listing_contact()) {
+                /**
+                 * @package Directorist
+                 * @since 6.3.3
+                 * It fires when a contact is made by visitor with listing owner
+                 */
+                do_action('atbdp_listing_contact_owner_submitted');
                 $data['message'] = __('Your message sent successfully.', 'directorist');
-
             } else {
 
                 $data['error'] = 1;
                 $data['message'] = __('Sorry! Please try again.', 'directorist');
-
             }
-
-
             echo wp_json_encode($data);
             wp_die();
-
         }
 
 

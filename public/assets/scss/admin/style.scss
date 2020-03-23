@@ -685,7 +685,9 @@ css for Custom Field
 
 .business_time.column-business_time,
 .web-link.column-web-link{
-  text-align: left;
+  .atbdp-tick-cross2{
+    padding-left: 25px;
+  }
 }
 
 #atbdp-field-details .recurring_time_period{
@@ -746,5 +748,23 @@ div#need_post_area{
   align-items: center;
   input[type="text"], .button{
     display: none !important;
+  }
+}
+
+#directorist.atbd_wrapper{
+  .dbh-wrapper{
+    label{
+      margin-bottom: 0 !important;
+    }
+    .disable-bh{
+      margin-bottom: 5px;
+    }
+    .dbh-timezone{
+      .select2-container .select2-selection--single{
+        height: 37px;
+        padding-left: 15px;
+        border-color: #ddd;
+      }
+    }
   }
 }

@@ -39,6 +39,7 @@ if (!class_exists('ATBDP_Shortcode')):
          */
         public function ajax_callback_custom_fields($post_id = 0, $term_id = array())
         {
+
             $ajax = false;
             if (isset($_POST['term_id'])) {
                 $ajax = true;
@@ -46,32 +47,33 @@ if (!class_exists('ATBDP_Shortcode')):
                 $term_id = $_POST['term_id'];
             }
             // Get custom fields
-            $custom_field_ids = !empty($term_id) ? $term_id : array();
+            $categories = !empty($term_id) ? $term_id : array();
             $args = array(
                 'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
                 'posts_per_page' => -1,
                 'status' => 'published'
             );
             $meta_queries = array();
-            if ($custom_field_ids > 1) {
-                $sub_meta_queries = array();
-                foreach ($custom_field_ids as $value) {
-                    $sub_meta_queries[] = array(
+            if(!empty($categories)){
+                if ($categories > 1) {
+                    $sub_meta_queries = array();
+                    foreach ($categories as $value) {
+                        $sub_meta_queries[] = array(
+                            'key' => 'category_pass',
+                            'value' => $value,
+                            'compare' => 'LIKE'
+                        );
+                    }
+
+                    $meta_queries[] = array_merge(array('relation' => 'OR'), $sub_meta_queries);
+                } else {
+                    $meta_queries[] = array(
                         'key' => 'category_pass',
-                        'value' => $value,
+                        'value' => $categories[0],
                         'compare' => 'LIKE'
                     );
                 }
-
-                $meta_queries[] = array_merge(array('relation' => 'OR'), $sub_meta_queries);
-            } else {
-                $meta_queries[] = array(
-                    'key' => 'category_pass',
-                    'value' => $custom_field_ids[0],
-                    'compare' => 'LIKE'
-                );
             }
-
             $meta_queries[] = array(
                 array(
                     'relation' => 'OR',

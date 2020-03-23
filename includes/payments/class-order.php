@@ -52,7 +52,7 @@ class ATBDP_Order
         $c_position = get_directorist_option('payment_currency_position');
         $currency = atbdp_get_payment_currency();
         $symbol = atbdp_currency_symbol($currency);
-        $order_items = apply_filters('atbdp_order_items', array(), $order_id); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
+        $order_items = apply_filters('atbdp_order_items_data', array(), $order_id); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
 
         $featured = get_post_meta($order_id, '_featured', true);
         if ($featured) {
@@ -137,6 +137,9 @@ class ATBDP_Order
             'show_ui' => current_user_can('manage_atbdp_options') ? (!empty($mitization_active)?true:false) : false, // show the menu only to the admin
             'show_in_menu' => current_user_can('manage_atbdp_options') ? 'edit.php?post_type=' . ATBDP_POST_TYPE : false,
             'show_in_admin_bar' => true,
+            'capabilities' => array(
+                'create_posts' => false,
+            ),
             'show_in_nav_menus' => true,
             'can_export' => true,
             'has_archive' => true,

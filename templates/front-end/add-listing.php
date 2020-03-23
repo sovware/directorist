@@ -437,7 +437,7 @@ $query_args = array(
                                             $cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
 
                                             if (isset($post_id)) {
-                                                $cf_meta_default_val = $post_id[0];
+                                                $cf_meta_default_val = $post_id;
                                             }
                                             $cf_meta_val = get_post_meta(get_the_ID(), 'type', true);
                                             $cf_rows = get_post_meta(get_the_ID(), 'rows', true);

@@ -743,9 +743,9 @@ css for Custom Field
   z-index: 999;
 }
 
-.business_time.column-business_time,
-.web-link.column-web-link {
-  text-align: left;
+.business_time.column-business_time .atbdp-tick-cross2,
+.web-link.column-web-link .atbdp-tick-cross2 {
+  padding-left: 25px;
 }
 
 #atbdp-field-details .recurring_time_period {
@@ -825,6 +825,20 @@ div#need_post_area label input:checked + span {
 #danout_example input[type="text"],
 #danout_example .button {
   display: none !important;
+}
+
+#directorist.atbd_wrapper .dbh-wrapper label {
+  margin-bottom: 0 !important;
+}
+
+#directorist.atbd_wrapper .dbh-wrapper .disable-bh {
+  margin-bottom: 5px;
+}
+
+#directorist.atbd_wrapper .dbh-wrapper .dbh-timezone .select2-container .select2-selection--single {
+  height: 37px;
+  padding-left: 15px;
+  border-color: #ddd;
 }
 
 /*# sourceMappingURL=map/style.css.map */

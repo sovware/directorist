@@ -39,6 +39,7 @@ if (!class_exists('ATBDP_Shortcode')):
          */
         public function ajax_callback_custom_fields($post_id = 0, $term_id = array())
         {
+
             $ajax = false;
             if (isset($_POST['term_id'])) {
                 $ajax = true;
@@ -53,25 +54,26 @@ if (!class_exists('ATBDP_Shortcode')):
                 'status' => 'published'
             );
             $meta_queries = array();
-            if ($categories > 1) {
-                $sub_meta_queries = array();
-                foreach ($categories as $value) {
-                    $sub_meta_queries[] = array(
+            if(!empty($categories)){
+                if ($categories > 1) {
+                    $sub_meta_queries = array();
+                    foreach ($categories as $value) {
+                        $sub_meta_queries[] = array(
+                            'key' => 'category_pass',
+                            'value' => $value,
+                            'compare' => 'LIKE'
+                        );
+                    }
+
+                    $meta_queries[] = array_merge(array('relation' => 'OR'), $sub_meta_queries);
+                } else {
+                    $meta_queries[] = array(
                         'key' => 'category_pass',
-                        'value' => $value,
+                        'value' => $categories[0],
                         'compare' => 'LIKE'
                     );
                 }
-
-                $meta_queries[] = array_merge(array('relation' => 'OR'), $sub_meta_queries);
-            } else {
-                $meta_queries[] = array(
-                    'key' => 'category_pass',
-                    'value' => $categories[0],
-                    'compare' => 'LIKE'
-                );
             }
-
             $meta_queries[] = array(
                 array(
                     'relation' => 'OR',

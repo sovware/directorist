@@ -323,9 +323,9 @@ class ATBDP_Custom_Field
                 if ('checkbox' == $field_type || 'textarea' == $field_type) {
                     $field_default_value = esc_textarea($_POST['default_value_' . $field_type]);
                 } else if ('url' == $field_type) {
-                    $field_default_value = esc_url_raw($_POST['default_value']);
+                    $field_default_value = isset($_POST['default_value']) ? esc_url_raw($_POST['default_value']) : '';
                 } else {
-                    $field_default_value = sanitize_text_field($_POST['default_value']);
+                    $field_default_value = isset($_POST['default_value']) ? sanitize_text_field($_POST['default_value']) : '';
                 }
                 update_post_meta($post_id, 'default_value', $field_default_value);
 

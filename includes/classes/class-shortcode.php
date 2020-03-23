@@ -3151,7 +3151,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     <div class="atbd_social_login">
                         <?php do_action('atbdp_before_login_form_end'); ?>
                     </div>
-                <?php if (!empty($display_signup)) { ?>
+                <?php if ( !empty($display_signup) ) { ?>
                     <p><?php echo $reg_text; ?><a
                                 href="<?php echo $reg_url; ?>"> <?php echo $reg_linktxt; ?></a></p>
                 <?php }

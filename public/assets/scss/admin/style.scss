@@ -685,7 +685,9 @@ css for Custom Field
 
 .business_time.column-business_time,
 .web-link.column-web-link{
-  text-align: left;
+  .atbdp-tick-cross2{
+    padding-left: 25px;
+  }
 }
 
 #atbdp-field-details .recurring_time_period{

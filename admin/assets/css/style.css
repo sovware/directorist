@@ -827,4 +827,18 @@ div#need_post_area label input:checked + span {
   display: none !important;
 }
 
+#directorist.atbd_wrapper .dbh-wrapper label {
+  margin-bottom: 0 !important;
+}
+
+#directorist.atbd_wrapper .dbh-wrapper .disable-bh {
+  margin-bottom: 5px;
+}
+
+#directorist.atbd_wrapper .dbh-wrapper .dbh-timezone .select2-container .select2-selection--single {
+  height: 37px;
+  padding-left: 15px;
+  border-color: #ddd;
+}
+
 /*# sourceMappingURL=map/style.css.map */

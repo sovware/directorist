@@ -200,7 +200,7 @@ do_action('atbdp_before_listing_section');
     <div class="atbdb_content_module_contents">
         <?php
         
-        $listing_prv_imgurl = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+        $listing_prv_imgurl = !empty($listing_prv_img) ? wp_get_attachment_image_src($listing_prv_img, 'large')[0] : '';
         $gallery_image = '';
         $plan_slider = true;
         if (is_fee_manager_active()) {

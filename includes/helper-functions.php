@@ -2312,7 +2312,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                     $business_hours = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
                     $author_id = get_the_author_meta('ID');
                     $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-                    $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
+                    $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
                     $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                     $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                     $display_pricing_field = get_directorist_option('display_pricing_field', 1);
@@ -4632,14 +4632,14 @@ function the_thumbnail_card($img_src = '', $_args = array())
     $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
     $listing_img_src = '';
     if ( is_array($listing_img) && count($listing_img)  ) {
-        $listing_img_src = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
+        $listing_img_src = !empty($listing_img) ? wp_get_attachment_image_src($listing_img[0], 'medium')[0] : '';
     }
 
 
     $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
     $prv_image_src = '';
     if ( !empty($listing_prv_img) || $listing_prv_img !== false ) {
-        $prv_image_src = wp_get_attachment_image_src($listing_prv_img, 'medium')[0];
+        $prv_image_src = !empty($listing_prv_img) ? wp_get_attachment_image_src($listing_prv_img, 'medium')[0] : '';
     }
 
     $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');

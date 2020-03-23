@@ -10,7 +10,7 @@ $listing_imgs                        = (!empty($args['listing_img'])) ? $args['l
 $listing_prv_img_id                  = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] : '';
 $plan_slider                         = (!empty($args['plan_slider'])) ? $args['plan_slider'] : '';
 $listing_id                          = (!empty($args['p_id'])) ? $args['p_id'] : '';
-$listing_prv_img                     = wp_get_attachment_image_src($listing_prv_img_id);
+$listing_prv_img                     = !empty($listing_prv_img_id) ? wp_get_attachment_image_src($listing_prv_img_id) : '';
 $image_links                         = []; // define a link placeholder variable
 foreach ($listing_imgs as $id) {
     $image_links[$id]                = wp_get_attachment_image_src($id)[0]; // store the attachment id and url

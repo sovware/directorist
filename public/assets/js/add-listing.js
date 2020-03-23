@@ -508,7 +508,6 @@ jQuery(function ($) {
         form_data.append('timezone', atbdp_element_value('select[name="timezone"]'));
         // booking
         var booking_field = $('.atbdb-wrapper').find('input[name^="bdb"]');
-
         if (booking_field.length > 1) {
             booking_field.each(function (index, value) {
                     var type = $(value).attr('type');

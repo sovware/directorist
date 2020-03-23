@@ -63,6 +63,9 @@ class ATBDP_Review_Custom_Post
             'show_in_nav_menus' => true,
             'can_export' => true,
             'has_archive' => true,
+            'capabilities' => array(
+                'create_posts' => false,
+            ),
             'exclude_from_search' => true,
             'publicly_queryable' => true,
             'capability_type' => 'atbdp_order',

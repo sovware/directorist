@@ -82,7 +82,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $author_id = get_the_author_meta('ID');
                     $display_author_image = get_directorist_option('display_author_image', 1);
                     $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-                    $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
+                    $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
                     $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                     $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                     $display_pricing_field = get_directorist_option('display_pricing_field', 1);

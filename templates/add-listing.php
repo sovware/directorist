@@ -185,7 +185,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
 
                 $cf_meta_default_val = $post_meta['default_value'];
                 if (isset($post_id)) {
-                    $cf_meta_default_val = $post_id[0];
+                    $cf_meta_default_val = $post_id;
                 }
                 $cf_meta_val = $post_meta['type'][0];
                 $cf_rows = $post_meta['rows'][0];

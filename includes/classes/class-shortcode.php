@@ -46,16 +46,16 @@ if (!class_exists('ATBDP_Shortcode')):
                 $term_id = $_POST['term_id'];
             }
             // Get custom fields
-            $custom_field_ids = !empty($term_id) ? $term_id : array();
+            $categories = !empty($term_id) ? $term_id : array();
             $args = array(
                 'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
                 'posts_per_page' => -1,
                 'status' => 'published'
             );
             $meta_queries = array();
-            if ($custom_field_ids > 1) {
+            if ($categories > 1) {
                 $sub_meta_queries = array();
-                foreach ($custom_field_ids as $value) {
+                foreach ($categories as $value) {
                     $sub_meta_queries[] = array(
                         'key' => 'category_pass',
                         'value' => $value,
@@ -67,7 +67,7 @@ if (!class_exists('ATBDP_Shortcode')):
             } else {
                 $meta_queries[] = array(
                     'key' => 'category_pass',
-                    'value' => $custom_field_ids[0],
+                    'value' => $categories[0],
                     'compare' => 'LIKE'
                 );
             }

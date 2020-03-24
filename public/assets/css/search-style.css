@@ -289,3 +289,47 @@
 .default-ad-search .form-group{
     margin-bottom: 15px;
 }
+
+
+/* Range Slider */
+
+.atbd-slide1{
+    width: 30px;
+    height: 10px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top: -5px;
+    cursor: pointer;
+    border-radius: 10px
+}
+.atbd-slide2{
+    width: 30px;
+    height: 10px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -5px;
+    cursor: pointer;
+    border-radius: 10px
+}
+.atbd-m-device{
+    transform: scaleY(2);
+}
+.atbd-m-device2{
+    transform: scaleX(2);
+}
+p.atbd-max {
+    float: right;
+}
+p.atbd-min {
+    float: left;
+}
+.atbd-child{
+    height: 10px;
+    border-radius: 20px 0 0 20px;
+    background: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

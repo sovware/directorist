@@ -283,6 +283,11 @@ if ($display_header == 'yes') { ?>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--range slider-->
+                                        <div style="width: 98%; margin: 300px auto;">
+                                            <div id="slider">
+                                            </div>
+                                        </div>
                                     <?php } ?>
                                 <?php
                                 if (in_array('search_open_now', $search_more_filters_fields) && in_array('directorist-business-hours/bd-business-hour.php', apply_filters('active_plugins', get_option('active_plugins')))) { ?>

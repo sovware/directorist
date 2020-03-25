@@ -48,7 +48,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                         <div class="atbdp_tab_nav_wrapper">
                             <ul class="atbdp_tab_nav--content">
                                 <?php if (!empty($my_listing_tab)) { ?>
-                                    <li>
+                                    <li class="atbdp_tab_nav--content-link">
                                         <a href="" target="my_listings" class="atbd_tn_link tabItemActive">
                                             <?php $list_found = ($listings->found_posts > 0) ? $listings->found_posts : '0';
                                             printf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found); ?>
@@ -62,19 +62,29 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                 do_action('atbdp_tab_after_my_listings');
                                 ?>
                                 <?php if (!empty($my_profile_tab)) { ?>
-                                    <li><a href="" class="atbd_tn_link"
+                                    <li class="atbdp_tab_nav--content-link"><a href="" class="atbd_tn_link"
                                            target="profile"><?php _e($my_profile_tab_text, 'directorist'); ?></a>
                                     </li>
                                 <?php } ?>
                                 <?php if (!empty($fav_listings_tab)) { ?>
-                                    <li><a href="" class="atbd_tn_link"
+                                    <li class="atbdp_tab_nav--content-link"><a href="" class="atbd_tn_link"
                                            target="saved_items"><?php _e($fav_listings_tab_text, 'directorist'); ?></a>
                                     </li>
                                 <?php } ?>
+                                <li class="atbdp_tab_nav--content-link atbdp_all_booking_nav">
+                                    <a href="#" class="atbdp_all_booking_nav-link">All Booking <span class="fa fa-angle-down"></span></a>
+                                    <ul>
+                                        <li><a href="">Approved</a></li>
+                                        <li><a href="">Pending</a></li>
+                                        <li><a href="">Cancelled</a></li>
+                                    </ul>
+                                </li>
                                 <?php
                                 do_action('atbdp_tab_after_favorite_listings');
                                 ?>
-
+                                <li class="atbdp_tab_nav--content-link atbdp-tab-nav-last">
+                                    <a href="#" class="atbdp-tab-nav-link"><span class="fa fa-ellipsis-h"></span></a>
+                                </li>
                             </ul>
                         </div>
 

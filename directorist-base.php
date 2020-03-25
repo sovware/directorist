@@ -1383,7 +1383,6 @@ final class Directorist_Base
  * Use this function like you would a global variable, except without needing
  * to declare the global.
  *
- * Example: <?php $ATBDP = ATBDP(); ?>
  *
  * @since 1.0
  * @return object|Directorist_Base The one true Directorist_Base Instance.

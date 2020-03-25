@@ -254,7 +254,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                         $output = atbdp_display_price_range($price_range);
                                                         $meta_html .= $output;
                                                     } else {
-                                                        $meta_html .= atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
+                                                        $meta_html .= apply_filters('atbdp_listing_card_price', atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false));
                                                     }
                                                 }
                                                 /**

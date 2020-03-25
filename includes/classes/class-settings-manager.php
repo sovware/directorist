@@ -1030,6 +1030,11 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Category', 'directorist'),
                             'fields' => $this->get_listings_cat_field_settings(),
                         ),
+                        'contact_info' => array(
+                            'type' => 'section',
+                            'title' => __('Contact Information Hiding Option', 'directorist'),
+                            'fields' => $this->get_listings_contact_info_settings(),
+                        ),
                         'address_field' => array(
                             'type' => 'section',
                             'title' => __('Address', 'directorist'),
@@ -4935,6 +4940,28 @@ The Administrator of ==SITE_NAME==
         }
 
         /**
+         * Get contact info settings field
+         * @return array
+         * @since 5.3.3
+         */
+        public function get_listings_contact_info_settings()
+        {
+            return apply_filters('atbdp_contact_info_setting', array(
+                array(
+                    'type' => 'toggle',
+                    'name' => 'display_contact_hide',
+                    'label' => __('Enable', 'directorist'),
+                    'default' => 1,
+                ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'contact_hide_label',
+                    'label' => __('Label', 'directorist'),
+                    'default' => __('Check it to hide Contact Information for this listing', 'directorist'),
+                ),
+            ));
+        }
+        /**
          * Get address settings field
          * @return array
          * @since 4.7.2
@@ -5487,6 +5514,7 @@ The Administrator of ==SITE_NAME==
                 ),
             ));
         }
+
 
         /**
          * Get  term & condition settings field

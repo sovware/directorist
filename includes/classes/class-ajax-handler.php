@@ -62,6 +62,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             add_action('wp_ajax_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
             add_action('wp_ajax_nopriv_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
             //login
+            add_action('wp_ajax_ajaxlogin', array($this, 'atbdp_ajax_login'));
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));
             // regenerate pages
             add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
@@ -79,24 +80,51 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         public function atbdp_ajax_login()
         {
             // First check the nonce, if it fails the function will break
-            check_ajax_referer('ajax-login-nonce', 'security');
-            // Nonce is checked, get the POST data and sign user on
-            $username = $_POST['username'];
-            $user_password = $_POST['password'];
-            $keep_signed_in = !empty($_POST['rememberme']) ? true : false;
-            $user = wp_authenticate($username, $user_password);
-            if (is_wp_error($user)) {
-                if (empty($username && $user_password)) {
-                    echo json_encode(array('loggedin' => false, 'message' => __('Fields are required.', 'directorist')));
-                } else {
-                    echo json_encode(array('loggedin' => false, 'message' => __('Wrong username or password.', 'directorist')));
-                }
-            } else {
-                wp_set_current_user($user->ID);
-                wp_set_auth_cookie($user->ID, $keep_signed_in);
-                echo json_encode(array('loggedin' => true, 'message' => __('Login successful, redirecting...', 'directorist')));
+            $check_ajax_referer = check_ajax_referer('ajax-login-nonce', 'security', false);
+
+            if ( ! $check_ajax_referer ) {
+                echo json_encode(array(
+                    'loggedin'=> false, 
+                    'message'=> __('Something went wrong, page is reloading...', 'directorist'),
+                    'reload'=> true,
+                ));
+
+                die();
             }
-            exit();
+
+            if ( is_user_logged_in() ) {
+                echo json_encode(array(
+                    'loggedin'=> true, 
+                    'message'=> __('Login successful, redirecting...', 'directorist'),
+                ));
+
+                die();
+            }
+
+            // Nonce is checked, get the POST data and sign user on
+            $keep_signed_in = ( $_POST['rememberme'] === 1 || $_POST['rememberme'] === '1' ) ? true : false;
+
+            $info = array();
+            $info['user_login'] = $_POST['username'];
+            $info['user_password'] = $_POST['password'];
+            $info['remember'] = $keep_signed_in;
+
+            $user_signon = wp_signon( $info, false );
+            if ( is_wp_error( $user_signon ) ) {
+                echo json_encode(array(
+                    'loggedin'=> false, 
+                    'message'=> __('Wrong username or password.')
+                ));
+            } else {
+                wp_set_current_user( $user_signon->ID );
+
+                echo json_encode(array(
+                    'loggedin'=> true, 
+                    'message'=> __('Login successful, redirecting...')
+                ));
+            }
+
+            die();
         }
 
         public function atbdp_post_attachment_upload()

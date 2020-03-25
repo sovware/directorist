@@ -805,9 +805,14 @@ jQuery(function ($) {
                 'action': 'ajaxlogin', //calls wp_ajax_nopriv_ajaxlogin
                 'username': $('form#login p #username').val(),
                 'password': $('form#login p #password').val(),
-                'rememberme': $('form#login #keep_signed_in').val(),
-                'security': $('#security').val() },
-            success: function(data){
+                'rememberme': ( $('form#login #keep_signed_in').is(':checked') ) ? 1 : 0,
+                'security': $('#security').val()
+            },
+            success: function(data) {
+                if ( 'reload' in data && data.reload ) {
+                    $('p.status').html('<span class="status-success">' + data.message + '</span>');
+                    location.reload();
+                }
                 if (data.loggedin == true){
                     $('p.status').html('<span class="status-success">' + data.message + '</span>');
                     document.location.href = ajax_login_object.redirect_url;
@@ -816,6 +821,10 @@ jQuery(function ($) {
                 }
             },
             error: function (data) {
+                if ( 'reload' in data && data.reload ) {
+                    $('p.status').html('<span class="status-success">' + data.message + '</span>');
+                    location.reload();
+                }
                 $('p.status').show().html('<span class="status-failed">' + ajax_login_object.login_error_message + '</span>');
             }
         });

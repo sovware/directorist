@@ -277,9 +277,8 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                             </div>
                                         </div>
                                         <!--range slider-->
-                                        <div style="width: 98%; margin: 300px auto;">
-                                            <div id="slider">
-                                            </div>
+                                        <div class="form-group">
+                                            <div id="atbdp-range-slider"></div>
                                         </div>
                                     <?php } ?>
                                     <?php if ('yes' == $tag_field) {

@@ -93,12 +93,13 @@
         transform: translateY(-50%);
         font-size: 13px;
         color: #7a82a6;
+        z-index: 2;
         &.slick-prev {
-          left: -15px;
+          left: 0;
         }
 
         &.slick-next {
-          right: -15px;
+          right: 0;
         }
         &:before, &:after{
           content: none;

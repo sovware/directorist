@@ -791,7 +791,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
              * If fires sending processing the submitted contact information
              * @since 4.4.0
              */
-            // do_action('atbdp_before_processing_contact_to_owner');
+             do_action('atbdp_before_processing_contact_to_owner');
              if ( !in_array( 'listing_contact_form', get_directorist_option('notify_user', array()) ) ) {
                 return false;
             }

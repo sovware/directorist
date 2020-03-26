@@ -222,7 +222,7 @@ function atbdp_extend_extension_settings_submenus($default)
 {
     if (atbdp_is_extension_active()) {
         $array_license = array(
-            'title' => __('Active License', 'directorist'),
+            'title' => __('Activate License', 'directorist'),
             'name' => 'extensions_license',
             'icon' => 'font-awesome:fa-id-card',
             'controls' => apply_filters('atbdp_license_settings_controls', array(

@@ -199,13 +199,6 @@ class ATBDP_Gateway{
     function get_gateway_settings_fields(){
 
         return apply_filters('atbdp_gateway_settings_fields', array(
-                array(
-                    'type' => 'toggle',
-                    'name' => 'enable_offline_payment',
-                    'label' => __('Enable Offline Payment', 'directorist'),
-                    'description' => __('Choose whether you want to accept offline Payment or not. Default is YES.', 'directorist'),
-                    'default' => 1,
-                ),
                'gateway_promotion' => array(
                     'type' => 'notebox',
                     'name' => 'paypal_gateway_promotion',

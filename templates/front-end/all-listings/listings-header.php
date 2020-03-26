@@ -283,11 +283,14 @@ if ($display_header == 'yes') { ?>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--range slider-->
-                                        <div style="width: 98%; margin: 300px auto;">
-                                            <div id="slider">
-                                            </div>
+                                    <!--range slider-->
+                                    <div class="form-group">
+                                        <div class="atbdp-range-slider-wrapper">
+                                            <div><div id="atbdp-range-slider"></div></div>
+                                            <p class="atbd-current-value"><span></span></p>
                                         </div>
+                                        <input type="hidden" class="atbdrs-value" value="" />
+                                    </div>
                                     <?php } ?>
                                 <?php
                                 if (in_array('search_open_now', $search_more_filters_fields) && in_array('directorist-business-hours/bd-business-hour.php', apply_filters('active_plugins', get_option('active_plugins')))) { ?>

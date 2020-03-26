@@ -71,14 +71,6 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                            target="saved_items"><?php _e($fav_listings_tab_text, 'directorist'); ?></a>
                                     </li>
                                 <?php } ?>
-                                <li class="atbdp_tab_nav--content-link atbdp_all_booking_nav">
-                                    <a href="#" class="atbdp_all_booking_nav-link">All Booking <span class="fa fa-angle-down"></span></a>
-                                    <ul>
-                                        <li><a href="">Approved</a></li>
-                                        <li><a href="">Pending</a></li>
-                                        <li><a href="">Cancelled</a></li>
-                                    </ul>
-                                </li>
                                 <?php
                                 do_action('atbdp_tab_after_favorite_listings');
                                 ?>

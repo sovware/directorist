@@ -33,10 +33,10 @@ if(!empty($enable_uninstall)) {
     $wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type IN ( 'at_biz_dir', 'atbdp_fields', 'atbdp_orders', 'atbdp_listing_review' );" );
 
     //Delete all metabox
-    $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id Not IN  (SELECT id FROM wp_posts)");
+    $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id Not IN  (SELECT id FROM {$wpdb->posts})");
     //Delete term relationships
 
-    $wpdb->query("DELETE FROM {$wpdb->term_relationships} WHERE object_id Not IN  (SELECT id FROM wp_posts)");
+    $wpdb->query("DELETE FROM {$wpdb->term_relationships} WHERE object_id Not IN  (SELECT id FROM {$wpdb->posts})");
 
     //Delete all taxonomy
     $wpdb->query("DELETE FROM {$wpdb->term_taxonomy} WHERE taxonomy = 'at_biz_dir-location'");

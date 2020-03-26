@@ -1,15 +1,16 @@
 /* range slider */
 const atbd_slider = (selector, obj) => {
     var isDraging 	= false,
-        max 		= obj.maxValue + (Math.ceil(obj.maxValue*1.633/100)),
+        max 		= obj.maxValue + (Math.ceil(obj.maxValue*2.285714285714286/100)),
         min 		= obj.minValue,
         down 		= 'mousedown',
         up 			= 'mouseup',
         move 		= 'mousemove',
 
-        div = `<div class="atbd-slide1" draggable="true"></div>		
-		<p class="atbd-min" style="color : ${obj.fontColor}; font-size: ${obj.fontSize} "></p>		
-		<input type='hidden' class="atbd-minimum" name="minimum" value=${min} /><div class="atbd-child"></div>
+        div = `
+            <div class="atbd-slide1" draggable="true"></div>	
+            <input type='hidden' class="atbd-minimum" name="minimum" value=${min} />
+            <div class="atbd-child"></div>
 		`;
 
     if ("ontouchstart" in document.documentElement){
@@ -21,7 +22,7 @@ const atbd_slider = (selector, obj) => {
     const slider = document.querySelectorAll(selector);
 
     slider.forEach((id, index) => {
-        id.setAttribute('style', `max-width: ${obj.maxWidth}; border: ${obj.barBorder}; width: 100%; height: 10px; background: ${obj.barColor}; position: relative; border-radius: 20px;`);
+        id.setAttribute('style', `max-width: ${obj.maxWidth}; border: ${obj.barBorder}; width: 100%; height: 4px; background: ${obj.barColor}; position: relative; border-radius: 2px;`);
         id.innerHTML = div;
         let slide1 	= id.querySelector('.atbd-slide1'),
             width 	= id.clientWidth;
@@ -29,7 +30,7 @@ const atbd_slider = (selector, obj) => {
         slide1.style.background = obj.pointerColor;
         slide1.style.border = obj.pointerBorder;
 
-        id.querySelector('.atbd-min').innerHTML = min;
+        document.querySelector('.atbd-current-value span').innerHTML = `${min} Miles`;
 
         var x 			= null,
             count 		= 0,
@@ -68,14 +69,15 @@ const atbd_slider = (selector, obj) => {
                 }
                 if(count < 0){
                     count = 0;
-                } else if(count > count2 - 30){
-                    count = count2 - 30;
+                } else if(count > count2 - 18){
+                    count = count2 - 18;
                 }
             }
             if(slide1.classList.contains('atbd-active')){
                 slid1_val 	= Math.floor(max/ width * count);
-                id.querySelector('.atbd-min').innerHTML = slid1_val;
+                document.querySelector('.atbd-current-value span').innerHTML = `${slid1_val} Miles`;
                 id.querySelector('.atbd-minimum').value = slid1_val;
+                document.querySelector('.atbdrs-value').value = slid1_val;
                 id.querySelector('.atbd-active').style.left = count +'px';
                 id.querySelector('.atbd-child').style.width = count+'px';
             }
@@ -86,15 +88,13 @@ const atbd_slider = (selector, obj) => {
 
 function atbd_callingSlider() {
     atbd_slider ('#atbdp-range-slider', {
-        maxValue: 500,
+        maxValue: 145,
         minValue: 0,
         maxWidth: '100%',
-        barColor: '#f5548e',
+        barColor: '#d4d5d9',
         barBorder: 'none',
-        pointerColor: '#000',
-        pointerBorder: 'none',
-        fontColor: '#f5548e',
-        fontSize: '20px'
+        pointerColor: '#fff',
+        pointerBorder: '4px solid #444752',
     });
 }
 atbd_callingSlider();

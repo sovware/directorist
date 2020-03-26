@@ -79,11 +79,14 @@ $c_symbol = atbdp_currency_symbol($currency);
                 </div>
             </div>
         </div>
-        <!--range slider-->
-        <div style="width: 98%; margin: 300px auto;">
-            <div id="slider">
+            <!--range slider-->
+            <div class="form-group">
+                <div class="atbdp-range-slider-wrapper atbdprs-widget">
+                    <p class="atbd-current-value">Distance: <span></span></p>
+                    <div><div id="atbdp-range-slider"></div></div>
+                </div>
+                <input type="hidden" class="atbdrs-value" value="" />
             </div>
-        </div>
         <?php } ?>
         <?php if(!empty($search_by_custom_fields)) { ?>
             <div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">

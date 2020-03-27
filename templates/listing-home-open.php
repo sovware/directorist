@@ -128,6 +128,14 @@ $c_symbol = atbdp_currency_symbol($currency);
                             </div>
                         </div>
                     </div>
+                        <!--range slider-->
+                        <div class="form-group">
+                            <div class="atbdp-range-slider-wrapper">
+                                <div><div id="atbdp-range-slider"></div></div>
+                                <p class="atbd-current-value"><span></span></p>
+                            </div>
+                            <input type="hidden" class="atbdrs-value" value="" />
+                        </div>
                     <?php } ?>
                     <?php if('yes' == $tag_field) {
                         $terms = get_terms(ATBDP_TAGS);

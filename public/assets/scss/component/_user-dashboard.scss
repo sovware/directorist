@@ -12,7 +12,7 @@
       flex: 1;
       width: 55%;
     }
-    ul {
+    .atbdp_tab_nav--content {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
@@ -20,7 +20,6 @@
       margin: 5px 0;
       li {
         margin: 0;
-
         a {
           border: 1px solid transparent;
           border-radius: 3px 3px 0 0;
@@ -35,6 +34,33 @@
           &:focus, &:active {
             outline: 0;
             background: none;
+          }
+        }
+        &.atbdp-tab-nav-last, &.atbdp_all_booking_nav{
+          position: relative;
+          ul{
+            visibility: hidden;
+            opacity: 0;
+            pointer-events: none;
+            position: absolute;
+            min-width: 130px;
+            top: 55px;
+            right: 0;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.13) !important;
+            z-index: 1;
+            background: #fff;
+            border-radius: 3px;
+            transition: 0.3s ease;
+            padding-top: 7px;
+            &.active{
+              visibility: visible;
+              opacity: 1;
+              pointer-events: all;
+              top: 45px;
+            }
+            li a{
+              padding-top: 0;
+            }
           }
         }
       }
@@ -67,12 +93,13 @@
         transform: translateY(-50%);
         font-size: 13px;
         color: #7a82a6;
+        z-index: 2;
         &.slick-prev {
-          left: -15px;
+          left: 0;
         }
 
         &.slick-next {
-          right: -15px;
+          right: 0;
         }
         &:before, &:after{
           content: none;

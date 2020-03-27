@@ -28,6 +28,8 @@ $zip_placeholder = get_directorist_option('zip_placeholder', __('Enter Zip/Post 
 $display_social_info_field = get_directorist_option('display_social_info_field', 1);
 $display_map_field = get_directorist_option('display_map_field', 1);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
+$display_contact_hide = get_directorist_option('display_contact_hide', 1);
+$contact_hide_label = get_directorist_option('contact_hide_label', __('Check it to hide Contact Information for this listing', 'directorist'));
 $t = '';//later need to configure the marker info window
 //$t = !empty( $t ) ? esc_html($t) : __('No Title ', 'directorist');
 $tg = !empty( $tagline ) ? esc_html($tagline) : '';
@@ -52,17 +54,18 @@ $info_content .= "<p> {$ad}</p></div>";
         </div>
     <?php } ?>
     <?php if (!empty( $display_phone_field || $display_phone2_field|| $display_fax || $display_map_field || $display_address_field || $display_email_field || $display_website_field || $display_zip_field)) { ?>
-
         <!-- MAP or ADDRESS related information starts here -->
+        <?php if(!empty($display_contact_hide)) { ?>
         <div class="form-check">
             <input type="checkbox" name="hide_contact_info" class="form-check-input" id="hide_contact_info"
                    value="1" <?php if (!empty($hide_contact_info)) {
                 checked($hide_contact_info);
             } ?> >
             <label class="form-check-label"
-                   for="hide_contact_info"><?php _e('Check it to hide Contact Information for this listing', 'directorist'); ?></label>
+                   for="hide_contact_info"><?php echo !empty($contact_hide_label) ? $contact_hide_label : __('Check it to hide Contact Information for this listing', 'directorist'); ?></label>
 
         </div>
+        <?php } ?>
 
          <?php if (!empty($display_map_field) || !empty($display_address_field)) { ?>
 

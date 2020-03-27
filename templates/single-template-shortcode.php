@@ -71,8 +71,6 @@ if ( !class_exists('ATBDP_Single_Templates') ) {
 
         //listing contact owner area
         public function directorist_listing_contact_owner() {
-            global $post;
-            $listing_id = $post->ID;
             ob_start();
             if(is_singular(ATBDP_POST_TYPE)) {
                 include ATBDP_TEMPLATES_DIR . 'front-end/single-listing/listing-contact-owner.php';

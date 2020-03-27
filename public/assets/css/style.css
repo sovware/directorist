@@ -2168,6 +2168,15 @@ div#listing_notifier span {
   color: #202428;
 }
 
+.atbd_tab_slider {
+  overflow: hidden;
+}
+
+.atbd_tab_slider .slick-list {
+  overflow: visible;
+  z-index: 1;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -4446,6 +4455,12 @@ span.atbd_get_loc_wid {
   padding-top: 10px;
 }
 
+.atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-widget-listing-contact form p.text-success,
+.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-listing-contact form p.text-success,
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-listing-contact form p.text-success {
+  margin-bottom: 15px;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'] .accordion-single,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .accordion-single,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .accordion-single {
@@ -5322,7 +5337,7 @@ span.atbd_get_loc_wid {
   width: 55%;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul {
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -5330,11 +5345,11 @@ span.atbd_get_loc_wid {
   margin: 5px 0;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul li {
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li {
   margin: 0;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul li a {
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li a {
   border: 1px solid transparent;
   border-radius: 3px 3px 0 0;
   padding: 10px 15px;
@@ -5342,14 +5357,45 @@ span.atbd_get_loc_wid {
   display: block;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul li a.tabItemActive {
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li a.tabItemActive {
   border-color: #e3e6ef;
   border-bottom-color: transparent;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul li a:focus, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul li a:active {
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li a:focus, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li a:active {
   outline: 0;
   background: none;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp_all_booking_nav {
+  position: relative;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last ul, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp_all_booking_nav ul {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  min-width: 130px;
+  top: 55px;
+  right: 0;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.13) !important;
+  z-index: 1;
+  background: #fff;
+  border-radius: 3px;
+  transition: 0.3s ease;
+  padding-top: 7px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last ul.active, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp_all_booking_nav ul.active {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: all;
+  top: 45px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last ul li a, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp_all_booking_nav ul li a {
+  padding-top: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide {
@@ -5382,14 +5428,15 @@ span.atbd_get_loc_wid {
   transform: translateY(-50%);
   font-size: 13px;
   color: #7a82a6;
+  z-index: 2;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide .slick-arrow.slick-prev {
-  left: -15px;
+  left: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide .slick-arrow.slick-next {
-  right: -15px;
+  right: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide .slick-arrow:before, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide .slick-arrow:after {
@@ -6637,131 +6684,83 @@ span.atbd_get_loc_wid {
   padding-left: 15px;
 }
 
-/* range slider */
-.atbdpr-range {
-  width: 100%;
-}
-
-.atbdpr-range p {
-  color: #fff;
-}
-
-.atbdpr-range .atbdpr_amount {
-  color: #122069;
-}
-
-.atbdpr-range .ui-slider-horizontal {
-  background: #d4d5d9;
-  height: 4px;
-  border-radius: 2px;
-}
-
-.atbdpr-range .ui-slider-horizontal .ui-slider-range {
-  background: #444752;
-}
-
-.atbdpr-range .ui-slider-horizontal .ui-slider-handle {
-  background: #fff;
-  border: 4px solid #444752;
-  border-radius: 300px;
-  cursor: pointer;
-  outline: 0;
-  top: -7px;
-  margin-left: 0;
-}
-
-.atbdpr-range .ui-slider-horizontal .ui-slider-handle:before, .atbdpr-range .ui-slider-horizontal .ui-slider-handle:after {
-  content: none;
-}
-
-.atbdpr-range .atbd_slider-range {
-  margin-top: 13px;
-  margin-bottom: 8px;
-}
-
-.atbdpr-range .atbd_slider-range-wrapper {
+/* Range Slider */
+.atbdp-range-slider-wrapper {
   display: flex;
-  flex-wrap: wrap;
+  width: 100%;
   align-items: center;
   margin: 0 -15px;
 }
 
-.atbdpr-range .atbd_slider-range-wrapper .atbd_slider-range {
+.atbdp-range-slider-wrapper > div {
   flex: 1;
-  margin-left: 15px;
-  margin-right: 15px;
+  padding: 0 15px;
 }
 
-.atbdpr-range .atbd_slider-range-wrapper .d-flex {
+.atbdp-range-slider-wrapper .atbd-current-value {
   flex: 1;
   padding: 0 15px !important;
 }
 
-.atbdpr-range .ui-slider {
-  position: relative;
-  text-align: left;
+.atbdp-range-slider-wrapper.atbdprs-widget {
+  display: block;
+  margin: 0;
 }
 
-.atbdpr-range .ui-slider .ui-slider-handle {
-  position: absolute;
-  z-index: 2;
+.atbdp-range-slider-wrapper.atbdprs-widget > div {
+  padding: 0;
+}
+
+.atbdp-range-slider-wrapper.atbdprs-widget .atbd-current-value {
+  margin-bottom: 15px !important;
+  padding: 0 !important;
+}
+
+.atbd-slide1 {
   width: 1.2em;
   height: 1.2em;
-  cursor: default;
-  -ms-touch-action: none;
-  touch-action: none;
-}
-
-.atbdpr-range .ui-slider .ui-slider-range {
   position: absolute;
-  z-index: 1;
-  font-size: .7em;
-  display: block;
-  border: 0;
-  background-position: 0 0;
-}
-
-/* support: IE8 - See #6727 */
-.atbdpr-range .ui-slider.ui-state-disabled .ui-slider-handle,
-.atbdpr-range .ui-slider.ui-state-disabled .ui-slider-range {
-  filter: inherit;
-}
-
-.atbdpr-range .ui-slider-horizontal .ui-slider-range {
-  top: 0;
-  height: 100%;
-}
-
-.atbdpr-range .ui-slider-horizontal .ui-slider-range-min {
+  top: -2px;
   left: 0;
+  margin-top: -5px;
+  cursor: pointer;
+  border-radius: 50%;
 }
 
-.atbdpr-range .ui-slider-horizontal .ui-slider-range-max {
+.atbd-slide2 {
+  width: 30px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
   right: 0;
+  margin-top: -5px;
+  cursor: pointer;
+  border-radius: 10px;
 }
 
-.atbdpr-range .ui-slider-vertical {
-  width: .8em;
-  height: 100px;
+.atbd-m-device {
+  transform: scaleY(2);
 }
 
-.atbdpr-range .ui-slider-vertical .ui-slider-handle {
-  left: -.3em;
-  margin-left: 0;
-  margin-bottom: -.6em;
+.atbd-m-device2 {
+  transform: scaleX(2);
 }
 
-.atbdpr-range .ui-slider-vertical .ui-slider-range {
-  left: 0;
-  width: 100%;
+p.atbd-max {
+  float: right;
 }
 
-.atbdpr-range .ui-slider-vertical .ui-slider-range-min {
-  bottom: 0;
+p.atbd-min {
+  float: left;
 }
 
-.atbdpr-range .ui-slider-vertical .ui-slider-range-max {
+.atbd-child {
+  height: 4px;
+  border-radius: 2px;
+  background: #444752;
+  position: absolute;
   top: 0;
+  left: 0;
 }
 
 .ads-advanced .bottom-inputs {

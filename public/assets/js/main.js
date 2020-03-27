@@ -277,10 +277,7 @@
                             });
                         }
                     });
-
-
                 }
-
             });
 
         // send an ajax request to the ajax-handler.php and then delete the review of the given id
@@ -442,6 +439,7 @@
         //var tab_count = document.querySelectorAll(".atbdp_tab_nav--content li");
 
         if (tab_nav < 600 /*&& tab_count.length >=4*/) {
+            $(".atbd_tab").addClass("atbd_tab_slider")
             $(".atbdp_tab_nav--content").addClass("tab_nav_slide");
         }
 
@@ -487,6 +485,48 @@
                 $('.slick-next').hide();
             }
         });
+
+        /* active dropdown if nav items are higher than 5 */
+        if(document.querySelector('.atbdp_tab_nav--content') != null){
+            const navLi = document.querySelectorAll('.atbdp_tab_nav--content .atbdp_tab_nav--content-link');
+            const navLastChild = document.querySelector('.atbdp-tab-nav-last');
+            navLastChild.style.display = 'none';
+            const liArray = [...navLi];
+            const liSliced = liArray.slice(5, -1);
+            const navUl = document.createElement('ul');
+            liSliced.forEach(i => {
+                if (typeof i === 'object') {
+                    navUl.appendChild(i);
+                } else {
+                    navUl.innerHTML += ` ${i} `;
+                }
+            });
+            navLastChild.appendChild(navUl);
+            if(navLi.length >5){
+                navLastChild.style.display = 'block';
+            }
+
+            navLastChild.querySelector('.atbdp-tab-nav-link').addEventListener('click', function (e) {
+                e.preventDefault();
+                navLastChild.querySelector('ul').classList.toggle('active');
+            });
+
+            document.querySelector('.atbdp_all_booking_nav-link').addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector('.atbdp_all_booking_nav ul').classList.toggle('active');
+            });
+
+
+            document.body.addEventListener('click', function(e){
+                if(!e.target.closest(".atbdp-tab-nav-last")){
+                    document.querySelector('.atbdp-tab-nav-last ul').classList.remove('active');
+                }
+                if(!e.target.closest(".atbdp_all_booking_nav")){
+                    document.querySelector('.atbdp_all_booking_nav ul').classList.remove('active');
+                }
+            });
+        }
+
     });
 
     /*
@@ -631,7 +671,6 @@ jQuery(function ($) {
                             $('#atbdp-report-abuse-message').val('');
                             $('#atbdp-report-abuse-message-display').addClass('text-success').html(response.message);
                         }
-                        ;
 
 
                         atbdp_report_abuse_submitted = false; // Re-enable the submit event
@@ -754,7 +793,7 @@ jQuery(function ($) {
 
 
     // store the currently selected tab in the hash value
-    $("ul.atbdp_tab_nav--content > li > a").on("click", function (e) {
+    $("ul.atbdp_tab_nav--content > li > a.atbd_tn_link").on("click", function (e) {
         var id = $(e.target).attr("target").substr();
         window.location.hash = "#active_" + id;
         e.stopPropagation();

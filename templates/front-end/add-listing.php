@@ -131,6 +131,8 @@ $display_video_field = get_directorist_option('display_video_field', 1);
 $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
 $display_video_for = get_directorist_option('display_video_for', 0);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
+$display_contact_hide = get_directorist_option('display_contact_hide', 1);
+$contact_hide_label = get_directorist_option('contact_hide_label', __('Check it to hide Contact Information for this listing', 'directorist'));
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 $fm_plan = !empty(get_post_meta($p_id, '_fm_plans', true)) ? get_post_meta($p_id, '_fm_plans', true) : '';
 $currency = get_directorist_option('g_currency', 'USD');
@@ -743,6 +745,7 @@ $query_args = array(
                                         </div>
 
                                         <div class="atbdb_content_module_contents">
+                                            <?php if(!empty($display_contact_hide)) { ?>
                                             <div class="form-check">
                                                 <input type="checkbox" name="hide_contact_info" class="form-check-input"
                                                        id="hide_contact_info"
@@ -750,9 +753,9 @@ $query_args = array(
                                                     checked($hide_contact_info);
                                                 } ?> >
                                                 <label class="form-check-label"
-                                                       for="hide_contact_info"><?php _e('Check it to hide Contact Information', 'directorist'); ?></label>
+                                                       for="hide_contact_info"><?php echo !empty($contact_hide_label) ? $contact_hide_label : __('Check it to hide Contact Information for this listing', 'directorist'); ?></label>
                                             </div>
-
+                                            <?php } ?>
                                             <?php if (!$disable_contact_owner) { ?>
                                                 <div class="form-check">
                                                     <input type="checkbox" name="hide_contact_owner"

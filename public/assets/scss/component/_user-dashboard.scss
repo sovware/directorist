@@ -58,8 +58,13 @@
               pointer-events: all;
               top: 45px;
             }
-            li a{
-              padding-top: 0;
+            li{
+              display: block;
+              width: 100%;
+              a{
+                padding-top: 0;
+                border: 0 none;
+              }
             }
           }
         }

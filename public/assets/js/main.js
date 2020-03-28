@@ -502,27 +502,33 @@
                 }
             });
             navLastChild.appendChild(navUl);
-            if(navLi.length >5){
+            if(navLi.length > 5){
                 navLastChild.style.display = 'block';
+            }
+            if(navLi.length === 6){
+                navLastChild.style.display = 'none';
             }
 
             navLastChild.querySelector('.atbdp-tab-nav-link').addEventListener('click', function (e) {
                 e.preventDefault();
                 navLastChild.querySelector('ul').classList.toggle('active');
             });
-
-            document.querySelector('.atbdp_all_booking_nav-link').addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector('.atbdp_all_booking_nav ul').classList.toggle('active');
-            });
+            if(document.querySelector('.atbdp_all_booking_nav-link') !== null){
+                document.querySelector('.atbdp_all_booking_nav-link').addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector('.atbdp_all_booking_nav ul').classList.toggle('active');
+                });
+            }
 
 
             document.body.addEventListener('click', function(e){
                 if(!e.target.closest(".atbdp-tab-nav-last")){
                     document.querySelector('.atbdp-tab-nav-last ul').classList.remove('active');
                 }
-                if(!e.target.closest(".atbdp_all_booking_nav")){
-                    document.querySelector('.atbdp_all_booking_nav ul').classList.remove('active');
+                if(document.querySelector('.atbdp_all_booking_nav-link') !== null){
+                    if(!e.target.closest(".atbdp_all_booking_nav")){
+                        document.querySelector('.atbdp_all_booking_nav ul').classList.remove('active');
+                    }
                 }
             });
         }
@@ -906,3 +912,69 @@ if (tab_url.startsWith("#active_")) {
 }
 
 
+/* custom dropdown */
+const atbdDropdown = document.querySelectorAll('.atbd-dropdown');
+
+// toggle dropdown
+let clickCount = 0;
+atbdDropdown.forEach(function (el) {
+    el.querySelector('.atbd-dropdown-toggle').addEventListener('click', function (e) {
+        e.preventDefault();
+        console.log(e.target);
+        clickCount++;
+        if (clickCount % 2 === 1) {
+            document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
+                elem.classList.remove('atbd-show');
+            });
+            el.querySelector('.atbd-dropdown-items').classList.add('atbd-show');
+        } else {
+            document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {
+                elem.classList.remove('atbd-show');
+            });
+        }
+    });
+});
+
+// remvoe toggle when click outside
+document.body.addEventListener('click', function (e) {
+    if (e.target.getAttribute('data-drop-toggle') !== 'atbd-toggle') {
+        clickCount = 0;
+        document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
+            el.classList.remove('atbd-show');
+        });
+    }
+});
+
+//custom select
+const atbdSelect = document.querySelectorAll('.atbd-drop-select');
+atbdSelect.forEach(function (el) {
+    el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            el.querySelector('.atbd-dropdown-toggle').textContent = item.textContent;
+            el.querySelectorAll('.atbd-dropdown-item').forEach(function (elm) {
+                elm.classList.remove('atbd-active');
+            });
+            item.classList.add('atbd-active');
+
+        });
+    });
+});
+
+// select data-status
+const atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
+atbdSelectData.forEach(function (el) {
+    el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
+        let ds = el.querySelector('.atbd-dropdown-toggle');
+        let itemds = item.getAttribute('data-status');
+        item.addEventListener('click', function (e) {
+            ds.setAttribute('data-status', `${itemds}`);
+        });
+    });
+});
+
+const flatWrapper = document.querySelector(".flatpickr-calendar");
+const fAvailableTime = document.querySelector(".bdb-available-time-wrapper");
+if(flatWrapper != null && fAvailableTime != null){
+    flatWrapper.insertAdjacentElement("beforeend", fAvailableTime);
+}

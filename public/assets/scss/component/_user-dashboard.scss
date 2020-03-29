@@ -140,7 +140,7 @@
     }
 
     .atbd_dashboard_title_metas {
-      padding: 15px 20px;
+      padding: 15px 20px 10px;
     }
 
     .atbd_promote_btn_wrapper {
@@ -154,8 +154,23 @@
       }
     }
 
-    .atbd_single_listing .atbd_listing_info .atbd_content_upper {
-      padding: 0;
+    .atbd_single_listing{
+      .atbd_listing_info .atbd_content_upper {
+        padding: 0;
+      }
+      .atbd_listing_bottom_content{
+        border-top: 0 none;
+        padding-top: 0;
+        .listing-meta{
+          p{
+            color: #444752;
+            font-weight: 500;
+            span{
+              color: #7A82A6;
+            }
+          }
+        }
+      }
     }
 
     .user_pro_img_area {

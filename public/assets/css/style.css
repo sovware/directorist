@@ -5523,7 +5523,7 @@ span.atbd_get_loc_wid {
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_dashboard_title_metas {
-  padding: 15px 20px;
+  padding: 15px 20px 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_promote_btn_wrapper {
@@ -5537,6 +5537,20 @@ span.atbd_get_loc_wid {
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_info .atbd_content_upper {
   padding: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content {
+  border-top: 0 none;
+  padding-top: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta p {
+  color: #444752;
+  font-weight: 500;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta p span {
+  color: #7A82A6;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img {

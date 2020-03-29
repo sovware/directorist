@@ -5510,8 +5510,22 @@ span.atbd_get_loc_wid {
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn {
-  line-height: 25px;
+  line-height: 30px;
+  padding: 0 15px;
   margin: 4px 2px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn.directory_edit_btn {
+  background: #444752 !important;
+  color: #fff !important;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn.directory_edit_btn:hover {
+  border-color: #444752 !important;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn.directory_remove_btn:hover {
+  color: #e23636;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area.db_btn_area--sm .btn {
@@ -5541,7 +5555,19 @@ span.atbd_get_loc_wid {
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content {
   border-top: 0 none;
-  padding-top: 0;
+  padding: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta {
+  width: 100%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta .listing-meta-content {
+  padding: 0 20px 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta .db_btn_area {
+  background: #F7F8F9;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta p {

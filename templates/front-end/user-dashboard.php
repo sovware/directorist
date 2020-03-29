@@ -198,6 +198,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                                                             <div class="atbd_listing_bottom_content">
                                                                 <div class="listing-meta">
+                                                                    <div class="listing-meta-content">
                                                                     <?php
                                                                     /**
                                                                      * @since 5.0.3
@@ -218,6 +219,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                      */
                                                                     do_action('atbdp_user_dashboard_before_button', $post->ID);
                                                                     ?>
+                                                                    </div>
                                                                     <div class="db_btn_area">
                                                                         <?php
                                                                         // If the listing needs renewal then there is no need to show promote button
@@ -263,10 +265,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                                                                         <a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
                                                                            id="edit_listing"
-                                                                           class="directory_edit_btn btn btn-outline-primary"><?php _e('Edit', 'directorist'); ?></a>
+                                                                           class="directory_edit_btn btn"><?php _e('Edit', 'directorist'); ?></a>
                                                                         <a href="#" id="remove_listing"
                                                                            data-listing_id="<?php echo $post->ID; ?>"
-                                                                           class="directory_remove_btn btn btn-outline-danger"><?php _e('Delete', 'directorist'); ?></a>
+                                                                           class="directory_remove_btn btn"><?php _e('Delete', 'directorist'); ?></a>
                                                                     </div> <!--ends .db_btn_area-->
                                                                 </div>
                                                             </div><!-- end ./atbd_listing_bottom_content -->

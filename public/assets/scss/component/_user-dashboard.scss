@@ -174,10 +174,20 @@
       .atbd_listing_bottom_content{
         border-top: 0 none;
         padding: 0;
+        border-radius: 0 0 5px 5px;
         .listing-meta{
           width: 100%;
           .listing-meta-content{
             padding: 0 20px 15px;
+          }
+          .atbdp-mark-as-sold{
+            padding: 15px 20px 10px;
+            border-top: 1px solid #E9E9E9;
+            p{
+              label{
+                margin-bottom: 0;
+              }
+            }
           }
           .db_btn_area{
             background: #F7F8F9;

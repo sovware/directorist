@@ -30,7 +30,7 @@ const atbd_slider = (selector, obj) => {
         slide1.style.background = obj.pointerColor;
         slide1.style.border = obj.pointerBorder;
 
-        document.querySelector('.atbd-current-value span').innerHTML = `${min} Miles`;
+        document.querySelector('.atbd-current-value span').innerHTML = `${min} ${atbdp_search_listing.i18n_text.Miles}`;
 
         var x 			= null,
             count 		= 0,
@@ -88,7 +88,7 @@ const atbd_slider = (selector, obj) => {
 
 function atbd_callingSlider() {
     atbd_slider ('#atbdp-range-slider', {
-        maxValue: 145,
+        maxValue: 1000,
         minValue: 0,
         maxWidth: '100%',
         barColor: '#d4d5d9',

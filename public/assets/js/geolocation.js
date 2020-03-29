@@ -1,25 +1,5 @@
 
 (function ($) {
-    // Price Range Slider
-    //var adbdp_geolocation = '';
-    var slider_range = $(".atbd_slider-range");
-    var miles = atbdp_search_listing.i18n_text.Miles;
-    var dvalue = $("#atbd_rs_value").val();
-    slider_range.each(function () {
-        $(this).slider({
-            range: "min",
-            min: 0,
-            max: 1000,
-            value: dvalue,
-            slide: function (event, ui) {
-                $(".atbdpr_amount").text(ui.value + miles);
-                $("#atbd_rs_value").val(ui.value);
-            }
-        });
-    });
-    $(".atbdpr_amount").text(slider_range.slider("value") + miles);
-    $("#atbd_rs_value").val(slider_range.slider("value"));
-
     $("button[type='reset']").on("click", function (){
         $("#atbd_rs_value").val(0);
         $(".atbdpr_amount").text(0 + miles);

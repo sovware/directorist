@@ -181,12 +181,41 @@
           }
           .db_btn_area{
             background: #F7F8F9;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            border-top: 0 none;
+            padding: 12px 20px;
           }
           p{
             color: #444752;
             font-weight: 500;
             span{
               color: #7A82A6;
+              &.atbdp__private,
+              &.atbdp__published,
+              &.atbdp__pending{
+                line-height: 24px;
+                display: inline-block;
+                font-size: 12px;
+                font-weight: 500;
+                padding: 0 10px;
+                border-radius: 12px;
+                margin-top: 9px;
+              }
+              &.atbdp__published{
+                background: rgba($success, 0.1);
+                color: $success;
+              }
+              &.atbdp__pending{
+                background: rgba($warning, 0.1);
+                color: $warning;
+              }
+              &.atbdp__private{
+                background: rgba($info, 0.1);
+                color: $info;
+              }
             }
           }
         }

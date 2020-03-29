@@ -153,7 +153,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                                                             <figcaption class="atbd_thumbnail_overlay_content">
 
-                                                                <div class="atbd_lower_badge">
+                                                                <div class="atbd_upper_badge">
                                                                     <?php
                                                                     $featured_text = get_directorist_option('feature_badge_text', esc_html__('Featured', 'directorist'));
                                                                     if ($featured) {
@@ -164,6 +164,9 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     }
                                                                     ?>
                                                                 </div>
+                                                                <?php
+                                                                do_action('atbdp_after_user_dashboard_upper_badge', $post->ID);
+                                                                ?>
                                                             </figcaption>
                                                         </figure>
 
@@ -190,61 +193,11 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     </div><!-- End atbd listing meta -->
                                                                 </div>
 
-                                                                <div class="db_btn_area">
-                                                                    <?php
-                                                                    $exp_date = get_post_meta($post->ID, '_expiry_date', true);
-                                                                    $never_exp = get_post_meta($post->ID, '_never_expire', true);
-                                                                    $lstatus = get_post_meta($post->ID, '_listing_status', true);
-
-                                                                    // If the listing needs renewal then there is no need to show promote button
-                                                                    if ('renewal' == $lstatus || 'expired' == $lstatus) {
-
-                                                                        $can_renew = get_directorist_option('can_renew_listing');
-                                                                        if (!$can_renew) return false;// vail if renewal option is turned off on the site.
-                                                                        if (is_fee_manager_active()) {
-                                                                            $modal_id = apply_filters('atbdp_pricing_plan_change_modal_id', 'atpp-plan-change-modal', $post->ID);
-                                                                            ?>
-                                                                            <a href=""
-                                                                               data-target="<?php echo $modal_id; ?>"
-                                                                               data-listing_id="<?php echo $post->ID; ?>"
-                                                                               class="directory_btn btn btn-outline-success atbdp_renew_with_plan">
-                                                                                <?php _e('Renew', 'directorist'); ?>
-                                                                            </a>
-                                                                            <?php
-                                                                        } else {
-                                                                            ?>
-                                                                            <a href="<?php echo esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
-                                                                               id="directorist-renew"
-                                                                               data-listing_id="<?php echo $post->ID; ?>"
-                                                                               class="directory_btn btn btn-outline-success">
-                                                                                <?php _e('Renew', 'directorist'); ?>
-                                                                            </a>
-                                                                            <!--@todo; add expiration and renew date-->
-                                                                        <?php }
-                                                                    } else {
-                                                                        // show promotions if the featured is available
-                                                                        // featured available but the listing is not featured, show promotion button
-                                                                        if ($featured_active && empty($featured) && !is_fee_manager_active()) {
-                                                                            ?>
-                                                                            <div class="atbd_promote_btn_wrapper">
-                                                                                <a href="<?php echo esc_url(ATBDP_Permalink::get_checkout_page_link($post->ID)) ?>"
-                                                                                   id="directorist-promote"
-                                                                                   data-listing_id="<?php echo $post->ID; ?>"
-                                                                                   class="directory_btn btn btn-primary">
-                                                                                    <?php _e('Promote Your listing', 'directorist'); ?>
-                                                                                </a>
-                                                                            </div>
-                                                                        <?php }
-                                                                    } ?>
-
-                                                                    <a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
-                                                                       id="edit_listing"
-                                                                       class="directory_edit_btn btn btn-outline-primary"><?php _e('Edit', 'directorist'); ?></a>
-                                                                    <a href="#" id="remove_listing"
-                                                                       data-listing_id="<?php echo $post->ID; ?>"
-                                                                       class="directory_remove_btn btn btn-outline-danger"><?php _e('Delete', 'directorist'); ?></a>
-                                                                </div> <!--ends .db_btn_area-->
-                                                                <?php /* @todo: deleted the read more link */ ?>
+                                                                <?php
+                                                                $exp_date = get_post_meta($post->ID, '_expiry_date', true);
+                                                                $never_exp = get_post_meta($post->ID, '_never_expire', true);
+                                                                $lstatus = get_post_meta($post->ID, '_listing_status', true);
+                                                                ?>
                                                             </div><!-- end ./atbd_content_upper -->
 
                                                             <div class="atbd_listing_bottom_content">
@@ -258,17 +211,66 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                         ? __('Never Expires', 'directorist')
                                                                         : date_i18n($date_format, strtotime($exp_date)); ?>
                                                                     <p><?php printf(__('<span>Expiration:</span> %s', 'directorist'), ('expired' == $lstatus) ? '<span style="color: red">' . __('Expired', 'directorist') . '</span>' : $exp_text); ?></p>
-                                                                    <p><?php printf(__('<span>Listing Status:</span> %s', 'directorist'), get_post_status_object($post->post_status)->label); ?></p>
+                                                                    <p><?php printf(__('<span>%s</span> ', 'directorist'), get_post_status_object($post->post_status)->label); ?></p>
                                                                     <?php
                                                                     /**
-                                                                     * Fires after the price of the listing is rendered
+                                                                     * Fires before the action buttons are rendered
                                                                      *
                                                                      *
-                                                                     * @since 3.1.0
+                                                                     * @since 6.3.3
                                                                      */
-                                                                    do_action('atbdp_after_listing_price');
+                                                                    do_action('atbdp_user_dashboard_before_button', $post->ID);
                                                                     ?>
+                                                                    <div class="db_btn_area">
+                                                                        <?php
+                                                                        // If the listing needs renewal then there is no need to show promote button
+                                                                        if ('renewal' == $lstatus || 'expired' == $lstatus) {
 
+                                                                            $can_renew = get_directorist_option('can_renew_listing');
+                                                                            if (!$can_renew) return false;// vail if renewal option is turned off on the site.
+                                                                            if (is_fee_manager_active()) {
+                                                                                $modal_id = apply_filters('atbdp_pricing_plan_change_modal_id', 'atpp-plan-change-modal', $post->ID);
+                                                                                ?>
+                                                                                <a href=""
+                                                                                   data-target="<?php echo $modal_id; ?>"
+                                                                                   data-listing_id="<?php echo $post->ID; ?>"
+                                                                                   class="directory_btn btn btn-outline-success atbdp_renew_with_plan">
+                                                                                    <?php _e('Renew', 'directorist'); ?>
+                                                                                </a>
+                                                                                <?php
+                                                                            } else {
+                                                                                ?>
+                                                                                <a href="<?php echo esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
+                                                                                   id="directorist-renew"
+                                                                                   data-listing_id="<?php echo $post->ID; ?>"
+                                                                                   class="directory_btn btn btn-outline-success">
+                                                                                    <?php _e('Renew', 'directorist'); ?>
+                                                                                </a>
+                                                                                <!--@todo; add expiration and renew date-->
+                                                                            <?php }
+                                                                        } else {
+                                                                            // show promotions if the featured is available
+                                                                            // featured available but the listing is not featured, show promotion button
+                                                                            if ($featured_active && empty($featured) && !is_fee_manager_active()) {
+                                                                                ?>
+                                                                                <div class="atbd_promote_btn_wrapper">
+                                                                                    <a href="<?php echo esc_url(ATBDP_Permalink::get_checkout_page_link($post->ID)) ?>"
+                                                                                       id="directorist-promote"
+                                                                                       data-listing_id="<?php echo $post->ID; ?>"
+                                                                                       class="directory_btn btn btn-primary">
+                                                                                        <?php _e('Promote', 'directorist'); ?>
+                                                                                    </a>
+                                                                                </div>
+                                                                            <?php }
+                                                                        } ?>
+
+                                                                        <a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
+                                                                           id="edit_listing"
+                                                                           class="directory_edit_btn btn btn-outline-primary"><?php _e('Edit', 'directorist'); ?></a>
+                                                                        <a href="#" id="remove_listing"
+                                                                           data-listing_id="<?php echo $post->ID; ?>"
+                                                                           class="directory_remove_btn btn btn-outline-danger"><?php _e('Delete', 'directorist'); ?></a>
+                                                                    </div> <!--ends .db_btn_area-->
                                                                 </div>
                                                             </div><!-- end ./atbd_listing_bottom_content -->
                                                         </div>

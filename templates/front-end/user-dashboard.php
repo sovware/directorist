@@ -198,6 +198,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                                                             <div class="atbd_listing_bottom_content">
                                                                 <div class="listing-meta">
+                                                                    <div class="atbdp-user-listings-meta">
                                                                     <?php
                                                                     /**
                                                                      * @since 5.0.3
@@ -218,6 +219,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                      */
                                                                     do_action('atbdp_user_dashboard_before_button', $post->ID);
                                                                     ?>
+                                                                    </div>
                                                                     <div class="db_btn_area">
                                                                         <?php
                                                                         // If the listing needs renewal then there is no need to show promote button

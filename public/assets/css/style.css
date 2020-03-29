@@ -3341,6 +3341,7 @@ div#listing_notifier span {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info {
   border: 1px solid #e3e6ef;
+  border-radius: 0 0 5px 5px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper {

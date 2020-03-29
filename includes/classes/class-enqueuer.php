@@ -768,6 +768,7 @@ class ATBDP_Enqueuer {
             'ajax_url' => admin_url('admin-ajax.php'),
         );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );
+        wp_localize_script( 'atbdp-range-slider', 'atbdp_search_listing', $data );
     }
 }
 

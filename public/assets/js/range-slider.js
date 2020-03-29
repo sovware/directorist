@@ -2,7 +2,7 @@
 const atbd_slider = (selector, obj) => {
     var isDraging 	= false,
         max 		= obj.maxValue + (Math.ceil(obj.maxValue*2.285714285714286/100)),
-        min 		= obj.minValue,
+        min 		= obj.minValue + (Math.ceil(obj.minValue*1.633/100)),
         down 		= 'mousedown',
         up 			= 'mouseup',
         move 		= 'mousemove',
@@ -30,13 +30,13 @@ const atbd_slider = (selector, obj) => {
         slide1.style.background = obj.pointerColor;
         slide1.style.border = obj.pointerBorder;
 
-        document.querySelector('.atbd-current-value span').innerHTML = `${min} Miles`;
+        document.querySelector('.atbd-current-value span').innerHTML = `${min} ${atbdp_search_listing.i18n_text.Miles}`;
 
         var x 			= null,
             count 		= 0,
             x2 			= null,
             slid1_val 	= 0,
-            slid1_val2 	= 0,
+            slid1_val2 	= obj.minValue,
             count2 		= width;
 
         if(window.outerWidth < 600){
@@ -60,6 +60,17 @@ const atbd_slider = (selector, obj) => {
             isDraging 	= false;
             slid1_val2 	= slid1_val;
             slide1.classList.remove('atbd-active');
+        });
+        window.addEventListener('load', (e) => {
+            slide1.classList.add('atbd-active1');
+            count = (width / max);
+            if(slide1.classList.contains('atbd-active1')){
+                var onLoadValue 	= count * min;
+                document.querySelector('.atbd-current-value span').innerHTML = obj.minValue;
+                id.querySelector('.atbd-minimum').value = obj.minValue;
+                id.querySelector('.atbd-active1').style.left = onLoadValue <= 0 ? 0 : onLoadValue - 18 +'px';
+                id.querySelector('.atbd-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue - 18 +'px';
+            }
         });
         window.addEventListener(move, (e) => {
             if(isDraging){
@@ -88,7 +99,7 @@ const atbd_slider = (selector, obj) => {
 
 function atbd_callingSlider() {
     atbd_slider ('#atbdp-range-slider', {
-        maxValue: 145,
+        maxValue: 1000,
         minValue: 0,
         maxWidth: '100%',
         barColor: '#d4d5d9',

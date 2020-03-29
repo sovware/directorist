@@ -1555,7 +1555,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
 
     ('after' == $c_position) ? $after = $symbol : $before = $symbol;
     $price = $before . atbdp_format_amount($price, $allow_decimal) . $after;
-    $p = sprintf("<span class='atbd_meta atbd_listing_price'>%s</span>", $price);
+    $p = apply_filters('atbdp_listing_price', sprintf("<span class='atbd_meta atbd_listing_price'>%s</span>", $price));
     if ($echo) {
         echo $p;
     } else {

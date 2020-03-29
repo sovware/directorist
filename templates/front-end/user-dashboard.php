@@ -178,8 +178,6 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                             <?php echo !empty($post->post_title) ? esc_html(stripslashes($post->post_title)) : __('Untitled!', 'directorist'); ?>
                                                                         </a>
                                                                     </h4>
-
-                                                                    <div class="atbd_listing_meta">
                                                                         <?php
                                                                         /**
                                                                          * Fires after the title and sub title of the listing is rendered
@@ -187,10 +185,8 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                          *
                                                                          * @since 1.0.0
                                                                          */
-
                                                                         do_action('atbdp_after_listing_tagline');
                                                                         ?>
-                                                                    </div><!-- End atbd listing meta -->
                                                                 </div>
 
                                                                 <?php

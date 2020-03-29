@@ -46,7 +46,7 @@ $c_symbol = atbdp_currency_symbol($currency);
                                 wp_localize_script('atbdp-geolocation', 'adbdp_geolocation', array('select_listing_map'=> $select_listing_map));
                                 $geo_loc = ('google' == $select_listing_map) ? '<span class="atbd_get_loc la la-crosshairs"></span>' : '<span class="atbd_get_loc la la-crosshairs"></span>';
                                 $address       = !empty($_GET['address']) ? $_GET['address'] : '';
-                                $address_label =  __('location','directorist');
+                                $address_label =  !empty($search_location_placeholder) ? sanitize_text_field($search_location_placeholder) : '';
                                 $search_html .= '<div class="single_search_field atbdp_map_address_field">';
                                 $search_html .= '<div class="atbdp_get_address_field"><input ' . $require_loc . ' type="text" id="address" autocomplete="off" name="address" value="'.$address.'" placeholder="'.$address_label.'" class="form-control location-name">'. $geo_loc .'</div>';
                                 $search_html .= '<div class="address_result" style="display: none">';

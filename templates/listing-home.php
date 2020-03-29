@@ -3,7 +3,7 @@ $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
 $locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
 $search_placeholder = get_directorist_option('search_placeholder', __('What are you looking for?', 'directorist'));
 $search_category_placeholder = get_directorist_option('search_category_placeholder', __('Select a category', 'directorist'));
-$search_location_placeholder = get_directorist_option('search_location_placeholder', __('Select a location', 'directorist'));
+$search_location_placeholder = get_directorist_option('search_location_placeholder', __('location', 'directorist'));
 $show_popular_category = get_directorist_option('show_popular_category', 1);
 $show_connector = get_directorist_option('show_connector', 1);
 $search_border = get_directorist_option('search_border', 1);
@@ -131,7 +131,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                             wp_enqueue_script('atbdp-geolocation');
                                             wp_localize_script('atbdp-geolocation', 'adbdp_geolocation', array('select_listing_map'=> $select_listing_map));
                                             $geo_loc = ('google' == $select_listing_map) ? '<span class="atbd_get_loc la la-crosshairs"></span>' : '<span class="atbd_get_loc la la-crosshairs"></span>';
-                                            $address_label = __('location', 'directorist');
+                                            $address_label = !empty($search_location_placeholder) ? sanitize_text_field($search_location_placeholder) : '';
                                             $search_html .= '<div class="single_search_field atbdp_map_address_field">';
                                             $search_html .= '<div class="atbdp_get_address_field"><input ' . $require_loc . ' type="text" id="address" name="address" autocomplete="off" value="' . $address . '" placeholder="' . $address_label . '" class="form-control location-name">'. $geo_loc .'</span></div>';
                                             $search_html .= '<div class="address_result" style="display: none">';

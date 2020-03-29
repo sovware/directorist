@@ -3060,7 +3060,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'textbox',
                         'name' => 'listings_location_placeholder',
                         'label' => __('Location Placeholder', 'directorist'),
-                        'default' => __('Select a location', 'directorist'),
+                        'default' => __('location', 'directorist'),
                     ),
                     'display_sort_by' => array(
                         'type' => 'toggle',
@@ -3845,7 +3845,7 @@ The Administrator of ==SITE_NAME==
                         'type' => 'textbox',
                         'name' => 'search_location_placeholder',
                         'label' => __('Location Placeholder', 'directorist'),
-                        'default' => __('Select a location', 'directorist'),
+                        'default' => __('location', 'directorist'),
                     ),
                     'display_more_filter' => array(
                         'type' => 'toggle',

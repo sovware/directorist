@@ -183,7 +183,7 @@ if ($display_header == 'yes') { ?>
                                                     <div class="atbdp_map_address_field"><div class="atbdp_get_address_field">
                                                         <input type="text" name="address" id="address"
                                                                value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
-                                                               placeholder="<?php _e('location','directorist'); ?>"
+                                                               placeholder="<?php echo $location_placeholder; ?>"
                                                                autocomplete="off"
                                                                class="form-control location-name"><?php echo $geo_loc;?>
                                                         </div>

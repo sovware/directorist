@@ -5576,6 +5576,12 @@ span.atbd_get_loc_wid {
   margin-bottom: 0;
 }
 
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta .atbdp-mark-as-sold p span {
+  display: block;
+  color: #32cc6f;
+  padding: 10px 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta .db_btn_area {
   background: #F7F8F9;
   display: flex;

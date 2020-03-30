@@ -36,6 +36,14 @@
             background: none;
           }
         }
+        &.atbdp-tab-nav-last{
+          opacity: 0;
+          visibility: hidden;
+        }
+        &.atbdp-tab-nav-last.atbdp-nlc-active{
+          opacity: 1;
+          visibility: visible;
+        }
         &.atbdp-tab-nav-last, &.atbdp_all_booking_nav{
           position: relative;
           ul{

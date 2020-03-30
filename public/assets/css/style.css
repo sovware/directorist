@@ -5416,6 +5416,16 @@ span.atbd_get_loc_wid {
   background: none;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last.atbdp-nlc-active {
+  opacity: 1;
+  visibility: visible;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp_all_booking_nav {
   position: relative;
 }

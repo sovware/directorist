@@ -504,6 +504,7 @@
             navLastChild.appendChild(navUl);
             if(navLi.length > 5){
                 navLastChild.style.display = 'block';
+                navLastChild.classList.add("atbdp-nlc-active");
             }
             if(navLi.length === 6){
                 navLastChild.style.display = 'none';

@@ -65,7 +65,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
                     <div class="map-info-img">
                         <?php
                         if ( !$disable_single_listing ) {
-                            echo "<a href=". the_permalink() .">";
+                            echo "<a href='". get_the_permalink() ."'>";
                         }
                         $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                         if(!empty($listing_prv_img)){

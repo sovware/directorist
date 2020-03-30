@@ -5518,10 +5518,6 @@ span.atbd_get_loc_wid {
   display: block;
 }
 
-.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_thumbnail_overlay_content .atbd_badge_sold {
-  background: #e23636;
-}
-
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area {
   padding: 15px 10px;
   border-top: 1px solid #e3e6ef;
@@ -5603,12 +5599,6 @@ span.atbd_get_loc_wid {
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta .atbdp-mark-as-sold p label {
   margin-bottom: 0;
-}
-
-.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta .atbdp-mark-as-sold .mas-notifier span {
-  display: block;
-  color: #32cc6f;
-  padding: 3px 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta .db_btn_area {

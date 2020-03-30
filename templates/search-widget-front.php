@@ -67,25 +67,14 @@ $c_symbol = atbdp_currency_symbol($currency);
             </div>
         <?php } ?>
         <?php if('map_api' == $location_source && !empty($search_by_radius)) { ?>
-        <div class="form-group">
-            <div class="atbdpr-range rs-primary">
-                <div class="atbdp-labels">
-                    <label><?php _e('Distance:','directorist'); ?></label>
-                    <span class="atbdpr_amount"></span>
-                </div>
-                <div class="atbd_slider-range-wrapper">
-                    <div class="atbd_slider-range"></div>
-                    <input type="hidden" id="atbd_rs_value" name="miles" value="<?php echo !empty($_GET['miles']) ? $_GET['miles'] : 0 ; ?>">
-                </div>
-            </div>
-        </div>
             <!--range slider-->
             <div class="form-group">
-                <div class="atbdp-range-slider-wrapper atbdprs-widget">
-                    <p class="atbd-current-value">Distance: <span></span></p>
+                <div class="atbdp-range-slider-wrapper">
+                    <span><?php _e('Radius Search', 'directorist'); ?></span>
                     <div><div id="atbdp-range-slider"></div></div>
+                    <p class="atbd-current-value"><span></span></p>
                 </div>
-                <input type="hidden" class="atbdrs-value" value="" />
+                <input type="hidden" class="atbdrs-value" name="miles" value="" />
             </div>
         <?php } ?>
         <?php if(!empty($search_by_custom_fields)) { ?>

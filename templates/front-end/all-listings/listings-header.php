@@ -271,25 +271,14 @@ if ($display_header == 'yes') { ?>
                                 <?php if ('map_api' == $listing_location_address && in_array('radius_search', $search_more_filters_fields)) {
                                     $default_radius_distance =  !empty($default_radius_distance) ? $default_radius_distance : 0;
                                     ?>
-                                        <div class="form-group">
-                                            <div class="atbdpr-range rs-primary">
-                                                <span><?php _e('Radius Search','directorist'); ?></span>
-                                                <div class="atbd_slider-range-wrapper">
-                                                    <div class="atbd_slider-range"></div>
-                                                    <p class="d-flex justify-content-between">
-                                                        <span class="atbdpr_amount"></span>
-                                                    </p>
-                                                    <input type="hidden" id="atbd_rs_value" name="miles" value="<?php echo !empty($_GET['miles']) ? $_GET['miles'] : $default_radius_distance; ?>">
-                                                </div>
-                                            </div>
-                                        </div>
                                     <!--range slider-->
                                     <div class="form-group">
                                         <div class="atbdp-range-slider-wrapper">
+                                            <span><?php _e('Radius Search', 'directorist'); ?></span>
                                             <div><div id="atbdp-range-slider"></div></div>
                                             <p class="atbd-current-value"><span></span></p>
                                         </div>
-                                        <input type="hidden" class="atbdrs-value" value="" />
+                                        <input type="hidden" class="atbdrs-value" name="miles" value="" />
                                     </div>
                                     <?php } ?>
                                 <?php

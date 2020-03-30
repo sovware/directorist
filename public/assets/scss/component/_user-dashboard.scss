@@ -130,6 +130,11 @@
   }
 
   &.dashboard_area {
+    .atbd_thumbnail_overlay_content{
+      .atbd_badge_sold{
+        background: $danger;
+      }
+    }
     .db_btn_area {
       padding: 15px 10px;
       border-top: 1px solid $border-color;
@@ -209,11 +214,11 @@
               label{
                 margin-bottom: 0;
               }
-              span{
-                display: block;
-                color: $success;
-                padding: 10px 0;
-              }
+            }
+            .mas-notifier span{
+              display: block;
+              color: $success;
+              padding: 3px 0;
             }
           }
           .db_btn_area{

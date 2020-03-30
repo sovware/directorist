@@ -5453,6 +5453,11 @@ span.atbd_get_loc_wid {
   border: 0 none;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last ul li ul.active, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp_all_booking_nav ul li ul.active {
+  top: 0;
+  left: 100%;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide {
   margin-right: 30px;
 }
@@ -5516,12 +5521,12 @@ span.atbd_get_loc_wid {
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn.directory_edit_btn {
-  background: #444752 !important;
-  color: #fff !important;
+  background: #444752;
+  color: #fff;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn.directory_edit_btn:hover {
-  border-color: #444752 !important;
+  border-color: #444752;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn.directory_remove_btn:hover {
@@ -5540,8 +5545,18 @@ span.atbd_get_loc_wid {
   padding: 15px 20px 10px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_promote_btn_wrapper {
-  margin-bottom: 10px;
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_promote_btn_wrapper, .atbd_content_active #directorist.atbd_wrapper.dashboard_area #directorist-renew {
+  margin-bottom: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_promote_btn_wrapper + div .directory_edit_btn, .atbd_content_active #directorist.atbd_wrapper.dashboard_area #directorist-renew + div .directory_edit_btn {
+  background: none !important;
+  color: #7a82a6 !important;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_promote_btn_wrapper + div .directory_remove_btn, .atbd_content_active #directorist.atbd_wrapper.dashboard_area #directorist-renew + div .directory_remove_btn {
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_listing_bottom_content .listing-meta p span {

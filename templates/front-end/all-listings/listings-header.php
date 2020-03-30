@@ -183,7 +183,7 @@ if ($display_header == 'yes') { ?>
                                                     <div class="atbdp_map_address_field"><div class="atbdp_get_address_field">
                                                         <input type="text" name="address" id="address"
                                                                value="<?php echo !empty($_GET['address']) ? $_GET['address'] : ''; ?>"
-                                                               placeholder="<?php echo $location_placeholder; ?>"
+                                                               placeholder="<?php echo !empty($location_placeholder) ? sanitize_text_field($location_placeholder) : __('location','directorist'); ?>"
                                                                autocomplete="off"
                                                                class="form-control location-name"><?php echo $geo_loc;?>
                                                         </div>
@@ -278,7 +278,7 @@ if ($display_header == 'yes') { ?>
                                             <div><div id="atbdp-range-slider"></div></div>
                                             <p class="atbd-current-value"><span></span></p>
                                         </div>
-                                        <input type="hidden" class="atbdrs-value" name="miles" value="" />
+                                        <input type="hidden" class="atbdrs-value" name="miles" value="<?php echo $default_radius_distance;?>" />
                                     </div>
                                     <?php } ?>
                                 <?php

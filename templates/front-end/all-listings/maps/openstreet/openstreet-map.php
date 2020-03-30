@@ -146,9 +146,9 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
             delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).
         });
     }
-    setTimeout(() => {
+    /*setTimeout(() => {
         console.log(jQuery('.leaflet-popup-content'))
-    }, 100);
+    }, 100);*/
 </script>
 <?php while( $all_listings->have_posts() ) : $all_listings->the_post();
     $cats                           = get_the_terms(get_the_ID(), ATBDP_CATEGORY);

@@ -123,7 +123,7 @@ $c_symbol = atbdp_currency_symbol($currency);
                                 <div><div id="atbdp-range-slider"></div></div>
                                 <p class="atbd-current-value"><span></span></p>
                             </div>
-                            <input type="hidden" class="atbdrs-value" name="miles" value="" />
+                            <input type="hidden" class="atbdrs-value" name="miles" value="<?php echo !empty($default_radius_distance) ? $default_radius_distance : 0; ?>" />
                         </div>
                     <?php } ?>
                     <?php if('yes' == $tag_field) {

@@ -240,7 +240,6 @@ class ATBDP_Enqueuer {
         wp_enqueue_script('select2script');
         wp_enqueue_script('atbdp_validator');
         wp_enqueue_script('at_modal');
-        wp_enqueue_script('atbdp-range-slider');
         $disable_map = get_directorist_option('display_map_field');
         if (!empty($disable_map)){
             wp_enqueue_script('atbdp_open_street');
@@ -745,12 +744,14 @@ class ATBDP_Enqueuer {
              * It returns the dependencies for search form js
              */
            apply_filters('atbdp_search_listing_jquery_dependency', $search_dependency), ATBDP_VERSION, true );
+        wp_enqueue_script('atbdp-range-slider');
 
         /*Internationalization*/
         $category_placeholder          = get_directorist_option('search_category_placeholder', __('Select a category', 'directorist'));
         $location_placeholder          = get_directorist_option('search_location_placeholder', __('Select a location', 'directorist'));
         $select_listing_map            = get_directorist_option('select_listing_map', 'google');
         $radius_search_unit            = get_directorist_option('radius_search_unit', 'miles');
+        $default_radius_distance       = get_directorist_option('search_default_radius_distance', 0);
         if('kilometers' == $radius_search_unit) {
             $miles = __(' Kilometers', 'directorist');
         }else{
@@ -766,9 +767,12 @@ class ATBDP_Enqueuer {
                 'Miles' => $miles,
             ),
             'ajax_url' => admin_url('admin-ajax.php'),
+            'Miles' => $miles,
+            'default_val'   =>  $default_radius_distance
         );
+
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );
-        wp_localize_script( 'atbdp-range-slider', 'atbdp_search_listing', $data );
+        wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', $data );
     }
 }
 

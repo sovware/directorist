@@ -36,6 +36,14 @@
             background: none;
           }
         }
+        &.atbdp-tab-nav-last{
+          opacity: 0;
+          visibility: hidden;
+        }
+        &.atbdp-tab-nav-last.atbdp-nlc-active{
+          opacity: 1;
+          visibility: visible;
+        }
         &.atbdp-tab-nav-last, &.atbdp_all_booking_nav{
           position: relative;
           ul{
@@ -64,6 +72,10 @@
               a{
                 padding-top: 0;
                 border: 0 none;
+              }
+              ul.active{
+                top: 0;
+                left: 100%;
               }
             }
           }
@@ -128,10 +140,10 @@
         padding: 0 15px;
         margin: 4px 2px;
         &.directory_edit_btn{
-          background: #444752 !important;
-          color: #fff !important;
+          background: #444752;
+          color: #fff;
           &:hover{
-            border-color: #444752 !important;
+            border-color: #444752;
           }
         }
         &.directory_remove_btn{
@@ -156,8 +168,18 @@
       padding: 15px 20px 10px;
     }
 
-    .atbd_promote_btn_wrapper {
-      margin-bottom: 10px;
+    .atbd_promote_btn_wrapper, #directorist-renew {
+      margin-bottom: 0;
+      & + div{
+        .directory_edit_btn{
+          background: none !important;
+          color: #7a82a6 !important;
+        }
+        .directory_remove_btn{
+          padding-left: 0;
+          padding-right: 0;
+        }
+      }
     }
 
     .atbd_listing_bottom_content {

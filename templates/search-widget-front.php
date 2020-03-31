@@ -66,11 +66,24 @@ $c_symbol = atbdp_currency_symbol($currency);
                 ?>
             </div>
         <?php } ?>
-        <?php if('map_api' == $location_source && !empty($search_by_radius)) { ?>
+        <?php if('map_api' == $location_source && !empty($search_by_radius)) {
+            wp_enqueue_script('atbdp-range-slider');
+            $radius_search_unit            = get_directorist_option('radius_search_unit', 'miles');
+            if(!empty($radius_search_unit) && 'kilometers' == $radius_search_unit) {
+                $miles = __(' Kilometers', 'directorist');
+            }else{
+                $miles = __(' Miles', 'directorist');
+            }
+            $default_radius_distance = get_directorist_option('sresult_default_radius_distance', 0);
+            wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
+                'Miles'     =>  $miles,
+                'default_val'   =>  $default_radius_distance
+            ) );
+            ?>
             <!--range slider-->
             <div class="form-group">
                 <div class="atbdp-range-slider-wrapper">
-                    <span><?php _e('Radius Search', 'directorist'); ?></span>
+                    <label><?php _e('Radius Search', 'directorist'); ?></label>
                     <div><div id="atbdp-range-slider"></div></div>
                     <p class="atbd-current-value"><span></span></p>
                 </div>

@@ -362,6 +362,7 @@ jQuery(function ($) {
         var content = iframe.length ? tinymce.get('listing_content').getContent() : atbdp_element_value('textarea[name="listing_content"]');
         var service_offer = serviceIframe.length ? tinymce.get('service_offer').getContent() : '';
         var excerpt = atbdp_element_value("textarea#atbdp_excerpt");
+        
         form_data.append('add_listing_nonce', atbdp_add_listing.nonce);
         //form_data.append('add_listing_form', $('input[name="add_listing_form"]').val());
         form_data.append('listing_id', $('input[name="listing_id"]').val());
@@ -416,12 +417,17 @@ jQuery(function ($) {
         }
         // locations
         var locaitons = $("#at_biz_dir-location").val();
-        if (locaitons) {
+        if ( Array.isArray( locaitons ) && locaitons.length ) {
             for (var key in locaitons) {
                 var value = locaitons[key];
                 form_data.append("tax_input[at_biz_dir-location][]", value);
             }
         }
+
+        if ( typeof locaitons === 'string' ) {
+            form_data.append("tax_input[at_biz_dir-location][]", locaitons);
+        }
+
         // tags
         var tags = $("#at_biz_dir-tags").val();
         if (tags) {
@@ -430,14 +436,20 @@ jQuery(function ($) {
                 form_data.append("tax_input[at_biz_dir-tags][]", value);
             }
         }
+
         // categories
         var categories = $("#at_biz_dir-categories").val();
-        if (categories) {
+        if ( Array.isArray( categories ) && categories.length ) {
             for (var key in categories) {
                 var value = categories[key];
                 form_data.append("tax_input[at_biz_dir-category][]", value);
             }
         }
+
+        if ( typeof categories === 'string' ) {
+            form_data.append("tax_input[at_biz_dir-category][]", categories);
+        }
+
         // social
         if ($('select[name^="social"]').length){
             $('select[name^="social"]').each(function () {

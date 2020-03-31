@@ -921,7 +921,7 @@ let clickCount = 0;
 atbdDropdown.forEach(function (el) {
     el.querySelector('.atbd-dropdown-toggle').addEventListener('click', function (e) {
         e.preventDefault();
-        console.log(e.target);
+        //console.log(e.target);
         clickCount++;
         if (clickCount % 2 === 1) {
             document.querySelectorAll('.atbd-dropdown-items').forEach(function (elem) {

@@ -3172,7 +3172,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $reg_linktxt = get_directorist_option('reg_linktxt', __('Sign Up', 'directorist'));
                 $display_signup = get_directorist_option('display_signup', 1);
                 ?>
-                    <form action="login" id="login" method="POST">
+                    <form action="#" id="login" method="POST">
                         <p>
                             <label for="username"><?php echo $log_username; ?></label>
                             <input type="text" class="form-control" id="username" name="username"

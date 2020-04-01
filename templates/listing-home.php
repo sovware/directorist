@@ -90,7 +90,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
             <div class="row">
                 <div class="col-md-12">
                     <!-- start search area -->
-                    <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
+                    <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form" class="atbd_ads-form">
                         <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border) ? 'style="border: none;"' : ''; ?>>
                             <?php
                             /**
@@ -269,7 +269,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                             <div class="atbdp-range-slider-wrapper">
                                                 <span><?php _e('Radius Search', 'directorist'); ?></span>
                                                 <div><div id="atbdp-range-slider"></div></div>
-                                                <p class="atbd-current-value"><span></span></p>
+                                                <p class="atbd-current-value"></p>
                                             </div>
                                             <input type="hidden" class="atbdrs-value" name="miles" value="<?php echo !empty($default_radius_distance) ? $default_radius_distance : 0; ?>" />
                                         </div>
@@ -370,7 +370,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                     if ('yes' == $reset_filters_button || 'yes' == $apply_filters_button) { ?>
                                         <div class="bdas-filter-actions">
                                             <?php if ('yes' == $reset_filters_button) { ?>
-                                                <button type="reset"
+                                                <button type="submit"
                                                         class="btn btn-outline-primary btn-sm" id="atbdp_reset"><?php _e($reset_filters_text, 'directorist'); ?></button>
                                             <?php }
                                             if ('yes' == $apply_filters_button) { ?>

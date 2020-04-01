@@ -1,5 +1,5 @@
 (function ($) {
-    // Price Range Slider
+    /*// Price Range Slider
     var slider_range = $(".atbd_slider-range");
     var miles = atbdp_search_listing.i18n_text.Miles;
     var dvalue = $("#atbd_rs_value").val();
@@ -16,7 +16,7 @@
         });
     });
     $(".atbdpr_amount").text(slider_range.slider("value") + miles);
-    $("#atbd_rs_value").val(slider_range.slider("value"));
+    $("#atbd_rs_value").val(slider_range.slider("value"));*/
 
 
     /*

@@ -128,7 +128,7 @@ if ($display_header == 'yes') { ?>
                     ?>
                     <div class="<?php echo ('overlapping' === $filters_display) ? 'ads_float' : 'ads_slide' ?>">
                         <div class="ads-advanced">
-                            <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
+                            <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form" class="atbd_ads-form">
                                 <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border) ? ' style="border: none;"' : ''; ?>>
                                     <div class="row atbdp-search-form">
                                         <?php if (in_array('search_text', $search_more_filters_fields)) { ?>
@@ -276,7 +276,7 @@ if ($display_header == 'yes') { ?>
                                         <div class="atbdp-range-slider-wrapper">
                                             <span><?php _e('Radius Search', 'directorist'); ?></span>
                                             <div><div id="atbdp-range-slider"></div></div>
-                                            <p class="atbd-current-value"><span></span></p>
+                                            <p class="atbd-current-value"></p>
                                         </div>
                                         <input type="hidden" class="atbdrs-value" name="miles" value="<?php echo $default_radius_distance;?>" />
                                     </div>
@@ -404,7 +404,7 @@ if ($display_header == 'yes') { ?>
                                 <?php } ?>
                                 <div class="bdas-filter-actions">
                                     <?php if (in_array('reset_button', $filters_button)) { ?>
-                                        <button type="reset"
+                                        <button type="submit"
                                                 class="btn btn-outline btn-outline-primary btn-sm" id="atbdp_reset"><?php _e($reset_filters_text, 'directorist'); ?></button>
                                     <?php }
                                     if (in_array('apply_button', $filters_button)) { ?>

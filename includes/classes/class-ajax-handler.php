@@ -84,7 +84,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
             if ( ! $check_ajax_referer ) {
                 echo json_encode(array(
-                    'loggedin'=> false, 
+                    'loggedin'=> false,
                     'message'=> __('Something went wrong, page is reloading...', 'directorist'),
                     'reload'=> true,
                 ));
@@ -94,7 +94,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
             if ( is_user_logged_in() ) {
                 echo json_encode(array(
-                    'loggedin'=> true, 
+                    'loggedin'=> true,
                     'message'=> __('Login successful, redirecting...', 'directorist'),
                 ));
 
@@ -112,14 +112,14 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             $user_signon = wp_signon( $info, false );
             if ( is_wp_error( $user_signon ) ) {
                 echo json_encode(array(
-                    'loggedin'=> false, 
+                    'loggedin'=> false,
                     'message'=> __('Wrong username or password.')
                 ));
             } else {
                 wp_set_current_user( $user_signon->ID );
 
                 echo json_encode(array(
-                    'loggedin'=> true, 
+                    'loggedin'=> true,
                     'message'=> __('Login successful, redirecting...')
                 ));
             }
@@ -390,7 +390,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 } else {
                     $msg .= ' <div class="notice alert alert-info" role="alert" id="review_notice">
                                 <span class="' . atbdp_icon_type(false) . '-info-circle" aria-hidden="true"></span>' .
-                        __('No reviews found. Be the first to post a review !', 'directorist') . '</div>';
+                        __(' No reviews found. Be the first to post a review !', 'directorist') . '</div>';
                 }
                 // Optional, wrap the output into a container
                 $msg = "<div class='atbdp-universal-content'>" . $msg . "</div><br class = 'clear' />";

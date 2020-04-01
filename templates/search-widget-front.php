@@ -10,7 +10,7 @@ $currency = get_directorist_option('g_currency', 'USD');
 $c_symbol = atbdp_currency_symbol($currency);
 ?>
 <div class="atbdp search-area default-ad-search">
-    <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>">
+    <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" class="atbd_ads-form">
         <?php if(!empty($search_by_text_field)) { ?>
             <div class="form-group">
                 <input type="text" name="q" placeholder="<?php _e('What are you looking for?','directorist');?>" value="<?php echo !empty($_GET['q']) ? $_GET['q'] : ''; ?>" class="form-control">
@@ -85,7 +85,7 @@ $c_symbol = atbdp_currency_symbol($currency);
                 <div class="atbdp-range-slider-wrapper">
                     <label><?php _e('Radius Search', 'directorist'); ?></label>
                     <div><div id="atbdp-range-slider"></div></div>
-                    <p class="atbd-current-value"><span></span></p>
+                    <p class="atbd-current-value"></p>
                 </div>
                 <input type="hidden" class="atbdrs-value" name="miles" value="" />
             </div>
@@ -249,7 +249,7 @@ $c_symbol = atbdp_currency_symbol($currency);
             </div><!-- ends: .filter-checklist -->
         <?php } ?>
         <div class="form-group submit_btn">
-            <button type="reset" class="btn btn-default"><?php _e( 'Reset ', 'directorist' ); ?></button>
+            <button type="submit" class="btn btn-default"><?php _e( 'Reset ', 'directorist' ); ?></button>
             <button type="submit" class="btn btn-primary btn-icon icon-right"><?php _e( 'Search Listings', 'directorist' ); ?></button>
         </div>
     </form><!-- ends: form -->

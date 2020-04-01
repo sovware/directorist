@@ -1,6 +1,6 @@
 
 (function ($) {
-    $("button[type='reset']").on("click", function (){
+    /*$("button[type='reset']").on("click", function (){
         $("#atbd_rs_value").val(0);
         $(".atbdpr_amount").text(0 + miles);
         slider_range.each(function () {
@@ -16,7 +16,7 @@
             });
         });
         $("#at_biz_dir-location, #at_biz_dir-category").val('').trigger('change');
-    });
+    });*/
     /* get current location */
     if('google' === adbdp_geolocation.select_listing_map) {
         (function () {

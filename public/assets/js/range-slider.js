@@ -29,7 +29,7 @@ const atbd_slider = (selector, obj) => {
 
         slide1.style.background = obj.pointerColor;
         slide1.style.border = obj.pointerBorder;
-        document.querySelector('.atbd-current-value span').innerHTML = `${min} ${atbdp_range_slider.Miles}`;
+        document.querySelector('.atbd-current-value').innerHTML = `<span>${min}</span> ${atbdp_range_slider.Miles}`;
 
         var x 			= null,
             count 		= 0,
@@ -85,7 +85,7 @@ const atbd_slider = (selector, obj) => {
             }
             if(slide1.classList.contains('atbd-active')){
                 slid1_val 	= Math.floor(max/ width * count);
-                document.querySelector('.atbd-current-value span').innerHTML = `${slid1_val} ${atbdp_range_slider.Miles}`;
+                document.querySelector('.atbd-current-value').innerHTML = `<span>${slid1_val}</span> ${atbdp_range_slider.Miles}`;
                 id.querySelector('.atbd-minimum').value = slid1_val;
                 document.querySelector('.atbdrs-value').value = slid1_val;
                 id.querySelector('.atbd-active').style.left = count +'px';

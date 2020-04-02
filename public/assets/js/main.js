@@ -722,7 +722,6 @@ jQuery(function ($) {
                             $('#atbdp-contact-message').val('');
                             $('#atbdp-contact-message-display').addClass('text-success').html(response.message);
                         }
-                        ;
 
                     }, 'json');
 

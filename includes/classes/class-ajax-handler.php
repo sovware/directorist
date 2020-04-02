@@ -82,45 +82,45 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             // First check the nonce, if it fails the function will break
             $check_ajax_referer = check_ajax_referer('ajax-login-nonce', 'security', false);
 
-            if ( ! $check_ajax_referer ) {
+            if (!$check_ajax_referer) {
                 echo json_encode(array(
-                    'loggedin'=> false,
-                    'message'=> __('Something went wrong, page is reloading...', 'directorist'),
-                    'reload'=> true,
+                    'loggedin' => false,
+                    'message' => __('Something went wrong, page is reloading...', 'directorist'),
+                    'reload' => true,
                 ));
 
                 die();
             }
 
-            if ( is_user_logged_in() ) {
+            if (is_user_logged_in()) {
                 echo json_encode(array(
-                    'loggedin'=> true,
-                    'message'=> __('Login successful, redirecting...', 'directorist'),
+                    'loggedin' => true,
+                    'message' => __('Login successful, redirecting...', 'directorist'),
                 ));
 
                 die();
             }
 
             // Nonce is checked, get the POST data and sign user on
-            $keep_signed_in = ( $_POST['rememberme'] === 1 || $_POST['rememberme'] === '1' ) ? true : false;
+            $keep_signed_in = ($_POST['rememberme'] === 1 || $_POST['rememberme'] === '1') ? true : false;
 
             $info = array();
             $info['user_login'] = $_POST['username'];
             $info['user_password'] = $_POST['password'];
             $info['remember'] = $keep_signed_in;
 
-            $user_signon = wp_signon( $info, false );
-            if ( is_wp_error( $user_signon ) ) {
+            $user_signon = wp_signon($info, false);
+            if (is_wp_error($user_signon)) {
                 echo json_encode(array(
-                    'loggedin'=> false,
-                    'message'=> __('Wrong username or password.')
+                    'loggedin' => false,
+                    'message' => __('Wrong username or password.')
                 ));
             } else {
-                wp_set_current_user( $user_signon->ID );
+                wp_set_current_user($user_signon->ID);
 
                 echo json_encode(array(
-                    'loggedin'=> true,
-                    'message'=> __('Login successful, redirecting...')
+                    'loggedin' => true,
+                    'message' => __('Login successful, redirecting...')
                 ));
             }
 
@@ -444,7 +444,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         if (($dot__ == $i)) {
                             $jump = $i - 5;
                             $jump = $jump < 1 ? 1 : $jump;
-                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-back atbd-active' title='".__('Previous 5 Pages', 'directorist')."'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-left la_h'></i></li>";
+                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-back atbd-active' title='" . __('Previous 5 Pages', 'directorist') . "'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-left la_h'></i></li>";
                         }
                     }
                     if ($cur_page == $i) {
@@ -457,7 +457,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         if (($dot_ == $i)) {
                             $jump = $i + 5;
                             $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
-                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up atbd-active' title='".__('Next 5 Pages', 'directorist')."'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-right la_h'></i></li>";
+                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up atbd-active' title='" . __('Next 5 Pages', 'directorist') . "'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-right la_h'></i></li>";
                         }
                     }
                     // show dot after first 5
@@ -465,7 +465,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                         $jump = $i + 5;
                         $jump = $jump > $no_of_paginations ? $no_of_paginations : $jump;
                         if ($i == 5) {
-                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up atbd-active' title='".__('Next 5 Pages', 'directorist')."'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-right la_h'></i></li>";
+                            $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up atbd-active' title='" . __('Next 5 Pages', 'directorist') . "'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-right la_h'></i></li>";
                         }
                     }
 
@@ -786,23 +786,12 @@ if (!class_exists('ATBDP_Ajax_Handler')):
          */
         function atbdp_email_listing_owner_listing_contact()
         {
-
-            /**
-             * If fires sending processing the submitted contact information
-             * @since 4.4.0
-             */
-             do_action('atbdp_before_processing_contact_to_owner');
-             if ( !in_array( 'listing_contact_form', get_directorist_option('notify_user', array()) ) ) {
-                return false;
-            }
-
             // sanitize form values
             $post_id = (int)$_POST["post_id"];
             $name = sanitize_text_field($_POST["name"]);
             $email = sanitize_email($_POST["email"]);
             $listing_email = get_post_meta($post_id, '_email', true);
             $message = stripslashes(esc_textarea($_POST["message"]));
-
             // vars
             $post_author_id = get_post_field('post_author', $post_id);
             $user = get_userdata($post_author_id);
@@ -838,19 +827,14 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             } else {
                 $to = $user->user_email;
             }
-
-
             $subject = strtr($contact_email_subject, $placeholders);
-
             $message = strtr($contact_email_body, $placeholders);
             $message = nl2br($message);
-
             $headers = "From: {$name} <{$site_email}>\r\n";
             $headers .= "Reply-To: {$email}\r\n";
             $message = atbdp_email_html($subject, $message);
             // return true or false, based on the result
             return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
-
         }
 
         /**
@@ -860,17 +844,11 @@ if (!class_exists('ATBDP_Ajax_Handler')):
          */
         function atbdp_email_admin_listing_contact()
         {
-
-            if (get_directorist_option('disable_email_notification')) return false; //vail if email notification is off
-
-            if (!in_array('listing_contact_form', get_directorist_option('notify_admin', array()))) return false; // vail if order created notification to admin off
-
             // sanitize form values
             $post_id = (int)$_POST["post_id"];
             $name = sanitize_text_field($_POST["name"]);
             $email = sanitize_email($_POST["email"]);
             $message = esc_textarea($_POST["message"]);
-
             // vars
             $site_name = get_bloginfo('name');
             $site_url = get_bloginfo('url');
@@ -879,7 +857,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             $date_format = get_option('date_format');
             $time_format = get_option('time_format');
             $current_time = current_time('timestamp');
-
             $placeholders = array(
                 '{site_name}' => $site_name,
                 '{site_link}' => sprintf('<a href="%s">%s</a>', $site_url, $site_name),
@@ -895,20 +872,14 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             );
             $send_emails = ATBDP()->email->get_admin_email_list();
             $to = !empty($send_emails) ? $send_emails : get_bloginfo('admin_email');
-
             $subject = __('{site_name} Contact via {listing_title}', 'directorist');
             $subject = strtr($subject, $placeholders);
-
             $message = __("Dear Administrator,<br /><br />A listing on your website {site_name} received a message.<br /><br />Listing URL: {listing_url}<br /><br />Name: {sender_name}<br />Email: {sender_email}<br />Message: {message}<br />Time: {now}<br /><br />This is just a copy of the original email and was already sent to the listing owner. You don't have to reply this unless necessary.", 'directorist');
             $message = strtr($message, $placeholders);
-
             $headers = "From: {$name} <{$email}>\r\n";
             $headers .= "Reply-To: {$email}\r\n";
             $message = atbdp_email_html($subject, $message);
-
             return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
-
-
         }
 
         /**
@@ -919,25 +890,61 @@ if (!class_exists('ATBDP_Ajax_Handler')):
          */
         public function ajax_callback_send_contact_email()
         {
+
+            /**
+             * If fires sending processing the submitted contact information
+             * @since 4.4.0
+             */
+            do_action('atbdp_before_processing_contact_to_owner');
             $data = array('error' => 0);
-            if ( ! $this->atbdp_email_listing_owner_listing_contact() && ! $this->atbdp_email_admin_listing_contact()) {
+            $sendOwner = in_array('listing_contact_form', get_directorist_option('notify_user', array()));
+            $sendAdmin = in_array('listing_contact_form', get_directorist_option('notify_admin', array()));
+            $disable_all_email = get_directorist_option('disable_email_notification');
+            $data['sendOwner'] = $sendOwner;
+            $data['sendAdmin'] = $sendAdmin;
+            $data['disable_all_email'] = $disable_all_email;
+            // is admin disabled all the notification
+            if ($disable_all_email){
                 $data['error'] = 1;
-                $data['message'] = __('Sorry! Please try again.', 'directorist');
-
+                $data['message'] = __('Sorry! Something wrong.', 'directorist');
                 echo wp_json_encode($data);
-                wp_die();
+                die();
             }
-
+            // is admin disabled both notification
+            if (!$sendOwner && !$sendAdmin){
+                $data['error'] = 1;
+                $data['message'] = __('Sorry! Something wrong.', 'directorist');
+                echo wp_json_encode($data);
+                die();
+            }
+            // let's check is admin decides to send email to it's owner
+            if ($sendOwner) {
+                $send_to_owner = $this->atbdp_email_listing_owner_listing_contact();
+                if (!$send_to_owner) {
+                    $data['error'] = 1;
+                    $data['message'] = __('Sorry! Please try again.', 'directorist');
+                }
+            }
+            // let's check is admin decides to send email to him/her
+            if ($sendAdmin){
+                $send_to_admin = $this->atbdp_email_admin_listing_contact();
+                if (!$send_to_admin){
+                    $data['error'] = 1;
+                    $data['message'] = __('Sorry! Please try again.', 'directorist');
+                }
+            }
+            // no error found so let's show submitter the success message
+            if ($data['error'] === 0){
+                $data['message'] = __('Your message sent successfully.', 'directorist');
+            }
             /**
              * @package Directorist
              * @since 6.3.3
              * It fires when a contact is made by visitor with listing owner
              */
             do_action('atbdp_listing_contact_owner_submitted');
-            $data['message'] = __('Your message sent successfully.', 'directorist');
-
             echo wp_json_encode($data);
-            wp_die();
+            die();
         }
 
 

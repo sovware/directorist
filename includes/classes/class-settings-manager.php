@@ -2397,7 +2397,7 @@ The Administrator of ==SITE_NAME==
          */
         public function events_to_notify_admin()
         {
-            $events = array_merge($this->default_notifiable_events(), $this->only_admin_notifiable_events());
+            $events = $this->default_notifiable_events();
             return apply_filters('atbdp_events_to_notify_admin', $events);
         }
 
@@ -2497,21 +2497,6 @@ The Administrator of ==SITE_NAME==
                 array(
                     'value' => 'listing_review',
                     'label' => __('Listing Review', 'directorist'),
-                ),
-            ));
-        }
-
-        /**
-         * Get an array of events to notify only the admin
-         * @return array it returns an array of events
-         * @since 3.1.0
-         */
-        private function only_admin_notifiable_events()
-        {
-            return apply_filters('atbdp_only_admin_notifiable_events', array(
-                array(
-                    'value' => 'listing_owner_contacted',
-                    'label' => __('Listing owner is contacted', 'directorist'),
                 ),
             ));
         }

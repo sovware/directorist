@@ -6852,6 +6852,10 @@ span.atbd_get_loc_wid {
   align-items: center;
 }
 
+.atbdp-range-slider-wrapper > span {
+  color: #202428;
+}
+
 .atbdp-range-slider-wrapper > div {
   flex: 1;
   padding: 0 15px;

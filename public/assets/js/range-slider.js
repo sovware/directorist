@@ -33,7 +33,6 @@ const atbd_slider = (selector, obj) => {
 
         var x 			= null,
             count 		= 0,
-            x2 			= null,
             slid1_val 	= 0,
             slid1_val2 	= obj.minValue,
             count2 		= width;
@@ -41,7 +40,6 @@ const atbd_slider = (selector, obj) => {
         if(window.outerWidth < 600){
             id.classList.add('m-device');
             slide1.classList.add('m-device2');
-            //slide2.classList.add('m-device2');
         }
         slide1.addEventListener(down, (event) => {
             event.preventDefault();
@@ -98,7 +96,7 @@ const atbd_slider = (selector, obj) => {
 function atbd_callingSlider() {
     atbd_slider ('#atbdp-range-slider', {
         maxValue: 1000,
-        minValue: 50,
+        minValue: 200,
         maxWidth: '100%',
         barColor: '#d4d5d9',
         barBorder: 'none',

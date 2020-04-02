@@ -192,10 +192,18 @@ function adsFormReset() {
     adsForm.querySelectorAll("select").forEach(function (el) {
         el.selectedIndex = 0;
     });
-    adsForm.querySelector("input.wp-picker-clear").click();
-    adsForm.querySelector(".atbd-current-value span").textContent = "0";
+    const irisPicker = adsForm.querySelector("input.wp-picker-clear");
+    if(irisPicker !== null){
+        irisPicker.click();
+    }
+    const rangeValue = adsForm.querySelector(".atbd-current-value span");
+    if(rangeValue !== null){
+        rangeValue.textContent = "0";
+    }
 }
-document.querySelector(".atbd_ads-form button#atbdp_reset").addEventListener("click", function (e) {
-    e.preventDefault();
-    adsFormReset();
-});
+if(document.querySelector(".atbd_ads-form #atbdp_reset") !== null){
+    document.querySelector(".atbd_ads-form #atbdp_reset").addEventListener("click", function (e) {
+        e.preventDefault();
+        adsFormReset();
+    });
+}

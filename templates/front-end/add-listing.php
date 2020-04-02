@@ -1098,26 +1098,31 @@ $query_args = array(
                                     </div>
 
                                     <?php
-                                    $plan_video = true;
+                                    $plan_video = false;
                                     if (is_fee_manager_active()) {
                                         $plan_video = is_plan_allowed_listing_video($fm_plan);
+                                    } elseif ( empty($display_video_for) && !empty($display_video_field)) {
+                                        $plan_video = true;
                                     }
-                                    $plan_slider = true;
+                                    
+                                    $plan_slider = false;
                                     if (is_fee_manager_active()) {
                                         $plan_slider = is_plan_allowed_slider($fm_plan);
+                                    } elseif( empty($display_glr_img_for) && !empty($display_gallery_field)) {
+                                        $plan_slider = true;
                                     }
                                     ?>
-                                    <?php if ((!empty($display_gallery_field) && empty($display_glr_img_for)) || (empty($display_video_for) && !empty($display_video_field) && $plan_video)) { ?>
+                                    <?php if ($plan_video || $plan_slider) { ?>
                                         <div class="atbd_content_module" id="atbdp_front_media_wrap">
                                             <div class="atbd_content_module_title_area">
                                                 <div class="atbd_area_title">
                                                     <h4>
                                                         <?php
-                                                        if ($plan_video && $display_gallery_field) {
+                                                        if ($plan_video && $plan_slider) {
                                                             _e("Images & Video", 'directorist');
-                                                        } elseif(!$plan_video) {
+                                                        } elseif($plan_slider) {
                                                             _e("Images", 'directorist');
-                                                        }elseif (!$display_gallery_field){
+                                                        }elseif ($plan_video){
                                                             _e("Video", 'directorist');
                                                         }
                                                         ?></h4>

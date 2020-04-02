@@ -4,6 +4,9 @@
   width: 100%;
   align-items: center;
 }
+.atbdp-range-slider-wrapper > span{
+  color: $dark;
+}
 .atbdp-range-slider-wrapper > div{
   flex: 1;
   padding: 0 15px;

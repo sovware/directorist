@@ -2225,6 +2225,12 @@ div#listing_notifier span {
   display: block;
 }
 
+.nav_button {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

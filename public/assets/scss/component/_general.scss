@@ -1562,3 +1562,9 @@ div#listing_notifier span {
 .atbd-dropdown-item {
   display: block;
 }
+
+.nav_button {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+}

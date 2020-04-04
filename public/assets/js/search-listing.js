@@ -127,7 +127,7 @@
         e.preventDefault();
         $(this).closest('.atbd_wrapper').find('.ads_slide').find('.ads-advanced').slideToggle().show();
         $(".ads_slide .ads-advanced").toggleClass("ads_ov");
-        atbd_callingSlider(140);
+        atbd_callingSlider();
     });
     $(".ads-advanced").parents("div").css("overflow", "visible");
 

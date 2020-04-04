@@ -93,7 +93,7 @@ const atbd_slider = (selector, obj) => {
 
     });
 };
-function atbd_callingSlider(min) {
+function atbd_callingSlider(min = 140) {
     atbd_slider ('#atbdp-range-slider', {
         maxValue: 587,
         minValue: min,
@@ -104,4 +104,4 @@ function atbd_callingSlider(min) {
         pointerBorder: '4px solid #444752',
     });
 }
-atbd_callingSlider(140);
+atbd_callingSlider();

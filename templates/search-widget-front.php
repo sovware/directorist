@@ -74,7 +74,7 @@ $c_symbol = atbdp_currency_symbol($currency);
             }else{
                 $miles = __(' Miles', 'directorist');
             }
-            $default_radius_distance = get_directorist_option('sresult_default_radius_distance', 0);
+            $default_radius_distance = get_directorist_option('search_default_radius_distance', 0);
             wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
                 'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
@@ -89,7 +89,7 @@ $c_symbol = atbdp_currency_symbol($currency);
                     </div>
                     <div><div id="atbdp-range-slider"></div></div>
                 </div>
-                <input type="hidden" class="atbdrs-value" name="miles" value="" />
+                <input type="hidden" class="atbdrs-value" name="miles" value="<?php echo !empty($default_radius_distance) ? $default_radius_distance : ''; ?>" />
             </div>
         <?php } ?>
         <?php if(!empty($search_by_custom_fields)) { ?>

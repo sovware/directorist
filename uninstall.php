@@ -34,8 +34,8 @@ if(!empty($enable_uninstall)) {
 
     //Delete all metabox
     $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id Not IN  (SELECT id FROM {$wpdb->posts})");
-    //Delete term relationships
 
+    //Delete term relationships
     $wpdb->query("DELETE FROM {$wpdb->term_relationships} WHERE object_id Not IN  (SELECT id FROM {$wpdb->posts})");
 
     //Delete all taxonomy

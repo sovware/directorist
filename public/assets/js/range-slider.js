@@ -1,8 +1,8 @@
 /* range slider */
 const atbd_slider = (selector, obj) => {
     var isDraging 	= false,
-        max 		= obj.maxValue + (Math.ceil(obj.maxValue*2.285714285714286/100)),
-        min 		= obj.minValue + (Math.ceil(obj.minValue*1.633/100)),
+        max 		= obj.maxValue,
+        min 		= obj.minValue,
         down 		= 'mousedown',
         up 			= 'mouseup',
         move 		= 'mousemove',
@@ -58,17 +58,17 @@ const atbd_slider = (selector, obj) => {
             slid1_val2 	= slid1_val;
             slide1.classList.remove('atbd-active');
         });
-        window.addEventListener('load', (e) => {
-            slide1.classList.add('atbd-active1');
-            count = (width / max);
-            if(slide1.classList.contains('atbd-active1')){
-                var onLoadValue 	= count * min;
-                document.querySelector('.atbd-current-value span').innerHTML = obj.minValue;
-                id.querySelector('.atbd-minimum').value = obj.minValue;
-                id.querySelector('.atbd-active1').style.left = onLoadValue <= 0 ? 0 : onLoadValue - 18 +'px';
-                id.querySelector('.atbd-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue - 18 +'px';
-            }
-        });
+
+        slide1.classList.add('atbd-active1');
+        count = (width / max);
+        if(slide1.classList.contains('atbd-active1')){
+            var onLoadValue 	= count * min;
+            document.querySelector('.atbd-current-value span').innerHTML = obj.minValue;
+            id.querySelector('.atbd-minimum').value = obj.minValue;
+            id.querySelector('.atbd-active1').style.left = onLoadValue <= 0 ? 0 : onLoadValue +'px';
+            id.querySelector('.atbd-child').style.width = onLoadValue <= 0 ? 0 : onLoadValue +'px';
+        }
+
         window.addEventListener(move, (e) => {
             if(isDraging){
                 count = e.clientX + slid1_val2 * width / max - x;
@@ -82,7 +82,7 @@ const atbd_slider = (selector, obj) => {
                 }
             }
             if(slide1.classList.contains('atbd-active')){
-                slid1_val 	= Math.floor(max/ width * count);
+                slid1_val 	= Math.floor(max/ (width -18) * count);
                 document.querySelector('.atbd-current-value').innerHTML = `<span>${slid1_val}</span> ${atbdp_range_slider.Miles}`;
                 id.querySelector('.atbd-minimum').value = slid1_val;
                 document.querySelector('.atbdrs-value').value = slid1_val;
@@ -93,10 +93,10 @@ const atbd_slider = (selector, obj) => {
 
     });
 };
-function atbd_callingSlider() {
+function atbd_callingSlider(min) {
     atbd_slider ('#atbdp-range-slider', {
-        maxValue: 1000,
-        minValue: 200,
+        maxValue: 587,
+        minValue: min,
         maxWidth: '100%',
         barColor: '#d4d5d9',
         barBorder: 'none',
@@ -104,4 +104,4 @@ function atbd_callingSlider() {
         pointerBorder: '4px solid #444752',
     });
 }
-atbd_callingSlider();
+atbd_callingSlider(140);

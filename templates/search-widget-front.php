@@ -82,10 +82,12 @@ $c_symbol = atbdp_currency_symbol($currency);
             ?>
             <!--range slider-->
             <div class="form-group">
-                <div class="atbdp-range-slider-wrapper">
-                    <label><?php _e('Radius Search', 'directorist'); ?></label>
+                <div class="atbdp-range-slider-wrapper atbdp-range-slider-widget">
+                    <div class="atbdp-range-slider-title">
+                        <label><?php _e('Radius Search', 'directorist'); ?></label>
+                        <p class="atbd-current-value"></p>
+                    </div>
                     <div><div id="atbdp-range-slider"></div></div>
-                    <p class="atbd-current-value"></p>
                 </div>
                 <input type="hidden" class="atbdrs-value" name="miles" value="" />
             </div>

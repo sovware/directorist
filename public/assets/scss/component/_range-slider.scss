@@ -26,6 +26,19 @@
   margin-bottom: 15px !important;
   padding: 0 !important;
 }
+.atbdp-range-slider-wrapper.atbdp-range-slider-widget{
+  display: block;
+  padding-bottom: 9px;
+  >div{
+    padding: 0;
+  }
+  .atbdp-range-slider-title{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+  }
+}
+
 .atbd-slide1{
   width: 1.2em;
   height: 1.2em;

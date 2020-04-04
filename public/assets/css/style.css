@@ -6880,6 +6880,21 @@ span.atbd_get_loc_wid {
   padding: 0 !important;
 }
 
+.atbdp-range-slider-wrapper.atbdp-range-slider-widget {
+  display: block;
+  padding-bottom: 9px;
+}
+
+.atbdp-range-slider-wrapper.atbdp-range-slider-widget > div {
+  padding: 0;
+}
+
+.atbdp-range-slider-wrapper.atbdp-range-slider-widget .atbdp-range-slider-title {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+
 .atbd-slide1 {
   width: 1.2em;
   height: 1.2em;
@@ -7218,6 +7233,15 @@ p.atbd-min {
   }
   .atbd_post_draft {
     padding-bottom: 80px;
+  }
+  .atbdp-range-slider-wrapper {
+    flex-wrap: wrap;
+  }
+  .atbdp-range-slider-wrapper > span {
+    flex: 0 0 100%;
+  }
+  .atbdp-range-slider-wrapper > div {
+    padding-left: 0;
   }
 }
 

@@ -331,6 +331,15 @@
   .atbd_post_draft{
     padding-bottom: 80px;
   }
+  .atbdp-range-slider-wrapper{
+    flex-wrap: wrap;
+    > span{
+      flex: 0 0 100%;
+    }
+    > div{
+      padding-left: 0;
+    }
+  }
 }
 
 @media (max-width: 400px) {

@@ -127,7 +127,7 @@
         e.preventDefault();
         $(this).closest('.atbd_wrapper').find('.ads_slide').find('.ads-advanced').slideToggle().show();
         $(".ads_slide .ads-advanced").toggleClass("ads_ov");
-        atbd_callingSlider();
+        atbd_callingSlider(140);
     });
     $(".ads-advanced").parents("div").css("overflow", "visible");
 
@@ -205,5 +205,6 @@ if(document.querySelector(".atbd_ads-form #atbdp_reset") !== null){
     document.querySelector(".atbd_ads-form #atbdp_reset").addEventListener("click", function (e) {
         e.preventDefault();
         adsFormReset();
+        atbd_callingSlider(0);
     });
 }

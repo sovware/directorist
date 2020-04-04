@@ -4671,8 +4671,8 @@ function the_thumbnail_card($img_src = '', $_args = array())
     }
 
     if ( !$has_thumbnail ) { return ''; }
-    $image = $thumbnail_img; 
-
+    $image = $thumbnail_img;
+    $image = is_array($image) ? $image[0] : $image;
     // Extend Default
     if ( isset($args['image']) ) {
         $image = esc_html(stripslashes($args['image']));

@@ -107,11 +107,12 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             $crop_width = get_directorist_option('crop_width', 360);
                                             $crop_height = get_directorist_option('crop_height', 300);
                                             if (!empty($listing_prv_img)) {
-                                                $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
-                                                $prv_image_full = wp_get_attachment_image_src($listing_prv_img, 'full')[0];
+                                                $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large');
+                                                $prv_image = is_array($prv_image) ? $prv_image[0] : '';
+                                                $prv_image_full = wp_get_attachment_image_src($listing_prv_img, 'full');
+                                                $prv_image = is_array($prv_image_full) ? $prv_image_full[0] : '';
                                             }
                                             if (!empty($listing_img[0])) {
-
                                                 $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
                                                 $gallery_img_full = wp_get_attachment_image_src($listing_img[0], 'full')[0];
                                             }

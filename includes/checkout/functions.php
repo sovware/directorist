@@ -260,7 +260,7 @@ function atbdp_listing_status_controller()
             $post_status = 'pending';
         }
     } elseif (!empty($featured_enabled && $monitization)) {
-        $post_status = 'pending';
+        $post_status = $new_l_status;
     } else {
         $post_status = $new_l_status;
     }

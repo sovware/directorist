@@ -34,12 +34,12 @@ if ($display_header == 'yes') { ?>
                         if ((!empty($listing_filters_button) && !empty($search_more_filters_fields)) || !empty($header_title)) { ?>
                             <div class="atbd_generic_header_title">
                                 <?php if (!empty($listing_filters_button)) { ?>
-                                    <button class="more-filter btn btn-outline btn-outline-primary">
+                                    <a href="" class="more-filter btn btn-outline btn-outline-primary">
                                         <?php if(!empty($listing_filters_icon)) { ?>
                                         <span class="<?php atbdp_icon_type(true); ?>-filter"></span>
                                         <?php } ?>
                                         <?php echo $filters; ?>
-                                    </button>
+                                    </a>
                                 <?php }
                                 /**
                                  * @since 5.4.0
@@ -404,8 +404,8 @@ if ($display_header == 'yes') { ?>
                                 <?php } ?>
                                 <div class="bdas-filter-actions">
                                     <?php if (in_array('reset_button', $filters_button)) { ?>
-                                        <button type="submit"
-                                                class="btn btn-outline btn-outline-primary btn-sm" id="atbdp_reset"><?php _e($reset_filters_text, 'directorist'); ?></button>
+                                        <a href=""
+                                                class="btn btn-outline btn-outline-primary btn-sm" id="atbdp_reset"><?php _e($reset_filters_text, 'directorist'); ?></a>
                                     <?php }
                                     if (in_array('apply_button', $filters_button)) { ?>
                                         <button type="submit"

@@ -95,7 +95,7 @@ const atbd_slider = (selector, obj) => {
 };
 function atbd_callingSlider(min = atbdp_range_slider.default_val) {
     atbd_slider ('#atbdp-range-slider', {
-        maxValue: 750,
+        maxValue: 1000,
         minValue: min,
         maxWidth: '100%',
         barColor: '#d4d5d9',

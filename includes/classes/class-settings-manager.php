@@ -3961,7 +3961,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'search_default_radius_distance',
                         'label' => __('Default Radius Distance', 'directorist'),
                         'min' => '0',
-                        'max' => '1000',
+                        'max' => '750',
                         'step' => '1',
                         'default' => '0',
                         'validation' => 'numeric',

@@ -510,7 +510,12 @@ This email is sent automatically for information purpose only. Please do not res
             if (!in_array('listing_edited', get_directorist_option('notify_user', array()))) return false;
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_edit_listing"), null, $listing_id, $user);
-            $body = $this->replace_in_content(get_directorist_option("email_tmpl_edit_listing"), null, $listing_id, $user);
+            $edited_status = get_directorist_option('edit_listing_status', 'pending');
+            if ('publish' === $edited_status){
+                $body = $this->replace_in_content(get_directorist_option("email_tmpl_edit_listing"), null, $listing_id, $user);
+            }else{
+                $body = $this->replace_in_content(get_directorist_option("email_tmpl_new_listing"), null, $listing_id, $user);
+            }
             $body = atbdp_email_html($sub, $body);
             return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
         }

@@ -93,9 +93,9 @@ const atbd_slider = (selector, obj) => {
 
     });
 };
-function atbd_callingSlider(min = 140) {
+function atbd_callingSlider(min = atbdp_range_slider.default_val) {
     atbd_slider ('#atbdp-range-slider', {
-        maxValue: 587,
+        maxValue: 750,
         minValue: min,
         maxWidth: '100%',
         barColor: '#d4d5d9',

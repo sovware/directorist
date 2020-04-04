@@ -116,7 +116,7 @@ $info_content = "";
 if (!empty($display_image_map) || !empty($display_title_map)) {
     $info_content .= "<div class='map-info-wrapper'><div class='map-info-img'>$image</div><div class='map-info-details'><div class='atbdp-listings-title-block'><h3>$t</h3></div>";
 }
-if (!empty($display_address_map)) {
+if (!empty($display_address_map) && !empty($ad)) {
     $info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 }
 if (!empty($display_direction_map)) {

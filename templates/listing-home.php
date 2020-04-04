@@ -159,7 +159,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                             $html .= '<div class="atbd_submit_btn_wrapper">';
 
                             if (('yes' == $more_filters_button) && ('yes' == $price_min_max_field || 'yes' == $price_range_field || 'yes' == $rating_field || 'yes' == $tag_field || 'yes' == $open_now_field || 'yes' == $custom_fields || 'yes' == $website_field || 'yes' == $email_field || 'yes' == $phone_field || 'yes' == $address_field || 'yes' == $zip_code_field)) {
-                                $html .= '<button class="more-filter btn btn-outline btn-lg btn-outline-primary">' . $more_filters_icon . '' . __($more_filters_text, 'directorist') . '</button>';
+                                $html .= '<a href="" class="more-filter btn btn-outline btn-lg btn-outline-primary">' . $more_filters_icon . '' . __($more_filters_text, 'directorist') . '</a>';
                             }
                             if ('yes' == $search_button) {
                                 $html .= '<div class="atbd_submit_btn">';
@@ -370,8 +370,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                     if ('yes' == $reset_filters_button || 'yes' == $apply_filters_button) { ?>
                                         <div class="bdas-filter-actions">
                                             <?php if ('yes' == $reset_filters_button) { ?>
-                                                <button type="submit"
-                                                        class="btn btn-outline-primary btn-sm" id="atbdp_reset"><?php _e($reset_filters_text, 'directorist'); ?></button>
+                                                <a href="" class="btn btn-outline-primary btn-sm" id="atbdp_reset"><?php _e($reset_filters_text, 'directorist'); ?></a>
                                             <?php }
                                             if ('yes' == $apply_filters_button) { ?>
                                                 <button type="submit"

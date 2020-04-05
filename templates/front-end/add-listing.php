@@ -1251,14 +1251,6 @@ $query_args = array(
                                         $guest_email_placeholder = get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist'));
                                         ?>
                                         <div class="atbd_content_module" id="atbdp_front_media_wrap">
-                                            <div class="atbd_content_module_title_area">
-                                                <div class="atbd_area_title">
-                                                    <h4>
-                                                        <?php _e("Enter Email to Signup & Receive Notification upon Listing Approval", 'directorist'); ?>
-                                                    </h4>
-                                                </div>
-                                            </div>
-
                                             <div class="atbdb_content_module_contents atbdp_video_field">
                                                 <div class="form-group">
                                                     <label for="guest_user"><?php

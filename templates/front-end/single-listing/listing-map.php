@@ -37,7 +37,8 @@ if (!empty($enable_review)) {
 $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';
 $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-$listing_prv_imgurl = !empty($listing_prv_img) ? wp_get_attachment_image_src($listing_prv_img, 'small')[0] : '';
+$listing_prv_imgurl = !empty($listing_prv_img) ? wp_get_attachment_image_src($listing_prv_img, 'small') : '';
+$listing_prv_img = is_array($listing_prv_imgurl) ? $listing_prv_imgurl[0] : '';
 $listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, 150, 150, true, 100)['url'];
 $img_url = !empty($listing_prv_imgurl)?$listing_prv_imgurl:$default_image;
 $image = "<img src=". $img_url.">";

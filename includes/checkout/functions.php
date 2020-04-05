@@ -269,20 +269,30 @@ function atbdp_listing_status_controller()
             'ID' => $id,
             'post_status' => $post_status,
         );
-        wp_update_post($args);
+        wp_update_post('atbdp_listing_status_controller_argument', $args);
     }
-    if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])){
+    if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])) {
         // status for edited listing
-        if ($edited){
-            if ('yes' === $edited){
-                $post_status = $edit_l_status;
+        if ($edited) {
+            if ('yes' === $edited) {
+                if (is_fee_manager_active()) {
+                    if ($plan_purchased && ('publish' === $edit_l_status)) {
+                        // status for paid users
+                        $post_status = $edit_l_status;
+                    } else {
+                        // status for non paid users
+                        $post_status = 'pending';
+                    }
+                } else {
+                    $post_status = $edit_l_status;
+                }
             }
         }
         $args = array(
             'ID' => $id,
             'post_status' => $post_status,
         );
-        wp_update_post($args);
+        wp_update_post('atbdp_reviewed_listing_status_controller_argument', $args);
     }
 }
 

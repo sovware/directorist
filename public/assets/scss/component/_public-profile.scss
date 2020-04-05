@@ -36,6 +36,7 @@
       flex: 1;
       display: flex;
       align-items: center;
+      justify-content: flex-end;
       padding: 0 15px;
       .atbd_listing_meta{
         margin-right: 7px;
@@ -71,6 +72,7 @@
     align-items: center;
     >h1{
       flex: 1;
+      font-size: 24px;
       & + .atbd_author_filter_area{
         width: auto;
       }

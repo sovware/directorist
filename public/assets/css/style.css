@@ -6419,6 +6419,7 @@ span.atbd_get_loc_wid {
   flex: 1;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   padding: 0 15px;
 }
 
@@ -6461,6 +6462,7 @@ span.atbd_get_loc_wid {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area > h1 {
   flex: 1;
+  font-size: 24px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area > h1 + .atbd_author_filter_area {

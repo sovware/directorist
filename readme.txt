@@ -3,8 +3,8 @@ Contributors: AazzTech
 Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
-Tested up to:  5.3
-Stable tag: 6.3.2
+Tested up to:  5.4
+Stable tag: 6.3.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -138,7 +138,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 6.3.2 - Mar 4, 2020 =
+= 6.3.3 - Apr 5, 2020 =
 
 * Add - Option to set custom redirection after login
 * Add - Options to customize email header
@@ -157,6 +157,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Fix - search location placeholder issue
 * Fix - Randomly filtering issue in single location page
 * Fix - Uninstall prefixing issue
+* Fix - Advanced filter issues
 * Fix - Disable single listing view in map's info window
 * Improve - Advanced filter reset in search result page
 * Improve - Card style in User Dashboard page

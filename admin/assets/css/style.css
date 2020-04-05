@@ -841,4 +841,8 @@ div#need_post_area label input:checked + span {
   border-color: #ddd;
 }
 
+span.atbdp-tick-cross {
+  padding-left: 20px;
+}
+
 /*# sourceMappingURL=map/style.css.map */

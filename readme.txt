@@ -140,6 +140,33 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 = 6.3.2 - Mar 4, 2020 =
 
+* Add - Option to set custom redirection after login
+* Add - Options to customize email header
+* Fix - Errors in PHP v7.4.1
+* Fix - Listing status
+* Fix - Minor issue in single listing's map
+* Fix - Style issues
+* Fix - Conflict of redius search
+* Fix - Mail sending issue of Contact owner form
+* Fix - Category and location saving issue of add listing form
+* Fix - Edited listing email issue
+* Fix - Listing status when checkout not continued
+* Fix - Review disable issue in author profile page
+* Fix - 'Go Back' link in single listing
+* Fix - Broken link in listing thumbnail on map view
+* Fix - search location placeholder issue
+* Fix - Randomly filtering issue in single location page
+* Fix - Uninstall prefixing issue
+* Fix - Disable single listing view in map's info window
+* Improve - Advanced filter reset in search result page
+* Improve - Card style in User Dashboard page
+* Remove - Repeated js stuff
+* Remove - Login form's action
+* Remove - Unnecessary settings
+* Remove - Bootstrap tooltip
+
+= 6.3.2 - Mar 4, 2020 =
+
 * Fix - Add Listing form redirection issue
 * Fix - Issues of PHP older version
 * Fix - Price formatting issue

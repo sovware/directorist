@@ -745,16 +745,17 @@ $query_args = array(
                                         </div>
 
                                         <div class="atbdb_content_module_contents">
-                                            <?php if(!empty($display_contact_hide)) { ?>
-                                            <div class="form-check">
-                                                <input type="checkbox" name="hide_contact_info" class="form-check-input"
-                                                       id="hide_contact_info"
-                                                       value="1" <?php if (!empty($hide_contact_info)) {
-                                                    checked($hide_contact_info);
-                                                } ?> >
-                                                <label class="form-check-label"
-                                                       for="hide_contact_info"><?php echo !empty($contact_hide_label) ? $contact_hide_label : __('Check it to hide Contact Information for this listing', 'directorist'); ?></label>
-                                            </div>
+                                            <?php if (!empty($display_contact_hide)) { ?>
+                                                <div class="form-check">
+                                                    <input type="checkbox" name="hide_contact_info"
+                                                           class="form-check-input"
+                                                           id="hide_contact_info"
+                                                           value="1" <?php if (!empty($hide_contact_info)) {
+                                                        checked($hide_contact_info);
+                                                    } ?> >
+                                                    <label class="form-check-label"
+                                                           for="hide_contact_info"><?php echo !empty($contact_hide_label) ? $contact_hide_label : __('Check it to hide Contact Information for this listing', 'directorist'); ?></label>
+                                                </div>
                                             <?php } ?>
                                             <?php if (!$disable_contact_owner) { ?>
                                                 <div class="form-check">
@@ -1101,14 +1102,15 @@ $query_args = array(
                                     $plan_video = false;
                                     if (is_fee_manager_active()) {
                                         $plan_video = is_plan_allowed_listing_video($fm_plan);
-                                    } elseif ( empty($display_video_for) && !empty($display_video_field)) {
+                                    } elseif (empty($display_video_for) && !empty($display_video_field)) {
                                         $plan_video = true;
                                     }
-                                    
+
+
                                     $plan_slider = false;
                                     if (is_fee_manager_active()) {
                                         $plan_slider = is_plan_allowed_slider($fm_plan);
-                                    } elseif( empty($display_glr_img_for) && !empty($display_gallery_field)) {
+                                    } elseif (empty($display_glr_img_for) && !empty($display_gallery_field)) {
                                         $plan_slider = true;
                                     }
                                     ?>
@@ -1120,9 +1122,9 @@ $query_args = array(
                                                         <?php
                                                         if ($plan_video && $plan_slider) {
                                                             _e("Images & Video", 'directorist');
-                                                        } elseif($plan_slider) {
+                                                        } elseif ($plan_slider) {
                                                             _e("Images", 'directorist');
-                                                        }elseif ($plan_video){
+                                                        } elseif ($plan_video) {
                                                             _e("Video", 'directorist');
                                                         }
                                                         ?></h4>
@@ -1131,7 +1133,7 @@ $query_args = array(
 
                                             <div class="atbdb_content_module_contents atbdp_video_field">
                                                 <!--Image Uploader-->
-                                                <?php if (!empty($display_gallery_field) && empty($display_glr_img_for) && $plan_slider) {
+                                                <?php if ($plan_slider) {
                                                     $plan_image = get_directorist_option('max_gallery_image_limit', 5);
                                                     $slider_unl = '';
                                                     if (is_fee_manager_active()) {
@@ -1220,7 +1222,7 @@ $query_args = array(
                                                 do_action('atbdp_add_listing_after_listing_slider', 'add_listing_page_frontend', $listing_info);
                                                 ?>
                                                 <?php
-                                                if (empty($display_video_for) && !empty($display_video_field) && $plan_video) {
+                                                if ($plan_video) {
                                                     ?>
                                                     <div class="form-group">
                                                         <label for="videourl"><?php
@@ -1233,24 +1235,8 @@ $query_args = array(
                                                                class="form-control directory_field"
                                                                placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
                                                     </div>
-                                                    <?php do_action('atbdp_video_field', $p_id); ?>
-                                                <?php }
-                                                if ($guest_listings && !atbdp_logged_in_user()) { //$guest_listings && !atbdp_logged_in_user()
-                                                    ?>
-                                                    <div class="form-group">
-                                                        <label for="guest_user"><?php
-                                                            $guest_email_label = get_directorist_option('guest_email', __('Your Email', 'directorist'));
-                                                            $guest_email_placeholder = get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist'));
-                                                            esc_html_e($guest_email_label . ':', 'directorist');
-                                                            echo '<span class="atbdp_make_str_red">*</span>'; ?></label>
-                                                        <input type="text" id="guest_user_email" name="guest_user_email"
-                                                               value="<?php echo !empty($guest_user_email) ? esc_url($guest_user_email) : ''; ?>"
-                                                               class="form-control directory_field"
-                                                               placeholder="<?php echo esc_attr($guest_email_placeholder); ?>"/>
-                                                    </div>
-                                                    <?php
-                                                }
-                                                ?>
+                                                    <?php do_action('atbdp_video_field', $p_id);
+                                                } ?>
                                             </div>
                                         </div>
                                         <?php
@@ -1259,6 +1245,34 @@ $query_args = array(
                                      * @since 4.1.0
                                      */
                                     do_action('atbdp_before_terms_and_conditions_font');
+
+                                    if ( $guest_listings && !atbdp_logged_in_user() ) {
+                                        $guest_email_label = get_directorist_option('guest_email', __('Your Email', 'directorist'));
+                                        $guest_email_placeholder = get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist'));
+                                        ?>
+                                        <div class="atbd_content_module" id="atbdp_front_media_wrap">
+                                            <div class="atbd_content_module_title_area">
+                                                <div class="atbd_area_title">
+                                                    <h4>
+                                                        <?php _e("Enter Email to Signup & Receive Notification upon Listing Approval", 'directorist'); ?>
+                                                    </h4>
+                                                </div>
+                                            </div>
+
+                                            <div class="atbdb_content_module_contents atbdp_video_field">
+                                                <div class="form-group">
+                                                    <label for="guest_user"><?php
+                                                        esc_html_e($guest_email_label . ':', 'directorist');
+                                                        echo '<span class="atbdp_make_str_red">*</span>'; ?></label>
+                                                    <input type="text" id="guest_user_email" name="guest_user_email"
+                                                           value="<?php echo !empty($guest_user_email) ? esc_url($guest_user_email) : ''; ?>"
+                                                           class="form-control directory_field"
+                                                           placeholder="<?php echo esc_attr($guest_email_placeholder); ?>"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
                                     $terms_label = get_directorist_option('terms_label', __('I agree with all', 'directorist'));
                                     $terms_label_link = get_directorist_option('terms_label_link', __('terms & conditions', 'directorist'));
                                     $t_C_page_link = ATBDP_Permalink::get_terms_and_conditions_page_url();

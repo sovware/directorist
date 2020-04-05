@@ -55,6 +55,7 @@ $container_fluid = 'container-fluid';
                         );
                         $current_user_posts = get_posts($args);
                         $total_listing = apply_filters('atbdp_author_listing_count', count($current_user_posts));
+                        $enable_review = get_directorist_option('enable_review', 1);
                         $review_in_post = 0;
                         $all_reviews = 0;
                         foreach ($current_user_posts as $post) {
@@ -69,16 +70,20 @@ $container_fluid = 'container-fluid';
                         }
                         $author_rating = (!empty($all_reviews) && !empty($review_in_post)) ? ($all_reviews / $review_in_post) : 0;
                         $author_rating = substr($author_rating, '0', '3');
-                        ?>
-                        <div class="atbd_listing_meta">
+                        if ($enable_review) {
+                            ?>
+                            <div class="atbd_listing_meta">
                             <span class="atbd_meta atbd_listing_rating">
                                 <?php echo $author_rating; ?><i class="<?php atbdp_icon_type(true); ?>-star"></i>
                             </span>
-                        </div>
-                        <p class="meta-info">
-                            <span><?php echo !empty($review_in_post) ? $review_in_post : '0' ?></span>
-                            <?php echo (($review_in_post > 1) || ($review_in_post === 0)) ? __('Reviews', 'directorist') : __('Review', 'directorist') ?>
-                        </p>
+                            </div>
+                            <p class="meta-info">
+                                <span><?php echo !empty($review_in_post) ? $review_in_post : '0' ?></span>
+                                <?php echo (($review_in_post > 1) || ($review_in_post === 0)) ? __('Reviews', 'directorist') : __('Review', 'directorist') ?>
+                            </p>
+                            <?php
+                        }
+                        ?>
                         <p class="meta-info">
                             <span><?php echo !empty($total_listing) ? $total_listing : '0' ?></span>
                             <?php echo (($total_listing > 1) || ($total_listing === 0)) ? __('Listings', 'directorist') : __('Listing', 'directorist') ?>

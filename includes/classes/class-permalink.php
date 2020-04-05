@@ -55,6 +55,17 @@ class ATBDP_Permalink{
      * It returns the link to the custom search archive page of ATBDP
      * @return string
      */
+    public static function get_login_redirection_page_link()
+    {
+        $id = get_directorist_option('redirection_after_login'); // get the page id of the dashboard page.
+        $link = $id ? get_permalink( $id ) : '';
+        return apply_filters('atbdp_login_redirection_page_url', $link );
+    }
+
+    /**
+     * It returns the link to the custom search archive page of ATBDP
+     * @return string
+     */
     public static function get_dashboard_page_link()
     {
         $link = home_url();

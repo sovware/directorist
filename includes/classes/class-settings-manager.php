@@ -425,10 +425,10 @@ if (!class_exists('ATBDP_Settings_Manager')):
                         ),
                         'login_redirection' =>  array(
                             'type' => 'select',
-                            'name' => 'after_login_redirection',
-                            'label' => __('Redirection after Successfully Login', 'directorist'),
+                            'name' => 'redirection_after_login',
+                            'label' => __('Redirection after Login', 'directorist'),
                             'items' => $this->get_pages_vl_arrays(),
-                            'default' => atbdp_get_option('single_category_page', 'atbdp_general'),
+                            'default' => atbdp_get_option('user_dashboard', 'atbdp_general'),
                             'validation' => 'numeric',
                         ),
                     )),

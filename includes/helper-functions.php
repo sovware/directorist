@@ -4632,6 +4632,10 @@ function the_thumbnail_card($img_src = '', $_args = array())
         $thumbnail_img = wp_get_attachment_image_src( $listing_prv_img, 'medium')[0];
     }
 
+    if ( !empty( $img_src ) ) {
+        $thumbnail_img = $img_src;
+    }
+
     if ( empty( $thumbnail_img ) ) {
         $thumbnail_img = $default_image_src;
     }

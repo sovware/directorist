@@ -47,7 +47,8 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
         ) );
         if(!empty($listing_prv_img)) {
 
-            $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+            $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large');
+            $prv_image = is_array($prv_image) ? $prv_image[0] : '';
 
         }
         if(!empty($listing_img[0])) {

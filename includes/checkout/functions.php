@@ -269,7 +269,7 @@ function atbdp_listing_status_controller()
             'ID' => $id,
             'post_status' => $post_status,
         );
-        wp_update_post('atbdp_listing_status_controller_argument', $args);
+        wp_update_post(apply_filters('atbdp_reviewed_listing_status_controller_argument', $args));
     }
     if (isset($_GET['reviewed']) && ('yes' === $_GET['reviewed'])) {
         // status for edited listing
@@ -292,7 +292,7 @@ function atbdp_listing_status_controller()
             'ID' => $id,
             'post_status' => $post_status,
         );
-        wp_update_post('atbdp_reviewed_listing_status_controller_argument', $args);
+        wp_update_post(apply_filters('atbdp_reviewed_listing_status_controller_argument', $args));
     }
 }
 

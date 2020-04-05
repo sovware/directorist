@@ -131,7 +131,8 @@ if (!class_exists('ATBDP_Helper')) :
                             $args['custom_gl_width'], $args['custom_gl_height'],
                             true, 100)['url'];
                     } else {
-                        $listing_prv_imgurl = wp_get_attachment_image_src($args['listing_prv_img'], 'large')[0];
+                        $listing_prv_imgurl = wp_get_attachment_image_src($args['listing_prv_img'], 'large');
+                        $listing_prv_imgurl = is_array($listing_prv_imgurl) ? $listing_prv_imgurl[0] : '';
                     }
                     array_unshift($args['image_links'], $listing_prv_imgurl);
                 }
@@ -154,7 +155,9 @@ if (!class_exists('ATBDP_Helper')) :
                 $listing_prv_img = !empty($args['listing_prv_img']) ? $args['listing_prv_img'] : '';
                 if (!empty($args['display_thumbnail_img']) && (1 != count($image_links_thumbnails) || (!empty($listing_prv_img) && !empty($display_prv_image) ) )) {
                     $gallery_image .= '<div class="atbd_directory_image_thumbnail">';
-                    $listing_prv_imgurl_thumb = wp_get_attachment_image_src($listing_prv_img, 'thumbnail')['0'];
+                    $listing_prv_imgurl_thumb = !empty($listing_prv_img) ? wp_get_attachment_image_src($listing_prv_img, 'thumbnail') : '';
+                    $listing_prv_imgurl_thumb = is_array($listing_prv_imgurl_thumb) ? $listing_prv_imgurl_thumb[0] : '';
+
                     if (!empty($listing_prv_imgurl_thumb && !empty($args['display_prv_image']))) {
                         array_unshift($image_links_thumbnails, $listing_prv_imgurl_thumb);
                     }
@@ -197,10 +200,12 @@ if (!class_exists('ATBDP_Helper')) :
             $background_color = get_directorist_option('prv_background_color', 'gainsboro');
 
             $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
-            $listing_img_src = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
+            $listing_img_src = wp_get_attachment_image_src($listing_img[0], 'medium');
+            $listing_img_src = is_array($listing_img_src) ? $listing_img_src[0] : '';
 
             $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-            $prv_image_src = wp_get_attachment_image_src($listing_prv_img, 'medium')[0];
+            $prv_image_src = wp_get_attachment_image_src($listing_prv_img, 'medium');
+            $prv_image_src = is_array($prv_image_src) ? $prv_image_src[0] : '';
 
             $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 

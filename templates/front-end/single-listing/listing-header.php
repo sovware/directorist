@@ -201,7 +201,7 @@ do_action('atbdp_before_listing_section');
         <?php
         
         $listing_prv_imgurl = !empty($listing_prv_img) ? wp_get_attachment_image_src($listing_prv_img, 'large') : '';
-        $listing_prv_img = is_array($listing_prv_img) ? $listing_prv_img[0] : '';
+        $listing_prv_imgurl = is_array($listing_prv_imgurl) ? $listing_prv_imgurl[0] : '';
         $gallery_image = '';
         $plan_slider = true;
         if (is_fee_manager_active()) {

@@ -43,16 +43,14 @@ if(!empty($display_map) && 'google' == $select_listing_map) {
                 $cat_icon                       = get_cat_icon($cats[0]->term_id);
             }
             if (!empty($listing_prv_img)) {
-
-
-                $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
-
-
+                $prv_image = wp_get_attachment_image_src($listing_prv_img, 'large');
+                $prv_image = is_array($prv_image) ? $prv_image[0] : '';
             }
             if (!empty($listing_img[0])) {
 
                 $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];;
-                $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
+                $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium');
+                $gallery_img = is_array($gallery_img) ? $gallery_img[0] : '';
 
             }
             ?>

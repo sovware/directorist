@@ -423,6 +423,14 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Recover Password', 'directorist'),
                             'fields' => $this->get_recoverPassword_login(),
                         ),
+                        'login_redirection' =>  array(
+                            'type' => 'select',
+                            'name' => 'after_login_redirection',
+                            'label' => __('Redirection after Successfully Login', 'directorist'),
+                            'items' => $this->get_pages_vl_arrays(),
+                            'default' => atbdp_get_option('single_category_page', 'atbdp_general'),
+                            'validation' => 'numeric',
+                        ),
                     )),
                 ),
             ));

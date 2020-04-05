@@ -93,7 +93,8 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $listing_preview_img = empty(get_directorist_option('display_preview_image', 1)) || 'no' == $display_image ? 'no' : 'yes';
                     $prv_image = '';
                     if (!empty($listing_prv_img)) {
-                        $prv_image_full = wp_get_attachment_image_src($listing_prv_img, 'full')[0];
+                        $prv_image_full = wp_get_attachment_image_src($listing_prv_img, 'full');
+                        $prv_image_full = is_array($prv_image_full) ? $prv_image_full[0] : '';
                     }
                     if (!empty($listing_img[0])) {
                         $gallery_img_full = wp_get_attachment_image_src($listing_img[0], 'full')[0];

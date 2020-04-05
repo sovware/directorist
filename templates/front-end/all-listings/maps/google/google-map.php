@@ -46,7 +46,8 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         $cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
         if(!empty($listing_prv_img)) {
 
-            $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large')[0];
+            $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large');
+            $prv_image = is_array($prv_image) ? $prv_image[0] : '';
 
         }
         if(!empty($listing_img[0])) {

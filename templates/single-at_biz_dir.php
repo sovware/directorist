@@ -172,6 +172,7 @@ $display_map_field = get_directorist_option('display_map_field', 1);
 $display_map_field = apply_filters('atbdp_show_single_listing_map', $display_map_field);
 $display_video_for = get_directorist_option('display_video_for', 'admin_users');
 $preview_enable = get_directorist_option('preview_enable', 1);
+$display_back_link = get_directorist_option('display_back_link', 1);
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 ?>
@@ -183,9 +184,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
         //is current user is logged in and the original author of the listing
         if (atbdp_logged_in_user() && $listing_author_id == get_current_user_id()) {
             //ok show the edit option
-
             $html_edit_back .= '<div class="edit_btn_wrap">';
-            $display_back_link = get_directorist_option('display_back_link', 1);
             if (!empty($display_back_link)) {
                 if (!isset($_GET['redirect'])){
                     $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '</a> ';

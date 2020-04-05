@@ -4618,51 +4618,31 @@ function the_thumbnail_card($img_src = '', $_args = array())
     $blur_background = $is_blur;
     $background_color = get_directorist_option('prv_background_color', 'gainsboro');
 
-    $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
-    $listing_img_src = '';
-    if ( is_array($listing_img) && count($listing_img)  ) {
-        $listing_img_src = !empty($listing_img) ? wp_get_attachment_image_src($listing_img[0], 'medium')[0] : '';
-    }
-
+    $thumbnail_img = '';
 
     $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-    $prv_image_src = '';
-    if ( !empty($listing_prv_img) || $listing_prv_img !== false ) {
-        $prv_image_src = !empty($listing_prv_img) ? wp_get_attachment_image_src($listing_prv_img, 'medium') : '';
-        $prv_image_src = is_array($prv_image_src) ? $prv_image_src[0] : '';
-    }
-
+    $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
     $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
-    if ( 'cover' === $image_size && false === $by_ratio ) {
-        $listing_img_src = atbdp_image_cropping($listing_img, $ratio_width, $ratio_height, true, 100)['url'];
-        $prv_image_src = atbdp_image_cropping($listing_prv_img, $ratio_width, $ratio_height, true, 100)['url'];
-        $default_image_src = atbdp_image_cropping($default_image_src, $ratio_width, $ratio_height, true, 100)['url'];
+    if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
+        $thumbnail_img = wp_get_attachment_image_src( $listing_img[0], 'medium' )[0];
     }
 
-    $has_thumbnail = false;
-    $thumbnail_img = '';
-    
-    if (!empty($listing_img[0]) && empty($listing_prv_img_src)) {
-        $thumbnail_img = $listing_img_src;
-        $has_thumbnail = true;
+    if ( ! empty( $listing_prv_img ) ) {
+        $thumbnail_img = wp_get_attachment_image_src( $listing_prv_img, 'medium')[0];
     }
-    if (empty($listing_img[0]) && empty($listing_prv_img_src) && !empty($default_image_src)) {
+
+    if ( empty( $thumbnail_img ) ) {
         $thumbnail_img = $default_image_src;
-        $has_thumbnail = true;
-    }
-    if (!empty($listing_prv_img)) {
-        $thumbnail_img = $prv_image_src;
-        $has_thumbnail = true;
-    }
-    if (!empty($img_src)) {
-        $thumbnail_img = $img_src;
-        $has_thumbnail = true;
     }
 
-    if ( !$has_thumbnail ) { return ''; }
-    $image = $thumbnail_img;
-    $image = is_array($image) ? $image[0] : $image;
+    if ( 'cover' === $image_size && false === $by_ratio ) {
+        $thumbnail_img = atbdp_image_cropping($thumbnail_img, $ratio_width, $ratio_height, true, 100)['url'];
+    }
+
+    if ( empty( $thumbnail_img ) ) { return ''; }
+
+    $image = is_array($thumbnail_img) ? $thumbnail_img[0] : $thumbnail_img;
     // Extend Default
     if ( isset($args['image']) ) {
         $image = esc_html(stripslashes($args['image']));

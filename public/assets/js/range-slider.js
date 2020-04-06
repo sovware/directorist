@@ -104,4 +104,6 @@ function atbd_callingSlider(min = atbdp_range_slider.default_val) {
         pointerBorder: '4px solid #444752',
     });
 }
-atbd_callingSlider();
+window.addEventListener("load", function () {
+    atbd_callingSlider();
+});

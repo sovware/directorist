@@ -1943,13 +1943,13 @@ function atbdp_get_listings_current_order($default_order = '')
 function atbdp_get_listings_orderby_options($sort_by_items)
 {
     $options = array(
-        'title-asc' => __("A to Z ( title )", 'directorist'),
-        'title-desc' => __("Z to A ( title )", 'directorist'),
+        'title-asc' => __("A to Z (title)", 'directorist'),
+        'title-desc' => __("Z to A (title)", 'directorist'),
         'date-desc' => __("Latest listings", 'directorist'),
         'date-asc' => __("Oldest listings", 'directorist'),
         'views-desc' => __("Popular listings", 'directorist'),
-        'price-asc' => __("Price ( low to high )", 'directorist'),
-        'price-desc' => __("Price ( high to low )", 'directorist'),
+        'price-asc' => __("Price (low to high)", 'directorist'),
+        'price-desc' => __("Price (high to low)", 'directorist'),
         'rand' => __("Random listings", 'directorist'),
     );
 

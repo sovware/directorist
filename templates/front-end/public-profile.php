@@ -231,7 +231,8 @@ $container_fluid = 'container-fluid';
                             <div class="atbd_dropdown-menu atbd_dropdown-menu--lg" aria-labelledby="dropdownMenuLink">
                                 <?php
                                 foreach ($categories as $category) {
-                                    printf('<a class="atbd_dropdown-item" href="%s">%s</a>', add_query_arg('category', $category->slug), $category->name);
+                                    $active = (isset($_GET['category']) && ($category->slug == $_GET['category'])) ? 'active' : '';
+                                        printf('<a class="atbd_dropdown-item %s" href="%s">%s</a>', $active, add_query_arg('category', $category->slug), $category->name);
                                 }
                                 ?>
                             </div>

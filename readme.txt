@@ -138,7 +138,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 6.3.3 - Apr 5, 2020 =
+= 6.3.3 - Apr 6, 2020 =
 
 * Add - Option to set custom redirection after login
 * Add - Options to customize email header

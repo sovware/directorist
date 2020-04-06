@@ -130,7 +130,6 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     $has_thumbnail = false;
                                                                     $thumbnail_img = '';
 
-
                                                                     if (!empty($listing_img[0]) && empty($listing_prv_img)) {
                                                                         $thumbnail_img = $gallery_img_full;
                                                                         $has_thumbnail = true;

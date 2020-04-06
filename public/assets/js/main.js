@@ -17,7 +17,7 @@ jQuery(function ($) {
     /* Externel Library init
      ------------------------*/
     //Star rating
-    if($('.stars').length){
+    if ($('.stars').length) {
         $(".stars").barrating({
             theme: 'fontawesome-stars'
         });
@@ -85,13 +85,13 @@ jQuery(function ($) {
             var ava_img = $form.find("#reviewer_img").val();
             var approve_immediately = $form.find("#approve_immediately").val();
             var review_duplicate = $form.find("#review_duplicate").val();
-            if(approve_immediately === 'no') {
+            if (approve_immediately === 'no') {
                 if (submit_count === 1) {
                     $('#client_review_list').prepend(output); // add the review if it's the first review of the user
                     $('.atbdp_static').remove();
                 }
                 submit_count++;
-                if(review_duplicate === 'yes') {
+                if (review_duplicate === 'yes') {
                     swal({
                         title: atbdp_public_data.warning,
                         text: atbdp_public_data.duplicate_review_error,
@@ -99,7 +99,7 @@ jQuery(function ($) {
                         timer: 3000,
                         showConfirmButton: false
                     });
-                }else {
+                } else {
                     swal({
                         title: atbdp_public_data.success,
                         text: atbdp_public_data.review_approval_text,
@@ -169,7 +169,7 @@ jQuery(function ($) {
                 if ($r_notice) {
                     $r_notice.remove();
                 }
-            }else {
+            } else {
                 // show error message
                 swal({
                     title: "ERROR!!",
@@ -185,7 +185,7 @@ jQuery(function ($) {
     });
 
 
-    function atbdp_load_all_posts(page){
+    function atbdp_load_all_posts(page) {
         // Start the transition
         //$(".atbdp_pag_loading").fadeIn().css('background','#ccc');
         var listing_id = $('#review_post_id').attr('data-post-id');
@@ -198,7 +198,7 @@ jQuery(function ($) {
         };
 
         // Send the data
-        $.post(atbdp_public_data.ajaxurl, data, function(response) {
+        $.post(atbdp_public_data.ajaxurl, data, function (response) {
             // If successful Append the data into our html container
             $('#client_review_list').empty().append(response);
             // End the transition
@@ -207,12 +207,12 @@ jQuery(function ($) {
     }
 
     // Load page 1 as the default
-    if ($('#client_review_list').length){
+    if ($('#client_review_list').length) {
         atbdp_load_all_posts(1);
     }
 
     // Handle the clicks
-    $('.atbdp-universal-pagination li.atbd-active').live('click',function(){
+    $('.atbdp-universal-pagination li.atbd-active').live('click', function () {
         var page = $(this).attr('data-page');
         atbdp_load_all_posts(page);
 
@@ -440,8 +440,11 @@ jQuery(function ($) {
         //var tab_count = document.querySelectorAll(".atbdp_tab_nav--content li");
 
         if (tab_nav < 600 /*&& tab_count.length >=4*/) {
-            $(".atbd_tab").addClass("atbd_tab_slider")
+            $(".atbd_tab").addClass("atbd_tab_slider");
             $(".atbdp_tab_nav--content").addClass("tab_nav_slide");
+        }
+        if($(".atbd_dashboard_wrapper ").width() > 590){
+            $(".atbdp_tab_nav--content").addClass("tab_nav_slide--fix");
         }
 
         var nav_tab_slide = $('.atbdp_tab_nav--content.tab_nav_slide ').slick({
@@ -488,34 +491,37 @@ jQuery(function ($) {
         });
 
         /* active dropdown if nav items are higher than 5 */
-        if(document.querySelector('.atbdp_tab_nav--content') != null){
+
+        if (document.querySelector('.atbdp_tab_nav--content') != null) {
             const navLi = document.querySelectorAll('.atbdp_tab_nav--content .atbdp_tab_nav--content-link');
             const navLastChild = document.querySelector('.atbdp-tab-nav-last');
             navLastChild.style.display = 'none';
-            const liArray = [...navLi];
-            const liSliced = liArray.slice(5, -1);
-            const navUl = document.createElement('ul');
-            liSliced.forEach(i => {
-                if (typeof i === 'object') {
-                    navUl.appendChild(i);
-                } else {
-                    navUl.innerHTML += ` ${i} `;
+            if (tab_nav > 600) {
+                const liArray = [...navLi];
+                const liSliced = liArray.slice(5, -1);
+                const navUl = document.createElement('ul');
+                liSliced.forEach(i => {
+                    if (typeof i === 'object') {
+                        navUl.appendChild(i);
+                    } else {
+                        navUl.innerHTML += ` ${i} `;
+                    }
+                });
+                navLastChild.appendChild(navUl);
+                if (navLi.length > 5) {
+                    navLastChild.style.display = 'block';
+                    navLastChild.classList.add("atbdp-nlc-active");
                 }
-            });
-            navLastChild.appendChild(navUl);
-            if(navLi.length > 5){
-                navLastChild.style.display = 'block';
-                navLastChild.classList.add("atbdp-nlc-active");
-            }
-            if(navLi.length === 6){
-                navLastChild.style.display = 'none';
+                if (navLi.length === 6) {
+                    navLastChild.style.display = 'none';
+                }
             }
 
             navLastChild.querySelector('.atbdp-tab-nav-link').addEventListener('click', function (e) {
                 e.preventDefault();
                 navLastChild.querySelector('ul').classList.toggle('active');
             });
-            if(document.querySelector('.atbdp_all_booking_nav-link') !== null){
+            if (document.querySelector('.atbdp_all_booking_nav-link') !== null) {
                 document.querySelector('.atbdp_all_booking_nav-link').addEventListener('click', function (e) {
                     e.preventDefault();
                     document.querySelector('.atbdp_all_booking_nav ul').classList.toggle('active');
@@ -523,17 +529,18 @@ jQuery(function ($) {
             }
 
 
-            document.body.addEventListener('click', function(e){
-                if(!e.target.closest(".atbdp-tab-nav-last")){
+            document.body.addEventListener('click', function (e) {
+                if (!e.target.closest(".atbdp-tab-nav-last")) {
                     document.querySelector('.atbdp-tab-nav-last ul').classList.remove('active');
                 }
-                if(document.querySelector('.atbdp_all_booking_nav-link') !== null){
-                    if(!e.target.closest(".atbdp_all_booking_nav")){
+                if (document.querySelector('.atbdp_all_booking_nav-link') !== null) {
+                    if (!e.target.closest(".atbdp_all_booking_nav")) {
                         document.querySelector('.atbdp_all_booking_nav ul').classList.remove('active');
                     }
                 }
             });
         }
+
 
     });
 
@@ -826,7 +833,7 @@ jQuery(function ($) {
         })*/
 
     // Perform AJAX login on form submit
-    $('form#login').on('submit', function(e){
+    $('form#login').on('submit', function (e) {
         e.preventDefault();
         $('p.status').show().html(ajax_login_object.loading_message);
         $.ajax({
@@ -837,23 +844,23 @@ jQuery(function ($) {
                 'action': 'ajaxlogin', //calls wp_ajax_nopriv_ajaxlogin
                 'username': $('form#login p #username').val(),
                 'password': $('form#login p #password').val(),
-                'rememberme': ( $('form#login #keep_signed_in').is(':checked') ) ? 1 : 0,
+                'rememberme': ($('form#login #keep_signed_in').is(':checked')) ? 1 : 0,
                 'security': $('#security').val()
             },
-            success: function(data) {
-                if ( 'reload' in data && data.reload ) {
+            success: function (data) {
+                if ('reload' in data && data.reload) {
                     $('p.status').html('<span class="status-success">' + data.message + '</span>');
                     location.reload();
                 }
-                if (data.loggedin == true){
+                if (data.loggedin == true) {
                     $('p.status').html('<span class="status-success">' + data.message + '</span>');
                     document.location.href = ajax_login_object.redirect_url;
-                }else {
+                } else {
                     $('p.status').html('<span class="status-failed">' + data.message + '</span>');
                 }
             },
             error: function (data) {
-                if ( 'reload' in data && data.reload ) {
+                if ('reload' in data && data.reload) {
                     $('p.status').html('<span class="status-success">' + data.message + '</span>');
                     location.reload();
                 }
@@ -869,13 +876,13 @@ jQuery(function ($) {
     single_listing_slider.init();
 
     //adding temporary css class to post draft page
-    if($(".edit_btn_wrap .atbdp_float_active").length){
+    if ($(".edit_btn_wrap .atbdp_float_active").length) {
         $("body").addClass("atbd_post_draft");
     }
 
     //atbd_dropdown
     $(".atbd_dropdown").on("click", function (e) {
-        if($(this).attr("class") === "atbd_dropdown"){
+        if ($(this).attr("class") === "atbd_dropdown") {
             e.preventDefault();
             $(this).siblings(".atbd_dropdown").removeClass("atbd_drop--active");
             $(this).toggleClass("atbd_drop--active");
@@ -883,7 +890,7 @@ jQuery(function ($) {
         }
     });
     $(document).on("click", function (e) {
-        if($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false){
+        if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
             $(".atbd_dropdown").removeClass("atbd_drop--active");
         }
     })
@@ -906,7 +913,7 @@ const atbdDropdown = document.querySelectorAll('.atbd-dropdown');
 
 // toggle dropdown
 let clickCount = 0;
-if(atbdDropdown !==  null){
+if (atbdDropdown !== null) {
     atbdDropdown.forEach(function (el) {
         el.querySelector('.atbd-dropdown-toggle').addEventListener('click', function (e) {
             e.preventDefault();
@@ -937,7 +944,7 @@ document.body.addEventListener('click', function (e) {
 
 //custom select
 const atbdSelect = document.querySelectorAll('.atbd-drop-select');
-if(atbdSelect !== null){
+if (atbdSelect !== null) {
     atbdSelect.forEach(function (el) {
         el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
             item.addEventListener('click', function (e) {
@@ -967,6 +974,6 @@ atbdSelectData.forEach(function (el) {
 
 const flatWrapper = document.querySelector(".flatpickr-calendar");
 const fAvailableTime = document.querySelector(".bdb-available-time-wrapper");
-if(flatWrapper != null && fAvailableTime != null){
+if (flatWrapper != null && fAvailableTime != null) {
     flatWrapper.insertAdjacentElement("beforeend", fAvailableTime);
 }

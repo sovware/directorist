@@ -111,6 +111,7 @@
         font-size: 13px;
         color: #7a82a6;
         z-index: 2;
+        background: #fff;
         &.slick-prev {
           left: 0;
         }
@@ -135,22 +136,18 @@
       border-top: 1px solid $border-color;
       margin-top: 0;
 
-      .btn {
-        line-height: 30px;
-        padding: 0 15px;
-        margin: 4px 2px;
-        &.directory_edit_btn{
-          background: #444752;
-          color: #fff;
-          &:hover{
-            border-color: #444752;
-          }
+      .directory_edit_btn,
+      .directory_remove_btn{
+        font-size: 14px;
+        border-bottom: 1px solid transparent;
+        transition: 0.3s ease;
+        &:hover{
+          font-weight: 500;
+          border-bottom-color: $primary;
         }
-        &.directory_remove_btn{
-          &:hover{
-            color: $danger;
-          }
-        }
+      }
+      .directory_edit_btn{
+        margin-right: 15px;
       }
 
       &.db_btn_area--sm {

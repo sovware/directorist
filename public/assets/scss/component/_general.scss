@@ -1515,6 +1515,19 @@ div#listing_notifier span {
     z-index: 1;
   }
 }
+.atbd_tab_slider .tab_nav_slide--fix{
+  .slick-arrow.slick-next{
+    &:before{
+      content: "" !important;
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: #fff;
+      right: -30px;
+      top: -5px;
+    }
+  }
+}
 
 /* custom dropdown */
 .atbd-dropdown {

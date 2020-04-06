@@ -2177,6 +2177,16 @@ div#listing_notifier span {
   z-index: 1;
 }
 
+.atbd_tab_slider .tab_nav_slide--fix .slick-arrow.slick-next:before {
+  content: "" !important;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  right: -30px;
+  top: -5px;
+}
+
 /* custom dropdown */
 .atbd-dropdown {
   position: relative;
@@ -5505,6 +5515,7 @@ span.atbd_get_loc_wid {
   font-size: 13px;
   color: #7a82a6;
   z-index: 2;
+  background: #fff;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide .slick-arrow.slick-prev {
@@ -5530,23 +5541,21 @@ span.atbd_get_loc_wid {
   margin-top: 0;
 }
 
-.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn {
-  line-height: 30px;
-  padding: 0 15px;
-  margin: 4px 2px;
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .directory_edit_btn,
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .directory_remove_btn {
+  font-size: 14px;
+  border-bottom: 1px solid transparent;
+  transition: 0.3s ease;
 }
 
-.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn.directory_edit_btn {
-  background: #444752;
-  color: #fff;
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .directory_edit_btn:hover,
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .directory_remove_btn:hover {
+  font-weight: 500;
+  border-bottom-color: #444752;
 }
 
-.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn.directory_edit_btn:hover {
-  border-color: #444752;
-}
-
-.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .btn.directory_remove_btn:hover {
-  color: #e23636;
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area .directory_edit_btn {
+  margin-right: 15px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area.db_btn_area--sm .btn {
@@ -7065,6 +7074,9 @@ p.atbd-min {
     font-size: 15px !important;
     padding: 13px 30px !important;
     line-height: 20px !important;
+  }
+  .nav_button {
+    z-index: 0;
   }
 }
 

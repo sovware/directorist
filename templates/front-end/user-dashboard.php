@@ -266,10 +266,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                                                                         <div><a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link($post->ID)); ?>"
                                                                            id="edit_listing"
-                                                                           class="directory_edit_btn btn"><?php _e('Edit', 'directorist'); ?></a>
+                                                                           class="directory_edit_btn"><?php _e('Edit', 'directorist'); ?></a>
                                                                         <a href="#" id="remove_listing"
                                                                            data-listing_id="<?php echo $post->ID; ?>"
-                                                                           class="directory_remove_btn btn"><?php _e('Delete', 'directorist'); ?></a></div>
+                                                                           class="directory_remove_btn"><?php _e('Delete', 'directorist'); ?></a></div>
                                                                     </div> <!--ends .db_btn_area-->
                                                                 </div>
                                                             </div><!-- end ./atbd_listing_bottom_content -->

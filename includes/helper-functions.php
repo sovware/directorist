@@ -3134,8 +3134,14 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
             <div class="<?php echo apply_filters('atbdp_listing_list_view_html_class', 'col-md-12') ?>">
                 <?php
                 while ($all_listings->have_posts()) {
-                    $all_listings->the_post(); ?>
-                    <?php
+                    $all_listings->the_post(); 
+                    
+                    $thumbnail_link_attr = " " . apply_filters( 'list_view_thumbnail_link_add_attr', '' );
+                    $thumbnail_link_attr = trim( $thumbnail_link_attr );
+
+                    $title_link_attr = " " . apply_filters( 'list_view_title_link_add_attr', '' );
+                    $title_link_attr = trim( $title_link_attr );
+
                     $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
                     $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
                     $featured = get_post_meta(get_the_ID(), '_featured', true);
@@ -3198,7 +3204,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                 $disable_single_listing = get_directorist_option('disable_single_listing');
                                 if (empty($disable_single_listing)){
                                 ?>
-                                <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
+                                <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"<?php echo $thumbnail_link_attr; ?>>
                                     <?php
                                     }
                                     the_thumbnail_card();
@@ -3231,9 +3237,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                         <h4 class="atbd_listing_title">
                                             <?php
                                             if (empty($disable_single_listing)) {
-                                                ?>
-                                                <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
-                                                <?php
+                                                echo '<a href="'. esc_url(get_post_permalink(get_the_ID())) .'"'. $title_link_attr .'>'. esc_html(stripslashes(get_the_title())) .'</a>';
                                             } else {
                                                 echo esc_html(stripslashes(get_the_title()));
                                             } ?>

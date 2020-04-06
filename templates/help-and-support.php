@@ -68,9 +68,12 @@
                 <li>
                     <a href="https://directorist.com/product/directorist-listings-with-map/" target="_blank"><?php _e('Directorist - Listings with Map', 'directorist')?></a>
                 </li>
-
-
-
+                <li>
+                    <a href="https://directorist.com/product/directorist-live-chat/" target="_blank"><?php _e('Directorist - Live Chat', 'directorist')?></a>
+                </li>
+                <li>
+                    <a href="https://directorist.com/product/directorist-mark-as-sold/" target="_blank"><?php _e('Directorist - Mark as Sold', 'directorist')?></a>
+                </li>
             </ul>
 
         </div>

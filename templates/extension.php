@@ -131,6 +131,61 @@
                     </div>
                     <?php
                 }
+
+                if (!class_exists('Directorist_Live_Chat')){
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--WooCommerce Fee Manager-->
+                        <div class="single_extension">
+                            <img src="https://directorist.com/wp-content/uploads/2020/04/Live_Chat.jpg"
+                                 alt="Live Chat">
+
+                            <div class="extension_detail ext_d">
+                                <a href="https://directorist.com/product/directorist-live-chat" target="_blank"
+                                   class="ext_title"><h4>
+                                        <?php esc_html_e(' Live Chat ', 'directorist'); ?>  </h4></a>
+                                <p><?php esc_html_e('It allows the visitors to contact business owners immediately and easily.', 'directorist'); ?></p>
+
+                                <div class="btn_wrapper">
+                                    <a href="https://directorist.com/product/directorist-live-chat/#screenshots"
+                                       target="_blank"
+                                       class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
+                                    <a href="https://directorist.com/product/directorist-live-chat" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+
+                if (!class_exists('Directorist_Mark_as_Sold')){
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--WooCommerce Fee Manager-->
+                        <div class="single_extension">
+                            <img src="https://directorist.com/wp-content/uploads/2020/04/Mark_as_Sold.jpg"
+                                 alt="Mark as Sold">
+
+                            <div class="extension_detail ext_d">
+                                <a href="https://directorist.com/product/directorist-mark-as-sold" target="_blank"
+                                   class="ext_title"><h4>
+                                        <?php esc_html_e(' Mark as Sold ', 'directorist'); ?>  </h4></a>
+                                <p><?php esc_html_e('It allows listing authors to show visitors if a particular item is sold or not.', 'directorist'); ?></p>
+
+                                <div class="btn_wrapper">
+                                    <a href="https://directorist.com/product/directorist-mark-as-sold/#screenshots"
+                                       target="_blank"
+                                       class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
+                                    <a href="https://directorist.com/product/directorist-mark-as-sold" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+
                 if (!class_exists('BD_Business_Hour')){
                     ?>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">

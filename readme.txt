@@ -144,25 +144,25 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Add - Options to customize email header
 * Fix - Errors in PHP v7.4.1
 * Fix - Listing status
-* Fix - Minor issue in single listing's map
+* Fix - Minor issue on single listing's map
 * Fix - Style issues
-* Fix - Conflict of redius search
+* Fix - Conflict of radius search
 * Fix - Mail sending issue of Contact owner form
-* Fix - Category and location saving issue of add listing form
+* Fix - Category and location not saving issue on add listing form
 * Fix - Edited listing email issue
 * Fix - Listing status when checkout not continued
-* Fix - Review disable issue in author profile page
-* Fix - 'Go Back' link in single listing
+* Fix - Review disable issue on author profile page
+* Fix - 'Go Back' link on single listing page
 * Fix - Broken link in listing thumbnail on map view
 * Fix - search location placeholder issue
-* Fix - Randomly filtering issue in single location page
-* Fix - Uninstall prefixing issue
+* Fix - Randomly filtering issue on single location page
+* Fix - Table name prefixing issue during uninstall
 * Fix - Advanced filter issues
-* Fix - Disable single listing view in map's info window
+* Fix - Disable single listing view settings is not applying on map's info window
 * Improve - Advanced filter reset in search result page
 * Improve - Card style in User Dashboard page
-* Remove - Repeated js stuff
-* Remove - Login form's action
+* Remove - Repeated JS codes
+* Remove - Login form markup
 * Remove - Unnecessary settings
 * Remove - Bootstrap tooltip
 

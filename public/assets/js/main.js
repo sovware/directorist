@@ -4,15 +4,11 @@
     Author: Aazztech
     Author URI: www.aazztech.com
 */
-// Custom Image uploader for user dashboard page
-jQuery(function ($) {
-
-
+;(function ($) {
     //sorting toggle
     $('.sorting span').on('click', function () {
         $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
     });
-
 
     /* Externel Library init
      ------------------------*/
@@ -22,7 +18,6 @@ jQuery(function ($) {
             theme: 'fontawesome-stars'
         });
     }
-
 
     function handleFiles(files) {
         var preview = document.getElementById('atbd_up_preview');
@@ -53,7 +48,6 @@ jQuery(function ($) {
             reader.readAsDataURL(file);
         }
     }
-
 
     $('#atbd_review_attachment').on('change', function (e) {
         handleFiles(this.files);
@@ -889,7 +883,7 @@ jQuery(function ($) {
     })
 
 
-});
+})(jQuery);
 
 // on load of the page: switch to the currently selected tab
 var tab_url = window.location.href.split("/").pop();

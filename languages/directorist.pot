@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2020-04-06 20:14+0600\n"
+"POT-Creation-Date: 2020-04-08 03:47+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
 "Language: en_US\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.2.3\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: config.php:41
@@ -198,19 +198,19 @@ msgstr ""
 msgid "You need to %s or %s to submit a review"
 msgstr ""
 
-#: includes/checkout/class-checkout.php:59
+#: includes/checkout/class-checkout.php:60
 msgid ""
 "Monetization is not active on this site. if you are an admin, you can "
 "enable it from the settings panel."
 msgstr ""
 
-#: includes/checkout/class-checkout.php:67
+#: includes/checkout/class-checkout.php:68
 msgid ""
 "Sorry, Something went wrong. Listing ID is missing. Please try again."
 msgstr ""
 
-#: includes/checkout/class-checkout.php:83
-#: includes/checkout/class-checkout.php:147
+#: includes/checkout/class-checkout.php:84
+#: includes/checkout/class-checkout.php:148
 #: includes/classes/class-custom-post.php:180
 #: includes/classes/class-custom-post.php:188
 #: includes/classes/class-settings-manager.php:4486
@@ -220,15 +220,15 @@ msgstr ""
 msgid "Featured"
 msgstr ""
 
-#: includes/checkout/class-checkout.php:107
+#: includes/checkout/class-checkout.php:108
 msgid "Sorry, Nothing is available to buy. Please try again."
 msgstr ""
 
-#: includes/checkout/class-checkout.php:129
+#: includes/checkout/class-checkout.php:130
 msgid "Sorry! No order id has been provided."
 msgstr ""
 
-#: includes/checkout/class-checkout.php:308
+#: includes/checkout/class-checkout.php:309
 msgid "Your Transaction was not successful. Please contact support"
 msgstr ""
 

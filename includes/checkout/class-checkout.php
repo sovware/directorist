@@ -54,8 +54,9 @@ class ATBDP_Checkout
         // vail out showing a friendly-message, if user is not logged in. No need to run further code
         if (!atbdp_is_user_logged_in()) return null;
         ob_start();
+        $enable_monetization = apply_filters('atbdp_enable_monetization_checkout',get_directorist_option('enable_monetization'));
         // vail if monetization is not active.
-        if (!get_directorist_option('enable_monetization')) {
+        if (!$enable_monetization) {
             return __('Monetization is not active on this site. if you are an admin, you can enable it from the settings panel.', 'directorist');
         }
         wp_enqueue_script('atbdp_checkout_script');
@@ -78,7 +79,7 @@ class ATBDP_Checkout
             // Checkout form is not submitted, so show the content of the checkout items here
             $form_data = apply_filters('atbdp_checkout_form_data', array(), $listing_id); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
             // let's add featured listing data
-            $featured_active = get_directorist_option('enable_featured_listing');
+            $featured_active = apply_filters('atbdp_featured_active_checkout',get_directorist_option('enable_featured_listing'));
             if ($featured_active && !is_fee_manager_active()) {
                 $title = get_directorist_option('featured_listing_title', __('Featured', 'directorist'));
                 $desc = get_directorist_option('featured_listing_desc');

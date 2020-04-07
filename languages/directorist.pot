@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2020-04-05 16:48+0600\n"
+"POT-Creation-Date: 2020-04-06 20:14+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -171,7 +171,7 @@ msgstr ""
 msgid "Submit Review"
 msgstr ""
 
-#: directorist-base.php:1246 includes/helper-functions.php:4522
+#: directorist-base.php:1246 includes/helper-functions.php:4526
 msgid "Login"
 msgstr ""
 
@@ -215,7 +215,7 @@ msgstr ""
 #: includes/classes/class-custom-post.php:188
 #: includes/classes/class-settings-manager.php:4486
 #: includes/gateways/class-gateway.php:133
-#: templates/front-end/user-dashboard.php:159
+#: templates/front-end/user-dashboard.php:158
 #: templates/meta-partials/expiration-featured-fields.php:56
 msgid "Featured"
 msgstr ""
@@ -731,7 +731,7 @@ msgid "Directory Listing"
 msgstr ""
 
 #: includes/classes/class-custom-post.php:174
-#: templates/front-end/user-dashboard.php:519
+#: templates/front-end/user-dashboard.php:518
 msgid "Listing Name"
 msgstr ""
 
@@ -770,7 +770,7 @@ msgstr ""
 
 #: includes/classes/class-custom-post.php:267
 #: includes/classes/class-email.php:122
-#: templates/front-end/user-dashboard.php:210
+#: templates/front-end/user-dashboard.php:209
 #: templates/meta-partials/expiration-featured-fields.php:44
 msgid "Never Expires"
 msgstr ""
@@ -841,7 +841,7 @@ msgid "Search Location"
 msgstr ""
 
 #: includes/classes/class-custom-taxonomy.php:305
-#: includes/helper-functions.php:4499
+#: includes/helper-functions.php:4503
 msgid "All Locations"
 msgstr ""
 
@@ -1436,7 +1436,7 @@ msgstr ""
 #: includes/classes/class-shortcode.php:2352
 #: includes/classes/class-shortcode.php:2768
 #: includes/custom-fields/class-custom-field.php:530
-#: includes/helper-functions.php:3749 templates/listing-home.php:5
+#: includes/helper-functions.php:3753 templates/listing-home.php:5
 #: templates/search-widget-front.php:57
 msgid "Select a category"
 msgstr ""
@@ -1522,21 +1522,21 @@ msgstr ""
 
 #: includes/classes/class-helper.php:385
 #: templates/front-end/single-listing/listing-header.php:133
-#: templates/front-end/user-dashboard.php:447
+#: templates/front-end/user-dashboard.php:446
 #: templates/single-at_biz_dir.php:260
 msgid "Facebook"
 msgstr ""
 
 #: includes/classes/class-helper.php:386
 #: templates/front-end/single-listing/listing-header.php:136
-#: templates/front-end/user-dashboard.php:457
+#: templates/front-end/user-dashboard.php:456
 #: templates/single-at_biz_dir.php:264
 msgid "Twitter"
 msgstr ""
 
 #: includes/classes/class-helper.php:387
 #: templates/front-end/single-listing/listing-header.php:140
-#: templates/front-end/user-dashboard.php:468
+#: templates/front-end/user-dashboard.php:467
 #: templates/single-at_biz_dir.php:269
 msgid "LinkedIn"
 msgstr ""
@@ -1566,7 +1566,7 @@ msgid "Reddit"
 msgstr ""
 
 #: includes/classes/class-helper.php:394
-#: templates/front-end/user-dashboard.php:478
+#: templates/front-end/user-dashboard.php:477
 msgid "Youtube"
 msgstr ""
 
@@ -1618,8 +1618,8 @@ msgstr ""
 
 #: includes/classes/class-helper.php:588
 #: includes/classes/class-settings-manager.php:3394
-#: includes/helper-functions.php:2596 includes/helper-functions.php:3393
-#: templates/front-end/all-listings/all-grid-listings.php:379
+#: includes/helper-functions.php:2596 includes/helper-functions.php:3397
+#: templates/front-end/all-listings/all-grid-listings.php:382
 msgid "Read More"
 msgstr ""
 
@@ -1953,7 +1953,7 @@ msgstr ""
 #: templates/front-end/all-listings/listings-header.php:5
 #: templates/front-end/all-listings/listings-header.php:365
 #: templates/front-end/single-listing/listing-contact-info.php:33
-#: templates/front-end/user-dashboard.php:404
+#: templates/front-end/user-dashboard.php:403
 #: templates/listing-home-open.php:161 templates/listing-home.php:33
 #: templates/listing-home.php:316 templates/search-widget-front.php:6
 #: templates/search-widget-front.php:139
@@ -1963,13 +1963,13 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:355
 #: includes/classes/class-settings-manager.php:736
-#: templates/front-end/user-dashboard.php:364
+#: templates/front-end/user-dashboard.php:363
 msgid "First Name"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:360
 #: includes/classes/class-settings-manager.php:766
-#: templates/front-end/user-dashboard.php:372
+#: templates/front-end/user-dashboard.php:371
 msgid "Last Name"
 msgstr ""
 
@@ -2351,7 +2351,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2894
 #: includes/classes/class-settings-manager.php:3777
 #: includes/classes/class-settings-manager.php:4107
-#: templates/front-end/user-dashboard.php:520
+#: templates/front-end/user-dashboard.php:519
 msgid "Category"
 msgstr ""
 
@@ -2364,7 +2364,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:4975
 #: templates/front-end/all-listings/listings-header.php:2
 #: templates/front-end/single-listing/listing-contact-info.php:23
-#: templates/front-end/user-dashboard.php:412
+#: templates/front-end/user-dashboard.php:411
 #: templates/listing-home.php:30 templates/listing-home.php:349
 #: templates/search-widget-front.php:3 templates/single-at_biz_dir.php:661
 msgid "Address"
@@ -3746,11 +3746,13 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:3078
 #: includes/classes/class-settings-manager.php:4309
+#: includes/helper-functions.php:1946
 msgid "A to Z (title)"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3082
 #: includes/classes/class-settings-manager.php:4313
+#: includes/helper-functions.php:1947
 msgid "Z to A (title)"
 msgstr ""
 
@@ -3774,11 +3776,13 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:3098
 #: includes/classes/class-settings-manager.php:4329
+#: includes/helper-functions.php:1951
 msgid "Price (low to high)"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3102
 #: includes/classes/class-settings-manager.php:4333
+#: includes/helper-functions.php:1952
 msgid "Price (high to low)"
 msgstr ""
 
@@ -4557,7 +4561,7 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:5582
 #: templates/front-end/user-dashboard.php:23
-#: templates/front-end/user-dashboard.php:333
+#: templates/front-end/user-dashboard.php:332
 msgid "My Profile"
 msgstr ""
 
@@ -6006,29 +6010,13 @@ msgstr ""
 msgid "Dec"
 msgstr ""
 
-#: includes/helper-functions.php:1946
-msgid "A to Z ( title )"
-msgstr ""
-
-#: includes/helper-functions.php:1947
-msgid "Z to A ( title )"
-msgstr ""
-
-#: includes/helper-functions.php:1951
-msgid "Price ( low to high )"
-msgstr ""
-
-#: includes/helper-functions.php:1952
-msgid "Price ( high to low )"
-msgstr ""
-
 #: includes/helper-functions.php:2141 includes/helper-functions.php:2143
 #: includes/helper-functions.php:2148
 msgid "Favorite"
 msgstr ""
 
 #: includes/helper-functions.php:2398 includes/helper-functions.php:2833
-#: templates/front-end/all-listings/all-grid-listings.php:171
+#: templates/front-end/all-listings/all-grid-listings.php:176
 #: templates/front-end/all-listings/listings-header.php:287
 #: templates/front-end/all-listings/listings-header.php:295
 #: templates/listing-home-open.php:110 templates/listing-home.php:250
@@ -6037,97 +6025,97 @@ msgid "Open Now"
 msgstr ""
 
 #: includes/helper-functions.php:2566 includes/helper-functions.php:2999
-#: includes/helper-functions.php:3360
-#: templates/front-end/all-listings/all-grid-listings.php:345
+#: includes/helper-functions.php:3364
+#: templates/front-end/all-listings/all-grid-listings.php:348
 #, php-format
 msgid "Posted %s ago"
 msgstr ""
 
-#: includes/helper-functions.php:2606 includes/helper-functions.php:3402
-#: templates/front-end/all-listings/all-grid-listings.php:388
+#: includes/helper-functions.php:2606 includes/helper-functions.php:3406
+#: templates/front-end/all-listings/all-grid-listings.php:391
 #, php-format
 msgid " %s"
 msgstr ""
 
 #: includes/helper-functions.php:2645 includes/helper-functions.php:3076
-#: includes/helper-functions.php:3446
-#: templates/front-end/all-listings/all-grid-listings.php:427
+#: includes/helper-functions.php:3450
+#: templates/front-end/all-listings/all-grid-listings.php:430
 msgid "Uncategorized"
 msgstr ""
 
 #: includes/helper-functions.php:2682 includes/helper-functions.php:3105
-#: templates/front-end/all-listings/all-grid-listings.php:462
+#: templates/front-end/all-listings/all-grid-listings.php:465
 #: templates/front-end/all-listings/all-list-listings.php:31
 msgid "No listing found."
 msgstr ""
 
-#: includes/helper-functions.php:4333
+#: includes/helper-functions.php:4337
 msgid "Email already registered. Please login first"
 msgstr ""
 
-#: includes/helper-functions.php:4372
+#: includes/helper-functions.php:4376
 msgid "Remove Data on Uninstall?"
 msgstr ""
 
-#: includes/helper-functions.php:4373
+#: includes/helper-functions.php:4377
 msgid ""
 "Checked it if you would like Directorist to completely remove all of "
 "its data when the plugin is deleted."
 msgstr ""
 
-#: includes/helper-functions.php:4475
+#: includes/helper-functions.php:4479
 msgid "Search Home"
 msgstr ""
 
-#: includes/helper-functions.php:4479
+#: includes/helper-functions.php:4483
 msgid "Search Result"
 msgstr ""
 
-#: includes/helper-functions.php:4483
+#: includes/helper-functions.php:4487
 msgid "Add Listing"
 msgstr ""
 
-#: includes/helper-functions.php:4487
+#: includes/helper-functions.php:4491
 msgid "All Listings"
 msgstr ""
 
-#: includes/helper-functions.php:4491
+#: includes/helper-functions.php:4495
 msgid "All Categories"
 msgstr ""
 
-#: includes/helper-functions.php:4495
+#: includes/helper-functions.php:4499
 msgid "Single Category"
 msgstr ""
 
-#: includes/helper-functions.php:4503
+#: includes/helper-functions.php:4507
 msgid "Single Location"
 msgstr ""
 
-#: includes/helper-functions.php:4507
+#: includes/helper-functions.php:4511
 msgid "Single Tag"
 msgstr ""
 
-#: includes/helper-functions.php:4511
+#: includes/helper-functions.php:4515
 msgid "Author Profile"
 msgstr ""
 
-#: includes/helper-functions.php:4515
+#: includes/helper-functions.php:4519
 msgid "Dashboard"
 msgstr ""
 
-#: includes/helper-functions.php:4519
+#: includes/helper-functions.php:4523
 msgid "Registration"
 msgstr ""
 
-#: includes/helper-functions.php:4526
+#: includes/helper-functions.php:4530
 msgid "Checkout"
 msgstr ""
 
-#: includes/helper-functions.php:4530
+#: includes/helper-functions.php:4534
 msgid "Payment Receipt"
 msgstr ""
 
-#: includes/helper-functions.php:4534
+#: includes/helper-functions.php:4538
 msgid "Transaction Failure"
 msgstr ""
 
@@ -6340,7 +6328,7 @@ msgstr ""
 
 #: includes/libs/vafpress/views/option/set.php:76
 #: includes/libs/vafpress/views/option/set.php:90
-#: templates/front-end/user-dashboard.php:500
+#: templates/front-end/user-dashboard.php:499
 msgid "Save Changes"
 msgstr ""
 
@@ -6725,10 +6713,11 @@ msgstr ""
 
 #: templates/extension.php:23 templates/extension.php:49
 #: templates/extension.php:74 templates/extension.php:99
-#: templates/extension.php:125 templates/extension.php:251
-#: templates/extension.php:277 templates/extension.php:304
-#: templates/extension.php:330 templates/extension.php:354
-#: templates/extension.php:376 templates/extension.php:398
+#: templates/extension.php:125 templates/extension.php:152
+#: templates/extension.php:179 templates/extension.php:306
+#: templates/extension.php:332 templates/extension.php:359
+#: templates/extension.php:385 templates/extension.php:409
+#: templates/extension.php:431 templates/extension.php:453
 #: templates/themes.php:19 templates/themes.php:41 templates/themes.php:63
 #: templates/themes.php:81 templates/themes.php:99
 #: templates/themes.php:118
@@ -6737,12 +6726,13 @@ msgstr ""
 
 #: templates/extension.php:25 templates/extension.php:52
 #: templates/extension.php:76 templates/extension.php:101
-#: templates/extension.php:127 templates/extension.php:152
-#: templates/extension.php:177 templates/extension.php:202
-#: templates/extension.php:227 templates/extension.php:253
-#: templates/extension.php:280 templates/extension.php:306
-#: templates/extension.php:332 templates/extension.php:356
-#: templates/extension.php:378 templates/extension.php:400
+#: templates/extension.php:127 templates/extension.php:154
+#: templates/extension.php:181 templates/extension.php:207
+#: templates/extension.php:232 templates/extension.php:257
+#: templates/extension.php:282 templates/extension.php:308
+#: templates/extension.php:335 templates/extension.php:361
+#: templates/extension.php:387 templates/extension.php:411
+#: templates/extension.php:433 templates/extension.php:455
 #: templates/themes.php:21 templates/themes.php:43 templates/themes.php:65
 #: templates/themes.php:83 templates/themes.php:101
 #: templates/themes.php:120
@@ -6787,112 +6777,132 @@ msgid ""
 "using this extension."
 msgstr ""
 
-#: templates/extension.php:144
+#: templates/extension.php:146
+msgid " Live Chat "
+msgstr ""
+
+#: templates/extension.php:147
+msgid ""
+"It allows the visitors to contact business owners immediately and "
+"easily."
+msgstr ""
+
+#: templates/extension.php:173
+msgid " Mark as Sold "
+msgstr ""
+
+#: templates/extension.php:174
+msgid ""
+"It allows listing authors to show visitors if a particular item is sold "
+"or not."
+msgstr ""
+
+#: templates/extension.php:199
 msgid " Business Hours "
 msgstr ""
 
-#: templates/extension.php:145
+#: templates/extension.php:200
 msgid ""
 "You can show Business hours / opening hours of a listing by this "
 "extension."
 msgstr ""
 
-#: templates/extension.php:150 templates/extension.php:175
-#: templates/extension.php:200 templates/extension.php:225
+#: templates/extension.php:205 templates/extension.php:230
+#: templates/extension.php:255 templates/extension.php:280
 msgid "View Demo"
 msgstr ""
 
-#: templates/extension.php:169
+#: templates/extension.php:224
 msgid " Post Your Need "
 msgstr ""
 
-#: templates/extension.php:170
+#: templates/extension.php:225
 msgid ""
 "Add new feature for your users where they can post for any kind of need "
 "or service that they want."
 msgstr ""
 
-#: templates/extension.php:194
+#: templates/extension.php:249
 msgid " Listings With Map "
 msgstr ""
 
-#: templates/extension.php:195
+#: templates/extension.php:250
 msgid ""
 "It adds new layout view that is listings and map side by side with "
 "advanced search/filters."
 msgstr ""
 
-#: templates/extension.php:219
+#: templates/extension.php:274
 msgid " Directorist Social Login "
 msgstr ""
 
-#: templates/extension.php:220
+#: templates/extension.php:275
 msgid ""
 "It lets your visitors register and login to your site using their "
 "social profiles (Facebook and Google)."
 msgstr ""
 
-#: templates/extension.php:246
+#: templates/extension.php:301
 msgid " Google reCAPTCHA "
 msgstr ""
 
-#: templates/extension.php:247
+#: templates/extension.php:302
 msgid "Protect your directory from spam entries with Google reCAPTCHA."
 msgstr ""
 
-#: templates/extension.php:271
+#: templates/extension.php:326
 msgid " Listings Slider and Carousel "
 msgstr ""
 
-#: templates/extension.php:272
+#: templates/extension.php:327
 msgid ""
 "Display listings slider anywhere on your website using this extension."
 msgstr ""
 
-#: templates/extension.php:298
+#: templates/extension.php:353
 msgid " Image Gallery "
 msgstr ""
 
-#: templates/extension.php:299
+#: templates/extension.php:354
 msgid ""
 "Display listing images gallery on single listing page using this "
 "extension."
 msgstr ""
 
-#: templates/extension.php:324
+#: templates/extension.php:379
 msgid " Listing FAQs "
 msgstr ""
 
-#: templates/extension.php:325
+#: templates/extension.php:380
 msgid ""
 "You can easily display listing's Frequently Asked Questions on each "
 "listing by using this extension."
 msgstr ""
 
-#: templates/extension.php:349
+#: templates/extension.php:404
 msgid " Coupon "
 msgstr ""
 
-#: templates/extension.php:350
+#: templates/extension.php:405
 msgid ""
 "Generate and offer coupon/promo codes to increase your sales by useing "
 "this extension."
 msgstr ""
 
-#: templates/extension.php:370
+#: templates/extension.php:425
 msgid " Reservation "
 msgstr ""
 
-#: templates/extension.php:371
+#: templates/extension.php:426
 msgid ""
 "Add a reservation/booking system on your directory using this extension."
 msgstr ""
 
-#: templates/extension.php:392
+#: templates/extension.php:447
 msgid " Appointment "
 msgstr ""
 
-#: templates/extension.php:393
+#: templates/extension.php:448
 msgid ""
 "Add a appointment booking system on your classified directory using "
 "this extension."
@@ -7270,129 +7280,129 @@ msgstr ""
 msgid "Log Out"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:179
+#: templates/front-end/user-dashboard.php:178
 msgid "Untitled!"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:212
+#: templates/front-end/user-dashboard.php:211
 #, php-format
 msgid "<span>Expiration:</span> %s"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:212
+#: templates/front-end/user-dashboard.php:211
 msgid "Expired"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:213
+#: templates/front-end/user-dashboard.php:212
 #, php-format
 msgid "<span class=\"%s\">%s</span> "
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:238
-#: templates/front-end/user-dashboard.php:247
+#: templates/front-end/user-dashboard.php:237
+#: templates/front-end/user-dashboard.php:246
 msgid "Renew"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:261
+#: templates/front-end/user-dashboard.php:260
 msgid "Promote"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:269
+#: templates/front-end/user-dashboard.php:268
 msgid "Edit"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:272
+#: templates/front-end/user-dashboard.php:271
 msgid "Delete"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:284
+#: templates/front-end/user-dashboard.php:283
 msgid "Looks like you have not created any listing yet!"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:321
+#: templates/front-end/user-dashboard.php:320
 msgid "Change"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:344
+#: templates/front-end/user-dashboard.php:343
 msgid "Full Name"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:348
+#: templates/front-end/user-dashboard.php:347
 msgid "Enter your full name"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:353
+#: templates/front-end/user-dashboard.php:352
 msgid "User Name"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:356
+#: templates/front-end/user-dashboard.php:355
 msgid "(username can not be changed)"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:383
+#: templates/front-end/user-dashboard.php:382
 msgid "Email (required)"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:392
+#: templates/front-end/user-dashboard.php:391
 msgid "Cell Number"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:396
+#: templates/front-end/user-dashboard.php:395
 msgid "Enter your phone number"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:424
+#: templates/front-end/user-dashboard.php:423
 msgid "New Password"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:429
+#: templates/front-end/user-dashboard.php:428
 msgid "Enter a new password"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:434
+#: templates/front-end/user-dashboard.php:433
 msgid "Confirm New Password"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:439
+#: templates/front-end/user-dashboard.php:438
 msgid "Confirm your new password"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:448
-#: templates/front-end/user-dashboard.php:458
-#: templates/front-end/user-dashboard.php:469
-#: templates/front-end/user-dashboard.php:479
+#: templates/front-end/user-dashboard.php:447
+#: templates/front-end/user-dashboard.php:457
+#: templates/front-end/user-dashboard.php:468
+#: templates/front-end/user-dashboard.php:478
 msgid "Leave it empty to hide"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:452
+#: templates/front-end/user-dashboard.php:451
 msgid "Enter your facebook url"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:462
+#: templates/front-end/user-dashboard.php:461
 msgid "Enter your twitter url"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:473
+#: templates/front-end/user-dashboard.php:472
 msgid "Enter linkedIn url"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:483
+#: templates/front-end/user-dashboard.php:482
 msgid "Enter youtube url"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:488
+#: templates/front-end/user-dashboard.php:487
 msgid "About Author"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:521
+#: templates/front-end/user-dashboard.php:520
 msgid "Unfavourite"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:527
+#: templates/front-end/user-dashboard.php:526
 msgid "Untitled"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:596
+#: templates/front-end/user-dashboard.php:595
 msgid "Nothing found!"
 msgstr ""
 
@@ -7524,6 +7534,14 @@ msgstr ""
 
 #: templates/help-and-support.php:69
 msgid "Directorist - Listings with Map"
+msgstr ""
+
+#: templates/help-and-support.php:72
+msgid "Directorist - Live Chat"
+msgstr ""
+
+#: templates/help-and-support.php:75
+msgid "Directorist - Mark as Sold"
 msgstr ""
 
 #: templates/meta-partials/expiration-featured-fields.php:9

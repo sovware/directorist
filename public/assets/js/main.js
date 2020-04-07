@@ -787,7 +787,7 @@
 
 
     // store the currently selected tab in the hash value
-    $("ul.atbdp_tab_nav--content > li > a.atbd_tn_link").on("click", function (e) {
+    $("ul.atbd-dashboard-nav > li > a.atbd_tn_link").on("click", function (e) {
         var id = $(e.target).attr("target").substr();
         window.location.hash = "#active_" + id;
         e.stopPropagation();
@@ -797,7 +797,7 @@
         UIkit.grid(".data-uk-masonry");
     });
 
-    $("ul.atbdp_tab_nav--content > li:first-child > a").one("click", function () {
+    $(".atbdp_tab_nav_wrapper > ul > li:first-child > a").one("click", function () {
         (function () {
             if (window.localStorage) {
                 if (!localStorage.getItem('firstLoad')) {

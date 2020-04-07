@@ -46,7 +46,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                     <div class="atbd_user_dashboard_nav atbd_tab_nav">
                         <!-- Nav tabs -->
                         <div class="atbdp_tab_nav_wrapper">
-                            <ul class="atbdp_tab_nav--content">
+                            <ul class="atbdp_tab_nav--content atbd-dashboard-nav">
                                 <?php if (!empty($my_listing_tab)) { ?>
                                     <li class="atbdp_tab_nav--content-link">
                                         <a href="" target="my_listings" class="atbd_tn_link tabItemActive">

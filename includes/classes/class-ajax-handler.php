@@ -113,14 +113,14 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             if (is_wp_error($user_signon)) {
                 echo json_encode(array(
                     'loggedin' => false,
-                    'message' => __('Wrong username or password.')
+                    'message' => __('Wrong username or password.', 'directorist')
                 ));
             } else {
                 wp_set_current_user($user_signon->ID);
 
                 echo json_encode(array(
                     'loggedin' => true,
-                    'message' => __('Login successful, redirecting...')
+                    'message' => __('Login successful, redirecting...', 'directorist')
                 ));
             }
 

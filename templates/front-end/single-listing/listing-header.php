@@ -144,8 +144,9 @@ do_action('atbdp_before_listing_section');
             $listing_header .= '</div>';
         }
         if ($enable_report_abuse) {
+            $public_report = apply_filters('atbdp_allow_public_report', false);
             $listing_header .= '<div class="atbd_action atbd_report">';
-            if (atbdp_logged_in_user()) {
+            if (atbdp_logged_in_user() || $public_report) {
                 $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href="" 
                                                                data-target="atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
             } else {

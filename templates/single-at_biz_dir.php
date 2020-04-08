@@ -273,8 +273,9 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         $listing_header .= '</div>';
                     }
                     if ($enable_report_abuse) {
+                        $public_report = apply_filters('atbdp_allow_public_report', false);
                         $listing_header .= '<div class="atbd_action atbd_report">';
-                        if (atbdp_logged_in_user()) {
+                        if (atbdp_logged_in_user() || $public_report) {
                             $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href="javascript:void(0)" data-target="atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
                         } else {
                             $listing_header .= '<a href="javascript:void(0)"

@@ -208,3 +208,10 @@ if(document.querySelector(".atbd_ads-form #atbdp_reset") !== null){
         atbd_callingSlider(0);
     });
 }
+if(document.querySelector("#bdlm-search-area #atbdp_reset") !== null){
+    document.querySelector("#bdlm-search-area #atbdp_reset").addEventListener("click", function (e) {
+        e.preventDefault();
+        adsFormReset();
+        atbd_callingSlider(0);
+    })
+}

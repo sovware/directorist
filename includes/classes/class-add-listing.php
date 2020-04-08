@@ -740,6 +740,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     $woocommerce->cart->add_to_cart($subscribed_package_id);
                                     $data['redirect_url'] = add_query_arg('atbdp_listing_id', $post_id, wc_get_checkout_url());
                                     $data['need_payment'] = true;
+                                    $woocommerce->cart->empty_cart();
                                 } else {
                                     update_user_meta(get_current_user_id(), '_used_free_plan', array($subscribed_package_id, $post_id));
                                     if ('view_listing' == $redirect_page) {
@@ -759,6 +760,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     $woocommerce->cart->add_to_cart($subscribed_package_id);
                                     $data['redirect_url'] = add_query_arg('atbdp_listing_id', $post_id, wc_get_checkout_url());
                                     $data['need_payment'] = true;
+                                    $woocommerce->cart->empty_cart();
                                 } else {
                                     update_user_meta(get_current_user_id(), '_used_free_plan', array($subscribed_package_id, $post_id));
 

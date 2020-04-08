@@ -4636,7 +4636,7 @@ function the_thumbnail_card($img_src = '', $_args = array())
         $thumbnail_img = wp_get_attachment_image_src( $listing_prv_img, 'medium')[0];
     }
 
-    if ( !empty( $img_src ) ) {
+    if ( ! empty( $img_src ) ) {
         $thumbnail_img = $img_src;
     }
 
@@ -4746,7 +4746,7 @@ function get_plasma_slider( $args )
 
     // Default
     $data['show-slider'] = get_directorist_option('dsiplay_slider_single_page', true);
-    $is_enabled = ( $data['show-slider'] == true || $data['show-slider'] === '1' ) ? true : false;
+    $is_enabled = ( $data['show-slider'] === 1 || $data['show-slider'] === '1' ) ? true : false;
 
     if ( !$is_enabled ) {
         return '';

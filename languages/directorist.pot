@@ -69,16 +69,16 @@ msgid "Cancel"
 msgstr ""
 
 #: directorist-base.php:1120
-#: templates/front-end/single-listing/listing-header.php:257
+#: templates/front-end/single-listing/listing-header.php:258
 #: templates/front-end/single-listing/listing-map.php:28
-#: templates/single-at_biz_dir.php:84 templates/single-at_biz_dir.php:388
+#: templates/single-at_biz_dir.php:84 templates/single-at_biz_dir.php:389
 msgid " Reviews"
 msgstr ""
 
 #: directorist-base.php:1120
-#: templates/front-end/single-listing/listing-header.php:257
+#: templates/front-end/single-listing/listing-header.php:258
 #: templates/front-end/single-listing/listing-map.php:28
-#: templates/single-at_biz_dir.php:84 templates/single-at_biz_dir.php:388
+#: templates/single-at_biz_dir.php:84 templates/single-at_biz_dir.php:389
 msgid " Review"
 msgstr ""
 
@@ -545,7 +545,7 @@ msgstr ""
 #: includes/classes/class-tags-widget.php:151
 #: templates/front-end/payment-receipt.php:106
 #: templates/front-end/single-listing/listing-contact-owner.php:27
-#: templates/single-at_biz_dir.php:812
+#: templates/single-at_biz_dir.php:813
 msgid "Name"
 msgstr ""
 
@@ -639,22 +639,22 @@ msgstr ""
 #: templates/listing-home-open.php:165 templates/listing-home.php:32
 #: templates/listing-home.php:324 templates/search-widget-front.php:5
 #: templates/search-widget-front.php:144
-#: templates/single-at_biz_dir.php:663 templates/single-at_biz_dir.php:817
+#: templates/single-at_biz_dir.php:664 templates/single-at_biz_dir.php:818
 msgid "Email"
 msgstr ""
 
 #: includes/classes/class-contact-form-widget.php:67
 #: templates/front-end/single-listing/listing-contact-owner.php:37
-#: templates/front-end/single-listing/listing-header.php:176
-#: templates/single-at_biz_dir.php:304 templates/single-at_biz_dir.php:822
+#: templates/front-end/single-listing/listing-header.php:177
+#: templates/single-at_biz_dir.php:305 templates/single-at_biz_dir.php:823
 msgid "Message"
 msgstr ""
 
 #: includes/classes/class-contact-form-widget.php:84
 #: includes/classes/class-settings-manager.php:1118
 #: templates/front-end/single-listing/listing-contact-owner.php:49
-#: templates/front-end/single-listing/listing-header.php:184
-#: templates/single-at_biz_dir.php:312 templates/single-at_biz_dir.php:834
+#: templates/front-end/single-listing/listing-header.php:185
+#: templates/single-at_biz_dir.php:313 templates/single-at_biz_dir.php:835
 msgid "Submit"
 msgstr ""
 
@@ -1957,7 +1957,7 @@ msgstr ""
 #: templates/listing-home-open.php:161 templates/listing-home.php:33
 #: templates/listing-home.php:316 templates/search-widget-front.php:6
 #: templates/search-widget-front.php:139
-#: templates/single-at_biz_dir.php:664
+#: templates/single-at_biz_dir.php:665
 msgid "Website"
 msgstr ""
 
@@ -2366,7 +2366,7 @@ msgstr ""
 #: templates/front-end/single-listing/listing-contact-info.php:23
 #: templates/front-end/user-dashboard.php:411
 #: templates/listing-home.php:30 templates/listing-home.php:349
-#: templates/search-widget-front.php:3 templates/single-at_biz_dir.php:661
+#: templates/search-widget-front.php:3 templates/single-at_biz_dir.php:662
 msgid "Address"
 msgstr ""
 
@@ -2379,7 +2379,7 @@ msgstr ""
 #: templates/front-end/all-listings/listings-header.php:397
 #: templates/front-end/single-listing/listing-contact-info.php:35
 #: templates/listing-home-open.php:177 templates/listing-home.php:361
-#: templates/single-at_biz_dir.php:665
+#: templates/single-at_biz_dir.php:666
 msgid "Zip/Post Code"
 msgstr ""
 
@@ -3594,7 +3594,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:4146
 #: includes/classes/class-settings-manager.php:5017
 #: templates/front-end/single-listing/listing-contact-info.php:25
-#: templates/single-at_biz_dir.php:662
+#: templates/single-at_biz_dir.php:663
 msgid "Phone"
 msgstr ""
 
@@ -7247,19 +7247,19 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
-#: templates/front-end/single-listing/listing-header.php:150
-#: templates/front-end/single-listing/listing-header.php:154
-#: templates/single-at_biz_dir.php:278 templates/single-at_biz_dir.php:282
+#: templates/front-end/single-listing/listing-header.php:151
+#: templates/front-end/single-listing/listing-header.php:155
+#: templates/single-at_biz_dir.php:279 templates/single-at_biz_dir.php:283
 msgid "Report"
 msgstr ""
 
-#: templates/front-end/single-listing/listing-header.php:168
-#: templates/single-at_biz_dir.php:296
+#: templates/front-end/single-listing/listing-header.php:169
+#: templates/single-at_biz_dir.php:297
 msgid "Report Abuse"
 msgstr ""
 
-#: templates/front-end/single-listing/listing-header.php:172
-#: templates/single-at_biz_dir.php:300
+#: templates/front-end/single-listing/listing-header.php:173
+#: templates/single-at_biz_dir.php:301
 msgid "Your Complaint"
 msgstr ""
 

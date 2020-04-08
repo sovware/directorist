@@ -341,6 +341,11 @@
     }
     > div{
       padding-left: 0;
+      flex: 0 0 100%;
+      margin: 10px 0;
+    }
+    .atbd-current-value{
+      padding: 0 !important;
     }
   }
 }

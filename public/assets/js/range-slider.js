@@ -13,7 +13,8 @@ const atbd_slider = (selector, obj) => {
             <div class="atbd-child"></div>
 		`;
 
-    if ("ontouchstart" in document.documentElement){
+    const touch = "ontouchstart" in document.documentElement;
+    if (touch){
         down 	= 'touchstart';
         up 		= 'touchend';
         move 	= 'touchmove';
@@ -42,18 +43,22 @@ const atbd_slider = (selector, obj) => {
             slide1.classList.add('m-device2');
         }
         slide1.addEventListener(down, (event) => {
-            event.preventDefault();
-            event.stopPropagation();
+            if(!touch){
+                event.preventDefault();
+                event.stopPropagation();
+            }
             x = event.clientX;
-            if ("ontouchstart" in document.documentElement){
+            if (touch){
                 x = event.touches[0].clientX;
             }
             isDraging = true;
             event.target.classList.add('atbd-active');
         });
         window.addEventListener(up, (event2) => {
-            event2.preventDefault();
-            event2.stopPropagation();
+            if(!touch){
+                event2.preventDefault();
+                event2.stopPropagation();
+            }
             isDraging 	= false;
             slid1_val2 	= slid1_val;
             slide1.classList.remove('atbd-active');
@@ -72,8 +77,8 @@ const atbd_slider = (selector, obj) => {
         window.addEventListener(move, (e) => {
             if(isDraging){
                 count = e.clientX + slid1_val2 * width / max - x;
-                if ("ontouchmove" in document.documentElement){
-                    count = event.touches[0].clientX * width / max - x;
+                if (touch){
+                    count = event.touches[0].clientX + slid1_val2 * width / max - x;
                 }
                 if(count < 0){
                     count = 0;

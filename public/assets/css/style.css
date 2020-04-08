@@ -7262,6 +7262,11 @@ p.atbd-min {
   }
   .atbdp-range-slider-wrapper > div {
     padding-left: 0;
+    flex: 0 0 100%;
+    margin: 10px 0;
+  }
+  .atbdp-range-slider-wrapper .atbd-current-value {
+    padding: 0 !important;
   }
 }
 

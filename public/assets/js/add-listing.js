@@ -523,9 +523,9 @@ jQuery(function ($) {
         if (booking_field.length > 1) {
             booking_field.each(function (index, value) {
                     var type = $(value).attr('type');
-                    if (type === "checkbox") {
+                    if ((type === "checkbox") || (type === "radio") ) {
                         var name = $(this).attr("name");
-                        var value = atbdp_is_checked(name);
+                        var value = (type === "radio") ? atbdp_element_value('input[name="'+ name +'"]:checked') : atbdp_is_checked(name);
                         form_data.append(name, value);
                     }else {
                         var name = $(this).attr("name");
@@ -541,7 +541,6 @@ jQuery(function ($) {
             var value = booking_field.val();
             form_data.append(name, value);
         }
-
 
         $.ajax({
             method: 'POST',

@@ -7013,6 +7013,14 @@ p.atbd-min {
   .ads-advanced .atbdp-custom-fields-search .form-group {
     width: 50%;
   }
+  .ads-advanced .atbd_seach_fields_wrapper .single_search_field {
+    margin-bottom: 10px;
+    margin-top: 0 !important;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -7077,6 +7085,10 @@ p.atbd-min {
   }
   .nav_button {
     z-index: 0;
+  }
+  .atbd_content_active #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form .single_search_field {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 }
 
@@ -7267,6 +7279,10 @@ p.atbd-min {
   }
   .atbdp-range-slider-wrapper .atbd-current-value {
     padding: 0 !important;
+  }
+  .ads-advanced .atbd_seach_fields_wrapper .single_search_field {
+    margin-bottom: 10px !important;
+    margin-top: 0 !important;
   }
 }
 

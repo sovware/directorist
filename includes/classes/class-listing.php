@@ -92,8 +92,7 @@ if (!class_exists('ATBDP_Listing')):
 
                 $images = get_post_meta($post->ID, '_listing_prv_img', true);
                 if (!empty($images)) {
-                    $thumbnail = wp_get_attachment_image_src($images, 'full');
-                    $thumbnail = is_array($thumbnail) ? $thumbnail[0] : '';
+                    $thumbnail = atbdp_get_image_source($images, 'full');
                     if (!empty($thumbnail)) {
                         echo '<meta property="og:image" content="' . esc_attr($thumbnail) . '" />';
                         echo '<meta name="twitter:image" content="' . esc_attr($thumbnail) . '" />';

@@ -455,7 +455,6 @@ if (!class_exists('ATBDP_Shortcode')):
                     'distance' => $_GET['miles'],           // this is the maximum distance to search
                     'units' => $radius_search_unit       // this supports options: miles, mi, kilometers, km
                 );
-                $default_radius_distance = !empty($_GET['miles']) ? $_GET['miles'] : $default_radius_distance;
             } elseif (isset($_GET['address'])) {
                 $address = $_GET['address'];
                 $meta_queries[] = array(
@@ -727,6 +726,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             $all_listings = new WP_Query(apply_filters('atbdp_listing_search_query_argument', $args));
+            $default_radius_distance = !empty($_GET['miles']) ? $_GET['miles'] : $default_radius_distance;
             wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
                 'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
@@ -765,7 +765,6 @@ if (!class_exists('ATBDP_Shortcode')):
             $listing_grid_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             $grid_container_fluid = apply_filters('atbdp_search_result_grid_container_fluid', $listing_grid_container_fluid);
             $listing_location_address = get_directorist_option('sresult_location_address', 'map_api');
-            $default_radius_distance = get_directorist_option('sresult_default_radius_distance', 0);
             ob_start();
             $include = apply_filters('include_style_settings', true);
             if ($include) {

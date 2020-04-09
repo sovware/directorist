@@ -16,3 +16,13 @@ function atbdp_directorist_button_classes($type='primary'){
       */
      return apply_filters('atbdp_button_class', "btn btn-{$type}", $type);
  }
+/**
+ * @since 6.3.4
+ * @return string image scource
+ */
+ function atbdp_get_image_source($id = null, $size = 'medium'){
+     // void if source id is empty
+     if(empty($id)){return '';}
+    $image_obj = wp_get_attachment_image_src($id, $size);
+    return is_array($image_obj) ? $image_obj[0] : '';
+ }

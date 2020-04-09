@@ -1,12 +1,12 @@
 <?php
 $listing_imgs = (!empty($args['listing_img'])) ? $args['listing_img'] : array();
 $listing_prv_img_id = (!empty($args['listing_prv_img'])) ? $args['listing_prv_img'] : '';
-$listing_prv_img = !empty($listing_prv_img_id) ? wp_get_attachment_image_src($listing_prv_img_id) : '';
+$listing_prv_img = !empty($listing_prv_img_id) ? atbdp_get_image_source($listing_prv_img_id) : '';
 $display_prv_field = get_directorist_option('display_prv_field', 1);
 $display_gallery_field = get_directorist_option('display_gallery_field', 1);
 $image_links = []; // define a link placeholder variable
 foreach ($listing_imgs as $id) {
-    $image_links[$id] = wp_get_attachment_image_src($id)[0]; // store the attachment id and url
+    $image_links[$id] = atbdp_get_image_source($id); // store the attachment id and url
 }
 // is multiple image upload extension is active  ?
 $active_mi_ext = is_multiple_images_active(); // default is no

@@ -47,14 +47,13 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
         ) );
         if(!empty($listing_prv_img)) {
 
-            $prv_image   = wp_get_attachment_image_src($listing_prv_img, 'large');
-            $prv_image = is_array($prv_image) ? $prv_image[0] : '';
+            $prv_image   = atbdp_get_image_source($listing_prv_img, 'large');
 
         }
         if(!empty($listing_img[0])) {
 
             $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];;
-            $gallery_img = wp_get_attachment_image_src($listing_img[0], 'medium')[0];
+            $gallery_img = atbdp_get_image_source($listing_img[0], 'medium');
 
         }
         $html = '';

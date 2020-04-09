@@ -38,8 +38,8 @@ $listing_imgs = (!empty($listing_img) && !empty($display_slider_image)) ? $listi
 $image_links = array(); // define a link placeholder variable
 $full_image_links = array(); // define a link placeholder variable
 foreach ($listing_imgs as $id) {
-    $full_image_links[$id] = wp_get_attachment_image_src($id, 'large')[0];
-    $image_links_thumbnails[$id] = wp_get_attachment_image_src($id, 'thumbnail')[0]; // store the attachment id and url
+    $full_image_links[$id] = atbdp_get_image_source($id, 'large');
+    $image_links_thumbnails[$id] = atbdp_get_image_source($id, 'thumbnail'); // store the attachment id and url
     //@todo; instead of getting a full size image, define a an image size and then fetch that size and let the user change that image size via a hook.
 }
 /*Code for Business Hour Extensions*/
@@ -201,8 +201,7 @@ do_action('atbdp_before_listing_section');
     <div class="atbdb_content_module_contents">
         <?php
         
-        $listing_prv_imgurl = !empty($listing_prv_img) ? wp_get_attachment_image_src($listing_prv_img, 'large') : '';
-        $listing_prv_imgurl = is_array($listing_prv_imgurl) ? $listing_prv_imgurl[0] : '';
+        $listing_prv_imgurl = !empty($listing_prv_img) ? atbdp_get_image_source($listing_prv_img, 'large') : '';
         $gallery_image = '';
         $plan_slider = true;
         if (is_fee_manager_active()) {

@@ -82,7 +82,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $author_id = get_the_author_meta('ID');
                     $display_author_image = get_directorist_option('display_author_image', 1);
                     $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-                    $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
+                    $u_pro_pic = !empty($u_pro_pic) ? atbdp_get_image_source($u_pro_pic, 'thumbnail') : '';
                     $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                     $display_tagline_field = get_directorist_option('display_tagline_field', 0);
                     $display_pricing_field = get_directorist_option('display_pricing_field', 1);
@@ -93,11 +93,10 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $listing_preview_img = empty(get_directorist_option('display_preview_image', 1)) || 'no' == $display_image ? 'no' : 'yes';
                     $prv_image = '';
                     if (!empty($listing_prv_img)) {
-                        $prv_image_full = wp_get_attachment_image_src($listing_prv_img, 'full');
-                        $prv_image_full = is_array($prv_image_full) ? $prv_image_full[0] : '';
+                        $prv_image_full = atbdp_get_image_source($listing_prv_img, 'full');
                     }
                     if (!empty($listing_img[0])) {
-                        $gallery_img_full = wp_get_attachment_image_src($listing_img[0], 'full')[0];
+                        $gallery_img_full = atbdp_get_image_source($listing_img[0], 'full');
                     }
                     $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 

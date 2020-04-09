@@ -354,7 +354,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                     foreach ($reviews as $key => $review):
                         $author_id = $review->by_user_id;
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-                        $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
+                        $u_pro_pic = !empty($u_pro_pic) ? atbdp_get_image_source($u_pro_pic, 'thumbnail') : '';
                         $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
 
                         // Set the desired output into a variable

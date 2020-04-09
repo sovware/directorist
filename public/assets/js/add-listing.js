@@ -257,15 +257,6 @@ jQuery(function ($) {
         }
     }
 
-    function atbdp_is_checked_radio(name) {
-        var is_checked = $('input[name="' + name + '"]').is(':checked');
-        if (is_checked) {
-            return atbdp_element_value(name);
-        } else {
-            return '';
-        }
-    }
-
     var qs = (function (a) {
         if (a == "") return {};
         var b = {};

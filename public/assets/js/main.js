@@ -206,7 +206,7 @@
     }
 
     // Handle the clicks
-    $('.atbdp-universal-pagination li.atbd-active').live('click', function () {
+    $('.atbdp-universal-pagination li.atbd-active').on('click', function () {
         var page = $(this).attr('data-page');
         atbdp_load_all_posts(page);
 

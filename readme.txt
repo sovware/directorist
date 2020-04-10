@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.4
-Stable tag: 6.3.3
+Stable tag: 6.3.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -65,6 +65,7 @@ You can extend the functionality of this plugin using free & premium extensions.
 Directorist is not developed by a single person. A team of dedicated developers and designers spent countless hours to make this plugin and they are working on it constantly to improve it and to add new features. Therefore, you get the most professional directory plugin from us. As it is backed by a company, you will get premium support now and upcoming years without any worries.
 
 = OTHER FEATURES =
+* Supports Elemontor Page Builder
 * Listing and Review submission without login (Guest Submission)
 * Private Directory
 * GDPR ready
@@ -137,6 +138,13 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.3.4 - Apr 9, 2020 =
+
+* Fix - Redius serarch issue in mobile view
+* Fix - Style issues
+* Improve - Data type sanitization
+* Improve - Code
 
 = 6.3.3 - Apr 6, 2020 =
 

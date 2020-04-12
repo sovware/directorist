@@ -2241,6 +2241,11 @@ div#listing_notifier span {
   background: #fff;
 }
 
+/* map image radius */
+#map img, #gmap img {
+  border-radius: 0 !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

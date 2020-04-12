@@ -1575,9 +1575,15 @@ div#listing_notifier span {
 .atbd-dropdown-item {
   display: block;
 }
-
 .nav_button {
   position: relative;
   z-index: 1;
   background: #fff;
+}
+
+/* map image radius */
+#map, #gmap{
+  img{
+    border-radius: 0 !important;
+  }
 }

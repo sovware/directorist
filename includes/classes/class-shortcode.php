@@ -61,7 +61,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         $sub_meta_queries[] = array(
                             'key' => 'category_pass',
                             'value' => $value,
-                            'compare' => 'LIKE'
+                            'compare' => '='
                         );
                     }
 
@@ -70,7 +70,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     $meta_queries[] = array(
                         'key' => 'category_pass',
                         'value' => $categories[0],
-                        'compare' => 'LIKE'
+                        'compare' => '='
                     );
                 }
             }

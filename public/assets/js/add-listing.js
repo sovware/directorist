@@ -281,9 +281,19 @@ jQuery(function ($) {
     listignsGalleryUploader.init();
 
     var formID = $('#add-listing-form');
+    var on_processing = false;
+
 
     $('body').on('submit', formID, function (e) {
         e.preventDefault();
+
+        if ( on_processing ) {
+            $('.listing_submit_btn').attr( 'disabled', true );
+            return;
+        }
+
+        on_processing = true;
+
         var form_data = new FormData();
         $(".listing_submit_btn").addClass("atbd_loading");
 
@@ -549,6 +559,7 @@ jQuery(function ($) {
             url: atbdp_add_listing.ajaxurl,
             data: form_data,
             success: function (response) {
+                on_processing = false;
                 // show the error notice
                 if (response.error === true) {
                     $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
@@ -580,6 +591,9 @@ jQuery(function ($) {
                 }
             },
             error: function (error) {
+                on_processing = false;
+                $('.listing_submit_btn').attr( 'disabled', false );
+
                 $(".listing_submit_btn").removeClass("atbd_loading");
                 console.log(error);
             }

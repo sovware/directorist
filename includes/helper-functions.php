@@ -4617,32 +4617,37 @@ function the_thumbnail_card($img_src = '', $_args = array())
     $ratio_width = get_directorist_option('crop_width', 360);
     $ratio_height = get_directorist_option('crop_height', 300);
     $blur_background = $is_blur;
-    $background_color = get_directorist_option('prv_background_color', 'gainsboro');
+    $background_color = get_directorist_option('prv_background_color', '#fff');
 
     $thumbnail_img = '';
 
     $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
     $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
     $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+    $thumbnail_id = '';
 
     if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
-        $thumbnail_img = atbdp_get_image_source( $listing_img[0], 'medium' );
+        $thumbnail_img = atbdp_get_image_source( $listing_img[0], 'large' );
+        $thumbnail_id = $listing_img[0];
     }
 
     if ( ! empty( $listing_prv_img ) ) {
-        $thumbnail_img = atbdp_get_image_source( $listing_prv_img, 'medium');
+        $thumbnail_img = atbdp_get_image_source( $listing_prv_img, 'large');
+        $thumbnail_id = $listing_prv_img;
     }
 
     if ( ! empty( $img_src ) ) {
         $thumbnail_img = $img_src;
+        $thumbnail_id = $img_src;
     }
 
     if ( empty( $thumbnail_img ) ) {
         $thumbnail_img = $default_image_src;
+        $thumbnail_id = $default_image_src;
     }
 
     if ( 'cover' === $image_size && false === $by_ratio ) {
-        $thumbnail_img = atbdp_image_cropping($thumbnail_img, $ratio_width, $ratio_height, true, 100)['url'];
+        $thumbnail_img = atbdp_image_cropping($thumbnail_id, $ratio_width, $ratio_height, true, 100)['url'];
     }
 
     if ( empty( $thumbnail_img ) ) { return ''; }

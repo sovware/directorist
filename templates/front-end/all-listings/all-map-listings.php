@@ -18,7 +18,17 @@ $container                  = 'container-fluid';
 $map_container              = apply_filters('atbdp_map_container',$container);
 ?>
 <div id="directorist" class="atbd_wrapper">
-    <?php  include ATBDP_TEMPLATES_DIR . "front-end/all-listings/listings-header.php"; ?>
+    <?php  
+    ob_start();
+    include ATBDP_TEMPLATES_DIR . "front-end/all-listings/listings-header.php";
+    $header_output = ob_get_clean();
+    /**
+     * @since 6.3.5
+     * 
+     */
+    $header_output = apply_filters( 'atbdp_listing_header_html', $header_output, compact( 'display_header','header_container_fluid','search_more_filters_fields', 'listing_filters_button', 'header_title','listing_filters_icon','display_viewas_dropdown','display_sortby_dropdown' ) );
+    echo $header_output;
+    ?>
     <div class="atbdp-divider"></div>
     <!-- the loop -->
     <?php

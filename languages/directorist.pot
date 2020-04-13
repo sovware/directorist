@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2020-04-09 21:38+0600\n"
+"POT-Creation-Date: 2020-04-12 16:06+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -254,15 +254,15 @@ msgctxt "tag delimiter"
 msgid ","
 msgstr ""
 
-#: includes/classes/class-add-listing.php:830
+#: includes/classes/class-add-listing.php:828
 msgid "Your Submission is Completed! redirecting.."
 msgstr ""
 
-#: includes/classes/class-add-listing.php:833
+#: includes/classes/class-add-listing.php:831
 msgid "Sorry! Something Wrong with Your Submission"
 msgstr ""
 
-#: includes/classes/class-add-listing.php:836
+#: includes/classes/class-add-listing.php:834
 msgid "Payment Required! redirecting to checkout.."
 msgstr ""
 

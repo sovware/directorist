@@ -1899,16 +1899,6 @@ The Administrator of ==SITE_NAME==
 
             return apply_filters('atbdp_email_about_expire_tmpl_settings_fields', array(
                 array(
-                    'type' => 'slider',
-                    'name' => 'email_to_expire_day',
-                    'label' => __('When to send expire notice', 'directorist'),
-                    'description' => __('Select the days before a listing expires to send an expiration reminder email', 'directorist'),
-                    'min' => '1',
-                    'max' => '120',
-                    'step' => '1',
-                    'default' => '7',
-                ),
-                array(
                     'type' => 'textbox',
                     'name' => 'email_sub_to_expire_listing',
                     'label' => __('Email Subject', 'directorist'),
@@ -1980,17 +1970,6 @@ The Administrator of ==SITE_NAME==
 ", 'directorist');
 
             return apply_filters('atbdp_email_renewal_tmpl_settings_fields', array(
-                array(
-                    'type' => 'slider',
-                    'name' => 'email_renewal_day',
-                    'label' => __('When to send renewal reminder', 'directorist'),
-                    'description' => __('Select the days after a listing expires to send a renewal reminder email', 'directorist'),
-                    'min' => '1',
-                    'max' => '120',
-                    'step' => '1',
-                    'default' => '7',
-
-                ),
                 array(
                     'type' => 'textbox',
                     'name' => 'email_sub_to_renewal_listing',
@@ -6207,6 +6186,29 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Can User Renew Listing?', 'directorist'),
                         'description' => __('Here YES means users can renew their listings.', 'directorist'),
                         'default' => 1,
+                    ),
+
+                    array(
+                        'type' => 'slider',
+                        'name' => 'email_to_expire_day',
+                        'label' => __('When to send expire notice', 'directorist'),
+                        'description' => __('Select the days before a listing expires to send an expiration reminder email', 'directorist'),
+                        'min' => '1',
+                        'max' => '120',
+                        'step' => '1',
+                        'default' => '7',
+                    ),
+
+                    array(
+                        'type' => 'slider',
+                        'name' => 'email_renewal_day',
+                        'label' => __('When to send renewal reminder', 'directorist'),
+                        'description' => __('Select the days after a listing expires to send a renewal reminder email', 'directorist'),
+                        'min' => '1',
+                        'max' => '120',
+                        'step' => '1',
+                        'default' => '7',
+    
                     ),
                     array(
                         'type' => 'toggle',

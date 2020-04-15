@@ -8,7 +8,6 @@ global $wpdb;
 include_once("directorist-base.php");
 $enable_uninstall = get_directorist_option('enable_uninstall',0);
 // Clear schedules
-wp_clear_scheduled_hook('atbdp_custom_cron');
 wp_clear_scheduled_hook('directorist_hourly_scheduled_events');
 if(!empty($enable_uninstall)) {
     // Delete selected pages.

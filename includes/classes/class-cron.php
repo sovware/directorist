@@ -18,12 +18,9 @@ if (!class_exists('ATBDP_Cron')):
         public function __construct()
         {
             //init wp schedule
-            //add_action('wp', array($this, 'schedule_events')); // for testing on local host use init hook, otherwise, we wont be able to vardump, we will have to log the data to view.
-
             add_action('wp', array($this, 'atbdp_custom_schedule_cron'));
-            add_action('atbdp_custom_cron', array($this, 'atbdp_custom_cron_function'));
-            add_action('wp_head', array($this, 'atbdp_custom_cron_function'));
-            add_filter('cron_schedules', array($this, 'atbdp_custom_cron_add_intervals'));
+            add_action('directorist_hourly_scheduled_events', array($this, 'atbdp_schedule_tasks'));
+            add_filter('cron_schedules', array($this, 'atbdp_cron_init'));
         }
 
 
@@ -31,10 +28,10 @@ if (!class_exists('ATBDP_Cron')):
          * @since 5.0.1
          */
 
-        public function atbdp_custom_cron_add_intervals( $schedules ) {
-            $schedules['customTime'] = array(
-                'interval' => 30,
-                'display' => __('Every 30sec')
+        public function atbdp_cron_init( $schedules ) {
+            $schedules['atbdp_listing_manage'] = array(
+                'interval' => 1800,
+                'display' => __('Directory Listings Manage')
             );
             return $schedules;
         }
@@ -43,7 +40,7 @@ if (!class_exists('ATBDP_Cron')):
          * @since 5.0.1
          */
         // the actual function
-        public function atbdp_custom_cron_function() {
+        public function atbdp_schedule_tasks() {
             // see if fires via email notification
             $this->update_renewal_status(); // we will send about to expire notification here
             $this->update_expired_status();  // we will send expired notification here
@@ -54,42 +51,8 @@ if (!class_exists('ATBDP_Cron')):
          * @since 5.0.1
          */
         public function atbdp_custom_schedule_cron() {
-            if ( !wp_next_scheduled( 'atbdp_custom_cron' ) )
-                wp_schedule_event(time(), 'hourly', 'atbdp_custom_cron');
-        }
-
-
-
-        /**
-         * It hooks the schedule events to WordPress Cron tasks
-         * @since 3.1.0
-         */
-        public function schedule_events()
-        {
-            // register our cron hook
-            if( ! wp_next_scheduled( 'directorist_hourly_scheduled_events' ) ) {
-                wp_schedule_event( time(), 'towmins', 'directorist_hourly_scheduled_events' );
-            }
-            // run the schedules events on our cron hooked
-            add_action('directorist_hourly_scheduled_events', array($this, 'hourly_scheduled_events'));
-        }
-        function bl_print_tasks() {
-            echo '<pre>'; print_r( _get_cron_array() ); echo '</pre>';
-        }
-
-
-        /**
-         * Define actions to execute during the cron event.
-         *
-         * @since    3.1.0
-         * @access   public
-         */
-        public function hourly_scheduled_events() {
-
-            $this->update_renewal_status(); // we will send about to expire notification here
-            $this->update_expired_status();  // we will send expired notification here
-            $this->send_renewal_reminders(); // we will send renewal notification after expiration here
-            $this->delete_expired_listings(); // we will delete listings here certain days after expiration here.
+            if ( !wp_next_scheduled( 'directorist_hourly_scheduled_events' ) )
+                wp_schedule_event(time(), 'atbdp_listing_manage', 'directorist_hourly_scheduled_events');
         }
 
         /**

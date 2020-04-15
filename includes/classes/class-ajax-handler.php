@@ -85,8 +85,8 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             if (!$check_ajax_referer) {
                 echo json_encode(array(
                     'loggedin' => false,
-                    'message' => __('Something went wrong, page is reloading...', 'directorist'),
-                    'reload' => true,
+                    'message' => __('Something went wrong, please reload the page', 'directorist'),
+                    'nonce_faild' => true,
                 ));
 
                 die();

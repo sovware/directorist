@@ -842,9 +842,8 @@
                 'security': $('#security').val()
             },
             success: function (data) {
-                if ('reload' in data && data.reload) {
+                if ('nonce_faild' in data && data.nonce_faild) {
                     $('p.status').html('<span class="status-success">' + data.message + '</span>');
-                    location.reload();
                 }
                 if (data.loggedin == true) {
                     $('p.status').html('<span class="status-success">' + data.message + '</span>');
@@ -854,9 +853,8 @@
                 }
             },
             error: function (data) {
-                if ('reload' in data && data.reload) {
+                if ('nonce_faild' in data && data.nonce_faild) {
                     $('p.status').html('<span class="status-success">' + data.message + '</span>');
-                    location.reload();
                 }
                 $('p.status').show().html('<span class="status-failed">' + ajax_login_object.login_error_message + '</span>');
             }

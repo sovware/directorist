@@ -30,6 +30,19 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 ?>
 
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
+        <?php
+        if(isset($_GET['renew']) && ('token_expired' === $_GET['renew'])){?>
+        <div class="alert alert-danger alert-dismissable fade show" role="alert">
+            <span class="fa fa-info-circle"></span>
+            <?php esc_html_e('Link appears to be invalid.', 'directorist'); ?>
+        </div>
+        <?php }else{ ?>
+        <div class="alert alert-info alert-dismissable fade show" role="alert">
+            <span class="fa fa-info-circle"></span>
+            <?php esc_html_e('Renewed successfully.', 'directorist'); ?>
+        </div>
+        <?php }
+        ?>
     <div class="<?php echo apply_filters('atbdp_deshboard_container_fluid', $container_fluid) ?>">
         <div class="row">
             <div class="col-md-12">
@@ -237,7 +250,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                                 <?php
                                                                             } else {
                                                                                 ?>
-                                                                                <a href="<?php echo esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ?>"
+                                                                                <a href="<?php echo add_query_arg( 'renew_from', 'dashboard', esc_url(ATBDP_Permalink::get_renewal_page_link($post->ID)) ) ?>"
                                                                                    id="directorist-renew"
                                                                                    data-listing_id="<?php echo $post->ID; ?>"
                                                                                    class="directory_btn btn btn-outline-success">

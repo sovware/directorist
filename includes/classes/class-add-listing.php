@@ -883,12 +883,22 @@ if (!class_exists('ATBDP_Add_Listing')):
         {
             $action = $query->get('atbdp_action');
             $id = $query->get('atbdp_listing_id');
+            $temp_token = isset($_GET['token']) ? $_GET['token'] : '';
+            $renew_from = isset($_GET['renew_from']) ? $_GET['renew_from'] : '';
+            $token = get_post_meta($id, '_renewal_token', true);
             if (!empty($action) && !empty($id)) {
+            if ('renew' == $action) {
+            if(($temp_token === $token) || $renew_from){
                 // handle renewing the listing
-                if ('renew' == $action) {
-                    $this->renew_listing($id);
+                $this->renew_listing($id);
+            }else{
+                $r_url = add_query_arg('renew', 'token_expired', ATBDP_Permalink::get_dashboard_page_link());
+              wp_safe_redirect($r_url);
+              exit;
                 }
             }
+        }
+           
         }
 
 
@@ -955,6 +965,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 //@todo; Show notification on the user page after renewing.
                 $r_url = add_query_arg('renew', 'success', ATBDP_Permalink::get_dashboard_page_link());
             }
+            update_post_meta($listing_id, '_renewal_token', 0);
             // hook for dev
             do_action('atbdp_before_redirect_after_renewal', $listing_id);
             wp_safe_redirect($r_url);

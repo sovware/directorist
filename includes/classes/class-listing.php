@@ -69,6 +69,7 @@ if (!class_exists('ATBDP_Listing')):
         {
             $status = isset($_GET['listing_status']) ? esc_attr($_GET['listing_status']) : '';
             $preview = isset($_GET['preview']) ? esc_attr($_GET['preview']) : '';
+            $reviewed = isset($_GET['reviewed']) ? esc_attr($_GET['reviewed']) : '';
             $id = isset($_GET['listing_id']) ? (int)($_GET['listing_id']) : '';
             $edited = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
             $new_l_status = get_directorist_option('new_listing_status', 'pending');
@@ -80,8 +81,7 @@ if (!class_exists('ATBDP_Listing')):
             $listing_id = isset($_GET['post_id']) ? $_GET['post_id'] : $listing_id;
             $id = $id ? $id : $listing_id;
             $listing_status = $edited ? $edit_l_status : $new_l_status;
-            //$id = $id ? $id : get_the_ID();
-            if ($preview || $status) {
+            if ($preview || $status || $reviewed) {
                 //if listing under a purchased package
                 if (is_fee_manager_active()) {
                     $plan_id = get_post_meta($id, '_fm_plans', true);
@@ -89,7 +89,6 @@ if (!class_exists('ATBDP_Listing')):
                     if (('package' === package_or_PPL($plan_id)) && $plan_purchased && ('publish' === $new_l_status)) {
                         // status for paid users
                         $post_status = $listing_status;
-                        
                     } else {
                         // status for non paid users
                         $post_status = 'pending';

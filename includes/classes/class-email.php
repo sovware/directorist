@@ -84,7 +84,7 @@ if (!class_exists('ATBDP_Email')):
          * @see strtr() is better than str_replace() in our case : https://stackoverflow.com/questions/8177296/when-to-use-strtr-vs-str-replace
          * @return string               It returns the content after replacing the placeholder with proper data.
          */
-        public function replace_in_content($content, $order_id = 0, $listing_id = 0, $user = null)
+        public function replace_in_content($content, $order_id = 0, $listing_id = 0, $user = null, $renewal = null)
         {
             if (empty($listing_id)) {
                 $listing_id = (int)get_post_meta($order_id, '_listing_id', true);
@@ -108,7 +108,12 @@ if (!class_exists('ATBDP_Email')):
             $current_time = current_time('timestamp');
             $exp_date = get_post_meta($listing_id, '_expiry_date', true);
             $never_exp = get_post_meta($listing_id, '_never_expire', true);
-            $renewal_link = ATBDP_Permalink::get_renewal_page_link($listing_id);
+            if($renewal){
+                $token = 'cB0XtpVzGb180dgPi3hADW-'.$listing_id;
+                $renewal_link = add_query_arg('token', $token, ATBDP_Permalink::get_renewal_page_link($listing_id));
+            }else{
+                $renewal_link = ATBDP_Permalink::get_renewal_page_link($listing_id);
+            }
             $dashboard_link = ATBDP_Permalink::get_dashboard_page_link();
             $order_receipt_link = ATBDP_Permalink::get_payment_receipt_page_link($order_id);
             $cats = wp_get_object_terms($listing_id, ATBDP_CATEGORY, array('fields' => 'names'));/*@todo, maybe we can use get_the_terms() for utilizing some default caching???*/
@@ -533,7 +538,7 @@ This email is sent automatically for information purpose only. Please do not res
             if (!in_array('listing_to_expire', get_directorist_option('notify_user', array()))) return false;
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_to_expire_listing"), null, $listing_id, $user);
-            $body = $this->replace_in_content(get_directorist_option("email_tmpl_to_expire_listing"), null, $listing_id, $user);
+            $body = $this->replace_in_content(get_directorist_option("email_tmpl_to_expire_listing"), null, $listing_id, $user, true);
             $body = atbdp_email_html($sub, $body);
             return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
         }
@@ -551,7 +556,7 @@ This email is sent automatically for information purpose only. Please do not res
             // if(! in_array( 'listing_expired', get_directorist_option('notify_user', array()) ) ) return false;
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_expired_listing"), null, $listing_id, $user);
-            $body = $this->replace_in_content(get_directorist_option("email_tmpl_expired_listing"), null, $listing_id, $user);
+            $body = $this->replace_in_content(get_directorist_option("email_tmpl_expired_listing"), null, $listing_id, $user, true);
             $body = atbdp_email_html($sub, $body);
             return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
         }
@@ -569,7 +574,7 @@ This email is sent automatically for information purpose only. Please do not res
             if (!in_array('remind_to_renew', get_directorist_option('notify_user', array()))) return false;
             $user = $this->get_owner($listing_id);
             $sub = $this->replace_in_content(get_directorist_option("email_sub_to_renewal_listing"), null, $listing_id, $user);
-            $body = $this->replace_in_content(get_directorist_option("email_tmpl_to_renewal_listing"), null, $listing_id, $user);
+            $body = $this->replace_in_content(get_directorist_option("email_tmpl_to_renewal_listing"), null, $listing_id, $user, true);
             $body = atbdp_email_html($sub, $body);
             return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
         }

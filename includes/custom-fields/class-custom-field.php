@@ -46,9 +46,11 @@ class ATBDP_Custom_Field
     function refresh()
     {
         global $wpdb;
-        $objects = ATBDP_CUSTOM_FIELD_POST_TYPE;
-        $objects = array($objects, 'atbdp_pricing_plans', 'product');
-
+        $atbdp_options = apply_filters('atbdp_sortable_custom_post_type', array(
+            'custom_field' => ATBDP_CUSTOM_FIELD_POST_TYPE,
+            'pricing_plans' => 'atbdp_pricing_plans',
+        ));
+        $objects = $atbdp_options;
         if (!empty($objects)) {
             foreach ($objects as $object) {
                 $result = $wpdb->get_results("
@@ -128,8 +130,11 @@ class ATBDP_Custom_Field
 
     function get_scporder_options_objects()
     {
-        $atbdp_options = ATBDP_CUSTOM_FIELD_POST_TYPE;
-        $objects = array($atbdp_options, 'atbdp_pricing_plans','product');
+        $atbdp_options = apply_filters('atbdp_sortable_custom_post_type', array(
+            'custom_field' => ATBDP_CUSTOM_FIELD_POST_TYPE,
+            'pricing_plans' => 'atbdp_pricing_plans',
+        ));
+        $objects = $atbdp_options;
         return $objects;
     }
 

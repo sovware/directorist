@@ -57,7 +57,58 @@ if (!class_exists('ATBDP_Listing')):
             add_filter('the_content', array($this, 'the_content'), 20); // add the output of the single page when the content filter fires in our post type. This way is better than using a custom post template because it will not match the style of all theme.
             add_filter('post_thumbnail_html', array($this, 'post_thumbnail_html'), 10, 3);
             add_action('wp_head', array($this, 'og_metatags'));
+            add_action('template_redirect', array($this, 'atbdp_listing_status_controller'));
 
+        }
+
+        /**
+         * @since 6.3.5
+         */
+
+      public function atbdp_listing_status_controller()
+        {
+            $status = isset($_GET['listing_status']) ? esc_attr($_GET['listing_status']) : '';
+            $preview = isset($_GET['preview']) ? esc_attr($_GET['preview']) : '';
+            $reviewed = isset($_GET['reviewed']) ? esc_attr($_GET['reviewed']) : '';
+            $id = isset($_GET['listing_id']) ? (int)($_GET['listing_id']) : '';
+            $edited = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
+            $new_l_status = get_directorist_option('new_listing_status', 'pending');
+            $monitization = get_directorist_option('enable_monetization', 0);
+            $featured_enabled = get_directorist_option('enable_featured_listing');
+            $edit_l_status = get_directorist_option('edit_listing_status');
+            $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
+            $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
+            $listing_id = isset($_GET['post_id']) ? $_GET['post_id'] : $listing_id;
+            $id = $id ? $id : $listing_id;
+            $listing_status = $edited ? $edit_l_status : $new_l_status;
+            if ($preview || $status || $reviewed) {
+                //if listing under a purchased package
+                if (is_fee_manager_active()) {
+                    $plan_id = get_post_meta($id, '_fm_plans', true);
+                    $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id);
+                    if (('package' === package_or_PPL($plan_id)) && $plan_purchased && ('publish' === $new_l_status)) {
+                        // status for paid users
+                        $post_status = $listing_status;
+                    } else {
+                        // status for non paid users
+                        $post_status = 'pending';
+                    }
+                } elseif (!empty($featured_enabled && $monitization)) {
+                    if($payment){
+                        $post_status = 'pending';
+                    }else{
+                        $post_status = $listing_status;
+                    }
+                } else {
+                    $post_status = $listing_status;
+                }
+                $post_status = $status ? $status : $post_status;
+                $args = array(
+                    'ID' => $id ? $id : get_the_ID(),
+                    'post_status' => $post_status,
+                );
+                wp_update_post(apply_filters('atbdp_reviewed_listing_status_controller_argument', $args));
+            }     
         }
 
         /**

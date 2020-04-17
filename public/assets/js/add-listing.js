@@ -575,6 +575,7 @@ jQuery(function ($) {
             data: form_data,
             success: function (response) {
                 // show the error notice
+                var is_pending = response.pending ? '&' : '?';
                 if (response.error === true) {
                     $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                     $(".listing_submit_btn").removeClass("atbd_loading");
@@ -588,7 +589,6 @@ jQuery(function ($) {
                         } else {
                             $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
                             if (qs['redirect']) {
-                                //var is_pending = response.pending ? '&' : '?';
                                 var is_pending = '?';
                                 window.location.href = response.preview_url + is_pending + 'post_id=' + response.id + '&preview=1&payment=1&edited=1&redirect=' + qs['redirect'];
                             } else {
@@ -599,8 +599,14 @@ jQuery(function ($) {
                     } else if ((response.preview_mode === true) && (response.need_payment === true)) {
                         window.location.href = response.preview_url + '?preview=1&payment=1&redirect=' + response.redirect_url;
                     } else {
-                        $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
-                        window.location.href = response.redirect_url;
+                        var is_edited = response.edited_listing ? is_pending + 'listing_id=' + response.id + '&edited=1' : '';
+                        if(response.need_payment === true){
+                            $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
+                            window.location.href = response.redirect_url;
+                        }else{
+                            $('#listing_notifier').show().html(`<span>${response.success_msg}</span>`);
+                            window.location.href = response.redirect_url + is_edited;
+                        }
                     }
                 }
             },

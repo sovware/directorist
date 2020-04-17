@@ -30,8 +30,8 @@ if (!class_exists('ATBDP_Cron')):
 
         public function atbdp_cron_init( $schedules ) {
             $schedules['atbdp_listing_manage'] = array(
-                'interval' => 1800,
-                'display' => __('Directory Listings Manage')
+                'interval' => 300,
+                'display' => __('Every 5 minutes')
             );
             return $schedules;
         }

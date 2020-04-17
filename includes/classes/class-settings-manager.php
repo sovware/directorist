@@ -3235,6 +3235,30 @@ The Administrator of ==SITE_NAME==
                         'default' => 'px',
                     ),
 
+                    'preview_image_quality' => array(
+                        'type' => 'select',
+                        'name' => 'preview_image_quality',
+                        'label' => __('Image Quality', 'directorist'),
+                        'items' => array(
+                            array(
+                                'value' => 'medium',
+                                'label' => __('Medium', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'large',
+                                'label' => __('Large', 'directorist'),
+                            ),
+                            array(
+                                'value' => 'full',
+                                'label' => __('Full', 'directorist'),
+                            ),
+                        ),
+                        'default' =>  array(
+                            'value' => 'large',
+                            'label' => __('Large', 'directorist'),
+                        ),
+                    ),
+
                     'way_to_show_preview' => array(
                         'type' => 'select',
                         'name' => 'way_to_show_preview',
@@ -3258,6 +3282,7 @@ The Administrator of ==SITE_NAME==
                             'label' => __('Fill with Container', 'directorist'),
                         ),
                     ),
+
                     array(
                         'type' => 'slider',
                         'name' => 'crop_width',

@@ -641,7 +641,7 @@ $query_args = array(
                                                 <?php foreach ($listing_tags as $l_tag) {
                                                     $checked = in_array($l_tag->term_id, $output) ? 'selected' : '';
                                                     ?>
-                                                    <option id='atbdp_tag' <?php echo $checked; ?>
+                                                    <option <?php echo $checked; ?>
                                                             value='<?php echo $l_tag->name ?>'><?php echo esc_html($l_tag->name) ?></option>
                                                 <?php } ?>
                                             </select>
@@ -1482,7 +1482,14 @@ if ('openstreet' == $select_listing_map) {
 
         function geocodeAddress(geocoder, resultsMap) {
             var address = address_input.value;
-            geocoder.geocode({'address': address}, function (results, status) {
+            var lat = document.getElementById('manual_lat').value;
+            var lng = document.getElementById('manual_lng').value;
+            var latLng = new google.maps.LatLng( lat, lng );
+            var opt_a = {'address': address};
+            var opt_b = { location: latLng };
+
+            // console.log( opt_b ); 
+            geocoder.geocode(opt_b, function (results, status) {
                 if (status === 'OK') {
                     // set the value of input field to save them to the database
                     $manual_lat.val(results[0].geometry.location.lat());

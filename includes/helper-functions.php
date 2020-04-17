@@ -4608,31 +4608,31 @@ function the_thumbnail_card($img_src = '', $_args = array())
     $args = apply_filters('atbdp_preview_image_args', $_args);
 
     // Default
-    $is_blur = get_directorist_option('prv_background_type', 'blur');
+    $is_blur = get_directorist_option('prv_background_type', 'blur'); // blur | color
     $is_blur = ('blur' === $is_blur ? true : false);
     $alt = esc_html(get_the_title());
     $container_size_by = get_directorist_option('prv_container_size_by', 'px');
     $by_ratio = ( 'px' === $container_size_by ) ? false : true;
-    $image_size = get_directorist_option('way_to_show_preview', 'cover'); // contain / full / cover
+    $image_size = get_directorist_option('way_to_show_preview', 'cover'); // contain | full | cover
     $ratio_width = get_directorist_option('crop_width', 360);
     $ratio_height = get_directorist_option('crop_height', 300);
     $blur_background = $is_blur;
     $background_color = get_directorist_option('prv_background_color', '#fff');
+    $image_quality = get_directorist_option('preview_image_quality', 'large'); // medium | large | full
 
     $thumbnail_img = '';
 
     $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
     $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
     $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-    $thumbnail_id = '';
 
     if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
-        $thumbnail_img = atbdp_get_image_source( $listing_img[0], 'large' );
+        $thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
         $thumbnail_id = $listing_img[0];
     }
 
     if ( ! empty( $listing_prv_img ) ) {
-        $thumbnail_img = atbdp_get_image_source( $listing_prv_img, 'large');
+        $thumbnail_img = atbdp_get_image_source( $listing_prv_img, $image_quality );
         $thumbnail_id = $listing_prv_img;
     }
 
@@ -4646,9 +4646,9 @@ function the_thumbnail_card($img_src = '', $_args = array())
         $thumbnail_id = $default_image_src;
     }
 
-    if ( 'cover' === $image_size && false === $by_ratio ) {
+    /* if ( 'cover' === $image_size && false === $by_ratio ) {
         $thumbnail_img = atbdp_image_cropping($thumbnail_id, $ratio_width, $ratio_height, true, 100)['url'];
-    }
+    } */
 
     if ( empty( $thumbnail_img ) ) { return ''; }
 

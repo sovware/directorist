@@ -630,22 +630,33 @@ jQuery(function ($) {
 
 
 
-    //Display filter button
-    var lf_opt7 = $("#default_preview_image,#crop_width,#crop_height, div#prv_container_size_by, #way_to_show_preview,#prv_background_type");
+    // Preview image
+    var preview_image_sections = [
+        '#default_preview_image',
+        '#crop_width,#crop_height',
+        'div#prv_container_size_by',
+        '#preview_image_quality',
+        '#way_to_show_preview',
+        '#prv_background_type',
+    ];
+    preview_image_sections = preview_image_sections.join(',');
+    var lf_opt7 = $( preview_image_sections );
+
     lf_opt7.hide();
     $('input[name="display_preview_image"]').on("change", function () {
         if($(this).is(":checked") === true){
             lf_opt7.show();
-        }else{
+        }else {
             lf_opt7.hide();
         }
     });
+
     if($('input[name="display_preview_image"]').is(":checked") === true){
         lf_opt7.show();
     }
 
 
-    //Preview image
+    // Preview image
     var fill = $("#crop_width, #crop_height, div#prv_container_size_by");
     var backType = $("#prv_background_type");
     var backgroundType = $("#prv_background_color");

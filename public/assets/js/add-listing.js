@@ -286,13 +286,13 @@ jQuery(function ($) {
 
     $('body').on('submit', formID, function (e) {
         e.preventDefault();
+        var error_count = 0;
+        var err_log = {};
 
         if ( on_processing ) {
             $('.listing_submit_btn').attr( 'disabled', true );
             return;
         }
-
-        on_processing = true;
 
         var form_data = new FormData();
         $(".listing_submit_btn").addClass("atbd_loading");
@@ -316,6 +316,7 @@ jQuery(function ($) {
                 }
             }
         }
+        
 
         // ajax action
         form_data.append('action', 'add_listing_action');
@@ -339,7 +340,8 @@ jQuery(function ($) {
             var hasValidFiles = listingMediaUploader.hasValidFiles();
             if (!hasValidFiles) {
                 $(".listing_submit_btn").removeClass("atbd_loading");
-                return;
+                err_log.listing_gallery = { msg: 'Listing gallery has invalid files' };
+                error_count++;
             }
         }
 
@@ -364,7 +366,8 @@ jQuery(function ($) {
             var hasValidFiles = listingMediaUploader.hasValidFiles();
             if (!hasValidFiles) {
                 $(".listing_submit_btn").removeClass("atbd_loading");
-                return;
+                err_log.listing_gallery = { msg: 'Listing gallery extension has invalid files' };
+                error_count++;
             }
         }
         var iframe = $('#listing_content_ifr');
@@ -413,6 +416,7 @@ jQuery(function ($) {
         atbdp_multi_select('input', 'custom_field');
         atbdp_multi_select('textarea', 'custom_field');
         atbdp_multi_select('select', 'custom_field');
+        
         var field_checked = $('input[name^="custom_field"]:checked');
         if (field_checked.length > 1) {
             field_checked.each(function () {
@@ -437,7 +441,7 @@ jQuery(function ($) {
         if ( typeof locaitons === 'string' ) {
             form_data.append("tax_input[at_biz_dir-location][]", locaitons);
         }
-
+        
         // tags
         var tags = $("#at_biz_dir-tags").val();
         if (tags) {
@@ -493,7 +497,7 @@ jQuery(function ($) {
                 form_data.append(name, value);
             });
         }
-
+        
         atbdp_multi_select('textarea', 'faqs');
         // google recaptcha
         atbdp_multi_select('textarea', 'g-recaptcha-response');
@@ -552,6 +556,17 @@ jQuery(function ($) {
             form_data.append(name, value);
         }
 
+        if ( error_count ) {
+            on_processing = false;
+            $('.listing_submit_btn').attr( 'disabled', false );
+            console.log( 'Form has invalid data' );
+            console.log( error_count, err_log );
+            return;
+        }
+
+        on_processing = true;
+        $('.listing_submit_btn').attr( 'disabled', true );
+
         $.ajax({
             method: 'POST',
             processData: false,
@@ -559,12 +574,11 @@ jQuery(function ($) {
             url: atbdp_add_listing.ajaxurl,
             data: form_data,
             success: function (response) {
-                on_processing = false;
                 // show the error notice
                 if (response.error === true) {
                     $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                     $(".listing_submit_btn").removeClass("atbd_loading");
-                    //window.location.href = response.redirect_url;
+                    window.location.href = response.redirect_url;
                 } else {
                     // preview on and no need to redirect to payment
                     if ((response.preview_mode === true) && (response.need_payment !== true)) {

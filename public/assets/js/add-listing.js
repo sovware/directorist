@@ -270,15 +270,25 @@ jQuery(function ($) {
         return b;
     })(window.location.search.substr(1).split('&'));
 
-    var listingMediaUploader = new EzMediaUploader({
-        containerID: "_listing_gallery",
-    });
-    listingMediaUploader.init();
-    // gallery
-    var listignsGalleryUploader = new EzMediaUploader({
-        containerID: "listing_gallery_ext",
-    });
-    listignsGalleryUploader.init();
+    var listingMediaUploader = null;
+    if ( $("#_listing_gallery").length ) {
+        listingMediaUploader = new EzMediaUploader({
+            containerID: "_listing_gallery",
+        });
+        listingMediaUploader.init();
+    }
+
+    var listignsGalleryUploader = null;
+    if ( $("#listing_gallery_ext").length ) {
+        // gallery
+        listignsGalleryUploader = new EzMediaUploader({
+            containerID: "listing_gallery_ext",
+        });
+        listignsGalleryUploader.init();
+    }
+
+    
+    
 
     var formID = $('#add-listing-form');
     var on_processing = false;
@@ -320,51 +330,54 @@ jQuery(function ($) {
 
         // ajax action
         form_data.append('action', 'add_listing_action');
-        //files
-        var files = listingMediaUploader.getTheFiles();
-        if (files) {
-            for (var i = 0; i < files.length; i++) {
-                form_data.append('listing_img[]', files[i]);
-            }
-        }
-        var files_meta = listingMediaUploader.getFilesMeta();
-        if (files_meta) {
-            for (var i = 0; i < files_meta.length; i++) {
-                var elm = files_meta[i];
-                for (var key in elm) {
-                    form_data.append('files_meta[' + i + '][' + key + ']', elm[key]);
-                }
-            }
-        }
-        if ($('#_listing_gallery').length) {
+       
+        if ( listingMediaUploader ) {
             var hasValidFiles = listingMediaUploader.hasValidFiles();
-            if (!hasValidFiles) {
+            if ( hasValidFiles ) {
+                //files
+                var files = listingMediaUploader.getTheFiles();
+                if (files) {
+                    for (var i = 0; i < files.length; i++) {
+                        form_data.append('listing_img[]', files[i]);
+                    }
+                }
+                var files_meta = listingMediaUploader.getFilesMeta();
+                if (files_meta) {
+                    for (var i = 0; i < files_meta.length; i++) {
+                        var elm = files_meta[i];
+                        for (var key in elm) {
+                            form_data.append('files_meta[' + i + '][' + key + ']', elm[key]);
+                        }
+                    }
+                }
+            } else {
                 $(".listing_submit_btn").removeClass("atbd_loading");
                 err_log.listing_gallery = { msg: 'Listing gallery has invalid files' };
                 error_count++;
             }
         }
 
-        // gallery
-        var files = listignsGalleryUploader.getTheFiles();
-        if (files) {
-            for (var i = 0; i < files.length; i++) {
-                form_data.append('gallery_img[]', files[i]);
-            }
-        }
-        var files_meta = listignsGalleryUploader.getFilesMeta();
-        if (files_meta) {
-            for (var i = 0; i < files_meta.length; i++) {
-                var elm = files_meta[i];
-                for (var key in elm) {
-                    form_data.append('files_gallery_meta[' + i + '][' + key + ']', elm[key]);
-                }
-            }
-        }
 
-        if ($('#listing_gallery_ext').length) {
-            var hasValidFiles = listingMediaUploader.hasValidFiles();
-            if (!hasValidFiles) {
+        if ( listignsGalleryUploader ) {
+            var hasValidFiles = listignsGalleryUploader.hasValidFiles();
+            if ( hasValidFiles ) {
+                // gallery
+                var files = listignsGalleryUploader.getTheFiles();
+                if (files) {
+                    for (var i = 0; i < files.length; i++) {
+                        form_data.append('gallery_img[]', files[i]);
+                    }
+                }
+                var files_meta = listignsGalleryUploader.getFilesMeta();
+                if (files_meta) {
+                    for (var i = 0; i < files_meta.length; i++) {
+                        var elm = files_meta[i];
+                        for (var key in elm) {
+                            form_data.append('files_gallery_meta[' + i + '][' + key + ']', elm[key]);
+                        }
+                    }
+                }
+            } else {
                 $(".listing_submit_btn").removeClass("atbd_loading");
                 err_log.listing_gallery = { msg: 'Listing gallery extension has invalid files' };
                 error_count++;

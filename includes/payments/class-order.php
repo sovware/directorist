@@ -134,7 +134,7 @@ class ATBDP_Order
             'taxonomies' => array(''),
             'hierarchical' => false,
             'public' => true,
-            'show_ui' => current_user_can('manage_atbdp_options') ? (!empty($mitization_active)?true:false) : false, // show the menu only to the admin
+            'show_ui' => current_user_can('manage_atbdp_options') ? (!empty($mitization_active) ? true : false) : false, // show the menu only to the admin
             'show_in_menu' => current_user_can('manage_atbdp_options') ? 'edit.php?post_type=' . ATBDP_POST_TYPE : false,
             'show_in_admin_bar' => true,
             'capabilities' => array(

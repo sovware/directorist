@@ -19,7 +19,7 @@ $plupload_init = array(
     //'drop_element' => 'dropbox', // will be adjusted per uploader
     'file_data_name' => 'async-upload', // will be adjusted per uploader
     'multiple_queues' => true,
-    'max_file_size' => $file_size,
+    //'max_file_size' => $file_size,
     'url' => admin_url('admin-ajax.php'),
     'flash_swf_url' => includes_url('js/plupload/plupload.flash.swf'),
     'silverlight_xap_url' => includes_url('js/plupload/plupload.silverlight.xap'),
@@ -59,7 +59,8 @@ $base_plupload_config = json_encode($plupload_init);
 $gd_plupload_init = array('base_plupload_config' => $base_plupload_config,
     'totalImg' => 0,
     'image_limit' => 0,
-    'upload_img_size' => $file_size);
+    //'upload_img_size' => $file_size
+    );
 
 wp_localize_script('atbdp-plupload', 'atbdp_plupload_params', $gd_plupload_init);
 wp_localize_script('atbdp-plupload-min', 'atbdp_plupload_params', $gd_plupload_init);
@@ -85,6 +86,11 @@ $multiple            = false;
             <input type="hidden" name="<?php echo $id; ?>_allowed_types" id="<?php echo $id; ?>_allowed_types"
                    value="<?php echo esc_attr( $allowed_file_types ); ?>"
                    data-exts="<?php echo esc_attr( $display_file_types ); ?>"/>
+        <?php } ?>
+
+        <?php if ( !empty($file_size) ) { ?>
+            <input type="hidden" name="<?php echo $id; ?>_file_size" id="<?php echo $id; ?>_file_size"
+                   value="<?php echo esc_attr( $file_size ); ?>"/>
         <?php } ?>
 
         <div class="plupload-upload-uic hide-if-no-js <?php if ( $multiple ) {

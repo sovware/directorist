@@ -36,7 +36,8 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             <span class="fa fa-info-circle"></span>
             <?php esc_html_e('Link appears to be invalid.', 'directorist'); ?>
         </div>
-        <?php }else{ ?>
+        <?php }
+        if(isset($_GET['renew']) && ('success' === $_GET['renew'])){ ?>
         <div class="alert alert-info alert-dismissable fade show" role="alert">
             <span class="fa fa-info-circle"></span>
             <?php esc_html_e('Renewed successfully.', 'directorist'); ?>

@@ -28,7 +28,8 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
      * @since 6.3.5
      * 
      */
-    $header_output = apply_filters( 'atbdp_listing_header_html', $header_output, compact( 'display_header','header_container_fluid','search_more_filters_fields', 'listing_filters_button', 'header_title','listing_filters_icon','display_viewas_dropdown','display_sortby_dropdown', 'filters', 'view_as_text', 'view_as_items', 'sort_by_text', 'sort_by_items', 'listing_location_address', 'filters_button' ) );    echo $header_output;
+    $header_output = apply_filters( 'atbdp_listing_header_html', $header_output, compact( 'display_header','header_container_fluid','search_more_filters_fields', 'listing_filters_button', 'header_title','listing_filters_icon','display_viewas_dropdown','display_sortby_dropdown', 'filters', 'view_as_text', 'view_as_items', 'sort_by_text', 'sort_by_items', 'listing_location_address', 'filters_button' ) );   
+    echo $header_output;
     ?>
     <div class="<?php echo !empty($grid_container_fluid) ? $grid_container_fluid : ''; ?>">
         <?php

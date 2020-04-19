@@ -272,6 +272,17 @@ class ATBDP_Review_Custom_Post
                         'by_user_id'       => $by_user_id,
                     );
                     ATBDP()->review->db->add($data);
+                } elseif( 'declined' == $review_status) {
+                    $data = array(
+                        'post_id'          => $review_listing,
+                        'name'             => $listing_reviewer,
+                        'email'            => $email,
+                        'content'          => $reviewer_details,
+                        'rating'           => $reviewer_rating,
+                        'by_guest'         => $by_guest,
+                        'by_user_id'       => $by_user_id,
+                    );
+                    ATBDP()->review->db->delete_reviews_by('post_id', $data['post_id']);
                 }
 
             }

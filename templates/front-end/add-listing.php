@@ -1485,11 +1485,9 @@ if ('openstreet' == $select_listing_map) {
             var lat = document.getElementById('manual_lat').value;
             var lng = document.getElementById('manual_lng').value;
             var latLng = new google.maps.LatLng( lat, lng );
-            var opt_a = {'address': address};
-            var opt_b = { location: latLng };
+            var opt = { location: latLng, address: address };
 
-            // console.log( opt_b ); 
-            geocoder.geocode(opt_b, function (results, status) {
+            geocoder.geocode(opt, function (results, status) {
                 if (status === 'OK') {
                     // set the value of input field to save them to the database
                     $manual_lat.val(results[0].geometry.location.lat());
@@ -1503,7 +1501,8 @@ if ('openstreet' == $select_listing_map) {
                     // marker.addListener('click', function () {
                     //     info_window.open(map, marker);
                     // });
-
+                    
+                    deleteMarker();
                     // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
                     markers.push(marker);
                 } else {

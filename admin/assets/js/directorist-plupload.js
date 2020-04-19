@@ -27,6 +27,7 @@ jQuery(document).ready(function($) {
             plu_show_thumbs(imgId);
 
             pconfig = JSON.parse(atbdp_plupload_params.base_plupload_config);
+
             pconfig["browse_button"] = imgId + pconfig["browse_button"];
             pconfig["container"] = imgId + pconfig["container"];
             if (jQuery('#' + imgId + 'dropbox').length) {
@@ -35,6 +36,7 @@ jQuery(document).ready(function($) {
             pconfig["file_data_name"] = imgId + pconfig["file_data_name"];
             pconfig["multipart_params"]["imgid"] = imgId;
             pconfig["multipart_params"]["post_id"] = post_id;
+            pconfig["max_file_size"] = $('#' + imgId + '_file_size').val();
             //pconfig["multipart_params"]["_ajax_nonce"] = $this.find(".ajaxnonceplu").attr("id").replace("ajaxnonceplu", "");
 
             if ($this.hasClass("plupload-upload-uic-multiple")) {
@@ -89,7 +91,7 @@ jQuery(document).ready(function($) {
                     } else {
                         msgErr = 'File size error : You tried to upload a file over %s';
                     }
-                    msgErr = msgErr.replace("%s", atbdp_plupload_params.upload_img_size);
+                    msgErr = msgErr.replace("%s", $('#' + imgId + '_file_size').val());
 
                     jQuery('#' + imgId + 'upload-error').html(msgErr);
                 } else if (files.code == -601) {

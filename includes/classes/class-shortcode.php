@@ -1351,12 +1351,17 @@ if (!class_exists('ATBDP_Shortcode')):
                     <?php
                 }
             } else {
-                if ('listings_with_map' == $view) {
+                if($path = atbdp_get_file_path("/directorist/all-listings/all-{$view}-listings.php")){
+                    include $path;
+                }else{
+                    if ('listings_with_map' == $view) {
                     include BDM_TEMPLATES_DIR . '/map-view.php';
                 } else {
                     include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
 
                 }
+                }
+                
 
             }
 

@@ -241,3 +241,19 @@ function atbdp_extend_extension_settings_submenus($default)
 }
 
 add_filter('atbdp_extension_settings_submenus', 'atbdp_extend_extension_settings_submenus');
+
+/**
+ * @since 6.3.5
+ * @return URL if current theme has the file return the actual file path otherwise return false
+ */
+
+ if(!function_exists('atbdp_get_file_path')){
+     function atbdp_get_file_path( $path = null, $dir = 'theme' ){
+        $file_path = get_theme_file_path( $path );
+        if( file_exists( $file_path ) ){
+            return $file_path;
+        }else{
+            return false;
+        }
+     }
+ }

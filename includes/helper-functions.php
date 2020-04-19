@@ -388,6 +388,40 @@ if (!function_exists('atbdp_pagination')) {
     }
 }
 
+if(!function_exists('get_recent_reviews')) {
+    function get_recent_reviews( $number = 5 ){
+        global $wpdb;
+
+        $sql = $wpdb->prepare(
+            "SELECT * FROM {$wpdb->prefix}atbdp_review
+            ORDER BY id DESC
+            LIMIT %d",
+            $number
+        );
+
+        $items = $wpdb->get_results( $sql );
+
+        return $items;
+    }
+ }
+
+if(!function_exists('get_review_by_ids')) {
+    function get_review_by_ids( $review_ids = [], $number = 5 ){
+        global $wpdb;
+        $ids =  implode(",",$review_ids);
+        $sql = $wpdb->prepare(
+            "SELECT * FROM {$wpdb->prefix}atbdp_review
+            WHERE id IN ({$ids})
+            LIMIT %d",
+            $number
+        );
+
+        $items = $wpdb->get_results( $sql );
+
+        return $items;
+    }
+ }
+
 if (!function_exists('get_fa_icons')) {
     function get_fa_icons()
     {

@@ -1351,7 +1351,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     <?php
                 }
             } else {
-                if($path = atbdp_get_file_path("/directorist/all-listings/all-{$view}-listings.php")){
+                if($path = atbdp_get_file_path("/directorist/all-listings/all-listings-{$view}.php")){
                     include $path;
                 }else{
                     if ('listings_with_map' == $view) {
@@ -1359,7 +1359,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 } else {
                     include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
 
-                }
+                    }
                 }
                 
 

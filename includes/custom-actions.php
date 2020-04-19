@@ -248,7 +248,7 @@ add_filter('atbdp_extension_settings_submenus', 'atbdp_extend_extension_settings
  */
 
  if(!function_exists('atbdp_get_file_path')){
-     function atbdp_get_file_path( $path = null, $dir = 'theme' ){
+     function atbdp_get_file_path( $path = null ){
         $file_path = get_theme_file_path( $path );
         if( file_exists( $file_path ) ){
             return $file_path;

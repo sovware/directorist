@@ -592,7 +592,6 @@ css for Custom Field
 
 .plupload-thumbs .thumb {
   position: relative;
-  height: auto !important;
 }
 
 .plupload-thumbs .thumb:hover .atbdp-thumb-actions {

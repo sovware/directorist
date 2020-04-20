@@ -180,7 +180,8 @@
                     if (!empty($address) && 'contact' == $address_location && !empty($display_address_field)) { ?>
                       <li>
                         <p>
-                          <span class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php echo esc_html(stripslashes($address)); ?>
+                          <span class="<?php atbdp_icon_type(true); ?>-map-marker"></span>
+                          <?php echo esc_html(stripslashes($address)); ?>
                         </p>
                       </li>
                     <?php } elseif (!empty($locs) && 'location' == $address_location) {
@@ -231,14 +232,16 @@
                   if (!empty($display_publish_date)) { ?>
                     <li>
                       <p>
-                        <span class="<?php atbdp_icon_type(true); ?>-clock-o"></span><?php
-                                                                                      $publish_date_format = get_directorist_option('publish_date_format', 'time_ago');
-                                                                                      if ('time_ago' === $publish_date_format) {
-                                                                                        printf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
-                                                                                      } else {
-                                                                                        echo get_the_date();
-                                                                                      }
-                                                                                      ?></p>
+                        <span class="<?php atbdp_icon_type(true); ?>-clock-o"></span>
+                        <?php
+                            $publish_date_format = get_directorist_option('publish_date_format', 'time_ago');
+                            if ('time_ago' === $publish_date_format) {
+                              printf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
+                            } else {
+                              echo get_the_date();
+                            }
+                        ?>
+                      </p>
                     </li>
                   <?php }
                   /**

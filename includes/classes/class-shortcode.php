@@ -815,6 +815,21 @@ if (!class_exists('ATBDP_Shortcode')):
 
         public function all_listing($atts)
         {
+            $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
+
+            if ( 'yes' == $logged_in_user_only && ! atbdp_logged_in_user() ) {
+                ob_start();
+                // user not logged in;
+                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); 
+                ?>
+                <section class="directory_wrapper single_area">
+                    <?php ATBDP()->helper->show_login_message($error_message); ?>
+                </section>
+                <?php
+
+                return ob_get_clean();
+            }
+
             wp_enqueue_script('adminmainassets');
             wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
@@ -883,7 +898,6 @@ if (!class_exists('ATBDP_Shortcode')):
             $action_before_after_loop = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
             $show_pagination = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
             $display_image = !empty($atts['display_preview_image']) ? $atts['display_preview_image'] : '';
-            $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
             $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
             $map_height = !empty($atts['map_height']) ? $atts['map_height'] : '';
             $listing_type = !empty($atts['listing_type']) ? $atts['listing_type'] : '';
@@ -1332,41 +1346,80 @@ if (!class_exists('ATBDP_Shortcode')):
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                 return $redirect;
             }
-            if ('yes' == $logged_in_user_only) {
-                if (atbdp_logged_in_user()) {
-                    if ('listings_with_map' == $view) {
-                        include BDM_TEMPLATES_DIR . '/map-view.php';
-                    } else {
-                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
-
-                    }
-                } else {
-                    // user not logged in;
-                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
 
-                    <section class="directory_wrapper single_area">
-                        <?php ATBDP()->helper->show_login_message($error_message); ?>
-                    </section>
-                    <?php
-                }
+            if ( is_rtl() ){
+                wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
+            } else{
+                wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
+            }
+            
+            // Base Template Data
+            !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
+            $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
+            $display_sortby_dropdown = get_directorist_option('display_sort_by', 1);
+            $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
+            $display_image = !empty($display_image) ? $display_image : '';
+            $show_pagination = !empty($show_pagination) ? $show_pagination : '';
+            $paged = !empty($paged) ? $paged : '';
+
+            $is_disable_price = get_directorist_option('disable_list_price');
+            $view_as = get_directorist_option('grid_view_as', 'normal_grid');
+            $column_width = 100 / (int)$columns . '%';
+
+            if (is_rtl()) {
+                wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
             } else {
-                if($path = atbdp_get_file_path("/directorist/all-listings/all-listings-{$view}.php")){
-                    include $path;
-                }else{
-                    if ('listings_with_map' == $view) {
-                    include BDM_TEMPLATES_DIR . '/map-view.php';
-                } else {
-                    include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
+                wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
+            }
 
-                    }
-                }
+            // Header Template Data
+            $address_label               = get_directorist_option('address_label',__('Address','directorist'));
+            $fax_label                   = get_directorist_option('fax_label',__('Fax','directorist'));
+            $email_label                 = get_directorist_option('email_label',__('Email','directorist'));
+            $website_label               = get_directorist_option('website_label',__('Website','directorist'));
+            $tag_label                   = get_directorist_option('tag_label',__('Tag','directorist'));
+            $zip_label                   = get_directorist_option('zip_label',__('Zip','directorist'));
+            $listing_filters_icon        = get_directorist_option('listing_filters_icon',1);
+            $query_args = array(
+                'parent'             => 0,
+                'term_id'            => 0,
+                'hide_empty'         => 0,
+                'orderby'            => 'name',
+                'order'              => 'asc',
+                'show_count'         => 0,
+                'single_only'        => 0,
+                'pad_counts'         => true,
+                'immediate_category' => 0,
+                'active_term_id'     => 0,
+                'ancestors'          => array()
+            );
+            $categories_fields = search_category_location_filter( $query_args, ATBDP_CATEGORY );
+            $locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATION );
+            $currency = get_directorist_option('g_currency', 'USD');
+            $c_symbol = atbdp_currency_symbol($currency);
+
+
+            if ( 'listings_with_map' == $view ) {
+                $path = atbdp_get_theme_file("/directorist/listings/extension/listing-with-map/map-view.php");
                 
+                if ( $path ) {
+                    include $path;
+                } else {
+                    include BDM_TEMPLATES_DIR . '/map-view.php';
+                }
 
+                return ob_get_clean();
+            }
+
+            $path = atbdp_get_theme_file("/directorist/listings/listings-{$view}.php");
+            if ( $path ) {
+                include $path;
+            } else {
+                include ATBDP_TEMPLATES_DIR . "shortcode-templates/listings/listings-$view.php";
             }
 
             return ob_get_clean();
-
         }
 
         public function user_dashboard($atts)
@@ -2915,6 +2968,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                 return $redirect;
             }
+            
             if ('yes' == $logged_in_user_only) {
                 if (atbdp_logged_in_user()) {
                     include ATBDP_TEMPLATES_DIR . 'listing-home.php';

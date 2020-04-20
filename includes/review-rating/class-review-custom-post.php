@@ -325,7 +325,10 @@ class ATBDP_Review_Custom_Post
             case 'review_for' :
                 $post_meta = get_post_meta($post_id);
                 $review_listing = isset($post_meta['_review_listing']) ? esc_attr($post_meta['_review_listing'][0]) : '';
-                echo __('Review for ') . get_the_title($review_listing);
+                $reviews = ATBDP()->review->db->get_reviews_by('post_id', $post_meta['_review_listing'][0]);
+                $review_id = !empty($reviews) ? ' #' .$reviews[0]->id : '';
+
+                echo __('Review for ') . get_the_title($review_listing) . $review_id ;
                 break;
 
             case 'reviewer' :

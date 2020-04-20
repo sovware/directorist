@@ -226,6 +226,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                 </figure>
                                 <div class="atbd_listing_info">
                                     <?php if (!empty($display_title) || !empty($enable_tagline) || !empty($display_review) || !empty($display_price)) { ?>
+
                                         <div class="atbd_content_upper">
                                             <?php if (!empty($display_title)) { ?>
                                                 <h4 class="atbd_listing_title">

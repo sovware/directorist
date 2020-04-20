@@ -39,8 +39,9 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
                 case 'select' :
                     $choices = $field_meta['choices'][0];
                     $choices = explode( "\n", trim( $choices ) );
+                    $label = apply_filters('atbdp_search_custom_field_select_label','<label>'. get_the_title() .'</label>');
 
-                    printf( '<label>%s</label><div class="select-basic"><select name="custom_field[%d]" class="form-control">',get_the_title(), $post->ID );
+                    printf( '%s<div class="select-basic"><select name="custom_field[%d]" class="form-control">',$label, $post->ID );
 
                         printf( '<option value="">%s</option>', '- '.__( 'Select an Option', 'directorist' ).' -' );
 

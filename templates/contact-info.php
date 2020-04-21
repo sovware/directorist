@@ -547,7 +547,7 @@ if ('openstreet' == $select_listing_map) {
 
 
         $('form').submit(function () {
-            if ($(document.activeElement).attr('type') == 'submit')
+            if (($(document.activeElement).attr('type') == 'submit') || $('#post-preview'))
                 return true;
             else return false;
         });

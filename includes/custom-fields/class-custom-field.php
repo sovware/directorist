@@ -355,7 +355,7 @@ class ATBDP_Custom_Field
                 update_post_meta($post_id, 'category_pass', $field_category_pass);
                  $field_searchable = (int) $_POST['searchable'];
                  update_post_meta( $post_id, 'searchable', $field_searchable );
-
+                do_action('atbdp_save_custom_field_meta', $post_id);
             }
 
         }
@@ -453,7 +453,7 @@ class ATBDP_Custom_Field
         <div id="directorist" class="atbd_wrapper">
             <div class="atbdp-input widefat" id="atbdp-field-options">
 
-
+                <?php do_action('atbdp_before_custom_field_searchable_meta', $post_meta); ?>
                  <tr>
                 <td class="label">
                     <label><?php _e( 'Include this field in the search form?', 'directorist' );

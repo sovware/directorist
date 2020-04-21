@@ -242,7 +242,6 @@ class ATBDP_User {
              * @since 4.4.0
              * */
             do_action('atbdp_before_processing_submitted_user_registration', $_POST);
-
             $username = !empty($_POST['username']) ? $_POST[ 'username' ] : '';
             $password = !empty($_POST['password']) ? $_POST[ 'password' ] : '';
             $email = !empty($_POST['email']) ? $_POST[ 'email' ] : '';

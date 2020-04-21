@@ -83,7 +83,7 @@
 
         google.maps.event.addDomListener(window, 'load', initialize);
     } else if (atbdp_search_listing.i18n_text.select_listing_map === 'openstreet') {
-        $('#address, #q_addressss').on('keyup', function (event) {
+        $('#address, #q_addressss,.atbdp-search-address').on('keyup', function (event) {
             event.preventDefault();
             var search = $(this).val();
             $(this).parent().next('.address_result').css({'display': 'block'});
@@ -108,7 +108,7 @@
         });
         //hide address result when click outside the input field
         $(document).on("click", function (e) {
-            if(!($(e.target).closest("#address, #q_addressss").length)){
+            if(!($(e.target).closest("#address, #q_addressss,.atbdp-search-address").length)){
                 $('.address_result').hide();
             }
         });
@@ -122,11 +122,11 @@
             $('#cityLat').val(lat);
             $('#cityLng').val(lon);
 
-            $('#address, #q_addressss').val(text);
+            $('#address, #q_addressss,.atbdp-search-address').val(text);
             $('.address_result').hide();
         });
     }
-    if ($('#address, #q_addressss').val() === "") {
+    if ($('#address, #q_addressss,.atbdp-search-address').val() === "") {
         $(this).parent().next('.address_result').css({'display': 'none'});
     }
 })(jQuery);

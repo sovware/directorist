@@ -99,7 +99,7 @@
                 type: 'POST',
                 data: {},
                 success: function (data) {
-                    $('#address').val(data.display_name);
+                    $('#address,.atbdp-search-address').val(data.display_name);
                     $('#cityLat').val(lat);
                     $('#cityLng').val(lng);
                 }

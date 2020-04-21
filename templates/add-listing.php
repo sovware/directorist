@@ -149,13 +149,24 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
         <?php
         // custom fields information
         //// get all the custom field that has posted by admin ane return the field
-        $custom_fields = new WP_Query(array(
+        $custom_fields = array(
             'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
             'posts_per_page' => -1,
             'post_status' => 'publish',
-            'meta_key' => 'associate',
-            'meta_value' => 'form'
-        ));
+            );
+        $meta_queries = array();
+        $meta_queries[] = array(
+            'key' => 'associate',
+            'value' => 'form',
+            'compare' => 'LIKE'
+        );
+        $meta_queries = apply_filters('atbdp_custom_fields_meta_queries', $meta_queries);
+        $count_meta_queries = count($meta_queries);
+        if ($count_meta_queries) {
+            $custom_fields['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
+        }
+        $custom_fields = new WP_Query( $custom_fields );
+
         $fields = $custom_fields->posts;
         foreach ($fields as $post) {
             setup_postdata($post);

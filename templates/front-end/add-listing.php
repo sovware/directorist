@@ -387,25 +387,23 @@ $query_args = array(
                                     <?php
                                     // custom fields information
                                     //// get all the custom field that has posted by admin ane return the field
-                                    $custom_fields = new WP_Query(array(
+                                    $custom_fields = array(
                                         'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
                                         'posts_per_page' => -1,
                                         'post_status' => 'publish',
-                                        'meta_key' => 'associate',
-                                        'meta_value' => 'form',
-                                        'meta_query' => array(
-                                            'relation' => 'OR',
-                                            array(
-                                                'key' => 'admin_use',
-                                                'compare' => 'NOT EXISTS'
-                                            ),
-                                            array(
-                                                'key' => 'admin_use',
-                                                'value' => 1,
-                                                'compare' => '!='
-                                            ),
-                                        )
-                                    ));
+                                    );
+                                    $meta_queries = array();
+                                    $meta_queries[] = array(
+                                        'key' => 'associate',
+                                        'value' => 'form',
+                                        'compare' => 'LIKE'
+                                    );
+                                    $meta_queries = apply_filters('atbdp_custom_fields_meta_queries', $meta_queries);
+                                    $count_meta_queries = count($meta_queries);
+                                    if ($count_meta_queries) {
+                                        $custom_fields['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
+                                    }
+                                    $custom_fields = new WP_Query( $custom_fields );
                                     $plan_custom_field = true;
                                     if (is_fee_manager_active()) {
                                         $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);

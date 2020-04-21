@@ -863,11 +863,11 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             // Default Template
-            $path = atbdp_get_theme_file("/directorist/listings/listings-{$view}.php");
+            $path = atbdp_get_theme_file("/directorist/listings-archive/listings-{$view}.php");
             if ( $path ) {
                 include $path;
             } else {
-                include ATBDP_TEMPLATES_DIR . "shortcode-templates/listings/listings-$view.php";
+                include ATBDP_TEMPLATES_DIR . "shortcode-templates/listings-archive/listings-$view.php";
             }
             
             return ob_get_clean();
@@ -1472,11 +1472,11 @@ if (!class_exists('ATBDP_Shortcode')):
                 return ob_get_clean();
             }
 
-            $path = atbdp_get_theme_file("/directorist/listings/listings-{$view}.php");
+            $path = atbdp_get_theme_file("/directorist/listings-archive/listings-{$view}.php");
             if ( $path ) {
                 include $path;
             } else {
-                include ATBDP_TEMPLATES_DIR . "shortcode-templates/listings/listings-$view.php";
+                include ATBDP_TEMPLATES_DIR . "shortcode-templates/listings-archive/listings-$view.php";
             }
 
             return ob_get_clean();
@@ -1502,8 +1502,46 @@ if (!class_exists('ATBDP_Shortcode')):
                     'show_title' => '',
                 ), $atts);
                 $show_title = !empty($atts['show_title']) ? $atts['show_title'] : '';
+                
                 ATBDP()->enquirer->front_end_enqueue_scripts(true); // all front end scripts forcibly here
-                include ATBDP_TEMPLATES_DIR . 'front-end/user-dashboard.php';
+                
+                $listings = ATBDP()->user->current_user_listings();
+                $fav_listings = ATBDP()->user->current_user_fav_listings();
+                $uid = get_current_user_id();
+                $c_user = get_userdata($uid);
+                $u_website = $c_user->user_url;
+                $avatar = get_user_meta($uid, 'avatar', true);
+                $u_phone = get_user_meta($uid, 'atbdp_phone', true);
+                $u_pro_pic_id = get_user_meta($uid, 'pro_pic', true);
+                $u_pro_pic = !empty($u_pro_pic_id) ? wp_get_attachment_image_src($u_pro_pic_id, 'directory-large') : '';
+                $facebook = get_user_meta($uid, 'atbdp_facebook', true);
+                $twitter = get_user_meta($uid, 'atbdp_twitter', true);
+                $linkedIn = get_user_meta($uid, 'atbdp_linkedin', true);
+                $youtube = get_user_meta($uid, 'atbdp_youtube', true);
+                $bio = get_user_meta($uid, 'description', true);
+                $u_address = get_user_meta($uid, 'address', true);
+                $date_format = get_option('date_format');
+                $featured_active = get_directorist_option('enable_featured_listing');
+                $is_disable_price = get_directorist_option('disable_list_price');
+                $my_listing_tab = get_directorist_option('my_listing_tab', 1);
+                $my_listing_tab_text = get_directorist_option('my_listing_tab_text', __('My Listing', 'directorist'));
+                $my_profile_tab = get_directorist_option('my_profile_tab', 1);
+                $my_profile_tab_text = get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist'));
+                $fav_listings_tab = get_directorist_option('fav_listings_tab', 1);
+                $fav_listings_tab_text = get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist'));
+                $submit_listing_button = get_directorist_option('submit_listing_button', 1);
+                $show_title = !empty($show_title) ? $show_title : '';
+                $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
+                /*@todo; later show featured listing first on the user dashboard maybe??? */
+
+                $path = atbdp_get_theme_file("/directorist/user-dashboard.php");
+                if ( $path ) {
+                    include $path;
+                } else {
+                    include ATBDP_TEMPLATES_DIR . "shortcode-templates/user-dashboard.php";
+                }
+
+                return ob_get_clean();
                 //ATBDP()->user->user_dashboard($show_title);
             } else {
                 // user not logged in;
@@ -1587,7 +1625,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
 
                 if ( 'grid' == $atts['view'] && ! $grid_view_path ) {
-                    include ATBDP_TEMPLATES_DIR . "shortcode-templates/categories/grid-view.php";
+                    include ATBDP_TEMPLATES_DIR . "shortcode-templates/all-categories/grid-view.php";
                 }
 
                 if ( 'list' == $atts['view'] && $list_view_path ) {
@@ -1595,7 +1633,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
 
                 if ( 'list' == $atts['view'] && ! $list_view_path ) {
-                    include ATBDP_TEMPLATES_DIR . "shortcode-templates/categories/list-view.php";
+                    include ATBDP_TEMPLATES_DIR . "shortcode-templates/all-categories/list-view.php";
                 }
             } else {
                 _e('<p>No Results found!</p>', 'directorist');
@@ -2059,11 +2097,11 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
 
                 // Default Template
-                $path = atbdp_get_theme_file("/directorist/listings/listings-{$view}.php");
+                $path = atbdp_get_theme_file("/directorist/listings-archive/listings-{$view}.php");
                 if ( $path ) {
                     include $path;
                 } else {
-                    include ATBDP_TEMPLATES_DIR . "shortcode-templates/listings/listings-$view.php";
+                    include ATBDP_TEMPLATES_DIR . "shortcode-templates/listings-archive/listings-$view.php";
                 }
 
                 return ob_get_clean();
@@ -2605,11 +2643,11 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
 
                 // Default Template
-                $path = atbdp_get_theme_file("/directorist/listings/listings-{$view}.php");
+                $path = atbdp_get_theme_file("/directorist/listings-archive/listings-{$view}.php");
                 if ( $path ) {
                     include $path;
                 } else {
-                    include ATBDP_TEMPLATES_DIR . "shortcode-templates/listings/listings-$view.php";
+                    include ATBDP_TEMPLATES_DIR . "shortcode-templates/listings-archive/listings-$view.php";
                 }
 
                 return ob_get_clean();
@@ -2682,6 +2720,11 @@ if (!class_exists('ATBDP_Shortcode')):
                 $atts = shortcode_atts($params, $atts);
                 $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
                 $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
+                
+                if ( 'yes' === $logged_in_user_only && ! atbdp_logged_in_user() ) {
+                    return $this->guard( ['type' => 'auth'] );
+                }
+                
                 $columns = !empty($atts['columns']) ? $atts['columns'] : 3;
                 $display_header = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title = !empty($atts['header_title']) ? $atts['header_title'] : '';
@@ -2998,39 +3041,77 @@ if (!class_exists('ATBDP_Shortcode')):
                 if ($include) {
                     include ATBDP_DIR . 'public/assets/css/style.php';
                 }
-                if (!empty($redirect_page_url)) {
+                if ( !empty($redirect_page_url) ) {
                     $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                     return $redirect;
                 }
-                if ('yes' == $logged_in_user_only) {
-                    if (atbdp_logged_in_user()) {
-                        if ('listings_with_map' == $view) {
-                            include BDM_TEMPLATES_DIR . '/map-view.php';
-                        } else {
-                            include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
-                        }
-                    } else {
-                        // user not logged in;
-                        $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
+                
+                // Base Template Data
+                !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
+                $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
+                $display_sortby_dropdown = get_directorist_option('display_sort_by', 1);
+                $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
+                $display_image = !empty($display_image) ? $display_image : '';
+                $show_pagination = !empty($show_pagination) ? $show_pagination : '';
+                $paged = !empty($paged) ? $paged : '';
 
+                $is_disable_price = get_directorist_option('disable_list_price');
+                $view_as = get_directorist_option('grid_view_as', 'normal_grid');
+                $column_width = 100 / (int)$columns . '%';
 
-                        <section class="directory_wrapper single_area">
-                            <?php ATBDP()->helper->show_login_message($error_message); ?>
-                        </section>
-                        <?php
-                    }
+                if (is_rtl()) {
+                    wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
                 } else {
-                    if ('listings_with_map' == $view) {
-                        include BDM_TEMPLATES_DIR . '/map-view.php';
-                    } else {
-                        include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
-                    }
+                    wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
                 }
+
+                // Header Template Data
+                $address_label               = get_directorist_option('address_label',__('Address','directorist'));
+                $fax_label                   = get_directorist_option('fax_label',__('Fax','directorist'));
+                $email_label                 = get_directorist_option('email_label',__('Email','directorist'));
+                $website_label               = get_directorist_option('website_label',__('Website','directorist'));
+                $tag_label                   = get_directorist_option('tag_label',__('Tag','directorist'));
+                $zip_label                   = get_directorist_option('zip_label',__('Zip','directorist'));
+                $listing_filters_icon        = get_directorist_option('listing_filters_icon',1);
+                $query_args = array(
+                    'parent'             => 0,
+                    'term_id'            => 0,
+                    'hide_empty'         => 0,
+                    'orderby'            => 'name',
+                    'order'              => 'asc',
+                    'show_count'         => 0,
+                    'single_only'        => 0,
+                    'pad_counts'         => true,
+                    'immediate_category' => 0,
+                    'active_term_id'     => 0,
+                    'ancestors'          => array()
+                );
+                $categories_fields = search_category_location_filter( $query_args, ATBDP_CATEGORY );
+                $locations_fields  = search_category_location_filter( $query_args, ATBDP_LOCATION );
+                $currency = get_directorist_option('g_currency', 'USD');
+                $c_symbol = atbdp_currency_symbol($currency);
+
+                // If listings_with_map is active
+                if ( 'listings_with_map' == $view ) {
+                    $path = atbdp_get_theme_file("/directorist/listings/extension/listing-with-map/map-view.php");
+                    
+                    if ( $path ) { include $path; } 
+                        else { include BDM_TEMPLATES_DIR . '/map-view.php'; }
+
+                    return ob_get_clean();
+                }
+
+                // Default Template
+                $path = atbdp_get_theme_file("/directorist/listings-archive/listings-{$view}.php");
+                if ( $path ) { include $path;
+                } else {
+                    include ATBDP_TEMPLATES_DIR . "shortcode-templates/listings-archive/listings-$view.php";
+                }
+
                 return ob_get_clean();
 
             }
-            return '<span>' . __('No Results Found.', 'directorist'
-                ) . '</span>';
+            return '<span>' . __('No Results Found.', 'directorist') . '</span>';
         }
 
         public function search_listing($atts, $content = null)
@@ -3111,6 +3192,11 @@ if (!class_exists('ATBDP_Shortcode')):
             $apply_filters_text = (!empty($atts['apply_filters_text'])) ? $atts['apply_filters_text'] : '';
             $show_title_subtitle = ('yes' === $atts['show_title_subtitle']) ? $atts['show_title_subtitle'] : '';
             $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
+            
+            if ( 'yes' === $logged_in_user_only && ! atbdp_logged_in_user() ) {
+                return $this->guard( ['type' => 'auth'] );
+            }
+
             $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
             $filters_display = !empty($atts['more_filters_display']) ? $atts['more_filters_display'] : 'overlapping';
             ob_start();
@@ -3123,22 +3209,79 @@ if (!class_exists('ATBDP_Shortcode')):
                 return $redirect;
             }
 
-            if ('yes' == $logged_in_user_only) {
-                if (atbdp_logged_in_user()) {
-                    include ATBDP_TEMPLATES_DIR . 'listing-home.php';
-                } else {
-                    // user not logged in;
-                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
+            // Template Data
+            $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
+            $locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
+            $search_placeholder = get_directorist_option('search_placeholder', __('What are you looking for?', 'directorist'));
+            $search_category_placeholder = get_directorist_option('search_category_placeholder', __('Select a category', 'directorist'));
+            $search_location_placeholder = get_directorist_option('search_location_placeholder', __('location', 'directorist'));
+            $show_popular_category = get_directorist_option('show_popular_category', 1);
+            $show_connector = get_directorist_option('show_connector', 1);
+            $search_border = get_directorist_option('search_border', 1);
+            $display_more_filter_icon = get_directorist_option('search_more_filter_icon', 1);
+            $search_button_icon = get_directorist_option('search_button_icon', 1);
 
-                    <section class="directory_wrapper single_area">
-                        <?php ATBDP()->helper->show_login_message($error_message); ?>
-                    </section>
-                    <?php
-                }
+            $connectors_title = get_directorist_option('connectors_title', __('Or', 'directorist'));
+            $popular_cat_title = get_directorist_option('popular_cat_title', __('Browse by popular categories', 'directorist'));
+            $popular_cat_num = get_directorist_option('popular_cat_num', 10);
+            $require_text = get_directorist_option('require_search_text');
+            $require_cat = get_directorist_option('require_search_category');
+            $require_loc = get_directorist_option('require_search_location');
+            $require_text = !empty($require_text) ? "required" : "";
+            $require_cat = !empty($require_cat) ? "required" : "";
+            $require_loc = !empty($require_loc) ? "required" : "";
+
+            $default = get_template_directory_uri() . '/images/home_page_bg.jpg';
+            $theme_home_bg_image = get_theme_mod('directoria_home_bg');
+            $search_home_bg = get_directorist_option('search_home_bg');
+            $display_more_filter_search = get_directorist_option('search_more_filter', 1);
+            $search_filters = get_directorist_option('search_filters', array('reset_button', 'apply_button'));
+            $search_more_filters_fields = get_directorist_option('search_more_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
+            $tag_label = get_directorist_option('tag_label', __('Tag', 'directorist'));
+            $address_label = get_directorist_option('address_label', __('Address', 'directorist'));
+            $fax_label = get_directorist_option('fax_label', __('Fax', 'directorist'));
+            $email_label = get_directorist_option('email_label', __('Email', 'directorist'));
+            $website_label = get_directorist_option('website_label', __('Website', 'directorist'));
+            $zip_label = get_directorist_option('zip_label', __('Zip', 'directorist'));
+            $currency = get_directorist_option('g_currency', 'USD');
+            $c_symbol = atbdp_currency_symbol($currency);
+            $front_bg_image = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
+            if (is_rtl()) {
+                wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
             } else {
-                include ATBDP_TEMPLATES_DIR . 'listing-home.php';
+                wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
             }
-            //ATBDP()->load_template('listing-home');
+            wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+            wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
+                'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
+                'ajax_url' => admin_url('admin-ajax.php'),
+            ));
+            $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
+            $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
+            $query_args = array(
+                'parent' => 0,
+                'term_id' => 0,
+                'hide_empty' => 0,
+                'orderby' => 'name',
+                'order' => 'asc',
+                'show_count' => 0,
+                'single_only' => 0,
+                'pad_counts' => true,
+                'immediate_category' => 0,
+                'active_term_id' => 0,
+                'ancestors' => array()
+            );
+            $categories_fields = search_category_location_filter($query_args, ATBDP_CATEGORY);
+            $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION);
+
+            // Default Template
+            $path = atbdp_get_theme_file("/directorist/listings/search-listing.php");
+            if ( $path ) {
+                include $path;
+            } else {
+                include ATBDP_TEMPLATES_DIR . "shortcode-templates/search-listing.php";
+            }
+
             ATBDP()->enquirer->search_listing_scripts_styles();
             return ob_get_clean();
         }
@@ -3164,6 +3307,11 @@ if (!class_exists('ATBDP_Shortcode')):
             $paginate = get_directorist_option('paginate_author_listings', 1);
             $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
             $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
+            
+            if ( 'yes' === $logged_in_user_only && ! atbdp_logged_in_user() ) {
+                return $this->guard( ['type' => 'auth'] );
+            }
+            
             $args = array(
                 'post_type' => ATBDP_POST_TYPE,
                 'post_status' => 'publish',
@@ -3221,20 +3369,19 @@ if (!class_exists('ATBDP_Shortcode')):
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                 return $redirect;
             }
-            if ('yes' == $logged_in_user_only) {
-                if (atbdp_logged_in_user()) {
-                    ATBDP()->load_template('front-end/public-profile', array('data' => $data_for_template));
-                } else {
-                    // user not logged in;
-                    $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
 
-                    <section class="directory_wrapper single_area">
-                        <?php ATBDP()->helper->show_login_message($error_message); ?>
-                    </section>
-                    <?php
-                }
+            !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
+            $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
+            $paginate = !empty($paginate) ? $paginate : '';
+            $is_disable_price = get_directorist_option('disable_list_price');
+            $container_fluid = 'container-fluid';
+
+            // Default Template
+            $path = atbdp_get_theme_file("/directorist/author-profile.php");
+            if ( $path ) {
+                include $path;
             } else {
-                ATBDP()->load_template('front-end/public-profile', array('data' => $data_for_template));
+                include ATBDP_TEMPLATES_DIR . "shortcode-templates/author-profile.php";
             }
             return ob_get_clean();
         }
@@ -3247,40 +3394,201 @@ if (!class_exists('ATBDP_Shortcode')):
                 include ATBDP_DIR . 'public/assets/css/style.php';
             }
             wp_enqueue_script('adminmainassets');
-            $guest = get_directorist_option('guest_listings', 0);
-            if (atbdp_logged_in_user() || $guest) {
-                global $wp;
-                global $pagenow;
-                $current_url = home_url(add_query_arg(array(), $wp->request));
+            $guest_submission = get_directorist_option('guest_listings', 0);
 
-                if (is_fee_manager_active() && !selected_plan_id()) {
-                    if ((strpos($current_url, '/edit/') !== false) && ($pagenow = 'at_biz_dir')) {
-                        ATBDP()->enquirer->add_listing_scripts_styles();
-                        ATBDP()->load_template('front-end/add-listing');
+            if ( false === $guest_submission && ! atbdp_logged_in_user() ) {
+                return $this->guard( ['type' => 'auth'] );
+            }
+
+            global $wp;
+            global $pagenow;
+            $current_url = home_url(add_query_arg(array(), $wp->request));
+
+            $p_id = get_query_var('atbdp_listing_id', 0);
+            if (!empty($p_id)) {
+                $p_id = absint($p_id);
+                $listing = get_post($p_id);
+                // kick the user out if he tries to edit the listing of other user
+                if ($listing->post_author != get_current_user_id() && !current_user_can('edit_others_at_biz_dirs')) {
+                    echo '<p class="error">' . __('You do not have permission to edit this listing', 'directorist') . '</p>';
+                    return;
+                }
+                $listing_info['never_expire'] = get_post_meta($p_id, '_never_expire', true);
+                $listing_info['featured'] = get_post_meta($p_id, '_featured', true);
+                $listing_info['listing_type'] = get_post_meta($p_id, '_listing_type', true);
+                $listing_info['price'] = get_post_meta($p_id, '_price', true);
+                $listing_info['videourl'] = get_post_meta($p_id, '_videourl', true);
+                $listing_info['price_range'] = get_post_meta($p_id, '_price_range', true);
+                $listing_info['atbd_listing_pricing'] = get_post_meta($p_id, '_atbd_listing_pricing', true);
+                $listing_info['listing_status'] = get_post_meta($p_id, '_listing_status', true);
+                $listing_info['tagline'] = get_post_meta($p_id, '_tagline', true);
+                $listing_info['atbdp_post_views_count'] = get_post_meta($p_id, '_atbdp_post_views_count', true);
+                $listing_info['excerpt'] = get_post_meta($p_id, '_excerpt', true);
+                $listing_info['address'] = get_post_meta($p_id, '_address', true);
+                $listing_info['phone'] = get_post_meta($p_id, '_phone', true);
+                $listing_info['phone2'] = get_post_meta($p_id, '_phone2', true);
+                $listing_info['fax'] = get_post_meta($p_id, '_fax', true);
+                $listing_info['email'] = get_post_meta($p_id, '_email', true);
+                $listing_info['website'] = get_post_meta($p_id, '_website', true);
+                $listing_info['zip'] = get_post_meta($p_id, '_zip', true);
+                $listing_info['social'] = get_post_meta($p_id, '_social', true);
+                $listing_info['faqs'] = get_post_meta($p_id, '_faqs', true);
+                $listing_info['manual_lat'] = get_post_meta($p_id, '_manual_lat', true);
+                $listing_info['manual_lng'] = get_post_meta($p_id, '_manual_lng', true);
+                $listing_info['hide_map'] = get_post_meta($p_id, '_hide_map', true);
+                $listing_info['bdbh'] = get_post_meta($p_id, '_bdbh', true);
+                $listing_info['enable247hour'] = get_post_meta($p_id, '_enable247hour', true);
+                $listing_info['disable_bz_hour_listing'] = get_post_meta($p_id, '_disable_bz_hour_listing', true);
+                $listing_info['hide_contact_info'] = get_post_meta($p_id, '_hide_contact_info', true);
+                $listing_info['hide_contact_owner'] = get_post_meta($p_id, '_hide_contact_owner', true);
+                $listing_info['expiry_date'] = get_post_meta($p_id, '_expiry_date', true);
+                $listing_info['t_c_check'] = get_post_meta($p_id, '_t_c_check', true);
+                $listing_info['privacy_policy'] = get_post_meta($p_id, '_privacy_policy', true);
+                $listing_info['id_itself'] = $p_id;
+
+                extract($listing_info);
+                $listing_img = atbdp_get_listing_attachment_ids($p_id);
+                //for editing page
+                $p_tags = wp_get_post_terms($p_id, ATBDP_TAGS);
+                $p_locations = wp_get_post_terms($p_id, ATBDP_LOCATION);
+                $p_cats = wp_get_post_terms($p_id, ATBDP_CATEGORY);
+            }
+            // prevent the error if it is not edit listing page when listing info var is not defined.
+            if (empty($listing_info)) {
+                $listing_info = array();
+            }
+
+            $t = get_the_title();
+            $t = !empty($t) ? esc_html($t) : __('No Title ', 'directorist');
+            $tg = !empty($tagline) ? esc_html($tagline) : '';
+            $ad = !empty($address) ? esc_html($address) : '';
+            $image = (!empty($listing_img[0])) ? "<img src='" . esc_url(wp_get_attachment_image_url($listing_img[0], 'thumbnail')) . "'>" : '';
+            /*build the markup for google map info window*/
+            $info_content = "<div class='map_info_window'> <h3> {$t} </h3>";
+            $info_content .= "<p> {$tg} </p>";
+            $info_content .= $image; // add the image if available
+            $info_content .= "<p> {$ad}</p></div>";
+            // grab social information
+            $social_info = !empty($social) ? (array)$social : array();
+            $listing_img = !empty($listing_img) ? (array)$listing_img : array();
+            $listing_prv_img = !empty($listing_prv_img) ? $listing_prv_img : '';
+            // get the category and location lists/array
+            $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
+            $locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
+            $listing_tags = get_terms(ATBDP_TAGS, array('hide_empty' => 0));
+
+            // get the map zoom level from the user settings
+            $default_latitude = get_directorist_option('default_latitude', '40.7127753');
+            $default_longitude = get_directorist_option('default_longitude', '-74.0059728');
+            $map_zoom_level = get_directorist_option('map_zoom_level', 4);
+            $disable_price = get_directorist_option('disable_list_price');
+            $enable_video_url = get_directorist_option('atbd_video_url', 1);
+            $disable_contact_info = get_directorist_option('disable_contact_info');
+            $disable_contact_owner = get_directorist_option('disable_contact_owner', 1);
+            $display_title_for = get_directorist_option('display_title_for', 0);
+            $display_desc_for = get_directorist_option('display_desc_for', 0);
+            $display_cat_for = get_directorist_option('display_cat_for', 'users');
+            $display_loc_for = get_directorist_option('display_loc_for', 0);
+            $multiple_loc_for_user = get_directorist_option('multiple_loc_for_user', 1);
+            $multiple_cat_for_user = get_directorist_option('multiple_cat_for_user', 1);
+            $display_tag_for = get_directorist_option('display_tag_for', 0);
+            $display_tagline_field = get_directorist_option('display_tagline_field', 0);
+            $tagline_placeholder = get_directorist_option('tagline_placeholder', __('Your Listing\'s motto or tag-line', 'directorist'));
+            $display_tagline_for = get_directorist_option('display_tagline_for', 0);
+            $guest_listings = get_directorist_option('guest_listings', 0);
+            // get the custom terms and conditions
+            $listing_terms_condition_text = get_directorist_option('listing_terms_condition_text');
+            $display_pricing_field = get_directorist_option('display_pricing_field', 1);
+            $price_placeholder = get_directorist_option('price_placeholder', __('Price of this listing. Eg. 100', 'directorist'));
+            $display_price_for = get_directorist_option('display_price_for', 'admin_users');
+            $display_price_range_field = get_directorist_option('display_price_range_field', 1);
+            $price_range_placeholder = get_directorist_option('price_range_placeholder', __('Price Range', 'directorist'));
+            $display_price_range_for = get_directorist_option('display_price_range_for', 'admin_users');
+            $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
+            $display_views_count = apply_filters('atbdp_listing_form_view_count_field', get_directorist_option('display_views_count', 1));
+            $display_views_count_for = get_directorist_option('display_views_count_for', 1);
+            $excerpt_placeholder = get_directorist_option('excerpt_placeholder', __('Short Description or Excerpt', 'directorist'));
+            $display_short_desc_for = get_directorist_option('display_short_desc_for', 0);
+            $display_address_field = get_directorist_option('display_address_field', 1);
+            $display_address_for = get_directorist_option('display_address_for', 0);
+            $display_phone_field = get_directorist_option('display_phone_field', 1);
+            $display_phone_for = get_directorist_option('display_phone_for', 0);
+            $display_phone2_field = get_directorist_option('display_phone_field2', 1);
+            $display_phone2_for = get_directorist_option('display_phone2_for', 0);
+            $display_fax_field = get_directorist_option('display_fax', 1);
+            $display_fax_for = get_directorist_option('display_fax_for', 0);
+            $display_email_field = get_directorist_option('display_email_field', 1);
+            $display_email_for = get_directorist_option('display_email_for', 0);
+            $allow_decimal = get_directorist_option('allow_decimal', 1);
+            $display_website_field = get_directorist_option('display_website_field', 1);
+            $display_website_for = get_directorist_option('display_website_for', 0);
+            $display_zip_field = get_directorist_option('display_zip_field', 1);
+            $display_zip_for = get_directorist_option('display_zip_for', 0);
+            $zip_placeholder = get_directorist_option('zip_placeholder', __('Enter Zip/Post Code', 'directorist'));
+            $display_social_info_field = get_directorist_option('display_social_info_field', 1);
+            $display_social_info_for = get_directorist_option('display_social_info_for', 0);
+            $display_map_field = get_directorist_option('display_map_field', 1);
+            $display_map_for = get_directorist_option('display_map_for', 0);
+            $address_placeholder = get_directorist_option('address_placeholder', __('Listing address eg. New York, USA', 'directorist'));
+            $website_placeholder = get_directorist_option('website_placeholder', __('Listing Website eg. http://example.com', 'directorist'));
+            $display_gallery_field = get_directorist_option('display_gallery_field', 1);
+            $display_video_field = get_directorist_option('display_video_field', 1);
+            $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
+            $display_video_for = get_directorist_option('display_video_for', 0);
+            $select_listing_map = get_directorist_option('select_listing_map', 'google');
+            $display_contact_hide = get_directorist_option('display_contact_hide', 1);
+            $contact_hide_label = get_directorist_option('contact_hide_label', __('Check it to hide Contact Information for this listing', 'directorist'));
+            $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
+            $fm_plan = !empty(get_post_meta($p_id, '_fm_plans', true)) ? get_post_meta($p_id, '_fm_plans', true) : '';
+            $currency = get_directorist_option('g_currency', 'USD');
+            $plan_cat = array();
+            if (is_fee_manager_active()) {
+                $plan_cat = is_plan_allowed_category($fm_plan);
+            }
+            $query_args = array(
+                'parent' => 0,
+                'term_id' => 0,
+                'exclude' => $plan_cat,
+                'hide_empty' => 0,
+                'orderby' => 'name',
+                'order' => 'asc',
+                'show_count' => 0,
+                'single_only' => 0,
+                'pad_counts' => true,
+                'immediate_category' => 0,
+                'active_term_id' => 0,
+                'ancestors' => array()
+            );
+
+            if (is_fee_manager_active() && !selected_plan_id()) {
+                if ((strpos($current_url, '/edit/') !== false) && ($pagenow = 'at_biz_dir')) {
+                    ATBDP()->enquirer->add_listing_scripts_styles();
+                    // ATBDP()->load_template('front-end/add-listing');
+
+                    $path = atbdp_get_theme_file("/directorist/add-listing.php");
+                    if ( $path ) {
+                        include $path;
                     } else {
-                        if (class_exists('ATBDP_Pricing_Plans')) {
-                            do_action('atbdp_before_pricing_plan_page_load');
-                            ATBDP_Pricing_Plans()->load_template('fee-plans', array('atts' => $atts));
-                        } else {
-                            do_action('atbdp_before_pricing_plan_page_load');
-                            DWPP_Pricing_Plans()->load_template('fee-plans', array('atts' => $atts));
-                        }
-
+                        include ATBDP_TEMPLATES_DIR . "shortcode-templates/add-listing.php";
                     }
                 } else {
-                    ATBDP()->enquirer->add_listing_scripts_styles();
-                    ATBDP()->load_template('front-end/add-listing');
+                    if (class_exists('ATBDP_Pricing_Plans')) {
+                        do_action('atbdp_before_pricing_plan_page_load');
+                        ATBDP_Pricing_Plans()->load_template('fee-plans', array('atts' => $atts));
+                    } else {
+                        do_action('atbdp_before_pricing_plan_page_load');
+                        DWPP_Pricing_Plans()->load_template('fee-plans', array('atts' => $atts));
+                    }
+
                 }
             } else {
-                // user not logged in;
-                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); ?>
-
-
-                <section class="directory_wrapper single_area">
-                    <?php ATBDP()->helper->show_login_message($error_message); ?>
-                </section>
-                <?php
-
+                ATBDP()->enquirer->add_listing_scripts_styles();
+                $path = atbdp_get_theme_file("/directorist/add-listing.php");
+                if ( $path ) {
+                    include $path;
+                } else {
+                    include ATBDP_TEMPLATES_DIR . "shortcode-templates/add-listing.php";
+                }
             }
             return ob_get_clean();
         }
@@ -3292,225 +3600,21 @@ if (!class_exists('ATBDP_Shortcode')):
             if ($include) {
                 include ATBDP_DIR . 'public/assets/css/style.php';
             }
-            if (!atbdp_logged_in_user()) {
-                // start recovery stuff
-                $recovery = isset($_GET['user']) ? $_GET['user'] : '';
-                $key = isset($_GET['key']) ? $_GET['key'] : '';
-                if (!empty($recovery)) {
-                    $user = get_user_by('email', $recovery);
-                    if (isset($_POST['directorist_reset_password']) && 'true' == $_POST['directorist_reset_password']) {
-                        $password_1 = isset($_POST['password_1'])?$_POST['password_1']:'';
-                        $password_2 = isset($_POST['password_2'])?$_POST['password_2']:'';
-                        if (($password_1 === $password_2) && !empty($password_1 && $password_2)){
-                            $update_user = wp_update_user(array(
-                                    'ID' => $user->ID,
-                                    'user_pass' => $password_2
-                                )
-                            );
-                            if ($update_user){
-                                ?><p class="atbd_reset_success"><?php echo  esc_html__('Password changed successfully!', 'directorist');
-                                ?>
-                                <a href="<?php echo esc_url(ATBDP_Permalink::get_login_page_url())?>"><?php echo  esc_html__(' Login', 'directorist');
-                                    ?></a>
-                                </p><?php
-                            }
-                        }elseif (empty($password_1 || $password_2)){
-                            ?><p class="atbd_reset_warning"><?php echo  esc_html__('Fields are required!', 'directorist'); ?></p><?php
-                        }else{
-                            ?><p class="atbd_reset_error"><?php echo  esc_html__('Password not matched!', 'directorist'); ?></p><?php
-                        }
-                    }
-                    $db_key = get_user_meta($user->ID, '_atbdp_recovery_key', true);
-                if ($key === $db_key) {
-                    do_action('directorist_before_reset_password_form');
-                    ?>
-                    <form method="post" class="directorist-ResetPassword lost_reset_password">
-                <p><?php echo apply_filters('directorist_reset_password_message', esc_html__('Enter a new password below.', 'directorist')); ?></p><?php // @codingStandardsIgnoreLine
-                    ?>
-                    <p>
-                        <label for="password_1"><?php esc_html_e('New password', 'directorist'); ?>&nbsp;<span
-                                    class="required">*</span></label>
-                        <input type="password" class="directorist-Input directorist-Input--text input-text"
-                               name="password_1" id="password_1" autocomplete="new-password"/>
-                    </p>
-                    <p>
-                        <label for="password_2"><?php esc_html_e('Re-enter new password', 'directorist'); ?>&nbsp;<span
-                                    class="required">*</span></label>
-                        <input type="password" class="directorist-Input directorist-Input--text input-text"
-                               name="password_2" id="password_2" autocomplete="new-password"/>
-                    </p>
 
-                    <div class="clear"></div>
-
-                    <?php do_action('directorist_resetpassword_form'); ?>
-
-                    <p class="directorist-form-row form-row">
-                        <input type="hidden" name="directorist_reset_password" value="true"/>
-                        <button type="submit" class="directorist-Button button"
-                                value="<?php esc_attr_e('Save', 'directorist'); ?>"><?php esc_html_e('Save', 'directorist'); ?></button>
-                    </p>
-
-                <?php wp_nonce_field('reset_password', 'directorist-reset-password-nonce');
-                } else {
-                    ?>
-                    <p><?php echo apply_filters('directorist_reset_password_link_exp_message', esc_html__('Sorry! The link is invalid.', 'directorist')); ?></p>
-                    <?php
-                }
-
-                }else{
-                wp_enqueue_script('adminmainassets');
-                $redirection = ATBDP_Permalink::get_login_redirection_page_link();
-                $data = array(
-                    'ajax_url' => admin_url('admin-ajax.php'),
-                    'redirect_url' => $redirection ? $redirection : ATBDP_Permalink::get_dashboard_page_link(),
-                    'loading_message' => esc_html__('Sending user info, please wait...', 'directorist'),
-                    'login_error_message' => esc_html__('Wrong username or password.', 'directorist'),
-                );
-                wp_localize_script('adminmainassets', 'ajax_login_object', $data);
-
-                echo '<div id="directorist" class="atbd_wrapper directorist">
-    <div class="container-fluid"><div class="row"> <div class="col-md-6 offset-md-3"><div class="atbdp_login_form_shortcode">';
-
-                $log_username = get_directorist_option('log_username', __('Username or Email Address', 'directorist'));
-                $log_password = get_directorist_option('log_password', __('Password', 'directorist'));
-                $display_rememberMe = get_directorist_option('display_rememberme', 1);
-                $log_rememberMe = get_directorist_option('log_rememberme', __('Remember Me', 'directorist'));
-                $log_button = get_directorist_option('log_button', __('Log In', 'directorist'));
-                $display_recpass = get_directorist_option('display_recpass', 1);
-                $recpass_text = get_directorist_option('recpass_text', __('Recover Password', 'directorist'));
-                $recpass_desc = get_directorist_option('recpass_desc', __('Lost your password? Please enter your email address. You will receive a link to create a new password via email.', 'directorist'));
-                $recpass_username = get_directorist_option('recpass_username', __('E-mail:', 'directorist'));
-                $recpass_placeholder = get_directorist_option('recpass_placeholder', __('eg. mail@example.com', 'directorist'));
-                $recpass_button = get_directorist_option('recpass_button', __('Get New Password', 'directorist'));
-                $reg_text = get_directorist_option('reg_text', __('Don\'t have an account?', 'directorist'));
-                $reg_url = ATBDP_Permalink::get_registration_page_link();
-                $reg_linktxt = get_directorist_option('reg_linktxt', __('Sign Up', 'directorist'));
-                $display_signup = get_directorist_option('display_signup', 1);
-                ?>
-                    <form action="#" id="login" method="POST">
-                        <p>
-                            <label for="username"><?php echo $log_username; ?></label>
-                            <input type="text" class="form-control" id="username" name="username"
-                            ></p>
-                        <p>
-                            <label for="password"><?php echo $log_password; ?></label>
-                            <input type="password" id="password" autocomplete="false" name="password"
-                                   class="form-control"
-                            ></p>
-
-                        <div class="atbd_login_btn_wrapper"><p>
-                                <input class="btn btn-block btn-gradient btn-gradient-two" type="submit"
-                                       value="<?php echo $log_button; ?>"
-                                       name="submit"/>
-                            <?php wp_nonce_field('ajax-login-nonce', 'security');
-                            echo "</p>";
-                            ?></div>
-                        <p class="status"></p>
-
-                        <div class="keep_signed">
-                            <?php
-                            if($display_rememberMe){
-                                ?>
-                                <label for="keep_signed_in" class="not_empty">
-                                    <input type="checkbox" id="keep_signed_in" value="1" name="keep_signed_in" checked> <?php echo $log_rememberMe; ?><span class="cf-select"></span>
-                                </label>
-                            <?php
-                            }
-                            if ($display_recpass) {
-                                printf(__('<p>%s</p>', 'directorist'), "<a href='' class='atbdp_recovery_pass'> " . __($recpass_text, 'directorist') . "</a>");
-                            }
-                            ?>
-                        </div>
-
-                    </form>
-                    <div class="atbd_social_login">
-                        <?php do_action('atbdp_before_login_form_end'); ?>
-                    </div>
-                <?php if ( !empty($display_signup) ) { ?>
-                    <p><?php echo $reg_text; ?><a
-                                href="<?php echo $reg_url; ?>"> <?php echo $reg_linktxt; ?></a></p>
-                <?php }
-                //stuff to recover password start
-                $error = $success = '';
-                // check if we're in reset form
-                if (isset($_POST['action']) && 'reset' == $_POST['action']) {
-                    $email = trim($_POST['user_login']);
-                    if (empty($email)) {
-                        $error = __('Enter an e-mail address..', 'directorist');
-                    } else if (!is_email($email)) {
-                        $error = __('Invalid e-mail address.', 'directorist');
-                    } else if (!email_exists($email)) {
-                        $error = __('There is no user registered with that email address.', 'directorist');
-                    } else {
-                        $random_password = wp_generate_password(22, false);
-                        $user = get_user_by('email', $email);
-                        $update_user = update_user_meta($user->ID, '_atbdp_recovery_key', $random_password);
-                        // if  update user return true then lets send user an email containing the new password
-                        if ($update_user) {
-                            $subject = esc_html__('	Password Reset Request', 'directorist');
-                            //$message = esc_html__('Your new password is: ', 'directorist') . $random_password;
-
-                            $site_name = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-                            $message = __('Someone has requested a password reset for the following account:', 'directorist') . "<br>";
-                            /* translators: %s: site name */
-                            $message .= sprintf(__('Site Name: %s', 'directorist'), $site_name) . "<br>";
-                            /* translators: %s: user login */
-                            $message .= sprintf(__('User: %s', 'directorist'), $user->user_login) . "<br>";
-                            $message .= __('If this was a mistake, just ignore this email and nothing will happen.', 'directorist') . "<br>";
-                            $message .= __('To reset your password, visit the following address:', 'directorist') . "<br>";
-                            $link = array(
-                                    'key' => $random_password,
-                                    'user' => $email,
-                            );
-                            $message .= '<a href="' . esc_url(add_query_arg($link, ATBDP_Permalink::get_login_page_url())) . '">' . esc_url(add_query_arg($link, ATBDP_Permalink::get_login_page_url())).'</a>';
-
-                            $message = atbdp_email_html($subject, $message);
-
-                            $headers[] = 'Content-Type: text/html; charset=UTF-8';
-                            $mail = wp_mail($email, $subject, $message, $headers);
-                            if ($mail) {
-                                $success = __('A password reset email has been sent to the email address on file for your account, but may take several minutes to show up in your inbox.', 'directorist');
-                            } else {
-                                $error = __('Password updated! But something went wrong sending email.', 'directorist');
-                            }
-                        } else {
-                            $error = __('Oops something went wrong updating your account.', 'directorist');
-                        }
-                    }
-
-                    if (!empty($error))
-                        echo '<div class="message"><p class="error"><strong>' . __("ERROR:", 'directorist') . '</strong> ' . $error . '</p></div>';
-
-                    if (!empty($success))
-                        echo '<div class="error_login"><p class="success">' . $success . '</p></div>';
-                } ?>
-                    <div id="recover-pass-modal">
-                        <form method="post">
-                            <fieldset>
-                                <p><?php printf(__('%s', 'directorist'), $recpass_desc); ?></p>
-                                <label for="reset_user_login"><?php printf(__('%s', 'directorist'), $recpass_username); ?></label>
-                                <?php $user_login = isset($_POST['user_login']) ? $_POST['user_login'] : ''; ?>
-                                <input type="text" name="user_login" id="reset_user_login"
-                                       value="<?php echo $user_login; ?>"
-                                       placeholder="<?php echo $recpass_placeholder ?>"/>
-                                <p>
-                                    <input type="hidden" name="action" value="reset"/>
-                                    <button type="submit" class="btn btn-primary"
-                                            id="submit"><?php printf(__('%s', 'directorist'), $recpass_button); ?></button>
-                                </p>
-                            </fieldset>
-                        </form>
-                    </div>
-                    <?php
-                    //stuff to recover password end
-                    echo '</div></div></div></div></div>';
-                }
-
-            } else {
+            if ( atbdp_logged_in_user() ) {
                 $error_message = sprintf(__('Login page is not for logged-in user. <a href="%s">Go to Dashboard</a>', 'directorist'), esc_url(ATBDP_Permalink::get_dashboard_page_link()));
                 ATBDP()->helper->show_login_message(apply_filters('atbdp_login_page_loggedIn_msg', $error_message));
+
+                return ob_get_clean();
             }
-            return ob_get_clean();
+
+            $path = atbdp_get_theme_file("/directorist/auth/login.php");
+            if ( $path ) {
+                include $path;
+            } else {
+                include ATBDP_TEMPLATES_DIR . "shortcode-templates/auth/login.php";
+            }
+            
         }
 
         public function user_registration()
@@ -3520,9 +3624,44 @@ if (!class_exists('ATBDP_Shortcode')):
             if ($include) {
                 include ATBDP_DIR . 'public/assets/css/style.php';
             }
-            // show registration form if the user is not
-            if (!atbdp_logged_in_user()) {
-                ATBDP()->user->registration_form();
+
+            if ( !atbdp_logged_in_user() ) {
+                $container_fluid             = is_directoria_active() ? 'container' : 'container-fluid';
+                $username                    = get_directorist_option('reg_username','Username');
+                $password                    = get_directorist_option('reg_password','Password');
+                $display_password_reg        = get_directorist_option('display_password_reg',1);
+                $require_password            = get_directorist_option('require_password_reg',1);
+                $email                       = get_directorist_option('reg_email','Email');
+                $display_website             = get_directorist_option('display_website_reg',0);
+                $website                     = get_directorist_option('reg_website','Website');
+                $require_website             = get_directorist_option('require_website_reg',0);
+                $display_fname               = get_directorist_option('display_fname_reg',0);
+                $first_name                  = get_directorist_option('reg_fname','First Name');
+                $require_fname               = get_directorist_option('require_fname_reg',0);
+                $display_lname               = get_directorist_option('display_lname_reg',0);
+                $last_name                   = get_directorist_option('reg_lname','Last Name');
+                $require_lname               = get_directorist_option('require_lname_reg',0);
+                $display_bio                 = get_directorist_option('display_bio_reg',0);
+                $bio                         = get_directorist_option('reg_bio','About/bio');
+                $require_bio                 = get_directorist_option('require_bio_reg',0);
+                $reg_signup                  = get_directorist_option('reg_signup','Sign Up');
+                $display_login               = get_directorist_option('display_login',1);
+                $login_text                  = get_directorist_option('login_text',__('Already have an account? Please login', 'directorist'));
+                $login_url                   = ATBDP_Permalink::get_login_page_link();
+                $log_linkingmsg              = get_directorist_option('log_linkingmsg',__('Here', 'directorist'));
+                $terms_label                 = get_directorist_option('regi_terms_label', __('I agree with all', 'directorist'));
+                $terms_label_link            = get_directorist_option('regi_terms_label_link', __('terms & conditions', 'directorist'));
+                $t_C_page_link               = ATBDP_Permalink::get_terms_and_conditions_page_url();
+                $privacy_page_link           = ATBDP_Permalink::get_privacy_policy_page_url();
+                $privacy_label               = get_directorist_option('registration_privacy_label', __('I agree to the', 'directorist'));
+                $privacy_label_link          = get_directorist_option('registration_privacy_label_link', __('Privacy & Policy', 'directorist'));
+
+                $path = atbdp_get_theme_file("/directorist/auth/registration.php");
+                if ( $path ) {
+                    include $path;
+                } else {
+                    include ATBDP_TEMPLATES_DIR . "shortcode-templates/auth/registration.php";
+                }
             } else {
                 $error_message = sprintf(__('Registration page is only for unregistered user. <a href="%s">Go to Dashboard</a>', 'directorist'), esc_url(ATBDP_Permalink::get_dashboard_page_link()));
                 ?>

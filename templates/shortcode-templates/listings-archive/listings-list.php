@@ -93,7 +93,7 @@
                         $display_address_field = get_directorist_option('display_address_field', 1);
                         $display_phone_field = get_directorist_option('display_phone_field', 1);
                    
-                        $list_path = dirname( __FILE__ ) . '/views/list.php';
+                        $list_path = dirname( __FILE__ ) . '/loop/list.php';
                         if ( file_exists( $list_path ) ) { include $list_path; }
                     }
                     wp_reset_postdata(); ?>

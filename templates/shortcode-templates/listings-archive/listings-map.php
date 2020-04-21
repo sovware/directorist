@@ -20,8 +20,8 @@
     ?>
     <div class="<?php echo !empty($map_container) ? $map_container : '';?>">
         <?php 
-        $osm_path = dirname( __FILE__ ) . '/views/openstreet-map.php';
-        $gmap_path = dirname( __FILE__ ) . '/views/google-map.php';
+        $osm_path = dirname( __FILE__ ) . '/loop/openstreet-map.php';
+        $gmap_path = dirname( __FILE__ ) . '/loop/google-map.php';
 
         if ( 'google' == $select_listing_map && file_exists( $gmap_path ) ) {
             include $gmap_path;

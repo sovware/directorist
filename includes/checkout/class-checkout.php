@@ -112,7 +112,20 @@ class ATBDP_Checkout
                 'form_data' => apply_filters('atbdp_checkout_form_final_data', $form_data, $listing_id),
                 'listing_id' => $listing_id,
             );
-            ATBDP()->load_template('front-end/checkout-form', $data);
+            // prepare all the variables required by the checkout page.
+            $form_data = !empty($data['form_data']) ? $data['form_data'] : array();
+            $listing_id = !empty($data['listing_id']) ? $data['listing_id'] : 0;
+            $c_position = get_directorist_option('payment_currency_position');
+            $currency = atbdp_get_payment_currency();
+            $symbol = atbdp_currency_symbol($currency);
+            //displaying data for checkout
+
+            $path = atbdp_get_theme_file("/directorist/payment/checkout.php");
+            if ( $path ) {
+                include $path;
+            } else {
+                include ATBDP_TEMPLATES_DIR . "shortcode-templates/payment/checkout.php";
+            }
         }
         return ob_get_clean();
     }
@@ -155,8 +168,22 @@ class ATBDP_Checkout
             );
         }
         $data['order_items'] = $order_items;
+
         ob_start();
-        ATBDP()->load_template('front-end/payment-receipt', array('data' => $data));
+        $data = !empty($args['data']) ? $args['data'] : array();
+        extract($data);
+        $c_position      = get_directorist_option('payment_currency_position');
+        $currency        = atbdp_get_payment_currency();
+        $symbol          = atbdp_currency_symbol($currency);
+        $container_fluid = 'container-fluid';
+        $order_id = (!empty($order_id)) ? $order_id : '';
+
+        $path = atbdp_get_theme_file("/directorist/payment/payment-receipt.php");
+        if ( $path ) {
+            include $path;
+        } else {
+            include ATBDP_TEMPLATES_DIR . "shortcode-templates/payment/payment-receipt.php";
+        }
         return ob_get_clean();
     }
 
@@ -306,6 +333,13 @@ class ATBDP_Checkout
      */
     public function transaction_failure()
     {
-        return __('Your Transaction was not successful. Please contact support', 'directorist');
+        ob_start();
+        $path = atbdp_get_theme_file("/directorist/payment/transaction-failure.php");
+        if ( $path ) {
+            include $path;
+        } else {
+            include ATBDP_TEMPLATES_DIR . "shortcode-templates/payment/transaction-failure.php";
+        }
+        return ob_get_clean();
     }
 } // ends class

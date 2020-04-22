@@ -2246,6 +2246,10 @@ div#listing_notifier span {
   border-radius: 0 !important;
 }
 
+.atbdp_nlf {
+  padding: 0 15px !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -6127,10 +6131,14 @@ span.atbd_get_loc_wid {
 }
 
 .ads-advanced .more-less.ad:after, .ads-advanced .more-or-less.ad:after {
-  content: '\f106';
+  content: '\f107';
 }
 
 .ads-advanced .more-less.active:after, .ads-advanced .more-or-less.active:after {
+  content: '\f106';
+}
+
+.ads-advanced .more-less:after {
   content: '\f106';
 }
 

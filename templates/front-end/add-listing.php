@@ -1146,6 +1146,7 @@ $query_args = array(
                                                     $max_size = get_directorist_option('max_gallery_upload_size', 4);
                                                     $max_size_kb = (int)$max_size * 1024;
                                                     $req_gallery_image = get_directorist_option('require_gallery_img');
+                                                    $gallery_label = get_directorist_option('gallery_label', __('Select Files', 'directorist'));
                                                     ?>
                                                     <div id="_listing_gallery" class="ez-media-uploader"
                                                          data-max-file-items="<?php echo !empty($slider_unl) ? '999' : $plan_image; ?>"
@@ -1184,7 +1185,7 @@ $query_args = array(
                                                             <span class="ezmu-dictionary-label-featured"><?php echo __('Preview', 'directorist') ?></span>
                                                             <span class="ezmu-dictionary-label-drag-n-drop"><?php echo __('Drag & Drop', 'directorist') ?></span>
                                                             <span class="ezmu-dictionary-label-or"><?php echo __('or', 'directorist') ?></span>
-                                                            <span class="ezmu-dictionary-label-select-files"><?php echo __('Select Files', 'directorist') ?></span>
+                                                            <span class="ezmu-dictionary-label-select-files"><?php echo $gallery_label ? $gallery_label : __('Select Files', 'directorist'); ?></span>
                                                             <span class="ezmu-dictionary-label-add-more"><?php echo __('Add More', 'directorist') ?></span>
                                                             <!-- Alert Texts -->
                                                             <span class="ezmu-dictionary-alert-max-total-file-size">

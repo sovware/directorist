@@ -122,7 +122,7 @@
             $('#cityLat').val(lat);
             $('#cityLng').val(lon);
 
-            $('#address, #q_addressss,.atbdp-search-address').val(text);
+            $(this).closest('.address_result').parent().find('#address, #q_addressss,.atbdp-search-address').val(text);
             $('.address_result').hide();
         });
     }

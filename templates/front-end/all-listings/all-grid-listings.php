@@ -468,6 +468,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                     ?>
                                 </div>
                             </article>
+                            <?php do_action('atbdp_after_single_listing_wrapper_class');?>
                         </div>
                         <?php do_action('atbdp_before_ending_looping_div',$listing_id);?>
                     </div>

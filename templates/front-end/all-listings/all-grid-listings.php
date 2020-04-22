@@ -468,9 +468,8 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                     ?>
                                 </div>
                             </article>
-                            <?php do_action('atbdp_after_single_listing_wrapper_class');?>
+                            <?php do_action('atbdp_after_single_listing_wrapper_class',$listing_id); ?>
                         </div>
-                        <?php do_action('atbdp_before_ending_looping_div',$listing_id);?>
                     </div>
                 <?php }
                 wp_reset_postdata();

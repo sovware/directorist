@@ -171,9 +171,7 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
                                             echo 'checked';
                                         } ?>>
                                         <label for="listing_t"><?php echo esc_attr($terms_label); ?>
-                                            <a
-                                                    style="color: red" target="_blank" href="<?php echo esc_url($t_C_page_link)?>" id=""
-                                            ><?php echo esc_attr($terms_label_link); ?></a></label>
+                                            <a style="color: red" target="_blank" href="<?php echo esc_url($t_C_page_link)?>" id="atbdp_reg_terms" <?php do_action('atbdp_reg_terms_a_attr'); ?> ><?php echo esc_attr($terms_label_link); ?></a></label>
                                     </div>
 
                                     <?php

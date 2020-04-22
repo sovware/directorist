@@ -46,5 +46,5 @@ const aazztechModal = (selector) => {
 
 	});
 };
-aazztechModal('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal, #atbdp-single-popup');
+aazztechModal('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal, #atbdp-single-popup, #atbdp-reg-terms-modal');
 

@@ -101,12 +101,10 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $listing_preview_img_class = 'no' == $listing_preview_img || (empty($prv_image) && empty($default_image) && empty($gallery_img)) ? ' listing_preview_img_none' : '';
                     /*Code for Business Hour Extensions*/ 
 
-                    directorist_get_loop_item( __FILE__ , 'grid');
+                    // directorist_get_loop_item( __FILE__ , 'grid');
 
-                    
-                    echo "<div>$file_path s</div>";
                     $grid_path = dirname( __FILE__ ) . '/loop/grid.php';
-                    // if ( file_exists( $grid_path ) ) { include $grid_path; }
+                    if ( file_exists( $grid_path ) ) { include $grid_path; }
                     
                 }
                 wp_reset_postdata();

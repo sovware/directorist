@@ -120,11 +120,11 @@ class ATBDP_Checkout
             $symbol = atbdp_currency_symbol($currency);
             //displaying data for checkout
 
-            $path = atbdp_get_theme_file("/directorist/payment/checkout.php");
+            $path = atbdp_get_theme_file("/directorist/shortcodes/payment/checkout.php");
             if ( $path ) {
                 include $path;
             } else {
-                include ATBDP_TEMPLATES_DIR . "shortcode-templates/payment/checkout.php";
+                include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/payment/checkout.php";
             }
         }
         return ob_get_clean();
@@ -178,11 +178,11 @@ class ATBDP_Checkout
         $container_fluid = 'container-fluid';
         $order_id = (!empty($order_id)) ? $order_id : '';
 
-        $path = atbdp_get_theme_file("/directorist/payment/payment-receipt.php");
+        $path = atbdp_get_theme_file("/directorist/shortcodes/payment/payment-receipt.php");
         if ( $path ) {
             include $path;
         } else {
-            include ATBDP_TEMPLATES_DIR . "shortcode-templates/payment/payment-receipt.php";
+            include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/payment/payment-receipt.php";
         }
         return ob_get_clean();
     }
@@ -334,11 +334,11 @@ class ATBDP_Checkout
     public function transaction_failure()
     {
         ob_start();
-        $path = atbdp_get_theme_file("/directorist/payment/transaction-failure.php");
+        $path = atbdp_get_theme_file("/directorist/shortcodes/payment/transaction-failure.php");
         if ( $path ) {
             include $path;
         } else {
-            include ATBDP_TEMPLATES_DIR . "shortcode-templates/payment/transaction-failure.php";
+            include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/payment/transaction-failure.php";
         }
         return ob_get_clean();
     }

@@ -237,7 +237,7 @@ final class Directorist_Base
             self::$instance->email = new ATBDP_Email;
             self::$instance->seo = new ATBDP_SEO;
             self::$instance->validator = new ATBDP_Validator;
-            self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
+            // self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
 
 

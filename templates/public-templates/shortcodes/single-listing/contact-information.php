@@ -1,50 +1,5 @@
 <?php
-global $post;
-$listing_id = $post->ID;
-$fm_plan = get_post_meta($listing_id, '_fm_plans', true);
-/*store all data in an array so that we can pass it to filters for extension to get this value*/
-$listing_info['address'] = get_post_meta($post->ID, '_address', true);
-$listing_info['phone'] = get_post_meta($post->ID, '_phone', true);
-$listing_info['phone2'] = get_post_meta($post->ID, '_phone2', true);
-$listing_info['fax'] = get_post_meta($post->ID, '_fax', true);
-$listing_info['email'] = get_post_meta($post->ID, '_email', true);
-$listing_info['website'] = get_post_meta($post->ID, '_website', true);
-$listing_info['zip'] = get_post_meta($post->ID, '_zip', true);
-$listing_info['social'] = get_post_meta($post->ID, '_social', true);
-$listing_info['hide_contact_info'] = get_post_meta($post->ID, '_hide_contact_info', true);
-extract($listing_info);
-/*Prepare Listing Image links*/
-$listing_imgs = (!empty($listing_img) && !empty($display_slider_image)) ? $listing_img : array();
-
-
-/*END INFO WINDOW CONTENT*/
-$contact_info_text = get_directorist_option('contact_info_text', __('Contact Information', 'directorist'));
-$display_address_field = get_directorist_option('display_address_field', 1);
-$address_label = get_directorist_option('address_label', __('Address', 'directorist'));
-$display_phone_field = get_directorist_option('display_phone_field', 1);
-$phone_label = get_directorist_option('phone_label', __('Phone', 'directorist'));
-$display_phone2_field = get_directorist_option('display_phone_field2', 1);
-$phone_label2 = get_directorist_option('phone_label2', __('Phone Number 2', 'directorist'));
-$display_fax_field = get_directorist_option('display_fax', 1);
-$fax_label = get_directorist_option('fax_label', __('Fax', 'directorist'));
-$display_email_field = get_directorist_option('display_email_field', 1);
-$email_label = get_directorist_option('email_label', __('Email', 'directorist'));
-$display_website_field = get_directorist_option('display_website_field', 1);
-$website_label = get_directorist_option('website_label', __('Website', 'directorist'));
-$display_zip_field = get_directorist_option('display_zip_field', 1);
-$zip_label = get_directorist_option('zip_label', __('Zip/Post Code', 'directorist'));
-$display_social_info_field = get_directorist_option('display_social_info_field', 1);
-$display_social_info_for = get_directorist_option('display_social_info_for', 'admin_users');
-$is_info = get_directorist_option('disable_contact_info', 0);
-$use_nofollow = get_directorist_option('use_nofollow');
-$address_map_link = get_directorist_option('address_map_link', 0);
-$disable_contact_info = apply_filters('atbdp_single_listing_contact_info', $is_info);
-// make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
-$main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
-
-
 if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>
-    <!-- 123 -->
     <div class="atbd_content_module atbd_contact_information_module">
         <div class="atbd_content_module_title_area">
             <div class="atbd_area_title">

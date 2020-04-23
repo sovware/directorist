@@ -111,9 +111,10 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
                     $listing_preview_img_class = 'no' == $listing_preview_img || (empty($prv_image) && empty($default_image) && empty($gallery_img)) ? ' listing_preview_img_none' : '';
-                    /*Code for Business Hour Extensions*/ ?>
-
-                    <div class="atbdp_column">
+                    /*Code for Business Hour Extensions*/
+                    $atbdp_column = apply_filters('atbdp_column_class','atbdp_column');
+                    ?>
+                    <div class="<?php echo !empty($atbdp_column) ? $atbdp_column : 'atbdp_column'; ?>">
                         <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : '';
                         echo esc_html($listing_preview_img_class); ?>">
                             <article
@@ -226,6 +227,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                 </figure>
                                 <div class="atbd_listing_info">
                                     <?php if (!empty($display_title) || !empty($enable_tagline) || !empty($display_review) || !empty($display_price)) { ?>
+
                                         <div class="atbd_content_upper">
                                             <?php if (!empty($display_title)) { ?>
                                                 <h4 class="atbd_listing_title">
@@ -466,6 +468,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                     ?>
                                 </div>
                             </article>
+                            <?php do_action('atbdp_after_single_listing_wrapper_class',$listing_id); ?>
                         </div>
                     </div>
                 <?php }

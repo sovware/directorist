@@ -272,6 +272,17 @@ class ATBDP_Review_Custom_Post
                         'by_user_id'       => $by_user_id,
                     );
                     ATBDP()->review->db->add($data);
+                } elseif( 'declined' == $review_status) {
+                    $data = array(
+                        'post_id'          => $review_listing,
+                        'name'             => $listing_reviewer,
+                        'email'            => $email,
+                        'content'          => $reviewer_details,
+                        'rating'           => $reviewer_rating,
+                        'by_guest'         => $by_guest,
+                        'by_user_id'       => $by_user_id,
+                    );
+                    ATBDP()->review->db->delete_reviews_by('post_id', $data['post_id']);
                 }
 
             }
@@ -314,7 +325,10 @@ class ATBDP_Review_Custom_Post
             case 'review_for' :
                 $post_meta = get_post_meta($post_id);
                 $review_listing = isset($post_meta['_review_listing']) ? esc_attr($post_meta['_review_listing'][0]) : '';
-                echo __('Review for ') . get_the_title($review_listing);
+                $reviews = ATBDP()->review->db->get_reviews_by('post_id', $post_meta['_review_listing'][0]);
+                $review_id = !empty($reviews) ? ' #' .$reviews[0]->id : '';
+
+                echo __('Review for ') . get_the_title($review_listing) . $review_id ;
                 break;
 
             case 'reviewer' :

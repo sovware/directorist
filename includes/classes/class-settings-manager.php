@@ -5333,8 +5333,8 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'textbox',
                     'name' => 'gallery_label',
-                    'label' => __('Gallery Image Label', 'directorist'),
-                    'default' => __('Upload Slider Images', 'directorist'),
+                    'label' => __('Select Files Label', 'directorist'),
+                    'default' => __('Select Files', 'directorist'),
                 ),
                 array(
                     'type' => 'toggle',

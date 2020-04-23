@@ -313,7 +313,7 @@
     }
     &.ad{
       &:after{
-        content: '\f106';
+        content: '\f107';
       }
     }
     &.active{
@@ -321,6 +321,9 @@
         content: '\f106';
       }
     }
+  }
+  .more-less:after{
+    content: '\f106';
   }
   .wp-picker-container{
     border: 1px solid #e3e6ef;

@@ -91,7 +91,7 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
                     <div class="col-md-6 offset-md-3">
                         <div class="directory_register_form_wrap">
                             <form action="<?php echo esc_url(get_the_permalink()); ?>" method="post">
-                                <div class="form-group">
+                                <div class="<?php echo apply_filters('atbdp_reg_username_form_class','form-group');?>">
                                     <label for="username"><?php printf(__('%s', 'directorist'),$username); ?> <strong class="atbdp_make_str_red">*</strong></label>
                                     <input id="username" class="form-control" type="text" name="username" value="<?php echo ( isset( $_POST['username'] ) ? esc_attr($_POST['username']) : null ); ?>">
                                 </div>
@@ -137,6 +137,7 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
                                     <textarea id="bio" class="form-control" name="bio" rows="10"><?php echo ( isset( $_POST['bio']) ? esc_textarea($_POST['bio']) : null ); ?></textarea>
                                 </div>
                                 <?php }
+                                do_action('atbdp_reg_after_bio_field');
                                 if (!empty(get_directorist_option('registration_privacy',1))) {
                                     ?>
                                     <div class="atbd_privacy_policy_area directory_regi_btn">
@@ -170,9 +171,7 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
                                             echo 'checked';
                                         } ?>>
                                         <label for="listing_t"><?php echo esc_attr($terms_label); ?>
-                                            <a
-                                                    style="color: red" target="_blank" href="<?php echo esc_url($t_C_page_link)?>" id=""
-                                            ><?php echo esc_attr($terms_label_link); ?></a></label>
+                                            <a style="color: red" target="_blank" href="<?php echo esc_url($t_C_page_link)?>" id="atbdp_reg_terms" <?php do_action('atbdp_reg_terms_a_attr'); ?> ><?php echo esc_attr($terms_label_link); ?></a></label>
                                     </div>
 
                                     <?php

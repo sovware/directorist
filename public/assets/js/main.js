@@ -877,8 +877,10 @@
         if ($(e.target).is(".atbd_dropdown, .atbd_drop--active") === false) {
             $(".atbd_dropdown").removeClass("atbd_drop--active");
         }
-    })
-
+    });
+    $(".atbd_dropdown-toggle").on("click", function (e) {
+        e.preventDefault();
+    });
 
 })(jQuery);
 

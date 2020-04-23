@@ -503,8 +503,8 @@ jQuery(function ($) {
         }
 
         // findbiz video
-        if ($('input[name^="findbiz_video"]').length){
-            $('input[name^="findbiz_video"]').each(function () {
+        if ($('#atbdp_more_video').length){
+            $('input[name^="dservice_video"]').each(function () {
                 var name = $(this).attr("name");
                 var value = $(this).val();
                 form_data.append(name, value);

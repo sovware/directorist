@@ -37,13 +37,26 @@ if ( !class_exists('BD_All_Map_Widget')) {
         {
             $single_only  = !empty( $instance['single_only'] ) ? 1 : 0;
 
-            if(!empty($single_only)) {
+            $template_file = 'map-all.php';
+            $theme_template_file =  ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
+            $default_template_file = ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR . $template_file;
+
+            // Load theme template if exist
+            $theme_template = atbdp_get_theme_file( $theme_template_file );
+            if ( $theme_template ) {
+                include $theme_template;
+            } 
+
+            // Load default template
+            include $default_template_file;
+
+            /* if(!empty($single_only)) {
                 if(is_singular(ATBDP_POST_TYPE)) {
                     include ATBDP_TEMPLATES_DIR . "widget-templates/all-map.php";
                 }
             } else {
                 include ATBDP_TEMPLATES_DIR . "widget-templates/all-map.php";
-            }
+            } */
         }
 
         /**

@@ -54,13 +54,50 @@ if (!class_exists('BD_Locations_Widget')) {
                 'ancestors'          => array()
             );
 
-            if(!empty($query_args['single_only'])) {
+            // Template Data
+            if( $query_args['immediate_category'] ) {
+
+                $term_slug = get_query_var( ATBDP_LOCATION );
+            
+                if( '' != $term_slug ) {
+                    $term = get_term_by( 'slug', $term_slug, ATBDP_LOCATION );
+                    $query_args['active_term_id'] = $term->term_id;
+            
+                    $query_args['ancestors'] = get_ancestors( $query_args['active_term_id'], ATBDP_LOCATION );
+                    $query_args['ancestors'][] = $query_args['active_term_id'];
+                    $query_args['ancestors'] = array_unique( $query_args['ancestors'] );
+                }
+            
+            }
+            
+            if( 'dropdown' == $query_args['template'] ) {
+                $categories = $this->dropdown_locations( $query_args );
+            } else {
+                $categories = $this->list_locations( $query_args );
+            }
+
+            $template_file = 'locations.php';
+            $theme_template_file =  ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
+            $default_template_file = ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR . $template_file;
+
+            // Load theme template if exist
+            $theme_template = atbdp_get_theme_file( $theme_template_file );
+            if ( $theme_template ) {
+                include $theme_template;
+            } 
+
+            // Load default template
+            if ( file_exists( $default_template_file ) ) {
+                include $default_template_file;
+            }
+
+            /* if(!empty($query_args['single_only'])) {
                 if(is_singular(ATBDP_POST_TYPE)) {
                     include ATBDP_TEMPLATES_DIR . "widget-templates/locations.php";
                 }
             } else {
                 include ATBDP_TEMPLATES_DIR . "widget-templates/locations.php";
-            }
+            } */
         }
 
         /**

@@ -2164,8 +2164,8 @@ if (!class_exists('ATBDP_Shortcode')):
 
         public function all_categories($atts)
         {
-            wp_enqueue_script('loc_cat_assets');
             ob_start();
+            wp_enqueue_script('loc_cat_assets');
             $include = apply_filters('include_style_settings', true);
             if ($include) {
                 include ATBDP_DIR . 'public/assets/css/style.php';
@@ -2215,7 +2215,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 return $redirect;
             }
 
-            ob_start();
             if (5 == $categories_settings['columns']) {
                 $span = 'atbdp_col-5';
             } else {
@@ -2245,7 +2244,6 @@ if (!class_exists('ATBDP_Shortcode')):
             } else {
                 _e('<p>No Results found!</p>', 'directorist');
             }
-
             return ob_get_clean();
 
         }

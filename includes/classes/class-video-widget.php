@@ -45,19 +45,21 @@ if( !class_exists('BD_VIDEO_WIDGET')) {
 
                 $videourl   = !empty($videourl) ? esc_attr(ATBDP()->atbdp_parse_videos($videourl)) : '';
                 $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Listing Video', 'directorist');
-                echo $args['before_widget'];
-                echo '<div class="atbd_widget_title">';
-                echo $args['before_title'] . esc_html(apply_filters('widget_video_title', $title)) . $args['after_title'];
-                echo '</div>';
-                ?>
-                <div class="atbdp">
-                    <iframe class="embed-responsive-item" src="<?php echo $videourl; ?>"
-                            allowfullscreen></iframe>
-                </div>
+                
+                $template_file = 'video.php';
+                $theme_template_file =  ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
+                $default_template_file = ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR . $template_file;
 
-                <?php
-                echo $args['after_widget'];
+                // Load theme template if exist
+                $theme_template = atbdp_get_theme_file( $theme_template_file );
+                if ( $theme_template ) {
+                    include $theme_template;
+                } 
 
+                // Load default template
+                if ( file_exists( $default_template_file ) ) {
+                    include $default_template_file;
+                }
             }
         }
         /**

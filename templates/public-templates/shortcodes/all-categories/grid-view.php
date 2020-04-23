@@ -1,12 +1,3 @@
-<?php
-if (5 == $categories_settings['columns']) {
-    $span = 'atbdp_col-5';
-} else {
-    $span = 'col-md-' . floor(12 / $categories_settings['columns']). ' col-sm-6';
-}
-$container_fluid = 'container-fluid';
-?>
-123
 <div id="directorist" class="atbd_wrapper">
     <div class="<?php echo apply_filters('atbdp_cat_container_fluid', $container_fluid); ?>">
         <div class="col-md-12">

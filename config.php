@@ -22,6 +22,9 @@ if ( !defined('ATBDP_TEMPLATES_DIR') ) { define('ATBDP_TEMPLATES_DIR', ATBDP_DIR
 if ( !defined('ATBDP_SHORTCODE_TEMPLATES_THEME_DIR') ) { define( 'ATBDP_SHORTCODE_TEMPLATES_THEME_DIR', '/directorist/shortcodes/' ); }
 if ( !defined('ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR') ) { define( 'ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR', ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/" ); }
 
+if ( !defined('ATBDP_WIDGET_TEMPLATES_THEME_DIR') ) { define( 'ATBDP_WIDGET_TEMPLATES_THEME_DIR', '/directorist/widgets/' ); }
+if ( !defined('ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR') ) { define( 'ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR', ATBDP_TEMPLATES_DIR . "public-templates/widgets/" ); }
+
 // Plugin Admin Assets Path
 if ( !defined('ATBDP_ADMIN_ASSETS') ) { define('ATBDP_ADMIN_ASSETS', ATBDP_URL.'admin/assets/'); }
 // Plugin Public Assets Path

@@ -35,14 +35,33 @@ if (!class_exists('BD_Featured_Listings_Widget')) {
             $allowWidget = apply_filters('atbdp_allow_featured_widget', true);
             if (!$allowWidget) return;
             $single_only    = ! empty( $instance['single_only'] ) ? 1 : 0;
+            
+            
+            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Featured Listings', 'directorist');
+            $f_listing_num = !empty($instance['f_listing_num']) ? $instance['f_listing_num'] : 5;
 
-            if(!empty($single_only)) {
+            $template_file = 'featured-listings.php';
+            $theme_template_file =  ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
+            $default_template_file = ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR . $template_file;
+
+            // Load theme template if exist
+            $theme_template = atbdp_get_theme_file( $theme_template_file );
+            if ( $theme_template ) {
+                include $theme_template;
+            } 
+
+            // Load default template
+            if ( file_exists( $default_template_file ) ) {
+                include $default_template_file;
+            }
+
+            /* if(!empty($single_only)) {
                 if(is_singular(ATBDP_POST_TYPE)) {
                     include ATBDP_TEMPLATES_DIR . "widget-templates/featured-listings.php";
                 }
             } else {
                 include ATBDP_TEMPLATES_DIR . "widget-templates/featured-listings.php";
-            }
+            } */
         }
 
         /**

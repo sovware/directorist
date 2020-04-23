@@ -64,14 +64,32 @@ if ( !class_exists('BD_Search_Widget')) {
                 'ajaxnonce'         => wp_create_nonce( 'bdas_ajax_nonce' ),
                 'ajax_url'           => admin_url( 'admin-ajax.php' ),
             ));
-            echo $args['before_widget'];
-            echo '<div class="atbd_widget_title">';
-            echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
-            echo '</div>';
 
-            require ATBDP_TEMPLATES_DIR . 'search-widget-front.php';
+            $tag_label               = get_directorist_option('tag_label',__('Tag','directorist'));
+            $address_label           = get_directorist_option('address_label',__('Address','directorist'));
+            $fax_label               = get_directorist_option('fax_label',__('Fax','directorist'));
+            $email_label             = get_directorist_option('email_label',__('Email','directorist'));
+            $website_label           = get_directorist_option('website_label',__('Website','directorist'));
+            $zip_label               = get_directorist_option('zip_label',__('Zip','directorist'));
+            $price_range_placeholder = get_directorist_option('price_range_placeholder', __('Price Range', 'directorist'));
+            $currency                = get_directorist_option('g_currency', 'USD');
+            $c_symbol                = atbdp_currency_symbol($currency);
 
-            echo $args['after_widget'];
+            $template_file = 'search.php';
+            $theme_template_file =  ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
+            $default_template_file = ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR . $template_file;
+
+            // Load theme template if exist
+            $theme_template = atbdp_get_theme_file( $theme_template_file );
+            if ( $theme_template ) {
+                include $theme_template;
+            } 
+
+            // Load default template
+            if ( file_exists( $default_template_file ) ) {
+                include $default_template_file;
+            }
+            
         }
 
         /**

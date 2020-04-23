@@ -77,29 +77,21 @@ if (!class_exists('BD_Tags_Widget')) {
             } else {
                 $tags = $this->atbdp_tags_list( $query_args );
             }
-            echo $args['before_widget'];
-            echo '<div class="atbd_widget_title">';
-            echo $args['before_title'] . esc_html(apply_filters('widget_title', $title)) . $args['after_title'];
-            echo '</div>';
-            ?>
 
-            <div class="atbdp atbdp-widget-tags">
-                <?php if( 'dropdown' == $query_args['template'] ) : ?>
-                    <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form">
-                        <input type="hidden" name="q" placeholder="">
-                        <select class="form-control" name="in_tag" onchange="this.form.submit()">
-                            <?php echo $tags; ?>
-                        </select>
-                    </form>
-                <?php else :
-                    echo $tags;
-                endif; ?>
-            </div>
+            $template_file = 'tags.php';
+            $theme_template_file =  ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
+            $default_template_file = ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR . $template_file;
 
-            <?php
+            // Load theme template if exist
+            $theme_template = atbdp_get_theme_file( $theme_template_file );
+            if ( $theme_template ) {
+                include $theme_template;
+            } 
 
-
-            echo $args['after_widget'];
+            // Load default template
+            if ( file_exists( $default_template_file ) ) {
+                include $default_template_file;
+            }
         }
 
         /**

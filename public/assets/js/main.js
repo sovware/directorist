@@ -679,44 +679,36 @@
         var atbdp_contact_submitted = false;
 
         $('#atbdp-contact-form,#atbdp-contact-form-widget').validator({
-            disable: false
+            disable: true
         }).on('submit', function (e) {
+            e.preventDefault();
 
-            if (atbdp_contact_submitted) return false;
+            if ( atbdp_contact_submitted ) return false;
 
-            // Check for errors
-            if (!e.isDefaultPrevented()) {
+            var status_area = $('.atbdp-widget-elm.atbdp-contact-message-display');
+            status_area.append('<p style="margin-bottom: 10px">Sending the message, please wait...</p>');
+            
+            // Post via AJAX
+            var data = {
+                'action': 'atbdp_public_send_contact_email',
+                'post_id': $('#atbdp-post-id').val(),
+                'name': $('#atbdp-contact-name').val(),
+                'email': $('#atbdp-contact-email').val(),
+                'listing_email': $('#atbdp-listing-email').val(),
+                'message': $('#atbdp-contact-message').val(),
+            };
 
-                e.preventDefault();
+            atbdp_contact_submitted = true;
+            $.post(atbdp_public_data.ajaxurl, data, function (response) {
+                if (1 == response.error) {
+                    atbdp_contact_submitted = false;
+                    status_area.addClass('text-danger').html(response.message);
+                } else {
+                    $('#atbdp-contact-message').val('');
+                    status_area.addClass('text-success').html(response.message);
+                }
 
-                atbdp_contact_submitted = true;
-
-
-                $('#atbdp-contact-message-display').append('<div class="atbdp-spinner"></div>');
-
-                // Post via AJAX
-                var data = {
-                    'action': 'atbdp_public_send_contact_email',
-                    'post_id': $('#atbdp-post-id').val(),
-                    'name': $('#atbdp-contact-name').val(),
-                    'email': $('#atbdp-contact-email').val(),
-                    'listing_email': $('#atbdp-listing-email').val(),
-                    'message': $('#atbdp-contact-message').val(),
-                };
-
-                $.post(atbdp_public_data.ajaxurl, data, function (response) {
-                    if (1 == response.error) {
-                        $('#atbdp-contact-message-display').addClass('text-danger').html(response.message);
-                    } else {
-                        $('#atbdp-contact-message').val('');
-                        $('#atbdp-contact-message-display').addClass('text-success').html(response.message);
-                    }
-
-                }, 'json');
-
-            } else {
-                atbdp_contact_submitted = false;
-            }
+            }, 'json');
 
         });
     }

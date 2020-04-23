@@ -57,7 +57,7 @@ class Widget_Init {
 	}
 
 	public function editor_style() {
-		$img = plugins_url( 'icon.png', __FILE__ );
+		$img = ATBDP_PUBLIC_ASSETS . 'images/elementor-icon.png';
 		wp_add_inline_style( 'elementor-editor', '.elementor-control-type-select2 .elementor-control-input-wrapper {min-width: 130px;}.elementor-element .icon .directorist-el-custom{content: url('.$img.');width: 22px;}' );
 	}
 

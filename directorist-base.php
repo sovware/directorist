@@ -339,6 +339,8 @@ final class Directorist_Base
         /*Load payment related stuff*/
         require_once ATBDP_INC_DIR . 'custom-actions.php';
         require_once ATBDP_INC_DIR . 'custom-filters.php';
+        /*Load Elementor Widgets*/
+        require_once ATBDP_DIR . 'elementor/init.php';
 
     }
 

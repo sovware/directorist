@@ -948,7 +948,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         }
 
 
-        public function atbdp_diactivate_reason_mail()
+        public function atbdp_deactivate_reason_mail()
         {
             global $wpdb;
 
@@ -971,7 +971,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 'locale' => get_locale(),
                 'multisite' => is_multisite() ? 'Yes' : 'No'
             );
-            $to = 'contact@aazztech.com';
+            $to = 'support@aazztech.com';
             $subject = 'Deactivate directorist plugin';
             $message = $data['reason_info'];
             $headers = 'From ' . $data['user_email'];
@@ -983,7 +983,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
             $data = array('error' => 0);
 
-            if ($this->atbdp_diactivate_reason_mail()) {
+            if ($this->atbdp_deactivate_reason_mail()) {
 
 
                 $data['message'] = __('Thanks for information', 'directorist');

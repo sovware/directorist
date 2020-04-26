@@ -430,7 +430,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         }
                         $data_info .= '</ul></div>';
 
-                        $data_info .= ' </div>';
+                        $data_info .= '<div class="atbd-listing-location"><span class="la la-map-marker"></span> Promenada 18, Flims 7018 Switzerland</div> </div>';
                         /**
                          * @since 5.0
                          * It returns data before listing title

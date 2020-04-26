@@ -478,6 +478,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         }
                         echo apply_filters('atbdp_listing_content', $listing_content);
                         ?>
+                        <p class="atbdp-single-listing-tags">Tags: <span><a href="">car</a> <a href="">design</a> <a href="">test</a> <a href="">sample</a></span></p>
                     </div>
                 </div>
             </div> <!-- end .atbd_listing_details -->

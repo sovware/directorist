@@ -809,3 +809,26 @@
     }
   }
 }
+
+.atbdp-single-listing-tags{
+  margin: 27px 0 0 !important;
+  padding: 12px 0 0 !important;
+  border-top: 1px solid #e9ebf4;
+  font-size: 14px !important;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  span{
+    flex: 1;
+    margin-left: 5px;
+  }
+  a{
+    font-size: 14px;
+    display: inline-block;
+    margin: 0 5px;
+    &:hover{
+      color: $dark;
+      text-decoration: underline !important;
+    }
+  }
+}

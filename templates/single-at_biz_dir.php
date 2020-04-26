@@ -41,6 +41,8 @@ $custom_gl_height = get_directorist_option('gallery_crop_height', 750);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $enable_review = get_directorist_option('enable_review', 'yes');
 $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+$locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
+$tags = get_the_terms(get_the_ID(), ATBDP_TAGS);
 $font_type = get_directorist_option('font_type', 'line');
 $fa_or_la = ('line' == $font_type) ? "la " : "fa ";
 if (!empty($cats)) {
@@ -138,6 +140,8 @@ $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
 $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
+$locs = get_the_terms($post->ID, ATBDP_LOCATION);
+$tags = get_the_terms(get_the_ID(), ATBDP_TAGS);
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
 $listing_author_id = get_post_field('post_author', $listing_id);
 $display_feature_badge_single = get_directorist_option('display_feature_badge_cart', 1);
@@ -173,6 +177,8 @@ $display_map_field = apply_filters('atbdp_show_single_listing_map', $display_map
 $display_video_for = get_directorist_option('display_video_for', 'admin_users');
 $preview_enable = get_directorist_option('preview_enable', 1);
 $display_back_link = get_directorist_option('display_back_link', 1);
+$enable_single_location_taxonomy = get_directorist_option('enable_single_location_taxonomy', 0);
+$enable_single_tag = get_directorist_option('enable_single_tag', 0);
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 ?>
@@ -429,8 +435,22 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                     </li>';
                         }
                         $data_info .= '</ul></div>';
+                        if(!empty($locs) && !empty($enable_single_location_taxonomy)) {
+                            $data_info .= '<div class="atbd-listing-location">';
+                            $data_info .= '<span class="' . atbdp_icon_type() . '-map-marker"></span>';
+                            $numberOfCat = count($locs);
+                            $output = array();
+                            foreach ($locs as $loc) {
+                                $link = ATBDP_Permalink::atbdp_get_location_page($loc);
+                                $space = str_repeat(' ', 1);
+                                $output [] = "{$space}<a href='{$link}'>{$loc->name}</a>";
+                            }
+                            $data_info .= join(',', $output);
 
-                        $data_info .= '<div class="atbd-listing-location"><span class="la la-map-marker"></span> Promenada 18, Flims 7018 Switzerland</div> </div>';
+
+                            $data_info .= '</div>';
+                        }
+                        $data_info .= '</div>';
                         /**
                          * @since 5.0
                          * It returns data before listing title
@@ -478,7 +498,18 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         }
                         echo apply_filters('atbdp_listing_content', $listing_content);
                         ?>
-                        <p class="atbdp-single-listing-tags">Tags: <span><a href="">car</a> <a href="">design</a> <a href="">test</a> <a href="">sample</a></span></p>
+                        <?php if(!empty($tags) && !empty($enable_single_tag)) {
+                            $output = array();
+                            foreach ($tags as $tag) {
+                                $link = ATBDP_Permalink::atbdp_get_tag_page($tag);
+                                $space = str_repeat(' ', 1);
+                                $output [] = "{$space}<a href='{$link}'>{$tag->name}</a>";
+                            }
+                            ?>
+                        <p class="atbdp-single-listing-tags"><?php _e('Tags: ','directorist'); ?><span>
+                                <?php echo join(',', $output); ?>
+                            </span></p>
+                        <?php } ?>
                     </div>
                 </div>
             </div> <!-- end .atbd_listing_details -->

@@ -26,6 +26,7 @@ $fav_listings_tab_text = get_directorist_option('fav_listings_tab_text', __('Fav
 $submit_listing_button = get_directorist_option('submit_listing_button', 1);
 $show_title = !empty($show_title) ? $show_title : '';
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
+
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
 
@@ -322,18 +323,65 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                         <div class="col-md-3 col-sm-6 offset-sm-3 offset-md-0">
                                             <div class="user_pro_img_area">
                                                 <div class="user_img" id="profile_pic_container">
-                                                    <div class="cross" id="remove_pro_pic"><span
-                                                                class="fa fa-times"></span>
-                                                    </div>
-                                                    <div class="choose_btn">
-                                                        <input type="hidden" name="user[pro_pic]" id="pro_pic"
-                                                               value="<?php echo !empty($u_pro_pic_id) ? esc_attr($u_pro_pic_id) : ''; ?>">
-                                                        <label for="pro_pic"
-                                                               id="upload_pro_pic"><?php _e('Change', 'directorist'); ?></label>
-                                                    </div> <!--ends .choose_btn-->
-                                                    <img src="<?php echo !empty($u_pro_pic) ? esc_url($u_pro_pic[0]) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
-                                                         id="pro_img" alt="">
+                                                <div id="user_profile_pic" class="ez-media-uploader"
+                                                        data-allow-multiple="false"
+                                                        data-max-file-items="1"
+                                                        data-show-info="0"
+                                                         data-show-alerts="0">
+                                                        <div class="ezmu__loading-section ezmu--show">
+                                                            <span class="ezmu__loading-icon">
+                                                              <span class="ezmu__loading-icon-img-bg"></span>
+                                                            </span>
+                                                        </div>
+                                                        <!--old files-->
+                                                        <div class="ezmu__old-files">
+                                                            <?php
+                                                            if (!empty($u_pro_pic)) {
+                                                                    ?>
+                                                                    <span
+                                                                        class="ezmu__old-files-meta"
+                                                                        data-attachment-id="<?php echo !empty($u_pro_pic_id) ? esc_url($u_pro_pic_id) : ''; ?>"
+                                                                        data-url="<?php echo !empty($u_pro_pic) ? esc_url($u_pro_pic[0]) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
+                                                                        data-type="image"
+                                                                    ></span>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </div>
+                                                        <!-- translatable string-->
+                                                        <div class="ezmu-dictionary">
+                                                            <!-- Label Texts -->
+                                                            <span class="ezmu-dictionary-label-drop-here"><?php echo __('Drop Here', 'directorist') ?></span>
+                                                            <span class="ezmu-dictionary-label-featured"><?php echo __('Avatar', 'directorist') ?></span>
+                                                            <span class="ezmu-dictionary-label-drag-n-drop"><?php echo __('Drag & Drop', 'directorist') ?></span>
+                                                            <span class="ezmu-dictionary-label-or"><?php echo __('or', 'directorist') ?></span>
+                                                            <span class="ezmu-dictionary-label-select-files"><?php echo $gallery_label ? $gallery_label : __('Select', 'directorist'); ?></span>
+                                                            <span class="ezmu-dictionary-label-add-more"><?php echo __('Select', 'directorist') ?></span>
+                                                            <!-- Alert Texts -->
+                                                            <span class="ezmu-dictionary-alert-max-total-file-size">
+                                                                <?php echo __('Max limit for total file size is __DT__', 'directorist') ?>
+                                                            </span>
+                                                            <span class="ezmu-dictionary-alert-min-file-items">
+                                                                <?php echo __('Min __DT__ file is required', 'directorist') ?>
+                                                            </span>
+                                                            <span class="ezmu-dictionary-alert-max-file-items">
+                                                                <?php echo __('Max limit for total file is __DT__', 'directorist') ?>
+                                                            </span>
 
+                                                            <!-- Info Text -->
+                                                            <span class="ezmu-dictionary-info-max-total-file-size"><?php echo __('Maximum allowed file size is __DT__', 'directorist') ?></span>
+
+                                                            <span class="ezmu-dictionary-info-type"
+                                                                  data-show='0'></span>
+
+                                                            <span class="ezmu-dictionary-info-min-file-items">
+                  <?php echo __('Minimum __DT__ file is required', 'directorist') ?></span>
+
+                                                            <span class="ezmu-dictionary-info-max-file-items"
+                                                                  data-featured="<?php echo !empty($slider_unl) ? '1' : ''; ?>">
+                                                                <?php echo !empty($slider_unl) ? __('Unlimited images with this plan!', 'directorist') : __('Maximum __DT__ file is allowed', 'directorist'); ?></span>
+                                                        </div>
+                                                    </div>
                                                 </div> <!--ends .user_img-->
                                             </div> <!--ends .user_pro_img_area-->
                                         </div> <!--ends .col-md-4-->

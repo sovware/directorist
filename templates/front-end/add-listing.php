@@ -817,9 +817,10 @@ $query_args = array(
                                                         esc_html_e($phone_label . ':', 'directorist');
                                                         echo get_directorist_option('require_phone_number') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                                     <input type="tel" name="phone" id="atbdp_phone_number"
-                                                           value="<?php echo !empty($phone) ? esc_attr($phone) : ''; ?>"
-                                                           class="form-control directory_field"
-                                                           placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
+                                                            required
+                                                            value="<?php echo !empty($phone) ? esc_attr($phone) : ''; ?>"
+                                                            class="form-control directory_field"
+                                                            placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
                                                 </div>
                                             <?php }
                                             if ($plan_phone && empty($display_phone2_for) && !empty($display_phone2_field)) {

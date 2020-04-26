@@ -324,10 +324,17 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             <div class="user_pro_img_area">
                                                 <div class="user_img" id="profile_pic_container">
                                                 <div id="user_profile_pic" class="ez-media-uploader"
-                                                        data-allow-multiple="false"
+                                                        data-type="images"
+                                                        data-min-file-items="0"
                                                         data-max-file-items="1"
-                                                        data-show-info="0"
-                                                         data-show-alerts="0">
+                                                        data-max-total-file-size="0"
+                                                        data-allow-multiple="0"
+                                                        data-show-alerts="false"
+                                                        data-show-file-size="false"
+                                                        data-featured="false"
+                                                        data-allow-sorting="false"
+                                                        data-show-info="false"
+                                                        data-uploader-type="avater" >
                                                         <div class="ezmu__loading-section ezmu--show">
                                                             <span class="ezmu__loading-icon">
                                                               <span class="ezmu__loading-icon-img-bg"></span>
@@ -357,6 +364,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                             <span class="ezmu-dictionary-label-or"><?php echo __('or', 'directorist') ?></span>
                                                             <span class="ezmu-dictionary-label-select-files"><?php echo $gallery_label ? $gallery_label : __('Select', 'directorist'); ?></span>
                                                             <span class="ezmu-dictionary-label-add-more"><?php echo __('Select', 'directorist') ?></span>
+                                                            <span class="ezmu-dictionary-label-change"><?php echo __('Change', 'directorist') ?></span>
                                                             <!-- Alert Texts -->
                                                             <span class="ezmu-dictionary-alert-max-total-file-size">
                                                                 <?php echo __('Max limit for total file size is __DT__', 'directorist') ?>

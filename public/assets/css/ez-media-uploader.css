@@ -5,7 +5,7 @@
  * Version: 1.0
  * Initial Release: 24 December, 2019
  * */
-.ez-media-uploader {
+ .ez-media-uploader {
   margin: 10px auto;
   position: relative;
   padding: 10px 10px;
@@ -93,28 +93,40 @@
   display: flex;
 }
 
-.ezmu__media-picker-icon {
-  font-size: 3rem;
-  min-height: 72px;
-  display: block;
-  color: gray;
+.ezmu__media-picker-controls {
   text-align: center;
 }
 
-.ezmu__media-picker-icon-img {
-  width: 60px;
-  height: auto;
-}
-
-.ezmu__media-picker-icon-img-bg {
+.ezmu__media-picker-icon-wrap-upload {
   display: inline-block;
   width: 60px;
   height: 60px;
   vertical-align: bottom;
+}
+
+.ezmu__media-picker-icon-wrap-avater {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  vertical-align: bottom;
+}
+
+.ezmu__icon {
+  display: inline-block;
   background-repeat: no-repeat !important;
   background-position: center;
   background-size: contain;
+  width: 100%;
+  height: 100%;
+  filter: invert(48%) sepia(0%) saturate(2537%) hue-rotate(86deg) brightness(118%) contrast(119%);
+}
+
+.ezmu-icon-upload {
   background-image: url('../images/cloud-upload-alt-solid.svg');
+}
+
+.ezmu-icon-avater {
+  background-image: url('../images/user-alt-solid.svg');
 }
 
 .ezmu__media-picker-buttons {
@@ -444,6 +456,26 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
 }
 
 
+
+.ezmu__thumbnail-list-item.ezmu__thumbnail_avater {
+  width: 200px;
+  height: 200px;
+  flex-basis: 200px;
+  border-radius: 50%;
+}
+
+.ezmu__thumbnail-list-item.ezmu__thumbnail_avater .ezmu__thumbnail-img {
+  object-fit: cover;
+}
+
+.ezmu__thumbnail-list-item.ezmu__thumbnail_avater .ezmu__front-item__close {
+  top: unset;
+  right: unset;
+  bottom: 10px;
+  left: 50%;
+  transform: scale(0.9) translateX(-50%);
+}
+
 .ezmu__info-list {
   padding: 0;
   margin: 25px auto 10px;
@@ -462,8 +494,6 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
   transition: all ease-in-out 300ms;
 }
 
-
-
 .ezmu__info-list-item::before {
   content: ' ';
   display: inline-block;
@@ -480,7 +510,6 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
   border-radius: 50%;
   transition: all ease-in-out 300ms;
 }
-
 
 .ezmu__info-list-item.is-featured {
   color: #1aa663;

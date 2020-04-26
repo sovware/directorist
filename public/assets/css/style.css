@@ -3185,6 +3185,32 @@ div#listing_notifier span {
   margin-top: 20px;
 }
 
+.atbdp-single-listing-tags {
+  margin: 27px 0 0 !important;
+  padding: 12px 0 0 !important;
+  border-top: 1px solid #e9ebf4;
+  font-size: 14px !important;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.atbdp-single-listing-tags span {
+  flex: 1;
+  margin-left: 5px;
+}
+
+.atbdp-single-listing-tags a {
+  font-size: 14px;
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.atbdp-single-listing-tags a:hover {
+  color: #202428;
+  text-decoration: underline !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper p {
   margin: 0;
   padding: 0;

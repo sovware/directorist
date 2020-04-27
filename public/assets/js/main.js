@@ -386,6 +386,9 @@
         });
 
 
+
+       
+
         $.ajax({
             method: 'POST',
             processData: false,
@@ -416,7 +419,6 @@
         // prevent the from submitting
         return false;
     });
-
 
     /*HELPERS*/
     function print_static_rating($star_number) {

@@ -269,6 +269,38 @@ if (!class_exists('ATBDP_Ajax_Handler')):
          */
         public function update_user_profile()
         {
+
+        
+
+            $files = !empty($_FILES["profile_picture"]) ? $_FILES["profile_picture"] : array();
+
+          
+            // Get the path to the upload directory.
+            $wp_upload_dir = wp_upload_dir();
+            
+            
+                $attachment = array(
+                    'guid'=> $wp_upload_dir['url'] . '/' . basename( $files ), 
+                    'post_mime_type' => 'image/png',
+                    'post_title' => 'my description',
+                    'post_content' => 'my description',
+                    'post_status' => 'inherit'
+                     );
+            
+                $image_id = wp_insert_attachment($attachment, $name, 0);
+            
+                // Make sure that this file is included, as wp_generate_attachment_metadata() depends on it.
+                require_once( ABSPATH . 'wp-admin/includes/image.php' );
+             
+                // Generate the metadata for the attachment, and update the database record.
+                $attach_data = wp_generate_attachment_metadata( $image_id, $name );
+            
+               $true =  wp_update_attachment_metadata( $image_id, $attach_data );
+      
+
+            wp_send_json( $true );
+    
+            die();
             // process the data and the return a success
             if (valid_js_nonce()) {
                 // passed the security

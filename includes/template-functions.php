@@ -15,13 +15,13 @@ function atbdp_shortcode_template( $template_file = '', $template_data = null, $
   $theme_template_file_path = get_theme_file_path($theme_template_file);
 
   if (file_exists($theme_template_file_path)) {
-    include $theme_template_file;
+    include $theme_template_file_path;
     return;
   }
 
 
   if (file_exists($default_template_file)) {
-    include($default_template_file);
+    // include($default_template_file);
     return;
   }
 }

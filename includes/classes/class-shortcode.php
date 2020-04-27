@@ -1532,6 +1532,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $theme_template = atbdp_get_theme_file( $theme_template_file );
             if ( $theme_template ) {
                 include $theme_template;
+                return ob_get_clean();
             } 
 
             // Load default template

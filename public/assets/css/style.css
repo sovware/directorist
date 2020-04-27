@@ -3211,6 +3211,15 @@ div#listing_notifier span {
   text-decoration: underline !important;
 }
 
+.atbd-listing-tags .atbdb_content_module_contents ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.atbd-listing-tags .atbdb_content_module_contents ul li {
+  flex: 0 0 33.33%;
+}
+
 .atbd_content_active #directorist.atbd_wrapper p {
   margin: 0;
   padding: 0;
@@ -7314,6 +7323,9 @@ p.atbd-min {
     margin-bottom: 10px !important;
     margin-top: 0 !important;
   }
+  .atbd-listing-tags .atbdb_content_module_contents ul li {
+    flex: 0 0 50%;
+  }
 }
 
 @media (max-width: 400px) {
@@ -7365,6 +7377,9 @@ p.atbd-min {
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown + .dropdown {
     margin-left: 0;
+  }
+  .atbd-listing-tags .atbdb_content_module_contents ul li {
+    flex: 0 0 100%;
   }
 }
 

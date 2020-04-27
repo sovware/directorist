@@ -1,16 +1,7 @@
 <div id="directorist" class="atbd_wrapper">
     <?php
-    $header_path = dirname(__FILE__) . '/listings-header.php';
-    if (file_exists($header_path)) {
-        include $header_path;
-    }
+    atbdp_listings_header( $atts );
 
-    /**
-     * @since 6.3.5
-     * 
-     */
-    $header_output = apply_filters('atbdp_listing_header_html', $header_output, compact('display_header', 'header_container_fluid', 'search_more_filters_fields', 'listing_filters_button', 'header_title', 'listing_filters_icon', 'display_viewas_dropdown', 'display_sortby_dropdown', 'filters', 'view_as_text', 'view_as_items', 'sort_by_text', 'sort_by_items', 'listing_location_address', 'filters_button'));
-    echo $header_output;
     /**
      * @since 5.0
      * It fires before the listings columns

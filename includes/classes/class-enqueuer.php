@@ -233,6 +233,9 @@ class ATBDP_Enqueuer {
         wp_register_script('atbdp-geolocation', ATBDP_PUBLIC_ASSETS.'js/geolocation.js', array('jquery'), ATBDP_VERSION);
         wp_register_script('atbdp-geolocation-widget', ATBDP_PUBLIC_ASSETS.'js/geolocation-widget.js', array('jquery'), ATBDP_VERSION);
         wp_register_script('atbdp-range-slider', ATBDP_PUBLIC_ASSETS.'js/range-slider.js', array(), ATBDP_VERSION, true);
+        
+
+        wp_register_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js', array(), ATBDP_VERSION, true);
 
         // we need select2 js on taxonomy edit screen to let the use to select the fonts-awesome icons ans search the icons easily
         // @TODO; make the styles and the scripts specific to the scripts where they are used specifically. For example. load select2js scripts and styles in
@@ -744,6 +747,7 @@ class ATBDP_Enqueuer {
              * It returns the dependencies for search form js
              */
            apply_filters('atbdp_search_listing_jquery_dependency', $search_dependency), ATBDP_VERSION, true );
+
         wp_enqueue_script('atbdp-range-slider');
 
         /*Internationalization*/

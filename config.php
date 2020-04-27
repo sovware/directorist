@@ -14,6 +14,8 @@ if ( ! defined( 'ATBDP_TEXTDOMAIN' ) ) { define( 'ATBDP_TEXTDOMAIN' , 'directori
 if ( !defined('ATBDP_INC_DIR') ) { define('ATBDP_INC_DIR', ATBDP_DIR.'includes/'); }
 // Plugin Class Path
 if ( !defined('ATBDP_CLASS_DIR') ) { define('ATBDP_CLASS_DIR', ATBDP_DIR.'includes/classes/'); }
+// Plugin Model Path
+if ( !defined('ATBDP_MODEL_DIR') ) { define('ATBDP_MODEL_DIR', ATBDP_DIR.'includes/model/'); }
 // Plugin Library Path
 if ( !defined('ATBDP_LIB_DIR') ) { define('ATBDP_LIB_DIR', ATBDP_DIR.'includes/libs/'); }
 // Plugin Template Path

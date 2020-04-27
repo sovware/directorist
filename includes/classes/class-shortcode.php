@@ -1498,16 +1498,16 @@ if (!class_exists('ATBDP_Shortcode')):
             wp_enqueue_script('atbdp-range-slider');
 
             wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
-                'Miles'     =>  $listings->miles,
-                'default_val'   =>  $listings->default_radius_distance
+                'Miles'     =>  $listings_model->miles,
+                'default_val'   =>  $listings_model->default_radius_distance
             ));
 
             ob_start();
-            if ( $listings->include ) {
+            if ( $listings_model->include ) {
                 include ATBDP_DIR . 'public/assets/css/style.php';
             }
-            if (!empty($listings->redirect_page_url)) {
-                $redirect = '<script>window.location="' . esc_url($listings->redirect_page_url) . '"</script>';
+            if (!empty($listings_model->redirect_page_url)) {
+                $redirect = '<script>window.location="' . esc_url($listings_model->redirect_page_url) . '"</script>';
                 return $redirect;
             }
 

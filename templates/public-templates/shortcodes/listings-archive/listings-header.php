@@ -3,8 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="atbd_generic_header">
-          <?php
-          if ($template->has_listings_header()) { ?>
+          <?php if ($template->has_listings_header()) { ?>
             <div class="atbd_generic_header_title">
               <?php if ($template->has_filter_button()) { ?>
 

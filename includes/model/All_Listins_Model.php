@@ -78,6 +78,7 @@ if (!class_exists('All_Listins_Model')) :
     public $display_viewas_dropdown;
     public $is_disable_price;
     public $view_as;
+    public $views;
     public $column_width;
     public $address_label;
     public $fax_label;
@@ -587,6 +588,7 @@ if (!class_exists('All_Listins_Model')) :
       $this->sort_by_text                   = get_directorist_option('sort_by_text', __('Sort By', 'directorist'));
       $this->view_as_text                   = get_directorist_option('view_as_text', __('View As', 'directorist'));
       $this->view_as_items                  = get_directorist_option('listings_view_as_items', array('listings_grid', 'listings_list', 'listings_map'));
+      $this->views                          = atbdp_get_listings_view_options($this->view_as_items);
       $this->sort_by_items                  = get_directorist_option('listings_sort_by_items', array('a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random'));
       $this->listing_header_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
       $this->header_container_fluid         = apply_filters('atbdp_listings_header_container_fluid', $this->listing_header_container_fluid);
@@ -676,11 +678,9 @@ if (!class_exists('All_Listins_Model')) :
     public function get_view_as_link_list()
     {
       $link_list = [];
-
-      $views = atbdp_get_listings_view_options($this->view_as_items);
       $view = !empty($this->view) ? $this->view : '';
 
-      foreach ($views as $value => $label) {
+      foreach ($this->views as $value => $label) {
         $active_class = ($view === $value) ? ' active' : '';
         $link = add_query_arg('view', $value);
         $link_item = [];

@@ -13,25 +13,13 @@
     ?>
     <div class="<?php echo !empty($map_container) ? $map_container : '';?>">
         <?php 
-        $osm_path = dirname( __FILE__ ) . '/loop/openstreet-map.php';
-        $gmap_path = dirname( __FILE__ ) . '/loop/google-map.php';
-
-        if ( 'google' == $select_listing_map && file_exists( $gmap_path ) ) {
-            include $gmap_path;
-        }
-
-        if ( 'google' != $select_listing_map && file_exists( $osm_path ) ) {
-            include $osm_path;
-        }
+        atbdp_listings_map( $atts );
 
         $show_pagination = !empty($show_pagination) ? $show_pagination : '';
-        if ('yes' == $show_pagination){
-            ?>
-                    <?php
-                    $paged = !empty($paged) ? $paged : '';
-                    echo atbdp_pagination($all_listings, $paged);
-                    ?>
-        <?php } ?>
+        if ('yes' == $show_pagination) {
+            $paged = !empty($paged) ? $paged : '';
+            echo atbdp_pagination($all_listings, $paged);
+        } ?>
     </div>
     <!-- Use reset postdata to restore orginal query -->
     <?php wp_reset_postdata(); ?>

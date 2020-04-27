@@ -19,9 +19,8 @@ function atbdp_shortcode_template( $template_file = '', $template_data = null, $
     return;
   }
 
-
   if (file_exists($default_template_file)) {
-    // include($default_template_file);
+    include($default_template_file);
     return;
   }
 }

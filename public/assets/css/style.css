@@ -78,7 +78,7 @@ input[type="checkbox"] {
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_location > li:hover > a span, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_social_wrap p a:hover,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_author_info_widget .atbd_social_wrap p a:hover,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a:hover, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic {
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a:hover {
   background: #444752;
 }
 
@@ -5699,33 +5699,20 @@ span.atbd_get_loc_wid {
   position: relative;
 }
 
-.atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img #remove_pro_pic {
-  position: absolute;
-  z-index: 1;
-  right: 0;
-  background: #e23636;
-  color: #fff;
-  padding: 3px 10px;
-  transition: all 0.2s ease-in-out;
-  border-radius: 2px;
-  cursor: pointer;
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .ezmu__thumbnail-list-item_back {
+  height: 100%;
+  background: none;
 }
 
-.atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn {
-  position: absolute;
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .ezmu__thumbnail-img {
+  width: 154px !important;
+  height: 154px;
+  border-radius: 50%;
+}
+
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .ezmu__thumbnail-list-item.ezmu__thumbnail_avater {
   width: 100%;
-  bottom: 0;
-  z-index: 1;
-  text-align: center;
-}
-
-.atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .choose_btn #upload_pro_pic {
-  margin-bottom: 0;
-  color: #ffffff;
-  padding: 8px 20px;
-  transition: all 0.2s ease-in-out;
-  border-radius: 2px;
-  cursor: pointer;
+  height: 100%;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area #profile_pic_container img {
@@ -7031,6 +7018,10 @@ p.atbd-min {
 @media (min-width: 768px) and (max-width: 991px) {
   .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
     width: 50% !important;
+  }
+  .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .ezmu__thumbnail-img {
+    height: 114px;
+    width: 114px !important;
   }
 }
 

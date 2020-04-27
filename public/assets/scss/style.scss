@@ -54,6 +54,10 @@
   .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
     width: 50% !important;
   }
+  .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .ezmu__thumbnail-img{
+    height: 114px;
+    width: 114px !important;
+  }
 }
 
 @media (max-width: 991px) {

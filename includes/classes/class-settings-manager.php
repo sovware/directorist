@@ -5998,6 +5998,18 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'toggle',
+                    'name' => 'enable_single_location_taxonomy',
+                    'label' => __('Display Location Taxonomy', 'directorist'),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'enable_single_tag',
+                    'label' => __('Display Tag', 'directorist'),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'disable_contact_info',
                     'label' => __('Disable Contact Information', 'directorist'),
                     'default' => 0,

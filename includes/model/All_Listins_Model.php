@@ -1037,18 +1037,14 @@ if (!class_exists('All_Listins_Model')) :
         'bdbh' => get_post_meta(get_the_ID(), '_bdbh', true),
         'enable247hour' => get_post_meta(get_the_ID(), '_enable247hour', true),
         'disable_bz_hour_listing' => get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true),
-        'business_hours' => !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(),
         'author_id' => get_the_author_meta('ID'),
         'display_author_image' => get_directorist_option('display_author_image', 1),
-        'u_pro_pic' => get_user_meta($author_id, 'pro_pic', true),
-        'u_pro_pic' => !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '',
-        'avatar_img' => get_avatar($author_id, apply_filters('atbdp_avatar_size', 32)),
+        
         'display_tagline_field' => get_directorist_option('display_tagline_field', 0),
         'display_pricing_field' => get_directorist_option('display_pricing_field', 1),
         'display_excerpt_field' => get_directorist_option('display_excerpt_field', 0),
         'display_address_field' => get_directorist_option('display_address_field', 1),
         'display_phone_field' => get_directorist_option('display_phone_field', 1),
-        'display_image' => !empty($template_data && $template_data->display_image) ? $template_data->display_image : '',
         'prv_image' => '',
         'default_image' => get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'),
         'thumbnail_link_attr' => trim(" " . apply_filters('grid_view_thumbnail_link_add_attr', '')),
@@ -1067,6 +1063,11 @@ if (!class_exists('All_Listins_Model')) :
       }
 
       $data['business_hours'] = !empty($data['bdbh']) ? atbdp_sanitize_array($data['bdbh']) : array();
+
+      $data['u_pro_pic'] = get_user_meta($data['author_id'], 'pro_pic', true);
+      $data['u_pro_pic'] = !empty($data['u_pro_pic']) ? wp_get_attachment_image_src($data['u_pro_pic'], 'thumbnail') : '';
+      $data['avatar_img'] = get_avatar($data['author_id'], apply_filters('atbdp_avatar_size', 32));
+      $data['display_image'] = !empty($this->template_data && $this->template_data->display_image) ? $this->template_data->display_image : '';
 
       return $data;
     }

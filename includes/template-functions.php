@@ -4,9 +4,14 @@ if (!defined('ABSPATH')) {
 }
 
 // atbdp_get_shortcode_template
-function atbdp_shortcode_template( $template_file = '', $template_data = null, $extract = true, $template ) {
-  if ( $extract && is_array( $template_data ) ) {
+function atbdp_shortcode_template( $template_file = '', $template_data = null, $extract_data = true, $template, $extract_template = false ) {
+  
+  if ( $extract_data && is_array( $template_data ) ) {
     extract( $template_data );
+  }
+
+  if ( $extract_template && is_object( $template ) ) {
+    extract( ( array ) $template );
   }
 
   $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . "$template_file.php";
@@ -57,7 +62,7 @@ function atbdp_listings_loop( $loop_file, $atts = [] ) {
   $model = new All_Listins_Model( $atts );
   $template_data = $model->listings_loop_data();
   
-  atbdp_shortcode_template( "listings-archive/loop/$loop_file", $template_data, true, $model);
+  atbdp_shortcode_template( "listings-archive/loop/$loop_file", $template_data, true, $model, true);
 }
 
 // atbdp_listings_map

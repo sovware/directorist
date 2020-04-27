@@ -746,6 +746,8 @@ if (!class_exists('All_Listins_Model')) :
     {
       $slug = !empty($this->term_slug) ? $this->term_slug : '';
       $taxonomy_by_slug = get_term_by('slug', $slug, ATBDP_CATEGORY);
+      $taxonomy_id = '';
+
       if (!empty($taxonomy_by_slug)) {
         $taxonomy_id = $taxonomy_by_slug->term_taxonomy_id;
       }
@@ -854,7 +856,7 @@ if (!class_exists('All_Listins_Model')) :
       $min_price_value = (isset($_GET['price'])) ? esc_attr($_GET['price'][0]) : '';
       $max_price_value = (isset($_GET['price'])) ? esc_attr($_GET['price'][1]) : '';
 
-      return compact($min_price_value, $max_price_value);
+      return compact('min_price_value', 'max_price_value');
     }
 
     // price_range_field_data
@@ -1054,11 +1056,11 @@ if (!class_exists('All_Listins_Model')) :
       $data['listing_preview_img_class'] = ('no' == $data['listing_preview_img'] || (empty($data['prv_image']) && empty($data['default_image']) && empty($data['gallery_img']))) ? ' listing_preview_img_none' : '';
       $data['listing_preview_img'] = empty(get_directorist_option('display_preview_image', 1)) || 'no' == $data['display_image'] ? 'no' : 'yes';
 
-      if (!empty($data['listing_preview_img'])) {
+      if ( ! empty( $data['listing_preview_img'] ) ) {
         $data['prv_image_full'] = atbdp_get_image_source($data['listing_preview_img'], 'full');
       }
 
-      if (!empty($data['listing_img'][0])) {
+      if ( ! empty($data['listing_img'][0]) ) {
         $data['gallery_img_full'] = atbdp_get_image_source($data['listing_img'][0], 'full');
       }
 
@@ -1067,7 +1069,7 @@ if (!class_exists('All_Listins_Model')) :
       $data['u_pro_pic'] = get_user_meta($data['author_id'], 'pro_pic', true);
       $data['u_pro_pic'] = !empty($data['u_pro_pic']) ? wp_get_attachment_image_src($data['u_pro_pic'], 'thumbnail') : '';
       $data['avatar_img'] = get_avatar($data['author_id'], apply_filters('atbdp_avatar_size', 32));
-      $data['display_image'] = !empty($this->template_data && $this->template_data->display_image) ? $this->template_data->display_image : '';
+      $data['display_image'] = !empty($this->display_image) ? $this->display_image : '';
 
       return $data;
     }

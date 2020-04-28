@@ -2,7 +2,6 @@
 $average = ATBDP()->review->get_average(get_the_ID());
 $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
 ?>
-asddddddddddd
 <div class="atbd_listing_meta">
 	<span class="atbd_meta atbd_listing_rating"><?php echo $average;?><i class="<?php echo atbdp_icon_type();?>-star"></i></span>
 	<?php

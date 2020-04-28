@@ -4033,6 +4033,39 @@ if (!class_exists('ATBDP_Shortcode')):
             $is_disable_price = get_directorist_option('disable_list_price');
             $container_fluid = 'container-fluid';
 
+            $author_id = !empty($author_id) ? $author_id : get_current_user_id();
+            $author_id = rtrim($author_id, '/');
+            $author_name = get_the_author_meta('display_name', $author_id);
+            $user_registered = get_the_author_meta('user_registered', $author_id);
+            $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+            $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
+            $bio = get_user_meta($author_id, 'description', true);
+            $content = apply_filters('the_content', $bio);
+            $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 96));
+            $address = esc_attr(get_user_meta($author_id, 'address', true));
+            $phone = esc_attr(get_user_meta($author_id, 'atbdp_phone', true));
+            $email = get_the_author_meta('user_email', $author_id);
+            $website = get_the_author_meta('user_url', $author_id);;
+            $facebook = get_user_meta($author_id, 'atbdp_facebook', true);
+            $twitter = get_user_meta($author_id, 'atbdp_twitter', true);
+            $linkedIn = get_user_meta($author_id, 'atbdp_linkedin', true);
+            $youtube = get_user_meta($author_id, 'atbdp_youtube', true);
+            $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
+            $email_show = get_directorist_option('display_author_email', 'public');
+
+            $enable_review = get_directorist_option('enable_review', 1);
+            $listing_author = new Directorist_Listing_Author($author_id);
+
+            if ( $enable_review ) {
+                $author_rating = $listing_author->get_rating();
+                $author_review_count = $listing_author->get_review_count();
+                $total_listing = $listing_author->get_total_listing_number();
+            }
+
+            $header_title = apply_filters('atbdp_author_listings_header_title', 1);
+            $author_cat_filter = get_directorist_option('author_cat_filter',1);
+            $listings = apply_filters('atbdp_author_listings', true);
+
             // Default Template
             $path = atbdp_get_theme_file("/directorist/shortcodes/author-profile.php");
             if ( $path ) {

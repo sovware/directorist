@@ -1,26 +1,15 @@
+<?php
+//require_once ATBDP_MODEL_DIR . 'ListingAuthor.php';
+// $a = new Directorist_Listing_Author();
+// var_dump($a->get_rating());
+// var_dump($a->get_review_count());
+// var_dump($a->get_total_listing_number());
+?>
+
 <div id="directorist" class="atbd_wrapper atbd_author_profile">
     <div class="<?php echo apply_filters('atbdp_public_profile_container_fluid', $container_fluid) ?>">
         <div class="row">
             <div class="col-md-12">
-                <?php
-                $author_id = !empty($author_id) ? $author_id : get_current_user_id();
-                $author_id = rtrim($author_id, '/');
-                $author_name = get_the_author_meta('display_name', $author_id);
-                $user_registered = get_the_author_meta('user_registered', $author_id);
-                $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-                $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
-                $bio = get_user_meta($author_id, 'description', true);
-                $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 96));
-                $address = esc_attr(get_user_meta($author_id, 'address', true));
-                $phone = esc_attr(get_user_meta($author_id, 'atbdp_phone', true));
-                $email = get_the_author_meta('user_email', $author_id);
-                $website = get_the_author_meta('user_url', $author_id);;
-                $facebook = get_user_meta($author_id, 'atbdp_facebook', true);
-                $twitter = get_user_meta($author_id, 'atbdp_twitter', true);
-                $linkedIn = get_user_meta($author_id, 'atbdp_linkedin', true);
-                $youtube = get_user_meta($author_id, 'atbdp_youtube', true);
-                $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-                ?>
                 <div class="atbd_auhor_profile_area">
                     <div class="atbd_author_avatar">
                         <?php if (empty($u_pro_pic)) {
@@ -38,31 +27,6 @@
 
                     <div class="atbd_author_meta">
                         <?php
-                        $args = array(
-                            'post_type' => ATBDP_POST_TYPE,
-                            'post_status' => 'publish',
-                            'author' => $author_id,
-                            'orderby' => 'post_date',
-                            'order' => 'ASC',
-                            'posts_per_page' => -1 // no limit
-                        );
-                        $current_user_posts = get_posts($args);
-                        $total_listing = apply_filters('atbdp_author_listing_count', count($current_user_posts));
-                        $enable_review = get_directorist_option('enable_review', 1);
-                        $review_in_post = 0;
-                        $all_reviews = 0;
-                        foreach ($current_user_posts as $post) {
-                            $average = ATBDP()->review->get_average($post->ID);
-                            if (!empty($average)) {
-                                $averagee = array($average);
-                                foreach ($averagee as $key) {
-                                    $all_reviews += $key;
-                                }
-                                $review_in_post++;
-                            }
-                        }
-                        $author_rating = (!empty($all_reviews) && !empty($review_in_post)) ? ($all_reviews / $review_in_post) : 0;
-                        $author_rating = substr($author_rating, '0', '3');
                         if ($enable_review) {
                             ?>
                             <div class="atbd_listing_meta">
@@ -71,8 +35,8 @@
                             </span>
                             </div>
                             <p class="meta-info">
-                                <span><?php echo !empty($review_in_post) ? $review_in_post : '0' ?></span>
-                                <?php echo (($review_in_post > 1) || ($review_in_post === 0)) ? __('Reviews', 'directorist') : __('Review', 'directorist') ?>
+                                <span><?php echo !empty($author_review_count) ? $author_review_count : '0' ?></span>
+                                <?php echo (($author_review_count > 1) || ($author_review_count === 0)) ? __('Reviews', 'directorist') : __('Review', 'directorist') ?>
                             </p>
                             <?php
                         }
@@ -101,7 +65,6 @@
                         <div class="atbdb_content_module_contents">
                             <p>
                                 <?php
-                                $content = apply_filters('the_content', $bio);
                                 echo !empty($bio) ? $content : __('Nothing to show!', 'directorist');
                                 ?>
                             </p>
@@ -200,12 +163,10 @@
             <div class="col-md-12">
                 <div class="atbd_author_listings_area">
                     <?php
-                    $header_title = apply_filters('atbdp_author_listings_header_title', 1);
                     if ($header_title){
                     ?>
                     <h1><?php _e("Author Listings", 'directorist'); ?></h1>
                     <?php }
-                    $author_cat_filter = get_directorist_option('author_cat_filter',1);
                     ?>
                     <?php if(!empty($author_cat_filter)) {?>
                     <div class="atbd_author_filter_area">
@@ -237,7 +198,7 @@
         </div>
         <div class="row atbd_authors_listing">
             <?php
-            $listings = apply_filters('atbdp_author_listings', true);
+            
             if ($listings){
                 listing_view_by_grid($all_listings, $paginate, $is_disable_price);
             }else{

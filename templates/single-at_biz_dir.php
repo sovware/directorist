@@ -190,7 +190,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
             //ok show the edit option
             $html_edit_back .= '<div class="edit_btn_wrap">';
             if (!empty($display_back_link)) {
-                if (!isset($_GET['redirect'])){
+                if (!isset($_GET['redirect'])) {
                     $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '</a> ';
                 }
             }
@@ -198,7 +198,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
             $html_edit_back .= atbdp_get_preview_button();
             $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
             $url = isset($_GET['redirect']) ? $_GET['redirect'] : '';
-            $edit_link = !empty($payment)?add_query_arg('redirect', $url, ATBDP_Permalink::get_edit_listing_page_link($post->ID)):ATBDP_Permalink::get_edit_listing_page_link($post->ID);
+            $edit_link = !empty($payment) ? add_query_arg('redirect', $url, ATBDP_Permalink::get_edit_listing_page_link($post->ID)) : ATBDP_Permalink::get_edit_listing_page_link($post->ID);
             $html_edit_back .= '<a href="' . esc_url($edit_link) . '" class="btn btn-outline-light">
                             <span class="' . atbdp_icon_type() . '-edit"></span>' . apply_filters('atbdp_listing_edit_btn_text', esc_html__(' Edit', 'directorist')) . '</a>';
 
@@ -266,7 +266,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         <li>
                             <a href="' . esc_url($twt_lnk) . '" target="_blank">
                                 <span class="' . atbdp_icon_type() . '-twitter"></span>' . __('Twitter', 'directorist') . '</a>
-                              
+
                         </li>
                         <li>
                             <a href="' . esc_url($in_link) . '" target="_blank">
@@ -433,7 +433,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                     </li>';
                         }
                         $data_info .= '</ul></div>';
-                        if(!empty($locs) && !empty($enable_single_location_taxonomy)) {
+                        if (!empty($locs) && !empty($enable_single_location_taxonomy)) {
                             $data_info .= '<div class="atbd-listing-location">';
                             $data_info .= '<span class="' . atbdp_icon_type() . '-map-marker"></span>';
                             $numberOfCat = count($locs);
@@ -549,31 +549,36 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
             }
 
             // tags
-            if(!empty($tags) && !empty($enable_single_tag)) {
+            if (!empty($tags) && !empty($enable_single_tag)) {
                 ?>
                 <div class="atbd_content_module atbd-listing-tags">
-                    <?php  if(!empty($tags_section_lable)){  ?>
-                    <div class="atbd_content_module_title_area">
-                        <div class="atbd_area_title">
-                            <h4>
-                                <span class="la la-tags"></span> <?php echo esc_attr( $tags_section_lable ); ?>
-                            </h4>
-                        </div>
-                    </div> <!-- ends: .atbd_content_module_title_area -->
+                    <?php if (!empty($tags_section_lable)) { ?>
+                        <div class="atbd_content_module_title_area">
+                            <div class="atbd_area_title">
+                                <h4>
+                                    <span class="<?php echo apply_filters('atbdp_single_listing_tag_icon', 'la la-tags'); ?>"></span> <?php echo esc_attr($tags_section_lable); ?>
+                                </h4>
+                            </div>
+                        </div> <!-- ends: .atbd_content_module_title_area -->
                     <?php } ?>
                     <div class="atbdb_content_module_contents">
                         <ul>
-                        <?php  foreach ($tags as $tag) {
-                            $link = ATBDP_Permalink::atbdp_get_tag_page($tag);
-                            $name = $tag->name; ?>
-                            <li><a href="<?php echo esc_url($link); ?>"><span class="<?php atbdp_icon_type(true); ?>-tag"></span> <?php echo esc_attr($name); ?></a></li>
-                            <?php } ?> 
+                            <?php foreach ( $tags as $tag ) {
+                                $link = ATBDP_Permalink::atbdp_get_tag_page($tag);
+                                $name = $tag->name; ?>
+                                <li>
+                                    <a href="<?php echo esc_url($link); ?>">
+                                        <span class="<?php atbdp_icon_type(true); ?><?php echo apply_filters('atbdp_single_listing_tags_icon', '-tag'); ?>"></span>
+                                        <?php echo esc_attr($name); ?>
+                                    </a>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
-                <?php }  
+            <?php }
 
-                 if (!empty($has_field) && $plan_custom_field) {
+            if (!empty($has_field) && $plan_custom_field) {
                 ?>
                 <!-- atbdp custom fields -->
                 <div class="atbd_content_module atbd_custom_fields_contents">

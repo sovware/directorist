@@ -556,7 +556,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         <div class="atbd_content_module_title_area">
                             <div class="atbd_area_title">
                                 <h4>
-                                    <span class="<?php echo apply_filters('atbdp_single_listing_tag_icon', 'la la-tags'); ?>"></span> <?php echo esc_attr($tags_section_lable); ?>
+                                    <span class="<?php echo apply_filters('atbdp_single_listing_tag_icon', atbdp_icon_type().'-tags'); ?>"></span> <?php echo esc_attr($tags_section_lable); ?>
                                 </h4>
                             </div>
                         </div> <!-- ends: .atbd_content_module_title_area -->
@@ -568,7 +568,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 $name = $tag->name; ?>
                                 <li>
                                     <a href="<?php echo esc_url($link); ?>">
-                                        <span class="<?php atbdp_icon_type(true); ?><?php echo apply_filters('atbdp_single_listing_tags_icon', '-tag'); ?>"></span>
+                                        <span class="<?php echo apply_filters('atbdp_single_listing_tags_icon', atbdp_icon_type().'-tag'); ?>"></span>
                                         <?php echo esc_attr($name); ?>
                                     </a>
                                 </li>

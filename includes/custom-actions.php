@@ -259,7 +259,7 @@ add_filter('atbdp_extension_settings_submenus', 'atbdp_extend_extension_settings
  }
 
 
- if ( !function_exists('atbdp_get_shortcode_template') ){
+ /* if ( !function_exists('atbdp_get_shortcode_template') ){
      function atbdp_get_shortcode_template( $path = '' ) {
         $path = atbdp_get_theme_file("/directorist/$path.php");
         
@@ -271,6 +271,6 @@ add_filter('atbdp_extension_settings_submenus', 'atbdp_extend_extension_settings
         }
         return ob_get_clean();
      }
- }
+ } */
 
 

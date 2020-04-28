@@ -1516,6 +1516,14 @@ if (!class_exists('ATBDP_Shortcode')):
             } else{
                 wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
             }
+
+            if ( 'listings_with_map' == $listings_model->view ) {
+                $template_file = "listing-with-map/map-view";
+                $extension_file = BDM_TEMPLATES_DIR . '/map-view';
+
+                atbdp_get_shortcode_ext_template( $template_file, $extension_file, null, $listings_model, true );
+                return ob_get_clean();
+            }
             
             $template_file = "listings-archive/listings-{$listings_model->view}";
             atbdp_get_shortcode_template( $template_file, null, $listings_model, true );

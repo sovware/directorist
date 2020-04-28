@@ -169,6 +169,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 'show_pagination' => !empty($paginate) ? 'yes' : '',
                 'header' => !empty($display_listings_header) ? 'yes' : '',
                 'columns' => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
+                'action_before_after_loop' => 'yes',
                 'featured_only' => '',
                 'popular_only' => '',
                 'logged_in_user_only' => '',
@@ -177,6 +178,7 @@ if (!class_exists('ATBDP_Shortcode')):
             ));
             $atts = shortcode_atts($params, $atts);
             $columns = !empty($atts['columns']) ? $atts['columns'] : 3;
+            $action_before_after_loop = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
             $display_header = !empty($atts['header']) ? $atts['header'] : '';
             $show_pagination = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
             $feature_only = !empty($atts['featured_only']) ? $atts['featured_only'] : '';

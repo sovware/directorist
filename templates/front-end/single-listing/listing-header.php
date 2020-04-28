@@ -281,7 +281,7 @@ do_action('atbdp_before_listing_section');
             }
             $data_info .= '<div class="atbd_listing_category"><ul class="directory_cats">';
             if (!empty($cats)) {
-                $data_info .= '<li><span class="' . atbdp_icon_type() . '-tags"></span></li>';
+                $data_info .= '<li><span class="' . atbdp_icon_type() . '-folder-open"></span></li>';
                 $numberOfCat = count($cats);
                 $output = array();
                 foreach ($cats as $cat) {

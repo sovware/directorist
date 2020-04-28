@@ -413,7 +413,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                 $catViewCount .= '<div class="atbd_content_left">';
                                                 $catViewCount .= '<div class="atbd_listing_category">';
                                                 $catViewCount .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
-                                                $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
+                                                $catViewCount .= '<span class="' . atbdp_icon_type() . '-folder-open"></span>';
                                                 $catViewCount .= $cats[0]->name;
                                                 $catViewCount .= '</a>';
                                                 if ($totalTerm > 1) {
@@ -437,7 +437,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                 $catViewCount .= '<div class="atbd_content_left">';
                                                 $catViewCount .= '<div class="atbd_listing_category">';
                                                 $catViewCount .= '<a href="">';
-                                                $catViewCount .= '<span class="' . atbdp_icon_type() . '-tags"></span>';
+                                                $catViewCount .= '<span class="' . atbdp_icon_type() . '-folder-open"></span>';
                                                 $catViewCount .= __('Uncategorized', 'directorist');
                                                 $catViewCount .= '</a>';
                                                 $catViewCount .= '</div>';

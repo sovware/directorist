@@ -415,7 +415,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         }
                         $data_info .= '<div class="atbd_listing_category"><ul class="directory_cats">';
                         if (!empty($cats)) {
-                            $data_info .= '<li><span class="' . atbdp_icon_type() . '-tags"></span></li>';
+                            $data_info .= '<li><span class="' . atbdp_icon_type() . '-folder-open"></span></li>';
                             $numberOfCat = count($cats);
                             $output = array();
                             foreach ($cats as $cat) {
@@ -552,6 +552,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
             if(!empty($tags) && !empty($enable_single_tag)) {
                 ?>
                 <div class="atbd_content_module atbd-listing-tags">
+                    <?php  if(!empty($tags_section_lable)){  ?>
                     <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">
                             <h4>
@@ -559,6 +560,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                             </h4>
                         </div>
                     </div> <!-- ends: .atbd_content_module_title_area -->
+                    <?php } ?>
                     <div class="atbdb_content_module_contents">
                         <ul>
                         <?php  foreach ($tags as $tag) {

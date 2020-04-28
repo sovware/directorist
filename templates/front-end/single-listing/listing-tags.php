@@ -6,6 +6,7 @@ $tags_section_lable = get_directorist_option('tags_section_lable', __('Tags', 'd
   if(!empty($tags) && !empty($enable_single_tag)) {
     ?>
     <div class="atbd_content_module atbd-listing-tags">
+    <?php  if(!empty($tags_section_lable)){  ?>
         <div class="atbd_content_module_title_area">
             <div class="atbd_area_title">
                 <h4>
@@ -13,6 +14,7 @@ $tags_section_lable = get_directorist_option('tags_section_lable', __('Tags', 'd
                 </h4>
             </div>
         </div> <!-- ends: .atbd_content_module_title_area -->
+        <?php } ?>
         <div class="atbdb_content_module_contents">
             <ul>
             <?php  foreach ($tags as $tag) {

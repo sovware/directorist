@@ -366,8 +366,6 @@
                 error_count++;
             }
         }
-
-    
         var $form = $(this);
         var arrData = $form.serializeArray();
         $.each(arrData, function (index, elem) {
@@ -375,7 +373,6 @@
             var value = elem.value;
             form_data.append(name, value);
         });
-
         $.ajax({
             method: 'POST',
             processData: false,

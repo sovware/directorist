@@ -6382,7 +6382,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'single_listing_page',
                         'label' => __('Single Listing Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcodes can be used for the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]</strong>'),
+                        'description' => sprintf(__('Following shortcodes can be used for the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_tags][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]</strong>'),
                         'default' => atbdp_get_option('single_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),

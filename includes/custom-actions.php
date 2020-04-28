@@ -157,7 +157,7 @@ if (!get_option('atbdp_picvacyAndTerms_pages')) {
     add_action('wp_loaded', 'atbdp_create_picvacyAndTerms_pages');
 }
 
-function atbdp_handle_attachment($file_handler, $post_id, $set_thu = false, $avatar = false)
+function atbdp_handle_attachment($file_handler, $post_id, $set_thu = false)
 {
     // check to make sure its a successful upload
     if ($_FILES[$file_handler]['error'] !== UPLOAD_ERR_OK) __return_false();
@@ -166,13 +166,6 @@ function atbdp_handle_attachment($file_handler, $post_id, $set_thu = false, $ava
     require_once(ABSPATH . "wp-admin" . '/includes/file.php');
     require_once(ABSPATH . "wp-admin" . '/includes/media.php');
 
-    if($avatar){
-            $attach_id = media_handle_upload($file_handler, 0);
-        if (is_numeric($attach_id)) {
-            update_user_meta(get_current_user_id(), 'pro_pic', $attach_id);
-        }
-        return $attach_id;
-    }
     $attach_id = media_handle_upload($file_handler, $post_id);
     if (is_numeric($attach_id)) {
         update_post_meta($post_id, '_atbdp_listing_images', $attach_id);

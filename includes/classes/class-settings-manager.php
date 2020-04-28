@@ -5999,14 +5999,14 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_single_location_taxonomy',
-                    'label' => __('Display Location Taxonomy', 'directorist'),
+                    'label' => __('Display Location', 'directorist'),
                     'default' => 0,
                 ),
                 array(
                     'type' => 'toggle',
                     'name' => 'enable_single_tag',
                     'label' => __('Display Tag', 'directorist'),
-                    'default' => 0,
+                    'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',

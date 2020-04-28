@@ -178,7 +178,7 @@ $display_video_for = get_directorist_option('display_video_for', 'admin_users');
 $preview_enable = get_directorist_option('preview_enable', 1);
 $display_back_link = get_directorist_option('display_back_link', 1);
 $enable_single_location_taxonomy = get_directorist_option('enable_single_location_taxonomy', 0);
-$enable_single_tag = get_directorist_option('enable_single_tag', 0);
+$enable_single_tag = get_directorist_option('enable_single_tag', 1);
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 ?>

@@ -360,15 +360,6 @@
                         form_data.append('profile_picture', files[i]);
                     }
                 }
-                var files_meta = profileMediaUploader.getFilesMeta();
-                if (files_meta) {
-                    for (var i = 0; i < files_meta.length; i++) {
-                        var elm = files_meta[i];
-                        for (var key in elm) {
-                            form_data.append('files_meta[' + i + '][' + key + ']', elm[key]);
-                        }
-                    }
-                }
             } else {
                 $(".listing_submit_btn").removeClass("atbd_loading");
                 err_log.listing_gallery = { msg: 'Listing gallery has invalid files' };
@@ -385,10 +376,6 @@
             form_data.append(name, value);
         });
 
-
-
-       
-
         $.ajax({
             method: 'POST',
             processData: false,
@@ -396,12 +383,18 @@
             url: atbdp_public_data.ajaxurl,
             data: form_data,
             success: function (response) {
-                console.log(response);
-                return;
+                if (response.success) {
 
+                        $('#pro_notice').html('<p style="padding: 22px;" class="alert-success">' + response.data + '</p>');
+
+                        } else {
+
+                        $('#pro_notice').html('<p style="padding: 22px;" class="alert-danger">' + response.data + '</p>');
+
+                        }
             },
             error: function (response) {
-
+                console.log(response);
             }
         });
 

@@ -101,7 +101,7 @@ $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_thumbnail_img = get_directorist_option('dsiplay_thumbnail_img', 1);
 $enable_single_location_taxonomy = get_directorist_option('enable_single_location_taxonomy', 0);
-$enable_single_tag = get_directorist_option('enable_single_tag', 0);
+$enable_single_tag = get_directorist_option('enable_single_tag', 1);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 /**

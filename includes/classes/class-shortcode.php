@@ -4031,7 +4031,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
             $paginate = !empty($paginate) ? $paginate : '';
             $is_disable_price = get_directorist_option('disable_list_price');
-            $container_fluid = 'container-fluid';
+            $container_fluid = apply_filters('atbdp_public_profile_container_fluid', 'container-fluid');
 
             $author_id = !empty($author_id) ? $author_id : get_current_user_id();
             $author_id = rtrim($author_id, '/');

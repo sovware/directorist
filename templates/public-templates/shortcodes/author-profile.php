@@ -1,13 +1,5 @@
-<?php
-//require_once ATBDP_MODEL_DIR . 'ListingAuthor.php';
-// $a = new Directorist_Listing_Author();
-// var_dump($a->get_rating());
-// var_dump($a->get_review_count());
-// var_dump($a->get_total_listing_number());
-?>
-
 <div id="directorist" class="atbd_wrapper atbd_author_profile">
-    <div class="<?php echo apply_filters('atbdp_public_profile_container_fluid', $container_fluid) ?>">
+    <div class="<?php echo $container_fluid; ?>">
         <div class="row">
             <div class="col-md-12">
                 <div class="atbd_auhor_profile_area">

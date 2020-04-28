@@ -132,39 +132,10 @@
              */
 
             do_action('atbdp_after_listing_tagline');
-            ?>
-            <?php
-            $meta_html = '';
-            if (!empty($display_review) || (!empty($display_price) && (!empty($price) || !empty($price_range)))) { ?>
-            <?php
-              $meta_html .= '<div class="atbd_listing_meta">';
-              $average = ATBDP()->review->get_average(get_the_ID());
-              if (!empty($display_review)) {
-                $meta_html .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="' . atbdp_icon_type() . '-star"></i></span>';
-              }
-              $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
-              if (!empty($display_price) && !empty($display_pricing_field)) {
-                if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
-                  $output = atbdp_display_price_range($price_range);
-                  $meta_html .= $output;
-                } else {
-                  $meta_html .= apply_filters('atbdp_listing_card_price', atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false));
-                }
-              }
-              /**
-               * Fires after the price of the listing is rendered
-               *
-               *
-               * @since 3.1.0
-               */
-              do_action('atbdp_after_listing_price');
-              $meta_html .= '</div>';
+
+            if (!empty($display_review) || (!empty($display_price) && (!empty($price) || !empty($price_range)))) {
+              echo atbdp_get_price_meta_html( compact('atbd_listing_pricing', 'display_price', 'display_pricing_field', 'price_range', 'price', 'is_disable_price') );
             }
-            /**
-             * @since 5.0
-             * universal action to fire after the price
-             */
-            echo apply_filters('atbdp_listings_review_price', $meta_html);
             ?>
 
             <?php if (!empty($display_contact_info || $display_publish_date || $display_email || $display_web_link)) { ?>

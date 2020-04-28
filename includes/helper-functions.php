@@ -1599,6 +1599,17 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
 }
 
 /**
+ * Get price meta html
+ *
+ * @return mixed
+ */
+function atbdp_get_price_meta_html($args) {
+    ob_start();
+    atbdp_get_shortcode_template( 'listings-archive/loop/price-meta', $args );
+    return apply_filters('atbdp_listings_review_price', ob_get_clean());
+}
+
+/**
  * Print formatted Price inside a p tag
  *
  *

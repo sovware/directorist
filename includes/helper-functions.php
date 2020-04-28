@@ -1605,7 +1605,7 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
  */
 function atbdp_get_price_meta_html($args) {
     ob_start();
-    atbdp_get_shortcode_template( 'listings-archive/loop/price-meta', $args );
+    atbdp_get_shortcode_template( 'global/price-meta', $args );
     return apply_filters('atbdp_listings_review_price', ob_get_clean());
 }
 

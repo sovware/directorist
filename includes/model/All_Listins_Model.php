@@ -950,7 +950,7 @@ if (!class_exists('All_Listins_Model')) :
     {
       $checked = !empty($_GET['open_now']) && 'open_now' == $_GET['open_now'] ? " checked='checked'" : '';
 
-      return compact($checked);
+      return compact('checked');
     }
 
     // has_tag_field
@@ -1053,8 +1053,9 @@ if (!class_exists('All_Listins_Model')) :
         'title_link_attr' => trim(" " . apply_filters('grid_view_title_link_add_attr', '')),
       ];
 
+      $data['display_image'] = ( ! empty($this->display_image) ) ? $this->display_image : '';
+      $data['listing_preview_img'] = ( empty(get_directorist_option('display_preview_image', 1)) || 'no' == $data['display_image'] ) ? 'no' : 'yes';
       $data['listing_preview_img_class'] = ('no' == $data['listing_preview_img'] || (empty($data['prv_image']) && empty($data['default_image']) && empty($data['gallery_img']))) ? ' listing_preview_img_none' : '';
-      $data['listing_preview_img'] = empty(get_directorist_option('display_preview_image', 1)) || 'no' == $data['display_image'] ? 'no' : 'yes';
 
       if ( ! empty( $data['listing_preview_img'] ) ) {
         $data['prv_image_full'] = atbdp_get_image_source($data['listing_preview_img'], 'full');
@@ -1069,7 +1070,6 @@ if (!class_exists('All_Listins_Model')) :
       $data['u_pro_pic'] = get_user_meta($data['author_id'], 'pro_pic', true);
       $data['u_pro_pic'] = !empty($data['u_pro_pic']) ? wp_get_attachment_image_src($data['u_pro_pic'], 'thumbnail') : '';
       $data['avatar_img'] = get_avatar($data['author_id'], apply_filters('atbdp_avatar_size', 32));
-      $data['display_image'] = !empty($this->display_image) ? $this->display_image : '';
 
       return $data;
     }

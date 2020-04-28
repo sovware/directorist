@@ -1517,28 +1517,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
             }
             
-            // Prepare Template Data
-            // $template = $listings;
-            $template_data = (array) $listings_model;
-            extract( $template_data );
-
-            
-            // Prepare Teplate Files
-            $template_file = "listings-archive/listings-{$listings_model->view}.php";
-            $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
-            $default_template_file = ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR . $template_file;
-
-            // Load theme template if exist
-            $theme_template = atbdp_get_theme_file( $theme_template_file );
-            if ( $theme_template ) {
-                include $theme_template;
-                return ob_get_clean();
-            } 
-
-            // Load default template
-            if ( file_exists( $default_template_file ) ) {
-                include $default_template_file;
-            }
+            $template_file = "listings-archive/listings-{$listings_model->view}";
+            atbdp_get_shortcode_template( $template_file, null, $listings_model, true );
 
             return ob_get_clean();
         }

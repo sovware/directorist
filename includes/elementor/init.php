@@ -15,11 +15,20 @@ class Widget_Init {
 	public $category;
 	public $widgets;
 
-	public function __construct() {
+	protected static $instance;
+
+	private function __construct() {
 		$this->init();
 		add_action( 'elementor/editor/after_enqueue_styles',    array( $this, 'editor_style' ) );
 		add_action( 'elementor/elements/categories_registered', array( $this, 'widget_categoty' ) );
 		add_action( 'elementor/widgets/widgets_registered',     array( $this, 'register_widgets' ) );
+	}
+
+	public static function instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
 	}
 
 	private function init() {
@@ -27,7 +36,7 @@ class Widget_Init {
 		$this->category = __( 'Directorist', 'directorist' );
 
 		// Widgets -- filename=>classname
-		$this->widgets = array(
+		$widgets = array(
 			'all-listing'                   => 'Directorist_All_Listing',
 			'all-categories'                => 'Directorist_All_Categories',
 			'all-locations'                 => 'Directorist_All_Locations',
@@ -54,6 +63,8 @@ class Widget_Init {
 			'payment-receipt'               => 'Directorist_Payment_Receipt',
 			'checkout'                      => 'Directorist_Checkout',
 		);
+
+		$this->widgets = apply_filters( 'atbdp_elementor_widgets', $widgets );
 	}
 
 	public function editor_style() {
@@ -93,8 +104,11 @@ class Widget_Init {
 	}
 }
 
-add_action( 'plugins_loaded', function() {
+add_action( 'after_setup_theme', function() {
 	if ( did_action( 'elementor/loaded' ) ) {
-		new Widget_Init();
+		$activated = apply_filters( 'atbdp_elementor_widgets_activated', true );
+		if ( $activated ) {
+			Widget_Init::instance();
+		}
 	}
 } );

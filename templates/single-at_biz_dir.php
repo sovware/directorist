@@ -564,6 +564,31 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 
             if (!empty($has_field) && $plan_custom_field) {
                 ?>
+                <!-- atbdp tags -->
+                <div class="atbd_content_module atbd-listing-tags">
+                    <div class="atbd_content_module_title_area">
+                        <div class="atbd_area_title">
+                            <h4>
+                                <span class="la la-tags"></span> Tags
+                            </h4>
+                        </div>
+                    </div> <!-- ends: .atbd_content_module_title_area -->
+                    <div class="atbdb_content_module_contents">
+                        <ul>
+                            <li><a href=""><span class="la la-tag"></span> Electronics</a></li>
+                            <li><a href=""><span class="la la-tag"></span> Computer</a></li>
+                            <li><a href=""><span class="la la-tag"></span> Never Forget</a></li>
+                            <li><a href=""><span class="la la-tag"></span> Dream</a></li>
+                            <li><a href=""><span class="la la-tag"></span> Danger</a></li>
+                            <li><a href=""><span class="la la-tag"></span> Understand</a></li>
+                            <li><a href=""><span class="la la-tag"></span> Unreal</a></li>
+                            <li><a href=""><span class="la la-tag"></span> Reality</a></li>
+                            <li><a href=""><span class="la la-tag"></span> Pretend</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- atbdp custom fields -->
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">

@@ -1543,6 +1543,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'header_title' => !empty($listings_header_title) ? $listings_header_title : '',
                     'columns' => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                     'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
+                    'action_before_after_loop' => 'yes',
                     'logged_in_user_only' => '',
                     'redirect_page_url' => '',
                 ));
@@ -1551,6 +1552,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
                 $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
                 $columns = !empty($atts['columns']) ? $atts['columns'] : 3;
+                $action_before_after_loop = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
                 $display_header = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $show_pagination = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
@@ -2044,6 +2046,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'header_title' => !empty($listings_header_title) ? $listings_header_title : '',
                     'columns' => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                     'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
+                    'action_before_after_loop' => 'yes',
                     'logged_in_user_only' => '',
                     'redirect_page_url' => ''
                 ));
@@ -2052,6 +2055,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
                 $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
                 $columns = !empty($atts['columns']) ? $atts['columns'] : 3;
+                $action_before_after_loop = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
+
                 $display_header = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $header_sub_title = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
@@ -2469,6 +2474,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'header_sub_title' => !empty($listings_header_sub_title) ? $listings_header_sub_title : '',
                     'columns' => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                     'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
+                    'action_before_after_loop' => 'yes',
                     'logged_in_user_only' => '',
                     'redirect_page_url' => ''
                 ));
@@ -2870,6 +2876,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 'apply_filters_button' => in_array('search_apply_filters', $search_filters) ? 'yes' : '',
                 'reset_filters_text' => !empty($search_reset_text) ? $search_reset_text : 'Reset Filters',
                 'apply_filters_text' => !empty($search_apply_text) ? $search_apply_text : 'Apply Filters',
+                'action_before_after_loop' => 'yes',
                 'logged_in_user_only' => '',
                 'redirect_page_url' => '',
                 'more_filters_display' => !empty($filters_display) ? $filters_display : 'overlapping'
@@ -2885,6 +2892,8 @@ if (!class_exists('ATBDP_Shortcode')):
             $more_filters_button = (!empty($atts['more_filters_button']) && 'yes' == $atts['more_filters_button']) ? $atts['more_filters_button'] : '';
             $more_filters_text = (!empty($atts['more_filters_text'])) ? $atts['more_filters_text'] : '';
             $price_min_max_field = (!empty($atts['price_min_max_field']) && 'yes' == $atts['price_min_max_field']) ? $atts['price_min_max_field'] : '';
+            $action_before_after_loop = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
+
             $price_range_field = (!empty($atts['price_range_field']) && 'yes' == $atts['price_range_field']) ? $atts['price_range_field'] : '';
             $rating_field = (!empty($atts['rating_field']) && 'yes' == $atts['rating_field']) ? $atts['rating_field'] : '';
             $tag_field = (!empty($atts['tag_field']) && 'yes' == $atts['tag_field']) ? $atts['tag_field'] : '';

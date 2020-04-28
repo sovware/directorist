@@ -358,11 +358,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                         <!-- translatable string-->
                                                         <div class="ezmu-dictionary">
                                                             <!-- Label Texts -->
-                                                            <span class="ezmu-dictionary-label-drop-here"><?php echo __('Drop Here', 'directorist') ?></span>
-                                                            <span class="ezmu-dictionary-label-featured"><?php echo __('Avatar', 'directorist') ?></span>
-                                                            <span class="ezmu-dictionary-label-drag-n-drop"><?php echo __('Drag & Drop', 'directorist') ?></span>
-                                                            <span class="ezmu-dictionary-label-or"><?php echo __('or', 'directorist') ?></span>
-                                                            <span class="ezmu-dictionary-label-select-files"><?php echo $gallery_label ? $gallery_label : __('Select', 'directorist'); ?></span>
+                                                            <span class="ezmu-dictionary-label-select-files"><?php echo  __('Select', 'directorist'); ?></span>
                                                             <span class="ezmu-dictionary-label-add-more"><?php echo __('Select', 'directorist') ?></span>
                                                             <span class="ezmu-dictionary-label-change"><?php echo __('Change', 'directorist') ?></span>
                                                             <!-- Alert Texts -->
@@ -384,10 +380,6 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                                                             <span class="ezmu-dictionary-info-min-file-items">
                   <?php echo __('Minimum __DT__ file is required', 'directorist') ?></span>
-
-                                                            <span class="ezmu-dictionary-info-max-file-items"
-                                                                  data-featured="<?php echo !empty($slider_unl) ? '1' : ''; ?>">
-                                                                <?php echo !empty($slider_unl) ? __('Unlimited images with this plan!', 'directorist') : __('Maximum __DT__ file is allowed', 'directorist'); ?></span>
                                                         </div>
                                                     </div>
                                                 </div> <!--ends .user_img-->

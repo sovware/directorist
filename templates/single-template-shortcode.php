@@ -5,11 +5,12 @@ if ( !class_exists('ATBDP_Single_Templates') ) {
         public function __construct()
         {
             add_shortcode( 'directorist_listing_top_area', array( $this, 'directorist_listing_header' ));
+            add_shortcode( 'directorist_listing_tags',array($this,'directorist_tags'));
             add_shortcode( 'directorist_listing_custom_fields',array($this,'directorist_custom_field'));
             add_shortcode( 'directorist_listing_video',array($this,'directorist_listing_video'));
             add_shortcode( 'directorist_listing_map',array($this,'directorist_listing_map'));
             add_shortcode( 'directorist_listing_contact_information',array($this,'directorist_listing_contact_information'));
-            add_shortcode('directorist_listing_author_info', array($this,'directorist_listing_author_details'));
+            add_shortcode( 'directorist_listing_author_info', array($this,'directorist_listing_author_details'));
             add_shortcode( 'directorist_listing_contact_owner',array($this,'directorist_listing_contact_owner'));
             add_shortcode( 'directorist_listing_review',array($this,'directorist_listing_review'));
             add_shortcode( 'directorist_related_listings',array($this,'directorist_related_listings'));
@@ -25,6 +26,15 @@ if ( !class_exists('ATBDP_Single_Templates') ) {
         }
 
         // listing custom fields area
+        public function directorist_tags() {
+            ob_start();
+            if(is_singular(ATBDP_POST_TYPE )) {
+                include ATBDP_TEMPLATES_DIR . 'front-end/single-listing/listing-tags.php';
+            }
+            return ob_get_clean();
+        }
+
+        // listing custom fields area
         public function directorist_custom_field() {
             ob_start();
             if(is_singular(ATBDP_POST_TYPE )) {
@@ -32,6 +42,7 @@ if ( !class_exists('ATBDP_Single_Templates') ) {
             }
             return ob_get_clean();
         }
+
 
         //listing video area
         public function directorist_listing_video() {

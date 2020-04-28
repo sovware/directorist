@@ -5853,6 +5853,12 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'textbox',
+                    'name' => 'tags_section_lable',
+                    'label' => __('Section Title of Tags', 'directorist'),
+                    'default' => __('Tags', 'directorist'),
+                ),
+                array(
+                    'type' => 'textbox',
                     'name' => 'custom_section_lable',
                     'label' => __('Section Title of Custom Fields', 'directorist'),
                     'default' => __('Features', 'directorist'),

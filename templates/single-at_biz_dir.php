@@ -139,9 +139,6 @@ $video_label = get_directorist_option('atbd_video_title', __('Video', 'directori
 $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
-$cats = get_the_terms($post->ID, ATBDP_CATEGORY);
-$locs = get_the_terms($post->ID, ATBDP_LOCATION);
-$tags = get_the_terms(get_the_ID(), ATBDP_TAGS);
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
 $listing_author_id = get_post_field('post_author', $listing_id);
 $display_feature_badge_single = get_directorist_option('display_feature_badge_cart', 1);
@@ -151,6 +148,7 @@ $feature_badge_text = get_directorist_option('feature_badge_text', 'Feature');
 $new_badge_text = get_directorist_option('new_badge_text', 'New');
 $enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
 $use_nofollow = get_directorist_option('use_nofollow');
+$tags_section_lable = get_directorist_option('tags_section_lable', __('Tags', 'directorist'));
 $custom_section_lable = get_directorist_option('custom_section_lable', __('Details', 'directorist'));
 $listing_details_text = get_directorist_option('listing_details_text', __('Listing Details', 'directorist'));
 $listing_details_text = apply_filters('atbdp_single_listing_details_section_text', $listing_details_text);
@@ -498,18 +496,6 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         }
                         echo apply_filters('atbdp_listing_content', $listing_content);
                         ?>
-                        <?php if(!empty($tags) && !empty($enable_single_tag)) {
-                            $output = array();
-                            foreach ($tags as $tag) {
-                                $link = ATBDP_Permalink::atbdp_get_tag_page($tag);
-                                $space = str_repeat(' ', 1);
-                                $output [] = "{$space}<a href='{$link}'>{$tag->name}</a>";
-                            }
-                            ?>
-                        <p class="atbdp-single-listing-tags"><?php _e('Tags: ','directorist'); ?><span>
-                                <?php echo join(',', $output); ?>
-                            </span></p>
-                        <?php } ?>
                     </div>
                 </div>
             </div> <!-- end .atbd_listing_details -->
@@ -562,32 +548,31 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                 $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
             }
 
-            if (!empty($has_field) && $plan_custom_field) {
+            // tags
+            if(!empty($tags) && !empty($enable_single_tag)) {
                 ?>
-                <!-- atbdp tags -->
                 <div class="atbd_content_module atbd-listing-tags">
                     <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">
                             <h4>
-                                <span class="la la-tags"></span> Tags
+                                <span class="la la-tags"></span> <?php echo esc_attr( $tags_section_lable ); ?>
                             </h4>
                         </div>
                     </div> <!-- ends: .atbd_content_module_title_area -->
                     <div class="atbdb_content_module_contents">
                         <ul>
-                            <li><a href=""><span class="la la-tag"></span> Electronics</a></li>
-                            <li><a href=""><span class="la la-tag"></span> Computer</a></li>
-                            <li><a href=""><span class="la la-tag"></span> Never Forget</a></li>
-                            <li><a href=""><span class="la la-tag"></span> Dream</a></li>
-                            <li><a href=""><span class="la la-tag"></span> Danger</a></li>
-                            <li><a href=""><span class="la la-tag"></span> Understand</a></li>
-                            <li><a href=""><span class="la la-tag"></span> Unreal</a></li>
-                            <li><a href=""><span class="la la-tag"></span> Reality</a></li>
-                            <li><a href=""><span class="la la-tag"></span> Pretend</a></li>
+                        <?php  foreach ($tags as $tag) {
+                            $link = ATBDP_Permalink::atbdp_get_tag_page($tag);
+                            $name = $tag->name; ?>
+                            <li><a href="<?php echo esc_url($link); ?>"><span class="<?php atbdp_icon_type(true); ?>-tag"></span> <?php echo esc_attr($name); ?></a></li>
+                            <?php } ?> 
                         </ul>
                     </div>
                 </div>
+                <?php }  
 
+                 if (!empty($has_field) && $plan_custom_field) {
+                ?>
                 <!-- atbdp custom fields -->
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module_title_area">

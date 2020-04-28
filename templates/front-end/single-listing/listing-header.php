@@ -83,7 +83,6 @@ $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
 $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
 $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
-$tags = get_the_terms(get_the_ID(), ATBDP_TAGS);
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
 $listing_author_id = get_post_field('post_author', $listing_id);
 $display_feature_badge_single = get_directorist_option('display_feature_badge_cart', 1);
@@ -101,7 +100,6 @@ $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_thumbnail_img = get_directorist_option('dsiplay_thumbnail_img', 1);
 $enable_single_location_taxonomy = get_directorist_option('enable_single_location_taxonomy', 0);
-$enable_single_tag = get_directorist_option('enable_single_tag', 1);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 /**
@@ -364,18 +362,6 @@ do_action('atbdp_before_listing_section');
             }
             echo apply_filters('atbdp_listing_content', $listing_content);
             ?>
-            <?php if(!empty($tags) && !empty($enable_single_tag)) {
-                $output = array();
-                foreach ($tags as $tag) {
-                    $link = ATBDP_Permalink::atbdp_get_tag_page($tag);
-                    $space = str_repeat(' ', 1);
-                    $output [] = "{$space}<a href='{$link}'>{$tag->name}</a>";
-                }
-                ?>
-                <p class="atbdp-single-listing-tags"><?php _e('Tags: ','directorist'); ?><span>
-                                <?php echo join(',', $output); ?>
-                            </span></p>
-            <?php } ?>
         </div>
     </div>
 </div> <!-- end .atbd_listing_details -->

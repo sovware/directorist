@@ -222,7 +222,7 @@ class Directorist_Search_Listing extends Custom_Widget_Base {
 
 		$user = $settings['user'] ? $settings['user'] : 'no';
 
-		$shortcode = sprintf( '[directorist_search_listing show_title_subtitle="%1$" search_bar_title="%2$" search_bar_sub_title="%3$" text_field="%4$" category_field="%5$" location_field="%6$" search_button_text="%7$" more_filters_button="%8$" more_filters_text="%9$" price_min_max_field="%10$" price_range_field="%11$" rating_field="%12$" tag_field="%13$" open_now_field="%144$" custom_fields="%15$" website_field="%16$" email_field="%17$" phone_field="%18$" fax="%19$" address_field="%20$" zip_code_field="%21$" reset_filters_button="%22$" apply_filters_button="%23$" reset_filters_text="%24$" apply_filters_text="%25$" more_filters_display="%26$" logged_in_user_only="%27$" ]', 
+		$shortcode = sprintf( '[directorist_search_listing show_title_subtitle="%1$s" search_bar_title="%2$s" search_bar_sub_title="%3$s" text_field="%4$s" category_field="%5$s" location_field="%6$s" search_button_text="%7$s" more_filters_button="%8$s" more_filters_text="%9$s" price_min_max_field="%10$s" price_range_field="%11$s" rating_field="%12$s" tag_field="%13$s" open_now_field="%144$s" custom_fields="%15$s" website_field="%16$s" email_field="%17$s" phone_field="%18$s" fax="%19$s" address_field="%20$s" zip_code_field="%21$s" reset_filters_button="%22$s" apply_filters_button="%23$s" reset_filters_text="%24$s" apply_filters_text="%25$s" more_filters_display="%26$s" logged_in_user_only="%27$s" ]', 
 			esc_attr( $settings['show_subtitle'] ),
 			esc_attr( $settings['title'] ),
 			esc_attr( $settings['subtitle'] ),

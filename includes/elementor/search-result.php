@@ -144,7 +144,7 @@ class Directorist_Search_Result extends Custom_Widget_Base {
         $featured_only = $settings['featured_only'] ? $settings['featured_only'] : 'no';
         $popular_only  = $settings['popular_only'] ? $settings['popular_only'] : 'no';
 
-		$shortcode = sprintf( '[directorist_search_result header="%1$" header_title="%2$" header_sub_title="%3$" view="%4$" map_height="%5$" columns="%6$" listings_per_page="%7$" show_pagination="%8$" orderby="%9$" order="%10$" featured_only="%11$" popular_only="%12$"  logged_in_user_only="%13$" ]', 
+		$shortcode = sprintf( '[directorist_search_result header="%1$s" header_title="%2$s" header_sub_title="%3$s" view="%4$s" map_height="%5$s" columns="%6$s" listings_per_page="%7$s" show_pagination="%8$s" orderby="%9$s" order="%10$s" featured_only="%11$s" popular_only="%12$s"  logged_in_user_only="%13$s" ]', 
 			esc_attr( $settings['header'] ),
 			esc_attr( $settings['header_title'] ),
 			esc_attr( $settings['header_sub_title'] ),

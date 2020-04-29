@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.4
-Stable tag: 6.3.4
+Stable tag: 6.4.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -138,6 +138,27 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.4.0 - Apr 29, 2020 =
+
+* Add - Option to show location and tag in single listing
+* Add - Popular WooCommerce Multivendor plugins (Dokan, WC Vendors, WC Marketplace, WCFM, YITH WooCommerce Multivendor) support
+* Improve - User profile image uploader
+* Fix - Custom field and category relationship issue
+* Fix - Duplicate listing submitting issue
+* Fix - WooCommerce empty cart issue
+* Fix - WooCommerce product sorting issue
+* Fix - Issue in scheduling task
+* Fix - Renewal link issue
+* Fix - Listing publishing issue
+* Fix - Repetitive tag, location and category issues in listing form and listing search
+* Fix - Related listing issue
+* Fix - Listing preview issue of admin add listing form
+* Fix - Image placeholder issue in add listing form
+* Fix - Review delete issue 
+* Fix - Review image issue
+* Fix - PHP notice
+* Fix - Style issue
 
 = 6.3.4 - Apr 9, 2020 =
 

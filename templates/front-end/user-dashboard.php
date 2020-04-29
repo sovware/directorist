@@ -347,7 +347,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     ?>
                                                                     <span
                                                                         class="ezmu__old-files-meta"
-                                                                        data-attachment-id="<?php echo !empty($u_pro_pic_id) ? esc_url($u_pro_pic_id) : ''; ?>"
+                                                                        data-attachment-id="<?php echo !empty($u_pro_pic_id) ? esc_attr($u_pro_pic_id) : ''; ?>"
                                                                         data-url="<?php echo !empty($u_pro_pic) ? esc_url($u_pro_pic[0]) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
                                                                         data-type="image"
                                                                     ></span>

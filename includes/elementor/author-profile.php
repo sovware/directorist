@@ -42,7 +42,7 @@ class Directorist_Author_Profile extends Custom_Widget_Base {
 
 		$user = $settings['user'] ? $settings['user'] : 'no';
 
-		$shortcode = sprintf( '[directorist_author_profile logged_in_user_only="%1$" ]', esc_attr( $user ) );
+		$shortcode = sprintf( '[directorist_author_profile logged_in_user_only="%1$s" ]', esc_attr( $user ) );
 
 		echo do_shortcode( $shortcode );
 	}

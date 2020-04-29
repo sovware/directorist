@@ -334,20 +334,30 @@
     });
 
 
-      // user dashboard image uploader
-      var profileMediaUploader = null;
-      if ( $("#user_profile_pic").length ) {
-          profileMediaUploader = new EzMediaUploader({
-              containerID: "user_profile_pic",
-          });
-          profileMediaUploader.init();
-      }
-  
-  
+    // user dashboard image uploader
+    var profileMediaUploader = null;
+    if ( $("#user_profile_pic").length ) {
+        profileMediaUploader = new EzMediaUploader({
+            containerID: "user_profile_pic",
+        });
+        profileMediaUploader.init();
+    }
+    
+    
+    var is_processing = false;
     $('#user_profile_form').on('submit', function (e) {
         // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
         e.preventDefault();
+        
+        var submit_button = $('#update_user_profile');
+        submit_button.attr('disabled', true);
+
+        if ( is_processing ) { submit_button.removeAttr('disabled'); return; }
+
         var form_data = new FormData();
+        var err_log = {};
+        var error_count;
+
          // ajax action
          form_data.append('action', 'update_user_profile');
         if ( profileMediaUploader ) { 
@@ -355,14 +365,26 @@
             if ( hasValidFiles ) {
                 //files
                 var files = profileMediaUploader.getTheFiles();
-                if (files) {
+                var filesMeta = profileMediaUploader.getFilesMeta();
+
+                if (files.length) {
                     for (var i = 0; i < files.length; i++) {
                         form_data.append('profile_picture', files[i]);
                     }
                 }
+
+                if ( filesMeta.length ) {
+                    for (var i = 0; i < filesMeta.length; i++) {
+                        var elm = filesMeta[i];
+                        for (var key in elm) {
+                            form_data.append('profile_picture_meta[' + i + '][' + key + ']', elm[key]);
+                        }
+                    }
+                }
+
             } else {
                 $(".listing_submit_btn").removeClass("atbd_loading");
-                err_log.listing_gallery = { msg: 'Listing gallery has invalid files' };
+                err_log.user_profile_avater = { msg: 'Listing gallery has invalid files' };
                 error_count++;
             }
         }
@@ -380,17 +402,15 @@
             url: atbdp_public_data.ajaxurl,
             data: form_data,
             success: function (response) {
+                submit_button.removeAttr('disabled');
                 if (response.success) {
-
-                        $('#pro_notice').html('<p style="padding: 22px;" class="alert-success">' + response.data + '</p>');
-
-                        } else {
-
-                        $('#pro_notice').html('<p style="padding: 22px;" class="alert-danger">' + response.data + '</p>');
-
-                        }
+                    $('#pro_notice').html('<p style="padding: 22px;" class="alert-success">' + response.data + '</p>');
+                } else {
+                    $('#pro_notice').html('<p style="padding: 22px;" class="alert-danger">' + response.data + '</p>');
+                }
             },
             error: function (response) {
+                submit_button.removeAttr('disabled');
                 console.log(response);
             }
         });

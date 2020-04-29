@@ -1,7 +1,7 @@
 <?php
 defined('ABSPATH') || die('Direct access is not allowed.');
 
-if (!class_exists('ATBDP_Ajax_Handler')):
+if (!class_exists('ATBDP_Ajax_Handler')) :
 
     /**
      * Class ATBDP_Ajax_Handler.
@@ -162,7 +162,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                     $wp_upload_dir = wp_upload_dir();
                     echo $status['url'];
                 }
-
             } elseif (isset($status['url'])) {
                 echo $status['url'];
             } else {
@@ -197,7 +196,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         {
 
             $user_id = get_current_user_id();
-            $post_id = (int)$_POST['post_id'];
+            $post_id = (int) $_POST['post_id'];
 
             if (!$user_id) {
                 $data = "login_required";
@@ -205,7 +204,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 wp_die();
             }
 
-            $favourites = (array)get_user_meta($user_id, 'atbdp_favourites', true);
+            $favourites = (array) get_user_meta($user_id, 'atbdp_favourites', true);
 
             if (in_array($post_id, $favourites)) {
                 if (($key = array_search($post_id, $favourites)) !== false) {
@@ -221,7 +220,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             delete_user_meta($user_id, 'atbdp_favourites');
             update_user_meta($user_id, 'atbdp_favourites', $favourites);
 
-            $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
+            $favourites = (array) get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
             if (in_array($post_id, $favourites)) {
                 $data = $post_id;
             } else {
@@ -240,9 +239,9 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         public function atbdp_public_add_remove_favorites()
         {
 
-            $post_id = (int)$_POST['post_id'];
+            $post_id = (int) $_POST['post_id'];
 
-            $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
+            $favourites = (array) get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
 
             if (in_array($post_id, $favourites)) {
                 if (($key = array_search($post_id, $favourites)) !== false) {
@@ -261,7 +260,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             echo the_atbdp_favourites_link($post_id);
 
             wp_die();
-
         }
 
         /**
@@ -273,14 +271,20 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             if ($_POST['user']) {
                 // passed the security
                 // update the user data and also its meta
-               $user_id = !empty($_POST['user']['ID']) ? absint($_POST['user']['ID']) : get_current_user_id();
-                if ($_FILES) {
-                    foreach ($_FILES as $file => $array) {
-                        $id = $this->insert_attachment( $file, 0 );
-                        update_user_meta( $user_id, 'pro_pic', $id );
+                $user_id = !empty($_POST['user']['ID']) ? absint($_POST['user']['ID']) : get_current_user_id();
+
+                $old_pro_pic_id = get_user_meta($user_id, 'pro_pic', true);
+                if (!empty($_POST['profile_picture_meta']) && count($_POST['profile_picture_meta'])) {
+                    $meta_data = $_POST['profile_picture_meta'][0];
+
+                    if ( 'true' !== $meta_data['oldFile'] ) {
+                        foreach ($_FILES as $file => $array) {
+                            $id = $this->insert_attachment( $file, 0 );
+                            update_user_meta( $user_id, 'pro_pic', $id );
+                        }
                     }
-                }else{
-                    update_user_meta( $user_id, 'pro_pic', '' );
+                } else {
+                    update_user_meta($user_id, 'pro_pic', '');
                 }
                 $success = ATBDP()->user->update_profile($_POST['user']); // update_profile() will handle sanitisation, so we can just the pass the data through it
                 if ($success) {
@@ -292,26 +296,27 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             wp_die();
         }
 
-        private function insert_attachment($file_handler,$post_id,$setthumb='false') {
+        private function insert_attachment($file_handler, $post_id, $setthumb = 'false')
+        {
             // check to make sure its a successful upload
             if ($_FILES[$file_handler]['error'] !== UPLOAD_ERR_OK) __return_false();
-           
+
             require_once(ABSPATH . "wp-admin" . '/includes/image.php');
             require_once(ABSPATH . "wp-admin" . '/includes/file.php');
             require_once(ABSPATH . "wp-admin" . '/includes/media.php');
-           
-            $attach_id = media_handle_upload( $file_handler, $post_id );
-           
-            if ($setthumb) update_post_meta($post_id,'_thumbnail_id',$attach_id);
+
+            $attach_id = media_handle_upload($file_handler, $post_id);
+
+            if ($setthumb) update_post_meta($post_id, '_thumbnail_id', $attach_id);
             return $attach_id;
-            }
+        }
 
         public function remove_listing()
         {
             // delete the listing from here. first check the nonce and then delete and then send success.
             // save the data if nonce is good and data is valid
             if (valid_js_nonce() && !empty($_POST['listing_id'])) {
-                $pid = (int)$_POST['listing_id'];
+                $pid = (int) $_POST['listing_id'];
                 // Check if the current user is the owner of the post
                 $listing = get_post($pid);
                 // delete the post if the current user is the owner of the listing
@@ -369,12 +374,12 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 $last_btn = true;
                 $start = $page * $per_page;
                 // Query the necessary reviews
-                $reviews = ATBDP()->review->db->get_reviews_by('post_id', (int)$listing_id, $start, $per_page);
+                $reviews = ATBDP()->review->db->get_reviews_by('post_id', (int) $listing_id, $start, $per_page);
                 // At the same time, count the number of queried review
                 $count = ATBDP()->review->db->count(array('post_id' => $listing_id));
                 // Loop into all the posts
                 if (!empty($reviews)) {
-                    foreach ($reviews as $key => $review):
+                    foreach ($reviews as $key => $review) :
                         $author_id = $review->by_user_id;
                         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                         $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
@@ -459,9 +464,9 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 for ($i = $start_loop; $i <= $end_loop; $i++) {
                     if ($i === 1 || $i === $no_of_paginations) continue;
                     if (($no_of_paginations <= 5) && ($no_of_paginations == $i)) continue;
-                    $dot_ = (int)$cur_page + 2;
+                    $dot_ = (int) $cur_page + 2;
                     $backward = ($cur_page == $no_of_paginations) ? 4 : (($cur_page == $no_of_paginations - 1) ? 3 : 2);
-                    $dot__ = (int)$cur_page - $backward;
+                    $dot__ = (int) $cur_page - $backward;
                     // show dot if current page say 'i have some neighbours left form mine'
                     if ($cur_page > 4) {
                         if (($dot__ == $i)) {
@@ -491,7 +496,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                             $pag_container .= "<li data-page='$jump' class='atbd-page-jump-up atbd-active' title='" . __('Next 5 Pages', 'directorist') . "'><i class='la la-ellipsis-h la_d'></i> <i class='la la-angle-double-right la_h'></i></li>";
                         }
                     }
-
                 }
 
 
@@ -517,7 +521,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 if (!empty($count) && $count > $review_num) {
                     echo '<div class = "atbdp-pagination-nav">' . $pag_container . '</div>';
                 }
-
             }
             // Always exit to avoid further execution
             exit();
@@ -530,7 +533,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
         public function insert_guest_user()
         {
-
         }
 
         public function save_listing_review()
@@ -621,7 +623,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
             if (!in_array('listing_review', get_directorist_option('notify_user', array()))) return false;
             // sanitize form values
-            $post_id = (int)$_POST["post_id"];
+            $post_id = (int) $_POST["post_id"];
             $message = esc_textarea($_POST["content"]);
 
             // vars
@@ -657,7 +659,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
             // return true or false, based on the result
             return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
-
         }
 
         /*
@@ -670,7 +671,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
             if (!in_array('listing_review', get_directorist_option('notify_admin', array()))) return false; // vail if order created notification to admin off
             // sanitize form values
-            $post_id = (int)$_POST["post_id"];
+            $post_id = (int) $_POST["post_id"];
             $message = esc_textarea($_POST["content"]);
 
             // vars
@@ -706,7 +707,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
             // return true or false, based on the result
             return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
-
         }
 
 
@@ -730,14 +730,13 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             $id = (!empty($_POST['id'])) ? absint($_POST['id']) : 0;
             ATBDP()->load_template('ajax/social', array('id' => $id,));
             die();
-
         }
 
         public function atbdp_email_admin_report_abuse()
         {
 
             // sanitize form values
-            $post_id = (int)$_POST["post_id"];
+            $post_id = (int) $_POST["post_id"];
             $message = esc_textarea($_POST["message"]);
 
             // vars
@@ -773,7 +772,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
             // return true or false, based on the result
             return ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
-
         }
 
         public function ajax_callback_report_abuse()
@@ -786,18 +784,15 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             if ($this->atbdp_email_admin_report_abuse()) {
 
                 $data['message'] = __('Your message sent successfully.', 'directorist');
-
             } else {
 
                 $data['error'] = 1;
                 $data['message'] = __('Sorry! Please try again.', 'directorist');
-
             }
 
 
             echo wp_json_encode($data);
             wp_die();
-
         }
 
         /**
@@ -810,7 +805,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         function atbdp_email_listing_owner_listing_contact()
         {
             // sanitize form values
-            $post_id = (int)$_POST["post_id"];
+            $post_id = (int) $_POST["post_id"];
             $name = sanitize_text_field($_POST["name"]);
             $email = sanitize_email($_POST["email"]);
             $listing_email = get_post_meta($post_id, '_email', true);
@@ -868,7 +863,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
         function atbdp_email_admin_listing_contact()
         {
             // sanitize form values
-            $post_id = (int)$_POST["post_id"];
+            $post_id = (int) $_POST["post_id"];
             $name = sanitize_text_field($_POST["name"]);
             $email = sanitize_email($_POST["email"]);
             $message = esc_textarea($_POST["message"]);
@@ -927,14 +922,14 @@ if (!class_exists('ATBDP_Ajax_Handler')):
             $data['sendAdmin'] = $sendAdmin;
             $data['disable_all_email'] = $disable_all_email;
             // is admin disabled all the notification
-            if ($disable_all_email){
+            if ($disable_all_email) {
                 $data['error'] = 1;
                 $data['message'] = __('Sorry! Something wrong.', 'directorist');
                 echo wp_json_encode($data);
                 die();
             }
             // is admin disabled both notification
-            if (!$sendOwner && !$sendAdmin){
+            if (!$sendOwner && !$sendAdmin) {
                 $data['error'] = 1;
                 $data['message'] = __('Sorry! Something wrong.', 'directorist');
                 echo wp_json_encode($data);
@@ -949,15 +944,15 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 }
             }
             // let's check is admin decides to send email to him/her
-            if ($sendAdmin){
+            if ($sendAdmin) {
                 $send_to_admin = $this->atbdp_email_admin_listing_contact();
-                if (!$send_to_admin){
+                if (!$send_to_admin) {
                     $data['error'] = 1;
                     $data['message'] = __('Sorry! Please try again.', 'directorist');
                 }
             }
             // no error found so let's show submitter the success message
-            if ($data['error'] === 0){
+            if ($data['error'] === 0) {
                 $data['message'] = __('Your message sent successfully.', 'directorist');
             }
             /**
@@ -1010,14 +1005,11 @@ if (!class_exists('ATBDP_Ajax_Handler')):
 
 
                 $data['message'] = __('Thanks for information', 'directorist');
-
             }
 
 
             echo wp_json_encode($data);
             wp_die();
-
-
         }
 
         public function bdas_dropdown_terms()
@@ -1029,7 +1021,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 $args = array(
                     'taxonomy' => sanitize_text_field($_POST['taxonomy']),
                     'base_term' => 0,
-                    'parent' => (int)$_POST['parent']
+                    'parent' => (int) $_POST['parent']
                 );
 
                 if ('at_biz_dir-location' == $args['taxonomy']) {
@@ -1054,7 +1046,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                     $output = ob_get_clean();
                     print $output;
                 }
-
             }
 
             wp_die();
@@ -1069,8 +1060,7 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 check_ajax_referer('bdas_ajax_nonce', 'security');
 
                 $ajax = true;
-                $term_id = (int)$_POST['term_id'];
-
+                $term_id = (int) $_POST['term_id'];
             }
             // Get custom fields
             $custom_field_ids = atbdp_get_custom_field_ids($term_id);
@@ -1108,7 +1098,6 @@ if (!class_exists('ATBDP_Ajax_Handler')):
                 wp_die();
             }
         }
-
     }
 
 

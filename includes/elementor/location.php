@@ -122,7 +122,7 @@ class Directorist_Location extends Custom_Widget_Base {
 
 		$user = $settings['user'] ? $settings['user'] : 'no';
 
-		$shortcode = sprintf( '[directorist_location header="%1$" header_title="%2$" view="%3$" map_height="%4$" columns="%5$" listings_per_page="%6$" show_pagination="%7$" orderby="%8$" order="%9$" logged_in_user_only="%10$" ]', 
+		$shortcode = sprintf( '[directorist_location header="%1$s" header_title="%2$s" view="%3$s" map_height="%4$s" columns="%5$s" listings_per_page="%6$s" show_pagination="%7$s" orderby="%8$s" order="%9$s" logged_in_user_only="%10$s" ]', 
 			esc_attr( $settings['header'] ),
 			esc_attr( $settings['header_title'] ),
 			esc_attr( $settings['view'] ),

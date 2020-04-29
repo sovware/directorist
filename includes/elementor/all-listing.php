@@ -199,7 +199,7 @@ class Directorist_All_Listing extends Custom_Widget_Base {
 	}	
 
 	protected function render() {
-		$settings = $this->get_settings_for_display();
+		$settings = $this->get_settings();
 
         $header          = $settings['header'] ? $settings['header'] : 'no';
         $filter          = $settings['filter'] ? $settings['filter'] : 'no';
@@ -212,7 +212,7 @@ class Directorist_All_Listing extends Custom_Widget_Base {
         $user            = $settings['user'] ? $settings['user'] : 'no';
         $preview         = $settings['preview'] ? $settings['preview'] : 'no';
 
-		$shortcode = sprintf( '[directorist_all_listing header="%1$" header_title="%2$" header_sub_title="%3$" advanced_filter="%4$" view="%5$" map_height="%6$" columns="%7$" listings_per_page="%8$" show_pagination="%9$" category="%10$" tag="%11$" location="%12$" featured_only="%13$" popular_only="%14$" logged_in_user_only="%15$" display_preview_image="%16$" orderby="%17$" order="%18$" ]',
+		$shortcode = sprintf( '[directorist_all_listing header="%1$s" header_title="%2$s" header_sub_title="%3$s" advanced_filter="%4$s" view="%5$s" map_height="%6$s" columns="%7$s" listings_per_page="%8$s" show_pagination="%9$s" category="%10$s" tag="%11$s" location="%12$s" featured_only="%13$s" popular_only="%14$s" logged_in_user_only="%15$s" display_preview_image="%16$s" orderby="%17$s" order="%18$s" ]',
 			esc_attr( $header ),
 			esc_attr( $settings['header_title'] ),
 			esc_attr( $settings['header_sub_title'] ),

@@ -116,7 +116,7 @@ class Directorist_All_Categories extends Custom_Widget_Base {
         $user = $settings['user'] ? $settings['user'] : 'no';
         $slug = $settings['slug'] ? implode( $settings['slug'], ',' ) : '';
 
-		$shortcode = sprintf( '[directorist_all_categories view="%1$" columns="%2$" cat_per_page="%3$" orderby="%4$" order="%5$" logged_in_user_only="%6$" slug="%7$"]',
+		$shortcode = sprintf( '[directorist_all_categories view="%1$s" columns="%2$s" cat_per_page="%3$s" orderby="%4$s" order="%5$s" logged_in_user_only="%6$s" slug="%7$s"]',
 			esc_attr( $settings['view'] ),
 			esc_attr( $settings['columns'] ),
 			esc_attr( $settings['number_cat'] ),

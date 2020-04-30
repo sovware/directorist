@@ -212,11 +212,11 @@ class Directorist_Listing_Author {
         $listings = apply_filters('atbdp_author_listings', true);
 
         // Default Template
-        $path = atbdp_get_theme_file("/directorist/shortcodes/author-profile.php");
+        $path = atbdp_get_theme_file("/directorist/shortcodes/author/author-profile.php");
         if ( $path ) {
             include $path;
         } else {
-            include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/author-profile.php";
+            include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/author/author-profile.php";
         }
         return ob_get_clean();
         

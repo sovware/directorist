@@ -471,6 +471,25 @@ if (!class_exists('ATBDP_Helper')) :
             );
         }
 
+        public function guard( Array $args = [] ) {
+            $type = ( ! empty( $args['type'] ) ) ? $args['type'] : 'auth';
+            $login_redirect = ( ! empty( $args['login_redirect'] ) ) ? $args['login_redirect'] : false;
+
+            if ( $type === 'auth' && ! atbdp_logged_in_user() && ! $login_redirect ) {
+                ob_start();
+                // user not logged in;
+                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>"), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>")); 
+                ?>
+                <section class="directory_wrapper single_area">
+                    <?php $this->show_login_message($error_message); ?>
+                </section>
+                <?php
+                return ob_get_clean();
+            }
+
+            return '';
+        }
+
         /**
          * Prints pagination for custom post
          * @param $loop

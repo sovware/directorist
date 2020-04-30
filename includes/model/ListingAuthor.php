@@ -22,11 +22,11 @@ class Directorist_Listing_Author {
 
 	private function get_all_posts() {
 		$args = array(
-			'post_type' => ATBDP_POST_TYPE,
-			'post_status' => 'publish',
-			'author' => $this->id,
-			'orderby' => 'post_date',
-			'order' => 'ASC',
+			'post_type'      => ATBDP_POST_TYPE,
+			'post_status'    => 'publish',
+			'author'         => $this->id,
+			'orderby'        => 'post_date',
+			'order'          => 'ASC',
 			'posts_per_page' => -1
 		);
 

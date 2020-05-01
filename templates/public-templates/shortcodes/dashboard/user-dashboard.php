@@ -7,53 +7,46 @@
 ?>
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
 
-    <?php atbdp_get_shortcode_template( 'dashboard/alert-message' );?>
+    <?php
+    /**
+     * @hooked Directorist_Template_Hooks::dashboard_alert_message - 10
+     */
+    do_action( 'directorist_dashboard_before_container' );
+    ?>
 
     <div class="<?php echo esc_attr( $container_fluid ); ?>">
         <div class="row">
             <div class="col-md-12">
+
                 <?php
-                if ('yes' === $show_title) {
-                    ?>
-                    <div class="atbd_add_listing_title">
-                        <h2><?php _e('My Dashboard', 'directorist'); ?></h2>
-                    </div> <!--ends add_listing_title-->
-                    <?php
-                }
+                /**
+                 * @hooked Directorist_Template_Hooks::dashboard_title - 10
+                 */
+                do_action( 'directorist_dashboard_title_area', $show_title );
                 ?>
+
                 <div class="atbd_dashboard_wrapper atbd_tab">
                     <div class="atbd_user_dashboard_nav atbd_tab_nav">
-                        <!-- Nav tabs -->
-                        <div class="atbdp_tab_nav_wrapper">
-                            <ul class="atbdp_tab_nav--content atbd-dashboard-nav">
-                                <?php foreach ($dashoard_items as $key => $value): ?>
-                                    <li class="atbdp_tab_nav--content-link"><a href="" class="atbd_tn_link" target="<?php echo esc_attr($key);?>"><?php echo wp_kses_post( $value['title'] ); ?></a>
-                                    </li>
-                                    <?php
-                                    if (!empty($value['after_nav_hook'])) {
-                                       do_action($value['after_nav_hook']);
-                                    }
-                                    ?>
-                                <?php endforeach; ?>
-                                <li class="atbdp_tab_nav--content-link atbdp-tab-nav-last">
-                                    <a href="#" class="atbdp-tab-nav-link"><span class="fa fa-ellipsis-h"></span></a>
-                                </li>
-                            </ul>
-                        </div>
 
-                        <?php atbdp_get_shortcode_template( 'dashboard/nav-buttons' );?>
-                    </div> <!--ends dashboard_nav-->
-
-                    <!-- Tab panes -->
-                    <div class="atbd_tab-content">
                         <?php
-                        foreach ($dashoard_items as $key => $value) {
-                            echo $value['content'];
-                            if (!empty($value['after_content_hook'])) {
-                               do_action($value['after_content_hook']);
-                            }
-                        }
+                        /**
+                         * @hooked Directorist_Template_Hooks::dashboard_nav_tabs - 10
+                         * @hooked Directorist_Template_Hooks::dashboard_nav_buttons - 15
+                         */
+                        do_action( 'directorist_dashboard_navigation', $dashboard_items );
                         ?>
+
+                    </div>
+
+                    <div class="atbd_tab-content">
+
+                        <?php
+                        /**
+                         * @hooked Directorist_Template_Hooks::dashboard_tab_contents - 10
+                         */
+                        do_action( 'directorist_dashboard_tab_contents', $dashboard_items );
+                        ?>
+                        
                     </div>
                 </div>
             </div>

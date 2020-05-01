@@ -30,7 +30,7 @@ class Directorist_Listing_Dashboard {
         ));
     }
 
-    private function get_listing_tab_args($listings) {
+    public function get_listing_tab_args($listings) {
         $args = array(
             'listings'        => $listings,
             'date_format'     => get_option('date_format'),
@@ -40,7 +40,7 @@ class Directorist_Listing_Dashboard {
         return $args;
     }
 
-    private function get_profile_tab_args() {
+    public function get_profile_tab_args() {
         $uid          = $this->get_id();
         $c_user       = get_userdata($uid);
         $u_pro_pic_id = get_user_meta($uid, 'pro_pic', true);
@@ -62,7 +62,7 @@ class Directorist_Listing_Dashboard {
         return $args;
     }
 
-    private function get_favourite_tab_args() {
+    public function get_favourite_tab_args() {
 
         $fav_listing_items = array();
 
@@ -147,7 +147,7 @@ class Directorist_Listing_Dashboard {
         ATBDP()->enquirer->front_end_enqueue_scripts(true); // all front end scripts forcibly here
 
         // Tabs
-        $dashoard_items = array();
+        $dashboard_items = array();
 
         $my_listing_tab   = get_directorist_option('my_listing_tab', 1);
         $my_profile_tab   = get_directorist_option('my_profile_tab', 1);
@@ -158,7 +158,7 @@ class Directorist_Listing_Dashboard {
             $listings = ATBDP()->user->current_user_listings();
             $list_found = ($listings->found_posts > 0) ? $listings->found_posts : '0';
 
-            $dashoard_items['my_listings'] = array(
+            $dashboard_items['my_listings'] = array(
                 'title'              => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
                 'content'            => atbdp_return_shortcode_template('dashboard/listings', $this->get_listing_tab_args($listings) ),
                 'after_nav_hook'     => 'atbdp_tab_after_my_listings',
@@ -167,14 +167,14 @@ class Directorist_Listing_Dashboard {
         }
 
         if ( $my_profile_tab ) {
-            $dashoard_items['profile'] = array(
+            $dashboard_items['profile'] = array(
                 'title'    => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
                 'content'  => atbdp_return_shortcode_template('dashboard/profile', $this->get_profile_tab_args() ),
             );
         }
 
         if ( $fav_listings_tab ) {
-            $dashoard_items['saved_items'] = array(
+            $dashboard_items['saved_items'] = array(
                 'title'              => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
                 'content'            => atbdp_return_shortcode_template('dashboard/favourite', $this->get_favourite_tab_args() ),
                 'after_nav_hook'     => 'atbdp_tab_after_favorite_listings',
@@ -182,7 +182,7 @@ class Directorist_Listing_Dashboard {
             );
         }
 
-        $dashoard_items = apply_filters( 'atbdp_dashboard_items', $dashoard_items );
+        $dashboard_items = apply_filters( 'atbdp_dashboard_items', $dashboard_items );
 
         $show_title = !empty($atts['show_title']) ? $atts['show_title'] : '';
         $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
@@ -190,7 +190,7 @@ class Directorist_Listing_Dashboard {
 
         /*@todo; later show featured listing first on the user dashboard maybe??? */
 
-        atbdp_get_shortcode_template( 'dashboard/user-dashboard', compact('show_title', 'dashoard_items','container_fluid') );
+        atbdp_get_shortcode_template( 'dashboard/user-dashboard', compact('show_title', 'dashboard_items','container_fluid') );
 
         return ob_get_clean();
     }

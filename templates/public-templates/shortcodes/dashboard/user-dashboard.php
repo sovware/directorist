@@ -1,3 +1,10 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+?>
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
         <?php
         if(isset($_GET['renew']) && ('token_expired' === $_GET['renew'])){?>
@@ -34,8 +41,8 @@
                                     <li class="atbdp_tab_nav--content-link"><a href="" class="atbd_tn_link" target="<?php echo esc_attr($key);?>"><?php echo wp_kses_post( $value['title'] ); ?></a>
                                     </li>
                                     <?php
-                                    if (!empty($value['after_hook'])) {
-                                       do_action($value['after_hook']);
+                                    if (!empty($value['after_nav_hook'])) {
+                                       do_action($value['after_nav_hook']);
                                     }
                                     ?>
                                 <?php endforeach; ?>
@@ -60,6 +67,9 @@
                         <?php
                         foreach ($dashoard_items as $key => $value) {
                             echo $value['content'];
+                            if (!empty($value['after_content_hook'])) {
+                               do_action($value['after_content_hook']);
+                            }
                         }
                         ?>
                     </div>

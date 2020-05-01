@@ -1,3 +1,10 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+?>
 <div class="atbd_tab_inner" id="profile">
     <form action="#" id="user_profile_form" method="post">
         <div class="row">

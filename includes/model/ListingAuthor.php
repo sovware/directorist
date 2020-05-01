@@ -36,7 +36,7 @@ class Directorist_Listing_Author {
 
 	public function get_rating() {
 
-		$current_user_posts = $this->get_all_posts();		
+		$current_user_posts = $this->get_all_posts();
 
 		$review_in_post = 0;
 		$all_reviews = 0;
@@ -114,7 +114,6 @@ class Directorist_Listing_Author {
                     'terms' => !empty($category) ? $category : '',
                     'include_children' => true, /*@todo; Add option to include children or exclude it*/
                 )
-
             );
         }
         if (!empty($category)) {

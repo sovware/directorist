@@ -1,3 +1,10 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+?>
 <div class="atbd_tab_inner" id="saved_items">
     <div class="atbd_saved_items_wrapper">
         <table class="table table-bordered atbd_single_saved_item table-responsive-sm">

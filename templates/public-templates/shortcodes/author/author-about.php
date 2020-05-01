@@ -46,7 +46,6 @@
                             </li>
                             <?php
                         }
-                        $email_show = get_directorist_option('display_author_email', 'public');
                         if ('public' === $email_show) {
                             if (!empty($email)) {
                                 ?>

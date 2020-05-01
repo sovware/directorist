@@ -2965,7 +2965,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $category = !empty($_GET['category']) ? $_GET['category'] : '';
             $paged = atbdp_get_paged_num();
             $paginate = get_directorist_option('paginate_author_listings', 1);
-            $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
+            $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : get_current_user();
             $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
             $args = array(
                 'post_type' => ATBDP_POST_TYPE,

@@ -72,6 +72,7 @@ class Directorist_Template_Hooks {
             'author'             => $author,
             'header_title'       => apply_filters('atbdp_author_listings_header_title', 1),
             'author_cat_filter'  => get_directorist_option('author_cat_filter',1),
+            'categories'         => get_terms(ATBDP_CATEGORY, array('hide_empty' => 0)),
             'listings'           => apply_filters('atbdp_author_listings', true),
             'all_listings'       => $author->all_listings_query(),
             'paginate'           => get_directorist_option('paginate_author_listings', 1),

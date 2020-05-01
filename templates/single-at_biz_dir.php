@@ -404,7 +404,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                             $data_info .= new_badge();
                             /*Print Featured ribbon if it is featured*/
                             if ($featured && !empty($display_feature_badge_single)) {
-                                $data_info .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
+                                $data_info .= apply_filters( 'atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>' );
                             }
                             $popular_listing_id = atbdp_popular_listings(get_the_ID());
                             $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';

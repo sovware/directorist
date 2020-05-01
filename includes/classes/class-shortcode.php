@@ -150,7 +150,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
             $default_radius_distance = get_directorist_option('sresult_default_radius_distance', 0);
 
-            $listing_orderby = get_directorist_option('search_order_listing_by');
+            $listing_orderby = apply_filters('atbdp_default_listing_orderby', get_directorist_option('search_order_listing_by'));
             $search_sort_listing_by = get_directorist_option('search_sort_listing_by');
             $listing_view = get_directorist_option('search_view_as');
             $listing_order = get_directorist_option('search_sort_by');
@@ -837,7 +837,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
             ) );
-            $listing_orderby = get_directorist_option('order_listing_by');
+            $listing_orderby = apply_filters('atbdp_default_listing_orderby', get_directorist_option('order_listing_by'));
             $listing_view = get_directorist_option('default_listing_view');
             $filters_display = get_directorist_option('listings_display_filter', 'sliding');
             $listing_filters_button = get_directorist_option('listing_filters_button');
@@ -1288,11 +1288,14 @@ if (!class_exists('ATBDP_Shortcode')):
                     };
                     break;
             }
+
             $meta_queries = apply_filters('atbdp_all_listings_meta_queries', $meta_queries);
             $count_meta_queries = count($meta_queries);
             if ($count_meta_queries) {
                 $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
             }
+
+
 
             $arguments = apply_filters('atbdp_all_listings_query_arguments', $args);
             $all_listings = new WP_Query($arguments);
@@ -1523,7 +1526,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             if ('' != $category_slug) {
-                $listing_orderby = get_directorist_option('order_listing_by');
+                $listing_orderby = apply_filters('atbdp_default_listing_orderby', get_directorist_option('order_listing_by'));
                 $listing_view = get_directorist_option('default_listing_view');
                 $listing_order = get_directorist_option('sort_listing_by');
                 $listing_grid_columns = get_directorist_option('all_listing_columns', 3);
@@ -1842,7 +1845,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
                 }
 
-                $all_listings = new WP_Query($args);
+                $all_listings = new WP_Query( apply_filters('atbdp_single_category_query_arguments', $args) );
                 if ('yes' == $show_pagination) {
                     $listing_count = '<span>' . $all_listings->found_posts . '</span>';
                 } else {
@@ -2027,7 +2030,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             if ('' != $term_slug) {
-                $listing_orderby = get_directorist_option('order_listing_by');
+                $listing_orderby = apply_filters('atbdp_default_listing_orderby', get_directorist_option('order_listing_by'));
                 $listing_view = get_directorist_option('default_listing_view');
                 $listing_order = get_directorist_option('sort_listing_by');
                 $listing_grid_columns = get_directorist_option('all_listing_columns', 3);
@@ -2349,7 +2352,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
                 }
 
-                $all_listings = new WP_Query($args);
+                $all_listings = new WP_Query( apply_filetes( 'atbdp_single_location_query_arguments', $args ) );
                 if ('yes' == $show_pagination) {
                     $listing_count = '<span>' . $all_listings->found_posts . '</span>';
                 } else {
@@ -2452,7 +2455,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             if ('' != $term_slug) {
-                $listing_orderby = get_directorist_option('order_listing_by');
+                $listing_orderby = apply_filters('atbdp_default_listing_orderby', get_directorist_option('order_listing_by'));
                 $listing_view = get_directorist_option('default_listing_view');
                 $listing_order = get_directorist_option('sort_listing_by');
                 $listing_grid_columns = get_directorist_option('all_listing_columns', 3);
@@ -2766,7 +2769,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
                 }
 
-                $all_listings = new WP_Query($args);
+                $all_listings = new WP_Query( apply_filters('atbdp_single_tag_query_arguments', $args) );
                 if ('yes' == $show_pagination) {
                     $listing_count = '<span>' . $all_listings->found_posts . '</span>';
                 } else {

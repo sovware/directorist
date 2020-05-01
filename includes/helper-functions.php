@@ -2447,7 +2447,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                     $l_badge_html = '<span class="atbd_lower_badge">';
 
                                     if ($featured && !empty($display_feature_badge_cart)) {
-                                        $l_badge_html .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
+                                        $l_badge_html .= apply_filters( 'atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>' );
                                     }
 
                                     $popular_listing_id = atbdp_popular_listings(get_the_ID());
@@ -2883,7 +2883,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                         $l_badge_html = '<span class="atbd_lower_badge">';
 
                                         if ($featured && !empty($display_feature_badge_cart)) {
-                                            $l_badge_html .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
+                                            $l_badge_html .= apply_filters( 'atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>' );
                                         }
 
                                         $popular_listing_id = atbdp_popular_listings(get_the_ID());
@@ -3245,7 +3245,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                     //Start lower badge
                                     $l_badge_html = '<span class="atbd_lower_badge">';
                                     if ($featured && !empty($display_feature_badge_cart)) {
-                                        $l_badge_html .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
+                                        $l_badge_html .= apply_filters( 'atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>' );
                                     }
                                     $popular_listing_id = atbdp_popular_listings(get_the_ID());
                                     $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';

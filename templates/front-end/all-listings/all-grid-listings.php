@@ -80,7 +80,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
                     $display_popular_badge_cart = get_directorist_option('display_popular_badge_cart', 1);
                     $popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
-                    $feature_badge_text = get_directorist_option('feature_badge_text', 'Featured');
+                    $feature_badge_text = apply_filters('atbdp_featured_badge_text', get_directorist_option('feature_badge_text', 'Featured'));
                     $enable_tagline = get_directorist_option('enable_tagline');
                     $enable_excerpt = get_directorist_option('enable_excerpt');
                     $address_location = get_directorist_option('address_location', 'location');
@@ -204,7 +204,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                     $l_badge_html = '<span class="atbd_lower_badge">';
 
                                     if ($featured && !empty($display_feature_badge_cart)) {
-                                        $l_badge_html .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
+                                        $l_badge_html .= apply_filters( 'atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>' );
                                     }
 
                                     $popular_listing_id = atbdp_popular_listings(get_the_ID());

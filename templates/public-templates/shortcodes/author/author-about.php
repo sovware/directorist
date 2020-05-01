@@ -1,3 +1,10 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+?>
 <div class="row">
     <div class="col-md-8">
         <div class="atbd_author_module">

@@ -61,6 +61,14 @@ function atbdp_get_shortcode_template( $template, $args = array(), $helper = nul
   atbdp_get_template( $template, $args, $helper, $extract_helper );
 }
 
+// atbdp_return_shortcode_template
+function atbdp_return_shortcode_template( $template, $args = array() ) {
+  $template = 'shortcodes/' . $template;
+  ob_start();
+  atbdp_get_template( $template, $args );
+  return ob_get_clean();
+}
+
 // atbdp_get_shortcode_template
 function atbdp_get_shortcode_ext_template( $template_file, $extension_file, $args = array(), $helper = null, $extract_helper = false ) {
   $template_file = 'shortcodes/extension/' . $template_file;

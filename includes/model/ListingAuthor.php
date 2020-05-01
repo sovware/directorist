@@ -144,7 +144,7 @@ class Directorist_Listing_Author {
         return new WP_Query($args);
     }
 
-	public function render_shortcode($atts) {
+	public function render_shortcode_author_profile($atts) {
 
         $atts = shortcode_atts(array(
             'logged_in_user_only' => '',

@@ -6,21 +6,10 @@
  */
 ?>
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
-        <?php
-        if(isset($_GET['renew']) && ('token_expired' === $_GET['renew'])){?>
-        <div class="alert alert-danger alert-dismissable fade show" role="alert">
-            <span class="fa fa-info-circle"></span>
-            <?php esc_html_e('Link appears to be invalid.', 'directorist'); ?>
-        </div>
-        <?php }
-        if(isset($_GET['renew']) && ('success' === $_GET['renew'])){ ?>
-        <div class="alert alert-info alert-dismissable fade show" role="alert">
-            <span class="fa fa-info-circle"></span>
-            <?php esc_html_e('Renewed successfully.', 'directorist'); ?>
-        </div>
-        <?php }
-        ?>
-    <div class="<?php echo apply_filters('atbdp_deshboard_container_fluid', $container_fluid) ?>">
+
+    <?php atbdp_get_shortcode_template( 'dashboard/alert-message' );?>
+
+    <div class="<?php echo esc_attr( $container_fluid ); ?>">
         <div class="row">
             <div class="col-md-12">
                 <?php
@@ -52,14 +41,7 @@
                             </ul>
                         </div>
 
-                        <div class="nav_button">
-                            <?php if (!empty($submit_listing_button)) { ?>
-                                <a href="<?php echo esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
-                                   class="<?php echo atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', 'directorist'); ?></a>
-                            <?php } ?>
-                            <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>"
-                               class="<?php echo atbdp_directorist_button_classes('secondary'); ?>"><?php _e('Log Out', 'directorist'); ?></a>
-                        </div>
+                        <?php atbdp_get_shortcode_template( 'dashboard/nav-buttons' );?>
                     </div> <!--ends dashboard_nav-->
 
                     <!-- Tab panes -->
@@ -83,5 +65,4 @@
  * @package Directorist
  * @since 5.9.3
  */
-do_action('atbdp_after_user_dashboard'); ?>
-
+do_action('atbdp_after_user_dashboard');

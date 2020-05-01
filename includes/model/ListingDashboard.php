@@ -63,8 +63,61 @@ class Directorist_Listing_Dashboard {
     }
 
     private function get_favourite_tab_args() {
+
+        $fav_listing_items = array();
+
+        $fav_listings = ATBDP()->user->current_user_fav_listings();
+
+        foreach ($fav_listings->posts as $post) {
+            $title = !empty($post->post_title) ? $post->post_title : __('Untitled', 'directorist');
+            $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
+            $category = get_post_meta($post->ID, '_admin_category_select', true);
+            $category_name = !empty($cats) ? $cats[0]->name : 'Uncategorized';
+            $category_icon = !empty($cats) ? esc_attr(get_cat_icon($cats[0]->term_id)) : atbdp_icon_type() . '-tags';
+            $mark_fav = atbdp_listings_mark_as_favourite($post->ID);
+
+            $icon_type = substr($category_icon, 0, 2);
+            $icon = ('la' === $icon_type) ? $icon_type . ' ' . $category_icon : 'fa ' . $category_icon;
+            $category_link = !empty($cats) ? esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0])) : '#';
+            $post_link = esc_url(get_post_permalink($post->ID));
+
+            $listing_img = get_post_meta($post->ID, '_listing_img', true);
+            $listing_prv_img = get_post_meta($post->ID, '_listing_prv_img', true);
+            $crop_width = get_directorist_option('crop_width', 360);
+            $crop_height = get_directorist_option('crop_height', 300);
+
+            if (!empty($listing_prv_img)) {
+                $prv_image = atbdp_get_image_source($listing_prv_img, 'large');
+            }
+            if (!empty($listing_img[0])) {
+                $gallery_img = atbdp_get_image_source($listing_img[0], 'medium');
+            }
+
+            if (!empty($listing_prv_img)) {
+                $img_src = $prv_image;
+
+            }
+            if (!empty($listing_img[0]) && empty($listing_prv_img)) {
+                $img_src = $gallery_img;
+
+            }
+            if (empty($listing_img[0]) && empty($listing_prv_img)) {
+                $img_src = ATBDP_PUBLIC_ASSETS . 'images/grid.jpg';
+            }
+
+            $fav_listing_items[] = array(
+                'post_link'      => $post_link,
+                'img_src'        => $img_src,
+                'title'          => $title,
+                'category_link'  => $category_link,
+                'category_name'  => $category_name,
+                'icon'           => $icon,
+                'mark_fav'       => $mark_fav,
+            );
+        }
+
         $args = array(
-            'fav_listings' => ATBDP()->user->current_user_fav_listings(),
+            'fav_listing_items' => $fav_listing_items,
         );
 
         return $args;
@@ -132,11 +185,12 @@ class Directorist_Listing_Dashboard {
         $dashoard_items = apply_filters( 'atbdp_dashboard_items', $dashoard_items );
 
         $show_title = !empty($atts['show_title']) ? $atts['show_title'] : '';
-        $submit_listing_button = get_directorist_option('submit_listing_button', 1);
         $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
+        $container_fluid = apply_filters('atbdp_deshboard_container_fluid', $container_fluid);
+
         /*@todo; later show featured listing first on the user dashboard maybe??? */
 
-        atbdp_get_shortcode_template( 'dashboard/user-dashboard', compact('show_title', 'dashoard_items', 'submit_listing_button','container_fluid') );
+        atbdp_get_shortcode_template( 'dashboard/user-dashboard', compact('show_title', 'dashoard_items','container_fluid') );
 
         return ob_get_clean();
     }

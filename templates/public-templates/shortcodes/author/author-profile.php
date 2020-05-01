@@ -6,7 +6,7 @@
  */
 ?>
 <div id="directorist" class="atbd_wrapper atbd_author_profile">
-    <div class="<?php echo $container_fluid; ?>">
+    <div class="<?php echo esc_attr($container_fluid); ?>">
         <?php
         /**
          * @hooked Directorist_Template_Hooks::author_profile_header - 10

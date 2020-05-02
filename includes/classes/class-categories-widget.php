@@ -47,6 +47,7 @@ if (!class_exists('BD_Categories_Widget')) {
                 'hide_empty'     => !empty( $instance['hide_empty'] ) ? 1 : 0,
                 'orderby'        => !empty( $instance['order_by'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
                 'order'          => !empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
+                'max_number'     => !empty( $instance['max_number'] ) ? $instance['max_number'] : '',
                 'show_count'     => !empty( $instance['show_count'] ) ? 1 : 0,
                 'single_only'    => !empty( $instance['single_only'] ) ? 1 : 0,
                 'pad_counts'     => true,
@@ -125,11 +126,12 @@ if (!class_exists('BD_Categories_Widget')) {
                     'order'                 => 'asc'
             );
 
-            $instance = wp_parse_args((array)$instance,$values);
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Categories', 'directorist');
+            $instance   = wp_parse_args((array)$instance,$values);
+            $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Categories', 'directorist');
+            $max_number = !empty($instance['max_number']) ? esc_html($instance['max_number']) : '';
             ?>
             <p>
-                <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
+                <label for="<?php echo esc_attr( $this->get_field_id('title') ); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                        value="<?php echo esc_attr($title); ?>">
@@ -157,6 +159,7 @@ if (!class_exists('BD_Categories_Widget')) {
                     'depth'             => 10,
                     'show_count'        => false,
                     'hide_empty'        => false,
+                    'max_number'        => ''
                 ) );
                 ?>
             </p>
@@ -177,6 +180,13 @@ if (!class_exists('BD_Categories_Widget')) {
                     <option value="asc" <?php selected( $instance['order'], 'asc' ); ?>><?php _e( 'Ascending', 'directorist' ); ?></option>
                     <option value="desc" <?php selected( $instance['order'], 'desc' ); ?>><?php _e( 'Descending', 'directorist' ); ?></option>
                 </select>
+            </p>
+
+            <p>
+                <label for="<?php echo esc_attr($this->get_field_id('max_number')); ?>"><?php esc_attr_e('Maximum Number', 'directorist'); ?></label>
+                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('max_number')); ?>"
+                       name="<?php echo esc_attr($this->get_field_name('max_number')); ?>" type="text"
+                       value="<?php echo esc_attr($max_number); ?>">
             </p>
 
             <p>
@@ -223,7 +233,8 @@ if (!class_exists('BD_Categories_Widget')) {
             $instance['immediate_category'] = isset( $new_instance['immediate_category'] ) ? 1 : 0;
             $instance['hide_empty']         = isset( $new_instance['hide_empty'] ) ? 1 : 0;
             $instance['show_count']         = isset( $new_instance['show_count'] ) ? 1 : 0;
-            $instance['single_only']         = isset( $new_instance['single_only'] ) ? 1 : 0;
+            $instance['single_only']        = isset( $new_instance['single_only'] ) ? 1 : 0;
+            $instance['max_number']         = isset( $new_instance['max_number'] ) ? $new_instance['max_number'] : '';
 
             return $instance;
 
@@ -241,19 +252,22 @@ if (!class_exists('BD_Categories_Widget')) {
             }
 
             $args = array(
+                'taxonomy'     => ATBDP_CATEGORY,
                 'orderby'      => $settings['orderby'],
                 'order'        => $settings['order'],
                 'hide_empty'   => $settings['hide_empty'],
                 'parent'       => $settings['term_id'],
-                'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false,
-                'child_of'=>0
+                'hierarchical' => !empty( $settings['hide_empty'] ) ? true : false,
+                'child_of'     => 0,
+                'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
             );
 
-            $terms = get_terms( ATBDP_CATEGORY, $args );
+            $terms = get_terms( $args );
             $parent = $args['parent'];
             $child_class = !empty($parent) ? 'atbdp_child_category' : 'atbdp_parent_category';
             $html = '';
             if( count( $terms ) > 0 ) {
+                $i = 1;
                 $html .= '<ul class="' .$child_class. '">';
                 foreach( $terms as $term ) {
                     $child_category = get_term_children($term->term_id,ATBDP_CATEGORY);
@@ -285,7 +299,9 @@ if (!class_exists('BD_Categories_Widget')) {
                     $html .= '</a>'. $plus_icon . '';
                     $html .= $this->atbdp_categories_list( $settings );
                     $html .= '</li>';
-
+                    if(!empty($args['number'])) {
+                        if( $i++ == $args['number'] ) break;
+                    }
                 }
                 $html .= '</ul>';
 
@@ -318,7 +334,7 @@ if (!class_exists('BD_Categories_Widget')) {
             $html = '';
 
             if( count( $terms ) > 0 ) {
-
+                $i = 1;
                 foreach( $terms as $term ) {
                     $settings['term_id'] = $term->term_id;
                     $count = 0;
@@ -335,6 +351,9 @@ if (!class_exists('BD_Categories_Widget')) {
                     }
                     $html .= $this->dropdown_categories( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
                     $html .= '</option>';
+                    if(!empty($args['number'])) {
+                        if( $i++ == $args['number'] ) break;
+                    }
                 }
 
             }

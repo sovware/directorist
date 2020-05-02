@@ -26,6 +26,7 @@ $fav_listings_tab_text = get_directorist_option('fav_listings_tab_text', __('Fav
 $submit_listing_button = get_directorist_option('submit_listing_button', 1);
 $show_title = !empty($show_title) ? $show_title : '';
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
+
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
 
@@ -97,10 +98,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                         <div class="nav_button">
                             <?php if (!empty($submit_listing_button)) { ?>
                                 <a href="<?php echo esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
-                                   class="<?php echo atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', 'directorist'); ?></a>
+                                   class="atbdp_dashboard_submit_btn <?php echo atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', 'directorist'); ?></a>
                             <?php } ?>
                             <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>"
-                               class="<?php echo atbdp_directorist_button_classes('secondary'); ?>"><?php _e('Log Out', 'directorist'); ?></a>
+                               class="atbdp_dashboard_logout_btn <?php echo atbdp_directorist_button_classes('secondary'); ?>"><?php _e('Log Out', 'directorist'); ?></a>
                         </div>
                     </div> <!--ends dashboard_nav-->
 
@@ -169,10 +170,9 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     <?php
                                                                     $featured_text = get_directorist_option('feature_badge_text', esc_html__('Featured', 'directorist'));
                                                                     if ($featured) {
-                                                                        printf(
-                                                                            '<span class="atbd_badge atbd_badge_featured">%s</span>', __($featured_text, 'directorist')
+                                                                        $l_badge_html = apply_filters( 'atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $featured_text . '</span>' );
 
-                                                                        );
+                                                                        echo $l_badge_html;
                                                                     }
                                                                     ?>
                                                                 </div>
@@ -292,7 +292,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                         }
 
                                     } else {
-                                        echo '<p class="atbdp_nlf">' . __("Looks like you have not created any listing yet!", 'directorist') . '</p>';
+                                        echo '<p class="atbdp_nlf">' . apply_filters('atbdp_user_dashboard_no_listing_found_text', __("Looks like you have not created any listing yet!", 'directorist')) . '</p>';
                                     }
                                     $pagination = get_directorist_option('user_listings_pagination', 1);
                                     $paged = atbdp_get_paged_num();
@@ -322,18 +322,65 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                         <div class="col-md-3 col-sm-6 offset-sm-3 offset-md-0">
                                             <div class="user_pro_img_area">
                                                 <div class="user_img" id="profile_pic_container">
-                                                    <div class="cross" id="remove_pro_pic"><span
-                                                                class="fa fa-times"></span>
-                                                    </div>
-                                                    <div class="choose_btn">
-                                                        <input type="hidden" name="user[pro_pic]" id="pro_pic"
-                                                               value="<?php echo !empty($u_pro_pic_id) ? esc_attr($u_pro_pic_id) : ''; ?>">
-                                                        <label for="pro_pic"
-                                                               id="upload_pro_pic"><?php _e('Change', 'directorist'); ?></label>
-                                                    </div> <!--ends .choose_btn-->
-                                                    <img src="<?php echo !empty($u_pro_pic) ? esc_url($u_pro_pic[0]) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
-                                                         id="pro_img" alt="">
+                                                <div id="user_profile_pic" class="ez-media-uploader"
+                                                        data-type="images"
+                                                        data-min-file-items="0"
+                                                        data-max-file-items="1"
+                                                        data-max-total-file-size="0"
+                                                        data-allow-multiple="0"
+                                                        data-show-alerts="false"
+                                                        data-show-file-size="false"
+                                                        data-featured="false"
+                                                        data-allow-sorting="false"
+                                                        data-show-info="false"
+                                                        data-uploader-type="avater" >
+                                                        <div class="ezmu__loading-section ezmu--show">
+                                                            <span class="ezmu__loading-icon">
+                                                              <span class="ezmu__loading-icon-img-bg"></span>
+                                                            </span>
+                                                        </div>
+                                                        <!--old files-->
+                                                        <div class="ezmu__old-files">
+                                                            <?php
+                                                            if (!empty($u_pro_pic)) {
+                                                                    ?>
+                                                                    <span
+                                                                        class="ezmu__old-files-meta"
+                                                                        data-attachment-id="<?php echo !empty($u_pro_pic_id) ? esc_attr($u_pro_pic_id) : ''; ?>"
+                                                                        data-url="<?php echo !empty($u_pro_pic) ? esc_url($u_pro_pic[0]) : esc_url(ATBDP_PUBLIC_ASSETS . 'images/no-image.jpg'); ?>"
+                                                                        data-type="image"
+                                                                    ></span>
+                                                            <?php
+                                                            }
+                                                            ?>
+                                                        </div>
+                                                        <!-- translatable string-->
+                                                        <div class="ezmu-dictionary">
+                                                            <!-- Label Texts -->
+                                                            <span class="ezmu-dictionary-label-select-files"><?php echo  __('Select', 'directorist'); ?></span>
+                                                            <span class="ezmu-dictionary-label-add-more"><?php echo __('Select', 'directorist') ?></span>
+                                                            <span class="ezmu-dictionary-label-change"><?php echo __('Change', 'directorist') ?></span>
+                                                            <!-- Alert Texts -->
+                                                            <span class="ezmu-dictionary-alert-max-total-file-size">
+                                                                <?php echo __('Max limit for total file size is __DT__', 'directorist') ?>
+                                                            </span>
+                                                            <span class="ezmu-dictionary-alert-min-file-items">
+                                                                <?php echo __('Min __DT__ file is required', 'directorist') ?>
+                                                            </span>
+                                                            <span class="ezmu-dictionary-alert-max-file-items">
+                                                                <?php echo __('Max limit for total file is __DT__', 'directorist') ?>
+                                                            </span>
 
+                                                            <!-- Info Text -->
+                                                            <span class="ezmu-dictionary-info-max-total-file-size"><?php echo __('Maximum allowed file size is __DT__', 'directorist') ?></span>
+
+                                                            <span class="ezmu-dictionary-info-type"
+                                                                  data-show='0'></span>
+
+                                                            <span class="ezmu-dictionary-info-min-file-items">
+                  <?php echo __('Minimum __DT__ file is required', 'directorist') ?></span>
+                                                        </div>
+                                                    </div>
                                                 </div> <!--ends .user_img-->
                                             </div> <!--ends .user_pro_img_area-->
                                         </div> <!--ends .col-md-4-->

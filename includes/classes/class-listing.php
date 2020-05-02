@@ -86,7 +86,7 @@ if (!class_exists('ATBDP_Listing')):
                 if (is_fee_manager_active()) {
                     $plan_id = get_post_meta($id, '_fm_plans', true);
                     $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id);
-                    if (('package' === package_or_PPL($plan_id)) && $plan_purchased && ('publish' === $new_l_status)) {
+                    if ((('package' === package_or_PPL($plan_id)) || $plan_purchased) && ('publish' === $new_l_status)) {
                         // status for paid users
                         $post_status = $listing_status;
                     } else {
@@ -102,7 +102,9 @@ if (!class_exists('ATBDP_Listing')):
                 } else {
                     $post_status = $listing_status;
                 }
+
                 $post_status = $status ? $status : $post_status;
+                
                 $args = array(
                     'ID' => $id ? $id : get_the_ID(),
                     'post_status' => $post_status,

@@ -760,7 +760,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
             $default_radius_distance = get_directorist_option('sresult_default_radius_distance', 0);
 
-            $listing_orderby = get_directorist_option('search_order_listing_by');
+            $listing_orderby = apply_filters('atbdp_default_listing_orderby', get_directorist_option('search_order_listing_by'));
             $search_sort_listing_by = get_directorist_option('search_sort_listing_by');
             $listing_view = get_directorist_option('search_view_as');
             $listing_order = get_directorist_option('search_sort_by');
@@ -779,6 +779,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 'show_pagination' => !empty($paginate) ? 'yes' : '',
                 'header' => !empty($display_listings_header) ? 'yes' : '',
                 'columns' => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
+                'action_before_after_loop' => 'yes',
                 'featured_only' => '',
                 'popular_only' => '',
                 'logged_in_user_only' => '',
@@ -787,6 +788,7 @@ if (!class_exists('ATBDP_Shortcode')):
             ));
             $atts = shortcode_atts($params, $atts);
             $columns = !empty($atts['columns']) ? $atts['columns'] : 3;
+            $action_before_after_loop = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
             $display_header = !empty($atts['header']) ? $atts['header'] : '';
             $show_pagination = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
             $feature_only = !empty($atts['featured_only']) ? $atts['featured_only'] : '';
@@ -1568,7 +1570,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
             ) );
-            $listing_orderby = get_directorist_option('order_listing_by');
+            $listing_orderby = apply_filters('atbdp_default_listing_orderby', get_directorist_option('order_listing_by'));
             $listing_view = get_directorist_option('default_listing_view');
             $filters_display = get_directorist_option('listings_display_filter', 'sliding');
             $listing_filters_button = get_directorist_option('listing_filters_button');
@@ -2018,11 +2020,14 @@ if (!class_exists('ATBDP_Shortcode')):
                     };
                     break;
             }
+
             $meta_queries = apply_filters('atbdp_all_listings_meta_queries', $meta_queries);
             $count_meta_queries = count($meta_queries);
             if ($count_meta_queries) {
                 $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
             }
+
+
 
             $arguments = apply_filters('atbdp_all_listings_query_arguments', $args);
             $all_listings = new WP_Query($arguments);
@@ -2267,7 +2272,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             if ('' != $category_slug) {
-                $listing_orderby = get_directorist_option('order_listing_by');
+                $listing_orderby = apply_filters('atbdp_default_listing_orderby', get_directorist_option('order_listing_by'));
                 $listing_view = get_directorist_option('default_listing_view');
                 $listing_order = get_directorist_option('sort_listing_by');
                 $listing_grid_columns = get_directorist_option('all_listing_columns', 3);
@@ -2289,6 +2294,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'header_title' => !empty($listings_header_title) ? $listings_header_title : '',
                     'columns' => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                     'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
+                    'action_before_after_loop' => 'yes',
                     'logged_in_user_only' => '',
                     'redirect_page_url' => '',
                 ));
@@ -2302,6 +2308,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
 
                 $columns = !empty($atts['columns']) ? $atts['columns'] : 3;
+                $action_before_after_loop = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
                 $display_header = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $show_pagination = !empty($atts['show_pagination']) ? $atts['show_pagination'] : '';
@@ -2589,7 +2596,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
                 }
 
-                $all_listings = new WP_Query($args);
+                $all_listings = new WP_Query( apply_filters('atbdp_single_category_query_arguments', $args) );
                 if ('yes' == $show_pagination) {
                     $listing_count = '<span>' . $all_listings->found_posts . '</span>';
                 } else {
@@ -2813,7 +2820,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             if ('' != $term_slug) {
-                $listing_orderby = get_directorist_option('order_listing_by');
+                $listing_orderby = apply_filters('atbdp_default_listing_orderby', get_directorist_option('order_listing_by'));
                 $listing_view = get_directorist_option('default_listing_view');
                 $listing_order = get_directorist_option('sort_listing_by');
                 $listing_grid_columns = get_directorist_option('all_listing_columns', 3);
@@ -2834,6 +2841,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'header_title' => !empty($listings_header_title) ? $listings_header_title : '',
                     'columns' => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                     'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
+                    'action_before_after_loop' => 'yes',
                     'logged_in_user_only' => '',
                     'redirect_page_url' => ''
                 ));
@@ -2847,6 +2855,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 }                
 
                 $columns = !empty($atts['columns']) ? $atts['columns'] : 3;
+                $action_before_after_loop = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
+
                 $display_header = !empty($atts['header']) ? $atts['header'] : '';
                 $header_title = !empty($atts['header_title']) ? $atts['header_title'] : '';
                 $header_sub_title = !empty($atts['header_sub_title']) ? $atts['header_sub_title'] : '';
@@ -3137,7 +3147,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
                 }
 
-                $all_listings = new WP_Query($args);
+                $all_listings = new WP_Query( apply_filetes( 'atbdp_single_location_query_arguments', $args ) );
                 if ('yes' == $show_pagination) {
                     $listing_count = '<span>' . $all_listings->found_posts . '</span>';
                 } else {
@@ -3280,7 +3290,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             if ('' != $term_slug) {
-                $listing_orderby = get_directorist_option('order_listing_by');
+                $listing_orderby = apply_filters('atbdp_default_listing_orderby', get_directorist_option('order_listing_by'));
                 $listing_view = get_directorist_option('default_listing_view');
                 $listing_order = get_directorist_option('sort_listing_by');
                 $listing_grid_columns = get_directorist_option('all_listing_columns', 3);
@@ -3304,6 +3314,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'header_sub_title' => !empty($listings_header_sub_title) ? $listings_header_sub_title : '',
                     'columns' => !empty($listing_grid_columns) ? $listing_grid_columns : 3,
                     'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
+                    'action_before_after_loop' => 'yes',
                     'logged_in_user_only' => '',
                     'redirect_page_url' => ''
                 ));
@@ -3598,7 +3609,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
                 }
 
-                $all_listings = new WP_Query($args);
+                $all_listings = new WP_Query( apply_filters('atbdp_single_tag_query_arguments', $args) );
                 if ('yes' == $show_pagination) {
                     $listing_count = '<span>' . $all_listings->found_posts . '</span>';
                 } else {
@@ -3748,6 +3759,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 'apply_filters_button' => in_array('search_apply_filters', $search_filters) ? 'yes' : '',
                 'reset_filters_text' => !empty($search_reset_text) ? $search_reset_text : 'Reset Filters',
                 'apply_filters_text' => !empty($search_apply_text) ? $search_apply_text : 'Apply Filters',
+                'action_before_after_loop' => 'yes',
                 'logged_in_user_only' => '',
                 'redirect_page_url' => '',
                 'more_filters_display' => !empty($filters_display) ? $filters_display : 'overlapping'
@@ -3763,6 +3775,8 @@ if (!class_exists('ATBDP_Shortcode')):
             $more_filters_button = (!empty($atts['more_filters_button']) && 'yes' == $atts['more_filters_button']) ? $atts['more_filters_button'] : '';
             $more_filters_text = (!empty($atts['more_filters_text'])) ? $atts['more_filters_text'] : '';
             $price_min_max_field = (!empty($atts['price_min_max_field']) && 'yes' == $atts['price_min_max_field']) ? $atts['price_min_max_field'] : '';
+            $action_before_after_loop = !empty($atts['action_before_after_loop']) ? $atts['action_before_after_loop'] : '';
+
             $price_range_field = (!empty($atts['price_range_field']) && 'yes' == $atts['price_range_field']) ? $atts['price_range_field'] : '';
             $rating_field = (!empty($atts['rating_field']) && 'yes' == $atts['rating_field']) ? $atts['rating_field'] : '';
             $tag_field = (!empty($atts['tag_field']) && 'yes' == $atts['tag_field']) ? $atts['tag_field'] : '';

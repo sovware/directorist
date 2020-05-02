@@ -82,6 +82,7 @@ $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
 $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
+$locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
 $listing_author_id = get_post_field('post_author', $listing_id);
 $display_feature_badge_single = get_directorist_option('display_feature_badge_cart', 1);
@@ -98,6 +99,7 @@ $listing_details_text = apply_filters('atbdp_single_listing_details_section_text
 $display_tagline_field = get_directorist_option('display_tagline_field', 0);
 $display_pricing_field = get_directorist_option('display_pricing_field', 1);
 $display_thumbnail_img = get_directorist_option('dsiplay_thumbnail_img', 1);
+$enable_single_location_taxonomy = get_directorist_option('enable_single_location_taxonomy', 0);
 // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 /**
@@ -268,7 +270,7 @@ do_action('atbdp_before_listing_section');
                 $data_info .= new_badge();
                 /*Print Featured ribbon if it is featured*/
                 if ($featured && !empty($display_feature_badge_single)) {
-                    $data_info .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
+                    $data_info .= apply_filters( 'atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>' );
                 }
                 $popular_listing_id = atbdp_popular_listings(get_the_ID());
                 $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
@@ -279,7 +281,7 @@ do_action('atbdp_before_listing_section');
             }
             $data_info .= '<div class="atbd_listing_category"><ul class="directory_cats">';
             if (!empty($cats)) {
-                $data_info .= '<li><span class="' . atbdp_icon_type() . '-tags"></span></li>';
+                $data_info .= '<li><span class="' . atbdp_icon_type() . '-folder-open"></span></li>';
                 $numberOfCat = count($cats);
                 $output = array();
                 foreach ($cats as $cat) {
@@ -292,6 +294,21 @@ do_action('atbdp_before_listing_section');
                 <?php
             }
             $data_info .= '</ul></div>';
+            if(!empty($locs) && !empty($enable_single_location_taxonomy)) {
+                $data_info .= '<div class="atbd-listing-location">';
+                $data_info .= '<span class="' . atbdp_icon_type() . '-map-marker"></span>';
+                $numberOfCat = count($locs);
+                $output = array();
+                foreach ($locs as $loc) {
+                    $link = ATBDP_Permalink::atbdp_get_location_page($loc);
+                    $space = str_repeat(' ', 1);
+                    $output [] = "{$space}<a href='{$link}'>{$loc->name}</a>";
+                }
+                $data_info .= join(',', $output);
+
+
+                $data_info .= '</div>';
+            }
             $data_info .= '</div>';
             /**
              * @since 5.0

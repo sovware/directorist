@@ -41,6 +41,8 @@ $custom_gl_height = get_directorist_option('gallery_crop_height', 750);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $enable_review = get_directorist_option('enable_review', 'yes');
 $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+$locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
+$tags = get_the_terms(get_the_ID(), ATBDP_TAGS);
 $font_type = get_directorist_option('font_type', 'line');
 $fa_or_la = ('line' == $font_type) ? "la " : "fa ";
 if (!empty($cats)) {
@@ -137,7 +139,6 @@ $video_label = get_directorist_option('atbd_video_title', __('Video', 'directori
 $p_lnk = get_the_permalink();
 $p_title = get_the_title();
 $featured = get_post_meta(get_the_ID(), '_featured', true);
-$cats = get_the_terms($post->ID, ATBDP_CATEGORY);
 $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
 $listing_author_id = get_post_field('post_author', $listing_id);
 $display_feature_badge_single = get_directorist_option('display_feature_badge_cart', 1);
@@ -147,6 +148,7 @@ $feature_badge_text = get_directorist_option('feature_badge_text', 'Feature');
 $new_badge_text = get_directorist_option('new_badge_text', 'New');
 $enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
 $use_nofollow = get_directorist_option('use_nofollow');
+$tags_section_lable = get_directorist_option('tags_section_lable', __('Tags', 'directorist'));
 $custom_section_lable = get_directorist_option('custom_section_lable', __('Details', 'directorist'));
 $listing_details_text = get_directorist_option('listing_details_text', __('Listing Details', 'directorist'));
 $listing_details_text = apply_filters('atbdp_single_listing_details_section_text', $listing_details_text);
@@ -173,6 +175,8 @@ $display_map_field = apply_filters('atbdp_show_single_listing_map', $display_map
 $display_video_for = get_directorist_option('display_video_for', 'admin_users');
 $preview_enable = get_directorist_option('preview_enable', 1);
 $display_back_link = get_directorist_option('display_back_link', 1);
+$enable_single_location_taxonomy = get_directorist_option('enable_single_location_taxonomy', 0);
+$enable_single_tag = get_directorist_option('enable_single_tag', 1);
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 ?>
@@ -186,7 +190,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
             //ok show the edit option
             $html_edit_back .= '<div class="edit_btn_wrap">';
             if (!empty($display_back_link)) {
-                if (!isset($_GET['redirect'])){
+                if (!isset($_GET['redirect'])) {
                     $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '</a> ';
                 }
             }
@@ -194,7 +198,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
             $html_edit_back .= atbdp_get_preview_button();
             $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
             $url = isset($_GET['redirect']) ? $_GET['redirect'] : '';
-            $edit_link = !empty($payment)?add_query_arg('redirect', $url, ATBDP_Permalink::get_edit_listing_page_link($post->ID)):ATBDP_Permalink::get_edit_listing_page_link($post->ID);
+            $edit_link = !empty($payment) ? add_query_arg('redirect', $url, ATBDP_Permalink::get_edit_listing_page_link($post->ID)) : ATBDP_Permalink::get_edit_listing_page_link($post->ID);
             $html_edit_back .= '<a href="' . esc_url($edit_link) . '" class="btn btn-outline-light">
                             <span class="' . atbdp_icon_type() . '-edit"></span>' . apply_filters('atbdp_listing_edit_btn_text', esc_html__(' Edit', 'directorist')) . '</a>';
 
@@ -262,7 +266,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         <li>
                             <a href="' . esc_url($twt_lnk) . '" target="_blank">
                                 <span class="' . atbdp_icon_type() . '-twitter"></span>' . __('Twitter', 'directorist') . '</a>
-                              
+
                         </li>
                         <li>
                             <a href="' . esc_url($in_link) . '" target="_blank">
@@ -400,7 +404,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                             $data_info .= new_badge();
                             /*Print Featured ribbon if it is featured*/
                             if ($featured && !empty($display_feature_badge_single)) {
-                                $data_info .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
+                                $data_info .= apply_filters( 'atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>' );
                             }
                             $popular_listing_id = atbdp_popular_listings(get_the_ID());
                             $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
@@ -411,7 +415,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         }
                         $data_info .= '<div class="atbd_listing_category"><ul class="directory_cats">';
                         if (!empty($cats)) {
-                            $data_info .= '<li><span class="' . atbdp_icon_type() . '-tags"></span></li>';
+                            $data_info .= '<li><span class="' . atbdp_icon_type() . '-folder-open"></span></li>';
                             $numberOfCat = count($cats);
                             $output = array();
                             foreach ($cats as $cat) {
@@ -429,8 +433,22 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                     </li>';
                         }
                         $data_info .= '</ul></div>';
+                        if (!empty($locs) && !empty($enable_single_location_taxonomy)) {
+                            $data_info .= '<div class="atbd-listing-location">';
+                            $data_info .= '<span class="' . atbdp_icon_type() . '-map-marker"></span>';
+                            $numberOfCat = count($locs);
+                            $output = array();
+                            foreach ($locs as $loc) {
+                                $link = ATBDP_Permalink::atbdp_get_location_page($loc);
+                                $space = str_repeat(' ', 1);
+                                $output [] = "{$space}<a href='{$link}'>{$loc->name}</a>";
+                            }
+                            $data_info .= join(',', $output);
 
-                        $data_info .= ' </div>';
+
+                            $data_info .= '</div>';
+                        }
+                        $data_info .= '</div>';
                         /**
                          * @since 5.0
                          * It returns data before listing title
@@ -530,8 +548,39 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                 $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
             }
 
+            // tags
+            if (!empty($tags) && !empty($enable_single_tag)) {
+                ?>
+                <div class="atbd_content_module atbd-listing-tags">
+                    <?php if (!empty($tags_section_lable)) { ?>
+                        <div class="atbd_content_module_title_area">
+                            <div class="atbd_area_title">
+                                <h4>
+                                    <span class="<?php echo apply_filters('atbdp_single_listing_tag_icon', atbdp_icon_type().'-tags'); ?>"></span> <?php echo esc_attr($tags_section_lable); ?>
+                                </h4>
+                            </div>
+                        </div> <!-- ends: .atbd_content_module_title_area -->
+                    <?php } ?>
+                    <div class="atbdb_content_module_contents">
+                        <ul>
+                            <?php foreach ( $tags as $tag ) {
+                                $link = ATBDP_Permalink::atbdp_get_tag_page($tag);
+                                $name = $tag->name; ?>
+                                <li>
+                                    <a href="<?php echo esc_url($link); ?>">
+                                        <span class="<?php echo apply_filters('atbdp_single_listing_tags_icon', atbdp_icon_type().'-tag'); ?>"></span>
+                                        <?php echo esc_attr($name); ?>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                </div>
+            <?php }
+
             if (!empty($has_field) && $plan_custom_field) {
                 ?>
+                <!-- atbdp custom fields -->
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">

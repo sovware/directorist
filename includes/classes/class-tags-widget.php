@@ -43,16 +43,17 @@ if (!class_exists('BD_Tags_Widget')) {
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Tags', 'directorist');
 
             $query_args = array(
-                'template'               => ! empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
-                'parent'                 => ! empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
-                'term_id'                => ! empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
-                'hide_empty'             => ! empty( $instance['hide_empty'] ) ? 1 : 0,
-                'orderby'                => ! empty( $instance['order_by'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
-                'order'                  => ! empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
-                'show_count'             => ! empty( $instance['show_count'] ) ? 1 : 0,
-                'display_single_tag'     => ! empty( $instance['display_single_tag'] ) ? 1 : 0,
+                'template'               => !empty( $instance['display_as'] ) ? sanitize_text_field( $instance['display_as'] ) : 'list',
+                'parent'                 => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
+                'term_id'                => !empty( $instance['parent'] ) ? (int) $instance['parent'] : 0,
+                'hide_empty'             => !empty( $instance['hide_empty'] ) ? 1 : 0,
+                'orderby'                => !empty( $instance['order_by'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
+                'order'                  => !empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
+                'show_count'             => !empty( $instance['show_count'] ) ? 1 : 0,
+                'display_single_tag'     => !empty( $instance['display_single_tag'] ) ? 1 : 0,
                 'pad_counts'             => true,
-                'immediate_category'     => ! empty( $instance['immediate_category'] ) ? 1 : 0,
+                'immediate_category'     => !empty( $instance['immediate_category'] ) ? 1 : 0,
+                'max_number'             => !empty( $instance['max_number'] ) ? $instance['max_number'] : '',
                 'active_term_id'         => 0,
                 'ancestors'              => array()
             );
@@ -104,21 +105,21 @@ if (!class_exists('BD_Tags_Widget')) {
          */
         public function form($instance)
         {
-
             $values = array(
-                'title' => __('Tags', 'directorist'),
-                'display_as'=>'list',
-                'hide_empty'=> 0,
-                'show_count'=> 0,
-                'display_single_tag'=> 0,
-                'parent'=>0,
-                'immediate_category'=>0,
-                'order_by'=>'id',
-                'order'=>'asc'
+                'title'                 => __('Tags', 'directorist'),
+                'display_as'            => 'list',
+                'hide_empty'            => 0,
+                'show_count'            => 0,
+                'display_single_tag'    => 0,
+                'parent'                => 0,
+                'immediate_category'    => 0,
+                'order_by'              => 'id',
+                'order'                 => 'asc',
+                'max_number'            => ''
             );
-
-            $instance = wp_parse_args((array)$instance,$values);
-            $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Tags', 'directorist');
+            $instance   =  wp_parse_args((array)$instance,$values);
+            $title      = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Tags', 'directorist');
+            $max_number = !empty($instance['max_number']) ? esc_html($instance['max_number']) : '';
             ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
@@ -154,6 +155,13 @@ if (!class_exists('BD_Tags_Widget')) {
             </p>
 
             <p>
+                <label for="<?php echo esc_attr($this->get_field_id('max_number')); ?>"><?php esc_attr_e('Maximum Number', 'directorist'); ?></label>
+                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('max_number')); ?>"
+                       name="<?php echo esc_attr($this->get_field_name('max_number')); ?>" type="text"
+                       value="<?php echo esc_attr($max_number); ?>">
+            </p>
+
+            <p>
                 <input <?php checked( $instance['hide_empty'],1 ); ?> id="<?php echo $this->get_field_id( 'hide_empty' ); ?>" name="<?php echo $this->get_field_name( 'hide_empty' ); ?>" value="1" type="checkbox" />
                 <label for="<?php echo $this->get_field_id( 'hide_empty' ); ?>"><?php _e( 'Hide empty tags', 'directorist' ); ?></label>
             </p>
@@ -184,13 +192,14 @@ if (!class_exists('BD_Tags_Widget')) {
 
             $instance = $old_instance;
 
-            $instance['title']          = ! empty( $new_instance['title'] ) ? strip_tags( $new_instance['title'] ) : '';
-            $instance['display_as']       = isset( $new_instance['display_as'] ) ? sanitize_text_field( $new_instance['display_as'] ) : 'list';
-            $instance['order_by']       = isset( $new_instance['order_by'] ) ? sanitize_text_field( $new_instance['order_by'] ) : 'id';
-            $instance['order']       = isset( $new_instance['order'] ) ? sanitize_text_field( $new_instance['order'] ) : 'asc';
-            $instance['hide_empty']     = isset( $new_instance['hide_empty'] ) ? 1 : 0;
-            $instance['show_count']     = isset( $new_instance['show_count'] ) ? 1 : 0;
+            $instance['title']                  = ! empty( $new_instance['title'] ) ? strip_tags( $new_instance['title'] ) : '';
+            $instance['display_as']             = isset( $new_instance['display_as'] ) ? sanitize_text_field( $new_instance['display_as'] ) : 'list';
+            $instance['order_by']               = isset( $new_instance['order_by'] ) ? sanitize_text_field( $new_instance['order_by'] ) : 'id';
+            $instance['order']                  = isset( $new_instance['order'] ) ? sanitize_text_field( $new_instance['order'] ) : 'asc';
+            $instance['hide_empty']             = isset( $new_instance['hide_empty'] ) ? 1 : 0;
+            $instance['show_count']             = isset( $new_instance['show_count'] ) ? 1 : 0;
             $instance['display_single_tag']     = isset( $new_instance['display_single_tag'] ) ? 1 : 0;
+            $instance['max_number']             = isset( $new_instance['max_number'] ) ? $new_instance['max_number'] : '';
 
             return $instance;
 
@@ -224,14 +233,15 @@ if (!class_exists('BD_Tags_Widget')) {
                 }
 
                 $args = array(
+                    'taxonomy' => ATBDP_TAGS,
                     'orderby' => $settings['orderby'],
                     'order' => $settings['order'],
                     'hide_empty' => $settings['hide_empty'],
-                    'parent' => $settings['term_id'],
-                    'hierarchical' => !empty($settings['hide_empty']) ? true : false
+                    'parent' => !empty($settings['term_id']) ? $settings['term_id'] : '',
+                    'hierarchical' => !empty($settings['hide_empty']) ? true : false,
+                    'number' => !empty($settings['max_number']) ? $settings['max_number'] : ''
                 );
-
-                $terms = get_terms(ATBDP_TAGS, $args);
+                $terms = get_terms( $args );
 
                 $html = '';
 
@@ -256,7 +266,7 @@ if (!class_exists('BD_Tags_Widget')) {
                             $html .= ' (' . $count . ')';
                         }
                         $html .= '</a>';
-                        $html .= $this->atbdp_tags_list($settings);
+                       // $html .= $this->atbdp_tags_list($settings);
                         $html .= '</li>';
                     }
 
@@ -294,17 +304,17 @@ if (!class_exists('BD_Tags_Widget')) {
 
                 }
 
-
-
                 $args = array(
-                    'orderby' => $settings['orderby'],
-                    'order' => $settings['order'],
-                    'hide_empty' => $settings['hide_empty'],
-                    'parent' => $settings['term_id'],
-                    'hierarchical' => !empty($settings['hide_empty']) ? true : false
-                );
+                        'taxonomy' => ATBDP_TAGS,
+                        'orderby' => $settings['orderby'],
+                        'order' => $settings['order'],
+                        'hide_empty' => $settings['hide_empty'],
+                        'parent' => !empty($settings['term_id']) ? $settings['term_id'] : '',
+                        'hierarchical' => !empty($settings['hide_empty']) ? true : false,
+                        'number' => !empty($settings['max_number']) ? $settings['max_number'] : ''
+                    );
 
-                $terms = get_terms(ATBDP_TAGS, $args);
+                $terms = get_terms( $args );
 
                 $html = '';
 
@@ -325,7 +335,7 @@ if (!class_exists('BD_Tags_Widget')) {
                         if (!empty($settings['show_count'])) {
                             $html .= ' (' . $count . ')';
                         }
-                        $html .= $this->dropdown_tags($settings, $prefix . '&nbsp;&nbsp;&nbsp;');
+                        //$html .= $this->dropdown_tags($settings, $prefix . '&nbsp;&nbsp;&nbsp;');
                         $html .= '</option>';
                     }
 

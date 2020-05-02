@@ -3202,6 +3202,10 @@ The Administrator of ==SITE_NAME==
                                 'value' => 'price',
                                 'label' => __('Price', 'directorist'),
                             ),
+                            array(
+                                'value' => 'rand',
+                                'label' => __('Random', 'directorist'),
+                            ),
                         ),
                         'default' => array(
                             'value' => 'date',
@@ -5853,6 +5857,12 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'textbox',
+                    'name' => 'tags_section_lable',
+                    'label' => __('Section Title of Tags', 'directorist'),
+                    'default' => __('Tags', 'directorist'),
+                ),
+                array(
+                    'type' => 'textbox',
                     'name' => 'custom_section_lable',
                     'label' => __('Section Title of Custom Fields', 'directorist'),
                     'default' => __('Features', 'directorist'),
@@ -5995,6 +6005,18 @@ The Administrator of ==SITE_NAME==
                     'name' => 'disable_list_price',
                     'label' => __('Disable Listing Price', 'directorist'),
                     'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'enable_single_location_taxonomy',
+                    'label' => __('Display Location', 'directorist'),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'enable_single_tag',
+                    'label' => __('Display Tag', 'directorist'),
+                    'default' => 1,
                 ),
                 array(
                     'type' => 'toggle',
@@ -6364,7 +6386,7 @@ The Administrator of ==SITE_NAME==
                         'name' => 'single_listing_page',
                         'label' => __('Single Listing Page', 'directorist'),
                         'items' => $this->get_pages_vl_arrays(),
-                        'description' => sprintf(__('Following shortcodes can be used for the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]</strong>'),
+                        'description' => sprintf(__('Following shortcodes can be used for the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_tags][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]</strong>'),
                         'default' => atbdp_get_option('single_listing_page', 'atbdp_general'),
                         'validation' => 'numeric',
                     ),

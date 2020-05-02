@@ -54,6 +54,10 @@
   .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
     width: 50% !important;
   }
+  .atbd_content_active #directorist.atbd_wrapper.dashboard_area .user_pro_img_area .user_img .ezmu__thumbnail-img{
+    height: 114px;
+    width: 114px !important;
+  }
 }
 
 @media (max-width: 991px) {
@@ -365,6 +369,10 @@
     margin-bottom: 10px !important;
     margin-top: 0 !important;
   }
+
+  .atbd-listing-tags .atbdb_content_module_contents ul li{
+    flex: 0 0 50%;
+  }
 }
 
 @media (max-width: 400px) {
@@ -416,5 +424,8 @@
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown + .dropdown{
     margin-left: 0;
+  }
+  .atbd-listing-tags .atbdb_content_module_contents ul li{
+    flex: 0 0 100%;
   }
 }

@@ -46,6 +46,7 @@ if (!class_exists('BD_Locations_Widget')) {
                 'hide_empty'         => !empty( $instance['hide_empty'] ) ? 1 : 0,
                 'orderby'            => !empty( $instance['order_by'] ) ? sanitize_text_field( $instance['order_by'] ) : 'id',
                 'order'              => !empty( $instance['order'] ) ? sanitize_text_field( $instance['order'] ) : 'asc',
+                'max_number'         => !empty( $instance['max_number'] ) ? $instance['max_number'] : '',
                 'show_count'         => !empty( $instance['show_count'] ) ? 1 : 0,
                 'single_only'        => !empty( $instance['single_only'] ) ? 1 : 0,
                 'pad_counts'         => true,
@@ -124,6 +125,7 @@ if (!class_exists('BD_Locations_Widget')) {
 
             $instance = wp_parse_args((array)$instance,$values);
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Locations', 'directorist');
+            $max_number = !empty($instance['max_number']) ? esc_html($instance['max_number']) : '';
             ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
@@ -157,6 +159,7 @@ if (!class_exists('BD_Locations_Widget')) {
                     'depth'             => 10,
                     'show_count'        => false,
                     'hide_empty'        => false,
+                    'max_number'        => ''
                 ) );
                 ?>
             </p>
@@ -180,8 +183,15 @@ if (!class_exists('BD_Locations_Widget')) {
             </p>
 
             <p>
+                <label for="<?php echo esc_attr($this->get_field_id('max_number')); ?>"><?php esc_attr_e('Maximum Number', 'directorist'); ?></label>
+                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('max_number')); ?>"
+                       name="<?php echo esc_attr($this->get_field_name('max_number')); ?>" type="text"
+                       value="<?php echo esc_attr($max_number); ?>">
+            </p>
+
+            <p>
                 <input <?php checked( $instance['immediate_category'],1 ); ?> id="<?php echo $this->get_field_id( 'immediate_category' ); ?>" name="<?php echo $this->get_field_name( 'immediate_category' ); ?>" value="1" type="checkbox" />
-                <label for="<?php echo $this->get_field_id( 'immediate_category' ); ?>"><?php _e( 'Show all the top level categories only', 'directorist' ); ?></label>
+                <label for="<?php echo $this->get_field_id( 'immediate_category' ); ?>"><?php _e( 'Show all the top level locations only', 'directorist' ); ?></label>
             </p>
 
             <p>
@@ -215,15 +225,16 @@ if (!class_exists('BD_Locations_Widget')) {
 
             $instance = $old_instance;
 
-            $instance['title']          = ! empty( $new_instance['title'] ) ? strip_tags( $new_instance['title'] ) : '';
-            $instance['display_as']       = isset( $new_instance['display_as'] ) ? sanitize_text_field( $new_instance['display_as'] ) : 'list';
-            $instance['order_by']       = isset( $new_instance['order_by'] ) ? sanitize_text_field( $new_instance['order_by'] ) : 'id';
-            $instance['order']       = isset( $new_instance['order'] ) ? sanitize_text_field( $new_instance['order'] ) : 'asc';
-            $instance['parent']         = isset( $new_instance['parent'] ) ? (int) $new_instance['parent'] : 0;
-            $instance['immediate_category'] = isset( $new_instance['immediate_category'] ) ? 1 : 0;
-            $instance['hide_empty']     = isset( $new_instance['hide_empty'] ) ? 1 : 0;
-            $instance['show_count']     = isset( $new_instance['show_count'] ) ? 1 : 0;
-            $instance['single_only']     = isset( $new_instance['single_only'] ) ? 1 : 0;
+            $instance['title']                   = ! empty( $new_instance['title'] ) ? strip_tags( $new_instance['title'] ) : '';
+            $instance['display_as']              = isset( $new_instance['display_as'] ) ? sanitize_text_field( $new_instance['display_as'] ) : 'list';
+            $instance['order_by']                = isset( $new_instance['order_by'] ) ? sanitize_text_field( $new_instance['order_by'] ) : 'id';
+            $instance['order']                   = isset( $new_instance['order'] ) ? sanitize_text_field( $new_instance['order'] ) : 'asc';
+            $instance['parent']                  = isset( $new_instance['parent'] ) ? (int) $new_instance['parent'] : 0;
+            $instance['immediate_category']      = isset( $new_instance['immediate_category'] ) ? 1 : 0;
+            $instance['hide_empty']              = isset( $new_instance['hide_empty'] ) ? 1 : 0;
+            $instance['show_count']              = isset( $new_instance['show_count'] ) ? 1 : 0;
+            $instance['single_only']             = isset( $new_instance['single_only'] ) ? 1 : 0;
+            $instance['max_number']              = isset( $new_instance['max_number'] ) ? $new_instance['max_number'] : '';
 
             return $instance;
 
@@ -240,20 +251,22 @@ if (!class_exists('BD_Locations_Widget')) {
             }
 
             $args = array(
+                'taxonomy'     => ATBDP_LOCATION,
                 'orderby'      => $settings['orderby'],
                 'order'        => $settings['order'],
                 'hide_empty'   => $settings['hide_empty'],
                 'parent'       => $settings['term_id'],
-                'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false
+                'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false,
+                'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
             );
 
-            $terms = get_terms( ATBDP_LOCATION, $args );
+            $terms = get_terms( $args );
             $parent = $args['parent'];
             $child_class = !empty($parent) ? 'atbdp_child_location' : 'atbdp_parent_location';
             $html = '';
 
             if( count( $terms ) > 0 ) {
-
+                $i = 1;
                 $html .= '<ul class="' .$child_class. '">';
                 foreach( $terms as $term ) {
                     $child_category = get_term_children($term->term_id,ATBDP_LOCATION);
@@ -280,6 +293,9 @@ if (!class_exists('BD_Locations_Widget')) {
                     $html .= '</a>'. $plus_icon . '';
                     $html .= $this->list_locations( $settings );
                     $html .= '</li>';
+                    if(!empty($args['number'])) {
+                        if( $i++ == $args['number'] ) break;
+                    }
                 }
                 $html .= '</ul>';
 
@@ -302,19 +318,21 @@ if (!class_exists('BD_Locations_Widget')) {
             $term_slug = get_query_var( ATBDP_LOCATION );
 
             $args = array(
+                'taxonomy'     => ATBDP_LOCATION,
                 'orderby'      => $settings['orderby'],
                 'order'        => $settings['order'],
                 'hide_empty'   => $settings['hide_empty'],
-                'parent'       => $settings['term_id'],
-                'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false
+                'parent'       => !empty($settings['term_id']) ? $settings['term_id'] : '',
+                'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false,
+                'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
             );
 
-            $terms = get_terms( ATBDP_LOCATION, $args );
+            $terms = get_terms( $args );
 
             $html = '';
 
             if( count( $terms ) > 0 ) {
-
+                $i = 1;
                 foreach( $terms as $term ) {
                     $settings['term_id'] = $term->term_id;
 
@@ -330,8 +348,11 @@ if (!class_exists('BD_Locations_Widget')) {
                     if( ! empty( $settings['show_count'] ) ) {
                         $html .= ' (' . $count . ')';
                     }
-                    $html .= $this->dropdown_locations( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
+                    //$html .= $this->dropdown_locations( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
                     $html .= '</option>';
+                    if(!empty($args['number'])) {
+                        if( $i++ == $args['number'] ) break;
+                    }
                 }
 
             }

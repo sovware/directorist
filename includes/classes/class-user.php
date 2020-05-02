@@ -389,7 +389,6 @@ class ATBDP_User {
         $userdata['user_email'] = !empty($data['user_email']) ? sanitize_email($data['user_email'] ): '';
         $userdata['user_url'] = !empty($data['website']) ? esc_url_raw(trim($data['website'] )): '';
         $phone = !empty($data['phone']) ? sanitize_text_field(trim($data['phone'] )): '';
-        $pro_pic = !empty($data['pro_pic']) ? sanitize_text_field(trim($data['pro_pic'] )): '';
         $first_name = !empty($data['first_name']) ? sanitize_text_field(trim($data['first_name'])) : '';
         $last_name = !empty($data['last_name']) ? sanitize_text_field(trim($data['last_name'] )): '';
         $address = !empty($data['address']) ? sanitize_text_field(trim($data['address'] )): '';
@@ -418,8 +417,7 @@ class ATBDP_User {
         update_user_meta( $ID, 'first_name', $first_name );
         update_user_meta( $ID, 'last_name', $last_name );
         update_user_meta( $ID, 'atbdp_phone', $phone );
-        update_user_meta( $ID, 'pro_pic', $pro_pic );
-
+        
         if (!empty($new_pass || $confirm_pass)){
             // password will be updated here
             if ( ( $new_pass == $confirm_pass ) && ( strlen( $confirm_pass) > 5 ) ){

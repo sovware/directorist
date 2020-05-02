@@ -405,7 +405,7 @@ class ATBDP_Custom_Field
             'has_archive' => true,
             'exclude_from_search' => true,
             'publicly_queryable' => true,
-            'capability_type' => 'atbdp_order',
+            'capability_type' => 'at_biz_dir',
             'map_meta_cap' => true,
         );
 

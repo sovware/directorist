@@ -333,22 +333,102 @@
 
     });
 
+
+    // user dashboard image uploader
+    var profileMediaUploader = null;
+    if ( $("#user_profile_pic").length ) {
+        profileMediaUploader = new EzMediaUploader({
+            containerID: "user_profile_pic",
+        });
+        profileMediaUploader.init();
+    }
+    
+    
+    var is_processing = false;
     $('#user_profile_form').on('submit', function (e) {
         // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
-        var $form = $(this);
-        var $queryString = $form.serialize();
-        atbdp_do_ajax($form, 'update_user_profile', $queryString, function (response) {
-            if (response.success) {
-                $('#pro_notice').html('<p style="padding: 22px;" class="alert-success">' + response.data + '</p>');
+        e.preventDefault();
+        
+        var submit_button = $('#update_user_profile');
+        submit_button.attr('disabled', true);
+
+        if ( is_processing ) { submit_button.removeAttr('disabled'); return; }
+
+        var form_data = new FormData();
+        var err_log = {};
+        var error_count;
+
+         // ajax action
+         form_data.append('action', 'update_user_profile');
+        if ( profileMediaUploader ) { 
+            var hasValidFiles = profileMediaUploader.hasValidFiles();
+            if ( hasValidFiles ) {
+                //files
+                var files = profileMediaUploader.getTheFiles();
+                var filesMeta = profileMediaUploader.getFilesMeta();
+
+                if (files.length) {
+                    for (var i = 0; i < files.length; i++) {
+                        form_data.append('profile_picture', files[i]);
+                    }
+                }
+
+                if ( filesMeta.length ) {
+                    for (var i = 0; i < filesMeta.length; i++) {
+                        var elm = filesMeta[i];
+                        for (var key in elm) {
+                            form_data.append('profile_picture_meta[' + i + '][' + key + ']', elm[key]);
+                        }
+                    }
+                }
+
             } else {
-                $('#pro_notice').html('<p style="padding: 22px;" class="alert-danger">' + response.data + '</p>');
+                $(".listing_submit_btn").removeClass("atbd_loading");
+                err_log.user_profile_avater = { msg: 'Listing gallery has invalid files' };
+                error_count++;
+            }
+        }
+        var $form = $(this);
+        var arrData = $form.serializeArray();
+        $.each(arrData, function (index, elem) {
+            var name = elem.name;
+            var value = elem.value;
+            form_data.append(name, value);
+        });
+        $.ajax({
+            method: 'POST',
+            processData: false,
+            contentType: false,
+            url: atbdp_public_data.ajaxurl,
+            data: form_data,
+            success: function (response) {
+                submit_button.removeAttr('disabled');
+                if (response.success) {
+                    $('#pro_notice').html('<p style="padding: 22px;" class="alert-success">' + response.data + '</p>');
+                } else {
+                    $('#pro_notice').html('<p style="padding: 22px;" class="alert-danger">' + response.data + '</p>');
+                }
+            },
+            error: function (response) {
+                submit_button.removeAttr('disabled');
+                console.log(response);
             }
         });
+
+      
+        // atbdp_do_ajax($form, 'update_user_profile', form_data, function (response) {
+        //     console.log(response);
+        //     return;
+        //     if (response.success) {
+        //         $('#pro_notice').html('<p style="padding: 22px;" class="alert-success">' + response.data + '</p>');
+        //     } else {
+        //         $('#pro_notice').html('<p style="padding: 22px;" class="alert-danger">' + response.data + '</p>');
+        //     }
+        // });
 
         // prevent the from submitting
         return false;
     });
-
 
     /*HELPERS*/
     function print_static_rating($star_number) {
@@ -582,61 +662,6 @@
     pureScriptTab('.atbd_tab');
 
 
-    // Set all variables to be used in scope
-    var frame,
-        imgContainer = $('#profile_pic_container'), // profile picture container id here
-        addImgLink = imgContainer.find('#upload_pro_pic'),
-        delImgLink = imgContainer.find('#remove_pro_pic'),
-        imgIdInput = imgContainer.find('#pro_pic'),
-        imgTag = imgContainer.find('#pro_img');
-
-
-    // ADD IMAGE LINK
-    addImgLink.on('click', function (event) {
-        event.preventDefault();
-
-        // If the media frame already exists, reopen it.
-        if (frame) {
-            frame.open();
-            return;
-        }
-
-        // Create a new media frame
-        /*@todo; make the static help text translatable later*/
-        frame = wp.media({
-            title: atbdp_public_data.upload_pro_pic_title,
-            button: {
-                text: atbdp_public_data.upload_pro_pic_text
-            },
-            library: {type: 'image'}, // only
-            multiple: false  // Set to true to allow multiple files to be selected
-        });
-
-
-        // When an image is selected in the media frame...
-        frame.on('select', function () {
-            const selection = frame.state().get('selection').first().toJSON();
-            if (selection.type === 'image') {
-                // we have got an image attachment so lets proceed.
-                // target the input field and then assign the current id of the attachment to an array.
-                imgTag.attr('src', selection.url); // set the preview image url
-                imgIdInput.attr('value', selection.id); // set the value of input field
-            }
-        });
-
-        // Finally, open the modal on click
-        frame.open();
-    });
-
-
-    delImgLink.on('click', function (e) {
-        e.preventDefault();
-        // if no image exist then add placeholder and hide remove image button
-        imgTag.attr('src', atbdp_public_data.PublicAssetPath + 'images/no-image.jpg');
-        imgIdInput.attr('value', ''); // set the value of input field
-    });
-
-
     // Validate forms
     if ($.fn.validator) {
 
@@ -800,6 +825,7 @@
             }
         })();
     });
+
 
     /*   $('.atbdp_right_nav').on('click', function (event) {
             event.preventDefault();

@@ -254,35 +254,18 @@
     .user_pro_img_area {
       .user_img {
         position: relative;
-
-        #remove_pro_pic {
-          position: absolute;
-          z-index: 1;
-          right: 0;
-          background: $danger;
-          color: #fff;
-          padding: 3px 10px;
-          transition: $transition-base;
-          border-radius: 2px;
-          cursor: pointer;
+        .ezmu__thumbnail-list-item_back{
+          height: 100%;
+          background: none;
         }
-
-        .choose_btn {
-          position: absolute;
+        .ezmu__thumbnail-img{
+          width: 154px !important;
+          height: 154px;
+          border-radius: 50%;
+        }
+        .ezmu__thumbnail-list-item.ezmu__thumbnail_avater{
           width: 100%;
-          bottom: 0;
-          z-index: 1;
-          text-align: center;
-
-          #upload_pro_pic {
-            margin-bottom: 0;
-            @extend .atbd_bg-primary;
-            color: $light;
-            padding: 8px 20px;
-            transition: $transition-base;
-            border-radius: 2px;
-            cursor: pointer;
-          }
+          height: 100%;
         }
       }
     }

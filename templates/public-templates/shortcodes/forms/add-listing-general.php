@@ -73,7 +73,6 @@
 				<input type="hidden" id="atbd_listing_pricing"
 					   value="<?php echo $atbd_listing_pricing ?>">
 				<label for="#"><?php
-					$pricing_label = get_directorist_option('pricing_label', __('Pricing', 'directorist'));
 					esc_html_e($pricing_label . ':', 'directorist');
 					?></label>
 				<div class="atbd_pricing_options">
@@ -85,10 +84,8 @@
 								   name="atbd_listing_pricing"
 								<?php echo ('price' === $atbd_listing_pricing) ? 'checked' : (empty($p_id) ? 'checked' : ''); ?>>
 							<?php
-							$price_label = get_directorist_option('price_label', __('Price', 'directorist'));
-							$currency = get_directorist_option('g_currency', 'USD');
 							/*Translator: % is the name of the currency such eg. USD etc.*/
-							printf(esc_html__('%s [%s]%s', 'directorist'), $price_label, $currency, get_directorist_option('require_price') ? '<span class="atbdp_make_str_red">*</span>' : ''); ?>
+							printf(esc_html__('%s [%s]%s', 'directorist'), $price_label, $currency, $require_price ? '<span class="atbdp_make_str_red">*</span>' : ''); ?>
 						</label>
 						<?php
 					}
@@ -102,9 +99,8 @@
 								   value="range"
 								   name="atbd_listing_pricing" <?php echo ('range' === $atbd_listing_pricing) ? 'checked' : ''; ?>>
 							<?php
-							$price_label = get_directorist_option('price_range_label', __('Price Range', 'directorist'));
-							echo esc_attr($price_label);
-							echo get_directorist_option('require_price_range') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?>
+							echo esc_attr($price_range_label);
+							echo $require_price_range ? '<span class="atbdp_make_str_red">*</span>' : ''; ?>
 							<!--<p id='price_range_option'><?php /*echo __('Price Range', 'directorist'); */ ?></p></label>-->
 						</label>
 						<?php
@@ -161,7 +157,6 @@
 		if (!empty($display_views_count) && empty($display_views_count_for)) { ?>
 			<div class="form-group">
 				<label for="atbdp_views_count"><?php
-					$views_count_label = get_directorist_option('views_count_label', __('Views Count', 'directorist'));
 					esc_html_e($views_count_label . ':', 'directorist'); ?></label>
 
 				<input type="text" id="views_Count" name="atbdp_post_views_count"
@@ -178,9 +173,8 @@
 		<?php if (!empty($display_excerpt_field) && empty($display_short_desc_for)) { ?>
 			<div class="form-group" id="atbdp_excerpt_area">
 				<label for="atbdp_excerpt"><?php
-					$excerpt_label = get_directorist_option('excerpt_label', __('Short Description/Excerpt', 'directorist'));
 					esc_html_e($excerpt_label . ':', 'directorist');
-					echo get_directorist_option('require_excerpt') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+					echo $require_excerpt ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
 				<!--@todo; later let user decide if he wants to show tinymce or normal textarea-->
 				<input type="hidden" id="has_excerpt"
 					   value="<?php echo !empty($excerpt) ? esc_textarea(stripslashes($excerpt)) : ''; ?>">
@@ -399,10 +393,8 @@
 		<?php if (empty($display_loc_for)) { ?>
 			<div class="form-group" id="atbdp_locations">
 				<label for="at_biz_dir-location"><?php
-					$location_label = get_directorist_option('location_label', __('Location', 'directorist'));
-					$loc_placeholder = get_directorist_option('loc_placeholder', __('Select Location', 'directorist'));
 					esc_html_e($location_label . ':', 'directorist');
-					echo get_directorist_option('require_location') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+					echo $require_location ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
 				<?php
 				$current_val = get_the_terms($p_id, ATBDP_LOCATION);;
 				$ids = array();

@@ -22,6 +22,143 @@ class Directorist_Listing_Forms {
     public function get_add_listing_post() {
         return $this->add_listing_post;
     }
+
+    public function get_custom_field_input($cf_meta_val,$cf_rows,$post) {
+        $cf_placeholder = '';
+        ob_start();
+        switch ($cf_meta_val) {
+            case 'text' :
+                echo '<div>';
+                printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post_id, $cf_placeholder, $value);
+                echo '</div>';
+                break;
+            case 'number' :
+                echo '<div>';
+                printf('<input type="number" %s  name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', !empty($allow_decimal) ? 'step="any"' : '', $post_id, $cf_placeholder, $value);
+                echo '</div>';
+                break;
+            case 'textarea' :
+                echo '<div>';
+                printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int)$cf_rows, esc_attr($cf_placeholder), esc_textarea($value));
+                echo '</div>';
+                break;
+            case 'radio':
+                echo '<div>';
+                $choices = get_post_meta(get_the_ID(), 'choices', true);
+                $choices = explode("\n", $choices);
+                echo '<ul class="atbdp-radio-list vertical">';
+                foreach ($choices as $choice) {
+                    if (strpos($choice, ':') !== false) {
+                        $_choice = explode(':', $choice);
+                        $_choice = array_map('trim', $_choice);
+
+                        $_value = $_choice[0];
+                        $_label = $_choice[1];
+                    } else {
+                        $_value = trim($choice);
+                        $_label = $_value;
+                    }
+                    $_checked = '';
+                    if (trim($value) == $_value) $_checked = ' checked="checked"';
+
+                    printf('<li><label><input type="radio" name="custom_field[%d]" value="%s"%s>%s</label></li>', $post->ID, $_value, $_checked, $_label);
+                }
+                echo '</ul>';
+                echo '</div>';
+                break;
+
+            case 'select' :
+                echo '<div>';
+                $choices = get_post_meta(get_the_ID(), 'choices', true);
+                $choices = explode("\n", $choices);
+                printf('<select name="custom_field[%d]" class="form-control directory_field">', $post->ID);
+                if (!empty($field_meta['allow_null'][0])) {
+                    printf('<option value="">%s</option>', '- ' . __('Select an Option', 'directorist') . ' -');
+                }
+                foreach ($choices as $choice) {
+                    if (strpos($choice, ':') !== false) {
+                        $_choice = explode(':', $choice);
+                        $_choice = array_map('trim', $_choice);
+
+                        $_value = $_choice[0];
+                        $_label = $_choice[1];
+                    } else {
+                        $_value = trim($choice);
+                        $_label = $_value;
+                    }
+
+                    $_selected = '';
+                    if (trim($value) == $_value) $_selected = ' selected="selected"';
+
+                    printf('<option value="%s"%s>%s</option>', $_value, $_selected, $_label);
+                }
+                echo '</select>';
+                echo '</div>';
+                break;
+
+            case 'checkbox' :
+                echo '<div>';
+                $choices = get_post_meta(get_the_ID(), 'choices', true);
+                $choices = explode("\n", $choices);
+
+                $values = explode("\n", $value);
+                $values = array_map('trim', $values);
+                echo '<ul class="atbdp-checkbox-list vertical">';
+
+                foreach ($choices as $choice) {
+                    if (strpos($choice, ':') !== false) {
+                        $_choice = explode(':', $choice);
+                        $_choice = array_map('trim', $_choice);
+
+                        $_value = $_choice[0];
+                        $_label = $_choice[1];
+                    } else {
+                        $_value = trim($choice);
+                        $_label = $_value;
+                    }
+
+                    $_checked = '';
+                    if (in_array($_value, $values)) $_checked = ' checked="checked"';
+
+                    printf('<li><label><input type="hidden" name="custom_field[%s][]" value="" /><input type="checkbox" name="custom_field[%d][]" value="%s"%s> %s</label></li>', $post->ID, $post->ID, $_value, $_checked, $_label);
+                }
+                echo '</ul>';
+                echo '</div>';
+                break;
+            case 'url'  :
+                echo '<div>';
+                printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_url($value));
+                echo '</div>';
+                break;
+
+            case 'date'  :
+                echo '<div>';
+                printf('<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
+                echo '</div>';
+                break;
+
+            case 'email'  :
+                echo '<div>';
+                printf('<input type="email" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
+                echo '</div>';
+                break;
+            case 'color'  :
+                echo '<div>';
+                printf('<input type="text" name="custom_field[%d]" id="color_code2" class="my-color-field" value="%s"/>', $post->ID, $value);
+                echo '</div>';
+                break;
+
+            case 'time'  :
+                echo '<div>';
+                printf('<input type="time" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
+                echo '</div>';
+                break;
+            case 'file'  :
+                require ATBDP_TEMPLATES_DIR . 'file-uploader.php';
+                break;
+        }
+        return ob_get_clean();
+    }
     
     public function render_shortcode_add_listing($atts) {
         ob_start();

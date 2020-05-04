@@ -22,6 +22,10 @@ class Directorist_Template_Hooks {
 		add_action( 'directorist_dashboard_navigation',       array( __CLASS__, 'dashboard_nav_tabs' ), 10 );
 		add_action( 'directorist_dashboard_navigation',       array( __CLASS__, 'dashboard_nav_buttons' ), 15 );
 		add_action( 'directorist_dashboard_tab_contents',     array( __CLASS__, 'dashboard_tab_contents' ) );
+
+		// Add Listing
+		add_action( 'directorist_add_listing_title',      array( __CLASS__, 'add_listing_title' ) );
+		add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_general' ) );
 	}
 
 	public static function instance() {
@@ -123,6 +127,45 @@ class Directorist_Template_Hooks {
 				do_action($value['after_content_hook']);
 			}
 		}
+	}
+
+	public static function add_listing_title() {
+		$forms = new Directorist_Listing_Forms();
+
+		$args = array(
+			'p_id' => $forms->get_add_listing_id(),
+		);
+
+		atbdp_get_shortcode_template( 'forms/add-listing-title', $args );
+	}
+
+	public static function add_listing_general() {
+		$forms = new Directorist_Listing_Forms();
+
+		$args = array(
+			'title'              => get_directorist_option('title_label', __('Title', 'directorist')),
+			'require_title'      => get_directorist_option('require_title', 1),
+			'display_desc_for'      => get_directorist_option('display_desc_for', 0),
+			'long_details'      => get_directorist_option('long_details_label', __('Long Description', 'directorist')),
+			'require_long_details'      => get_directorist_option('require_long_details'),
+			'display_tagline_field'      => get_directorist_option('display_tagline_field', 0),
+			'display_tagline_for'      => get_directorist_option('display_tagline_for', 0),
+
+			'tagline_label'              => get_directorist_option('tagline_label', __('Tagline', 'directorist')),
+			'tagline_placeholder'              => get_directorist_option('tagline_placeholder', __('Your Listing\'s motto or tag-line', 'directorist')),
+			'p_id'              => '',
+			'p_id'              => '',
+			'p_id'              => '',
+			'p_id'              => '',
+			'p_id'              => '',
+
+
+			'p_id'              => $forms->get_add_listing_id(),
+			'listing'           => $forms->get_add_listing_post(),
+			'display_title_for' => get_directorist_option('display_title_for', 0),
+		);
+
+		atbdp_get_shortcode_template( 'forms/add-listing-general', $args );
 	}
 }
 

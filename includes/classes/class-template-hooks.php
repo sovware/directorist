@@ -99,16 +99,25 @@ class Directorist_Template_Hooks {
 		}
 	}
 
-	public static function dashboard_nav_tabs($dashboard_items) {
-		atbdp_get_shortcode_template( 'dashboard/navigation-tabs', compact('dashboard_items') );
+	public static function dashboard_nav_tabs() {
+		$dashboard = new Directorist_Listing_Dashboard();
+
+		$args = array(
+			'dashboard_tabs' => $dashboard->get_dashboard_tabs(),
+		);
+
+		atbdp_get_shortcode_template( 'dashboard/navigation-tabs', $args );
 	}
 
 	public static function dashboard_nav_buttons() {
 		atbdp_get_shortcode_template( 'dashboard/nav-buttons' );
 	}
 
-	public static function dashboard_tab_contents($dashboard_items) {
-		foreach ($dashboard_items as $key => $value) {
+	public static function dashboard_tab_contents() {
+		$dashboard = new Directorist_Listing_Dashboard();
+		$dashboard_tabs = $dashboard->get_dashboard_tabs();
+
+		foreach ($dashboard_tabs as $key => $value) {
 			echo $value['content'];
 			if (!empty($value['after_content_hook'])) {
 				do_action($value['after_content_hook']);

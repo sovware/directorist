@@ -123,6 +123,46 @@ class Directorist_Listing_Dashboard {
         return $args;
     }
 
+    public function get_dashboard_tabs() {
+        // Tabs
+        $dashboard_tabs = array();
+
+        $my_listing_tab   = get_directorist_option('my_listing_tab', 1);
+        $my_profile_tab   = get_directorist_option('my_profile_tab', 1);
+        $fav_listings_tab = get_directorist_option('fav_listings_tab', 1);
+
+        if ( $my_listing_tab ) {
+            $my_listing_tab_text = get_directorist_option('my_listing_tab_text', __('My Listing', 'directorist'));
+            $listings = ATBDP()->user->current_user_listings();
+            $list_found = ($listings->found_posts > 0) ? $listings->found_posts : '0';
+
+            $dashboard_tabs['my_listings'] = array(
+                'title'              => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
+                'content'            => atbdp_return_shortcode_template('dashboard/listings', $this->get_listing_tab_args($listings) ),
+                'after_nav_hook'     => 'atbdp_tab_after_my_listings',
+                'after_content_hook' => 'atbdp_after_loop_dashboard_listings'
+            );
+        }
+
+        if ( $my_profile_tab ) {
+            $dashboard_tabs['profile'] = array(
+                'title'    => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
+                'content'  => atbdp_return_shortcode_template('dashboard/profile', $this->get_profile_tab_args() ),
+            );
+        }
+
+        if ( $fav_listings_tab ) {
+            $dashboard_tabs['saved_items'] = array(
+                'title'              => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
+                'content'            => atbdp_return_shortcode_template('dashboard/favourite', $this->get_favourite_tab_args() ),
+                'after_nav_hook'     => 'atbdp_tab_after_favorite_listings',
+                'after_content_hook' => 'atbdp_tab_content_after_favorite'
+            );
+        }
+
+        return apply_filters( 'atbdp_dashboard_tabs', $dashboard_tabs );
+    }
+
     public function render_shortcode_user_dashboard($atts) {
 
         $atts = shortcode_atts(array(
@@ -146,51 +186,13 @@ class Directorist_Listing_Dashboard {
 
         ATBDP()->enquirer->front_end_enqueue_scripts(true); // all front end scripts forcibly here
 
-        // Tabs
-        $dashboard_items = array();
-
-        $my_listing_tab   = get_directorist_option('my_listing_tab', 1);
-        $my_profile_tab   = get_directorist_option('my_profile_tab', 1);
-        $fav_listings_tab = get_directorist_option('fav_listings_tab', 1);
-
-        if ( $my_listing_tab ) {
-            $my_listing_tab_text = get_directorist_option('my_listing_tab_text', __('My Listing', 'directorist'));
-            $listings = ATBDP()->user->current_user_listings();
-            $list_found = ($listings->found_posts > 0) ? $listings->found_posts : '0';
-
-            $dashboard_items['my_listings'] = array(
-                'title'              => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),
-                'content'            => atbdp_return_shortcode_template('dashboard/listings', $this->get_listing_tab_args($listings) ),
-                'after_nav_hook'     => 'atbdp_tab_after_my_listings',
-                'after_content_hook' => 'atbdp_after_loop_dashboard_listings'
-            );
-        }
-
-        if ( $my_profile_tab ) {
-            $dashboard_items['profile'] = array(
-                'title'    => get_directorist_option('my_profile_tab_text', __('My Profile', 'directorist')),
-                'content'  => atbdp_return_shortcode_template('dashboard/profile', $this->get_profile_tab_args() ),
-            );
-        }
-
-        if ( $fav_listings_tab ) {
-            $dashboard_items['saved_items'] = array(
-                'title'              => get_directorist_option('fav_listings_tab_text', __('Favorite Listings', 'directorist')),
-                'content'            => atbdp_return_shortcode_template('dashboard/favourite', $this->get_favourite_tab_args() ),
-                'after_nav_hook'     => 'atbdp_tab_after_favorite_listings',
-                'after_content_hook' => 'atbdp_tab_content_after_favorite'
-            );
-        }
-
-        $dashboard_items = apply_filters( 'atbdp_dashboard_items', $dashboard_items );
-
         $show_title = !empty($atts['show_title']) ? $atts['show_title'] : '';
         $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
         $container_fluid = apply_filters('atbdp_deshboard_container_fluid', $container_fluid);
 
         /*@todo; later show featured listing first on the user dashboard maybe??? */
 
-        atbdp_get_shortcode_template( 'dashboard/user-dashboard', compact('show_title', 'dashboard_items','container_fluid') );
+        atbdp_get_shortcode_template( 'dashboard/user-dashboard', compact('show_title','container_fluid') );
 
         return ob_get_clean();
     }

@@ -25,13 +25,16 @@ $c_symbol = atbdp_currency_symbol($currency);
                                 </div>';
                         }
                         if('yes' == $category_field) {
-                            $search_html .= '<div class="single_search_field search_category">';
-                            $search_html .= '<select '.$require_cat.' name="in_cat" class="search_fields form-control" id="at_biz_dir-category">';
-                            $search_html .= '<option value="">' . $search_category_placeholder . '</option>';
-                            $search_html .= $categories_fields;
-                            $search_html .= '</select>';
-                            $search_html .= '</div>';
+                            $search_html_cat      = '<div class="single_search_field search_category">';
+                            $search_html_cat     .= '<select '.$require_cat.' name="in_cat" class="search_fields form-control" id="at_biz_dir-category">';
+                            $search_html_cat     .= '<option value="">' . $search_category_placeholder . '</option>';
+                            $search_html_cat     .= $categories_fields;
+                            $search_html_cat     .= '</select>';
+                            $search_html_cat     .= '</div>';
+
+                            $search_html .=  apply_filters('atbdp_search_form_after_cat',$search_html_cat);
                         }
+
                         if('yes' == $location_field) {
                             if('listing_location' == $search_location_address) {
                                 $search_html .= '<div class="single_search_field search_location">';

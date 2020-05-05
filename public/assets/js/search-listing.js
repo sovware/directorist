@@ -152,6 +152,7 @@
             $.post(atbdp_search_listing.ajax_url, data, function (response) {
                 var post_id = data['post_id'].toString();
                 var staElement = $('#atbdp-fav_'+ post_id);
+                var data_id = staElement.attr('data-listing_id');
 
                 if (response === "login_required") {
                     staElement.children(".atbd_fav_tooltip").append(fav_tooltip_warning);
@@ -164,7 +165,7 @@
                     staElement.removeClass('atbdp_fav_isActive');
                     $(".atbd_fav_tooltip span").remove();
                 }else{
-                    if ($('#atbdp-fav_'+response) === post_id){
+                    if ( data_id === post_id){
                         staElement.addClass('atbdp_fav_isActive');
                         staElement.children(".atbd_fav_tooltip").append(fav_tooltip_success);
                         staElement.children(".atbd_fav_tooltip").fadeIn();

@@ -342,8 +342,6 @@ class ATBDP_Enqueuer {
         wp_enqueue_script('atbdp-markerclusterer');
     }
 
-
-
     public function add_listing_scripts_styles()
     {
         $select_listing_map            = get_directorist_option('select_listing_map', 'google');

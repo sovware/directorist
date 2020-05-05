@@ -101,7 +101,7 @@
          */
         echo apply_filters('atbdp_grid_lower_badges', $l_badge_html);
         if (!empty($display_mark_as_fav)) {
-          echo atbdp_listings_mark_as_favourite($listing_id);
+          echo atbdp_listings_mark_as_favourite($listings_id);
         }
         ?>
       </figure>

@@ -20,7 +20,7 @@ function atbdp_get_template( $template_file, $args = array(), $template = null, 
     if ( is_array( $args ) ) {
         extract( $args );
     }
-    
+
     if ( $template && is_object( $template ) && true == $extract_template ) {
         extract( (array)$template );
     }

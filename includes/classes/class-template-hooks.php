@@ -22,6 +22,10 @@ class Directorist_Template_Hooks {
 		add_action( 'directorist_dashboard_navigation',       array( __CLASS__, 'dashboard_nav_tabs' ), 10 );
 		add_action( 'directorist_dashboard_navigation',       array( __CLASS__, 'dashboard_nav_buttons' ), 15 );
 		add_action( 'directorist_dashboard_tab_contents',     array( __CLASS__, 'dashboard_tab_contents' ) );
+
+		// Add Listing
+		add_action( 'directorist_add_listing_title',      array( __CLASS__, 'add_listing_title' ) );
+		add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_general' ) );
 	}
 
 	public static function instance() {
@@ -99,21 +103,105 @@ class Directorist_Template_Hooks {
 		}
 	}
 
-	public static function dashboard_nav_tabs($dashboard_items) {
-		atbdp_get_shortcode_template( 'dashboard/navigation-tabs', compact('dashboard_items') );
+	public static function dashboard_nav_tabs() {
+		$dashboard = new Directorist_Listing_Dashboard();
+
+		$args = array(
+			'dashboard_tabs' => $dashboard->get_dashboard_tabs(),
+		);
+
+		atbdp_get_shortcode_template( 'dashboard/navigation-tabs', $args );
 	}
 
 	public static function dashboard_nav_buttons() {
 		atbdp_get_shortcode_template( 'dashboard/nav-buttons' );
 	}
 
-	public static function dashboard_tab_contents($dashboard_items) {
-		foreach ($dashboard_items as $key => $value) {
+	public static function dashboard_tab_contents() {
+		$dashboard = new Directorist_Listing_Dashboard();
+		$dashboard_tabs = $dashboard->get_dashboard_tabs();
+
+		foreach ($dashboard_tabs as $key => $value) {
 			echo $value['content'];
 			if (!empty($value['after_content_hook'])) {
 				do_action($value['after_content_hook']);
 			}
 		}
+	}
+
+	public static function add_listing_title() {
+		$forms = new Directorist_Listing_Forms();
+
+		$args = array(
+			'p_id' => $forms->get_add_listing_id(),
+		);
+
+		atbdp_get_shortcode_template( 'forms/add-listing-title', $args );
+	}
+
+	public static function add_listing_general() {
+		$forms = new Directorist_Listing_Forms();
+
+		$p_id       = $forms->get_add_listing_id();
+		$fm_plan    = !empty(get_post_meta($p_id, '_fm_plans', true)) ? get_post_meta($p_id, '_fm_plans', true) : '';
+		$currency   = get_directorist_option('g_currency', 'USD');
+
+		$args = array(
+			'p_id'                           => $p_id,
+			'listing'                        => $forms->get_add_listing_post(),
+			'display_title_for'              => get_directorist_option('display_title_for', 0),
+			'title'                          => get_directorist_option('title_label', __('Title', 'directorist')),
+			'require_title'                  => get_directorist_option('require_title', 1),
+			'display_desc_for'               => get_directorist_option('display_desc_for', 0),
+			'long_details'                   => get_directorist_option('long_details_label', __('Long Description', 'directorist')),
+			'require_long_details'           => get_directorist_option('require_long_details'),
+			'display_tagline_field'          => get_directorist_option('display_tagline_field', 0),
+			'display_tagline_for'            => get_directorist_option('display_tagline_for', 0),
+			'tagline_label'                  => get_directorist_option('tagline_label', __('Tagline', 'directorist')),
+			'tagline_placeholder'            => get_directorist_option('tagline_placeholder', __('Your Listing\'s motto or tag-line', 'directorist')),
+			'tagline'                        => get_post_meta($p_id, '_tagline', true),
+			'display_price_for'              => get_directorist_option('display_price_for', 'admin_users'),
+			'display_price_range_for'        => get_directorist_option('display_price_range_for', 'admin_users'),
+			'display_pricing_field'          => get_directorist_option('display_pricing_field', 1),
+			'display_price_range_field'      => get_directorist_option('display_price_range_field', 1),
+			'plan_average_price'             => is_fee_manager_active() ? is_plan_allowed_average_price_range($fm_plan) : true,
+			'plan_price'                     => is_fee_manager_active() ? is_plan_allowed_price($fm_plan) : true,
+			'price_range'                    => get_post_meta($p_id, '_price_range', true),
+			'atbd_listing_pricing'           => get_post_meta($p_id, '_atbd_listing_pricing', true),
+			'pricing_label'                  => get_directorist_option('pricing_label', __('Pricing', 'directorist')),
+			'price_label'                    => get_directorist_option('price_label', __('Price', 'directorist')),
+			'currency'                       => $currency,
+			'require_price'                  => get_directorist_option('require_price'),
+			'price_range_label'              => get_directorist_option('price_range_label', __('Price Range', 'directorist')),
+			'require_price_range'            => get_directorist_option('require_price_range'),
+			'allow_decimal'                  => get_directorist_option('allow_decimal', 1),
+			'price'                          => get_post_meta($p_id, '_price', true),
+			'price_placeholder'              => get_directorist_option('price_placeholder', __('Price of this listing. Eg. 100', 'directorist')),
+			'c_symbol'                       => atbdp_currency_symbol($currency),
+			'price_range_placeholder'        => get_directorist_option('price_range_placeholder', __('Price Range', 'directorist')),
+			'display_views_count'            => apply_filters('atbdp_listing_form_view_count_field', get_directorist_option('display_views_count', 1)),
+			'display_views_count_for'        => get_directorist_option('display_views_count_for', 1),
+			'views_count_label'              => get_directorist_option('views_count_label', __('Views Count', 'directorist')),
+			'atbdp_post_views_count'         => get_post_meta($p_id, '_atbdp_post_views_count', true),
+			'display_excerpt_field'          => get_directorist_option('display_excerpt_field', 0),
+			'display_short_desc_for'         => get_directorist_option('display_short_desc_for', 0),
+			'excerpt_label'                  => get_directorist_option('excerpt_label', __('Short Description/Excerpt', 'directorist')),
+			'require_excerpt'                => get_directorist_option('require_excerpt'),
+			'excerpt'                        => get_post_meta($p_id, '_excerpt', true),
+			'excerpt_placeholder'            => get_directorist_option('excerpt_placeholder', __('Short Description or Excerpt', 'directorist')),
+			'display_loc_for'                => get_directorist_option('display_loc_for', 0),
+			'location_label'                 => get_directorist_option('location_label', __('Location', 'directorist')),
+			'loc_placeholder'                => get_directorist_option('loc_placeholder', __('Select Location', 'directorist')),
+			'require_location'               => get_directorist_option('require_location'),
+			// 'p_id'              => '',
+			// 'p_id'              => '',
+			// 'p_id'              => '',
+
+
+
+		);
+
+		atbdp_get_shortcode_template( 'forms/add-listing-general', $args );
 	}
 }
 

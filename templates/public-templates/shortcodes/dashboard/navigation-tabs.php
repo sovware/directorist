@@ -7,7 +7,7 @@
 ?>
 <div class="atbdp_tab_nav_wrapper">
 	<ul class="atbdp_tab_nav--content atbd-dashboard-nav">
-		<?php foreach ($dashboard_items as $key => $value): ?>
+		<?php foreach ($dashboard_tabs as $key => $value): ?>
 			<li class="atbdp_tab_nav--content-link"><a href="" class="atbd_tn_link" target="<?php echo esc_attr($key);?>"><?php echo wp_kses_post( $value['title'] ); ?></a>
 			</li>
 			<?php

@@ -20,6 +20,7 @@
 
                 <?php
                 /**
+                 * @since 7.0
                  * @hooked Directorist_Template_Hooks::dashboard_title - 10
                  */
                 do_action( 'directorist_dashboard_title_area', $show_title );
@@ -30,10 +31,11 @@
 
                         <?php
                         /**
+                         * @since 7.0
                          * @hooked Directorist_Template_Hooks::dashboard_nav_tabs - 10
                          * @hooked Directorist_Template_Hooks::dashboard_nav_buttons - 15
                          */
-                        do_action( 'directorist_dashboard_navigation', $dashboard_items );
+                        do_action( 'directorist_dashboard_navigation');
                         ?>
 
                     </div>
@@ -42,9 +44,10 @@
 
                         <?php
                         /**
+                         * @since 7.0
                          * @hooked Directorist_Template_Hooks::dashboard_tab_contents - 10
                          */
-                        do_action( 'directorist_dashboard_tab_contents', $dashboard_items );
+                        do_action( 'directorist_dashboard_tab_contents');
                         ?>
                         
                     </div>

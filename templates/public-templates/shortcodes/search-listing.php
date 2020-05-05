@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- start search area -->
-                    <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form" class="atbd_ads-form">
+                    <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" class="atbd_ads-form">
                         <div class="atbd_seach_fields_wrapper"<?php echo empty($search_border) ? 'style="border: none;"' : ''; ?>>
                             <?php
                             /**

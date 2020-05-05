@@ -339,7 +339,7 @@ class ATBDP_Enqueuer {
             wp_enqueue_media();
         }
 
-        //wp_enqueue_script('atbdp-markerclusterer');
+        wp_enqueue_script('atbdp-markerclusterer');
     }
 
 

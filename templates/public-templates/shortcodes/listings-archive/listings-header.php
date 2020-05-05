@@ -40,11 +40,11 @@
               <?php if ($display_viewas_dropdown) {
                 ob_start(); ?>
                 <div class="atbd_dropdown">
-                  <a class="atbd_dropdown-toggle" href="#" id="dropdownMenuLink">
+                  <a class="atbd_dropdown-toggle" href="#" id="viewAsDropdownMenuLink">
                     <?php echo $view_as_text; ?>
                     <span class="atbd_drop-caret"></span>
                   </a>
-                  <div class="atbd_dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <div class="atbd_dropdown-menu" aria-labelledby="viewAsDropdownMenuLink">
                     <?php foreach ($template->get_view_as_link_list() as $key => $link) {
                       extract($link);
                       echo "<a class='atbd_dropdown-item$active_class' href='$link'>$label</a>";
@@ -70,11 +70,11 @@
               <?php if ($display_sortby_dropdown) {
                 ob_start(); ?>
                 <div class="atbd_dropdown">
-                  <a class="atbd_dropdown-toggle" href="#" id="dropdownMenuLink">
+                  <a class="atbd_dropdown-toggle" href="#" id="sortByDropdownMenuLink">
                     <?php echo $view_as_text; ?>
                     <span class="atbd_drop-caret"></span>
                   </a>
-                  <div class="atbd_dropdown-menu atbd_dropdown-menu--lg" aria-labelledby="dropdownMenuLink">
+                  <div class="atbd_dropdown-menu atbd_dropdown-menu--lg" aria-labelledby="sortByDropdownMenuLink">
                     <?php foreach ($template->get_sort_by_link_list() as $key => $link) {
                       extract($link);
                       echo "<a class='atbd_dropdown-item$active_class' href='$link'>$label</a>";
@@ -95,7 +95,7 @@
         <!--ads advance search-->
         <div class="<?php $template->filter_container_class(); ?>">
           <div class="ads-advanced">
-            <form action="<?php atbdp_search_result_page_link(); ?>" role="form" class="atbd_ads-form">
+            <form action="<?php atbdp_search_result_page_link(); ?>" class="atbd_ads-form">
               <div class="atbd_seach_fields_wrapper" <?php $template->search_fields_wrapper_style(); ?>>
                 <div class="row atbdp-search-form">
                   <?php if ($template->has_search_field()) { ?>

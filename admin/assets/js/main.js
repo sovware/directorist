@@ -1330,7 +1330,7 @@ jQuery(function ($) {
             $("#display_password_reg + .password_notice").remove();
             lf_opt45.show();
         }else{
-            $("#display_password_reg").after("<p class='password_notice'>We command you to customize registration confirmation email. Click <a href='#' id='goto_passwoard'>here</a> to customize</p>");
+            $("#display_password_reg").after("<p class='password_notice'>We recommand you to customize registration confirmation email. Click <a href='#' id='goto_passwoard'>here</a> to customize</p>");
             $(".req_password_notice").remove();
             lf_opt45.hide();
         }
@@ -1354,7 +1354,7 @@ jQuery(function ($) {
         if($(this).is(":checked") === true){
             $("#require_password_reg + .req_password_notice").remove();
         }else{
-            $("#require_password_reg").after("<p class='req_password_notice'>We command you to customize registration confirmation email. Click <a href='#' id='goto_passwoard'>here</a> to customize</p>");
+            $("#require_password_reg").after("<p class='req_password_notice'>We recommand you to customize registration confirmation email. Click <a href='#' id='goto_passwoard'>here</a> to customize</p>");
         }
     });
 

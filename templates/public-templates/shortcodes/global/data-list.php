@@ -52,7 +52,7 @@
 		<?php if (!empty($phone_number) && !empty($display_phone_field)): ?>
 		<li>
 			<p>
-				<span class="<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php echo esc_html(stripslashes($phone_number)); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
+				<span class="<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php echo ATBDP_Helper::sanitize_tel_html($phone_number); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
 
 			</p>
 		</li>

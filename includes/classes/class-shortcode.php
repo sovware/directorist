@@ -2352,7 +2352,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
                 }
 
-                $all_listings = new WP_Query( apply_filetes( 'atbdp_single_location_query_arguments', $args ) );
+                $all_listings = new WP_Query( apply_filters( 'atbdp_single_location_query_arguments', $args ) );
                 if ('yes' == $show_pagination) {
                     $listing_count = '<span>' . $all_listings->found_posts . '</span>';
                 } else {

@@ -2207,25 +2207,18 @@ if (!class_exists('ATBDP_Shortcode')):
             }
             $container_fluid = 'container-fluid';
 
+            
+
             if (!empty($terms) && !is_wp_error($terms)) {
-                $grid_view_path = atbdp_get_theme_file("/directorist/shortcodes/categories/grid-view.php");
-                $list_view_path = atbdp_get_theme_file("/directorist/shortcodes/categories/list-view.php");
+                $template_file = 'all-categories/'. $atts['view'] .'-view';
+                $template_path = atbdp_get_shortcode_template_paths( $template_file );
 
-                if ( 'grid' == $atts['view'] && $grid_view_path ) {
-                    include $grid_view_path;
+                if ( file_exists( $template_path['theme'] ) ) {
+                    include $template_path['theme'];
+                } elseif ( file_exists( $template_path['plugin'] ) ) {
+                    include $template_path['plugin'];
                 }
 
-                if ( 'grid' == $atts['view'] && ! $grid_view_path ) {
-                    include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/all-categories/grid-view.php";
-                }
-
-                if ( 'list' == $atts['view'] && $list_view_path ) {
-                    include $list_view_path;
-                }
-
-                if ( 'list' == $atts['view'] && ! $list_view_path ) {
-                    include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/all-categories/list-view.php";
-                }
             } else {
                 _e('<p>No Results found!</p>', 'directorist');
             }
@@ -2753,23 +2746,13 @@ if (!class_exists('ATBDP_Shortcode')):
             
             
             if (!empty($terms) && !is_wp_error($terms)) {
-                $grid_view_path = atbdp_get_theme_file("/directorist/shortcodes/locations/grid-view.php");
-                $list_view_path = atbdp_get_theme_file("/directorist/shortcodes/locations/list-view.php");
+                $template_file = 'all-locations/'. $atts['view'] .'-view';
+                $template_path = atbdp_get_shortcode_template_paths( $template_file );
 
-                if ( 'grid' == $atts['view'] && $grid_view_path ) {
-                    include $grid_view_path;
-                }
-
-                if ( 'grid' == $atts['view'] && ! $grid_view_path ) {
-                    include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/locations/grid-view.php";
-                }
-
-                if ( 'list' == $atts['view'] && $list_view_path ) {
-                    include $list_view_path;
-                }
-
-                if ( 'list' == $atts['view'] && ! $list_view_path ) {
-                    include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/locations/list-view.php";
+                if ( file_exists( $template_path['theme'] ) ) {
+                    include $template_path['theme'];
+                } elseif ( file_exists( $template_path['plugin'] ) ) {
+                    include $template_path['plugin'];
                 }
             } else {
                 _e('<p>No Results found!</p>', 'directorist');

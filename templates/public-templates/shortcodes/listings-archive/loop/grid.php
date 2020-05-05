@@ -136,7 +136,7 @@
             if (!empty($display_review) || (!empty($display_price) && (!empty($price) || !empty($price_range)))) {
               echo atbdp_get_price_meta_html( compact('atbd_listing_pricing', 'display_price', 'display_pricing_field', 'price_range', 'price', 'is_disable_price') );
             }
-
+            
             if (!empty($display_contact_info || $display_publish_date || $display_email || $display_web_link)) {
               atbdp_get_shortcode_template( 'global/data-list', compact( 'display_contact_info', 'address', 'address_location', 'display_address_field', 'locs', 'phone_number', 'display_phone_field', 'display_publish_date', 'email', 'display_email', 'web', 'display_web_link', 'web', 'use_nofollow' ) );
             }

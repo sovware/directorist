@@ -93,6 +93,7 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
         public $views;
         public $website_label;
         public $zip_label;
+        public $use_nofollow;
         
 
         public function __construct( $args = array() ) {

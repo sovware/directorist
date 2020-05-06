@@ -67,8 +67,3 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
         ?>
     </div>
 </div>
-<style>
-    .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
-        width: <?php echo $column_width; ?>;
-    }
-</style>

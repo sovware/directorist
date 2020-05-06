@@ -212,7 +212,7 @@ class Directorist_Listing_Forms {
         ob_start();
         $include = apply_filters('include_style_settings', true);
         if ($include) {
-            include ATBDP_DIR . 'public/assets/css/style.php';
+            wp_enqueue_style('atbdp-settings-style');
         }
         wp_enqueue_script('adminmainassets');
         $guest_submission = get_directorist_option('guest_listings', 0);
@@ -381,16 +381,18 @@ class Directorist_Listing_Forms {
             'ancestors' => array()
         );
 
+        global $post;
+        $template_file = 'forms/add-listing';
+        $template_path = atbdp_get_shortcode_template_paths( $template_file );
+
         if (is_fee_manager_active() && !selected_plan_id()) {
             if ((strpos($current_url, '/edit/') !== false) && ($pagenow = 'at_biz_dir')) {
                 ATBDP()->enquirer->add_listing_scripts_styles();
-                // ATBDP()->load_template('front-end/add-listing');
 
-                $path = atbdp_get_theme_file("/directorist/shortcodes/forms/add-listing.php");
-                if ( $path ) {
-                    include $path;
-                } else {
-                    include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/forms/add-listing.php";
+                if ( file_exists( $template_path['theme'] ) ) {
+                    include $template_path['theme'];
+                } elseif ( file_exists( $template_path['plugin'] ) ) {
+                    include $template_path['plugin'];
                 }
             } else {
                 if (class_exists('ATBDP_Pricing_Plans')) {
@@ -404,11 +406,11 @@ class Directorist_Listing_Forms {
             }
         } else {
             ATBDP()->enquirer->add_listing_scripts_styles();
-            $path = atbdp_get_theme_file("/directorist/shortcodes/forms/add-listing.php");
-            if ( $path ) {
-                include $path;
-            } else {
-                include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/forms/add-listing.php";
+            
+            if ( file_exists( $template_path['theme'] ) ) {
+                include $template_path['theme'];
+            } elseif ( file_exists( $template_path['plugin'] ) ) {
+                include $template_path['plugin'];
             }
         }
         return ob_get_clean();

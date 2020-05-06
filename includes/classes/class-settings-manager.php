@@ -3202,6 +3202,10 @@ The Administrator of ==SITE_NAME==
                                 'value' => 'price',
                                 'label' => __('Price', 'directorist'),
                             ),
+                            array(
+                                'value' => 'rand',
+                                'label' => __('Random', 'directorist'),
+                            ),
                         ),
                         'default' => array(
                             'value' => 'date',

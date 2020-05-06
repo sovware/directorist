@@ -98,10 +98,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                         <div class="nav_button">
                             <?php if (!empty($submit_listing_button)) { ?>
                                 <a href="<?php echo esc_url(ATBDP_Permalink::get_add_listing_page_link()); ?>"
-                                   class="<?php echo atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', 'directorist'); ?></a>
+                                   class="atbdp_dashboard_submit_btn <?php echo atbdp_directorist_button_classes(); ?>"><?php _e('Submit Listing', 'directorist'); ?></a>
                             <?php } ?>
                             <a href="<?php echo esc_url(wp_logout_url(home_url())); ?>"
-                               class="<?php echo atbdp_directorist_button_classes('secondary'); ?>"><?php _e('Log Out', 'directorist'); ?></a>
+                               class="atbdp_dashboard_logout_btn <?php echo atbdp_directorist_button_classes('secondary'); ?>"><?php _e('Log Out', 'directorist'); ?></a>
                         </div>
                     </div> <!--ends dashboard_nav-->
 
@@ -170,10 +170,9 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     <?php
                                                                     $featured_text = get_directorist_option('feature_badge_text', esc_html__('Featured', 'directorist'));
                                                                     if ($featured) {
-                                                                        printf(
-                                                                            '<span class="atbd_badge atbd_badge_featured">%s</span>', __($featured_text, 'directorist')
+                                                                        $l_badge_html = apply_filters( 'atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $featured_text . '</span>' );
 
-                                                                        );
+                                                                        echo $l_badge_html;
                                                                     }
                                                                     ?>
                                                                 </div>
@@ -293,7 +292,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                         }
 
                                     } else {
-                                        echo '<p class="atbdp_nlf">' . __("Looks like you have not created any listing yet!", 'directorist') . '</p>';
+                                        echo '<p class="atbdp_nlf">' . apply_filters('atbdp_user_dashboard_no_listing_found_text', __("Looks like you have not created any listing yet!", 'directorist')) . '</p>';
                                     }
                                     $pagination = get_directorist_option('user_listings_pagination', 1);
                                     $paged = atbdp_get_paged_num();

@@ -13,7 +13,7 @@
       containerID: "ez-media-uploader",
       oldFiels: null,
       oldFielsUrl: null,
-      maxFileSize: 2048,
+      maxFileSize: 50,
       maxTotalFileSize: 4096,
       minFileItems: null,
       maxFileItems: null,
@@ -38,22 +38,27 @@
         },
         // Alerts Texts
         alert: {
-          maxTotalFileSize: 'Maximum limit for total file size is __DT__',
-          minFileItems: 'Minimum limit for total file is __DT__',
-          maxFileItems: 'Maximum limit for total file is __DT__',
+          maxFileSize: 'The maximum limit for a file is __DT__',
+          maxTotalFileSize: 'The minimum limit for total file size is  __DT__',
+          minFileItems: 'The minimum limit for total file is __DT__',
+          maxFileItems: 'The maximum limit for total file is __DT__',
         },
         // Info Texts
         info: {
+          maxFileSize: {
+            text: 'The maximum allowed size per file is __DT__',
+            show: true, featured: false, pin: false
+          },
           maxTotalFileSize: {
-            text: 'Maximum allowed file size is __DT__',
+            text: 'The maximum total allowed file size is __DT__',
             show: true, featured: false, pin: false
           },
           minFileItems: {
-            text: 'Minimum __DT__ files are required',
+            text: 'The minimum __DT__ files are required',
             show: true, featured: false, pin: false
           },
           maxFileItems: {
-            text: 'Maximum __DT__ files are allowed',
+            text: 'The maximum __DT__ files are allowed',
             show: true, featured: false, pin: false
           },
           allowedFileFormats: {
@@ -186,11 +191,13 @@
         { key: 'change', class: 'ezmu-dictionary-label-change' },
       ];
       var alert_classes = [
+        { key: 'maxFileSize', class: 'ezmu-dictionary-alert-max-file-size' },
         { key: 'maxTotalFileSize', class: 'ezmu-dictionary-alert-max-total-file-size' },
         { key: 'minFileItems', class: 'ezmu-dictionary-alert-min-file-items' },
         { key: 'maxFileItems', class: 'ezmu-dictionary-alert-max-file-items' },
       ];
       var info_classes = [
+        { key: 'maxFileSize', class: 'ezmu-dictionary-info-max-file-size' },
         { key: 'maxTotalFileSize', class: 'ezmu-dictionary-info-max-total-file-size' },
         { key: 'minFileItems', class: 'ezmu-dictionary-info-min-file-items' },
         { key: 'maxFileItems', class: 'ezmu-dictionary-info-max-file-items' },
@@ -294,7 +301,7 @@
       if (!this.container) { return null; }
 
       var self = this;
-      var files = this.filesMeta;
+      var filesMeta = this.filesMeta;
       var alerts = this.options.dictionary.alert;
       var error_log = [];
 
@@ -302,8 +309,8 @@
       var min_file_items = this.options.minFileItems;
       var valid_min_file_items = isPositiveNumber(min_file_items);
       min_file_items = (valid_min_file_items) ? valid_min_file_items : min_file_items;
-
-      if (valid_min_file_items && (files.length < min_file_items)) {
+      
+      if (valid_min_file_items && (filesMeta.length < min_file_items)) {
         error_log.push({
           errorKey: "minFileItems",
           message: alerts.minFileItems.replace(/(__DT__)/g, min_file_items)
@@ -315,12 +322,26 @@
       var valid_max_file_items = isPositiveNumber(max_file_items);
       max_file_items = (valid_max_file_items) ? valid_max_file_items : max_file_items;
 
-      if (valid_max_file_items && (files.length > max_file_items)) {
+      if (valid_max_file_items && (filesMeta.length > max_file_items)) {
         error_log.push({
           errorKey: "maxFileItems",
           message: alerts.maxFileItems.replace(/(__DT__)/g, max_file_items)
         });
       }
+
+      // Validate Max File Size
+      forEach( filesMeta, function( file ) { 
+        if ( (typeof file === 'object' && file !== null) && 'limitExceeded' in file ) {
+          if ( file.limitExceeded ) {
+            var max_file_size = self.options.maxFileSize;
+            var max_file_size_in_text = formatedFileSize(max_file_size * 1024);
+            error_log.push({
+              errorKey: "maxFileSize",
+              message: alerts.maxFileSize.replace(/(__DT__)/g, max_file_size_in_text)
+            });
+          }
+        }
+      });
 
       // Validate Max Total File Size
       var maxTotalFileSize = this.options.maxTotalFileSize;
@@ -332,7 +353,7 @@
         var max_total_file_size_in_text = formatedFileSize(maxTotalFileSize * 1024);
         var total_file_size_in_byte = 0;
 
-        forEach(files, function (file) {
+        forEach(filesMeta, function (file) {
           if ((typeof file === 'object' && file !== null) && 'fileSize' in file) {
             total_file_size_in_byte += file.fileSize;
           }
@@ -419,6 +440,10 @@
         if ("size" in file) {
           filesMeta.fileSize = file.size * 1024;
           filesMeta.fileSizeInText = formatedFileSize(file.size * 1024);
+
+          if ( file.size > this.options.maxFileSize ) {
+            filesMeta.limitExceeded = true;
+          }
         }
 
         this.filesMeta.push(filesMeta);
@@ -803,6 +828,7 @@
           var maxFileSize = self.options.maxFileSize;
           var limit_exceeded = false;
 
+          
           if (maxFileSize) {
             var file_size_in_kb = file_item.size / 1024;
             limit_exceeded = file_size_in_kb > maxFileSize ? true : false;
@@ -1083,7 +1109,7 @@
     var item_count = 0;
 
     for (var info in info_dictionary) {
-      if ((data[info] || info_dictionary[info].pin) && info_dictionary[info].show) {
+      if ( info_dictionary[info].show && (data[info] || info_dictionary[info].pin) ) {
         var dictionary_data = getDictionaryData(info, data);
         var text = info_dictionary[info].text.replace(/(__DT__)/g, dictionary_data);
         var class_name = "ezmu__info-list-item " + info;
@@ -1104,6 +1130,10 @@
   function getDictionaryData(item, options) {
     var option_name = item;
     var data = options[option_name];
+
+    if (option_name === 'maxFileSize' && data) {
+      return formatedFileSize(data * 1024);
+    }
 
     if (option_name === 'maxTotalFileSize' && data) {
       return formatedFileSize(data * 1024);
@@ -1210,8 +1240,10 @@
     var thumbnail_list_item_size = createElementWithClass(
       "ezmu__thumbnail-front-item ezmu__front-item__thumbnail-size"
     );
+
+    var state_class = ( data.limitExceeded ) ? ' has-error' : '';
     var thumbnail_list_item_size_text = createElementWithClass(
-      "ezmu__front-item__thumbnail-size-text",
+      "ezmu__front-item__thumbnail-size-text" + state_class,
       "span"
     );
 

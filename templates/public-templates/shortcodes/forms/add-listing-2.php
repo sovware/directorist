@@ -51,9 +51,6 @@
                                 ?>
                             </div>
 
-
-
-
                             <div class="atbdb_content_module">
                                 <?php if ((empty($display_fax_for) || empty($display_phone2_for) || empty($display_phone_for) || empty($display_address_for) || empty($display_email_for) || empty($display_website_for) || empty($display_zip_for) || empty($display_social_info_for)) && (!empty($display_address_field) || !empty($display_phone_field) || !empty($display_phone2_field) || !empty($display_fax_field) || !empty($display_email_field) || !empty($display_website_field) || !empty($display_zip_field) || !empty($display_social_info_field))) { ?>
                                     <div class="atbd_content_module atbd_contact_information">
@@ -138,9 +135,9 @@
                                                         esc_html_e($phone_label . ':', 'directorist');
                                                         echo get_directorist_option('require_phone_number') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                                                     <input type="tel" name="phone" id="atbdp_phone_number"
-                                                            value="<?php echo !empty($phone) ? esc_attr($phone) : ''; ?>"
-                                                            class="form-control directory_field"
-                                                            placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
+                                                           value="<?php echo !empty($phone) ? esc_attr($phone) : ''; ?>"
+                                                           class="form-control directory_field"
+                                                           placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
                                                 </div>
                                             <?php }
                                             if ($plan_phone && empty($display_phone2_for) && !empty($display_phone2_field)) {
@@ -467,7 +464,6 @@
                                                     $max_size = get_directorist_option('max_gallery_upload_size', 4);
                                                     $max_size_kb = (int)$max_size * 1024;
                                                     $req_gallery_image = get_directorist_option('require_gallery_img');
-                                                    $gallery_label = get_directorist_option('gallery_label', __('Select Files', 'directorist'));
                                                     ?>
                                                     <div id="_listing_gallery" class="ez-media-uploader"
                                                          data-max-file-items="<?php echo !empty($slider_unl) ? '999' : $plan_image; ?>"
@@ -506,7 +502,7 @@
                                                             <span class="ezmu-dictionary-label-featured"><?php echo __('Preview', 'directorist') ?></span>
                                                             <span class="ezmu-dictionary-label-drag-n-drop"><?php echo __('Drag & Drop', 'directorist') ?></span>
                                                             <span class="ezmu-dictionary-label-or"><?php echo __('or', 'directorist') ?></span>
-                                                            <span class="ezmu-dictionary-label-select-files"><?php echo $gallery_label ? $gallery_label : __('Select Files', 'directorist'); ?></span>
+                                                            <span class="ezmu-dictionary-label-select-files"><?php echo __('Select Files', 'directorist') ?></span>
                                                             <span class="ezmu-dictionary-label-add-more"><?php echo __('Add More', 'directorist') ?></span>
                                                             <!-- Alert Texts -->
                                                             <span class="ezmu-dictionary-alert-max-total-file-size">

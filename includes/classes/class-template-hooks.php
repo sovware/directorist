@@ -26,6 +26,7 @@ class Directorist_Template_Hooks {
 		// Add Listing
 		add_action( 'directorist_add_listing_title',      array( __CLASS__, 'add_listing_title' ) );
 		add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_general' ) );
+		add_action( 'atbdp_add_listing_after_excerpt',    array( __CLASS__, 'add_listing_custom_field' ) );
 	}
 
 	public static function instance() {
@@ -130,7 +131,7 @@ class Directorist_Template_Hooks {
 	}
 
 	public static function add_listing_title() {
-		$forms = new Directorist_Listing_Forms();
+		$forms = Directorist_Listing_Forms::instance();
 
 		$args = array(
 			'p_id' => $forms->get_add_listing_id(),
@@ -140,10 +141,10 @@ class Directorist_Template_Hooks {
 	}
 
 	public static function add_listing_general() {
-		$forms = new Directorist_Listing_Forms();
+		$forms = Directorist_Listing_Forms::instance();
 
 		$p_id       = $forms->get_add_listing_id();
-		$fm_plan    = !empty(get_post_meta($p_id, '_fm_plans', true)) ? get_post_meta($p_id, '_fm_plans', true) : '';
+		$fm_plan    = get_post_meta($p_id, '_fm_plans', true);
 		$currency   = get_directorist_option('g_currency', 'USD');
 
 		$args = array(
@@ -202,6 +203,26 @@ class Directorist_Template_Hooks {
 		);
 
 		atbdp_get_shortcode_template( 'forms/add-listing-general', $args );
+	}
+
+	public static function add_listing_custom_field() {
+		$forms  = Directorist_Listing_Forms::instance();
+		$fields = $forms->get_custom_fields_query();
+		$p_id   = $forms->get_add_listing_id();
+
+        foreach ($fields as $post) {
+            $id    = $post->ID;
+            $value = get_post_meta($p_id, $id, true);
+
+            $args = array(
+                'title'        => get_the_title($id),
+                'cf_required'  => get_post_meta($id, 'required', true),
+                'instructions' => get_post_meta($id, 'instructions', true),
+                'input_field'  => $forms->get_custom_field_input($id,$value),
+            );
+
+            atbdp_get_shortcode_template( 'forms/add-listing-custom-fields', $args );
+        }
 	}
 }
 

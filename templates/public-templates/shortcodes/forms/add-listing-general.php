@@ -206,19 +206,13 @@ $forms = Directorist_Listing_Forms::instance();
 						$ids[] = $single_val->term_id;
 					}
 				}
-				$locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
 				?>
-
 				<select name="tax_input[at_biz_dir-location][]" class="form-control"
 						id="at_biz_dir-location" <?php echo !empty($multiple_loc_for_user) ? 'multiple="multiple"' : '' ?>>
 					<?php
 					if (empty($multiple_loc_for_user)) {
 						echo '<option>' . $loc_placeholder . '</option>';
 					}
-					/*foreach ($locations as $key => $cat_title) {
-						$checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
-						printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);
-					}*/
 					$location_fields = add_listing_category_location_filter($query_args, ATBDP_LOCATION, $ids);
 					echo $location_fields;
 					?>
@@ -227,15 +221,10 @@ $forms = Directorist_Listing_Forms::instance();
 			</div>
 		<?php } ?>
 		<?php
-		$plan_tag = true;
-		if (is_fee_manager_active()) {
-			$plan_tag = is_plan_allowed_tag($fm_plan);
-		}
 		if ($plan_tag && empty($display_tag_for)) {
 			?>
 			<div class="form-group tag_area" id="atbdp_tags">
 				<label for="at_biz_dir-tags"><?php
-					$tag_label = get_directorist_option('tag_label', __('Tags', 'directorist'));
 					esc_html_e($tag_label . ':', 'directorist');
 					echo get_directorist_option('require_tags') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
 				<?php
@@ -277,9 +266,6 @@ $forms = Directorist_Listing_Forms::instance();
 		<!--@ Options for select the category.-->
 		<div class="form-group" id="atbdp_categories">
 			<label for="atbdp_select_cat"><?php
-				$category_label = get_directorist_option('category_label', __('Select Category', 'directorist'));
-				$cat_placeholder = get_directorist_option('cat_placeholder', __('Select Category', 'directorist'));
-
 				esc_html_e($category_label . ':', 'directorist');
 				echo get_directorist_option('require_category') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
 			<?php
@@ -301,23 +287,12 @@ $forms = Directorist_Listing_Forms::instance();
 				if (empty($multiple_cat_for_user)) {
 					echo '<option>' . $cat_placeholder . '</option>';
 				}
-
-				/*foreach ($categories as $key => $cat_title) {
-
-					$checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
-					printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);
-
-				}*/
 				$categories_field = add_listing_category_location_filter($query_args, ATBDP_CATEGORY, $ids, '', $plan_cat);
 				echo $categories_field;
 				?>
 			</select>
 		</div>
 		<?php
-		$plan_custom_field = true;
-		if (is_fee_manager_active()) {
-			$plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
-		}
 		if ($plan_custom_field) {
 			?>
 			<div id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">

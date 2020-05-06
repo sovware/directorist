@@ -382,6 +382,7 @@ class Directorist_Listing_Forms {
         );
 
         global $post;
+        $template_file = 'add-listing';
         $template_file = 'forms/add-listing';
         $template_path = atbdp_get_shortcode_template_paths( $template_file );
 

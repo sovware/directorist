@@ -147,6 +147,36 @@ class Directorist_Template_Hooks {
 		$fm_plan    = get_post_meta($p_id, '_fm_plans', true);
 		$currency   = get_directorist_option('g_currency', 'USD');
 
+        $plan_cat = array();
+        if (is_fee_manager_active()) {
+            $plan_cat = is_plan_allowed_category($fm_plan);
+        }
+
+		$plan_tag = true;
+		if (is_fee_manager_active()) {
+			$plan_tag = is_plan_allowed_tag($fm_plan);
+		}
+
+		$plan_custom_field = true;
+		if (is_fee_manager_active()) {
+			$plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
+		}
+
+        $query_args = array(
+            'parent' => 0,
+            'term_id' => 0,
+            'exclude' => $plan_cat,
+            'hide_empty' => 0,
+            'orderby' => 'name',
+            'order' => 'asc',
+            'show_count' => 0,
+            'single_only' => 0,
+            'pad_counts' => true,
+            'immediate_category' => 0,
+            'active_term_id' => 0,
+            'ancestors' => array()
+        );
+
 		$args = array(
 			'p_id'                           => $p_id,
 			'listing'                        => $forms->get_add_listing_post(),
@@ -194,12 +224,16 @@ class Directorist_Template_Hooks {
 			'location_label'                 => get_directorist_option('location_label', __('Location', 'directorist')),
 			'loc_placeholder'                => get_directorist_option('loc_placeholder', __('Select Location', 'directorist')),
 			'require_location'               => get_directorist_option('require_location'),
-			// 'p_id'              => '',
-			// 'p_id'              => '',
-			// 'p_id'              => '',
-
-
-
+			'multiple_loc_for_user'          => get_directorist_option('multiple_loc_for_user', 1),
+			'query_args'                     => $query_args,
+			'plan_tag'                       => $plan_tag,
+			'tag_label'                      => get_directorist_option('tag_label', __('Tags', 'directorist')),
+			'p_tags'                         => wp_get_post_terms($p_id, ATBDP_TAGS),
+			'listing_tags'                   => get_terms(ATBDP_TAGS, array('hide_empty' => 0)),
+			'category_label'                 => get_directorist_option('category_label', __('Select Category', 'directorist')),
+			'cat_placeholder'                => get_directorist_option('cat_placeholder', __('Select Category', 'directorist')),
+			'plan_custom_field'              => $plan_custom_field,
+			'plan_cat'                       => $plan_cat,
 		);
 
 		atbdp_get_shortcode_template( 'forms/add-listing-general', $args );

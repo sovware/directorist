@@ -13,7 +13,7 @@
       containerID: "ez-media-uploader",
       oldFiels: null,
       oldFielsUrl: null,
-      maxFileSize: 50,
+      maxFileSize: 0,
       maxTotalFileSize: 4096,
       minFileItems: null,
       maxFileItems: null,

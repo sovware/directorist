@@ -195,6 +195,6 @@ if ((empty($display_fax_for) || empty($display_phone2_for) || empty($display_pho
      * @since 4.0
      **/
     do_action('atbdp_edit_after_business_hour_fields', 'add_listing_page_frontend', $listing_info); // @dev
-
-
 }
+
+do_action('atbdp_after_contact_info_section', 'add_listing_page_frontend', $listing_info, $p_id);

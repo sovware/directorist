@@ -318,4 +318,4 @@ $forms = Directorist_Listing_Forms::instance();
 		?>
 
 	</div>
-</div><!-- end .atbd_custom_fields_contents -->
+</div>

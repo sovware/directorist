@@ -28,6 +28,8 @@ if(!empty($enable_uninstall)) {
     wp_delete_post(get_directorist_option('checkout_page'), true);
     wp_delete_post(get_directorist_option('payment_receipt_page'), true);
     wp_delete_post(get_directorist_option('transaction_failure_page'), true);
+    wp_delete_post(get_directorist_option('privacy_policy'), true);
+    wp_delete_post(get_directorist_option('terms_conditions'), true);
     // Delete posts + data.
     $wpdb->query( "DELETE FROM {$wpdb->posts} WHERE post_type IN ( 'at_biz_dir', 'atbdp_fields', 'atbdp_orders', 'atbdp_listing_review' );" );
 

@@ -398,6 +398,18 @@ $query_args = array(
                                         'value' => 'form',
                                         'compare' => 'LIKE'
                                     );
+                                    $meta_queries[] = array(
+                                        'relation' => 'OR',
+                                        array(
+                                            'key' => 'admin_use',
+                                            'compare' => 'NOT EXISTS'
+                                        ),
+                                        array(
+                                            'key' => 'admin_use',
+                                            'value' => 1,
+                                            'compare' => '!='
+                                        ),
+                                    );
                                     $meta_queries = apply_filters('atbdp_custom_fields_meta_queries', $meta_queries);
                                     $count_meta_queries = count($meta_queries);
                                     if ($count_meta_queries) {

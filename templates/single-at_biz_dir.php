@@ -727,7 +727,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         <div class="atbd_contact_info">
                             <ul>
                                 <?php
-                                $address_text = !empty($address_map_link) ? '<a target="google_map" href="https://www.google.de/maps/search/�' . esc_html($address) . '">' . esc_html($address) . '</a>' : esc_html($address);
+                                $address_text = !empty($address_map_link) ? '<a target="google_map" href="https://www.google.com/maps/search/' . esc_html($address) . '">' . esc_html($address) . '</a>' : esc_html($address);
                                 if (!empty($address) && !empty($display_address_field)) { ?>
                                     <li>
                                         <div class="atbd_info_title"><span

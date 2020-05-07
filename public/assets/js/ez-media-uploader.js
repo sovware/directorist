@@ -1323,6 +1323,7 @@
       var img_src = data_url ? data_url : img_src;
       img_src = data_blob ? data_blob : img_src;
       thumbnail_list_item_img.src = img_src;
+      thumbnail_list_item_img.alt = 'image';
       return thumbnail_list_item_img;
     }
 

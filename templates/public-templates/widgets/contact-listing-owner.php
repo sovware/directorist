@@ -6,7 +6,7 @@ echo '</div>';
 $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-contact-form-widget');
 ?>
 <div class="atbdp directorist atbdp-widget-listing-contact">
-  <form id="<?php echo $form_id; ?>" class="form-vertical" role="form">
+  <form id="<?php echo $form_id; ?>" class="form-vertical">
     <div class="form-group">
       <input type="text" class="form-control" id="atbdp-contact-name" placeholder="<?php _e('Name', 'directorist'); ?>" required />
     </div>

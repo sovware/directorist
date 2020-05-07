@@ -592,16 +592,14 @@ if ( isset( $_GET['activate'] ) ) {
             <?php
 }
 
-    // sanitize_tel_html
-    public static function sanitize_tel_html( string $tel = '', string $return_type = 'echo' ) {
-        $tel = esc_html( stripslashes( $tel ) );
-        $tel = preg_replace( '/\s/', '', $tel );
-
+    // sanitize_html
+    public static function sanitize_html( string $subject = '', string $return_type = 'echo' ) {
+        $subject = esc_html( stripslashes( $subject ) );
         if ( $return_type === 'return' ) {
-            return $tel;
+            return $subject;
         }
 
-        echo $tel;   
+        echo $subject;   
     }
 
     // sanitize_tel_attr

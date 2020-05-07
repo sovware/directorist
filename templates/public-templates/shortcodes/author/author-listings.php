@@ -46,6 +46,7 @@
     <?php
     
     if ($listings){
+        
         listing_view_by_grid($all_listings, $paginate, $is_disable_price);
     }else{
         // for dev

@@ -4,6 +4,8 @@
  * @since   7.0
  * @version 7.0
  */
+
+$forms = Directorist_Listing_Forms::instance();
 ?>
 <div class="atbd_content_module atbd_general_information_module">
 	<div class="atbd_content_module_title_area">
@@ -190,206 +192,7 @@
 		 */
 		do_action('atbdp_add_listing_after_excerpt', $p_id);
 		?>
-		<!--***********************************************************************
-			 Run the custom field loop to show all published custom fields asign to form
-			 **************************************************************************-->
-		<?php
-		// custom fields information
-		//// get all the custom field that has posted by admin ane return the field
-		$custom_fields = new WP_Query(array(
-			'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-			'posts_per_page' => -1,
-			'post_status' => 'publish',
-			'meta_key' => 'associate',
-			'meta_value' => 'form',
-			'meta_query' => array(
-				'relation' => 'OR',
-				array(
-					'key' => 'admin_use',
-					'compare' => 'NOT EXISTS'
-				),
-				array(
-					'key' => 'admin_use',
-					'value' => 1,
-					'compare' => '!='
-				),
-			)
-		));
-		$plan_custom_field = true;
-		if (is_fee_manager_active()) {
-			$plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
-		}
-		if ($plan_custom_field) {
-			$fields = $custom_fields->posts;
-		} else {
-			$fields = array();
-		}
-		foreach ($fields as $post) {
-			setup_postdata($post);
-			$post_id = $post->ID;
-			$cf_required = get_post_meta(get_the_ID(), 'required', true);
-			$post_meta = get_post_meta($post_id);
-			$instructions = get_post_meta(get_the_ID(), 'instructions', true);
-			?>
-			<div class="form-group" id="atbdp_custom_field_area">
-				<label for=""><?php the_title(); ?><?php if ($cf_required) {
-						echo '<span style="color: red"> *</span>';
-					}
-					if (!empty($instructions)) {
-						printf('<span class="atbd_tooltip atbd_tooltip--fw" aria-label="%s"> <i class="fa fa-question-circle"></i></span>', $instructions);
-					}
-					?>
-				</label>
-				<?php
-				if (isset($post_meta[$post->ID])) {
-					$value = $post_meta[0];
-				}
-				$value = get_post_meta($p_id, $post_id, true); ///store the value for the db
-				$cf_meta_default_val = get_post_meta(get_the_ID(), 'default_value', true);
 
-				if (isset($post_id)) {
-					$cf_meta_default_val = $post_id;
-				}
-				$cf_meta_val = get_post_meta(get_the_ID(), 'type', true);
-				$cf_rows = get_post_meta(get_the_ID(), 'rows', true);
-				$cf_placeholder = '';
-				switch ($cf_meta_val) {
-					case 'text' :
-						echo '<div>';
-						printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post_id, $cf_placeholder, $value);
-						echo '</div>';
-						break;
-					case 'number' :
-						echo '<div>';
-						printf('<input type="number" %s  name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', !empty($allow_decimal) ? 'step="any"' : '', $post_id, $cf_placeholder, $value);
-						echo '</div>';
-						break;
-					case 'textarea' :
-						echo '<div>';
-						printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int)$cf_rows, esc_attr($cf_placeholder), esc_textarea($value));
-						echo '</div>';
-						break;
-					case 'radio':
-						echo '<div>';
-						$choices = get_post_meta(get_the_ID(), 'choices', true);
-						$choices = explode("\n", $choices);
-						echo '<ul class="atbdp-radio-list vertical">';
-						foreach ($choices as $choice) {
-							if (strpos($choice, ':') !== false) {
-								$_choice = explode(':', $choice);
-								$_choice = array_map('trim', $_choice);
-
-								$_value = $_choice[0];
-								$_label = $_choice[1];
-							} else {
-								$_value = trim($choice);
-								$_label = $_value;
-							}
-							$_checked = '';
-							if (trim($value) == $_value) $_checked = ' checked="checked"';
-
-							printf('<li><label><input type="radio" name="custom_field[%d]" value="%s"%s>%s</label></li>', $post->ID, $_value, $_checked, $_label);
-						}
-						echo '</ul>';
-						echo '</div>';
-						break;
-
-					case 'select' :
-						echo '<div>';
-						$choices = get_post_meta(get_the_ID(), 'choices', true);
-						$choices = explode("\n", $choices);
-						printf('<select name="custom_field[%d]" class="form-control directory_field">', $post->ID);
-						if (!empty($field_meta['allow_null'][0])) {
-							printf('<option value="">%s</option>', '- ' . __('Select an Option', 'directorist') . ' -');
-						}
-						foreach ($choices as $choice) {
-							if (strpos($choice, ':') !== false) {
-								$_choice = explode(':', $choice);
-								$_choice = array_map('trim', $_choice);
-
-								$_value = $_choice[0];
-								$_label = $_choice[1];
-							} else {
-								$_value = trim($choice);
-								$_label = $_value;
-							}
-
-							$_selected = '';
-							if (trim($value) == $_value) $_selected = ' selected="selected"';
-
-							printf('<option value="%s"%s>%s</option>', $_value, $_selected, $_label);
-						}
-						echo '</select>';
-						echo '</div>';
-						break;
-
-					case 'checkbox' :
-						echo '<div>';
-						$choices = get_post_meta(get_the_ID(), 'choices', true);
-						$choices = explode("\n", $choices);
-
-						$values = explode("\n", $value);
-						$values = array_map('trim', $values);
-						echo '<ul class="atbdp-checkbox-list vertical">';
-
-						foreach ($choices as $choice) {
-							if (strpos($choice, ':') !== false) {
-								$_choice = explode(':', $choice);
-								$_choice = array_map('trim', $_choice);
-
-								$_value = $_choice[0];
-								$_label = $_choice[1];
-							} else {
-								$_value = trim($choice);
-								$_label = $_value;
-							}
-
-							$_checked = '';
-							if (in_array($_value, $values)) $_checked = ' checked="checked"';
-
-							printf('<li><label><input type="hidden" name="custom_field[%s][]" value="" /><input type="checkbox" name="custom_field[%d][]" value="%s"%s> %s</label></li>', $post->ID, $post->ID, $_value, $_checked, $_label);
-						}
-						echo '</ul>';
-						echo '</div>';
-						break;
-					case 'url'  :
-						echo '<div>';
-						printf('<input type="text" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_url($value));
-						echo '</div>';
-						break;
-
-					case 'date'  :
-						echo '<div>';
-						printf('<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
-						echo '</div>';
-						break;
-
-					case 'email'  :
-						echo '<div>';
-						printf('<input type="email" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
-						echo '</div>';
-						break;
-					case 'color'  :
-						echo '<div>';
-						printf('<input type="text" name="custom_field[%d]" id="color_code2" class="my-color-field" value="%s"/>', $post->ID, $value);
-						echo '</div>';
-						break;
-
-					case 'time'  :
-						echo '<div>';
-						printf('<input type="time" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
-						echo '</div>';
-						break;
-					case 'file'  :
-						require ATBDP_TEMPLATES_DIR . 'file-uploader.php';
-						break;
-				}
-				?>
-			</div>
-			<?php
-		}
-		wp_reset_postdata();
-		?>
 		<?php if (empty($display_loc_for)) { ?>
 			<div class="form-group" id="atbdp_locations">
 				<label for="at_biz_dir-location"><?php
@@ -403,19 +206,13 @@
 						$ids[] = $single_val->term_id;
 					}
 				}
-				$locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
 				?>
-
 				<select name="tax_input[at_biz_dir-location][]" class="form-control"
 						id="at_biz_dir-location" <?php echo !empty($multiple_loc_for_user) ? 'multiple="multiple"' : '' ?>>
 					<?php
 					if (empty($multiple_loc_for_user)) {
 						echo '<option>' . $loc_placeholder . '</option>';
 					}
-					/*foreach ($locations as $key => $cat_title) {
-						$checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
-						printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);
-					}*/
 					$location_fields = add_listing_category_location_filter($query_args, ATBDP_LOCATION, $ids);
 					echo $location_fields;
 					?>
@@ -424,15 +221,10 @@
 			</div>
 		<?php } ?>
 		<?php
-		$plan_tag = true;
-		if (is_fee_manager_active()) {
-			$plan_tag = is_plan_allowed_tag($fm_plan);
-		}
 		if ($plan_tag && empty($display_tag_for)) {
 			?>
 			<div class="form-group tag_area" id="atbdp_tags">
 				<label for="at_biz_dir-tags"><?php
-					$tag_label = get_directorist_option('tag_label', __('Tags', 'directorist'));
 					esc_html_e($tag_label . ':', 'directorist');
 					echo get_directorist_option('require_tags') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
 				<?php
@@ -474,9 +266,6 @@
 		<!--@ Options for select the category.-->
 		<div class="form-group" id="atbdp_categories">
 			<label for="atbdp_select_cat"><?php
-				$category_label = get_directorist_option('category_label', __('Select Category', 'directorist'));
-				$cat_placeholder = get_directorist_option('cat_placeholder', __('Select Category', 'directorist'));
-
 				esc_html_e($category_label . ':', 'directorist');
 				echo get_directorist_option('require_category') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
 			<?php
@@ -498,23 +287,12 @@
 				if (empty($multiple_cat_for_user)) {
 					echo '<option>' . $cat_placeholder . '</option>';
 				}
-
-				/*foreach ($categories as $key => $cat_title) {
-
-					$checked = in_array($cat_title->term_id, $ids) ? 'selected' : '';
-					printf('<option value="%s" %s>%s</option>', $cat_title->term_id, $checked, $cat_title->name);
-
-				}*/
 				$categories_field = add_listing_category_location_filter($query_args, ATBDP_CATEGORY, $ids, '', $plan_cat);
 				echo $categories_field;
 				?>
 			</select>
 		</div>
 		<?php
-		$plan_custom_field = true;
-		if (is_fee_manager_active()) {
-			$plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
-		}
 		if ($plan_custom_field) {
 			?>
 			<div id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">

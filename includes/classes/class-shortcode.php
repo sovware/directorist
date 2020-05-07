@@ -3280,6 +3280,9 @@ if (!class_exists('ATBDP_Shortcode')):
 
         public function add_listing($atts)
         {
+            $forms  = Directorist_Listing_Forms::instance();
+            return $forms->render_shortcode_add_listing($atts);
+            
             ob_start();
             $include = apply_filters('include_style_settings', true);
             if ($include) {

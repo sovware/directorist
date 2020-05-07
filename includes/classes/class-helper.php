@@ -458,7 +458,8 @@ if ( isset( $_GET['activate'] ) ) {
         );
     }
 
-    public function guard( Array $args = array() ) {
+    // guard
+    public static function guard( Array $args = array() ) {
         $type           = ( ! empty( $args['type'] ) ) ? $args['type'] : 'auth';
         $login_redirect = ( ! empty( $args['login_redirect'] ) ) ? $args['login_redirect'] : false;
 

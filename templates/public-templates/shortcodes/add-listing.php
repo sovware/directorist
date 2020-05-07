@@ -256,6 +256,8 @@
                                     } else {
                                         $fields = array();
                                     }
+                                    var_dump($fields);
+                                    return;
                                     foreach ($fields as $post) {
                                         setup_postdata($post);
                                         $post_id = $post->ID;

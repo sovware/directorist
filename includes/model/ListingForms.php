@@ -66,7 +66,8 @@ class Directorist_Listing_Forms {
         return $fields;
     }
 
-    public function get_custom_field_input($id,$value) {
+    public function get_custom_field_input($id, $value) {
+        $post_id = $id;
         $cf_meta_val = get_post_meta($id, 'type', true);
         $cf_rows = get_post_meta($id, 'rows', true);
         $cf_placeholder = '';
@@ -218,7 +219,7 @@ class Directorist_Listing_Forms {
         $guest_submission = get_directorist_option('guest_listings', 0);
 
         if ( false === $guest_submission && ! atbdp_logged_in_user() ) {
-            return $this->guard( ['type' => 'auth'] );
+            return ATBDP_Helper::guard( ['type' => 'auth'] );
         }
 
         global $wp;

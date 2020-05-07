@@ -372,7 +372,10 @@
 
       var thumbnailListItem = createElementWithClass(class_name);
       var thumbnailListItemImg = createElementWithClass('plasmaSlider__thumbnailListItemImg', 'img');
+
       thumbnailListItemImg.src = ( 'src' in image ) ? image.src : '';
+      thumbnailListItemImg.alt = ( 'alt' in image ) ? image.alt : 'Thumbnail Image';
+
       thumbnailListItem.appendChild(thumbnailListItemImg);
       thumbnailList.appendChild(thumbnailListItem);
     });

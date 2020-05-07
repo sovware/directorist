@@ -9,18 +9,6 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
     'lon'=>74.0060,
 ) );
 ?>
-<style>
-    .myDivIcon {
-        text-align: center !important;
-        line-height: 20px !important;
-        position: relative;
-    }
-    .myDivIcon div.atbd_map_shape {
-        position: absolute;
-        top: -38px;
-        left: -15px;
-    }
-</style>
 <script>
     var addressPoints = [
         <?php while( $all_listings->have_posts() ) : $all_listings->the_post();

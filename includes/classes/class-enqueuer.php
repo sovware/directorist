@@ -350,9 +350,9 @@ class ATBDP_Enqueuer {
         
         // Settings Style
         wp_register_style( 'atbdp-settings-style', ATBDP_PUBLIC_ASSETS . 'css/settings-style.css', false, ATBDP_VERSION);
-        
         $settings_stylesheet = $this->get_settings_stylesheet();
-        wp_add_inline_style( 'atbdp-settings-style', $settings_stylesheet );
+        // wp_add_inline_style( 'atbdp-settings-style', $settings_stylesheet );
+        // wp_enqueue_style('atbdp-settings-style');
     }
 
     // get_settings_stylesheet

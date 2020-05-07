@@ -62,7 +62,7 @@ do_action('atbdp_before_listing_section');
                     <a href="" class="at-modal-close"><span aria-hidden="true">&times;</span></a>
                     <div class="row align-items-center">
                         <div class="col-lg-12">
-                            <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
+                            <form id="atbdp-report-abuse-form" class="form-vertical tst">
                                 <div class="modal-header">
                                     <h3 class="modal-title"
                                         id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', 'directorist'); ?></h3>

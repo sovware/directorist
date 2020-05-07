@@ -1510,7 +1510,21 @@ if (!class_exists('ATBDP_Shortcode')):
 
             // Add Inline Style
             $style = '.atbd_content_active #directorist.atbd_wrapper .atbdp_column {';
-            $style .= "width: $listings_model->column_width; }";
+            $style .= "width: $listings_model->column_width; } \n";
+
+            $listing_map_type = $listings_model->select_listing_map;
+            
+            if ( $listing_map_type === 'openstreet' ) {
+                $style .= '.myDivIcon {';
+                $style .= 'text-align: center !important;';
+                $style .= 'line-height: 20px !important;';
+                $style .= "position: relative; }\n";
+
+                $style .= '.myDivIcon div.atbd_map_shape {';
+                $style .= 'position: absolute;';
+                $style .= 'top: -38px;';
+                $style .= "left: -15px; }\n";
+            }
 
             wp_add_inline_style( 'atbdp-inline-style', $style );
             wp_enqueue_style('atbdp-inline-style');

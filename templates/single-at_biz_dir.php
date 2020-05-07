@@ -295,7 +295,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 <a href="" class="at-modal-close"><span aria-hidden="true">&times;</span></a>
                                 <div class="row align-items-center">
                                     <div class="col-lg-12">
-                                        <form id="atbdp-report-abuse-form" class="form-vertical" role="form">
+                                        <form id="atbdp-report-abuse-form" class="form-vertical">
                                             <div class="modal-header">
                                                 <h3 class="modal-title"
                                                     id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', 'directorist'); ?></h3>
@@ -606,7 +606,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                         <div class="atbd_custom_field_title">
                                             <p><?php echo esc_attr($field_title); ?></p></div>
                                         <div class="atbd_custom_field_content">
-                                            <p><?php if ('color' == $field_type) {
+                                            <div><?php if ('color' == $field_type) {
                                                     printf('<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details);
                                                 } elseif ($field_type === 'date') {
                                                     $date_format = get_option('date_format');
@@ -649,7 +649,8 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                                     $content = apply_filters('get_the_content', $field_details);
                                                     echo do_shortcode(wpautop($content));
                                                     //echo esc_attr($field_details);
-                                                } ?></p>
+                                                } ?>
+                                            </div>
                                         </div>
                                     </li>
                                     <?php
@@ -855,7 +856,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                             </h4>
                         </div>
                     </div>
-                    <form id="atbdp-contact-form" class="form-vertical contact_listing_owner" role="form">
+                    <form id="atbdp-contact-form" class="form-vertical contact_listing_owner">
                         <div class="form-group">
                             <input type="text" class="form-control" id="atbdp-contact-name"
                                    placeholder="<?php _e('Name', 'directorist'); ?>" required/>

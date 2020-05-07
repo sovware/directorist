@@ -26,7 +26,7 @@ if (!empty($has_field) && $plan_custom_field) {
                             <div class="atbd_custom_field_title">
                                 <p><?php echo esc_attr($field_title); ?></p></div>
                             <div class="atbd_custom_field_content">
-                                <p><?php if ('color' == $field_type) {
+                                <div style="margin-bottom: 10px;"><?php if ('color' == $field_type) {
                                         printf('<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details);
                                     } elseif ($field_type === 'date') {
                                         $date_format = get_option( 'date_format' );
@@ -69,7 +69,7 @@ if (!empty($has_field) && $plan_custom_field) {
                                         $content = apply_filters('get_the_content', $field_details);
                                         echo do_shortcode(wpautop($content));
                                         //echo esc_attr($field_details);
-                                    } ?></p>
+                                    } ?></div>
                             </div>
                         </li>
                         <?php

@@ -18,26 +18,14 @@ if ((empty($display_fax_for) || empty($display_phone2_for) || empty($display_pho
         <div class="atbdb_content_module_contents">
             <?php if (!empty($display_contact_hide)) { ?>
                 <div class="form-check">
-                    <input type="checkbox" name="hide_contact_info"
-                           class="form-check-input"
-                           id="hide_contact_info"
-                           value="1" <?php if (!empty($hide_contact_info)) {
-                        checked($hide_contact_info);
-                    } ?> >
-                    <label class="form-check-label"
-                           for="hide_contact_info"><?php echo !empty($contact_hide_label) ? $contact_hide_label : __('Check it to hide Contact Information for this listing', 'directorist'); ?></label>
+                    <input type="checkbox" name="hide_contact_info" class="form-check-input" id="hide_contact_info" value="1" <?php if (!empty($hide_contact_info)) { checked($hide_contact_info);} ?> >
+                    <label class="form-check-label" for="hide_contact_info"><?php echo !empty($contact_hide_label) ? $contact_hide_label : __('Check it to hide Contact Information for this listing', 'directorist'); ?></label>
                 </div>
             <?php } ?>
             <?php if (!$disable_contact_owner) { ?>
                 <div class="form-check">
-                    <input type="checkbox" name="hide_contact_owner"
-                           class="form-check-input"
-                           id="hide_contact_owner"
-                           value="1" <?php if (!empty($hide_contact_owner)) {
-                        checked($hide_contact_owner);
-                    } ?> >
-                    <label class="form-check-label"
-                           for="hide_contact_owner"><?php esc_html_e('Check it to hide Contact owner', 'directorist'); ?></label>
+                    <input type="checkbox" name="hide_contact_owner" class="form-check-input" id="hide_contact_owner" value="1" <?php if (!empty($hide_contact_owner)) {checked($hide_contact_owner);} ?> >
+                    <label class="form-check-label" for="hide_contact_owner"><?php esc_html_e('Check it to hide Contact owner', 'directorist'); ?></label>
                 </div>
             <?php }
 
@@ -51,90 +39,56 @@ if ((empty($display_fax_for) || empty($display_phone2_for) || empty($display_pho
             if (empty($display_address_for) && !empty($display_address_field) && (!empty($display_map_for) || empty($display_map_field))) {
                 ?>
                 <div class="form-group" id="atbdp_address">
-                    <label for="address"><?php
-                        esc_html_e($address_label . ':', 'directorist');
-                        echo $require_address ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
-                    <input type="text" name="address" autocomplete="off" id="address"
-
-                           value="<?php echo !empty($address) ? esc_attr($address) : ''; ?>"
-                           class="form-control directory_field"
-                           placeholder="<?php echo esc_attr($address_placeholder); ?>"/>
+                    <label for="address"><?php esc_html_e($address_label . ':', 'directorist'); echo $require_address ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+                    <input type="text" name="address" autocomplete="off" id="address" value="<?php echo !empty($address) ? esc_attr($address) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($address_placeholder); ?>"/>
                 </div>
             <?php }
 
             if (empty($display_zip_for) && !empty($display_zip_field)) {
                 ?>
                 <div class="form-group" id="atbdp_zip">
-                    <label for="atbdp_zip"><?php
-                        esc_html_e($zip_label . ':', 'directorist');
-                        echo $require_zip ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
-
-                    <input type="text" id="atbdp_zip" name="zip"
-                           value="<?php echo !empty($zip) ? esc_attr($zip) : ''; ?>"
-                           class="form-control directory_field"
-                           placeholder="<?php echo esc_attr($zip_placeholder); ?>"/>
+                    <label for="atbdp_zip"><?php esc_html_e($zip_label . ':', 'directorist'); echo $require_zip ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+                    <input type="text" id="atbdp_zip" name="zip" value="<?php echo !empty($zip) ? esc_attr($zip) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($zip_placeholder); ?>"/>
                 </div>
             <?php }
+
             if ($plan_phone && empty($display_phone_for) && !empty($display_phone_field)) {
                 ?>
                 <div class="form-group" id="atbdp_phone">
-                    <label for="atbdp_phone_number"><?php
-                        esc_html_e($phone_label . ':', 'directorist');
-                        echo $require_phone_number ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
-                    <input type="tel" name="phone" id="atbdp_phone_number"
-                            value="<?php echo !empty($phone) ? esc_attr($phone) : ''; ?>"
-                            class="form-control directory_field"
-                            placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
+                    <label for="atbdp_phone_number"><?php esc_html_e($phone_label . ':', 'directorist'); echo $require_phone_number ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+                    <input type="tel" name="phone" id="atbdp_phone_number" value="<?php echo !empty($phone) ? esc_attr($phone) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($phone_placeholder); ?>"/>
                 </div>
             <?php }
+
             if ($plan_phone && empty($display_phone2_for) && !empty($display_phone2_field)) {
                 ?>
                 <div class="form-group" id="atbdp_phone2">
-                    <label for="atbdp_phone_number2"><?php
-                        esc_html_e($phone_label2 . ':', 'directorist');
-                        echo $require_phone_number2 ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
-                    <input type="tel" name="phone2" id="atbdp_phone_number2"
-                           value="<?php echo !empty($phone2) ? esc_attr($phone2) : ''; ?>"
-                           class="form-control directory_field"
-                           placeholder="<?php echo esc_attr($phone_placeholder2); ?>"/>
+                    <label for="atbdp_phone_number2"><?php esc_html_e($phone_label2 . ':', 'directorist'); echo $require_phone_number2 ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+                    <input type="tel" name="phone2" id="atbdp_phone_number2" value="<?php echo !empty($phone2) ? esc_attr($phone2) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($phone_placeholder2); ?>"/>
                 </div>
             <?php }
 
             if (empty($display_fax_for) && !empty($display_fax_field)) {
                 ?>
                 <div class="form-group" id="atbdp_fax">
-                	<label for="atbdp_fax"><?php
-                        esc_html_e($fax_label . ':', 'directorist');
-                        echo $require_fax ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
-                    <input type="tel" name="fax" id="atbdp_fax"
-                           value="<?php echo !empty($fax) ? esc_attr($fax) : ''; ?>"
-                           class="form-control directory_field"
-                           placeholder="<?php echo esc_attr($fax_placeholder); ?>"/>
+                	<label for="atbdp_fax"><?php esc_html_e($fax_label . ':', 'directorist'); echo $require_fax ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+                    <input type="tel" name="fax" id="atbdp_fax" value="<?php echo !empty($fax) ? esc_attr($fax) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($fax_placeholder); ?>"/>
                 </div>
             <?php }
+
             if ($plan_email && empty($display_email_for) && !empty($display_email_field)) {
                 ?>
                 <div class="form-group" id="atbdp_emails">
-                    <label for="atbdp_email"><?php
-                        esc_html_e($email_label . ':', 'directorist');
-                        echo $require_email ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
-                    <input type="email" name="email" id="atbdp_email"
-                           value="<?php echo !empty($email) ? esc_attr($email) : ''; ?>"
-                           class="form-control directory_field"
-                           placeholder="<?php echo esc_attr($email_placeholder); ?>"/>
+                    <label for="atbdp_email"><?php esc_html_e($email_label . ':', 'directorist'); echo $require_email ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+                    <input type="email" name="email" id="atbdp_email" value="<?php echo !empty($email) ? esc_attr($email) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($email_placeholder); ?>"/>
                 </div>
             <?php }
+
             if ($plan_webLink && empty($display_website_for) && !empty($display_website_field)) {
                 ?>
                 <div class="form-group" id="atbdp_webs">
-                    <label for="atbdp_website"><?php
-                        esc_html_e($website_label . ':', 'directorist');
-                        echo $require_website ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
-
-                    <input type="text" id="atbdp_website" name="website"
-                           value="<?php echo !empty($website) ? esc_url($website) : ''; ?>"
-                           class="form-control directory_field"
-                           placeholder="<?php echo esc_attr($website_placeholder); ?>"/>
+                    <label for="atbdp_website"><?php esc_html_e($website_label . ':', 'directorist'); echo $require_website ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
+                    <input type="text" id="atbdp_website" name="website" value="<?php echo !empty($website) ? esc_url($website) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($website_placeholder); ?>"/>
                 </div>
             <?php }
             ?>

@@ -320,18 +320,22 @@ class Directorist_Template_Hooks {
         $fm_plan = get_post_meta($p_id, '_fm_plans', true);
 
         $args = array(
-            'display_map_for'  => get_directorist_option('display_map_for', 0),
-            'display_map_field'  => get_directorist_option('display_map_field', 1),
+            'p_id'                       => $p_id,
+            'display_map_for'            => get_directorist_option('display_map_for', 0),
+            'display_map_field'          => get_directorist_option('display_map_field', 1),
             'display_address_for'        => get_directorist_option('display_address_for', 0),
             'display_address_field'      => get_directorist_option('display_address_field', 1),
             'address_label'              => get_directorist_option('address_label', __('Google Address', 'directorist')),
             'require_address'            => get_directorist_option('require_address'),
             'address'                    => get_post_meta($p_id, '_address', true),
             'address_placeholder'        => get_directorist_option('address_placeholder', __('Listing address eg. New York, USA', 'directorist')),
-            
-            'select_listing_map'  => get_directorist_option('select_listing_map', 'google'),
-            'display_map_for'  => get_directorist_option('display_map_for', 0),
-            'display_map_for'  => get_directorist_option('display_map_for', 0),
+            'select_listing_map'         => get_directorist_option('select_listing_map', 'google'),
+            'hide_map'                   => get_post_meta($p_id, '_hide_map', true),
+            'display_map_for'            => get_directorist_option('display_map_for', 0),
+            'manual_lat'                 => get_post_meta($p_id, '_manual_lat', true),
+            'manual_lng'                 => get_post_meta($p_id, '_manual_lng', true),
+            'default_latitude'           => get_directorist_option('default_latitude', '40.7127753'),
+            'default_longitude'          => get_directorist_option('default_longitude', '-74.0059728'),
         );
 
         atbdp_get_shortcode_template( 'forms/add-listing-map', $args );

@@ -46,11 +46,12 @@
                                 /**
                                  * @since 7.0
                                  * @hooked Directorist_Template_Hooks::add_listing_general - 10
+                                 * @hooked Directorist_Template_Hooks::add_listing_contact - 15
+                                 * @hooked Directorist_Template_Hooks::add_listing_map - 20
+                                 * @hooked Directorist_Template_Hooks::add_listing_image - 25
                                  */
                                 do_action( 'directorist_add_listing_contents' );
                                 ?>
-
-
                             </div>
 
 

@@ -851,7 +851,7 @@ $query_args = array(
 
                                             if (empty($display_fax_for) && !empty($display_fax_field)) {
                                                 ?>
-                                                <div class="form-group" id="atbdp_fax">
+                                                <div class="form-group" id="atbdp_fax_number">
                                                     <label for="atbdp_fax"><?php
                                                         $fax_label = get_directorist_option('fax_label', __('Fax', 'directorist'));
                                                         $fax_placeholder = get_directorist_option('fax_placeholder', __('Fax', 'directorist'));

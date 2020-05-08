@@ -636,7 +636,7 @@
 
                                             if (empty($display_zip_for) && !empty($display_zip_field)) {
                                                 ?>
-                                                <div class="form-group" id="atbdp_zip">
+                                                <div class="form-group" id="atbdp_zip_code">
                                                     <label for="atbdp_zip"><?php
                                                         $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', 'directorist'));
                                                         esc_html_e($zip_label . ':', 'directorist');
@@ -683,7 +683,7 @@
 
                                             if (empty($display_fax_for) && !empty($display_fax_field)) {
                                                 ?>
-                                                <div class="form-group" id="atbdp_fax">
+                                                <div class="form-group" id="atbdp_fax_number">
                                                     <label for="atbdp_fax"><?php
                                                         $fax_label = get_directorist_option('fax_label', __('Fax', 'directorist'));
                                                         $fax_placeholder = get_directorist_option('fax_placeholder', __('Fax', 'directorist'));

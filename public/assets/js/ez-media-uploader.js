@@ -441,7 +441,7 @@
           filesMeta.fileSize = file.size * 1024;
           filesMeta.fileSizeInText = formatedFileSize(file.size * 1024);
 
-          if ( file.size > this.options.maxFileSize ) {
+          if ( this.options.maxFileSize && ( file.size > this.options.maxFileSize ) ) {
             filesMeta.limitExceeded = true;
           }
         }
@@ -1240,7 +1240,7 @@
     var thumbnail_list_item_size = createElementWithClass(
       "ezmu__thumbnail-front-item ezmu__front-item__thumbnail-size"
     );
-
+    
     var state_class = ( data.limitExceeded ) ? ' has-error' : '';
     var thumbnail_list_item_size_text = createElementWithClass(
       "ezmu__front-item__thumbnail-size-text" + state_class,

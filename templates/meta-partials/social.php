@@ -4,7 +4,7 @@
  */
 $social_info = (array_key_exists('social_info', $args)) ? $args['social_info'] : array(); ?>
     <div id="atbdp__social">
-    <label for="atbdp_social"><?php
+    <label><?php
         $social_label = get_directorist_option('social_label', __('Social Information', 'directorist'));
         esc_html_e($social_label.':', 'directorist');
         echo get_directorist_option('require_social_info')?'<span class="atbdp_make_str_red">*</span>':''; ?></label>

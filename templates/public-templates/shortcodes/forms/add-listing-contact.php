@@ -46,7 +46,7 @@ if ((empty($display_fax_for) || empty($display_phone2_for) || empty($display_pho
 
             if (empty($display_zip_for) && !empty($display_zip_field)) {
                 ?>
-                <div class="form-group" id="atbdp_zip">
+                <div class="form-group" id="atbdp_zip_code">
                     <label for="atbdp_zip"><?php esc_html_e($zip_label . ':', 'directorist'); echo $require_zip ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                     <input type="text" id="atbdp_zip" name="zip" value="<?php echo !empty($zip) ? esc_attr($zip) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($zip_placeholder); ?>"/>
                 </div>
@@ -70,7 +70,7 @@ if ((empty($display_fax_for) || empty($display_phone2_for) || empty($display_pho
 
             if (empty($display_fax_for) && !empty($display_fax_field)) {
                 ?>
-                <div class="form-group" id="atbdp_fax">
+                <div class="form-group" id="atbdp_fax_number">
                 	<label for="atbdp_fax"><?php esc_html_e($fax_label . ':', 'directorist'); echo $require_fax ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
                     <input type="tel" name="fax" id="atbdp_fax" value="<?php echo !empty($fax) ? esc_attr($fax) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($fax_placeholder); ?>"/>
                 </div>

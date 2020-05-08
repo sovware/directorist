@@ -441,7 +441,7 @@
           filesMeta.fileSize = file.size * 1024;
           filesMeta.fileSizeInText = formatedFileSize(file.size * 1024);
 
-          if ( file.size > this.options.maxFileSize ) {
+          if ( this.options.maxFileSize && ( file.size > this.options.maxFileSize ) ) {
             filesMeta.limitExceeded = true;
           }
         }

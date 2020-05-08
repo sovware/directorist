@@ -5,7 +5,7 @@
  * @version 7.0
  */
 ?>
-<div class="form-group" id="atbdp_custom_field_area">
+<div class="form-group atbdp_custom_field_area">
 	<label>
 		<?php echo esc_html( $title ); ?>
 

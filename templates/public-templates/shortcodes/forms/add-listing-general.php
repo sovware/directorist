@@ -21,7 +21,7 @@ $forms = Directorist_Listing_Forms::instance();
 					if ($require_title) {
 						echo '<span class="atbdp_make_str_red"> *</span>';
 					} ?></label>
-				<input type="text" name="listing_title"
+				<input type="text" name="listing_title" id="listing_title"
 					   value="<?php echo !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>"
 					   class="form-control directory_field"
 					   placeholder="<?php echo __('Enter a title', 'directorist'); ?>"/>
@@ -74,7 +74,7 @@ $forms = Directorist_Listing_Forms::instance();
 			<div class="form-group" id="atbd_pricing">
 				<input type="hidden" id="atbd_listing_pricing"
 					   value="<?php echo $atbd_listing_pricing ?>">
-				<label for="#"><?php
+				<label><?php
 					esc_html_e($pricing_label . ':', 'directorist');
 					?></label>
 				<div class="atbd_pricing_options">
@@ -280,8 +280,7 @@ $forms = Directorist_Listing_Forms::instance();
 			}
 			$categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0, 'exclude' => $plan_cat));
 			?>
-
-			<select name="admin_category_select[]" class="form-control"
+			<select name="admin_category_select[]" id="atbdp_select_cat" class="form-control"
 					id="at_biz_dir-categories" <?php echo !empty($multiple_cat_for_user) ? 'multiple="multiple"' : ''; ?>>
 				<?php
 				if (empty($multiple_cat_for_user)) {

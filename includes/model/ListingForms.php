@@ -87,7 +87,8 @@ class Directorist_Listing_Forms {
                 break;
             case 'textarea' :
                 echo '<div>';
-                printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $id, (int)$cf_rows, esc_attr($cf_placeholder), esc_textarea($value));
+                $row = ( (int)$cf_rows > 0 ) ? (int)$cf_rows : 1;
+                printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $id, $row, esc_attr($cf_placeholder), esc_textarea($value));
                 echo '</div>';
                 break;
             case 'radio':
@@ -181,7 +182,7 @@ class Directorist_Listing_Forms {
 
             case 'date'  :
                 echo '<div>';
-                printf('<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $id, esc_attr($cf_placeholder), esc_attr($value));
+                printf('<input type="date" name="custom_field[%d]" class="form-control directory_field" value="%s"/>', $id, esc_attr($value));
                 echo '</div>';
                 break;
 
@@ -198,7 +199,7 @@ class Directorist_Listing_Forms {
 
             case 'time'  :
                 echo '<div>';
-                printf('<input type="time" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $id, esc_attr($cf_placeholder), esc_attr($value));
+                printf('<input type="time" name="custom_field[%d]" class="form-control directory_field" value="%s"/>', $id, esc_attr($value));
                 echo '</div>';
                 break;
             case 'file'  :

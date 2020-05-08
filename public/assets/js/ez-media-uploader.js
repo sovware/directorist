@@ -1027,7 +1027,7 @@
     file_input.setAttribute("accept", accept);
 
     if (allowMultiple) {
-      file_input.setAttribute("multiple", "true");
+      file_input.setAttribute("multiple", "");
     }
 
     var file_input_label = document.createElement("label");

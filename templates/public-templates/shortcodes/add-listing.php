@@ -45,7 +45,7 @@
                                                 if (get_directorist_option('require_title', 1)) {
                                                     echo '<span class="atbdp_make_str_red"> *</span>';
                                                 } ?></label>
-                                            <input type="text" name="listing_title"
+                                            <input type="text" name="listing_title" id="listing_title"
                                                    value="<?php echo !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>"
                                                    class="form-control directory_field"
                                                    placeholder="<?php echo __('Enter a title', 'directorist'); ?>"/>
@@ -100,7 +100,7 @@
                                         <div class="form-group" id="atbd_pricing">
                                             <input type="hidden" id="atbd_listing_pricing"
                                                    value="<?php echo $atbd_listing_pricing ?>">
-                                            <label for="#"><?php
+                                            <label><?php
                                                 $pricing_label = get_directorist_option('pricing_label', __('Pricing', 'directorist'));
                                                 esc_html_e($pricing_label . ':', 'directorist');
                                                 ?></label>
@@ -265,7 +265,7 @@
                                         $post_meta = get_post_meta($post_id);
                                         $instructions = get_post_meta(get_the_ID(), 'instructions', true);
                                         ?>
-                                        <div class="form-group" id="atbdp_custom_field_area">
+                                        <div class="form-group atbdp_custom_field_area">
                                             <label for=""><?php the_title(); ?><?php if ($cf_required) {
                                                     echo '<span style="color: red"> *</span>';
                                                 }
@@ -300,7 +300,8 @@
                                                     break;
                                                 case 'textarea' :
                                                     echo '<div>';
-                                                    printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int)$cf_rows, esc_attr($cf_placeholder), esc_textarea($value));
+                                                    $rows = ( (int)$cf_rows > 0 ) ? (int)$cf_rows : 1;
+                                                    printf('<textarea  class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, $rows, esc_attr($cf_placeholder), esc_textarea($value));
                                                     echo '</div>';
                                                     break;
                                                 case 'radio':
@@ -394,7 +395,7 @@
 
                                                 case 'date'  :
                                                     echo '<div>';
-                                                    printf('<input type="date" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
+                                                    printf('<input type="date" name="custom_field[%d]" class="form-control directory_field" value="%s"/>', $post->ID, esc_attr($value));
                                                     echo '</div>';
                                                     break;
 
@@ -411,7 +412,7 @@
 
                                                 case 'time'  :
                                                     echo '<div>';
-                                                    printf('<input type="time" name="custom_field[%d]" class="form-control directory_field" placeholder="%s" value="%s"/>', $post->ID, esc_attr($cf_placeholder), esc_attr($value));
+                                                    printf('<input type="time" name="custom_field[%d]" class="form-control directory_field" value="%s"/>', $post->ID, esc_attr($value));
                                                     echo '</div>';
                                                     break;
                                                 case 'file'  :
@@ -509,7 +510,7 @@
                                      **************************************************************************-->
                                     <!--@ Options for select the category.-->
                                     <div class="form-group" id="atbdp_categories">
-                                        <label for="atbdp_select_cat"><?php
+                                        <label><?php
                                             $category_label = get_directorist_option('category_label', __('Select Category', 'directorist'));
                                             $cat_placeholder = get_directorist_option('cat_placeholder', __('Select Category', 'directorist'));
 
@@ -1128,9 +1129,8 @@
                                                 echo 'checked';
                                             } ?>>
                                             <label for="privacy_policy"><?php echo esc_attr($privacy_label); ?>
-                                                <a
-                                                        style="color: red" target="_blank"
-                                                        href="<?php echo esc_url($privacy_page_link) ?>" id=""
+                                                <a style="color: red" target="_blank"
+                                                    href="<?php echo esc_url($privacy_page_link) ?>"
                                                 ><?php echo esc_attr($privacy_label_link); ?></a></label>
                                         </div>
 
@@ -1150,9 +1150,8 @@
                                                 echo 'checked';
                                             } ?>>
                                             <label for="listing_t"><?php echo esc_attr($terms_label); ?>
-                                                <a
-                                                        style="color: red" target="_blank"
-                                                        href="<?php echo esc_url($t_C_page_link) ?>" id=""
+                                                <a style="color: red" target="_blank"
+                                                    href="<?php echo esc_url($t_C_page_link) ?>"
                                                 ><?php echo esc_attr($terms_label_link); ?></a></label>
                                         </div>
 

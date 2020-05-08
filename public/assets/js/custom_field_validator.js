@@ -46,7 +46,7 @@ jQuery(document).ready(function ($) {
                 var value = $(this).val();
                 if ('' === value && !need_post) {
                     $(this).parents(".form-group").append('<span class="atbdp_required">'+ w_icon +msg+'</span>');
-                    to_top('#atbdp_custom_field_area');
+                    to_top('.atbdp_custom_field_area');
                     returnValue = false;
                 }
             }
@@ -56,7 +56,7 @@ jQuery(document).ready(function ($) {
         var required_checkbox = custom_field_validator.cus_check;
         if (false === cus_check && '' !== required_checkbox && !need_post) {
             $('.atbdp-checkbox-list').after('<span class="atbdp_required">'+ w_icon +msg+'</span>');
-            to_top('#atbdp_custom_field_area');
+            to_top('.atbdp_custom_field_area');
             return false;
         }
 
@@ -65,7 +65,7 @@ jQuery(document).ready(function ($) {
         var required_radio = custom_field_validator.cus_radio;
         if (false === cus_radio && '' !== required_radio && !need_post) {
             $('.atbdp-radio-list').parents(".form-group").append('<span class="atbdp_required">'+ w_icon +msg+'</span>');
-            to_top('#atbdp_custom_field_area');
+            to_top('.atbdp_custom_field_area');
             return false;
         }
 

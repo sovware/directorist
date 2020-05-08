@@ -385,7 +385,7 @@
                                             <label for="privacy_policy"><?php echo esc_attr($privacy_label); ?>
                                                 <a
                                                         style="color: red" target="_blank"
-                                                        href="<?php echo esc_url($privacy_page_link) ?>" id=""
+                                                        href="<?php echo esc_url($privacy_page_link) ?>"
                                                 ><?php echo esc_attr($privacy_label_link); ?></a></label>
                                         </div>
 
@@ -407,7 +407,7 @@
                                             <label for="listing_t"><?php echo esc_attr($terms_label); ?>
                                                 <a
                                                         style="color: red" target="_blank"
-                                                        href="<?php echo esc_url($t_C_page_link) ?>" id=""
+                                                        href="<?php echo esc_url($t_C_page_link) ?>"
                                                 ><?php echo esc_attr($terms_label_link); ?></a></label>
                                         </div>
 

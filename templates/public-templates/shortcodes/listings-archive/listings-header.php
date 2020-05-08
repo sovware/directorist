@@ -1,14 +1,21 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+?>
 <div class="atbd_header_bar">
-  <div class="<?php $template->header_container_class(); ?>">
+  <div class="<?php $listing->header_container_class();?>">
     <div class="row">
       <div class="col-md-12">
         <div class="atbd_generic_header">
-          <?php if ($template->has_listings_header()) { ?>
+          <?php if ($listing->has_listings_header()) { ?>
             <div class="atbd_generic_header_title">
-              <?php if ($template->has_filter_button()) { ?>
+              <?php if ($listing->has_filter_button()) { ?>
 
                 <a href="#" class="more-filter btn btn-outline btn-outline-primary">
-                  <?php if ($template->has_filter_icon()) { ?>
+                  <?php if ($listing->has_filter_icon()) { ?>
                     <span class="<?php atbdp_icon_type(true); ?>-filter"></span>
                   <?php } ?>
                   <?php echo $filters; ?>
@@ -20,7 +27,7 @@
                * @since 5.4.0
                */
               do_action('atbdp_after_filter_button_in_listings_header');
-              if ($template->has_header_title()) {
+              if ($listing->has_header_title()) {
                 echo apply_filters('atbdp_total_listings_found_text', "<h3>{$header_title}</h3>", $header_title);
               }
               ?>
@@ -34,7 +41,7 @@
            */
           do_action('atbdp_after_total_listing_found_in_listings_header', $header_title);
 
-          if ($template->has_listings_header_toolbar()) { ?>
+          if ($listing->has_listings_header_toolbar()) { ?>
             <div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
               <!-- Views dropdown -->
               <?php if ($display_viewas_dropdown) {
@@ -45,9 +52,9 @@
                     <span class="atbd_drop-caret"></span>
                   </a>
                   <div class="atbd_dropdown-menu" aria-labelledby="viewAsDropdownMenuLink">
-                    <?php foreach ($template->get_view_as_link_list() as $key => $link) {
-                      extract($link);
-                      echo "<a class='atbd_dropdown-item$active_class' href='$link'>$label</a>";
+                    <?php foreach ($listing->get_view_as_link_list() as $key => $value) {?>
+                    	<a class="atbd_dropdown-item<?php echo esc_attr($value['active_class']);?>" href="<?php echo esc_attr($value['link']);?>"><?php echo esc_html($value['label']);?></a>
+                      <?php
                     } ?>
                   </div>
                 </div>
@@ -75,9 +82,9 @@
                     <span class="atbd_drop-caret"></span>
                   </a>
                   <div class="atbd_dropdown-menu atbd_dropdown-menu--lg" aria-labelledby="sortByDropdownMenuLink">
-                    <?php foreach ($template->get_sort_by_link_list() as $key => $link) {
-                      extract($link);
-                      echo "<a class='atbd_dropdown-item$active_class' href='$link'>$label</a>";
+                    <?php foreach ($listing->get_sort_by_link_list() as $key => $value) { ?>
+                    	<a class="atbd_dropdown-item<?php echo esc_attr($value['active_class']);?>" href="<?php echo esc_attr($value['link']);?>"><?php echo esc_html($value['label']);?></a>
+                      <?php
                     } ?>
                   </div>
                 </div>
@@ -93,12 +100,12 @@
         </div>
 
         <!--ads advance search-->
-        <div class="<?php $template->filter_container_class(); ?>">
+        <div class="<?php $listing->filter_container_class(); ?>">
           <div class="ads-advanced">
             <form action="<?php atbdp_search_result_page_link(); ?>" class="atbd_ads-form">
-              <div class="atbd_seach_fields_wrapper" <?php $template->search_fields_wrapper_style(); ?>>
+              <div class="atbd_seach_fields_wrapper" <?php $listing->search_fields_wrapper_style(); ?>>
                 <div class="row atbdp-search-form">
-                  <?php if ($template->has_search_field()) { ?>
+                  <?php if ($listing->has_search_field()) { ?>
                   <div class="col-md-6 col-sm-12 col-lg-4">
                     <div class="single_search_field search_query">
                       <input class="form-control search_fields" type="text" name="q" placeholder="<?php _e($text_placeholder, 'directorist'); ?>">
@@ -107,8 +114,7 @@
                   <?php }
 
 
-                  if ($template->has_category_field()) {
-                    extract($template->category_field_data());
+                  if ($listing->has_category_field()) {
                   ?>
                   <div class="col-md-6 col-sm-12 col-lg-4">
                     <div class="single_search_field search_category">
@@ -121,8 +127,7 @@
                   <?php }
 
 
-                  if ($template->location_field_type('listing_location')) {
-                    extract($template->location_field_data());
+                  if ($listing->location_field_type('listing_location')) {
                   ?>
                   <div class="col-md-12 col-sm-12 col-lg-4">
                     <div class="single_search_field search_location">
@@ -135,19 +140,19 @@
                   <?php }
 
 
-                  if (!$template->location_field_type('listing_location')) {
-                    extract($template->geolocation_field_data());
+                  if (!$listing->location_field_type('listing_location')) {
+                  	$geodata = $listing->geolocation_field_data();
                   ?>
                   <div class="col-md-6 col-sm-12 col-lg-4">
                     <div class="atbdp_map_address_field">
                       <div class="atbdp_get_address_field">
-                        <input type="text" name="address" id="address" value="<?php echo $value; ?>" placeholder="<?php echo $placeholder ?>" autocomplete="off" class="form-control location-name">
-                        <?php echo $geo_loc; ?>
+                        <input type="text" name="address" id="address" value="<?php echo $geodata['value']; ?>" placeholder="<?php echo $geodata['placeholder']; ?>" autocomplete="off" class="form-control location-name">
+                        <?php echo $geodata['geo_loc']; ?>
                       </div>
                       <div class="address_result" style="display: none">
                       </div>
-                      <input type="hidden" id="cityLat" name="cityLat" value="<?php echo $cityLat; ?>" />
-                      <input type="hidden" id="cityLng" name="cityLng" value="<?php echo $cityLng; ?>" />
+                      <input type="hidden" id="cityLat" name="cityLat" value="<?php echo $geodata['cityLat']; ?>" />
+                      <input type="hidden" id="cityLng" name="cityLng" value="<?php echo $geodata['cityLng']; ?>" />
                     </div>
                   </div>
                   <?php }
@@ -161,19 +166,21 @@
 
 
               <!-- has_any_price_field() -->
-              <?php if ( $template->has_any_price_field() ) { ?>
+              <?php if ( $listing->has_any_price_field() ) { ?>
               <div class="form-group ">
                 <label class=""><?php _e('Price Range', 'directorist'); ?></label>
                 <div class="price_ranges">
-                  <?php if ( $template->has_price_field() ) { 
-                    extract( $template->price_field_data() ) ?>
+                  <?php if ( $listing->has_price_field() ) {
+                  	$price_field_data = $listing->price_field_data();
+                    extract( $listing->price_field_data() )
+                    ?>
                     <div class="range_single">
                       <input 
                         type="text" 
                         name="price[0]" 
                         class="form-control" 
                         placeholder="<?php _e('Min Price', 'directorist'); ?>" 
-                        value="<?php echo $min_price_value; ?>">
+                        value="<?php echo $price_field_data['min_price_value']; ?>">
                     </div>
 
                     <div class="range_single">
@@ -182,20 +189,21 @@
                         name="price[1]" 
                         class="form-control" 
                         placeholder="<?php _e('Max Price', 'directorist'); ?>" 
-                        value="<?php echo $max_price_value; ?>">
+                        value="<?php echo $price_field_data['max_price_value']; ?>">
                     </div>
                   <?php }
 
 
-                  if ( $template->has_price_range_field() ) {
-                    extract( $template->price_range_field_data() );
+                  if ( $listing->has_price_range_field() ) {
+                  	$price_range_field = $listing->price_range_field_data();
+                    extract( $listing->price_range_field_data() );
                   ?>
                   <div class="price-frequency">
                     <label class="pf-btn">
                       <input
                         type="radio" 
                         name="price_range" 
-                        value="bellow_economy"<?php echo $bellow_economy_value ?>>
+                        value="bellow_economy"<?php echo $price_range_field['bellow_economy_value']; ?>>
                           <span><?php echo $c_symbol; ?></span>
                       </label>
 
@@ -203,7 +211,7 @@
                       <input 
                         type="radio" 
                         name="price_range" 
-                        value="economy" <?php echo $economy_value ?>>
+                        value="economy" <?php echo $price_range_field['economy_value']; ?>>
                           <span><?php echo $c_symbol, $c_symbol; ?></span>
                     </label>
 
@@ -211,7 +219,7 @@
                       <input 
                         type="radio" 
                         name="price_range" 
-                        value="moderate" <?php echo $moderate_value; ?>>
+                        value="moderate" <?php echo $price_range_field['moderate_value']; ?>>
                           <span><?php echo $c_symbol, $c_symbol, $c_symbol; ?></span>
                     </label>
 
@@ -219,7 +227,7 @@
                       <input 
                         type="radio" 
                         name="price_range"
-                        value="skimming" <?php echo $skimming_value ?>>
+                        value="skimming" <?php echo $price_range_field['skimming_value']; ?>>
                           <span><?php echo $c_symbol, $c_symbol, $c_symbol, $c_symbol; ?></span>
                       </label>
                   </div>
@@ -229,8 +237,8 @@
               <?php } ?>
 
 
-              <?php if ( $template->has_rating_field() ) { 
-                extract( $template->rating_field_data() );
+              <?php if ( $listing->has_rating_field() ) { 
+                extract( $listing->rating_field_data() );
               ?>
               <div class="form-group">
                 <label><?php _e('Filter by Ratings', 'directorist'); ?></label>
@@ -246,7 +254,7 @@
               <?php } ?>
 
               
-              <?php if ( $template->has_radius_search_field() ) {
+              <?php if ( $listing->has_radius_search_field() ) {
                 $default_radius_distance = !empty($default_radius_distance) ? $default_radius_distance : 0;
               ?>
                 <!--range slider-->
@@ -264,8 +272,8 @@
               <?php
 
 
-              if ( $template->has_open_now_field() ) {
-                extract( $template->open_now_field_data() );
+              if ( $listing->has_open_now_field() ) {
+                extract( $listing->open_now_field_data() );
               ?>
               <div class="form-group">
                 <label><?php _e('Open Now', 'directorist'); ?></label>
@@ -282,8 +290,8 @@
                 </div>
               </div><!-- ends: .form-group -->
               <?php }
-              if ( $template->has_tag_field() && $template->tag_field_data() ) {
-                extract( $template->tag_field_data() );
+              if ( $listing->has_tag_field() && $listing->tag_field_data() ) {
+                extract( $listing->tag_field_data() );
                 ?>
                   <div class="form-group ads-filter-tags">
                     <label><?php echo !empty($tag_label) ? $tag_label : __('Tags', 'directorist'); ?></label>

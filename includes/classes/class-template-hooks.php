@@ -31,6 +31,9 @@ class Directorist_Template_Hooks {
         add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_image' ), 25 );
         add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_submit' ), 30 );
         add_action( 'atbdp_add_listing_after_excerpt',    array( __CLASS__, 'add_listing_custom_field' ) );
+
+        // Listing Archive
+        add_action( 'directorist_archive_header',    array( __CLASS__, 'archive_header' ) );
     }
 
     public static function instance() {
@@ -427,6 +430,35 @@ class Directorist_Template_Hooks {
 
             atbdp_get_shortcode_template( 'forms/add-listing-custom-fields', $args );
         }
+    }
+
+    public static function archive_header($atts = array()) {
+        if ( ! empty( $atts['header'] ) && 'yes' !== $atts['header'] ) {
+            return '';
+        }
+
+        $listing = new Directorist_All_Listings( $atts );
+
+        $args = array(
+            'listing' => $listing,
+            'container_class' => ( ! empty( $listing->header_container_fluid ) ) ? $listing->header_container_fluid : '',
+            'header_title' => $listing->header_title,
+            'filters' => $listing->filters,
+
+            'display_viewas_dropdown' => $listing->display_viewas_dropdown,
+            'view_as_text' => $listing->view_as_text,
+            'display_sortby_dropdown' => $listing->display_sortby_dropdown,
+            'text_placeholder' => $listing->text_placeholder,
+            'category_placeholder' => $listing->category_placeholder,
+            'categories_fields' => $listing->categories_fields,
+            'location_placeholder' => $listing->location_placeholder,
+            'locations_fields' => $listing->locations_fields,
+            'c_symbol' => $listing->c_symbol,
+        );
+
+        ob_start();
+        atbdp_get_shortcode_template( 'listings-archive/listings-header', $args, $listing, true );
+        echo ob_get_clean();
     }
 }
 

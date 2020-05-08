@@ -28,6 +28,7 @@ class Directorist_Template_Hooks {
         add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_general' ) );
         add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_contact' ), 15 );
         add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_map' ), 20 );
+        add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_image' ), 25 );
 
         add_action( 'atbdp_add_listing_after_excerpt',    array( __CLASS__, 'add_listing_custom_field' ) );
     }
@@ -339,6 +340,47 @@ class Directorist_Template_Hooks {
         );
 
         atbdp_get_shortcode_template( 'forms/add-listing-map', $args );
+    }
+
+    public static function add_listing_image() {
+        $forms   = Directorist_Listing_Forms::instance();
+
+        $p_id        = $forms->get_add_listing_id();
+        $fm_plan     = get_post_meta($p_id, '_fm_plans', true);
+
+        $max_size   = get_directorist_option('max_gallery_upload_size', 4);
+        $plan_image = get_directorist_option('max_gallery_image_limit', 5);
+        $slider_unl = '';
+        if (is_fee_manager_active()) {
+            $selected_plan = selected_plan_id();
+            $planID = !empty($selected_plan) ? $selected_plan : $fm_plan;
+            $allow_slider = is_plan_allowed_slider($planID);
+            $slider_unl = is_plan_slider_unlimited($planID);
+            if (!empty($allow_slider) && empty($slider_unl)) {
+                $plan_image = is_plan_slider_limit($planID);
+            }
+        }
+
+        $args = array(
+            'p_id'               => $p_id,
+            'title'              => $forms->get_add_listing_image_title(),
+            'plan_video'         => $forms->get_plan_video(),
+            'plan_slider'        => $forms->get_plan_slider(),
+            'listing_img'        => atbdp_get_listing_attachment_ids($p_id),
+            'videourl'           => get_post_meta($p_id, '_videourl', true),
+            'plan_image'         => $plan_image,
+            'slider_unl'         => $slider_unl,
+            'req_gallery_image'  => get_directorist_option('require_gallery_img'),
+            'max_size_kb'        => (int)$max_size * 1024,
+            'gallery_label'      => get_directorist_option('gallery_label', __('Select Files', 'directorist')),
+            'listing_img'        => atbdp_get_listing_attachment_ids($p_id),
+            'video_label'        => get_directorist_option('video_label', __('Video Url', 'directorist')),
+            'video_placeholder'  => get_directorist_option('video_placeholder', __('Only YouTube & Vimeo URLs.', 'directorist')),
+            'require_video'      => get_directorist_option('require_video'),
+            'videourl'           => get_post_meta($p_id, '_videourl', true),
+        );
+
+        atbdp_get_shortcode_template( 'forms/add-listing-image', $args );
     }
 
     public static function add_listing_custom_field() {

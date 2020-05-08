@@ -162,7 +162,7 @@ if ((empty($display_fax_for) || empty($display_phone2_for) || empty($display_pho
                 ?>
             </div>
         </div>
-    </div><!-- end .atbd_general_information_module -->
+    </div>
 
     <?php
     if (is_business_hour_active() && $plan_hours) {

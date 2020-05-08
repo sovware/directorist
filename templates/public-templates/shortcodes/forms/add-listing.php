@@ -46,10 +46,15 @@
                                 /**
                                  * @since 7.0
                                  * @hooked Directorist_Template_Hooks::add_listing_general - 10
+                                 * @hooked Directorist_Template_Hooks::add_listing_contact - 15
+                                 * @hooked Directorist_Template_Hooks::add_listing_map - 20
+                                 * @hooked Directorist_Template_Hooks::add_listing_image - 25
+                                 * @hooked Directorist_Template_Hooks::add_listing_submit - 30
                                  */
                                 do_action( 'directorist_add_listing_contents' );
                                 ?>
                             </div>
+<<<<<<< HEAD
 
 
 
@@ -432,11 +437,13 @@
                                 </div> <!--ends col-md-12 -->
                             </div><!--ends .row-->
 
+=======
+>>>>>>> f23e00a7c8acabdcff16057574412ab5e9a39ff5
                         </div>
                     </div>
             </fieldset>
         </form>
-    </div> <!--ends container-fluid-->
+    </div>
 </div>
 
 <?php

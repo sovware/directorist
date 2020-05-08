@@ -209,6 +209,61 @@ class Directorist_Listing_Forms {
 
         return ob_get_clean();
     }
+
+    public function get_plan_video() {
+		$p_id    = $this->get_add_listing_id();
+		$fm_plan = get_post_meta($p_id, '_fm_plans', true);
+
+        $display_video_for   = get_directorist_option('display_video_for', 0);
+        $display_video_field = get_directorist_option('display_video_field', 1);
+        
+        $plan_video = false;
+
+        if (is_fee_manager_active()) {
+            $plan_video = is_plan_allowed_listing_video($fm_plan);
+        }
+        elseif (empty($display_video_for) && !empty($display_video_field)) {
+            $plan_video = true;
+        }
+
+        return $plan_video;
+    }
+
+    public function get_plan_slider() {
+		$p_id    = $this->get_add_listing_id();
+		$fm_plan = get_post_meta($p_id, '_fm_plans', true);
+
+        $display_glr_img_for   = get_directorist_option('display_glr_img_for', 0);
+        $display_gallery_field = get_directorist_option('display_gallery_field', 1);
+        
+        $plan_slider = false;
+
+        if (is_fee_manager_active()) {
+            $plan_slider = is_plan_allowed_slider($fm_plan);
+        }
+        elseif (empty($display_glr_img_for) && !empty($display_gallery_field)) {
+            $plan_slider = true;
+        }
+
+        return $plan_slider;       
+    }
+
+    public function get_add_listing_image_title() {
+        if ($this->get_plan_video() && $this->get_plan_slider()) {
+            $title = __("Images & Video", 'directorist');
+        }
+        elseif ($this->get_plan_slider()) {
+            $title =__("Images", 'directorist');
+        }
+        elseif ($this->get_plan_video()) {
+           $title = __("Video", 'directorist');
+        }
+        else {
+            $title = '';
+        }
+
+        return $title;
+    }
     
     public function render_shortcode_add_listing($atts) {
         ob_start();
@@ -384,7 +439,7 @@ class Directorist_Listing_Forms {
         );
 
         global $post;
-        $template_file = 'add-listing';
+        // $template_file = 'add-listing';
         $template_file = 'forms/add-listing';
         $template_path = atbdp_get_shortcode_template_paths( $template_file );
 

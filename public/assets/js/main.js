@@ -280,7 +280,7 @@
     });
 
     /*USER DASHBOARD RELATED SCRIPTS*/
-    $(document).on('click', '#remove_listing', function (e) {
+    $(document).on('click', '.remove_listing', function (e) {
         e.preventDefault();
 
         var $this = $(this);
@@ -680,7 +680,7 @@
 
                 // Post via AJAX
                 var data = {
-                    'action': 'atbdp_public_report_abuse',
+                    'action' : 'atbdp_public_report_abuse',
                     'post_id': $('#atbdp-post-id').val(),
                     'message': $('#atbdp-report-abuse-message').val()
                 };
@@ -694,11 +694,13 @@
                     }
 
 
-                    atbdp_report_abuse_submitted = false; // Re-enable the submit event
+                    atbdp_report_abuse_submitted = false;  // Re-enable the submit event
                 }, 'json');
 
             }
         });
+
+        $('#atbdp-report-abuse-form').removeAttr('novalidate');
 
         // Validate contact form
         var atbdp_contact_submitted = false;
@@ -736,6 +738,8 @@
             }, 'json');
 
         });
+
+        $('#atbdp-contact-form,#atbdp-contact-form-widget').removeAttr('novalidate');
     }
 
     // Report abuse [on modal closed]

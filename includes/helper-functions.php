@@ -2587,12 +2587,12 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                                         do_action('atbdp_listings_before_phone');
                                                         ?>
                                                         <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
-                                                            <li><p>
-                                                                    <span class="
-<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php echo esc_html(stripslashes($phone_number)); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
-
-                                                                </p></li>
-                                                            <?php
+                                                            <li>
+                                                                <p>
+                                                                    <span class="<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php ATBDP_Helper::sanitize_tel_attr($phone_number) ; ?>"><?php ATBDP_Helper::sanitize_html($phone_number); ?></a>
+                                                                </p>
+                                                            </li>
+                                                        <?php
                                                         }
                                                     }
                                                     /**
@@ -3022,10 +3022,10 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                                 ?>
                                                                 <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
                                                                     <li><p>
-                                                                            <span class="<?php atbdp_icon_type(true); ?>-phone"></span><a
-                                                                                    href="tel:<?php echo esc_html(stripslashes($phone_number)); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
-
-                                                                        </p></li>
+                                                                            <span class="<?php atbdp_icon_type(true); ?>-phone"></span>
+                                                                            <a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $phone_number ); ?>"><?php ATBDP_Helper::sanitize_html( $phone_number ); ?></a>
+                                                                        </p>
+                                                                    </li>
                                                                     <?php
                                                                 }
                                                             }

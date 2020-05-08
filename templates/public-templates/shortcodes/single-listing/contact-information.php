@@ -32,8 +32,8 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                             <div class="atbd_info_title"><span
                                         class="<?php atbdp_icon_type(true);?>-phone"></span><?php _e($phone_label, 'directorist'); ?>
                             </div>
-                            <div class="atbd_info"><a
-                                        href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a>
+                            <div class="atbd_info">
+                                <a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $phone ); ?>"><?php ATBDP_Helper::sanitize_html( $phone ); ?></a>
                             </div>
                         </li>
                     <?php } ?>
@@ -41,10 +41,10 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                     if (isset($phone2) && !is_empty_v($phone2) && !empty($display_phone2_field)) { ?>
                         <!-- In Future, We will have to use a loop to print more than 1 number-->
                         <li>
-                            <div class="atbd_info_title"><span
-                                        class="<?php atbdp_icon_type(true);?>-phone"></span><?php echo $phone_label2; ?>
+                            <div class="atbd_info_title">
+                                <span class="<?php atbdp_icon_type(true);?>-phone"></span><?php echo $phone_label2; ?>
                             </div>
-                            <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone2)); ?>"><?php echo esc_html(stripslashes($phone2)); ?></a>
+                            <div class="atbd_info"><a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $phone2 ); ?>"><?php ATBDP_Helper::sanitize_html( $phone2 ); ?></a>
                             </div>
                         </li>
                     <?php } ?>
@@ -55,7 +55,7 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                             <div class="atbd_info_title"><span
                                         class="<?php atbdp_icon_type(true);?>-fax"></span><?php echo $fax_label; ?>
                             </div>
-                            <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($fax)); ?>"><?php echo esc_html(stripslashes($fax)); ?></a>
+                            <div class="atbd_info"><a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $fax ); ?>"><?php ATBDP_Helper::sanitize_html( $fax ); ?></a>
                             </div>
                         </li>
                     <?php } ?>

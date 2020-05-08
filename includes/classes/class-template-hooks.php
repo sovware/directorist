@@ -29,6 +29,7 @@ class Directorist_Template_Hooks {
         add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_contact' ), 15 );
         add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_map' ), 20 );
         add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_image' ), 25 );
+        add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_submit' ), 30 );
 
         add_action( 'atbdp_add_listing_after_excerpt',    array( __CLASS__, 'add_listing_custom_field' ) );
     }
@@ -381,6 +382,32 @@ class Directorist_Template_Hooks {
         );
 
         atbdp_get_shortcode_template( 'forms/add-listing-image', $args );
+    }
+
+    public static function add_listing_submit() {
+        $forms = Directorist_Listing_Forms::instance();
+        $p_id  = $forms->get_add_listing_id();
+
+        $args = array(
+            'p_id'                     => $p_id,
+            'guest_listings'           => get_directorist_option('guest_listings', 0),
+            'guest_email_label'        => get_directorist_option('guest_email', __('Your Email', 'directorist')),
+            'guest_email_placeholder'  => get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist')),
+            'terms_label'              => get_directorist_option('terms_label', __('I agree with all', 'directorist')),
+            'terms_label_link'         => get_directorist_option('terms_label_link', __('terms & conditions', 'directorist')),
+            't_C_page_link'            => ATBDP_Permalink::get_terms_and_conditions_page_url(),
+            'privacy_page_link'        => ATBDP_Permalink::get_privacy_policy_page_url(),
+            'privacy_label'            => get_directorist_option('privacy_label', __('I agree to the', 'directorist')),
+            'privacy_label_link'       => get_directorist_option('privacy_label_link', __('Privacy & Policy', 'directorist')),
+            'listing_privacy'          => get_directorist_option('listing_privacy', 1),
+            'require_privacy'          => get_directorist_option('require_privacy'),
+            'listing_terms_condition'  => get_directorist_option('listing_terms_condition', 1),
+            'require_terms_conditions' => get_directorist_option('require_terms_conditions'),
+            't_c_check'                => get_post_meta($p_id, '_t_c_check', true),
+            'submit_label'             => get_directorist_option('submit_label', __('Save & Preview', 'directorist')),
+        );
+
+        atbdp_get_shortcode_template( 'forms/add-listing-submit', $args );
     }
 
     public static function add_listing_custom_field() {

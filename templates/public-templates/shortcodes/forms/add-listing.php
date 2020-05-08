@@ -58,7 +58,7 @@
                     </div>
             </fieldset>
         </form>
-    </div> <!--ends container-fluid-->
+    </div>
 </div>
 
 <?php

@@ -30,7 +30,6 @@ class Directorist_Template_Hooks {
         add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_map' ), 20 );
         add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_image' ), 25 );
         add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_submit' ), 30 );
-
         add_action( 'atbdp_add_listing_after_excerpt',    array( __CLASS__, 'add_listing_custom_field' ) );
     }
 

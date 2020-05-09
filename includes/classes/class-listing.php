@@ -84,7 +84,6 @@ if (!class_exists('ATBDP_Listing')):
             if ($preview || $status || $reviewed) {
                 //if listing under a purchased package
                 if (is_fee_manager_active()) {
-                    
                     $plan_id = get_post_meta($id, '_fm_plans', true);
                     $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id);
                     if($edited && $plan_purchased){
@@ -97,8 +96,7 @@ if (!class_exists('ATBDP_Listing')):
                             // status for non paid users
                             $post_status = 'pending';
                         }
-                    }
-                    
+                    }  
                 } elseif (!empty($featured_enabled && $monitization)) {
                     if($payment){
                         $post_status = 'pending';
@@ -115,7 +113,9 @@ if (!class_exists('ATBDP_Listing')):
                     'ID' => $id ? $id : get_the_ID(),
                     'post_status' => $post_status,
                 );
-                wp_update_post(apply_filters('atbdp_reviewed_listing_status_controller_argument', $args));
+                if('at_biz_dir' === get_post_type($id ? $id : get_the_ID())){
+                    wp_update_post(apply_filters('atbdp_reviewed_listing_status_controller_argument', $args));
+                }
             }     
         }
 

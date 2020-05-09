@@ -354,6 +354,8 @@ jQuery(function ($) {
                 $(".listing_submit_btn").removeClass("atbd_loading");
                 err_log.listing_gallery = { msg: 'Listing gallery has invalid files' };
                 error_count++;
+
+                scrollToEl('#_listing_gallery');
             }
         }
 
@@ -381,6 +383,8 @@ jQuery(function ($) {
                 $(".listing_submit_btn").removeClass("atbd_loading");
                 err_log.listing_gallery = { msg: 'Listing gallery extension has invalid files' };
                 error_count++;
+
+                scrollToEl('#listing_gallery_ext');
             }
         }
         var iframe = $('#listing_content_ifr');
@@ -633,5 +637,16 @@ jQuery(function ($) {
         });
 
     });
+
+    // scrollToEl
+    function scrollToEl( el ) {
+        var hash = ( typeof el === 'string' ) ? el : '';
+        var scroll_top = $(hash).offset().top - 50;
+        scroll_top = ( scroll_top < 0 ) ? 0 : scroll_top;
+
+        $('html, body').animate({
+            scrollTop: scroll_top
+        }, 800);
+    }
 
 });

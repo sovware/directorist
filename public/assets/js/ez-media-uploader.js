@@ -367,7 +367,7 @@
         }
       }
 
-      if (!this.isClean && this.options.showAlerts) {
+      if ( this.options.showAlerts && !this.isClean ) {
         updateValidationFeedback(error_log, this.statusSection);
       }
 
@@ -395,6 +395,8 @@
     };
 
     this.hasValidFiles = function () {
+      this.isClean = false;
+
       if (this.validateFiles() === true) {
         return true;
       }
@@ -1241,7 +1243,8 @@
       "ezmu__thumbnail-front-item ezmu__front-item__thumbnail-size"
     );
     
-    var state_class = ( data.limitExceeded ) ? ' has-error' : '';
+    var limit_exceeded = ( (typeof data === 'object') && ('limitExceeded' in data) && data.limitExceeded ) ? true : false;
+    var state_class = ( limit_exceeded ) ? ' has-error' : '';
     var thumbnail_list_item_size_text = createElementWithClass(
       "ezmu__front-item__thumbnail-size-text" + state_class,
       "span"

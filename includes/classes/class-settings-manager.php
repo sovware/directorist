@@ -5360,7 +5360,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'max_gallery_upload_size_per_file',
-                    'label' => __('Max Upload Size Per File in MB', 'directorist'),
+                    'label' => __('Max Upload Size Per Image in MB', 'directorist'),
                     'min' => '0',
                     'max' => '100',
                     'step' => '.5',

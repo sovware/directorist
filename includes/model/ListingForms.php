@@ -497,7 +497,7 @@ class Directorist_Listing_Forms {
         ob_start();
         $include = apply_filters('include_style_settings', true);
         if ($include) {
-            include ATBDP_DIR . 'public/assets/css/style.php';
+            wp_enqueue_style('atbdp-settings-style');
         }
 
         if ( !atbdp_logged_in_user() ) {

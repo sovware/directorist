@@ -485,7 +485,7 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
   padding: 0;
   margin: 25px auto 10px;
   text-align: center;
-  max-width: 500px;
+  max-width: 800px;
   width: 100%;
 }
 

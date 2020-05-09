@@ -84,15 +84,21 @@ if (!class_exists('ATBDP_Listing')):
             if ($preview || $status || $reviewed) {
                 //if listing under a purchased package
                 if (is_fee_manager_active()) {
+                    
                     $plan_id = get_post_meta($id, '_fm_plans', true);
                     $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id);
-                    if ((('package' === package_or_PPL($plan_id)) || $plan_purchased) && ('publish' === $new_l_status)) {
-                        // status for paid users
+                    if($edited && $plan_purchased){
                         $post_status = $listing_status;
-                    } else {
-                        // status for non paid users
-                        $post_status = 'pending';
+                    }else{
+                        if ((('package' === package_or_PPL($plan_id)) || $plan_purchased) && ('publish' === $new_l_status)) {
+                            // status for paid users
+                            $post_status = $listing_status;
+                        } else {
+                            // status for non paid users
+                            $post_status = 'pending';
+                        }
                     }
+                    
                 } elseif (!empty($featured_enabled && $monitization)) {
                     if($payment){
                         $post_status = 'pending';

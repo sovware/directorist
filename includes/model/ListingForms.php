@@ -12,7 +12,7 @@ class Directorist_Listing_Forms {
     public $add_listing_id;
     public $add_listing_post;
 
-    private function __construct() {
+    public function __construct() {
         $this->add_listing_id   = get_query_var('atbdp_listing_id', 0);
         $this->add_listing_post = !empty($this->add_listing_id) ? get_post($this->add_listing_id) : '';
     }
@@ -478,7 +478,7 @@ class Directorist_Listing_Forms {
         ob_start();
         $include = apply_filters('include_style_settings', true);
         if ($include) {
-            include ATBDP_DIR . 'public/assets/css/style.php';
+            wp_enqueue_style('atbdp-settings-style');
         }
 
         if ( atbdp_logged_in_user() ) {

@@ -120,7 +120,7 @@ wp_localize_script('adminmainassets', 'ajax_login_object', $data);
 
                 <p>
                     <label for="password"><?php echo $log_password; ?></label>
-                    <input type="password" id="password" autocomplete="false" name="password" class="form-control">
+                    <input type="password" id="password" autocomplete="off" name="password" class="form-control">
                 </p>
 
                 <div class="atbd_login_btn_wrapper">

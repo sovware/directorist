@@ -144,8 +144,8 @@ do_action('atbdp_before_listing_section');
                     }
                 }
                 do_action('atbdp_after_listing_price');
-                $average = ATBDP()->review->get_average($post->ID);
-                $reviews_count = ATBDP()->review->db->count(array('post_id' => $post->ID)); // get total review count for this post
+                $average = ATBDP()->review->get_average($listing_id);
+                $reviews_count = ATBDP()->review->db->count(array('post_id' => $listing_id)); // get total review count for this post
                 if (!empty($enable_review)) {
                     $data_info .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="' . atbdp_icon_type() . '-star"></i>
                             </span>';

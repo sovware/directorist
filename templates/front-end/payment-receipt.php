@@ -52,7 +52,7 @@ $order_id = (!empty($order_id)) ? $order_id : '';
                         <tr>
                             <td><?php _e( 'Date', 'directorist' ); ?></td>
                             <td>
-                                <?php echo !empty($order) ? get_the_date() : ''; ?>
+                                <?php echo !empty($order) ? get_the_time(get_option('date_format'), $order_id) : ''; ?>
                             </td>
                         </tr>
                     </table>

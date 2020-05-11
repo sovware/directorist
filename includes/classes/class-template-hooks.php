@@ -448,6 +448,7 @@ class Directorist_Template_Hooks {
             'view'                       => $listing->view,
             'views'                      => $listing->views,
             'view_as_text'               => $listing->view_as_text,
+            'sort_by_text'               => $listing->sort_by_text,
             'display_sortby_dropdown'    => $listing->display_sortby_dropdown,
             'text_placeholder'           => $listing->text_placeholder,
             'category_placeholder'       => $listing->category_placeholder,

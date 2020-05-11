@@ -497,7 +497,6 @@ if (!class_exists('ATBDP_Shortcode')):
         //listing review area
         public function directorist_listing_review() {
             ob_start();
-            echo "--------->|";
             if (is_singular(ATBDP_POST_TYPE)) {
                 $template_file = 'single-listing/listing-review.php';
                 $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
@@ -513,7 +512,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 // Load default template
                 include $default_template_file;
             }
-            echo "---------";
             return ob_get_clean();
         }
         
@@ -724,9 +722,9 @@ if (!class_exists('ATBDP_Shortcode')):
                 // Process output
                 ob_start();
                 $include = apply_filters('include_style_settings', true);
-                if ($include) {
+                /* if ($include) {
                     wp_enqueue_style('atbdp-settings-style');
-                }
+                } */
                 include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
                 wp_reset_postdata(); // Restore global post data stomped by the_post()
                 $output = ob_get_clean();
@@ -1395,9 +1393,9 @@ if (!class_exists('ATBDP_Shortcode')):
             ob_start();
             $include = apply_filters('include_style_settings', true);
 
-            if ($include) {
+            /* if ($include) {
                 wp_enqueue_style('atbdp-settings-style');
-            }
+            } */
 
             // Add Inline Style
             $column_width = 100 / (int)$columns . '%';
@@ -1533,9 +1531,9 @@ if (!class_exists('ATBDP_Shortcode')):
 
             
             ob_start();
-            if ( $listings_model->include ) {
+            /* if ( $listings_model->include ) {
                 wp_enqueue_style('atbdp-settings-style');
-            }
+            } */
 
             // Add Inline Style
             $style = '.atbd_content_active #directorist.atbd_wrapper .atbdp_column {';
@@ -1594,9 +1592,9 @@ if (!class_exists('ATBDP_Shortcode')):
             ob_start();
             wp_enqueue_script('loc_cat_assets');
             $include = apply_filters('include_style_settings', true);
-            if ($include) {
+            /* if ($include) {
                 wp_enqueue_style('atbdp-settings-style');
-            }
+            } */
             $display_categories_as = get_directorist_option('display_categories_as', 'grid');
             $categories_settings = array();
             $categories_settings['depth'] = get_directorist_option('categories_depth_number', 1);

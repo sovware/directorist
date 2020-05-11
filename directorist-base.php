@@ -293,7 +293,6 @@ final class Directorist_Base
             new ATBDP_Validator();
             // add uninstall menu
             add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
-
         }
 
         return self::$instance;

@@ -247,7 +247,6 @@ class ATBDP_Enqueuer {
         wp_register_script('atbdp-geolocation-widget', ATBDP_PUBLIC_ASSETS.'js/geolocation-widget.js', array('jquery'), ATBDP_VERSION);
         wp_register_script('atbdp-range-slider', ATBDP_PUBLIC_ASSETS.'js/range-slider.js', array(), ATBDP_VERSION, true);
         
-
         wp_register_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js', array(), ATBDP_VERSION, true);
 
 
@@ -299,9 +298,7 @@ class ATBDP_Enqueuer {
         wp_enqueue_style('wp-color-picker');
         wp_enqueue_script('wp-color-picker');
 
-
         //listings data
-
         $review_approval = get_directorist_option('review_approval_text',__('Your review has been received. It requires admin approval to publish.','directorist'));
         $data = array(
             'nonce'                         => wp_create_nonce('atbdp_nonce_action_js'),
@@ -364,7 +361,31 @@ class ATBDP_Enqueuer {
         wp_register_style( 'atbdp-settings-style', ATBDP_PUBLIC_ASSETS . 'css/settings-style.css', false, ATBDP_VERSION);
         $settings_stylesheet = $this->get_settings_stylesheet();
         wp_add_inline_style( 'atbdp-settings-style', $settings_stylesheet );
-        // wp_enqueue_style('atbdp-settings-style');
+
+        $this->load_template_scripts();
+    }
+
+    // load_template_scripts
+    public function load_template_scripts() {
+        global $post;
+
+        $settings_stylesheet_dep = [
+            has_shortcode( $post->post_content, 'directorist_search_listing'),
+            has_shortcode( $post->post_content, 'directorist_all_listing'),
+            has_shortcode( $post->post_content, 'directorist_all_categories'),
+            has_shortcode( $post->post_content, 'directorist_all_locations'),
+            has_shortcode( $post->post_content, 'directorist_search_result'),
+            has_shortcode( $post->post_content, 'directorist_category'),
+            has_shortcode( $post->post_content, 'directorist_location'),
+            has_shortcode( $post->post_content, 'directorist_tag'),
+            has_shortcode( $post->post_content, 'directorist_listing_custom_fields'),
+        ];
+
+        $required_settings_stylesheet = ( in_array( true, $settings_stylesheet_dep ) ) ? true : false;
+
+        if ( is_a( $post, 'WP_Post' ) && $required_settings_stylesheet ) {
+            wp_enqueue_style('atbdp-settings-style');
+        }
     }
 
     // get_settings_stylesheet

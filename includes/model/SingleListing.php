@@ -15,7 +15,7 @@ class Directorist_Single_Listing {
         if ( ! $id ) {
             $id = get_the_ID();
         }
-        $this->id = $id;
+        $this->id = (int) $id;
     }
 
     public function get_id() {
@@ -68,6 +68,16 @@ class Directorist_Single_Listing {
         );
 
         return atbdp_return_shortcode_template( 'single-listing/listing-header', $args );
+    }
+
+    public function render_shortcode_custom_fields() {
+
+        if ( !is_singular( ATBDP_POST_TYPE ) ) {
+            return;
+        }
+
+        
+        
     }
 
 

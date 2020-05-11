@@ -172,7 +172,6 @@
                 <div class="price_ranges">
                   <?php if ( $listing->has_price_field() ) {
                   	$price_field_data = $listing->price_field_data();
-                    extract( $listing->price_field_data() )
                     ?>
                     <div class="range_single">
                       <input 
@@ -196,7 +195,6 @@
 
                   if ( $listing->has_price_range_field() ) {
                   	$price_range_field = $listing->price_range_field_data();
-                    extract( $listing->price_range_field_data() );
                   ?>
                   <div class="price-frequency">
                     <label class="pf-btn">
@@ -238,15 +236,13 @@
 
 
               <?php if ( $listing->has_rating_field() ) { 
-                extract( $listing->rating_field_data() );
               ?>
               <div class="form-group">
                 <label><?php _e('Filter by Ratings', 'directorist'); ?></label>
                 <select name='search_by_rating' class="select-basic form-control">
                   <?php
-                    foreach ( $rating_options as $key => $option ) {
-                      extract( $option );
-                      echo "<option value='{$value}'{$selected}>{$label}</option>";
+                    foreach ( $listing->rating_field_data() as $option ) {
+                    	printf('<option value="%s"%s>%s</option>', $option['value'], $option['selected'], $option['label']);
                     }
                   ?>
                 </select>
@@ -255,7 +251,6 @@
 
               
               <?php if ( $listing->has_radius_search_field() ) {
-                $default_radius_distance = !empty($default_radius_distance) ? $default_radius_distance : 0;
               ?>
                 <!--range slider-->
                 <div class="form-group">
@@ -273,7 +268,6 @@
 
 
               if ( $listing->has_open_now_field() ) {
-                extract( $listing->open_now_field_data() );
               ?>
               <div class="form-group">
                 <label><?php _e('Open Now', 'directorist'); ?></label>
@@ -283,7 +277,7 @@
                       <input 
                         type="checkbox" 
                         name="open_now" 
-                        value="open_now"<?php echo $checked ?>>
+                        value="open_now"<?php echo $listing->open_now_field_data(); ?>>
                       <span><i class="fa fa-clock-o"></i><?php _e('Open Now', 'directorist'); ?> </span>
                     </label>
                   </div>
@@ -291,19 +285,16 @@
               </div><!-- ends: .form-group -->
               <?php }
               if ( $listing->has_tag_field() && $listing->tag_field_data() ) {
-                extract( $listing->tag_field_data() );
                 ?>
                   <div class="form-group ads-filter-tags">
                     <label><?php echo !empty($tag_label) ? $tag_label : __('Tags', 'directorist'); ?></label>
                     <div class="bads-tags">
                       <?php
                       $rand = rand();
-                      foreach ($terms as $term) {
+                      foreach ($listing->tag_field_data() as $term) {
                       ?>
                         <div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">
-                          <input type="checkbox" class="custom-control-input" name="in_tag[]" value="<?php echo $term->term_id; ?>" id="<?php echo $rand . $term->term_id; ?>" <?php if (!empty($_GET['in_tag']) && in_array($term->term_id, $_GET['in_tag'])) {
-                                                                                                                                                                                  echo "checked";
-                                                                                                                                                                                } ?>>
+                          <input type="checkbox" class="custom-control-input" name="in_tag[]" value="<?php echo $term->term_id; ?>" id="<?php echo $rand . $term->term_id; ?>" <?php if (!empty($_GET['in_tag']) && in_array($term->term_id, $_GET['in_tag'])) {echo "checked";} ?>>
                           <span class="check--select"></span>
                           <label for="<?php echo $rand . $term->term_id; ?>" class="custom-control-label"><?php echo $term->name; ?></label>
                         </div>

@@ -441,24 +441,33 @@ class Directorist_Template_Hooks {
 
         $args = array(
             'listing' => $listing,
-            'container_class' => ( ! empty( $listing->header_container_fluid ) ) ? $listing->header_container_fluid : '',
-            'header_title' => $listing->header_title,
-            'filters' => $listing->filters,
-
-            'display_viewas_dropdown' => $listing->display_viewas_dropdown,
-            'view_as_text' => $listing->view_as_text,
-            'display_sortby_dropdown' => $listing->display_sortby_dropdown,
-            'text_placeholder' => $listing->text_placeholder,
-            'category_placeholder' => $listing->category_placeholder,
-            'categories_fields' => $listing->categories_fields,
-            'location_placeholder' => $listing->location_placeholder,
-            'locations_fields' => $listing->locations_fields,
-            'c_symbol' => $listing->c_symbol,
+            'container_class'            => ( ! empty( $listing->header_container_fluid ) ) ? $listing->header_container_fluid : '',
+            'header_title'               => $listing->header_title,
+            'filters'                    => $listing->filters,
+            'display_viewas_dropdown'    => $listing->display_viewas_dropdown,
+            'view'                       => $listing->view,
+            'views'                      => $listing->views,
+            'view_as_text'               => $listing->view_as_text,
+            'display_sortby_dropdown'    => $listing->display_sortby_dropdown,
+            'text_placeholder'           => $listing->text_placeholder,
+            'category_placeholder'       => $listing->category_placeholder,
+            'categories_fields'          => $listing->categories_fields,
+            'location_placeholder'       => $listing->location_placeholder,
+            'locations_fields'           => $listing->locations_fields,
+            'c_symbol'                   => $listing->c_symbol,
+            'default_radius_distance'    => $listing->default_radius_distance,
+            'search_more_filters_fields' => $listing->search_more_filters_fields,
+            'website_label'              => $listing->website_label,
+            'email_label'                => $listing->email_label,
+            'fax_label'                  => $listing->fax_label,
+            'zip_label'                  => $listing->zip_label,
+            'tag_label'                  => $listing->tag_label,
+            'filters_button'             => $listing->filters_button,
+            'reset_filters_text'         => $listing->reset_filters_text,
+            'apply_filters_text'         => $listing->apply_filters_text,
         );
 
-        ob_start();
-        atbdp_get_shortcode_template( 'listings-archive/listings-header', $args, $listing, true );
-        echo ob_get_clean();
+        atbdp_get_shortcode_template( 'listings-archive/listings-header', $args );
     }
 }
 

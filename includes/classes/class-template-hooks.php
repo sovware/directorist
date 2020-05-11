@@ -255,6 +255,7 @@ class Directorist_Template_Hooks {
 
         $args = array(
             'p_id'                       => $p_id,
+            'listing_info'               => $forms->get_listing_info(),
             'display_fax_for'            => get_directorist_option('display_fax_for', 0),
             'display_phone2_for'         => get_directorist_option('display_fax_for', 0),
             'display_phone_for'          => get_directorist_option('display_phone_for', 0),
@@ -325,6 +326,7 @@ class Directorist_Template_Hooks {
 
         $args = array(
             'p_id'                       => $p_id,
+            'listing_info'               => $forms->get_listing_info(),
             'display_map_for'            => get_directorist_option('display_map_for', 0),
             'display_map_field'          => get_directorist_option('display_map_field', 1),
             'display_address_for'        => get_directorist_option('display_address_for', 0),
@@ -366,6 +368,7 @@ class Directorist_Template_Hooks {
 
         $args = array(
             'p_id'               => $p_id,
+            'listing_info'       => $forms->get_listing_info(),
             'title'              => $forms->get_add_listing_image_title(),
             'plan_video'         => $forms->get_plan_video(),
             'plan_slider'        => $forms->get_plan_slider(),

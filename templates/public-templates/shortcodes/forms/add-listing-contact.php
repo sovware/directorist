@@ -5,8 +5,6 @@
  * @version 7.0
  */
 
-$listing_info = get_defined_vars();
-
 if ((empty($display_fax_for) || empty($display_phone2_for) || empty($display_phone_for) || empty($display_address_for) || empty($display_email_for) || empty($display_website_for) || empty($display_zip_for) || empty($display_social_info_for)) && (!empty($display_address_field) || !empty($display_phone_field) || !empty($display_phone2_field) || !empty($display_fax_field) || !empty($display_email_field) || !empty($display_website_field) || !empty($display_zip_field) || !empty($display_social_info_field))) { ?>
     <div class="atbd_content_module atbd_contact_information">
         <div class="atbd_content_module_title_area">

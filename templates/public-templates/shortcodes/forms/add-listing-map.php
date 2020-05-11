@@ -5,8 +5,6 @@
  * @version 7.0
  */
 
-$listing_info = get_defined_vars();
-
 if (empty($display_map_for) && !empty($display_map_field)) { ?>
     <div class="atbd_content_module">
         <div class="atbd_content_module_title_area">

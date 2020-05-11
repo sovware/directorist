@@ -4,8 +4,6 @@
  * @since   7.0
  * @version 7.0
  */
-
-$listing_info = get_defined_vars();
 ?>
 <div class="directorist-contact-fields atbdp_info_module">
 	<div class="atbdp_info_module">

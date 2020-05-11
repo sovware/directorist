@@ -14,10 +14,10 @@
 						<div class="atbd_generic_header_title">
 							<?php if ($listing->has_filter_button()) { ?>
 								<a href="#" class="more-filter btn btn-outline btn-outline-primary">
-								<?php if ($listing->has_filter_icon()) { ?>
-									<span class="<?php atbdp_icon_type(true); ?>-filter"></span>
-								<?php } ?>
-								<?php echo $filters; ?>
+									<?php if ($listing->has_filter_icon()) { ?>
+										<span class="<?php atbdp_icon_type(true); ?>-filter"></span>
+									<?php } ?>
+									<?php echo $filters; ?>
 								</a>
 							<?php
 							}

@@ -374,6 +374,7 @@ if (!class_exists('ATBDP_Shortcode')):
         //listing contact information area
         public function directorist_listing_contact_information() {
             ob_start();
+            
             if(is_singular(ATBDP_POST_TYPE)) {
                 global $post;
                 $listing_id = $post->ID;
@@ -438,6 +439,7 @@ if (!class_exists('ATBDP_Shortcode')):
         //listing author details
         public function directorist_listing_author_details() {
             ob_start();
+            
             if(is_singular(ATBDP_POST_TYPE)) {
                 $template_file = 'single-listing/author-details.php';
                 $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
@@ -495,24 +497,26 @@ if (!class_exists('ATBDP_Shortcode')):
         //listing review area
         public function directorist_listing_review() {
             ob_start();
+            echo "--------->|";
             if (is_singular(ATBDP_POST_TYPE)) {
-                $template_file = 'single-listing/custom-field.php';
+                $template_file = 'single-listing/listing-review.php';
                 $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
                 $default_template_file = ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR . $template_file;
-
+                
                 // Load theme template if exist
                 $theme_template = atbdp_get_theme_file( $theme_template_file );
                 if ( $theme_template ) {
                     include $theme_template;
                     return ob_get_clean();
                 } 
-
+                
                 // Load default template
                 include $default_template_file;
             }
+            echo "---------";
             return ob_get_clean();
         }
-
+        
         //related listing area
         public function directorist_related_listings() {
             ob_start();
@@ -1390,9 +1394,34 @@ if (!class_exists('ATBDP_Shortcode')):
             $listing_location_address = get_directorist_option('sresult_location_address', 'map_api');
             ob_start();
             $include = apply_filters('include_style_settings', true);
+
             if ($include) {
                 wp_enqueue_style('atbdp-settings-style');
             }
+
+            // Add Inline Style
+            $column_width = 100 / (int)$columns . '%';
+            $style = '.atbd_content_active #directorist.atbd_wrapper .atbdp_column {';
+            $style .= "width: $column_width; } \n";
+
+            $listing_map_type = get_directorist_option( 'select_listing_map', 'google' );
+            
+            if ( $listing_map_type === 'openstreet' ) {
+                $style .= '.myDivIcon {';
+                $style .= 'text-align: center !important;';
+                $style .= 'line-height: 20px !important;';
+                $style .= "position: relative; }\n";
+
+                $style .= '.myDivIcon div.atbd_map_shape {';
+                $style .= 'position: absolute;';
+                $style .= 'top: -38px;';
+                $style .= "left: -15px; }\n";
+            }
+
+            wp_add_inline_style( 'atbdp-inline-style', $style );
+            wp_enqueue_style('atbdp-inline-style');
+
+
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                 return $redirect;
@@ -2024,10 +2053,34 @@ if (!class_exists('ATBDP_Shortcode')):
                 $grid_container_fluid = apply_filters('atbdp_single_cat_grid_container_fluid', $listing_grid_container_fluid);
                 $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
                 ob_start();
+
                 $include = apply_filters('include_style_settings', true);
+
                 if ($include) {
                     wp_enqueue_style('atbdp-settings-style');
                 }
+                
+                $column_width = 100 / (int)$columns . '%';
+                $style = '.atbd_content_active #directorist.atbd_wrapper .atbdp_column {';
+                $style .= "width: $column_width; } \n";
+
+                $listing_map_type = get_directorist_option( 'select_listing_map', 'google' );
+
+                if ( $listing_map_type === 'openstreet' ) {
+                    $style .= '.myDivIcon {';
+                    $style .= 'text-align: center !important;';
+                    $style .= 'line-height: 20px !important;';
+                    $style .= "position: relative; }\n";
+
+                    $style .= '.myDivIcon div.atbd_map_shape {';
+                    $style .= 'position: absolute;';
+                    $style .= 'top: -38px;';
+                    $style .= "left: -15px; }\n";
+                }
+
+                wp_add_inline_style( 'atbdp-inline-style', $style );
+                wp_enqueue_style('atbdp-inline-style');
+
                 if (!empty($redirect_page_url)) {
                     $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                     return $redirect;
@@ -2562,10 +2615,33 @@ if (!class_exists('ATBDP_Shortcode')):
                 $grid_container_fluid = apply_filters('atbdp_single_loc_grid_container_fluid', $listing_grid_container_fluid);
                 $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
                 ob_start();
+
                 $include = apply_filters('include_style_settings', true);
                 if ($include) {
                     wp_enqueue_style('atbdp-settings-style');
                 }
+
+                $column_width = 100 / (int)$columns . '%';
+                $style = '.atbd_content_active #directorist.atbd_wrapper .atbdp_column {';
+                $style .= "width: $column_width; } \n";
+
+                $listing_map_type = get_directorist_option( 'select_listing_map', 'google' );
+
+                if ( $listing_map_type === 'openstreet' ) {
+                    $style .= '.myDivIcon {';
+                    $style .= 'text-align: center !important;';
+                    $style .= 'line-height: 20px !important;';
+                    $style .= "position: relative; }\n";
+
+                    $style .= '.myDivIcon div.atbd_map_shape {';
+                    $style .= 'position: absolute;';
+                    $style .= 'top: -38px;';
+                    $style .= "left: -15px; }\n";
+                }
+
+                wp_add_inline_style( 'atbdp-inline-style', $style );
+                wp_enqueue_style('atbdp-inline-style');
+
                 if (!empty($redirect_page_url)) {
                     $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                     return $redirect;

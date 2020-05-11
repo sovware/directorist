@@ -289,7 +289,7 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
         // listings_loop_data
         public function listings_loop_data() {
             $data = array(
-                'listings_id'                 => get_the_ID(),
+                'listings_id'                => get_the_ID(),
                 'cats'                       => get_the_terms( get_the_ID(), ATBDP_CATEGORY ),
                 'locs'                       => get_the_terms( get_the_ID(), ATBDP_LOCATION ),
                 'featured'                   => get_post_meta( get_the_ID(), '_featured', true ),

@@ -1,5 +1,5 @@
 <?php
-wp_enqueue_script('leaflet-subgroup-realworld',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/subGroup-merkercluster-controlLayers-realworld.388.js');
+wp_enqueue_script('leaflet-subgroup-realworld');
 $data = array(
     'zoom'       => !empty($zoom) ? $zoom : 1,
 );

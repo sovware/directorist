@@ -1,5 +1,5 @@
 <?php
-wp_enqueue_script('atbdp-map-view',ATBDP_PUBLIC_ASSETS . 'js/map-view.js');
+wp_enqueue_script('atbdp-map-view');
 $display_map_info               = get_directorist_option('display_map_info', 1);
 $display_image_map              = get_directorist_option('display_image_map', 1);
 $display_title_map              = get_directorist_option('display_title_map', 1);
@@ -120,5 +120,4 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
     <?php endwhile;
     wp_reset_postdata();
     ?>
-
 </div>

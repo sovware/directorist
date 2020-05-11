@@ -216,8 +216,15 @@ class ATBDP_Enqueuer {
         if ( ! get_directorist_option( 'fix_js_conflict' )){
             wp_register_script('atbdp-bootstrap-script', ATBDP_PUBLIC_ASSETS . 'js/bootstrap.min.js', array('jquery', 'atbdp-popper-script'), ATBDP_VERSION, true);
         }
+
+        wp_register_script( 'atbdp_form_handler', ATBDP_PUBLIC_ASSETS . 'js/atbdp-form-handler.js', array('jquery'), ATBDP_VERSION, true );
+        wp_enqueue_script('atbdp_form_handler');
+        
         wp_register_script( 'atbdp_media_uploader', ATBDP_PUBLIC_ASSETS . 'js/ez-media-uploader.js', array('jquery'), ATBDP_VERSION, true );
         wp_enqueue_script('atbdp_media_uploader');
+        
+        wp_register_script( 'atbdp-template-gmap', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/google-map/main.js', array('jquery'), ATBDP_VERSION, true );
+        
         wp_register_script( 'atbdp-plasma-slider-script', ATBDP_PUBLIC_ASSETS . 'js/plasma-slider.js', null, ATBDP_VERSION, true );
         wp_register_script( 'atbdp-rating', ATBDP_PUBLIC_ASSETS . 'js/jquery.barrating.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-uikit', ATBDP_PUBLIC_ASSETS . 'js/uikit.min.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -242,6 +249,11 @@ class ATBDP_Enqueuer {
         
 
         wp_register_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js', array(), ATBDP_VERSION, true);
+
+
+        wp_register_script('leaflet-subgroup-realworld', ATBDP_PUBLIC_ASSETS . 'js/open-street-map/subGroup-merkercluster-controlLayers-realworld.388.js');
+        wp_register_script('atbdp-map-view', ATBDP_PUBLIC_ASSETS . 'js/map-view.js');
+        
 
         // we need select2 js on taxonomy edit screen to let the use to select the fonts-awesome icons ans search the icons easily
         // @TODO; make the styles and the scripts specific to the scripts where they are used specifically. For example. load select2js scripts and styles in

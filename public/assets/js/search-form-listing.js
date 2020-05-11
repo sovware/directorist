@@ -73,6 +73,10 @@
     if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
         function initialize() {
             var input = document.getElementById('address');
+            if ( ! input ) {
+                console.log('google-map', 'address field not found');
+                return;
+            }
             var autocomplete = new google.maps.places.Autocomplete(input);
             google.maps.event.addListener(autocomplete, 'place_changed', function () {
                 var place = autocomplete.getPlace();

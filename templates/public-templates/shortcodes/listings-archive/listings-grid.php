@@ -17,8 +17,6 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
      */
     do_action( 'directorist_archive_header', $atts );
     ?>
-
-    <?php //atbdp_listings_header( $atts ); ?>
     
     <div class="<?php echo !empty($grid_container_fluid) ? $grid_container_fluid : ''; ?>">
         <?php

@@ -1,6 +1,6 @@
 <div id="directorist" class="atbd_wrapper directorist directorist-checkout-form">
     <?php do_action('atbdp_before_checkout_form_start'); ?>
-    <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="" role="form">
+    <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="#">
         <?php do_action('atbdp_after_checkout_form_start'); ?>
         <div class="alert alert-info alert-dismissable fade show" role="alert">
             <span class="fa fa-info-circle"></span>
@@ -39,7 +39,7 @@
                             <?php if (!empty($op['title'])) echo "<h4>" . esc_html($op['title']) . "</h4>"; ?>
                             <?php if (!empty($op['desc'])) echo esc_html($op['desc']); ?>
                         </td>
-                        <td align="right" class="text-right">
+                        <td class="text-right">
                             <?php if (!empty($op['price'])) {
                                 $before = '';
                                 $after = '';

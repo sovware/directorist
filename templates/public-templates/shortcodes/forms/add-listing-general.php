@@ -265,7 +265,7 @@ $forms = Directorist_Listing_Forms::instance();
 		 **************************************************************************-->
 		<!--@ Options for select the category.-->
 		<div class="form-group" id="atbdp_categories">
-			<label for="atbdp_select_cat"><?php
+			<label for="at_biz_dir-categories"><?php
 				esc_html_e($category_label . ':', 'directorist');
 				echo get_directorist_option('require_category') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
 			<?php
@@ -280,7 +280,7 @@ $forms = Directorist_Listing_Forms::instance();
 			}
 			$categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0, 'exclude' => $plan_cat));
 			?>
-			<select name="admin_category_select[]" id="atbdp_select_cat" class="form-control"
+			<select name="admin_category_select[]" id="at_biz_dir-categories" class="form-control"
 					id="at_biz_dir-categories" <?php echo !empty($multiple_cat_for_user) ? 'multiple="multiple"' : ''; ?>>
 				<?php
 				if (empty($multiple_cat_for_user)) {

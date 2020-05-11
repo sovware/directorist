@@ -651,7 +651,6 @@ if (!class_exists('ATBDP_Shortcode')):
          */
         public function ajax_callback_custom_fields($post_id = 0, $term_id = array())
         {
-
             $ajax = false;
             if (isset($_POST['term_id'])) {
                 $ajax = true;
@@ -666,8 +665,9 @@ if (!class_exists('ATBDP_Shortcode')):
                 'status' => 'published'
             );
             $meta_queries = array();
-            if(!empty($categories)){
-                if ($categories > 1) {
+
+            if ( ! empty( $categories ) && is_array( $categories )){
+                if ( count( $categories ) > 1) {
                     $sub_meta_queries = array();
                     foreach ($categories as $value) {
                         $sub_meta_queries[] = array(
@@ -2054,9 +2054,9 @@ if (!class_exists('ATBDP_Shortcode')):
 
                 $include = apply_filters('include_style_settings', true);
 
-                if ($include) {
+                /* if ($include) {
                     wp_enqueue_style('atbdp-settings-style');
-                }
+                } */
                 
                 $column_width = 100 / (int)$columns . '%';
                 $style = '.atbd_content_active #directorist.atbd_wrapper .atbdp_column {';
@@ -2162,9 +2162,9 @@ if (!class_exists('ATBDP_Shortcode')):
             wp_enqueue_script('loc_cat_assets');
             ob_start();
             $include = apply_filters('include_style_settings', true);
-            if ($include) {
+            /* if ($include) {
                 wp_enqueue_style('atbdp-settings-style');
-            }
+            } */
             $display_locations_as = get_directorist_option('display_locations_as', 'grid');
             $locations_settings = array();
             $locations_settings['depth'] = get_directorist_option('locations_depth_number', 1);
@@ -2615,9 +2615,9 @@ if (!class_exists('ATBDP_Shortcode')):
                 ob_start();
 
                 $include = apply_filters('include_style_settings', true);
-                if ($include) {
+                /* if ($include) {
                     wp_enqueue_style('atbdp-settings-style');
-                }
+                } */
 
                 $column_width = 100 / (int)$columns . '%';
                 $style = '.atbd_content_active #directorist.atbd_wrapper .atbdp_column {';
@@ -3098,9 +3098,9 @@ if (!class_exists('ATBDP_Shortcode')):
                 $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
                 ob_start();
                 $include = apply_filters('include_style_settings', true);
-                if ($include) {
+                /* if ($include) {
                     wp_enqueue_style('atbdp-settings-style');
-                }
+                } */
                 if ( !empty($redirect_page_url) ) {
                     $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                     return $redirect;
@@ -3261,9 +3261,9 @@ if (!class_exists('ATBDP_Shortcode')):
             $filters_display = !empty($atts['more_filters_display']) ? $atts['more_filters_display'] : 'overlapping';
             ob_start();
             $include = apply_filters('include_style_settings', true);
-            if ($include) {
+            /* if ($include) {
                 wp_enqueue_style('atbdp-settings-style');
-            }
+            } */
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                 return $redirect;

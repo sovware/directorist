@@ -34,6 +34,9 @@ class Directorist_Template_Hooks {
 
         // Listing Archive
         add_action( 'directorist_archive_header',    array( __CLASS__, 'archive_header' ) );
+
+        // Listing Single
+
     }
 
     public static function instance() {

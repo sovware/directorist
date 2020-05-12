@@ -5354,6 +5354,18 @@ The Administrator of ==SITE_NAME==
                     'max' => '100',
                     'step' => '1',
                     'default' => '5',
+                    'description' => __('Here 0 means unlimited.', 'directorist'),
+
+                ),
+                array(
+                    'type' => 'slider',
+                    'name' => 'max_gallery_upload_size_per_file',
+                    'label' => __('Max Upload Size Per Image in MB', 'directorist'),
+                    'min' => '0',
+                    'max' => '100',
+                    'step' => '.5',
+                    'default' => '0',
+                    'description' => __('Here 0 means unlimited.', 'directorist'),
 
                 ),
                 array(
@@ -5364,6 +5376,7 @@ The Administrator of ==SITE_NAME==
                     'max' => '100',
                     'step' => '.5',
                     'default' => '2',
+                    'description' => __('Here 0 means unlimited.', 'directorist'),
 
                 ),
                 array(
@@ -5449,9 +5462,7 @@ The Administrator of ==SITE_NAME==
                     'name' => 'require_privacy',
                     'label' => __('Required', 'directorist'),
                     'default' => 1,
-                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.
-
-', 'directorist'),
+                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.', 'directorist'),
                 ),
             ));
         }

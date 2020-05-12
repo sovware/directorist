@@ -1155,15 +1155,21 @@ $query_args = array(
                                                             $plan_image = is_plan_slider_limit($planID);
                                                         }
                                                     }
-                                                    $max_size = get_directorist_option('max_gallery_upload_size', 4);
-                                                    $max_size_kb = (int)$max_size * 1024;
+
+                                                    $max_file_size = get_directorist_option('max_gallery_upload_size_per_file', 0);
+                                                    $max_file_size_kb = (float)$max_file_size * 1024;
+                                                    
+                                                    $max_total_file_size = get_directorist_option('max_gallery_upload_size', 4);
+                                                    $max_total_file_size_kb = (float)$max_total_file_size * 1024;
+
                                                     $req_gallery_image = get_directorist_option('require_gallery_img');
                                                     $gallery_label = get_directorist_option('gallery_label', __('Select Files', 'directorist'));
                                                     ?>
                                                     <div id="_listing_gallery" class="ez-media-uploader"
                                                          data-max-file-items="<?php echo !empty($slider_unl) ? '999' : $plan_image; ?>"
                                                          data-min-file-items="<?php echo !empty($req_gallery_image) ? '1' : ''; ?>"
-                                                         data-max-total-file-size="<?php echo $max_size_kb; ?>"
+                                                         data-max-file-size="<?php echo $max_file_size_kb; ?>"
+                                                         data-max-total-file-size="<?php echo $max_total_file_size_kb; ?>"
                                                          data-show-alerts="0">
                                                         <div class="ezmu__loading-section ezmu--show">
                                                             <span class="ezmu__loading-icon">
@@ -1200,18 +1206,22 @@ $query_args = array(
                                                             <span class="ezmu-dictionary-label-select-files"><?php echo $gallery_label ? $gallery_label : __('Select Files', 'directorist'); ?></span>
                                                             <span class="ezmu-dictionary-label-add-more"><?php echo __('Add More', 'directorist') ?></span>
                                                             <!-- Alert Texts -->
+                                                            <span class="ezmu-dictionary-alert-max-file-size">
+                                                                <?php echo __('Maximum limit for a file is  __DT__', 'directorist') ?>
+                                                            </span>
                                                             <span class="ezmu-dictionary-alert-max-total-file-size">
-                                                                <?php echo __('Max limit for total file size is __DT__', 'directorist') ?>
+                                                                <?php echo __('Maximum limit for total file size is __DT__', 'directorist') ?>
                                                             </span>
                                                             <span class="ezmu-dictionary-alert-min-file-items">
-                                                                <?php echo __('Min __DT__ file is required', 'directorist') ?>
+                                                                <?php echo __('Minimum __DT__ file is required', 'directorist') ?>
                                                             </span>
                                                             <span class="ezmu-dictionary-alert-max-file-items">
-                                                                <?php echo __('Max limit for total file is __DT__', 'directorist') ?>
+                                                                <?php echo __('Maximum limit for total file is __DT__', 'directorist') ?>
                                                             </span>
 
                                                             <!-- Info Text -->
-                                                            <span class="ezmu-dictionary-info-max-total-file-size"><?php echo __('Maximum allowed file size is __DT__', 'directorist') ?></span>
+                                                            <span class="ezmu-dictionary-info-max-file-size"><?php echo __('Maximum allowed size per file is __DT__', 'directorist') ?></span>
+                                                            <span class="ezmu-dictionary-info-max-total-file-size"><?php echo __('Maximum total allowed file size is __DT__', 'directorist') ?></span>
 
                                                             <span class="ezmu-dictionary-info-type"
                                                                   data-show='0'></span>

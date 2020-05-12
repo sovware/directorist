@@ -50,7 +50,8 @@ if (!class_exists('ATBDP_Email')):
          */
         public function atbdp_wp_mail_from()
         {
-            $admin_email = get_option('admin_email');
+            $custom_mail = get_directorist_option('email_from_email', get_option('admin_email'));
+            $admin_email = $custom_mail ? $custom_mail : get_option('admin_email');
             return apply_filters('atbdp_mail_from', $admin_email);
         }
 

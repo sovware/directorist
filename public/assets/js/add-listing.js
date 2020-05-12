@@ -356,6 +356,8 @@ jQuery(function ($) {
                 $(".listing_submit_btn").removeClass("atbd_loading");
                 err_log.listing_gallery = { msg: 'Listing gallery has invalid files' };
                 error_count++;
+
+                scrollToEl('#_listing_gallery');
             }
         }
 
@@ -383,6 +385,8 @@ jQuery(function ($) {
                 $(".listing_submit_btn").removeClass("atbd_loading");
                 err_log.listing_gallery = { msg: 'Listing gallery extension has invalid files' };
                 error_count++;
+
+                scrollToEl('#listing_gallery_ext');
             }
         }
         var iframe = $('#listing_content_ifr');
@@ -549,7 +553,9 @@ jQuery(function ($) {
         form_data.append('timezone', atbdp_element_value('select[name="timezone"]'));
         // booking
         var booking_field = $('.atbdb-wrapper').find('input[name^="bdb"]');
+        var booking_type = $('#bdb_booking_type').val();
         if (booking_field.length > 1) {
+            form_data.append('bdb_booking_type', booking_type);
             booking_field.each(function (index, value) {
                     var type = $(value).attr('type');
                     if ((type === "checkbox") || (type === "radio") ) {
@@ -635,5 +641,16 @@ jQuery(function ($) {
         });
 
     });
+
+    // scrollToEl
+    function scrollToEl( el ) {
+        var hash = ( typeof el === 'string' ) ? el : '';
+        var scroll_top = $(hash).offset().top - 50;
+        scroll_top = ( scroll_top < 0 ) ? 0 : scroll_top;
+
+        $('html, body').animate({
+            scrollTop: scroll_top
+        }, 800);
+    }
 
 });

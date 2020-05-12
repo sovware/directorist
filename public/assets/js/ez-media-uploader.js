@@ -13,7 +13,7 @@
       containerID: "ez-media-uploader",
       oldFiels: null,
       oldFielsUrl: null,
-      maxFileSize: 50,
+      maxFileSize: 0,
       maxTotalFileSize: 4096,
       minFileItems: null,
       maxFileItems: null,
@@ -367,7 +367,7 @@
         }
       }
 
-      if (!this.isClean && this.options.showAlerts) {
+      if ( this.options.showAlerts && !this.isClean ) {
         updateValidationFeedback(error_log, this.statusSection);
       }
 
@@ -395,6 +395,8 @@
     };
 
     this.hasValidFiles = function () {
+      this.isClean = false;
+
       if (this.validateFiles() === true) {
         return true;
       }
@@ -441,7 +443,7 @@
           filesMeta.fileSize = file.size * 1024;
           filesMeta.fileSizeInText = formatedFileSize(file.size * 1024);
 
-          if ( file.size > this.options.maxFileSize ) {
+          if ( this.options.maxFileSize && ( file.size > this.options.maxFileSize ) ) {
             filesMeta.limitExceeded = true;
           }
         }
@@ -1027,7 +1029,7 @@
     file_input.setAttribute("accept", accept);
 
     if (allowMultiple) {
-      file_input.setAttribute("multiple", "true");
+      file_input.setAttribute("multiple", "");
     }
 
     var file_input_label = document.createElement("label");
@@ -1240,8 +1242,9 @@
     var thumbnail_list_item_size = createElementWithClass(
       "ezmu__thumbnail-front-item ezmu__front-item__thumbnail-size"
     );
-
-    var state_class = ( data.limitExceeded ) ? ' has-error' : '';
+    
+    var limit_exceeded = ( (typeof data === 'object') && ('limitExceeded' in data) && data.limitExceeded ) ? true : false;
+    var state_class = ( limit_exceeded ) ? ' has-error' : '';
     var thumbnail_list_item_size_text = createElementWithClass(
       "ezmu__front-item__thumbnail-size-text" + state_class,
       "span"
@@ -1323,6 +1326,7 @@
       var img_src = data_url ? data_url : img_src;
       img_src = data_blob ? data_blob : img_src;
       thumbnail_list_item_img.src = img_src;
+      thumbnail_list_item_img.alt = 'image';
       return thumbnail_list_item_img;
     }
 

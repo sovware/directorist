@@ -16,6 +16,31 @@ if ( ! defined('ABSPATH') ) { die( 'Sorry, it is not your place to have fun..' )
 if (!class_exists('ATBDP_Listing_DB')):
 class ATBDP_Listing_DB {
 
+    public function __construct ()
+    {
+        add_action( 'before_delete_post', array( $this, 'atbdp_delete_attachment' ) );
+
+    }
+
+    /**
+     * @param init $id  Current post id
+     * @since 6.4.1
+     * 
+     */
+    public function atbdp_delete_attachment($id){
+
+        if( 'at_biz_dir' === get_post_type( $id ) ){
+            $listing_img = get_post_meta($id, '_listing_img', true);
+            $listing_img = !empty($listing_img) ? $listing_img : array();
+            $listing_prv_img = get_post_meta($id, '_listing_prv_img', true);
+            array_unshift($listing_img, $listing_prv_img);
+            if ( ! empty( $listing_img ) ) {		
+                foreach ( $listing_img as $image ) {
+                    wp_delete_attachment( $image, true );
+                }		
+            }
+        } 
+    }
 
     /**
      *It returns all the listing
@@ -73,6 +98,7 @@ class ATBDP_Listing_DB {
      */
     public function delete_listing_by_id($id)
     {
+
         $deleted = wp_delete_post(absint($id), true); // i
         if ( false !== $deleted ) {
             // as post has been deleted, now delete the review if there is any associated with the post

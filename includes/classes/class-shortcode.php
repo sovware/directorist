@@ -48,6 +48,8 @@ if (!class_exists('ATBDP_Shortcode')):
 
         // listing custom fields area
         public function directorist_custom_field() {
+            // $listing = new Directorist_Single_Listing();
+            // return $listing->render_shortcode_custom_fields();
             ob_start();
             if( is_singular(ATBDP_POST_TYPE ) ) {
                 global $post;

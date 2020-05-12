@@ -1,5 +1,6 @@
 <?php
 if (!empty($has_field) && $plan_custom_field) {
+    echo "string";
     ?>
     <div class="atbd_content_module atbd_custom_fields_contents">
         <div class="atbd_content_module_title_area">

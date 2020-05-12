@@ -551,7 +551,9 @@ jQuery(function ($) {
         form_data.append('timezone', atbdp_element_value('select[name="timezone"]'));
         // booking
         var booking_field = $('.atbdb-wrapper').find('input[name^="bdb"]');
+        var booking_type = $('#bdb_booking_type').val();
         if (booking_field.length > 1) {
+            form_data.append('bdb_booking_type', booking_type);
             booking_field.each(function (index, value) {
                     var type = $(value).attr('type');
                     if ((type === "checkbox") || (type === "radio") ) {

@@ -140,16 +140,20 @@ class Directorist_Single_Listing {
             return;
         }
 
-        $id = $this->get_id();
+        $id      = $this->get_id();
         $fm_plan = get_post_meta($id, '_fm_plans', true);
+        $post    = get_post($id);
+        $content = apply_filters('get_the_content', $post->post_content);
+        $content = do_shortcode(wpautop($content));
 
         $args = array(
-            'listing_id'                   => $this->get_id(),
+            'listing_id'                   => $id,
             'listing_details_text'         => apply_filters('atbdp_single_listing_details_section_text', get_directorist_option('listing_details_text', __('Listing Details', 'directorist'))),
             'p_title'                      => get_the_title(),
             'fm_plan'                      => $fm_plan,
             'tagline'                      => get_post_meta($id, '_tagline', true),
             'display_tagline_field'        => get_directorist_option('display_tagline_field', 0),
+            'content'                      => $content,
         );
 
         return atbdp_return_shortcode_template( 'single-listing/listing-header', $args );

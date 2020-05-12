@@ -191,6 +191,13 @@ $forms = Directorist_Listing_Forms::instance();
 		 * It fires after the excerpt field
 		 */
 		do_action('atbdp_add_listing_after_excerpt', $p_id);
+
+
+        /**
+         * @since 7.0
+         * @hooked Directorist_Template_Hooks::dashboard_title - 10
+         */
+        do_action( 'directorist_add_listing_before_location' );
 		?>
 
 		<?php if (empty($display_loc_for)) { ?>

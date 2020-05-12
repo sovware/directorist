@@ -24,13 +24,13 @@ class Directorist_Template_Hooks {
         add_action( 'directorist_dashboard_tab_contents',     array( __CLASS__, 'dashboard_tab_contents' ) );
 
         // Add Listing
-        add_action( 'directorist_add_listing_title',      array( __CLASS__, 'add_listing_title' ) );
-        add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_general' ) );
-        add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_contact' ), 15 );
-        add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_map' ), 20 );
-        add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_image' ), 25 );
-        add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_submit' ), 30 );
-        add_action( 'atbdp_add_listing_after_excerpt',    array( __CLASS__, 'add_listing_custom_field' ) );
+        add_action( 'directorist_add_listing_title',            array( __CLASS__, 'add_listing_title' ) );
+        add_action( 'directorist_add_listing_contents',         array( __CLASS__, 'add_listing_general' ) );
+        add_action( 'directorist_add_listing_contents',         array( __CLASS__, 'add_listing_contact' ), 15 );
+        add_action( 'directorist_add_listing_contents',         array( __CLASS__, 'add_listing_map' ), 20 );
+        add_action( 'directorist_add_listing_contents',         array( __CLASS__, 'add_listing_image' ), 25 );
+        add_action( 'directorist_add_listing_contents',         array( __CLASS__, 'add_listing_submit' ), 30 );
+        add_action( 'directorist_add_listing_before_location',  array( __CLASS__, 'add_listing_custom_field' ) );
 
         // Listing Archive
         add_action( 'directorist_archive_header',    array( __CLASS__, 'archive_header' ) );

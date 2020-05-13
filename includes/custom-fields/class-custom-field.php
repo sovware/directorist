@@ -386,8 +386,8 @@ class ATBDP_Custom_Field
             'update_item' => __('Update Field', 'directorist'),
             'view_item' => __('View Field', 'directorist'),
             'search_items' => __('Search Field', 'directorist'),
-            'not_found' => __('No orders found', 'directorist'),
-            'not_found_in_trash' => __('No orders found in Trash', 'directorist'),
+            'not_found' => __('No custom field found', 'directorist'),
+            'not_found_in_trash' => __('No custom field found in Trash', 'directorist'),
         );
 
         $args = array(

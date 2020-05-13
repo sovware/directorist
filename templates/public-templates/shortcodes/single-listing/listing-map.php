@@ -10,7 +10,7 @@ if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) &&
         <div class="atbd_content_module_title_area">
             <div class="atbd_area_title">
                 <h4>
-                    <span class="<?php atbdp_icon_type(true);?>-map atbd_area_icon"></span><?php echo  esc_html( $listing_location_text ); ?>
+                    <span class="<?php atbdp_icon_type(true);?>-map atbd_area_icon"></span><?php echo esc_html( $listing_location_text ); ?>
                 </h4>
             </div>
         </div>

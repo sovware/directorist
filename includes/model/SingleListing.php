@@ -325,7 +325,10 @@ class Directorist_Single_Listing {
         $id      = $this->get_id();
         $fm_plan = get_post_meta($id, '_fm_plans', true);
 
-        $address = get_post_meta($post->ID, '_address', true);
+        $manual_lat  = get_post_meta($id, '_manual_lat', true);
+        $manual_lng  = get_post_meta($id, '_manual_lng', true);
+
+        $address = get_post_meta($id, '_address', true);
         $ad = !empty($address) ? esc_html($address) : '';
 
         $display_map_info               = apply_filters('atbdp_listing_map_info_window', get_directorist_option('display_map_info', 1));
@@ -333,6 +336,22 @@ class Directorist_Single_Listing {
         $display_title_map              = get_directorist_option('display_title_map', 1);
         $display_address_map            = get_directorist_option('display_address_map', 1);
         $display_direction_map          = get_directorist_option('display_direction_map', 1);
+
+        $listing_prv_img = get_post_meta($id, '_listing_prv_img', true);
+	    $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+	    $listing_prv_imgurl = !empty($listing_prv_img) ? atbdp_get_image_source($listing_prv_img, 'small') : '';
+	    $listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, 150, 150, true, 100)['url'];
+	    $img_url = !empty($listing_prv_imgurl)?$listing_prv_imgurl:$default_image;
+		$image = "<img src=". $img_url.">";
+        if(empty($display_image_map)) {
+            $image = '';
+        }
+
+        $t = get_the_title();
+        $t = !empty($t) ? $t : __('No Title', 'directorist');
+        if(empty($display_title_map)) {
+            $t = '';
+        }
 
         $info_content = "";
         if(!empty($display_image_map) || !empty($display_title_map)) {
@@ -357,8 +376,8 @@ class Directorist_Single_Listing {
         $args = array(
 			'disable_map'           => get_directorist_option('disable_map', 0),
 			'hide_map'              => get_post_meta($id, '_hide_map', true),
-			'manual_lat'            => get_post_meta($id, '_manual_lat', true),
-			'manual_lng'            => get_post_meta($id, '_manual_lng', true),
+			'manual_lat'            => $manual_lat,
+			'manual_lng'            => $manual_lng,
 			'display_map_field'     => apply_filters('atbdp_show_single_listing_map', get_directorist_option('display_map_field', 1)),
 			'listing_location_text' => apply_filters('atbdp_single_listing_map_section_text', get_directorist_option('listing_location_text', __('Location', 'directorist'))),
 			'select_listing_map'    => get_directorist_option('select_listing_map', 'google'),
@@ -371,6 +390,19 @@ class Directorist_Single_Listing {
         return atbdp_return_shortcode_template( 'single-listing/listing-map', $args );
 	}
 
+	public function render_shortcode_contact_information() {
+        if ( !is_singular( ATBDP_POST_TYPE ) ) {
+            return;
+        }
 
+        $id      = $this->get_id();
+        $fm_plan = get_post_meta($id, '_fm_plans', true);
+
+        $args = array(
+
+        );
+
+        return atbdp_return_shortcode_template( 'single-listing/listing-video', $args );
+	}
 
 }

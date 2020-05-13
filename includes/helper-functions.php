@@ -4636,9 +4636,6 @@ function atbdp_create_required_pages(){
                     'comment_status' => 'closed'
                 ), true
             );
-            if (!is_wp_error($replace_shortcode)) {
-                update_user_meta(get_current_user_id(), '_atbdp_shortcode_regenerate_notice', 'true');
-            }
         }
         // if we have new options then lets update the options with new option values.
         if ($new_settings) {

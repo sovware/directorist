@@ -136,7 +136,9 @@
     } else {
         $('#at_biz_dir-tags').select2({
             placeholder: atbdp_add_listing.i18n_text.tag_selection,
-            allowClear: true
+            allowClear: true,
+            tags: true,
+            tokenSeparators: [',']
         });
     }
     $('#at_biz_dir-categories').select2({
@@ -287,8 +289,8 @@ jQuery(function ($) {
         listignsGalleryUploader.init();
     }
 
-    
-    
+
+
 
     var formID = $('#add-listing-form');
     var on_processing = false;
@@ -326,11 +328,11 @@ jQuery(function ($) {
                 }
             }
         }
-        
+
 
         // ajax action
         form_data.append('action', 'add_listing_action');
-       
+
         if ( listingMediaUploader ) {
             var hasValidFiles = listingMediaUploader.hasValidFiles();
             if ( hasValidFiles ) {
@@ -392,7 +394,7 @@ jQuery(function ($) {
         var content = iframe.length ? tinymce.get('listing_content').getContent() : atbdp_element_value('textarea[name="listing_content"]');
         var service_offer = serviceIframe.length ? tinymce.get('service_offer').getContent() : '';
         var excerpt = atbdp_element_value("textarea#atbdp_excerpt");
-        
+
         form_data.append('add_listing_nonce', atbdp_add_listing.nonce);
         //form_data.append('add_listing_form', $('input[name="add_listing_form"]').val());
         form_data.append('listing_id', $('input[name="listing_id"]').val());
@@ -433,7 +435,7 @@ jQuery(function ($) {
         atbdp_multi_select('input', 'custom_field');
         atbdp_multi_select('textarea', 'custom_field');
         atbdp_multi_select('select', 'custom_field');
-        
+
         var field_checked = $('input[name^="custom_field"]:checked');
         if (field_checked.length > 1) {
             field_checked.each(function () {
@@ -458,7 +460,7 @@ jQuery(function ($) {
         if ( typeof locaitons === 'string' ) {
             form_data.append("tax_input[at_biz_dir-location][]", locaitons);
         }
-        
+
         // tags
         var tags = $("#at_biz_dir-tags").val();
         if (tags) {
@@ -514,7 +516,7 @@ jQuery(function ($) {
                 form_data.append(name, value);
             });
         }
-        
+
         atbdp_multi_select('textarea', 'faqs');
         // google recaptcha
         atbdp_multi_select('textarea', 'g-recaptcha-response');
@@ -551,7 +553,9 @@ jQuery(function ($) {
         form_data.append('timezone', atbdp_element_value('select[name="timezone"]'));
         // booking
         var booking_field = $('.atbdb-wrapper').find('input[name^="bdb"]');
+        var booking_type = $('#bdb_booking_type').val();
         if (booking_field.length > 1) {
+            form_data.append('bdb_booking_type', booking_type);
             booking_field.each(function (index, value) {
                     var type = $(value).attr('type');
                     if ((type === "checkbox") || (type === "radio") ) {
@@ -648,5 +652,4 @@ jQuery(function ($) {
             scrollTop: scroll_top
         }, 800);
     }
-
 });

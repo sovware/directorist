@@ -4576,7 +4576,8 @@ function atbdp_create_required_pages(){
         // $op_name is the page option name in the database.
         // if we do not have the page id assigned in the settings with the given page option name, then create an page
         // and update the option.
-        if (empty($options[$op_name])) {
+        
+        if (empty($options[$op_name]) || !get_post($options[$op_name])) {
 
             $id = wp_insert_post(
                 array(

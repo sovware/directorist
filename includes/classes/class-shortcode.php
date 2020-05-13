@@ -141,8 +141,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 'added_favourite' => __('Added to favorite', 'directorist'),
                 'please_login' => __('Please login first', 'directorist')
             ));
-            wp_enqueue_script('atbdp-range-slider');
-            $radius_search_unit            = get_directorist_option('radius_search_unit', 'miles');
+            $handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
+            wp_enqueue_script($handel);            $radius_search_unit            = get_directorist_option('radius_search_unit', 'miles');
             if(!empty($radius_search_unit) && 'kilometers' == $radius_search_unit) {
                 $miles = __(' Kilometers', 'directorist');
             }else{
@@ -729,7 +729,7 @@ if (!class_exists('ATBDP_Shortcode')):
 
             $all_listings = new WP_Query(apply_filters('atbdp_listing_search_query_argument', $args));
             $default_radius_distance = !empty($_GET['miles']) ? $_GET['miles'] : $default_radius_distance;
-            wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
+            wp_localize_script( $handel, 'atbdp_range_slider', array(
                 'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
             ) );
@@ -825,7 +825,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 'added_favourite' => __('Added to favorite', 'directorist'),
                 'please_login' => __('Please login first', 'directorist')
             ));
-            wp_enqueue_script('atbdp-range-slider');
+            $handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
+            wp_enqueue_script($handel);
             $radius_search_unit            = get_directorist_option('radius_search_unit', 'miles');
             if(!empty($radius_search_unit) && 'kilometers' == $radius_search_unit) {
                 $miles = __(' Kilometers', 'directorist');
@@ -833,7 +834,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $miles = __(' Miles', 'directorist');
             }
             $default_radius_distance = get_directorist_option('listing_default_radius_distance', 0);
-            wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
+            wp_localize_script( $handel, 'atbdp_range_slider', array(
                     'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
             ) );
@@ -1502,7 +1503,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 'added_favourite' => __('Added to favorite', 'directorist'),
                 'please_login' => __('Please login first', 'directorist')
             ));
-            wp_enqueue_script('atbdp-range-slider');
+            $handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
+            wp_enqueue_script($handel);
             $radius_search_unit            = get_directorist_option('radius_search_unit', 'miles');
             if(!empty($radius_search_unit) && 'kilometers' == $radius_search_unit) {
                 $miles = __(' Kilometers', 'directorist');
@@ -1510,7 +1512,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $miles = __(' Miles', 'directorist');
             }
             $default_radius_distance = get_directorist_option('listing_default_radius_distance', 0);
-            wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
+            wp_localize_script( $handel, 'atbdp_range_slider', array(
                 'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
             ) );
@@ -2008,7 +2010,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 'added_favourite' => __('Added to favorite', 'directorist'),
                 'please_login' => __('Please login first', 'directorist')
             ));
-            wp_enqueue_script('atbdp-range-slider');
+            $handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
+            wp_enqueue_script($handel);
             $radius_search_unit            = get_directorist_option('radius_search_unit', 'miles');
             if(!empty($radius_search_unit) && 'kilometers' == $radius_search_unit) {
                 $miles = __(' Kilometers', 'directorist');
@@ -2016,7 +2019,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $miles = __(' Miles', 'directorist');
             }
             $default_radius_distance = get_directorist_option('listing_default_radius_distance', 0);
-            wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
+            wp_localize_script( $handel, 'atbdp_range_slider', array(
                 'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
             ) );
@@ -2431,7 +2434,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 'added_favourite' => __('Added to favorite', 'directorist'),
                 'please_login' => __('Please login first', 'directorist')
             ));
-            wp_enqueue_script('atbdp-range-slider');
+            $handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
+            wp_enqueue_script($handel);
             $radius_search_unit            = get_directorist_option('radius_search_unit', 'miles');
             if(!empty($radius_search_unit) && 'kilometers' == $radius_search_unit) {
                 $miles = __(' Kilometers', 'directorist');
@@ -2439,7 +2443,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $miles = __(' Miles', 'directorist');
             }
             $default_radius_distance = get_directorist_option('listing_default_radius_distance', 0);
-            wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
+            wp_localize_script( $handel, 'atbdp_range_slider', array(
                 'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
             ) );

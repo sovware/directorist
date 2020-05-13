@@ -164,7 +164,6 @@
                                                     ?>
                                                     <div class="atbd_promote_btn_wrapper">
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::get_checkout_page_link($post->ID)) ?>"
-                                                           id="directorist-promote"
                                                            data-listing_id="<?php echo $post->ID; ?>"
                                                            class="directory_btn btn btn-primary">
                                                             <?php _e('Promote', 'directorist'); ?>
@@ -189,7 +188,7 @@
             }
 
         } else {
-            echo '<p class="atbdp_nlf">' . __("Looks like you have not created any listing yet!", 'directorist') . '</p>';
+            echo '<tr><td><p class="atbdp_nlf">' . __("Looks like you have not created any listing yet!", 'directorist') . '</p></td></tr>';
         }
         $pagination = get_directorist_option('user_listings_pagination', 1);
         $paged = atbdp_get_paged_num();

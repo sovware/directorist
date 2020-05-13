@@ -104,6 +104,72 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
             $this->prepare_data();
         }
 
+        // render_shortcode
+        public function render_shortcode( ) {
+            wp_enqueue_script('adminmainassets');
+            wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+            wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
+                'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'added_favourite' => __('Added to favorite', 'directorist'),
+                'please_login' => __('Please login first', 'directorist')
+            ));
+            wp_enqueue_script('atbdp-range-slider');
+
+            wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
+                'Miles'     =>  $this->miles,
+                'default_val'   =>  $this->default_radius_distance
+            ));
+
+            
+            ob_start();
+
+            // Add Inline Style
+            $style = '.atbd_content_active #directorist.atbd_wrapper .atbdp_column {';
+            $style .= "width: " . $this->column_width . "; } \n";
+
+            $listing_map_type = $this->select_listing_map;
+            
+            if ( $listing_map_type === 'openstreet' ) {
+                $style .= '.myDivIcon {';
+                $style .= 'text-align: center !important;';
+                $style .= 'line-height: 20px !important;';
+                $style .= "position: relative; }\n";
+
+                $style .= '.myDivIcon div.atbd_map_shape {';
+                $style .= 'position: absolute;';
+                $style .= 'top: -38px;';
+                $style .= "left: -15px; }\n";
+            }
+
+            wp_add_inline_style( 'atbdp-inline-style', $style );
+            wp_enqueue_style('atbdp-inline-style');
+            
+            if (!empty($this->redirect_page_url)) {
+                $redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
+                return $redirect;
+            }
+
+            if ( is_rtl() ){
+                wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
+            } else{
+                wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
+            }
+
+            if ( 'listings_with_map' == $this->view ) {
+                $template_file = "listing-with-map/map-view";
+                $extension_file = BDM_TEMPLATES_DIR . '/map-view';
+
+                atbdp_get_shortcode_ext_template( $template_file, $extension_file, null, $this, true );
+                return ob_get_clean();
+            }
+            
+            $template_file = "listings-archive/listings-{$this->view}";
+            atbdp_get_shortcode_template( $template_file, null, $this, true );
+
+            return ob_get_clean();
+        }
+
         // category_field_data
         public function category_field_data() {
             $slug             = ! empty( $this->term_slug ) ? $this->term_slug : '';
@@ -354,11 +420,44 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
                 $data['gallery_img_full'] = atbdp_get_image_source( $data['listing_img'][0], 'full' );
             }
 
-            $data['business_hours'] = ! empty( $data['bdbh'] ) ? atbdp_sanitize_array( $data['bdbh'] ) : array();
+            $data['business_hours'] = ! empty( $this->bdbh ) ? atbdp_sanitize_array( $this->bdbh ) : array();
 
             $data['u_pro_pic']  = get_user_meta( $data['author_id'], 'pro_pic', true );
             $data['u_pro_pic']  = ! empty( $data['u_pro_pic'] ) ? wp_get_attachment_image_src( $data['u_pro_pic'], 'thumbnail' ) : '';
             $data['avatar_img'] = get_avatar( $data['author_id'], apply_filters( 'atbdp_avatar_size', 32 ) );
+
+            $thumbnail_link_attr = " " . apply_filters('grid_view_thumbnail_link_add_attr', '');
+            $thumbnail_link_attr = trim($thumbnail_link_attr);
+
+            $title_link_attr = " " . apply_filters('grid_view_title_link_add_attr', '');
+            $title_link_attr = trim($title_link_attr);
+
+            $data['listings_link_attr'] = $title_link_attr;
+            $data['listings_link'] = esc_url(get_post_permalink(get_the_ID()));
+
+            $data['show_preview_image'] = ( 'yes' === $data['listing_preview_img'] ) ? true : false;
+
+            $is_disabled = get_directorist_option('disable_single_listing');
+            $data['single_listing_is_disabled'] = ( empty( $is_disabled ) ) ? false : true;
+            $data['listings_title'] = esc_html( stripslashes(get_the_title()) );
+
+            $data['author'] = get_userdata( $data['author_id'] );
+
+            $author = $data['author'];
+            $data['author_full_name'] = $author->first_name . ' ' . $author->last_name;
+            $data['author_link'] = ATBDP_Permalink::get_user_profile_page_link( $data['author_id'] );
+            $data['author_link_class'] = ! empty( $author->first_name && $author->last_name ) ? 'atbd_tooltip' : '';
+
+            $plan_hours = true;
+            if (is_fee_manager_active()) {
+                $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
+            }
+
+            $data['plan_hours'] = $plan_hours;
+
+            $data['excerpt_limit'] = get_directorist_option('excerpt_limit', 20);
+            $data['display_readmore'] = get_directorist_option('display_readmore', 0);
+            $data['readmore_text'] = get_directorist_option('readmore_text', __('Read More', 'directorist'));
 
             return $data;
         }
@@ -1041,6 +1140,24 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
         }
 
         return null;
+    }
+
+
+    // listing_card_class
+    public function listing_card_class() {
+        $loop_data = $this->listings_loop_data();
+        extract( $loop_data );
+
+        $atbd_listing_card_class = get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : '';
+        $atbd_listing_card_class = get_directorist_option(esc_html($listing_preview_img_class));
+
+        echo $atbd_listing_card_class;
+    }
+
+    // listing_wrapper_class
+    public function listing_wrapper_class() {
+        $featured = get_post_meta( get_the_ID(), '_featured', true );
+        echo ($featured) ? 'directorist-featured-listings' : '';
     }
 }
 

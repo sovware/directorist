@@ -2377,7 +2377,15 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                     $listing_preview_img = !empty($listing_preview_img) ? $listing_preview_img : '';
                     $listing_preview_img_class = 'no' == $listing_preview_img || (empty($prv_image_full) && empty($default_image) && empty($gallery_img_full)) ? ' listing_preview_img_none' : '';
                     $columns = get_directorist_option('all_listing_columns', 3);
+
+                    // Add Inline Style
                     $column_width = 100 / (int)$columns . '%';
+                    $style = '.atbd_content_active #directorist.atbd_wrapper .atbdp_column {';
+                    $style .= "width: $column_width; } \n";
+
+                    wp_add_inline_style( 'atbdp-inline-style', $style );
+                    wp_enqueue_style('atbdp-inline-style');
+
                     /*Code for Business Hour Extensions*/
                     ?>
                     <div class="atbdp_column">
@@ -2737,13 +2745,6 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                 <?php } ?>
             </div>
         </div>
-
-        <style>
-            #directorist.atbd_wrapper .atbdp_column {
-                width: <?php echo !empty($column_width) ? $column_width : '';?>;
-            }
-        </style>
-
     </div>
     <?php
     return true;
@@ -2752,6 +2753,9 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
 function related_listing_slider($all_listings, $pagenation, $is_disable_price, $templete = 'default')
 {
     if ('default' != $templete) return;
+
+    wp_enqueue_script('atbdp-related-listings-slider');
+
     $rel_listing_title = get_directorist_option('rel_listing_title', __('Related Listings', 'directorist'))
     ?>
     <div class="<?php echo is_directoria_active() ? 'containere' : 'containess-fluid'; ?>">

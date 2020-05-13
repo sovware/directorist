@@ -67,10 +67,6 @@ class ATBDP_Checkout
         if (empty($listing_id) || (!empty($listing_id) && ATBDP_POST_TYPE != get_post_type($listing_id))) {
             return __('Sorry, Something went wrong. Listing ID is missing. Please try again.', 'directorist');
         }
-        $include = apply_filters('include_style_settings', true);
-        if ($include) {
-            wp_enqueue_style('atbdp-settings-style');
-        }
         // if the checkout form is submitted, then process placing order
         if ('POST' == $_SERVER['REQUEST_METHOD'] && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) {
             // Process the order
@@ -135,7 +131,6 @@ class ATBDP_Checkout
      */
     public function payment_receipt()
     {
-        wp_enqueue_style('atbdp-settings-style');
         if (!atbdp_is_user_logged_in()) return null; // vail out showing a friendly-message, if user is not logged in.
         //content of order receipt should be outputted here.
         $order_id = (int)get_query_var('atbdp_order_id');

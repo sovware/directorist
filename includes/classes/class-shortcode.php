@@ -518,7 +518,8 @@ if (!class_exists('ATBDP_Shortcode')):
         //related listing area
         public function directorist_related_listings() {
             ob_start();
-            if(is_singular(ATBDP_POST_TYPE)) {
+            
+            if (is_singular(ATBDP_POST_TYPE)) {
                 global $post;
                 $listing_id    = $post->ID;
                 $fm_plan       = get_post_meta($listing_id, '_fm_plans', true);
@@ -553,7 +554,16 @@ if (!class_exists('ATBDP_Shortcode')):
                 if (empty($enable_rel_listing)) return; // vail if related listing is not enabled
                 $related_listings = $this->get_related_listings($post);
                 $is_disable_price = get_directorist_option('disable_list_price');
+
+                $is_rtl = is_rtl() ? true : false;
                 $rel_listing_column = get_directorist_option('rel_listing_column', 3);
+                $localized_data = [
+                    'is_rtl' => $is_rtl,
+                    'rel_listing_column' => $rel_listing_column,
+                ];
+                
+                wp_localize_script( 'atbdp-related-listings-slider', 'data', $localized_data );
+                wp_enqueue_script('atbdp-related-listings-slider');
 
                 $template_file = 'single-listing/related_listings.php';
                 $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
@@ -1531,9 +1541,6 @@ if (!class_exists('ATBDP_Shortcode')):
 
             
             ob_start();
-            /* if ( $listings_model->include ) {
-                wp_enqueue_style('atbdp-settings-style');
-            } */
 
             // Add Inline Style
             $style = '.atbd_content_active #directorist.atbd_wrapper .atbdp_column {';
@@ -1561,7 +1568,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 return $redirect;
             }
 
-            if ( is_rtl() ){
+            if ( is_rtl() ) {
                 wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
             } else{
                 wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');

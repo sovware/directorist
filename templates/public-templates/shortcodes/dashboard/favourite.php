@@ -36,7 +36,7 @@
 
             <?php else: ?>
 
-                <p class="atbdp_nlf"><?php _e("Nothing found!", 'directorist'); ?></p>
+                <tr><td><p class="atbdp_nlf"><?php _e("Nothing found!", 'directorist'); ?></p></td></tr>
 
             <?php endif; ?>
         </table>

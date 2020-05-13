@@ -176,10 +176,6 @@ class Directorist_Listing_Dashboard {
         $this->enqueue_scripts();
 
         ob_start();
-        $include = apply_filters('include_style_settings', true);
-        if ($include) {
-            include ATBDP_DIR . 'public/assets/css/style.php';
-        }
 
         // show user dashboard if the user is logged in, else kick him out of this page or show a message
         if (!atbdp_logged_in_user()) {

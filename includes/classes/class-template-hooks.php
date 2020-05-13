@@ -34,13 +34,110 @@ class Directorist_Template_Hooks {
 
         // Listing Archive
         add_action( 'directorist_archive_header',    array( __CLASS__, 'archive_header' ) );
+
+        // Listings Badges
+        add_filter( 'atbdp_upper_badges', array( __CLASS__, 'business_hours_badge'), 10, 1 );
+        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'featured_badge'), 10, 1 );
+        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'popular_badge'), 10, 1 );
+        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'new_listing_badge'), 10, 1 );
+        
+        // Listing Thumbnail Area
+        add_action( 'atbdp_listing_thumbnail_area', array( __CLASS__, 'mark_as_favourite_button'), 10, 1 );
     }
 
+    // instance
     public static function instance() {
         if ( null == self::$instance ) {
             self::$instance = new self;
         }
         return self::$instance;
+    }
+
+    // mark_as_favourite_button
+    public static function mark_as_favourite_button() {
+        $display_mark_as_fav = get_directorist_option( 'display_mark_as_fav', 1 );
+        
+        if ( ! empty( $display_mark_as_fav ) ) {
+            echo atbdp_listings_mark_as_favourite( get_the_ID() );
+        }
+    }
+
+    // featured_badge
+    public static function featured_badge( $content ) {
+        $featured = get_post_meta( get_the_ID(), '_featured', true );
+        $feature_badge_text = get_directorist_option( 'feature_badge_text', 'Featured' );
+
+        if ( $featured && !empty($display_feature_badge_cart) ) {
+            $badge_html .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
+            return $content . $badge_html;
+        }
+
+        return $content;
+    }
+
+    // popular_badge
+    public static function popular_badge( $content ) {
+        $popular_badge_text = get_directorist_option( 'popular_badge_text', 'Popular' );
+        $popular_listing_id = atbdp_popular_listings(get_the_ID());
+
+        
+        if ($popular_listing_id === get_the_ID() && !empty($display_popular_badge_cart)) {
+            $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
+            return $content . $badge;
+        }
+
+        return $content;
+    }
+
+    // new_listing_badge
+    public static function new_listing_badge( $content ) {
+        global $post;
+
+        $new_listing_time = get_directorist_option('new_listing_day');
+        $new_badge_text = get_directorist_option('new_badge_text', 'New');
+        $enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
+        $each_hours = 60 * 60 * 24; // seconds in a day
+        $s_date1 = strtotime(current_time('mysql')); // seconds for date 1
+        $s_date2 = strtotime($post->post_date); // seconds for date 2
+        $s_date_diff = abs($s_date1 - $s_date2); // different of the two dates in seconds
+        $days = round($s_date_diff / $each_hours); // divided the different with second in a day
+        $new = '<span class="atbd_badge atbd_badge_new">' . $new_badge_text . '</span>';
+        if ($days <= (int)$new_listing_time) {
+            if (!empty($enable_new_listing)) {
+                return  $content .= $new;
+            }
+
+        }
+
+        return $content;
+    }
+
+    // business_hours_badge
+    public static function business_hours_badge( $content ) {
+        $plan_hours = true;
+        if (is_fee_manager_active()) {
+            $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
+        }
+
+        $bdbh = get_post_meta( get_the_ID(), '_bdbh', true );
+        $business_hours = ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array();
+        $disable_bz_hour_listing = get_post_meta( get_the_ID(), '_disable_bz_hour_listing', true );
+
+        $u_badge_html = '';
+        if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
+            // lets check is it 24/7
+            $open = get_directorist_option('open_badge_text', __('Open Now', 'directorist'));
+
+            if (!empty($enable247hour)) {
+              $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">' . $open . '</span>';
+            } else {
+              $bh_statement = BD_Business_Hour()->show_business_open_close($business_hours);
+  
+              return $content . "\n" . "$bh_statement";
+            }
+        }
+
+        return $content;
     }
 
     public static function author_profile_header() {

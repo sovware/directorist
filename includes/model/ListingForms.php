@@ -476,10 +476,6 @@ class Directorist_Listing_Forms {
 
     public function render_shortcode_user_login() {
         ob_start();
-        $include = apply_filters('include_style_settings', true);
-        if ($include) {
-            wp_enqueue_style('atbdp-settings-style');
-        }
 
         if ( atbdp_logged_in_user() ) {
             $error_message = sprintf(__('Login page is not for logged-in user. <a href="%s">Go to Dashboard</a>', 'directorist'), esc_url(ATBDP_Permalink::get_dashboard_page_link()));
@@ -495,10 +491,6 @@ class Directorist_Listing_Forms {
 
     public function render_shortcode_custom_registration() {
         ob_start();
-        $include = apply_filters('include_style_settings', true);
-        if ($include) {
-            wp_enqueue_style('atbdp-settings-style');
-        }
 
         if ( !atbdp_logged_in_user() ) {
 

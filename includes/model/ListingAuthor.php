@@ -170,11 +170,6 @@ class Directorist_Listing_Author {
         }
 
         ob_start();
-        $include = apply_filters( 'include_style_settings', true );
-        if ( $include ) {
-            include ATBDP_DIR . 'public/assets/css/style.php';
-        }
-
         $container_fluid = apply_filters( 'atbdp_public_profile_container_fluid', 'container-fluid' );
 
         atbdp_get_shortcode_template( 'author/author-profile', compact( 'container_fluid' ) );

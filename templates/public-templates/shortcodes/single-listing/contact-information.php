@@ -12,7 +12,6 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
             <div class="atbd_contact_info">
                 <ul>
                     <?php
-                    $address_text = !empty($address_map_link)?'<a target="google_map" href="https://www.google.de/maps/search/�'.esc_html($address).'">'.esc_html($address).'</a>': esc_html($address);
                     if (!empty($address) && !empty($display_address_field)) { ?>
                         <li>
                             <div class="atbd_info_title"><span
@@ -22,10 +21,6 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                         </li>
                     <?php } ?>
                     <?php
-                    $plan_phone = true;
-                    if (is_fee_manager_active()) {
-                        $plan_phone = is_plan_allowed_listing_phone($fm_plan);
-                    }
                     if (isset($phone) && !is_empty_v($phone) && !empty($display_phone_field) && $plan_phone) { ?>
                         <!-- In Future, We will have to use a loop to print more than 1 number-->
                         <li>
@@ -60,10 +55,6 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                         </li>
                     <?php } ?>
                     <?php
-                    $plan_email = true;
-                    if (is_fee_manager_active()) {
-                        $plan_email = is_plan_allowed_listing_email($fm_plan);
-                    }
                     if (!empty($email) && !empty($display_email_field) && $plan_email) { ?>
                         <li>
                             <div class="atbd_info_title"><span
@@ -74,10 +65,6 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                         </li>
                     <?php } ?>
                     <?php
-                    $plan_webLink = true;
-                    if (is_fee_manager_active()) {
-                        $plan_webLink = is_plan_allowed_listing_webLink($fm_plan);
-                    }
                     if (!empty($website) && !empty($display_website_field) && $plan_webLink) { ?>
                         <li>
                             <div class="atbd_info_title"><span
@@ -100,10 +87,6 @@ if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $emai
                 </ul>
             </div>
             <?php
-            $plan_social_networks = true;
-            if (is_fee_manager_active()) {
-                $plan_social_networks = is_plan_allowed_listing_social_networks($fm_plan);
-            }
             if (!empty($social) && is_array($social) && !empty($display_social_info_field) && $plan_social_networks) { ?>
                 <div class="atbd_director_social_wrap">
                     <?php foreach ($social as $link) {

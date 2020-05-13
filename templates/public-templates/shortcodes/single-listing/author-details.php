@@ -3,7 +3,6 @@
  * @since 5.10.0
  */
 do_action('atbdp_before_listing_author_shorcode');
-$atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('Author Info', 'directorist'));
 ?>
 <div class="atbd_content_module author_info_module">
     <div class="atbd_content_module_title_area">
@@ -13,15 +12,6 @@ $atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('A
     </div>
     <div class="atbdb_content_module_contents">
         <div class="atbd_avatar_wrapper">
-            <?php
-            $listing_id = get_the_ID();
-            $author_id = get_post_field('post_author', $listing_id);
-            $author_name = get_the_author_meta('display_name', $author_id);
-            $user_registered = get_the_author_meta('user_registered', $author_id);
-            $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-            $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
-            $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
-            ?>
             <div class="atbd_review_avatar"><?php if (empty($u_pro_pic)) {
                     echo $avatar_img;
                 }
@@ -38,14 +28,6 @@ $atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('A
         <div class="atbd_widget_contact_info">
             <ul>
                 <?php
-                $address = esc_attr(get_user_meta($author_id, 'address', true));
-                $phone = esc_attr(get_user_meta($author_id, 'atbdp_phone', true));
-                $email = get_the_author_meta('user_email', $author_id);
-                $website = get_the_author_meta('user_url', $author_id);;
-                $facebook = get_user_meta($author_id, 'atbdp_facebook', true);
-                $twitter = get_user_meta($author_id, 'atbdp_twitter', true);
-                $linkedIn = get_user_meta($author_id, 'atbdp_linkedin', true);
-                $youtube = get_user_meta($author_id, 'atbdp_youtube', true);
                 if (!empty($address)) { ?>
                     <li>
                         <span class="<?php atbdp_icon_type(true);?>-map-marker"></span>

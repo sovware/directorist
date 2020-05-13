@@ -397,7 +397,7 @@ class Directorist_Single_Listing {
 
         $id      = $this->get_id();
         $fm_plan = get_post_meta($id, '_fm_plans', true);
-        
+
         $address = get_post_meta($id, '_address', true);
         $address_map_link = get_directorist_option('address_map_link', 0);
 
@@ -438,6 +438,38 @@ class Directorist_Single_Listing {
         );
 
         return atbdp_return_shortcode_template( 'single-listing/contact-information', $args );
+	}
+
+	public function render_shortcode_author_info() {
+        if ( !is_singular( ATBDP_POST_TYPE ) ) {
+            return;
+        }
+
+        $id      = $this->get_id();
+        $fm_plan = get_post_meta($id, '_fm_plans', true);
+
+        $args = array(
+
+        );
+
+        //return atbdp_return_shortcode_template( 'single-listing/author-details', $args );
+
+        $template_file = 'single-listing/author-details.php';
+        $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
+        $default_template_file = ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR . $template_file;
+
+        // Load theme template if exist
+        $theme_template = atbdp_get_theme_file( $theme_template_file );
+        if ( $theme_template ) {
+            include $theme_template;
+            return ob_get_clean();
+        } 
+
+        // Load default template
+        include $default_template_file;
+
+        return ob_get_clean();
+
 	}
 
 }

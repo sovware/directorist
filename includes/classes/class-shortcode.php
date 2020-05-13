@@ -72,24 +72,8 @@ if (!class_exists('ATBDP_Shortcode')):
 
         //listing author details
         public function directorist_listing_author_details() {
-            ob_start();
-            
-            if(is_singular(ATBDP_POST_TYPE)) {
-                $template_file = 'single-listing/author-details.php';
-                $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
-                $default_template_file = ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR . $template_file;
-
-                // Load theme template if exist
-                $theme_template = atbdp_get_theme_file( $theme_template_file );
-                if ( $theme_template ) {
-                    include $theme_template;
-                    return ob_get_clean();
-                } 
-
-                // Load default template
-                include $default_template_file;
-            }
-            return ob_get_clean();
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_author_info();
         }
 
         //listing contact owner area

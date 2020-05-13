@@ -159,13 +159,195 @@ class Directorist_Single_Listing {
         return atbdp_return_shortcode_template( 'single-listing/listing-header', $args );
     }
 
+    public function get_custom_field_data() {
+        $result = array();
+
+        $id = $this->get_id();
+
+        $args = array(
+            'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
+            'posts_per_page' => -1,
+            'post_status' => 'publish',
+        );
+
+        $custom_fields = new WP_Query($args);
+
+        $cats = get_the_terms($id, ATBDP_CATEGORY);
+        $category_ids = array();
+        if (!empty($cats)) {
+            foreach ($cats as $single_val) {
+                $category_ids[] = $single_val->term_id;
+            }
+        }
+
+        $has_field = false;
+        $field_ids = array();
+
+        foreach ($custom_fields->posts as $custom_fields_post) {
+            $custom_field_id = $custom_fields_post->ID;
+            $fields = get_post_meta($custom_field_id, 'associate', true);
+            if ('form' != $fields){
+                $fields_id_with_cat = get_post_meta($custom_field_id, 'category_pass', true);
+                if (in_array($fields_id_with_cat, $category_ids)){
+                    $has_field_details = get_post_meta($id, $custom_fields_post->ID, true);
+                    if (!empty($has_field_details)){
+                        $field_ids[] = $custom_field_id;
+                    }
+                    $has_field = true;
+                }
+            }
+            else {
+                $has_field_details = get_post_meta($id, $custom_fields_post->ID, true);
+                if (!empty($has_field_details)){
+                    $field_ids[] = $custom_field_id;
+                }
+                $has_field = true;
+            }
+        }
+
+        foreach ($field_ids as $field_id) {
+            $field_details = get_post_meta($id, $field_id, true);
+        }
+
+
+    }
+
     public function render_shortcode_custom_fields() {
 
         if ( !is_singular( ATBDP_POST_TYPE ) ) {
             return;
         }
 
-        
+        $id = $this->get_id();
+        $fm_plan = get_post_meta($id, '_fm_plans', true);
+
+        $c_args = array(
+            'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
+            'posts_per_page' => -1,
+            'post_status' => 'publish',
+
+        );
+        $custom_fields = new WP_Query($c_args);
+
+
+        $cats = get_the_terms($id, ATBDP_CATEGORY);
+        $category_ids = array();
+        if (!empty($cats)) {
+            foreach ($cats as $single_val) {
+                $category_ids[] = $single_val->term_id;
+            }
+        }
+
+        $listing_id = $id;
+
+        $has_field = false;
+        $has_field_ids = array();
+
+        foreach ($custom_fields->posts as $custom_fields_post) {
+            $custom_field_id = $custom_fields_post->ID;
+            $fields = get_post_meta($custom_field_id, 'associate', true);
+            if ('form' != $fields){
+                $fields_id_with_cat = get_post_meta($custom_field_id, 'category_pass', true);
+                if (in_array($fields_id_with_cat, $category_ids)){
+                    $has_field_details = get_post_meta($listing_id, $custom_fields_post->ID, true);
+                    if (!empty($has_field_details)){
+                        $has_field_ids[] = $custom_field_id;
+                    }
+                    $has_field = true;
+                }
+
+            }else{
+                $has_field_details = get_post_meta($listing_id, $custom_fields_post->ID, true);
+                if (!empty($has_field_details)){
+                    $has_field_ids[] = $custom_field_id;
+                }
+                $has_field = true;
+            }
+        }
+
+        $has_field = apply_filters('atbdp_single_listing_custom_field', $has_field);
+
+        $args = array(
+            'listing_id' => $listing_id,
+            'plan_custom_field' => is_fee_manager_active() ? is_plan_allowed_custom_fields($fm_plan) : true,
+            'custom_section_lable' => get_directorist_option('custom_section_lable', __('Details', 'directorist')),
+            'has_field' => $has_field,
+            'has_field_ids' => $has_field_ids,
+        );
+
+        return atbdp_return_shortcode_template( 'single-listing/custom-field', $args );
+
+
+        ob_start();
+
+        global $post;
+        $listing_id = $post->ID;
+        $fm_plan = get_post_meta($listing_id, '_fm_plans', true);
+        $cats = get_the_terms($post->ID, ATBDP_CATEGORY);
+        $custom_section_lable = get_directorist_option('custom_section_lable', __('Details', 'directorist'));
+        // make main column size 12 when sidebar or submit widget is active @todo; later make the listing submit widget as real widget instead of hard code
+        $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
+        $category_ids = array();
+        if (!empty($cats)) {
+            foreach ($cats as $single_val) {
+                $category_ids[] = $single_val->term_id;
+            }
+        }
+        $c_args = array(
+            'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
+            'posts_per_page' => -1,
+            'post_status' => 'publish',
+
+        );
+        $custom_fields = new WP_Query($c_args);
+        $custom_fields_posts = $custom_fields->posts;
+        $has_field_value = array();
+        $has_field_ids = array();
+        foreach ($custom_fields_posts as $custom_fields_post) {
+            $id = $custom_fields_post->ID;
+            $fields = get_post_meta($id, 'associate', true);
+            //lets match if the field is associated with a category and the category is selected
+            if ('form' != $fields){
+                $fields_id_with_cat = get_post_meta($id, 'category_pass', true);
+                if (in_array($fields_id_with_cat, $category_ids)){
+                    $has_field_details = get_post_meta($listing_id, $custom_fields_post->ID, true);
+                    if (!empty($has_field_details)){
+                        $has_field_ids[] = $id;
+                    }
+                    $has_field_value[] = $has_field_details;
+                }
+
+            }else{
+                $has_field_details = get_post_meta($listing_id, $custom_fields_post->ID, true);
+                if (!empty($has_field_details)){
+                    $has_field_ids[] = $id;
+                }
+                $has_field_value[] = $has_field_details;
+            }
+
+        }
+        wp_reset_postdata();
+        $has_field = join($has_field_value);
+        $has_field = apply_filters('atbdp_single_listing_custom_field', $has_field);
+        $plan_custom_field = true;
+        if (is_fee_manager_active()) {
+            $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
+        }
+
+        $template_file = 'single-listing/custom-field.php';
+        $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
+        $default_template_file = ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR . $template_file;
+
+        // Load theme template if exist
+        $theme_template = atbdp_get_theme_file( $theme_template_file );
+        if ( $theme_template ) {
+            include $theme_template;
+            return ob_get_clean();
+        } 
+
+        // Load default template
+        include $default_template_file;
+        return ob_get_clean();
         
     }
 

@@ -317,5 +317,60 @@ class Directorist_Single_Listing {
         return atbdp_return_shortcode_template( 'single-listing/listing-video', $args );
 	}
 
+	public function render_shortcode_map() {
+        if ( !is_singular( ATBDP_POST_TYPE ) ) {
+            return;
+        }
+
+        $id      = $this->get_id();
+        $fm_plan = get_post_meta($id, '_fm_plans', true);
+
+        $address = get_post_meta($post->ID, '_address', true);
+        $ad = !empty($address) ? esc_html($address) : '';
+
+        $display_map_info               = apply_filters('atbdp_listing_map_info_window', get_directorist_option('display_map_info', 1));
+        $display_image_map              = get_directorist_option('display_image_map', 1);
+        $display_title_map              = get_directorist_option('display_title_map', 1);
+        $display_address_map            = get_directorist_option('display_address_map', 1);
+        $display_direction_map          = get_directorist_option('display_direction_map', 1);
+
+        $info_content = "";
+        if(!empty($display_image_map) || !empty($display_title_map)) {
+            $info_content .= "<div class='map-info-wrapper'><div class='map-info-img'>$image</div><div class='map-info-details'><div class='atbdp-listings-title-block'><h3>$t</h3></div>";
+        }
+        if(!empty($display_address_map) && !empty($ad)) {
+            $info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
+        }
+        if(!empty($display_direction_map)) {
+            $info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div><span id='iw-close-btn'><i class='la la-times'></i></span></div></div>";
+        }
+
+        $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+        if(!empty($cats)){
+            $cat_icon = get_cat_icon($cats[0]->term_id);
+        }
+        $cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
+        $icon_type = substr($cat_icon, 0,2);
+        $fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
+        $cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
+
+        $args = array(
+			'disable_map'           => get_directorist_option('disable_map', 0),
+			'hide_map'              => get_post_meta($id, '_hide_map', true),
+			'manual_lat'            => get_post_meta($id, '_manual_lat', true),
+			'manual_lng'            => get_post_meta($id, '_manual_lng', true),
+			'display_map_field'     => apply_filters('atbdp_show_single_listing_map', get_directorist_option('display_map_field', 1)),
+			'listing_location_text' => apply_filters('atbdp_single_listing_map_section_text', get_directorist_option('listing_location_text', __('Location', 'directorist'))),
+			'select_listing_map'    => get_directorist_option('select_listing_map', 'google'),
+			'info_content'          =>  $info_content,
+			'display_map_info'      => $display_map_info,
+			'map_zoom_level'        => get_directorist_option('map_zoom_level', 16),
+			'cat_icon'              => $cat_icon,
+        );
+
+        return atbdp_return_shortcode_template( 'single-listing/listing-map', $args );
+	}
+
+
 
 }

@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+
 if ($enable_video_url && !empty($videourl) && $plan_video) { ?>
     <div class="atbd_content_module atbd_custom_fields_contents">
         <div class="atbd_content_module_title_area">

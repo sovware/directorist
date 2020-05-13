@@ -24,13 +24,13 @@ class Directorist_Template_Hooks {
         add_action( 'directorist_dashboard_tab_contents',     array( __CLASS__, 'dashboard_tab_contents' ) );
 
         // Add Listing
-        add_action( 'directorist_add_listing_title',      array( __CLASS__, 'add_listing_title' ) );
-        add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_general' ) );
-        add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_contact' ), 15 );
-        add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_map' ), 20 );
-        add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_image' ), 25 );
-        add_action( 'directorist_add_listing_contents',   array( __CLASS__, 'add_listing_submit' ), 30 );
-        add_action( 'atbdp_add_listing_after_excerpt',    array( __CLASS__, 'add_listing_custom_field' ) );
+        add_action( 'directorist_add_listing_title',            array( __CLASS__, 'add_listing_title' ) );
+        add_action( 'directorist_add_listing_contents',         array( __CLASS__, 'add_listing_general' ) );
+        add_action( 'directorist_add_listing_contents',         array( __CLASS__, 'add_listing_contact' ), 15 );
+        add_action( 'directorist_add_listing_contents',         array( __CLASS__, 'add_listing_map' ), 20 );
+        add_action( 'directorist_add_listing_contents',         array( __CLASS__, 'add_listing_image' ), 25 );
+        add_action( 'directorist_add_listing_contents',         array( __CLASS__, 'add_listing_submit' ), 30 );
+        add_action( 'directorist_add_listing_before_location',  array( __CLASS__, 'add_listing_custom_field' ) );
 
         // Listing Archive
         add_action( 'directorist_archive_header',    array( __CLASS__, 'archive_header' ) );
@@ -352,6 +352,7 @@ class Directorist_Template_Hooks {
 
         $args = array(
             'p_id'                       => $p_id,
+            'listing_info'               => $forms->get_listing_info(),
             'display_fax_for'            => get_directorist_option('display_fax_for', 0),
             'display_phone2_for'         => get_directorist_option('display_fax_for', 0),
             'display_phone_for'          => get_directorist_option('display_phone_for', 0),
@@ -422,6 +423,7 @@ class Directorist_Template_Hooks {
 
         $args = array(
             'p_id'                       => $p_id,
+            'listing_info'               => $forms->get_listing_info(),
             'display_map_for'            => get_directorist_option('display_map_for', 0),
             'display_map_field'          => get_directorist_option('display_map_field', 1),
             'display_address_for'        => get_directorist_option('display_address_for', 0),
@@ -463,6 +465,7 @@ class Directorist_Template_Hooks {
 
         $args = array(
             'p_id'               => $p_id,
+            'listing_info'       => $forms->get_listing_info(),
             'title'              => $forms->get_add_listing_image_title(),
             'plan_video'         => $forms->get_plan_video(),
             'plan_slider'        => $forms->get_plan_slider(),
@@ -538,24 +541,34 @@ class Directorist_Template_Hooks {
 
         $args = array(
             'listing' => $listing,
-            'container_class' => ( ! empty( $listing->header_container_fluid ) ) ? $listing->header_container_fluid : '',
-            'header_title' => $listing->header_title,
-            'filters' => $listing->filters,
-
-            'display_viewas_dropdown' => $listing->display_viewas_dropdown,
-            'view_as_text' => $listing->view_as_text,
-            'display_sortby_dropdown' => $listing->display_sortby_dropdown,
-            'text_placeholder' => $listing->text_placeholder,
-            'category_placeholder' => $listing->category_placeholder,
-            'categories_fields' => $listing->categories_fields,
-            'location_placeholder' => $listing->location_placeholder,
-            'locations_fields' => $listing->locations_fields,
-            'c_symbol' => $listing->c_symbol,
+            'container_class'            => ( ! empty( $listing->header_container_fluid ) ) ? $listing->header_container_fluid : '',
+            'header_title'               => $listing->header_title,
+            'filters'                    => $listing->filters,
+            'display_viewas_dropdown'    => $listing->display_viewas_dropdown,
+            'view'                       => $listing->view,
+            'views'                      => $listing->views,
+            'view_as_text'               => $listing->view_as_text,
+            'sort_by_text'               => $listing->sort_by_text,
+            'display_sortby_dropdown'    => $listing->display_sortby_dropdown,
+            'text_placeholder'           => $listing->text_placeholder,
+            'category_placeholder'       => $listing->category_placeholder,
+            'categories_fields'          => $listing->categories_fields,
+            'location_placeholder'       => $listing->location_placeholder,
+            'locations_fields'           => $listing->locations_fields,
+            'c_symbol'                   => $listing->c_symbol,
+            'default_radius_distance'    => $listing->default_radius_distance,
+            'search_more_filters_fields' => $listing->search_more_filters_fields,
+            'website_label'              => $listing->website_label,
+            'email_label'                => $listing->email_label,
+            'fax_label'                  => $listing->fax_label,
+            'zip_label'                  => $listing->zip_label,
+            'tag_label'                  => $listing->tag_label,
+            'filters_button'             => $listing->filters_button,
+            'reset_filters_text'         => $listing->reset_filters_text,
+            'apply_filters_text'         => $listing->apply_filters_text,
         );
 
-        ob_start();
-        atbdp_get_shortcode_template( 'listings-archive/listings-header', $args, $listing, true );
-        echo ob_get_clean();
+        atbdp_get_shortcode_template( 'listings-archive/listings-header', $args );
     }
 }
 

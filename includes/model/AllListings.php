@@ -496,7 +496,7 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
         public function open_now_field_data() {
             $checked = ! empty( $_GET['open_now'] ) && 'open_now' == $_GET['open_now'] ? " checked='checked'" : '';
 
-            return compact( 'checked' );
+            return $checked;
         }
 
         public function prepare_data() {
@@ -1063,8 +1063,6 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
 
     // rating_field_data
     public function rating_field_data() {
-        $rating_options = array();
-
         $rating_options = array(
             array(
                 'selected' => '',
@@ -1098,7 +1096,7 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
             ),
         );
 
-        return compact( 'rating_options' );
+        return $rating_options;
     }
 
     // atbdp_search_fields_wrapper_style
@@ -1136,7 +1134,7 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
         }
 
         if ( ! empty( $terms ) ) {
-            return compact( $terms );
+            return $terms;
         }
 
         return null;

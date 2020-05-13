@@ -77,6 +77,7 @@ const atbd_slider = (selector, obj) => {
         window.addEventListener(move, (e) => {
             if(isDraging){
                 count = e.clientX + slid1_val2 * width / max - x;
+                console.log(e.clientX, slid1_val2)
                 if (touch){
                     count = event.touches[0].clientX + slid1_val2 * width / max - x;
                 }
@@ -112,3 +113,4 @@ function atbd_callingSlider(min = atbdp_range_slider.default_val) {
 window.addEventListener("load", function () {
     atbd_callingSlider();
 });
+

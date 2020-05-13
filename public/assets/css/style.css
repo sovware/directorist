@@ -6991,6 +6991,7 @@ p.atbd-min {
   background: #444752;
   position: absolute;
   top: 0;
+  /*rtl:ignore*/
   left: 0;
 }
 

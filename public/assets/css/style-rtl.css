@@ -6991,7 +6991,7 @@ p.atbd-min {
   background: #444752;
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
 }
 
 .ads-advanced .bottom-inputs {

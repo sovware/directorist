@@ -299,5 +299,23 @@ class Directorist_Single_Listing {
         return atbdp_return_shortcode_template( 'single-listing/custom-field', $args );
     }
 
+	public function render_shortcode_video() {
+        if ( !is_singular( ATBDP_POST_TYPE ) ) {
+            return;
+        }
+
+        $id      = $this->get_id();
+        $fm_plan = get_post_meta($id, '_fm_plans', true);
+
+        $args = array(
+            'enable_video_url' => get_directorist_option('atbd_video_url', 1),
+            'videourl'         => get_post_meta($id, '_videourl', true),
+            'plan_video'       => is_fee_manager_active() ? is_plan_allowed_listing_video($fm_plan) : true,
+            'video_label'      => get_directorist_option('atbd_video_title', __('Video', 'directorist')),
+        );
+
+        return atbdp_return_shortcode_template( 'single-listing/listing-video', $args );
+	}
+
 
 }

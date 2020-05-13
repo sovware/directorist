@@ -54,41 +54,8 @@ if (!class_exists('ATBDP_Shortcode')):
 
         //listing video area
         public function directorist_listing_video() {
-            ob_start();
-            if(is_singular(ATBDP_POST_TYPE)) {
-                global $post;
-                $listing_id               = $post->ID;
-                $fm_plan                  = get_post_meta($listing_id, '_fm_plans', true);
-                $listing_info['videourl'] = get_post_meta($post->ID, '_videourl', true);
-                extract($listing_info);
-                $enable_video_url         = get_directorist_option('atbd_video_url', 1);
-                $video_label              = get_directorist_option('atbd_video_title', __('Video', 'directorist'));
-                $main_col_size            = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
-                $display_video_for        = get_directorist_option('display_video_for', 'admin_users');
-
-                $plan_video = true;
-                if (is_fee_manager_active()) {
-                    $plan_video = is_plan_allowed_listing_video($fm_plan);
-                }
-
-                $template_file = 'single-listing/listing-video.php';
-                $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
-                $default_template_file = ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR . $template_file;
-
-                // Load theme template if exist
-                $theme_template = atbdp_get_theme_file( $theme_template_file );
-                if ( $theme_template ) {
-                    include $theme_template;
-                    return ob_get_clean();
-                } 
-
-                // Load default template
-                if ( file_exists( $default_template_file ) ) {
-                    include $default_template_file;
-                }
-                
-            }
-            return ob_get_clean();
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_video();
         }
 
         //listing map area

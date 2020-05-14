@@ -55,8 +55,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 'status' => 'published'
             );
 
-            var_dump( $ajax, $categories );
-
             if( !empty( $categories ) && is_array( $categories ) ) {
                 if ( count( $categories )  > 1 ) {
                     $sub_meta_queries = array();

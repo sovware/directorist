@@ -78,38 +78,8 @@ if (!class_exists('ATBDP_Shortcode')):
 
         //listing contact owner area
         public function directorist_listing_contact_owner() {
-            ob_start();
-            if(is_singular(ATBDP_POST_TYPE)) {
-                global $post;
-                $listing_id = $post->ID;
-                $fm_plan = get_post_meta($listing_id, '_fm_plans', true);
-                $email = get_post_meta($post->ID, '_email', true);
-                $plan_permission = true;
-                $listing_info['hide_contact_owner'] = get_post_meta($post->ID, '_hide_contact_owner', true);
-                $disable_contact_owner = get_directorist_option('disable_contact_owner', 1);
-                $contact_listing_owner = get_directorist_option('contact_listing_owner', __('Contact Listing Owner', 'directorist'));
-                $main_col_size          = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
-                extract($listing_info);
-                if (is_fee_manager_active()) {
-                    $plan_permission = is_plan_allowed_owner_contact_widget($fm_plan);
-                }
-
-                //do_action('atbdp_after_contact_listing_owner_section', $listing_id);
-                $template_file = 'single-listing/contact-owner.php';
-                $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
-                $default_template_file = ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR . $template_file;
-
-                // Load theme template if exist
-                $theme_template = atbdp_get_theme_file( $theme_template_file );
-                if ( $theme_template ) {
-                    include $theme_template;
-                    return ob_get_clean();
-                } 
-
-                // Load default template
-                include $default_template_file;
-            }
-            return ob_get_clean();
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_contact_owner();
         }
 
         //listing review area

@@ -474,4 +474,24 @@ class Directorist_Single_Listing {
         return atbdp_return_shortcode_template( 'single-listing/author-details', $args );
 	}
 
+    public function render_shortcode_contact_owner() {
+        if ( !is_singular( ATBDP_POST_TYPE ) ) {
+            return;
+        }
+
+        $id      = $this->get_id();
+        $fm_plan = get_post_meta($id, '_fm_plans', true);
+
+        $args = array(
+            'listing_id'            => $id,
+            'plan_permission'       => is_fee_manager_active() ? is_plan_allowed_owner_contact_widget($fm_plan) : true,
+            'hide_contact_owner'    => get_post_meta($id, '_hide_contact_owner', true),
+            'disable_contact_owner' => get_directorist_option('disable_contact_owner', 1),
+            'section_title'         => get_directorist_option('contact_listing_owner', __('Contact Listing Owner', 'directorist')),
+            'email'                 => get_post_meta($id, '_email', true),
+        );
+
+        return atbdp_return_shortcode_template( 'single-listing/contact-owner', $args );
+    }
+
 }

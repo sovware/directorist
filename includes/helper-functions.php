@@ -4576,7 +4576,8 @@ function atbdp_create_required_pages(){
         // $op_name is the page option name in the database.
         // if we do not have the page id assigned in the settings with the given page option name, then create an page
         // and update the option.
-        if (empty($options[$op_name])) {
+        
+        if (empty($options[$op_name]) || !get_post($options[$op_name])) {
 
             $id = wp_insert_post(
                 array(
@@ -4621,9 +4622,6 @@ function atbdp_create_required_pages(){
                     'comment_status' => 'closed'
                 ), true
             );
-            if (!is_wp_error($replace_shortcode)) {
-                update_user_meta(get_current_user_id(), '_atbdp_shortcode_regenerate_notice', 'true');
-            }
         }
         // if we have new options then lets update the options with new option values.
         if ($new_settings) {

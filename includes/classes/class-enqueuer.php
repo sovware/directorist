@@ -235,6 +235,7 @@ class ATBDP_Enqueuer {
         wp_register_script('atbdp-geolocation', ATBDP_PUBLIC_ASSETS.'js/geolocation.js', array('jquery'), ATBDP_VERSION);
         wp_register_script('atbdp-geolocation-widget', ATBDP_PUBLIC_ASSETS.'js/geolocation-widget.js', array('jquery'), ATBDP_VERSION);
         wp_register_script('atbdp-range-slider', ATBDP_PUBLIC_ASSETS.'js/range-slider.js', array(), ATBDP_VERSION, true);
+        wp_register_script('atbdp-range-slider-rtl', ATBDP_PUBLIC_ASSETS.'js/range-slider-rtl.js', array(), ATBDP_VERSION, true);
 
         // we need select2 js on taxonomy edit screen to let the use to select the fonts-awesome icons ans search the icons easily
         // @TODO; make the styles and the scripts specific to the scripts where they are used specifically. For example. load select2js scripts and styles in
@@ -745,9 +746,10 @@ class ATBDP_Enqueuer {
              * @since 5.0.1
              * It returns the dependencies for search form js
              */
-           apply_filters('atbdp_search_listing_jquery_dependency', $search_dependency), ATBDP_VERSION, true );
-        wp_enqueue_script('atbdp-range-slider');
-
+        apply_filters('atbdp_search_listing_jquery_dependency', $search_dependency), ATBDP_VERSION, true );
+        $handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
+        wp_enqueue_script($handel);
+           
         /*Internationalization*/
         $category_placeholder          = get_directorist_option('search_category_placeholder', __('Select a category', 'directorist'));
         $location_placeholder          = get_directorist_option('search_location_placeholder', __('Select a location', 'directorist'));
@@ -772,9 +774,8 @@ class ATBDP_Enqueuer {
             'Miles' => $miles,
             'default_val'   =>  $default_radius_distance
         );
-
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );
-        wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', $data );
+        wp_localize_script( $handel, 'atbdp_range_slider', $data );
     }
 }
 

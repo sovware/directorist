@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2020-05-08 16:40+0600\n"
+"POT-Creation-Date: 2020-05-10 11:37+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -786,7 +786,7 @@ msgid "Created on"
 msgstr ""
 
 #: includes/classes/class-custom-post.php:267
-#: includes/classes/class-email.php:127
+#: includes/classes/class-email.php:128
 #: templates/front-end/user-dashboard.php:221
 #: templates/meta-partials/expiration-featured-fields.php:44
 msgid "Never Expires"
@@ -998,15 +998,15 @@ msgstr ""
 msgid "No Category"
 msgstr ""
 
-#: includes/classes/class-email.php:129
+#: includes/classes/class-email.php:130
 msgid "Visit Listing Renewal Page"
 msgstr ""
 
-#: includes/classes/class-email.php:136
+#: includes/classes/class-email.php:137
 msgid "View Order/Payment Receipt"
 msgstr ""
 
-#: includes/classes/class-email.php:197
+#: includes/classes/class-email.php:198
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1022,7 +1022,7 @@ msgid ""
 "do not respond to this.\n"
 msgstr ""
 
-#: includes/classes/class-email.php:219
+#: includes/classes/class-email.php:220
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1044,7 +1044,7 @@ msgid ""
 "do not respond to this.\n"
 msgstr ""
 
-#: includes/classes/class-email.php:245
+#: includes/classes/class-email.php:246
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1066,7 +1066,7 @@ msgid ""
 "do not respond to this.\n"
 msgstr ""
 
-#: includes/classes/class-email.php:271
+#: includes/classes/class-email.php:272
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1084,7 +1084,7 @@ msgid ""
 "do not respond to this.\n"
 msgstr ""
 
-#: includes/classes/class-email.php:295
+#: includes/classes/class-email.php:296
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1103,7 +1103,7 @@ msgid ""
 "do not respond to this.\n"
 msgstr ""
 
-#: includes/classes/class-email.php:319
+#: includes/classes/class-email.php:320
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1122,7 +1122,7 @@ msgid ""
 "do not respond to this.\n"
 msgstr ""
 
-#: includes/classes/class-email.php:343
+#: includes/classes/class-email.php:344
 msgid ""
 "\n"
 "Dear Administrator,\n"
@@ -1140,38 +1140,38 @@ msgid ""
 "do not respond to this.\n"
 msgstr ""
 
-#: includes/classes/class-email.php:476
+#: includes/classes/class-email.php:477
 msgid ""
 "[==SITE_NAME==] The Listing #==LISTING_ID== has been published on your "
 "website"
 msgstr ""
 
-#: includes/classes/class-email.php:632
+#: includes/classes/class-email.php:633
 msgid ""
 "[==SITE_NAME==] A Listing has been deleted [ID#: ==LISTING_ID==] on "
 "your website"
 msgstr ""
 
-#: includes/classes/class-email.php:654
+#: includes/classes/class-email.php:655
 msgid "[==SITE_NAME==] You have a new order #==ORDER_ID== on your website"
 msgstr ""
 
-#: includes/classes/class-email.php:678
+#: includes/classes/class-email.php:679
 msgid ""
 "[==SITE_NAME==] Payment Notification : Order #==ORDER_ID== Completed"
 msgstr ""
 
-#: includes/classes/class-email.php:699
+#: includes/classes/class-email.php:700
 msgid "[==SITE_NAME==] A new listings is received on your website"
 msgstr ""
 
-#: includes/classes/class-email.php:721
+#: includes/classes/class-email.php:722
 msgid ""
 "[==SITE_NAME==] The Listing #==LISTING_ID== has been edited on your "
 "website"
 msgstr ""
 
-#: includes/classes/class-email.php:736
+#: includes/classes/class-email.php:737
 #: includes/classes/class-settings-manager.php:2250
 msgid "Registration Confirmation!"
 msgstr ""
@@ -1642,13 +1642,13 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#: includes/classes/class-listing.php:224
-#: includes/classes/class-listing.php:240
+#: includes/classes/class-listing.php:230
+#: includes/classes/class-listing.php:246
 #: templates/single-at_biz_dir.php:194 templates/single-at_biz_dir.php:211
 msgid " Go Back"
 msgstr ""
 
-#: includes/classes/class-listing.php:233
+#: includes/classes/class-listing.php:239
 #: templates/single-at_biz_dir.php:203
 msgid " Edit"
 msgstr ""

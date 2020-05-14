@@ -124,7 +124,6 @@ if (!class_exists('ATBDP_Shortcode')):
                     wp_die();
                 }
             } else {
-                echo '<div class="custom_field_empty_area">123</div>';
                 if ($ajax) {
                     wp_die();
                 }

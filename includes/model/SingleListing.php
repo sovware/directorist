@@ -450,43 +450,28 @@ class Directorist_Single_Listing {
 
         $author_id = get_post_field('post_author', $id);
         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+        $user_registered = get_the_author_meta('user_registered', $author_id);
 
         $args = array(
-            'author_id'   => $author_id,
-            'atbd_author_info_title'   => get_directorist_option('atbd_author_info_title', __('Author Info', 'directorist')),
-            'u_pro_pic'   => !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '',
-            'user_registered'   => get_the_author_meta('user_registered', $author_id),
-            'avatar_img'   => get_avatar($author_id, apply_filters('atbdp_avatar_size', 32)),
-            'author_name'   => get_the_author_meta('display_name', $author_id),
-            'address' => esc_attr(get_user_meta($author_id, 'address', true)),
-            'phone' => esc_attr(get_user_meta($author_id, 'atbdp_phone', true)),
-            'email' => get_the_author_meta('user_email', $author_id),
-            'website' => get_the_author_meta('user_url', $author_id),
-            'facebook' => get_user_meta($author_id, 'atbdp_facebook', true),
-            'twitter' => get_user_meta($author_id, 'atbdp_twitter', true),
-            'linkedIn' => get_user_meta($author_id, 'atbdp_linkedin', true),
-            'youtube' => get_user_meta($author_id, 'atbdp_youtube', true),
+            'author_id'         => $author_id,
+            'section_title'     => get_directorist_option('atbd_author_info_title', __('Author Info', 'directorist')),
+            'u_pro_pic'         => !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '',
+            'member_since'      => human_time_diff(strtotime($user_registered), current_time('timestamp')),
+            'avatar_img'        => get_avatar($author_id, apply_filters('atbdp_avatar_size', 32)),
+            'author_name'       => get_the_author_meta('display_name', $author_id),
+            'address'           => get_user_meta($author_id, 'address', true),
+            'phone'             => get_user_meta($author_id, 'atbdp_phone', true),
+            'email_show'        => get_directorist_option('display_author_email', 'public'),
+            'email'             => get_the_author_meta('user_email', $author_id),
+            'website'           => get_the_author_meta('user_url', $author_id),
+            'facebook'          => get_user_meta($author_id, 'atbdp_facebook', true),
+            'twitter'           => get_user_meta($author_id, 'atbdp_twitter', true),
+            'linkedIn'          => get_user_meta($author_id, 'atbdp_linkedin', true),
+            'youtube'           => get_user_meta($author_id, 'atbdp_youtube', true),
 
         );
 
         return atbdp_return_shortcode_template( 'single-listing/author-details', $args );
-
-        $template_file = 'single-listing/author-details.php';
-        $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
-        $default_template_file = ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR . $template_file;
-
-        // Load theme template if exist
-        $theme_template = atbdp_get_theme_file( $theme_template_file );
-        if ( $theme_template ) {
-            include $theme_template;
-            return ob_get_clean();
-        } 
-
-        // Load default template
-        include $default_template_file;
-
-        return ob_get_clean();
-
 	}
 
 }

@@ -49,6 +49,7 @@ class Directorist_Listing_Dashboard {
         $u_pro_pic    = ! empty( $u_pro_pic_id ) ? wp_get_attachment_image_src( $u_pro_pic_id, 'directory-large' ) : '';
 
         $args = array(
+            'u_pro_pic_id' => $u_pro_pic_id,
             'u_pro_pic' => $u_pro_pic,
             'c_user'    => $c_user,
             'u_phone'   => get_user_meta( $uid, 'atbdp_phone', true ),

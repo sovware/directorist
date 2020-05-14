@@ -41,6 +41,7 @@ if (!class_exists('ATBDP_Shortcode')):
         {
 
             $ajax = false;
+
             if (isset($_POST['term_id'])) {
                 $ajax = true;
                 $post_ID = !empty($_POST['post_id']) ? (int)$_POST['post_id'] : '';
@@ -53,9 +54,11 @@ if (!class_exists('ATBDP_Shortcode')):
                 'posts_per_page' => -1,
                 'status' => 'published'
             );
-            $meta_queries = array();
-            if(!empty($categories)){
-                if ($categories > 1) {
+
+            var_dump( $ajax, $categories );
+
+            if( !empty( $categories ) && is_array( $categories ) ) {
+                if ( count( $categories )  > 1 ) {
                     $sub_meta_queries = array();
                     foreach ($categories as $value) {
                         $sub_meta_queries[] = array(
@@ -123,7 +126,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     wp_die();
                 }
             } else {
-                echo '<div class="custom_field_empty_area"></div>';
+                echo '<div class="custom_field_empty_area">123</div>';
                 if ($ajax) {
                     wp_die();
                 }

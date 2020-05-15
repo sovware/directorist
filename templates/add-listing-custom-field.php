@@ -1,14 +1,17 @@
  <?php
      $fields = $atbdp_query->posts;
- $allow_decimal = get_directorist_option('allow_decimal', 1);
+    $allow_decimal = get_directorist_option('allow_decimal', 1);
             if (isset($_POST['term_id'])){
             foreach ($fields as $post){
                 setup_postdata($post);
                 $post_id = $post->ID;
                 $cf_required = get_post_meta(get_the_ID(), 'required', true);
                 $instructions = get_post_meta(get_the_ID(), 'instructions', true);
+
+                $classes = 'form-group custom_field_for_cat';
+                $custom_fields_class = apply_filters( 'atbdp_custom_field_class', $classes, $post_id );
                 ?>
-                <div class="form-group custom_field_for_cat" id="custom_field_for_cat">
+                <div class="<?php echo $custom_fields_class; ?>" id="custom_field_for_cat">
                     <label for=""><?php the_title(); ?><?php if($cf_required){echo '<span style="color: red"> *</span>'; }
                         if (!empty($instructions)){
                             printf(' <span class="atbd_tooltip atbd_tooltip--fw" aria-label="%s"> <i class="fa fa-question-circle"></i></span>', $instructions);

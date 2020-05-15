@@ -644,8 +644,8 @@ jQuery(function ($) {
 
     // scrollToEl
     function scrollToEl( el ) {
-        var hash = ( typeof el === 'string' ) ? el : '';
-        var scroll_top = $(hash).offset().top - 50;
+        var element = ( typeof el === 'string' ) ? el : '';
+        var scroll_top = $(element).offset().top - 50;
         scroll_top = ( scroll_top < 0 ) ? 0 : scroll_top;
 
         $('html, body').animate({

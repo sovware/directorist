@@ -136,6 +136,7 @@ $contact_hide_label = get_directorist_option('contact_hide_label', __('Check it 
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 $fm_plan = !empty(get_post_meta($p_id, '_fm_plans', true)) ? get_post_meta($p_id, '_fm_plans', true) : '';
 $currency = get_directorist_option('g_currency', 'USD');
+
 $plan_cat = array();
 if (is_fee_manager_active()) {
     $plan_cat = is_plan_allowed_category($fm_plan);
@@ -431,8 +432,11 @@ $query_args = array(
                                         $cf_required = get_post_meta(get_the_ID(), 'required', true);
                                         $post_meta = get_post_meta($post_id);
                                         $instructions = get_post_meta(get_the_ID(), 'instructions', true);
+
+                                        $classes = 'form-group atbdp_custom_field_area';
+                                        $custom_fields_class = apply_filters( 'atbdp_custom_field_class', $classes, $post_id );
                                         ?>
-                                        <div class="form-group" id="atbdp_custom_field_area">
+                                        <div class="<?php echo $custom_fields_class; ?>" id="atbdp_custom_field_area">
                                             <label for=""><?php the_title(); ?><?php if ($cf_required) {
                                                     echo '<span style="color: red"> *</span>';
                                                 }
@@ -723,7 +727,7 @@ $query_args = array(
                                         <div id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">
                                             <?php
                                             $selected_category = '';
-                                            do_action('wp_ajax_atbdp_custom_fields_listings_front', $p_id, $selected_category); ?>
+                                            // do_action('wp_ajax_atbdp_custom_fields_listings_front', $p_id, $selected_category); ?>
                                         </div>
                                         <?php
                                     }
@@ -735,7 +739,7 @@ $query_args = array(
                                         <div id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $p_id; ?>">
                                             <?php
                                             $selected_category = !empty($selected_category) ? $selected_category : '';
-                                            do_action('wp_ajax_atbdp_custom_fields_listings_front_selected', $p_id, $selected_category); ?>
+                                            // do_action('wp_ajax_atbdp_custom_fields_listings_front_selected', $p_id, $selected_category); ?>
                                         </div>
                                         <?php
                                     }

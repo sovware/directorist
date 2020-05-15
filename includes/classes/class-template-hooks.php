@@ -36,13 +36,13 @@ class Directorist_Template_Hooks {
         add_action( 'directorist_archive_header',    array( __CLASS__, 'archive_header' ) );
 
         // Listings Badges
-        add_filter( 'atbdp_upper_badges', array( __CLASS__, 'business_hours_badge'), 10, 1 );
-        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'featured_badge'), 10, 1 );
-        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'popular_badge'), 10, 1 );
-        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'new_listing_badge'), 10, 1 );
+        add_filter( 'atbdp_upper_badges',      array( __CLASS__, 'business_hours_badge') );
+        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'featured_badge') );
+        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'popular_badge'), 15 );
+        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'new_listing_badge'), 20 );
         
         // Listing Thumbnail Area
-        add_action( 'atbdp_listing_thumbnail_area', array( __CLASS__, 'mark_as_favourite_button'), 10, 1 );
+        add_action( 'atbdp_listing_thumbnail_area', array( __CLASS__, 'mark_as_favourite_button') );
     }
 
     // instance

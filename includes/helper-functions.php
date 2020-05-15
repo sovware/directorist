@@ -4018,34 +4018,7 @@ if (!function_exists('get_atbdp_listings_ids')) {
 if (!function_exists('atbdp_get_expired_listings')) {
     function atbdp_get_expired_listings($texonomy, $categories)
     {
-        $arg = (array(
-            'post_type' => 'at_biz_dir',
-            'posts_per_page' => -1,
-            'post_status' => 'publish',
-            'meta_query' => array(
-                'relation' => 'OR',
-                array(
-                    'key' => '_expiry_date',
-                    'value' => current_time('mysql'),
-                    'compare' => '<', // eg. expire date 6 <= current date 7 will return the post
-                    'type' => 'DATETIME'
-                ),
-                array(
-                    'key' => '_never_expire',
-                    'value' => '',
-                )
-            ),
-            'tax_query' => array(
-                array(
-                    'taxonomy' => $texonomy,
-                    'field' => 'id',
-                    'terms' => !empty($categories) ? $categories : array(),
-                    'include_children' => true,
-                )
-            ),
-        ));
-
-        return new WP_Query($arg);
+        return new WP_Query(array());
     }
 }
 

@@ -110,7 +110,6 @@
 
 								if (!empty($display_readmore)) { 
 									printf('<a href="%s"> %s</a>', get_the_permalink(), $readmore_text);
-								
 								}
 								?>
 							</p>
@@ -176,6 +175,7 @@
 					</div>
 					<?php echo apply_filters('atbdp_listings_grid_cat_view_count', ob_get_clean() );
 				}
+				
 				/**
 				 * @param mixed $footer_html
 				 * @since

@@ -17,7 +17,11 @@ if ( !class_exists('ATBDP_SEO') ):
             }
             if(atbdp_disable_overwrite_yoast()){
                 remove_action( 'wp_head', 'rel_canonical' );
-                add_action('wp_head', array($this, 'atbdp_texonomy_canonical'));
+                if(atbdp_can_use_yoast()){
+                    add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
+                }else{
+                    add_action('wp_head', array($this, 'atbdp_texonomy_canonical'));
+                }
                 add_filter('pre_get_document_title', array($this, 'atbdp_custom_page_title'), 100);
                 add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 100, 2);
                 add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 100, 2);

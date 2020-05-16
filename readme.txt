@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.4
-Stable tag: 6.4.0
+Stable tag: 6.4.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -138,6 +138,20 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.4.1 - May 16, 2020 =
+
+* Add - Option to set per image limit in add listing form
+* Fix - All category listing count issue
+* Fix - Page regenerating issue
+* Fix - Image delete on listing delete
+* Fix - Order date issue in payment receipt
+* Fix - Normal post status and preview issue
+* Fix - Wp mail from email
+* Fix - Custom field only admin use issue
+* Fix - Pending listing status issue
+* Fix - Style issue in RTL
+* Improve - Post Type Capability
 
 = 6.4.0 - Apr 29, 2020 =
 

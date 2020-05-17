@@ -204,7 +204,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $midway_package_id = !empty($midway_package_id) ? $midway_package_id : $sub_plan_id;
                     $plan_purchased = subscribed_package_or_PPL_plans($user_id, 'completed', $midway_package_id);
                     if (!class_exists('DWPP_Pricing_Plans')) {
-                        $plan_purchased = $plan_purchased[0];
+                        $plan_purchased = $plan_purchased ? $plan_purchased[0] : '';
                     }
                     $subscribed_package_id = $midway_package_id;
                     $plan_type = package_or_PPL($subscribed_package_id);

@@ -6,11 +6,11 @@
         <div class="postbox wpcs-admin-extra">
 
             <h3><?php _e('1. Documentation', 'directorist')?></h3>
-            <p><a href="https://directorist.com/documentation/directorist/" target="_blank"><?php _e('Click here', 'directorist')?></a> <?php _e('for the documentation.', 'directorist')?></p>
+            <p><a href="https://directorist.com/docs/directorist/" target="_blank"><?php _e('Click here', 'directorist')?></a> <?php _e('for the documentation.', 'directorist')?></p>
             <br>
             <h3><?php _e('2. Support Forum', 'directorist')?></h3>
             <p> <?php _e('If you need any helps, please don\'t hesitate to post on our ', 'directorist')?><a
-                        href="https://directorist.com/support-forum/" target="_blank"> <?php _e('support forum', 'directorist')?></a>.</p>
+                        href="https://directorist.com/dashboard/#support" target="_blank"> <?php _e('support forum', 'directorist')?></a>.</p>
             <br>
          <!--   <h3><?php /*_e('3. Video Tutorials', 'directorist')*/?></h3>
             <div>
@@ -73,6 +73,10 @@
                 </li>
                 <li>
                     <a href="https://directorist.com/product/directorist-mark-as-sold/" target="_blank"><?php _e('Directorist - Mark as Sold', 'directorist')?></a>
+                </li>
+                <li>
+                    <a href="https://directorist.com/product/rank-featured-listings/" target="_blank"><?php _e('Directorist - Rank Featured Listings
+', 'directorist')?></a>
                 </li>
             </ul>
 

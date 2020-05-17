@@ -139,19 +139,20 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 6.4.1 - May 16, 2020 =
+= 6.4.1 - May 17, 2020 =
 
 * Add - Option to set per image limit in add listing form
-* Fix - All category listing count issue
+* Fix - Listing count issue of category archive
 * Fix - Page regenerating issue
-* Fix - Image delete on listing delete
+* Fix - Image delete when listing is deleted
 * Fix - Order date issue in payment receipt
-* Fix - Normal post status and preview issue
-* Fix - Wp mail from email
-* Fix - Custom field only admin use issue
+* Fix - Post status and preview issue
+* Fix - Email's "From Email" settings
+* Fix - "Only Admin Use" issue of Custom field
 * Fix - Pending listing status issue
 * Fix - Style issue in RTL
 * Improve - Post Type Capability
+* Change - "Pay & Submit" buttom text to "Continue"
 
 = 6.4.0 - Apr 29, 2020 =
 

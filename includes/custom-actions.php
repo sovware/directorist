@@ -188,7 +188,7 @@ function atbdp_get_preview_button()
             }else{
                 $url = add_query_arg(array('atbdp_listing_id' => $id, 'reviewed' => 'yes'), $_GET['redirect']);
             }
-            return '<a href="' . esc_url($url) . '" class="btn btn-success">' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment) ? esc_html__(' Pay & Submit', 'directorist') : esc_html__(' Submit', 'directorist')) . '</a>';
+            return '<a href="' . esc_url($url) . '" class="btn btn-success">' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment) ? esc_html__(' Continue', 'directorist') : esc_html__(' Submit', 'directorist')) . '</a>';
         }
     }
 }

@@ -44,7 +44,6 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
         	<?php } ?>
 
         </div>
-        <!--end row-->
 
         <div class="row">
             <div class="col-lg-12">

@@ -90,7 +90,7 @@
 						$price_range_field = $listing->price_range_field_data();
 						$c_symbol = $listing->c_symbol;
 						?>
-'										<div class="price-frequency">
+							<div class="price-frequency">
 								<label class="pf-btn">
 									<input type="radio" name="price_range" value="bellow_economy"<?php echo $price_range_field['bellow_economy_value']; ?>>
 									<span><?php echo $c_symbol; ?></span>
@@ -107,7 +107,7 @@
 									<input type="radio" name="price_range" value="skimming" <?php echo $price_range_field['skimming_value']; ?>>
 									<span><?php echo $c_symbol, $c_symbol, $c_symbol, $c_symbol; ?></span>
 								</label>
-							</div>'
+							</div>
 					<?php } ?>
 				</div>
 			</div>
@@ -246,6 +246,5 @@
 				<button type="submit" class="btn btn-primary btn-sm"><?php _e($listing->apply_filters_text, 'directorist'); ?></button>
 			<?php } ?>
 		</div>
-		<!-- ends: .bdas-filter-actions -->
 	</form>
 </div>

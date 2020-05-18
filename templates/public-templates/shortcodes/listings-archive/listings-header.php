@@ -17,7 +17,7 @@
 									<?php if ($listing->has_filter_icon()) { ?>
 										<span class="<?php atbdp_icon_type(true); ?>-filter"></span>
 									<?php } ?>
-									<?php echo $filters; ?>
+									<?php echo $listing->filters; ?>
 								</a>
 							<?php
 							}
@@ -26,7 +26,7 @@
 							*/
 							do_action('atbdp_after_filter_button_in_listings_header');
 							if ($listing->has_header_title()) {
-								echo apply_filters('atbdp_total_listings_found_text', "<h3>{$header_title}</h3>", $header_title);
+								echo apply_filters('atbdp_total_listings_found_text', "<h3>{$listing->header_title}</h3>", $listing->header_title);
 							}
 							?>
 						</div>
@@ -35,18 +35,18 @@
 					/**
 					 * @since 5.4.0
 					 */
-					do_action('atbdp_after_total_listing_found_in_listings_header', $header_title);
+					do_action('atbdp_after_total_listing_found_in_listings_header', $listing->header_title);
 					
 					if ($listing->has_listings_header_toolbar()) {
 					?>
 						<div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
 							<?php
-							if ($display_viewas_dropdown) {
+							if ($listing->display_viewas_dropdown) {
 								ob_start();
 								?>
 								<div class="atbd_dropdown">
 									<a class="atbd_dropdown-toggle" href="#" id="viewAsDropdownMenuLink">
-										<?php echo $view_as_text; ?>
+										<?php echo $listing->view_as_text; ?>
 										<span class="atbd_drop-caret"></span>
 									</a>
 									<div class="atbd_dropdown-menu" aria-labelledby="viewAsDropdownMenuLink">
@@ -65,15 +65,15 @@
 								 * @param array $views it return the views type array
 								 *
 								 */
-								echo apply_filters('atbdp_listings_view_as', $view_as_html, $view, $views);
+								echo apply_filters('atbdp_listings_view_as', $view_as_html, $listing->view, $listing->views);
 							}
 							
-							if ($display_sortby_dropdown) {
+							if ($listing->display_sortby_dropdown) {
 								ob_start();
 								?>
 								<div class="atbd_dropdown">
 									<a class="atbd_dropdown-toggle" href="#" id="sortByDropdownMenuLink">
-										<?php echo $sort_by_text; ?>
+										<?php echo $listing->sort_by_text; ?>
 										<span class="atbd_drop-caret"></span>
 									</a>
 									<div class="atbd_dropdown-menu atbd_dropdown-menu--lg" aria-labelledby="sortByDropdownMenuLink">
@@ -103,7 +103,7 @@
 									<?php if ($listing->has_search_field()) { ?>
 										<div class="col-md-6 col-sm-12 col-lg-4">
 											<div class="single_search_field search_query">
-												<input class="form-control search_fields" type="text" name="q" placeholder="<?php _e($text_placeholder, 'directorist'); ?>">
+												<input class="form-control search_fields" type="text" name="q" placeholder="<?php echo esc_attr($listing->text_placeholder); ?>">
 											</div>
 										</div>
 									<?php
@@ -114,8 +114,8 @@
 										<div class="col-md-6 col-sm-12 col-lg-4">
 											<div class="single_search_field search_category">
 												<select name="in_cat" id="cat-type" class="form-control directory_field bdas-category-search">
-													<option><?php echo $category_placeholder; ?></option>
-													<?php echo $categories_fields; ?>
+													<option><?php echo $listing->category_placeholder; ?></option>
+													<?php echo $listing->categories_fields; ?>
 												</select>
 											</div>
 										</div>
@@ -127,8 +127,8 @@
 										<div class="col-md-12 col-sm-12 col-lg-4">
 											<div class="single_search_field search_location">
 												<select name="in_loc" id="loc-type" class="form-control directory_field bdas-category-location">
-													<option><?php echo $location_placeholder; ?></option>
-													<?php echo $locations_fields; ?>
+													<option><?php echo $listing->location_placeholder; ?></option>
+													<?php echo $listing->locations_fields; ?>
 												</select>
 											</div>
 										</div>
@@ -179,6 +179,7 @@
 
 										if ( $listing->has_price_range_field() ) {
 											$price_range_field = $listing->price_range_field_data();
+											$c_symbol = $listing->c_symbol;
 											?>
 	'										<div class="price-frequency">
 													<label class="pf-btn">
@@ -232,7 +233,7 @@
 										</div>
 										<p class="atbd-current-value"></p>
 									</div>
-									<input type="hidden" class="atbdrs-value" name="miles" value="<?php echo $default_radius_distance; ?>" />
+									<input type="hidden" class="atbdrs-value" name="miles" value="<?php echo $listing->default_radius_distance; ?>" />
 								</div>
 							<?php
 							}
@@ -256,7 +257,7 @@
 							if ( $listing->has_tag_field() && $listing->tag_field_data() ) {
 							?>
 								<div class="form-group ads-filter-tags">
-									<label><?php echo !empty($tag_label) ? $tag_label : __('Tags', 'directorist'); ?></label>
+									<label><?php echo !empty($listing->tag_label) ? $listing->tag_label : __('Tags', 'directorist'); ?></label>
 									<div class="bads-tags">
 										<?php
 											$rand = rand();
@@ -276,7 +277,7 @@
 							<?php
 							}
 								
-							if (in_array('search_custom_fields', $search_more_filters_fields)) {
+							if (in_array('search_custom_fields', $listing->search_more_filters_fields)) {
 							?>
 								<div id="atbdp-custom-fields-search" class="atbdp-custom-fields-search">
 									<?php do_action('wp_ajax_atbdp_custom_fields_search', isset($_GET['in_cat']) ? $_GET['in_cat'] : 0); ?>
@@ -284,26 +285,26 @@
 							<?php
 							}
 
-							if (in_array('search_website', $search_more_filters_fields) || in_array('search_email', $search_more_filters_fields) || in_array('search_phone', $search_more_filters_fields) || in_array('search_address', $search_more_filters_fields) || in_array('search_zip_code', $search_more_filters_fields)) {
+							if (in_array('search_website', $listing->search_more_filters_fields) || in_array('search_email', $listing->search_more_filters_fields) || in_array('search_phone', $listing->search_more_filters_fields) || in_array('search_address', $listing->search_more_filters_fields) || in_array('search_zip_code', $listing->search_more_filters_fields)) {
 							?>
 								<div class="form-group">
 									<div class="bottom-inputs">
-										<?php if (in_array('search_website', $search_more_filters_fields)) { ?>
+										<?php if (in_array('search_website', $listing->search_more_filters_fields)) { ?>
 										<div>
-											<input type="text" name="website" placeholder="<?php echo !empty($website_label) ? $website_label : __('Website', 'directorist'); ?>" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
+											<input type="text" name="website" placeholder="<?php echo !empty($listing->website_label) ? $listing->website_label : __('Website', 'directorist'); ?>" value="<?php echo !empty($_GET['website']) ? $_GET['website'] : ''; ?>" class="form-control">
 										</div>
 										<?php
 										}
 
-										if (in_array('search_email', $search_more_filters_fields)) {
+										if (in_array('search_email', $listing->search_more_filters_fields)) {
 										?>
 											<div>
-												<input type="text" name="email" placeholder="<?php echo !empty($email_label) ? $email_label : __('Email', 'directorist'); ?>" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
+												<input type="text" name="email" placeholder="<?php echo !empty($listing->email_label) ? $listing->email_label : __('Email', 'directorist'); ?>" value="<?php echo !empty($_GET['email']) ? $_GET['email'] : ''; ?>" class="form-control">
 											</div>
 										<?php
 										}
 
-										if (in_array('search_phone', $search_more_filters_fields)) {
+										if (in_array('search_phone', $listing->search_more_filters_fields)) {
 										?>
 											<div>
 												<input type="text" name="phone" placeholder="<?php _e('Phone Number', 'directorist'); ?>" value="<?php echo !empty($_GET['phone']) ? $_GET['phone'] : ''; ?>" class="form-control">
@@ -311,29 +312,29 @@
 										<?php
 										}
 
-										if (in_array('search_fax', $search_more_filters_fields)) { ?>
+										if (in_array('search_fax', $listing->search_more_filters_fields)) { ?>
 											<div>
-												<input type="text" name="fax" placeholder="<?php echo !empty($fax_label) ? $fax_label : __('Fax', 'directorist'); ?>" value="<?php echo !empty($_GET['fax']) ? $_GET['fax'] : ''; ?>" class="form-control">
+												<input type="text" name="fax" placeholder="<?php echo !empty($listing->fax_label) ? $listing->fax_label : __('Fax', 'directorist'); ?>" value="<?php echo !empty($_GET['fax']) ? $_GET['fax'] : ''; ?>" class="form-control">
 											</div>
 										<?php
 										}
 										
-										if (in_array('search_zip_code', $search_more_filters_fields)) {
+										if (in_array('search_zip_code', $listing->search_more_filters_fields)) {
 										?>
 											<div>
-												<input type="text" name="zip_code" placeholder="<?php echo !empty($zip_label) ? $zip_label : __('Zip/Post Code', 'directorist'); ?>" value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
+												<input type="text" name="zip_code" placeholder="<?php echo !empty($listing->zip_label) ? $listing->zip_label : __('Zip/Post Code', 'directorist'); ?>" value="<?php echo !empty($_GET['zip_code']) ? $_GET['zip_code'] : ''; ?>" class="form-control">
 											</div>
 										<?php } ?>
 									</div>
 								</div>
 							<?php } ?>
 							<div class="bdas-filter-actions">
-								<?php if (in_array('reset_button', $filters_button)) {?>
-									<a href="" class="btn btn-outline btn-outline-primary btn-sm" id="atbdp_reset"><?php _e($reset_filters_text, 'directorist'); ?></a>
+								<?php if (in_array('reset_button', $listing->filters_button)) {?>
+									<a href="" class="btn btn-outline btn-outline-primary btn-sm" id="atbdp_reset"><?php _e($listing->reset_filters_text, 'directorist'); ?></a>
 								<?php
 								}
-								if (in_array('apply_button', $filters_button)) { ?>
-									<button type="submit" class="btn btn-primary btn-sm"><?php _e($apply_filters_text, 'directorist'); ?></button>
+								if (in_array('apply_button', $listing->filters_button)) { ?>
+									<button type="submit" class="btn btn-primary btn-sm"><?php _e($listing->apply_filters_text, 'directorist'); ?></button>
 								<?php } ?>
 							</div>
 							<!-- ends: .bdas-filter-actions -->

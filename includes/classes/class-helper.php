@@ -410,6 +410,14 @@ if (!class_exists('ATBDP_Helper')) :
             return $icon;
         }
 
+        // format_date
+        public static function format_date( $timestamp ) {
+            $date_format = get_option( 'date_format' );
+            $date = date( $date_format, strtotime( $timestamp ));
+
+            return $date;
+        }
+
 
         /**
          * Darken or lighten a given hex color and return it.

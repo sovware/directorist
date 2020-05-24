@@ -1587,6 +1587,40 @@ div#listing_notifier span {
     border-radius: 0 !important;
   }
 }
-.atbdp_nlf{
+.atbdp_nlf {
   padding: 0 15px !important;
+}
+input[type="radio"].atbdp_radio_input {
+  display: none;
+  + label{
+    position: relative;
+    padding-left: 23px;
+    font-weight: 700;
+    &::before {
+        position: absolute;
+        content: '';
+        width: 15px;
+        height: 15px;
+        border: 1px solid #b3afaf;
+        border-radius: 100%;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: .3s ease;
+        box-sizing: border-box;
+    }
+  }
+
+  &:checked + label:before {
+    border: 5px solid #444;
+  }
+}
+
+
+.atbdp_input_group {
+  margin-bottom: 8px;
+}
+
+.at_option_title {
+  margin-bottom: 10px;
 }

@@ -36,13 +36,13 @@ class Directorist_Template_Hooks {
         add_action( 'directorist_archive_header',    array( __CLASS__, 'archive_header' ) );
 
         // Listings Badges
-        add_filter( 'atbdp_upper_badges', array( __CLASS__, 'business_hours_badge'), 10, 1 );
-        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'featured_badge'), 10, 1 );
-        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'popular_badge'), 10, 1 );
-        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'new_listing_badge'), 10, 1 );
+        add_filter( 'atbdp_upper_badges',      array( __CLASS__, 'business_hours_badge') );
+        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'featured_badge') );
+        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'popular_badge'), 15 );
+        add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'new_listing_badge'), 20 );
         
         // Listing Thumbnail Area
-        add_action( 'atbdp_listing_thumbnail_area', array( __CLASS__, 'mark_as_favourite_button'), 10, 1 );
+        add_action( 'atbdp_listing_thumbnail_area', array( __CLASS__, 'mark_as_favourite_button') );
     }
 
     // instance
@@ -541,31 +541,6 @@ class Directorist_Template_Hooks {
 
         $args = array(
             'listing' => $listing,
-            'container_class'            => ( ! empty( $listing->header_container_fluid ) ) ? $listing->header_container_fluid : '',
-            'header_title'               => $listing->header_title,
-            'filters'                    => $listing->filters,
-            'display_viewas_dropdown'    => $listing->display_viewas_dropdown,
-            'view'                       => $listing->view,
-            'views'                      => $listing->views,
-            'view_as_text'               => $listing->view_as_text,
-            'sort_by_text'               => $listing->sort_by_text,
-            'display_sortby_dropdown'    => $listing->display_sortby_dropdown,
-            'text_placeholder'           => $listing->text_placeholder,
-            'category_placeholder'       => $listing->category_placeholder,
-            'categories_fields'          => $listing->categories_fields,
-            'location_placeholder'       => $listing->location_placeholder,
-            'locations_fields'           => $listing->locations_fields,
-            'c_symbol'                   => $listing->c_symbol,
-            'default_radius_distance'    => $listing->default_radius_distance,
-            'search_more_filters_fields' => $listing->search_more_filters_fields,
-            'website_label'              => $listing->website_label,
-            'email_label'                => $listing->email_label,
-            'fax_label'                  => $listing->fax_label,
-            'zip_label'                  => $listing->zip_label,
-            'tag_label'                  => $listing->tag_label,
-            'filters_button'             => $listing->filters_button,
-            'reset_filters_text'         => $listing->reset_filters_text,
-            'apply_filters_text'         => $listing->apply_filters_text,
         );
 
         atbdp_get_shortcode_template( 'listings-archive/listings-header', $args );

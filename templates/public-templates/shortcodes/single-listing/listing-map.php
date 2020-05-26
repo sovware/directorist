@@ -1,10 +1,16 @@
 <?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+
 if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) && !empty($display_map_field)) { ?>
     <div class="atbd_content_module">
         <div class="atbd_content_module_title_area">
             <div class="atbd_area_title">
                 <h4>
-                    <span class="<?php atbdp_icon_type(true);?>-map atbd_area_icon"></span><?php _e($listing_location_text, 'directorist'); ?>
+                    <span class="<?php atbdp_icon_type(true);?>-map atbd_area_icon"></span><?php echo esc_html( $listing_location_text ); ?>
                 </h4>
             </div>
         </div>
@@ -19,7 +25,8 @@ if (!$disable_map && (empty($hide_map)) && !empty($manual_lng || $manual_lat) &&
             <div id="gmap" class="atbd_google_map"></div>
         </div>
     </div><!-- end .atbd_custom_fields_contents -->
-<?php }
+    <?php
+}
 if ('openstreet' == $select_listing_map) {
     wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array( 'jquery' ), ATBDP_VERSION, true );
     wp_enqueue_script( 'openstreet_layer' );

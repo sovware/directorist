@@ -1160,6 +1160,34 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
         $featured = get_post_meta( get_the_ID(), '_featured', true );
         echo ($featured) ? 'directorist-featured-listings' : '';
     }
+
+    public function sortby_dropdown_html() {
+        $args = array(
+            'listing' => $this,
+        );
+
+        $html = atbdp_return_shortcode_template( 'listings-archive/sortby-dropdown', $args );
+
+        echo apply_filters('atbdp_listings_header_sort_by_button', $html);
+    }
+
+    public function viewas_dropdown_html() {
+        $args = array(
+            'listing' => $this,
+        );
+
+        $html = atbdp_return_shortcode_template( 'listings-archive/viewas-dropdown', $args );
+
+        echo apply_filters('atbdp_listings_view_as', $html, $this->view, $this->views);
+    }
+
+    public function advanced_search_form_html() {
+        $args = array(
+            'listing' => $this,
+        );
+
+        atbdp_get_shortcode_template( 'listings-archive/advanced-search-form', $args );
+    }
 }
 
 endif;

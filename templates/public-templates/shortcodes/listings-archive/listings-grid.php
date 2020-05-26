@@ -31,20 +31,19 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
         }
         ?>
         <div class="row" <?php echo ($view_as !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
-            <?php
-            if ($all_listings->have_posts()) {
-                while ($all_listings->have_posts()) {
-                    $all_listings->the_post();
-                    atbdp_listings_loop( 'grid', $atts );
-                }
-                wp_reset_postdata();
-            } else { ?>
-                <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
-            <?php }
-            ?>
+        	<?php
+        	if ($all_listings->have_posts()) {
+        		while ($all_listings->have_posts()) {
+        			$all_listings->the_post();
+        			atbdp_listings_loop( 'grid', $atts );
+        		}
+        		wp_reset_postdata();
+        	}
+        	else { ?>
+        		<p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
+        	<?php } ?>
 
         </div>
-        <!--end row-->
 
         <div class="row">
             <div class="col-lg-12">
@@ -57,7 +56,8 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                 if ('yes' == $show_pagination) {
                     $paged = !empty($paged) ? $paged : '';
                     echo atbdp_pagination($all_listings, $paged);
-                } ?>
+                }
+                ?>
             </div>
         </div>
 

@@ -1166,7 +1166,7 @@ final class Directorist_Base
                         </div>
 
                         <div class="atbdb_content_module_contents atbd_give_review_area">
-                            <form action="" id="atbdp_review_form" method="post">
+                            <form action="#" id="atbdp_review_form" method="post">
                                 <?php wp_nonce_field('atbdp_review_action_form', 'atbdp_review_nonce_form'); ?>
                                 <input type="hidden" name="post_id" value="<?php the_ID(); ?>">
 

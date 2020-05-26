@@ -268,8 +268,8 @@ $forms = Directorist_Listing_Forms::instance();
 		do_action('atbdp_add_listing_after_tag', $p_id);
 		?>
 		<!--***********************************************************************
-			Run the custom field loop to show all published custom fields asign to Category
-		 **************************************************************************-->
+		Run the custom field loop to show all published custom fields asign to Category
+		**************************************************************************-->
 		<!--@ Options for select the category.-->
 		<div class="form-group" id="atbdp_categories">
 			<label for="at_biz_dir-categories"><?php
@@ -288,7 +288,7 @@ $forms = Directorist_Listing_Forms::instance();
 			$categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0, 'exclude' => $plan_cat));
 			?>
 			<select name="admin_category_select[]" id="at_biz_dir-categories" class="form-control"
-					id="at_biz_dir-categories" <?php echo !empty($multiple_cat_for_user) ? 'multiple="multiple"' : ''; ?>>
+				<?php echo !empty($multiple_cat_for_user) ? 'multiple="multiple"' : ''; ?>>
 				<?php
 				if (empty($multiple_cat_for_user)) {
 					echo '<option>' . $cat_placeholder . '</option>';

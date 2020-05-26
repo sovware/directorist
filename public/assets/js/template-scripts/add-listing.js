@@ -1,6 +1,6 @@
 (function ($) {
     "use strict";
-
+    
     /* Show and hide manual coordinate input field*/
     if (!$('input#manual_coordinate').is(':checked')) {
         $('#hide_if_no_manual_cor').hide();

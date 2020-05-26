@@ -382,19 +382,14 @@ if (!class_exists('ATBDP_Shortcode')):
         public function directorist_listing_review() {
             ob_start();
             if (is_singular(ATBDP_POST_TYPE)) {
-                $template_file = 'single-listing/listing-review.php';
-                $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
-                $default_template_file = ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR . $template_file;
+                $template_file = 'single-listing/listing-review';
+                $template_path = atbdp_get_shortcode_template_paths( $template_file );
                 
-                // Load theme template if exist
-                $theme_template = atbdp_get_theme_file( $theme_template_file );
-                if ( $theme_template ) {
-                    include $theme_template;
-                    return ob_get_clean();
-                } 
-                
-                // Load default template
-                include $default_template_file;
+                if ( file_exists( $template_path['theme'] ) ) {
+                    include $template_path['theme'];
+                } elseif ( file_exists( $template_path['plugin'] ) ) {
+                    include $template_path['plugin'];
+                }
             }
             return ob_get_clean();
         }
@@ -449,19 +444,14 @@ if (!class_exists('ATBDP_Shortcode')):
                 wp_localize_script( 'atbdp-related-listings-slider', 'data', $localized_data );
                 wp_enqueue_script('atbdp-related-listings-slider');
 
-                $template_file = 'single-listing/related_listings.php';
-                $theme_template_file =  ATBDP_SHORTCODE_TEMPLATES_THEME_DIR . $template_file;
-                $default_template_file = ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR . $template_file;
+                $template_file = 'single-listing/related_listings';
+                $template_path = atbdp_get_shortcode_template_paths( $template_file );
 
-                // Load theme template if exist
-                $theme_template = atbdp_get_theme_file( $theme_template_file );
-                if ( $theme_template ) {
-                    include $theme_template;
-                    return ob_get_clean();
-                } 
-
-                // Load default template
-                include $default_template_file;
+                if ( file_exists( $template_path['theme'] ) ) {
+                    include $template_path['theme'];
+                } elseif ( file_exists( $template_path['plugin'] ) ) {
+                    include $template_path['plugin'];
+                }
             }
             return ob_get_clean();
         }
@@ -616,9 +606,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 // Process output
                 ob_start();
                 $include = apply_filters('include_style_settings', true);
-                /* if ($include) {
-                    wp_enqueue_style('atbdp-settings-style');
-                } */
                 include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
                 wp_reset_postdata(); // Restore global post data stomped by the_post()
                 $output = ob_get_clean();
@@ -1425,37 +1412,10 @@ if (!class_exists('ATBDP_Shortcode')):
 
             
             ob_start();
-
-            // Add Inline Style
-            $style = '.atbd_content_active #directorist.atbd_wrapper .atbdp_column {';
-            $style .= "width: $listings_model->column_width; } \n";
-
-            $listing_map_type = $listings_model->select_listing_map;
-            
-            if ( $listing_map_type === 'openstreet' ) {
-                $style .= '.myDivIcon {';
-                $style .= 'text-align: center !important;';
-                $style .= 'line-height: 20px !important;';
-                $style .= "position: relative; }\n";
-
-                $style .= '.myDivIcon div.atbd_map_shape {';
-                $style .= 'position: absolute;';
-                $style .= 'top: -38px;';
-                $style .= "left: -15px; }\n";
-            }
-
-            wp_add_inline_style( 'atbdp-inline-style', $style );
-            wp_enqueue_style('atbdp-inline-style');
             
             if (!empty($listings_model->redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($listings_model->redirect_page_url) . '"</script>';
                 return $redirect;
-            }
-
-            if ( is_rtl() ) {
-                wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
-            } else{
-                wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
             }
 
             if ( 'listings_with_map' == $listings_model->view ) {

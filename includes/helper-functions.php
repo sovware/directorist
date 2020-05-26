@@ -2824,7 +2824,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                 <article
                                         class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area"
-                                            style=" <?php echo empty(get_directorist_option('display_preview_image', 1)) ? 'display:none' : '' ?>">
+                                            style="<?php echo empty(get_directorist_option('display_preview_image', 1)) ? 'display:none' : '' ?>">
                                         <div class="atbd_listing_image">
                                             <?php
                                             $disable_single_listing = get_directorist_option('disable_single_listing');
@@ -2865,17 +2865,6 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                         }
                                         if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
                                             //lets check is it 24/7
-                                            if ('2.2.6' > BDBH_VERSION) {
-                                                ?>
-                                                <style>
-                                                    .atbd_badge_close, .atbd_badge_open {
-                                                        position: absolute;
-                                                        left: 15px;
-                                                        top: 15px;
-                                                    }
-                                                </style>
-                                                <?php
-                                            }
                                             $open = get_directorist_option('open_badge_text', __('Open Now', 'directorist'));
                                             if (!empty($enable247hour)) {
                                                 $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">' . $open . '</span>';

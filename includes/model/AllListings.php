@@ -18,6 +18,7 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
         public $categories_fields;
         public $category_placeholder;
         public $column_width;
+        public $grid_col_class;
         public $columns;
         public $count_meta_queries;
         public $currency;
@@ -1000,6 +1001,8 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
         $this->is_disable_price = get_directorist_option( 'disable_list_price' );
         $this->view_as          = get_directorist_option( 'grid_view_as', 'normal_grid' );
         $this->column_width     = 100 / (int)$this->columns . '%';
+        $this->grid_col_class     = 100 / (int)$this->columns . '%';
+        $this->grid_col_class   = "atbdp-col-$this->columns";
 
         $this->address_label        = get_directorist_option( 'address_label', __( 'Address', 'directorist' ) );
         $this->fax_label            = get_directorist_option( 'fax_label', __( 'Fax', 'directorist' ) );

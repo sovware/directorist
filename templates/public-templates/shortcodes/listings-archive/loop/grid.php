@@ -1,4 +1,4 @@
-<div class="atbdp_column">
+<div class="atbdp_column <?php echo $grid_col_class ?>">
   <div class="atbd_single_listing atbd_listing_card <?php $template->listing_card_class() ?>">
     <article class="atbd_single_listing_wrapper <?php $template->listing_wrapper_class(); ?>">
       <figure class="atbd_listing_thumbnail_area">

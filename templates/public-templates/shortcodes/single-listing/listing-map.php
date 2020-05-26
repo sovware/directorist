@@ -27,7 +27,7 @@ if ('openstreet' == $select_listing_map) {
 } ?>
 <script>
     <?php if ( 'google' == $select_listing_map ) { 
-        wp_enqueue_script('atbdp-template-gmap');
+        wp_enqueue_script('atbdp-single-listing-gmap');
     } ?>
 
     jQuery(document).ready(function ($) {

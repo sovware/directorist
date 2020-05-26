@@ -1,9 +1,88 @@
 <?php
 
-if ( ! class_exists( 'ATBDP_Settings_Stylesheet' ) ):
-    class ATBDP_Settings_Stylesheet {
+if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
+    class ATBDP_Stylesheet {
 
-        public function get_style() {
+        // add_listing_css
+        public static function add_listing_css() {
+            ob_start(); ?>
+                #OL_Icon_33 {
+                    position: relative;
+                }
+
+                .mapHover {
+                    position: absolute;
+                    background: #fff;
+                    padding: 5px;
+                    width: 150px;
+                    border-radius: 3px;
+                    border: 1px solid #ddd;
+                    display: none;
+                }
+
+                #OL_Icon_33:hover .mapHover {
+                    display: block;
+                }
+
+                /*#directorist.atbd_wrapper a {
+                    display: block;
+                    background: #fff;
+                    padding: 8px 10px;
+                }*/
+
+                #directorist.atbd_wrapper a:hover {
+                    background: #eeeeee50;
+                }
+
+                #directorist.atbd_wrapper a.active {
+                    background: #eeeeee70;
+                }
+
+                .g_address_wrap ul li {
+                    margin-bottom: 0px;
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 0px;
+                } <?php 
+                
+                return ob_get_clean();
+        }
+
+        // osm_css
+        public static function osm_css()
+        {
+            ob_start(); ?>
+            .myDivIcon {
+                text-align: center !important;
+                line-height: 20px !important;
+                position: relative;
+            }
+    
+            .myDivIcon div.atbd_map_shape {
+                position: absolute;
+                top: -38px;
+                left: -15px; 
+            }
+            <?php
+
+            return ob_get_clean();
+        }
+
+        // business_hour_css
+        public static function business_hour_css()
+        {
+            ob_start(); ?>
+            .atbd_badge_close,
+            .atbd_badge_open {
+                position: absolute;
+                left: 15px;
+                top: 15px;
+            } <?php
+
+            return ob_get_clean();
+        }
+
+        // style_settings_css
+        public static function style_settings_css() {
             do_action( 'include_style_settings' );
             $primary_color                  = get_directorist_option( 'primary_color', '#ffffff' );
             $primary_hover_color            = get_directorist_option( 'primary_hover_color', '#ffffff' );
@@ -57,7 +136,6 @@ if ( ! class_exists( 'ATBDP_Settings_Stylesheet' ) ):
             $marker_shape_color             = get_directorist_option( 'marker_shape_color', '#444752' );
             $marker_icon_color              = get_directorist_option( 'marker_icon_color', '#444752' );
 
-            $content = '';
             ob_start();
             ?>
 	            /* Settings Panel Structure
@@ -439,8 +517,7 @@ if ( ! class_exists( 'ATBDP_Settings_Stylesheet' ) ):
                 }
             <?php
                 
-            $content = ob_get_clean();
-            return $content;
+            return ob_get_clean();
         }
     }
 endif;

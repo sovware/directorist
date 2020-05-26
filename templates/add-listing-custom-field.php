@@ -40,7 +40,7 @@
                             break;
                         case 'textarea' :
                             echo '<div>';
-                            printf( '<textarea class="form-control directory_field" name="custom_field[%d]" class="textarea" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int) $cf_rows,esc_attr( $cf_placeholder ), esc_textarea( $value ) );
+                            printf( '<textarea class="form-control test-123 directory_field" name="custom_field[%d]" rows="%d" placeholder="%s">%s</textarea>', $post->ID, (int) $cf_rows,esc_attr( $cf_placeholder ), esc_textarea( $value ) );
                             echo '</div>';
                             break;
                         case 'radio':

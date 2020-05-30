@@ -33,7 +33,7 @@
         <?php
           /**
            * @since 5.0
-		   * @hooked Directorist_Template_Hooks::business_hours_badge - 10
+		       * @hooked Directorist_Template_Hooks::business_hours_badge - 10
            */
 
           echo apply_filters('atbdp_upper_badges', '');
@@ -44,9 +44,9 @@
         <?php
           /**
            * @since 5.0
-		   * @hooked Directorist_Template_Hooks::featured_badge - 10
-		   * @hooked Directorist_Template_Hooks::popular_badge - 15
-		   * @hooked Directorist_Template_Hooks::new_listing_badge - 20
+           * @hooked Directorist_Template_Hooks::featured_badge - 10
+           * @hooked Directorist_Template_Hooks::popular_badge - 15
+           * @hooked Directorist_Template_Hooks::new_listing_badge - 20
            */
           
           echo apply_filters('atbdp_grid_lower_badges', '');
@@ -56,7 +56,7 @@
         <?php
           /**
            * @since 7.0
-		   * @hooked Directorist_Template_Hooks::mark_as_favourite_button - 10
+		       * @hooked Directorist_Template_Hooks::mark_as_favourite_button - 10
            */
           
           do_action('atbdp_listing_thumbnail_area');

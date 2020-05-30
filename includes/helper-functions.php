@@ -3868,7 +3868,7 @@ function bdas_dropdown_terms($args = array(), $echo = true)
             } else {
                 $html .= sprintf('<div class="bdas-child-terms bdas-child-terms-%d">', $args['parent']);
                 $html .= sprintf('<select class="%s" data-taxonomy="%s" data-parent="%d">', $args['class'], $args['taxonomy'], $args['parent']);
-                $html .= sprintf('<option value="%d">%s</option>', $args['parent'], '---');
+                $html .= sprintf('<option value="%d">%s</option>', $args['parent'], apply_filters('search_child_term_placeholder','---'));
             }
 
             foreach ($terms as $term) {

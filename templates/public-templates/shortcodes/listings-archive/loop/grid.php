@@ -146,7 +146,7 @@
             <?php if ( ! empty( $display_category ) && empty( $cats ) ) { ?>
               <div class="atbd_content_left">
                 <div class="atbd_listing_category">
-                  <a href="#">
+                  <a href="./">
                     <span class="<?php atbdp_icon_type(); ?>-tags"></span>
                     <?php _e('Uncategorized', 'directorist'); ?>
                   </a>

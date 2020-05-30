@@ -376,16 +376,31 @@ class Directorist_Single_Listing {
         $args = array(
 			'disable_map'           => get_directorist_option('disable_map', 0),
 			'hide_map'              => get_post_meta($id, '_hide_map', true),
+			'default_latitude'      => get_directorist_option('default_latitude', '40.7127753'),
+			'default_longitude'     => get_directorist_option('default_longitude', '-74.0059728'),
 			'manual_lat'            => $manual_lat,
 			'manual_lng'            => $manual_lng,
 			'display_map_field'     => apply_filters('atbdp_show_single_listing_map', get_directorist_option('display_map_field', 1)),
 			'listing_location_text' => apply_filters('atbdp_single_listing_map_section_text', get_directorist_option('listing_location_text', __('Location', 'directorist'))),
 			'select_listing_map'    => get_directorist_option('select_listing_map', 'google'),
-			'info_content'          =>  $info_content,
+			'info_content'          => $info_content,
 			'display_map_info'      => $display_map_info,
 			'map_zoom_level'        => get_directorist_option('map_zoom_level', 16),
 			'cat_icon'              => $cat_icon,
         );
+
+        $args['show_map'] = ( ! $args['disable_map'] && (empty($args['hide_map'])) && !empty($args['manual_lng'] || $args['manual_lat']) && !empty($args['display_map_field']) ) ? true : false;
+
+        if ( $args['show_map'] && 'openstreet' === $args['select_listing_map'] ) {
+            wp_localize_script( 'atbdp-single-listing-osm', 'localized_data', $args );
+            wp_enqueue_script( 'atbdp-single-listing-osm' );
+        }
+
+        if ( $args['show_map'] && 'google' === $args['select_listing_map'] ) {
+            wp_localize_script( 'atbdp-single-listing-gmap', 'localized_data', $args );
+            wp_enqueue_script( 'atbdp-single-listing-gmap' );
+        }
+        
 
         return atbdp_return_shortcode_template( 'single-listing/listing-map', $args );
 	}

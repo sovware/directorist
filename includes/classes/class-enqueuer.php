@@ -343,6 +343,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
         wp_register_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 
         // Template Scrips
+        wp_register_script( 'atbdp-single-listing-osm', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/openstreet-map.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-single-listing-gmap', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/single-listing/google-map.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-add-listing-osm', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/add-listing/openstreet-map.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-add-listing-gmap', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/add-listing/google-map.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -396,10 +397,13 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             'directorist_location',
             'directorist_tag',
             'directorist_add_listing',
+            'directorist_listing_map',
         ]);
 
         if ( $map_is_required ) {
             if ( 'openstreet' === $map_type ) {
+                wp_enqueue_style('leaflet-css');
+                wp_enqueue_script('openstreet_layer');
                 wp_enqueue_style( 'leaf-style' );
                 wp_enqueue_script( 'unpkg' );
                 wp_enqueue_script( 'unpkg-index' );
@@ -420,13 +424,15 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             }
         }
 
+        // directorist_listing_map Scripts
+        /* if ( $this->has_shortcodes_in_post( ['directorist_listing_map'] ) ) {
+            wp_enqueue_script('atbdp-single-listing-gmap');
+        } */
+
         // Add Listing Scripts
         if ( $this->has_shortcodes_in_post( ['directorist_add_listing'] ) ) {
             $this->add_inline_css( 'add_listing_css' );
             $enqueue_inline = true;
-
-            wp_enqueue_style('leaflet-css');
-            wp_enqueue_script('openstreet_layer');
         }
 
         // Search Style
@@ -444,15 +450,6 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
         
         if ( $search_style_is_required && ! is_rtl() ) {
             wp_enqueue_style('atbdp-search-style');
-        }
-
-        // Add Listing Scripts 
-        if ( $this->has_shortcodes_in_post( ['directorist_add_listing'] ) ) {
-            $this->add_inline_css( 'add_listing_css' );
-            $enqueue_inline = true;
-
-            wp_enqueue_style('leaflet-css');
-            wp_enqueue_script('openstreet_layer');
         }
 
         // $disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);

@@ -111,8 +111,6 @@
         } ?>
           </div><!-- end ./atbd_content_upper -->
         <?php } 
-        
-
 
         if ( ! empty( $display_category ) || ! empty( $display_view_count ) ) { ob_start() ?>
           <div class="atbd_listing_bottom_content">
@@ -168,7 +166,6 @@
         <?php 
           echo apply_filters('atbdp_listings_grid_cat_view_count', ob_get_clean() );
         }
-        
 
         /**
          * @param mixed $footer_html

@@ -94,4 +94,83 @@
         div.style.left = (position.x - (div.offsetWidth / 2)) + 'px';
         div.style.top = (position.y - div.offsetHeight) + 'px';
     };
+
+
+    $(document).ready(function(){
+        // initialize all vars here to avoid hoisting related misunderstanding.
+        var map, info_window, saved_lat_lng, info_content;
+
+        // Localized Data
+        var loc_default_latitude  = parseFloat(localized_data.default_latitude);
+        var loc_default_longitude = parseFloat(localized_data.default_longitude);
+        var loc_manual_lat        = parseFloat(localized_data.manual_lat);
+        var loc_manual_lng        = parseFloat(localized_data.manual_lng);
+        var loc_map_zoom_level    = parseInt(localized_data.map_zoom_level);
+        var display_map_info      = localized_data.display_map_info;
+        var cat_icon              = localized_data.cat_icon;
+        var info_content          = localized_data.info_content;
+
+        loc_manual_lat = (isNaN(loc_manual_lat)) ? loc_default_latitude : loc_manual_lat;
+        loc_manual_lng = (isNaN(loc_manual_lng)) ? loc_default_longitude : loc_manual_lng;
+
+        $manual_lat = $('#manual_lat');
+        $manual_lng = $('#manual_lng');
+
+        saved_lat_lng = {
+            lat: loc_manual_lat,
+            lng: loc_manual_lng,
+        };
+        
+
+        // create an info window for map
+        if ( display_map_info ) {
+        info_window = new google.maps.InfoWindow({
+            content: info_content,
+            maxWidth: 400 /*Add configuration for max width*/
+        });
+        }
+
+        function initMap() {
+            /* Create new map instance*/
+            map = new google.maps.Map(document.getElementById('gmap'), {
+                zoom: loc_map_zoom_level,
+                center: saved_lat_lng
+            });
+            /*var marker = new google.maps.Marker({
+                map: map,
+                position: saved_lat_lng
+            });*/
+            var marker = new Marker({
+                position: saved_lat_lng,
+                map: map,
+                icon: {
+                    path: MAP_PIN,
+                    fillColor: 'transparent',
+                    fillOpacity: 1,
+                    strokeColor: '',
+                    strokeWeight: 0
+                },
+                map_icon_label: '<div class="atbd_map_shape"><i class="' + cat_icon + '"></i></div>'
+            });
+
+            if ( display_map_info ) {
+            marker.addListener('click', function () {
+                info_window.open(map, marker);
+            });
+            google.maps.event.addListener(info_window, 'domready', function() {
+                var closeBtn = $('#iw-close-btn').get();
+                google.maps.event.addDomListener(closeBtn[0], 'click', function() {
+                    info_window.close();
+                });
+            });
+            }
+        }
+
+        initMap();
+        //Convert address tags to google map links -
+        $('address').each(function () {
+            var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
+            $(this).html(link);
+        });
+    });
 })(jQuery);

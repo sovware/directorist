@@ -3866,9 +3866,12 @@ function bdas_dropdown_terms($args = array(), $echo = true)
                 $html .= sprintf('<select class="%s" data-taxonomy="%s" data-parent="%d"%s>', $args['class'], $args['taxonomy'], $args['parent'], $required);
                 $html .= sprintf('<option value="%s">%s</option>', $args['option_none_value'], $args['show_option_none']);
             } else {
+                $category_placeholder = apply_filters('search_sub_category_placeholder', __('Select a Sub Category','directorist') );
+                $location_placeholder = apply_filters('search_sub_location_placeholder', __('Select a Sub Location','directorist') );
+                $placeholder = ( $args['taxonomy'] == 'at_biz_dir-location') ? $location_placeholder : $category_placeholder;
                 $html .= sprintf('<div class="bdas-child-terms bdas-child-terms-%d">', $args['parent']);
                 $html .= sprintf('<select class="%s" data-taxonomy="%s" data-parent="%d">', $args['class'], $args['taxonomy'], $args['parent']);
-                $html .= sprintf('<option value="%d">%s</option>', $args['parent'], apply_filters('search_child_term_placeholder','---'));
+                $html .= sprintf('<option value="%d">%s</option>', $args['parent'], $placeholder);
             }
 
             foreach ($terms as $term) {

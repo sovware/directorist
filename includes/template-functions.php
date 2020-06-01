@@ -125,16 +125,15 @@ function atbdp_listings_loop( $loop_file, $atts = array() ) {
 
 // atbdp_listings_map
 function atbdp_listings_map( $atts ) {
-    $model              = new Directorist_All_Listings( $atts );
+    $model = new Directorist_All_Listings( $atts );
     $select_listing_map = $model->select_listing_map;
-
-    if ( 'google' != $select_listing_map ) {
-        atbdp_get_shortcode_template( 'listings-archive/loop/openstreet-map', null, $model, true );
-
+    
+    if ( 'openstreet' === $select_listing_map ) {
+        $model->load_openstreet_map();
         return;
     }
 
-    if ( 'google' == $select_listing_map ) {
+    if ( 'google' === $select_listing_map ) {
         atbdp_get_shortcode_template( 'listings-archive/loop/google-map', null, $model, true );
     }
 }

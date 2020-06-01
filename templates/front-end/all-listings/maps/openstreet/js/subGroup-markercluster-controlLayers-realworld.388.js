@@ -1,11 +1,11 @@
 (function ($) {
-    jQuery(document).ready(function ($) {
-var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    jQuery(document).ready(function () {
+    var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
     }),
     latlng = L.latLng(atbdp_lat_lon.lat, atbdp_lat_lon.lon),
-    fullCount = addressPoints.length,
+    fullCount = listings_data.length,
     quarterCount = Math.round(fullCount / 4);
 
 var map = L.map('map', {center: latlng, zoom: atbdp_map.zoom, scrollWheelZoom: false, layers: [tiles]});
@@ -21,17 +21,16 @@ var mcg = L.markerClusterGroup(),
 mcg.addTo(map);
 var test = $(".openstreet_icon");
 
-for (i = 0; i < fullCount; i++) {
-
+for (i = 0; i < listings_data.length; i++) {
+    const listing = listings_data[i];
     const fontAwesomeIcon = L.divIcon({
-        html: '<div class="atbd_map_shape"><span class="'+test[i].value+'"></span></div>',
+        html: '<div class="atbd_map_shape"><span class="' + listing.cat_icon + '"></span></div>',
         iconSize: [20, 20],
         className: 'myDivIcon'
     });
 
-    a = addressPoints[i];
-    title = a[2];
-    marker = L.marker([a[0], a[1]], {icon: fontAwesomeIcon});
+    title = listing.info_content;
+    marker = L.marker([listing.manual_lat, listing.manual_lng], { icon: fontAwesomeIcon });
     marker.bindPopup(title);
 
     marker.addTo(i < quarterCount ? group1 : i < quarterCount * 2 ? group2 : i < quarterCount * 3 ? group3 : group4);
@@ -48,6 +47,19 @@ group1.addTo(map); // Adding to map now adds all child layers into the parent gr
 group2.addTo(map);
 group3.addTo(map);
 group4.addTo(map);
+
+
+if ( atbdp_map.map_is_disabled ) {
+    const setIntForIcon = setInterval(() => {
+        if($('.leaflet-marker-icon').length){
+
+           $('.leaflet-pane.leaflet-popup-pane').hide();
+            clearInterval(setIntForIcon)
+        }
+    },1000);
+}
+
+
     });
 })(jQuery);
 

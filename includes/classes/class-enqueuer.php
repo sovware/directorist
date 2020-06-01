@@ -244,7 +244,9 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
 
         wp_register_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js', array(), ATBDP_VERSION, true );
 
-        wp_register_script( 'leaflet-subgroup-realworld', ATBDP_PUBLIC_ASSETS . 'js/open-street-map/subGroup-merkercluster-controlLayers-realworld.388.js' );
+        wp_register_script( 'leaflet-load-scripts', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/load-scripts.js', array(), ATBDP_VERSION, true );
+        wp_register_script( 'leaflet-subgroup-realworld', ATBDP_URL . 'public/assets/js/openstreet-map/subGroup-merkercluster-controlLayers-realworld.388ss.js');
+        
         wp_register_script( 'atbdp-map-view', ATBDP_PUBLIC_ASSETS . 'js/map-view.js' );
 
         // we need select2 js on taxonomy edit screen to let the use to select the fonts-awesome icons ans search the icons easily

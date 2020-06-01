@@ -171,6 +171,111 @@ if ( ! class_exists( 'Directorist_All_Listings' ) ):
             return ob_get_clean();
         }
 
+        // load_openstreet_map
+        public function load_openstreet_map() {
+            $script_path = ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/subGroup-markercluster-controlLayers-realworld.388.js';
+            $opt = $this->get_map_options();
+
+            wp_enqueue_script('leaflet-subgroup-realworld');
+            wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $opt );
+            wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
+                'lat'=>40.7128,
+                'lon'=>74.0060,
+            ));
+
+            $this->render_osm_map_info_card('leaflet-subgroup-realworld');
+
+            $map_height = $this->listings_map_height . "px;";
+            echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
+            
+            wp_localize_script( 'leaflet-load-scripts', 'loc_data', [
+                'script_path'  => $script_path
+            ]);
+            wp_enqueue_script('leaflet-load-scripts');
+        }
+
+        // render_osm_map_info_card
+        public function render_osm_map_info_card( $script_id = '' ) {
+            $opt = $this->get_map_options();
+            
+            $listings_data = [];
+            $lat_lon = [];
+
+            while ( $this->all_listings->have_posts() ) : $this->all_listings->the_post();
+                global $post; $ls_data = [];
+
+                $ls_data['manual_lat']      = get_post_meta($post->ID, '_manual_lat', true);
+                $ls_data['manual_lng']      = get_post_meta($post->ID, '_manual_lng', true);
+                $ls_data['listing_img']     = get_post_meta(get_the_ID(), '_listing_img', true);
+                $ls_data['listing_prv_img'] = get_post_meta(get_the_ID(), '_listing_prv_img', true);
+                $ls_data['address']         = get_post_meta(get_the_ID(), '_address', true);
+
+                $lat_lon = [ 
+                    'lat' => $ls_data['manual_lat'],
+                    'lon' => $ls_data['manual_lng']
+                ];
+
+                if ( ! empty( $ls_data['listing_prv_img']) ) {
+                    $ls_data['prv_image']   = atbdp_get_image_source( $ls_data['listing_prv_img'], 'large' );
+                }
+
+                $ls_data['default_image'] = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                
+                if ( ! empty( $ls_data['listing_img'][0] ) ) {
+                    $ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
+                }
+
+                $cats      = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+                $font_type = get_directorist_option('font_type','line');
+
+                if ( !empty($cats) ) {
+                    $cat_icon = get_cat_icon($cats[0]->term_id);
+                }
+
+                $cat_icon  = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
+                $icon_type = substr($cat_icon, 0,2);
+                $fa_or_la  = ('la' == $icon_type) ? "la " : "fa ";
+                $cat_icon  = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
+
+                $ls_data['cat_icon'] = $cat_icon;
+                $opt['ls_data'] = $ls_data;
+                
+                ob_start();
+
+                if (!empty($opt['display_map_info']) && (!empty($opt['display_image_map']) || !empty($opt['display_title_map']) || $opt['display_address_map']) || !empty($opt['display_direction_map'])) {
+                    atbdp_get_shortcode_template( 'listings-archive/loop/openstreet-map', $opt );
+                }
+
+                $ls_data['info_content'] = trim( ob_get_clean() );
+                $listings_data[] = $ls_data;
+            endwhile;
+
+            wp_localize_script( $script_id, 'atbdp_lat_lon', $lat_lon );
+            wp_localize_script( $script_id, 'listings_data', $listings_data );
+        }
+
+        // get_map_options
+        public function get_map_options() {
+            $opt['select_listing_map']     = $this->select_listing_map;
+            $opt['crop_width']             = get_directorist_option('crop_width', 360);
+            $opt['crop_height']            = get_directorist_option('crop_height', 300);
+            $opt['display_map_info']       = get_directorist_option('display_map_info', 1);
+            $opt['display_image_map']      = get_directorist_option('display_image_map', 1);
+            $opt['display_title_map']      = get_directorist_option('display_title_map', 1);
+            $opt['display_address_map']    = get_directorist_option('display_address_map', 1);
+            $opt['display_direction_map']  = get_directorist_option('display_direction_map', 1);
+            $opt['zoom']                   = get_directorist_option('map_zoom_level', 16);
+
+            $disable_single_listing = get_directorist_option('disable_single_listing', false);
+            $disable_single_listing = ( $disable_single_listing === true || $disable_single_listing === '1' ) ? true : false;
+            $opt['disable_single_listing'] = $disable_single_listing;
+
+            $map_is_disabled = ( empty($opt['display_map_info']) && (empty($opt['display_image_map']) || empty($opt['display_title_map']) || empty($opt['display_address_map']) || empty($opt['display_direction_map']))) ? true : false;
+            $opt['map_is_disabled'] = $map_is_disabled;
+
+            return $opt;
+        }
+
         // category_field_data
         public function category_field_data() {
             $slug             = ! empty( $this->term_slug ) ? $this->term_slug : '';

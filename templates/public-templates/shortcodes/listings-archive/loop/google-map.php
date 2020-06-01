@@ -1,7 +1,8 @@
-<div class="marker" data-latitude="<?php echo $ls_data['manual_lat']; ?>" data-longitude="<?php echo $ls_data['manual_lng']; ?>" data-icon="<?php echo ! empty( $cats ) ? $cat_icon : 'fa fa-map-marker'; ?>">
+<div class="marker" data-latitude="<?php echo $ls_data['manual_lat']; ?>" data-longitude="<?php echo $ls_data['manual_lng']; ?>" data-icon="<?php echo $ls_data['cat_icon'] ?>">
     <?php if ( ! $map_is_disabled ) { ?>
     <div class="map-info-wrapper">
-        <input type="hidden" id="icon" value="fa fa-flag">
+        <!-- <input type="hidden" id="icon" value="fa fa-flag"> -->
+        <!-- <input type="hidden" class="atbdp-info-content-icon" value="fa fa-flag"> -->
         <?php if ( ! empty( $display_image_map ) ) { ?>
         <div class="map-info-img">
             <?php if ( ! $disable_single_listing ) {
@@ -51,7 +52,7 @@
             <?php do_action( 'atbdp_after_listing_content', $ls_data['post_id'], 'map' );?>
         </div>
         <?php } ?>
-        
+
         <span id="iw-close-btn"><i class="la la-times"></i></span>
     </div>
     <?php }?>

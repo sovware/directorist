@@ -361,7 +361,7 @@ class Directorist_Single_Listing {
             $info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
         }
         if(!empty($display_direction_map)) {
-            $info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div><span id='iw-close-btn'><i class='la la-times'></i></span></div></div>";
+            $info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div><span class='iw-close-btn'><i class='la la-times'></i></span></div></div>";
         }
 
         $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);

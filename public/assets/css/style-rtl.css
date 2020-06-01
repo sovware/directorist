@@ -1148,8 +1148,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 0;
 }
 
-.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details .miw-contents-footer #iw-close-btn,
-.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details .miw-contents-footer #iw-close-btn {
+.atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details .miw-contents-footer .iw-close-btn,
+.atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details .miw-contents-footer .iw-close-btn {
   display: none;
 }
 
@@ -1178,7 +1178,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   background: #444752;
 }
 
-.leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details #iw-close-btn {
+.leaflet-popup-content-wrapper .leaflet-popup-content .map-info-wrapper .map-info-details .iw-close-btn {
   display: none;
 }
 
@@ -3366,8 +3366,8 @@ span.atbd_get_loc_wid {
   display: none !important;
 }
 
-.atbdp-map .gm-style .gm-style-iw .map-info-wrapper #iw-close-btn,
-.atbd_google_map .gm-style .gm-style-iw .map-info-wrapper #iw-close-btn {
+.atbdp-map .gm-style .gm-style-iw .map-info-wrapper .iw-close-btn,
+.atbd_google_map .gm-style .gm-style-iw .map-info-wrapper .iw-close-btn {
   position: absolute;
   width: 25px;
   height: 25px;
@@ -3384,8 +3384,8 @@ span.atbd_get_loc_wid {
   transition: 0.3s ease;
 }
 
-.atbdp-map .gm-style .gm-style-iw .map-info-wrapper #iw-close-btn:hover,
-.atbd_google_map .gm-style .gm-style-iw .map-info-wrapper #iw-close-btn:hover {
+.atbdp-map .gm-style .gm-style-iw .map-info-wrapper .iw-close-btn:hover,
+.atbd_google_map .gm-style .gm-style-iw .map-info-wrapper .iw-close-btn:hover {
   background: #444752;
 }
 

@@ -158,7 +158,7 @@
                 info_window.open(map, marker);
             });
             google.maps.event.addListener(info_window, 'domready', function() {
-                var closeBtn = $('#iw-close-btn').get();
+                var closeBtn = $('.iw-close-btn').get();
                 google.maps.event.addDomListener(closeBtn[0], 'click', function() {
                     info_window.close();
                 });

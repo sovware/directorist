@@ -60,7 +60,7 @@ if(!empty($display_address_map) && !empty($ad)) {
     $info_content .= apply_filters("atbdp_address_in_map_info_window", "<address>{$ad}</address>");
 }
 if(!empty($display_direction_map)) {
-    $info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div><span id='iw-close-btn'><i class='la la-times'></i></span></div></div>";
+    $info_content .= "<div class='map_get_dir'><a href='http://www.google.com/maps?daddr={$manual_lat},{$manual_lng}' target='_blank'> " . __('Get Direction', 'directorist') . "</a></div><span class='iw-close-btn'><i class='la la-times'></i></span></div></div>";
 }
 /*END INFO WINDOW CONTENT*/
 $map_zoom_level = get_directorist_option('map_zoom_level', 16);
@@ -241,7 +241,7 @@ if ('openstreet' == $select_listing_map) {
                 info_window.open(map, marker);
             });
             google.maps.event.addListener(info_window, 'domready', function() {
-                var closeBtn = $('#iw-close-btn').get();
+                var closeBtn = $('.iw-close-btn').get();
                 google.maps.event.addDomListener(closeBtn[0], 'click', function() {
                     info_window.close();
                 });

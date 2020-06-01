@@ -134,7 +134,7 @@ function atbdp_listings_map( $atts ) {
     }
 
     if ( 'google' === $select_listing_map ) {
-        atbdp_get_shortcode_template( 'listings-archive/loop/google-map', null, $model, true );
+        $model->load_google_map();
     }
 }
 

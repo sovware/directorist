@@ -1096,44 +1096,9 @@ if (!class_exists('ATBDP_Shortcode')):
         }
 
         public function all_listing( $atts )
-        {
-            $listings_model = new Directorist_All_Listings( [ 'atts' => $atts ] );
-
-            wp_enqueue_script('adminmainassets');
-            wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
-            wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
-                'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
-                'ajax_url' => admin_url('admin-ajax.php'),
-                'added_favourite' => __('Added to favorite', 'directorist'),
-                'please_login' => __('Please login first', 'directorist')
-            ));
-            wp_enqueue_script('atbdp-range-slider');
-
-            wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
-                'Miles'     =>  $listings_model->miles,
-                'default_val'   =>  $listings_model->default_radius_distance
-            ));
-
-            
-            ob_start();
-            
-            if (!empty($listings_model->redirect_page_url)) {
-                $redirect = '<script>window.location="' . esc_url($listings_model->redirect_page_url) . '"</script>';
-                return $redirect;
-            }
-
-            if ( 'listings_with_map' == $listings_model->view ) {
-                $template_file = "listing-with-map/map-view";
-                $extension_file = BDM_TEMPLATES_DIR . '/map-view';
-
-                atbdp_get_shortcode_ext_template( $template_file, $extension_file, null, $listings_model, true );
-                return ob_get_clean();
-            }
-            
-            $template_file = "listings-archive/listings-{$listings_model->view}";
-            atbdp_get_shortcode_template( $template_file, null, $listings_model, true );
-
-            return ob_get_clean();
+        {   
+            $listings = new Directorist_Listings($atts);
+            return $listings->render_shortcode();
         }
 
         public function user_dashboard($atts)

@@ -5,7 +5,7 @@
  * @since 5.5.1
  * @package Directorist
  */
-do_action('atbdp_before_all_listings_list', $all_listings);
+do_action('atbdp_before_all_listings_list', $listings);
 ?>
 
 <div id="directorist" class="atbd_wrapper ads-advaced--wrapper">
@@ -15,15 +15,14 @@ do_action('atbdp_before_all_listings_list', $all_listings);
      * @since 7.0
      * @hooked Directorist_Template_Hooks::archive_header - 10
      */
-    do_action( 'directorist_archive_header', $atts );
+    do_action( 'directorist_archive_header', $listings );
 
     /**
      * @since 5.0
      * It fires before the listings columns
      * It only fires if the parameter [directorist_all_listing action_before_after_loop="yes"]
      */
-    $action_before_after_loop = !empty($action_before_after_loop) ? $action_before_after_loop : '';
-    if ('yes' === $action_before_after_loop) {
+    if ($listings->action_before_after_loop) {
         do_action('atbdp_before_list_listings_loop');
     }
 
@@ -35,13 +34,10 @@ do_action('atbdp_before_all_listings_list', $all_listings);
         <div class="row">
             <div class="<?php echo apply_filters('atbdp_listing_list_view_html_class', 'col-md-12') ?>">
             <?php
-            if ($all_listings->have_posts()) {
-                while ($all_listings->have_posts()) {
-                    $all_listings->the_post();
-                    atbdp_listings_loop( 'list', $atts );
-                }
-                wp_reset_postdata();
-            } else { ?>
+            if ($listings->query->have_posts()) {
+                $listings->loop('list');
+            }
+            else { ?>
                 <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
             <?php }
             ?>
@@ -56,10 +52,8 @@ do_action('atbdp_before_all_listings_list', $all_listings);
                  * @since 5.0
                  */
                 do_action('atbdp_before_listings_pagination');
-                $show_pagination = !empty($show_pagination) ? $show_pagination : '';
-                if ('yes' == $show_pagination) {
-                    $paged = !empty($paged) ? $paged : '';
-                    echo atbdp_pagination($all_listings, $paged);
+                if ($listings->show_pagination) {
+                    echo atbdp_pagination($listings->query, $listings->paged);
                 } ?>
             </div>
         </div>
@@ -70,8 +64,7 @@ do_action('atbdp_before_all_listings_list', $all_listings);
          * to add custom html
          * It only fires if the parameter [directorist_all_listing action_before_after_loop="yes"]
          */
-        $action_before_after_loop = !empty($action_before_after_loop) ? $action_before_after_loop : '';
-        if ('yes' === $action_before_after_loop) {
+        if ($listings->action_before_after_loop) {
             do_action('atbdp_after_grid_listings_loop');
         }
         ?>

@@ -2402,7 +2402,7 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
                                             <?php
                                             }
-                                            the_thumbnail_card();
+                                            atbdp_thumbnail_card();
                                             if (empty($disable_single_listing)) {
                                                 echo '</a>';
                                             }
@@ -2833,7 +2833,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                             <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
                                                 <?php
                                                 }
-                                                the_thumbnail_card();
+                                                atbdp_thumbnail_card();
                                                 if (empty($disable_single_listing)) {
                                                     echo '</a>';
                                                 }
@@ -3242,7 +3242,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                 <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"<?php echo $thumbnail_link_attr; ?>>
                                     <?php
                                     }
-                                    the_thumbnail_card();
+                                    atbdp_thumbnail_card();
                                     if (empty($disable_single_listing)) {
                                         echo '</a>';
                                     }
@@ -4638,7 +4638,7 @@ function atbdp_logged_in_user(){
     return _wp_get_current_user()->exists();
 }
 
-function the_thumbnail_card($img_src = '', $_args = array())
+function atbdp_thumbnail_card($img_src = '', $_args = array())
 {
     $args = apply_filters('atbdp_preview_image_args', $_args);
 

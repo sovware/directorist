@@ -8,7 +8,7 @@
             if ( ! $single_listing_is_disabled ) { ?>
             <a href="<?php echo $listings_link; ?>" <?php echo $listings_link_attr; ?>>
             <?php }
-            the_thumbnail_card();
+            atbdp_thumbnail_card();
 
             if ( ! $single_listing_is_disabled ) {
               echo '</a>';
@@ -44,7 +44,7 @@
         <?php
           /**
            * @since 5.0
-           * @hooked Directorist_Template_Hooks::featured_badge - 10
+           * @hooked Directorist_Template_Hooks::featured_badge_list_view - 10
            * @hooked Directorist_Template_Hooks::popular_badge - 15
            * @hooked Directorist_Template_Hooks::new_listing_badge - 20
            */

@@ -54,7 +54,7 @@
                                         }
 
                                         if ($has_thumbnail) {
-                                            the_thumbnail_card($thumbnail_img);
+                                            atbdp_thumbnail_card($thumbnail_img);
                                             // echo '<img src="' . $thumbnail_img . '" alt="' . esc_html(stripslashes(get_the_title())) . '">';
                                         }
                                         ?>

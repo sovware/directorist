@@ -45,8 +45,7 @@
 <div class="row atbd_authors_listing">
     <?php
     
-    if ($listings){
-        
+    if ($listings) {
         listing_view_by_grid($all_listings, $paginate, $is_disable_price);
     }else{
         // for dev

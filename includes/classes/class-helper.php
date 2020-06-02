@@ -176,8 +176,8 @@ if ( ! class_exists( 'ATBDP_Helper' ) ):
         return $gallery_image;
     }
 
-    // the_thumbnail_card
-    public static function the_thumbnail_card( $img_src = '', $_args = array() ) {
+    // atbdp_thumbnail_card
+    public static function atbdp_thumbnail_card( $img_src = '', $_args = array() ) {
         $args = apply_filters( 'atbdp_preview_image_args', $_args );
 
         // Default

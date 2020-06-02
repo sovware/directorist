@@ -10,7 +10,6 @@ class Directorist_Template_Hooks {
     protected static $instance = null;
 
     private function __construct( $id = '' ) {
-
         // Author Profile
         add_action( 'directorist_author_profile_content', array( __CLASS__, 'author_profile_header' ) );
         add_action( 'directorist_author_profile_content', array( __CLASS__, 'author_profile_about' ), 15 );
@@ -35,11 +34,22 @@ class Directorist_Template_Hooks {
         // Listing Archive
         add_action( 'directorist_archive_header',    array( __CLASS__, 'archive_header' ) );
 
-        // Listings Badges
+        // Listings Badges - Grid View
         add_filter( 'atbdp_upper_badges',      array( __CLASS__, 'business_hours_badge') );
         add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'featured_badge') );
         add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'popular_badge'), 15 );
         add_filter( 'atbdp_grid_lower_badges', array( __CLASS__, 'new_listing_badge'), 20 );
+
+        // Listings Badges - List View
+        add_filter( 'atbdp_list_lower_badges', array( __CLASS__, 'featured_badge_list_view'), 10 );
+        add_filter( 'atbdp_list_lower_badges', array( __CLASS__, 'populer_badge_list_view'), 15 );
+        add_filter( 'atbdp_list_lower_badges', array( __CLASS__, 'new_badge_list_view'), 20 );
+
+        // Listings Meta Info - List View
+        add_filter( 'atbdp_listings_list_review_price', array( __CLASS__, 'review_in_list_review_price'), 10 );
+        add_filter( 'atbdp_listings_list_review_price', array( __CLASS__, 'price_in_list_review_price'), 15 );
+        add_filter( 'atbdp_listings_list_review_price', array( __CLASS__, 'business_hour_in_list_review_price'), 20 );
+
         
         // Listing Thumbnail Area
         add_action( 'atbdp_listing_thumbnail_area', array( __CLASS__, 'mark_as_favourite_button') );
@@ -51,6 +61,118 @@ class Directorist_Template_Hooks {
             self::$instance = new self;
         }
         return self::$instance;
+    }
+
+    // business_hour_in_list_review_price
+    public static function business_hour_in_list_review_price( $content ) {
+        $plan_hours              = true;
+        $disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
+        $enable247hour           = get_post_meta(get_the_ID(), '_enable247hour', true);
+        $bdbh                    = get_post_meta(get_the_ID(), '_bdbh', true);
+        $business_hours          = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array();
+
+        if (is_fee_manager_active()) {
+            $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
+        }
+
+        if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
+            // lets check is it 24/7
+            if ( ! empty($enable247hour) ) {
+                 $new_content = "<span class='atbd_badge atbd_badge_open'>" . get_directorist_option('open_badge_text') . "</span>";
+            } else {
+                // show the business hour in an unordered list
+                $new_content = BD_Business_Hour()->show_business_open_close($business_hours, false); 
+            }
+            $content .= $new_content;
+        }
+
+        return $content;
+    }
+
+    // price_in_list_review_price
+    public static function price_in_list_review_price( $content ) {
+        $listing_pricing = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
+        $display_price = get_directorist_option('display_price', 1);
+        $display_pricing_field = get_directorist_option('display_pricing_field', 1);
+        $price_range = get_post_meta(get_the_ID(), '_price_range', true);
+        $price = get_post_meta(get_the_ID(), '_price', true);
+        $is_disable_price = get_directorist_option('disable_list_price');
+
+        $listing_pricing = !empty($listing_pricing) ? $listing_pricing : '';
+        if (!empty($display_price) && !empty($display_pricing_field)) {
+            if (!empty($price_range) && ('range' === $listing_pricing)) {
+                $new_content = atbdp_display_price_range($price_range);
+            } else {
+                $new_content = atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
+            }
+
+            ob_start();
+            echo $new_content;
+            
+            /**
+              * Fires after the price of the listing is rendered
+              *
+              *
+              * @since 3.1.0
+              */
+            do_action('atbdp_after_listing_price');
+
+            $final_content = ob_get_clean();
+            $content .= $final_content;
+        }
+
+        return $content;
+    }
+
+    // review_in_list_review_price
+    public static function review_in_list_review_price( $content ) {
+        $display_review = get_directorist_option('enable_review', 1);
+
+        if (!empty($display_review)) {
+            $average = ATBDP()->review->get_average(get_the_ID()); ob_start(); ?>
+            <span class="atbd_meta atbd_listing_rating">
+                <?php echo $average; ?><i class="<?php echo atbdp_icon_type(); ?>-star"></i>
+            </span>
+            <?php
+            $new_content = ob_get_clean();
+            $content .= $new_content;
+        }
+
+        return $content;
+    }
+
+    // new_badge_list_view
+    public static function new_badge_list_view( $content ) {
+        $content .= new_badge();
+
+        return $content;
+    }
+
+    // populer_badge_list_view
+    public static function populer_badge_list_view( $content ) {
+        $display_popular_badge_cart = get_directorist_option('display_popular_badge_cart', 1);
+        $popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
+
+        if ( atbdp_popular_listings(get_the_ID()) === get_the_ID() && !empty($display_popular_badge_cart)) {
+            $badge = "<span class='atbd_badge atbd_badge_popular'>$popular_badge_text;</span>";
+            $content .= $badge;
+        }
+
+        return $content;
+    }
+
+    // featured_badge_list_view
+    public static function featured_badge_list_view( $content ) {
+        $featured = get_post_meta(get_the_ID(), '_featured', true);
+        $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
+        $feature_badge_text = get_directorist_option('feature_badge_text', 'Featured');
+
+        if ( $featured && !empty( $display_feature_badge_cart ) ) {
+            $badge = "<span class='atbd_badge atbd_badge_featured'>$feature_badge_text</span>";
+            $content .= $badge;
+        }
+
+        return $content;
     }
 
     // mark_as_favourite_button
@@ -65,10 +187,11 @@ class Directorist_Template_Hooks {
     // featured_badge
     public static function featured_badge( $content ) {
         $featured = get_post_meta( get_the_ID(), '_featured', true );
+        $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
         $feature_badge_text = get_directorist_option( 'feature_badge_text', 'Featured' );
 
         if ( $featured && !empty($display_feature_badge_cart) ) {
-            $badge_html .= '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
+            $badge_html = '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>';
             return $content . $badge_html;
         }
 
@@ -79,7 +202,7 @@ class Directorist_Template_Hooks {
     public static function popular_badge( $content ) {
         $popular_badge_text = get_directorist_option( 'popular_badge_text', 'Popular' );
         $popular_listing_id = atbdp_popular_listings(get_the_ID());
-
+        $display_popular_badge_cart = get_directorist_option('display_popular_badge_cart', 1);
         
         if ($popular_listing_id === get_the_ID() && !empty($display_popular_badge_cart)) {
             $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';

@@ -136,7 +136,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"<?php echo $thumbnail_link_attr;?>>
                                             <?php
                                             }
-                                            the_thumbnail_card();
+                                            atbdp_thumbnail_card();
 
                                             if (empty($disable_single_listing)) {
                                                 echo '</a>';

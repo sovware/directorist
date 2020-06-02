@@ -34,9 +34,7 @@
                                                 if (('none' != $icon)) {
                                                     ?>
                                                     <div class="icon">
-
                                                         <span class="<?php echo ('la' === $icon_type)?$icon_type.' '. $icon:'fa '. $icon;?>"></span>
-
                                                     </div>
                                                     <?php
                                                 }

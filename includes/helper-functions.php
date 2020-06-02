@@ -4657,28 +4657,26 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
 
     $thumbnail_img = '';
 
-    $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
     $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
+    $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
     $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
     if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
         $thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
-        $thumbnail_id = $listing_img[0];
+        $alt = get_post_meta($listing_img[0], '_wp_attachment_image_alt', TRUE);
     }
 
     if ( ! empty( $listing_prv_img ) ) {
         $thumbnail_img = atbdp_get_image_source( $listing_prv_img, $image_quality );
-        $thumbnail_id = $listing_prv_img;
+        $alt = get_post_meta($listing_prv_img, '_wp_attachment_image_alt', TRUE);
     }
 
     if ( ! empty( $img_src ) ) {
         $thumbnail_img = $img_src;
-        $thumbnail_id = $img_src;
     }
 
     if ( empty( $thumbnail_img ) ) {
         $thumbnail_img = $default_image_src;
-        $thumbnail_id = $default_image_src;
     }
 
     /* if ( 'cover' === $image_size && false === $by_ratio ) {

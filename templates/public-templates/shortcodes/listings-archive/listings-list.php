@@ -43,7 +43,6 @@ do_action('atbdp_before_all_listings_list', $listings);
             ?>
             </div>
         </div>
-        <!--end row-->
 
         <div class="row">
             <div class="col-lg-12">

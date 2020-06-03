@@ -1,42 +1,41 @@
 <?php
 if (!class_exists('ATBDP_Shortcode')):
 
-    class ATBDP_Shortcode
-    {
+    class ATBDP_Shortcode {
 
-        public function __construct()
-        {
-            add_shortcode('directorist_search_listing', array($this, 'search_listing'));
-            add_shortcode('directorist_search_result', array($this, 'search_result'));
-            add_shortcode('directorist_author_profile', array($this, 'author_profile'));
-            add_shortcode('directorist_add_listing', array($this, 'add_listing'));
+        public function __construct() {
+            add_shortcode('directorist_search_listing',      array($this, 'search_listing'));
+            add_shortcode('directorist_search_result',       array($this, 'search_result'));
+            add_shortcode('directorist_author_profile',      array($this, 'author_profile'));
+            add_shortcode('directorist_add_listing',         array($this, 'add_listing')); 
             add_shortcode('directorist_custom_registration', array($this, 'user_registration'));
-            add_shortcode('directorist_user_login', array($this, 'custom_user_login'));
-            add_shortcode('directorist_user_dashboard', array($this, 'user_dashboard'));
-            add_shortcode('directorist_all_listing', array($this, 'all_listing'));
-            add_shortcode('directorist_all_categories', array($this, 'all_categories'));
-            add_shortcode('directorist_category', array($this, 'atbdp_category'));
-            add_shortcode('directorist_all_locations', array($this, 'all_locations'));
-            add_shortcode('directorist_location', array($this, 'atbdp_location'));
-            add_shortcode('directorist_tag', array($this, 'atbdp_tag'));
-            $checkout = new ATBDP_Checkout;
-            add_shortcode('directorist_checkout', array($checkout, 'display_checkout_content'));
-            add_shortcode('directorist_payment_receipt', array($checkout, 'payment_receipt'));
-            add_shortcode('directorist_transaction_failure', array($checkout, 'transaction_failure'));
+            add_shortcode('directorist_user_login',          array($this, 'custom_user_login'));
+            add_shortcode('directorist_user_dashboard',      array($this, 'user_dashboard'));
+            add_shortcode('directorist_all_listing',         array($this, 'all_listing'));
+            add_shortcode('directorist_all_categories',      array($this, 'all_categories'));
+            add_shortcode('directorist_category',            array($this, 'atbdp_category'));
+            add_shortcode('directorist_all_locations',       array($this, 'all_locations'));
+            add_shortcode('directorist_location',            array($this, 'atbdp_location'));
+            add_shortcode('directorist_tag',                 array($this, 'atbdp_tag'));
             
-            add_shortcode('directorist_listing_top_area', array( $this, 'directorist_listing_header' ));
-            add_shortcode('directorist_listing_custom_fields',array($this,'directorist_custom_field'));
-            add_shortcode('directorist_listing_video',array($this,'directorist_listing_video'));
-            add_shortcode('directorist_listing_map',array($this,'directorist_listing_map'));
-            add_shortcode('directorist_listing_contact_information',array($this,'directorist_listing_contact_information'));
-            add_shortcode('directorist_listing_author_info', array($this,'directorist_listing_author_details'));
-            add_shortcode('directorist_listing_contact_owner',array($this,'directorist_listing_contact_owner'));
-            add_shortcode('directorist_listing_review',array($this,'directorist_listing_review'));
-            add_shortcode('directorist_related_listings',array($this,'directorist_related_listings'));
+            add_shortcode('directorist_listing_top_area',             array($this, 'directorist_listing_header' ));
+            add_shortcode('directorist_listing_custom_fields',        array($this, 'directorist_custom_field'));
+            add_shortcode('directorist_listing_video',                array($this, 'directorist_listing_video'));
+            add_shortcode('directorist_listing_map',                  array($this, 'directorist_listing_map'));
+            add_shortcode('directorist_listing_contact_information',  array($this, 'directorist_listing_contact_information'));
+            add_shortcode('directorist_listing_author_info',          array($this, 'directorist_listing_author_details'));
+            add_shortcode('directorist_listing_contact_owner',        array($this, 'directorist_listing_contact_owner'));
+            add_shortcode('directorist_listing_review',               array($this, 'directorist_listing_review'));
+            add_shortcode('directorist_related_listings',             array($this, 'directorist_related_listings'));
 
-            add_action('wp_ajax_atbdp_custom_fields_listings_front', array($this, 'ajax_callback_custom_fields'), 10, 2);
-            add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front', array($this, 'ajax_callback_custom_fields'), 10, 2);
-            add_action('wp_ajax_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
+            $checkout = new ATBDP_Checkout;
+            add_shortcode('directorist_checkout',            array($checkout, 'display_checkout_content'));
+            add_shortcode('directorist_payment_receipt',     array($checkout, 'payment_receipt'));
+            add_shortcode('directorist_transaction_failure', array($checkout, 'transaction_failure'));
+
+            add_action('wp_ajax_atbdp_custom_fields_listings_front',                 array($this, 'ajax_callback_custom_fields'), 10, 2);
+            add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front',          array($this, 'ajax_callback_custom_fields'), 10, 2);
+            add_action('wp_ajax_atbdp_custom_fields_listings_front_selected',        array($this, 'ajax_callback_custom_fields'), 10, 2);
             add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
         }
 
@@ -1096,44 +1095,9 @@ if (!class_exists('ATBDP_Shortcode')):
         }
 
         public function all_listing( $atts )
-        {
-            $listings_model = new Directorist_All_Listings( [ 'atts' => $atts ] );
-
-            wp_enqueue_script('adminmainassets');
-            wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
-            wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
-                'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
-                'ajax_url' => admin_url('admin-ajax.php'),
-                'added_favourite' => __('Added to favorite', 'directorist'),
-                'please_login' => __('Please login first', 'directorist')
-            ));
-            wp_enqueue_script('atbdp-range-slider');
-
-            wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
-                'Miles'     =>  $listings_model->miles,
-                'default_val'   =>  $listings_model->default_radius_distance
-            ));
-
-            
-            ob_start();
-            
-            if (!empty($listings_model->redirect_page_url)) {
-                $redirect = '<script>window.location="' . esc_url($listings_model->redirect_page_url) . '"</script>';
-                return $redirect;
-            }
-
-            if ( 'listings_with_map' == $listings_model->view ) {
-                $template_file = "listing-with-map/map-view";
-                $extension_file = BDM_TEMPLATES_DIR . '/map-view';
-
-                atbdp_get_shortcode_ext_template( $template_file, $extension_file, null, $listings_model, true );
-                return ob_get_clean();
-            }
-            
-            $template_file = "listings-archive/listings-{$listings_model->view}";
-            atbdp_get_shortcode_template( $template_file, null, $listings_model, true );
-
-            return ob_get_clean();
+        {   
+            $listings = new Directorist_Listings($atts);
+            return $listings->render_shortcode();
         }
 
         public function user_dashboard($atts)

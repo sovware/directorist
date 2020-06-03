@@ -90,54 +90,6 @@ function atbdp_get_widget_template( $template, $args = array(), $helper = null, 
     atbdp_get_template( $template, $args, $helper, $extract_helper );
 }
 
-// atbdp_listings_header
-function atbdp_listings_header( $atts = array() ) {
-    ob_start();
-
-    if ( ! empty( $atts['header'] ) && 'yes' !== $atts['header'] ) {
-        return '';
-    }
-
-    $model = new Directorist_All_Listings( $atts );
-
-    atbdp_get_shortcode_template( 'listings-archive/listings-header', null, $model, true );
-    $header = ob_get_clean();
-
-    /**
-     * @since 6.3.5
-     *
-     * @filter key: atbdp_listing_header_html
-     */
-    $template_data = (array)$model;
-    extract( $template_data );
-
-    $filter_args = compact( 'display_header', 'header_container_fluid', 'search_more_filters_fields', 'listing_filters_button', 'header_title', 'listing_filters_icon', 'display_viewas_dropdown', 'display_sortby_dropdown', 'filters', 'view_as_text', 'view_as_items', 'sort_by_text', 'sort_by_items', 'listing_location_address', 'filters_button' );
-    echo apply_filters( 'atbdp_listing_header_html', $header, $filter_args );
-}
-
-// atbdp_listings_loop
-function atbdp_listings_loop( $loop_file, $atts = array() ) {
-    $model     = new Directorist_All_Listings( $atts );
-    $loop_data = $model->listings_loop_data();
-
-    atbdp_get_shortcode_template( "listings-archive/loop/$loop_file", $loop_data, $model, true );
-}
-
-// atbdp_listings_map
-function atbdp_listings_map( $atts ) {
-    $model = new Directorist_All_Listings( $atts );
-    $select_listing_map = $model->select_listing_map;
-    
-    if ( 'openstreet' === $select_listing_map ) {
-        $model->load_openstreet_map();
-        return;
-    }
-
-    if ( 'google' === $select_listing_map ) {
-        $model->load_google_map();
-    }
-}
-
 // atbdp_search_result_page_link
 function atbdp_search_result_page_link() {
     echo ATBDP_Permalink::get_search_result_page_link();

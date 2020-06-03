@@ -1,13 +1,14 @@
 <div class="atbd_single_listing atbd_listing_list">
-    <article class="atbd_single_listing_wrapper <?php echo ( $featured ) ? 'directorist-featured-listings' : ''; ?>">
-        <figure class="atbd_listing_thumbnail_area" style="<?php echo ( empty( get_directorist_option( 'display_preview_image' ) ) || 'no' == $display_image ) ? 'display:none' : '' ?>">
-            <?php $disable_single_listing = get_directorist_option( 'disable_single_listing' );
-            if ( empty( $disable_single_listing ) ) { ?>
-            <a href="<?php echo esc_url( get_post_permalink( get_the_ID() ) ); ?>" <?php echo $thumbnail_link_attr; ?>><?php }
+   <article class="atbd_single_listing_wrapper <?php echo ($listings->loop['featured']) ? 'directorist-featured-listings' : ''; ?>">
+        <figure class="atbd_listing_thumbnail_area" style="<?php echo (!$listings->display_preview_image) ? 'display:none' : '' ?>">
+            <?php if (!$listings->disable_single_listing) { ?>
+                <a href="<?php echo esc_url($listings->loop['permalink']); ?>" <?php echo $listings->loop_thumbnail_link_attr(); ?>>
+                <?php
+            }
 
             atbdp_thumbnail_card();
 
-            if ( empty( $disable_single_listing ) ) {
+            if (!$listings->disable_single_listing) {
                 echo '</a>';
             } ?>
 
@@ -29,12 +30,13 @@
         <div class="atbd_listing_info">
             <div class="atbd_content_upper">
                 <?php do_action( 'atbdp_list_view_before_title' );?>
-                <?php if ( ! empty( $display_title ) ) { ?>
+                <?php if ($listings->display_title) { ?>
                     <h4 class="atbd_listing_title">
-                        <?php if ( empty( $disable_single_listing ) ) {
-                        echo '<a href="' . esc_url( get_post_permalink( get_the_ID() ) ) . '"' . $title_link_attr . '>' . esc_html( stripslashes( get_the_title() ) ) . '</a>';
+                        <?php
+                        if (!$listings->disable_single_listing) {
+                          echo '<a href="' . esc_url(get_post_permalink(get_the_ID())) . '"' . $listings->loop_title_link_attr() . '>' . esc_html(stripslashes(get_the_title())) . '</a>';
                         } else {
-                            echo esc_html( stripslashes( get_the_title() ) );
+                          echo esc_html(stripslashes(get_the_title()));
                         } ?>
                     </h4>
                 <?php }
@@ -43,9 +45,10 @@
                  * @since 6.2.3
                  */
                 do_action( 'atbdp_list_view_after_title' );
-                if ( ! empty( $tagline ) && ! empty( $enable_tagline ) && ! empty( $display_tagline_field ) ) { ?>
-                    <p class="atbd_listing_tagline"><?php echo esc_html( stripslashes( $tagline ) ); ?></p>
-                <?php }
+                if (!empty($listings->loop['tagline']) && $listings->enable_tagline && $listings->display_tagline_field) { ?>
+                    <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($listings->loop['tagline'])); ?></p>
+                    <?php
+                }
 
                 /**
                  * Fires after the title and sub title of the listing is rendered
@@ -55,7 +58,7 @@
                  */
                 do_action( 'atbdp_after_listing_tagline' );
 
-                if ( ! empty( $display_review ) || ( ! empty( $display_price ) && ( ! empty( $price ) || ! empty( $price_range ) ) ) ) { ?>
+                if ($listings->display_review || ($listings->display_price && (!empty($listings->loop['price']) || !empty($listings->loop['price_range'])))) { ?>
                     <div class="atbd_listing_meta">
                         <?php
                         /**
@@ -68,51 +71,48 @@
                 <?php }
 
 
-                if ( ! empty( $display_contact_info ) || ! empty( $display_publish_date ) || ! empty( $display_email ) || ! empty( $display_web_link ) ) {
-                    atbdp_get_shortcode_template( 'global/data-list', compact( 'display_contact_info', 'address', 'address_location', 'display_address_field', 'locs', 'phone_number', 'display_phone_field', 'display_publish_date', 'email', 'display_email', 'web', 'display_web_link', 'web', 'use_nofollow' ) );
+                if ($listings->display_contact_info || $listings->display_publish_date || $listings->display_email || $listings->display_web_link) {
+                    $listings->loop_data_list_html();
                 }
                 
                 // show category and location info
-                if ( ! empty( $excerpt ) && ! empty( $enable_excerpt ) && ! empty( $display_excerpt_field ) ) {
-                    $excerpt_limit    = get_directorist_option( 'excerpt_limit', 20 );
-                    $display_readmore = get_directorist_option( 'display_readmore', 0 );
-                    $readmore_text    = get_directorist_option( 'readmore_text', __( 'Read More', 'directorist' ) );
+                if (!empty($listings->loop['excerpt']) && $listings->enable_excerpt && $listings->display_excerpt_field) {
                     ?>
                     <p class="atbd_excerpt_content">
-                        <?php echo esc_html( stripslashes( wp_trim_words( $excerpt, $excerpt_limit ) ) );
+                        <?php echo esc_html(stripslashes(wp_trim_words($listings->loop['excerpt'], $listings->excerpt_limit)));
                     
                         /**
                          * @since 5.0.9
                          */
                         do_action( 'atbdp_listings_after_exerpt' );
-                        if ( ! empty( $display_readmore ) ) { ?>
-                            <a href="<?php the_permalink();?>"><?php printf( __( ' %s', 'directorist' ), $readmore_text );?></a>
+                        if ($listings->display_readmore) { ?>
+                            <a href="<?php the_permalink();?>"><?php printf( __( ' %s', 'directorist' ), $listings->readmore_text );?></a>
                         <?php } ?>
                     </p>
                 <?php } 
 
-                if ( ! empty( $display_mark_as_fav ) ) {
+                if ($listings->display_mark_as_fav) {
                     echo apply_filters( 'atbdp_mark_as_fav_for_list_view', atbdp_listings_mark_as_favourite( get_the_ID() ) );
                 }
                 ?>
             </div><!-- end ./atbd_content_upper -->
 
             <?php ob_start();
-            if ( ! empty( $display_category ) || ! empty( $display_view_count ) || ! empty( $display_author_image ) ) { ?>
+            if ( $listings->display_category || $listings->display_view_count || $listings->display_author_image ) { ?>
                 <div class="atbd_listing_bottom_content">
-                <?php if ( ! empty( $display_category ) ) { if ( ! empty( $cats ) ) {$totalTerm = count( $cats ); ?>
+                <?php if ( $listings->display_category ) { if ( ! empty( $listings->loop['cats'] ) ) {$totalTerm = count( $listings->loop['cats'] ); ?>
                     <div class="atbd_content_left">
                         <div class="atbd_listing_category">
-                            <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page( $cats[0] ); ?>">
+                            <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page( $listings->loop['cats'][0] ); ?>">
                                 <span class="<?php echo atbdp_icon_type(); ?>-tags"></span>
-                                <?php echo $cats[0]->name; ?>
+                                <?php echo $listings->loop['cats'][0]->name; ?>
                             </a>
                             <?php if ( $totalTerm > 1 ) {$totalTerm = $totalTerm - 1;?>
                             <div class="atbd_cat_popup">
                                 <span><?php echo $totalTerm; ?></span>
                                 <div class="atbd_cat_popup_wrapper">
                                     <span>
-                                        <?php foreach ( array_slice( $cats, 1 ) as $cat ) {
+                                        <?php foreach ( array_slice( $listings->loop['cats'], 1 ) as $cat ) {
                                         $link  = ATBDP_Permalink::atbdp_get_category_page( $cat );
                                         $space = str_repeat( ' ', 1 );
                                         echo $space;?>
@@ -138,29 +138,23 @@
                     </div>
                 <?php }}
 
-                if ( ! empty( $display_view_count ) || ! empty( $display_author_image ) ) {
-                    $catViewCountAuthor .= '<ul class="atbd_content_right">';?>
+                if ( $listings->display_view_count || $listings->display_author_image ) {?>
                     <ul class="atbd_content_right">
-                        <?php if ( ! empty( $display_view_count ) ) { ?>
+                        <?php if ( $listings->display_view_count ) { ?>
                         <li class="atbd_count">
                             <span class="<?php atbdp_icon_type();?>-eye"></span>
-                            <?php echo ! empty( $post_view ) ? $post_view : 0; ?>
+                            <?php echo ! empty( $listings->loop['post_view'] ) ? $listings->loop['post_view'] : 0; ?>
                         </li>
                         <?php }
-
-                        if ( ! empty( $display_author_image ) ) {
-                        $author                 = get_userdata( $author_id );
-                        $author_first_last_name = $author->first_name . ' ' . $author->last_name;
-                        $class                  = ! empty( $author->first_name && $author->last_name ) ? 'atbd_tooltip' : '';
+                        if ( $listings->display_author_image ) {
                         ?>
                         <li class="atbd_author">
-                            <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $author_id ); ?>"
-                                class="<?php echo $class; ?>"
-                                aria-label="<?php $author_first_last_name;?>">
-                                <?php if ( empty( $u_pro_pic ) ) { echo $avatar_img; }
-
-                                if ( ! empty( $u_pro_pic ) ) { ?>
-                                <img src="<?php echo esc_url( $u_pro_pic[0] ); ?>" alt="Author Image">
+                            <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link( $listings->loop['author_id'] ); ?>"
+                                class="<?php echo $listings->loop['author_link_class']; ?>"
+                                aria-label="<?php echo $listings->loop['author_full_name']; ?>">
+                                <?php if ( empty( $listings->loop['u_pro_pic'] ) ) {echo $listings->loop['avatar_img'];}
+                                if ( ! empty( $listings->loop['u_pro_pic'] ) ) { ?>
+                                <img src="<?php echo esc_url( $listings->loop['u_pro_pic'][0] ); ?>" alt="Author Image">
                                 <?php } ?>
                             </a>
                         </li>

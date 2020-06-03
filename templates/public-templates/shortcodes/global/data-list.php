@@ -7,15 +7,15 @@
 		do_action('atbdp_listings_before_location');
 		?>
 
-		<?php if (!empty($display_contact_info)): ?>
-			<?php if (!empty($address) && 'contact' == $address_location && !empty($display_address_field)): ?>
+		<?php if ($listings->display_contact_info): ?>
+			<?php if (!empty($listings->loop['address']) && 'contact' == $listings->address_location && $listings->display_address_field): ?>
 			<li>
 				<p>
 					<span class="<?php atbdp_icon_type(true); ?>-map-marker"></span>
-					<?php echo esc_html(stripslashes($address)); ?>
+					<?php echo esc_html(stripslashes($listings->loop['address'])); ?>
 				</p>
 			</li>
-			<?php elseif (!empty($locs) && 'location' == $address_location): ?>
+			<?php elseif (!empty($listings->loop['locs']) && 'location' == $listings->address_location): ?>
 				<?php
 				$local_names = array();
 				foreach ($locs as $term) {
@@ -49,9 +49,9 @@
 			do_action('atbdp_listings_before_phone');
 			?>
 
-			<?php if (!empty($phone_number) && !empty($display_phone_field)): ?>
+			<?php if (!empty($listings->loop['phone_number']) && $listings->display_phone_field): ?>
 				<li>
-					<p><span class="<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $phone_number ); ?>"><?php ATBDP_Helper::sanitize_html( $phone_number );; ?></a></p>
+					<p><span class="<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $listings->loop['phone_number'] ); ?>"><?php ATBDP_Helper::sanitize_html( $listings->loop['phone_number'] ); ?></a></p>
 				</li>
 			<?php endif; ?>
 
@@ -63,7 +63,7 @@
 		do_action('atbdp_listings_before_post_date');
 		?>
 
-		<?php if (!empty($display_publish_date)): ?>
+		<?php if ($listings->display_publish_date): ?>
 			<li>
 				<p>
 					<span class="<?php atbdp_icon_type(true); ?>-clock-o"></span>
@@ -85,13 +85,13 @@
 		do_action('atbdp_listings_after_post_date');
 		?>
 
-		<?php if (!empty($email && $display_email)): ?>
-			<li><p><span class="<?php echo atbdp_icon_type();?>-envelope"></span><a target="_top" href="mailto:<?php echo $email;?>"><?php echo $email;?></a></p></li>
+		<?php if (!empty($listings->loop['email'] && $listings->display_email)): ?>
+			<li><p><span class="<?php echo atbdp_icon_type();?>-envelope"></span><a target="_top" href="mailto:<?php echo $listings->loop['email'];?>"><?php echo $listings->loop['email'];?></a></p></li>
 		<?php endif; ?>
 
-		<?php if (!empty($web && $display_web_link)): ?>
+		<?php if (!empty($listings->loop['web'] && $listings->display_web_link)): ?>
 			<li>
-				<p><span class="<?php atbdp_icon_type(true); ?>-globe"></span><a target="_blank" href="<?php echo esc_url($web); ?>" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($web); ?></a>
+				<p><span class="<?php atbdp_icon_type(true); ?>-globe"></span><a target="_blank" href="<?php echo esc_url($listings->loop['web']); ?>"><?php echo esc_html($listings->loop['web']); ?></a>
 				</p>
 			</li>
 		<?php endif; ?>

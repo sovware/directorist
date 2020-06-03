@@ -339,8 +339,6 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             wp_enqueue_media();
         }
 
-        wp_enqueue_script( 'atbdp-markerclusterer' );
-
         wp_register_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
         wp_register_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 
@@ -874,7 +872,6 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
         /* Enqueue all scripts */
         wp_enqueue_script( 'atbdp-bootstrap-script' );
         wp_enqueue_script( 'atbdp-rating' );
-        wp_enqueue_script( 'atbdp-google-map-front' );
         wp_enqueue_script( 'atbdp-user-dashboard' );
 
         $data = array(

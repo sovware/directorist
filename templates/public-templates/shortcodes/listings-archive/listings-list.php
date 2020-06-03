@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
 
 /**
  * @param WP_Query $all_listings It contains all the queried listings by a user
@@ -26,21 +31,22 @@ do_action('atbdp_before_all_listings_list', $listings);
         do_action('atbdp_before_list_listings_loop');
     }
 
-    $class_name = 'container-fluid';
-    $container = apply_filters('list_view_container', $class_name);
+    $container = apply_filters('list_view_container', 'container-fluid');
+    $col_container = apply_filters('atbdp_listing_list_view_html_class', 'col-md-12');
     ?>
-    
-    <div class="<?php echo !empty($container) ? $container : 'container'; ?>">
+
+    <div class="<?php echo esc_attr( $container ); ?>">
         <div class="row">
-            <div class="<?php echo apply_filters('atbdp_listing_list_view_html_class', 'col-md-12') ?>">
-            <?php
-            if ($listings->query->have_posts()) {
-                $listings->loop('list');
-            }
-            else { ?>
-                <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
-            <?php }
-            ?>
+            <div class="<?php echo esc_attr( $col_container ); ?>">
+                <?php
+                if ($listings->query->have_posts()) {
+                    $listings->loop_template('list');
+                }
+                else { ?>
+                    <p class="atbdp_nlf"><?php esc_html_e('No listing found.', 'directorist'); ?></p>
+                    <?php
+                }
+                ?>
             </div>
         </div>
 
@@ -51,6 +57,7 @@ do_action('atbdp_before_all_listings_list', $listings);
                  * @since 5.0
                  */
                 do_action('atbdp_before_listings_pagination');
+                
                 if ($listings->show_pagination) {
                     echo atbdp_pagination($listings->query, $listings->paged);
                 } ?>

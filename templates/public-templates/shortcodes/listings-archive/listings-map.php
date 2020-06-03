@@ -20,7 +20,7 @@ do_action('atbdp_before_all_listings_map', $listings);
     <div class="atbdp-divider"></div>
 
     <?php
-    $listings->render_map();
+    $listings->map_template();
 
     if ($listings->show_pagination) {
         echo atbdp_pagination($listings->query, $listings->paged);

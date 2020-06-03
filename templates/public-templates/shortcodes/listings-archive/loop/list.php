@@ -12,19 +12,16 @@
                 echo '</a>';
             } ?>
 
-            <!-- Start lower badge -->
-            <span class="atbd_lower_badge">
-                <?php
-                /**
-                 * @since 5.0
-                 *
-                 * @hooked Directorist_Template_Hooks::featured_badge_list_view - 10
-                 * @hooked Directorist_Template_Hooks::populer_badge_list_view - 15
-                 * @hooked Directorist_Template_Hooks::new_badge_list_view - 20
-                 */
-                echo apply_filters( 'atbdp_list_lower_badges', '' );
-                ?>
-            </span>
+            <?php
+            /**
+             * @since 5.0
+             *
+             * @hooked Directorist_Template_Hooks::featured_badge_list_view - 10
+             * @hooked Directorist_Template_Hooks::populer_badge_list_view - 15
+             * @hooked Directorist_Template_Hooks::new_badge_list_view - 20
+             */
+            ?>
+            <span class="atbd_lower_badge"><?php echo apply_filters('atbdp_list_lower_badges', '');?></span>
         </figure>
 
         <div class="atbd_listing_info">
@@ -104,7 +101,7 @@
                     <div class="atbd_content_left">
                         <div class="atbd_listing_category">
                             <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page( $listings->loop['cats'][0] ); ?>">
-                                <span class="<?php echo atbdp_icon_type(); ?>-tags"></span>
+                                <span class="<?php echo atbdp_icon_type(true); ?>-tags"></span>
                                 <?php echo $listings->loop['cats'][0]->name; ?>
                             </a>
                             <?php if ( $totalTerm > 1 ) {$totalTerm = $totalTerm - 1;?>
@@ -131,7 +128,7 @@
                     <div class="atbd_content_left">
                         <div class="atbd_listing_category">
                             <a href="./">
-                                <span class="<?php atbdp_icon_type()?>-tags"></span>
+                                <span class="<?php atbdp_icon_type(true)?>-tags"></span>
                                 <?php _e( 'Uncategorized', 'directorist' );?>
                             </a>
                         </div>

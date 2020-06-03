@@ -808,7 +808,7 @@ class Directorist_Listings {
         );
 	}
 
-	public function loop( $loop = 'grid' ) {
+	public function loop_template( $loop = 'grid' ) {
 		while ($this->query->have_posts()) {
 			$this->query->the_post();
 			$this->set_loop_data();
@@ -817,7 +817,7 @@ class Directorist_Listings {
 		wp_reset_postdata();
 	}
 
-	public function render_map() {
+	public function map_template() {
 		if ( 'google' == $this->select_listing_map ) {
 			$this->load_google_map();
 		}
@@ -990,6 +990,24 @@ class Directorist_Listings {
         echo "</div>";
     }
 
+	public function loop_grid_thumbnail_template() {
+		atbdp_get_shortcode_template( 'listings-archive/loop/grid-thumbnail', array('listings' => $this) );
+	}
+
+	public function loop_grid_top_content_template() {
+		atbdp_get_shortcode_template( 'listings-archive/loop/grid-top-content', array('listings' => $this) );
+	}
+
+	public function loop_grid_bottom_content_template() {
+		$html = atbdp_return_shortcode_template( 'listings-archive/loop/grid-bottom-content', array('listings' => $this) );
+		echo apply_filters('atbdp_listings_grid_cat_view_count', $html);
+	}
+
+	public function loop_grid_footer_right_template() {
+		$html = atbdp_return_shortcode_template( 'listings-archive/loop/grid-footer-right-content', array('listings' => $this) );
+		echo apply_filters('atbdp_grid_footer_right_html', $html);
+	}	
+
 	public function loop_price_meta_html() {
 		$html = atbdp_return_shortcode_template( 'global/price-meta', array('listings' => $this) );
 		echo apply_filters('atbdp_listings_review_price', $html);
@@ -1004,8 +1022,8 @@ class Directorist_Listings {
     }
 
 	public function loop_link_attr() {
-        $title_link_attr = " " . apply_filters('grid_view_title_link_add_attr', '');
-        return trim($title_link_attr);
+        $attr = " " . apply_filters('grid_view_title_link_add_attr', '');
+        return trim($attr);
 	}
 
 	public function loop_thumbnail_link_attr() {

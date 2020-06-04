@@ -1,3 +1,10 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+?>
 <div class="atbd_listing_data_list">
 	<ul>
 		<?php
@@ -9,36 +16,12 @@
 
 		<?php if ($listings->display_contact_info): ?>
 			<?php if (!empty($listings->loop['address']) && 'contact' == $listings->address_location && $listings->display_address_field): ?>
-			<li>
-				<p>
-					<span class="<?php atbdp_icon_type(true); ?>-map-marker"></span>
-					<?php echo esc_html(stripslashes($listings->loop['address'])); ?>
-				</p>
-			</li>
-			<?php elseif (!empty($listings->loop['locs']) && 'location' == $listings->address_location): ?>
-				<?php
-				$local_names = array();
-				foreach ($locs as $term) {
-					$local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
-					ksort($local_names);
-					$locals = array_reverse($local_names);
-				}
-				$output = array();
-				$link = array();
-				foreach ($locals as $location) {
-					$term = get_term_by('slug', $location, ATBDP_LOCATION);
-					$link = ATBDP_Permalink::atbdp_get_location_page($term);
-					$space = str_repeat(' ', 1);
-					$output[] = "{$space}<a href='{$link}'>{$term->name}</a>";
-				}
-				?>
 				<li>
-					<p>
-						<span>
-							<?php
-							echo "<span class='" . atbdp_icon_type() . "-map-marker'></span>" . join(',', $output); ?>
-						</span>
-					</p>
+					<p><span class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php echo esc_html($listings->loop['address']); ?></p>
+				</li>
+			<?php elseif (!empty($listings->loop['locs']) && 'location' == $listings->address_location): ?>
+				<li>
+					<p><span class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php echo $listings->loop_get_address_from_locaton(); ?></span></p>
 				</li>
 			<?php endif; ?>
 
@@ -65,17 +48,7 @@
 
 		<?php if ($listings->display_publish_date): ?>
 			<li>
-				<p>
-					<span class="<?php atbdp_icon_type(true); ?>-clock-o"></span>
-					<?php
-					$publish_date_format = get_directorist_option('publish_date_format', 'time_ago');
-					if ('time_ago' === $publish_date_format) {
-						printf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
-					} else {
-						echo get_the_date();
-					}
-					?>
-				</p>
+				<p><span class="<?php atbdp_icon_type(true); ?>-clock-o"></span><?php echo esc_html( $listings->loop_get_published_date() );?></p>
 			</li>
 		<?php endif; ?>
 		<?php
@@ -95,6 +68,13 @@
 				</p>
 			</li>
 		<?php endif; ?>
+
+	    <?php
+	    /**
+	     * @since 7.0
+	     */
+	    do_action( 'directorist_loop_data_list_end', $listings );
+	    ?>
 
 	</ul>
 </div>

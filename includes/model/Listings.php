@@ -1046,6 +1046,50 @@ class Directorist_Listings {
 		echo apply_filters('atbdp_grid_footer_right_html', $html);
 	}
 
+	public function loop_get_published_date() {
+		$publish_date_format = get_directorist_option('publish_date_format', 'time_ago');
+		if ('time_ago' === $publish_date_format) {
+			$text = sprintf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
+		}
+		else {
+			$text = get_the_date();
+		}
+		return $text;
+	}
+
+	public function loop_get_title() {
+		if ( ! $this->disable_single_listing ) {
+			$title = sprintf('<a href="%s"%s>%s</a>', $this->loop['permalink'], $this->loop_link_attr(), $this->loop['title']);
+		}
+		else {
+			$title = $this->loop['title'];
+		}
+		return $title;
+	}
+
+	public function loop_listing_found_title() {
+		return apply_filters('atbdp_total_listings_found_text', "<h3>{$this->header_title}</h3>", $this->header_title);
+	}
+
+	public function loop_get_address_from_locaton() {
+		$local_names = array();
+		foreach ($this->loop['locs'] as $term) {
+			$local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
+			ksort($local_names);
+			$locals = array_reverse($local_names);
+		}
+		$output = array();
+		$link = array();
+		foreach ($locals as $location) {
+			$term = get_term_by('slug', $location, ATBDP_LOCATION);
+			$link = ATBDP_Permalink::atbdp_get_location_page($term);
+			$space = str_repeat(' ', 1);
+			$output[] = "<a href='{$link}'>{$term->name}</a>";
+		}
+
+		return implode(', ', $output);
+	}
+
     public function loop_wrapper_class() {
         return ($this->loop['featured']) ? 'directorist-featured-listings' : '';
     }

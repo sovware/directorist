@@ -5,9 +5,10 @@
  * @version 7.0
  */
 
-if (!$listings->disable_single_listing): ?>
+if (!$listings->disable_single_listing) { ?>
 	<a href="<?php echo esc_url( $listings->loop['permalink'] ); ?>" <?php echo $listings->loop_link_attr(); ?>><?php atbdp_thumbnail_card(); ?></a>
 	<?php
-else:
+}
+else {
 	atbdp_thumbnail_card();
-endif;
+}

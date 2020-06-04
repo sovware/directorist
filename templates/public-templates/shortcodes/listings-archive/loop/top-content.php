@@ -13,16 +13,7 @@
 		<?php do_action( "atbdp_{$listings->view}_view_before_title" );?>
 
 		<?php if ($listings->display_title) { ?>
-			<h4 class="atbd_listing_title">
-				<?php
-				if ( ! $listings->disable_single_listing ) {
-					printf('<a href="%s"%s>%s</a>', $listings->loop['permalink'], $listings->loop_link_attr(), $listings->loop['title']);
-				}
-				else {
-					echo $listings->loop['title'];
-				}
-				?>
-			</h4>
+			<h4 class="atbd_listing_title"><?php echo wp_kses_post( $listings->loop_get_title() );?></h4>
 			<?php
 		}
 
@@ -55,7 +46,7 @@
 
 		if (!empty($listings->loop['excerpt']) && $listings->enable_excerpt && $listings->display_excerpt_field) { ?>
 			<p class="atbd_excerpt_content">
-				<?php echo esc_html(stripslashes(wp_trim_words($listings->loop['excerpt'], $listings->excerpt_limit)));
+				<?php echo esc_html(wp_trim_words($listings->loop['excerpt'], $listings->excerpt_limit));
 
 				/**
 				* @since 5.0.9

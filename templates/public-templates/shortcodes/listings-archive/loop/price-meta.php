@@ -1,7 +1,14 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+?>
 <div class="atbd_listing_meta">
 
 	<?php if ($listings->display_review): ?>
-		<span class="atbd_meta atbd_listing_rating"><?php echo ATBDP()->review->get_average($listings->loop['id']);?><i class="<?php echo atbdp_icon_type();?>-star"></i></span>
+		<span class="atbd_meta atbd_listing_rating"><?php echo esc_html( ATBDP()->review->get_average($listings->loop['id']) );?><i class="<?php atbdp_icon_type(true);?>-star"></i></span>
 	<?php endif ?>
 	
 	<?php

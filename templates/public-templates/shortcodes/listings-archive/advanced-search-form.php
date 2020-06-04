@@ -50,13 +50,13 @@
 					<div class="col-md-6 col-sm-12 col-lg-4">
 						<div class="atbdp_map_address_field">
 							<div class="atbdp_get_address_field">
-								<input type="text" name="address" id="address" value="<?php echo $geodata['value']; ?>" placeholder="<?php echo $geodata['placeholder']; ?>" autocomplete="off" class="form-control location-name">
+								<input type="text" name="address" id="address" value="<?php echo esc_attr( $geodata['value'] ); ?>" placeholder="<?php echo esc_attr($geodata['placeholder'] ); ?>" autocomplete="off" class="form-control location-name">
 								<?php echo $geodata['geo_loc']; ?>
 							</div>
 							<div class="address_result" style="display: none">
 							</div>
-							<input type="hidden" id="cityLat" name="cityLat" value="<?php echo $geodata['cityLat']; ?>" />
-							<input type="hidden" id="cityLng" name="cityLng" value="<?php echo $geodata['cityLng']; ?>" />
+							<input type="hidden" id="cityLat" name="cityLat" value="<?php echo esc_attr($geodata['cityLat']); ?>" />
+							<input type="hidden" id="cityLng" name="cityLng" value="<?php echo esc_attr($geodata['cityLng']); ?>" />
 						</div>
 					</div>
 				<?php
@@ -79,9 +79,9 @@
 						$price_field_data = $listings->price_field_data();
 						?>
 
-						<div class="range_single"><input type="text" name="price[0]" class="form-control" placeholder="<?php _e('Min Price', 'directorist'); ?>" value="<?php echo $price_field_data['min_price_value']; ?>"></div>
+						<div class="range_single"><input type="text" name="price[0]" class="form-control" placeholder="<?php esc_attr_e('Min Price', 'directorist'); ?>" value="<?php echo esc_attr( $price_field_data['min_price_value'] ); ?>"></div>
 
-						<div class="range_single"><input type="text" name="price[1]" class="form-control" placeholder="<?php _e('Max Price', 'directorist'); ?>" value="<?php echo $price_field_data['max_price_value']; ?>"></div>
+						<div class="range_single"><input type="text" name="price[1]" class="form-control" placeholder="<?php esc_attr_e('Max Price', 'directorist'); ?>" value="<?php echo esc_attr( $price_field_data['max_price_value'] ); ?>"></div>
 
 					<?php
 					}

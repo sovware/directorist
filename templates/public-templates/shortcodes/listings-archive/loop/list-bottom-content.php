@@ -1,4 +1,10 @@
 <?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+
 if ( $listings->display_category || $listings->display_view_count || $listings->display_author_image ) { ?>
 	<div class="atbd_listing_bottom_content">
 		

@@ -994,8 +994,8 @@ class Directorist_Listings {
 		atbdp_get_shortcode_template( 'listings-archive/loop/grid-thumbnail', array('listings' => $this) );
 	}
 
-	public function loop_grid_top_content_template() {
-		atbdp_get_shortcode_template( 'listings-archive/loop/grid-top-content', array('listings' => $this) );
+	public function loop_top_content_template() {
+		atbdp_get_shortcode_template( 'listings-archive/loop/top-content', array('listings' => $this) );
 	}
 
 	public function loop_grid_bottom_content_template() {

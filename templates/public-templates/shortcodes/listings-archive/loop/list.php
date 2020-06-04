@@ -31,67 +31,10 @@ $featured_class = $listings->loop['featured'] ? 'directorist-featured-listings' 
 
         <div class="atbd_listing_info">
 
-            <div class="atbd_content_upper">
-                <?php do_action( 'atbdp_list_view_before_title' );?>
-                <?php if ($listings->display_title) { ?>
-                    <h4 class="atbd_listing_title">
-                        <?php
-                        if (!$listings->disable_single_listing) {
-                          echo '<a href="' . esc_url(get_post_permalink(get_the_ID())) . '"' . $listings->loop_title_link_attr() . '>' . esc_html(stripslashes(get_the_title())) . '</a>';
-                        } else {
-                          echo esc_html(stripslashes(get_the_title()));
-                        } ?>
-                    </h4>
-                <?php }
+            <?php 
+            $listings->loop_top_content_template();
 
-                /**
-                 * @since 6.2.3
-                 */
-                do_action( 'atbdp_list_view_after_title' );
-                if (!empty($listings->loop['tagline']) && $listings->enable_tagline && $listings->display_tagline_field) { ?>
-                    <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($listings->loop['tagline'])); ?></p>
-                    <?php
-                }
-
-                /**
-                 * Fires after the title and sub title of the listing is rendered
-                 *
-                 *
-                 * @since 1.0.0
-                 */
-                do_action( 'atbdp_after_listing_tagline' );
-
-                if ($listings->display_review || $listings->display_price && (!empty($listings->loop['price']) || !empty($listings->loop['price_range']))) {
-                    $listings->loop_price_meta_template();
-                }
-
-                if ($listings->display_contact_info || $listings->display_publish_date || $listings->display_email || $listings->display_web_link) {
-                    $listings->loop_data_list_template();
-                }
-                
-                // show category and location info
-                if (!empty($listings->loop['excerpt']) && $listings->enable_excerpt && $listings->display_excerpt_field) {
-                    ?>
-                    <p class="atbd_excerpt_content">
-                        <?php echo esc_html(stripslashes(wp_trim_words($listings->loop['excerpt'], $listings->excerpt_limit)));
-                    
-                        /**
-                         * @since 5.0.9
-                         */
-                        do_action( 'atbdp_listings_after_exerpt' );
-                        if ($listings->display_readmore) { ?>
-                            <a href="<?php the_permalink();?>"><?php printf( __( ' %s', 'directorist' ), $listings->readmore_text );?></a>
-                        <?php } ?>
-                    </p>
-                <?php } 
-
-                if ($listings->display_mark_as_fav) {
-                    echo apply_filters( 'atbdp_mark_as_fav_for_list_view', atbdp_listings_mark_as_favourite( get_the_ID() ) );
-                }
-                ?>
-            </div>
-
-            <?php ob_start();
+            ob_start();
             if ( $listings->display_category || $listings->display_view_count || $listings->display_author_image ) { ?>
                 <div class="atbd_listing_bottom_content">
                 <?php if ( $listings->display_category ) { if ( ! empty( $listings->loop['cats'] ) ) {$totalTerm = count( $listings->loop['cats'] ); ?>

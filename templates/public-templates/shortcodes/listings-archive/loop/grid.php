@@ -18,7 +18,7 @@
 			<div class="atbd_listing_info">
 
 				<?php
-				$listings->loop_grid_top_content_template();
+				$listings->loop_top_content_template();
 				$listings->loop_grid_bottom_content_template();
 				
 				/**
@@ -26,7 +26,7 @@
 				 * @since
 				 * @package Directorist
 				 */
-				apply_filters('atbdp_listings_footer_content', '');
+				echo apply_filters('atbdp_listings_footer_content', '');
 				?>
 				
 			</div>

@@ -9,6 +9,9 @@
 <?php if ($listings->display_title || $listings->enable_tagline || $listings->display_review || $listings->display_price): ?>
 
 	<div class="atbd_content_upper">
+
+		<?php do_action( "atbdp_{$listings->view}_view_before_title" );?>
+
 		<?php if ($listings->display_title) { ?>
 			<h4 class="atbd_listing_title">
 				<?php
@@ -22,6 +25,11 @@
 			</h4>
 			<?php
 		}
+
+        /**
+         * @since 6.2.3
+         */
+        do_action( "atbdp_{$listings->view}_view_after_title" );
 
 		if (!empty($listings->loop['tagline']) && $listings->enable_tagline && $listings->display_tagline_field) { ?>
 			<p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($listings->loop['tagline'])); ?></p>
@@ -59,7 +67,15 @@
 				}
 				?>
 			</p>
-		<?php } ?>
+			<?php
+		}
+
+	    /**
+	     * @since 7.0
+	     * @hooked Directorist_Template_Hooks::mark_as_favourite_button - 10
+	     */
+	    do_action( "directorist_{$listings->view}_view_top_content_end", $listings );
+		?>
 	</div>
 	
 	<?php

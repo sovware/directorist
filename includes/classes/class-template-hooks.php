@@ -46,8 +46,9 @@ class Directorist_Template_Hooks {
         add_filter( 'atbdp_list_lower_badges', array( __CLASS__, 'populer_badge_list_view'), 15 );
         add_filter( 'atbdp_list_lower_badges', array( __CLASS__, 'new_badge_list_view'), 20 );
 
-        // Listings Meta Info - List View
+        // Listings Top - List View
         add_action( 'directorist_list_view_listing_meta_end', array( __CLASS__, 'list_view_business_hours') );
+        add_action( 'directorist_list_view_top_content_end',  array( __CLASS__, 'mark_as_favourite_button') );
         
         // Listing Thumbnail Area
         add_action( 'atbdp_listing_thumbnail_area', array( __CLASS__, 'mark_as_favourite_button') );

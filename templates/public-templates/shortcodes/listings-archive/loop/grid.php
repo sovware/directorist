@@ -8,9 +8,12 @@
 <div class="atbdp_column atbdp-col-<?php echo esc_attr( $listings->columns ); ?>">
 	<div class="atbd_single_listing atbd_listing_card">
 		<article class="atbd_single_listing_wrapper <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
-			<figure class="atbd_listing_thumbnail_area">
-				<?php $listings->loop_grid_thumbnail_template();?>
-			</figure>
+			
+			<?php if ( $listings->display_preview_image ): ?>
+				<figure class="atbd_listing_thumbnail_area">
+					<?php $listings->loop_grid_thumbnail_template();?>
+				</figure>
+			<?php endif; ?>
 
 			<div class="atbd_listing_info">
 

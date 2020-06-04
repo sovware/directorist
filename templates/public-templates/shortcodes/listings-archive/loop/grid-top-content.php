@@ -38,11 +38,11 @@
 		do_action('atbdp_after_listing_tagline');
 
 		if ($listings->display_review || $listings->display_price && (!empty($listings->loop['price']) || !empty($listings->loop['price_range']))) {
-			$listings->loop_price_meta_html();
+			$listings->loop_price_meta_template();
 		}
 
 	    if (!empty($listings->display_contact_info || $listings->display_publish_date || $listings->display_email || $listings->display_web_link)) {
-	    	$listings->loop_data_list_html();
+	    	$listings->loop_data_list_template();
 	    }
 
 		if (!empty($listings->loop['excerpt']) && $listings->enable_excerpt && $listings->display_excerpt_field) { ?>

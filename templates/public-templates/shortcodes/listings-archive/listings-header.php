@@ -42,11 +42,11 @@
 						<div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
 							<?php
 							if ($listings->display_viewas_dropdown) {
-								$listings->viewas_dropdown_html();
+								$listings->viewas_dropdown_template();
 							}
 							
 							if ($listings->display_sortby_dropdown) {
-								$listings->sortby_dropdown_html();
+								$listings->sortby_dropdown_template();
 							}
 							?>
 						</div>
@@ -54,7 +54,7 @@
 				</div>
 
 				<div class="<?php $listings->filter_container_class(); ?>">
-					<?php $listings->advanced_search_form_html();?>
+					<?php $listings->advanced_search_form_template();?>
 				</div>
 			</div>
 		</div>

@@ -7,17 +7,9 @@
 ?>
 
 <div class="atbd_listing_image">
+	
 	<?php
-	if ( $listings->display_preview_image ) {
-
-		if (!$listings->disable_single_listing) { ?>
-			<a href="<?php echo esc_url( $listings->loop['permalink'] ); ?>" <?php echo $listings->loop_link_attr(); ?>><?php atbdp_thumbnail_card(); ?></a>
-			<?php
-		}
-		else {
-			atbdp_thumbnail_card();
-		}
-	}
+	$listings->loop_thumb_card_template();
 
 	if ($listings->display_author_image) { ?>
 		<div class="atbd_author">
@@ -32,7 +24,9 @@
 				?>
 			</a>
 		</div>
-	<?php } ?>
+		<?php
+	}
+	?>
 </div>
 
 <?php

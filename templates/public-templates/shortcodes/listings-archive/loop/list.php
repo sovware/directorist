@@ -1,30 +1,36 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+
+$featured_class = $listings->loop['featured'] ? 'directorist-featured-listings' : '';
+?>
 <div class="atbd_single_listing atbd_listing_list">
-   <article class="atbd_single_listing_wrapper <?php echo ($listings->loop['featured']) ? 'directorist-featured-listings' : ''; ?>">
-        <figure class="atbd_listing_thumbnail_area" style="<?php echo (!$listings->display_preview_image) ? 'display:none' : '' ?>">
-            <?php if (!$listings->disable_single_listing) { ?>
-                <a href="<?php echo esc_url($listings->loop['permalink']); ?>" <?php echo $listings->loop_thumbnail_link_attr(); ?>>
+   <article class="atbd_single_listing_wrapper <?php echo esc_attr( $featured_class ); ?>">
+
+        <?php if ( $listings->display_preview_image ): ?>
+
+            <figure class="atbd_listing_thumbnail_area">
                 <?php
-            }
+                $listings->loop_thumb_card_template();
 
-            atbdp_thumbnail_card();
+                /**
+                 * @since 5.0
+                 *
+                 * @hooked Directorist_Template_Hooks::featured_badge_list_view - 10
+                 * @hooked Directorist_Template_Hooks::populer_badge_list_view - 15
+                 * @hooked Directorist_Template_Hooks::new_badge_list_view - 20
+                 */
+                ?>
+                <span class="atbd_lower_badge"><?php echo apply_filters('atbdp_list_lower_badges', '');?></span>
+            </figure>
 
-            if (!$listings->disable_single_listing) {
-                echo '</a>';
-            } ?>
-
-            <?php
-            /**
-             * @since 5.0
-             *
-             * @hooked Directorist_Template_Hooks::featured_badge_list_view - 10
-             * @hooked Directorist_Template_Hooks::populer_badge_list_view - 15
-             * @hooked Directorist_Template_Hooks::new_badge_list_view - 20
-             */
-            ?>
-            <span class="atbd_lower_badge"><?php echo apply_filters('atbdp_list_lower_badges', '');?></span>
-        </figure>
+        <?php endif; ?>
 
         <div class="atbd_listing_info">
+
             <div class="atbd_content_upper">
                 <?php do_action( 'atbdp_list_view_before_title' );?>
                 <?php if ($listings->display_title) { ?>
@@ -69,7 +75,7 @@
 
 
                 if ($listings->display_contact_info || $listings->display_publish_date || $listings->display_email || $listings->display_web_link) {
-                    $listings->loop_data_list_html();
+                    $listings->loop_data_list_template();
                 }
                 
                 // show category and location info
@@ -92,7 +98,7 @@
                     echo apply_filters( 'atbdp_mark_as_fav_for_list_view', atbdp_listings_mark_as_favourite( get_the_ID() ) );
                 }
                 ?>
-            </div><!-- end ./atbd_content_upper -->
+            </div>
 
             <?php ob_start();
             if ( $listings->display_category || $listings->display_view_count || $listings->display_author_image ) { ?>

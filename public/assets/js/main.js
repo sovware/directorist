@@ -342,15 +342,16 @@
         });
         profileMediaUploader.init();
     }
-    
-    
+
+
     var is_processing = false;
     $('#user_profile_form').on('submit', function (e) {
         // submit the form to the ajax handler and then send a response from the database and then work accordingly and then after finishing the update profile then work on remove listing and also remove the review and rating form the custom table once the listing is deleted successfully.
         e.preventDefault();
-        
+
         var submit_button = $('#update_user_profile');
         submit_button.attr('disabled', true);
+        submit_button.addClass("loading");
 
         if ( is_processing ) { submit_button.removeAttr('disabled'); return; }
 
@@ -360,7 +361,7 @@
 
          // ajax action
          form_data.append('action', 'update_user_profile');
-        if ( profileMediaUploader ) { 
+        if ( profileMediaUploader ) {
             var hasValidFiles = profileMediaUploader.hasValidFiles();
             if ( hasValidFiles ) {
                 //files
@@ -403,6 +404,7 @@
             data: form_data,
             success: function (response) {
                 submit_button.removeAttr('disabled');
+                submit_button.removeClass("loading");
                 if (response.success) {
                     $('#pro_notice').html('<p style="padding: 22px;" class="alert-success">' + response.data + '</p>');
                 } else {
@@ -415,7 +417,7 @@
             }
         });
 
-      
+
         // atbdp_do_ajax($form, 'update_user_profile', form_data, function (response) {
         //     console.log(response);
         //     return;

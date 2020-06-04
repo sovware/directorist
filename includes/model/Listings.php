@@ -826,26 +826,6 @@ class Directorist_Listings {
 		}
 	}
 
-    public function get_map_options() {
-        $opt['select_listing_map']    = $this->select_listing_map;
-        $opt['crop_width']            = get_directorist_option('crop_width', 360);
-        $opt['crop_height']           = get_directorist_option('crop_height', 300);
-        $opt['display_map_info']      = get_directorist_option('display_map_info', 1);
-        $opt['display_image_map']     = get_directorist_option('display_image_map', 1);
-        $opt['display_title_map']     = get_directorist_option('display_title_map', 1);
-        $opt['display_address_map']   = get_directorist_option('display_address_map', 1);
-        $opt['display_direction_map'] = get_directorist_option('display_direction_map', 1);
-        $opt['zoom']                  = get_directorist_option('map_zoom_level', 16);
-        $opt['default_image']         = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-
-        $opt['disable_single_listing'] = $this->disable_single_listing;
-
-        $map_is_disabled = ( empty($opt['display_map_info']) && (empty($opt['display_image_map']) || empty($opt['display_title_map']) || empty($opt['display_address_map']) || empty($opt['display_direction_map']))) ? true : false;
-        $opt['map_is_disabled'] = $map_is_disabled;
-
-        return $opt;
-    }
-
     public function load_openstreet_map() {
         $script_path = ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/subGroup-markercluster-controlLayers-realworld.388.js';
         $opt = $this->get_map_options();
@@ -866,6 +846,26 @@ class Directorist_Listings {
             'script_path'  => $script_path
         ]);
         wp_enqueue_script('leaflet-load-scripts');
+    }
+
+    public function get_map_options() {
+        $opt['select_listing_map']    = $this->select_listing_map;
+        $opt['crop_width']            = get_directorist_option('crop_width', 360);
+        $opt['crop_height']           = get_directorist_option('crop_height', 300);
+        $opt['display_map_info']      = get_directorist_option('display_map_info', 1);
+        $opt['display_image_map']     = get_directorist_option('display_image_map', 1);
+        $opt['display_title_map']     = get_directorist_option('display_title_map', 1);
+        $opt['display_address_map']   = get_directorist_option('display_address_map', 1);
+        $opt['display_direction_map'] = get_directorist_option('display_direction_map', 1);
+        $opt['zoom']                  = get_directorist_option('map_zoom_level', 16);
+        $opt['default_image']         = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+
+        $opt['disable_single_listing'] = $this->disable_single_listing;
+
+        $map_is_disabled = ( empty($opt['display_map_info']) && (empty($opt['display_image_map']) || empty($opt['display_title_map']) || empty($opt['display_address_map']) || empty($opt['display_direction_map']))) ? true : false;
+        $opt['map_is_disabled'] = $map_is_disabled;
+
+        return $opt;
     }
 
     public function render_osm_map_info_card( $script_id = '' ) {

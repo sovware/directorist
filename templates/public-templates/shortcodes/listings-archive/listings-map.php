@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
 
 /**
  * @param WP_Query $all_listings It contains all the queried listings by a user

@@ -990,30 +990,16 @@ class Directorist_Listings {
         echo "</div>";
     }
 
-	public function loop_grid_thumbnail_template() {
-		atbdp_get_shortcode_template( 'listings-archive/loop/grid-thumbnail', array('listings' => $this) );
+	public function loop_thumb_card_template() {
+		atbdp_get_shortcode_template( 'listings-archive/loop/thumb-card', array('listings' => $this) );
 	}
 
 	public function loop_top_content_template() {
 		atbdp_get_shortcode_template( 'listings-archive/loop/top-content', array('listings' => $this) );
 	}
 
-	public function loop_grid_bottom_content_template() {
-		$html = atbdp_return_shortcode_template( 'listings-archive/loop/grid-bottom-content', array('listings' => $this) );
-		echo apply_filters('atbdp_listings_grid_cat_view_count', $html);
-	}
-
-	public function loop_thumb_card_template() {
-		atbdp_get_shortcode_template( 'listings-archive/loop/thumb-card', array('listings' => $this) );
-	}
-
-	public function loop_grid_footer_right_template() {
-		$html = atbdp_return_shortcode_template( 'listings-archive/loop/grid-footer-right-content', array('listings' => $this) );
-		echo apply_filters('atbdp_grid_footer_right_html', $html);
-	}	
-
 	public function loop_price_meta_template() {
-		$html = atbdp_return_shortcode_template( 'global/price-meta', array('listings' => $this) );
+		$html = atbdp_return_shortcode_template( 'listings-archive/loop/price-meta', array('listings' => $this) );
 		if ( $this->view == 'grid' ) {
 			echo apply_filters('atbdp_listings_review_price', $html);
 		}
@@ -1026,7 +1012,38 @@ class Directorist_Listings {
 	}
 
 	public function loop_data_list_template() {
-		atbdp_get_shortcode_template( 'global/data-list', array('listings' => $this) );
+		atbdp_get_shortcode_template( 'listings-archive/loop/data-list', array('listings' => $this) );
+	}
+
+	public function loop_cats_template() {
+		atbdp_get_shortcode_template( 'listings-archive/loop/cats', array('listings' => $this) );
+	}
+
+	public function loop_author_template() {
+		atbdp_get_shortcode_template( 'listings-archive/loop/author', array('listings' => $this) );
+	}
+
+	public function loop_view_count_template() {
+		atbdp_get_shortcode_template( 'listings-archive/loop/view-count', array('listings' => $this) );
+	}
+
+	public function loop_grid_thumbnail_template() {
+		atbdp_get_shortcode_template( 'listings-archive/loop/grid-thumbnail', array('listings' => $this) );
+	}
+
+	public function loop_grid_bottom_content_template() {
+		$html = atbdp_return_shortcode_template( 'listings-archive/loop/grid-bottom-content', array('listings' => $this) );
+		echo apply_filters('atbdp_listings_grid_cat_view_count', $html);
+	}
+
+	public function loop_list_bottom_content_template() {
+		$html = atbdp_return_shortcode_template( 'listings-archive/loop/list-bottom-content', array('listings' => $this) );
+		echo apply_filters('atbdp_listings_list_cat_view_count_author', $html);
+	}
+
+	public function loop_grid_footer_right_template() {
+		$html = atbdp_return_shortcode_template( 'listings-archive/loop/grid-footer-right-content', array('listings' => $this) );
+		echo apply_filters('atbdp_grid_footer_right_html', $html);
 	}
 
     public function loop_wrapper_class() {

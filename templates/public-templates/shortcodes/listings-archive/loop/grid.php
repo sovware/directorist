@@ -16,20 +16,12 @@
 			<?php endif; ?>
 
 			<div class="atbd_listing_info">
-
 				<?php
 				$listings->loop_top_content_template();
 				$listings->loop_grid_bottom_content_template();
-				
-				/**
-				 * @param mixed $footer_html
-				 * @since
-				 * @package Directorist
-				 */
-				echo apply_filters('atbdp_listings_footer_content', '');
 				?>
-				
 			</div>
+			
 		</article>
 	</div>
 </div>

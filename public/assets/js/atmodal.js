@@ -56,5 +56,3 @@ window.addEventListener("load", function () {
         aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
     },500);
 });
-
-

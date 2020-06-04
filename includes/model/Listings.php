@@ -1173,27 +1173,9 @@ class Directorist_Listings {
         return compact( 'min_price_value', 'max_price_value' );
     }
 
-    public function price_range_field_data() {
-        $bellow_economy_value = '';
-        $economy_value        = '';
-        $moderate_value       = '';
-        $skimming_value       = '';
-
-        if ( ! empty( $_GET['price_range'] ) ) {
-            $bellow_economy_value = ( 'bellow_economy' == $_GET['price_range'] ) ? "checked='checked'" : '';
-            $economy_value        = ( 'economy' == $_GET['price_range'] ) ? "checked='checked'" : '';
-            $moderate_value       = ( 'moderate' == $_GET['price_range'] ) ? "checked='checked'" : '';
-            $skimming_value       = ( 'skimming' == $_GET['price_range'] ) ? "checked='checked'" : '';
-        }
-
-        $data = compact(
-            'bellow_economy_value',
-            'economy_value',
-            'moderate_value',
-            'skimming_value'
-        );
-
-        return $data;
+    public function the_price_range_input($range) {
+    	$checked = ! empty( $_GET['price_range'] ) && $_GET['price_range'] == $range ? ' checked="checked"' : '';
+    	printf('<input type="radio" name="price_range" value="%s"%s>', $range, $checked);
     }
 
     public function rating_field_data() {

@@ -1,8 +1,9 @@
-<?php
-$average = ATBDP()->review->get_average(get_the_ID());
-?>
 <div class="atbd_listing_meta">
-	<span class="atbd_meta atbd_listing_rating"><?php echo $average;?><i class="<?php echo atbdp_icon_type();?>-star"></i></span>
+
+	<?php if ($listings->display_review): ?>
+		<span class="atbd_meta atbd_listing_rating"><?php echo ATBDP()->review->get_average($listings->loop['id']);?><i class="<?php echo atbdp_icon_type();?>-star"></i></span>
+	<?php endif ?>
+	
 	<?php
 	if ($listings->display_price && $listings->display_pricing_field) {
 		if (!empty($listings->loop['price_range']) && ('range' === $listings->loop['atbd_listing_pricing'])) {
@@ -12,6 +13,14 @@ $average = ATBDP()->review->get_average(get_the_ID());
 			echo apply_filters('atbdp_listing_card_price', atbdp_display_price($listings->loop['price'], $listings->is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false));
 		}
 	}
+
 	do_action('atbdp_after_listing_price');
+
+    /**
+     * @since 7.0
+     * @hooked Directorist_Template_Hooks::list_view_business_hours - 10
+     */
+    do_action( "directorist_{$listings->view}_view_listing_meta_end", $listings );
+
 	?>
 </div>

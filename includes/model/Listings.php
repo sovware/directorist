@@ -1014,7 +1014,15 @@ class Directorist_Listings {
 
 	public function loop_price_meta_template() {
 		$html = atbdp_return_shortcode_template( 'global/price-meta', array('listings' => $this) );
-		echo apply_filters('atbdp_listings_review_price', $html);
+		if ( $this->view == 'grid' ) {
+			echo apply_filters('atbdp_listings_review_price', $html);
+		}
+		elseif ( $this->view == 'list' ) {
+			echo apply_filters('atbdp_listings_list_review_price', $html);
+		}
+		else {
+			echo $html;
+		}
 	}
 
 	public function loop_data_list_template() {

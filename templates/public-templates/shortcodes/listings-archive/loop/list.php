@@ -61,18 +61,9 @@ $featured_class = $listings->loop['featured'] ? 'directorist-featured-listings' 
                  */
                 do_action( 'atbdp_after_listing_tagline' );
 
-                if ($listings->display_review || ($listings->display_price && (!empty($listings->loop['price']) || !empty($listings->loop['price_range'])))) { ?>
-                    <div class="atbd_listing_meta">
-                        <?php
-                        /**
-                         * @hooked Directorist_Template_Hooks::review_in_list_review_price - 10
-                         * @hooked Directorist_Template_Hooks::price_in_list_review_price - 15
-                         * @hooked Directorist_Template_Hooks::business_hour_in_list_review_price - 20
-                         */
-                        echo apply_filters( 'atbdp_listings_list_review_price', '' ); ?>
-                    </div>
-                <?php }
-
+                if ($listings->display_review || $listings->display_price && (!empty($listings->loop['price']) || !empty($listings->loop['price_range']))) {
+                    $listings->loop_price_meta_template();
+                }
 
                 if ($listings->display_contact_info || $listings->display_publish_date || $listings->display_email || $listings->display_web_link) {
                     $listings->loop_data_list_template();

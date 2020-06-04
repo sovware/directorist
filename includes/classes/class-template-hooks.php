@@ -47,9 +47,7 @@ class Directorist_Template_Hooks {
         add_filter( 'atbdp_list_lower_badges', array( __CLASS__, 'new_badge_list_view'), 20 );
 
         // Listings Meta Info - List View
-        add_filter( 'atbdp_listings_list_review_price', array( __CLASS__, 'review_in_list_review_price') );
-        add_filter( 'atbdp_listings_list_review_price', array( __CLASS__, 'price_in_list_review_price'), 15 );
-        add_filter( 'atbdp_listings_list_review_price', array( __CLASS__, 'business_hour_in_list_review_price'), 20 );
+        add_action( 'directorist_list_view_listing_meta_end', array( __CLASS__, 'list_view_business_hours') );
         
         // Listing Thumbnail Area
         add_action( 'atbdp_listing_thumbnail_area', array( __CLASS__, 'mark_as_favourite_button') );
@@ -179,7 +177,8 @@ class Directorist_Template_Hooks {
         return $content;
     }
 
-    public static function business_hour_in_list_review_price( $content ) {
+    public static function list_view_business_hours() {
+        $content = '';
         $plan_hours              = true;
         $disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
         $enable247hour           = get_post_meta(get_the_ID(), '_enable247hour', true);
@@ -193,65 +192,14 @@ class Directorist_Template_Hooks {
         if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
             // lets check is it 24/7
             if ( ! empty($enable247hour) ) {
-                 $new_content = "<span class='atbd_badge atbd_badge_open'>" . get_directorist_option('open_badge_text') . "</span>";
+                 $content = "<span class='atbd_badge atbd_badge_open'>" . get_directorist_option('open_badge_text') . "</span>";
             } else {
                 // show the business hour in an unordered list
-                $new_content = BD_Business_Hour()->show_business_open_close($business_hours, false); 
+                $content = BD_Business_Hour()->show_business_open_close($business_hours, false); 
             }
-            $content .= $new_content;
         }
 
-        return $content;
-    }
-
-    public static function price_in_list_review_price( $content ) {
-        $listing_pricing = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
-        $display_price = get_directorist_option('display_price', 1);
-        $display_pricing_field = get_directorist_option('display_pricing_field', 1);
-        $price_range = get_post_meta(get_the_ID(), '_price_range', true);
-        $price = get_post_meta(get_the_ID(), '_price', true);
-        $is_disable_price = get_directorist_option('disable_list_price');
-
-        $listing_pricing = !empty($listing_pricing) ? $listing_pricing : '';
-        if (!empty($display_price) && !empty($display_pricing_field)) {
-            if (!empty($price_range) && ('range' === $listing_pricing)) {
-                $new_content = atbdp_display_price_range($price_range);
-            } else {
-                $new_content = atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
-            }
-
-            ob_start();
-            echo $new_content;
-            
-            /**
-              * Fires after the price of the listing is rendered
-              *
-              *
-              * @since 3.1.0
-              */
-            do_action('atbdp_after_listing_price');
-
-            $final_content = ob_get_clean();
-            $content .= $final_content;
-        }
-
-        return $content;
-    }
-
-    public static function review_in_list_review_price( $content ) {
-        $display_review = get_directorist_option('enable_review', 1);
-
-        if (!empty($display_review)) {
-            $average = ATBDP()->review->get_average(get_the_ID()); ob_start(); ?>
-            <span class="atbd_meta atbd_listing_rating">
-                <?php echo $average; ?><i class="<?php echo atbdp_icon_type(); ?>-star"></i>
-            </span>
-            <?php
-            $new_content = ob_get_clean();
-            $content .= $new_content;
-        }
-
-        return $content;
+        echo $content;
     }
 
     public static function author_profile_header() {

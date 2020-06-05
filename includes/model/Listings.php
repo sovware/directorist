@@ -1068,8 +1068,9 @@ class Directorist_Listings {
 	}
 
 	public function item_found_title() {
-		$count = count( $this->query->posts );
+		$count = $this->show_pagination ? $this->query->found_posts : count( $this->query->posts );
 		$title = sprintf('<span>%s</span> %s', $count, $this->header_title);
+		
 		return apply_filters('atbdp_total_listings_found_text', "<h3>{$title}</h3>", $title);
 	}
 

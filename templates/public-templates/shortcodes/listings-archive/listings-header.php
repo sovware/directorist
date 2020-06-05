@@ -27,7 +27,7 @@
 							do_action('atbdp_after_filter_button_in_listings_header');
 							
 							if (!empty($listings->header_title)) {
-								echo $listings->loop_listing_found_title();
+								echo $listings->item_found_title();
 							}
 							?>
 						</div>

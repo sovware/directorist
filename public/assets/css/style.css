@@ -2282,7 +2282,7 @@ input[type="radio"].atbdp_radio_input:checked + label:before {
   margin-bottom: 8px;
 }
 
-.at_option_title {
+.atbdp_option_title {
   margin-bottom: 10px;
 }
 
@@ -5834,6 +5834,37 @@ span.atbd_get_loc_wid {
 
 #directorist.atbd_wrapper .user_info_wrap .form-group .form-control {
   padding: 10px 15px;
+}
+
+#update_user_profile {
+  position: relative;
+  transition: 0.3s ease;
+}
+
+#update_user_profile.loading {
+  padding-right: 30px !important;
+}
+
+#update_user_profile.loading:before {
+  position: absolute;
+  content: '';
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  animation: upspin 2s linear infinite;
+  right: 7px;
+  top: 11px;
+}
+
+@keyframes upspin {
+  0% {
+    tranform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-selection {

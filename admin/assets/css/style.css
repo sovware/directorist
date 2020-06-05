@@ -846,4 +846,9 @@ span.atbdp-tick-cross {
   padding-left: 20px;
 }
 
+.atbdp-timestamp-wrap select,
+.atbdp-timestamp-wrap input {
+  margin-bottom: 5px !important;
+}
+
 /*# sourceMappingURL=map/style.css.map */

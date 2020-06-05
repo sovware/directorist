@@ -10,7 +10,6 @@ const aazztechModal1 = (selector) => {
 
 	element.forEach(function (el, index) {
 		el.style.display = 'none';
-		const item = document.querySelectorAll(`*[data-target="${el.getAttribute('id')}"]`);
 		
 		document.addEventListener('click', function (event) {
 			const item = document.querySelectorAll(`*[data-target="${el.getAttribute('id')}"]`);
@@ -28,7 +27,8 @@ const aazztechModal1 = (selector) => {
 				}, 100);
 				document.querySelector("html").style.overflow = "hidden";
 			}
-		}, false);
+        }, false);
+        
 		el.querySelector('a.at-modal-close').addEventListener('click', (e) => {
 			e.preventDefault();
 			el.classList.remove("atm-show");
@@ -37,7 +37,8 @@ const aazztechModal1 = (selector) => {
 				el.style.display = 'none';
 			}, 100);
 			document.querySelector("html").removeAttribute("style");
-		});
+        });
+        
 		el.addEventListener('click', function (e) {
 			if (e.target.closest('.atm-contents-inner'))
 				return;

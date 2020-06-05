@@ -6,12 +6,14 @@ if (!class_exists('ATBDP_Shortcode')):
         public function __construct() {
             add_shortcode('directorist_search_listing',      array($this, 'search_listing'));
             add_shortcode('directorist_search_result',       array($this, 'search_result'));
-            add_shortcode('directorist_all_listing',         array($this, 'all_listing'));
             add_shortcode('directorist_all_categories',      array($this, 'all_categories'));
-            add_shortcode('directorist_category',            array($this, 'atbdp_category'));
             add_shortcode('directorist_all_locations',       array($this, 'all_locations'));
-            add_shortcode('directorist_location',            array($this, 'atbdp_location'));
+            
+            // Archive
+            add_shortcode('directorist_all_listing',         array($this, 'listing_archive'));
+            add_shortcode('directorist_category',            array($this, 'category_archive'));
             add_shortcode('directorist_tag',                 array($this, 'atbdp_tag'));
+            add_shortcode('directorist_location',            array($this, 'atbdp_location'));
             
             // Single
             add_shortcode('directorist_listing_top_area',             array($this, 'directorist_listing_header' ));
@@ -1101,11 +1103,19 @@ if (!class_exists('ATBDP_Shortcode')):
             return ob_get_clean();
         }
 
-        public function all_listing( $atts )
-        {   
+        public function listing_archive( $atts ) {
             $listings = new Directorist_Listings($atts);
             return $listings->render_shortcode();
         }
+
+        public function category_archive( $atts ) {
+            $atts             = !empty( $atts ) ? $atts : array();
+            $category_slug    = get_query_var('atbdp_category');
+            $atts['category'] = $category_slug;
+            return $this->listing_archive( $atts );
+        }
+
+
 
         public function user_dashboard($atts)
         {

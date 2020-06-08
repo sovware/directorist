@@ -160,8 +160,8 @@ class Directorist_Listings {
 		$this->header                   = $this->params['header'] == 'yes' ? true : false;;
 		$this->header_title             = $this->params['header_title'];
 		$this->categories               = !empty( $this->params['category'] ) ? explode( ',', $this->params['category'] ) : '';
-		$this->locations                = !empty( $this->params['tag'] ) ? explode( ',', $this->params['tag'] ) : '';
-		$this->tags                     = !empty( $this->params['location'] ) ? explode( ',', $this->params['location'] ) : '';
+		$this->tags                     = !empty( $this->params['tag'] ) ? explode( ',', $this->params['tag'] ) : '';
+		$this->locations                = !empty( $this->params['location'] ) ? explode( ',', $this->params['location'] ) : '';
 		$this->ids                      = !empty( $this->params['ids'] ) ? explode( ',', $this->params['ids'] ) : '';
 		$this->columns                  = (int) $this->params['columns'];
 		$this->featured_only            = $this->params['featured_only'];

@@ -17,6 +17,7 @@ if (!class_exists('ATBDP_Shortcode')):
             
             // Single
             add_shortcode('directorist_listing_top_area',             array($this, 'directorist_listing_header' ));
+            add_shortcode('directorist_listing_tags',                 array($this, 'directorist_tags'));
             add_shortcode('directorist_listing_custom_fields',        array($this, 'directorist_custom_field'));
             add_shortcode('directorist_listing_video',                array($this, 'directorist_listing_video'));
             add_shortcode('directorist_listing_map',                  array($this, 'directorist_listing_map'));
@@ -52,6 +53,12 @@ if (!class_exists('ATBDP_Shortcode')):
         public function directorist_listing_header() {
             $listing = new Directorist_Single_Listing();
             return $listing->render_shortcode_top_area();
+        }
+
+        // listing custom tags
+        public function directorist_tags() {
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_tags();
         }
 
         // listing custom fields area

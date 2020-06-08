@@ -80,28 +80,40 @@
             var approve_immediately = $form.find("#approve_immediately").val();
             var review_duplicate = $form.find("#review_duplicate").val();
             if (approve_immediately === 'no') {
-                if (submit_count === 1) {
-                    $('#client_review_list').prepend(output); // add the review if it's the first review of the user
-                    $('.atbdp_static').remove();
-                }
-                submit_count++;
-                if (review_duplicate === 'yes') {
+                if(content === '') {
+                    // show error message
                     swal({
-                        title: atbdp_public_data.warning,
-                        text: atbdp_public_data.duplicate_review_error,
-                        type: "warning",
-                        timer: 3000,
+                        title: "ERROR!!",
+                        text: atbdp_public_data.review_error,
+                        type: "error",
+                        timer: 2000,
                         showConfirmButton: false
                     });
                 } else {
-                    swal({
-                        title: atbdp_public_data.success,
-                        text: atbdp_public_data.review_approval_text,
-                        type: "success",
-                        timer: 4000,
-                        showConfirmButton: false
-                    });
+                    if (submit_count === 1) {
+                        $('#client_review_list').prepend(output); // add the review if it's the first review of the user
+                        $('.atbdp_static').remove();
+                    }
+                    submit_count++;
+                    if (review_duplicate === 'yes') {
+                        swal({
+                            title: atbdp_public_data.warning,
+                            text: atbdp_public_data.duplicate_review_error,
+                            type: "warning",
+                            timer: 3000,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        swal({
+                            title: atbdp_public_data.success,
+                            text: atbdp_public_data.review_approval_text,
+                            type: "success",
+                            timer: 4000,
+                            showConfirmButton: false
+                        });
+                    }
                 }
+                
 
             } else if (response.success) {
                 d = atbdp_public_data.currentDate; // build the date string, month is 0 based so add 1 to that to get real month.

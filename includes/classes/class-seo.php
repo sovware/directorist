@@ -41,7 +41,7 @@ if ( !class_exists('ATBDP_SEO') ):
                     if( $post->ID == $LOC_page_ID ) {
                         if( $slug = get_query_var( 'atbdp_location' ) ) {
                             $term = get_term_by( 'slug', $slug, ATBDP_LOCATION );
-                            $title = $term->name;
+                            $title = !empty($term)?$term->name:'';
                         }
                     }
                     // Change Category page title
@@ -509,7 +509,9 @@ if ( !class_exists('ATBDP_SEO') ):
                 if( $post->ID == $LOC_page_ID ) {
                     if( $slug = get_query_var( 'atbdp_location' ) ) {
                         $term = get_term_by( 'slug', $slug, ATBDP_LOCATION );
-                        $meta_desc = $term->description;
+                        if ( !empty($term->description) ) {
+                            $meta_desc = $term->description;
+                        }
                     }
                 }
                 $atbdp_page = 'single_location';

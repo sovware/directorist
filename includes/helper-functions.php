@@ -4225,12 +4225,12 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
     if (ATBDP_CATEGORY == $taxonomy_id) {
         $category_slug = get_query_var('atbdp_category');
         $category = get_term_by('slug', $category_slug, ATBDP_CATEGORY);
-        $category_id = !empty($category_slug) ? $category->term_id : '';
+        $category_id = !empty($category->term_id) ? $category->term_id : '';
         $term_id = isset($_GET['in_cat']) ? $_GET['in_cat'] : $category_id;
     } else {
         $location_slug = get_query_var('atbdp_location');
         $location = get_term_by('slug', $location_slug, ATBDP_LOCATION);
-        $location_id = !empty($location_slug) ? $location->term_id : '';
+        $location_id = !empty($location->term_id) ? $location->term_id : '';
         $term_id = isset($_GET['in_loc']) ? $_GET['in_loc'] : $location_id;
     }
 

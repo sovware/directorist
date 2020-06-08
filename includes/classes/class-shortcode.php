@@ -1111,11 +1111,9 @@ if (!class_exists('ATBDP_Shortcode')):
         public function category_archive( $atts ) {
             $atts             = !empty( $atts ) ? $atts : array();
             $category_slug    = get_query_var('atbdp_category');
-            $atts['category'] = $category_slug;
+            $atts['category'] = sanitize_text_field( $category_slug );
             return $this->listing_archive( $atts );
         }
-
-
 
         public function user_dashboard($atts)
         {

@@ -1222,7 +1222,7 @@ class Directorist_Listings {
         $listing_tags_field = get_directorist_option( 'listing_tags_field', 'all_tags' );
         $category_slug      = get_query_var( 'atbdp_category' );
         $category           = get_term_by( 'slug', $category_slug, ATBDP_CATEGORY );
-        $category_id        = ! empty( $category_slug ) ? $category->term_id : '';
+        $category_id        = ! empty( $category->term_id ) ? $category->term_id : '';
         $tag_args           = array(
             'post_type' => ATBDP_POST_TYPE,
             'tax_query' => array(

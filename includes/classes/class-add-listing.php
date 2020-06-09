@@ -221,6 +221,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $featured = get_post_meta($listing_id, '_featured', true);
                         $total_regular_listing = $num_regular - ('0' === $featured ? $user_regular_listing + 1 : $user_regular_listing);
                         $total_featured_listing = $num_featured - ('1' === $featured ? $user_featured_listing + 1 : $user_featured_listing);
+                        $total_regular_listing = max($total_regular_listing, 0);
+                        $total_featured_listing = max($total_featured_listing, 0);
                         $subscribed_date = $plan_purchased->post_date;
                         $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
                         $regular_unl = get_post_meta($subscribed_package_id, 'num_regular_unl', true);
@@ -372,6 +374,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $content = apply_filters('get_the_content', $post_object->post_content);
                             $args['post_content'] = $content;
                         }
+
                         $post_id = wp_update_post($args);
 
 
@@ -465,8 +468,9 @@ if (!class_exists('ATBDP_Add_Listing')):
 
 
                 } else {
+                    
                     // the post is a new post, so insert it as new post.
-                    if (current_user_can('publish_at_biz_dirs')) {
+                    if (current_user_can('publish_at_biz_dirs') && (empty($data['error']) && $data['error'] !== true)) {
                         $new_l_status = get_directorist_option('new_listing_status', 'pending');
                         if ('pending' === $new_l_status) {
                             $data['pending'] = true;

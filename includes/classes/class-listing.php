@@ -50,7 +50,7 @@ if (!class_exists('ATBDP_Listing')):
             $this->add_listing = new ATBDP_Add_Listing;
             $this->db = new ATBDP_Listing_DB;
             // for search functionality
-            //add_action('pre_get_posts', array($this, 'modify_search_query'), 1, 10);
+            // add_action('pre_get_posts', array($this, 'modify_search_query'), 1, 10);
             // remove adjacent_posts_rel_link_wp_head for accurate post views
             remove_action('wp_head', array($this, 'adjacent_posts_rel_link_wp_head', 10));
             add_action('plugins_loaded', array($this, 'manage_listings_status'));
@@ -94,7 +94,7 @@ if (!class_exists('ATBDP_Listing')):
                 $plan_id = '';
                 $plan_purchased = '';
 
-                // If Pricing Plan Listing Enabled
+                // If Pricing Plan is Enabled
                 if ( $monitization && $pricing_plan_enabled ) {
                     $plan_id = get_post_meta($id, '_fm_plans', true);
                     $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id);
@@ -102,7 +102,7 @@ if (!class_exists('ATBDP_Listing')):
                     $post_status = ( ! $plan_purchased ) ? 'pending' : $listing_status;
                 }
 
-                // If Featured Listing Enabled
+                // If Featured Listing is Enabled
                 if ( $monitization && ( ! $pricing_plan_enabled && $featured_enabled ) ) {
                     $has_order      = directorist_get_listing_order( $id );
                     $order_meta     = ( $has_order ) ? get_post_meta( $has_order->ID ) : null;

@@ -20,7 +20,6 @@ if ( !function_exists('get_help') ) {
 
 
 if ( ! function_exists( 'directorist_get_listing_order' ) ) {
-    
     // directorist_get_listing_order
     function directorist_get_listing_order( $listing_id ) {
         $order = new WP_Query([

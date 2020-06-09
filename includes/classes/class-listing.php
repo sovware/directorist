@@ -50,7 +50,7 @@ if (!class_exists('ATBDP_Listing')):
             $this->add_listing = new ATBDP_Add_Listing;
             $this->db = new ATBDP_Listing_DB;
             // for search functionality
-            //add_action('pre_get_posts', array($this, 'modify_search_query'), 1, 10);
+            // add_action('pre_get_posts', array($this, 'modify_search_query'), 1, 10);
             // remove adjacent_posts_rel_link_wp_head for accurate post views
             remove_action('wp_head', array($this, 'adjacent_posts_rel_link_wp_head', 10));
             add_action('plugins_loaded', array($this, 'manage_listings_status'));
@@ -62,10 +62,11 @@ if (!class_exists('ATBDP_Listing')):
 
         }
 
+        
+
         /**
          * @since 6.3.5
          */
-
         public function atbdp_listing_status_controller() {
             $status   = isset($_GET['listing_status']) ? esc_attr($_GET['listing_status']) : '';
             $preview  = isset($_GET['preview']) ? esc_attr($_GET['preview']) : '';
@@ -78,38 +79,10 @@ if (!class_exists('ATBDP_Listing')):
                 $id = isset($_GET['listing_id']) ? (int)($_GET['listing_id']) : '';
                 $id = ( ! empty( $id ) ) ? $id : $listing_id;
                 $id = ( ! empty( $id ) ) ? $id : get_the_ID();
-                
-                $new_l_status   = get_directorist_option('new_listing_status', 'pending');
-                $edit_l_status  = get_directorist_option('edit_listing_status');
-                $edited         = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
-                $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
 
-                $monitization         = get_directorist_option('enable_monetization', 0);
-                $featured_enabled     = get_directorist_option('enable_featured_listing');
-                $pricing_plan_enabled = is_fee_manager_active();
-                $payment              = isset($_GET['payment']) ? $_GET['payment'] : '';
-                
-                $post_status = $listing_status;
-
-                $plan_id = '';
-                $plan_purchased = '';
-
-                // If Pricing Plan Listing Enabled
-                if ( $monitization && $pricing_plan_enabled ) {
-                    $plan_id = get_post_meta($id, '_fm_plans', true);
-                    $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id);
-
-                    $post_status = ( ! $plan_purchased ) ? 'pending' : $listing_status;
-                }
-
-                // If Featured Listing Enabled
-                if ( $monitization && ( ! $pricing_plan_enabled && $featured_enabled ) ) {
-                    $has_order      = directorist_get_listing_order( $id );
-                    $order_meta     = ( $has_order ) ? get_post_meta( $has_order->ID ) : null;
-                    $payment_status = ( ! empty( $order_meta['_payment_status'][0] ) ) ? $order_meta['_payment_status'][0] : null;
-
-                    $post_status = ( $has_order && 'completed' !== $payment_status ) ? 'pending' : $post_status;
-                }
+                $edited = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
+                $args = [ 'id' => $id, 'edited' => $edited ];
+                $post_status = atbdp_get_listing_status_after_submission( $args );
 
                 $args = array(
                     'ID' => $id ? $id : get_the_id(),

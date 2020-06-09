@@ -302,21 +302,23 @@ if (!class_exists('ATBDP_Add_Listing')):
                      * @since 5.4.0
                      */
                     do_action('atbdp_before_processing_to_update_listing');
-                    $edit_l_status = get_directorist_option('edit_listing_status');
-                    if ('pending' === $edit_l_status) {
+
+                    $listing_id = absint( $p['listing_id'] );
+                    $args = [ 'id' => $listing_id, 'edited' => true ];
+                    $post_status = atbdp_get_listing_status_after_submission( $args );
+                    $args['post_status'] = $post_status;
+
+                    if ( 'pending' === $post_status ) {
                         $data['pending'] = true;
                     }
+
                     // update the post
-                    $args['ID'] = absint($p['listing_id']); // set the ID of the post to update the post
-                    if (!empty($edit_l_status)) {
-                        $args['post_status'] = $edit_l_status; // set the status of edit listing.
-                    }
+                    $args['ID'] = $listing_id; // set the ID of the post to update the post
+                    
                     if (!empty($preview_enable)) {
                         $args['post_status'] = 'private';
                     }
-                    if ('publish' === get_post_status( $p['listing_id'] )){
-                        $args['post_status'] = $edit_l_status;
-                    }
+
                     // Check if the current user is the owner of the post
                     $post = get_post($args['ID']);
                     // update the post if the current user own the listing he is trying to edit. or we and give access to the editor or the admin of the post.

@@ -4,11 +4,11 @@
 	Author: AazzTech
 	Author URI: http://aazztech.com
 */
-
-const aazztechModal1 = (selector) => {
+/* disable-eslint */
+const aazztechModal1 = selector => {
 	const element = document.querySelectorAll(selector);
 
-	element.forEach(function (el, index) {
+	element.forEach(function(el, index) {
 		el.style.display = 'none';
 		
 		document.addEventListener('click', function (event) {
@@ -54,11 +54,11 @@ const aazztechModal1 = (selector) => {
 };
 
 function initModal() {
-	aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
+        aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
 }
 
-window.addEventListener("load", function () {
-    setTimeout(function () {
-        initModal();
-    },500);
+window.addEventListener('load', function() {
+        setTimeout(function() {
+                initModal();
+        }, 500);
 });

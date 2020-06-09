@@ -1099,17 +1099,17 @@ jQuery(function ($) {
     }
 
     //Display email notification
-    var lf_opt36 = $("#email_from_name,#email_from_email,#admin_email_lists,#notify_admin,#notify_user");
-    lf_opt36.show();
+    var disable_email_notification = $("#email_from_name,#email_from_email,#admin_email_lists,#notify_admin,#notify_user");
+    disable_email_notification.show();
     $('input[name="disable_email_notification"]').on("change", function () {
         if($(this).is(":checked") === true){
-            lf_opt36.hide();
+            disable_email_notification.hide();
         }else{
-            lf_opt36.show();
+            disable_email_notification.show();
         }
     });
     if($('input[name="disable_email_notification"]').is(":checked") === true){
-        lf_opt36.hide();
+        disable_email_notification.hide();
     }
 
     //Email header

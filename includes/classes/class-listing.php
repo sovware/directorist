@@ -71,6 +71,7 @@ if (!class_exists('ATBDP_Listing')):
             $preview  = isset($_GET['preview']) ? esc_attr($_GET['preview']) : '';
             $reviewed = isset($_GET['reviewed']) ? esc_attr($_GET['reviewed']) : '';
 
+<<<<<<< HEAD
             
             if ( $preview || $status || $reviewed ) {
                 $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
@@ -80,6 +81,14 @@ if (!class_exists('ATBDP_Listing')):
                 $id = ( ! empty( $id ) ) ? $id : $listing_id;
                 $id = ( ! empty( $id ) ) ? $id : get_the_ID();
                 
+=======
+            $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
+            $listing_id = isset($_GET['post_id']) ? $_GET['post_id'] : $listing_id;
+            $id = isset($_GET['listing_id']) ? (int)($_GET['listing_id']) : '';
+
+            if ( $preview || $status || $reviewed ) {
+                $id = $id ? $id : $listing_id;
+>>>>>>> 4cc8a6129e089721e9f31bdd6ccf0c73de998ec7
                 $new_l_status   = get_directorist_option('new_listing_status', 'pending');
                 $edit_l_status  = get_directorist_option('edit_listing_status');
                 $edited         = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
@@ -110,7 +119,7 @@ if (!class_exists('ATBDP_Listing')):
                 }
 
                 $args = array(
-                    'ID' => $id,
+                    'ID' => $id ? $id : get_the_id(),
                     'post_status' => $post_status,
                 );
 

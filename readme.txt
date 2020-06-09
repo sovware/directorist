@@ -139,6 +139,16 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 6.4.2 - Jun 9, 2020 =
+
+* Fix - Listing status
+* Fix - Duplicate canonical issue
+* Fix - Saving issue of payment receipt shortcode
+* Fix - Style issues
+* Fix - Review submit validation
+* Improve - Search Listings widget
+* Remove - Redirection of add listing page when error happens
+
 = 6.4.1 - May 17, 2020 =
 
 * Add - Option to set per image limit in add listing form

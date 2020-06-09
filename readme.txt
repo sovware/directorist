@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.4
-Stable tag: 6.4.1
+Stable tag: 6.4.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -12,7 +12,7 @@ Create a classified website, business directory website like Yelp, foursquare et
 
 == Description ==
 
-[Live Demos](https://directorist.com/demos/) | [Documentation](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/product/category/themes/) | [Extensions](https://directorist.com/product/category/extensions/)
+[Live Demos](https://directorist.com/demos/) | [Documentation](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/product/category/themes/) | [Extensions](https://directorist.com/product/category/extensions/) | [Roadmap](https://directorist.com/roadmap/)
 
 The Directorist plugin has just got even better with a new update. Meet New Directorist. It is now updated with a lot of new features like featured listings, basic monetization, listing expiration, improved design, email notifications, ability to add price field to a listing, ability to toggle any options and much more. Best directory plugin just got even better than before.
 
@@ -144,9 +144,9 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Fix - Listing status
 * Fix - Duplicate canonical issue
 * Fix - Saving issue of payment receipt shortcode
+* Fix - Validation issue of review submission 
 * Fix - Style issues
-* Fix - Review submit validation
-* Improve - Search Listings widget
+* Improve - "Search Listings" widget
 * Remove - Redirection of add listing page when error happens
 
 = 6.4.1 - May 17, 2020 =

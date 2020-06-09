@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2020-05-17 15:17+0600\n"
+"POT-Creation-Date: 2020-06-09 18:51+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -63,7 +63,7 @@ msgstr ""
 msgid "Submit & Deactivate"
 msgstr ""
 
-#: directorist-base.php:971 includes/classes/class-enqueuer.php:309
+#: directorist-base.php:971 includes/classes/class-enqueuer.php:304
 #: includes/libs/vafpress/classes/shortcodegenerator.php:261
 msgid "Cancel"
 msgstr ""
@@ -172,7 +172,7 @@ msgid "Submit Review"
 msgstr ""
 
 #: directorist-base.php:1249 includes/elementor/user-login.php:15
-#: includes/helper-functions.php:4530
+#: includes/helper-functions.php:4555
 msgid "Login"
 msgstr ""
 
@@ -211,7 +211,7 @@ msgid ""
 msgstr ""
 
 #: includes/checkout/class-checkout.php:84
-#: includes/checkout/class-checkout.php:148
+#: includes/checkout/class-checkout.php:147
 #: includes/classes/class-custom-post.php:180
 #: includes/classes/class-custom-post.php:188
 #: includes/classes/class-settings-manager.php:4494
@@ -225,7 +225,7 @@ msgstr ""
 msgid "Sorry, Nothing is available to buy. Please try again."
 msgstr ""
 
-#: includes/checkout/class-checkout.php:130
+#: includes/checkout/class-checkout.php:129
 msgid "Sorry! No order id has been provided."
 msgstr ""
 
@@ -233,37 +233,37 @@ msgstr ""
 msgid "Your Transaction was not successful. Please contact support"
 msgstr ""
 
-#: includes/classes/class-add-listing.php:259
+#: includes/classes/class-add-listing.php:261
 msgid ""
 "You have already crossed your limit for regular listing, please try "
 "again."
 msgstr ""
 
-#: includes/classes/class-add-listing.php:266
+#: includes/classes/class-add-listing.php:268
 msgid ""
 "You have already crossed your limit for featured listing, please try "
 "again"
 msgstr ""
 
-#: includes/classes/class-add-listing.php:276
+#: includes/classes/class-add-listing.php:278
 msgid "You can upload a maximum of "
 msgstr ""
 
-#: includes/classes/class-add-listing.php:336
-#: includes/classes/class-add-listing.php:507
+#: includes/classes/class-add-listing.php:338
+#: includes/classes/class-add-listing.php:511
 msgctxt "tag delimiter"
 msgid ","
 msgstr ""
 
-#: includes/classes/class-add-listing.php:828
+#: includes/classes/class-add-listing.php:832
 msgid "Your Submission is Completed! redirecting.."
 msgstr ""
 
-#: includes/classes/class-add-listing.php:831
+#: includes/classes/class-add-listing.php:835
 msgid "Sorry! Something Wrong with Your Submission"
 msgstr ""
 
-#: includes/classes/class-add-listing.php:834
+#: includes/classes/class-add-listing.php:838
 msgid "Payment Required! redirecting to checkout.."
 msgstr ""
 
@@ -390,7 +390,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3127
 #: includes/classes/class-settings-manager.php:3151
 #: includes/classes/class-settings-manager.php:4288
-#: includes/helper-functions.php:2110
+#: includes/helper-functions.php:2132
 #: templates/front-end/add-listing.php:980
 #: templates/widget-templates/all-map.php:5
 msgid "Map"
@@ -503,7 +503,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3651
 #: includes/classes/class-settings-manager.php:4284
 #: includes/classes/class-tags-widget.php:142
-#: includes/helper-functions.php:2104
+#: includes/helper-functions.php:2126
 msgid "List"
 msgstr ""
 
@@ -860,7 +860,7 @@ msgid "Search Location"
 msgstr ""
 
 #: includes/classes/class-custom-taxonomy.php:305
-#: includes/helper-functions.php:4507
+#: includes/helper-functions.php:4532
 msgid "All Locations"
 msgstr ""
 
@@ -1193,151 +1193,151 @@ msgstr ""
 msgid "Current Color"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:126
-#: includes/classes/class-enqueuer.php:376
+#: includes/classes/class-enqueuer.php:121
+#: includes/classes/class-enqueuer.php:367
 msgid "Are you sure"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:127
-#: includes/classes/class-enqueuer.php:377
+#: includes/classes/class-enqueuer.php:122
+#: includes/classes/class-enqueuer.php:368
 msgid "Do you really want to remove this Social Link!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:128
+#: includes/classes/class-enqueuer.php:123
+#: includes/classes/class-enqueuer.php:303
 #: includes/classes/class-enqueuer.php:308
-#: includes/classes/class-enqueuer.php:313
-#: includes/classes/class-enqueuer.php:379
+#: includes/classes/class-enqueuer.php:370
 msgid "Yes, Delete it!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:129
-#: includes/classes/class-enqueuer.php:380
+#: includes/classes/class-enqueuer.php:124
+#: includes/classes/class-enqueuer.php:371
 msgid "Deleted!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:130
+#: includes/classes/class-enqueuer.php:125
 msgid "Select an icon"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:131
+#: includes/classes/class-enqueuer.php:126
 msgid "Select or Upload Slider Image"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:132
+#: includes/classes/class-enqueuer.php:127
 msgid "Select Category Image"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:133
-#: includes/classes/class-enqueuer.php:318
+#: includes/classes/class-enqueuer.php:128
+#: includes/classes/class-enqueuer.php:313
 msgid "Use this Image"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:134
+#: includes/classes/class-enqueuer.php:129
 msgid "Select Preview Image"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:135
+#: includes/classes/class-enqueuer.php:130
 msgid "Insert Preview Image"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:287
+#: includes/classes/class-enqueuer.php:282
 msgid ""
 "Your review has been received. It requires admin approval to publish."
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:294
+#: includes/classes/class-enqueuer.php:289
 msgid "Sorry, you need to login first."
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:296
+#: includes/classes/class-enqueuer.php:291
 msgid "WARNING!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:297
+#: includes/classes/class-enqueuer.php:292
 msgid "SUCCESS!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:298
+#: includes/classes/class-enqueuer.php:293
 msgid ""
 "You can not add more than one review. Refresh the page to edit or "
 "delete your review!,"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:299
+#: includes/classes/class-enqueuer.php:294
 msgid "Sorry! your review already in process."
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:300
+#: includes/classes/class-enqueuer.php:295
 msgid "Reviews Saved Successfully!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:302
+#: includes/classes/class-enqueuer.php:297
 msgid "Something went wrong. Check the form and try again!!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:303
+#: includes/classes/class-enqueuer.php:298
 msgid "Reviews Loaded!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:304
+#: includes/classes/class-enqueuer.php:299
 msgid "NO MORE REVIEWS AVAILABLE!,"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:305
+#: includes/classes/class-enqueuer.php:300
 msgid ""
 "You do not have any review to delete. Refresh the page to submit new "
 "review!!!,"
 msgstr ""
 
+#: includes/classes/class-enqueuer.php:301
 #: includes/classes/class-enqueuer.php:306
-#: includes/classes/class-enqueuer.php:311
 msgid "Are you sure?"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:307
+#: includes/classes/class-enqueuer.php:302
 msgid "Do you really want to remove this review!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:310
+#: includes/classes/class-enqueuer.php:305
 msgid "Something went wrong!, Try again"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:312
+#: includes/classes/class-enqueuer.php:307
 msgid "Do you really want to delete this item?!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:314
+#: includes/classes/class-enqueuer.php:309
 msgid "Deleted!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:315
+#: includes/classes/class-enqueuer.php:310
 msgid "ERROR!!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:316
+#: includes/classes/class-enqueuer.php:311
 msgid "Something went wrong!!!, Try again"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:317
+#: includes/classes/class-enqueuer.php:312
 msgid "Select or Upload a profile picture"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:319
+#: includes/classes/class-enqueuer.php:314
 #: templates/front-end/checkout-form.php:112
 msgid "Pay Now"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:320
+#: includes/classes/class-enqueuer.php:315
 msgid "Complete Submission"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:371
+#: includes/classes/class-enqueuer.php:362
 #: includes/classes/class-settings-manager.php:4742
 msgid "Select or insert new tags separated by a comma, or space"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:372
-#: includes/classes/class-enqueuer.php:397
+#: includes/classes/class-enqueuer.php:363
+#: includes/classes/class-enqueuer.php:388
 #: includes/classes/class-settings-manager.php:4641
 #: includes/classes/class-settings-manager.php:4653
 #: templates/front-end/add-listing.php:684
@@ -1345,107 +1345,107 @@ msgstr ""
 msgid "Select Category"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:373
+#: includes/classes/class-enqueuer.php:364
 #: includes/classes/class-settings-manager.php:4707
 #: templates/front-end/add-listing.php:602
 msgid "Select Location"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:378
+#: includes/classes/class-enqueuer.php:369
 msgid "Do you really want to remove this FAQ!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:406
+#: includes/classes/class-enqueuer.php:397
 msgid "Sorry! You have crossed the maximum image limit"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:418
+#: includes/classes/class-enqueuer.php:409
 msgid "Title field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:424
+#: includes/classes/class-enqueuer.php:415
 msgid "Description field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:428
+#: includes/classes/class-enqueuer.php:419
 msgid "Category field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:435
+#: includes/classes/class-enqueuer.php:426
 msgid "Excerpt field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:447
+#: includes/classes/class-enqueuer.php:438
 msgid "Price field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:459
+#: includes/classes/class-enqueuer.php:450
 msgid "Price range field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:480
+#: includes/classes/class-enqueuer.php:471
 msgid "Tag field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:498
+#: includes/classes/class-enqueuer.php:489
 msgid "Location field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:507
+#: includes/classes/class-enqueuer.php:498
 msgid "Address field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:529
+#: includes/classes/class-enqueuer.php:520
 msgid "Phone field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:532
-#: includes/classes/class-enqueuer.php:535
-#: includes/classes/class-enqueuer.php:708
+#: includes/classes/class-enqueuer.php:523
+#: includes/classes/class-enqueuer.php:526
+#: includes/classes/class-enqueuer.php:699
 msgid "This field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:548
+#: includes/classes/class-enqueuer.php:539
 msgid "Email field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:560
+#: includes/classes/class-enqueuer.php:551
 msgid "Website link field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:570
+#: includes/classes/class-enqueuer.php:561
 msgid "Zip/Post Code field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:583
+#: includes/classes/class-enqueuer.php:574
 msgid "Social information is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:599
+#: includes/classes/class-enqueuer.php:590
 msgid "Preview image is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:601
+#: includes/classes/class-enqueuer.php:592
 msgid "Gallery image is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:614
+#: includes/classes/class-enqueuer.php:605
 msgid "Video is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:621
+#: includes/classes/class-enqueuer.php:612
 msgid "Agree to Terms & Conditions is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:629
+#: includes/classes/class-enqueuer.php:620
 msgid "Agree to Privacy Policy is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:635
+#: includes/classes/class-enqueuer.php:626
 msgid "Your email is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:754
+#: includes/classes/class-enqueuer.php:743
 #: includes/classes/class-settings-manager.php:3029
 #: includes/classes/class-settings-manager.php:3843
 #: includes/classes/class-settings-manager.php:4252
@@ -1455,12 +1455,12 @@ msgstr ""
 #: includes/classes/class-shortcode.php:2369
 #: includes/classes/class-shortcode.php:2787
 #: includes/custom-fields/class-custom-field.php:535
-#: includes/helper-functions.php:3784 templates/listing-home.php:5
+#: includes/helper-functions.php:3806 templates/listing-home.php:5
 #: templates/search-widget-front.php:57
 msgid "Select a category"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:755
+#: includes/classes/class-enqueuer.php:744
 #: includes/classes/class-settings-manager.php:4258
 #: includes/classes/class-shortcode.php:753
 #: includes/classes/class-shortcode.php:1316
@@ -1470,7 +1470,7 @@ msgstr ""
 msgid "Select a location"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:760
+#: includes/classes/class-enqueuer.php:749
 #: includes/classes/class-shortcode.php:147
 #: includes/classes/class-shortcode.php:832
 #: includes/classes/class-shortcode.php:1510
@@ -1480,7 +1480,7 @@ msgstr ""
 msgid " Kilometers"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:762
+#: includes/classes/class-enqueuer.php:751
 #: includes/classes/class-shortcode.php:149
 #: includes/classes/class-shortcode.php:834
 #: includes/classes/class-shortcode.php:1512
@@ -1490,14 +1490,14 @@ msgstr ""
 msgid " Miles"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:768
+#: includes/classes/class-enqueuer.php:757
 #: templates/custom-field-search-form.php:94
 #: templates/front-end/all-listings/listings-header.php:350
 #: templates/listing-home-open.php:151 templates/listing-home.php:302
 msgid "Show More"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:769
+#: includes/classes/class-enqueuer.php:758
 msgid "Show Less"
 msgstr ""
 
@@ -1617,38 +1617,38 @@ msgstr ""
 msgid "StackOverFLow"
 msgstr ""
 
-#: includes/classes/class-helper.php:490
+#: includes/classes/class-helper.php:498
 msgid "&laquo; Prev"
 msgstr ""
 
-#: includes/classes/class-helper.php:491
+#: includes/classes/class-helper.php:499
 msgid "Next &raquo;"
 msgstr ""
 
-#: includes/classes/class-helper.php:539
-#: includes/classes/class-helper.php:606
+#: includes/classes/class-helper.php:547
+#: includes/classes/class-helper.php:614
 msgid "Category:"
 msgstr ""
 
-#: includes/classes/class-helper.php:554
-#: includes/classes/class-helper.php:630
+#: includes/classes/class-helper.php:562
+#: includes/classes/class-helper.php:638
 msgid "Location:"
 msgstr ""
 
-#: includes/classes/class-helper.php:583
+#: includes/classes/class-helper.php:591
 #: includes/classes/class-settings-manager.php:3402
-#: includes/helper-functions.php:2627 includes/helper-functions.php:3428
+#: includes/helper-functions.php:2649 includes/helper-functions.php:3450
 #: templates/front-end/all-listings/all-grid-listings.php:393
 msgid "Read More"
 msgstr ""
 
-#: includes/classes/class-listing.php:230
-#: includes/classes/class-listing.php:246
+#: includes/classes/class-listing.php:272
+#: includes/classes/class-listing.php:288
 #: templates/single-at_biz_dir.php:194 templates/single-at_biz_dir.php:211
 msgid " Go Back"
 msgstr ""
 
-#: includes/classes/class-listing.php:239
+#: includes/classes/class-listing.php:281
 #: templates/single-at_biz_dir.php:203
 msgid " Edit"
 msgstr ""
@@ -2111,7 +2111,7 @@ msgstr ""
 #: includes/classes/class-shortcode.php:2941
 #: includes/classes/class-shortcode.php:3039
 #: includes/classes/class-shortcode.php:3086
-#: includes/helper-functions.php:1399
+#: includes/helper-functions.php:1421
 #: templates/front-end/user-registration-form.php:24
 #: templates/front-end/user-registration-form.php:44
 #: templates/front-end/user-registration-form.php:54
@@ -3768,49 +3768,49 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:3057
 #: includes/classes/class-settings-manager.php:4317
-#: includes/helper-functions.php:1980
+#: includes/helper-functions.php:2002
 msgid "A to Z (title)"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3061
 #: includes/classes/class-settings-manager.php:4321
-#: includes/helper-functions.php:1981
+#: includes/helper-functions.php:2003
 msgid "Z to A (title)"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3065
 #: includes/classes/class-settings-manager.php:4325
-#: includes/helper-functions.php:1982
+#: includes/helper-functions.php:2004
 msgid "Latest listings"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3069
 #: includes/classes/class-settings-manager.php:4329
-#: includes/helper-functions.php:1983
+#: includes/helper-functions.php:2005
 msgid "Oldest listings"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3073
 #: includes/classes/class-settings-manager.php:4333
-#: includes/helper-functions.php:1984
+#: includes/helper-functions.php:2006
 msgid "Popular listings"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3077
 #: includes/classes/class-settings-manager.php:4337
-#: includes/helper-functions.php:1985
+#: includes/helper-functions.php:2007
 msgid "Price (low to high)"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3081
 #: includes/classes/class-settings-manager.php:4341
-#: includes/helper-functions.php:1986
+#: includes/helper-functions.php:2008
 msgid "Price (high to low)"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:3085
 #: includes/classes/class-settings-manager.php:4345
-#: includes/helper-functions.php:1987
+#: includes/helper-functions.php:2009
 msgid "Random listings"
 msgstr ""
 
@@ -3852,7 +3852,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3647
 #: includes/classes/class-settings-manager.php:3656
 #: includes/classes/class-settings-manager.php:4280
-#: includes/helper-functions.php:2107
+#: includes/helper-functions.php:2129
 msgid "Grid"
 msgstr ""
 
@@ -5013,7 +5013,7 @@ msgid "Related Listings Title"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:6119
-#: includes/helper-functions.php:2744
+#: includes/helper-functions.php:2766
 msgid "Related Listings"
 msgstr ""
 
@@ -5316,7 +5316,7 @@ msgstr ""
 #: includes/classes/class-shortcode.php:2941
 #: includes/classes/class-shortcode.php:3039
 #: includes/classes/class-shortcode.php:3086
-#: includes/helper-functions.php:1399
+#: includes/helper-functions.php:1421
 #, php-format
 msgid ""
 "You need to be logged in to view the content of this page. You can "
@@ -5943,7 +5943,7 @@ msgid "Only For Logged In User?"
 msgstr ""
 
 #: includes/elementor/all-listing.php:15
-#: includes/helper-functions.php:4495
+#: includes/helper-functions.php:4520
 msgid "All Listings"
 msgstr ""
 
@@ -6051,7 +6051,7 @@ msgstr ""
 msgid "This widget works only in Transaction Failure page"
 msgstr ""
 
-#: includes/elementor/category.php:15 includes/helper-functions.php:4503
+#: includes/elementor/category.php:15 includes/helper-functions.php:4528
 msgid "Single Category"
 msgstr ""
 
@@ -6069,7 +6069,7 @@ msgid "Cart/Checkout"
 msgstr ""
 
 #: includes/elementor/custom-registration.php:15
-#: includes/helper-functions.php:4527
+#: includes/helper-functions.php:4552
 msgid "Registration"
 msgstr ""
 
@@ -6109,7 +6109,7 @@ msgstr ""
 msgid "Single Listing Video"
 msgstr ""
 
-#: includes/elementor/location.php:15 includes/helper-functions.php:4511
+#: includes/elementor/location.php:15 includes/helper-functions.php:4536
 msgid "Single Location"
 msgstr ""
 
@@ -6118,7 +6118,7 @@ msgid "Number of locations to Show"
 msgstr ""
 
 #: includes/elementor/payment-receipt.php:15
-#: includes/helper-functions.php:4538
+#: includes/helper-functions.php:4563
 msgid "Payment Receipt"
 msgstr ""
 
@@ -6243,7 +6243,7 @@ msgid "Show only for logged in user?"
 msgstr ""
 
 #: includes/elementor/search-result.php:15
-#: includes/helper-functions.php:4487
+#: includes/helper-functions.php:4512
 msgid "Search Result"
 msgstr ""
 
@@ -6263,7 +6263,7 @@ msgstr ""
 msgid "Only Popular"
 msgstr ""
 
-#: includes/elementor/tag.php:15 includes/helper-functions.php:4515
+#: includes/elementor/tag.php:15 includes/helper-functions.php:4540
 msgid "Single Tag"
 msgstr ""
 
@@ -6272,12 +6272,12 @@ msgid "Redirect Page Link"
 msgstr ""
 
 #: includes/elementor/transaction-failure.php:15
-#: includes/helper-functions.php:4542
+#: includes/helper-functions.php:4567
 msgid "Transaction Failure"
 msgstr ""
 
 #: includes/elementor/user-dashboard.php:15
-#: includes/helper-functions.php:4523
+#: includes/helper-functions.php:4548
 msgid "Dashboard"
 msgstr ""
 
@@ -6502,65 +6502,65 @@ msgid ""
 "to your bank account."
 msgstr ""
 
-#: includes/helper-functions.php:1399
+#: includes/helper-functions.php:1421
 #: templates/widget-templates/login-form.php:17
 msgid "Sign up"
 msgstr ""
 
-#: includes/helper-functions.php:1428
+#: includes/helper-functions.php:1450
 msgid "Jan"
 msgstr ""
 
-#: includes/helper-functions.php:1429
+#: includes/helper-functions.php:1451
 msgid "Feb"
 msgstr ""
 
-#: includes/helper-functions.php:1430
+#: includes/helper-functions.php:1452
 msgid "Mar"
 msgstr ""
 
-#: includes/helper-functions.php:1431
+#: includes/helper-functions.php:1453
 msgid "Apr"
 msgstr ""
 
-#: includes/helper-functions.php:1432
+#: includes/helper-functions.php:1454
 msgid "May"
 msgstr ""
 
-#: includes/helper-functions.php:1433
+#: includes/helper-functions.php:1455
 msgid "Jun"
 msgstr ""
 
-#: includes/helper-functions.php:1434
+#: includes/helper-functions.php:1456
 msgid "Jul"
 msgstr ""
 
-#: includes/helper-functions.php:1435
+#: includes/helper-functions.php:1457
 msgid "Aug"
 msgstr ""
 
-#: includes/helper-functions.php:1436
+#: includes/helper-functions.php:1458
 msgid "Sep"
 msgstr ""
 
-#: includes/helper-functions.php:1437
+#: includes/helper-functions.php:1459
 msgid "Oct"
 msgstr ""
 
-#: includes/helper-functions.php:1438
+#: includes/helper-functions.php:1460
 msgid "Nov"
 msgstr ""
 
-#: includes/helper-functions.php:1439
+#: includes/helper-functions.php:1461
 msgid "Dec"
 msgstr ""
 
-#: includes/helper-functions.php:2175 includes/helper-functions.php:2177
-#: includes/helper-functions.php:2182
+#: includes/helper-functions.php:2197 includes/helper-functions.php:2199
+#: includes/helper-functions.php:2204
 msgid "Favorite"
 msgstr ""
 
-#: includes/helper-functions.php:2429 includes/helper-functions.php:2864
+#: includes/helper-functions.php:2451 includes/helper-functions.php:2886
 #: templates/front-end/all-listings/all-grid-listings.php:186
 #: templates/front-end/all-listings/listings-header.php:287
 #: templates/front-end/all-listings/listings-header.php:295
@@ -6569,62 +6569,70 @@ msgstr ""
 msgid "Open Now"
 msgstr ""
 
-#: includes/helper-functions.php:2597 includes/helper-functions.php:3030
-#: includes/helper-functions.php:3395
+#: includes/helper-functions.php:2619 includes/helper-functions.php:3052
+#: includes/helper-functions.php:3417
 #: templates/front-end/all-listings/all-grid-listings.php:359
 #, php-format
 msgid "Posted %s ago"
 msgstr ""
 
-#: includes/helper-functions.php:2637 includes/helper-functions.php:3437
+#: includes/helper-functions.php:2659 includes/helper-functions.php:3459
 #: templates/front-end/all-listings/all-grid-listings.php:402
 #, php-format
 msgid " %s"
 msgstr ""
 
-#: includes/helper-functions.php:2676 includes/helper-functions.php:3107
-#: includes/helper-functions.php:3481
+#: includes/helper-functions.php:2698 includes/helper-functions.php:3129
+#: includes/helper-functions.php:3503
 #: templates/front-end/all-listings/all-grid-listings.php:441
 msgid "Uncategorized"
 msgstr ""
 
-#: includes/helper-functions.php:2713 includes/helper-functions.php:3136
+#: includes/helper-functions.php:2735 includes/helper-functions.php:3158
 #: templates/front-end/all-listings/all-grid-listings.php:477
 #: templates/front-end/all-listings/all-list-listings.php:38
 msgid "No listing found."
 msgstr ""
 
-#: includes/helper-functions.php:4341
+#: includes/helper-functions.php:3891
+msgid "Select a Sub Category"
+msgstr ""
+
+#: includes/helper-functions.php:3892
+msgid "Select a Sub Location"
+msgstr ""
+
+#: includes/helper-functions.php:4366
 msgid "Email already registered. Please login first"
 msgstr ""
 
-#: includes/helper-functions.php:4380
+#: includes/helper-functions.php:4405
 msgid "Remove Data on Uninstall?"
 msgstr ""
 
-#: includes/helper-functions.php:4381
+#: includes/helper-functions.php:4406
 msgid ""
 "Checked it if you would like Directorist to completely remove all of "
 "its data when the plugin is deleted."
 msgstr ""
 
-#: includes/helper-functions.php:4483
+#: includes/helper-functions.php:4508
 msgid "Search Home"
 msgstr ""
 
-#: includes/helper-functions.php:4491
+#: includes/helper-functions.php:4516
 msgid "Add Listing"
 msgstr ""
 
-#: includes/helper-functions.php:4499
+#: includes/helper-functions.php:4524
 msgid "All Categories"
 msgstr ""
 
-#: includes/helper-functions.php:4519
+#: includes/helper-functions.php:4544
 msgid "Author Profile"
 msgstr ""
 
-#: includes/helper-functions.php:4534
+#: includes/helper-functions.php:4559
 msgid "Checkout"
 msgstr ""
 
@@ -7228,208 +7236,208 @@ msgstr ""
 msgid "Create & sell unlimited pricing plans to monetize your directory."
 msgstr ""
 
-#: templates/extension.php:23 templates/extension.php:49
-#: templates/extension.php:74 templates/extension.php:99
-#: templates/extension.php:125 templates/extension.php:152
-#: templates/extension.php:203 templates/extension.php:229
-#: templates/extension.php:330 templates/extension.php:356
-#: templates/extension.php:383 templates/extension.php:409
-#: templates/extension.php:433 templates/extension.php:455
-#: templates/extension.php:477 templates/themes.php:19
-#: templates/themes.php:41 templates/themes.php:63 templates/themes.php:81
-#: templates/themes.php:99 templates/themes.php:118
-msgid "View demo"
-msgstr ""
-
-#: templates/extension.php:25 templates/extension.php:52
-#: templates/extension.php:76 templates/extension.php:101
-#: templates/extension.php:127 templates/extension.php:154
-#: templates/extension.php:179 templates/extension.php:205
-#: templates/extension.php:231 templates/extension.php:256
-#: templates/extension.php:281 templates/extension.php:306
-#: templates/extension.php:332 templates/extension.php:359
-#: templates/extension.php:385 templates/extension.php:411
-#: templates/extension.php:435 templates/extension.php:457
-#: templates/extension.php:479 templates/themes.php:21
-#: templates/themes.php:43 templates/themes.php:65 templates/themes.php:83
-#: templates/themes.php:101 templates/themes.php:120
+#: templates/extension.php:22 templates/extension.php:49
+#: templates/extension.php:73 templates/extension.php:98
+#: templates/extension.php:124 templates/extension.php:151
+#: templates/extension.php:176 templates/extension.php:202
+#: templates/extension.php:228 templates/extension.php:253
+#: templates/extension.php:278 templates/extension.php:303
+#: templates/extension.php:329 templates/extension.php:356
+#: templates/extension.php:382 templates/extension.php:408
+#: templates/extension.php:432 templates/extension.php:454
+#: templates/extension.php:476 templates/themes.php:21
+#: templates/themes.php:43 templates/themes.php:65 templates/themes.php:86
+#: templates/themes.php:104 templates/themes.php:124
 msgid "Get It Now"
 msgstr ""
 
-#: templates/extension.php:43
+#: templates/extension.php:40
 msgid " WooCommerce Pricing Plans "
 msgstr ""
 
-#: templates/extension.php:44
+#: templates/extension.php:41
 msgid ""
 "Create & sell unlimited pricing plans to monetize your directory using "
 "WooCommerce."
 msgstr ""
 
-#: templates/extension.php:69
+#: templates/extension.php:46 templates/extension.php:71
+#: templates/extension.php:96 templates/extension.php:122
+#: templates/extension.php:149 templates/extension.php:200
+#: templates/extension.php:226 templates/extension.php:327
+#: templates/extension.php:353 templates/extension.php:380
+#: templates/extension.php:406 templates/extension.php:430
+#: templates/extension.php:452 templates/extension.php:474
+#: templates/themes.php:19 templates/themes.php:41 templates/themes.php:63
+#: templates/themes.php:84 templates/themes.php:102
+#: templates/themes.php:122
+msgid "View demo"
+msgstr ""
+
+#: templates/extension.php:66
 msgid " Stripe Payment Gateway "
 msgstr ""
 
-#: templates/extension.php:70
+#: templates/extension.php:67
 msgid ""
 "You can accept payment via Stripe using this payment gateway extension."
 msgstr ""
 
-#: templates/extension.php:94
+#: templates/extension.php:91
 msgid " PayPal Standard Payment Gateway "
 msgstr ""
 
-#: templates/extension.php:95
+#: templates/extension.php:92
 msgid ""
 "You can accept payment via PayPal using this payment gateway extension."
 msgstr ""
 
-#: templates/extension.php:119
+#: templates/extension.php:116
 msgid " Claim Listing "
 msgstr ""
 
-#: templates/extension.php:120
+#: templates/extension.php:117
 msgid ""
 "Monetize your directory allowing business owners to claim their listing "
 "using this extension."
 msgstr ""
 
-#: templates/extension.php:146
+#: templates/extension.php:143
 msgid " Live Chat "
 msgstr ""
 
-#: templates/extension.php:147
+#: templates/extension.php:144
 msgid ""
 "It allows the visitors to contact business owners immediately and "
 "easily."
 msgstr ""
 
-#: templates/extension.php:171
+#: templates/extension.php:168
 msgid " Business Hours "
 msgstr ""
 
-#: templates/extension.php:172
+#: templates/extension.php:169
 msgid ""
 "You can show Business hours / opening hours of a listing by this "
 "extension."
 msgstr ""
 
-#: templates/extension.php:177 templates/extension.php:254
-#: templates/extension.php:279 templates/extension.php:304
+#: templates/extension.php:174 templates/extension.php:251
+#: templates/extension.php:276 templates/extension.php:301
 msgid "View Demo"
 msgstr ""
 
-#: templates/extension.php:197
+#: templates/extension.php:194
 msgid " Mark as Sold "
 msgstr ""
 
-#: templates/extension.php:198
+#: templates/extension.php:195
 msgid ""
 "It allows listing authors to show visitors if a particular item is sold "
 "or not."
 msgstr ""
 
-#: templates/extension.php:223
+#: templates/extension.php:220
 msgid " Rank Featured Listings "
 msgstr ""
 
-#: templates/extension.php:224
+#: templates/extension.php:221
 msgid ""
 "Rank Featured Listings is used to rank your featured listing items on "
 "your directory website."
 msgstr ""
 
-#: templates/extension.php:248
+#: templates/extension.php:245
 msgid " Post Your Need "
 msgstr ""
 
-#: templates/extension.php:249
+#: templates/extension.php:246
 msgid ""
 "Add new feature for your users where they can post for any kind of need "
 "or service that they want."
 msgstr ""
 
-#: templates/extension.php:273
+#: templates/extension.php:270
 msgid " Listings With Map "
 msgstr ""
 
-#: templates/extension.php:274
+#: templates/extension.php:271
 msgid ""
 "It adds new layout view that is listings and map side by side with "
 "advanced search/filters."
 msgstr ""
 
-#: templates/extension.php:298
+#: templates/extension.php:295
 msgid " Directorist Social Login "
 msgstr ""
 
-#: templates/extension.php:299
+#: templates/extension.php:296
 msgid ""
 "It lets your visitors register and login to your site using their "
 "social profiles (Facebook and Google)."
 msgstr ""
 
-#: templates/extension.php:325
+#: templates/extension.php:322
 msgid " Google reCAPTCHA "
 msgstr ""
 
-#: templates/extension.php:326
+#: templates/extension.php:323
 msgid "Protect your directory from spam entries with Google reCAPTCHA."
 msgstr ""
 
-#: templates/extension.php:350
+#: templates/extension.php:347
 msgid " Listings Slider and Carousel "
 msgstr ""
 
-#: templates/extension.php:351
+#: templates/extension.php:348
 msgid ""
 "Display listings slider anywhere on your website using this extension."
 msgstr ""
 
-#: templates/extension.php:377
+#: templates/extension.php:374
 msgid " Image Gallery "
 msgstr ""
 
-#: templates/extension.php:378
+#: templates/extension.php:375
 msgid ""
 "Display listing images gallery on single listing page using this "
 "extension."
 msgstr ""
 
-#: templates/extension.php:403
+#: templates/extension.php:400
 msgid " Listing FAQs "
 msgstr ""
 
-#: templates/extension.php:404
+#: templates/extension.php:401
 msgid ""
 "You can easily display listing's Frequently Asked Questions on each "
 "listing by using this extension."
 msgstr ""
 
-#: templates/extension.php:428
+#: templates/extension.php:425
 msgid " Coupon "
 msgstr ""
 
-#: templates/extension.php:429
+#: templates/extension.php:426
 msgid ""
 "Generate and offer coupon/promo codes to increase your sales by useing "
 "this extension."
 msgstr ""
 
-#: templates/extension.php:449
+#: templates/extension.php:446
 msgid " Reservation "
 msgstr ""
 
-#: templates/extension.php:450
+#: templates/extension.php:447
 msgid ""
 "Add a reservation/booking system on your directory using this extension."
 msgstr ""
 
-#: templates/extension.php:471
+#: templates/extension.php:468
 msgid " Appointment "
 msgstr ""
 
-#: templates/extension.php:472
+#: templates/extension.php:469
 msgid ""
 "Add a appointment booking system on your classified directory using "
 "this extension."
@@ -8215,18 +8223,18 @@ msgid " dList "
 msgstr ""
 
 #: templates/themes.php:59
-msgid " dPlace "
-msgstr ""
-
-#: templates/themes.php:77
-msgid " dRestaurant "
-msgstr ""
-
-#: templates/themes.php:95
 msgid " dService "
 msgstr ""
 
-#: templates/themes.php:114
+#: templates/themes.php:80
+msgid " dPlace "
+msgstr ""
+
+#: templates/themes.php:98
+msgid " dRestaurant "
+msgstr ""
+
+#: templates/themes.php:118
 msgid " dEvent "
 msgstr ""
 

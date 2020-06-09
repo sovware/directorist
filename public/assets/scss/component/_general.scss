@@ -76,13 +76,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper {
   div, p, a, li {
-    //font-family: 'Roboto', Sans-serif !important;
     font-size: $font-size-base;
   }
 
   color: $text-color;
   font-size: 15px;
-  //font-family: 'Roboto', Sans-serif !important;
   text-align: initial;
 
   .modal-footer {
@@ -500,11 +498,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   #login {
     p {
       margin-bottom: 10px !important;
-
       label {
         display: block;
       }
-
       input {
         background: #fff !important;
         padding: 10px 15px;

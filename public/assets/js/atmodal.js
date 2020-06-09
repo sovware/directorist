@@ -4,7 +4,7 @@
 	Author: AazzTech
 	Author URI: http://aazztech.com
 */
-
+/* disable-eslint */
 const aazztechModal1 = selector => {
         const element = document.querySelectorAll(selector);
 
@@ -14,11 +14,14 @@ const aazztechModal1 = selector => {
                 document.addEventListener(
                         'click',
                         function(event) {
-                                const current_elm = event.target;
-                                const target_id = current_elm.getAttribute('data-target');
-                                const el_id = el.getAttribute('id');
+                                const item = document.querySelectorAll(`*[data-target="${el.getAttribute('id')}"]`);
+                                if (!item.length) {
+                                        return;
+                                }
 
-                                if (target_id === el_id) {
+                                const first_item = item[0];
+                                const class_name = first_item.className;
+                                if (event.target.matches(`.${class_name}`)) {
                                         event.preventDefault();
                                         el.style.display = 'block';
                                         document.body.classList.add('atm-open');

@@ -18,6 +18,28 @@ if ( !function_exists('get_help') ) {
     }
 }
 
+
+if ( ! function_exists( 'directorist_get_listing_order' ) ) {
+    
+    // directorist_get_listing_order
+    function directorist_get_listing_order( $listing_id ) {
+        $order = new WP_Query([
+            'post_type' => 'atbdp_orders',
+            'meta_query' => array(
+                array(
+                    'key' => '_listing_id',
+                    'value' => $listing_id,
+                    'compare' => '=',
+                )
+            ),
+            'per_page' => 1
+
+        ]);
+
+        return $order->post;
+    }
+}
+
 if (!function_exists('load_dependencies')):
     /**
      * It loads files from a given directory using require_once.

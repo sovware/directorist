@@ -818,7 +818,7 @@ jQuery(function ($) {
     }
 
     //Display review rating
-    var lf_opt17 = $("#enable_owner_review,#review_num,#enable_reviewer_img,#review_approval");
+    var lf_opt17 = $("#enable_owner_review,#review_num,#enable_reviewer_img,#review_approval,#approve_immediately,#guest_review,#review_approval_text");
     lf_opt17.hide();
     $('input[name="enable_review"]').on("change", function () {
         if($(this).is(":checked") === true){

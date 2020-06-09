@@ -1,5 +1,5 @@
 <?php
-wp_enqueue_script('leaflet-subgroup-realworld',ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/subGroup-merkercluster-controlLayers-realworld.388.js');
+wp_enqueue_script('leaflet-subgroup-realworld');
 $data = array(
     'zoom'       => !empty($zoom) ? $zoom : 1,
 );
@@ -104,6 +104,9 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
         <?php } endwhile; ?>
     ];
    <?php
+
+   $path = ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/subGroup-markercluster-controlLayers-realworld.388.js';
+
    if(empty($display_map_info) && (empty($display_image_map) || empty($display_title_map) || empty($display_address_map) || empty($display_direction_map))) {
    ?>
     const setIntForIcon = setInterval(() => {
@@ -138,9 +141,12 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
         var urlParts = URI.parse(url);
         var queryStringParts = URI.parseQuery(urlParts.query);
         var list = bundle1.getAndSelectVersionsAssetsList(queryStringParts);
+        
+        console.log( '<?php echo $path; ?>' );
+
         list.push({
             type: 'script',
-            path: '<?php echo ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/subGroup-markercluster-controlLayers-realworld.388.js';?>'
+            path: '<?php echo $path;?>'
         });
         loadJsCss.list(list, {
             delayScripts: 500 // Load scripts after stylesheets, delayed by this duration (in ms).

@@ -70,7 +70,6 @@ if (!class_exists('ATBDP_Listing')):
             $status   = isset($_GET['listing_status']) ? esc_attr($_GET['listing_status']) : '';
             $preview  = isset($_GET['preview']) ? esc_attr($_GET['preview']) : '';
             $reviewed = isset($_GET['reviewed']) ? esc_attr($_GET['reviewed']) : '';
-
             
             if ( $preview || $status || $reviewed ) {
                 $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
@@ -85,12 +84,15 @@ if (!class_exists('ATBDP_Listing')):
                 $edited         = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
                 $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
 
-                $monitization     = get_directorist_option('enable_monetization', 0);
-                $featured_enabled = get_directorist_option('enable_featured_listing');
+                $monitization         = get_directorist_option('enable_monetization', 0);
+                $featured_enabled     = get_directorist_option('enable_featured_listing');
                 $pricing_plan_enabled = is_fee_manager_active();
-                $payment          = isset($_GET['payment']) ? $_GET['payment'] : '';
+                $payment              = isset($_GET['payment']) ? $_GET['payment'] : '';
                 
                 $post_status = $listing_status;
+
+                $plan_id = '';
+                $plan_purchased = '';
 
                 // If Pricing Plan Listing Enabled
                 if ( $monitization && $pricing_plan_enabled ) {

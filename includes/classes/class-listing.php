@@ -65,58 +65,54 @@ if (!class_exists('ATBDP_Listing')):
          * @since 6.3.5
          */
 
-      public function atbdp_listing_status_controller()
-        {
-            $status = isset($_GET['listing_status']) ? esc_attr($_GET['listing_status']) : '';
-            $preview = isset($_GET['preview']) ? esc_attr($_GET['preview']) : '';
+        public function atbdp_listing_status_controller() {
+            $status   = isset($_GET['listing_status']) ? esc_attr($_GET['listing_status']) : '';
+            $preview  = isset($_GET['preview']) ? esc_attr($_GET['preview']) : '';
             $reviewed = isset($_GET['reviewed']) ? esc_attr($_GET['reviewed']) : '';
-            $id = isset($_GET['listing_id']) ? (int)($_GET['listing_id']) : '';
-            $edited = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
-            $new_l_status = get_directorist_option('new_listing_status', 'pending');
-            $monitization = get_directorist_option('enable_monetization', 0);
-            $featured_enabled = get_directorist_option('enable_featured_listing');
-            $edit_l_status = get_directorist_option('edit_listing_status');
-            $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
+
             $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
             $listing_id = isset($_GET['post_id']) ? $_GET['post_id'] : $listing_id;
-            $id = $id ? $id : $listing_id;
-            $listing_status = $edited ? $edit_l_status : $new_l_status;
-            if ($preview || $status || $reviewed) {
-                //if listing under a purchased package
-                if (is_fee_manager_active()) {
-                    $plan_id = get_post_meta($id, '_fm_plans', true);
-                    $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id);
-                    if($edited && $plan_purchased){
-                        $post_status = $listing_status;
-                    }else{
-                        if ((('package' === package_or_PPL($plan_id)) || $plan_purchased) && ('publish' === $new_l_status)) {
-                            // status for paid users
-                            $post_status = $listing_status;
-                        } else {
-                            // status for non paid users
-                            $post_status = 'pending';
-                        }
-                    }  
-                } elseif (!empty($featured_enabled && $monitization)) {
-                    if($payment){
-                        $post_status = 'pending';
-                    }else{
-                        $post_status = $listing_status;
-                    }
-                } else {
-                    $post_status = $listing_status;
+
+            if ( $preview || $status || $reviewed ) {
+                $id = isset($_GET['listing_id']) ? (int)($_GET['listing_id']) : '';
+                $id = $id ? $id : $listing_id;
+
+                $new_l_status   = get_directorist_option('new_listing_status', 'pending');
+                $edit_l_status  = get_directorist_option('edit_listing_status');
+                $edited         = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
+                $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
+
+                $monitization     = get_directorist_option('enable_monetization', 0);
+                $featured_enabled = get_directorist_option('enable_featured_listing');
+                $payment          = isset($_GET['payment']) ? $_GET['payment'] : '';
+                
+                $pricing_plan_enabled = is_fee_manager_active();
+                $monitization_is_enabled = ( $monitization && ( $featured_enabled || $pricing_plan_enabled ) ) ? true : false;
+
+                $post_meta = get_post_meta( $id );
+                $order_id  = ( ! empty( $post_meta['_plan_order_id'][0] ) ) ? $post_meta['_plan_order_id'][0] : null;
+                
+                $order_meta     = get_post_meta( $order_id );
+                $payment_status = ( ! empty( $order_meta['_payment_status'][0] ) ) ? $order_meta['_payment_status'][0] : null;
+
+                $post_status = $listing_status;
+
+                // If monitization is enabled && payment is pending
+                if ( $monitization_is_enabled && 'completed' !== $payment_status ) {
+                    $post_status = 'pending';
                 }
 
-                $post_status = $status ? $status : $post_status;
-                
                 $args = array(
-                    'ID' => $id ? $id : get_the_ID(),
+                    'ID' => $id,
                     'post_status' => $post_status,
                 );
-                if('at_biz_dir' === get_post_type($id ? $id : get_the_ID())){
-                    wp_update_post(apply_filters('atbdp_reviewed_listing_status_controller_argument', $args));
+
+                $is_directory_post = ( 'at_biz_dir' === get_post_type($id ? $id : get_the_ID()) ) ? true : false;
+
+                if ( $is_directory_post ) {
+                    wp_update_post( apply_filters('atbdp_reviewed_listing_status_controller_argument', $args) );
                 }
-            }     
+            }
         }
 
         /**

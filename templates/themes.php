@@ -47,8 +47,29 @@
                     </div>
                 <?php
                 }
+                if (!function_exists('dservice_setup')){
                 ?>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                    <div class="single_extension single_thm">
+                        <img src="https://directorist.com/wp-content/uploads/2019/11/DService.jpg"
+                             alt="dService">
 
+                        <div class="extension_detail">
+                            <h4 class="ext_title"><a href="http://directorist.com/product/dservice" target="_blank">
+                                    <?php esc_html_e(' dService ', 'directorist'); ?></a></h4>
+
+                            <div class="btn_wrapper">
+                                <a href="http://directorist.com/product/demo/dservice" target="_blank"
+                                   class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
+                                <a href="http://directorist.com/product/dservice" target="_blank"
+                                   class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <div class="single_extension single_thm">
                         <img src="https://directorist.com/wp-content/uploads/2019/11/Dplace.jpg"
@@ -85,24 +106,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
-                    <div class="single_extension single_thm">
-                        <img src="https://directorist.com/wp-content/uploads/2019/11/DService.jpg"
-                             alt="dService">
-
-                        <div class="extension_detail">
-                            <h4 class="ext_title"><a href="http://directorist.com/product/dservice" target="_blank">
-                                    <?php esc_html_e(' dService ', 'directorist'); ?></a></h4>
-
-                            <div class="btn_wrapper">
-                                <a href="http://directorist.com/product/demo/dservice" target="_blank"
-                                   class="btn demo btn-primary"><?php esc_html_e('View demo', 'directorist'); ?></a>
-                                <a href="http://directorist.com/product/dservice" target="_blank"
-                                   class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
 
                     <div class="single_extension single_thm">

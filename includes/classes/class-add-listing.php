@@ -304,8 +304,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                     do_action('atbdp_before_processing_to_update_listing');
 
                     $listing_id = absint( $p['listing_id'] );
-                    $args = [ 'id' => $listing_id, 'edited' => true ];
-                    $post_status = atbdp_get_listing_status_after_submission( $args );
+                    $_args = [ 'id' => $listing_id, 'edited' => true ];
+                    $post_status = atbdp_get_listing_status_after_submission( $_args );
                     $args['post_status'] = $post_status;
 
                     if ( 'pending' === $post_status ) {

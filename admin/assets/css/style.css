@@ -197,8 +197,11 @@ css for Custom Field
 }
 
 #directorist.atbd_wrapper .extension_detail.ext_d {
-  height: 195px;
+  min-height: 140px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 #directorist.atbd_wrapper .extension_detail.ext_d p {
@@ -207,14 +210,15 @@ css for Custom Field
 
 #directorist.atbd_wrapper .extension_detail.ext_d .btn_wrapper {
   width: 100%;
-  position: absolute;
-  margin: 0;
-  left: 0;
-  bottom: 0;
+  margin-top: auto;
 }
 
-#directorist.atbd_wrapper .ext_title {
-  text-align: center;
+#directorist.atbd_wrapper .extension_detail.ext_d > a, #directorist.atbd_wrapper .extension_detail.ext_d p, #directorist.atbd_wrapper .extension_detail.ext_d div {
+  display: block;
+}
+
+#directorist.atbd_wrapper .extension_detail.ext_d > p {
+  margin-bottom: 15px;
 }
 
 #directorist.atbd_wrapper .ext_title a {

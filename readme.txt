@@ -146,8 +146,9 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Fix - Saving issue of payment receipt shortcode
 * Fix - Validation issue of review submission 
 * Fix - Style issues
-* Improve - "Search Listings" widget
 * Remove - Redirection of add listing page when error happens
+* Improve - "Search Listings" widget
+* Improve - Translation
 
 = 6.4.1 - May 17, 2020 =
 

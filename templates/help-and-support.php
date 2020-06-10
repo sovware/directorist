@@ -6,7 +6,7 @@
         <div class="postbox wpcs-admin-extra">
 
             <h3><?php _e('1. Documentation', 'directorist')?></h3>
-            <p><a href="https://directorist.com/docs/directorist/" target="_blank"><?php _e('Click here', 'directorist')?></a> <?php _e('for the documentation.', 'directorist')?></p>
+            <p><a href="https://directorist.com/documentation/directorist/" target="_blank"><?php _e('Click here', 'directorist')?></a> <?php _e('for the documentation.', 'directorist')?></p>
             <br>
             <h3><?php _e('2. Support Forum', 'directorist')?></h3>
             <p> <?php _e('If you need any helps, please don\'t hesitate to post on our ', 'directorist')?><a

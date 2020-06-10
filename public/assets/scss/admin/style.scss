@@ -156,23 +156,29 @@
       margin-top: 25px;
     }
     &.ext_d{
-      height:195px;
+      min-height:140px;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
       p{
         margin: 0;
       }
       .btn_wrapper{
         width: 100%;
-        position: absolute;
-        margin: 0;
-        left: 0;
-        bottom: 0;
+        margin-top: auto;
+      }
+      & > a, p, div{
+        display: block;
+      }
+      & > p{
+        margin-bottom: 15px;
       }
     }
   }
   .ext_title {
-    text-align: center;
     a{
+      text-align: center;
       text-decoration: none;
       font-weight: 500;
       font-size: 18px;

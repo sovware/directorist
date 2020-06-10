@@ -15,7 +15,7 @@ if ( !class_exists('ATBDP_SEO') ):
                 add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
                 add_filter('wpseo_opengraph_url', array($this, 'wpseo_canonical'));
                 add_filter('wpseo_opengraph_title', array($this, 'wpseo_opengraph_title'));
-                add_filter('wpseo_opengraph_image', array($this, 'wpseo_opengraph_image'));
+                //add_filter('wpseo_opengraph_image', array($this, 'wpseo_opengraph_image'));
             }
 
             if ( atbdp_disable_overwrite_yoast() ){

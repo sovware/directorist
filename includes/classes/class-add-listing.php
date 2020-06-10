@@ -304,8 +304,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                     do_action('atbdp_before_processing_to_update_listing');
 
                     $listing_id = absint( $p['listing_id'] );
-                    $args = [ 'id' => $listing_id, 'edited' => true ];
-                    $post_status = atbdp_get_listing_status_after_submission( $args );
+                    $_args = [ 'id' => $listing_id, 'edited' => true ];
+                    $post_status = atbdp_get_listing_status_after_submission( $_args );
                     $args['post_status'] = $post_status;
 
                     if ( 'pending' === $post_status ) {
@@ -474,11 +474,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                     // the post is a new post, so insert it as new post.
                     if (current_user_can('publish_at_biz_dirs') && (empty($data['error']) && $data['error'] !== true)) {
                         $new_l_status = get_directorist_option('new_listing_status', 'pending');
+                        $args['post_status'] = $new_l_status;
+
                         if ('pending' === $new_l_status) {
                             $data['pending'] = true;
                         }
+                        
                         $monitization = get_directorist_option('enable_monetization', 0);
-                        $args['post_status'] = $new_l_status;
                         //if listing under a purchased package
                         if (is_fee_manager_active()) {
                             if (('package' === package_or_PPL($plan = null)) && $plan_purchased && ('publish' === $new_l_status)) {

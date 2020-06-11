@@ -200,15 +200,15 @@ input[type="checkbox"] {
   -ms-transform: translate(0, -50%);
   transform: translate(0, -50%);
 }
-
 .plasmaSlider__controlRight {
-  left: 15px;
-}
-
-.plasmaSlider__controlLeft {
+  left: unset;
   right: 15px;
 }
 
+.plasmaSlider__controlLeft {
+  right: unset;
+  left: 15px;
+}
 .plasmaSlider__arrowBtn {
   margin: 0;
   padding: 0;
@@ -482,15 +482,15 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlLeft {
   -ms-transform: translate(0, -50%);
   transform: translate(0, -50%);
 }
-
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlRight {
-  left: 15px;
-}
-
-body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlLeft {
+  left: unset;
   right: 15px;
 }
 
+body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlLeft {
+  right: unset;
+  left: 15px;
+}
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn {
   margin: 0;
   padding: 0;
@@ -2248,6 +2248,42 @@ div#listing_notifier span {
 
 .atbdp_nlf {
   padding: 0 15px !important;
+}
+
+input[type="radio"].atbdp_radio_input {
+  display: none;
+}
+
+input[type="radio"].atbdp_radio_input + label {
+  position: relative;
+  padding-right: 23px;
+  font-weight: 700;
+}
+
+input[type="radio"].atbdp_radio_input + label::before {
+  position: absolute;
+  content: '';
+  width: 15px;
+  height: 15px;
+  border: 1px solid #b3afaf;
+  border-radius: 100%;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: .3s ease;
+  box-sizing: border-box;
+}
+
+input[type="radio"].atbdp_radio_input:checked + label:before {
+  border: 5px solid #444;
+}
+
+.atbdp_input_group {
+  margin-bottom: 8px;
+}
+
+.atbdp_option_title {
+  margin-bottom: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
@@ -5798,6 +5834,37 @@ span.atbd_get_loc_wid {
 
 #directorist.atbd_wrapper .user_info_wrap .form-group .form-control {
   padding: 10px 15px;
+}
+
+#update_user_profile {
+  position: relative;
+  transition: 0.3s ease;
+}
+
+#update_user_profile.loading {
+  padding-left: 30px !important;
+}
+
+#update_user_profile.loading:before {
+  position: absolute;
+  content: '';
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  animation: upspin 2s linear infinite;
+  left: 7px;
+  top: 11px;
+}
+
+@keyframes upspin {
+  0% {
+    tranform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-selection {

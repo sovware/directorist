@@ -69,7 +69,6 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
         $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id, $_listing_id);
         
         $post_status = ( ! $plan_purchased ) ? 'pending' : $listing_status;
-
     }
 
     // If Featured Listing is Enabled

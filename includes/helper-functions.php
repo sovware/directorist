@@ -58,18 +58,6 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $pricing_plans_enabled = is_fee_manager_active();
     $pricing_plan_is_enabled = atbdp_pricing_plan_is_enabled();
     $wc_pricing_plan_is_enabled = atbdp_wc_pricing_plan_is_enabled();
-
-    $plan_purchased      = 'not set';
-    $has_order           = 'not set';
-    $order_meta          = 'not set';
-    $payment_status      = 'not set';
-    $plan_id             = 'not set';
-    $plan_meta           = 'not set';
-    $plan_purchased_meta = 'not set';
-    $plan_table          = 'not set';
-    $expair_date         = 'not set';
-    $plan_length         = 'not set';
-    $today               = 'not set';
     
     $post_status =  $listing_status;
 
@@ -101,8 +89,6 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
 
     $log = [
         '$plan_is_expaired'     => $plan_is_expaired,
-        '$plan_purchased_meta'  => $plan_purchased_meta,
-        '$plan_type'            => $plan_type,
         '$new_l_status'         => $new_l_status,
         '$edit_l_status'        => $edit_l_status,
         '$edited'               => $edited,
@@ -110,7 +96,6 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
         '$monitization'         => $monitization,
         '$featured_enabled'     => $featured_enabled,
         '$pricing_plan_enabled' => $pricing_plans_enabled,
-        '$order_meta'           => $order_meta,
         '$plan_id'              => $plan_id,
         '$plan_meta'            => $plan_meta,
         '$plan_purchased'       => $plan_purchased,

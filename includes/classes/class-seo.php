@@ -89,8 +89,9 @@ if ( !class_exists('ATBDP_SEO') ):
             // global $post;
             if ( ! is_admin() && ! is_null( $id ) ) {
                 $term = $this->get_taxonomy_term();
-                $title = ( ! empty( $term ) ) ? $term->name : '';
+                $title = ( ! empty( $term ) ) ? $term->name : $title;
             }
+
             
             return $title;
         }

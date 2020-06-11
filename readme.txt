@@ -145,9 +145,11 @@ Directorist is not developed by a single person. A team of dedicated developers 
 * Fix - Duplicate canonical issue
 * Fix - Saving issue of payment receipt shortcode
 * Fix - Validation issue of review submission 
+* Fix - Review pagination
 * Fix - Style issues
 * Remove - Redirection of add listing page when error happens
 * Improve - "Search Listings" widget
+* Improve - Yoast SEO plugin compatibility
 * Improve - Translation
 
 = 6.4.1 - May 17, 2020 =

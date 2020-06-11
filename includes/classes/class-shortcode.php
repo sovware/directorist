@@ -1142,81 +1142,13 @@ if (!class_exists('ATBDP_Shortcode')):
         }
 
         public function all_categories($atts) {
-            $taxonomy  = new Directorist_Listing_Taxonomy($atts);
-            return $taxonomy->render_shortcode_all_categories();
+            $taxonomy  = new Directorist_Listing_Taxonomy($atts, 'category');
+            return $taxonomy->render_shortcode();
         }
 
         public function all_locations($atts) {
             $taxonomy  = new Directorist_Listing_Taxonomy($atts, 'location');
-            return $taxonomy->render_shortcode_all_locations();
-
-
-            wp_enqueue_script('loc_cat_assets');
-            ob_start();
-            $include = apply_filters('include_style_settings', true);
-            /* if ($include) {
-                wp_enqueue_style('atbdp-settings-style');
-            } */
-            $display_locations_as = get_directorist_option('display_locations_as', 'grid');
-            $locations_settings = array();
-            $locations_settings['depth'] = get_directorist_option('locations_depth_number', 1);
-            $locations_settings['show_count'] = get_directorist_option('display_location_listing_count', 1);
-            $locations_settings['hide_empty'] = get_directorist_option('hide_empty_locations');
-            $locations_settings['orderby'] = get_directorist_option('order_location_by', 'id');
-            $locations_settings['order'] = get_directorist_option('sort_location_by', 'asc');
-
-            $atts = shortcode_atts(array(
-                'view' => $display_locations_as,
-                'orderby' => $locations_settings['orderby'],
-                'order' => $locations_settings['order'],
-                'loc_per_page' => 100,
-                'columns' => '',
-                'slug' => '',
-                'logged_in_user_only' => '',
-                'redirect_page_url' => ''
-            ), $atts);
-            $locations_settings['columns'] = !empty($atts['columns']) ? $atts['columns'] : get_directorist_option('locations_column_number', 3);
-            $locations = !empty($atts['slug']) ? explode(',', $atts['slug']) : array();
-            $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
-            $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
-            
-            if ( 'yes' === $logged_in_user_only && ! atbdp_logged_in_user() ) {
-                return $this->guard( ['type' => 'auth'] );
-            }
-            
-            $args = array(
-                'orderby' => $atts['orderby'],
-                'order' => $atts['order'],
-                'hide_empty' => !empty($locations_settings['hide_empty']) ? 1 : 0,
-                'parent' => 0,
-                'hierarchical' => !empty($locations_settings['hide_empty']) ? true : false,
-                'slug' => !empty($locations) ? $locations : ''
-            );
-
-            $terms = get_terms(ATBDP_LOCATION, apply_filters('atbdp_all_locations_argument', $args));
-            $terms = array_slice($terms, 0, $atts['loc_per_page']);
-            if (!empty($redirect_page_url)) {
-                $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
-                return $redirect;
-            }
-            
-            
-            if (!empty($terms) && !is_wp_error($terms)) {
-                $template_file = 'all-locations/'. $atts['view'] .'-view';
-                $template_path = atbdp_get_shortcode_template_paths( $template_file );
-
-                if ( file_exists( $template_path['theme'] ) ) {
-                    include $template_path['theme'];
-                } elseif ( file_exists( $template_path['plugin'] ) ) {
-                    include $template_path['plugin'];
-                }
-            } else {
-                _e('<p>No Results found!</p>', 'directorist');
-            }
-
-
-            return ob_get_clean();
-
+            return $taxonomy->render_shortcode();
         }
 
         public function search_listing($atts, $content = null)

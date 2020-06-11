@@ -87,21 +87,24 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
         // $post_status = ( ! $plan_is_expaired && $edited ) ? $listing_status : $post_status;
     }
 
-    $log = [
-        '$plan_is_expaired'     => $plan_is_expaired,
-        '$new_l_status'         => $new_l_status,
-        '$edit_l_status'        => $edit_l_status,
-        '$edited'               => $edited,
-        '$listing_status'       => $listing_status,
-        '$monitization'         => $monitization,
-        '$featured_enabled'     => $featured_enabled,
-        '$pricing_plan_enabled' => $pricing_plans_enabled,
-        '$plan_id'              => $plan_id,
-        '$plan_meta'            => $plan_meta,
-        '$plan_purchased'       => $plan_purchased,
-        '$has_order'            => $has_order,
-        '$payment_status'       => $payment_status,
-    ];
+    // $log = [
+    //     '$plan_is_expaired'     => $plan_is_expaired,
+    //     '$plan_purchased_meta'  => $plan_purchased_meta,
+    //     '$plan_type'            => $plan_type,
+    //     '$new_l_status'         => $new_l_status,
+    //     '$edit_l_status'        => $edit_l_status,
+    //     '$edited'               => $edited,
+    //     '$listing_status'       => $listing_status,
+    //     '$monitization'         => $monitization,
+    //     '$featured_enabled'     => $featured_enabled,
+    //     '$pricing_plan_enabled' => $pricing_plans_enabled,
+    //     '$order_meta'           => $order_meta,
+    //     '$plan_id'              => $plan_id,
+    //     '$plan_meta'            => $plan_meta,
+    //     '$plan_purchased'       => $plan_purchased,
+    //     '$has_order'            => $has_order,
+    //     '$payment_status'       => $payment_status,
+    // ];
 
     // var_dump( $log );
 

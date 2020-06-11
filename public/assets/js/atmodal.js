@@ -56,9 +56,7 @@ const aazztechModal1 = selector => {
 };
 
 function initModal() {
-        aazztechModal1(
-                '#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal, #atbdp-single-popup'
-        );
+        aazztechModal1('#dcl-claim-modal, #atbdp-report-abuse-modal, #atpp-plan-change-modal, #pyn-plan-change-modal');
 }
 
 window.addEventListener('load', function() {

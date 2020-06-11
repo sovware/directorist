@@ -77,7 +77,7 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
         $has_order      = atbdp_get_listing_order( $listing_id );
         $payment_status = ( $has_order ) ? get_post_meta( $has_order->ID, '_payment_status', true) : null;
 
-        $post_status = ( 'completed' !== $payment_status ) ? 'pending' : $listing_status;
+        $post_status = ( $has_order && 'completed' !== $payment_status ) ? 'pending' : $listing_status;
     }
 
     return $post_status;

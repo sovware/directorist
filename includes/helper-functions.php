@@ -53,19 +53,19 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $edited         = $args['edited'];
     $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
 
-    $monitization         = get_directorist_option('enable_monetization', 0);
-    $featured_enabled     = get_directorist_option('enable_featured_listing');
+    $monitization          = get_directorist_option('enable_monetization', 0);
+    $featured_enabled      = get_directorist_option('enable_featured_listing');
     $pricing_plans_enabled = is_fee_manager_active();
     
     $post_status =  $listing_status;
 
     // If Pricing Plans are Enabled
     if ( $monitization && $pricing_plans_enabled ) {
-        $plan_id = get_post_meta($listing_id, '_fm_plans', true);
+        $plan_id   = get_post_meta($listing_id, '_fm_plans', true);
         $plan_meta = get_post_meta($plan_id);
         $plan_type = $plan_meta['plan_type'][0];
 
-        $_listing_id = ( 'pay_per_listng' === $plan_type ) ? $listing_id : false;
+        $_listing_id    = ( 'pay_per_listng' === $plan_type ) ? $listing_id : false;
         $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id, $_listing_id);
         
         $post_status = ( ! $plan_purchased ) ? 'pending' : $listing_status;

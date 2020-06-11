@@ -55,7 +55,7 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
 
     $monitization         = get_directorist_option('enable_monetization', 0);
     $featured_enabled     = get_directorist_option('enable_featured_listing');
-    $pricing_plans_enabled = is_fee_manager_active();
+    // $pricing_plans_enabled = is_fee_manager_active();
     $pricing_plan_is_enabled = atbdp_pricing_plan_is_enabled();
     $wc_pricing_plan_is_enabled = atbdp_wc_pricing_plan_is_enabled();
     
@@ -67,7 +67,7 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
         $plan_meta = get_post_meta($plan_id);
         $plan_type = $plan_meta['plan_type'][0];
 
-        $plan_is_expaired = atbdp_plan_is_expaired( $plan_id );
+        // $plan_is_expaired = atbdp_plan_is_expaired( $plan_id );
 
         $_listing_id = ( 'pay_per_listng' === $plan_type ) ? $listing_id : false;
         

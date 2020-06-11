@@ -73,6 +73,9 @@ class Directorist_Listing_Taxonomy {
         if ( $this->type == 'category' ) {
             $args = apply_filters('atbdp_all_categories_argument', $args);
         }
+        else {
+            $args = apply_filters('atbdp_all_locations_argument', $args);
+        }
 
         $terms = get_terms($this->tax, $args);
         $terms = array_slice($terms, 0, $this->per_page);
@@ -109,7 +112,18 @@ class Directorist_Listing_Taxonomy {
         return apply_filters('atbdp_all_categories_after_category_name', $html, $term);
     }
 
-    public function cat_list_count_html($term,$total) {
+    public function loc_grid_count_html($term,$total) {
+        $html = '';
+        if ($this->show_count) {
+            $html = "<p>(" . $total . ")</p>";
+        }
+        /**
+         * @since 5.0.0
+         */
+        return apply_filters('atbdp_all_locations_after_location_name', $html, $term);
+    }
+
+    public function list_count_html($term,$total) {
         $html = '';
         if ($this->show_count) {
             $html = ' (' .  $total . ')';
@@ -157,13 +171,15 @@ class Directorist_Listing_Taxonomy {
                 $plus_icon = !empty($child_category) ? '<span class="expander">+</span>' : '';
                 $count = 0;
                 if ($this->hide_empty || $this->show_count) {
-                    $count = atbdp_listings_count_by_category($term->term_id);
+                    $count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category($term->term_id) : atbdp_listings_count_by_location($term->term_id);
 
                     if ($this->hide_empty && 0 == $count) continue;
                 }
 
+                $permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page($term) : ATBDP_Permalink::atbdp_get_location_page($term);
+
                 $html .= '<li>';
-                $html .= '<a href=" ' . ATBDP_Permalink::atbdp_get_category_page($term) . ' ">';
+                $html .= '<a href=" ' . $permalink . ' ">';
                 $html .= $term->name;
                 if ($this->show_count) {
                     $html .= ' (' . $count . ')';
@@ -215,10 +231,52 @@ class Directorist_Listing_Taxonomy {
                 'permalink' => ATBDP_Permalink::atbdp_get_category_page($term),
                 'count'     => $total,
                 'grid_count_html' => $this->cat_grid_count_html($term,$total),
-                'list_count_html' => $this->cat_list_count_html($term,$total),
+                'list_count_html' => $this->list_count_html($term,$total),
                 'img'        => $image,
                 'has_icon'   => ('none' != $icon) ? true : false,
                 'icon_class' => ('la' === $icon_type)? $icon_type.' '. $icon : 'fa '. $icon,
+                'subterm_html' => ($this->view == 'list') ? $this->subterms_html($term) : '',
+            );
+        }
+
+        return $result;
+    }
+
+    public function loc_data() {
+        $result = array();
+
+        foreach ($this->terms as $term) {
+            $count = 0;
+            if ($this->hide_empty || $this->show_count) {
+                $count = atbdp_listings_count_by_location($term->term_id);
+
+                if ($this->hide_empty && 0 == $count) {
+                    continue;
+                }
+            }
+
+            $expired_listings = atbdp_get_expired_listings($this->tax, $term->term_id);
+            $number_of_expired = $expired_listings->post_count;
+            $number_of_expired = !empty($number_of_expired) ? $number_of_expired : '0';
+            $total = ($count) ? ($count - $number_of_expired) : $count;
+
+            $image = get_term_meta($term->term_id, 'image', true);
+            if ( $image ) {
+               $image = atbdp_get_image_source($image, apply_filters('atbdp_location_image_size', array('350', '280')));
+               $image = !empty($image) ? $image : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg';
+            }
+
+            $child_locations = get_term_children($term->term_id, $this->tax);
+
+            $result[] = array(
+                'term'      => $term,
+                'has_child' => !empty($child_locations) ? true : false,
+                'name'      => $term->name,
+                'permalink' => ATBDP_Permalink::atbdp_get_location_page($term),
+                'count'     => $total,
+                'grid_count_html' => $this->loc_grid_count_html($term,$total),
+                'list_count_html' => $this->list_count_html($term,$total),
+                'img'        => $image,
                 'subterm_html' => ($this->view == 'list') ? $this->subterms_html($term) : '',
             );
         }
@@ -249,6 +307,34 @@ class Directorist_Listing_Taxonomy {
 
         if ( !empty( $this->terms ) && !is_wp_error( $this->terms ) ) {
             $template_file = 'taxonomies/categories-'. $this->view;
+            return atbdp_return_shortcode_template( $template_file, $args );
+        }
+        else {
+            return __('<p>No Results found!</p>', 'directorist');
+        }
+    }
+
+    public function render_shortcode_all_locations() {
+        if ( $this->logged_in_user_only && ! atbdp_logged_in_user() ) {
+            return ATBDP()->helper->guard( array('type' => 'auth') );
+        }
+
+        if ($this->redirect_page_url) {
+            $redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
+            return $redirect;
+        }
+        
+        wp_enqueue_script('loc_cat_assets');
+
+        $args = array(
+            'taxonomy'   => $this,
+            'locations' => $this->loc_data(),
+            'grid_col_class' => $this->columns == 5 ? 'atbdp_col-5' : 'col-md-' . floor(12 / $this->columns). ' col-sm-6',
+            'list_col_class' => 'col-md-' . floor(12 / $this->columns),
+        );
+
+        if ( !empty( $this->terms ) && !is_wp_error( $this->terms ) ) {
+            $template_file = 'taxonomies/locations-'. $this->view;
             return atbdp_return_shortcode_template( $template_file, $args );
         }
         else {

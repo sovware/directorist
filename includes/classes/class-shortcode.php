@@ -1146,8 +1146,11 @@ if (!class_exists('ATBDP_Shortcode')):
             return $taxonomy->render_shortcode_all_categories();
         }
 
-        public function all_locations($atts)
-        {
+        public function all_locations($atts) {
+            $taxonomy  = new Directorist_Listing_Taxonomy($atts, 'location');
+            return $taxonomy->render_shortcode_all_locations();
+
+
             wp_enqueue_script('loc_cat_assets');
             ob_start();
             $include = apply_filters('include_style_settings', true);

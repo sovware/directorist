@@ -55,58 +55,30 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
 
     $monitization         = get_directorist_option('enable_monetization', 0);
     $featured_enabled     = get_directorist_option('enable_featured_listing');
-    // $pricing_plans_enabled = is_fee_manager_active();
-    $pricing_plan_is_enabled = atbdp_pricing_plan_is_enabled();
-    $wc_pricing_plan_is_enabled = atbdp_wc_pricing_plan_is_enabled();
+    $pricing_plans_enabled = is_fee_manager_active();
     
     $post_status =  $listing_status;
 
-    // If WC Plan is Enabled
-    if ( $monitization && $wc_pricing_plan_is_enabled ) {
+    // If Pricing Plans are Enabled
+    if ( $monitization && $pricing_plans_enabled ) {
         $plan_id = get_post_meta($listing_id, '_fm_plans', true);
         $plan_meta = get_post_meta($plan_id);
         $plan_type = $plan_meta['plan_type'][0];
 
-        // $plan_is_expaired = atbdp_plan_is_expaired( $plan_id );
-
         $_listing_id = ( 'pay_per_listng' === $plan_type ) ? $listing_id : false;
-        
         $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id, $_listing_id);
+        
         $post_status = ( ! $plan_purchased ) ? 'pending' : $listing_status;
-        // $post_status = ( ! $plan_is_expaired && $edited ) ? $listing_status : $post_status;
 
     }
 
     // If Featured Listing is Enabled
-    if ( $monitization && ( $pricing_plan_is_enabled || $featured_enabled ) ) {
+    if ( $monitization && ! $pricing_plans_enabled && $featured_enabled ) {
         $has_order      = atbdp_get_listing_order( $listing_id );
         $payment_status = ( $has_order ) ? get_post_meta( $has_order->ID, '_payment_status', true) : null;
-        // $plan_is_expaired =  ( $has_order ) ? atbdp_plan_is_expaired( $has_order->ID ) : null;
 
         $post_status = ( 'completed' !== $payment_status ) ? 'pending' : $listing_status;
-        // $post_status = ( ! $plan_is_expaired && $edited ) ? $listing_status : $post_status;
     }
-
-    // $log = [
-    //     '$plan_is_expaired'     => $plan_is_expaired,
-    //     '$plan_purchased_meta'  => $plan_purchased_meta,
-    //     '$plan_type'            => $plan_type,
-    //     '$new_l_status'         => $new_l_status,
-    //     '$edit_l_status'        => $edit_l_status,
-    //     '$edited'               => $edited,
-    //     '$listing_status'       => $listing_status,
-    //     '$monitization'         => $monitization,
-    //     '$featured_enabled'     => $featured_enabled,
-    //     '$pricing_plan_enabled' => $pricing_plans_enabled,
-    //     '$order_meta'           => $order_meta,
-    //     '$plan_id'              => $plan_id,
-    //     '$plan_meta'            => $plan_meta,
-    //     '$plan_purchased'       => $plan_purchased,
-    //     '$has_order'            => $has_order,
-    //     '$payment_status'       => $payment_status,
-    // ];
-
-    // var_dump( $log );
 
     return $post_status;
 }

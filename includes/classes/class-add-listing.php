@@ -472,7 +472,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 } else {
                     
                     // the post is a new post, so insert it as new post.
-                    if (current_user_can('publish_at_biz_dirs') && (empty($data['error']) && $data['error'] !== true)) {
+                    if (current_user_can('publish_at_biz_dirs') && (!isset($data['error']))) {
                         $new_l_status = get_directorist_option('new_listing_status', 'pending');
                         $args['post_status'] = $new_l_status;
 

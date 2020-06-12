@@ -139,7 +139,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 6.4.2 - Jun 9, 2020 =
+= 6.4.2 - Jun 12, 2020 =
 
 * Fix - Listing status
 * Fix - Duplicate canonical issue

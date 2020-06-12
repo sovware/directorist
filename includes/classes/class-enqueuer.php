@@ -177,7 +177,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
             wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
             wp_register_script( 'atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array( 'atbdp-google-map-front' ) );
-            $front_scripts_dependency[] = 'atbdp-google-map-front';
+            // $front_scripts_dependency[] = 'atbdp-google-map-front';
 
         // Registration of all styles and js for the front end should be done here
         // but the inclusion should be limited to the scope of the page user viewing.

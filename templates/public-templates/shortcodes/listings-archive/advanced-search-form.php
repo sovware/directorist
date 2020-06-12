@@ -50,13 +50,13 @@
 					<div class="col-md-6 col-sm-12 col-lg-4">
 						<div class="atbdp_map_address_field">
 							<div class="atbdp_get_address_field">
-								<input type="text" name="address" id="address" value="<?php echo $geodata['value']; ?>" placeholder="<?php echo $geodata['placeholder']; ?>" autocomplete="off" class="form-control location-name">
+								<input type="text" name="address" id="address" value="<?php echo esc_attr( $geodata['value'] ); ?>" placeholder="<?php echo esc_attr($geodata['placeholder'] ); ?>" autocomplete="off" class="form-control location-name">
 								<?php echo $geodata['geo_loc']; ?>
 							</div>
 							<div class="address_result" style="display: none">
 							</div>
-							<input type="hidden" id="cityLat" name="cityLat" value="<?php echo $geodata['cityLat']; ?>" />
-							<input type="hidden" id="cityLng" name="cityLng" value="<?php echo $geodata['cityLng']; ?>" />
+							<input type="hidden" id="cityLat" name="cityLat" value="<?php echo esc_attr($geodata['cityLat']); ?>" />
+							<input type="hidden" id="cityLng" name="cityLng" value="<?php echo esc_attr($geodata['cityLng']); ?>" />
 						</div>
 					</div>
 				<?php
@@ -69,7 +69,6 @@
 			</div>
 		</div>
 
-		<!-- has_any_price_field() -->
 		<?php if ( $listings->has_any_price_field() ) { ?>
 			<div class="form-group ">
 				<label class=""><?php _e('Price Range', 'directorist'); ?></label>
@@ -79,39 +78,33 @@
 						$price_field_data = $listings->price_field_data();
 						?>
 
-						<div class="range_single"><input type="text" name="price[0]" class="form-control" placeholder="<?php _e('Min Price', 'directorist'); ?>" value="<?php echo $price_field_data['min_price_value']; ?>"></div>
+						<div class="range_single"><input type="text" name="price[0]" class="form-control" placeholder="<?php esc_attr_e('Min Price', 'directorist'); ?>" value="<?php echo esc_attr( $price_field_data['min_price_value'] ); ?>"></div>
 
-						<div class="range_single"><input type="text" name="price[1]" class="form-control" placeholder="<?php _e('Max Price', 'directorist'); ?>" value="<?php echo $price_field_data['max_price_value']; ?>"></div>
+						<div class="range_single"><input type="text" name="price[1]" class="form-control" placeholder="<?php esc_attr_e('Max Price', 'directorist'); ?>" value="<?php echo esc_attr( $price_field_data['max_price_value'] ); ?>"></div>
 
 					<?php
 					}
 
-					if ( $listings->has_price_range_field() ) {
-						$price_range_field = $listings->price_range_field_data();
-						$c_symbol = $listings->c_symbol;
-						?>
+					if ( $listings->has_price_range_field() ) { ?>
 							<div class="price-frequency">
 								<label class="pf-btn">
-									<input type="radio" name="price_range" value="bellow_economy"<?php echo $price_range_field['bellow_economy_value']; ?>>
-									<span><?php echo $c_symbol; ?></span>
+									<?php $listings->the_price_range_input('bellow_economy');?><span><?php echo str_repeat($listings->c_symbol, 1); ?></span>
 								</label>
 								<label class="pf-btn">
-									<input type="radio" name="price_range" value="economy" <?php echo $price_range_field['economy_value']; ?>>
-									<span><?php echo $c_symbol, $c_symbol; ?></span>
+									<?php $listings->the_price_range_input('economy');?><span><?php echo str_repeat($listings->c_symbol, 2); ?></span>
 								</label>
 								<label class="pf-btn">
-									<input type="radio" name="price_range" value="moderate" <?php echo $price_range_field['moderate_value']; ?>>
-									<span><?php echo $c_symbol, $c_symbol, $c_symbol; ?></span>
+									<?php $listings->the_price_range_input('moderate');?><span><?php echo str_repeat($listings->c_symbol, 3); ?></span>
+								</label>
 								</label>
 								<label class="pf-btn">
-									<input type="radio" name="price_range" value="skimming" <?php echo $price_range_field['skimming_value']; ?>>
-									<span><?php echo $c_symbol, $c_symbol, $c_symbol, $c_symbol; ?></span>
+									<?php $listings->the_price_range_input('skimming');?><span><?php echo str_repeat($listings->c_symbol, 4); ?></span>
+								</label>
 								</label>
 							</div>
 					<?php } ?>
 				</div>
 			</div>
-		<!-- ends: .form-group -->
 		<?php
 		}
 
@@ -127,13 +120,11 @@
 					?>
 				</select>
 			</div>
-			<!-- ends: .form-group -->
 		<?php
 		}
 
 		if ( $listings->has_radius_search_field() ) {
 		?>
-			<!--range slider-->
 			<div class="form-group">
 				<div class="atbdp-range-slider-wrapper">
 					<span><?php _e('Radius Search', 'directorist'); ?></span>
@@ -160,7 +151,7 @@
 					</div>
 				</div>
 			</div>
-		<!-- ends: .form-group -->
+
 		<?php
 		}
 		if ( $listings->has_tag_field() && $listings->tag_field_data() ) {
@@ -181,7 +172,6 @@
 				</div>
 				<a href="#" class="more-less ad"><?php _e('Show More', 'directorist'); ?></a>
 			</div>
-		<!-- ends: .form-control -->
 		
 		<?php
 		}

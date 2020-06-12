@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
 
 /**
  * @param WP_Query $listings It contains all the queried listings by a user
@@ -28,15 +33,21 @@ do_action('atbdp_before_all_listings_grid', $listings);
         if ($listings->action_before_after_loop) {
             do_action('atbdp_before_grid_listings_loop');
         }
+
+        $row_container = ($listings->view_as !== 'masonry_grid') ? '' : ' data-uk-grid';
         ?>
-        <div class="row" <?php echo ($listings->view_as !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
+
+        <div class="row<?php echo esc_attr($row_container); ?>">
+
         	<?php
         	if ($listings->query->have_posts()) {
-        		$listings->loop('grid');
+        		$listings->loop_template('grid');
         	}
         	else { ?>
-        		<p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
-        	<?php } ?>
+        		<p class="atbdp_nlf"><?php esc_html_e('No listing found.', 'directorist'); ?></p>
+                <?php
+            }
+            ?>
 
         </div>
 
@@ -47,6 +58,7 @@ do_action('atbdp_before_all_listings_grid', $listings);
                  * @since 5.0
                  */
                 do_action('atbdp_before_listings_pagination');
+
                 if ($listings->show_pagination) {
                     echo atbdp_pagination($listings->query, $listings->paged);
                 }

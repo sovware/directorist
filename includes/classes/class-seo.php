@@ -41,7 +41,7 @@ if ( !class_exists('ATBDP_SEO') ):
                     if( $post->ID == $LOC_page_ID ) {
                         if( $slug = get_query_var( 'atbdp_location' ) ) {
                             $term = get_term_by( 'slug', $slug, ATBDP_LOCATION );
-                            $title = $term->name;
+                            $title = !empty($term)?$term->name:'';
                         }
                     }
                     // Change Category page title
@@ -374,7 +374,9 @@ if ( !class_exists('ATBDP_SEO') ):
 
                 if( $slug = get_query_var( 'atbdp_location' ) ) {
                     $term = get_term_by( 'slug', $slug, ATBDP_LOCATION );
-                    $url = ATBDP_Permalink::atbdp_get_location_page($term );
+                    if ( $term ) {
+                        $url = ATBDP_Permalink::atbdp_get_location_page($term );
+                    }
                 }
             }
 
@@ -382,7 +384,9 @@ if ( !class_exists('ATBDP_SEO') ):
             if( $post->ID == $CAT_page_ID ) {
                 if( $slug = get_query_var( 'atbdp_category' ) ) {
                     $term = get_term_by( 'slug', $slug, ATBDP_CATEGORY );
-                    $url = ATBDP_Permalink::atbdp_get_category_page($term );
+                    if ( $term ) {
+                        $url = ATBDP_Permalink::atbdp_get_category_page($term );
+                    }
                 }
             }
 
@@ -391,7 +395,9 @@ if ( !class_exists('ATBDP_SEO') ):
 
                 if( $slug = get_query_var( 'atbdp_tag' ) ) {
                     $term = get_term_by( 'slug', $slug, ATBDP_TAGS );
-                    $url = ATBDP_Permalink::atbdp_get_tag_page($term );
+                    if ( $term ) {
+                        $url = ATBDP_Permalink::atbdp_get_tag_page($term );
+                    }
                 }
             }
             echo "<link rel='canonical' href='" . esc_url( $url ) . "' />\n";
@@ -487,7 +493,9 @@ if ( !class_exists('ATBDP_SEO') ):
                 if( $post->ID == $CAT_page_ID ) {
                     if( $slug = get_query_var( 'atbdp_category' ) ) {
                         $term = get_term_by( 'slug', $slug, ATBDP_CATEGORY );
-                        $meta_desc = $term->description;
+                        if ( !empty($term->description) ) {
+                            $meta_desc = $term->description;
+                        }
                     }
                 }
                 $atbdp_page = 'single_category';
@@ -501,7 +509,9 @@ if ( !class_exists('ATBDP_SEO') ):
                 if( $post->ID == $LOC_page_ID ) {
                     if( $slug = get_query_var( 'atbdp_location' ) ) {
                         $term = get_term_by( 'slug', $slug, ATBDP_LOCATION );
-                        $meta_desc = $term->description;
+                        if ( !empty($term->description) ) {
+                            $meta_desc = $term->description;
+                        }
                     }
                 }
                 $atbdp_page = 'single_location';

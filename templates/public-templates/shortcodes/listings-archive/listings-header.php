@@ -25,8 +25,9 @@
 							* @since 5.4.0
 							*/
 							do_action('atbdp_after_filter_button_in_listings_header');
+							
 							if (!empty($listings->header_title)) {
-								echo apply_filters('atbdp_total_listings_found_text', "<h3>{$listings->header_title}</h3>", $listings->header_title);
+								echo $listings->item_found_title();
 							}
 							?>
 						</div>
@@ -42,11 +43,11 @@
 						<div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
 							<?php
 							if ($listings->display_viewas_dropdown) {
-								$listings->viewas_dropdown_html();
+								$listings->viewas_dropdown_template();
 							}
 							
 							if ($listings->display_sortby_dropdown) {
-								$listings->sortby_dropdown_html();
+								$listings->sortby_dropdown_template();
 							}
 							?>
 						</div>
@@ -54,7 +55,7 @@
 				</div>
 
 				<div class="<?php $listings->filter_container_class(); ?>">
-					<?php $listings->advanced_search_form_html();?>
+					<?php $listings->advanced_search_form_template();?>
 				</div>
 			</div>
 		</div>

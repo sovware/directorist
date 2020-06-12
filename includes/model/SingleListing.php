@@ -509,4 +509,20 @@ class Directorist_Single_Listing {
         return atbdp_return_shortcode_template( 'single-listing/contact-owner', $args );
     }
 
+    public function render_shortcode_tags() {
+        if ( !is_singular( ATBDP_POST_TYPE ) ) {
+            return;
+        }
+
+        $id = $this->get_id();
+
+        $args = array(
+            'listing_id'         => $id,
+            'tags'               => get_the_terms($id, ATBDP_TAGS),
+            'enable_single_tag'  => get_directorist_option('enable_single_tag', 1),
+            'tags_section_lable' => get_directorist_option('tags_section_lable', __('Tags', 'directorist')),
+        );
+
+        return atbdp_return_shortcode_template( 'single-listing/tags', $args );
+    }
 }

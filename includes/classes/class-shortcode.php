@@ -4,16 +4,19 @@ if (!class_exists('ATBDP_Shortcode')):
     class ATBDP_Shortcode {
 
         public function __construct() {
-            add_shortcode('directorist_search_listing',      array($this, 'search_listing'));
-            add_shortcode('directorist_search_result',       array($this, 'search_result'));
-            add_shortcode('directorist_all_categories',      array($this, 'all_categories'));
-            add_shortcode('directorist_all_locations',       array($this, 'all_locations'));
+            // Search
+            add_shortcode('directorist_search_listing',  array($this, 'search_listing'));
+            add_shortcode('directorist_search_result',   array($this, 'search_result'));
+
+            // Taxonomy
+            add_shortcode('directorist_all_categories',  array($this, 'all_categories'));
+            add_shortcode('directorist_all_locations',   array($this, 'all_locations'));
             
             // Archive
-            add_shortcode('directorist_all_listing',         array($this, 'listing_archive'));
-            add_shortcode('directorist_category',            array($this, 'category_archive'));
-            add_shortcode('directorist_tag',                 array($this, 'tag_archive'));
-            add_shortcode('directorist_location',            array($this, 'location_archive'));
+            add_shortcode('directorist_all_listing',     array($this, 'listing_archive'));
+            add_shortcode('directorist_category',        array($this, 'category_archive'));
+            add_shortcode('directorist_tag',             array($this, 'tag_archive'));
+            add_shortcode('directorist_location',        array($this, 'location_archive'));
             
             // Single
             add_shortcode('directorist_listing_top_area',             array($this, 'directorist_listing_header' ));
@@ -1151,8 +1154,7 @@ if (!class_exists('ATBDP_Shortcode')):
             return $taxonomy->render_shortcode();
         }
 
-        public function search_listing($atts, $content = null)
-        {
+        public function search_listing($atts, $content = null) {
             $search_title = get_directorist_option('search_title', __("Search here", 'directorist'));
             $search_subtitle = get_directorist_option('search_subtitle', __("Find the best match of your interest
                 ", 'directorist'));

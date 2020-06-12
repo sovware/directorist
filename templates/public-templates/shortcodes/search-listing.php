@@ -1,21 +1,29 @@
-<!-- start search section -->
-<div id="directorist" class="directorist atbd_wrapper directory_search_area single_area ads-advaced--wrapper"
-     style="background-image: url('<?php echo is_directoria_active() ? esc_url($search_home_bg_image) : esc_url($search_home_bg); ?>')">
-    <!-- start search area container -->
+<div id="directorist" class="directorist atbd_wrapper directory_search_area single_area ads-advaced--wrapper" style="background-image: url('<?php echo is_directoria_active() ? esc_url($search_home_bg_image) : esc_url($search_home_bg); ?>')">
+
     <div class="<?php echo apply_filters('atbdp_search_home_container_fluid', $container_fluid) ?>">
         <div class="row">
             <div class="col-md-12">
+
                 <?php
                 /**
                  * @since 5.0.8
                  */
                 do_action('atbdp_search_listing_before_title');
+
                 if (!empty($search_bar_title || $search_bar_sub_title) && (!empty($show_title_subtitle))) { ?>
                     <div class="atbd_search_title_area">
-                        <?php echo !empty($search_bar_title) ? '<h2 class="title">' . esc_html($search_bar_title) . '</h2>' : ''; ?>
-                        <?php echo !empty($search_bar_sub_title) ? '<p class="sub_title">' . esc_html($search_bar_sub_title) . '</p>' : ''; ?>
-                    </div><!--- end title area -->
+
+                        <?php if (!empty($search_bar_title)): ?>
+                            <h2 class="title"><?php echo esc_html($search_bar_title); ?></h2>
+                        <?php endif; ?>
+
+                        <?php if (!empty($search_bar_sub_title)): ?>
+                            <p class="sub_title"><?php echo esc_html($search_bar_sub_title); ?></p>
+                        <?php endif; ?>
+                        
+                    </div>
                 <?php } ?>
+
             </div>
         </div>
         <?php

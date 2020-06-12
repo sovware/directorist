@@ -827,7 +827,7 @@ class Directorist_Listings {
 	}
 
     public function load_openstreet_map() {
-        $script_path = ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/subGroup-markercluster-controlLayers-realworld.388.js';
+        $script_path = ATBDP_URL . 'public/assets/js/openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
         $opt = $this->get_map_options();
 
         wp_enqueue_script('leaflet-subgroup-realworld');
@@ -857,7 +857,7 @@ class Directorist_Listings {
         $opt['display_title_map']     = get_directorist_option('display_title_map', 1);
         $opt['display_address_map']   = get_directorist_option('display_address_map', 1);
         $opt['display_direction_map'] = get_directorist_option('display_direction_map', 1);
-        $opt['zoom']                  = get_directorist_option('map_zoom_level', 16);
+        $opt['zoom']                  = get_directorist_option('map_view_zoom_level', 16);
         $opt['default_image']         = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
         $opt['disable_single_listing'] = $this->disable_single_listing;

@@ -1337,9 +1337,7 @@ final class Directorist_Base
      */
     public function atbdp_parse_videos($url)
     {
-
         $embeddable_url = '';
-
         // Check for YouTube
         $is_youtube = preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url);
 

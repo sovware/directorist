@@ -898,7 +898,7 @@ $query_args = array(
                                                         echo get_directorist_option('require_website') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
 
                                                     <input type="text" id="atbdp_website" name="website"
-                                                           value="<?php echo !empty($website) ? esc_url($website) : ''; ?>"
+                                                           value="<?php echo !empty($website) ? esc_attr($website) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($website_placeholder); ?>"/>
                                                 </div>

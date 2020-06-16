@@ -213,7 +213,7 @@ $info_content .= "<p> {$ad}</p></div>";
                 esc_html_e($website_label.':', 'directorist'); ?></label>
 
             <input type="text" id="atbdp_website" name="website"
-                   value="<?php echo !empty($website) ? esc_url($website) : ''; ?>" class="form-control directory_field"
+                   value="<?php echo !empty($website) ? esc_attr($website) : ''; ?>" class="form-control directory_field"
                    placeholder="<?php echo esc_attr($website_placeholder); ?>"/>
         </div>
         <?php } ?>

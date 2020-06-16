@@ -32,12 +32,16 @@
           transform: translate(0, -50%);
 }
 
+/*rtl:begin:ignore*/
 .plasmaSlider__controlRight {
+  left: unset;
   right: 15px;
 }
 .plasmaSlider__controlLeft {
+  right: unset;
   left: 15px;
 }
+/*rtl:end:ignore*/
 
 .plasmaSlider__arrowBtn {
   margin: 0;

@@ -52,9 +52,6 @@ class Directorist_Listings {
 	public $has_filters_button;
 	public $has_filters_icon;
     public $paged;
-    public $filters_buttons;
-    public $reset_filters_text;
-    public $apply_filters_text;
     public $display_sortby_dropdown;
     public $display_viewas_dropdown;
     public $sort_by_text;
@@ -68,12 +65,6 @@ class Directorist_Listings {
     public $categories_fields;
     public $locations_fields;
     public $c_symbol;
-    public $address_label;
-    public $fax_label;
-    public $email_label;
-    public $website_label;
-    public $tag_label;
-    public $zip_label;
     public $popular_badge_text;
     public $feature_badge_text;
     public $readmore_text;
@@ -189,9 +180,6 @@ class Directorist_Listings {
 		$this->has_filters_icon            = get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
 		$this->filter_button_text          = get_directorist_option( 'listings_filter_button_text', __( 'Filters', 'directorist' ) );
 		$this->paged                       = atbdp_get_paged_num();
-		$this->filters_buttons             = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ) );
-		$this->reset_filters_text          = get_directorist_option( 'listings_reset_text', __( 'Reset Filters', 'directorist' ) );
-		$this->apply_filters_text          = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
 		$this->display_sortby_dropdown     = get_directorist_option( 'display_sort_by', 1 ) ? true : false;
 		$this->display_viewas_dropdown     = get_directorist_option( 'display_view_as', 1 ) ? true : false;
 		$this->sort_by_text                = get_directorist_option( 'sort_by_text', __( 'Sort By', 'directorist' ) );
@@ -206,12 +194,6 @@ class Directorist_Listings {
 		$this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
 		$this->locations_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
 		$this->c_symbol                   = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
-		$this->address_label              = get_directorist_option( 'address_label', __( 'Address', 'directorist' ) );
-		$this->fax_label                  = get_directorist_option( 'fax_label', __( 'Fax', 'directorist' ) );
-		$this->email_label                = get_directorist_option( 'email_label', __( 'Email', 'directorist' ) );
-		$this->website_label              = get_directorist_option( 'website_label', __( 'Website', 'directorist' ) );
-		$this->tag_label                  = get_directorist_option( 'tag_label', __( 'Tag', 'directorist' ) );
-		$this->zip_label                  = get_directorist_option( 'zip_label', __( 'Zip', 'directorist' ) );
 		$this->popular_badge_text         = get_directorist_option( 'popular_badge_text', __( 'Popular', 'directorist' ) );
 		$this->feature_badge_text         = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
 		$this->readmore_text              = get_directorist_option( 'readmore_text', __('Read More', 'directorist'));
@@ -1149,14 +1131,6 @@ class Directorist_Listings {
         return ( $this->display_viewas_dropdown || $this->display_sortby_dropdown ) ? true : false;
     }
 
-    public function has_any_price_field() {
-        if ( in_array( 'search_price', $this->search_more_filters_fields ) || in_array( 'search_price_range', $this->search_more_filters_fields ) ) {
-            return true;
-        }
-
-        return false;
-    }
-
     public function location_field_type( $type ) {
         if ( ! $this->has_location_field() ) {
             return false;
@@ -1169,96 +1143,6 @@ class Directorist_Listings {
         return true;
     }
 
-    public function price_field_data() {
-        $min_price_value = ( isset( $_GET['price'] ) ) ? esc_attr( $_GET['price'][0] ) : '';
-        $max_price_value = ( isset( $_GET['price'] ) ) ? esc_attr( $_GET['price'][1] ) : '';
-
-        return compact( 'min_price_value', 'max_price_value' );
-    }
-
-    public function the_price_range_input($range) {
-    	$checked = ! empty( $_GET['price_range'] ) && $_GET['price_range'] == $range ? ' checked="checked"' : '';
-    	printf('<input type="radio" name="price_range" value="%s"%s>', $range, $checked);
-    }
-
-    public function rating_field_data() {
-        $rating_options = array(
-            array(
-                'selected' => '',
-                'value'    => '',
-                'label'    => __( 'Select Ratings', 'directorist' ),
-            ),
-            array(
-                'selected' => ( ! empty( $_GET['search_by_rating'] ) && '5' == $_GET['search_by_rating'] ) ? ' selected' : '',
-                'value'    => '5',
-                'label'    => __( '5 Star', 'directorist' ),
-            ),
-            array(
-                'selected' => ( ! empty( $_GET['search_by_rating'] ) && '4' == $_GET['search_by_rating'] ) ? ' selected' : '',
-                'value'    => '4',
-                'label'    => __( '4 Star & Up', 'directorist' ),
-            ),
-            array(
-                'selected' => ( ! empty( $_GET['search_by_rating'] ) && '3' == $_GET['search_by_rating'] ) ? ' selected' : '',
-                'value'    => '3',
-                'label'    => __( '3 Star & Up', 'directorist' ),
-            ),
-            array(
-                'selected' => ( ! empty( $_GET['search_by_rating'] ) && '2' == $_GET['search_by_rating'] ) ? ' selected' : '',
-                'value'    => '2',
-                'label'    => __( '2 Star & Up', 'directorist' ),
-            ),
-            array(
-                'selected' => ( ! empty( $_GET['search_by_rating'] ) && '1' == $_GET['search_by_rating'] ) ? ' selected' : '',
-                'value'    => '1',
-                'label'    => __( '1 Star & Up', 'directorist' ),
-            ),
-        );
-
-        return $rating_options;
-    }
-
-    public function tag_field_data() {
-        $listing_tags_field = get_directorist_option( 'listing_tags_field', 'all_tags' );
-        $category_slug      = get_query_var( 'atbdp_category' );
-        $category           = get_term_by( 'slug', $category_slug, ATBDP_CATEGORY );
-        $category_id        = ! empty( $category->term_id ) ? $category->term_id : '';
-        $tag_args           = array(
-            'post_type' => ATBDP_POST_TYPE,
-            'tax_query' => array(
-                array(
-                    'taxonomy' => ATBDP_CATEGORY,
-                    'terms'    => ! empty( $_GET['in_cat'] ) ? $_GET['in_cat'] : $category_id,
-                ),
-            ),
-        );
-        $category_select = ! empty( $_GET['in_cat'] ) ? $_GET['in_cat'] : $category_id;
-        $tag_posts       = get_posts( $tag_args );
-        if ( ! empty( $tag_posts ) ) {
-            foreach ( $tag_posts as $tag_post ) {
-                $tag_id[] = $tag_post->ID;
-            }
-        }
-        $tag_id = ! empty( $tag_id ) ? $tag_id : '';
-        $terms  = wp_get_object_terms( $tag_id, ATBDP_TAGS );
-
-        if ( 'all_tags' == $listing_tags_field || empty( $category_select ) ) {
-            $terms = get_terms( ATBDP_TAGS );
-        }
-
-        if ( ! empty( $terms ) ) {
-            return $terms;
-        }
-
-        return null;
-    }
-
-    public function open_now_field_data() {
-        $checked = ! empty( $_GET['open_now'] ) && 'open_now' == $_GET['open_now'] ? " checked='checked'" : '';
-
-        return $checked;
-    }
-
     public function has_category_field() {
         return in_array( 'search_category', $this->search_more_filters_fields );
     }
@@ -1267,35 +1151,8 @@ class Directorist_Listings {
         return in_array( 'search_location', $this->search_more_filters_fields );
     }
 
-    public function has_open_now_field() {
-        $active_plugins = apply_filters( 'active_plugins', get_option( 'active_plugins' ) );
-        $plugin_path    = 'directorist-business-hours/bd-business-hour.php';
-
-        return in_array( 'search_open_now', $this->search_more_filters_fields ) && in_array( $plugin_path, $active_plugins );
-    }
-
-    public function has_price_field() {
-        return in_array( 'search_price', $this->search_more_filters_fields );
-    }
-
-    public function has_price_range_field() {
-        return in_array( 'search_price_range', $this->search_more_filters_fields );
-    }
-
-    public function has_radius_search_field() {
-        return ( 'map_api' == $this->listing_location_address && in_array( 'radius_search', $this->search_more_filters_fields ) );
-    }
-
-    public function has_rating_field() {
-        return in_array( 'search_rating', $this->search_more_filters_fields );
-    }
-
     public function has_search_field() {
         return in_array( 'search_text', $this->search_more_filters_fields );
-    }
-
-    public function has_tag_field() {
-        return in_array( 'search_tag', $this->search_more_filters_fields );
     }
 
     public function filter_container_class() {
@@ -1322,6 +1179,10 @@ class Directorist_Listings {
     }
 
     public function advanced_search_form_template() {
-        atbdp_get_shortcode_template( 'listings-archive/advanced-search-form', array('listings' => $this) );
+    	$args = array(
+    		'listings'   => $this,
+    		'searchform' => new Directorist_Listing_Search_Form('listing'),
+    	);
+        atbdp_get_shortcode_template( 'listings-archive/advanced-search-form', $args );
     }
 }

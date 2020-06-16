@@ -1155,6 +1155,9 @@ if (!class_exists('ATBDP_Shortcode')):
         }
 
         public function search_listing($atts, $content = null) {
+
+            $searchform = new Directorist_Listing_Search_Form( 'search', $atts );
+
             $search_title = get_directorist_option('search_title', __("Search here", 'directorist'));
             $search_subtitle = get_directorist_option('search_subtitle', __("Find the best match of your interest
                 ", 'directorist'));
@@ -1318,7 +1321,7 @@ if (!class_exists('ATBDP_Shortcode')):
             if ( $path ) {
                 include $path;
             } else {
-                include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/search-listing.php";
+                include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/search/search.php";
             }
 
             ATBDP()->enquirer->search_listing_scripts_styles();

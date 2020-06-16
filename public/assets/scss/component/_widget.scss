@@ -368,29 +368,6 @@
         }
       }
     }
-    .atbd_social_wrap {
-      margin-bottom: 0;
-      padding:12px 0 0;
-      p {
-        display: inline-block;
-        & + p {
-          margin-left: 10px;
-        }
-        a {
-          line-height: 34px;
-          width: 34px;
-          text-align: center;
-          background: #f1f3f8;
-          display: inline-block;
-          border-radius: 5px;
-          transition: 0.3s;
-          &:hover {
-            @extend .atbd_bg-primary;
-            color: $light;
-          }
-        }
-      }
-    }
     .btn{
       margin-top: 20px;
     }

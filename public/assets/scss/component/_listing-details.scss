@@ -257,88 +257,6 @@
       }
     }
   }
-  .atbd_contact_information_module .atbd_director_social_wrap {
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    a {
-      display: inline-block;
-      margin-right: 5px;
-      margin-bottom: 5px;
-      line-height: 35px;
-      width: 35px;
-      text-align: center;
-      @extend .atbd_bg-primary;
-      border-radius: 4px;
-      color: $light;
-      overflow: hidden;
-      transition: all ease-in-out 300ms !important;
-      &:hover {
-        border-radius: 50%;
-      }
-      &.facebook:hover {
-        background-color: #4267B2 !important;
-      }
-      &.twitter:hover {
-        background-color: #1da1f2 !important;
-      }
-      &.youtube:hover, &.youtube-play:hover {
-        background-color: #ff0000 !important;
-      }
-      &.instagram:hover {
-        background-color: #c32aa3 !important;
-      }
-      &.linkedin:hover {
-        background-color: #007bb5 !important;
-      }
-      &.google-plus:hover {
-        background-color: #db4437 !important;
-      }
-      &.snapchat:hover, &.snapchat-ghost:hover {
-        background-color: #eae800 !important;
-      }
-      &.reddit:hover {
-        background-color: #ff4500 !important;
-      }
-      &.pinterest:hover {
-        background-color: #bd081c !important;
-      }
-      &.tumblr:hover {
-        background-color: #35465d !important;
-      }
-      &.flickr:hover {
-        background-color: #f40083 !important;
-      }
-      &.vimeo:hover {
-        background-color: #1ab7ea !important;
-      }
-      &.vine:hover {
-        background-color: #00b489 !important;
-      }
-      &.github:hover {
-        background-color: #444752 !important;
-      }
-      &.dribbble:hover {
-        background-color: #ea4c89 !important;
-      }
-      &.behance:hover {
-        background-color: #196EE3 !important;
-      }
-      &.soundcloud:hover {
-        background-color: #ff5500 !important;
-      }
-      &.stack-overflow:hover {
-        background-color: #ff5500 !important;
-      }
-      span.fa {
-        line-height: inherit;
-        font-size: 16px;
-      }
-      // &+a{
-      //   margin-left: 5px;
-      // }
-    }
-  }
   .atbd_directry_gallery_wrapper {
     border-bottom: 1px solid $border-color;
     .atbd_big_gallery{
@@ -842,5 +760,86 @@
         flex: 0 0 33.33%;
       }
     }
+  }
+}
+
+.atbd_director_social_wrap {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  a {
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    line-height: 35px;
+    width: 35px;
+    text-align: center;
+    background: $primary;
+    border-radius: 4px;
+    color: $light !important;
+    overflow: hidden;
+    transition: all ease-in-out 300ms !important;
+
+    &.facebook:hover {
+      background-color: #4267B2 !important;
+    }
+    &.twitter:hover {
+      background-color: #1da1f2 !important;
+    }
+    &.youtube:hover, &.youtube-play:hover {
+      background-color: #ff0000 !important;
+    }
+    &.instagram:hover {
+      background-color: #c32aa3 !important;
+    }
+    &.linkedin:hover {
+      background-color: #007bb5 !important;
+    }
+    &.google-plus:hover {
+      background-color: #db4437 !important;
+    }
+    &.snapchat:hover, &.snapchat-ghost:hover {
+      background-color: #eae800 !important;
+    }
+    &.reddit:hover {
+      background-color: #ff4500 !important;
+    }
+    &.pinterest:hover {
+      background-color: #bd081c !important;
+    }
+    &.tumblr:hover {
+      background-color: #35465d !important;
+    }
+    &.flickr:hover {
+      background-color: #f40083 !important;
+    }
+    &.vimeo:hover {
+      background-color: #1ab7ea !important;
+    }
+    &.vine:hover {
+      background-color: #00b489 !important;
+    }
+    &.github:hover {
+      background-color: #444752 !important;
+    }
+    &.dribbble:hover {
+      background-color: #ea4c89 !important;
+    }
+    &.behance:hover {
+      background-color: #196EE3 !important;
+    }
+    &.soundcloud:hover {
+      background-color: #ff5500 !important;
+    }
+    &.stack-overflow:hover {
+      background-color: #ff5500 !important;
+    }
+    span.fa {
+      line-height: inherit;
+      font-size: 16px;
+    }
+    // &+a{
+    //   margin-left: 5px;
+    // }
   }
 }

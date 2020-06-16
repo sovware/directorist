@@ -309,7 +309,7 @@
                                  alt="Listings Slider">
 
                             <div class="extension_detail ext_d">
-                                <a href="https://directorist.com/product/directorist-listings-slider-and-carousel"
+                                <a href="https://directorist.com/product/directorist-listings-slider-carousel"
                                    target="_blank" class="ext_title"><h4>
                                         <?php esc_html_e(' Listings Slider and Carousel ', 'directorist'); ?></h4></a>
                                 <p><?php esc_html_e('Display listings slider anywhere on your website using this extension.', 'directorist'); ?></p>

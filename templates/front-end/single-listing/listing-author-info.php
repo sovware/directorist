@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @since 5.10.0
  */
@@ -23,15 +24,13 @@ $atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('A
             $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
             ?>
             <div class="atbd_review_avatar"><?php if (empty($u_pro_pic)) {
-                    echo $avatar_img;
-                }
-                if (!empty($u_pro_pic)) { ?><img
-                    src="<?php echo esc_url($u_pro_pic[0]); ?>"
-                    alt="Avatar Image"><?php } ?></div>
+                                                echo $avatar_img;
+                                            }
+                                            if (!empty($u_pro_pic)) { ?><img src="<?php echo esc_url($u_pro_pic[0]); ?>" alt="Avatar Image"><?php } ?></div>
             <div class="atbd_name_time">
                 <h4><?php echo esc_html($author_name); ?></h4>
                 <span class="review_time"><?php
-                    printf(__('Member since %s ago', 'directorist'), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></span>
+                                            printf(__('Member since %s ago', 'directorist'), human_time_diff(strtotime($user_registered), current_time('timestamp'))); ?></span>
             </div>
         </div>
 
@@ -48,7 +47,7 @@ $atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('A
                 $youtube = get_user_meta($author_id, 'atbdp_youtube', true);
                 if (!empty($address)) { ?>
                     <li>
-                        <span class="<?php atbdp_icon_type(true);?>-map-marker"></span>
+                        <span class="<?php atbdp_icon_type(true); ?>-map-marker"></span>
                         <span class="atbd_info"><?php echo !empty($address) ? esc_html($address) : ''; ?></span>
                     </li>
                 <?php } ?>
@@ -57,7 +56,7 @@ $atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('A
                 if (isset($phone) && !is_empty_v($phone)) { ?>
                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                     <li>
-                        <span class="<?php atbdp_icon_type(true);?>-phone"></span>
+                        <span class="<?php atbdp_icon_type(true); ?>-phone"></span>
                         <span class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a></span>
                     </li>
                 <?php } ?>
@@ -67,9 +66,9 @@ $atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('A
                 $email_show = get_directorist_option('display_author_email', 'public');
                 if ('public' === $email_show) {
                     if (!empty($email)) {
-                        ?>
+                ?>
                         <li>
-                            <span class="<?php atbdp_icon_type(true);?>-envelope"></span>
+                            <span class="<?php atbdp_icon_type(true); ?>-envelope"></span>
                             <span class="atbd_info"><?php echo esc_html($email); ?></span>
                         </li>
                         <?php
@@ -77,45 +76,45 @@ $atbd_author_info_title = get_directorist_option('atbd_author_info_title', __('A
                 } elseif ('logged_in' === $email_show) {
                     if (atbdp_logged_in_user()) {
                         if (!empty($email)) {
-                            ?>
+                        ?>
                             <li>
-                                <span class="<?php atbdp_icon_type(true);?>-envelope"></span>
+                                <span class="<?php atbdp_icon_type(true); ?>-envelope"></span>
                                 <span class="atbd_info"><?php echo esc_html($email); ?></span>
                             </li>
-                            <?php
+                    <?php
                         }
                     }
                 }
                 if (!empty($website)) { ?>
                     <li>
-                        <span class="<?php atbdp_icon_type(true);?>-globe"></span>
-                        <a href="<?php echo esc_url($website); ?>"
-                           class="atbd_info" <?php echo is_directoria_active() ? 'style="text-transform: none;"' : ''; ?>><?php echo esc_url($website); ?></a>
+                        <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
+                        <a href="<?php echo esc_url($website); ?>" class="atbd_info" <?php echo is_directoria_active() ? 'style="text-transform: none;"' : ''; ?>><?php echo esc_url($website); ?></a>
                     </li>
                 <?php } ?>
 
             </ul>
         </div>
-        <?php if (!empty($facebook || $twitter || $linkedIn || $youtube )) { ?>
+        <?php if (!empty($facebook || $twitter || $linkedIn || $youtube)) { ?>
             <div class="atbd_social_wrap">
-                <?php
-                if ($facebook) {
-                    printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-facebook"></span></a></p>', $facebook);
-                }
-                if ($twitter) {
-                    printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-twitter"></span></a></p>', $twitter);
-                }
-                if ($linkedIn) {
-                    printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-linkedin"></span></a></p>', $linkedIn);
-                }
-                if ($youtube) {
-                    printf('<p><a target="_blank" href="%s"><span class="'.atbdp_icon_type().'-youtube"></span></a></p>', $youtube);
-                }
-                ?>
+                <div class="atbd_director_social_wrap">
+                    <?php
+                    if ($facebook) {
+                        printf('<a class="facebook" target="_blank" href="%s"><span class="' . atbdp_icon_type() . '-facebook"></span></a>', $facebook);
+                    }
+                    if ($twitter) {
+                        printf('<a class="twitter" target="_blank" href="%s"><span class="' . atbdp_icon_type() . '-twitter"></span></a>', $twitter);
+                    }
+                    if ($linkedIn) {
+                        printf('<a class="linkedin" target="_blank" href="%s"><span class="' . atbdp_icon_type() . '-linkedin"></span></a>', $linkedIn);
+                    }
+                    if ($youtube) {
+                        printf('<a class="youtube" target="_blank" href="%s"><span class="' . atbdp_icon_type() . '-youtube"></span></a>', $youtube);
+                    }
+                    ?>
+                </div>
             </div>
         <?php } ?>
-        <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-           class="<?php echo atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', 'directorist'); ?>
+        <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>" class="<?php echo atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', 'directorist'); ?>
         </a>
     </div>
 </div>

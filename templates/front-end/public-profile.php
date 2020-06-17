@@ -12,7 +12,10 @@ $container_fluid = 'container-fluid';
                 <?php
                 $author_id = !empty($author_id) ? $author_id : get_current_user_id();
                 $author_id = rtrim($author_id, '/');
-                $author_name = get_the_author_meta('display_name', $author_id);
+                $first_name = get_the_author_meta('first_name', $author_id);
+                $last_name = get_the_author_meta('last_name', $author_id);
+                $author_name =  $first_name . ( $last_name ? ' ' . $last_name : '' );
+                $author_name =  $author_name ? $author_name : get_the_author_meta('display_name', $author_id);
                 $user_registered = get_the_author_meta('user_registered', $author_id);
                 $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                 $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';

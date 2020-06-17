@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2020-06-12 10:03+0600\n"
+"POT-Creation-Date: 2020-06-17 16:08+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -401,7 +401,7 @@ msgid "Map"
 msgstr ""
 
 #: includes/classes/class-all-map-widget.php:64
-#: includes/classes/class-author-info-widget.php:167
+#: includes/classes/class-author-info-widget.php:165
 #: includes/classes/class-categories-widget.php:97
 #: includes/classes/class-contact-form-widget.php:109
 #: includes/classes/class-featured-widget.php:67
@@ -457,21 +457,21 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: includes/classes/class-author-info-widget.php:62
-#: templates/front-end/public-profile.php:42
-#: templates/front-end/single-listing/listing-author-info.php:34
+#: includes/classes/class-author-info-widget.php:60
+#: templates/front-end/public-profile.php:43
+#: templates/front-end/single-listing/listing-author-info.php:33
 #, php-format
 msgid "Member since %s ago"
 msgstr ""
 
-#: includes/classes/class-author-info-widget.php:146
-#: templates/front-end/single-listing/listing-author-info.php:118
+#: includes/classes/class-author-info-widget.php:144
+#: templates/front-end/single-listing/listing-author-info.php:117
 msgid "View Profile"
 msgstr ""
 
-#: includes/classes/class-author-info-widget.php:164
+#: includes/classes/class-author-info-widget.php:162
 #: includes/classes/class-settings-manager.php:5909
-#: templates/front-end/single-listing/listing-author-info.php:6
+#: templates/front-end/single-listing/listing-author-info.php:7
 msgid "Author Info"
 msgstr ""
 
@@ -5304,6 +5304,14 @@ msgstr ""
 msgid "in %s"
 msgstr ""
 
+#: includes/classes/class-shortcode.php:746
+msgid "results"
+msgstr ""
+
+#: includes/classes/class-shortcode.php:746
+msgid "result"
+msgstr ""
+
 #: includes/classes/class-shortcode.php:748
 #, php-format
 msgid "%d %s %s %s"
@@ -7039,13 +7047,13 @@ msgstr ""
 
 #: includes/review-rating/class-review-custom-post.php:39
 #: includes/review-rating/class-review-custom-post.php:41
-#: templates/front-end/public-profile.php:82
+#: templates/front-end/public-profile.php:83
 msgid "Reviews"
 msgstr ""
 
 #: includes/review-rating/class-review-custom-post.php:40
 #: includes/review-rating/class-review-custom-post.php:44
-#: templates/front-end/public-profile.php:82
+#: templates/front-end/public-profile.php:83
 msgid "Review"
 msgstr ""
 
@@ -7711,31 +7719,31 @@ msgstr ""
 msgid "View your listings"
 msgstr ""
 
-#: templates/front-end/public-profile.php:89
+#: templates/front-end/public-profile.php:90
 msgid "Listings"
 msgstr ""
 
-#: templates/front-end/public-profile.php:89
+#: templates/front-end/public-profile.php:90
 msgid "Listing"
 msgstr ""
 
-#: templates/front-end/public-profile.php:103
+#: templates/front-end/public-profile.php:104
 msgid "About"
 msgstr ""
 
-#: templates/front-end/public-profile.php:112
+#: templates/front-end/public-profile.php:113
 msgid "Nothing to show!"
 msgstr ""
 
-#: templates/front-end/public-profile.php:122
+#: templates/front-end/public-profile.php:124
 msgid "Contact Info"
 msgstr ""
 
-#: templates/front-end/public-profile.php:213
+#: templates/front-end/public-profile.php:217
 msgid "Author Listings"
 msgstr ""
 
-#: templates/front-end/public-profile.php:228
+#: templates/front-end/public-profile.php:231
 msgid "Filter by category"
 msgstr ""
 

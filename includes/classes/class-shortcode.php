@@ -743,7 +743,7 @@ if (!class_exists('ATBDP_Shortcode')):
             } else {
                 $in_loc = !empty($_GET['address']) ? sprintf(__('in %s', 'directorist'), $_GET['address']) : '';
             }
-            $result = (1 < count($all_listings->posts)) ? 'results' : 'result';
+            $result = (1 < count($all_listings->posts)) ? __('results', 'directorist') : __('result', 'directorist');
 
             $header_title = sprintf(__('%d %s %s %s', 'directorist'), $all_listings->found_posts, $result, $for_cat, $in_loc);
             $listing_filters_button = get_directorist_option('search_result_filters_button_display', 1);

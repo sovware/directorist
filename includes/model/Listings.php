@@ -59,11 +59,10 @@ class Directorist_Listings {
     public $view_as;
     public $sort_by_items;
     public $views;
-    public $text_placeholder;
-    public $category_placeholder;
+    //
     public $location_placeholder;
-    public $categories_fields;
     public $locations_fields;
+    //
     public $c_symbol;
     public $popular_badge_text;
     public $feature_badge_text;
@@ -188,7 +187,6 @@ class Directorist_Listings {
 		$view_as_items               = get_directorist_option( 'listings_view_as_items', array( 'listings_grid', 'listings_list', 'listings_map' ) );
 		$this->sort_by_items         = get_directorist_option( 'listings_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );
 		$this->views                 = atbdp_get_listings_view_options( $view_as_items );
-		$this->text_placeholder      = get_directorist_option( 'listings_search_text_placeholder', __( 'What are you looking for?', 'directorist' ) );
 		$this->category_placeholder  = get_directorist_option( 'listings_category_placeholder', __( 'Select a category', 'directorist' ) );
 		$this->location_placeholder  = get_directorist_option( 'listings_location_placeholder', __( 'Select a location', 'directorist' ) );
 		$this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
@@ -1143,16 +1141,8 @@ class Directorist_Listings {
         return true;
     }
 
-    public function has_category_field() {
-        return in_array( 'search_category', $this->search_more_filters_fields );
-    }
-
     public function has_location_field() {
         return in_array( 'search_location', $this->search_more_filters_fields );
-    }
-
-    public function has_search_field() {
-        return in_array( 'search_text', $this->search_more_filters_fields );
     }
 
     public function filter_container_class() {

@@ -9,24 +9,17 @@
 	<form action="<?php atbdp_search_result_page_link(); ?>" class="atbd_ads-form">
 		<div class="atbd_seach_fields_wrapper" style="border: none;">
 			<div class="row atbdp-search-form">
-				<?php if ($listings->has_search_field()) { ?>
+				<?php if ($searchform->has_search_text_field) { ?>
 					<div class="col-md-6 col-sm-12 col-lg-4">
-						<div class="single_search_field search_query">
-							<input class="form-control search_fields" type="text" name="q" placeholder="<?php echo esc_attr($listings->text_placeholder); ?>">
-						</div>
+						<?php $searchform->search_text_template();?>
 					</div>
 				<?php
 				}
 
-				if ($listings->has_category_field()) {
+				if ($searchform->has_category_field) {
 					?>
 					<div class="col-md-6 col-sm-12 col-lg-4">
-						<div class="single_search_field search_category">
-							<select name="in_cat" id="cat-type" class="form-control directory_field bdas-category-search">
-								<option><?php echo $listings->category_placeholder; ?></option>
-								<?php echo $listings->categories_fields; ?>
-							</select>
-						</div>
+						<?php $searchform->category_template();?>
 					</div>
 				<?php
 				}

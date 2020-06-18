@@ -178,13 +178,14 @@ $display_back_link = get_directorist_option('display_back_link', 1);
 $enable_single_location_taxonomy = get_directorist_option('enable_single_location_taxonomy', 0);
 $enable_single_tag = get_directorist_option('enable_single_tag', 1);
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
+$active_sidebar = is_active_sidebar('right-sidebar-listing') ? true : false ;
 $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 ?>
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
         <?php
         $html_edit_back = '';
-        $html_edit_back .= '<div class="' . esc_attr($main_col_size) . ' col-md-12 atbd_col_left">';
+        $html_edit_back .= '<div class="' . apply_filters('atbdp_single_listing_sidebar_class', esc_attr($main_col_size)) . ' col-md-12 atbd_col_left">';
         //is current user is logged in and the original author of the listing
         if (atbdp_logged_in_user() && $listing_author_id == get_current_user_id()) {
             //ok show the edit option
@@ -226,7 +227,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
          */
         do_action('atbdp_before_single_listing_section');
         ?>
-        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+        <div class="<?php echo apply_filters('atbdp_single_listing_sidebar_class', esc_attr($main_col_size)); ?> col-md-12 atbd_col_left">
             <?php
             /**
              * @since 5.2.1
@@ -942,7 +943,9 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
             ?>
         </div>
         <?php
-        include ATBDP_TEMPLATES_DIR . 'sidebar-listing.php';
+        if( apply_filters('atbdp_single_listing_sidebar', $active_sidebar) ){
+            include ATBDP_TEMPLATES_DIR . 'sidebar-listing.php';
+        }
         ?>
     </div> <!--ends .row-->
 </section>

@@ -222,6 +222,9 @@
             font-weight: 500;
             span{
               color: #7A82A6;
+              &.atbdp_expired{
+                color: $danger;
+              }
               &.atbdp__private,
               &.atbdp__published,
               &.atbdp__pending{

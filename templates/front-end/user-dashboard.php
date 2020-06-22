@@ -220,8 +220,11 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     $exp_text = !empty($never_exp)
                                                                         ? __('Never Expires', 'directorist')
                                                                         : date_i18n($date_format, strtotime($exp_date)); ?>
-                                                                    <p><?php printf(__('<span>Expiration:</span> %s', 'directorist'), ('expired' == $lstatus) ? '<span style="color: red">' . __('Expired', 'directorist') . '</span>' : $exp_text); ?></p>
-                                                                    <p><?php printf(__('<span class="%s">%s</span> ', 'directorist'),'atbdp__'.strtolower($status), $status ); ?></p></div>
+                                                                    <p>
+                                                                        <span><?php _e('Expiration', 'directorist'); ?>:</span>
+                                                                        <span class="<?php echo ('expired' == $lstatus) ? esc_html('atbdp_expired') : ''; ?>"><?php echo esc_attr($exp_text)?></span>
+                                                                    </p>
+                                                                    <p><?php printf(__('<span class="%s">%s</span> ', 'directorist'),'atbdp__'.strtolower($status), $status ); ?></></div>
                                                                     <?php
                                                                     /**
                                                                      * Fires before the action buttons are rendered

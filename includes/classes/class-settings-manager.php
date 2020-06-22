@@ -6017,7 +6017,7 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Disable Listing Price', 'directorist'),
                     'default' => 0,
                 ),
-                array(
+                'enable_single_location_taxonomy' => array(
                     'type' => 'toggle',
                     'name' => 'enable_single_location_taxonomy',
                     'label' => __('Display Location', 'directorist'),

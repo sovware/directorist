@@ -4148,8 +4148,13 @@ function atbdp_get_current_url()
 function atbdp_can_use_yoast()
 {
 
-    $can_use_yoast = false;
-    if ((in_array('wordpress-seo/wp-seo.php', apply_filters('active_plugins', get_option('active_plugins'))))) {
+    $can_use_yoast  = false;
+    $active_plugins = apply_filters('active_plugins', get_option('active_plugins'));
+
+    $yoast_free_is_active    = ( in_array('wordpress-seo/wp-seo.php', $active_plugins) ) ? true : false;
+    $yoast_premium_is_active = ( in_array('wordpress-seo-premium/wp-seo-premium.php', $active_plugins) ) ? true : false;
+
+    if ( $yoast_free_is_active || $yoast_premium_is_active ) {
         $can_use_yoast = true;
     }
 
@@ -4165,10 +4170,9 @@ function atbdp_can_use_yoast()
  */
 function atbdp_disable_overwrite_yoast()
 {
-
     $overwrite = false;
     $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
-    if (!empty($overwrite_yoast) || (!in_array('wordpress-seo/wp-seo.php', apply_filters('active_plugins', get_option('active_plugins'))))) {
+    if ( ! empty($overwrite_yoast) || ! atbdp_can_use_yoast() ) {
         $overwrite = true;
     }
 

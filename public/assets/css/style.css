@@ -1118,6 +1118,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   height: 32px;
   top: 20px;
   right: 20px;
+  left: auto;
   position: absolute;
   transform: none;
   background: #444752;
@@ -1433,7 +1434,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup,
 .atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup {
+  /*rtl:begin:ignore*/
   left: -95px !important;
+  /*rtl:end:ignore*/
 }
 
 .atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper,
@@ -1488,6 +1491,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 50%;
   color: #fff;
   right: 10px;
+  left: auto;
   top: 10px;
   display: flex;
   align-items: center;
@@ -2120,8 +2124,10 @@ div#listing_notifier span {
   content: '';
   width: 7px;
   height: 7px;
+  /*rtl:begin:ignore*/
   border-left: 1px solid #444752;
   border-bottom: 1px solid #444752;
+  /*rtl:end:ignore*/
   position: absolute;
   left: 0;
   top: 0;

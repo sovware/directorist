@@ -1110,6 +1110,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   height: 32px;
   top: 20px;
   left: 20px;
+  right: auto;
   position: absolute;
   transform: none;
   background: #444752;

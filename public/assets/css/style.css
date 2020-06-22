@@ -3952,6 +3952,10 @@ span.atbd_get_loc_wid {
   }
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price {
+  word-break: break-all;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'],
 .atbd_content_active .widget.atbd_widget[id^='dcl'],
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget {

@@ -1426,7 +1426,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup,
 .atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup {
-  right: -95px !important;
+  left: -95px !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper,
@@ -1481,6 +1481,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 50%;
   color: #fff;
   left: 10px;
+  right: auto;
   top: 10px;
   display: flex;
   align-items: center;
@@ -2113,7 +2114,7 @@ div#listing_notifier span {
   content: '';
   width: 7px;
   height: 7px;
-  border-right: 1px solid #444752;
+  border-left: 1px solid #444752;
   border-bottom: 1px solid #444752;
   position: absolute;
   right: 0;

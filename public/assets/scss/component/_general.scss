@@ -751,7 +751,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 30px;
 
   .leaflet-popup {
+    /*rtl:begin:ignore*/
     left: -95px !important;
+    /*rtl:end:ignore*/
   }
 
   .leaflet-popup-content-wrapper {
@@ -801,6 +803,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
     border-radius: 50%;
     color: #fff;
     right: 10px;
+    left: auto;
     top: 10px;
     display: flex;
     align-items: center;
@@ -1447,8 +1450,10 @@ div#listing_notifier span {
         content: '';
         width: 7px;
         height: 7px;
+        /*rtl:begin:ignore*/
         border-left: 1px solid $primary;
         border-bottom: 1px solid $primary;
+        /*rtl:end:ignore*/
         position: absolute;
         left: 0;
         top: 0;

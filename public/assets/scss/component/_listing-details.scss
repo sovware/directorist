@@ -98,12 +98,12 @@
         }
         &.atbd_share {
           position: relative;
-          &:hover .atbd_director_social_wrap {
+          &:hover .atbd_directory_social_wrap {
             opacity: 1;
             visibility: visible;
             top: calc(100% + 10px);
           }
-          .atbd_director_social_wrap {
+          .atbd_directory_social_wrap {
             ul li {
               a {
                 padding: 11px 20px;

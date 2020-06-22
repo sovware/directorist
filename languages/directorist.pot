@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2020-06-17 16:08+0600\n"
+"POT-Creation-Date: 2020-06-22 16:45+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -71,14 +71,14 @@ msgstr ""
 #: directorist-base.php:1122
 #: templates/front-end/single-listing/listing-header.php:259
 #: templates/front-end/single-listing/listing-map.php:28
-#: templates/single-at_biz_dir.php:86 templates/single-at_biz_dir.php:392
+#: templates/single-at_biz_dir.php:86 templates/single-at_biz_dir.php:388
 msgid " Reviews"
 msgstr ""
 
 #: directorist-base.php:1122
 #: templates/front-end/single-listing/listing-header.php:259
 #: templates/front-end/single-listing/listing-map.php:28
-#: templates/single-at_biz_dir.php:86 templates/single-at_biz_dir.php:392
+#: templates/single-at_biz_dir.php:86 templates/single-at_biz_dir.php:388
 msgid " Review"
 msgstr ""
 
@@ -558,7 +558,7 @@ msgstr ""
 #: includes/elementor/all-locations.php:68
 #: templates/front-end/payment-receipt.php:106
 #: templates/front-end/single-listing/listing-contact-owner.php:27
-#: templates/single-at_biz_dir.php:861
+#: templates/single-at_biz_dir.php:840
 msgid "Name"
 msgstr ""
 
@@ -660,14 +660,14 @@ msgstr ""
 #: templates/listing-home-open.php:168 templates/listing-home.php:32
 #: templates/listing-home.php:326 templates/search-widget-front.php:5
 #: templates/search-widget-front.php:145
-#: templates/single-at_biz_dir.php:712 templates/single-at_biz_dir.php:866
+#: templates/single-at_biz_dir.php:704 templates/single-at_biz_dir.php:844
 msgid "Email"
 msgstr ""
 
 #: includes/classes/class-contact-form-widget.php:67
 #: templates/front-end/single-listing/listing-contact-owner.php:37
 #: templates/front-end/single-listing/listing-header.php:179
-#: templates/single-at_biz_dir.php:309 templates/single-at_biz_dir.php:871
+#: templates/single-at_biz_dir.php:307 templates/single-at_biz_dir.php:848
 msgid "Message"
 msgstr ""
 
@@ -675,7 +675,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1118
 #: templates/front-end/single-listing/listing-contact-owner.php:49
 #: templates/front-end/single-listing/listing-header.php:187
-#: templates/single-at_biz_dir.php:317 templates/single-at_biz_dir.php:883
+#: templates/single-at_biz_dir.php:313 templates/single-at_biz_dir.php:860
 msgid "Submit"
 msgstr ""
 
@@ -683,7 +683,7 @@ msgstr ""
 msgid "Contact the listing owner"
 msgstr ""
 
-#: includes/classes/class-cron.php:34
+#: includes/classes/class-cron.php:39
 msgid "Every 5 minutes"
 msgstr ""
 
@@ -752,7 +752,7 @@ msgid "Directory Listing"
 msgstr ""
 
 #: includes/classes/class-custom-post.php:174
-#: templates/front-end/user-dashboard.php:577
+#: templates/front-end/user-dashboard.php:580
 msgid "Listing Name"
 msgstr ""
 
@@ -1545,22 +1545,22 @@ msgstr ""
 
 #: includes/classes/class-helper.php:380
 #: templates/front-end/single-listing/listing-header.php:135
-#: templates/front-end/user-dashboard.php:505
-#: templates/single-at_biz_dir.php:264
+#: templates/front-end/user-dashboard.php:508
+#: templates/single-at_biz_dir.php:265
 msgid "Facebook"
 msgstr ""
 
 #: includes/classes/class-helper.php:381
 #: templates/front-end/single-listing/listing-header.php:138
-#: templates/front-end/user-dashboard.php:515
-#: templates/single-at_biz_dir.php:268
+#: templates/front-end/user-dashboard.php:518
+#: templates/single-at_biz_dir.php:269
 msgid "Twitter"
 msgstr ""
 
 #: includes/classes/class-helper.php:382
 #: templates/front-end/single-listing/listing-header.php:142
-#: templates/front-end/user-dashboard.php:526
-#: templates/single-at_biz_dir.php:273
+#: templates/front-end/user-dashboard.php:529
+#: templates/single-at_biz_dir.php:274
 msgid "LinkedIn"
 msgstr ""
 
@@ -1589,7 +1589,7 @@ msgid "Reddit"
 msgstr ""
 
 #: includes/classes/class-helper.php:389
-#: templates/front-end/user-dashboard.php:536
+#: templates/front-end/user-dashboard.php:539
 msgid "Youtube"
 msgstr ""
 
@@ -1648,12 +1648,12 @@ msgstr ""
 
 #: includes/classes/class-listing.php:245
 #: includes/classes/class-listing.php:261
-#: templates/single-at_biz_dir.php:194 templates/single-at_biz_dir.php:211
+#: templates/single-at_biz_dir.php:195 templates/single-at_biz_dir.php:212
 msgid " Go Back"
 msgstr ""
 
 #: includes/classes/class-listing.php:254
-#: templates/single-at_biz_dir.php:203
+#: templates/single-at_biz_dir.php:204
 msgid " Edit"
 msgstr ""
 
@@ -1976,23 +1976,23 @@ msgstr ""
 #: templates/front-end/all-listings/listings-header.php:5
 #: templates/front-end/all-listings/listings-header.php:365
 #: templates/front-end/single-listing/listing-contact-info.php:33
-#: templates/front-end/user-dashboard.php:462
+#: templates/front-end/user-dashboard.php:465
 #: templates/listing-home-open.php:164 templates/listing-home.php:33
 #: templates/listing-home.php:318 templates/search-widget-front.php:6
 #: templates/search-widget-front.php:140
-#: templates/single-at_biz_dir.php:713
+#: templates/single-at_biz_dir.php:705
 msgid "Website"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:355
 #: includes/classes/class-settings-manager.php:736
-#: templates/front-end/user-dashboard.php:422
+#: templates/front-end/user-dashboard.php:425
 msgid "First Name"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:360
 #: includes/classes/class-settings-manager.php:766
-#: templates/front-end/user-dashboard.php:430
+#: templates/front-end/user-dashboard.php:433
 msgid "Last Name"
 msgstr ""
 
@@ -2373,7 +2373,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:2873
 #: includes/classes/class-settings-manager.php:3785
 #: includes/classes/class-settings-manager.php:4115
-#: templates/front-end/user-dashboard.php:578
+#: templates/front-end/user-dashboard.php:581
 msgid "Category"
 msgstr ""
 
@@ -2386,9 +2386,9 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:4983
 #: templates/front-end/all-listings/listings-header.php:2
 #: templates/front-end/single-listing/listing-contact-info.php:23
-#: templates/front-end/user-dashboard.php:470
+#: templates/front-end/user-dashboard.php:473
 #: templates/listing-home.php:30 templates/listing-home.php:351
-#: templates/search-widget-front.php:3 templates/single-at_biz_dir.php:710
+#: templates/search-widget-front.php:3 templates/single-at_biz_dir.php:702
 msgid "Address"
 msgstr ""
 
@@ -2401,7 +2401,7 @@ msgstr ""
 #: templates/front-end/all-listings/listings-header.php:397
 #: templates/front-end/single-listing/listing-contact-info.php:35
 #: templates/listing-home-open.php:180 templates/listing-home.php:363
-#: templates/single-at_biz_dir.php:714
+#: templates/single-at_biz_dir.php:706
 msgid "Zip/Post Code"
 msgstr ""
 
@@ -3618,7 +3618,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:4154
 #: includes/classes/class-settings-manager.php:5025
 #: templates/front-end/single-listing/listing-contact-info.php:25
-#: templates/single-at_biz_dir.php:711
+#: templates/single-at_biz_dir.php:703
 msgid "Phone"
 msgstr ""
 
@@ -4641,7 +4641,7 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:5601
 #: templates/front-end/user-dashboard.php:23
-#: templates/front-end/user-dashboard.php:391
+#: templates/front-end/user-dashboard.php:394
 msgid "My Profile"
 msgstr ""
 
@@ -5747,8 +5747,8 @@ msgid "Text Area"
 msgstr ""
 
 #: includes/custom-fields/class-custom-field.php:564
-#: templates/front-end/user-dashboard.php:360
-#: templates/front-end/user-dashboard.php:361
+#: templates/front-end/user-dashboard.php:363
+#: templates/front-end/user-dashboard.php:364
 msgid "Select"
 msgstr ""
 
@@ -6857,7 +6857,7 @@ msgstr ""
 
 #: includes/libs/vafpress/views/option/set.php:76
 #: includes/libs/vafpress/views/option/set.php:90
-#: templates/front-end/user-dashboard.php:558
+#: templates/front-end/user-dashboard.php:561
 msgid "Save Changes"
 msgstr ""
 
@@ -7539,7 +7539,7 @@ msgstr ""
 
 #: templates/front-end/add-listing.php:1220
 #: templates/front-end/add-listing.php:1234
-#: templates/front-end/user-dashboard.php:381
+#: templates/front-end/user-dashboard.php:384
 msgid "Minimum __DT__ file is required"
 msgstr ""
 
@@ -7758,13 +7758,13 @@ msgid "Business Hour"
 msgstr ""
 
 #: templates/front-end/single-listing/listing-header.php:126
-#: templates/single-at_biz_dir.php:253
+#: templates/single-at_biz_dir.php:254
 msgid "Share"
 msgstr ""
 
 #: templates/front-end/single-listing/listing-header.php:153
 #: templates/front-end/single-listing/listing-header.php:157
-#: templates/single-at_biz_dir.php:283 templates/single-at_biz_dir.php:287
+#: templates/single-at_biz_dir.php:284 templates/single-at_biz_dir.php:288
 msgid "Report"
 msgstr ""
 
@@ -7807,141 +7807,137 @@ msgstr ""
 msgid "Untitled!"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:223
-#, php-format
-msgid "<span>Expiration:</span> %s"
-msgstr ""
-
-#: templates/front-end/user-dashboard.php:223
-msgid "Expired"
-msgstr ""
-
 #: templates/front-end/user-dashboard.php:224
+#: templates/meta-partials/expiration-featured-fields.php:9
+msgid "Expiration"
+msgstr ""
+
+#: templates/front-end/user-dashboard.php:227
 #, php-format
 msgid "<span class=\"%s\">%s</span> "
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:249
-#: templates/front-end/user-dashboard.php:258
+#: templates/front-end/user-dashboard.php:252
+#: templates/front-end/user-dashboard.php:261
 msgid "Renew"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:272
+#: templates/front-end/user-dashboard.php:275
 msgid "Promote"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:280
+#: templates/front-end/user-dashboard.php:283
 msgid "Edit"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:283
+#: templates/front-end/user-dashboard.php:286
 msgid "Delete"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:295
+#: templates/front-end/user-dashboard.php:298
 msgid "Looks like you have not created any listing yet!"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:362
+#: templates/front-end/user-dashboard.php:365
 msgid "Change"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:365
+#: templates/front-end/user-dashboard.php:368
 msgid "Max limit for total file size is __DT__"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:368
+#: templates/front-end/user-dashboard.php:371
 msgid "Min __DT__ file is required"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:371
+#: templates/front-end/user-dashboard.php:374
 msgid "Max limit for total file is __DT__"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:375
+#: templates/front-end/user-dashboard.php:378
 msgid "Maximum allowed file size is __DT__"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:402
+#: templates/front-end/user-dashboard.php:405
 msgid "Full Name"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:406
+#: templates/front-end/user-dashboard.php:409
 msgid "Enter your full name"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:411
+#: templates/front-end/user-dashboard.php:414
 msgid "User Name"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:414
+#: templates/front-end/user-dashboard.php:417
 msgid "(username can not be changed)"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:441
+#: templates/front-end/user-dashboard.php:444
 msgid "Email (required)"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:450
+#: templates/front-end/user-dashboard.php:453
 msgid "Cell Number"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:454
+#: templates/front-end/user-dashboard.php:457
 msgid "Enter your phone number"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:482
+#: templates/front-end/user-dashboard.php:485
 msgid "New Password"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:487
+#: templates/front-end/user-dashboard.php:490
 msgid "Enter a new password"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:492
+#: templates/front-end/user-dashboard.php:495
 msgid "Confirm New Password"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:497
+#: templates/front-end/user-dashboard.php:500
 msgid "Confirm your new password"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:506
-#: templates/front-end/user-dashboard.php:516
-#: templates/front-end/user-dashboard.php:527
-#: templates/front-end/user-dashboard.php:537
+#: templates/front-end/user-dashboard.php:509
+#: templates/front-end/user-dashboard.php:519
+#: templates/front-end/user-dashboard.php:530
+#: templates/front-end/user-dashboard.php:540
 msgid "Leave it empty to hide"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:510
+#: templates/front-end/user-dashboard.php:513
 msgid "Enter your facebook url"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:520
+#: templates/front-end/user-dashboard.php:523
 msgid "Enter your twitter url"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:531
+#: templates/front-end/user-dashboard.php:534
 msgid "Enter linkedIn url"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:541
+#: templates/front-end/user-dashboard.php:544
 msgid "Enter youtube url"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:546
+#: templates/front-end/user-dashboard.php:549
 msgid "About Author"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:579
+#: templates/front-end/user-dashboard.php:582
 msgid "Unfavourite"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:585
+#: templates/front-end/user-dashboard.php:588
 msgid "Untitled"
 msgstr ""
 
-#: templates/front-end/user-dashboard.php:653
+#: templates/front-end/user-dashboard.php:656
 msgid "Nothing found!"
 msgstr ""
 
@@ -8085,10 +8081,6 @@ msgstr ""
 
 #: templates/help-and-support.php:78
 msgid "Directorist - Rank Featured Listings\n"
-msgstr ""
-
-#: templates/meta-partials/expiration-featured-fields.php:9
-msgid "Expiration"
 msgstr ""
 
 #: templates/meta-partials/expiration-featured-fields.php:10

@@ -23,7 +23,7 @@ if (!class_exists('ATBDP_Cron')) :
             add_action('wp', array($this, 'atbdp_custom_schedule_cron'));
             add_action('directorist_hourly_scheduled_events', array($this, 'atbdp_schedule_tasks'));
             // schedule task run after every 5 minutes || use bellow line for debug
-            add_action('init', array($this, 'atbdp_schedule_tasks'));
+            //add_action('init', array($this, 'atbdp_schedule_tasks'));
             add_filter('cron_schedules', array($this, 'atbdp_cron_init'));
         }
 

@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.4
-Stable tag: 6.4.2
+Stable tag: 6.4.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -138,6 +138,16 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.4.3 - Jun 22, 2020 =
+
+* Fix - Cluster Icons issue of Google Map 
+* Fix - Duplicate canonical issue with Yoast SEO Premium plugin
+* Fix - Conflict with Deep theme
+* Fix - Translation issues
+* Fix - Style issues
+* Remove - White space
+* Improve - Expired listings in User Dashboard page
 
 = 6.4.2 - Jun 12, 2020 =
 

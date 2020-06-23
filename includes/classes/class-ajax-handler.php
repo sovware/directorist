@@ -525,16 +525,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             // Always exit to avoid further execution
             exit();
         }
-
-
-        /**
-         * @since 6.3.0
-         */
-
-        public function insert_guest_user()
-        {
-        }
-
         public function save_listing_review()
         {
             $guest_review = get_directorist_option('guest_review', 0);

@@ -288,7 +288,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                     'post_type' => ATBDP_POST_TYPE,
                     'tax_input' => !empty($p['tax_input']) ? atbdp_sanitize_array($p['tax_input']) : array(),
                     'meta_input' => $metas,
-
                 );
                 /**
                  * @since 4.4.0

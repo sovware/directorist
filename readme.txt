@@ -139,15 +139,16 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 6.4.3 - Jun 22, 2020 =
+= 6.4.3 - Jun 23, 2020 =
 
-* Fix - Cluster Icons issue of Google Map 
+* Fix - Cluster Icon issue of Google Map
 * Fix - Duplicate canonical issue with Yoast SEO Premium plugin
+* Fix - Review submitting issue with emoji
 * Fix - Conflict with Deep theme
 * Fix - Translation issues
 * Fix - Style issues
 * Remove - White space
-* Improve - Expired listings in User Dashboard page
+* Improve - Expired listings of User Dashboard page
 
 = 6.4.2 - Jun 12, 2020 =
 

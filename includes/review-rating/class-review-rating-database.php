@@ -756,6 +756,7 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
             $charset = $this->charset;
             $collate = $this->collate;
 
+            $wpdb->query($wpdb->prepare("ALTER TABLE $table CHARACTER SET $charset COLLATE $collate;"));
             $wpdb->query($wpdb->prepare("ALTER TABLE $table CONVERT TO CHARACTER SET $charset COLLATE $collate;"));
         }
     }

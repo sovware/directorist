@@ -527,18 +527,9 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         }
         public function save_listing_review()
         {
-            global $wpdb;
-            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-            $table_name  = $wpdb->prefix . 'atbdp_review';
-            $sql = "ALTER TABLE {$table_name} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;";
-            //$sql = "ALTER TABLE {$table_name} modify name text charset utf8mb4;";
-            $wpdb->query($sql);
-
             $guest_review = get_directorist_option('guest_review', 0);
             $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
-
             if ($guest_review && $guest_email) {
-
                 $string = $guest_email;
                 $explode = explode("@", $string);
                 array_pop($explode);
@@ -548,7 +539,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     $random = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 1, 5);
                     $userName = $userName . $random;
                 }
-
                 // Check if user exist by email
                 if (email_exists($guest_email)) {
                     $data = array(

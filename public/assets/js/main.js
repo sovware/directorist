@@ -53,6 +53,34 @@
         handleFiles(this.files);
     });
 
+    // 	prepear_form_data
+	function prepear_form_data ( form, field_map, data ) {
+		if ( ! data || typeof data !== 'object' ) {
+			var data = {};
+		}
+		
+		for ( var key in field_map) {
+			var field_item = field_map[ key ];
+			var field_key = field_item.field_key;
+			var field_type = field_item.type;
+			
+			if ( 'name' === field_type ) {
+				var field = form.find( '[name="'+ field_key +'"]' );
+			} else {
+				var field = form.find( field_key );
+			}
+			
+			if ( field.length ) {
+				var data_key = ( 'name' === field_type ) ? field_key : field.attr('name') ;
+				var data_value = ( field.val() ) ? field.val() : '';
+				
+				data[data_key] = data_value;
+			} 
+		}
+		
+		return data;
+	}
+
     /* Add review to the database using ajax*/
     var submit_count = 1;
     $("#atbdp_review_form").on("submit", function () {
@@ -69,7 +97,23 @@
         }
         var $form = $(this);
         var $data = $form.serialize();
-        atbdp_do_ajax($form, 'save_listing_review', $data, function (response) {
+
+        var field_field_map = [
+			{ type: 'name', field_key: 'post_id' },
+			{ type: 'id', field_key: '#atbdp_review_nonce_form' },
+			{ type: 'id', field_key: '#guest_user_email' },
+			{ type: 'id', field_key: '#reviewer_name' },
+			{ type: 'id', field_key: '#review_content' },
+			{ type: 'id', field_key: '#review_rating' },
+			{ type: 'id', field_key: '#review_duplicate' },
+		];
+		
+		var _data = { action: 'save_listing_review' };
+		_data = prepear_form_data( $form, field_field_map, _data );
+		
+        // atbdp_do_ajax($form, 'save_listing_review', _data, function (response) {
+
+        jQuery.post(atbdp_public_data.ajaxurl, _data, function(response) {
             var output = '';
             var deleteBtn = '';
             var d;

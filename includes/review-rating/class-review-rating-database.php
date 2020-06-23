@@ -16,6 +16,8 @@ if ( ! defined('ABSPATH') ) { die( 'You should not access this file directly'  )
 if (!class_exists('ATBDP_Review_Rating_DB')):
 
     class ATBDP_Review_Rating_DB extends ATBDP_Database {
+        public $charset = 'utf8mb4';
+        public $collate = 'utf8mb4_bin';
 
         /**
          * Get things started
@@ -30,6 +32,18 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
             $this->primary_key = 'id';
             $this->version     = '1.0';
         }
+
+        /**
+         * Get Charset Collate
+         *
+         * @access public
+         * @since 6.4.4
+         */
+        public function get_charset_collate()
+        {
+            return $this->charset . "::" . $this->collate;
+        }
+
         /**
          * Get columns and formats
          *
@@ -726,6 +740,23 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
             }
 
             update_option( $this->table_name . '_db_version', $this->version );
+        }
+
+        
+        /**
+         * Update Table Collation
+         *
+         * @access public
+         * @since 6.4.4
+         */
+        public function update_table_collation() {
+            global $wpdb;
+            $table = 'wp_atbdp_review';
+
+            $charset = $this->charset;
+            $collate = $this->collate;
+
+            $wpdb->query($wpdb->prepare("ALTER TABLE $table CHARACTER SET $charset COLLATE $collate;"));
         }
     }
 

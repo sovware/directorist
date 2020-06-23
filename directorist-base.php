@@ -241,6 +241,10 @@ final class Directorist_Base
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
 
 
+            
+            self::$instance->update_database();
+
+
             // new settings
             new ATBDP_Settings_Manager();
 
@@ -295,6 +299,40 @@ final class Directorist_Base
         }
 
         return self::$instance;
+    }
+
+    /**
+     * Update Database
+     *
+     * @access private
+     * @since 6.4.4
+     * @return void
+     */
+    private function update_database()
+    {
+        
+        $this->update_review_table();
+    }
+
+
+    /**
+     * Update Review Table
+     *
+     * @access public
+     * @since 6.4.4
+     * @return void
+     */
+    public function update_review_table()
+    {
+        $current_charset_collate = get_option('atbdp_review_table_charset_collate');
+        $review_rating = new ATBDP_Review_Rating_DB();
+        
+        $charset_collate = $review_rating->get_charset_collate();
+        
+        if ( $charset_collate !== $current_charset_collate ) {
+            add_action('init', array( $review_rating, 'update_table_collation'));
+            update_option('atbdp_review_table_charset_collate', $charset_collate);
+        }
     }
 
 

@@ -317,11 +317,11 @@ final class Directorist_Base
     /**
      * Update Review Table
      *
-     * @access public
+     * @access private
      * @since 6.4.4
      * @return void
      */
-    public function update_review_table()
+    private function update_review_table()
     {
         $current_charset_collate = get_option('atbdp_review_table_charset_collate');
         $review_rating = new ATBDP_Review_Rating_DB();

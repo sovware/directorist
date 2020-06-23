@@ -527,6 +527,13 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         }
         public function save_listing_review()
         {
+            global $wpdb;
+            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+            $table_name  = $wpdb->prefix . 'atbdp_review';
+            $sql = "ALTER TABLE {$table_name} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;";
+            //$sql = "ALTER TABLE {$table_name} modify name text charset utf8mb4;";
+            $wpdb->query($sql);
+
             $guest_review = get_directorist_option('guest_review', 0);
             $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
 

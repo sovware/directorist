@@ -2298,6 +2298,18 @@ input[type="radio"].atbdp_radio_input:checked + label:before {
   margin-bottom: 10px;
 }
 
+#directorist.atbd_wrapper .lost_reset_password p {
+  margin-bottom: 15px !important;
+}
+
+#directorist.atbd_wrapper .lost_reset_password label {
+  display: block;
+}
+
+#directorist.atbd_wrapper .lost_reset_password input[type="password"] {
+  width: 100%;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

@@ -1626,3 +1626,16 @@ input[type="radio"].atbdp_radio_input {
 .atbdp_option_title {
   margin-bottom: 10px;
 }
+
+//reset password form
+#directorist.atbd_wrapper .lost_reset_password{
+  p{
+    margin-bottom: 15px !important;
+  }
+  label{
+    display: block;
+  }
+  input[type="password"]{
+    width: 100%;
+  }
+}

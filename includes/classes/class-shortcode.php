@@ -1367,7 +1367,7 @@ if (!class_exists('ATBDP_Shortcode')):
 
                     }
                 }
-                
+
 
             }
 
@@ -3102,6 +3102,8 @@ if (!class_exists('ATBDP_Shortcode')):
             if ($include) {
                 include ATBDP_DIR . 'public/assets/css/style.php';
             }
+            echo '<div id="directorist" class="atbd_wrapper directorist">
+            <div class="container-fluid"><div class="row"> <div class="col-md-6 offset-md-3"><div class="atbdp_login_form_shortcode">';
             if (!atbdp_logged_in_user()) {
                 // start recovery stuff
                 $recovery = isset($_GET['user']) ? $_GET['user'] : '';
@@ -3156,11 +3158,13 @@ if (!class_exists('ATBDP_Shortcode')):
 
                     <p class="directorist-form-row form-row">
                         <input type="hidden" name="directorist_reset_password" value="true"/>
-                        <button type="submit" class="directorist-Button button"
+                        <button type="submit" class="btn btn-primary"
                                 value="<?php esc_attr_e('Save', 'directorist'); ?>"><?php esc_html_e('Save', 'directorist'); ?></button>
                     </p>
 
-                <?php wp_nonce_field('reset_password', 'directorist-reset-password-nonce');
+                    <?php wp_nonce_field('reset_password', 'directorist-reset-password-nonce'); ?>
+                    </form>
+                <?php
                 } else {
                     ?>
                     <p><?php echo apply_filters('directorist_reset_password_link_exp_message', esc_html__('Sorry! The link is invalid.', 'directorist')); ?></p>
@@ -3177,9 +3181,6 @@ if (!class_exists('ATBDP_Shortcode')):
                     'login_error_message' => esc_html__('Wrong username or password.', 'directorist'),
                 );
                 wp_localize_script('adminmainassets', 'ajax_login_object', $data);
-
-                echo '<div id="directorist" class="atbd_wrapper directorist">
-    <div class="container-fluid"><div class="row"> <div class="col-md-6 offset-md-3"><div class="atbdp_login_form_shortcode">';
 
                 $log_username = get_directorist_option('log_username', __('Username or Email Address', 'directorist'));
                 $log_password = get_directorist_option('log_password', __('Password', 'directorist'));
@@ -3312,14 +3313,13 @@ if (!class_exists('ATBDP_Shortcode')):
                         </form>
                     </div>
                     <?php
-                    //stuff to recover password end
-                    echo '</div></div></div></div></div>';
                 }
 
             } else {
                 $error_message = sprintf(__('Login page is not for logged-in user. <a href="%s">Go to Dashboard</a>', 'directorist'), esc_url(ATBDP_Permalink::get_dashboard_page_link()));
                 ATBDP()->helper->show_login_message(apply_filters('atbdp_login_page_loggedIn_msg', $error_message));
             }
+            echo '</div></div></div></div></div>';
             return ob_get_clean();
         }
 

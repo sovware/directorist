@@ -733,7 +733,7 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
 			date_created datetime NOT NULL,
 			PRIMARY KEY  (id),
 		    KEY user (post_id)
-            ) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;";
+            ) CHARACTER SET {$this->charset} COLLATE {$this->collate};";
             //  if we have already created a table then the _db_version should be the same next time if this function runs, and the check below will prevent the plugin to use dbDelta twice unnecessarily. During testing/development process, remove the condition, or delete the option or increase $this->version
             if (get_option($this->table_name . '_db_version') < $this->version){
                 dbDelta( $sql );
@@ -756,7 +756,7 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
             $charset = $this->charset;
             $collate = $this->collate;
 
-            $wpdb->query($wpdb->prepare("ALTER TABLE $table CHARACTER SET $charset COLLATE $collate;"));
+            $wpdb->query($wpdb->prepare("ALTER TABLE $table CONVERT TO CHARACTER SET $charset COLLATE $collate;"));
         }
     }
 

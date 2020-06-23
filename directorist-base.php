@@ -323,7 +323,6 @@ final class Directorist_Base
      */
     private function update_review_table()
     {
-        update_option('atbdp_review_table_charset_collate', '');
         $current_charset_collate = get_option('atbdp_review_table_charset_collate');
         $review_rating = new ATBDP_Review_Rating_DB();
         

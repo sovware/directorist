@@ -310,7 +310,6 @@ final class Directorist_Base
      */
     private function update_database()
     {
-        
         $this->update_review_table();
     }
 
@@ -330,7 +329,7 @@ final class Directorist_Base
         $charset_collate = $review_rating->get_charset_collate();
         
         if ( $charset_collate !== $current_charset_collate ) {
-            add_action('init', array( $review_rating, 'update_table_collation'));
+            add_action('admin_init', array( $review_rating, 'update_table_collation'));
             update_option('atbdp_review_table_charset_collate', $charset_collate);
         }
     }

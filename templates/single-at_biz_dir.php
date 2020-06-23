@@ -804,7 +804,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                             $plan_social_networks = is_plan_allowed_listing_social_networks($fm_plan);
                         }
                         if (!empty($social) && is_array($social) && !empty($display_social_info_field) && $plan_social_networks) { ?>
-                            <div class="atbd_directory_social_wrap">
+                            <div class="atbd_director_social_wrap">
                                 <?php foreach ($social as $link) {
                                     $link_id = $link['id'];
                                     $link_url = $link['url'];

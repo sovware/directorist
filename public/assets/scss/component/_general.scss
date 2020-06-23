@@ -751,7 +751,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 30px;
 
   .leaflet-popup {
+    /*rtl:begin:ignore*/
     left: -95px !important;
+    /*rtl:end:ignore*/
   }
 
   .leaflet-popup-content-wrapper {
@@ -801,6 +803,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
     border-radius: 50%;
     color: #fff;
     right: 10px;
+    left: auto;
     top: 10px;
     display: flex;
     align-items: center;
@@ -1447,8 +1450,10 @@ div#listing_notifier span {
         content: '';
         width: 7px;
         height: 7px;
+        /*rtl:begin:ignore*/
         border-left: 1px solid $primary;
         border-bottom: 1px solid $primary;
+        /*rtl:end:ignore*/
         position: absolute;
         left: 0;
         top: 0;
@@ -1620,4 +1625,17 @@ input[type="radio"].atbdp_radio_input {
 
 .atbdp_option_title {
   margin-bottom: 10px;
+}
+
+//reset password form
+#directorist.atbd_wrapper .lost_reset_password{
+  p{
+    margin-bottom: 15px !important;
+  }
+  label{
+    display: block;
+  }
+  input[type="password"]{
+    width: 100%;
+  }
 }

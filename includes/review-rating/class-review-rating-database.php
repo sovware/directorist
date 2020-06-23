@@ -25,14 +25,11 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
          */
         public function __construct() {
             global $wpdb;
-
+            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
             $this->table_name  = $wpdb->prefix . 'atbdp_review';
             $this->primary_key = 'id';
             $this->version     = '1.0';
-
-
         }
-
         /**
          * Get columns and formats
          *
@@ -722,7 +719,7 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
 			date_created datetime NOT NULL,
 			PRIMARY KEY  (id),
 		    KEY user (post_id)
-			) CHARACTER SET utf8 COLLATE utf8_general_ci;";
+            ) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;";
             //  if we have already created a table then the _db_version should be the same next time if this function runs, and the check below will prevent the plugin to use dbDelta twice unnecessarily. During testing/development process, remove the condition, or delete the option or increase $this->version
             if (get_option($this->table_name . '_db_version') < $this->version){
                 dbDelta( $sql );

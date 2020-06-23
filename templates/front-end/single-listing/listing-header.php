@@ -124,19 +124,19 @@ do_action('atbdp_before_listing_section');
         if ($enable_social_share) {
             $listing_header .= '<div class="atbd_action atbd_share">';
             $listing_header .= '<span class="' . atbdp_icon_type() . '-share"></span>' . __('Share', 'directorist') . '';
-            $listing_header .= '<div class="atbd_director_social_wrap">';
+            $listing_header .= '<div class="atbd_directory_social_wrap">';
             //prepare the data for the links because links needs to be escaped
             $twt_lnk = 'https://twitter.com/intent/tweet?text=' . $p_title . '&amp;url=' . $p_lnk;
             $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
             $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
-            $listing_header .= '                                                               
+            $listing_header .= '
                          <ul>
                         <li>
                             <a href="' . esc_url($fb_lnk) . '" target="_blank"><span class="' . atbdp_icon_type() . '-facebook"></span>' . __('Facebook', 'directorist') . '</a>
                         </li>
                         <li>
                             <a href="' . esc_url($twt_lnk) . '" target="_blank"><span class="' . atbdp_icon_type() . '-twitter"></span>' . __('Twitter', 'directorist') . '</a>
-                           
+
                         </li>
                         <li>
                             <a href="' . esc_url($in_link) . '" target="_blank"><span class="' . atbdp_icon_type() . '-linkedin"></span>' . __('LinkedIn', 'directorist') . '</a>
@@ -149,7 +149,7 @@ do_action('atbdp_before_listing_section');
             $public_report = apply_filters('atbdp_allow_public_report', false);
             $listing_header .= '<div class="atbd_action atbd_report">';
             if (atbdp_logged_in_user() || $public_report) {
-                $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href="" 
+                $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href=""
                                                                data-target="atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
             } else {
                 $listing_header .= '<a href="javascript:void(0)"
@@ -202,7 +202,7 @@ do_action('atbdp_before_listing_section');
     </div>
     <div class="atbdb_content_module_contents">
         <?php
-        
+
         $listing_prv_imgurl = !empty($listing_prv_img) ? atbdp_get_image_source($listing_prv_img, 'large') : '';
         $gallery_image = '';
         $plan_slider = true;

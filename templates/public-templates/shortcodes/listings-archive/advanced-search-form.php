@@ -24,20 +24,15 @@
 				<?php
 				}
 
-				if ($listings->location_field_type('listing_location')) {
+				if ($searchform->location_source == 'address') {
 				?>
 					<div class="col-md-12 col-sm-12 col-lg-4">
-						<div class="single_search_field search_location">
-							<select name="in_loc" id="loc-type" class="form-control directory_field bdas-category-location">
-								<option><?php echo $listings->location_placeholder; ?></option>
-								<?php echo $listings->locations_fields; ?>
-							</select>
-						</div>
+						<?php $searchform->location_template();?>
 					</div>
 				<?php
 				}
 
-				if (!$listings->location_field_type('listing_location')) {
+				if ($searchform->location_source == 'map') {
 					$geodata = $listings->geolocation_field_data();
 				?>
 					<div class="col-md-6 col-sm-12 col-lg-4">

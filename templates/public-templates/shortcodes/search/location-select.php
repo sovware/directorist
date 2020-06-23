@@ -1,6 +1,6 @@
 <div class="single_search_field search_location">
-	<select name="in_loc" id="loc-type" class="form-control directory_field bdas-category-location">
-		<option><?php echo $listings->location_placeholder; ?></option>
-		<?php echo $listings->locations_fields; ?>
+	<select name="in_loc" id="<?php echo esc_attr($searchform->location_id); ?>" class="<?php echo esc_attr($searchform->location_class); ?>">
+		<option><?php echo $searchform->location_placeholder; ?></option>
+		<?php echo $searchform->locations_fields; ?>
 	</select>
 </div>

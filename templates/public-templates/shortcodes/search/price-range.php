@@ -20,10 +20,8 @@
 					<label class="pf-btn">
 						<?php $searchform->the_price_range_input('moderate');?><span><?php echo str_repeat($searchform->c_symbol, 3); ?></span>
 					</label>
-					</label>
 					<label class="pf-btn">
 						<?php $searchform->the_price_range_input('skimming');?><span><?php echo str_repeat($searchform->c_symbol, 4); ?></span>
-					</label>
 					</label>
 				</div>
 		<?php } ?>

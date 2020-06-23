@@ -64,6 +64,11 @@ class Directorist_Listing_Search_Form {
     public $loc_required_text;
     public $categories_fields;
     public $locations_fields;
+    public $category_id;
+    public $category_class;
+    public $location_id;
+    public $location_class;
+    public $location_source;
 
     public function __construct( $type, $atts = array() ) {
 
@@ -169,8 +174,12 @@ class Directorist_Listing_Search_Form {
         $this->location_placeholder    = get_directorist_option('search_location_placeholder', __('location', 'directorist'));
         $this->search_required_text    = !empty(get_directorist_option('require_search_text')) ? ' required' : '';
         $this->cat_required_text       = !empty(get_directorist_option('require_search_category')) ? ' required' : '';
-        $this->loc_required_text       = !empty(get_directorist_option('require_search_location')) ? ' required' : '';
-
+        $this->loc_required_text       = !empty(get_directorist_option('require_search_location')) ? ' required' : '';     
+        $this->category_id             = 'at_biz_dir-category';
+        $this->category_class          = 'search_fields form-control';
+        $this->location_id             = 'at_biz_dir-location';
+        $this->location_class          = 'search_fields form-control';
+        $this->location_source         = ($search_location_address == 'map_api') ? 'map' : 'address';
     }
 
     public function prepare_listing_data() {
@@ -207,6 +216,11 @@ class Directorist_Listing_Search_Form {
         $this->search_required_text    = '';
         $this->cat_required_text       = '';
         $this->loc_required_text       = '';
+        $this->category_id             = 'cat-type';
+        $this->category_class          = 'form-control directory_field bdas-category-search';
+        $this->location_id             = 'loc-type';
+        $this->location_class          = 'form-control directory_field bdas-category-location';
+        $this->location_source         = ($listing_location_address == 'map_api') ? 'map' : 'address';
     }
 
     public function price_range_template() {
@@ -266,6 +280,12 @@ class Directorist_Listing_Search_Form {
     public function category_template() {
         if ($this->has_category_field) {
             atbdp_get_shortcode_template( 'search/category', array('searchform' => $this) );
+        }
+    }
+
+    public function location_template() {
+        if ($this->has_location_field) {
+            atbdp_get_shortcode_template( 'search/location-select', array('searchform' => $this) );
         }
     }
 

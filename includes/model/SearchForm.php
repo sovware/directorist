@@ -69,6 +69,7 @@ class Directorist_Listing_Search_Form {
     public $location_id;
     public $location_class;
     public $location_source;
+    public $select_listing_map;
 
     public function __construct( $type, $atts = array() ) {
 
@@ -91,6 +92,7 @@ class Directorist_Listing_Search_Form {
         $this->zip_label      = get_directorist_option( 'zip_label', __( 'Zip', 'directorist' ) );
         $this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
         $this->locations_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+        $this->select_listing_map  = get_directorist_option( 'select_listing_map', 'google' );
     }
 
     public function prepare_search_data($atts) {
@@ -286,6 +288,23 @@ class Directorist_Listing_Search_Form {
     public function location_template() {
         if ($this->has_location_field) {
             atbdp_get_shortcode_template( 'search/location-select', array('searchform' => $this) );
+        }
+    }
+
+    public function location_map_template() {
+        if ($this->has_location_field) {
+
+            wp_localize_script( 'atbdp-geolocation', 'adbdp_geolocation', array( 'select_listing_map' => $this->select_listing_map ) );
+            wp_enqueue_script( 'atbdp-geolocation' );
+
+            $args = array(
+                'searchform' => $this,
+                'cityLat'    => isset( $_GET['cityLat'] ) ? $_GET['cityLat'] : '',
+                'cityLng'    => isset( $_GET['cityLng'] ) ? $_GET['cityLng'] : '',
+                'value'      => isset( $_GET['address'] ) ? $_GET['address'] : '',
+            );
+
+            atbdp_get_shortcode_template( 'search/location-geo', $args );
         }
     }
 

@@ -1090,29 +1090,6 @@ class Directorist_Listings {
         return trim( ' ' . apply_filters( 'grid_view_title_link_add_attr', '' ) );
 	}
 
-    public function geolocation_field_data() {
-        $geo_loc            = ( 'google' == $this->select_listing_map ) ? '<span class="atbd_get_loc la la-crosshairs"></span>' : '<span class="atbd_get_loc la la-crosshairs"></span>';
-
-        $value       = ! empty( $_GET['address'] ) ? $_GET['address'] : '';
-        $placeholder = ! empty( $this->location_placeholder ) ? sanitize_text_field( $this->location_placeholder ) : __( 'location', 'directorist' );
-        $cityLat     = ( isset( $_GET['cityLat'] ) ) ? esc_attr( $_GET['cityLat'] ) : '';
-        $cityLng     = ( isset( $_GET['cityLng'] ) ) ? esc_attr( $_GET['cityLng'] ) : '';
-
-        wp_localize_script( 'atbdp-geolocation', 'adbdp_geolocation', array( 'select_listing_map' => $this->select_listing_map ) );
-        wp_enqueue_script( 'atbdp-geolocation' );
-
-        $data = array(
-            'select_listing_map' => $this->select_listing_map,
-            'geo_loc'            => $geo_loc,
-            'value'              => $value,
-            'placeholder'        => $placeholder,
-            'cityLat'            => $cityLat,
-            'cityLng'            => $cityLng,
-        );
-
-        return $data;
-    }
-
 	public function header_container_class() {
 		$header_container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 		$header_container_fluid = apply_filters( 'atbdp_listings_header_container_fluid', $header_container_fluid );
@@ -1127,22 +1104,6 @@ class Directorist_Listings {
 
     public function has_header_toolbar() {
         return ( $this->display_viewas_dropdown || $this->display_sortby_dropdown ) ? true : false;
-    }
-
-    public function location_field_type( $type ) {
-        if ( ! $this->has_location_field() ) {
-            return false;
-        }
-
-        if ( $type !== $this->listing_location_address ) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public function has_location_field() {
-        return in_array( 'search_location', $this->search_more_filters_fields );
     }
 
     public function filter_container_class() {

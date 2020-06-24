@@ -13,41 +13,28 @@
 					<div class="col-md-6 col-sm-12 col-lg-4">
 						<?php $searchform->search_text_template();?>
 					</div>
-				<?php
+					<?php
 				}
 
-				if ($searchform->has_category_field) {
-					?>
+				if ($searchform->has_category_field) { ?>
 					<div class="col-md-6 col-sm-12 col-lg-4">
 						<?php $searchform->category_template();?>
 					</div>
-				<?php
+					<?php
 				}
 
-				if ($searchform->location_source == 'address') {
-				?>
+				if ($searchform->location_source == 'address') { ?>
 					<div class="col-md-12 col-sm-12 col-lg-4">
 						<?php $searchform->location_template();?>
 					</div>
-				<?php
+					<?php
 				}
 
-				if ($searchform->location_source == 'map') {
-					$geodata = $listings->geolocation_field_data();
-				?>
+				if ($searchform->location_source == 'map') { ?>
 					<div class="col-md-6 col-sm-12 col-lg-4">
-						<div class="atbdp_map_address_field">
-							<div class="atbdp_get_address_field">
-								<input type="text" name="address" id="address" value="<?php echo esc_attr( $geodata['value'] ); ?>" placeholder="<?php echo esc_attr($geodata['placeholder'] ); ?>" autocomplete="off" class="form-control location-name">
-								<?php echo $geodata['geo_loc']; ?>
-							</div>
-							<div class="address_result" style="display: none">
-							</div>
-							<input type="hidden" id="cityLat" name="cityLat" value="<?php echo esc_attr($geodata['cityLat']); ?>" />
-							<input type="hidden" id="cityLng" name="cityLng" value="<?php echo esc_attr($geodata['cityLng']); ?>" />
-						</div>
+						<?php $searchform->location_map_template();?>
 					</div>
-				<?php
+					<?php
 				}
 				/**
 				 * @since 5.0

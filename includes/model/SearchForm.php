@@ -18,12 +18,17 @@ class Directorist_Listing_Search_Form {
     public $has_search_button;
     public $has_more_filters_button;
     public $logged_in_user_only;
-
+    public $redirect_page_url;
     public $search_bar_title;
     public $search_bar_sub_title;
     public $search_button_text;
     public $more_filters_text;
     public $more_filters_display;
+    public $show_connector;
+    public $connectors_title;
+    public $popular_cat_title;
+    public $popular_cat_num;
+    public $show_popular_category;
 
     // Common - Search Shortcode and Listing Header
     public $has_search_text_field;
@@ -160,6 +165,8 @@ class Directorist_Listing_Search_Form {
         $this->has_reset_filters_button = $this->params['reset_filters_button'] == 'yes' ? true : false;
         $this->has_apply_filters_button = $this->params['apply_filters_button'] == 'yes' ? true : false;
         $this->logged_in_user_only      = $this->params['logged_in_user_only'] == 'yes' ? true : false;
+        $this->show_connector           = !empty( get_directorist_option('show_connector', 1) ) ? true : false;
+        $this->show_popular_category    = !empty( get_directorist_option('show_popular_category', 1) ) ? true : false;
 
         $this->search_bar_title     = $this->params['search_bar_title'];
         $this->search_bar_sub_title = $this->params['search_bar_sub_title'];
@@ -168,6 +175,7 @@ class Directorist_Listing_Search_Form {
         $this->reset_filters_text   = $this->params['reset_filters_text'];
         $this->apply_filters_text   = $this->params['apply_filters_text'];
         $this->more_filters_display = $this->params['more_filters_display'];
+        $this->redirect_page_url    = $this->params['redirect_page_url'];
 
         $this->default_radius_distance = get_directorist_option( 'listing_default_radius_distance', 0 );
         $this->tag_terms               = get_terms(ATBDP_TAGS);
@@ -182,6 +190,9 @@ class Directorist_Listing_Search_Form {
         $this->location_id             = 'at_biz_dir-location';
         $this->location_class          = 'search_fields form-control';
         $this->location_source         = ($search_location_address == 'map_api') ? 'map' : 'address';
+        $this->connectors_title        = get_directorist_option('connectors_title', __('Or', 'directorist'));
+        $this->popular_cat_title       = get_directorist_option('popular_cat_title', __('Browse by popular categories', 'directorist'));
+        $this->popular_cat_num         = get_directorist_option('popular_cat_num', 10);
     }
 
     public function prepare_listing_data() {
@@ -308,6 +319,69 @@ class Directorist_Listing_Search_Form {
         }
     }
 
+    public function form_top_fields_html() {
+        ob_start();
+
+        $this->search_text_template();
+        $this->category_template();
+
+        if ($this->location_source == 'address') {
+            $this->location_template();
+        }
+
+        if ($this->location_source == 'map') {
+            $this->location_map_template();
+        }
+
+        /**
+         * @since 5.0
+         */
+        echo apply_filters('atbdp_search_form_fields', ob_get_clean());
+    }
+
+    public function more_buttons_template() {
+        $html = '';
+
+        if ( $this->has_more_filters_button || $this->has_search_button ) {
+            $more_filters_icon   = get_directorist_option('search_more_filter_icon', 1);
+            $search_button_icon  = get_directorist_option('search_button_icon', 1);
+            $more_filters_icon   = !empty($more_filters_icon) ? '<span class="' . atbdp_icon_type() . '-filter"></span>' : '';
+            $search_button_icon  = !empty($search_button_icon) ? '<span class="fa fa-search"></span>' : '';
+
+            $args = array(
+                'searchform'         => $this,
+                'more_filters_icon'  => $more_filters_icon,
+                'search_button_icon' => $search_button_icon,
+            );
+
+            $html = atbdp_return_shortcode_template( 'search/more-buttons', $args );
+        }
+
+        /**
+         * @since 5.0
+         * It show the search button
+         */
+        echo apply_filters('atbdp_search_listing_button', $html);
+    }
+
+    public function advanced_search_form_fields_template() {
+        atbdp_get_shortcode_template( 'search/adv-search', array('searchform' => $this) );
+    }
+
+    public function top_categories_template() {
+        if ( $this->show_popular_category ) {
+            $top_categories = $this->top_categories();
+
+            if ( !empty($top_categories) ) {
+                $args = array(
+                    'searchform'      => $this,
+                    'top_categories'  => $top_categories,
+                );
+                atbdp_get_shortcode_template( 'search/top-cats', $args );
+            }
+        }
+    }
+
     public function search_category_location_args() {
         return array(
             'parent'             => 0,
@@ -339,6 +413,81 @@ class Directorist_Listing_Search_Form {
     public function the_price_range_input($range) {
         $checked = ! empty( $_GET['price_range'] ) && $_GET['price_range'] == $range ? ' checked="checked"' : '';
         printf('<input type="radio" name="price_range" value="%s"%s>', $range, $checked);
+    }
+
+    public function render_search_shortcode() {
+        if ( $this->logged_in_user_only && ! atbdp_logged_in_user() ) {
+            return ATBDP()->helper->guard( array('type' => 'auth') );
+        }
+
+        if ($this->redirect_page_url) {
+            $redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
+            return $redirect;
+        }
+
+        if (is_rtl()) {
+            wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
+        }
+        else {
+            wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
+        }
+
+        wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+        wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
+            'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
+            'ajax_url' => admin_url('admin-ajax.php'),
+        ));
+
+        ATBDP()->enquirer->search_listing_scripts_styles();
+
+        $bgimg = get_directorist_option('search_home_bg');
+        if ( is_directoria_active() ) {
+            $bgimg = $this->directoria_bgimg();
+        }
+
+        $container_class = is_directoria_active() ? 'container' : 'container-fluid';
+        $container_class = apply_filters('atbdp_search_home_container_fluid', $container_class);
+        $search_border = get_directorist_option('search_border', 1);
+
+        $args = array(
+            'searchform'          => $this,
+            'bgimg'               => $bgimg,
+            'container_class'     => $container_class,
+            'border_inline_style' => empty($search_border) ? 'style="border: none;"' : '',
+        );
+
+        atbdp_get_shortcode_template( 'search/search', $args );
+    }
+
+    public function directoria_bgimg() {
+        $default = get_template_directory_uri() . '/images/home_page_bg.jpg';
+        $theme_home_bg_image = get_theme_mod('directoria_home_bg');
+        $search_home_bg = get_directorist_option('search_home_bg');
+        $front_bg_image = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
+        $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
+        return $search_home_bg_image;
+    }
+
+    public function top_categories() {
+        $args = array(
+            'type'          => ATBDP_POST_TYPE,
+            'parent'        => 0,
+            'orderby'       => 'count',
+            'order'         => 'desc',
+            'hide_empty'    => 1,
+            'number'        => (int)$this->popular_cat_num,
+            'taxonomy'      => ATBDP_CATEGORY,
+            'no_found_rows' => true,
+        );
+        $top_categories = get_categories(apply_filters('atbdp_top_category_argument', $args));
+        return $top_categories;
+    }
+
+    public function category_icon_class($cat) {
+        $icon = get_cat_icon($cat->term_id);
+        $icon_type = substr($icon, 0, 2);
+        $icon_class = ('la' === $icon_type) ? $icon_type . ' ' . $icon : 'fa ' . $icon;
+        return $icon_class;
     }
 
     public function rating_field_data() {

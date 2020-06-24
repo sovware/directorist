@@ -1,3 +1,10 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+?>
 <div class="single_search_field atbdp_map_address_field">
 	<div class="atbdp_get_address_field">
 		<input type="text" name="address" id="address" value="<?php echo esc_attr( $value ); ?>" placeholder="<?php echo esc_attr($searchform->location_placeholder); ?>" autocomplete="off" class="form-control location-name"<?php echo esc_attr($searchform->loc_required_text); ?>>

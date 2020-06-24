@@ -1,3 +1,10 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+?>
 <div class="form-group">
 	<div class="atbdp-range-slider-wrapper">
 		<span><?php _e('Radius Search', 'directorist'); ?></span>

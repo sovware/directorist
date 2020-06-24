@@ -1154,200 +1154,27 @@ if (!class_exists('ATBDP_Shortcode')):
             return $taxonomy->render_shortcode();
         }
 
-        public function search_listing($atts, $content = null) {
-
+        public function search_listing($atts) {
             $searchform = new Directorist_Listing_Search_Form( 'search', $atts );
-
-            $search_title = get_directorist_option('search_title', __("Search here", 'directorist'));
-            $search_subtitle = get_directorist_option('search_subtitle', __("Find the best match of your interest
-                ", 'directorist'));
-            $search_fields = get_directorist_option('search_tsc_fields', array('search_text', 'search_category', 'search_location'));
-            $search_more_filter = get_directorist_option('search_more_filter', 1);
-            $search_button = get_directorist_option('search_button', 1);
-            $search_more_filters_fields = get_directorist_option('search_more_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
-            $search_filters = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'));
-            $search_more_filters = get_directorist_option('search_more_filters', __('More Filters', 'directorist'));
-            $search_listing_text = get_directorist_option('search_listing_text', __('Search Listing', 'directorist'));
-            $search_reset_text = get_directorist_option('search_reset_text', __('Reset Filters', 'directorist'));
-            $search_apply_text = get_directorist_option('search_apply_filter', __('Apply Filters', 'directorist'));
-            $search_location_address = get_directorist_option('search_location_address', 'address');
-            $filters_display = get_directorist_option('home_display_filter', 'overlapping');
-            $atts = shortcode_atts(array(
-                'show_title_subtitle' => 'yes',
-                'search_bar_title' => !empty($search_title) ? $search_title : '',
-                'search_bar_sub_title' => !empty($search_subtitle) ? $search_subtitle : '',
-                'text_field' => in_array('search_text', $search_fields) ? 'yes' : '',
-                'category_field' => in_array('search_category', $search_fields) ? 'yes' : '',
-                'location_field' => in_array('search_location', $search_fields) ? 'yes' : '',
-                'search_button' => !empty($search_button) ? 'yes' : '',
-                'search_button_text' => !empty($search_listing_text) ? $search_listing_text : 'Search Listing',
-                'more_filters_button' => !empty($search_more_filter) ? 'yes' : '',
-                'more_filters_text' => !empty($search_more_filters) ? $search_more_filters : 'More Filters',
-                'price_min_max_field' => in_array('search_price', $search_more_filters_fields) ? 'yes' : '',
-                'price_range_field' => in_array('search_price_range', $search_more_filters_fields) ? 'yes' : '',
-                'rating_field' => in_array('search_rating', $search_more_filters_fields) ? 'yes' : '',
-                'tag_field' => in_array('search_tag', $search_more_filters_fields) ? 'yes' : '',
-                'open_now_field' => in_array('search_open_now', $search_more_filters_fields) ? 'yes' : '',
-                'custom_fields' => in_array('search_custom_fields', $search_more_filters_fields) ? 'yes' : '',
-                'website_field' => in_array('search_website', $search_more_filters_fields) ? 'yes' : '',
-                'email_field' => in_array('search_email', $search_more_filters_fields) ? 'yes' : '',
-                'phone_field' => in_array('search_phone', $search_more_filters_fields) ? 'yes' : '',
-                'fax' => in_array('search_fax', $search_more_filters_fields) ? 'yes' : '',
-                'address_field' => in_array('search_address', $search_more_filters_fields) ? 'yes' : '',
-                'zip_code_field' => in_array('search_zip_code', $search_more_filters_fields) ? 'yes' : '',
-                'radius_search' => in_array('radius_search', $search_more_filters_fields) ? 'yes' : '',
-                'reset_filters_button' => in_array('search_reset_filters', $search_filters) ? 'yes' : '',
-                'apply_filters_button' => in_array('search_apply_filters', $search_filters) ? 'yes' : '',
-                'reset_filters_text' => !empty($search_reset_text) ? $search_reset_text : 'Reset Filters',
-                'apply_filters_text' => !empty($search_apply_text) ? $search_apply_text : 'Apply Filters',
-                'logged_in_user_only' => '',
-                'redirect_page_url' => '',
-                'more_filters_display' => !empty($filters_display) ? $filters_display : 'overlapping'
-            ), $atts);
-
-            $search_bar_title = (!empty($atts['search_bar_title'])) ? $atts['search_bar_title'] : '';
-            $search_bar_sub_title = (!empty($atts['search_bar_sub_title'])) ? $atts['search_bar_sub_title'] : '';
-            $text_field = (!empty($atts['text_field']) && 'yes' == $atts['text_field']) ? $atts['text_field'] : '';
-            $category_field = (!empty($atts['category_field']) && 'yes' == $atts['category_field']) ? $atts['category_field'] : '';
-            $location_field = (!empty($atts['location_field']) && 'yes' == $atts['location_field']) ? $atts['location_field'] : '';
-            $search_button = (!empty($atts['search_button']) && 'yes' == $atts['search_button']) ? $atts['search_button'] : '';
-            $search_button_text = (!empty($atts['search_button_text'])) ? $atts['search_button_text'] : '';
-            $more_filters_button = (!empty($atts['more_filters_button']) && 'yes' == $atts['more_filters_button']) ? $atts['more_filters_button'] : '';
-            $more_filters_text = (!empty($atts['more_filters_text'])) ? $atts['more_filters_text'] : '';
-            $price_min_max_field = (!empty($atts['price_min_max_field']) && 'yes' == $atts['price_min_max_field']) ? $atts['price_min_max_field'] : '';
-            $price_range_field = (!empty($atts['price_range_field']) && 'yes' == $atts['price_range_field']) ? $atts['price_range_field'] : '';
-            $rating_field = (!empty($atts['rating_field']) && 'yes' == $atts['rating_field']) ? $atts['rating_field'] : '';
-            $tag_field = (!empty($atts['tag_field']) && 'yes' == $atts['tag_field']) ? $atts['tag_field'] : '';
-            $open_now_field = (!empty($atts['open_now_field']) && 'yes' == $atts['open_now_field']) ? $atts['open_now_field'] : '';
-            $custom_fields = (!empty($atts['custom_fields']) && 'yes' == $atts['custom_fields']) ? $atts['custom_fields'] : '';
-            $website_field = (!empty($atts['website_field']) && 'yes' == $atts['website_field']) ? $atts['website_field'] : '';
-            $email_field = (!empty($atts['email_field']) && 'yes' == $atts['email_field']) ? $atts['email_field'] : '';
-            $phone_field = (!empty($atts['phone_field']) && 'yes' == $atts['phone_field']) ? $atts['phone_field'] : '';
-            $phone_field2 = (!empty($atts['phone_field2']) && 'yes' == $atts['phone_field2']) ? $atts['phone_field2'] : '';
-            $fax = (!empty($atts['fax']) && 'yes' == $atts['fax']) ? $atts['fax'] : '';
-            $address_field = (!empty($atts['address_field']) && 'yes' == $atts['address_field']) ? $atts['address_field'] : '';
-            $zip_code_field = (!empty($atts['zip_code_field']) && 'yes' == $atts['zip_code_field']) ? $atts['zip_code_field'] : '';
-            $radius_search = (!empty($atts['radius_search']) && 'yes' == $atts['radius_search']) ? $atts['radius_search'] : '';
-            $reset_filters_button = (!empty($atts['reset_filters_button']) && 'yes' == $atts['reset_filters_button']) ? $atts['reset_filters_button'] : '';
-            $apply_filters_button = (!empty($atts['apply_filters_button']) && 'yes' == $atts['apply_filters_button']) ? $atts['apply_filters_button'] : '';
-            $reset_filters_text = (!empty($atts['reset_filters_text'])) ? $atts['reset_filters_text'] : '';
-            $apply_filters_text = (!empty($atts['apply_filters_text'])) ? $atts['apply_filters_text'] : '';
-            $show_title_subtitle = ('yes' === $atts['show_title_subtitle']) ? $atts['show_title_subtitle'] : '';
-            $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
-            
-            if ( 'yes' === $logged_in_user_only && ! atbdp_logged_in_user() ) {
-                return $this->guard( ['type' => 'auth'] );
-            }
-
-            $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
-            $filters_display = !empty($atts['more_filters_display']) ? $atts['more_filters_display'] : 'overlapping';
-            ob_start();
-            $include = apply_filters('include_style_settings', true);
-            /* if ($include) {
-                wp_enqueue_style('atbdp-settings-style');
-            } */
-            if (!empty($redirect_page_url)) {
-                $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
-                return $redirect;
-            }
-
-            // Template Data
-            $categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-            $locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
-            $search_placeholder = get_directorist_option('search_placeholder', __('What are you looking for?', 'directorist'));
-            $search_category_placeholder = get_directorist_option('search_category_placeholder', __('Select a category', 'directorist'));
-            $search_location_placeholder = get_directorist_option('search_location_placeholder', __('location', 'directorist'));
-            $show_popular_category = get_directorist_option('show_popular_category', 1);
-            $show_connector = get_directorist_option('show_connector', 1);
-            $search_border = get_directorist_option('search_border', 1);
-            $display_more_filter_icon = get_directorist_option('search_more_filter_icon', 1);
-            $search_button_icon = get_directorist_option('search_button_icon', 1);
-
-            $connectors_title = get_directorist_option('connectors_title', __('Or', 'directorist'));
-            $popular_cat_title = get_directorist_option('popular_cat_title', __('Browse by popular categories', 'directorist'));
-            $popular_cat_num = get_directorist_option('popular_cat_num', 10);
-            $require_text = get_directorist_option('require_search_text');
-            $require_cat = get_directorist_option('require_search_category');
-            $require_loc = get_directorist_option('require_search_location');
-            $require_text = !empty($require_text) ? "required" : "";
-            $require_cat = !empty($require_cat) ? "required" : "";
-            $require_loc = !empty($require_loc) ? "required" : "";
-
-            $default = get_template_directory_uri() . '/images/home_page_bg.jpg';
-            $theme_home_bg_image = get_theme_mod('directoria_home_bg');
-            $search_home_bg = get_directorist_option('search_home_bg');
-            $display_more_filter_search = get_directorist_option('search_more_filter', 1);
-            $search_filters = get_directorist_option('search_filters', array('reset_button', 'apply_button'));
-            $search_more_filters_fields = get_directorist_option('search_more_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
-            $tag_label = get_directorist_option('tag_label', __('Tag', 'directorist'));
-            $address_label = get_directorist_option('address_label', __('Address', 'directorist'));
-            $fax_label = get_directorist_option('fax_label', __('Fax', 'directorist'));
-            $email_label = get_directorist_option('email_label', __('Email', 'directorist'));
-            $website_label = get_directorist_option('website_label', __('Website', 'directorist'));
-            $zip_label = get_directorist_option('zip_label', __('Zip', 'directorist'));
-            $currency = get_directorist_option('g_currency', 'USD');
-            $c_symbol = atbdp_currency_symbol($currency);
-            $front_bg_image = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
-            if (is_rtl()) {
-                wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
-            } else {
-                wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
-            }
-            wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
-            wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
-                'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
-                'ajax_url' => admin_url('admin-ajax.php'),
-            ));
-            $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
-            $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
-            $query_args = array(
-                'parent' => 0,
-                'term_id' => 0,
-                'hide_empty' => 0,
-                'orderby' => 'name',
-                'order' => 'asc',
-                'show_count' => 0,
-                'single_only' => 0,
-                'pad_counts' => true,
-                'immediate_category' => 0,
-                'active_term_id' => 0,
-                'ancestors' => array()
-            );
-            $categories_fields = search_category_location_filter($query_args, ATBDP_CATEGORY);
-            $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION);
-
-            // Default Template
-            $path = atbdp_get_theme_file("/directorist/shortcodes/listings/search-listing.php");
-            if ( $path ) {
-                include $path;
-            } else {
-                include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/search/search.php";
-            }
-
-            ATBDP()->enquirer->search_listing_scripts_styles();
-            return ob_get_clean();
+            return $searchform->render_search_shortcode();
         }
 
-        public function author_profile($atts)
-        {
+        public function author_profile($atts) {
             $author = new Directorist_Listing_Author();
             return $author->render_shortcode_author_profile($atts);
         }
 
-        public function add_listing($atts)
-        {
+        public function add_listing($atts) {
             $forms  = Directorist_Listing_Forms::instance();
             return $forms->render_shortcode_add_listing($atts);
         }
 
-        public function custom_user_login()
-        {
+        public function custom_user_login() {
             $forms = new Directorist_Listing_Forms();
             return $forms->render_shortcode_user_login();
         }
 
-        public function user_registration()
-        {
+        public function user_registration() {
             $forms = new Directorist_Listing_Forms();
             return $forms->render_shortcode_custom_registration();
         }

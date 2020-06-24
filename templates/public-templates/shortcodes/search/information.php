@@ -1,3 +1,10 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+?>
 <div class="form-group">
 	<div class="bottom-inputs">
 		<?php if ( $searchform->has_website_field ) { ?>

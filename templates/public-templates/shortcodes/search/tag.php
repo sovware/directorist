@@ -1,3 +1,10 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+?>
 <div class="form-group ads-filter-tags">
 	<label><?php echo $searchform->tag_label; ?></label>
 	<div class="bads-tags">

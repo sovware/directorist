@@ -1,3 +1,10 @@
+<?php
+/**
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
+ */
+?>
 <div class="form-group ">
 	<label class=""><?php _e('Price Range', 'directorist'); ?></label>
 	<div class="price_ranges">

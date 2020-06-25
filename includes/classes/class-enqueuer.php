@@ -361,6 +361,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
     // load_template_scripts
     public function load_template_scripts() {
         $enqueue_inline = false;
+        $is_single_listing_page = is_singular( ATBDP_POST_TYPE );
 
         // Settings Style
         $stylesheet_is_required = $this->has_shortcodes_in_post([
@@ -400,7 +401,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             'directorist_listing_map',
         ]);
 
-        if ( $map_is_required ) {
+        if ( $map_is_required || $is_single_listing_page ) {
             if ( 'openstreet' === $map_type ) {
                 wp_enqueue_style('leaflet-css');
                 wp_enqueue_script('openstreet_layer');

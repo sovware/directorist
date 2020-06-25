@@ -5778,6 +5778,13 @@ The Administrator of ==SITE_NAME==
                     'description' => __('Allow to display image of reviewer on single listing page.', 'directorist'),
                     'default' => 1,
                 ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'enable_reviewer_content',
+                    'label' => __('Enable Reviewer content', 'directorist'),
+                    'description' => __('Allow to display content of reviewer on single listing page.', 'directorist'),
+                    'default' => 1,
+                ),
 
                 array(
                     'type' => 'slider',

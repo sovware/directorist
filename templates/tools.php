@@ -8,7 +8,16 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+global $wp;
+$current_url = home_url(add_query_arg(array(), $wp->request));
 ?>
+<div class="wrap woocommerce">
+		<form method="post" id="mainform" action="" enctype="multipart/form-data">
+		<nav class="nav-tab-wrapper woo-nav-tab-wrapper">
+            <a href="<?php esc_url( $current_url . '&tab="import"' ); ?>" class="nav-tab nav-tab-active"><?php esc_html_e( 'Import', 'directorist' ); ?></a>
+            <a href="https://rafiq.directorist.com/wp-admin/admin.php?page=wc-settings&amp;tab=shipping" class="nav-tab "><?php esc_html_e( 'Export', 'directorist' ); ?></a>		
+        </nav>
+</div>
 <form class="atbdp-progress-form-content directorist-importer" enctype="multipart/form-data" method="post">
 	<header>
 		<h2><?php esc_html_e( 'Import listings from a CSV file', 'directorist' ); ?></h2>

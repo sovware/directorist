@@ -5785,7 +5785,13 @@ The Administrator of ==SITE_NAME==
                     'description' => __('Allow to display content of reviewer on single listing page.', 'directorist'),
                     'default' => 1,
                 ),
-
+                array(
+                    'type' => 'toggle',
+                    'name' => 'required_reviewer_content',
+                    'label' => __('Required Reviewer content', 'directorist'),
+                    'description' => __('Allow to Require the content of reviewer on single listing page.', 'directorist'),
+                    'default' => 1,
+                ),
                 array(
                     'type' => 'slider',
                     'name' => 'review_num',

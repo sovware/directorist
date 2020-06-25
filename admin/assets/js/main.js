@@ -1612,6 +1612,20 @@ jQuery(function ($) {
         lf_opt62.show();
     }
 
+    //Display review content
+    var enable_reviewer_content_effects = $("#required_reviewer_content");
+    enable_reviewer_content_effects.hide();
+    $('input[name="enable_reviewer_content"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            enable_reviewer_content_effects.show();
+        }else{
+            enable_reviewer_content_effects.hide();
+        }
+    });
+    if($('input[name="enable_reviewer_content"]').is(":checked") === true){
+        enable_reviewer_content_effects.show();
+    }
+
     /* Copy shortcodes on click */
     var textToCopy = document.querySelectorAll(".description.atbdp_settings_description strong");
     textToCopy.forEach((el, index) =>{

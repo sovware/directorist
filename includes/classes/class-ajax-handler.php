@@ -716,7 +716,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function validate_listing_review()
         {
             $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );
-            if (!empty($_POST['rating']) && ( empty( $enable_reviewer_content ) || !empty($_POST['content'])) && !empty($_POST['post_id'])) {
+            $required_reviewer_content = get_directorist_option( 'required_reviewer_content', 1 );
+            if (!empty($_POST['rating']) && ( empty( $enable_reviewer_content ) || ( !empty( $_POST['content'] ) || empty( $required_reviewer_content ) ) ) && !empty($_POST['post_id'])) {
                 return true;
             }
             return false;

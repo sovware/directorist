@@ -1,4 +1,4 @@
-<?
+<?php
 /**
   * @package Directorist
   * @since 5.10.0

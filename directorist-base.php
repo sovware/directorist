@@ -173,12 +173,12 @@ final class Directorist_Base
     public $seo;
 
     /**
-     * ATBDP_Validator Object.
+     * ATBDP_Tools Object.
      *
-     * @var ATBDP_Validator
+     * @var ATBDP_Tools
      * @since 4.7.2
      */
-    public $validator;
+    public $tools;
 
     /**
      * ATBDP_Single_Templates Object.
@@ -236,7 +236,7 @@ final class Directorist_Base
             self::$instance->shortcode = new ATBDP_Shortcode;
             self::$instance->email = new ATBDP_Email;
             self::$instance->seo = new ATBDP_SEO;
-            self::$instance->validator = new ATBDP_Validator;
+            self::$instance->tools = new ATBDP_Tools;
             self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
 
@@ -291,8 +291,6 @@ final class Directorist_Base
             new ATBDP_Upgrade;
             // add upgrade feature
             new ATBDP_Help_Support;
-            //validator
-            new ATBDP_Validator();
             // add uninstall menu
             add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
 

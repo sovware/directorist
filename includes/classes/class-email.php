@@ -111,6 +111,7 @@ if (!class_exists('ATBDP_Email')):
             $never_exp = get_post_meta($listing_id, '_never_expire', true);
             if($renewal){
                 $token = 'cB0XtpVzGb180dgPi3hADW-'.$listing_id;
+                update_post_meta($listing_id, '_renewal_token', $token);
                 $renewal_link = add_query_arg('token', $token, ATBDP_Permalink::get_renewal_page_link($listing_id));
             }else{
                 $renewal_link = ATBDP_Permalink::get_renewal_page_link($listing_id);

@@ -109,7 +109,7 @@ class Directorist_Listings {
 		$this->prepare_data();
 
 		// if ( $type == 'search' ) {
-			$this->set_search_query();
+			// $this->set_search_query();
 		// }
 		// else {
 			$this->set_query();

@@ -1,55 +1,106 @@
 <?php
-global $post;
-$listing_id    = $post->ID;
-$fm_plan       = get_post_meta($listing_id, '_fm_plans', true);
-$listing_info['never_expire'] = get_post_meta($post->ID, '_never_expire', true);
-$listing_info['featured'] = get_post_meta($post->ID, '_featured', true);
-$listing_info['price'] = get_post_meta($post->ID, '_price', true);
-$listing_info['price_range'] = get_post_meta($post->ID, '_price_range', true);
-$listing_info['atbd_listing_pricing'] = get_post_meta($post->ID, '_atbd_listing_pricing', true);
-$listing_info['videourl'] = get_post_meta($post->ID, '_videourl', true);
-$listing_info['listing_status'] = get_post_meta($post->ID, '_listing_status', true);
-$listing_info['tagline'] = get_post_meta($post->ID, '_tagline', true);
-$listing_info['excerpt'] = get_post_meta($post->ID, '_excerpt', true);
-$listing_info['address'] = get_post_meta($post->ID, '_address', true);
-$listing_info['phone'] = get_post_meta($post->ID, '_phone', true);
-$listing_info['email'] = get_post_meta($post->ID, '_email', true);
-$listing_info['website'] = get_post_meta($post->ID, '_website', true);
-$listing_info['zip'] = get_post_meta($post->ID, '_zip', true);
-$listing_info['social'] = get_post_meta($post->ID, '_social', true);
-$listing_info['faqs'] = get_post_meta($post->ID, '_faqs', true);
-$listing_info['manual_lat'] = get_post_meta($post->ID, '_manual_lat', true);
-$listing_info['manual_lng'] = get_post_meta($post->ID, '_manual_lng', true);
-$listing_info['hide_map'] = get_post_meta($post->ID, '_hide_map', true);
-$listing_info['listing_img'] = get_post_meta($post->ID, '_listing_img', true);
-$listing_info['listing_prv_img'] = get_post_meta($post->ID, '_listing_prv_img', true);
-$listing_info['hide_contact_info'] = get_post_meta($post->ID, '_hide_contact_info', true);
-$listing_info['hide_contact_owner'] = get_post_meta($post->ID, '_hide_contact_owner', true);
-$listing_info['expiry_date'] = get_post_meta($post->ID, '_expiry_date', true);
-extract($listing_info);
-$main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 /**
- * Fires after the Map is rendered on single listing page
- *
- *
- * @since 4.0.3
- *
- * @param object|WP_post $post The current post object which is our listing post
- * @param array $listing_info The meta information of the current listing
+ * @author  AazzTech
+ * @since   7.0
+ * @version 7.0
  */
-$plan_review = true;
 
-if ($plan_review) {
-    do_action('atbdp_before_review_section', $post, $listing_info);
+if ($enable_review && $plan_review && $allow_review) { ?>
+    <div class="atbd_content_module atbd_review_module" id="atbd_reviews_block">
+        <div class="atbd_content_module_title_area">
+            <div class="atbd_area_title">
+                <h4><span class="<?php atbdp_icon_type(true); ?>-star atbd_area_icon"></span><span id="reviewCounter"><?php echo esc_html($review_count); ?></span> <?php echo esc_html($review_count_text);?></h4>
+            </div>
+            <?php if (atbdp_logged_in_user() || $guest_review) { ?>
+                <label for="review_content" class="btn btn-primary btn-sm"><?php esc_html_e('Add a review', 'directorist'); ?></label>
+            <?php } ?>
+        </div>
+        <div class="atbdb_content_module_contents">
+            <input type="hidden" id="review_post_id" data-post-id="<?php echo esc_attr($listing->id); ?>">
+            <div id="client_review_list"></div>
+            <div id="clint_review"></div>
+        </div>
+    </div>
+    <?php
+    // check if the user is logged in and the current user is not the owner of this listing.
+    if (atbdp_logged_in_user() || $guest_review) {
+        // if the current user is NOT the owner of the listing print review form
+        // get the settings of the admin whether to display review form even if the user is the owner of the listing.
+        if (get_current_user_id() != $author_id || $enable_owner_review) { ?>
+            <div class="atbd_content_module">
+                <div class="atbd_content_module_title_area">
+                    <div class="atbd_area_title">
+                        <h4><span class="<?php atbdp_icon_type(true); ?>-star" aria-hidden="true"></span><?php echo !empty($cur_user_review) ? __('Update Review', 'directorist') : __('Leave a Review', 'directorist'); ?></h4>
+                    </div>
+                </div>
+
+                <div class="atbdb_content_module_contents atbd_give_review_area">
+                    <form action="#" id="atbdp_review_form" method="post">
+                        <?php wp_nonce_field('atbdp_review_action_form', 'atbdp_review_nonce_form'); ?>
+                        <input type="hidden" name="post_id" value="<?php echo esc_attr( $listing->id ); ?>">
+                        <input type="hidden" name="name" class="btn btn-default" value="<?php echo esc_attr($reviewer_name); ?>" id="reviewer_name">
+                        <input type="hidden" name="name" id="reviewer_img" class="btn btn-default" value='<?php echo esc_attr($reviewer_img); ?>'>
+
+                        <div class="atbd_review_rating_area">
+                            <?php
+                            // color the stars if user has rating
+                            if (!empty($cur_user_review)) { ?>
+                                <div class="atbd_review_current_rating">
+                                    <p class="atbd_rating_label"><?php _e('Current Rating:', 'directorist'); ?></p>
+                                    <div class="atbd_rated_stars">
+                                        <?php echo ATBDP()->review->print_static_rating($cur_user_review->rating); ?>
+                                    </div>
+                                </div>
+                            <?php } ?>
+
+                            <div class="atbd_review_update_rating">
+                                <p class="atbd_rating_label"><?php echo !empty($cur_user_review) ? __('Update Rating:', 'directorist') : __('Your Rating:', 'directorist'); ?></p>
+                                <div class="atbd_rating_stars">
+                                    <select class="stars" name="rating" id="review_rating">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5" selected>5</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        	<textarea name="content" id="review_content" class="form-control" cols="20" rows="5" placeholder="<?php echo !empty($cur_user_review) ? __('Update your review.....', 'directorist') : __('Write your review.....', 'directorist'); ?>"><?php echo !empty($cur_user_review) ? esc_html($cur_user_review->content) : ''; ?></textarea>
+                        </div>
+
+                        <?php if ($guest_review && !atbdp_logged_in_user()){ ?>
+	                        <div class="form-group">
+	                            <label for="guest_user"><?php echo esc_html( $guest_email_label ); ?>:<span class="atbdp_make_str_red">*</span></label>
+	                            <input type="text" id="guest_user_email" name="guest_user_email" required class="form-control directory_field" placeholder="<?php echo esc_attr($guest_email_placeholder); ?>"/>
+	                        </div>
+	                        <?php
+	                    }
+
+                        if (!empty($cur_user_review)) { ?>
+                            <button class="<?php echo atbdp_directorist_button_classes(); ?>" type="submit" id="atbdp_review_form_submit"><?php _e('Update', 'directorist'); ?></button>
+
+                            <button class="btn btn-danger" type="button" id="atbdp_review_remove" data-review_id="<?php echo $cur_user_review->id; ?>"><?php _e('Remove', 'directorist'); ?></button>
+                        	<?php
+                    	}
+                    	else { ?>
+                            <button class="btn btn-primary" type="submit" id="atbdp_review_form_submit"><?php _e('Submit Review', 'directorist'); ?></button>
+                        <?php } ?>
+
+                        <input type="hidden" name="approve_immediately" id="approve_immediately" value="<?php echo empty($approve_immediately) ? 'no' : 'yes';?>">
+                        <input type="hidden" name="review_duplicate" id="review_duplicate" value="<?php echo !empty($review_duplicate) ? 'yes' : '';?>">
+                    </form>
+                </div>
+            </div>
+	        <?php
+	    }
+    }
+    else { ?>
+        <div class="atbd_notice alert alert-info" role="alert">
+            <span class="<?php atbdp_icon_type(true); ?>-info-circle" aria-hidden="true"></span>
+            <?php printf(__('You need to %s or %s to submit a review', 'directorist'), $login_link, $register_link);?>
+        </div>
+	    <?php
+	}
 }
-
-/**
- * Fires after the Map is rendered on single listing page
- *
- *
- * @since 1.0.0
- *
- * @param object|WP_post $post The current post object which is our listing post
- * @param array $listing_info The meta information of the current listing
- */
-do_action('atbdp_after_map', $post, $listing_info);

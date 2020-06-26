@@ -102,18 +102,8 @@ if (!class_exists('ATBDP_Shortcode')):
 
         //listing review area
         public function directorist_listing_review() {
-            ob_start();
-            if (is_singular(ATBDP_POST_TYPE)) {
-                $template_file = 'single-listing/listing-review';
-                $template_path = atbdp_get_shortcode_template_paths( $template_file );
-                
-                if ( file_exists( $template_path['theme'] ) ) {
-                    include $template_path['theme'];
-                } elseif ( file_exists( $template_path['plugin'] ) ) {
-                    include $template_path['plugin'];
-                }
-            }
-            return ob_get_clean();
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_listing_review();
         }
         
         //related listing area

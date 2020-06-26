@@ -10,6 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Directorist_Single_Listing {
 
     public $id;
+    public $post;
 
     public function __construct( $id = '' ) {
         if ( ! $id ) {
@@ -400,7 +401,6 @@ class Directorist_Single_Listing {
             wp_localize_script( 'atbdp-single-listing-gmap', 'localized_data', $args );
             wp_enqueue_script( 'atbdp-single-listing-gmap' );
         }
-        
 
         return atbdp_return_shortcode_template( 'single-listing/listing-map', $args );
 	}
@@ -524,5 +524,50 @@ class Directorist_Single_Listing {
         );
 
         return atbdp_return_shortcode_template( 'single-listing/tags', $args );
+    }
+
+    public function get_reviewer_img() {
+        $author_id = wp_get_current_user()->ID;
+        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+        $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
+        $u_pro_pic = is_array($u_pro_pic) ? $u_pro_pic[0] : $u_pro_pic;
+        $custom_gravatar = "<img src='$u_pro_pic' alt='Author'>";
+        $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
+        $user_img = !empty($u_pro_pic) ? $custom_gravatar : $avatar_img;
+        return $user_img;
+    }
+
+    public function render_shortcode_listing_review() {
+        if ( !is_singular( ATBDP_POST_TYPE ) ) {
+            return;
+        }
+
+        $id           = $this->get_id();
+        $fm_plan      = get_post_meta($id, '_fm_plans', true);
+        $review_count = ATBDP()->review->db->count(array('post_id' => $id));
+        $author_id    = get_post_field('post_author', $id);
+
+        $args = array(
+            'listing'                  => $this,
+            'author_id'                => get_post_field('post_author', $id),
+            'enable_review'            => get_directorist_option('enable_review', 1),
+            'enable_owner_review'      => get_directorist_option('enable_owner_review'),
+            'plan_review'              => is_fee_manager_active() ? is_plan_allowed_listing_review($fm_plan) : true,
+            'allow_review'             => apply_filters('atbdp_single_listing_before_review_block', true),
+            'review_count'             => $review_count,
+            'review_count_text'        => _nx( 'Review', 'Reviews', $review_count, 'Number of reviews', 'directorist' ),
+            'guest_review'             => get_directorist_option('guest_review', 0),
+            'cur_user_review'          => ATBDP()->review->db->get_user_review_for_post(get_current_user_id(), $id),
+            'reviewer_name'            => wp_get_current_user()->display_name,
+            'reviewer_img'             => $this->get_reviewer_img(),
+            'guest_email_label'        => get_directorist_option('guest_email', __('Your Email', 'directorist')),
+            'guest_email_placeholder'  => get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist')),
+            'approve_immediately'      => get_directorist_option('approve_immediately', 1),
+            'review_duplicate'         => tract_duplicate_review(wp_get_current_user()->display_name, $id),
+            'login_link'               => apply_filters('atbdp_review_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Login', 'directorist') . "</a>"),
+            'register_link'            => apply_filters('atbdp_review_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>"),
+        );
+
+        return atbdp_return_shortcode_template( 'single-listing/listing-review', $args );
     }
 }

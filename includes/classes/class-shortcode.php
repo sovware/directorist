@@ -346,8 +346,10 @@ if (!class_exists('ATBDP_Shortcode')):
 
         }
 
-        public function search_result($atts)
-        {
+        public function search_result($atts) {
+            $listings = new Directorist_Listings( $atts, 'search' );
+            return $listings->render_shortcode();
+
             wp_enqueue_script('adminmainassets');
             wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(

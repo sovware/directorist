@@ -6,7 +6,8 @@ $display_image_map              = get_directorist_option('display_image_map', 1)
 $display_title_map              = get_directorist_option('display_title_map', 1);
 $display_address_map            = get_directorist_option('display_address_map', 1);
 $display_direction_map          = get_directorist_option('display_direction_map', 1);
-
+$default_latitude               = get_directorist_option('default_latitude', '40.7127753');
+$default_longitude              = get_directorist_option('default_longitude', '-74.0059728');
 $disable_single_listing         = get_directorist_option('disable_single_listing', false);
 $disable_single_listing         = ( $disable_single_listing === true || $disable_single_listing === '1' ) ? true : false;
 
@@ -122,7 +123,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
         <?php endwhile;
         wp_reset_postdata();
     } else { ?>
-        <div class="marker" data-latitude="23.8103" data-longitude="90.4125">
+        <div class="marker" data-latitude="<?php echo !empty( $default_latitude ) ? $default_latitude : '40.7127753'; ?>" data-longitude="<?php echo !empty( $default_longitude ) ? $default_longitude : '-74.0059728'; ?>">
         </div>
         <?php
     }

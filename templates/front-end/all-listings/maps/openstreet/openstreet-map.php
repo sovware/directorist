@@ -3,10 +3,12 @@ wp_enqueue_script('leaflet-subgroup-realworld');
 $data = array(
     'zoom'       => !empty($zoom) ? $zoom : 1,
 );
+$default_latitude = get_directorist_option( 'default_latitude', '40.7127753' );
+$default_longitude = get_directorist_option( 'default_longitude', '-74.0059728' );
 wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $data );
 wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
-    'lat'=>40.7128,
-    'lon'=>74.0060,
+    'lat'=> $default_latitude,
+    'lon'=> $default_longitude,
 ) );
 ?>
 <style>

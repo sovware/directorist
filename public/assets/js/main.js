@@ -171,11 +171,15 @@
                     '<p>' + name + '</p>' +
                     '<span class="review_time">' + d + '</span> ' + '</div> ' + '</div> ' +
                     '<div class="atbd_rated_stars">' + print_static_rating(rating) + '</div> ' +
-                    '</div> ' +
+                    '</div> ';
+                if( atbdp_public_data.enable_reviewer_content ) {    
+                output +=    
                     '<div class="review_content"> ' +
                     '<p>' + content + '</p> ' +
                     //'<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a> ' +
-                    '</div> ' +
+                    '</div> ';
+                }
+                output +=       
                     '</div>';
 
                 // output += '<div class="single_review"  id="single_review_'+response.data.id+'">' +

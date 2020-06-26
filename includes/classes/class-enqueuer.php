@@ -54,6 +54,10 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             if ( is_admin() ) {
                 wp_register_script( 'extension-update', ATBDP_ADMIN_ASSETS . 'js/extension-update.js', array( 'jquery' ), ATBDP_VERSION, true );
                 wp_enqueue_script( 'extension-update' );
+                if('at_biz_dir_page_tools' === $page){
+                    wp_register_script( 'atbdp-import-export', ATBDP_ADMIN_ASSETS . 'js/import-export.js', array( 'jquery' ), ATBDP_VERSION, true );
+                    wp_enqueue_script( 'atbdp-import-export' );
+                }
             }
             global $typenow;
 

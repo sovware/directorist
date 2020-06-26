@@ -594,6 +594,38 @@ if (!class_exists('ATBDP_Helper')) :
             <?php
         }
 
+        // guard
+        public static function guard( Array $args = array() ) {
+            $type           = ( ! empty( $args['type'] ) ) ? $args['type'] : 'auth';
+            $login_redirect = ( ! empty( $args['login_redirect'] ) ) ? $args['login_redirect'] : false;
+
+            if ( 'auth' === $type && ! atbdp_logged_in_user() && ! $login_redirect ) {
+                ob_start();
+                // user not logged in;
+                $error_message = sprintf( __( 'You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist' ), apply_filters( 'atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __( 'Here', 'directorist' ) . '</a>' ), apply_filters( 'atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __( 'Sign Up', 'directorist' ) . '</a>' ) );
+                ?>
+                    <section class="directory_wrapper single_area">
+                        <?php self::show_login_message( $error_message ); ?>
+                    </section>
+                    <?php
+
+                return ob_get_clean();
+            }
+
+            if ( '404' === $type ) { ob_start(); ?>
+            <section class="directory_wrapper single_area">
+                <div class="notice_wrapper">
+                    <div class="alert alert-warning">
+                        <span class="fa fa-info-circle" aria-hidden="true"></span> 
+                        <?php _e('Nothing to show!'); ?>
+                    </div>
+                </div>
+            </section>
+            <?php return ob_get_clean(); }
+
+            return '';
+        }
+
         /**
          * It outputs all categories and locations related markup for the listing
          * @param array $cats [optional] the array of Listing Category Objects

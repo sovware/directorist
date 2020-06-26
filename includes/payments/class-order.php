@@ -482,6 +482,11 @@ class ATBDP_Order
                 $my_post['post_status'] = $new_l_status;
                 if (!is_fee_manager_active()){
                     wp_update_post( $my_post );
+                    $token_refresh = get_post_meta( $listing_id, '_refresh_renewal_token', true );
+                    if( $token_refresh ){
+                        update_post_meta( $listing_id, '_refresh_renewal_token', 0 );
+                        update_post_meta( $listing_id, '_renewal_token', 0 );
+                    }
                 }
             }
         }

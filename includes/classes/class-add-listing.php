@@ -923,9 +923,9 @@ if (!class_exists('ATBDP_Add_Listing')):
             do_action('atbdp_before_renewal', $listing_id);
             update_post_meta($listing_id, '_featured', 0); // delete featured
             //for listing package extensions...
-            $has_paid_submission = apply_filters('atbdp_has_paid_submission', 0, $listing_id, 'renew');
             $active_monetization = get_directorist_option('enable_monetization');
-            if ( $has_paid_submission && $active_monetization ) {
+            $enable_featured_listing = get_directorist_option('enable_featured_listing');
+            if (  $active_monetization && $enable_featured_listing ) {
                 // if paid submission enabled/triggered by an extension, redirect to the checkout page and let that handle it, and vail out.
                 update_post_meta( $listing_id, '_refresh_renewal_token', 1 );
                 wp_safe_redirect( ATBDP_Permalink::get_checkout_page_link( $listing_id ) );

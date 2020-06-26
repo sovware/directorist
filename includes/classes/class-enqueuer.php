@@ -54,6 +54,10 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             if ( is_admin() ) {
                 wp_register_script( 'extension-update', ATBDP_ADMIN_ASSETS . 'js/extension-update.js', array( 'jquery' ), ATBDP_VERSION, true );
                 wp_enqueue_script( 'extension-update' );
+                if('at_biz_dir_page_tools' === $page){
+                    wp_register_script( 'atbdp-import-export', ATBDP_ADMIN_ASSETS . 'js/import-export.js', array( 'jquery' ), ATBDP_VERSION, true );
+                    wp_enqueue_script( 'atbdp-import-export' );
+                }
             }
             global $typenow;
 
@@ -280,6 +284,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
         //listings data
 
         $review_approval = get_directorist_option( 'review_approval_text', __( 'Your review has been received. It requires admin approval to publish.', 'directorist' ) );
+        $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 ); 
         $data            = array(
             'nonce'                       => wp_create_nonce( 'atbdp_nonce_action_js' ),
             'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
@@ -315,6 +320,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             'completeSubmission'          => __( 'Complete Submission', 'directorist' ),
             'plugin_url'                  => ATBDP_URL,
             'currentDate'                 => get_the_date(),
+            'enable_reviewer_content'     => $enable_reviewer_content
 
         );
         wp_localize_script( 'atbdp_checkout_script', 'atbdp_checkout', $data );

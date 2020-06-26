@@ -460,19 +460,13 @@ class ATBDP_Order
         $new_l_status = get_directorist_option('new_listing_status', 'pending');
         $new_status = str_replace('set_to_', '', $action);
         $new_status = sanitize_key($new_status);
-
         if ($new_status == $old_status) return true;
-
         do_action('atbdp_order_status_changed', $new_status, $old_status, $post_id);
-
         $non_complete_statuses = array('created', 'pending', 'failed', 'cancelled', 'refunded');
-
         // If the order has featured
         $featured = get_post_meta($post_id, '_featured', true);
         $listing_id = get_post_meta($post_id, '_listing_id', true);
-
         if (!empty($featured)) {
-
             if ('completed' == $old_status && in_array($new_status, $non_complete_statuses)) {
                 update_post_meta($listing_id, '_featured', 0);
             } else if (in_array($old_status, $non_complete_statuses) && 'completed' == $new_status) {
@@ -482,21 +476,22 @@ class ATBDP_Order
                 $my_post['post_status'] = $new_l_status;
                 if (!is_fee_manager_active()){
                     wp_update_post( $my_post );
+                    $token_refresh = get_post_meta( $listing_id, '_refresh_renewal_token', true );
+                    if( $token_refresh ){
+                        update_post_meta( $listing_id, '_refresh_renewal_token', 0 );
+                        update_post_meta( $listing_id, '_renewal_token', 0 );
+                    }
                 }
             }
         }
         // Update new status
-
         update_post_meta($post_id, '_payment_status', $new_status);
-
         // Email listing owner when his/her set to completed
         if (in_array($old_status, $non_complete_statuses) && 'completed' == $new_status) {
             ATBDP()->email->notify_owner_order_completed($post_id, $listing_id);
             ATBDP()->email->notify_admin_order_completed($post_id, $listing_id);
         }
-
         return true;
-
     }
 
     /**

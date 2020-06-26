@@ -360,6 +360,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $msg = '';
             if (isset($_POST['page'])) {
                 $enable_reviewer_img = get_directorist_option('enable_reviewer_img', 1);
+                $enable_reviewer_content = get_directorist_option('enable_reviewer_content', 1);
                 $review_num = get_directorist_option('review_num', 5);
                 // Sanitize the received page
                 $page = sanitize_text_field($_POST['page']);
@@ -409,10 +410,11 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         $msg .= ATBDP()->review->print_static_rating($review->rating);
                         $msg .= '</div>';
                         $msg .= '</div>';
-
+                        if( !empty( $enable_reviewer_content ) ) {
                         $msg .= '<div class="review_content">';
                         $msg .= '<p>' . stripslashes(esc_html($review->content)) . '</p>';
                         $msg .= '</div>';
+                        }
                         $msg .= '</div>';
                     endforeach;
                 } else {
@@ -527,18 +529,9 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         }
         public function save_listing_review()
         {
-            global $wpdb;
-            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-            $table_name  = $wpdb->prefix . 'atbdp_review';
-            $sql = "ALTER TABLE {$table_name} CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;";
-            //$sql = "ALTER TABLE {$table_name} modify name text charset utf8mb4;";
-            $wpdb->query($sql);
-
             $guest_review = get_directorist_option('guest_review', 0);
             $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
-
             if ($guest_review && $guest_email) {
-
                 $string = $guest_email;
                 $explode = explode("@", $string);
                 array_pop($explode);
@@ -548,7 +541,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     $random = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 1, 5);
                     $userName = $userName . $random;
                 }
-
                 // Check if user exist by email
                 if (email_exists($guest_email)) {
                     $data = array(
@@ -586,7 +578,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     'post_id' => absint($_POST['post_id']),
                     'name' => !empty($user->display_name) ? $user->display_name : $u_name,
                     'email' => !empty($user->user_email) ? $user->user_email : $u_email,
-                    'content' => sanitize_textarea_field($_POST['content']),
+                    'content' => !empty( $_POST['content'] ) ? sanitize_textarea_field( $_POST['content'] ) : '',
                     'rating' => floatval($_POST['rating']),
                     'by_guest' => !empty($user->ID) ? 0 : 1,
                     'by_user_id' => !empty($user->ID) ? $user->ID : 0,
@@ -669,7 +661,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             if (!in_array('listing_review', get_directorist_option('notify_admin', array()))) return false; // vail if order created notification to admin off
             // sanitize form values
             $post_id = (int) $_POST["post_id"];
-            $message = esc_textarea($_POST["content"]);
+            $message = !empty( $_POST["content"] ) ? esc_textarea( $_POST["content"] ) : '';
 
             // vars
             $user = wp_get_current_user();
@@ -713,7 +705,9 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          */
         public function validate_listing_review()
         {
-            if (!empty($_POST['rating']) && !empty($_POST['content']) && !empty($_POST['post_id'])) {
+            $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );
+            $required_reviewer_content = get_directorist_option( 'required_reviewer_content', 1 );
+            if (!empty($_POST['rating']) && ( empty( $enable_reviewer_content ) || ( !empty( $_POST['content'] ) || empty( $required_reviewer_content ) ) ) && !empty($_POST['post_id'])) {
                 return true;
             }
             return false;

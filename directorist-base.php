@@ -173,12 +173,12 @@ final class Directorist_Base
     public $seo;
 
     /**
-     * ATBDP_Validator Object.
+     * ATBDP_Tools Object.
      *
-     * @var ATBDP_Validator
+     * @var ATBDP_Tools
      * @since 4.7.2
      */
-    public $validator;
+    public $tools;
 
     /**
      * ATBDP_Single_Templates Object.
@@ -236,7 +236,7 @@ final class Directorist_Base
             self::$instance->shortcode = new ATBDP_Shortcode;
             self::$instance->email = new ATBDP_Email;
             self::$instance->seo = new ATBDP_SEO;
-            self::$instance->validator = new ATBDP_Validator;
+            self::$instance->tools = new ATBDP_Tools;
             self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
 
@@ -291,8 +291,6 @@ final class Directorist_Base
             new ATBDP_Upgrade;
             // add upgrade feature
             new ATBDP_Help_Support;
-            //validator
-            new ATBDP_Validator();
             // add uninstall menu
             add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
 
@@ -1213,6 +1211,7 @@ final class Directorist_Base
                                 $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                                 $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
                                 $u_pro_pic = is_array($u_pro_pic) ? $u_pro_pic[0] : $u_pro_pic;
+                                $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );    
                                 $custom_gravatar = "<img src='$u_pro_pic' alt='Author'>";
                                 $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                                 $user_img = !empty($u_pro_pic) ? $custom_gravatar : $avatar_img;
@@ -1245,11 +1244,12 @@ final class Directorist_Base
                                         </div>
                                     </div>
                                 </div>
+                                <?php if( !empty( $enable_reviewer_content ) ) { ?>
                                 <div class="form-group">
                                 <textarea name="content" id="review_content" class="form-control" cols="20" rows="5"
                                           placeholder="<?php echo !empty($cur_user_review) ? __('Update your review.....', 'directorist') : __('Write your review.....', 'directorist'); ?>"><?php echo !empty($cur_user_review) ? stripslashes($cur_user_review->content) : ''; ?></textarea>
                                 </div>
-
+                                <?php } ?>
                                 <?php
                                 if ($guest_review && !atbdp_logged_in_user()){
                                 ?>

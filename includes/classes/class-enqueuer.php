@@ -19,7 +19,6 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             // best hook to enqueue scripts for front-end is 'template_redirect'
             // 'Professional WordPress Plugin Development' by Brad Williams
             add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), -10 );
-            add_action( 'wp_enqueue_scripts', array( $this, 'add_listing_scripts_styles' ) );
             add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
             add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
 

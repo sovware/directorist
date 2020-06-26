@@ -638,7 +638,7 @@ jQuery(function ($) {
                 $(".listing_submit_btn").removeClass("atbd_loading");
                 console.log(error);
             }
-        });
+        }); 
 
     });
 

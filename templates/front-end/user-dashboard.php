@@ -44,6 +44,12 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
             <?php esc_html_e('Renewed successfully.', 'directorist'); ?>
         </div>
         <?php }
+        if( isset( $_GET['renew_with_plan'] ) ){ ?>
+            <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                <span class="fa fa-info-circle"></span>
+                <?php printf(__('Please select a plan for %s to continue.', 'directorist') , get_the_title( sanitize_text_field( $_GET['renew_with_plan'] ) )); ?>
+            </div>
+            <?php }
         ?>
     <div class="<?php echo apply_filters('atbdp_deshboard_container_fluid', $container_fluid) ?>">
         <div class="row">

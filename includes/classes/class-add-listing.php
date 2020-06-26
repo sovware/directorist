@@ -768,7 +768,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                                     $data['need_payment'] = true;
                                 } else {
                                     update_user_meta(get_current_user_id(), '_used_free_plan', array($subscribed_package_id, $post_id));
-
                                     if ('view_listing' == $redirect_page) {
                                         $data['redirect_url'] = get_permalink($post_id);
                                         $data['success'] = true;
@@ -893,6 +892,7 @@ if (!class_exists('ATBDP_Add_Listing')):
             $temp_token = isset($_GET['token']) ? $_GET['token'] : '';
             $renew_from = isset($_GET['renew_from']) ? $_GET['renew_from'] : '';
             $token = get_post_meta($id, '_renewal_token', true);
+            
             if (!empty($action) && !empty($id)) {
             if ('renew' == $action) {
             if(($temp_token === $token) || $renew_from){
@@ -924,60 +924,46 @@ if (!class_exists('ATBDP_Add_Listing')):
             update_post_meta($listing_id, '_featured', 0); // delete featured
             //for listing package extensions...
             $has_paid_submission = apply_filters('atbdp_has_paid_submission', 0, $listing_id, 'renew');
-
             $active_monetization = get_directorist_option('enable_monetization');
-            if ($has_paid_submission && $active_monetization) {
+            if ( $has_paid_submission && $active_monetization ) {
                 // if paid submission enabled/triggered by an extension, redirect to the checkout page and let that handle it, and vail out.
-                wp_safe_redirect(ATBDP_Permalink::get_checkout_page_link($listing_id));
+                update_post_meta( $listing_id, '_refresh_renewal_token', 1 );
+                wp_safe_redirect( ATBDP_Permalink::get_checkout_page_link( $listing_id ) );
                 exit;
             }
-
-            $time = current_time('mysql');
-            $post_array = array(
-                'ID' => $listing_id,
-                'post_status' => 'publish',
-                'post_date' => $time,
-                'post_date_gmt' => get_gmt_from_date($time)
-            );
-
-            //Updating listing
-            wp_update_post($post_array);
-
-            // Update the post_meta into the database
-            $old_status = get_post_meta($listing_id, '_listing_status', true);
-            if ('expired' == $old_status) {
-                $expiry_date = calc_listing_expiry_date();
-            } else {
-                $old_expiry_date = get_post_meta($listing_id, '_expiry_date', true);
-                $expiry_date = calc_listing_expiry_date($old_expiry_date);
-            }
-            // update related post metas
-            update_post_meta($listing_id, '_expiry_date', $expiry_date);
-            update_post_meta($listing_id, '_listing_status', 'post_status');
-
-            $exp_days = get_directorist_option('listing_expire_in_days', 999, 999);
-            if ($exp_days <= 0) {
-                update_post_meta($listing_id, '_never_expire', 1);
-            } else {
-                update_post_meta($listing_id, '_never_expire', 0);
-            }
-            do_action('atbdp_after_renewal', $listing_id);
-
-
-            $featured_active = get_directorist_option('enable_featured_listing');
-            $has_paid_submission = apply_filters('atbdp_has_paid_submission', $featured_active, $listing_id, 'renew');
-            if ($has_paid_submission && $active_monetization) {
-                $r_url = ATBDP_Permalink::get_checkout_page_link($listing_id);
-            } else {
-                //@todo; Show notification on the user page after renewing.
+                $time = current_time('mysql');
+                $post_array = array(
+                    'ID' => $listing_id,
+                    'post_status' => 'publish',
+                    'post_date' => $time,
+                    'post_date_gmt' => get_gmt_from_date($time)
+                );
+                //Updating listing
+                wp_update_post($post_array);
+                // Update the post_meta into the database
+                $old_status = get_post_meta($listing_id, '_listing_status', true);
+                if ('expired' == $old_status) {
+                    $expiry_date = calc_listing_expiry_date();
+                } else {
+                    $old_expiry_date = get_post_meta($listing_id, '_expiry_date', true);
+                    $expiry_date = calc_listing_expiry_date($old_expiry_date);
+                }
+                // update related post metas
+                update_post_meta($listing_id, '_expiry_date', $expiry_date);
+                update_post_meta($listing_id, '_listing_status', 'post_status');
+                $exp_days = get_directorist_option('listing_expire_in_days', 999, 999);
+                if ($exp_days <= 0) {
+                    update_post_meta($listing_id, '_never_expire', 1);
+                } else {
+                    update_post_meta($listing_id, '_never_expire', 0);
+                }
+                do_action('atbdp_after_renewal', $listing_id);
                 $r_url = add_query_arg('renew', 'success', ATBDP_Permalink::get_dashboard_page_link());
-            }
-            update_post_meta($listing_id, '_renewal_token', 0);
-            // hook for dev
-            do_action('atbdp_before_redirect_after_renewal', $listing_id);
-            wp_safe_redirect($r_url);
-            exit;
-
+                update_post_meta($listing_id, '_renewal_token', 0);
+                // hook for dev
+                do_action('atbdp_before_redirect_after_renewal', $listing_id);
+                wp_safe_redirect($r_url);
+                exit;
         }
 
 

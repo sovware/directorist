@@ -215,6 +215,12 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                     //print the new badge
                                     $l_badge_html .= new_badge();
                                     $l_badge_html .= '</span>';
+                    
+                                    /**
+                                     * @since 6.4.3
+                                     */
+                                    // Compare button display on all listing page in grid view
+                                    do_action( 'atbdp_all_grid_listings_before_favourite_icon' );
 
                                     /**
                                      * @since 5.0

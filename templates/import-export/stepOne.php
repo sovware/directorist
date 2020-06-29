@@ -8,7 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <form class="atbdp-progress-form-content directorist-importer" id="atbdp_csv_step_one" enctype="multipart/form-data" method="post">
 <header>
-		<h2><?php esc_html_e( 'Step 1', 'directorist' ); ?></h2>
+		<h1><?php esc_html_e( 'Step 1', 'directorist' ); ?></h1>
+		<h2><?php esc_html_e( 'Select CSV File', 'directorist' ); ?></h2>
 		<p><?php esc_html_e( 'This tool allows you to import (or merge) listing data to your store from a CSV file.', 'directorist' ); ?></p>
 	</header>
 	<section>

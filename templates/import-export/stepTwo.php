@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <form class="wc-progress-form-content directorist-importer" method="post">
 	<header>
+		<h1><?php esc_html_e( 'Step Two', 'directorist' ); ?></h1>
 		<h2><?php esc_html_e( 'Map CSV fields to listings', 'directorist' ); ?></h2>
 		<p><?php esc_html_e( 'Select fields from your CSV file to map against listings fields, or to ignore during import.', 'directorist' ); ?></p>
 	</header>
@@ -23,35 +24,37 @@ if ( ! defined( 'ABSPATH' ) ) {
 				</tr>
 			</thead>
 			<tbody>
-				<?php foreach ( $headers as $index => $name ) : ?>
-					<?php $mapped_value = $mapped_items[ $index ]; ?>
+				<?php 
+				$headers = $args['data'];
+				$fields = $args['fields'];
+				foreach ( $headers as $index => $name ) : ?>
 					<tr>
-						<td class="wc-importer-mapping-table-name">
-							<?php echo esc_html( $name ); ?>
-							<?php if ( ! empty( $sample[ $index ] ) ) : ?>
-								<span class="description"><?php esc_html_e( 'Sample:', 'directorist' ); ?> <code><?php echo esc_html( $sample[ $index ] ); ?></code></span>
+					<td class="wc-importer-mapping-table-name">
+							<p><?php echo esc_html( $index ); ?></p>
+							<?php if ( ! empty( $name ) ) : ?>
+								<span class="description"><?php esc_html_e( 'Sample:', 'directorist' ); ?> <code><?php echo esc_html( $name ); ?></code></span>
 							<?php endif; ?>
 						</td>
 						<td class="wc-importer-mapping-table-field">
 							<input type="hidden" name="map_from[<?php echo esc_attr( $index ); ?>]" value="<?php echo esc_attr( $name ); ?>" />
 							<select name="map_to[<?php echo esc_attr( $index ); ?>]">
-								<option value=""><?php esc_html_e( 'Do not import', 'directorist' ); ?></option>
+								<option value=""><?php esc_html_e( 'Do not import', 'woocommerce' ); ?></option>
 								<option value="">--------------</option>
-								<?php foreach ( $this->get_mapping_options( $mapped_value ) as $key => $value ) : ?>
-									<?php if ( is_array( $value ) ) : ?>
-										<optgroup label="<?php echo esc_attr( $value['name'] ); ?>">
-											<?php foreach ( $value['options'] as $sub_key => $sub_value ) : ?>
-												<option value="<?php echo esc_attr( $sub_key ); ?>" <?php selected( $mapped_value, $sub_key ); ?>><?php echo esc_html( $sub_value ); ?></option>
-											<?php endforeach ?>
-										</optgroup>
-									<?php else : ?>
-										<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $mapped_value, $key ); ?>><?php echo esc_html( $value ); ?></option>
-									<?php endif; ?>
+								<?php foreach ( $fields as $key => $value ) : ?>
+												<option value="<?php echo esc_attr( $key ); ?>" <?php // selected( $mapped_value, $key ); ?>><?php echo esc_html( $value ); ?></option>
 								<?php endforeach ?>
 							</select>
 						</td>
 					</tr>
-				<?php endforeach; ?>
+
+
+
+				<?php
+
+
+
+				endforeach;
+				?>
 			</tbody>
 		</table>
 	</section>

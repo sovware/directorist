@@ -570,4 +570,35 @@ class Directorist_Single_Listing {
 
         return atbdp_return_shortcode_template( 'single-listing/listing-review', $args );
     }
+
+    public function render_shortcode_related_listings() {
+        if ( !is_singular( ATBDP_POST_TYPE ) ) {
+            return;
+        }
+
+        $enabled = get_directorist_option('enable_rel_listing', 1);
+        if ( empty( $enabled ) ) {
+            return;
+        }
+
+        $is_rtl = is_rtl() ? true : false;
+        $columns = get_directorist_option('rel_listing_column', 3);
+
+        $localized_data = array(
+            'is_rtl' => $is_rtl,
+            'rel_listing_column' => $columns,
+        );
+        
+        wp_enqueue_script('atbdp-related-listings-slider');
+        wp_localize_script( 'atbdp-related-listings-slider', 'data', $localized_data );
+        
+        $listings = new Directorist_Listings(array(), 'related');
+        $args = array(
+            'listings' => $listings,
+            'class'    => is_directoria_active() ? 'containere' : 'containess-fluid',
+            'title'    => get_directorist_option('rel_listing_title', __('Related Listings', 'directorist')),
+        );
+
+        return atbdp_return_shortcode_template( 'single-listing/related-listings', $args );
+    }
 }

@@ -489,7 +489,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 )
 
             );
-            $args['expired'] = $meta_queries;
+    
             if ($has_featured) {
 
                 if ('_featured' == $atts['filterby']) {
@@ -1046,7 +1046,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'value' => 1,
                 )
             );
-            $args['expired'] = $meta_queries;
+    
 
             if ($has_featured) {
 
@@ -1610,7 +1610,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     )
 
                 );
-                $args['expired'] = $meta_queries;
+        
                 if ($has_featured) {
 
                     if ('_featured' == $atts['filterby']) {
@@ -2117,7 +2117,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     )
 
                 );
-                $args['expired'] = $meta_queries;
+        
                 if ($has_featured) {
 
                     if ('_featured' == $atts['filterby']) {
@@ -2539,7 +2539,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     )
 
                 );
-                $args['expired'] = $meta_queries;
+        
                 if ($has_featured) {
 
                     if ('_featured' == $atts['filterby']) {
@@ -2968,7 +2968,15 @@ if (!class_exists('ATBDP_Shortcode')):
                 'redirect_page_url' => ''
             ), $atts);
             //for pagination
-            $author_id = !empty($_GET['author_id']) ? $_GET['author_id'] : '';
+
+            
+            $author_id = !empty($_GET['author_id']) ? $_GET['author_id'] : get_current_user_id();
+            $author_id = absint( $author_id );
+
+            if ( ! $author_id ) {
+                return ATBDP_Helper::guard( [ 'type' => '404' ] );
+            }
+
             $category = !empty($_GET['category']) ? $_GET['category'] : '';
             $paged = atbdp_get_paged_num();
             $paginate = get_directorist_option('paginate_author_listings', 1);

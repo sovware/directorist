@@ -489,7 +489,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 )
 
             );
-            $args['expired'] = $meta_queries;
+    
             if ($has_featured) {
 
                 if ('_featured' == $atts['filterby']) {
@@ -1046,7 +1046,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'value' => 1,
                 )
             );
-            $args['expired'] = $meta_queries;
+    
 
             if ($has_featured) {
 
@@ -1610,7 +1610,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     )
 
                 );
-                $args['expired'] = $meta_queries;
+        
                 if ($has_featured) {
 
                     if ('_featured' == $atts['filterby']) {
@@ -2117,7 +2117,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     )
 
                 );
-                $args['expired'] = $meta_queries;
+        
                 if ($has_featured) {
 
                     if ('_featured' == $atts['filterby']) {
@@ -2539,7 +2539,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     )
 
                 );
-                $args['expired'] = $meta_queries;
+        
                 if ($has_featured) {
 
                     if ('_featured' == $atts['filterby']) {

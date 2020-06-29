@@ -4,19 +4,19 @@ if (!class_exists('ATBDP_Shortcode')):
     class ATBDP_Shortcode {
 
         public function __construct() {
-            // Search
-            add_shortcode('directorist_search_listing',  array($this, 'search_listing'));
-            add_shortcode('directorist_search_result',   array($this, 'search_result'));
-
-            // Taxonomy
-            add_shortcode('directorist_all_categories',  array($this, 'all_categories'));
-            add_shortcode('directorist_all_locations',   array($this, 'all_locations'));
-            
             // Archive
             add_shortcode('directorist_all_listing',     array($this, 'listing_archive'));
             add_shortcode('directorist_category',        array($this, 'category_archive'));
             add_shortcode('directorist_tag',             array($this, 'tag_archive'));
             add_shortcode('directorist_location',        array($this, 'location_archive'));
+
+            // Taxonomy
+            add_shortcode('directorist_all_categories',  array($this, 'all_categories'));
+            add_shortcode('directorist_all_locations',   array($this, 'all_locations'));
+            
+            // Search
+            add_shortcode('directorist_search_listing',  array($this, 'search_listing'));
+            add_shortcode('directorist_search_result',   array($this, 'search_result'));
             
             // Single
             add_shortcode('directorist_listing_top_area',             array($this, 'directorist_listing_header' ));
@@ -52,73 +52,6 @@ if (!class_exists('ATBDP_Shortcode')):
             add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
         }
 
-        // listing header area
-        public function directorist_listing_header() {
-            $listing = new Directorist_Single_Listing();
-            return $listing->render_shortcode_top_area();
-        }
-
-        // listing custom tags
-        public function directorist_tags() {
-            $listing = new Directorist_Single_Listing();
-            return $listing->render_shortcode_tags();
-        }
-
-        // listing custom fields area
-        public function directorist_custom_field() {
-            $listing = new Directorist_Single_Listing();
-            return $listing->render_shortcode_custom_fields();
-        }
-
-        //listing video area
-        public function directorist_listing_video() {
-            $listing = new Directorist_Single_Listing();
-            return $listing->render_shortcode_video();
-        }
-
-        //listing map area
-        public function directorist_listing_map() {
-            $listing = new Directorist_Single_Listing();
-            return $listing->render_shortcode_map();
-        }
-
-        //listing contact information area
-        public function directorist_listing_contact_information() {
-            $listing = new Directorist_Single_Listing();
-            return $listing->render_shortcode_contact_information();
-        }
-
-        //listing author details
-        public function directorist_listing_author_details() {
-            $listing = new Directorist_Single_Listing();
-            return $listing->render_shortcode_author_info();
-        }
-
-        //listing contact owner area
-        public function directorist_listing_contact_owner() {
-            $listing = new Directorist_Single_Listing();
-            return $listing->render_shortcode_contact_owner();
-        }
-
-        //listing review area
-        public function directorist_listing_review() {
-            $listing = new Directorist_Single_Listing();
-            return $listing->render_shortcode_listing_review();
-        }
-        
-        //related listing area
-        public function directorist_related_listings() {
-            $listing = new Directorist_Single_Listing();
-            return $listing->render_shortcode_related_listings();
-            // @todo @kowsar filter=atbdp_related_listing_template in "Post Your Need" extention
-        }
-
-        public function search_result($atts) {
-            $listings = new Directorist_Listings( $atts, 'search' );
-            return $listings->render_shortcode();
-            // @todo @kowsar 'Post_Your_Need' template file - atbdp_get_theme_file("/directorist/shortcodes/listings/extension/post-your-need/need-card.php")
-        }
-
         public function listing_archive( $atts ) {
             $listings = new Directorist_Listings($atts);
             return $listings->render_shortcode();
@@ -145,11 +78,6 @@ if (!class_exists('ATBDP_Shortcode')):
             return $this->listing_archive( $atts );
         }
 
-        public function user_dashboard($atts) {
-            $dashboard = new Directorist_Listing_Dashboard();
-            return $dashboard->render_shortcode_user_dashboard($atts);
-        }
-
         public function all_categories($atts) {
             $taxonomy  = new Directorist_Listing_Taxonomy($atts, 'category');
             return $taxonomy->render_shortcode();
@@ -165,9 +93,71 @@ if (!class_exists('ATBDP_Shortcode')):
             return $searchform->render_search_shortcode();
         }
 
+        public function search_result($atts) {
+            $listings = new Directorist_Listings( $atts, 'search' );
+            return $listings->render_shortcode();
+            // @todo @kowsar 'Post_Your_Need' template file - atbdp_get_theme_file("/directorist/shortcodes/listings/extension/post-your-need/need-card.php")
+        }
+
+        public function directorist_listing_header() {
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_top_area();
+        }
+
+        public function directorist_tags() {
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_tags();
+        }
+
+        public function directorist_custom_field() {
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_custom_fields();
+        }
+
+        public function directorist_listing_video() {
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_video();
+        }
+
+        public function directorist_listing_map() {
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_map();
+        }
+
+        public function directorist_listing_contact_information() {
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_contact_information();
+        }
+
+        public function directorist_listing_author_details() {
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_author_info();
+        }
+
+        public function directorist_listing_contact_owner() {
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_contact_owner();
+        }
+
+        public function directorist_listing_review() {
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_listing_review();
+        }
+        
+        public function directorist_related_listings() {
+            $listing = new Directorist_Single_Listing();
+            return $listing->render_shortcode_related_listings();
+            // @todo @kowsar filter=atbdp_related_listing_template in "Post Your Need" extention
+        }
+
         public function author_profile($atts) {
             $author = new Directorist_Listing_Author();
             return $author->render_shortcode_author_profile($atts);
+        }
+
+        public function user_dashboard($atts) {
+            $dashboard = new Directorist_Listing_Dashboard();
+            return $dashboard->render_shortcode_user_dashboard($atts);
         }
 
         public function add_listing($atts) {
@@ -175,14 +165,14 @@ if (!class_exists('ATBDP_Shortcode')):
             return $forms->render_shortcode_add_listing($atts);
         }
 
-        public function custom_user_login() {
-            $forms = new Directorist_Listing_Forms();
-            return $forms->render_shortcode_user_login();
-        }
-
         public function user_registration() {
             $forms = new Directorist_Listing_Forms();
             return $forms->render_shortcode_custom_registration();
+        }
+
+        public function custom_user_login() {
+            $forms = new Directorist_Listing_Forms();
+            return $forms->render_shortcode_user_login();
         }
 
         public function ajax_callback_custom_fields($post_id = 0, $term_id = array()) {

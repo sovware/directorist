@@ -54,7 +54,7 @@ wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
         }
         if(!empty($listing_img[0])) {
 
-            $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];;
+            $default_img = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $crop_width, $crop_height, true, 100)['url'];
             $gallery_img = atbdp_get_image_source($listing_img[0], 'medium');
 
         }

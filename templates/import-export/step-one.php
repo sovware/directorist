@@ -58,6 +58,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<label for="directorist-importer-update-existing"><?php esc_html_e( 'Existing listings that match by ID will be updated. listings that do not exist will be skipped.', 'directorist' ); ?></label>
 					</td>
 				</tr>
+				<tr>
+					<th><label><?php esc_html_e( 'CSV Delimiter', 'directorist' ); ?></label><br/></th>
+					<td><input type="text" name="delimiter" placeholder="," size="2" /></td>
+				</tr>
 			</tbody>
 		</table>
 	</section>

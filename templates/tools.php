@@ -27,11 +27,11 @@ $url = admin_url() . 'edit.php?post_type=at_biz_dir&page=tools&tab=csv_import';
 <?php
 $steps = isset( $_GET['step'] ) ? sanitize_key( $_GET['step'] ) : '';
 if(!$steps){
-	ATBDP()->load_template('import-export/stepOne');
+	ATBDP()->load_template('import-export/step-one');
 }elseif('2' == $steps){
-	ATBDP()->load_template('import-export/stepTwo', $args);
+	ATBDP()->load_template('import-export/step-two', $args);
 }elseif('3' == $steps){
-	ATBDP()->load_template('import-export/stepThree');
+	ATBDP()->load_template('import-export/step-three');
 }
 }
  if ( 'csv_export' == $current_tab ){ 

@@ -9,19 +9,56 @@ if (!class_exists('ATBDP_Tools')) :
     class ATBDP_Tools
     {
 
+
+        /**
+         * The path to the current file.
+         *
+         * @var string
+         */
+        protected $file = '';
+
+        /**
+         * Whether to skip existing products.
+         *
+         * @var bool
+         */
+        protected $update_existing = false;
+
+        /**
+         * The current delimiter for the file being read.
+         *
+         * @var string
+         */
+        protected $delimiter = ',';
+
+
         public function __construct()
         {
             add_action('admin_menu', array($this, 'add_tools_submenu'), 10);
             add_action('admin_init', array($this, 'atbdp_csv_import_controller'));
+            $this->file            = isset( $_REQUEST['file'] ) ? wp_unslash( $_REQUEST['file'] ) : '';
+            $this->update_existing = isset($_REQUEST['update_existing']) ? (bool) $_REQUEST['update_existing'] : false;
+            $this->delimiter       = !empty($_REQUEST['delimiter']) ? wp_unslash($_REQUEST['delimiter']) : ',';
+            
+            add_action('wp_ajax_atbdp_import_listing', array($this, 'atbdp_import_listing'));
+
+        }
+
+
+        public function atbdp_import_listing(){
+            wp_send_json('tes');
         }
 
 
         public function atbdp_csv_import_controller()
         {
+            // Displaying this page triggers Ajax action to run the import with a valid nonce,
+            // therefore this page needs to be nonce protected as well.
             // step one
-            
-           // var_dump(admin_url());
+
+            // var_dump(admin_url());
             if (isset($_POST['atbdp_save_csv_step'])) {
+                check_admin_referer('directorist-csv-importer');
                 // redirect to step two || data mapping
                 $file = wp_import_handle_upload();
                 $file = $file['file'];
@@ -29,15 +66,43 @@ if (!class_exists('ATBDP_Tools')) :
 
                 $params = array(
                     'step'            => 2,
-                    'file'            => str_replace( DIRECTORY_SEPARATOR, '/', $file ),
-                    // 'delimiter'       => $this->delimiter,
-                    // 'update_existing' => $this->update_existing,
+                    'file'            => str_replace(DIRECTORY_SEPARATOR, '/', $file),
+                    'delimiter'       => $this->delimiter,
+                    'update_existing' => $this->update_existing,
                     // 'map_preferences' => $this->map_preferences,
-                    // '_wpnonce'        => wp_create_nonce( 'woocommerce-csv-importer' ), // wp_nonce_url() escapes & to &amp; breaking redirects.
+                    // '_wpnonce'        => wp_create_nonce( 'directorist-csv-importer' ), // wp_nonce_url() escapes & to &amp; breaking redirects.
                 );
+                wp_safe_redirect(add_query_arg($params, $url));
+            }
 
 
-                    wp_safe_redirect( add_query_arg( $params, $url) );
+            if (isset($_POST['save_step_two'])) {
+                check_admin_referer('directorist-csv-importer');
+                if (!empty($_POST['map_from']) && !empty($_POST['map_to'])) {
+                    $mapping_from = wc_clean(wp_unslash($_POST['map_from']));
+                    $mapping_to   = wc_clean(wp_unslash($_POST['map_to']));
+                    // Save mapping preferences for future imports.
+                    update_user_option(get_current_user_id(), 'directorist_product_import_mapping', $mapping_to);
+                }
+
+                wp_localize_script(
+                    'atbdp-import-export',
+                    'wc_product_import_params',
+                    array(
+                        'import_nonce'    => wp_create_nonce('atbdp-import-export'),
+                        'ajaxurl'        => admin_url( 'admin-ajax.php' ),
+                        'mapping'         => array(
+                            'from' => $mapping_from,
+                            'to'   => $mapping_to,
+                        ),
+                        'file'            => $this->file,
+                        'update_existing' => $this->update_existing,
+                        'delimiter'       => $this->delimiter,
+                    )
+                );
+                wp_enqueue_script('atbdp-import-export');
+
+                ATBDP()->load_template('import-export/import-progress');
             }
 
 
@@ -96,31 +161,31 @@ if (!class_exists('ATBDP_Tools')) :
             $errors = array();
             // Get array of CSV files
             // $files_ = glob(ATBDP_TEMPLATES_DIR . "/import-export/data/*.csv");
-            
-            $file = isset($_GET['file']) ? wp_unslash($_GET['file']) : array();
-           // $files = $_FILES['import'];
-                // Attempt to change permissions if not readable
-                if (!is_readable($file)) {
-                    chmod($file, 0744);
-                }
-                // Check if file is writable, then open it in 'read only' mode
-                if (is_readable($file) && $_file = fopen($file, "r")) {
-                    // To sum this part up, all it really does is go row by
-                    //  row, column by column, saving all the data
-                    $post = array();
-                    // Get first row in CSV, which is of course the headers
-                    $header = fgetcsv($_file);
-                    //return $header;
-                    while ($row = fgetcsv($_file)) {
-                        foreach ($header as $i => $key) {
-                            $post[$key] = $row[$i];
-                        }
-                        $data = $post;
+            $file = isset($_GET['file']) ? wp_unslash($_GET['file']) : '';
+            if (!$file) return;
+            // $files = $_FILES['import'];
+            // Attempt to change permissions if not readable
+            if (!is_readable($file)) {
+                chmod($file, 0744);
+            }
+            // Check if file is writable, then open it in 'read only' mode
+            if (is_readable($file) && $_file = fopen($file, "r")) {
+                // To sum this part up, all it really does is go row by
+                //  row, column by column, saving all the data
+                $post = array();
+                // Get first row in CSV, which is of course the headers
+                $header = fgetcsv($_file);
+                //return $header;
+                while ($row = fgetcsv($_file)) {
+                    foreach ($header as $i => $key) {
+                        $post[$key] = $row[$i];
                     }
-                    fclose($_file);
-                } else {
-                    $errors[] = "File '$file' could not be opened. Check the file's permissions to make sure it's readable by your server.";
+                    $data = $post;
                 }
+                fclose($_file);
+            } else {
+                $errors[] = "File '$file' could not be opened. Check the file's permissions to make sure it's readable by your server.";
+            }
             if (!empty($errors)) {
                 // ... do stuff with the errors
             }
@@ -130,6 +195,7 @@ if (!class_exists('ATBDP_Tools')) :
         private function importable_fields()
         {
             return apply_filters('atbdp_csv_listing_import_mapping_default_columns', array(
+                'id'                => __('ID', 'directorist'),
                 'title'             => __('Title', 'directorist'),
                 'description'       => __('Description', 'directorist'),
                 'tagline'           => __('Tagline', 'directorist'),

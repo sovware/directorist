@@ -6,5 +6,5 @@
  */
 ?>
 <div class="atbd_add_listing_title">
-	<h2><?php _e('My Dashboard', 'directorist'); ?></h2>
+	<h2><?php esc_html_e('My Dashboard', 'directorist'); ?></h2>
 </div>

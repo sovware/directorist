@@ -11,11 +11,8 @@ class Directorist_Listing_Dashboard {
 
     public $id;
 
-    public function __construct( $id = '' ) {
-        if ( ! $id ) {
-            $id = get_current_user_id();
-        }
-        $this->id = $id;
+    public function __construct() {
+        $this->id = get_current_user_id();
     }
 
     public function get_id() {
@@ -71,7 +68,7 @@ class Directorist_Listing_Dashboard {
 
         $fav_listings = ATBDP()->user->current_user_fav_listings();
 
-        if ( is_array( $fav_listings ) && count( $fav_listings ) ):
+        if ( $fav_listings->have_posts() ):
             foreach ( $fav_listings->posts as $post ) {
                 $title         = ! empty( $post->post_title ) ? $post->post_title : __( 'Untitled', 'directorist' );
                 $cats          = get_the_terms( $post->ID, ATBDP_CATEGORY );
@@ -168,6 +165,15 @@ class Directorist_Listing_Dashboard {
         return apply_filters( 'atbdp_dashboard_tabs', $dashboard_tabs );
     }
 
+    public function error_message_template() {
+    	$login_link_html = apply_filters('atbdp_user_dashboard_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . "</a>");
+    	$signup_link_html = apply_filters('atbdp_user_dashboard_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>");
+        $args = array(
+            'error_message' => sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), $login_link_html, $signup_link_html),
+        );
+        return atbdp_return_shortcode_template( 'dashboard/error-message', $args );
+    }
+
     public function render_shortcode_user_dashboard($atts) {
 
         $atts = shortcode_atts(array(
@@ -176,25 +182,19 @@ class Directorist_Listing_Dashboard {
 
         $this->enqueue_scripts();
 
-        ob_start();
-
         // show user dashboard if the user is logged in, else kick him out of this page or show a message
         if (!atbdp_logged_in_user()) {
-            // user not logged in;
-            atbdp_get_shortcode_template( 'dashboard/error-message' );
-            return ob_get_clean();
+            return $this->error_message_template();
         }
 
         ATBDP()->enquirer->front_end_enqueue_scripts(true); // all front end scripts forcibly here
 
-        $show_title      = ! empty( $atts['show_title'] ) ? $atts['show_title'] : '';
+        $display_title   = $atts['show_title'] == 'yes' ? true : false;
         $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
         $container_fluid = apply_filters( 'atbdp_deshboard_container_fluid', $container_fluid );
 
         /*@todo; later show featured listing first on the user dashboard maybe??? */
 
-        atbdp_get_shortcode_template( 'dashboard/user-dashboard', compact('show_title','container_fluid') );
-
-        return ob_get_clean();
+        return atbdp_return_shortcode_template( 'dashboard/user-dashboard', compact('display_title','container_fluid') );
     }
 }

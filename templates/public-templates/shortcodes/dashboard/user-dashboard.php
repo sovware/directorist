@@ -9,49 +9,44 @@
 
     <?php
     /**
-     * @hooked Directorist_Template_Hooks::dashboard_alert_message - 10
+     * @hooked Directorist_Template_Hooks::dashboard_alert_message_template - 10
      */
     do_action( 'directorist_dashboard_before_container' );
     ?>
 
     <div class="<?php echo esc_attr( $container_fluid ); ?>">
-        <div class="row">
-            <div class="col-md-12">
+        <?php
+        /**
+         * @since 7.0
+         * @hooked Directorist_Template_Hooks::dashboard_title - 10
+         */
+        do_action( 'directorist_dashboard_title_area', $display_title );
+        ?>
+
+        <div class="atbd_dashboard_wrapper atbd_tab">
+            <div class="atbd_user_dashboard_nav atbd_tab_nav">
 
                 <?php
                 /**
                  * @since 7.0
-                 * @hooked Directorist_Template_Hooks::dashboard_title - 10
+                 * @hooked Directorist_Template_Hooks::dashboard_nav_tabs_template - 10
+                 * @hooked Directorist_Template_Hooks::dashboard_nav_buttons_template - 15
                  */
-                do_action( 'directorist_dashboard_title_area', $show_title );
+                do_action( 'directorist_dashboard_navigation');
                 ?>
 
-                <div class="atbd_dashboard_wrapper atbd_tab">
-                    <div class="atbd_user_dashboard_nav atbd_tab_nav">
+            </div>
 
-                        <?php
-                        /**
-                         * @since 7.0
-                         * @hooked Directorist_Template_Hooks::dashboard_nav_tabs - 10
-                         * @hooked Directorist_Template_Hooks::dashboard_nav_buttons - 15
-                         */
-                        do_action( 'directorist_dashboard_navigation');
-                        ?>
+            <div class="atbd_tab-content">
 
-                    </div>
-
-                    <div class="atbd_tab-content">
-
-                        <?php
-                        /**
-                         * @since 7.0
-                         * @hooked Directorist_Template_Hooks::dashboard_tab_contents - 10
-                         */
-                        do_action( 'directorist_dashboard_tab_contents');
-                        ?>
-                        
-                    </div>
-                </div>
+                <?php
+                /**
+                 * @since 7.0
+                 * @hooked Directorist_Template_Hooks::dashboard_tab_contents_html - 10
+                 */
+                do_action( 'directorist_dashboard_tab_contents');
+                ?>
+                
             </div>
         </div>
     </div>

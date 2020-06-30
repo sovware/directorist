@@ -1414,6 +1414,10 @@ class Directorist_Listings {
 		return apply_filters('atbdp_total_listings_found_text', "<h3>{$title}</h3>", $title);
 	}
 
+	public function masonary_grid_attr() {
+		return ($this->view_as !== 'masonry_grid') ? '' : ' data-uk-grid';
+	}
+
 	public function loop_get_address_from_locaton() {
 		$local_names = array();
 		foreach ($this->loop['locs'] as $term) {

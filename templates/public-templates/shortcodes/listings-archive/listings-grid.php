@@ -33,11 +33,9 @@ do_action('atbdp_before_all_listings_grid', $listings);
         if ($listings->action_before_after_loop) {
             do_action('atbdp_before_grid_listings_loop');
         }
-
-        $row_container = ($listings->view_as !== 'masonry_grid') ? '' : ' data-uk-grid';
         ?>
 
-        <div class="row<?php echo esc_attr($row_container); ?>">
+        <div class="row"<?php echo esc_attr($listings->masonary_grid_attr()); ?>>
 
         	<?php
         	if ($listings->query->have_posts()) {

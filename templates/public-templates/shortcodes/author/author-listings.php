@@ -41,7 +41,7 @@
 </div>
 <div class="atbd_authors_listing">
 	<?php if ($display_listings) { ?>
-		<div class="row" <?php echo (get_directorist_option('grid_view_as', 'normal_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
+		<div class="row"<?php echo esc_attr($listings->masonary_grid_attr()); ?>>
 			<?php
 			if ($listings->query->have_posts()) {
 				$listings->loop_template('grid');
@@ -50,11 +50,12 @@
 				<p class="atbdp_nlf"><?php esc_html_e('No listing found.', 'directorist'); ?></p>
 				<?php
 			}
-
-			if ( $display_pagination ) {
-				echo atbdp_pagination($listings->query, atbdp_get_paged_num());
-			}
 			?>
 		</div>
-	<?php } ?>
+		<?php
+		if ( $display_pagination ) {
+			echo atbdp_pagination($listings->query, atbdp_get_paged_num());
+		}
+	}
+	?>
 </div>

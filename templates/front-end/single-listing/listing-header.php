@@ -118,6 +118,12 @@ do_action('atbdp_before_listing_section');
         <?php } ?>
         <?php
         $listing_header = '<div class="atbd_listing_action_area">';
+
+        /**
+         * @since 6.4.4
+         */
+        $listing_header .= do_action( 'atbdp_single_listing_before_favourite_icon' );
+
         if ($enable_favourite) {
             $listing_header .= '<div class="atbd_action atbd_save" id="atbdp-favourites">' . the_atbdp_favourites_link() . '</div>';
         }

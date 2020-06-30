@@ -2526,6 +2526,11 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                     $l_badge_html .= '</span>';
 
                                     /**
+                                     * @since 6.4.4
+                                     */
+                                    do_action( 'atbdp_author_listings_before_favourite_icon' );
+
+                                    /**
                                      * @since 5.0
                                      */
                                     echo apply_filters('atbdp_grid_lower_badges', $l_badge_html);
@@ -2960,6 +2965,11 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                         //print the new badge
                                         $l_badge_html .= new_badge();
                                         $l_badge_html .= '</span>';
+
+                                        /**
+                                         * @since 6.4.4
+                                         */
+                                        do_action( 'atbdp_related_post_before_lower_badge' );
 
                                         /**
                                          * @since 5.0
@@ -3505,6 +3515,12 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                             href="<?php the_permalink(); ?>"><?php printf(__(' %s', 'directorist'), $readmore_text); ?></a></p>
                                         <?php }
                                     }
+
+                                    /**
+                                     * @since 6.4.4
+                                     */
+                                    do_action( 'atbdp_all_list_listings_before_favourite_icon' );
+
                                     if (!empty($display_mark_as_fav)) {
                                         $mark_as_fav_for_list_view = apply_filters('atbdp_mark_as_fav_for_list_view', atbdp_listings_mark_as_favourite(get_the_ID()));
                                         echo $mark_as_fav_for_list_view;

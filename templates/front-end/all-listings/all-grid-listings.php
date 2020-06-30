@@ -217,6 +217,11 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                     $l_badge_html .= '</span>';
 
                                     /**
+                                     * @since 6.4.4
+                                     */
+                                    do_action( 'atbdp_all_grid_listings_before_favourite_icon' );
+                                    
+                                    /**
                                      * @since 5.0
                                      */
                                     echo apply_filters('atbdp_grid_lower_badges', $l_badge_html);

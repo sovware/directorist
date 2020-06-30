@@ -571,6 +571,70 @@ class Directorist_Single_Listing {
         return atbdp_return_shortcode_template( 'single-listing/listing-review', $args );
     }
 
+    public function related_listings_query() {
+        $id = get_the_ID();
+        $rel_listing_num = get_directorist_option('rel_listing_num', 2);
+        $atbd_cats = get_the_terms($id, ATBDP_CATEGORY);
+        $atbd_tags = get_the_terms($id, ATBDP_TAGS);
+        $atbd_cats_ids = array();
+        $atbd_tags_ids = array();
+
+        if (!empty($atbd_cats)) {
+            foreach ($atbd_cats as $atbd_cat) {
+                $atbd_cats_ids[] = $atbd_cat->term_id;
+            }
+        }
+        if (!empty($atbd_tags)) {
+            foreach ($atbd_tags as $atbd_tag) {
+                $atbd_tags_ids[] = $atbd_tag->term_id;
+            }
+        }
+        $relationship = get_directorist_option('rel_listings_logic','OR');
+        $args = array(
+            'post_type' => ATBDP_POST_TYPE,
+            'tax_query' => array(
+                'relation' => $relationship,
+                array(
+                    'taxonomy' => ATBDP_CATEGORY,
+                    'field' => 'term_id',
+                    'terms' => $atbd_cats_ids,
+                ),
+                array(
+                    'taxonomy' => ATBDP_TAGS,
+                    'field' => 'term_id',
+                    'terms' => $atbd_tags_ids,
+                ),
+            ),
+            'posts_per_page' => (int)$rel_listing_num,
+            'post__not_in' => array($id),
+        );
+
+        $meta_queries = array();
+        $meta_queries[] = array(
+            'relation' => 'OR',
+            array(
+                'key' => '_expiry_date',
+                'value' => current_time('mysql'),
+                'compare' => '>',
+                'type' => 'DATETIME'
+            ),
+            array(
+                'key' => '_never_expire',
+                'value' => 1,
+            )
+        );
+
+        $meta_queries = apply_filters('atbdp_related_listings_meta_queries', $meta_queries);
+        $count_meta_queries = count($meta_queries);
+        if ($count_meta_queries) {
+            $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
+        }
+
+        $args    = apply_filters( 'atbdp_related_listing_args', $args );
+        $query = new WP_Query( $args );
+        return $query;
+    }
+
     public function render_shortcode_related_listings() {
         if ( !is_singular( ATBDP_POST_TYPE ) ) {
             return;
@@ -591,8 +655,10 @@ class Directorist_Single_Listing {
         
         wp_enqueue_script('atbdp-related-listings-slider');
         wp_localize_script( 'atbdp-related-listings-slider', 'data', $localized_data );
+
+        $query = $this->related_listings_query();
         
-        $listings = new Directorist_Listings(array(), 'related');
+        $listings = new Directorist_Listings(array(), 'related', $query);
         $args = array(
             'listings' => $listings,
             'class'    => is_directoria_active() ? 'containere' : 'containess-fluid',

@@ -205,15 +205,29 @@ class Directorist_Template_Hooks {
 
     public static function author_profile_header() {
         $author = new Directorist_Listing_Author();
-        $author_id = $author->get_id();
+        $author_id = $author->id;
+
+        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
+        $avatar_img = empty($u_pro_pic) ? get_avatar($author_id, apply_filters('atbdp_avatar_size', 96)) : sprintf('<img src="%s" alt="%s" >', esc_url($u_pro_pic[0]), __('Author Image', 'directorist'));
+
+        $user_registered = get_the_author_meta('user_registered', $author_id);
+        $member_since_text = sprintf(__('Member since %s ago', 'directorist'), human_time_diff(strtotime($user_registered), current_time('timestamp')));
+
+        $review_count = $author->get_review_count();
+        $review_count_html = sprintf( _nx( '<span>%s</span>Review', '<span>%s</span>Reviews', $review_count, 'author review count', 'directorist' ), $review_count );
+
+        $listing_count = $author->get_total_listing_number();
+        $listing_count_html = sprintf( _nx( '<span>%s</span>Listing', '<span>%s</span>Listings', $listing_count, 'author review count', 'directorist' ), $listing_count );
 
         $args = array(
-            'author'          => $author,
-            'u_pro_pic'       => get_user_meta($author_id, 'pro_pic', true),
-            'avatar_img'      => get_avatar($author_id, apply_filters('atbdp_avatar_size', 96)),
-            'author_name'     => get_the_author_meta('display_name', $author_id),
-            'user_registered' => get_the_author_meta('user_registered', $author_id),
-            'enable_review'   => get_directorist_option('enable_review', 1),
+            'author'             => $author,
+            'avatar_img'         => $avatar_img,
+            'author_name'        => get_the_author_meta('display_name', $author_id),
+            'member_since_text'  => $member_since_text,
+            'enable_review'      => get_directorist_option('enable_review', 1),
+            'rating_count'       => $author->get_rating(),
+            'review_count_html'  => $review_count_html,
+            'listing_count_html' => $listing_count_html,
         );
 
         atbdp_get_shortcode_template( 'author/author-header', $args );
@@ -221,23 +235,35 @@ class Directorist_Template_Hooks {
 
     public static function author_profile_about() {
         $author = new Directorist_Listing_Author();
-        $author_id = $author->get_id();
+        $author_id = $author->id;
 
         $bio = get_user_meta($author_id, 'description', true);
+        $bio = trim( $bio );
+
+        $display_email = get_directorist_option('display_author_email', 'public');
+
+        if ( $display_email == 'public' ) {
+            $email_endabled = true;
+        }
+        elseif ( $display_email == 'logged_in' && atbdp_logged_in_user() ) {
+            $email_endabled = true;
+        }
+        else {
+            $email_endabled = false;
+        }
 
         $args = array(
-            'author'       => $author,
-            'bio'          => $bio,
-            'content'      => apply_filters('the_content', $bio),
-            'address'      => get_user_meta($author_id, 'address', true),
-            'phone'        => get_user_meta($author_id, 'phone', true),
-            'email_show'   => get_directorist_option('display_author_email', 'public'),
-            'email'        => get_the_author_meta('user_email', $author_id),
-            'website'      => get_the_author_meta('user_url', $author_id),
-            'facebook'     => get_user_meta($author_id, 'atbdp_facebook', true),
-            'twitter'      => get_user_meta($author_id, 'atbdp_twitter', true),
-            'linkedIn'     => get_user_meta($author_id, 'atbdp_linkedin', true),
-            'youtube'      => get_user_meta($author_id, 'youtube', true),
+            'author'         => $author,
+            'bio'            => $bio,
+            'address'        => get_user_meta($author_id, 'address', true),
+            'phone'          => get_user_meta($author_id, 'atbdp_phone', true),
+            'email_endabled' => $email_endabled,
+            'email'          => get_the_author_meta('user_email', $author_id),
+            'website'        => get_the_author_meta('user_url', $author_id),
+            'facebook'       => get_user_meta($author_id, 'atbdp_facebook', true),
+            'twitter'        => get_user_meta($author_id, 'atbdp_twitter', true),
+            'linkedIn'       => get_user_meta($author_id, 'atbdp_linkedin', true),
+            'youtube'        => get_user_meta($author_id, 'youtube', true),
         );
 
         atbdp_get_shortcode_template( 'author/author-about', $args );
@@ -245,17 +271,16 @@ class Directorist_Template_Hooks {
 
     public static function author_profile_listings() {
         $author = new Directorist_Listing_Author();
-        $author_id = $author->get_id();
 
         $args = array(
-            'author'             => $author,
-            'header_title'       => apply_filters('atbdp_author_listings_header_title', 1),
-            'author_cat_filter'  => get_directorist_option('author_cat_filter',1),
-            'categories'         => get_terms(ATBDP_CATEGORY, array('hide_empty' => 0)),
-            'listings'           => apply_filters('atbdp_author_listings', true),
-            'all_listings'       => $author->all_listings_query(),
-            'paginate'           => get_directorist_option('paginate_author_listings', 1),
-            'is_disable_price'   => get_directorist_option('disable_list_price'),
+            'author'               => $author,
+            'display_title'        => apply_filters('atbdp_author_listings_header_title', true),
+            'display_cat_filter'   => get_directorist_option('author_cat_filter',1),
+            'display_listings'     => apply_filters('atbdp_author_listings', true),
+            'categories'           => get_terms(ATBDP_CATEGORY, array('hide_empty' => 0)),
+            'all_listings'         => $author->all_listings_query(),
+            'paginate'             => get_directorist_option('paginate_author_listings', 1),
+            'is_disable_price'     => get_directorist_option('disable_list_price'),
         );
 
         atbdp_get_shortcode_template( 'author/author-listings', $args );

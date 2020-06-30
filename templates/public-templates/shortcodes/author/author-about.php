@@ -11,75 +11,50 @@
             <div class="atbd_content_module">
                 <div class="atbd_content_module_title_area">
                     <div class="atbd_area_title">
-                        <h4>
-                            <span class="<?php atbdp_icon_type(true); ?>-user"></span><?php _e('About', 'directorist'); ?>
-                        </h4>
+                        <h4><span class="<?php atbdp_icon_type(true); ?>-user"></span><?php esc_html_e('About', 'directorist'); ?></h4>
                     </div>
                 </div>
 
                 <div class="atbdb_content_module_contents">
-                    <p>
-                        <?php
-                        echo !empty($bio) ? $content : __('Nothing to show!', 'directorist');
-                        ?>
-                    </p>
-
+                    <p><?php echo $bio ? wp_kses_post( $bio ) : esc_html__('Nothing to show!', 'directorist');?></p>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-4">
         <div class="widget atbd_widget">
-            <div class="atbd_widget_title"><h4><?php _e('Contact Info', 'directorist'); ?></h4></div>
+            <div class="atbd_widget_title"><h4><?php esc_html_e('Contact Info', 'directorist'); ?></h4></div>
             <div class="atbdp atbd_author_info_widget">
                 <div class="atbd_widget_contact_info">
                     <ul>
-                        <?php
-                        if (!empty($address)) {
-                            ?>
+                        <?php if ($address) { ?>
                             <li>
                                 <span class="<?php atbdp_icon_type(true); ?>-map-marker"></span>
-                                <span class="atbd_info"><?php echo !empty($address) ? esc_html($address) : ''; ?></span>
+                                <span class="atbd_info"><?php echo esc_html($address); ?></span>
                             </li>
                             <?php
-                        }
-                        if (!empty($phone)) {
-                            ?>
-                            <!-- In Future, We will have to use a loop to print more than 1 number-->
-                            <li>
-                                <span class="<?php atbdp_icon_type(true); ?>-phone"></span>
-                                <span class="atbd_info"><a
-                                            href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a></span>
-                            </li>
-                            <?php
-                        }
-                        if ('public' === $email_show) {
-                            if (!empty($email)) {
-                                ?>
-                                <li>
-                                    <span class="<?php atbdp_icon_type(true); ?>-envelope"></span>
-                                    <span class="atbd_info"><?php echo !empty($email) ? esc_html($email) : ''; ?></span>
-                                </li>
-                                <?php
-                            }
-                        } elseif ('logged_in' === $email_show) {
-                            if (atbdp_logged_in_user()) {
-                                if (!empty($email)) {
-                                    ?>
-                                    <li>
-                                        <span class="<?php atbdp_icon_type(true); ?>-envelope"></span>
-                                        <span class="atbd_info"><?php echo !empty($email) ? esc_html($email) : ''; ?></span>
-                                    </li>
-                                    <?php
-                                }
-                            }
                         }
 
-                        if (!empty($website)) {
-                            ?>
+                        if ($phone) { ?>
+                            <li>
+                                <span class="<?php atbdp_icon_type(true); ?>-phone"></span>
+                                <span class="atbd_info"><a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $phone ); ?>"><?php echo esc_html($phone); ?></a></span>
+                            </li>
+                            <?php
+                        }
+
+                        if ($email_endabled && $email) { ?>
+                            <li>
+                                <span class="<?php atbdp_icon_type(true); ?>-envelope"></span>
+                                <span class="atbd_info"><?php echo esc_html($email); ?></span>
+                            </li>
+                            <?php
+                        }
+
+                        if ($website) { ?>
                             <li>
                                 <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
-                                <span class="atbd_info"><a target="_blank" href="<?php echo !empty($website) ? esc_html($website) : ''; ?>"><?php echo !empty($website) ? esc_html($website) : ''; ?></a></span>
+                                <span class="atbd_info"><a target="_blank" href="<?php echo esc_url($website); ?>"><?php echo esc_html($website); ?></a></span>
                             </li>
                             <?php
                         }
@@ -87,21 +62,21 @@
                     </ul>
                 </div>
                 <?php
-                if (!empty($facebook || $twitter || $linkedIn || $youtube)) {
+                if ($facebook || $twitter || $linkedIn || $youtube) {
                     ?>
                     <div class="atbd_social_wrap">
                         <?php
                         if ($facebook) {
-                            printf('<p><a target="_blank" href="%s"><span class="' . atbdp_icon_type() . '-facebook"></span></a></p>', $facebook);
+                            printf('<p><a target="_blank" href="%s"><span class="' . atbdp_icon_type() . '-facebook"></span></a></p>', esc_url($facebook));
                         }
                         if ($twitter) {
-                            printf('<p><a target="_blank" href="%s"><span class="' . atbdp_icon_type() . '-twitter"></span></a></p>', $twitter);
+                            printf('<p><a target="_blank" href="%s"><span class="' . atbdp_icon_type() . '-twitter"></span></a></p>', esc_url($twitter));
                         }
                         if ($linkedIn) {
-                            printf('<p><a target="_blank" href="%s"><span class="' . atbdp_icon_type() . '-linkedin"></span></a></p>', $linkedIn);
+                            printf('<p><a target="_blank" href="%s"><span class="' . atbdp_icon_type() . '-linkedin"></span></a></p>', esc_url($linkedIn));
                         }
                         if ($youtube) {
-                            printf('<p><a target="_blank" href="%s"><span class="' . atbdp_icon_type() . '-youtube"></span></a></p>', $youtube);
+                            printf('<p><a target="_blank" href="%s"><span class="' . atbdp_icon_type() . '-youtube"></span></a></p>', esc_url($youtube));
                         }
                         ?>
                     </div>

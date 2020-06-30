@@ -604,8 +604,7 @@ if ( isset( $_GET['activate'] ) ) {
 
     // sanitize_tel_attr
     public static function sanitize_tel_attr( string $tel = '', string $return_type = 'echo' ) {
-        $tel = esc_attr( stripslashes( $tel ) );
-        $tel = preg_replace( '/\s/', '', $tel );
+        $tel = preg_replace( '/\D/', '', $tel );
 
         if ( $return_type === 'return' ) {
             return $tel;

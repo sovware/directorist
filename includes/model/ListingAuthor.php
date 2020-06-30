@@ -169,11 +169,8 @@ class Directorist_Listing_Author {
             return ATBDP()->helper->guard( array('type' => 'auth') );
         }
 
-        ob_start();
         $container_fluid = apply_filters( 'atbdp_public_profile_container_fluid', 'container-fluid' );
 
-        atbdp_get_shortcode_template( 'author/author-profile', compact( 'container_fluid' ) );
-
-        return ob_get_clean();
+        return atbdp_return_shortcode_template( 'author/author-profile', compact( 'container_fluid' ) );
     }
 }

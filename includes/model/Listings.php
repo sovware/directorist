@@ -101,21 +101,23 @@ class Directorist_Listings {
     public $display_address_map;
     public $display_direction_map;
 
-	public function __construct( $atts = array(), $type = 'listing' ) {
+	public function __construct( $atts = array(), $type = 'listing', $query = false ) {
 		$this->atts = empty( $atts ) ? array() : $atts;
 		$this->type = $type;
 
 		$this->prepare_atts_data();
 		$this->prepare_data();
 
-		if ( $type == 'related' ) {
-			$this->set_related_query();
-		}
-		elseif ( $type == 'search' ) {
-			$this->set_search_query();
+		if ( $query ) {
+			$this->query = $query;
 		}
 		else {
-			$this->set_query();
+			if ( $this->type == 'search' ) {
+				$this->set_search_query();
+			}
+			else {
+				$this->set_query();
+			}
 		}
 	}
 
@@ -1001,69 +1003,6 @@ class Directorist_Listings {
 		$this->query = new WP_Query( $args );
 	}
 
-    public function set_related_query() {
-    	$id = get_the_ID();
-        $rel_listing_num = get_directorist_option('rel_listing_num', 2);
-        $atbd_cats = get_the_terms($id, ATBDP_CATEGORY);
-        $atbd_tags = get_the_terms($id, ATBDP_TAGS);
-        $atbd_cats_ids = array();
-        $atbd_tags_ids = array();
-
-        if (!empty($atbd_cats)) {
-            foreach ($atbd_cats as $atbd_cat) {
-                $atbd_cats_ids[] = $atbd_cat->term_id;
-            }
-        }
-        if (!empty($atbd_tags)) {
-            foreach ($atbd_tags as $atbd_tag) {
-                $atbd_tags_ids[] = $atbd_tag->term_id;
-            }
-        }
-        $relationship = get_directorist_option('rel_listings_logic','OR');
-        $args = array(
-            'post_type' => ATBDP_POST_TYPE,
-            'tax_query' => array(
-                'relation' => $relationship,
-                array(
-                    'taxonomy' => ATBDP_CATEGORY,
-                    'field' => 'term_id',
-                    'terms' => $atbd_cats_ids,
-                ),
-                array(
-                    'taxonomy' => ATBDP_TAGS,
-                    'field' => 'term_id',
-                    'terms' => $atbd_tags_ids,
-                ),
-            ),
-            'posts_per_page' => (int)$rel_listing_num,
-            'post__not_in' => array($id),
-        );
-
-        $meta_queries = array();
-        $meta_queries[] = array(
-            'relation' => 'OR',
-            array(
-                'key' => '_expiry_date',
-                'value' => current_time('mysql'),
-                'compare' => '>',
-                'type' => 'DATETIME'
-            ),
-            array(
-                'key' => '_never_expire',
-                'value' => 1,
-            )
-        );
-
-        $meta_queries = apply_filters('atbdp_related_listings_meta_queries', $meta_queries);
-        $count_meta_queries = count($meta_queries);
-        if ($count_meta_queries) {
-            $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
-        }
-
-		$args    = apply_filters( 'atbdp_related_listing_args', $args );
-		$this->query = new WP_Query( $args );
-    }
-
 	public function render_shortcode() {
 		wp_enqueue_script('adminmainassets');
 		wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
@@ -1178,6 +1117,10 @@ class Directorist_Listings {
 		else {
 			$this->load_openstreet_map();
 		}
+	}
+
+	public function card_template() {
+		atbdp_get_shortcode_template( "listings-archive/loop/card", array('listings' => $this) );
 	}
 
     public function load_openstreet_map() {

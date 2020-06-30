@@ -2969,7 +2969,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
 			    		/**
                                          * @since 6.4.4
                                          */
-			    		do_action( 'atbdp_related_post_compare_btn_before_lower_badge' );
+			    		do_action( 'atbdp_related_post_before_lower_badge' );
 
                                         /**
                                          * @since 5.0

@@ -218,6 +218,12 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <div class="listing-meta">
                                                                     <div class="listing-meta-content">
                                                                     <?php
+                                                                    
+                                                                    /**
+                                                                     * @since 5.0.3
+                                                                     */
+                                                                     do_action( 'atbdp_user_dashboard_compare_btn_before_expiration', $post );
+                                                
                                                                     /**
                                                                      * @since 5.0.3
                                                                      */

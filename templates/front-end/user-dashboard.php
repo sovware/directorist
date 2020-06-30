@@ -220,9 +220,9 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     <?php
                                                                     
                                                                     /**
-                                                                     * @since 5.0.3
+                                                                     * @since 6.4.4
                                                                      */
-                                                                     do_action( 'atbdp_user_dashboard_compare_btn_before_expiration', $post );
+                                                                    do_action( 'atbdp_user_dashboard_compare_btn_before_expiration', $post );
                                                 
                                                                     /**
                                                                      * @since 5.0.3

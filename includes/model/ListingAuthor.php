@@ -93,7 +93,7 @@ class Directorist_Listing_Author {
         ) );
     }
 
-    public function all_listings_query() {
+    public function author_listings_query() {
         $category = ! empty( $_GET['category'] ) ? $_GET['category'] : '';
         $paged    = atbdp_get_paged_num();
         $paginate = get_directorist_option( 'paginate_author_listings', 1 );

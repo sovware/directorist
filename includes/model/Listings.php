@@ -102,8 +102,8 @@ class Directorist_Listings {
     public $display_direction_map;
 
 	public function __construct( $atts = array(), $type = 'listing', $query = false ) {
-		$this->atts = empty( $atts ) ? array() : $atts;
-		$this->type = $type;
+		$this->atts = !empty( $atts ) ? $atts : array();
+		$this->type = !empty( $type ) ? $type : 'listing';
 
 		$this->prepare_atts_data();
 		$this->prepare_data();

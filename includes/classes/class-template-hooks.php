@@ -269,8 +269,12 @@ class Directorist_Template_Hooks {
         atbdp_get_shortcode_template( 'author/author-about', $args );
     }
 
+    // @todo @kowsar do_action('atbdp_author_listings_html', $all_listings) in "Post Your Need" ext
     public static function author_profile_listings() {
         $author = new Directorist_Listing_Author();
+
+        $query    = $author->author_listings_query();
+        $listings = new Directorist_Listings(NULL,NULL,$query);
 
         $args = array(
             'author'               => $author,
@@ -278,9 +282,8 @@ class Directorist_Template_Hooks {
             'display_cat_filter'   => get_directorist_option('author_cat_filter',1),
             'display_listings'     => apply_filters('atbdp_author_listings', true),
             'categories'           => get_terms(ATBDP_CATEGORY, array('hide_empty' => 0)),
-            'all_listings'         => $author->all_listings_query(),
-            'paginate'             => get_directorist_option('paginate_author_listings', 1),
-            'is_disable_price'     => get_directorist_option('disable_list_price'),
+            'listings'             => $listings,
+            'display_pagination'   => get_directorist_option('paginate_author_listings', 1),
         );
 
         atbdp_get_shortcode_template( 'author/author-listings', $args );

@@ -46,7 +46,17 @@ if (!class_exists('ATBDP_Tools')) :
 
 
         public function atbdp_import_listing(){
-            wp_send_json('tes');
+             // Get the data from all those CSVs!
+            $posts = $this->csv_get_data( $this->file, true );
+            foreach ($posts as $post) {
+                wp_insert_post(array(
+                    "post_title"   => $post["title"],
+                    "post_content" => $post["description"],
+                    "post_type"    => 'at_biz_dir',
+                    "post_status"  => "publish"
+                ));
+            }
+            die();
         }
 
 
@@ -108,7 +118,7 @@ if (!class_exists('ATBDP_Tools')) :
 
 
             // Get the data from all those CSVs!
-            $posts = $this->csv_get_data();
+           // $posts = $this->csv_get_data();
             // foreach ($posts as $post) {
             //     // If the post exists, skip this post and go to the next one
             //     // if ($post_exists($post["title"])) {
@@ -128,64 +138,74 @@ if (!class_exists('ATBDP_Tools')) :
         {
             $post["id"] = wp_insert_post(array(
                 "post_title"   => $post["title"],
-                "post_content" => $post["content"],
+                "post_content" => $post["description"],
                 "post_type"    => 'at_biz_dir',
                 "post_status"  => "publish"
             ));
 
-            // Get uploads dir
-            $uploads_dir = wp_upload_dir();
+            // // Get uploads dir
+            // $uploads_dir = wp_upload_dir();
 
-            // Set attachment meta
-            $attachment = array();
-            $attachment["path"] = "{$uploads_dir["baseurl"]}/sitepoint-attachments/{$post["attachment"]}";
-            $attachment["file"] = wp_check_filetype($attachment["path"]);
-            $attachment["name"] = basename($attachment["path"], ".{$attachment["file"]["ext"]}");
+            // // Set attachment meta
+            // $attachment = array();
+            // $attachment["path"] = "{$uploads_dir["baseurl"]}/sitepoint-attachments/{$post["attachment"]}";
+            // $attachment["file"] = wp_check_filetype($attachment["path"]);
+            // $attachment["name"] = basename($attachment["path"], ".{$attachment["file"]["ext"]}");
 
-            // Replace post attachment data
-            $post["attachment"] = $attachment;
+            // // Replace post attachment data
+            // $post["attachment"] = $attachment;
 
-            // Insert attachment into media library
-            $post["attachment"]["id"] = wp_insert_attachment(array(
-                "guid"           => $post["attachment"]["path"],
-                "post_mime_type" => $post["attachment"]["file"]["type"],
-                "post_title"     => $post["attachment"]["name"],
-                "post_content"   => "",
-                "post_status"    => "inherit"
-            ));
+            // // Insert attachment into media library
+            // $post["attachment"]["id"] = wp_insert_attachment(array(
+            //     "guid"           => $post["attachment"]["path"],
+            //     "post_mime_type" => $post["attachment"]["file"]["type"],
+            //     "post_title"     => $post["attachment"]["name"],
+            //     "post_content"   => "",
+            //     "post_status"    => "inherit"
+            // ));
         }
 
-        private function csv_get_data($single_data = null)
+        private function csv_get_data($default_file = null, $multiple = null)
         {
-            $data = '';
+            $data = $multiple ? array() : '';
             $errors = array();
             // Get array of CSV files
-            // $files_ = glob(ATBDP_TEMPLATES_DIR . "/import-export/data/*.csv");
-            $file = isset($_GET['file']) ? wp_unslash($_GET['file']) : '';
+            $file = $default_file ? $default_file : $this->file;
             if (!$file) return;
-            // $files = $_FILES['import'];
-            // Attempt to change permissions if not readable
-            if (!is_readable($file)) {
-                chmod($file, 0744);
-            }
-            // Check if file is writable, then open it in 'read only' mode
-            if (is_readable($file) && $_file = fopen($file, "r")) {
-                // To sum this part up, all it really does is go row by
-                //  row, column by column, saving all the data
-                $post = array();
-                // Get first row in CSV, which is of course the headers
-                $header = fgetcsv($_file);
-                //return $header;
-                while ($row = fgetcsv($_file)) {
-                    foreach ($header as $i => $key) {
-                        $post[$key] = $row[$i];
-                    }
-                    $data = $post;
+
+                // Attempt to change permissions if not readable
+                if ( ! is_readable( $file ) ) {
+                    chmod( $file, 0744 );
                 }
-                fclose($_file);
-            } else {
-                $errors[] = "File '$file' could not be opened. Check the file's permissions to make sure it's readable by your server.";
-            }
+        
+                // Check if file is writable, then open it in 'read only' mode
+                if ( is_readable( $file ) && $_file = fopen( $file, "r" ) ) {
+        
+                    // To sum this part up, all it really does is go row by
+                    //  row, column by column, saving all the data
+                    $post = array();
+        
+                    // Get first row in CSV, which is of course the headers
+                    $header = fgetcsv( $_file );
+        
+                    while ( $row = fgetcsv( $_file ) ) {
+        
+                        foreach ( $header as $i => $key ) {
+                            $post[$key] = $row[$i];
+                        }
+        
+                        if($multiple){
+                            $data[] = $post;
+                        }else{
+                            $data = $post;
+                        }
+                    }
+        
+                    fclose( $_file );
+        
+                } else {
+                    $errors[] = "File '$file' could not be opened. Check the file's permissions to make sure it's readable by your server.";
+                }
             if (!empty($errors)) {
                 // ... do stuff with the errors
             }

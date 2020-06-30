@@ -57,6 +57,10 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
                 if('at_biz_dir_page_tools' === $page){
                     wp_register_script( 'atbdp-import-export', ATBDP_ADMIN_ASSETS . 'js/import-export.js', array( 'jquery' ), ATBDP_VERSION, true );
                     wp_enqueue_script( 'atbdp-import-export' );
+                    $tool_data = array(
+                        'ajaxurl'        => admin_url( 'admin-ajax.php' ),
+                    );
+                    wp_localize_script( 'atbdp-import-export', 'import_export_data', $tool_data );
                 }
             }
             global $typenow;

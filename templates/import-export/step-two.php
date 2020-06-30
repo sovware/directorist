@@ -27,7 +27,7 @@ if (!defined('ABSPATH')) {
 			<tbody>
 				<?php
 				$file = isset($_GET['file']) ? wp_unslash($_GET['file']) : '';
-				$delimiter = isset($_GET['delimiter']) ? sanitize_key($_GET['delimiter']) : ',';
+				$delimiter = isset($_GET['delimiter']) ? wp_unslash($_GET['delimiter']) : ',';
 				$update_existing = isset($_GET['update_existing']) ? sanitize_key($_GET['update_existing']) : false;
 				$headers = $args['data'];
 				$fields = $args['fields'];
@@ -41,7 +41,7 @@ if (!defined('ABSPATH')) {
 						</td>
 						<td class="atbdp-importer-mapping-table-field">
 							<input type="hidden" name="map_from[<?php echo esc_attr($index); ?>]" value="<?php echo esc_attr($name); ?>" />
-							<select name="map_to[<?php echo esc_attr($index); ?>]">
+							<select class="atbdp_map_to" name="<?php echo esc_attr($index); ?>">
 								<option value=""><?php esc_html_e('Do not import', 'woocommerce'); ?></option>
 								<option value="">--------------</option>
 								<?php foreach ($fields as $key => $value) : ?>

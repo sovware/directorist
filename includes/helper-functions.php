@@ -2524,6 +2524,11 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                                     //print the new badge
                                     $l_badge_html .= new_badge();
                                     $l_badge_html .= '</span>';
+			
+				    /**
+                                     * @since 6.4.4
+                                     */
+				    do_action( 'atbdp_author_listings_before_favourite_icon' );
 
                                     /**
                                      * @since 5.0

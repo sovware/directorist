@@ -160,6 +160,7 @@ class Directorist_Listing_Dashboard {
         endif;
 
         $args = array(
+            'fav_listings'      => $fav_listings,
             'fav_listing_items' => $fav_listing_items,
         );
 
@@ -170,20 +171,20 @@ class Directorist_Listing_Dashboard {
         $uid          = $this->get_id();
         $c_user       = get_userdata( $uid );
         $u_pro_pic_id = get_user_meta( $uid, 'pro_pic', true );
-        $u_pro_pic    = ! empty( $u_pro_pic_id ) ? wp_get_attachment_image_src( $u_pro_pic_id, 'directory-large' ) : '';
+        $u_pro_pic    = $u_pro_pic_id ? wp_get_attachment_image_src( $u_pro_pic_id, 'directory-large' ) : '';
 
         $args = array(
             'u_pro_pic_id' => $u_pro_pic_id,
-            'u_pro_pic' => $u_pro_pic,
-            'c_user'    => $c_user,
-            'u_phone'   => get_user_meta( $uid, 'atbdp_phone', true ),
-            'u_website' => $c_user->user_url,
-            'u_address' => get_user_meta( $uid, 'address', true ),
-            'facebook'  => get_user_meta( $uid, 'atbdp_facebook', true ),
-            'twitter'   => get_user_meta( $uid, 'atbdp_twitter', true ),
-            'linkedIn'  => get_user_meta( $uid, 'atbdp_linkedin', true ),
-            'youtube'   => get_user_meta( $uid, 'atbdp_youtube', true ),
-            'bio'       => get_user_meta( $uid, 'description', true ),
+            'u_pro_pic'    => $u_pro_pic,
+            'c_user'       => $c_user,
+            'u_phone'      => get_user_meta( $uid, 'atbdp_phone', true ),
+            'u_website'    => $c_user->user_url,
+            'u_address'    => get_user_meta( $uid, 'address', true ),
+            'facebook'     => get_user_meta( $uid, 'atbdp_facebook', true ),
+            'twitter'      => get_user_meta( $uid, 'atbdp_twitter', true ),
+            'linkedIn'     => get_user_meta( $uid, 'atbdp_linkedin', true ),
+            'youtube'      => get_user_meta( $uid, 'atbdp_youtube', true ),
+            'bio'          => get_user_meta( $uid, 'description', true ),
         );
 
         return $args;
@@ -225,7 +226,7 @@ class Directorist_Listing_Dashboard {
         if ( $my_listing_tab ) {
             $my_listing_tab_text = get_directorist_option( 'my_listing_tab_text', __( 'My Listing', 'directorist' ) );
 
-            $listings            = ATBDP()->user->current_user_listings();
+            $listings   = ATBDP()->user->current_user_listings();
             $list_found = $listings->found_posts;
 
             $dashboard_tabs['my_listings'] = array(

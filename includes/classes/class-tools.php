@@ -39,7 +39,6 @@ if (!class_exists('ATBDP_Tools')) :
             $this->file            = isset($_REQUEST['file']) ? wp_unslash($_REQUEST['file']) : '';
             $this->update_existing = isset($_REQUEST['update_existing']) ? (bool) $_REQUEST['update_existing'] : false;
             $this->delimiter       = !empty($_REQUEST['delimiter']) ? wp_unslash($_REQUEST['delimiter']) : ',';
-
             add_action('wp_ajax_atbdp_import_listing', array($this, 'atbdp_import_listing'));
         }
 
@@ -50,34 +49,37 @@ if (!class_exists('ATBDP_Tools')) :
             // Get the data from all those CSVs!
             $posts = $this->csv_get_data($this->file, true);
             // get the mapped data
-            $title = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
-            $description = isset( $_POST['description'] ) ? sanitize_text_field( $_POST['description'] ) : '';
-            $description = isset( $_POST['description'] ) ? sanitize_text_field( $_POST['description'] ) : '';
-            //wp_send_json($title);
-            // 
+            $title = isset($_POST['title']) ? sanitize_text_field($_POST['title']) : '';
+            $description = isset($_POST['description']) ? sanitize_text_field($_POST['description']) : '';
+            $metas = isset($_POST['meta']) ? atbdp_sanitize_array($_POST['meta']) : array();
+            $imported = 1;
+            $failed = 1;
+            $skipped = 1;
             foreach ($posts as $post) {
-                $title = '';
-                foreach( $post as $key => $value ){
-                    if( $title == $key ){
-                        $title = $value;
-                    }
+                $post_id = wp_insert_post(array(
+                    "post_title"   => $post[$title],
+                    "post_content" => $post[$description],
+                    "post_type"    => 'at_biz_dir',
+                    "post_status"  => "publish"
+                ));
+                foreach ($metas as $index => $value) {
+                    $meta_value = $post[$index] ? $post[$index] : '';
+                    update_post_meta($post_id, $value, $meta_value);
                 }
-              
-                wp_send_json($title);
-                
-
-                // wp_insert_post(array(
-                //     "post_title"   => $post["title"],
-                //     "post_content" => $post["description"],
-                //     "post_type"    => 'at_biz_dir',
-                //     "post_status"  => "publish"
-                // ));
+                $exp_dt = calc_listing_expiry_date();
+                update_post_meta($post_id, '_expiry_date', $exp_dt);
+                update_post_meta($post_id, '_featured', 0);
+                update_post_meta($post_id, '_listing_status', 'post_status');
+               // update_post_meta($post_id, '_admin_category_select', $admin_category_select);
+                if (!is_wp_error($post_id)) {
+                    $data['imported'] = $imported++;
+                } else {
+                    $data['failed'] = $failed++;
+                }
             }
+            wp_send_json($data);
             die();
         }
-
-
-
 
 
         public function atbdp_csv_import_controller()
@@ -86,6 +88,13 @@ if (!class_exists('ATBDP_Tools')) :
             // therefore this page needs to be nonce protected as well.
             // step one
 
+            // $post = new WP_Query(array(
+            //     'post_type' => ATBDP_POST_TYPE,
+            //     'posts_per_page' => -1
+            // ));
+            // foreach($post->posts as $post){
+            //     wp_delete_post($post->ID, true);
+            // }
             // var_dump(admin_url());
             if (isset($_POST['atbdp_save_csv_step'])) {
                 check_admin_referer('directorist-csv-importer');
@@ -104,54 +113,6 @@ if (!class_exists('ATBDP_Tools')) :
                 );
                 wp_safe_redirect(add_query_arg($params, $url));
             }
-
-
-            if (isset($_POST['save_step_two'])) {
-                check_admin_referer('directorist-csv-importer');
-                if (!empty($_POST['map_from']) && !empty($_POST['map_to'])) {
-                    $mapping_from = wc_clean(wp_unslash($_POST['map_from']));
-                    $mapping_to   = wc_clean(wp_unslash($_POST['map_to']));
-                    // Save mapping preferences for future imports.
-                    update_user_option(get_current_user_id(), 'directorist_product_import_mapping', $mapping_to);
-                }
-
-                wp_localize_script(
-                    'atbdp-import-export',
-                    'wc_product_import_params',
-                    array(
-                        'import_nonce'    => wp_create_nonce('atbdp-import-export'),
-                        'ajaxurl'        => admin_url('admin-ajax.php'),
-                        'mapping'         => array(
-                            'from' => $mapping_from,
-                            'to'   => $mapping_to,
-                        ),
-                        'file'            => $this->file,
-                        'update_existing' => $this->update_existing,
-                        'delimiter'       => $this->delimiter,
-                    )
-                );
-                wp_enqueue_script('atbdp-import-export');
-
-                ATBDP()->load_template('import-export/import-progress');
-            }
-
-
-
-            // Get the data from all those CSVs!
-            // $posts = $this->csv_get_data();
-            // foreach ($posts as $post) {
-            //     // If the post exists, skip this post and go to the next one
-            //     // if ($post_exists($post["title"])) {
-            //     //     continue;
-            //     // }
-            //     // Insert the post into the database
-
-            //     $this->insert_post($post);
-
-            //     // Update post's custom field with attachment
-            //     //update_field( $sitepoint["custom-field"], $post["attachment"]["id"], $post["id"] );
-
-            // }
         }
 
         private function insert_post($post)
@@ -237,28 +198,31 @@ if (!class_exists('ATBDP_Tools')) :
                 'id'                => __('ID', 'directorist'),
                 'title'             => __('Title', 'directorist'),
                 'description'       => __('Description', 'directorist'),
-                'tagline'           => __('Tagline', 'directorist'),
-                'price'             => __('Price', 'directorist'),
-                'price_range'       => __('Price Range', 'directorist'),
-                'view_count'        => __('View Count', 'directorist'),
-                'excerpt'           => __('Excerpt', 'directorist'),
+                '_never_expire'       => __('Never Expire', 'directorist'),
+                '_expiry_date'       => __('Expiration Date', 'directorist'),
+                '_tagline'           => __('Tagline', 'directorist'),
+                '_price'             => __('Price', 'directorist'),
+                '_price_range'       => __('Price Range', 'directorist'),
+                '_atbdp_post_views_count'        => __('View Count', 'directorist'),
+                '_excerpt'           => __('Excerpt', 'directorist'),
                 'location'          => __('Location', 'directorist'),
                 'tag'               => __('Tag', 'directorist'),
                 'category'          => __('Category', 'directorist'),
-                'hide_contact_info' => __('Hide Contact Info', 'directorist'),
-                'address'           => __('Address', 'directorist'),
-                'latitude'          => __('Latitude', 'directorist'),
-                'longitude'         => __('Longitude', 'directorist'),
-                'post_code'         => __('Zip/Post Code', 'directorist'),
-                'phone'             => __('Phone', 'directorist'),
-                'phone_two'         => __('Phone Two', 'directorist'),
-                'fax'               => __('Fax', 'directorist'),
-                'email'             => __('Email', 'directorist'),
-                'website'           => __('Website', 'directorist'),
-                'preview_image'     => __('Preview Image', 'directorist'),
-                'video'             => __('Video', 'directorist'),
-                'pricing_plan'      => __('Pricing Plan (Requires Pricing Plan Extension)', 'directorist'),
-                'is_claimed'        => __('Claimed (Requires Claim Listing Extension)', 'directorist'),
+                '_hide_contact_info' => __('Hide Contact Info', 'directorist'),
+                '_address'           => __('Address', 'directorist'),
+                '_manual_lat'          => __('Latitude', 'directorist'),
+                '_manual_lng'         => __('Longitude', 'directorist'),
+                '_hide_map'         => __('Hide Map', 'directorist'),
+                '_zip'         => __('Zip/Post Code', 'directorist'),
+                '_phone'             => __('Phone', 'directorist'),
+                '_phone2'         => __('Phone Two', 'directorist'),
+                '_fax'               => __('Fax', 'directorist'),
+                '_email'             => __('Email', 'directorist'),
+                '_website'           => __('Website', 'directorist'),
+                '_listing_prv_img'     => __('Preview Image', 'directorist'),
+                '_videourl'             => __('Video', 'directorist'),
+                '_fm_plans'      => __('Pricing Plan (Requires Pricing Plan Extension)', 'directorist'),
+                '_claimed_by_admin'        => __('Claimed (Requires Claim Listing Extension)', 'directorist'),
             ));
         }
 

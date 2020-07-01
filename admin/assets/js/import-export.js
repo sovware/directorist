@@ -11,11 +11,15 @@ jQuery(document).ready(function ($) {
         form_data.append('update_existing', $('input[name="update_existing"]').val());
         form_data.append('wpnonce', $('input[name="_wpnonce"]').val());
         $('select.atbdp_map_to').each(function () {
-                var name = $(this).attr("name");
-                var value = $(this).val();
+            var name = $(this).attr("name");
+            var value = $(this).val();
+            if (('title' == name) || ('description' == name) || ('id' == name) || ('category' == name) || ('location' == name) || ('tag' == name) || ('preview_image' == name)) {
                 form_data.append(name, value);
-         });
-         $.ajax({
+            } else {
+                form_data.append('meta[' + name + ']', value);
+            }
+        });
+        $.ajax({
             method: 'POST',
             processData: false,
             contentType: false,
@@ -26,5 +30,5 @@ jQuery(document).ready(function ($) {
             }
         });
 
-})
+    })
 });

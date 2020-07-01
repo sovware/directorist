@@ -36,28 +36,48 @@ if (!class_exists('ATBDP_Tools')) :
         {
             add_action('admin_menu', array($this, 'add_tools_submenu'), 10);
             add_action('admin_init', array($this, 'atbdp_csv_import_controller'));
-            $this->file            = isset( $_REQUEST['file'] ) ? wp_unslash( $_REQUEST['file'] ) : '';
+            $this->file            = isset($_REQUEST['file']) ? wp_unslash($_REQUEST['file']) : '';
             $this->update_existing = isset($_REQUEST['update_existing']) ? (bool) $_REQUEST['update_existing'] : false;
             $this->delimiter       = !empty($_REQUEST['delimiter']) ? wp_unslash($_REQUEST['delimiter']) : ',';
-            
-            add_action('wp_ajax_atbdp_import_listing', array($this, 'atbdp_import_listing'));
 
+            add_action('wp_ajax_atbdp_import_listing', array($this, 'atbdp_import_listing'));
         }
 
 
-        public function atbdp_import_listing(){
-             // Get the data from all those CSVs!
-            $posts = $this->csv_get_data( $this->file, true );
+        public function atbdp_import_listing()
+        {
+            $data = array();
+            // Get the data from all those CSVs!
+            $posts = $this->csv_get_data($this->file, true);
+            // get the mapped data
+            $title = isset( $_POST['title'] ) ? sanitize_text_field( $_POST['title'] ) : '';
+            $description = isset( $_POST['description'] ) ? sanitize_text_field( $_POST['description'] ) : '';
+            $description = isset( $_POST['description'] ) ? sanitize_text_field( $_POST['description'] ) : '';
+            //wp_send_json($title);
+            // 
             foreach ($posts as $post) {
-                wp_insert_post(array(
-                    "post_title"   => $post["title"],
-                    "post_content" => $post["description"],
-                    "post_type"    => 'at_biz_dir',
-                    "post_status"  => "publish"
-                ));
+                $title = '';
+                foreach( $post as $key => $value ){
+                    if( $title == $key ){
+                        $title = $value;
+                    }
+                }
+              
+                wp_send_json($title);
+                
+
+                // wp_insert_post(array(
+                //     "post_title"   => $post["title"],
+                //     "post_content" => $post["description"],
+                //     "post_type"    => 'at_biz_dir',
+                //     "post_status"  => "publish"
+                // ));
             }
             die();
         }
+
+
+
 
 
         public function atbdp_csv_import_controller()
@@ -100,7 +120,7 @@ if (!class_exists('ATBDP_Tools')) :
                     'wc_product_import_params',
                     array(
                         'import_nonce'    => wp_create_nonce('atbdp-import-export'),
-                        'ajaxurl'        => admin_url( 'admin-ajax.php' ),
+                        'ajaxurl'        => admin_url('admin-ajax.php'),
                         'mapping'         => array(
                             'from' => $mapping_from,
                             'to'   => $mapping_to,
@@ -118,7 +138,7 @@ if (!class_exists('ATBDP_Tools')) :
 
 
             // Get the data from all those CSVs!
-           // $posts = $this->csv_get_data();
+            // $posts = $this->csv_get_data();
             // foreach ($posts as $post) {
             //     // If the post exists, skip this post and go to the next one
             //     // if ($post_exists($post["title"])) {
@@ -173,39 +193,38 @@ if (!class_exists('ATBDP_Tools')) :
             $file = $default_file ? $default_file : $this->file;
             if (!$file) return;
 
-                // Attempt to change permissions if not readable
-                if ( ! is_readable( $file ) ) {
-                    chmod( $file, 0744 );
-                }
-        
-                // Check if file is writable, then open it in 'read only' mode
-                if ( is_readable( $file ) && $_file = fopen( $file, "r" ) ) {
-        
-                    // To sum this part up, all it really does is go row by
-                    //  row, column by column, saving all the data
-                    $post = array();
-        
-                    // Get first row in CSV, which is of course the headers
-                    $header = fgetcsv( $_file );
-        
-                    while ( $row = fgetcsv( $_file ) ) {
-        
-                        foreach ( $header as $i => $key ) {
-                            $post[$key] = $row[$i];
-                        }
-        
-                        if($multiple){
-                            $data[] = $post;
-                        }else{
-                            $data = $post;
-                        }
+            // Attempt to change permissions if not readable
+            if (!is_readable($file)) {
+                chmod($file, 0744);
+            }
+
+            // Check if file is writable, then open it in 'read only' mode
+            if (is_readable($file) && $_file = fopen($file, "r")) {
+
+                // To sum this part up, all it really does is go row by
+                //  row, column by column, saving all the data
+                $post = array();
+
+                // Get first row in CSV, which is of course the headers
+                $header = fgetcsv($_file);
+
+                while ($row = fgetcsv($_file)) {
+
+                    foreach ($header as $i => $key) {
+                        $post[$key] = $row[$i];
                     }
-        
-                    fclose( $_file );
-        
-                } else {
-                    $errors[] = "File '$file' could not be opened. Check the file's permissions to make sure it's readable by your server.";
+
+                    if ($multiple) {
+                        $data[] = $post;
+                    } else {
+                        $data = $post;
+                    }
                 }
+
+                fclose($_file);
+            } else {
+                $errors[] = "File '$file' could not be opened. Check the file's permissions to make sure it's readable by your server.";
+            }
             if (!empty($errors)) {
                 // ... do stuff with the errors
             }
@@ -228,6 +247,8 @@ if (!class_exists('ATBDP_Tools')) :
                 'category'          => __('Category', 'directorist'),
                 'hide_contact_info' => __('Hide Contact Info', 'directorist'),
                 'address'           => __('Address', 'directorist'),
+                'latitude'          => __('Latitude', 'directorist'),
+                'longitude'         => __('Longitude', 'directorist'),
                 'post_code'         => __('Zip/Post Code', 'directorist'),
                 'phone'             => __('Phone', 'directorist'),
                 'phone_two'         => __('Phone Two', 'directorist'),

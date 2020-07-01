@@ -195,7 +195,7 @@ $forms = Directorist_Listing_Forms::instance();
 
         /**
          * @since 7.0
-         * @hooked Directorist_Template_Hooks::dashboard_title - 10
+         * @hooked Directorist_Listing_Forms > add_listing_custom_fields_template - 10
          */
         do_action( 'directorist_add_listing_before_location' );
 		?>

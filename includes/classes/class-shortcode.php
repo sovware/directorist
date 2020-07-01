@@ -166,12 +166,12 @@ if (!class_exists('ATBDP_Shortcode')):
         }
 
         public function user_registration() {
-            $forms = new Directorist_Listing_Forms();
+            $forms  = Directorist_Listing_Forms::instance();
             return $forms->render_shortcode_custom_registration();
         }
 
         public function custom_user_login() {
-            $forms = new Directorist_Listing_Forms();
+            $forms  = Directorist_Listing_Forms::instance();
             return $forms->render_shortcode_user_login();
         }
 

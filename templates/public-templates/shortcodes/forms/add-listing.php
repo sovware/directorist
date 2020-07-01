@@ -9,14 +9,14 @@
     <div class="<?php echo apply_filters('atbdp_add_listing_container_fluid', $container_fluid) ?>">
         <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" method="post" id="add-listing-form">
             <fieldset>
-                <?php
-                do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
-                ?>
+
+                <?php do_action('atbdb_before_add_listing_from_frontend');?>
+
                 <div class="atbdp-form-fields">
                     <?php
                     /**
                      * @since 7.0
-                     * @hooked Directorist_Template_Hooks::add_listing_title - 10
+                     * @hooked Directorist_Listing_Forms > add_listing_title_template - 10
                      */
                     do_action( 'directorist_add_listing_title' );
 
@@ -45,11 +45,11 @@
                                 <?php
                                 /**
                                  * @since 7.0
-                                 * @hooked Directorist_Template_Hooks::add_listing_general - 10
-                                 * @hooked Directorist_Template_Hooks::add_listing_contact - 15
-                                 * @hooked Directorist_Template_Hooks::add_listing_map - 20
-                                 * @hooked Directorist_Template_Hooks::add_listing_image - 25
-                                 * @hooked Directorist_Template_Hooks::add_listing_submit - 30
+                                 * @hooked Directorist_Listing_Forms > add_listing_general_template - 10
+                                 * @hooked Directorist_Listing_Forms > add_listing_contact_template - 15
+                                 * @hooked Directorist_Listing_Forms > add_listing_map_template - 20
+                                 * @hooked Directorist_Listing_Forms > add_listing_image_template - 25
+                                 * @hooked Directorist_Listing_Forms > add_listing_submit_template - 30
                                  */
                                 do_action( 'directorist_add_listing_contents');
                                 ?>

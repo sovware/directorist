@@ -6,5 +6,5 @@
  */
 ?>
 <div class="atbd_add_listing_title">
-	<h3><?php echo !empty($p_id) ? __('Update', 'directorist') : __('Add New', 'directorist'); ?></h3>
+	<h3><?php echo esc_html( $title ); ?></h3>
 </div>

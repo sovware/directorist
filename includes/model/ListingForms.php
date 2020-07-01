@@ -329,7 +329,8 @@ class Directorist_Listing_Forms {
 
     public function add_listing_title_template() {
         $args = array(
-            'p_id' => $this->get_add_listing_id(),
+            'p_id'  => $this->add_listing_id,
+            'title' => !empty($this->add_listing_id) ? __('Update', 'directorist') : __('Add New', 'directorist'),
         );
 
         atbdp_get_shortcode_template( 'forms/add-listing-title', $args );
@@ -370,15 +371,25 @@ class Directorist_Listing_Forms {
             'ancestors' => array()
         );
 
+        $required_html = '<span class="atbdp_make_str_red"> *</span>';
+
+        $title_label = get_directorist_option('title_label', __('Title', 'directorist'));
+        $title_required = get_directorist_option('require_title', 1) ? $required_html : '';
+        $title_label_html = sprintf( '%s:%s', $title_label, $title_required );
+
+        $long_details_label = get_directorist_option('long_details_label', __('Long Description', 'directorist'));
+        $long_details_required = get_directorist_option('require_long_details') ? $required_html : '';
+        $long_details_label_html = sprintf( '%s:%s', $long_details_label, $long_details_required );
+
+        
+
         $args = array(
             'p_id'                           => $p_id,
             'listing'                        => $this->get_add_listing_post(),
-            'display_title_for'              => get_directorist_option('display_title_for', 0),
-            'title'                          => get_directorist_option('title_label', __('Title', 'directorist')),
-            'require_title'                  => get_directorist_option('require_title', 1),
-            'display_desc_for'               => get_directorist_option('display_desc_for', 0),
-            'long_details'                   => get_directorist_option('long_details_label', __('Long Description', 'directorist')),
-            'require_long_details'           => get_directorist_option('require_long_details'),
+            'display_title'                  => get_directorist_option('display_title_for', 0) ? false : true,
+            'title_label_html'               => $title_label_html,
+            'display_desc'                   => get_directorist_option('display_desc_for', 0) ? false : true,
+            'long_details_label_html'        => $long_details_label_html,
             'display_tagline_field'          => get_directorist_option('display_tagline_field', 0),
             'display_tagline_for'            => get_directorist_option('display_tagline_for', 0),
             'tagline_label'                  => get_directorist_option('tagline_label', __('Tagline', 'directorist')),
@@ -614,11 +625,11 @@ class Directorist_Listing_Forms {
     }
     
     public function render_shortcode_add_listing($atts) {
-        ob_start();
         wp_enqueue_script('adminmainassets');
 
         $guest_submission = get_directorist_option('guest_listings', 0);
-        if ( false === $guest_submission && ! atbdp_logged_in_user() ) {
+
+        if ( !$guest_submission && ! atbdp_logged_in_user() ) {
             return ATBDP_Helper::guard( ['type' => 'auth'] );
         }
 
@@ -628,91 +639,81 @@ class Directorist_Listing_Forms {
         if (!empty($p_id)) {
             $listing = get_post($p_id);
             if ($listing->post_author != get_current_user_id() && !current_user_can('edit_others_at_biz_dirs')) {
-                echo '<p class="error">' . __('You do not have permission to edit this listing', 'directorist') . '</p>';
-                return ob_get_clean();
+                return atbdp_return_shortcode_template( 'forms/add-listing-error' );
             }
         }
 
+        global $wp;
+        global $pagenow;
+        $current_url = home_url(add_query_arg(array(), $wp->request));
 
-        if ( atbdp_logged_in_user() || $guest_submission ) {
-            global $wp;
-            global $pagenow;
-            $current_url = home_url(add_query_arg(array(), $wp->request));
+        $monetization_is_active    = is_fee_manager_active() && !selected_plan_id();
+        $pricing_plan_is_active    = class_exists('ATBDP_Pricing_Plans');
+        $wc_pricing_plan_is_active = class_exists('DWPP_Pricing_Plans');
+        $in_add_listing_page       = ( ( strpos($current_url, '/edit/') !== false) && ($pagenow === 'at_biz_dir') ) ? true : false;
+        $show_packages             = ( $monetization_is_active && ! $in_add_listing_page) ? true: false;
 
-            $monetization_is_active    = is_fee_manager_active() && !selected_plan_id();
-            $pricing_plan_is_active    = class_exists('ATBDP_Pricing_Plans');
-            $wc_pricing_plan_is_active = class_exists('DWPP_Pricing_Plans');
-            $in_add_listing_page       = ( ( strpos($current_url, '/edit/') !== false) && ($pagenow === 'at_biz_dir') ) ? true : false;
-            $show_packages             = ( $monetization_is_active && ! $in_add_listing_page) ? true: false;
-
-            if ( $show_packages && $pricing_plan_is_active ) {
-                do_action('atbdp_before_pricing_plan_page_load');
-                ATBDP_Pricing_Plans()->load_template('fee-plans', array('atts' => $atts));
-                return ob_get_clean();
-            }
-
-            if ( $show_packages && $wc_pricing_plan_is_active  ) {
-                do_action('atbdp_before_pricing_plan_page_load');
-                DWPP_Pricing_Plans()->load_template('fee-plans', array('atts' => $atts));
-                return ob_get_clean();
-            }
-
-            $args = array(
-                'p_id'               => $p_id,
-                'listing_info'       => $this->get_listing_info(),
-                'container_fluid'    => is_directoria_active() ? 'container' : 'container-fluid',
-                'select_listing_map' => get_directorist_option('select_listing_map', 'google'),
-                'display_map_for'    => get_directorist_option('display_map_for', 0),
-                'display_map_field'  => get_directorist_option('display_map_field', 1),
-                'manual_lat'         => get_post_meta($p_id, '_manual_lat', true),
-                'manual_lng'         => get_post_meta($p_id, '_manual_lng', true),
-                'default_latitude'   => get_directorist_option('default_latitude', '40.7127753'),
-                'default_longitude'  => get_directorist_option('default_longitude', '-74.0059728'),
-                'info_content'       => $this->get_map_info_content(),
-                'map_zoom_level'     => get_directorist_option('map_zoom_level', 4),
-                'marker_title'       => __('You can drag the marker to your desired place to place a marker', 'directorist'),
-                'geocode_error_msg'  => __('Geocode was not successful for the following reason: ', 'directorist'),
-                'map_icon'           => ATBDP_PUBLIC_ASSETS . 'images/map-icon.png',
-            );
-    
-            $display_map = ( empty( $args['display_map_for'] ) && ! empty( $args['display_map_field'] ) ) ? true : false;
-            
-            if ( $display_map && 'openstreet' === $args['select_listing_map'] ) {
-                wp_localize_script( 'atbdp-add-listing-osm', 'localized_data', $args );
-                wp_enqueue_script( 'atbdp-add-listing-osm' );
-            }
-    
-            if ( $display_map && 'google' === $args['select_listing_map'] ) {
-                wp_localize_script( 'atbdp-add-listing-gmap', 'localized_data', $args );
-                wp_enqueue_script( 'atbdp-add-listing-gmap' );
-            }
-
-            ATBDP()->enquirer->add_listing_scripts_styles();
-            atbdp_get_shortcode_template( 'forms/add-listing', $args );
-
-        }
-
-        return ob_get_clean();
-    }
-
-    public function render_shortcode_user_login() {
-        ob_start();
-
-        if ( atbdp_logged_in_user() ) {
-            $error_message = sprintf(__('Login page is not for logged-in user. <a href="%s">Go to Dashboard</a>', 'directorist'), esc_url(ATBDP_Permalink::get_dashboard_page_link()));
-            ATBDP()->helper->show_login_message(apply_filters('atbdp_login_page_loggedIn_msg', $error_message));
-
+        // @todo @kowsar - extensions
+        if ( $show_packages && $pricing_plan_is_active ) {
+            ob_start();
+            do_action('atbdp_before_pricing_plan_page_load');
+            ATBDP_Pricing_Plans()->load_template('fee-plans', array('atts' => $atts));
             return ob_get_clean();
         }
 
-        atbdp_get_shortcode_template( 'forms/login' );
+        if ( $show_packages && $wc_pricing_plan_is_active  ) {
+            ob_start();
+            do_action('atbdp_before_pricing_plan_page_load');
+            DWPP_Pricing_Plans()->load_template('fee-plans', array('atts' => $atts));
+            return ob_get_clean();
+        }
 
-        return ob_get_clean();
+        $args = array(
+            'p_id'               => $p_id,
+            'listing_info'       => $this->get_listing_info(),
+            'container_fluid'    => is_directoria_active() ? 'container' : 'container-fluid',
+            'select_listing_map' => get_directorist_option('select_listing_map', 'google'),
+            'display_map_for'    => get_directorist_option('display_map_for', 0),
+            'display_map_field'  => get_directorist_option('display_map_field', 1),
+            'manual_lat'         => get_post_meta($p_id, '_manual_lat', true),
+            'manual_lng'         => get_post_meta($p_id, '_manual_lng', true),
+            'default_latitude'   => get_directorist_option('default_latitude', '40.7127753'),
+            'default_longitude'  => get_directorist_option('default_longitude', '-74.0059728'),
+            'info_content'       => $this->get_map_info_content(),
+            'map_zoom_level'     => get_directorist_option('map_zoom_level', 4),
+            'marker_title'       => __('You can drag the marker to your desired place to place a marker', 'directorist'),
+            'geocode_error_msg'  => __('Geocode was not successful for the following reason: ', 'directorist'),
+            'map_icon'           => ATBDP_PUBLIC_ASSETS . 'images/map-icon.png',
+        );
+
+        $display_map = ( empty( $args['display_map_for'] ) && ! empty( $args['display_map_field'] ) ) ? true : false;
+        
+        if ( $display_map && 'openstreet' === $args['select_listing_map'] ) {
+            wp_localize_script( 'atbdp-add-listing-osm', 'localized_data', $args );
+            wp_enqueue_script( 'atbdp-add-listing-osm' );
+        }
+
+        if ( $display_map && 'google' === $args['select_listing_map'] ) {
+            wp_localize_script( 'atbdp-add-listing-gmap', 'localized_data', $args );
+            wp_enqueue_script( 'atbdp-add-listing-gmap' );
+        }
+
+        ATBDP()->enquirer->add_listing_scripts_styles();
+        return atbdp_return_shortcode_template( 'forms/add-listing', $args );
+    }
+
+    public function render_shortcode_user_login() {
+        if ( atbdp_logged_in_user() ) {
+            $error_message = sprintf(__('Login page is not for logged-in user. <a href="%s">Go to Dashboard</a>', 'directorist'), esc_url(ATBDP_Permalink::get_dashboard_page_link()));
+            ob_start();
+            ATBDP()->helper->show_login_message(apply_filters('atbdp_login_page_loggedIn_msg', $error_message));
+            return ob_get_clean();
+        }
+
+        return atbdp_return_shortcode_template( 'forms/login' );
     }
 
     public function render_shortcode_custom_registration() {
-        ob_start();
-
         if ( !atbdp_logged_in_user() ) {
 
             $args = array(
@@ -748,14 +749,16 @@ class Directorist_Listing_Forms {
                 'privacy_label_link'          => get_directorist_option('registration_privacy_label_link', __('Privacy & Policy', 'directorist')),
             );
 
-            atbdp_get_shortcode_template( 'forms/registration', $args );
+            return atbdp_return_shortcode_template( 'forms/registration', $args );
         }
+
         else {
             $error_message = sprintf(__('Registration page is only for unregistered user. <a href="%s">Go to Dashboard</a>', 'directorist'), esc_url(ATBDP_Permalink::get_dashboard_page_link()));
+            ob_start();
             ATBDP()->helper->show_login_message(apply_filters('atbdp_registration_page_registered_msg', $error_message));
+            return ob_get_clean();
         }
 
-        return ob_get_clean();
+        return '';
     }
-
 }

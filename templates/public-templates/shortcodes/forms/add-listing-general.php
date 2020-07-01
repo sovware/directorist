@@ -4,8 +4,6 @@
  * @since   7.0
  * @version 7.0
  */
-
-$forms = Directorist_Listing_Forms::instance();
 ?>
 <div class="atbd_content_module atbd_general_information_module">
 	<div class="atbd_content_module_title_area">
@@ -14,37 +12,34 @@ $forms = Directorist_Listing_Forms::instance();
 		</div>
 	</div>
 	<div class="atbdb_content_module_contents">
-		<?php if (empty($display_title_for)) { ?>
+
+		<?php if ($display_title) { ?>
 			<div class="form-group" id="atbdp_listing_title">
-				<label for="listing_title"><?php
-					esc_html_e($title . ':', 'directorist');
-					if ($require_title) {
-						echo '<span class="atbdp_make_str_red"> *</span>';
-					} ?></label>
-				<input type="text" name="listing_title" id="listing_title"
-					   value="<?php echo !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>"
-					   class="form-control directory_field"
-					   placeholder="<?php echo __('Enter a title', 'directorist'); ?>"/>
+				<label for="listing_title"><?php echo wp_kses_post( $title_label_html );?></label>
+				<input type="text" name="listing_title" id="listing_title" value="<?php echo !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>" class="form-control directory_field" placeholder="<?php esc_html_e('Enter a title', 'directorist'); ?>"/>
 			</div>
-		<?php } ?>
-		<?php if (empty($display_desc_for)) { ?>
+			<?php
+		}
+
+		if ($display_desc) { ?>
 			<div class="form-group" id="atbdp_listing_content">
-				<label for="listing_content"><?php
-					esc_html_e($long_details . ':', 'directorist');
-					if ($require_long_details) {
-						echo '<span class="atbdp_make_str_red"> *</span>';
-					} ?></label>
-				<?php wp_editor(
+				<label for="listing_content"><?php echo wp_kses_post( $long_details_label_html );?></label>
+				<?php
+				wp_editor(
 					!empty($listing->post_content) ? wp_kses_post($listing->post_content) : '',
 					'listing_content',
 					apply_filters('atbdp_add_listing_wp_editor_settings', array(
 						'media_buttons' => false,
 						'quicktags' => true,
 						'editor_height' => 200
-					))); ?>
+					))
+				);
+				?>
 			</div>
-		<?php } ?>
-		<?php if (!empty($display_tagline_field) && empty($display_tagline_for)) { ?>
+			<?php
+		}
+
+		if (!empty($display_tagline_field) && empty($display_tagline_for)) { ?>
 			<div class="form-group" id="atbdp_excerpt">
 				<label for="atbdp_excerpt"><?php
 					esc_html_e($tagline_label . ':', 'directorist');
@@ -55,8 +50,10 @@ $forms = Directorist_Listing_Forms::instance();
 					   class="form-control directory_field"
 					   placeholder="<?php echo esc_attr($tagline_placeholder); ?>"/>
 			</div>
-		<?php } ?>
-		<?php
+			<?php
+		}
+
+		
 		//data for average price range
 		$plan_average_price = true;
 		if (is_fee_manager_active()) {

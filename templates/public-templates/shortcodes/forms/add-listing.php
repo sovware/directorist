@@ -21,40 +21,35 @@
                     do_action( 'directorist_add_listing_title' );
 
                     /*
-                     * if fires after
                      * @since 4.0.4
                      */
-                    do_action('atbdp_listing_form_after_add_listing_title', $listing_info)
+                    do_action('atbdp_listing_form_after_add_listing_title', $listing_info);
+                    
+                    ATBDP()->listing->add_listing->show_nonce_field();
                     ?>
-                    <!--add nonce field security -->
-                    <?php ATBDP()->listing->add_listing->show_nonce_field(); ?>
+
                     <input type="hidden" name="add_listing_form" value="1">
                     <input type="hidden" name="listing_id" value="<?php echo !empty($p_id) ? esc_attr($p_id) : ''; ?>">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <?php
-                            /**
-                             * It fires before the listing title
-                             * @param string $type Page type.
-                             * @since 1.1.1
-                             **/
-                            do_action('atbdp_edit_before_title_fields', 'add_listing_page_frontend');
-                            ?>
 
-                            <div class="atbdb_content_module">
-                                <?php
-                                /**
-                                 * @since 7.0
-                                 * @hooked Directorist_Listing_Forms > add_listing_general_template - 10
-                                 * @hooked Directorist_Listing_Forms > add_listing_contact_template - 15
-                                 * @hooked Directorist_Listing_Forms > add_listing_map_template - 20
-                                 * @hooked Directorist_Listing_Forms > add_listing_image_template - 25
-                                 * @hooked Directorist_Listing_Forms > add_listing_submit_template - 30
-                                 */
-                                do_action( 'directorist_add_listing_contents');
-                                ?>
-                            </div>
-                        </div>
+                    <?php
+                    /**
+                     * @since 1.1.1
+                     **/
+                    do_action('atbdp_edit_before_title_fields', 'add_listing_page_frontend');
+                    ?>
+
+                    <div class="atbdb_content_module">
+                        <?php
+                        /**
+                         * @since 7.0
+                         * @hooked Directorist_Listing_Forms > add_listing_general_template - 10
+                         * @hooked Directorist_Listing_Forms > add_listing_contact_template - 15
+                         * @hooked Directorist_Listing_Forms > add_listing_map_template - 20
+                         * @hooked Directorist_Listing_Forms > add_listing_image_template - 25
+                         * @hooked Directorist_Listing_Forms > add_listing_submit_template - 30
+                         */
+                        do_action( 'directorist_add_listing_contents');
+                        ?>
                     </div>
                 </div>
             </fieldset>

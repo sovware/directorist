@@ -151,7 +151,7 @@ if (!class_exists('ATBDP_Shortcode')):
         }
 
         public function author_profile($atts) {
-            $author = new Directorist_Listing_Author();
+            $author = Directorist_Listing_Author::instance();
             return $author->render_shortcode_author_profile($atts);
         }
 

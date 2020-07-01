@@ -63,7 +63,8 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     if ( $monitization && $pricing_plans_enabled ) {
         $plan_id   = get_post_meta($listing_id, '_fm_plans', true);
         $plan_meta = get_post_meta($plan_id);
-        $plan_type = $plan_meta['plan_type'][0];
+        $plan_type = ( ! empty( $plan_meta['plan_type'] ) && ! empty( $plan_meta['plan_type'][0] ) ) ? $plan_meta['plan_type'][0] : '';
+        // $plan_type = $plan_meta['plan_type'][0];
 
         $_listing_id    = ( 'pay_per_listng' === $plan_type ) ? $listing_id : false;
         $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id, $_listing_id);

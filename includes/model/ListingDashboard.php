@@ -274,7 +274,7 @@ class Directorist_Listing_Dashboard {
         return atbdp_return_shortcode_template( 'dashboard/error-message', $args );
     }
 
-    public function dashboard_alert_message_template() {
+    public function alert_message_template() {
         if ( isset($_GET['renew'] ) ) {
             $renew_token_expired = $_GET['renew'] == 'token_expired' ? true : false;
             $renew_succeed = $_GET['renew'] == 'success' ? true : false;
@@ -285,13 +285,13 @@ class Directorist_Listing_Dashboard {
         atbdp_get_shortcode_template( 'dashboard/alert-message', compact('renew_token_expired', 'renew_succeed') );
     }
 
-    public function dashboard_title( $display_title ) {
+    public function section_title( $display_title ) {
         if ($display_title) {
             atbdp_get_shortcode_template( 'dashboard/title' );
         }
     }
 
-    public function dashboard_nav_tabs_template() {
+    public function nav_tabs_template() {
         $args = array(
             'dashboard_tabs' => $this->get_dashboard_tabs(),
         );
@@ -299,14 +299,14 @@ class Directorist_Listing_Dashboard {
         atbdp_get_shortcode_template( 'dashboard/navigation-tabs', $args );
     }
 
-    public function dashboard_nav_buttons_template() {
+    public function nav_buttons_template() {
         $args = array(
             'display_submit_btn' => get_directorist_option('submit_listing_button', 1),
         );
         atbdp_get_shortcode_template( 'dashboard/nav-buttons', $args );
     }
 
-    public function dashboard_tab_contents_html() {
+    public function tab_contents_html() {
         $dashboard_tabs = $this->get_dashboard_tabs();
 
         foreach ($dashboard_tabs as $key => $value) {

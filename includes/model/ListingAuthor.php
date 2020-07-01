@@ -153,7 +153,7 @@ class Directorist_Listing_Author {
         return new WP_Query( $args );
     }
 
-    public function author_profile_header_template() {
+    public function header_template() {
         $author_id = $this->id;
 
         $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
@@ -182,7 +182,7 @@ class Directorist_Listing_Author {
         atbdp_get_shortcode_template( 'author/author-header', $args );
     }
 
-    public function author_profile_about_template() {
+    public function about_template() {
         $author_id = $this->id;
 
         $bio = get_user_meta($author_id, 'description', true);
@@ -218,7 +218,7 @@ class Directorist_Listing_Author {
     }
 
     // @todo @kowsar do_action('atbdp_author_listings_html', $all_listings) in "Post Your Need" ext
-    public function author_profile_listings_template() {
+    public function author_listings_template() {
         $query    = $this->author_listings_query();
         $listings = new Directorist_Listings(NULL,NULL,$query);
 

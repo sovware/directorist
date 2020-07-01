@@ -13,17 +13,17 @@ class Directorist_Template_Hooks {
 
         // Author Profile
         $author = Directorist_Listing_Author::instance();
-        add_action( 'directorist_author_profile_content', array( $author, 'author_profile_header_template' ) );
-        add_action( 'directorist_author_profile_content', array( $author, 'author_profile_about_template' ), 15 );
-        add_action( 'directorist_author_profile_content', array( $author, 'author_profile_listings_template' ), 20 );
+        add_action( 'directorist_author_profile_content', array( $author, 'header_template' ) );
+        add_action( 'directorist_author_profile_content', array( $author, 'about_template' ), 15 );
+        add_action( 'directorist_author_profile_content', array( $author, 'author_listings_template' ), 20 );
 
         // Dashboard
         $dashboard = Directorist_Listing_Dashboard::instance();
-        add_action( 'directorist_dashboard_before_container', array( $dashboard, 'dashboard_alert_message_template' ) );
-        add_action( 'directorist_dashboard_title_area',       array( $dashboard, 'dashboard_title' ) );
-        add_action( 'directorist_dashboard_navigation',       array( $dashboard, 'dashboard_nav_tabs_template' ) );
-        add_action( 'directorist_dashboard_navigation',       array( $dashboard, 'dashboard_nav_buttons_template' ), 15 );
-        add_action( 'directorist_dashboard_tab_contents',     array( $dashboard, 'dashboard_tab_contents_html' ) );
+        add_action( 'directorist_dashboard_before_container', array( $dashboard, 'alert_message_template' ) );
+        add_action( 'directorist_dashboard_title_area',       array( $dashboard, 'section_title' ) );
+        add_action( 'directorist_dashboard_navigation',       array( $dashboard, 'nav_tabs_template' ) );
+        add_action( 'directorist_dashboard_navigation',       array( $dashboard, 'nav_buttons_template' ), 15 );
+        add_action( 'directorist_dashboard_tab_contents',     array( $dashboard, 'tab_contents_html' ) );
 
         // Add Listing
         add_action( 'directorist_add_listing_title',            array( __CLASS__, 'add_listing_title' ) );

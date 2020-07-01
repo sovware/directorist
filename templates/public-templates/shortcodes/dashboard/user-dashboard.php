@@ -9,7 +9,7 @@
 
     <?php
     /**
-     * @hooked Directorist_Template_Hooks::dashboard_alert_message_template - 10
+     * @hooked Directorist_Listing_Dashboard > alert_message_template - 10
      */
     do_action( 'directorist_dashboard_before_container' );
     ?>
@@ -18,7 +18,7 @@
         <?php
         /**
          * @since 7.0
-         * @hooked Directorist_Template_Hooks::dashboard_title - 10
+         * @hooked Directorist_Listing_Dashboard > section_title - 10
          */
         do_action( 'directorist_dashboard_title_area', $display_title );
         ?>
@@ -29,8 +29,8 @@
                 <?php
                 /**
                  * @since 7.0
-                 * @hooked Directorist_Template_Hooks::dashboard_nav_tabs_template - 10
-                 * @hooked Directorist_Template_Hooks::dashboard_nav_buttons_template - 15
+                 * @hooked Directorist_Listing_Dashboard > nav_tabs_template - 10
+                 * @hooked Directorist_Listing_Dashboard > nav_buttons_template - 15
                  */
                 do_action( 'directorist_dashboard_navigation');
                 ?>
@@ -42,7 +42,7 @@
                 <?php
                 /**
                  * @since 7.0
-                 * @hooked Directorist_Template_Hooks::dashboard_tab_contents_html - 10
+                 * @hooked Directorist_Listing_Dashboard > tab_contents_html - 10
                  */
                 do_action( 'directorist_dashboard_tab_contents');
                 ?>

@@ -12,11 +12,12 @@
 
                 <thead>
                     <tr>
-                        <th><?php _e('Listing Name', 'directorist') ?></th>
-                        <th><?php _e('Category', 'directorist') ?></th>
-                        <th><?php _e('Unfavourite', 'directorist') ?></th>
+                        <th><?php esc_html_e('Listing Name', 'directorist') ?></th>
+                        <th><?php esc_html_e('Category', 'directorist') ?></th>
+                        <th><?php esc_html_e('Unfavourite', 'directorist') ?></th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <?php foreach ($fav_listing_items as $item): ?>
 
@@ -27,8 +28,10 @@
                                     <h4><a href="<?php echo esc_url($item['post_link']);?>"><?php echo esc_html($item['title']);?></a></h4>
                                 </div>
                             </td>
-                            <td class="saved_item_category"><a href="<?php echo esc_url($item['category_link']);?>"><span class="<?php echo esc_attr($item['icon']);?>"></span><?php echo esc_html($item['category_name']);?></a></td>
-                            <td class="remove_saved_item"><?php echo $item['mark_fav'];?></td>
+                            <td class="saved_item_category">
+                                <a href="<?php echo esc_url($item['category_link']);?>"><span class="<?php echo esc_attr($item['icon']);?>"></span><?php echo esc_html($item['category_name']);?></a>
+                            </td>
+                            <td class="remove_saved_item"><?php echo $item['mark_fav_html'];?></td>
                         </tr> 
                         
                     <?php endforeach; ?>
@@ -36,7 +39,7 @@
 
             <?php else: ?>
 
-                <tr><td><p class="atbdp_nlf"><?php _e("Nothing found!", 'directorist'); ?></p></td></tr>
+                <tr><td><p class="atbdp_nlf"><?php esc_html_e('Nothing found!', 'directorist'); ?></p></td></tr>
 
             <?php endif; ?>
         </table>

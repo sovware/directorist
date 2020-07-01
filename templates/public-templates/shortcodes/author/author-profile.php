@@ -10,9 +10,9 @@
         <?php
         /**
          * @since 7.0
-         * @hooked Directorist_Template_Hooks::author_profile_header - 10
-         * @hooked Directorist_Template_Hooks::author_profile_about - 15
-         * @hooked Directorist_Template_Hooks::author_profile_listings - 20
+         * @hooked Directorist_Template_Hooks::author_profile_header_template - 10
+         * @hooked Directorist_Template_Hooks::author_profile_about_template - 15
+         * @hooked Directorist_Template_Hooks::author_profile_listings_template - 20
          */
         do_action( 'directorist_author_profile_content' );
         ?>

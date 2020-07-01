@@ -12,9 +12,9 @@ class Directorist_Template_Hooks {
     private function __construct( $id = '' ) {
 
         // Author Profile
-        add_action( 'directorist_author_profile_content', array( __CLASS__, 'author_profile_header' ) );
-        add_action( 'directorist_author_profile_content', array( __CLASS__, 'author_profile_about' ), 15 );
-        add_action( 'directorist_author_profile_content', array( __CLASS__, 'author_profile_listings' ), 20 );
+        add_action( 'directorist_author_profile_content', array( __CLASS__, 'author_profile_header_template' ) );
+        add_action( 'directorist_author_profile_content', array( __CLASS__, 'author_profile_about_template' ), 15 );
+        add_action( 'directorist_author_profile_content', array( __CLASS__, 'author_profile_listings_template' ), 20 );
 
         // Dashboard
         add_action( 'directorist_dashboard_before_container', array( __CLASS__, 'dashboard_alert_message_template' ) );
@@ -203,7 +203,7 @@ class Directorist_Template_Hooks {
         echo $content;
     }
 
-    public static function author_profile_header() {
+    public static function author_profile_header_template() {
         $author = new Directorist_Listing_Author();
         $author_id = $author->id;
 
@@ -233,7 +233,7 @@ class Directorist_Template_Hooks {
         atbdp_get_shortcode_template( 'author/author-header', $args );
     }
 
-    public static function author_profile_about() {
+    public static function author_profile_about_template() {
         $author = new Directorist_Listing_Author();
         $author_id = $author->id;
 
@@ -270,7 +270,7 @@ class Directorist_Template_Hooks {
     }
 
     // @todo @kowsar do_action('atbdp_author_listings_html', $all_listings) in "Post Your Need" ext
-    public static function author_profile_listings() {
+    public static function author_profile_listings_template() {
         $author = new Directorist_Listing_Author();
 
         $query    = $author->author_listings_query();

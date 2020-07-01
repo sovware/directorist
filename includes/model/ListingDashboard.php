@@ -30,33 +30,73 @@ class Directorist_Listing_Dashboard {
     }
 
     public function get_listing_tab_args( $listings ) {
+    	$listing_items = array();
+
+    	if ($listings->have_posts()) {
+    		foreach ( $listings->posts as $post ) {
+    			$featured = get_post_meta($post->ID, '_featured', true);
+
+				$has_thumbnail = false;
+				$thumbnail_img = '';
+
+                $listing_img = get_post_meta($post->ID, '_listing_img', true);
+                $listing_prv_img = get_post_meta($post->ID, '_listing_prv_img', true);
+				$default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                if (!empty($listing_prv_img)) {
+                    $prv_image = atbdp_get_image_source($listing_prv_img, 'large');
+                    $prv_image_full = atbdp_get_image_source($listing_prv_img, 'full');
+                }
+                if (!empty($listing_img[0])) {
+                    $gallery_img_full = atbdp_get_image_source($listing_img[0], 'full');
+                }
+                if (!empty($listing_img[0]) && empty($listing_prv_img)) {
+                    $thumbnail_img = $gallery_img_full;
+                    $has_thumbnail = true;
+                }
+                if (empty($listing_img[0]) && empty($listing_prv_img) && !empty($default_image)) {
+                    $thumbnail_img = $default_image;
+                    $has_thumbnail = true;
+                }
+                if (!empty($listing_prv_img)) {
+                    $thumbnail_img = $prv_image_full;
+                    $has_thumbnail = true;
+                }
+
+                $date_format = get_option('date_format');
+                $exp_date  = get_post_meta($post->ID, '_expiry_date', true);
+                $never_exp = get_post_meta($post->ID, '_never_expire', true);
+                $status    = get_post_meta($post->ID, '_listing_status', true);
+                $exp_text  = !empty($never_exp) ? __('Never Expires', 'directorist') : date_i18n($date_format, strtotime($exp_date));
+                $exp_html  = ( $status == 'expired' ) ? '<span style="color: red">' . __('Expired', 'directorist') . '</span>' : $exp_text;
+                $status_label = get_post_status_object($post->post_status)->label;
+
+		    	$listing_items[] = array(
+		    		'obj'                => $post,
+		    		'id'                 => $post->ID,
+		    		'featured'           => $featured,
+		    		'permalink'          => get_post_permalink($post->ID),
+		    		'has_thumbnail'      => $has_thumbnail,
+		    		'thumbnail_img'      => $thumbnail_img,
+		    		'title'              => !empty($post->post_title) ? $post->post_title : __('Untitled!', 'directorist'),
+		    		'exp_html'           => $exp_html,
+		    		'status'             => $status,
+		    		'status_label'       => $status_label,
+		    		'status_label_class' => 'atbdp__' . strtolower($status_label),
+		    		'modal_id'           => apply_filters('atbdp_pricing_plan_change_modal_id', 'atpp-plan-change-modal', $post->ID),
+		    	);
+    		}
+    	}
+
         $args = array(
-            'listings'        => $listings,
+        	'listings'        => $listings,
+            'listing_items'   => $listing_items,
             'date_format'     => get_option( 'date_format' ),
+    		'featured_class'  => $featured ? ' directorist-featured-listings' : '',
+    		'featured_text'   => get_directorist_option('feature_badge_text', __('Featured', 'directorist')),
+    		'can_renew'       => get_directorist_option('can_renew_listing'),
             'featured_active' => get_directorist_option( 'enable_featured_listing' ),
-        );
-
-        return $args;
-    }
-
-    public function get_profile_tab_args() {
-        $uid          = $this->get_id();
-        $c_user       = get_userdata( $uid );
-        $u_pro_pic_id = get_user_meta( $uid, 'pro_pic', true );
-        $u_pro_pic    = ! empty( $u_pro_pic_id ) ? wp_get_attachment_image_src( $u_pro_pic_id, 'directory-large' ) : '';
-
-        $args = array(
-            'u_pro_pic_id' => $u_pro_pic_id,
-            'u_pro_pic' => $u_pro_pic,
-            'c_user'    => $c_user,
-            'u_phone'   => get_user_meta( $uid, 'atbdp_phone', true ),
-            'u_website' => $c_user->user_url,
-            'u_address' => get_user_meta( $uid, 'address', true ),
-            'facebook'  => get_user_meta( $uid, 'atbdp_facebook', true ),
-            'twitter'   => get_user_meta( $uid, 'atbdp_twitter', true ),
-            'linkedIn'  => get_user_meta( $uid, 'atbdp_linkedin', true ),
-            'youtube'   => get_user_meta( $uid, 'atbdp_youtube', true ),
-            'bio'       => get_user_meta( $uid, 'description', true ),
+            'has_pagination'  => get_directorist_option('user_listings_pagination', 1),
+            'paged'           => atbdp_get_paged_num(),
         );
 
         return $args;
@@ -75,7 +115,7 @@ class Directorist_Listing_Dashboard {
                 $category      = get_post_meta( $post->ID, '_admin_category_select', true );
                 $category_name = ! empty( $cats ) ? $cats[0]->name : 'Uncategorized';
                 $category_icon = ! empty( $cats ) ? esc_attr( get_cat_icon( $cats[0]->term_id ) ) : atbdp_icon_type() . '-tags';
-                $mark_fav      = atbdp_listings_mark_as_favourite( $post->ID );
+                $mark_fav_html = atbdp_listings_mark_as_favourite( $post->ID );
 
                 $icon_type     = substr( $category_icon, 0, 2 );
                 $icon          = ( 'la' === $icon_type ) ? $icon_type . ' ' . $category_icon : 'fa ' . $category_icon;
@@ -107,13 +147,14 @@ class Directorist_Listing_Dashboard {
                 }
 
                 $fav_listing_items[] = array(
+                	'obj'           => $post,
                     'post_link'     => $post_link,
                     'img_src'       => $img_src,
                     'title'         => $title,
                     'category_link' => $category_link,
                     'category_name' => $category_name,
                     'icon'          => $icon,
-                    'mark_fav'      => $mark_fav,
+                    'mark_fav_html' => $mark_fav_html,
                 );
             }
         endif;
@@ -123,6 +164,54 @@ class Directorist_Listing_Dashboard {
         );
 
         return $args;
+    }
+
+    public function get_profile_tab_args() {
+        $uid          = $this->get_id();
+        $c_user       = get_userdata( $uid );
+        $u_pro_pic_id = get_user_meta( $uid, 'pro_pic', true );
+        $u_pro_pic    = ! empty( $u_pro_pic_id ) ? wp_get_attachment_image_src( $u_pro_pic_id, 'directory-large' ) : '';
+
+        $args = array(
+            'u_pro_pic_id' => $u_pro_pic_id,
+            'u_pro_pic' => $u_pro_pic,
+            'c_user'    => $c_user,
+            'u_phone'   => get_user_meta( $uid, 'atbdp_phone', true ),
+            'u_website' => $c_user->user_url,
+            'u_address' => get_user_meta( $uid, 'address', true ),
+            'facebook'  => get_user_meta( $uid, 'atbdp_facebook', true ),
+            'twitter'   => get_user_meta( $uid, 'atbdp_twitter', true ),
+            'linkedIn'  => get_user_meta( $uid, 'atbdp_linkedin', true ),
+            'youtube'   => get_user_meta( $uid, 'atbdp_youtube', true ),
+            'bio'       => get_user_meta( $uid, 'description', true ),
+        );
+
+        return $args;
+    }
+
+    public function dashboard_listings_query() {
+    	$has_pagination = get_directorist_option('user_listings_pagination', 1);
+    	$listings_per_page = get_directorist_option('user_listings_per_page', 9);
+
+    	$args = array(
+    		'author'=> $this->id,
+    		'post_type'=> ATBDP_POST_TYPE,
+    		'posts_per_page'=> (int) $listings_per_page,
+    		'order'=> 'DESC',
+    		'orderby' => 'date',
+    		'post_status' => array('publish', 'pending', 'private'),
+    	);
+
+    	if($has_pagination) {
+    		$args['paged'] = atbdp_get_paged_num();
+    	}
+    	else {
+    		$args['no_found_rows']  = true;
+    	}
+
+    	$args = apply_filters('atbdp_user_dashboard_query_arguments',$args);
+
+    	return new WP_Query($args);
     }
 
     public function get_dashboard_tabs() {
@@ -135,8 +224,9 @@ class Directorist_Listing_Dashboard {
 
         if ( $my_listing_tab ) {
             $my_listing_tab_text = get_directorist_option( 'my_listing_tab_text', __( 'My Listing', 'directorist' ) );
+
             $listings            = ATBDP()->user->current_user_listings();
-            $list_found          = ( $listings->found_posts > 0 ) ? $listings->found_posts : '0';
+            $list_found = $listings->found_posts;
 
             $dashboard_tabs['my_listings'] = array(
                 'title'              => sprintf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found),

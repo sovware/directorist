@@ -18,11 +18,12 @@ class Directorist_Template_Hooks {
         add_action( 'directorist_author_profile_content', array( $author, 'author_profile_listings_template' ), 20 );
 
         // Dashboard
-        add_action( 'directorist_dashboard_before_container', array( __CLASS__, 'dashboard_alert_message_template' ) );
-        add_action( 'directorist_dashboard_title_area',       array( __CLASS__, 'dashboard_title' ) );
-        add_action( 'directorist_dashboard_navigation',       array( __CLASS__, 'dashboard_nav_tabs_template' ) );
-        add_action( 'directorist_dashboard_navigation',       array( __CLASS__, 'dashboard_nav_buttons_template' ), 15 );
-        add_action( 'directorist_dashboard_tab_contents',     array( __CLASS__, 'dashboard_tab_contents_html' ) );
+        $dashboard = Directorist_Listing_Dashboard::instance();
+        add_action( 'directorist_dashboard_before_container', array( $dashboard, 'dashboard_alert_message_template' ) );
+        add_action( 'directorist_dashboard_title_area',       array( $dashboard, 'dashboard_title' ) );
+        add_action( 'directorist_dashboard_navigation',       array( $dashboard, 'dashboard_nav_tabs_template' ) );
+        add_action( 'directorist_dashboard_navigation',       array( $dashboard, 'dashboard_nav_buttons_template' ), 15 );
+        add_action( 'directorist_dashboard_tab_contents',     array( $dashboard, 'dashboard_tab_contents_html' ) );
 
         // Add Listing
         add_action( 'directorist_add_listing_title',            array( __CLASS__, 'add_listing_title' ) );
@@ -202,52 +203,6 @@ class Directorist_Template_Hooks {
         }
 
         echo $content;
-    }
-
-    public static function dashboard_alert_message_template() {
-        if ( isset($_GET['renew'] ) ) {
-            $renew_token_expired = $_GET['renew'] == 'token_expired' ? true : false;
-            $renew_succeed = $_GET['renew'] == 'success' ? true : false;
-        }
-        else {
-            $renew_token_expired = $renew_succeed = false;
-        }
-        atbdp_get_shortcode_template( 'dashboard/alert-message', compact('renew_token_expired', 'renew_succeed') );
-    }
-
-    public static function dashboard_title( $display_title ) {
-        if ($display_title) {
-            atbdp_get_shortcode_template( 'dashboard/title' );
-        }
-    }
-
-    public static function dashboard_nav_tabs_template() {
-        $dashboard = new Directorist_Listing_Dashboard();
-
-        $args = array(
-            'dashboard_tabs' => $dashboard->get_dashboard_tabs(),
-        );
-
-        atbdp_get_shortcode_template( 'dashboard/navigation-tabs', $args );
-    }
-
-    public static function dashboard_nav_buttons_template() {
-        $args = array(
-            'display_submit_btn' => get_directorist_option('submit_listing_button', 1),
-        );
-        atbdp_get_shortcode_template( 'dashboard/nav-buttons', $args );
-    }
-
-    public static function dashboard_tab_contents_html() {
-        $dashboard = new Directorist_Listing_Dashboard();
-        $dashboard_tabs = $dashboard->get_dashboard_tabs();
-
-        foreach ($dashboard_tabs as $key => $value) {
-            echo $value['content'];
-            if (!empty($value['after_content_hook'])) {
-                do_action($value['after_content_hook']);
-            }
-        }
     }
 
     public static function add_listing_title() {

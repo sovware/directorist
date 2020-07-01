@@ -9,10 +9,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Directorist_Listing_Dashboard {
 
+    protected static $instance = null;
+
     public $id;
 
-    public function __construct() {
+    private function __construct() {
         $this->id = get_current_user_id();
+    }
+
+    public static function instance() {
+        if ( null == self::$instance ) {
+            self::$instance = new self;
+        }
+        return self::$instance;
     }
 
     public function get_id() {
@@ -263,6 +272,49 @@ class Directorist_Listing_Dashboard {
             'error_message' => sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), $login_link_html, $signup_link_html),
         );
         return atbdp_return_shortcode_template( 'dashboard/error-message', $args );
+    }
+
+    public function dashboard_alert_message_template() {
+        if ( isset($_GET['renew'] ) ) {
+            $renew_token_expired = $_GET['renew'] == 'token_expired' ? true : false;
+            $renew_succeed = $_GET['renew'] == 'success' ? true : false;
+        }
+        else {
+            $renew_token_expired = $renew_succeed = false;
+        }
+        atbdp_get_shortcode_template( 'dashboard/alert-message', compact('renew_token_expired', 'renew_succeed') );
+    }
+
+    public function dashboard_title( $display_title ) {
+        if ($display_title) {
+            atbdp_get_shortcode_template( 'dashboard/title' );
+        }
+    }
+
+    public function dashboard_nav_tabs_template() {
+        $args = array(
+            'dashboard_tabs' => $this->get_dashboard_tabs(),
+        );
+
+        atbdp_get_shortcode_template( 'dashboard/navigation-tabs', $args );
+    }
+
+    public function dashboard_nav_buttons_template() {
+        $args = array(
+            'display_submit_btn' => get_directorist_option('submit_listing_button', 1),
+        );
+        atbdp_get_shortcode_template( 'dashboard/nav-buttons', $args );
+    }
+
+    public function dashboard_tab_contents_html() {
+        $dashboard_tabs = $this->get_dashboard_tabs();
+
+        foreach ($dashboard_tabs as $key => $value) {
+            echo $value['content'];
+            if (!empty($value['after_content_hook'])) {
+                do_action($value['after_content_hook']);
+            }
+        }
     }
 
     public function render_shortcode_user_dashboard($atts) {

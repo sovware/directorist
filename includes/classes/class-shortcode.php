@@ -156,7 +156,7 @@ if (!class_exists('ATBDP_Shortcode')):
         }
 
         public function user_dashboard($atts) {
-            $dashboard = new Directorist_Listing_Dashboard();
+            $dashboard = Directorist_Listing_Dashboard::instance();
             return $dashboard->render_shortcode_user_dashboard($atts);
         }
 

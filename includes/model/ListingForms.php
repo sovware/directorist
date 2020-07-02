@@ -336,30 +336,18 @@ class Directorist_Listing_Forms {
         atbdp_get_shortcode_template( 'forms/add-listing-title', $args );
     }
 
-    public function add_listing_general_template() {
-        $p_id       = $this->get_add_listing_id();
-        $fm_plan    = get_post_meta($p_id, '_fm_plans', true);
-        $currency   = get_directorist_option('g_currency', 'USD');
-
-        $plan_cat = array();
-        if (is_fee_manager_active()) {
-            $plan_cat = is_plan_allowed_category($fm_plan);
-        }
-
-        $plan_tag = true;
-        if (is_fee_manager_active()) {
-            $plan_tag = is_plan_allowed_tag($fm_plan);
-        }
-
-        $plan_custom_field = true;
-        if (is_fee_manager_active()) {
-            $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);
+    public function add_listing_location_fields() {
+        $terms = get_the_terms($this->add_listing_id, ATBDP_LOCATION);
+        $ids = array();
+        if (!empty($terms)) {
+            foreach ($terms as $term) {
+                $ids[] = $term->term_id;
+            }
         }
 
         $query_args = array(
             'parent' => 0,
             'term_id' => 0,
-            'exclude' => $plan_cat,
             'hide_empty' => 0,
             'orderby' => 'name',
             'order' => 'asc',
@@ -371,6 +359,67 @@ class Directorist_Listing_Forms {
             'ancestors' => array()
         );
 
+        $location_fields = add_listing_category_location_filter($query_args, ATBDP_LOCATION, $ids);
+        return $location_fields;
+    }
+
+    public function add_listing_cat_ids() {
+        $p_id = $this->add_listing_id;
+        $terms = get_the_terms($p_id, ATBDP_CATEGORY);
+        $ids = array();
+        if (!empty($terms)) {
+            foreach ($terms as $term) {
+                $ids[] = $term->term_id;
+            }
+        }
+        return $ids;
+    }
+
+    public function add_listing_tag_ids() {
+        $p_id = $this->add_listing_id;
+        $tag_ids = array();
+        $p_tags = wp_get_post_terms($p_id, ATBDP_TAGS);
+        if (!empty($p_tags)) {
+            foreach ($p_tags as $p_tag) {
+                $tag_ids[] = $p_tag->term_id;
+            }
+        }
+        return $tag_ids;
+    }
+
+    public function add_listing_cat_fields() {
+        $p_id = $this->add_listing_id;
+        $fm_plan    = get_post_meta($p_id, '_fm_plans', true);
+        $plan_cat = is_fee_manager_active() ? is_plan_allowed_category($fm_plan) : array();
+        $ids = $this->add_listing_cat_ids();
+
+        $query_args = array(
+            'parent' => 0,
+            'term_id' => 0,
+            'hide_empty' => 0,
+            'orderby' => 'name',
+            'order' => 'asc',
+            'show_count' => 0,
+            'single_only' => 0,
+            'pad_counts' => true,
+            'immediate_category' => 0,
+            'active_term_id' => 0,
+            'ancestors' => array()
+        );
+
+        $categories_field = add_listing_category_location_filter($query_args, ATBDP_CATEGORY, $ids, '', $plan_cat);
+        return $categories_field;
+    }
+
+    public function add_listing_general_template() {
+        $p_id       = $this->get_add_listing_id();
+        $fm_plan    = get_post_meta($p_id, '_fm_plans', true);
+        $currency   = get_directorist_option('g_currency', 'USD');
+
+        $plan_cat = is_fee_manager_active() ? is_plan_allowed_category($fm_plan) : array();
+        $plan_tag = is_fee_manager_active() ? is_plan_allowed_tag($fm_plan) : true;
+        $plan_custom_field = is_fee_manager_active() ? is_plan_allowed_custom_fields($fm_plan) : true;
+
         $required_html = '<span class="atbdp_make_str_red"> *</span>';
 
         $title_label = get_directorist_option('title_label', __('Title', 'directorist'));
@@ -381,63 +430,94 @@ class Directorist_Listing_Forms {
         $long_details_required = get_directorist_option('require_long_details') ? $required_html : '';
         $long_details_label_html = sprintf( '%s:%s', $long_details_label, $long_details_required );
 
-        
+        $display_tagline_field = get_directorist_option('display_tagline_field', 0);
+        $display_tagline_for = get_directorist_option('display_tagline_for', 0);
+
+        $display_price_field = get_directorist_option('display_pricing_field', 1);
+        $display_price_for = get_directorist_option('display_price_for', 'admin_users');
+
+        $display_price_range_field = get_directorist_option('display_price_range_field', 1);
+        $display_price_range_for = get_directorist_option('display_price_range_for', 'admin_users');
+
+        $price_label = get_directorist_option('price_label', __('Price', 'directorist'));
+        $require_price = get_directorist_option('require_price');
+        $price_label_html = sprintf('%s [%s]%s', $price_label, $currency, $require_price ? $required_html : '');
+
+        $price_range_label = get_directorist_option('price_range_label', __('Price Range', 'directorist'));
+        $require_price_range = get_directorist_option('require_price_range');
+        $price_range_label_html = $price_range_label. ($require_price_range ? $required_html : '');
+
+        $display_views_count_field = apply_filters('atbdp_listing_form_view_count_field', get_directorist_option('display_views_count', 1));
+        $display_views_count_for = get_directorist_option('display_views_count_for', 1);
+
+        $display_excerpt_field  = get_directorist_option('display_excerpt_field', 0);
+        $display_excerpt_for = get_directorist_option('display_short_desc_for', 0);
+
+        $excerpt_label = get_directorist_option('excerpt_label', __('Short Description/Excerpt', 'directorist'));
+        $require_excerpt = get_directorist_option('require_excerpt');
+        $excerpt_label_html = sprintf( '%s:%s', $excerpt_label, $require_excerpt ? $required_html : '' );
+
+        $location_label = get_directorist_option('location_label', __('Location', 'directorist'));
+        $require_location = get_directorist_option('require_location');
+        $location_label_html = sprintf( '%s:%s', $location_label, $require_location ? $required_html : '' );
+
+        $tag_label = get_directorist_option('tag_label', __('Tags', 'directorist'));
+        $require_tag = get_directorist_option('require_tags');
+        $tag_label_html = sprintf( '%s:%s', $tag_label, $require_tag ? $required_html : '' );
+
+        $cat_label = get_directorist_option('category_label', __('Select Category', 'directorist'));
+        $require_cat = get_directorist_option('require_category');
+        $cat_label_html = sprintf( '%s:%s', $cat_label, $require_cat ? $required_html : '' );
 
         $args = array(
+            'form'                           => $this,
             'p_id'                           => $p_id,
             'listing'                        => $this->get_add_listing_post(),
             'display_title'                  => get_directorist_option('display_title_for', 0) ? false : true,
             'title_label_html'               => $title_label_html,
             'display_desc'                   => get_directorist_option('display_desc_for', 0) ? false : true,
             'long_details_label_html'        => $long_details_label_html,
-            'display_tagline_field'          => get_directorist_option('display_tagline_field', 0),
-            'display_tagline_for'            => get_directorist_option('display_tagline_for', 0),
+            'display_tagline'                => ( $display_tagline_field && !$display_tagline_for ) ? true : false,
             'tagline_label'                  => get_directorist_option('tagline_label', __('Tagline', 'directorist')),
             'tagline_placeholder'            => get_directorist_option('tagline_placeholder', __('Your Listing\'s motto or tag-line', 'directorist')),
             'tagline'                        => get_post_meta($p_id, '_tagline', true),
-            'display_price_for'              => get_directorist_option('display_price_for', 'admin_users'),
-            'display_price_range_for'        => get_directorist_option('display_price_range_for', 'admin_users'),
-            'display_pricing_field'          => get_directorist_option('display_pricing_field', 1),
-            'display_price_range_field'      => get_directorist_option('display_price_range_field', 1),
+            'display_price'                  => ( $display_price_field && !$display_price_for ) ? true : false,
+            'display_price_range'            => ( $display_price_range_field && !$display_price_range_for ) ? true : false,
             'plan_average_price'             => is_fee_manager_active() ? is_plan_allowed_average_price_range($fm_plan) : true,
             'plan_price'                     => is_fee_manager_active() ? is_plan_allowed_price($fm_plan) : true,
             'price_range'                    => get_post_meta($p_id, '_price_range', true),
             'atbd_listing_pricing'           => get_post_meta($p_id, '_atbd_listing_pricing', true),
             'pricing_label'                  => get_directorist_option('pricing_label', __('Pricing', 'directorist')),
-            'price_label'                    => get_directorist_option('price_label', __('Price', 'directorist')),
-            'currency'                       => $currency,
-            'require_price'                  => get_directorist_option('require_price'),
-            'price_range_label'              => get_directorist_option('price_range_label', __('Price Range', 'directorist')),
-            'require_price_range'            => get_directorist_option('require_price_range'),
+            'price_label_html'               => $price_label_html,
+            'price_range_label_html'         => $price_range_label_html,
             'allow_decimal'                  => get_directorist_option('allow_decimal', 1),
             'price'                          => get_post_meta($p_id, '_price', true),
             'price_placeholder'              => get_directorist_option('price_placeholder', __('Price of this listing. Eg. 100', 'directorist')),
             'c_symbol'                       => atbdp_currency_symbol($currency),
             'price_range_placeholder'        => get_directorist_option('price_range_placeholder', __('Price Range', 'directorist')),
-            'display_views_count'            => apply_filters('atbdp_listing_form_view_count_field', get_directorist_option('display_views_count', 1)),
-            'display_views_count_for'        => get_directorist_option('display_views_count_for', 1),
+            'display_views_count'            => ( $display_views_count_field && !$display_views_count_for ) ? true : false,
             'views_count_label'              => get_directorist_option('views_count_label', __('Views Count', 'directorist')),
             'atbdp_post_views_count'         => get_post_meta($p_id, '_atbdp_post_views_count', true),
-            'display_excerpt_field'          => get_directorist_option('display_excerpt_field', 0),
-            'display_short_desc_for'         => get_directorist_option('display_short_desc_for', 0),
-            'excerpt_label'                  => get_directorist_option('excerpt_label', __('Short Description/Excerpt', 'directorist')),
-            'require_excerpt'                => get_directorist_option('require_excerpt'),
+            'display_excerpt'                => ( $display_excerpt_field && !$display_excerpt_for ) ? true : false,
+            'excerpt_label_html'             => $excerpt_label_html,
             'excerpt'                        => get_post_meta($p_id, '_excerpt', true),
             'excerpt_placeholder'            => get_directorist_option('excerpt_placeholder', __('Short Description or Excerpt', 'directorist')),
-            'display_loc_for'                => get_directorist_option('display_loc_for', 0),
-            'location_label'                 => get_directorist_option('location_label', __('Location', 'directorist')),
+            'display_loc'                    => get_directorist_option('display_loc_for', 0) ? false : true,
+            'location_label_html'            => $location_label_html,
             'loc_placeholder'                => get_directorist_option('loc_placeholder', __('Select Location', 'directorist')),
-            'require_location'               => get_directorist_option('require_location'),
-            'multiple_loc_for_user'          => get_directorist_option('multiple_loc_for_user', 1),
-            'query_args'                     => $query_args,
+            'multiple_loc'                   => get_directorist_option('multiple_loc_for_user', 1),
+            'location_fields'                => $this->add_listing_location_fields(),
+            'display_tag'                    => get_directorist_option('display_tag_for', 0) ? false : true,
             'plan_tag'                       => $plan_tag,
-            'tag_label'                      => get_directorist_option('tag_label', __('Tags', 'directorist')),
-            'p_tags'                         => wp_get_post_terms($p_id, ATBDP_TAGS),
-            'listing_tags'                   => get_terms(ATBDP_TAGS, array('hide_empty' => 0)),
-            'category_label'                 => get_directorist_option('category_label', __('Select Category', 'directorist')),
+            'tag_label_html'                 => $tag_label_html,
+            'all_tags'                       => get_terms(ATBDP_TAGS, array('hide_empty' => 0)),
+            'listing_tag_ids'                => $this->add_listing_tag_ids(),
+            'cat_label_html'                 => $cat_label_html,
+            'display_multiple_cat'           => get_directorist_option('multiple_cat_for_user', 1),
             'cat_placeholder'                => get_directorist_option('cat_placeholder', __('Select Category', 'directorist')),
+            'cat_fields'                     => $this->add_listing_cat_fields(),
             'plan_custom_field'              => $plan_custom_field,
-            'plan_cat'                       => $plan_cat,
+            'listing_cat_ids'                => $this->add_listing_cat_ids(),
         );
 
         atbdp_get_shortcode_template( 'forms/add-listing-general', $args );

@@ -9,12 +9,20 @@
 if (!defined('ABSPATH')) {
 	exit;
 }
+$file = isset($_GET['file']) ? wp_unslash($_GET['file']) : '';
+$posts = csv_get_data($file, true);
+$total = count($posts);
+$delimiter = isset($_GET['delimiter']) ? wp_unslash($_GET['delimiter']) : ',';
+$update_existing = isset($_GET['update_existing']) ? sanitize_key($_GET['update_existing']) : false;
+$headers = $args['data'];
+$fields = $args['fields'];
 ?>
 <form class="atbdp-progress-form-content directorist-importer" id="atbdp_csv_step_two" method="post">
 	<header>
 		<h1><?php esc_html_e('Step Two', 'directorist'); ?></h1>
 		<h2><?php esc_html_e('Map CSV fields to listings', 'directorist'); ?></h2>
 		<p><?php esc_html_e('Select fields from your CSV file to map against listings fields, or to ignore during import.', 'directorist'); ?></p>
+		<h3><?php printf(__('Total %s items selected ', 'directorist'), $total); ?></h3>
 	</header>
 	<section class="atbdp-importer-mapping-table-wrapper">
 		<table class="widefat atbdp-importer-mapping-table">
@@ -26,11 +34,6 @@ if (!defined('ABSPATH')) {
 			</thead>
 			<tbody>
 				<?php
-				$file = isset($_GET['file']) ? wp_unslash($_GET['file']) : '';
-				$delimiter = isset($_GET['delimiter']) ? wp_unslash($_GET['delimiter']) : ',';
-				$update_existing = isset($_GET['update_existing']) ? sanitize_key($_GET['update_existing']) : false;
-				$headers = $args['data'];
-				$fields = $args['fields'];
 				foreach ($headers as $index => $name) : ?>
 					<tr>
 						<td class="atbdp-importer-mapping-table-name">
@@ -63,13 +66,16 @@ if (!defined('ABSPATH')) {
 		<?php wp_nonce_field('directorist-csv-importer'); ?>
 	</div>
 </form>
-<!-- <div class="wc-progress-form-content woocommerce-importer woocommerce-importer__importing">
+<div class="directorist-importer__importing" style="display: none;">
 	<header>
 		<span class="spinner is-active"></span>
-		<h2><?php //esc_html_e( 'Importing', 'woocommerce' ); ?></h2>
-		<p><?php //esc_html_e( 'Your products are now being imported...', 'woocommerce' ); ?></p>
+		<h2><?php esc_html_e( 'Importing', 'directorist' ); 
+			?></h2>
+		<p><?php esc_html_e( 'Your listing are now being imported...', 'directorist' ); 
+			?></p>
 	</header>
 	<section>
-		<progress class="woocommerce-importer-progress" max="100" value="0"></progress>
+		<span class="importer-details"></span>
+		<progress class="directorist-importer-progress" max="100" value="0"></progress>
 	</section>
-</div> -->
+</div>

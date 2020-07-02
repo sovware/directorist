@@ -411,6 +411,11 @@ class Directorist_Listing_Forms {
         return $categories_field;
     }
 
+    public function add_listing_required_html() {
+        $required_html = '<span class="atbdp_make_str_red"> *</span>';
+        return $required_html;
+    }
+
     public function add_listing_general_template() {
         $p_id       = $this->get_add_listing_id();
         $fm_plan    = get_post_meta($p_id, '_fm_plans', true);

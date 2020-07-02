@@ -155,14 +155,14 @@ $query_args = array(
     'active_term_id' => 0,
     'ancestors' => array()
 );
-?>
+
+do_action('atbdb_before_add_listing_from_wrapper'); ?>
+
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
     <div class="<?php echo apply_filters('atbdp_add_listing_container_fluid', $container_fluid) ?>">
         <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" method="post" id="add-listing-form">
             <fieldset>
-                <?php
-                do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
-                ?>
+                <?php do_action('atbdb_before_add_listing_from_frontend');//for dev purpose ?>
                 <div class="atbdp-form-fields">
                     <div class="atbd_add_listing_title">
                         <h3><?php echo !empty($p_id) ? __('Update', 'directorist') : __('Add New', 'directorist'); ?></h3>
@@ -1364,8 +1364,10 @@ $query_args = array(
         </form>
     </div> <!--ends container-fluid-->
 </div>
-
 <?php
+
+do_action('atbdb_after_add_listing_from_wrapper');
+
 if ('openstreet' == $select_listing_map) {
     wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
     wp_enqueue_script('openstreet_layer');

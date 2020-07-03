@@ -782,3 +782,191 @@ span.atbdp-tick-cross{
 .atbdp-timestamp-wrap input{
   margin-bottom: 5px !important;
 }
+
+/* csv styles */
+.csv-action-btns{
+  margin-top: 30px;
+  a{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    line-height: 44px;
+    padding: 0 20px;
+    background: #fff;
+    border: 1px solid #E3E6EF;
+    color: #272B41;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-right: 7px;
+    span{
+      color: #9299B8;
+    }
+    &:last-child{
+      margin-right: 0;
+    }
+    &.btn-active{
+      background: #2C99FF;
+      color: #fff;
+      border-color: #2C99FF;
+      span{
+        color: rgba(#fff, 0.8);
+      }
+    }
+  }
+}
+.csv-action-steps{
+  ul{
+    width: 700px;
+    margin: 80px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    li{
+      text-align: center;
+      position: relative;
+      text-align: center;
+      width: 25%;
+      &:before{
+        position: absolute;
+        content: url(../images/csv-step.png);
+        left: 112px;
+        top: 8px;
+        width: 125px;
+        overflow: hidden;
+      }
+      &:last-child:before{
+        content: none;
+      }
+      .step{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        color: #9299B8;
+        box-shadow: 5px 0 10px rgba(#9299B8, 0.15);
+        background: #fff;
+      }
+      span:not(.step){
+        display: block;
+        margin-top: 15px;
+        color: #9299B8;
+        font-weight: 500;
+      }
+      &.active{
+        .step{
+          background: #272B41;
+          color: #fff;
+        }
+        span:not(.step){
+          color: #272B41;
+        }
+      }
+    }
+  }
+}
+.csv-wrapper{
+  margin-top: 20px;
+  form{
+    width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 5px 8px rgba(#9299B8, 0.15);
+    header{
+      padding: 30px 30px 20px;
+      border-bottom: 1px solid #F1F2F6;
+      h2{
+        margin: 0 0 15px 0;
+        font-size: 22px;
+        font-weight: 500;
+      }
+      p{
+        color: #5A5F7D;
+        margin: 0;
+      }
+    }
+    .form-content{
+      padding: 30px;
+      .directorist-importer-options{
+        margin: 0;
+        h4{
+          margin: 0 0 15px 0;
+          font-size: 15px;
+        }
+        .csv-upload{
+          position:relative;
+          #upload{
+            display:none;
+            & + label{
+              display: inline-block;
+              .upload-btn{
+                line-height: 40px;
+                display: inline-block;
+                border-radius: 5px;
+                padding: 0 20px;
+                background: #5A5F7D;
+                color: #fff;
+                font-weight: 500;
+              }
+              .file-name{
+                color: #9299B8;
+                display: inline-block;
+                margin-left: 5px;
+              }
+            }
+          }
+          small{
+            font-size: 13px;
+            color: #9299B8;
+            display: block;
+            margin-top: 10px;
+          }
+        }
+        .update-existing{
+          padding-top: 30px;
+          label.ue{
+            font-size: 15px;
+            font-weight: 500;
+            color: #272B41;
+            display: block;
+            margin-bottom: 15px;
+          }
+        }
+        .csv-delimiter{
+          padding-top: 30px;
+          label{
+            font-size: 15px;
+            font-weight: 500;
+            color: #272B41;
+            display: block;
+            margin-bottom: 15px;
+          }
+          input{
+            width: 120px;
+            border-radius: 4px;
+            border: 1px solid #C6D0DC;
+            height: 36px;
+          }
+        }
+      }
+    }
+    .atbdp-actions{
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px 30px;
+      background: #F4F5F7;
+      .button{
+        background: #2C99FF;
+        color: #fff;
+        border: 0 none;
+        line-height: 44px;
+        padding: 0 20px;
+        border-radius: 5px;
+        font-weight: 500;
+      }
+    }
+  }
+}

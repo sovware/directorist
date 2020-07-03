@@ -2,8 +2,7 @@
 
 if ( ! class_exists( 'ATBDP_Hooks' ) ) :
     class ATBDP_Hooks {
-        public static $hooks = [];
-        public static $helper_hooks = [];
+        public $hooks = [];
 
         public function __construct() {
             $this->hooks =  $this->get_hooks();
@@ -38,25 +37,6 @@ if ( ! class_exists( 'ATBDP_Hooks' ) ) :
             foreach ( $hooks as $hook ) {
                 self::add_hook( $hook );
             }
-        }
-
-        /**
-         * Register Hook
-         *
-         * @return void
-         */
-        public static function register_hook( $hook_id, array $args = []) {
-            if ( ! isset( self::$hooks[ $hook_id]  ) && ! isset( self::$helper_hooks[ $hook_id ]  ) ) { 
-                return;
-            }
-
-            $hook = self::$hooks[ $hook_id ];
-
-            if ( isset( $args['priority'] )  ) {
-                $hook['priority'] = $args['priority'];
-            }
-
-            self::add_hook( $hook );
         }
 
         /**

@@ -3,7 +3,7 @@ if ( ! class_exists( 'ATBDP_Title_Update' ) ) :
 
     class ATBDP_Title_Update {
         // run
-        public function run( $title, $id = null ) {
+        public static function run( $title, $id = null ) {
             if ( ! in_the_loop() || ! is_main_query() ) {
                 return $title;
             }

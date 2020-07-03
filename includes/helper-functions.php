@@ -4952,3 +4952,51 @@ function get_view( $file_path, $data = null )
 
     return $view;
 }
+
+if(!function_exists('csv_get_data')){
+    function csv_get_data($default_file = null, $multiple = null)
+    {
+        $data = $multiple ? array() : '';
+        $errors = array();
+        // Get array of CSV files
+        $file = $default_file ? $default_file : '';
+        if (!$file) return;
+
+        // Attempt to change permissions if not readable
+        if (!is_readable($file)) {
+            chmod($file, 0744);
+        }
+
+        // Check if file is writable, then open it in 'read only' mode
+        if (is_readable($file) && $_file = fopen($file, "r")) {
+
+            // To sum this part up, all it really does is go row by
+            //  row, column by column, saving all the data
+            $post = array();
+
+            // Get first row in CSV, which is of course the headers
+            $header = fgetcsv($_file);
+
+            while ($row = fgetcsv($_file)) {
+
+                foreach ($header as $i => $key) {
+                    $post[$key] = $row[$i];
+                }
+
+                if ($multiple) {
+                    $data[] = $post;
+                } else {
+                    $data = $post;
+                }
+            }
+
+            fclose($_file);
+        } else {
+            $errors[] = "File '$file' could not be opened. Check the file's permissions to make sure it's readable by your server.";
+        }
+        if (!empty($errors)) {
+            // ... do stuff with the errors
+        }
+        return $data;
+    }
+}

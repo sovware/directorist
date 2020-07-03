@@ -5,6 +5,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+$bytes      = apply_filters('import_upload_size_limit', wp_max_upload_size());
+$size       = size_format($bytes);
+$upload_dir = wp_upload_dir();
 ?>
 <form class="atbdp-progress-form-content directorist-importer" id="atbdp_csv_step_one" enctype="multipart/form-data" method="post">
 <header>

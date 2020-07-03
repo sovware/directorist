@@ -240,12 +240,9 @@ final class Directorist_Base
             self::$instance->tools = new ATBDP_Tools;
             self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
-
             self::$instance->update_database();
-
             // new settings
             new ATBDP_Settings_Manager();
-
             /*Extensions Link*/
             /*initiate extensions link*/
             new ATBDP_Extensions();
@@ -253,13 +250,10 @@ final class Directorist_Base
             new ATBDP_Themes();
             /*Initiate Review and Rating Features*/
             self::$instance->review = new ATBDP_Review_Rating;
-
             //activate rewrite api
             new ATBDP_Rewrite;
-
             //map custom capabilities
             add_filter('map_meta_cap', array(self::$instance->roles, 'meta_caps'), 10, 4);
-
             //add dtbdp custom body class
             add_filter('body_class', array(self::$instance, 'atbdp_body_class'), 99);
             // display related listings

@@ -81,28 +81,33 @@ if (!class_exists('ATBDP_Tools')) :
                         "post_type"    => 'at_biz_dir',
                         "post_status"  => $new_listing_status,
                     );
-                    // if ($tax_inputs) {
-                    //     foreach ( $tax_inputs as $taxonomy => $term ) {
-                    //         if ('category' == $taxonomy) {
-                    //             $taxonomy = ATBDP_CATEGORY;
-                    //         } elseif ('location' == $taxonomy) {
-                    //             $taxonomy = ATBDP_LOCATION;
-                    //         } else {
-                    //             $taxonomy = ATBDP_TAGS;
-                    //         }
-                            
-                    //         $final_term = isset($post[$term]) ? $post[$term] : '';
-                    //         $args['tax_input'][$taxonomy] = $final_term;
-                    //     }
-                        
-                    // }
-
                     $post_id = wp_insert_post($args);
 
                     if (!is_wp_error($post_id)) {
                         $data['imported'] = $imported++;
                     } else {
                         $data['failed'] = $failed++;
+                    }
+
+                    if ($tax_inputs) {
+                        foreach ( $tax_inputs as $taxonomy => $term ) {
+                            if ('category' == $taxonomy) {
+                                $taxonomy = ATBDP_CATEGORY;
+                            } elseif ('location' == $taxonomy) {
+                                $taxonomy = ATBDP_LOCATION;
+                            } else {
+                                $taxonomy = ATBDP_TAGS;
+                            }
+                            
+                            $final_term = isset($post[$term]) ? $post[$term] : '';
+                            if ( ! get_term_by( 'name', $final_term, $taxonomy ) ) { // @codingStandardsIgnoreLine.
+                                $result = wp_insert_term( $final_term, $taxonomy );
+                                if( !is_wp_error( $result ) ){
+                                    $term_id = $result['term_id'];
+                                    wp_set_object_terms($post_id, $term_id, $taxonomy);
+                                }
+                            }
+                        }
                     }
 
                     foreach ($metas as $index => $value) {
@@ -133,13 +138,13 @@ if (!class_exists('ATBDP_Tools')) :
             // therefore this page needs to be nonce protected as well.
             // step one
 
-            $post = new WP_Query(array(
-                'post_type' => ATBDP_POST_TYPE,
-                'posts_per_page' => -1
-            ));
-            foreach ($post->posts as $post) {
-                wp_delete_post($post->ID, true);
-            }
+            // $post = new WP_Query(array(
+            //     'post_type' => ATBDP_POST_TYPE,
+            //     'posts_per_page' => -1
+            // ));
+            // foreach ($post->posts as $post) {
+            //     wp_delete_post($post->ID, true);
+            // }
             // var_dump(admin_url());
             if (isset($_POST['atbdp_save_csv_step'])) {
                 check_admin_referer('directorist-csv-importer');

@@ -5371,7 +5371,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'slider',
                     'name' => 'max_gallery_upload_size',
-                    'label' => __('Max Upload Size in MB', 'directorist'),
+                    'label' => __('Total Upload Size in MB', 'directorist'),
                     'min' => '.5',
                     'max' => '100',
                     'step' => '.5',

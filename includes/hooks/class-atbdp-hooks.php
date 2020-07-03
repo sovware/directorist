@@ -60,7 +60,7 @@ if ( ! class_exists( 'ATBDP_Hooks' ) ) :
         }
 
         /**
-         * Register Add Hook
+         * Add Hook
          *
          * @return void
          */

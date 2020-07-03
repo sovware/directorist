@@ -18,12 +18,12 @@ jQuery(document).ready(function ($) {
             $('select.atbdp_map_to').each(function () {
                 var name = $(this).attr("name");
                 var value = $(this).val();
-                if (('title' == name) || ('description' == name)  || ('preview_image' == name)) {
-                    form_data.append(name, value);
-                } else if(('category' == name) || ('location' == name) || ('tag' == name)){
-                     form_data.append('tax_input[' + name + ']', value);
+                if (('title' == value) || ('description' == value)  || ('_listing_prv_img' == value)) {
+                    form_data.append(value, name);
+                } else if(('category' == value) || ('location' == value) || ('tag' == value)){
+                     form_data.append('tax_input[' + value + ']', name);
                 } else {
-                    form_data.append('meta[' + name + ']', value);
+                    form_data.append('meta[' + value + ']', name);
                 }
             });
             $.ajax({
@@ -34,7 +34,6 @@ jQuery(document).ready(function ($) {
                 url: import_export_data.ajaxurl,
                 data: form_data,
                 success: function (response) {
-                    
                     $('.importer-details').html('Imported ' + response.next_position + ' out of ' + response.total);
                     $('.directorist-importer-progress').val(response.percentage);
                     if ('100' != response.percentage && (counter < 150)) {

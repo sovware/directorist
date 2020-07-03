@@ -35,7 +35,7 @@ $upload_dir = wp_upload_dir();
 							<?php
 						} else {
 							?>
-							<input type="file" id="upload" name="import" size="25" />
+							<input type="file" id="upload" name="import" required size="25" />
 							<input type="hidden" name="action" value="save" />
 							<input type="hidden" name="max_file_size" value="<?php echo esc_attr( $bytes ); ?>" />
 							<br>
@@ -53,14 +53,14 @@ $upload_dir = wp_upload_dir();
 						?>
 					</td>
 				</tr>
-				<tr>
-					<th><label for="directorist-importer-update-existing"><?php esc_html_e( 'Update existing listings', 'directorist' ); ?></label><br/></th>
+				<!-- <tr>
+					<th><label for="directorist-importer-update-existing"><?php //esc_html_e( 'Update existing listings', 'directorist' ); ?></label><br/></th>
 					<td>
 						<input type="hidden" name="update_existing" value="0" />
 						<input type="checkbox" id="directorist-importer-update-existing" name="update_existing" value="1" />
-						<label for="directorist-importer-update-existing"><?php esc_html_e( 'Existing listings that match by ID will be updated. listings that do not exist will be skipped.', 'directorist' ); ?></label>
+						<label for="directorist-importer-update-existing"><?php //esc_html_e( 'Existing listings that match by ID will be updated. listings that do not exist will be skipped.', 'directorist' ); ?></label>
 					</td>
-				</tr>
+				</tr> -->
 				<tr>
 					<th><label><?php esc_html_e( 'CSV Delimiter', 'directorist' ); ?></label><br/></th>
 					<td><input type="text" name="delimiter" placeholder="," size="2" /></td>

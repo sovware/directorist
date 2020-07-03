@@ -58,6 +58,7 @@ if (!class_exists('ATBDP_Tools')) :
             $count = 0;
             $posts = csv_get_data($this->file, true);
             $new_listing_status = get_directorist_option('new_listing_status', 'pending');
+            $preview_image = isset($_POST['_listing_prv_img']) ? sanitize_text_field($_POST['_listing_prv_img']) : '';
             $title = isset($_POST['title']) ? sanitize_text_field($_POST['title']) : '';
             $description = isset($_POST['description']) ? sanitize_text_field($_POST['description']) : '';
             $position = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
@@ -100,26 +101,34 @@ if (!class_exists('ATBDP_Tools')) :
                             }
                             
                             $final_term = isset($post[$term]) ? $post[$term] : '';
-                            if ( ! get_term_by( 'name', $final_term, $taxonomy ) ) { // @codingStandardsIgnoreLine.
+                            $term_exists = get_term_by( 'name', $final_term, $taxonomy );
+                            if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
                                 $result = wp_insert_term( $final_term, $taxonomy );
                                 if( !is_wp_error( $result ) ){
                                     $term_id = $result['term_id'];
                                     wp_set_object_terms($post_id, $term_id, $taxonomy);
                                 }
+                            }else{
+                                wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
                             }
                         }
                     }
 
                     foreach ($metas as $index => $value) {
-                        $meta_value = $post[$index] ? $post[$index] : '';
-                        update_post_meta($post_id, $value, $meta_value);
+                        $meta_value = $post[$value] ? $post[$value] : '';
+                        if($meta_value){
+                            update_post_meta($post_id, $index, $meta_value);
+                        }
                     }
                     $exp_dt = calc_listing_expiry_date();
                     update_post_meta($post_id, '_expiry_date', $exp_dt);
                     update_post_meta($post_id, '_featured', 0);
                     update_post_meta($post_id, '_listing_status', 'post_status');
-                    // update_post_meta($post_id, '_admin_category_select', $admin_category_select);
-
+                    $preview_url = isset($post[$preview_image]) ? $post[$preview_image] : '';
+                    if( $preview_url ){
+                       $attachment_id = $this->atbdp_insert_attachment_from_url($preview_url, $post_id);
+                       update_post_meta($post_id, '_listing_prv_img', $attachment_id);
+                    }
                 }
             }
             $data['next_position'] = (int) $position + (int) $count;
@@ -131,6 +140,51 @@ if (!class_exists('ATBDP_Tools')) :
         }
 
 
+       public function atbdp_insert_attachment_from_url($url, $parent_post_id = null) {
+
+            if( !class_exists( 'WP_Http' ) )
+                include_once( ABSPATH . WPINC . '/class-http.php' );
+        
+            $http = new WP_Http();
+            $response = $http->request( $url );
+            if( $response['response']['code'] != 200 ) {
+                return false;
+            }
+        
+            $upload = wp_upload_bits( basename($url), null, $response['body'] );
+            if( !empty( $upload['error'] ) ) {
+                return false;
+            }
+        
+            $file_path = $upload['file'];
+            $file_name = basename( $file_path );
+            $file_type = wp_check_filetype( $file_name, null );
+            $attachment_title = sanitize_file_name( pathinfo( $file_name, PATHINFO_FILENAME ) );
+            $wp_upload_dir = wp_upload_dir();
+        
+            $post_info = array(
+                'guid'           => $wp_upload_dir['url'] . '/' . $file_name,
+                'post_mime_type' => $file_type['type'],
+                'post_title'     => $attachment_title,
+                'post_content'   => '',
+                'post_status'    => 'inherit',
+            );
+        
+            // Create the attachment
+            $attach_id = wp_insert_attachment( $post_info, $file_path, $parent_post_id );
+        
+            // Include image.php
+            require_once( ABSPATH . 'wp-admin/includes/image.php' );
+        
+            // Define attachment metadata
+            $attach_data = wp_generate_attachment_metadata( $attach_id, $file_path );
+        
+            // Assign metadata to attachment
+            wp_update_attachment_metadata( $attach_id,  $attach_data );
+        
+            return $attach_id;
+        
+        }
 
         public function atbdp_csv_import_controller()
         {
@@ -145,7 +199,7 @@ if (!class_exists('ATBDP_Tools')) :
             // foreach ($post->posts as $post) {
             //     wp_delete_post($post->ID, true);
             // }
-            // var_dump(admin_url());
+
             if (isset($_POST['atbdp_save_csv_step'])) {
                 check_admin_referer('directorist-csv-importer');
                 // redirect to step two || data mapping
@@ -162,36 +216,6 @@ if (!class_exists('ATBDP_Tools')) :
             }
         }
 
-        private function insert_post($post)
-        {
-            $post["id"] = wp_insert_post(array(
-                "post_title"   => $post["title"],
-                "post_content" => $post["description"],
-                "post_type"    => 'at_biz_dir',
-                "post_status"  => "publish"
-            ));
-
-            // // Get uploads dir
-            // $uploads_dir = wp_upload_dir();
-
-            // // Set attachment meta
-            // $attachment = array();
-            // $attachment["path"] = "{$uploads_dir["baseurl"]}/sitepoint-attachments/{$post["attachment"]}";
-            // $attachment["file"] = wp_check_filetype($attachment["path"]);
-            // $attachment["name"] = basename($attachment["path"], ".{$attachment["file"]["ext"]}");
-
-            // // Replace post attachment data
-            // $post["attachment"] = $attachment;
-
-            // // Insert attachment into media library
-            // $post["attachment"]["id"] = wp_insert_attachment(array(
-            //     "guid"           => $post["attachment"]["path"],
-            //     "post_mime_type" => $post["attachment"]["file"]["type"],
-            //     "post_title"     => $post["attachment"]["name"],
-            //     "post_content"   => "",
-            //     "post_status"    => "inherit"
-            // ));
-        }
 
         private function importable_fields()
         {

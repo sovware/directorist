@@ -224,6 +224,7 @@ final class Directorist_Base
             self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
             self::$instance->enquirer = new ATBDP_Enqueuer;
+            self::$instance->hooks = new ATBDP_Hooks;
             self::$instance->metabox = new ATBDP_Metabox;
             self::$instance->ajax_handler = new ATBDP_Ajax_Handler;
             self::$instance->helper = new ATBDP_Helper;
@@ -240,10 +241,7 @@ final class Directorist_Base
             self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
 
-
-            
             self::$instance->update_database();
-
 
             // new settings
             new ATBDP_Settings_Manager();
@@ -359,8 +357,12 @@ final class Directorist_Base
         require_once ATBDP_TEMPLATES_DIR . 'single-template-shortcode.php';
         require_once ATBDP_LIB_DIR . 'vafpress/bootstrap.php'; // load option framework.
         require_once ATBDP_INC_DIR . 'helper-functions.php';
+
+        load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
+
         load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
         load_dependencies('all', ATBDP_LIB_DIR); // load all php files from ATBDP_LIB_DIR
+        
         /*LOAD Rating and Review functionality*/
         load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');
         /*Load gateway related stuff*/

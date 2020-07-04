@@ -1,4 +1,11 @@
 jQuery(document).ready(function ($) {
+    $('#atbdp_ie_download_sample').on('click', function(e) {
+        var ie_file = $(this).attr('data-sample-csv');
+        if (ie_file) {
+            window.location.href = ie_file;
+            return false;
+        }
+    });
     var stepOne = $('#atbdp_csv_step_two');
     var position = 0;
     $(stepOne).on('submit', function (e) {

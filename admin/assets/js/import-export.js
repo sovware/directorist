@@ -5,6 +5,8 @@ jQuery(document).ready(function ($) {
         e.preventDefault();
         $('.atbdp-importer-mapping-table-wrapper').fadeOut(300);
         $('.directorist-importer__importing').fadeIn(300);
+        $('.atbdp-mapping-step').removeClass('active');
+        $('.atbdp-progress-step').addClass('active');
         var counter = 0;
         var run_import = function () {
             var form_data = new FormData();

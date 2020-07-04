@@ -51,16 +51,16 @@ $upload_dir = wp_upload_dir();
 					}
 					?>
 				</div>
-				<div class="update-existing">
+				<!-- <div class="update-existing">
 					<div>
 						<label for="directorist-importer-update-existing" class="ue">
-							<?php esc_html_e( 'Update existing listings', 'directorist' ); ?>
+							<?php //esc_html_e( 'Update existing listings', 'directorist' ); ?>
 						</label>
 						<input type="hidden" name="update_existing" value="0" />
 						<input type="checkbox" id="directorist-importer-update-existing" name="update_existing" value="1" />
-						<label for="directorist-importer-update-existing"><?php esc_html_e( 'Existing listings that match by ID will be updated. listings that do not exist will be skipped.', 'directorist' ); ?></label>
+						<label for="directorist-importer-update-existing"><?php //esc_html_e( 'Existing listings that match by ID will be updated. listings that do not exist will be skipped.', 'directorist' ); ?></label>
 					</div>
-				</div>
+				</div> -->
 				<div class="csv-delimiter">
 					<label><?php esc_html_e( 'CSV Delimiter', 'directorist' ); ?></label>
 					<input type="text" name="delimiter" placeholder="," size="2" />

@@ -36,7 +36,7 @@ jQuery(document).ready(function ($) {
                 url: import_export_data.ajaxurl,
                 data: form_data,
                 success: function (response) {
-                    $('.importer-details').html('Imported ' + response.next_position + ' out of ' + response.total);
+                    $('.importer-details').html('Imported ' + (parseInt(response.next_position) - 1) + ' out of ' + response.total);
                     $('.directorist-importer-progress').val(response.percentage);
                     if ('100' != response.percentage && (counter < 150)) {
                         position = response.next_position;

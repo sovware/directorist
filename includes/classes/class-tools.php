@@ -56,15 +56,16 @@ if (!class_exists('ATBDP_Tools')) :
             $imported = 1;
             $failed = 1;
             $count = 0;
-            $posts = csv_get_data($this->file, true);
             $new_listing_status = get_directorist_option('new_listing_status', 'pending');
             $preview_image = isset($_POST['_listing_prv_img']) ? sanitize_text_field($_POST['_listing_prv_img']) : '';
             $title = isset($_POST['title']) ? sanitize_text_field($_POST['title']) : '';
+            $delimiter = isset($_POST['delimiter']) ? sanitize_text_field($_POST['delimiter']) : '';
             $description = isset($_POST['description']) ? sanitize_text_field($_POST['description']) : '';
             $position = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
             $metas = isset($_POST['meta']) ? atbdp_sanitize_array($_POST['meta']) : array();
             $tax_inputs = isset($_POST['tax_input']) ? atbdp_sanitize_array($_POST['tax_input']) : array();
             $limit = apply_filters('atbdp_listing_import_limit_per_call', 5);
+            $posts = csv_get_data($this->file, true, $delimiter);
             $length = count($posts);
             if (!$length) {
                 $data['error'] = __('No data found', 'directorist');
@@ -258,7 +259,7 @@ if (!class_exists('ATBDP_Tools')) :
 
         public function render_tools_submenu_page()
         {
-            ATBDP()->load_template('tools',  array('data' => csv_get_data($this->file), 'fields' => $this->importable_fields()));
+            ATBDP()->load_template('tools',  array('data' => csv_get_data($this->file, false, $this->delimiter), 'fields' => $this->importable_fields()));
         }
     }
 

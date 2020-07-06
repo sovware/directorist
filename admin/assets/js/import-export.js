@@ -6,9 +6,11 @@ jQuery(document).ready(function ($) {
             return false;
         }
     });
-    var stepOne = $('#atbdp_csv_step_two');
+    var stepTwo = $('#atbdp_csv_step_two');
     var position = 0;
-    $(stepOne).on('submit', function (e) {
+    var failed = 0;
+    var imported = 0;
+    $(stepTwo).on('submit', function (e) {
         e.preventDefault();
         $('.atbdp-importer-mapping-table-wrapper').fadeOut(300);
         $('.directorist-importer__importing').fadeIn(300);
@@ -43,19 +45,25 @@ jQuery(document).ready(function ($) {
                 url: import_export_data.ajaxurl,
                 data: form_data,
                 success: function (response) {
-                    $('.importer-details').html('Imported ' + (parseInt(response.next_position) - 1) + ' out of ' + response.total);
+                    imported += response.imported;
+					failed   += response.failed;
+                    $('.importer-details').html('Imported ' + response.next_position + ' out of ' + response.total);
                     $('.directorist-importer-progress').val(response.percentage);
                     if ('100' != response.percentage && (counter < 150)) {
                         position = response.next_position;
                         run_import();
                         counter++;
                     } else {
-                        window.location = response.url;
+                        window.location = response.url +
+							'&listing-imported=' +
+							parseInt( imported, 10 ) +
+							'&listing-failed=' +
+							parseInt( failed, 10 );
                     }
                     //console.log(response);
                 },
-                error: function (response) {
-                    console.log(response);
+                error: function ( response ) {
+                    window.console.log( response );
                 }
             });
         }

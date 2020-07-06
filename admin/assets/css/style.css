@@ -918,10 +918,6 @@ span.atbdp-tick-cross {
   overflow: hidden;
 }
 
-.csv-action-steps ul li:last-child:before {
-  content: none;
-}
-
 .csv-action-steps ul li .step {
   display: inline-flex;
   align-items: center;
@@ -961,6 +957,10 @@ span.atbdp-tick-cross {
 
 .csv-action-steps ul li.done span:not(.step) {
   color: #272B41;
+}
+
+.csv-action-steps ul li:last-child:before, .csv-action-steps ul li:last-child.done:before {
+  content: none;
 }
 
 .csv-wrapper {

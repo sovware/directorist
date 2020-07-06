@@ -835,9 +835,6 @@ span.atbdp-tick-cross{
         width: 125px;
         overflow: hidden;
       }
-      &:last-child:before{
-        content: none;
-      }
       .step{
         display: inline-flex;
         align-items: center;
@@ -875,6 +872,9 @@ span.atbdp-tick-cross{
         span:not(.step){
           color: #272B41;
         }
+      }
+      &:last-child:before, &:last-child.done:before{
+        content: none;
       }
     }
   }

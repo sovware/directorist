@@ -1057,6 +1057,14 @@ span.atbdp-tick-cross {
   height: 36px;
 }
 
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper h3 {
+  margin-top: 0;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table {
+  border: 0 none;
+}
+
 .csv-wrapper form .atbdp-actions {
   display: flex;
   justify-content: flex-end;

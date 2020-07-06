@@ -10,6 +10,7 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 $file = isset($_GET['file']) ? wp_unslash($_GET['file']) : '';
+$delimiter = isset($_GET['delimiter']) ? wp_unslash($_GET['delimiter']) : '';
 $posts = csv_get_data($file, true);
 $total = count($posts);
 $delimiter = isset($_GET['delimiter']) ? wp_unslash($_GET['delimiter']) : ',';

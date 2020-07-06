@@ -1113,4 +1113,20 @@ span.atbdp-tick-cross{
       }
     }
   }
+  .csv-center.csv-export {
+    padding: 100px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .button-secondary{
+      background: #2C99FF;
+      color: #fff;
+      border: 0 none;
+      line-height: 44px;
+      padding: 0 20px;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 15px;
+    }
+  }
 }

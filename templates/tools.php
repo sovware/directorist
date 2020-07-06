@@ -26,19 +26,19 @@ $steps = isset($_GET['step']) ? sanitize_key($_GET['step']) : '';
 </div>
 <div class="csv-action-steps">
 	<ul>
-		<li class="<?php echo !$steps ? esc_attr('active') : ''; ?>">
+		<li class="<?php echo !$steps ? esc_attr('active') : ($steps > 1 ? esc_attr('done') : ''); ?>">
 			<span class="step">1</span>
 			<span><?php _e('Upload CSV File', 'directorist'); ?></span>
 		</li>
-		<li class="atbdp-mapping-step <?php echo ('2' == $steps) ? esc_attr('active') : ''; ?>">
+		<li class="atbdp-mapping-step <?php echo ('2' == $steps) ? esc_attr('active') : ($steps > 2 ? esc_attr('done') : ''); ?>">
 			<span class="step">2</span>
 			<span><?php _e('Column Mapping', 'directorist'); ?></span>
 		</li>
-		<li class="atbdp-progress-step">
+		<li class="atbdp-progress-step <?php echo  ($steps == 3) ? esc_attr('done') : ''; ?>">
 			<span class="step">3</span>
 			<span><?php _e('Import', 'directorist'); ?></span>
 		</li>
-		<li class="<?php echo ('3' == $steps) ? esc_attr('active') : ''; ?>">
+		<li class="<?php echo ('3' == $steps) ? esc_attr('active done') : ''; ?>">
 			<span class="step">4</span>
 			<span><?php _e('Done', 'directorist'); ?></span>
 		</li>
@@ -51,7 +51,7 @@ $steps = isset($_GET['step']) ? sanitize_key($_GET['step']) : '';
 		} elseif ('2' == $steps) {
 			ATBDP()->load_template('import-export/step-two', $args);
 		} elseif ('3' == $steps) {
-			ATBDP()->load_template('import-export/step-three');
+			ATBDP()->load_template('import-export/step-done');
 		}
 	}
 	if ('csv_export' == $current_tab) {

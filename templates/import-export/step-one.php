@@ -14,7 +14,12 @@ $upload_dir = wp_upload_dir();
 		<form class="atbdp-progress-form-content directorist-importer" id="atbdp_csv_step_one" enctype="multipart/form-data" method="post">
 			<header>
 				<h2><?php esc_html_e( 'Select CSV File', 'directorist' ); ?></h2>
-				<p><?php esc_html_e( 'This tool allows you to import (or merge) listing data to your store from a CSV file.', 'directorist' ); ?></p>
+			<p>
+				<?php esc_html_e( 'This tool allows you to import listing data to your directory from a CSV file.', 'directorist' ); ?>
+				<?php esc_html_e( 'We strongly recommend reading our CSV import ', 'directorist' ); ?>
+				<a target="_blank" href=""><?php esc_html_e( 'documentation', 'directorist' ); ?></a>
+				<?php esc_html_e( ' first to help you do things in the right way.', 'directorist' ); ?>
+			</p>
 			</header>
 			<div class="form-content">
 				<section>
@@ -35,7 +40,7 @@ $upload_dir = wp_upload_dir();
 								?>
 								<div class="csv-upload">
 									<input type="file" id="upload" name="import" required size="25" />
-									<label for="upload"><span class="upload-btn">Upload CSV</span> <span class="file-name">No file chosen</span></label>
+									<label for="upload"><span class="upload-btn"><?php esc_html_e( 'Upload CSV', 'directorist' ); ?></span> <span class="file-name"><?php esc_html_e( 'No file chosen', 'directorist' ); ?></span></label>
 									<small>
 										<?php
 										printf(

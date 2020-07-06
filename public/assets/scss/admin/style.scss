@@ -913,7 +913,10 @@ span.atbdp-tick-cross{
         .csv-upload{
           position:relative;
           #upload{
-            display:none;
+            opacity: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
             & + label{
               display: inline-block;
               .upload-btn{

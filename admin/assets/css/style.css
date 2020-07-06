@@ -1009,7 +1009,10 @@ span.atbdp-tick-cross {
 }
 
 .csv-wrapper form .form-content .directorist-importer-options .csv-upload #upload {
-  display: none;
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .csv-wrapper form .form-content .directorist-importer-options .csv-upload #upload + label {

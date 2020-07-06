@@ -4954,7 +4954,7 @@ function get_view( $file_path, $data = null )
 }
 
 if(!function_exists('csv_get_data')){
-    function csv_get_data($default_file = null, $multiple = null)
+    function csv_get_data($default_file = null, $multiple = null, $delimiter = ',')
     {
         $data = $multiple ? array() : '';
         $errors = array();
@@ -4975,9 +4975,9 @@ if(!function_exists('csv_get_data')){
             $post = array();
 
             // Get first row in CSV, which is of course the headers
-            $header = fgetcsv($_file);
+            $header = fgetcsv($_file, 0, $delimiter);
 
-            while ($row = fgetcsv($_file)) {
+            while ($row = fgetcsv($_file, 0, $delimiter)) {
 
                 foreach ($header as $i => $key) {
                     $post[$key] = $row[$i];

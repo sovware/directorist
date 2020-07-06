@@ -869,12 +869,14 @@ span.atbdp-tick-cross{
 }
 .csv-wrapper{
   margin-top: 20px;
-  form{
+  .csv-center{
     width: 700px;
     margin: 0 auto;
     background: #fff;
     border-radius: 5px;
     box-shadow: 0 5px 8px rgba(#9299B8, 0.15);
+  }
+  form{
     header{
       padding: 30px 30px 20px;
       border-bottom: 1px solid #F1F2F6;
@@ -952,6 +954,46 @@ span.atbdp-tick-cross{
           }
         }
       }
+      .atbdp-importer-mapping-table-wrapper{
+        h3{
+          margin-top: 0;
+        }
+        .atbdp-importer-mapping-table{
+          border: 0 none;
+          box-shadow: none;
+          thead{
+            background: #F4F5F7;
+            th{
+              border: 0 none;
+              font-weight: 500;
+              color: #272B41;
+            }
+          }
+          tbody{
+            .atbdp-importer-mapping-table-name{
+              padding-top: 15px;
+              padding-left: 0;
+              p{
+                margin: 0 0 5px;
+                color: #272B41;
+              }
+              .description{
+                color: #9299b8;
+              }
+            }
+            .atbdp-importer-mapping-table-field{
+              padding-top: 20px;
+              padding-right: 0;
+              select{
+                border: 1px solid #C6D0DC;
+                border-radius: 4px;
+                line-height: 40px;
+                padding: 0 15px;
+              }
+            }
+          }
+        }
+      }
     }
     .atbdp-actions{
       display: flex;
@@ -966,7 +1008,125 @@ span.atbdp-tick-cross{
         padding: 0 20px;
         border-radius: 5px;
         font-weight: 500;
+        font-size: 15px;
       }
+    }
+  }
+  .directorist-importer__importing{
+    header{
+      padding: 30px 30px 20px;
+      border-bottom: 1px solid #F1F2F6;
+      h2{
+        margin: 0 0 15px 0;
+        font-size: 22px;
+        font-weight: 500;
+      }
+      p{
+        color: #5A5F7D;
+        margin: 0;
+      }
+    }
+    section {
+        padding: 25px 30px 30px;
+    }
+    span.importer-notice {
+      display: block;
+      color: #5A5F7D;
+      font-size: 15px;
+      padding-bottom: 13px;
+    }
+    span.importer-details {
+        display: block;
+        color: #5A5F7D;
+        font-size: 15px;
+        padding-top: 13px;
+    }
+    progress {
+      border-radius: 15px;
+      width: 100%;
+      height: 30px;
+      overflow: hidden;
+    }
+    progress::-webkit-progress-bar {
+      background: #E8F0F8;
+      border-radius: 15px;
+    }
+    progress::-webkit-progress-value {
+      background: #2C99FF;
+    }
+    progress::-moz-progress-bar {
+      background: #E8F0F8;
+      border-radius: 15px;
+      border: none;
+      box-shadow: none;
+    }
+    progress[value]::-moz-progress-bar {
+      background: #2C99FF;
+    }
+  }
+  .csv-import-done{
+    .wc-progress-form-content{
+      padding: 100px 30px 80px;
+      .wc-actions{
+        text-align: center;
+        .dashicons{
+          width: 100px;
+          height: 100px;
+          display: inline-flex;
+          border-radius: 50%;
+          background: #0FB73B;
+          font-size: 70px;
+          color: #fff;
+          align-items: center;
+          justify-content: center;
+        }
+        p{
+          color: #5A5F7D;
+          font-size: 20px;
+          margin: 10px 0 0;
+          strong{
+            color: #272B41;
+            font-weight: 600;
+          }
+        }
+        .import-complete{
+          font-size: 20px;
+          color: #272B41;
+          margin: 16px 0 0;
+        }
+      }
+    }
+    .atbdp-actions{
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px 30px;
+      background: #F4F5F7;
+      .button{
+        background: #2C99FF;
+        color: #fff;
+        border: 0 none;
+        line-height: 44px;
+        padding: 0 20px;
+        border-radius: 5px;
+        font-weight: 500;
+        font-size: 15px;
+      }
+    }
+  }
+  .csv-center.csv-export {
+    padding: 100px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .button-secondary{
+      background: #2C99FF;
+      color: #fff;
+      border: 0 none;
+      line-height: 44px;
+      padding: 0 20px;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 15px;
     }
   }
 }

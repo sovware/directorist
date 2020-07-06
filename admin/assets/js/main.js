@@ -1790,4 +1790,9 @@ jQuery(function ($) {
     } else if($('select[name="button_type"]').val() === "danger_outline"){
         danger_outline.show();
     }
+    /* csv upload */
+    $('#upload').change(function(e) {
+        var filename = e.target.files[0].name;
+        $('.csv-upload .file-name').html(filename);
+    });
 });

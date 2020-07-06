@@ -864,6 +864,18 @@ span.atbdp-tick-cross{
           color: #272B41;
         }
       }
+      &.done{
+        &:before{
+          content: url(../images/csv-step-done.png);
+        }
+        .step{
+          background: #0FB73B;
+          color: #fff;
+        }
+        span:not(.step){
+          color: #272B41;
+        }
+      }
     }
   }
 }

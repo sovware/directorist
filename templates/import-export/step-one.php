@@ -35,7 +35,11 @@ $upload_dir = wp_upload_dir();
 								?>
 								<div class="csv-upload">
 									<input type="file" id="upload" name="import" required size="25" />
-									<label for="upload"><span class="upload-btn">Upload CSV</span> <span class="file-name">No file chosen</span></label>
+									<label for="upload">
+										<span class="upload-btn">Upload CSV</span>
+										<span class="file-name">No file chosen</span>
+										<span id="file-warning">Please chose csv file</span>
+									</label>
 									<small>
 										<?php
 										printf(

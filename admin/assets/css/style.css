@@ -950,6 +950,19 @@ span.atbdp-tick-cross {
   color: #272B41;
 }
 
+.csv-action-steps ul li.done:before {
+  content: url(../images/csv-step-done.png);
+}
+
+.csv-action-steps ul li.done .step {
+  background: #0FB73B;
+  color: #fff;
+}
+
+.csv-action-steps ul li.done span:not(.step) {
+  color: #272B41;
+}
+
 .csv-wrapper {
   margin-top: 20px;
 }

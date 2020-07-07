@@ -17,7 +17,7 @@ $upload_dir = wp_upload_dir();
 			<p>
 				<?php esc_html_e( 'This tool allows you to import listing data to your directory from a CSV file.', 'directorist' ); ?>
 				<?php esc_html_e( 'We strongly recommend reading our CSV import ', 'directorist' ); ?>
-				<a target="_blank" href=""><?php esc_html_e( 'documentation', 'directorist' ); ?></a>
+				<a target="_blank" href="https://directorist.com/documentation/directorist/gettings-started/csv-import/"><?php esc_html_e( 'documentation', 'directorist' ); ?></a>
 				<?php esc_html_e( ' first to help you do things in the right way.', 'directorist' ); ?>
 			</p>
 			</header>

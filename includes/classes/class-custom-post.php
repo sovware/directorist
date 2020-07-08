@@ -298,7 +298,8 @@ if (!class_exists('ATBDP_Custom_Post')):
         {
             global $typenow;
             if (ATBDP_POST_TYPE == $typenow) {
-                $title = esc_html__('Enter your listing name', 'directorist');
+                $title_placeholder = get_directorist_option( 'title_placeholder', __( 'Enter a title', 'directorist' ) );
+                $title = !empty( $title_placeholder ) ? esc_attr( $title_placeholder ) : __( 'Enter a title', 'directorist' );
             }
             return $title;
 

@@ -78,6 +78,9 @@
                     <a href="https://directorist.com/product/rank-featured-listings/" target="_blank"><?php _e('Directorist - Rank Featured Listings
 ', 'directorist')?></a>
                 </li>
+                <li>
+                    <a href="https://directorist.com/product/directorist-booking/" target="_blank"><?php _e('Directorist - Booking ( Reservation & Appointment )')?></a>
+                </li>
             </ul>
 
         </div>

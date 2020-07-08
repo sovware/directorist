@@ -1790,4 +1790,5 @@ jQuery(function ($) {
     } else if($('select[name="button_type"]').val() === "danger_outline"){
         danger_outline.show();
     }
+    
 });

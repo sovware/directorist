@@ -379,13 +379,13 @@
                              alt="WooCommerce Fee Manager">
 
                         <div class="extension_detail ext_d">
-                            <a href="https://directorist.com/product/directorist-reservation" target="_blank"
+                            <a href="https://directorist.com/product/directorist-booking/" target="_blank"
                                class="ext_title"><h4>
-                                    <?php esc_html_e(' Reservation ', 'directorist'); ?>   </h4></a>
+                                    <?php esc_html_e(' Booking (Reservation & Appointment) ', 'directorist'); ?>   </h4></a>
                             <p><?php esc_html_e('Add a reservation/booking system on your directory using this extension.', 'directorist'); ?></p>
 
                             <div class="btn_wrapper">
-                                <a href="https://directorist.com/product/directorist-reservation" target="_blank"
+                                <a href="https://directorist.com/product/directorist-booking/" target="_blank"
                                    class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
                             </div>
                         </div>

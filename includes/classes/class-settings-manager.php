@@ -4594,6 +4594,12 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Only For Admin Use', 'directorist'),
                     'default' => 0,
                 ),
+                array(
+                    'type' => 'textbox',
+                    'name' => 'title_placeholder',
+                    'label' => __('Placeholder', 'directorist'),
+                    'default' => __('Enter a title', 'directorist'),
+                ),
             ));
         }
 

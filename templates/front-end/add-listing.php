@@ -81,6 +81,7 @@ $enable_video_url = get_directorist_option('atbd_video_url', 1);
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $disable_contact_owner = get_directorist_option('disable_contact_owner', 1);
 $display_title_for = get_directorist_option('display_title_for', 0);
+$title_placeholder = get_directorist_option( 'title_placeholder', __( 'Enter a title', 'directorist' ) );
 $display_desc_for = get_directorist_option('display_desc_for', 0);
 $display_cat_for = get_directorist_option('display_cat_for', 'users');
 $display_loc_for = get_directorist_option('display_loc_for', 0);
@@ -206,7 +207,7 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                                             <input type="text" name="listing_title"
                                                    value="<?php echo !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>"
                                                    class="form-control directory_field"
-                                                   placeholder="<?php echo __('Enter a title', 'directorist'); ?>"/>
+                                                   placeholder="<?php echo !empty( $title_placeholder ) ? esc_attr( $title_placeholder ) : __( 'Enter a title', 'directorist' ); ?>"/>
                                         </div>
                                     <?php } ?>
                                     <?php if (empty($display_desc_for)) { ?>

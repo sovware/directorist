@@ -33,8 +33,8 @@ class Directorist_Category extends Custom_Widget_Base {
 			array(
 				'type'      => Controls_Manager::TEXT,
 				'id'        => 'header_title',
-				'label'     => __( 'All Listing Title', 'directorist' ),
-				'default'   => __( 'Total Listings Found:', 'directorist' ),
+				'label'     => __( 'Listing Found Title', 'directorist' ),
+				'default'   => __( 'Items Found', 'directorist' ),
 				'condition' => array( 'header' => array( 'yes' ) ),
 			),
 			array(
@@ -123,7 +123,7 @@ class Directorist_Category extends Custom_Widget_Base {
 
 		$user = $settings['user'] ? $settings['user'] : 'no';
 
-		$shortcode = sprintf( '[directorist_category header="%1$s" header_title="%2$s" view="%3$s" map_height="%4$s" columns="%5$s" listings_per_page="%6$s" show_pagination="%7$s" orderby="%8$s" order="%9$s" logged_in_user_only="%10$s" ]', 
+		$shortcode = sprintf( '[directorist_category header="%1$s" header_title="%2$s" view="%3$s" map_height="%4$s" columns="%5$s" listings_per_page="%6$s" show_pagination="%7$s" orderby="%8$s" order="%9$s" logged_in_user_only="%10$s"]', 
 			esc_attr( $settings['header'] ),
 			esc_attr( $settings['header_title'] ),
 			esc_attr( $settings['view'] ),

@@ -215,7 +215,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $num_featured = get_post_meta($subscribed_package_id, 'num_featured', true);
                     $total_regular_listing = $num_regular;
                     $total_featured_listing = $num_featured;
-
                     if ($plan_purchased) {
                         $listing_id = get_post_meta($plan_purchased->ID, '_listing_id', true);
                         $featured = get_post_meta($listing_id, '_featured', true);
@@ -236,17 +235,23 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $expired_date = $date->format('Y-m-d H:i:s');
                         $current_d = current_time('mysql');
                         $remaining_days = ($expired_date > $current_d) ? (floor(strtotime($expired_date) / (60 * 60 * 24)) - floor(strtotime($current_d) / (60 * 60 * 24))) : 0; //calculate the number of days remaining in a plan
+                       
                         if ((((0 >= $total_regular_listing) && empty($regular_unl)) && ((0 >= $total_featured_listing)) && empty($featured_unl)) || ($remaining_days <= 0)) {
                             //if user exit the plan allowance the change the status of that order to cancelled
                             $order_id = $plan_purchased->ID;
+                            $msg = '<div class="alert alert-danger"><strong>' . __('You have crossed the limit! Please try again', 'directorist') . '</strong></div>';
                             if (class_exists('woocommerce') && class_exists('DWPP_Pricing_Plans')) {
                                 if (('pay_per_listng' != $plan_type)) {
                                     $order = new WC_Order($order_id);
                                     $order->update_status('cancelled', 'order_note');
+                                    $data['error_msg'] = $msg;
+                                    $data['error'] = true;
                                 }
                             } else {
                                 if (('pay_per_listng' != $plan_type)) {
                                     update_post_meta($order_id, '_payment_status', 'cancelled');
+                                    $data['error_msg'] = $msg;
+                                    $data['error'] = true;
                                 }
                             }
                         }
@@ -835,6 +840,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                 }
                 if (!empty($data['error']) && $data['error'] === true) {
                     $data['error_msg'] = isset($data['error_msg']) ? $data['error_msg'] : __('Sorry! Something Wrong with Your Submission', 'directorist');
+                }else{
+                    $data['preview_url'] = get_permalink($post_id);
                 }
                 if (!empty($data['need_payment']) && $data['need_payment'] === true) {
                     $data['success_msg'] = __('Payment Required! redirecting to checkout..', 'directorist');
@@ -842,7 +849,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if ($preview_enable) {
                     $data['preview_mode'] = true;
                 }
-                $data['preview_url'] = get_permalink($post_id);
                 if ($p['listing_id']) {
                     $data['id'] = $post_id;
                     $data['edited_listing'] = true;

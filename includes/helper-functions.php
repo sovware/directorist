@@ -4731,22 +4731,21 @@ function the_thumbnail_card($img_src = '', $_args = array())
     $args = apply_filters('atbdp_preview_image_args', $_args);
 
     // Default
-    $is_blur = get_directorist_option('prv_background_type', 'blur'); // blur | color
-    $is_blur = ('blur' === $is_blur ? true : false);
-    $alt = esc_html(get_the_title());
+    $is_blur           = get_directorist_option('prv_background_type', 'blur');     // blur | color
+    $is_blur           = ('blur' === $is_blur ? true : false);
     $container_size_by = get_directorist_option('prv_container_size_by', 'px');
-    $by_ratio = ( 'px' === $container_size_by ) ? false : true;
-    $image_size = get_directorist_option('way_to_show_preview', 'cover'); // contain | full | cover
-    $ratio_width = get_directorist_option('crop_width', 360);
-    $ratio_height = get_directorist_option('crop_height', 300);
-    $blur_background = $is_blur;
-    $background_color = get_directorist_option('prv_background_color', '#fff');
-    $image_quality = get_directorist_option('preview_image_quality', 'large'); // medium | large | full
+    $by_ratio          = ( 'px' === $container_size_by ) ? false : true;
+    $image_size        = get_directorist_option('way_to_show_preview', 'cover');    // contain | full | cover
+    $ratio_width       = get_directorist_option('crop_width', 360);
+    $ratio_height      = get_directorist_option('crop_height', 300);
+    $blur_background   = $is_blur;
+    $background_color  = get_directorist_option('prv_background_color', '#fff');
+    $image_quality     = get_directorist_option('preview_image_quality', 'large');  // medium | large | full
 
     $thumbnail_img = '';
 
-    $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-    $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
+    $listing_prv_img   = get_post_meta(get_the_ID(), '_listing_prv_img', true);
+    $listing_img       = get_post_meta(get_the_ID(), '_listing_img', true);
     $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
     if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
@@ -4761,12 +4760,12 @@ function the_thumbnail_card($img_src = '', $_args = array())
 
     if ( ! empty( $img_src ) ) {
         $thumbnail_img = $img_src;
-        $thumbnail_id = $img_src;
+        $thumbnail_id = 0;
     }
 
     if ( empty( $thumbnail_img ) ) {
         $thumbnail_img = $default_image_src;
-        $thumbnail_id = $default_image_src;
+        $thumbnail_id = 0;
     }
 
     /* if ( 'cover' === $image_size && false === $by_ratio ) {
@@ -4775,10 +4774,14 @@ function the_thumbnail_card($img_src = '', $_args = array())
 
     if ( empty( $thumbnail_img ) ) { return ''; }
 
-    $image = is_array($thumbnail_img) ? $thumbnail_img[0] : $thumbnail_img;
+    $image_src    = is_array($thumbnail_img) ? $thumbnail_img[0] : $thumbnail_img;
+    $image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+    $image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
+    $image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
+    
     // Extend Default
     if ( isset($args['image']) ) {
-        $image = esc_html(stripslashes($args['image']));
+        $image_src = esc_html(stripslashes($args['image']));
     }
     if ( isset($args['image-size']) ) {
         $image_size = esc_html(stripslashes($args['image-size']));
@@ -4790,7 +4793,7 @@ function the_thumbnail_card($img_src = '', $_args = array())
         $ratio_height = esc_html(stripslashes($args['height']));
     }
     if ( isset($args['alt']) ) {
-        $alt = esc_html(stripslashes($args['alt']));
+        $image_alt = esc_html(stripslashes($args['alt']));
     }
     if ( isset($args['blur-background']) ) {
         $blur_background = esc_html(stripslashes($args['blur-background']));
@@ -4818,26 +4821,25 @@ function the_thumbnail_card($img_src = '', $_args = array())
         $style .= $background_color_css;
     }
 
+
     // Card Front Wrap
     $card_front_wrap = "<div class='atbd-thumbnail-card-front-wrap'>";
-    $card_front__img = "<img src='$image' alt='$alt' class='atbd-thumbnail-card-front-img'/>";
+    $card_front__img = "<img src='$image_src' alt='$image_alt' class='atbd-thumbnail-card-front-img'/>";
     $front_wrap_html = $card_front_wrap . $card_front__img . "</div>";
 
     // Card Back Wrap
     $card_back_wrap = "<div class='atbd-thumbnail-card-back-wrap'>";
-    $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
+    $card_back__img = "<img src='$image_src' class='atbd-thumbnail-card-back-img'/>";
     $back_wrap_html = $card_back_wrap . $card_back__img . "</div>";
 
     $blur_bg = ( $blur_background ) ? $back_wrap_html : '';
 
     // Card Contain 
     $card_contain_wrap = "<div class='atbd-thumbnail-card card-contain' style='$style'>";
-    $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
     $image_contain_html = $card_contain_wrap . $blur_bg . $front_wrap_html . "</div>";
 
     // Card Cover
     $card_cover_wrap = "<div class='atbd-thumbnail-card card-cover' style='$style'>";
-    $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
     $image_cover_html = $card_cover_wrap . $front_wrap_html . "</div>";
 
     // Card Full
@@ -4861,68 +4863,94 @@ function the_thumbnail_card($img_src = '', $_args = array())
 }
 
 // get_plasma_slider
-function get_plasma_slider( $args )
+function get_plasma_slider()
 {
-    $data = array();
+    $show_slider       = get_directorist_option( 'dsiplay_slider_single_page', 1 );
+    $slider_is_enabled = ( $show_slider === 1 || $show_slider === '1' ) ? true : false;
+    
+    if ( ! $slider_is_enabled ) { return ''; }
+
+    global $post;
+    $listing_id    = $post->ID;
+    $listing_title = get_the_title( $post->ID );
+    $data          = array();
+    
+    // Check if gallery is allowed or not
+    $fm_plan      = get_post_meta($listing_id, '_fm_plans', true);
+    $show_gallery = true;
+
+    if ( is_fee_manager_active() ) {
+        $show_gallery = is_plan_allowed_slider($fm_plan);
+    }
+
+    // Get the default image
     $default_image = get_directorist_option(
         'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'
     );
-    $background_type = get_directorist_option('single_slider_background_type', 'custom-color');
+    
+    // Get the preview images
+    $preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
+    $preview_img_link = ! empty($preview_img) ? atbdp_get_image_source($preview_img_id, 'large') : '';
+    $preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
+    $preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
+    
+    // Get the gallery images
+    $listing_img  = get_post_meta( $listing_id, '_listing_img', true );
+    $listing_imgs = ( ! empty( $listing_img ) ) ? $listing_img : array();
+    $image_links  = array();                                                                           // define a link placeholder variable
+    
+    foreach ( $listing_imgs as $img_id ) {
+        $alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+        $alt = ( ! empty( $alt )  ) ? $alt : get_the_title( $img_id );
 
-    // Default
-    $data['show-slider'] = get_directorist_option('dsiplay_slider_single_page', true);
-    $is_enabled = ( $data['show-slider'] === 1 || $data['show-slider'] === '1' ) ? true : false;
-
-    if ( !$is_enabled ) {
-        return '';
-    }
-
-    $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-    $data['images'] = [];
-    $data['alt'] = '';
-    $data['background-size'] = get_directorist_option('single_slider_image_size', 'cover');
-    $data['blur-background'] = ( 'blur' === $background_type ) ? true : false;
-    $data['width'] = get_directorist_option('gallery_crop_width', 670);
-    $data['height'] = get_directorist_option('gallery_crop_height', 750);
-    $data['background-color'] = get_directorist_option('single_slider_background_color', 'gainsboro');
-    $data['thumbnail-background-color'] = '#fff';
-    $data['show-thumbnails'] = get_directorist_option('dsiplay_thumbnail_img', true);
-    $data['gallery'] = true;
-    $data['rtl'] = is_rtl();
-
-    // Extend Default
-    if ( isset($args['plan_slider']) ) {
-        $data['gallery'] = $args['plan_slider'];
-    }
-
-    if ( isset($args['listing_prv_imgurl']) && !empty($args['listing_prv_imgurl'])) {
-        array_push($data['images'], $args['listing_prv_imgurl']);
-    }
-    if ( $data['gallery'] && isset($args['image_links']) && is_array($args['image_links'])) {
-        foreach ( $args['image_links'] as $image ) {
-            array_push($data['images'], $image);
-        }
+        $image_links[] = [
+            'alt' => ( ! empty( $alt )  ) ? $alt : $listing_title,
+            'src' => atbdp_get_image_source( $img_id, 'large' ),
+        ];
     }
     
-    if ( count($data['images']) < 1 ) {
-        array_push($data['images'], $default_image);
+    // Get the options
+    $background_size  = get_directorist_option('single_slider_image_size', 'cover');
+    $background_type  = get_directorist_option('single_slider_background_type', 'custom-color');
+    $slider_width     = get_directorist_option('gallery_crop_width', 670);
+    $slider_height    = get_directorist_option('gallery_crop_height', 750);
+    $background_color = get_directorist_option('single_slider_background_color', 'gainsboro');
+    $show_thumbnails  = get_directorist_option('dsiplay_thumbnail_img', true);
+    
+    // Set the options
+    $data['images']                     = [];
+    $data['alt']                        = $listing_title;
+    $data['background-size']            = $background_size;
+    $data['blur-background']            = ( 'blur' === $background_type ) ? true : false;
+    $data['width']                      = $slider_width;
+    $data['height']                     = $slider_height;
+    $data['background-color']           = $background_color;
+    $data['thumbnail-background-color'] = '#fff';
+    $data['show-thumbnails']            = $show_thumbnails;
+    $data['gallery']                    = true;
+    $data['rtl']                        = is_rtl();
+
+    if ( $show_gallery && ! empty( $image_links ) ) {
+        $data['images'] = $image_links;
     }
 
-    if ( count($data['images']) < 1 ) {
-        array_push($data['images'], $default_image);
+    if ( ! empty( $preview_img_link ) ) {
+        $preview_img = [
+            'alt' => $preview_img_alt,
+            'src' => $preview_img_link,
+        ];
+
+        array_unshift( $data['images'], $preview_img );
+    }
+    
+    if ( count( $data['images'] ) < 1 ) {
+        $data['images'][] = [
+            'alt' => $listing_title,
+            'src' => $default_image,
+        ];
     }
 
-    if ( isset($args['p_title']) ) {
-        $data['alt'] = $args['p_title'];
-    }
-    if ( isset($args['thumbnail-background-color']) ) {
-        $data['thumbnail-background-color'] = $args['thumbnail-background-color'];
-    }
-    if ( isset($args['background-color']) ) {
-        $data['background-color'] = $args['background-color'];
-    }
-
-    $padding_top = $data['height'] / $data['width'] * 100;
+    $padding_top         = $data['height'] / $data['width'] * 100;
     $data['padding-top'] = $padding_top;
 
     return get_view('plasma-slider', $data);

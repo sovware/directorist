@@ -930,7 +930,12 @@ span.atbdp-tick-cross {
   background: #fff;
 }
 
-.csv-action-steps ul li span:not(.step) {
+.csv-action-steps ul li .step .dashicons {
+  margin: 0;
+  display: none;
+}
+
+.csv-action-steps ul li .step-text {
   display: block;
   margin-top: 15px;
   color: #9299B8;
@@ -942,7 +947,7 @@ span.atbdp-tick-cross {
   color: #fff;
 }
 
-.csv-action-steps ul li.active span:not(.step) {
+.csv-action-steps ul li.active .step-text {
   color: #272B41;
 }
 
@@ -955,7 +960,15 @@ span.atbdp-tick-cross {
   color: #fff;
 }
 
-.csv-action-steps ul li.done span:not(.step) {
+.csv-action-steps ul li.done .step .step-count {
+  display: none;
+}
+
+.csv-action-steps ul li.done .step .dashicons {
+  display: block;
+}
+
+.csv-action-steps ul li.done .step-text {
   color: #272B41;
 }
 

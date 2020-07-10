@@ -86,8 +86,9 @@ class ATBDP_Listing_DB {
         if(!empty($pagination)) {
             $args['paged']          = $paged;
         }else{
-            $args['no_found_rows']  = true;
+            $args['no_found_rows']  = false;
         }
+        wp_reset_postdata();
         return new WP_Query(apply_filters('atbdp_user_dashboard_query_arguments',$args));
     }
 

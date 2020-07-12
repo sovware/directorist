@@ -845,8 +845,12 @@ span.atbdp-tick-cross{
         color: #9299B8;
         box-shadow: 5px 0 10px rgba(#9299B8, 0.15);
         background: #fff;
+        .dashicons{
+          margin: 0;
+          display: none;
+        }
       }
-      span:not(.step){
+      .step-text{
         display: block;
         margin-top: 15px;
         color: #9299B8;
@@ -857,7 +861,7 @@ span.atbdp-tick-cross{
           background: #272B41;
           color: #fff;
         }
-        span:not(.step){
+        .step-text{
           color: #272B41;
         }
       }
@@ -868,8 +872,14 @@ span.atbdp-tick-cross{
         .step{
           background: #0FB73B;
           color: #fff;
+          .step-count{
+            display: none;
+          }
+          .dashicons{
+            display: block;
+          }
         }
-        span:not(.step){
+        .step-text{
           color: #272B41;
         }
       }

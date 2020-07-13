@@ -39,8 +39,8 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
         </div>
         <?php }
         if(isset($_GET['renew']) && ('success' === $_GET['renew'])){ ?>
-        <div class="alert alert-info alert-dismissable fade show" role="alert">
-            <span class="fa fa-info-circle"></span>
+        <div class="alert alert-success alert-dismissable fade show" role="alert">
+            <span class="fa fa-check"></span>
             <?php esc_html_e('Renewed successfully.', 'directorist'); ?>
         </div>
         <?php }

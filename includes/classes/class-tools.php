@@ -64,7 +64,7 @@ if (!class_exists('ATBDP_Tools')) :
             $position = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
             $metas = isset($_POST['meta']) ? atbdp_sanitize_array($_POST['meta']) : array();
             $tax_inputs = isset($_POST['tax_input']) ? atbdp_sanitize_array($_POST['tax_input']) : array();
-            $limit = apply_filters('atbdp_listing_import_limit_per_call', 5);
+            $limit = apply_filters('atbdp_listing_import_limit_per_cycle', 20);
             $posts = csv_get_data($this->file, true, $delimiter);
             $length = count($posts);
             if (!$length) {

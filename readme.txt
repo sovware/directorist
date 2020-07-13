@@ -139,6 +139,16 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
+= 6.4.4 - Jul 6, 2020 =
+
+* Add - CSV Bulk Importer for listing, category, location, tag, media etc.
+* Add - Some more options to control listing review
+* Add - Default latitude and longitude of listings map view
+* Fix - Review issue of related listings
+* Fix - Multi-author's listing issue of author profile page
+* Fix - Listing renewal link issue
+* Improve - Database Query
+
 = 6.4.3 - Jun 23, 2020 =
 
 * Fix - Cluster Icon issue of Google Map

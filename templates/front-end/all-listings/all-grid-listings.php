@@ -45,7 +45,6 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
         ?>
         <div class="row" <?php echo ($view_as !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
             <?php
-
             // Prime caches to reduce future queries.
             if ( is_callable( '_prime_post_caches' ) ) {
                 _prime_post_caches( $all_listings->ids );

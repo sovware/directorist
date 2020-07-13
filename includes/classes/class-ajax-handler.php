@@ -1072,7 +1072,16 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 'orderby' => 'meta_value_num',
                 'order' => 'ASC',
             );
-            $acadp_query = new WP_Query($args);
+
+            $acadp_query = ATBDP_Cache_Helper::get_the_transient([
+                'group'    => 'atbdp_custom_field_query',
+                'name'     => 'atbdp_custom_fields',
+                'args'     => $args,
+                'cache'    => apply_filters( 'atbdp_cache_custom_fields', true ),
+                'callback' => function( $args ) {
+                    return new WP_Query( $args['args'] );
+                }
+            ]);
 
             // Start the Loop
             global $post;

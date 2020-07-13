@@ -1728,21 +1728,19 @@ function atbdp_listings_count_by_category($term_id)
                 'include_children' => true
             )
         ),
-        'meta_query' => apply_filters('atbdp_listings_with_category_meta_query', array(
-            'relation' => 'OR',
-            array(
-                'key' => '_expiry_date',
-                'value' => current_time('mysql'),
-                'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
-                'type' => 'DATETIME'
-            ),
-            array(
-                'key' => '_never_expire',
-                'value' => 1,
-            ),
-        ))
     );
-    return count(get_posts($args));
+
+    $total_categories = ATBDP_Cache_Helper::get_the_transient([
+        'group'    => 'atbdp_listings_query',
+        'name'     => 'atbdp_total_categories',
+        'args'     => $args,
+        'cache'    => apply_filters( 'atbdp_cache_total_categories', true ),
+        'callback' => function( $args ) {
+            return count( get_posts( $args['args'] ) );
+        }
+    ]);
+
+    return $total_categories;
 }
 
 /**
@@ -4038,8 +4036,6 @@ function bdas_dropdown_terms($args = array(), $echo = true)
 
 function atbdp_get_custom_field_ids($category = 0)
 {
-
-
     // Get global fields
     $args = array(
         'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
@@ -4054,36 +4050,32 @@ function atbdp_get_custom_field_ids($category = 0)
         )
     );
 
-    $field_ids = get_posts($args);
-
     // Get category fields
-    if ($category > 0) {
-
-        $args = array(
-            'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-            'post_status' => 'publish',
-            'posts_per_page' => -1,
-            'fields' => 'ids',
-            'meta_query' => array(
-                'relation' => 'AND',
-                array(
-                    'key' => 'category_pass',
-                    'value' => $category,
-                    'compare' => 'EXISTS',
-                ),
-                array(
-                    'key' => 'associate',
-                    'value' => 'categories',
-                    'compare' => 'LIKE',
-                )
+    if ( $category > 0 ) {
+        $args['meta_query'] = array(
+            'relation' => 'AND',
+            array(
+                'key' => 'category_pass',
+                'value' => $category,
+                'compare' => 'EXISTS',
+            ),
+            array(
+                'key' => 'associate',
+                'value' => 'categories',
+                'compare' => 'LIKE',
             )
         );
-
-        $category_fields = get_posts($args);
-        $field_ids = array_merge($field_ids, $category_fields);
-        $field_ids = array_unique($field_ids);
-
     }
+
+    $field_ids = ATBDP_Cache_Helper::get_the_transient([
+        'group'    => 'atbdp_custom_field_query',
+        'name'     => 'atbdp_custom_field_ids',
+        'args'     => $args,
+        'cache'    => apply_filters( 'atbdp_cache_custom_field_ids', true ),
+        'callback' => function( $args ) {
+            return get_posts( $args['args'] );
+        }
+    ]);
 
     // Return
     if (empty($field_ids)) {
@@ -4120,12 +4112,22 @@ if (!function_exists('get_atbdp_listings_ids')) {
     function get_atbdp_listings_ids()
     {
         $arg = (array(
-            'post_type' => 'at_biz_dir',
+            'post_type'      => 'at_biz_dir',
             'posts_per_page' => -1,
-            'post_status' => 'publish',
+            'post_status'    => 'publish',
         ));
 
-        return new WP_Query($arg);
+        $ids = ATBDP_Cache_Helper::get_the_transient([
+            'group'      => 'atbdp_listings_query',
+            'name'       => 'atbdp_listings_ids',
+            'args'       => $arg,
+            'cache'      => apply_filters('cache_atbdp_listings_ids', true),
+            'callback'   => function( $data ) {
+                return new WP_Query( $data['args'] );
+            }
+        ]);
+
+        return $ids;
     }
 }
 
@@ -4185,7 +4187,7 @@ function atbdp_can_use_yoast()
 
 }
 
-/**
+/**arg
  *
  * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
  * @since     5.5.2
@@ -4333,14 +4335,22 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
         'hierarchical' => !empty($settings['hide_empty']) ? true : false
     );
 
-    if(ATBDP_CATEGORY == $taxonomy_id){
+    if (ATBDP_CATEGORY == $taxonomy_id){
         $arg = apply_filters('atbdp_search_listing_category_argument', $args);
-    }else{
+    } else {
         $arg = apply_filters('atbdp_search_listing_location_argument', $args);
     }
 
-
-    $terms = get_terms($taxonomy_id, $arg);
+    $terms = ATBDP_Cache_Helper::get_the_transient([
+        'group'       => 'atbdp_taxonomy_terms',
+        'name'        => 'atbdp_search_listing_taxonomy_' . $taxonomy_id,
+        'args'        => $arg,
+        'taxonomy_id' => $taxonomy_id,
+        'cache'       => apply_filters( 'atbdp_cache_search_listing_taxonomy', true ),
+        'callback'    => function( $args ) {
+            return get_terms( $args['taxonomy_id'], $args['args'] );
+        }
+    ]);
 
     $html = '';
 

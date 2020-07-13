@@ -1285,8 +1285,6 @@ if (!class_exists('ATBDP_Shortcode')):
 
             $arguments = apply_filters('atbdp_all_listings_query_arguments', $args);
 
-
-            // $all_listings = new WP_Query($arguments);
             $all_listings = ATBDP_Cache_Helper::get_the_transient([
                 'group'      => 'atbdp_listings_query',
                 'name'       => 'atbdp_all_listings_query',

@@ -313,18 +313,38 @@ if ($display_header == 'yes') { ?>
                                         )
                                     );
                                     $category_select = !empty($_GET['in_cat']) ? $_GET['in_cat'] : $category_id;
-                                    $tag_posts = get_posts($tag_args);
+                                    
+                                    $tag_posts = ATBDP_Cache_Helper::get_the_transient([
+                                        'group'    => 'atbdp_listings_query',
+                                        'name'     => 'atbdp_search_form_tag_posts',
+                                        'args'     => $tag_args,
+                                        'cache'    => apply_filters( 'atbdp_cache_search_form_tag_posts', true ),
+                                        'callback' => function( $args ) {
+                                            return get_posts( $args['args'] );
+                                        }
+                                    ]);
+
+
                                     if(!empty($tag_posts)) {
                                         foreach ($tag_posts as $tag_post) {
                                             $tag_id[] = $tag_post->ID;
                                         }
                                     }
                                     $tag_id = !empty($tag_id) ? $tag_id : '';
-                                    if('all_tags' == $listing_tags_field || empty($category_select)) {
-                                        $terms = get_terms(ATBDP_TAGS);
+
+                                    if ( 'all_tags' == $listing_tags_field || empty( $category_select ) ) {
+                                        $terms = ATBDP_Cache_Helper::get_the_transient([
+                                            'group'    => 'atbdp_taxonomy_terms',
+                                            'name'     => 'atbdp_listings_tags',
+                                            'cache'    => apply_filters( 'atbdp_cache_listings_tags', true ),
+                                            'callback' => function() {
+                                                return get_terms( ATBDP_TAGS );
+                                            }
+                                        ]);
                                     } else {
-                                        $terms = wp_get_object_terms( $tag_id, ATBDP_TAGS );
+                                        $terms  = wp_get_object_terms( $tag_id, ATBDP_TAGS );
                                     }
+
                                     if (!empty($terms)) {
                                         ?>
                                         <div class="form-group ads-filter-tags">

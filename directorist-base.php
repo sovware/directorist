@@ -286,6 +286,8 @@ final class Directorist_Base
             // add uninstall menu
             add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
 
+            self::init_hooks();
+
         }
 
         return self::$instance;

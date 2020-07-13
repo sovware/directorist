@@ -1,6 +1,6 @@
 <?php
 !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
-$all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
+// $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 $display_sortby_dropdown = get_directorist_option('display_sort_by', 1);
 $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
 $display_image = !empty($display_image) ? $display_image : '';
@@ -31,12 +31,14 @@ if (is_rtl()){
     if ('yes' === $action_before_after_loop) {
         do_action('atbdp_before_list_listings_loop');
     }
-    ?>
-    <?php if ($all_listings->have_posts()) { ?>
-        <?php listing_view_by_list($all_listings, $display_image, $show_pagination, $paged); ?>
-    <?php } else { ?>
+
+    if ( ! empty( $all_listings->ids ) ) :
+        listing_view_by_list($all_listings, $display_image, $show_pagination, $paged);
+    else: ?>
         <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
-    <?php }
+        <?php
+    endif;
+
     /**
      * @since 5.0
      * It fires before the listings columns

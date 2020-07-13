@@ -3240,13 +3240,21 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
 {
     $class_name = 'container-fluid';
     $container = apply_filters('list_view_container', $class_name);
+
+    // Prime caches to reduce future queries.
+    if ( is_callable( '_prime_post_caches' ) ) {
+        _prime_post_caches( $all_listings->ids );
+    }
+
+    $original_post = $GLOBALS['post'];
     ?>
     <div class="<?php echo !empty($container) ? $container : 'container'; ?>">
         <div class="row">
             <div class="<?php echo apply_filters('atbdp_listing_list_view_html_class', 'col-md-12') ?>">
                 <?php
-                while ($all_listings->have_posts()) {
-                    $all_listings->the_post(); 
+                foreach ( $all_listings->ids as $listings_id ) :
+                    $GLOBALS['post'] = get_post( $listings_id );
+                    setup_postdata( $GLOBALS['post'] );
                     
                     $thumbnail_link_attr = " " . apply_filters( 'list_view_thumbnail_link_add_attr', '' );
                     $thumbnail_link_attr = trim( $thumbnail_link_attr );
@@ -3604,9 +3612,10 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                             </div>
                         </article>
                     </div>
+                    <?php
+                endforeach;
 
-
-                <?php }
+                $GLOBALS['post'] = $original_post;
                 wp_reset_postdata(); ?>
                 <?php
                 /**
@@ -3614,11 +3623,9 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                  */
                 do_action('atbdp_before_listings_pagination');
 
-                if ('yes' == $show_pagination) { ?>
-                    <?php
-                    echo atbdp_pagination($all_listings, $paged);
-                    ?>
-                <?php } ?>
+                if ('yes' == $show_pagination) {
+                    echo atbdp_pagination($all_listings);
+                } ?>
 
             </div>
         </div>

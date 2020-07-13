@@ -303,6 +303,18 @@ final class Directorist_Base
         $this->update_review_table();
     }
 
+    /**
+     * Init Hooks
+     *
+     * @access private
+     * @since 6.4.5
+     * @return void
+     */
+    public static function init_hooks()
+    {
+        ATBDP_Cache_Helper::reset_cache();
+    }
+
 
     /**
      * Update Review Table

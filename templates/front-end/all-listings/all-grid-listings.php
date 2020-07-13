@@ -1,6 +1,6 @@
 <?php
 !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
-$all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
+// $all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 $is_disable_price = get_directorist_option('disable_list_price');
 $display_sortby_dropdown = get_directorist_option('display_sort_by', 1);
 $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
@@ -45,9 +45,19 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
         ?>
         <div class="row" <?php echo ($view_as !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
             <?php
-            if ($all_listings->have_posts()) {
-                while ($all_listings->have_posts()) {
-                    $all_listings->the_post();
+
+            // Prime caches to reduce future queries.
+            if ( is_callable( '_prime_post_caches' ) ) {
+                _prime_post_caches( $all_listings->ids );
+            }
+
+            $original_post = $GLOBALS['post'];
+
+            if ( ! empty( $all_listings->ids ) ) :
+                foreach ( $all_listings->ids as $listings_id ) :
+                    $GLOBALS['post'] = get_post( $listings_id );
+                    setup_postdata( $GLOBALS['post'] );
+                    
                     $listing_id = get_the_ID();
                     $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
                     $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
@@ -476,11 +486,15 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                             <?php do_action('atbdp_after_single_listing_wrapper_class',$listing_id); ?>
                         </div>
                     </div>
-                <?php }
-                wp_reset_postdata();
-            } else { ?>
-                <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
-            <?php }
+                <?php
+                endforeach;
+                else: ?>
+                    <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
+                <?php
+            endif;
+
+            $GLOBALS['post'] = $original_post;
+		    wp_reset_postdata();
             ?>
 
         </div>
@@ -496,7 +510,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                 $show_pagination = !empty($show_pagination) ? $show_pagination : '';
                 if ('yes' == $show_pagination) {
                     $paged = !empty($paged) ? $paged : '';
-                    echo atbdp_pagination($all_listings, $paged);
+                    echo atbdp_pagination( $all_listings );
                 } ?>
             </div>
         </div>

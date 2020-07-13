@@ -438,11 +438,15 @@ if (!function_exists('atbdp_pagination')) {
     {
         $navigation = '';
         $largeNumber = 999999999; // we need a large number here
+
+        $total = ( isset( $custom_post_query->total_pages ) ) ? $custom_post_query->total_pages : $custom_post_query->max_num_pages;
+        $paged = ( isset( $custom_post_query->current_page ) ) ? $custom_post_query->current_page : $paged;
+
         $links = paginate_links(array(
-            'base' => str_replace($largeNumber, '%#%', esc_url(get_pagenum_link($largeNumber))),
-            'format' => '?paged=%#%',
-            'current' => max(1, $paged),
-            'total' => $custom_post_query->max_num_pages,
+            'base'      => str_replace($largeNumber, '%#%', esc_url(get_pagenum_link($largeNumber))),
+            'format'    => '?paged=%#%',
+            'current'   => max(1, $paged),
+            'total'     => $total,
             'prev_text' => apply_filters('atbdp_pagination_prev_text', '<span class="fa fa-chevron-left"></span>'),
             'next_text' => apply_filters('atbdp_pagination_next_text', '<span class="fa fa-chevron-right atbdp_right_nav"></span>'),
         ));

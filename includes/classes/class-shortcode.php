@@ -1032,22 +1032,7 @@ if (!class_exists('ATBDP_Shortcode')):
 
 
             $meta_queries = array();
-
-            $meta_queries['expired'] = array(
-                'relation' => 'OR',
-                array(
-                    'key' => '_expiry_date',
-                    'value' => current_time('mysql'),
-                    'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
-                    'type' => 'DATETIME'
-                ),
-                array(
-                    'key' => '_never_expire',
-                    'value' => 1,
-                )
-            );
     
-
             if ($has_featured) {
 
                 if ('_featured' == $atts['filterby']) {
@@ -1299,13 +1284,37 @@ if (!class_exists('ATBDP_Shortcode')):
 
 
             $arguments = apply_filters('atbdp_all_listings_query_arguments', $args);
-            $all_listings = new WP_Query($arguments);
+
+
+            // $all_listings = new WP_Query($arguments);
+            $all_listings = ATBDP_Cache_Helper::get_the_transient([
+                'group'      => 'atbdp_listings_query',
+                'name'       => 'atbdp_all_listings_query',
+                'args'       => $arguments,
+                'update'     => false,
+                'expiration' => 0,
+                'cache'      => true,
+                'callback'   => function( $data ) {
+                    $data['args']['fields'] = 'ids';
+                    $query                  = new \WP_Query( $data['args'] );
+                    $paginated              = ! $query->get( 'no_found_rows' );
+                    
+                    $results = (object) [
+                        'ids'          => wp_parse_id_list( $query->posts ),
+                        'total'        => $paginated ? (int) $query->found_posts : count( $query->posts ),
+                        'total_pages'  => $paginated ? (int) $query->max_num_pages : 1,
+                        'per_page'     => (int) $query->get( 'posts_per_page' ),
+                        'current_page' => $paginated ? (int) max( 1, $query->get( 'paged', 1 ) ) : 1,
+                    ];
+                    
+                    return $results;
+                },
+            ]);
+
+
             $paginate = get_directorist_option('paginate_all_listings');
-            if ('yes' == $show_pagination) {
-                $listing_count = '<span>' . $all_listings->found_posts . '</span>';
-            } else {
-                $listing_count = '<span>' . count($all_listings->posts) . '</span>';
-            }
+            $listing_count = '<span>' . $all_listings->total . '</span>';
+
             $display_header = !empty($display_header) ? $display_header : '';
             $header_title_for_search = !empty($header_title) ? $header_title : '';
             $header_title = !empty($header_title) ? $listing_count . ' ' . $header_title : '';

@@ -6,18 +6,19 @@ if (!class_exists('ATBDP_Shortcode')):
 
         public function __construct()
         {
-            add_shortcode('directorist_search_listing', array($this, 'search_listing'));
+            add_shortcode('directorist_all_listing', array($this, 'all_listing'));
             add_shortcode('directorist_search_result', array($this, 'search_result'));
-            add_shortcode('directorist_author_profile', array($this, 'author_profile'));
+            add_shortcode('directorist_category', array($this, 'atbdp_category'));
+            add_shortcode('directorist_location', array($this, 'atbdp_location'));
+
+            add_shortcode('directorist_search_listing', array($this, 'search_listing'));
             add_shortcode('directorist_add_listing', array($this, 'add_listing'));
+            add_shortcode('directorist_author_profile', array($this, 'author_profile'));
             add_shortcode('directorist_custom_registration', array($this, 'user_registration'));
             add_shortcode('directorist_user_login', array($this, 'custom_user_login'));
             add_shortcode('directorist_user_dashboard', array($this, 'user_dashboard'));
-            add_shortcode('directorist_all_listing', array($this, 'all_listing'));
             add_shortcode('directorist_all_categories', array($this, 'all_categories'));
-            add_shortcode('directorist_category', array($this, 'atbdp_category'));
             add_shortcode('directorist_all_locations', array($this, 'all_locations'));
-            add_shortcode('directorist_location', array($this, 'atbdp_location'));
             add_shortcode('directorist_tag', array($this, 'atbdp_tag'));
             $checkout = new ATBDP_Checkout;
             add_shortcode('directorist_checkout', array($checkout, 'display_checkout_content'));
@@ -474,21 +475,6 @@ if (!class_exists('ATBDP_Shortcode')):
                     'compare' => 'LIKE'
                 );
             }
-
-            $meta_queries['expired'] = array(
-                'relation' => 'OR',
-                array(
-                    'key' => '_expiry_date',
-                    'value' => current_time('mysql'),
-                    'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
-                    'type' => 'DATETIME'
-                ),
-                array(
-                    'key' => '_never_expire',
-                    'value' => 1,
-                )
-
-            );
     
             if ($has_featured) {
 
@@ -727,7 +713,11 @@ if (!class_exists('ATBDP_Shortcode')):
                 $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
             }
 
-            $all_listings = new WP_Query(apply_filters('atbdp_listing_search_query_argument', $args));
+            $all_listings = $this->get_listings_transient([
+                'name' => 'atbdp_search_listings_query',
+                'args' => apply_filters('atbdp_listing_search_query_argument', $args),
+            ]);
+
             $default_radius_distance = !empty($_GET['miles']) ? $_GET['miles'] : $default_radius_distance;
             wp_localize_script( $handel, 'atbdp_range_slider', array(
                 'Miles'     =>  $miles,
@@ -743,9 +733,9 @@ if (!class_exists('ATBDP_Shortcode')):
             } else {
                 $in_loc = !empty($_GET['address']) ? sprintf(__('in %s', 'directorist'), $_GET['address']) : '';
             }
-            $result = (1 < count($all_listings->posts)) ? __('results', 'directorist') : __('result', 'directorist');
+            $result = ( 1 < $all_listings->total ) ? __('results', 'directorist') : __('result', 'directorist');
 
-            $header_title = sprintf(__('%d %s %s %s', 'directorist'), $all_listings->found_posts, $result, $for_cat, $in_loc);
+            $header_title = sprintf(__('%d %s %s %s', 'directorist'), $all_listings->total, $result, $for_cat, $in_loc);
             $listing_filters_button = get_directorist_option('search_result_filters_button_display', 1);
             $filters = get_directorist_option('search_result_filter_button_text', __('Filters', 'directorist'));
             $text_placeholder = get_directorist_option('search_result_search_text_placeholder', __('What are you looking for?', 'directorist'));
@@ -1284,31 +1274,10 @@ if (!class_exists('ATBDP_Shortcode')):
 
 
             $arguments = apply_filters('atbdp_all_listings_query_arguments', $args);
-
-            $all_listings = ATBDP_Cache_Helper::get_the_transient([
-                'group'      => 'atbdp_listings_query',
-                'name'       => 'atbdp_all_listings_query',
-                'args'       => $arguments,
-                'update'     => false,
-                'expiration' => 0,
-                'cache'      => true,
-                'callback'   => function( $data ) {
-                    $data['args']['fields'] = 'ids';
-                    $query                  = new \WP_Query( $data['args'] );
-                    $paginated              = ! $query->get( 'no_found_rows' );
-                    
-                    $results = (object) [
-                        'ids'          => wp_parse_id_list( $query->posts ),
-                        'total'        => $paginated ? (int) $query->found_posts : count( $query->posts ),
-                        'total_pages'  => $paginated ? (int) $query->max_num_pages : 1,
-                        'per_page'     => (int) $query->get( 'posts_per_page' ),
-                        'current_page' => $paginated ? (int) max( 1, $query->get( 'paged', 1 ) ) : 1,
-                    ];
-                    
-                    return $results;
-                },
+            $all_listings = $this->get_listings_transient([
+                'name' => 'atbdp_all_listings_query',
+                'args' => $arguments,
             ]);
-
 
             $paginate = get_directorist_option('paginate_all_listings');
             $listing_count = '<span>' . $all_listings->total . '</span>';
@@ -1607,21 +1576,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 $args['tax_query'] = $tax_queries;
 
                 $meta_queries = array();
-                $meta_queries['expired'] = array(
-                    'relation' => 'OR',
-                    array(
-                        'key' => '_expiry_date',
-                        'value' => current_time('mysql'),
-                        'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
-                        'type' => 'DATETIME'
-                    ),
-                    array(
-                        'key' => '_never_expire',
-                        'value' => 1,
-                    )
-
-                );
-        
                 if ($has_featured) {
 
                     if ('_featured' == $atts['filterby']) {
@@ -1858,12 +1812,13 @@ if (!class_exists('ATBDP_Shortcode')):
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
                 }
 
-                $all_listings = new WP_Query( apply_filters('atbdp_single_category_query_arguments', $args) );
-                if ('yes' == $show_pagination) {
-                    $listing_count = '<span>' . $all_listings->found_posts . '</span>';
-                } else {
-                    $listing_count = '<span>' . count($all_listings->posts) . '</span>';
-                }
+                $all_listings = $this->get_listings_transient([
+                    'name' => 'atbdp_single_category_query',
+                    'args' => apply_filters('atbdp_single_category_query_arguments', $args),
+                ]);
+
+                $listing_count = '<span>' . $all_listings->total . '</span>';
+
                 $display_header = !empty($display_header) ? $display_header : '';
                 $header_title = !empty($header_title) ? $listing_count . ' ' . $header_title : '';
                 $listing_filters_button = get_directorist_option('listing_filters_button', 1);
@@ -2114,21 +2069,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 $args['tax_query'] = $tax_queries;
 
                 $meta_queries = array();
-                $meta_queries['expired'] = array(
-                    'relation' => 'OR',
-                    array(
-                        'key' => '_expiry_date',
-                        'value' => current_time('mysql'),
-                        'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
-                        'type' => 'DATETIME'
-                    ),
-                    array(
-                        'key' => '_never_expire',
-                        'value' => 1,
-                    )
-
-                );
-        
                 if ($has_featured) {
 
                     if ('_featured' == $atts['filterby']) {
@@ -2366,12 +2306,13 @@ if (!class_exists('ATBDP_Shortcode')):
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
                 }
 
-                $all_listings = new WP_Query( apply_filters( 'atbdp_single_location_query_arguments', $args ) );
-                if ('yes' == $show_pagination) {
-                    $listing_count = '<span>' . $all_listings->found_posts . '</span>';
-                } else {
-                    $listing_count = '<span>' . count($all_listings->posts) . '</span>';
-                }
+                $all_listings = $this->get_listings_transient([
+                    'name' => 'atbdp_single_location_query',
+                    'args' => apply_filters( 'atbdp_single_location_query_arguments', $args ),
+                ]);
+
+                $listing_count = '<span>' . $all_listings->total . '</span>';
+
                 $display_header = !empty($display_header) ? $display_header : '';
                 $header_title = !empty($header_title) ? $listing_count . ' ' . $header_title : '';
                 $listing_filters_button = get_directorist_option('listing_filters_button', 1);
@@ -3365,6 +3306,37 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             return ob_get_clean();
+        }
+
+
+        // get_listings_transient
+        public function get_listings_transient( $args = [] ) {
+            $defaults = [ 'name' => '', 'args' => '' ];
+            $args = array_merge( $defaults, $args );
+
+            $listings = ATBDP_Cache_Helper::get_the_transient([
+                'group'      => 'atbdp_listings_query',
+                'name'       => $args['name'],
+                'args'       => $args['args'],
+                'expiration' => DAY_IN_SECONDS * 30,
+                'callback'   => function( $data ) {
+                    $data['args']['fields'] = 'ids';
+                    $query                  = new \WP_Query( $data['args'] );
+                    $paginated              = ! $query->get( 'no_found_rows' );
+                    
+                    $results = (object) [
+                        'ids'          => wp_parse_id_list( $query->posts ),
+                        'total'        => $paginated ? (int) $query->found_posts : count( $query->posts ),
+                        'total_pages'  => $paginated ? (int) $query->max_num_pages : 1,
+                        'per_page'     => (int) $query->get( 'posts_per_page' ),
+                        'current_page' => $paginated ? (int) max( 1, $query->get( 'paged', 1 ) ) : 1,
+                    ];
+                    
+                    return $results;
+                }
+            ]);
+
+            return $listings;
         }
 
     }

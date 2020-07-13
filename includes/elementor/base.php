@@ -24,10 +24,10 @@ class Custom_Widget_Base extends Widget_Base {
 		$this->az_category = $this->az_prefix . '-widgets';
 		$this->az_icon     = 'directorist-el-custom';
 		$this->az_texts    = array(
-			'single'      => __( 'This widget works only in Single Listing page', 'directorist' ),
-			'checkout'    => __( 'This widget works only in Checkout page', 'directorist' ),
-			'payment'     => __( 'This widget works only in Payment Receipt page', 'directorist' ),
-			'transaction' => __( 'This widget works only in Transaction Failure page', 'directorist' ),
+			'single'      => __( 'This widget works only in Single Listing page. It has no additional elementor settings.', 'directorist' ),
+			'checkout'    => __( 'This widget works only in Checkout page. It has no additional elementor settings.', 'directorist' ),
+			'payment'     => __( 'This widget works only in Payment Receipt page. It has no additional elementor settings.', 'directorist' ),
+			'transaction' => __( 'This widget works only in Transaction Failure page. It has no additional elementor settings.', 'directorist' ),
 		);
 
 		$this->az_dir      = dirname( ( new \ReflectionClass( $this ) )->getFileName() );

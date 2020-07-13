@@ -71,7 +71,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                 <?php if (!empty($my_listing_tab)) { ?>
                                     <li class="atbdp_tab_nav--content-link">
                                         <a href="" target="my_listings" class="atbd_tn_link tabItemActive">
-                                            <?php $list_found = ($listings->found_posts > 0) ? $listings->found_posts : '0';
+                                            <?php $list_found = $listings->found_posts;
                                             printf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found); ?>
                                         </a>
                                     </li>

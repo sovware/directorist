@@ -66,16 +66,15 @@ if (!class_exists('ATBDP_Tools')) :
             $tax_inputs = isset($_POST['tax_input']) ? atbdp_sanitize_array($_POST['tax_input']) : array();
             $limit = apply_filters('atbdp_listing_import_limit_per_cycle', 20);
             $posts = csv_get_data($this->file, true, $delimiter);
+            $posts = ( 1 > $position ) ? array_slice($posts, $position) : $posts;
             $length = count($posts);
             if (!$length) {
                 $data['error'] = __('No data found', 'directorist');
                 die();
             }
             foreach ($posts as $index => $post) {
-                if ($index >= $position) {
                     if ($count > $limit) break;
                     $count++;
-
                     // start importing listings
                     $args = array(
                         "post_title"   => isset($post[$title]) ? $post[$title] : '',
@@ -130,7 +129,6 @@ if (!class_exists('ATBDP_Tools')) :
                        $attachment_id = $this->atbdp_insert_attachment_from_url($preview_url, $post_id);
                        update_post_meta($post_id, '_listing_prv_img', $attachment_id);
                     }
-                }
             }
             $data['next_position'] = (int) $position + (int) $count;
             $data['percentage'] = absint(min(round((($data['next_position']) / $length) * 100), 100));

@@ -249,7 +249,8 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                     /**
                      * @since 6.4.4
                      */
-                    $listing_header .= do_action( 'atbdp_single_listing_before_favourite_icon' );
+                    //$listing_header .= do_action( 'atbdp_single_listing_before_favourite_icon' );
+                    $listing_header .= '<div class="atbd_action">' . do_action( 'atbdp_single_listing_before_favourite_icon' ) . '</div>';
 
                     if ($enable_favourite) {
                         $listing_header .= '<div class="atbd_action atbd_save"

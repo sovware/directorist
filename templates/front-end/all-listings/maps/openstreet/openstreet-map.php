@@ -29,7 +29,7 @@ $marker_icons = [];
     var addressPoints = [
         <?php 
         // Prime caches to reduce future queries.
-        if ( is_callable( '_prime_post_caches' ) ) {
+        if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
             _prime_post_caches( $all_listings->ids );
         }
 

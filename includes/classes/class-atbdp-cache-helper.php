@@ -27,7 +27,7 @@ class ATBDP_Cache_Helper {
             $transient_value = (string) time();
 
             set_transient( $transient_name, $transient_value );
-            // self::log([ 'title' => $group ]);
+            // self::log([ 'title' => $transient_name, 'content' => json_encode( $transient_value ) ]);
         }
 
         return $transient_value;
@@ -71,6 +71,7 @@ class ATBDP_Cache_Helper {
         } else {
 
             if ( ! is_callable( $args['callback'] ) ) {
+                self::log([ 'title' => 'is not callable | ' . $transient_name ,'content' => json_encode( $transient_value ) ]);
                 return null;
             }
 
@@ -82,6 +83,7 @@ class ATBDP_Cache_Helper {
                     'value'   => $result,
                 ];
 
+                self::log([ 'title' => $transient_name ,'content' => json_encode( $transient_value ) ]);
                 set_transient( $transient_name, $transient_value, $args['expiration'] );
             }
             

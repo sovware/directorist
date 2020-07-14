@@ -3242,7 +3242,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
     $container = apply_filters('list_view_container', $class_name);
 
     // Prime caches to reduce future queries.
-    if ( is_callable( '_prime_post_caches' ) ) {
+    if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
         _prime_post_caches( $all_listings->ids );
     }
 
@@ -4122,6 +4122,7 @@ if (!function_exists('get_atbdp_listings_ids')) {
             'post_type'      => 'at_biz_dir',
             'posts_per_page' => -1,
             'post_status'    => 'publish',
+            'fields'         => 'ids'
         ));
 
         $ids = ATBDP_Cache_Helper::get_the_transient([
@@ -4130,7 +4131,8 @@ if (!function_exists('get_atbdp_listings_ids')) {
             'args'       => $arg,
             'cache'      => apply_filters('cache_atbdp_listings_ids', true),
             'callback'   => function( $data ) {
-                return new WP_Query( $data['args'] );
+                $query = new WP_Query( $data['args'] );
+                return wp_parse_id_list( $query->posts );
             }
         ]);
 

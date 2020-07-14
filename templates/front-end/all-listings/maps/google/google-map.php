@@ -27,7 +27,7 @@ wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data ); ?>
 <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($listings_map_height)?$listings_map_height:'';?>px;">
     <?php if ( ! empty( $all_listings->ids ) ) :
         // Prime caches to reduce future queries.
-        if ( is_callable( '_prime_post_caches' ) ) {
+        if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
             _prime_post_caches( $all_listings->ids );
         }
 

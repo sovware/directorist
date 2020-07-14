@@ -45,7 +45,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
         <div class="row" <?php echo ($view_as !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
             <?php
             // Prime caches to reduce future queries.
-            if ( is_callable( '_prime_post_caches' ) ) {
+            if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
                 _prime_post_caches( $all_listings->ids );
             }
 
@@ -61,6 +61,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
                     $featured = get_post_meta(get_the_ID(), '_featured', true);
                     $price = get_post_meta(get_the_ID(), '_price', true);
+                    $price = '';
                     $price_range = get_post_meta(get_the_ID(), '_price_range', true);
                     $atbd_listing_pricing = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
                     $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);

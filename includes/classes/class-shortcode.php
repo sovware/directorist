@@ -581,23 +581,21 @@ if (!class_exists('ATBDP_Shortcode')):
                     };
                     break;
                 case 'views-desc' :
-                    $listings = get_atbdp_listings_ids();
+                    $listings_ids = get_atbdp_listings_ids();
                     $rated = array();
                     $listing_popular_by = get_directorist_option('listing_popular_by');
                     $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
                     $view_to_popular = get_directorist_option('views_for_popular');
                     if ($has_featured) {
                         if ('average_rating' === $listing_popular_by) {
-                            if ($listings->have_posts()) {
-                                while ($listings->have_posts()) {
-                                    $listings->the_post();
-                                    $listing_id = get_the_ID();
-                                    $average = ATBDP()->review->get_average($listing_id);
+                            if ( ! empty( $listings_ids ) ) {
+                                foreach ( $listings_ids as $listings_id ) {
+                                    $average = ATBDP()->review->get_average( $listings_id );
                                     if ($average_review_for_popular <= $average) {
-                                        $rated[] = get_the_ID();
+                                        $rated[] = $listings_id;
                                     }
-
                                 }
+                                
                                 $rating_id = array(
                                     'post__in' => !empty($rated) ? $rated : array()
                                 );
@@ -625,16 +623,14 @@ if (!class_exists('ATBDP_Shortcode')):
                                 '_featured' => 'DESC',
                                 'views' => 'DESC',
                             );
-                            if ($listings->have_posts()) {
-                                while ($listings->have_posts()) {
-                                    $listings->the_post();
-                                    $listing_id = get_the_ID();
-                                    $average = ATBDP()->review->get_average($listing_id);
+                            if ( ! empty( $listings_ids ) ) {
+                                foreach ( $listings_ids as $listings_id ) {
+                                    $average = ATBDP()->review->get_average( $listings_id );
                                     if ($average_review_for_popular <= $average) {
-                                        $rated[] = get_the_ID();
+                                        $rated[] = $listings_id;
                                     }
-
                                 }
+                                
                                 $rating_id = array(
                                     'post__in' => !empty($rated) ? $rated : array()
                                 );
@@ -643,16 +639,14 @@ if (!class_exists('ATBDP_Shortcode')):
                         }
                     } else {
                         if ('average_rating' === $listing_popular_by) {
-                            if ($listings->have_posts()) {
-                                while ($listings->have_posts()) {
-                                    $listings->the_post();
-                                    $listing_id = get_the_ID();
-                                    $average = ATBDP()->review->get_average($listing_id);
+                            if ( ! empty( $listings_ids ) ) {
+                                foreach ( $listings_ids as $listings_id ) {
+                                    $average = ATBDP()->review->get_average( $listings_id );
                                     if ($average_review_for_popular <= $average) {
-                                        $rated[] = get_the_ID();
+                                        $rated[] = $listings_id;
                                     }
-
                                 }
+                                
                                 $rating_id = array(
                                     'post__in' => !empty($rated) ? $rated : array()
                                 );
@@ -678,16 +672,14 @@ if (!class_exists('ATBDP_Shortcode')):
                             $args['orderby'] = array(
                                 'views' => 'DESC',
                             );
-                            if ($listings->have_posts()) {
-                                while ($listings->have_posts()) {
-                                    $listings->the_post();
-                                    $listing_id = get_the_ID();
-                                    $average = ATBDP()->review->get_average($listing_id);
+                            if ( ! empty( $listings_ids ) ) {
+                                foreach ( $listings_ids as $listings_id ) {
+                                    $average = ATBDP()->review->get_average( $listings_id );
                                     if ($average_review_for_popular <= $average) {
-                                        $rated[] = get_the_ID();
+                                        $rated[] = $listings_id;
                                     }
-
                                 }
+                                
                                 $rating_id = array(
                                     'post__in' => !empty($rated) ? $rated : array()
                                 );
@@ -807,6 +799,7 @@ if (!class_exists('ATBDP_Shortcode')):
 
         public function all_listing($atts)
         {
+            // return '123';
             wp_enqueue_script('adminmainassets');
             wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
@@ -1048,8 +1041,9 @@ if (!class_exists('ATBDP_Shortcode')):
                     'compare' => '='
                 );
             }
+            
+            $listings_ids = get_atbdp_listings_ids();
 
-            $listings = get_atbdp_listings_ids();
             $rated = array();
             $listing_popular_by = get_directorist_option('listing_popular_by');
             $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
@@ -1058,16 +1052,14 @@ if (!class_exists('ATBDP_Shortcode')):
             if (('yes' == $popular_only) || ('views-desc' === $current_order)) {
                 if ($has_featured) {
                     if ('average_rating' === $listing_popular_by) {
-                        if ($listings->have_posts()) {
-                            while ($listings->have_posts()) {
-                                $listings->the_post();
-                                $listing_id = get_the_ID();
-                                $average = ATBDP()->review->get_average($listing_id);
+                        if ( ! empty( $listings_ids ) ) {
+                            foreach ( $listings_ids as $listings_id ) {
+                                $average = ATBDP()->review->get_average( $listings_id );
                                 if ($average_review_for_popular <= $average) {
-                                    $rated[] = get_the_ID();
+                                    $rated[] = $listings_id;
                                 }
-
                             }
+                            
                             $rating_id = array(
                                 'post__in' => !empty($rated) ? $rated : array()
                             );
@@ -1097,16 +1089,15 @@ if (!class_exists('ATBDP_Shortcode')):
                             '_featured' => 'DESC',
                             'views' => 'DESC',
                         );
-                        if ($listings->have_posts()) {
-                            while ($listings->have_posts()) {
-                                $listings->the_post();
-                                $listing_id = get_the_ID();
-                                $average = ATBDP()->review->get_average($listing_id);
-                                if ($average_review_for_popular <= $average) {
-                                    $rated[] = get_the_ID();
-                                }
 
+                        if ( ! empty( $listings_ids ) ) {
+                            foreach ( $listings_ids as $listings_id ) {
+                                $average = ATBDP()->review->get_average( $listings_id );
+                                if ($average_review_for_popular <= $average) {
+                                    $rated[] = $listings_id;
+                                }
                             }
+                            
                             $rating_id = array(
                                 'post__in' => !empty($rated) ? $rated : array()
                             );
@@ -1116,16 +1107,14 @@ if (!class_exists('ATBDP_Shortcode')):
 
                 } else {
                     if ('average_rating' === $listing_popular_by) {
-                        if ($listings->have_posts()) {
-                            while ($listings->have_posts()) {
-                                $listings->the_post();
-                                $listing_id = get_the_ID();
-                                $average = ATBDP()->review->get_average($listing_id);
+                        if ( ! empty( $listings_ids ) ) {
+                            foreach ( $listings_ids as $listings_id ) {
+                                $average = ATBDP()->review->get_average( $listings_id );
                                 if ($average_review_for_popular <= $average) {
-                                    $rated[] = get_the_ID();
+                                    $rated[] = $listings_id;
                                 }
-
                             }
+                            
                             $rating_id = array(
                                 'post__in' => !empty($rated) ? $rated : array()
                             );
@@ -1151,16 +1140,14 @@ if (!class_exists('ATBDP_Shortcode')):
                         $args['orderby'] = array(
                             'views' => 'DESC',
                         );
-                        if ($listings->have_posts()) {
-                            while ($listings->have_posts()) {
-                                $listings->the_post();
-                                $listing_id = get_the_ID();
-                                $average = ATBDP()->review->get_average($listing_id);
+                        if ( ! empty( $listings_ids ) ) {
+                            foreach ( $listings_ids as $listings_id ) {
+                                $average = ATBDP()->review->get_average( $listings_id );
                                 if ($average_review_for_popular <= $average) {
-                                    $rated[] = get_the_ID();
+                                    $rated[] = $listings_id;
                                 }
-
                             }
+                            
                             $rating_id = array(
                                 'post__in' => !empty($rated) ? $rated : array()
                             );
@@ -1270,8 +1257,6 @@ if (!class_exists('ATBDP_Shortcode')):
             if ($count_meta_queries) {
                 $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
             }
-
-
 
             $arguments = apply_filters('atbdp_all_listings_query_arguments', $args);
             $all_listings = $this->get_listings_transient([
@@ -1681,23 +1666,21 @@ if (!class_exists('ATBDP_Shortcode')):
                         };
                         break;
                     case 'views-desc' :
-                        $listings = get_atbdp_listings_ids();
+                        $listings_ids = get_atbdp_listings_ids();
                         $rated = array();
                         $listing_popular_by = get_directorist_option('listing_popular_by');
                         $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
                         $view_to_popular = get_directorist_option('views_for_popular');
                         if ($has_featured) {
                             if ('average_rating' === $listing_popular_by) {
-                                if ($listings->have_posts()) {
-                                    while ($listings->have_posts()) {
-                                        $listings->the_post();
-                                        $listing_id = get_the_ID();
-                                        $average = ATBDP()->review->get_average($listing_id);
+                                if ( ! empty( $listings_ids ) ) {
+                                    foreach ( $listings_ids as $listings_id ) {
+                                        $average = ATBDP()->review->get_average( $listings_id );
                                         if ($average_review_for_popular <= $average) {
-                                            $rated[] = get_the_ID();
+                                            $rated[] = $listings_id;
                                         }
-
                                     }
+                                    
                                     $rating_id = array(
                                         'post__in' => !empty($rated) ? $rated : array()
                                     );
@@ -1725,16 +1708,14 @@ if (!class_exists('ATBDP_Shortcode')):
                                     '_featured' => 'DESC',
                                     'views' => 'DESC',
                                 );
-                                if ($listings->have_posts()) {
-                                    while ($listings->have_posts()) {
-                                        $listings->the_post();
-                                        $listing_id = get_the_ID();
-                                        $average = ATBDP()->review->get_average($listing_id);
+                                if ( ! empty( $listings_ids ) ) {
+                                    foreach ( $listings_ids as $listings_id ) {
+                                        $average = ATBDP()->review->get_average( $listings_id );
                                         if ($average_review_for_popular <= $average) {
-                                            $rated[] = get_the_ID();
+                                            $rated[] = $listings_id;
                                         }
-
                                     }
+                                    
                                     $rating_id = array(
                                         'post__in' => !empty($rated) ? $rated : array()
                                     );
@@ -1744,16 +1725,14 @@ if (!class_exists('ATBDP_Shortcode')):
 
                         } else {
                             if ('average_rating' === $listing_popular_by) {
-                                if ($listings->have_posts()) {
-                                    while ($listings->have_posts()) {
-                                        $listings->the_post();
-                                        $listing_id = get_the_ID();
-                                        $average = ATBDP()->review->get_average($listing_id);
+                                if ( ! empty( $listings_ids ) ) {
+                                    foreach ( $listings_ids as $listings_id ) {
+                                        $average = ATBDP()->review->get_average( $listings_id );
                                         if ($average_review_for_popular <= $average) {
-                                            $rated[] = get_the_ID();
+                                            $rated[] = $listings_id;
                                         }
-
                                     }
+                                    
                                     $rating_id = array(
                                         'post__in' => !empty($rated) ? $rated : array()
                                     );
@@ -1779,16 +1758,14 @@ if (!class_exists('ATBDP_Shortcode')):
                                 $args['orderby'] = array(
                                     'views' => 'DESC',
                                 );
-                                if ($listings->have_posts()) {
-                                    while ($listings->have_posts()) {
-                                        $listings->the_post();
-                                        $listing_id = get_the_ID();
-                                        $average = ATBDP()->review->get_average($listing_id);
+                                if ( ! empty( $listings_ids ) ) {
+                                    foreach ( $listings_ids as $listings_id ) {
+                                        $average = ATBDP()->review->get_average( $listings_id );
                                         if ($average_review_for_popular <= $average) {
-                                            $rated[] = get_the_ID();
+                                            $rated[] = $listings_id;
                                         }
-
                                     }
+                                    
                                     $rating_id = array(
                                         'post__in' => !empty($rated) ? $rated : array()
                                     );
@@ -2175,23 +2152,21 @@ if (!class_exists('ATBDP_Shortcode')):
                         };
                         break;
                     case 'views-desc' :
-                        $listings = get_atbdp_listings_ids();
+                        $listings_ids = get_atbdp_listings_ids();
                         $rated = array();
                         $listing_popular_by = get_directorist_option('listing_popular_by');
                         $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
                         $view_to_popular = get_directorist_option('views_for_popular');
                         if ($has_featured) {
                             if ('average_rating' === $listing_popular_by) {
-                                if ($listings->have_posts()) {
-                                    while ($listings->have_posts()) {
-                                        $listings->the_post();
-                                        $listing_id = get_the_ID();
-                                        $average = ATBDP()->review->get_average($listing_id);
+                                if ( ! empty( $listings_ids ) ) {
+                                    foreach ( $listings_ids as $listings_id ) {
+                                        $average = ATBDP()->review->get_average( $listings_id );
                                         if ($average_review_for_popular <= $average) {
-                                            $rated[] = get_the_ID();
+                                            $rated[] = $listings_id;
                                         }
-
                                     }
+                                    
                                     $rating_id = array(
                                         'post__in' => !empty($rated) ? $rated : array()
                                     );
@@ -2219,16 +2194,14 @@ if (!class_exists('ATBDP_Shortcode')):
                                     '_featured' => 'DESC',
                                     'views' => 'DESC',
                                 );
-                                if ($listings->have_posts()) {
-                                    while ($listings->have_posts()) {
-                                        $listings->the_post();
-                                        $listing_id = get_the_ID();
-                                        $average = ATBDP()->review->get_average($listing_id);
+                                if ( ! empty( $listings_ids ) ) {
+                                    foreach ( $listings_ids as $listings_id ) {
+                                        $average = ATBDP()->review->get_average( $listings_id );
                                         if ($average_review_for_popular <= $average) {
-                                            $rated[] = get_the_ID();
+                                            $rated[] = $listings_id;
                                         }
-
                                     }
+                                    
                                     $rating_id = array(
                                         'post__in' => !empty($rated) ? $rated : array()
                                     );
@@ -2238,16 +2211,14 @@ if (!class_exists('ATBDP_Shortcode')):
 
                         } else {
                             if ('average_rating' === $listing_popular_by) {
-                                if ($listings->have_posts()) {
-                                    while ($listings->have_posts()) {
-                                        $listings->the_post();
-                                        $listing_id = get_the_ID();
-                                        $average = ATBDP()->review->get_average($listing_id);
+                                if ( ! empty( $listings_ids ) ) {
+                                    foreach ( $listings_ids as $listings_id ) {
+                                        $average = ATBDP()->review->get_average( $listings_id );
                                         if ($average_review_for_popular <= $average) {
-                                            $rated[] = get_the_ID();
+                                            $rated[] = $listings_id;
                                         }
-
                                     }
+                                    
                                     $rating_id = array(
                                         'post__in' => !empty($rated) ? $rated : array()
                                     );
@@ -2273,16 +2244,14 @@ if (!class_exists('ATBDP_Shortcode')):
                                 $args['orderby'] = array(
                                     'views' => 'DESC',
                                 );
-                                if ($listings->have_posts()) {
-                                    while ($listings->have_posts()) {
-                                        $listings->the_post();
-                                        $listing_id = get_the_ID();
-                                        $average = ATBDP()->review->get_average($listing_id);
+                                if ( ! empty( $listings_ids ) ) {
+                                    foreach ( $listings_ids as $listings_id ) {
+                                        $average = ATBDP()->review->get_average( $listings_id );
                                         if ($average_review_for_popular <= $average) {
-                                            $rated[] = get_the_ID();
+                                            $rated[] = $listings_id;
                                         }
-
                                     }
+                                    
                                     $rating_id = array(
                                         'post__in' => !empty($rated) ? $rated : array()
                                     );
@@ -3333,12 +3302,28 @@ if (!class_exists('ATBDP_Shortcode')):
                     ];
 
                     echo "<div>Updated</div>";
-                    
                     return $results;
                 }
             ]);
+            
 
-            return $listings;
+            $default_data = [
+                'ids'          => [],
+                'total'        => 0,
+                'total_pages'  => 1,
+                'per_page'     => 10,
+                'current_page' => 1,
+            ];
+
+            $results = ( object ) $default_data;
+
+            if ( ! is_null( $listings ) && is_object( $listings ) ) {
+                $results = ( object ) array_merge( $default_data, (array) $listings );
+            }
+
+            // var_dump( $results  );
+
+            return $results;
         }
 
     }

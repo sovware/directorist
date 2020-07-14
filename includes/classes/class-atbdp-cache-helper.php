@@ -102,7 +102,7 @@ class ATBDP_Cache_Helper {
     }
 
     // reset_query_cache
-    public function reset_query_cache( $post_ID = 0, $post = null, $update = true ) {
+    public static function reset_query_cache( $post_ID = 0, $post = null, $update = true ) {
 
         if ( empty( $post_ID ) && empty( $post ) ) { return; }
         if ( empty( $post ) ) { $post = get_post( $post_ID ); }
@@ -129,7 +129,7 @@ class ATBDP_Cache_Helper {
     }
 
     // reset_taxonomy_cache
-    public function reset_taxonomy_cache(  int $term_id, int $tt_id ) {
+    public static function reset_taxonomy_cache(  int $term_id, int $tt_id ) {
         self::get_transient_version( 'atbdp_taxonomy_terms', true );
     }
 

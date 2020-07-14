@@ -3331,6 +3331,8 @@ if (!class_exists('ATBDP_Shortcode')):
                         'per_page'     => (int) $query->get( 'posts_per_page' ),
                         'current_page' => $paginated ? (int) max( 1, $query->get( 'paged', 1 ) ) : 1,
                     ];
+
+                    echo "<div>Updated</div>";
                     
                     return $results;
                 }

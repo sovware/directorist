@@ -452,6 +452,9 @@ final class Directorist_Base
     {
 
         load_plugin_textdomain('directorist', false, ATBDP_LANG_DIR);
+        if ( get_transient( '_directorist_setup_page_redirect' ) ) {
+            directorist_redirect_to_admin_setup_wizard();
+        }
     }
 
     /**

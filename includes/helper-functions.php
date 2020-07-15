@@ -5028,3 +5028,11 @@ if(!function_exists('csv_get_data')){
         return $data;
     }
 }
+
+function directorist_redirect_to_admin_setup_wizard() {
+    // Delete the redirect transient
+    delete_transient( '_directorist_setup_page_redirect' );
+
+    wp_safe_redirect( add_query_arg( array( 'page' => 'directorist-setup' ), admin_url( 'index.php' ) ) );
+    exit;
+}

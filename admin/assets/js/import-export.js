@@ -12,6 +12,7 @@ jQuery(document).ready(function($) {
         let imported = 0;
         $(stepTwo).on('submit', function(e) {
                 e.preventDefault();
+
                 $('.atbdp-importer-mapping-table-wrapper').fadeOut(300);
                 $('.directorist-importer__importing').fadeIn(300);
                 $(this)
@@ -21,6 +22,7 @@ jQuery(document).ready(function($) {
                         .removeClass('active')
                         .addClass('done');
                 $('.atbdp-progress-step').addClass('active');
+
                 let counter = 0;
                 var run_import = function() {
                         const form_data = new FormData();
@@ -42,6 +44,7 @@ jQuery(document).ready(function($) {
                                         form_data.append(`meta[${value}]`, name);
                                 }
                         });
+                        
                         $.ajax({
                                 method: 'POST',
                                 processData: false,
@@ -65,12 +68,12 @@ jQuery(document).ready(function($) {
                                                         response.url
                                                 }&listing-imported=${imported}&listing-failed=${failed}`;
                                         }
-                                        // console.log(response);
                                 },
                                 error(response) {
                                         window.console.log(response);
                                 },
                         });
+
                 };
                 run_import();
         });

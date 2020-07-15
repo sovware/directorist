@@ -35,9 +35,16 @@ if (!class_exists('ATBDP_Installation')):
                 $roles = new ATBDP_Roles;
                 $roles->add_caps();
             }
-
+            
             // Insert atbdp_roles_mapped option to the db to prevent mapping meta cap
             add_option( 'atbdp_roles_mapped', true );
+
+            $atbdp_option = get_option('atbdp_option');
+
+            if( ! $atbdp_option ) {
+                set_transient( '_directorist_setup_page_redirect', true, 30 );
+            }
+
         }
 
 

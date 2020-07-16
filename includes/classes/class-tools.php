@@ -64,7 +64,7 @@ if (!class_exists('ATBDP_Tools')) :
             $position           = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
             $metas              = isset($_POST['meta']) ? atbdp_sanitize_array($_POST['meta']) : array();
             $tax_inputs         = isset($_POST['tax_input']) ? atbdp_sanitize_array($_POST['tax_input']) : array();
-            $limit              = apply_filters('atbdp_listing_import_limit_per_cycle', 5);
+            $limit              = apply_filters('atbdp_listing_import_limit_per_cycle', 10);
             $all_posts          = csv_get_data($this->file, true, $delimiter);
             $posts              = array_slice($all_posts, $position);
             $total_length       = count($all_posts);
@@ -157,7 +157,7 @@ if (!class_exists('ATBDP_Tools')) :
             }
         
             $upload = wp_upload_bits( basename($url), null, $response['body'] );
-            if( !empty( $upload['error'] ) ) {
+            if ( !empty( $upload['error'] ) ) {
                 return false;
             }
         

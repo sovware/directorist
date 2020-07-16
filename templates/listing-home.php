@@ -1,40 +1,41 @@
 <?php
-$categories = get_terms(ATBDP_CATEGORY, array('hide_empty' => 0));
-$locations = get_terms(ATBDP_LOCATION, array('hide_empty' => 0));
-$search_placeholder = get_directorist_option('search_placeholder', __('What are you looking for?', 'directorist'));
+$categories = ATBDP_Terms_Model::get_categories_term( ['hide_empty' => false] );
+$locations  = ATBDP_Terms_Model::get_locations_term( ['hide_empty' => false] );
+
+$search_placeholder          = get_directorist_option('search_placeholder', __('What are you looking for?', 'directorist'));
 $search_category_placeholder = get_directorist_option('search_category_placeholder', __('Select a category', 'directorist'));
 $search_location_placeholder = get_directorist_option('search_location_placeholder', __('location', 'directorist'));
-$show_popular_category = get_directorist_option('show_popular_category', 1);
-$show_connector = get_directorist_option('show_connector', 1);
-$search_border = get_directorist_option('search_border', 1);
-$display_more_filter_icon = get_directorist_option('search_more_filter_icon', 1);
-$search_button_icon = get_directorist_option('search_button_icon', 1);
+$show_popular_category       = get_directorist_option('show_popular_category', 1);
+$show_connector              = get_directorist_option('show_connector', 1);
+$search_border               = get_directorist_option('search_border', 1);
+$display_more_filter_icon    = get_directorist_option('search_more_filter_icon', 1);
+$search_button_icon          = get_directorist_option('search_button_icon', 1);
 
-$connectors_title = get_directorist_option('connectors_title', __('Or', 'directorist'));
+$connectors_title  = get_directorist_option('connectors_title', __('Or', 'directorist'));
 $popular_cat_title = get_directorist_option('popular_cat_title', __('Browse by popular categories', 'directorist'));
-$popular_cat_num = get_directorist_option('popular_cat_num', 10);
-$require_text = get_directorist_option('require_search_text');
-$require_cat = get_directorist_option('require_search_category');
-$require_loc = get_directorist_option('require_search_location');
-$require_text = !empty($require_text) ? "required" : "";
-$require_cat = !empty($require_cat) ? "required" : "";
-$require_loc = !empty($require_loc) ? "required" : "";
+$popular_cat_num   = get_directorist_option('popular_cat_num', 10);
+$require_text      = get_directorist_option('require_search_text');
+$require_cat       = get_directorist_option('require_search_category');
+$require_loc       = get_directorist_option('require_search_location');
+$require_text      = !empty($require_text) ? "required" : "";
+$require_cat       = !empty($require_cat) ? "required" : "";
+$require_loc       = !empty($require_loc) ? "required" : "";
 
-$default = get_template_directory_uri() . '/images/home_page_bg.jpg';
-$theme_home_bg_image = get_theme_mod('directoria_home_bg');
-$search_home_bg = get_directorist_option('search_home_bg');
+$default                    = get_template_directory_uri() . '/images/home_page_bg.jpg';
+$theme_home_bg_image        = get_theme_mod('directoria_home_bg');
+$search_home_bg             = get_directorist_option('search_home_bg');
 $display_more_filter_search = get_directorist_option('search_more_filter', 1);
-$search_filters = get_directorist_option('search_filters', array('reset_button', 'apply_button'));
+$search_filters             = get_directorist_option('search_filters', array('reset_button', 'apply_button'));
 $search_more_filters_fields = get_directorist_option('search_more_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
-$tag_label = get_directorist_option('tag_label', __('Tag', 'directorist'));
-$address_label = get_directorist_option('address_label', __('Address', 'directorist'));
-$fax_label = get_directorist_option('fax_label', __('Fax', 'directorist'));
-$email_label = get_directorist_option('email_label', __('Email', 'directorist'));
-$website_label = get_directorist_option('website_label', __('Website', 'directorist'));
-$zip_label = get_directorist_option('zip_label', __('Zip', 'directorist'));
-$currency = get_directorist_option('g_currency', 'USD');
-$c_symbol = atbdp_currency_symbol($currency);
-$front_bg_image = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
+$tag_label                  = get_directorist_option('tag_label', __('Tag', 'directorist'));
+$address_label              = get_directorist_option('address_label', __('Address', 'directorist'));
+$fax_label                  = get_directorist_option('fax_label', __('Fax', 'directorist'));
+$email_label                = get_directorist_option('email_label', __('Email', 'directorist'));
+$website_label              = get_directorist_option('website_label', __('Website', 'directorist'));
+$zip_label                  = get_directorist_option('zip_label', __('Zip', 'directorist'));
+$currency                   = get_directorist_option('g_currency', 'USD');
+$c_symbol                   = atbdp_currency_symbol($currency);
+$front_bg_image             = (!empty($theme_home_bg_image)) ? $theme_home_bg_image : $search_home_bg;
 if (is_rtl()) {
     wp_enqueue_style('atbdp-search-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/search-style-rtl.css');
 } else {
@@ -45,7 +46,7 @@ wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
     'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
     'ajax_url' => admin_url('admin-ajax.php'),
 ));
-$container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
+$container_fluid      = is_directoria_active() ? 'container' : 'container-fluid';
 $search_home_bg_image = !empty($front_bg_image) ? $front_bg_image : $default;
 $query_args = array(
     'parent' => 0,
@@ -60,6 +61,7 @@ $query_args = array(
     'active_term_id' => 0,
     'ancestors' => array()
 );
+
 $categories_fields = search_category_location_filter($query_args, ATBDP_CATEGORY);
 $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION);
 ?>
@@ -84,6 +86,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
             </div>
         </div>
         <?php
+        
         if ('always_open' == $filters_display) {
             include ATBDP_TEMPLATES_DIR . 'listing-home-open.php';
         } else { ?>
@@ -147,7 +150,6 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                      * @since 5.0
                                      */
                                     echo apply_filters('atbdp_search_form_fields', $search_html);
-
                                     ?>
                                 </div>
                             <?php } ?>
@@ -172,6 +174,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                             }
                             $html .= '</div>';
                         }
+                        
 
                         /**
                          * @since 5.0
@@ -277,7 +280,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                         </div>
                                     <?php } ?>
                                     <?php if ('yes' == $tag_field) {
-                                        $terms = get_terms(ATBDP_TAGS);
+                                        $terms = ATBDP_Terms_Model::get_tags_term();
                                         if (!empty($terms)) {
                                             ?>
                                             <div class="form-group ads-filter-tags">
@@ -393,31 +396,28 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                 <?php if (1 == $show_popular_category) {
                     /*@todo; let user decide what the popular category should be counted based on, and how to sort them*/
                     $args = array(
-                        'type' => ATBDP_POST_TYPE,
-                        'parent' => 0,          // Gets only top level categories
-                        'orderby' => 'count',   // Orders the list by post count
-                        'order' => 'desc',
-                        'hide_empty' => 1,      // Hides categories with no posts
-                        'number' => (int)$popular_cat_num,         // No of categories to return
-                        'taxonomy' => ATBDP_CATEGORY,
-                        'no_found_rows' => true, // Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
+                        'type'          => ATBDP_POST_TYPE,
+                        'parent'        => 0,                       // Gets only top level categories
+                        'orderby'       => 'count',                 // Orders the list by post count
+                        'order'         => 'desc',
+                        'hide_empty'    => 1,                       // Hides categories with no posts
+                        'number'        => (int)$popular_cat_num,   // No of categories to return
+                        'taxonomy'      => ATBDP_CATEGORY,
+                        'no_found_rows' => true,                    // Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
                     );
-                    $top_categories = get_categories(apply_filters('atbdp_top_category_argument', $args)); // do not show any markup if we do not have any category at all.
-                    if (!empty($top_categories)) {
-                        ?>
+                    $args = apply_filters('atbdp_top_category_argument', $args);
+                    $top_categories_ = ATBDP_Terms_Model::get_categories_taxanomy( $args );
+
+                    if ( ! empty( $top_categories ) ) { ?>
                         <div class="directory_home_category_area">
-                            <?php
-                            if ($show_connector == '1') {
-                                ?>
+                            <?php if ($show_connector == '1') { ?>
                                 <span><?php echo $connectors_title; ?></span>
-                                <?php
-                            }
-                            ?>
+                            <?php } ?>
+
                             <p><?php echo esc_html($popular_cat_title); ?></p>
 
                             <ul class="categories atbdp_listing_top_category">
-                                <?php
-                                foreach ($top_categories as $cat) {
+                                <?php foreach ($top_categories as $cat) {
                                     $icon = get_cat_icon($cat->term_id);
                                     $icon_type = substr($icon, 0, 2);
                                     ?>

@@ -315,11 +315,11 @@ if ($display_header == 'yes') { ?>
                                     $category_select = !empty($_GET['in_cat']) ? $_GET['in_cat'] : $category_id;
                                     
                                     $tag_posts = ATBDP_Cache_Helper::get_the_transient([
-                                        'group'    => 'atbdp_listings_query',
-                                        'name'     => 'atbdp_search_form_tag_posts',
-                                        'args'     => $tag_args,
-                                        'cache'    => apply_filters( 'atbdp_cache_search_form_tag_posts', true ),
-                                        'callback' => function( $args ) {
+                                        'group' => 'atbdp_listings_query',
+                                        'name'  => 'atbdp_listings_by_tag',
+                                        'args'  => $tag_args,
+                                        'cache' => apply_filters( 'atbdp_cache_listings_by_tag', true ),
+                                        'value' => function( $args ) {
                                             return get_posts( $args['args'] );
                                         }
                                     ]);
@@ -333,14 +333,7 @@ if ($display_header == 'yes') { ?>
                                     $tag_id = !empty($tag_id) ? $tag_id : '';
 
                                     if ( 'all_tags' == $listing_tags_field || empty( $category_select ) ) {
-                                        $terms = ATBDP_Cache_Helper::get_the_transient([
-                                            'group'    => 'atbdp_taxonomy_terms',
-                                            'name'     => 'atbdp_listings_tags',
-                                            'cache'    => apply_filters( 'atbdp_cache_listings_tags', true ),
-                                            'callback' => function() {
-                                                return get_terms( ATBDP_TAGS );
-                                            }
-                                        ]);
+                                        $terms = ATBDP_Terms_Model::get_tags_term();
                                     } else {
                                         $terms  = wp_get_object_terms( $tag_id, ATBDP_TAGS );
                                     }

@@ -487,7 +487,7 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
                 'limit'      => $limit,
                 'table_name' => $this->table_name,
                 'cache'      => apply_filters( 'atbdp_cache_ratings_query', true ),
-                'callback'   => function( $args ) {
+                'value'      => function( $args ) {
                     global $wpdb;
 
                     $db_field   = $args['db_field'];

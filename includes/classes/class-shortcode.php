@@ -354,10 +354,9 @@ if (!class_exists('ATBDP_Shortcode')):
                 $q_rating = $_GET['search_by_rating'];
                 $listings = get_atbdp_listings_ids();
                 $rated = array();
-                if ($listings->have_posts()) {
-                    while ($listings->have_posts()) {
-                        $listings->the_post();
-                        $listing_id = get_the_ID();
+
+                if ( empty( $listings ) ) {
+                    foreach ( $listings as $listing_id ) {
                         $average = ATBDP()->review->get_average($listing_id);
                         if ($q_rating === '5') {
                             if (($average == '5')) {
@@ -683,6 +682,8 @@ if (!class_exists('ATBDP_Shortcode')):
                                 $rating_id = array(
                                     'post__in' => !empty($rated) ? $rated : array()
                                 );
+
+                                var_dump( $rating_id );
                                 $args = array_merge($args, $rating_id);
                             }
                         }
@@ -705,10 +706,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
             }
 
-            $all_listings = $this->get_listings_transient([
-                'name' => 'atbdp_search_listings_query',
-                'args' => apply_filters('atbdp_listing_search_query_argument', $args),
-            ]);
+            $args         = apply_filters('atbdp_listing_search_query_argument', $args);
+            $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
 
             $default_radius_distance = !empty($_GET['miles']) ? $_GET['miles'] : $default_radius_distance;
             wp_localize_script( $handel, 'atbdp_range_slider', array(
@@ -1259,10 +1258,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             $arguments = apply_filters('atbdp_all_listings_query_arguments', $args);
-            $all_listings = $this->get_listings_transient([
-                'name' => 'atbdp_all_listings_query',
-                'args' => $arguments,
-            ]);
+            $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $arguments );
 
             $paginate = get_directorist_option('paginate_all_listings');
             $listing_count = '<span>' . $all_listings->total . '</span>';
@@ -2849,6 +2845,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $logged_in_user_only = !empty($atts['logged_in_user_only']) ? $atts['logged_in_user_only'] : '';
             $redirect_page_url = !empty($atts['redirect_page_url']) ? $atts['redirect_page_url'] : '';
             $filters_display = !empty($atts['more_filters_display']) ? $atts['more_filters_display'] : 'overlapping';
+            
             ob_start();
             $include = apply_filters('include_style_settings', true);
             if ($include) {
@@ -2871,7 +2868,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     <?php
                 }
             } else {
-                include ATBDP_TEMPLATES_DIR . 'listing-home.php';
+            include ATBDP_TEMPLATES_DIR . 'listing-home.php';
             }
             //ATBDP()->load_template('listing-home');
             ATBDP()->enquirer->search_listing_scripts_styles();
@@ -3288,7 +3285,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 'name'       => $args['name'],
                 'args'       => $args['args'],
                 'expiration' => DAY_IN_SECONDS * 30,
-                'callback'   => function( $data ) {
+                'value'      => function( $data ) {
                     $data['args']['fields'] = 'ids';
                     $query                  = new \WP_Query( $data['args'] );
                     $paginated              = ! $query->get( 'no_found_rows' );

@@ -1,22 +1,20 @@
 <?php
-
 /**
  * This template displays custom fields in the search form.
  */
 
+// Start the Loop
 $allow_decimal = get_directorist_option('allow_decimal', 1);
- if( $acadp_query->have_posts() ) : ?>
-    <?php while( $acadp_query->have_posts() ) : $acadp_query->the_post(); $field_meta = get_post_meta( $post->ID ); ?>
-
+ if ( ! empty( $custom_fields ) ) : ?>
+    <?php foreach ( $custom_fields as $field_id ) : $field_meta = get_post_meta( $field_id ) ?>
             <div class="form-group atbdp_cf_<?php echo $field_meta['type'][0];?>"><div>
-
             <?php
             $value = '';
-            if( isset( $_GET['custom_field'][ $post->ID ] ) ) {
-                $value = $_GET['custom_field'][ $post->ID ];
+            if ( isset( $_GET['custom_field'][ $field_id ] ) ) {
+                $value = $_GET['custom_field'][ $field_id ];
             }
-            if( isset( $_POST['custom_field'][ $post->ID ] ) ) {
-                $value = $_POST['custom_field'][ $post->ID ];
+            if ( isset( $_POST['custom_field'][ $field_id ] ) ) {
+                $value = $_POST['custom_field'][ $field_id ];
             }
 
             switch( $field_meta['type'][0] ) {
@@ -141,5 +139,5 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
             }
             ?>
 
-    <?php endwhile; ?>
+        <?php endforeach; ?>
 <?php endif; ?>

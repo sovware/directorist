@@ -1057,34 +1057,32 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $custom_field_ids = atbdp_get_custom_field_ids($term_id);
 
             $args = array(
-                'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-                'post_status' => 'publish',
+                'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+                'post_status'    => 'publish',
                 'posts_per_page' => -1,
-                'post__in' => $custom_field_ids,
-                'meta_query' => array(
+                'post__in'       => $custom_field_ids,
+                'meta_query'     => array(
                     array(
-                        'key' => 'searchable',
-                        'value' => 1,
-                        'type' => 'NUMERIC',
+                        'key'     => 'searchable',
+                        'value'   => 1,
+                        'type'    => 'NUMERIC',
                         'compare' => '='
                     ),
                 ),
                 'orderby' => 'meta_value_num',
-                'order' => 'ASC',
+                'order'   => 'ASC',
+                'fields'  => 'ids',
             );
 
-            $acadp_query = ATBDP_Cache_Helper::get_the_transient([
-                'group'    => 'atbdp_custom_field_query',
-                'name'     => 'atbdp_custom_fields',
-                'args'     => $args,
-                'cache'    => apply_filters( 'atbdp_cache_custom_fields', true ),
-                'callback' => function( $args ) {
-                    return new WP_Query( $args['args'] );
+            $custom_fields = ATBDP_Cache_Helper::get_the_transient([
+                'group'  => 'atbdp_custom_field_query',
+                'name'   => 'atbdp_custom_fields',
+                'args'   => $args,
+                'cache'  => apply_filters( 'atbdp_cache_custom_fields', true ),
+                'value'  => function( $args ) {
+                    return get_posts( $args['args'] );
                 }
             ]);
-
-            // Start the Loop
-            global $post;
 
             // Process output
             ob_start();

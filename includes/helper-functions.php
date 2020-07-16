@@ -1731,11 +1731,11 @@ function atbdp_listings_count_by_category($term_id)
     );
 
     $total_categories = ATBDP_Cache_Helper::get_the_transient([
-        'group'    => 'atbdp_listings_query',
-        'name'     => 'atbdp_total_categories',
-        'args'     => $args,
-        'cache'    => apply_filters( 'atbdp_cache_total_categories', true ),
-        'callback' => function( $args ) {
+        'group' => 'atbdp_listings_query',
+        'name'  => 'atbdp_listings_by_category',
+        'args'  => $args,
+        'cache' => apply_filters( 'atbdp_cache_atbdp_listings_by_category', true ),
+        'value' => function( $args ) {
             return count( get_posts( $args['args'] ) );
         }
     ]);
@@ -2081,9 +2081,9 @@ function atbdp_get_listings_orderby_options($sort_by_items)
         unset($options['rand']);
     }
     $args = array(
-        'post_type' => ATBDP_POST_TYPE,
+        'post_type'   => ATBDP_POST_TYPE,
         'post_status' => 'publish',
-        'meta_key' => '_price'
+        'meta_key'    => '_price'
     );
 
     $values = new WP_Query($args);
@@ -4043,15 +4043,33 @@ function bdas_dropdown_terms($args = array(), $echo = true)
 
 function atbdp_get_custom_field_ids($category = 0)
 {
+    $rq = [
+        'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'post__in'       => '',
+        'meta_query'     => array(
+            array(
+                'key'     => 'searchable',
+                'value'   => 1,
+                'type'    => 'NUMERIC',
+                'compare' => '='
+            ),
+        ),
+        'orderby' => 'meta_value_num',
+        'order'   => 'ASC',
+        'fields'  => 'ids',
+    ];
+    
     // Get global fields
     $args = array(
-        'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-        'post_status' => 'publish',
+        'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+        'post_status'    => 'publish',
         'posts_per_page' => -1,
-        'fields' => 'ids',
-        'meta_query' => array(
+        'fields'         => 'ids',
+        'meta_query'     => array(
             array(
-                'key' => 'associate',
+                'key'   => 'associate',
                 'value' => 'form'
             ),
         )
@@ -4062,24 +4080,24 @@ function atbdp_get_custom_field_ids($category = 0)
         $args['meta_query'] = array(
             'relation' => 'AND',
             array(
-                'key' => 'category_pass',
-                'value' => $category,
+                'key'     => 'category_pass',
+                'value'   => $category,
                 'compare' => 'EXISTS',
             ),
             array(
-                'key' => 'associate',
-                'value' => 'categories',
+                'key'     => 'associate',
+                'value'   => 'categories',
                 'compare' => 'LIKE',
             )
         );
     }
 
     $field_ids = ATBDP_Cache_Helper::get_the_transient([
-        'group'    => 'atbdp_custom_field_query',
-        'name'     => 'atbdp_custom_field_ids',
-        'args'     => $args,
-        'cache'    => apply_filters( 'atbdp_cache_custom_field_ids', true ),
-        'callback' => function( $args ) {
+        'group' => 'atbdp_custom_field_query',
+        'name'  => 'atbdp_custom_field_ids',
+        'args'  => $args,
+        'cache' => apply_filters( 'atbdp_cache_custom_field_ids', true ),
+        'value' => function( $args ) {
             return get_posts( $args['args'] );
         }
     ]);
@@ -4126,11 +4144,11 @@ if (!function_exists('get_atbdp_listings_ids')) {
         ));
 
         $ids = ATBDP_Cache_Helper::get_the_transient([
-            'group'      => 'atbdp_listings_query',
-            'name'       => 'atbdp_listings_ids',
-            'args'       => $arg,
-            'cache'      => apply_filters('cache_atbdp_listings_ids', true),
-            'callback'   => function( $data ) {
+            'group' => 'atbdp_listings_query',
+            'name'  => 'atbdp_listings_ids',
+            'args'  => $arg,
+            'cache' => apply_filters('cache_atbdp_listings_ids', true),
+            'value' => function( $data ) {
                 $query = new WP_Query( $data['args'] );
                 return wp_parse_id_list( $query->posts );
             }
@@ -4284,7 +4302,7 @@ function send_review_for_approval($data)
 if (!function_exists('tract_duplicate_review')) {
     function tract_duplicate_review($reviewer, $listing)
     {
-        $reviews = new WP_Query(array(
+        $args = [
             'post_type' => 'atbdp_listing_review',
             'posts_per_page' => -1,
             'post_status' => 'publish',
@@ -4303,14 +4321,26 @@ if (!function_exists('tract_duplicate_review')) {
                     'value' => 'pending',
                 )
             )
-        ));
+        ];
 
-        $review_meta = array();
-        foreach ($reviews->posts as $key => $val) {
-            $review_meta[] = !empty($val) ? $val : array();
-        }
+        $reviews = ATBDP_Cache_Helper::get_the_transient([
+            'group' => 'atbdp_ratings_query',
+            'name'  => 'atbdp_all_ratings_query',
+            'args'  => $args,
+            'cache' => apply_filters( 'atbdp_cache_name', true ),
+            'value' => function( $data ) {
+                $reviews = new WP_Query( $data['args'] );
 
-        return ($review_meta) ? $review_meta : false;
+                $review_meta = array();
+                foreach ($reviews->posts as $key => $val) {
+                    $review_meta[] = !empty($val) ? $val : array();
+                }
+
+                return ( $review_meta ) ? $review_meta : false;
+            }
+        ]);
+
+        return $reviews;
     }
 }
 
@@ -4352,11 +4382,11 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 
     $terms = ATBDP_Cache_Helper::get_the_transient([
         'group'       => 'atbdp_taxonomy_terms',
-        'name'        => 'atbdp_search_listing_taxonomy_' . $taxonomy_id,
+        'name'        => 'atbdp_taxonomy_' . $taxonomy_id,
         'args'        => $arg,
         'taxonomy_id' => $taxonomy_id,
         'cache'       => apply_filters( 'atbdp_cache_search_listing_taxonomy', true ),
-        'callback'    => function( $args ) {
+        'value'       => function( $args ) {
             return get_terms( $args['taxonomy_id'], $args['args'] );
         }
     ]);

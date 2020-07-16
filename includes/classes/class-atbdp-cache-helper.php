@@ -19,6 +19,7 @@ class ATBDP_Cache_Helper {
      * @param  boolean $refresh true to force a new version.
      * @return string transient version based on time(), 10 digits.
      */
+
     public static function get_transient_version( $group, $refresh = false ) {
         $transient_name  = $group . '-transient-version';
         $transient_value = get_transient( $transient_name );
@@ -44,7 +45,6 @@ class ATBDP_Cache_Helper {
 
     // get_the_transient
     public static function get_the_transient( $args = [] ) {
-
         $defaults = [
             'group'      => '',
             'name'       => '',
@@ -52,7 +52,7 @@ class ATBDP_Cache_Helper {
             'update'     => false,
             'expiration' => 0,
             'cache'      => true,
-            'callback'   => null,
+            'value'      => null,
         ];
 
         $args = array_merge( $defaults, $args );
@@ -70,12 +70,11 @@ class ATBDP_Cache_Helper {
             $result = $transient_value['value'];
         } else {
 
-            if ( ! is_callable( $args['callback'] ) ) {
-                self::log([ 'title' => 'is not callable | ' . $transient_name ,'content' => json_encode( $transient_value ) ]);
-                return null;
+            if ( is_callable( $args['value'] ) ) {
+                $result = $args['value']( $args );
+            } else {
+                $result = $args['value'];
             }
-
-            $result = $args['callback']( $args );
 
             if ( $args['cache'] ) {
                 $transient_value = [
@@ -83,7 +82,6 @@ class ATBDP_Cache_Helper {
                     'value'   => $result,
                 ];
 
-                self::log([ 'title' => $transient_name ,'content' => json_encode( $transient_value ) ]);
                 set_transient( $transient_name, $transient_value, $args['expiration'] );
             }
             

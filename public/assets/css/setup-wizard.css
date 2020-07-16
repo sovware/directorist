@@ -35,6 +35,9 @@
     font-size: 26px;
     font-weight: 500;
 }
+.wintro-text{
+    margin-top: 100px;
+}
 .wc-setup-content .wcsc-footer{
     background: #F4F5F7;
     padding: 20px 40px;
@@ -232,9 +235,10 @@
     transform: translateY(-50%);
     z-index: -1;
 }
-.wc-setup-steps li.active:after{
+.wc-setup-steps li.done:after{
     background: #0FB73B;
 }
+
 .wc-setup-steps li:last-child{
     padding-right: 0;
 }
@@ -253,7 +257,14 @@
     color: #9299B8;
     margin-bottom: 12px;
 }
-.wc-setup-steps li.active span{
+.wc-setup-steps li.done span{
     background: #0FB73B;
     color: #fff;
+}
+.wc-setup-steps li.active span{
+    background: #272B41;
+    color: #fff;
+}
+.wcd-none{
+    display: none;
 }

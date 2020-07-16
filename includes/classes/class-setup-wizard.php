@@ -349,7 +349,7 @@ class SetupWizard {
         $ouput_steps = $this->steps;
         array_shift( $ouput_steps );
         ?>
-        <ul class="wc-setup-steps">
+        <ul class="wc-setup-steps"><!-- { wcd-none } class for hide steps -->
             <?php foreach ( $ouput_steps as $step_key => $step ) : ?>
                 <li class="<?php
                 if ( $step_key === $this->step ) {

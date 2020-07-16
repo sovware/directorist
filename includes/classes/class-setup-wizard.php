@@ -103,7 +103,7 @@ class SetupWizard {
         $selling_options        = get_option( 'dokan_selling', array() );
         $shipping_fee_recipient = ! empty( $selling_options['shipping_fee_recipient'] ) ? $selling_options['shipping_fee_recipient'] : 'seller';
         $tax_fee_recipient      = ! empty( $selling_options['tax_fee_recipient'] ) ? $selling_options['tax_fee_recipient'] : 'seller';
-       
+
 
         $recipients = array(
             'seller' => __( 'Vendor', 'directorist' ),
@@ -111,39 +111,56 @@ class SetupWizard {
         );
 
             ?>
-    <h1><?php esc_html_e( 'Store Setup', 'directorist' ); ?></h1>
+    <div class="wcsc-header">
+        <h1><?php esc_html_e( 'Store Setup', 'directorist' ); ?></h1>
+    </div>
+
     <form method="post">
-        <div>
-            <select name="select_listing_map" id="">
-                <option value="openstreet">Openstreetmap</option>
-                <option value="google">google</option>
-            </select>
+        <div class="wcsc-body">
+            <div class="w-form-group">
+                <label for="select_map">Select Map</label>
+                <div><select name="select_listing_map" id="select_map">
+                    <option value="openstreet">Openstreetmap</option>
+                    <option value="google">google</option>
+                </select></div>
+            </div>
+            <div class="w-form-group">
+                <label for="google_api"> Google Map API key</label>
+                <div><input type="text" name="map_api_key" id="google_api"></div>
+            </div>
+            <div class="w-form-group">
+                <label for="enable_monetization"> Enable Monetization Feature</label>
+                <div>
+                    <div class="w-toggle-switch">
+                        <input type="checkbox" name='enable_monetization' class="w-switch" id='enable_monetization' value= 1 >
+                    </div>
+                </div>
+            </div>
+            <div class="w-form-group">
+                <label for="enable_featured_listing"> Monetize by Featured Listing</label>
+                <div>
+                    <div class="w-toggle-switch">
+                        <input type="checkbox" name='enable_featured_listing' class="w-switch" id='enable_featured_listing' value= 1 >
+                    </div>
+                </div>
+            </div>
+            <div class="w-form-group">
+                <label for="featured_listing_price"> Price in USD</label>
+                <div>
+                    <div class="w-input-group">
+                        <input type="text" name='featured_listing_price' id='featured_listing_price' value= 19.99 >
+                        <span>USD</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label for="google_api"> Google Map API key
-                <input type="text" name="map_api_key">
-            </label>
+        <div class="wcsc-footer">
+            <p class="wc-setup-actions step">
+                <a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="w-skip-link"><?php esc_html_e( 'Skip this step', 'directorist' ); ?></a>
+                <?php wp_nonce_field( 'dokan-setup' ); ?>
+                <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e( 'Continue', 'directorist' ); ?>" name="save_step" />
+            </p>
         </div>
-        <div>
-            <label for="enable_monetization"> Enable Monetization Feature
-                <input type="checkbox" name='enable_monetization' id='enable_monetization' value= 1 >
-            </label>
-        </div>
-        <div>
-            <label for="enable_featured_listing"> Monetize by Featured Listing
-                <input type="checkbox" name='enable_featured_listing' id='enable_featured_listing' value= 1 >
-            </label>
-        </div>
-        <div>
-            <label for="featured_listing_price"> Price in USD
-                <input type="text" name='featured_listing_price' id='featured_listing_price' value= 19.99 >
-            </label>
-        </div>
-        <p class="wc-setup-actions step">
-            <input type="submit" class="button-primary button button-large button-next" value="<?php esc_attr_e( 'Continue', 'directorist' ); ?>" name="save_step" />
-            <a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="button button-large button-next"><?php esc_html_e( 'Skip this step', 'directorist' ); ?></a>
-            <?php wp_nonce_field( 'dokan-setup' ); ?>
-        </p>
     </form>
     <?php
        // dokan_get_template( 'admin-setup-wizard/step-store.php', $args );
@@ -164,10 +181,10 @@ class SetupWizard {
         $atbdp_option['enable_monetization'] = !empty( $_post_data['enable_monetization'] ) ? $_post_data['enable_monetization'] : '';
         $atbdp_option['enable_featured_listing'] = !empty( $_post_data['enable_featured_listing'] ) ? $_post_data['enable_featured_listing'] : '';
         $atbdp_option['featured_listing_price'] = !empty( $_post_data['featured_listing_price'] ) ? $_post_data['featured_listing_price'] : '';
-        
+
         do_action( 'dokan_admin_setup_wizard_save_step_store' );
 
-        
+
         $create_pages = [
             'checkout_page'        => [
                 'post_title'         => 'Checkout',
@@ -182,7 +199,7 @@ class SetupWizard {
                 'post_content'       => '[directorist_transaction_failure]',
             ],
         ];
-        
+
         if ( ! empty( $atbdp_option['enable_monetization'] ) ) {
             foreach ( $create_pages as $key => $name ) {
 
@@ -197,7 +214,7 @@ class SetupWizard {
                     $id = wp_insert_post( $args );
 
                     if( $id ) {
-                        $atbdp_option[ $key ] = $id; 
+                        $atbdp_option[ $key ] = $id;
                     }
                 }
 
@@ -210,16 +227,23 @@ class SetupWizard {
     }
 
     public function dokan_setup_selling() { ?>
+    <div class="wcsc-header">
+        <h1>Dummy data</h1>
+    </div>
     <form method="post">
-        <h4>Dummy data</h4>
-        <p class="wc-setup-actions step">
-            <input type="submit" class="button-primary button button-large button-next" value="<?php esc_attr_e( 'Continue', 'directorist' ); ?>" name="save_step" />
-            <a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="button button-large button-next"><?php esc_html_e( 'Skip this step', 'directorist' ); ?></a>
-            <?php wp_nonce_field( 'dokan-setup' ); ?>
-        </p>
+        <div class="wcsc-body">
+            <!-- add dummy contents here -->
+        </div>
+        <div class="wcsc-footer">
+            <p class="wc-setup-actions step">
+                <a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="w-skip-link"><?php esc_html_e( 'Skip this step', 'directorist' ); ?></a>
+                <?php wp_nonce_field( 'dokan-setup' ); ?>
+                <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e( 'Continue', 'directorist' ); ?>" name="save_step" />
+            </p>
+        </div>
     </form>
     <?php
-        
+
     }
 
     public function dokan_setup_selling_save() {
@@ -233,17 +257,19 @@ class SetupWizard {
     }
 
     public function dokan_setup_withdraw() { ?>
-        
-        <div>
-            <h2>Awesome, your directory is ready!</h2>
+
+        <div class="wcsc-body">
+            <div class="wsteps-done">
+                <span class="wicon-done dashicons dashicons-yes"></span>
+                <h2>Awesome, your directory is ready!</h2>
+                <div>
+                    <a href="" class="wbtn wbtn-primary">Visit Directorist Dashbaord</a>
+                    <a href="" class="wbtn wbtn-outline-primary">Create your First Listing</a>
+                </div>
+            </div>
         </div>
-        <div>
-            <h2>Next steps</h2>
-            <a href="">Create your first listing!</a>
-        </div>
-        <div>
-            <a href="">Getting started guide</a>
-            <a href="">Have questions? Get help.</a>
+        <div class="wcsc-footer wcsc-footer-center">
+            <a href="" class="w-footer-link">Return to the WordPress Dashboard</a>
         </div>
         <?php
     }
@@ -257,19 +283,23 @@ class SetupWizard {
      */
     public function dokan_setup_introduction() {
         ?>
-        <h1><?php esc_html_e( 'Welcome to the world of Directorist!', 'directorist' ); ?></h1>
-        <p><?php echo wp_kses( __( 'Thank you for choosing Directorist to power your online marketplace! This quick setup wizard will help you configure the basic settings. <strong>It’s completely optional and shouldn’t take longer than three minutes.</strong>', 'directorist' ), [ 'strong' => [] ] ); ?></p>
-        <p><?php esc_html_e( 'No time right now? If you don’t want to go through the wizard, you can skip and return to the WordPress dashboard. Come back anytime if you change your mind!', 'directorist' ); ?></p>
-        <p class="wc-setup-actions step">
-            <a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="button-primary button button-large button-next"><?php esc_html_e( 'Let\'s Go!', 'directorist' ); ?></a>
-            <a href="<?php echo esc_url( admin_url() ); ?>" class="button button-large"><?php esc_html_e( 'Not right now', 'directorist' ); ?></a>
-        </p>
+        <div class="wcsc-body">
+            <h1 class="wcsc-intro-title"><?php esc_html_e( 'Welcome to the world of Directorist!', 'directorist' ); ?></h1>
+            <p><?php echo wp_kses( __( 'Thank you for choosing Directorist to power your online marketplace! This quick setup wizard will help you configure the basic settings. <strong>It’s completely optional and shouldn’t take longer than three minutes.</strong>', 'directorist' ), [ 'strong' => [] ] ); ?></p>
+            <p><?php esc_html_e( 'No time right now? If you don’t want to go through the wizard, you can skip and return to the WordPress dashboard. Come back anytime if you change your mind!', 'directorist' ); ?></p>
+        </div>
+        <div class="wcsc-footer">
+            <p class="wc-setup-actions step">
+                <a href="<?php echo esc_url( admin_url() ); ?>" class="wbtn wbtn-white"><?php esc_html_e( 'Not right now', 'directorist' ); ?></a>
+                <a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="wbtn wbtn-primary"><?php esc_html_e( 'Let\'s Go!', 'directorist' ); ?></a>
+            </p>
+        </div>
         <?php
     }
 
     public function get_next_step_link() {
         $keys = array_keys( $this->steps );
-    
+
         return add_query_arg( 'step', $keys[ array_search( $this->step, array_keys( $this->steps ) ) + 1 ] );
     }
 
@@ -319,7 +349,7 @@ class SetupWizard {
         $ouput_steps = $this->steps;
         array_shift( $ouput_steps );
         ?>
-        <ol class="wc-setup-steps">
+        <ul class="wc-setup-steps">
             <?php foreach ( $ouput_steps as $step_key => $step ) : ?>
                 <li class="<?php
                 if ( $step_key === $this->step ) {
@@ -327,9 +357,9 @@ class SetupWizard {
                 } elseif ( array_search( $this->step, array_keys( $this->steps ) ) > array_search( $step_key, array_keys( $this->steps ) ) ) {
                     echo 'done';
                 }
-                ?>"><?php echo esc_html( $step['name'] ); ?></li>
+                ?>"><span>1</span><?php echo esc_html( $step['name'] ); ?></li>
             <?php endforeach; ?>
-        </ol>
+        </ul>
         <?php
     }
 

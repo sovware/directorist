@@ -899,7 +899,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          */
         public function ajax_callback_send_contact_email()
         {
-
             /**
              * If fires sending processing the submitted contact information
              * @since 4.4.0

@@ -1039,7 +1039,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 );
             }
             
-            $listings_ids = get_atbdp_listings_ids();
+            $listings_ids = ATBDP_Listings_Model::get_listings_ids();
 
             $rated = array();
             $listing_popular_by = get_directorist_option('listing_popular_by');

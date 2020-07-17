@@ -1,12 +1,10 @@
 <?php
 if ( ! class_exists( 'ATBDP_Terms_Model' ) ) :
     class ATBDP_Terms_Model {
-        private static $cache_group = 'atbdp_taxonomy_terms';
-
         // get_categories_term
         public static function get_categories_term( array $args = [] ) {
             return ATBDP_Cache_Helper::get_the_transient([
-                'group' => self::$cache_group,
+                'group' => 'atbdp_category_terms',
                 'name'  => 'atbdp_term_categories',
                 'args'  => $args,
                 'cache' => apply_filters( 'atbdp_cache_term_categories', true ),
@@ -19,7 +17,7 @@ if ( ! class_exists( 'ATBDP_Terms_Model' ) ) :
         // get_categories_taxanomy
         public static function get_categories_taxanomy( array $args = [] ) {
             return ATBDP_Cache_Helper::get_the_transient([
-                'group'  => self::$cache_group,
+                'group'  => 'atbdp_category_terms',
                 'name'   => 'atbdp_taxonomy_categories',
                 'args'   => $args,
                 'cache'  => apply_filters( 'atbdp_cache_taxonomy_categories', true ),
@@ -32,7 +30,7 @@ if ( ! class_exists( 'ATBDP_Terms_Model' ) ) :
         // get_locations_term
         public static function get_locations_term( array $args = [] ) {
             return ATBDP_Cache_Helper::get_the_transient([
-                'group' => self::$cache_group,
+                'group' => 'atbdp_location_terms',
                 'name'  => 'atbdp_locations',
                 'args'  => $args,
                 'cache' => apply_filters( 'atbdp_cache_locations', true ),
@@ -45,7 +43,7 @@ if ( ! class_exists( 'ATBDP_Terms_Model' ) ) :
         // get_tags_term
         public static function get_tags_term( array $args = [] ) {
             return ATBDP_Cache_Helper::get_the_transient([
-                'group' => self::$cache_group,
+                'group' => 'atbdp_tag_terms',
                 'name'  => 'atbdp_listings_tags',
                 'args'  => $args,
                 'cache' => apply_filters( 'atbdp_cache_listings_tags', true ),

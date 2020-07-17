@@ -1,12 +1,10 @@
 <?php
 if ( ! class_exists( 'ATBDP_Listings_Model' ) ) :
     class ATBDP_Listings_Model {
-        private static $cache_group = 'atbdp_listings_query';
-        
         // get_archive_listings_query
         public static function get_archive_listings_query( array $args = [] ) {
             return ATBDP_Cache_Helper::get_the_transient([
-                'group'      => self::$cache_group,
+                'group'      => 'atbdp_listings_query',
                 'name'       => 'atbdp_listings_archive',
                 'args'       => $args,
                 'expiration' => DAY_IN_SECONDS * 30,

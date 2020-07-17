@@ -26,9 +26,7 @@ class ATBDP_Cache_Helper {
 
         if ( false === $transient_value || true === $refresh ) {
             $transient_value = (string) time();
-
             set_transient( $transient_name, $transient_value );
-            // self::log([ 'title' => $transient_name, 'content' => json_encode( $transient_value ) ]);
         }
 
         return $transient_value;
@@ -37,7 +35,6 @@ class ATBDP_Cache_Helper {
     // get_transient_name
     public static function get_transient_name( $prefix = '' , $args = '' ) {
         $args = ( is_array( $args ) ) ? wp_json_encode( $args ) : $args;
-
         $name = "{$prefix}_". md5( $args );
 
         return $name;
@@ -54,32 +51,28 @@ class ATBDP_Cache_Helper {
             'cache'      => true,
             'value'      => null,
         ];
-
         $args = array_merge( $defaults, $args );
 
-        $transient_name    = $args['name'];
-        $transient_group   = $args['group'];
-        $transient_name    = self::get_transient_name( $transient_name, $args['args'] );
-        $transient_version = self::get_transient_version( $transient_group, $args['update'] );
+        $transient_name    = self::get_transient_name( $args['name'], $args['args'] );
+        $transient_version = self::get_transient_version( $args['group'], $args['update'] );
         $transient_value   = $args['cache'] ? get_transient( $transient_name ) : false;
 
-        $has_transient = isset( $transient_value['value'], $transient_value['version'] ) ? true : false;
-        $transient_not_updated = ( $transient_value['version'] === $transient_version ) ? true : false;
+        $has_transient         = isset( $transient_value['value'], $transient_value['version'] ) ? true : false;
+        $transient_not_updated = ( $has_transient && $transient_value['version'] === $transient_version ) ? true : false;
 
         if ( $has_transient && $transient_not_updated ) { 
-            $result = $transient_value['value'];
+            $value = $transient_value['value'];
         } else {
-
             if ( is_callable( $args['value'] ) ) {
-                $result = $args['value']( $args );
+                $value = $args['value']( $args );
             } else {
-                $result = $args['value'];
+                $value = $args['value'];
             }
 
             if ( $args['cache'] ) {
                 $transient_value = [
                     'version' => $transient_version,
-                    'value'   => $result,
+                    'value'   => $value,
                 ];
 
                 set_transient( $transient_name, $transient_value, $args['expiration'] );
@@ -87,7 +80,7 @@ class ATBDP_Cache_Helper {
             
         }
 
-        return $result;
+        return $value;
     }
 
     // reset_cache
@@ -95,10 +88,14 @@ class ATBDP_Cache_Helper {
         add_action( 'save_post', array( __CLASS__, 'reset_query_cache' ), 10, 3 );
         add_action( 'delete_post', array( __CLASS__, 'reset_query_cache' ) );
         
-        add_action( 'created_' . ATBDP_CATEGORY, array( __CLASS__, 'reset_taxonomy_cache' ), 10, 2 );
-        add_action( 'created_' . ATBDP_LOCATION, array( __CLASS__, 'reset_taxonomy_cache' ), 10, 2 );
-        add_action( 'delete_' . ATBDP_CATEGORY, array( __CLASS__, 'reset_taxonomy_cache' ), 10, 2 );
-        add_action( 'delete_' . ATBDP_LOCATION, array( __CLASS__, 'reset_taxonomy_cache' ), 10, 2 );
+        add_action( 'created_' . ATBDP_CATEGORY, array( __CLASS__, 'reset_category_cache' ), 10, 2 );
+        add_action( 'delete_' . ATBDP_CATEGORY, array( __CLASS__, 'reset_category_cache' ), 10, 2 );
+
+        add_action( 'created_' . ATBDP_LOCATION, array( __CLASS__, 'reset_location_cache' ), 10, 2 );
+        add_action( 'delete_' . ATBDP_LOCATION, array( __CLASS__, 'reset_location_cache' ), 10, 2 );
+
+        add_action( 'created_' . ATBDP_TAGS, array( __CLASS__, 'reset_tag_cache' ), 10, 2 );
+        add_action( 'delete_' . ATBDP_TAGS, array( __CLASS__, 'reset_tag_cache' ), 10, 2 );
     }
 
     // reset_query_cache
@@ -128,9 +125,19 @@ class ATBDP_Cache_Helper {
         }
     }
 
-    // reset_taxonomy_cache
-    public static function reset_taxonomy_cache(  int $term_id, int $tt_id ) {
-        self::get_transient_version( 'atbdp_taxonomy_terms', true );
+    // reset_category_cache
+    public static function reset_category_cache(  int $term_id, int $tt_id ) {
+        self::get_transient_version( 'atbdp_category_terms', true );
+    }
+
+    // reset_location_cache
+    public static function reset_location_cache(  int $term_id, int $tt_id ) {
+        self::get_transient_version( 'atbdp_location_terms', true );
+    }
+
+    // reset_tag_cache
+    public static function reset_tag_cache(  int $term_id, int $tt_id ) {
+        self::get_transient_version( 'atbdp_tag_terms', true );
     }
 
     // log

@@ -37,8 +37,6 @@ jQuery(document).ready(function($) {
                                 url: import_export_data.ajaxurl,
                                 data: form_data,
                                 success(response) {
-                                        console.log(response);
-                                        return;
                                         imported += response.imported;
                                         failed += response.failed;
                                         $('.importer-details').html(

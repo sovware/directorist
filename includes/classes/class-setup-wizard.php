@@ -106,55 +106,31 @@ class SetupWizard
                             wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
                         }
                     }
+                    $skipped = array('name', 'details', 'category', 'location', 'tag', 'preview_image');
+                    
+                    if(!in_array( $key, $skipped )){
+                        update_post_meta( $post_id, '_'.$key, $value );
+                    }
+
                     
                 }
-                die();
-                // if ($tax_inputs) {
-                //     foreach ( $tax_inputs as $taxonomy => $term ) {
-                //         if ('category' == $taxonomy) {
-                //             $taxonomy = ATBDP_CATEGORY;
-                //         } elseif ('location' == $taxonomy) {
-                //             $taxonomy = ATBDP_LOCATION;
-                //         } else {
-                //             $taxonomy = ATBDP_TAGS;
-                //         }
-
-                //         $final_term = isset($post[$term]) ? $post[$term] : '';
-                //         $term_exists = get_term_by( 'name', $final_term, $taxonomy );
-                //         if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
-                //             $result = wp_insert_term( $final_term, $taxonomy );
-                //             if( !is_wp_error( $result ) ){
-                //                 $term_id = $result['term_id'];
-                //                 wp_set_object_terms($post_id, $term_id, $taxonomy);
-                //             }
-                //         }else{
-                //             wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
-                //         }
-                //     }
-                // }
-
-                foreach ($metas as $index => $value) {
-                    $meta_value = $post[$value] ? $post[$value] : '';
-                    if($meta_value){
-                        update_post_meta($post_id, $index, $meta_value);
-                    }
-                }
+           
                 $exp_dt = calc_listing_expiry_date();
                 update_post_meta($post_id, '_expiry_date', $exp_dt);
                 update_post_meta($post_id, '_featured', 0);
                 update_post_meta($post_id, '_listing_status', 'post_status');
-                $preview_url = isset($post[$preview_image]) ? $post[$preview_image] : '';
+                // $preview_url = isset($post[$preview_image]) ? $post[$preview_image] : '';
 
-                if ( $preview_url ) {
-                   $attachment_id = $this->atbdp_insert_attachment_from_url($preview_url, $post_id);
-                   update_post_meta($post_id, '_listing_prv_img', $attachment_id);
-                }
+                // if ( $preview_url ) {
+                //    $attachment_id = $this->atbdp_insert_attachment_from_url($preview_url, $post_id);
+                //    update_post_meta($post_id, '_listing_prv_img', $attachment_id);
+                // }
 
                 $count++;
         }
-        $data['next_position'] = (int) $position + (int) $count;
+        $data['next_position'] = (int) $limit + (int) $count;
         $data['percentage']    = absint(min(round((($data['next_position']) / $total_length) * 100), 100));
-        $data['url']           = admin_url('edit.php?post_type=at_biz_dir&page=tools&step=3');
+        $data['url']           = admin_url('index.php?page=directorist-setup&step=step-three');
         $data['total']         = $total_length;
         $data['imported']      = $imported;
         $data['failed']        = $failed;

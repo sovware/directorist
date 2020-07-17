@@ -82,7 +82,7 @@ class SetupWizard
                         } else {
                             $taxonomy = ATBDP_TAGS;
                         }
-                        
+
                         $final_term = isset($post[$term]) ? $post[$term] : '';
                         $term_exists = get_term_by( 'name', $final_term, $taxonomy );
                         if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
@@ -167,12 +167,12 @@ class SetupWizard
     public function enqueue_scripts()
     {
         wp_enqueue_style('atbdp_setup_wizard', ATBDP_ADMIN_ASSETS . 'css/setup-wizard.css', ATBDP_VERSION, true);
-        wp_register_script('wc-setup', ATBDP_ADMIN_ASSETS . 'js/setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
-        wp_enqueue_script('wc-setup');
+        wp_register_script('atbdp-setup', ATBDP_ADMIN_ASSETS . 'js/setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
+        wp_enqueue_script('atbdp-setup');
         $data = array(
             'ajaxurl'        => admin_url('admin-ajax.php'),
         );
-        wp_localize_script('wc-setup', 'import_export_data', $data);
+        wp_localize_script('atbdp-setup', 'import_export_data', $data);
     }
 
     /**
@@ -222,12 +222,12 @@ class SetupWizard
         );
 
 ?>
-        <div class="wcsc-header">
+        <div class="atbdp-c-header">
             <h1><?php esc_html_e('Store Setup', 'directorist'); ?></h1>
         </div>
 
         <form method="post">
-            <div class="wcsc-body">
+            <div class="atbdp-c-body">
                 <div class="w-form-group">
                     <label for="select_map">Select Map</label>
                     <div><select name="select_listing_map" id="select_map">
@@ -265,8 +265,8 @@ class SetupWizard
                     </div>
                 </div>
             </div>
-            <div class="wcsc-footer">
-                <p class="wc-setup-actions step">
+            <div class="atbdp-c-footer">
+                <p class="atbdp-setup-actions step">
                     <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="w-skip-link"><?php esc_html_e('Skip this step', 'directorist'); ?></a>
                     <?php wp_nonce_field('directorist-setup'); ?>
                     <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e('Continue', 'directorist'); ?>" name="save_step" />
@@ -341,11 +341,11 @@ class SetupWizard
     {
         $dummy_csv = ATBDP_URL . 'templates/import-export/data/dummy.csv';
     ?>
-        <div class="wcsc-header">
+        <div class="atbdp-c-header">
             <h1>Dummy data</h1>
         </div>
         <form method="post" id="atbdp_dummy_form">
-            <div class="wcsc-body">
+            <div class="atbdp-c-body">
                 <div class="atbdp_dummy_body">
                     <input type="hidden" id="dummy_csv_file" value="<?php echo $dummy_csv; ?>">
                     <div class="w-form-group">
@@ -385,8 +385,8 @@ class SetupWizard
 
                 <!-- add dummy contents here -->
             </div>
-            <div class="wcsc-footer">
-                <p class="wc-setup-actions step">
+            <div class="atbdp-c-footer">
+                <p class="atbdp-setup-actions step">
                     <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="w-skip-link"><?php esc_html_e('Skip this step', 'directorist'); ?></a>
                     <?php wp_nonce_field('directorist-setup'); ?>
                     <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e('Continue', 'directorist'); ?>" name="save_step" />
@@ -411,7 +411,7 @@ class SetupWizard
     public function directorist_setup_withdraw()
     { ?>
 
-        <div class="wcsc-body">
+        <div class="atbdp-c-body">
             <div class="wsteps-done">
                 <span class="wicon-done dashicons dashicons-yes"></span>
                 <h2>Awesome, your directory is ready!</h2>
@@ -421,7 +421,7 @@ class SetupWizard
                 </div>
             </div>
         </div>
-        <div class="wcsc-footer wcsc-footer-center">
+        <div class="atbdp-c-footer atbdp-c-footer-center">
             <a href="" class="w-footer-link">Return to the WordPress Dashboard</a>
         </div>
     <?php
@@ -438,13 +438,13 @@ class SetupWizard
     public function directorist_setup_introduction()
     {
     ?>
-        <div class="wcsc-body">
-            <h1 class="wcsc-intro-title"><?php esc_html_e('Welcome to the world of Directorist!', 'directorist'); ?></h1>
+        <div class="atbdp-c-body">
+            <h1 class="atbdp-c-intro-title"><?php esc_html_e('Welcome to the world of Directorist!', 'directorist'); ?></h1>
             <p><?php echo wp_kses(__('Thank you for choosing Directorist to power your online marketplace! This quick setup wizard will help you configure the basic settings. <strong>It’s completely optional and shouldn’t take longer than three minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
             <p><?php esc_html_e('No time right now? If you don’t want to go through the wizard, you can skip and return to the WordPress dashboard. Come back anytime if you change your mind!', 'directorist'); ?></p>
         </div>
-        <div class="wcsc-footer">
-            <p class="wc-setup-actions step">
+        <div class="atbdp-c-footer">
+            <p class="atbdp-setup-actions step">
                 <a href="<?php echo esc_url(admin_url()); ?>" class="wbtn wbtn-white"><?php esc_html_e('Not right now', 'directorist'); ?></a>
                 <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="wbtn wbtn-primary"><?php esc_html_e('Let\'s Go!', 'directorist'); ?></a>
             </p>
@@ -494,11 +494,11 @@ class SetupWizard
             <?php do_action('directorist_setup_wizard_styles'); ?>
         </head>
 
-        <body class="wc-setup wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? ' directorist-setup-wizard-activated-wc' : '';  ?>">
+        <body class="atbdp-setup wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? ' directorist-setup-wizard-activated-wc' : '';  ?>">
             <?php
             /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/directorist-logo.png', directorist_FILE );*/
             ?>
-            <!--<h1 id="wc-logo"><a href="https://wedevs.com/directorist/"><img src="<?php /*echo esc_url( $logo_url ); */ ?>" alt="directorist Logo" width="135" height="auto" /></a></h1>-->
+            <!--<h1 id="atbdp-logo"><a href="https://wedevs.com/directorist/"><img src="<?php /*echo esc_url( $logo_url ); */ ?>" alt="directorist Logo" width="135" height="auto" /></a></h1>-->
         <?php
     }
 
@@ -510,7 +510,7 @@ class SetupWizard
         $ouput_steps = $this->steps;
         array_shift($ouput_steps);
         ?>
-            <ul class="wc-setup-steps">
+            <ul class="atbdp-setup-steps">
                 <!-- { wcd-none } class for hide steps -->
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php
@@ -543,7 +543,7 @@ class SetupWizard
             exit;
         }
         $introduction_class = ! isset( $_GET['step'] ) ? 'atbdp_introduction' : '';
-        echo '<div class="wc-setup-content ' . $introduction_class .'">';
+        echo '<div class="atbdp-setup-content ' . $introduction_class .'">';
         call_user_func($this->steps[$this->step]['view']);
         echo '</div>';
     }
@@ -555,7 +555,7 @@ class SetupWizard
     {
         ?>
             <?php if ('next_steps' === $this->step) : ?>
-                <a class="wc-return-to-dashboard" href="<?php echo esc_url(admin_url()); ?>"><?php esc_html_e('Return to the WordPress Dashboard', 'directorist'); ?></a>
+                <a class="atbdp-return-to-dashboard" href="<?php echo esc_url(admin_url()); ?>"><?php esc_html_e('Return to the WordPress Dashboard', 'directorist'); ?></a>
             <?php endif; ?>
         </body>
 

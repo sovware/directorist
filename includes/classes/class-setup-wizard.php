@@ -509,8 +509,9 @@ class SetupWizard
     {
         $ouput_steps = $this->steps;
         array_shift($ouput_steps);
+        $hide = ! isset( $_GET['step'] ) ? 'wcd_none' : '';
         ?>
-            <ul class="wc-setup-steps">
+            <ul class="wc-setup-steps <?php echo $hide; ?>">
                 <!-- { wcd-none } class for hide steps -->
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php
@@ -543,7 +544,7 @@ class SetupWizard
             exit;
         }
         $introduction_class = ! isset( $_GET['step'] ) ? 'atbdp_introduction' : '';
-        echo '<div class="wc-setup-content ' . $introduction_class .'">';
+        echo '<div class="wc-setup-content "' . $introduction_class .'">';
         call_user_func($this->steps[$this->step]['view']);
         echo '</div>';
     }

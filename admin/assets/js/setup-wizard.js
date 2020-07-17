@@ -14,30 +14,17 @@ jQuery(document).ready(function($) {
                     .removeClass('active')
                     .addClass('done');
             $('.atbdp-progress-step').addClass('active');
-
-            return;
             let counter = 0;
             var run_import = function() {
                     const form_data = new FormData();
                     // ajax action
-                    form_data.append('action', 'atbdp_import_listing');
+                    form_data.append('action', 'atbdp_dummy_data_import');
                     form_data.append('file', $('#dummy_csv_file').val());
                     form_data.append('delimiter', ',');
                     form_data.append('update_existing', '');
                     form_data.append('position', position);
                     form_data.append('wpnonce', $('input[name="_wpnonce"]').val());
-                    $('select.atbdp_map_to').each(function() {
-                            const name = $(this).attr('name');
-                            const value = $(this).val();
-                            if (value == 'title' || value == 'description' || value == '_listing_prv_img') {
-                                    form_data.append(value, name);
-                            } else if (value == 'category' || value == 'location' || value == 'tag') {
-                                    form_data.append(`tax_input[${value}]`, name);
-                            } else {
-                                    form_data.append(`meta[${value}]`, name);
-                            }
-                    });
-                    
+                    form_data.append('pre_mapped', true);
                     $.ajax({
                             method: 'POST',
                             processData: false,
@@ -46,6 +33,8 @@ jQuery(document).ready(function($) {
                             url: import_export_data.ajaxurl,
                             data: form_data,
                             success(response) {
+                                    console.log(response);
+                                    return;
                                     imported += response.imported;
                                     failed += response.failed;
                                     $('.importer-details').html(

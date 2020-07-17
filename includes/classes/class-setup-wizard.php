@@ -28,7 +28,106 @@ class SetupWizard
 
         add_action('admin_menu', array($this, 'admin_menus'));
         add_action('admin_init', array($this, 'setup_wizard'), 99);
+        add_action('wp_ajax_atbdp_dummy_data_import', array($this, 'atbdp_dummy_data_import'));
     }
+
+
+    public function atbdp_dummy_data_import()
+    {
+        $data               = array();
+        $imported           = 0;
+        $failed             = 0;
+        $count              = 0;
+        $new_listing_status = get_directorist_option('new_listing_status', 'pending');
+        $preview_image      = isset($_POST['_listing_prv_img']) ? sanitize_text_field($_POST['_listing_prv_img']) : '';
+        $title              = isset($_POST['title']) ? sanitize_text_field($_POST['title']) : '';
+        $file              = isset($_POST['file']) ? sanitize_text_field($_POST['file']) : '';
+        $delimiter          = isset($_POST['delimiter']) ? sanitize_text_field($_POST['delimiter']) : '';
+        $description        = isset($_POST['description']) ? sanitize_text_field($_POST['description']) : '';
+        $position           = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
+        $metas              = isset($_POST['meta']) ? atbdp_sanitize_array($_POST['meta']) : array();
+        $tax_inputs         = isset($_POST['tax_input']) ? atbdp_sanitize_array($_POST['tax_input']) : array();
+        $all_posts          = csv_get_data($file, true, $delimiter);
+        $posts              = array_slice($all_posts, $position);
+        $total_length       = count($all_posts);
+        $limit              = apply_filters('atbdp_listing_import_limit_per_cycle', ($total_length > 20) ? 20 : 2);
+
+        if ( ! $total_length ) {
+            $data['error'] = __('No data found', 'directorist');
+            die();
+        }
+        foreach ($posts as $index => $post) {
+                if ($count === $limit ) break;
+                // start importing listings
+                $args = array(
+                    "post_title"   => isset($post[$title]) ? $post[$title] : '',
+                    "post_content" => isset($post[$description]) ? $post[$description] : '',
+                    "post_type"    => 'at_biz_dir',
+                    "post_status"  => $new_listing_status,
+                );
+                $post_id = wp_insert_post($args);
+
+                if (!is_wp_error($post_id)) {
+                    $imported++;
+                } else {
+                    $failed++;
+                }
+
+                if ($tax_inputs) {
+                    foreach ( $tax_inputs as $taxonomy => $term ) {
+                        if ('category' == $taxonomy) {
+                            $taxonomy = ATBDP_CATEGORY;
+                        } elseif ('location' == $taxonomy) {
+                            $taxonomy = ATBDP_LOCATION;
+                        } else {
+                            $taxonomy = ATBDP_TAGS;
+                        }
+                        
+                        $final_term = isset($post[$term]) ? $post[$term] : '';
+                        $term_exists = get_term_by( 'name', $final_term, $taxonomy );
+                        if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
+                            $result = wp_insert_term( $final_term, $taxonomy );
+                            if( !is_wp_error( $result ) ){
+                                $term_id = $result['term_id'];
+                                wp_set_object_terms($post_id, $term_id, $taxonomy);
+                            }
+                        }else{
+                            wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
+                        }
+                    }
+                }
+
+                foreach ($metas as $index => $value) {
+                    $meta_value = $post[$value] ? $post[$value] : '';
+                    if($meta_value){
+                        update_post_meta($post_id, $index, $meta_value);
+                    }
+                }
+                $exp_dt = calc_listing_expiry_date();
+                update_post_meta($post_id, '_expiry_date', $exp_dt);
+                update_post_meta($post_id, '_featured', 0);
+                update_post_meta($post_id, '_listing_status', 'post_status');
+                $preview_url = isset($post[$preview_image]) ? $post[$preview_image] : '';
+
+                if ( $preview_url ) {
+                   $attachment_id = $this->atbdp_insert_attachment_from_url($preview_url, $post_id);
+                   update_post_meta($post_id, '_listing_prv_img', $attachment_id);
+                }
+
+                $count++;
+        }
+        $data['next_position'] = (int) $position + (int) $count;
+        $data['percentage']    = absint(min(round((($data['next_position']) / $total_length) * 100), 100));
+        $data['url']           = admin_url('edit.php?post_type=at_biz_dir&page=tools&step=3');
+        $data['total']         = $total_length;
+        $data['imported']      = $imported;
+        $data['failed']        = $failed;
+
+        wp_send_json($data);
+        die();
+    }
+
+
 
     /**
      * Add admin menus/screens.

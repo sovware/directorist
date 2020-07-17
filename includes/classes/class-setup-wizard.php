@@ -42,31 +42,29 @@ class SetupWizard
         $preview_image      = isset($_POST['_listing_prv_img']) ? sanitize_text_field($_POST['_listing_prv_img']) : '';
         $title              = isset($_POST['title']) ? sanitize_text_field($_POST['title']) : '';
         $file              = isset($_POST['file']) ? sanitize_text_field($_POST['file']) : '';
-        $delimiter          = isset($_POST['delimiter']) ? sanitize_text_field($_POST['delimiter']) : '';
         $description        = isset($_POST['description']) ? sanitize_text_field($_POST['description']) : '';
-        $position           = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
+        $limit             = isset($_POST['limit']) ? sanitize_text_field($_POST['limit']) : 0;
         $metas              = isset($_POST['meta']) ? atbdp_sanitize_array($_POST['meta']) : array();
         $tax_inputs         = isset($_POST['tax_input']) ? atbdp_sanitize_array($_POST['tax_input']) : array();
-        $all_posts          = csv_get_data($file, true, $delimiter);
-        $posts              = array_slice($all_posts, $position);
+        $all_posts          = $this->read_csv($file);
         $total_length       = count($all_posts);
-        $limit              = apply_filters('atbdp_listing_import_limit_per_cycle', ($total_length > 20) ? 20 : 2);
-
         if ( ! $total_length ) {
             $data['error'] = __('No data found', 'directorist');
             die();
         }
-        foreach ($posts as $index => $post) {
+        foreach ($all_posts as $index => $post) {
+            
                 if ($count === $limit ) break;
                 // start importing listings
                 $args = array(
-                    "post_title"   => isset($post[$title]) ? $post[$title] : '',
-                    "post_content" => isset($post[$description]) ? $post[$description] : '',
+                    "post_title"   => isset($post['name']) ? $post['name'] : '',
+                    "post_content" => isset($post['details']) ? $post['details'] : '',
                     "post_type"    => 'at_biz_dir',
-                    "post_status"  => $new_listing_status,
+                    "post_status"  => 'publish',
                 );
                 $post_id = wp_insert_post($args);
-
+                wp_send_json($post);
+                die();
                 if (!is_wp_error($post_id)) {
                     $imported++;
                 } else {
@@ -128,6 +126,20 @@ class SetupWizard
     }
 
 
+    public function read_csv($file){
+        $fp = fopen($file, 'r');
+        $header = fgetcsv($fp);
+
+        // get the rest of the rows
+        $data = array();
+        while ($row = fgetcsv($fp)) {
+        $arr = array();
+        foreach ($header as $i => $col)
+            $arr[$col] = $row[$i];
+        $data[] = $arr;
+        }
+        return $data;
+    }
 
     /**
      * Add admin menus/screens.

@@ -20,6 +20,7 @@ jQuery(document).ready(function($) {
                         // ajax action
                         form_data.append('action', 'atbdp_dummy_data_import');
                         form_data.append('file', $('#dummy_csv_file').val());
+                        form_data.append('limit', $('#atbdp-listings-to-import').val());
                         form_data.append('delimiter', ',');
                         form_data.append('update_existing', '');
                         form_data.append('position', position);

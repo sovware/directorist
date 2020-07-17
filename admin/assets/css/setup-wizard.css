@@ -218,6 +218,9 @@
     align-items: center;
     list-style: none;
 }
+.atbdp_introduction{
+    margin-top: 200px;
+}
 .atbdp-setup-steps li{
     position: relative;
     display: flex;
@@ -265,6 +268,6 @@
     background: #272B41;
     color: #fff;
 }
-.wcd-none{
+.atbdp-none{
     display: none;
 }

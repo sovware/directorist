@@ -2,7 +2,7 @@
 /**
  * This template displays custom fields in the search form.
  */
-
+global $post;
 // Start the Loop
 $allow_decimal = get_directorist_option('allow_decimal', 1);
  if ( ! empty( $custom_fields ) ) : ?>

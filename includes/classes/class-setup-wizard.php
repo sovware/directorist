@@ -329,12 +329,12 @@ class SetupWizard {
             <meta name="viewport" content="width=device-width" />
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <title><?php esc_html_e( 'Directorist &rsaquo; Setup Wizard', 'directorist' ); ?></title>
-            <?php wp_print_scripts( 'directorist-setup' ); ?>
+            <?php wp_print_scripts( 'wc-setup' ); ?>
             <?php do_action( 'admin_print_styles' ); ?>
             <?php do_action( 'admin_head' ); ?>
             <?php do_action( 'directorist_setup_wizard_styles' ); ?>
         </head>
-    <body class="wc-setup wp-core-ui">
+    <body class="wc-setup wp-core-ui<?php echo get_transient( 'dokan_setup_wizard_no_wc' ) ? ' dokan-setup-wizard-activated-wc' : '';  ?>">
         <?php
        /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/dokan-logo.png', DOKAN_FILE );*/
         ?>
@@ -357,15 +357,7 @@ class SetupWizard {
                 } elseif ( array_search( $this->step, array_keys( $this->steps ) ) > array_search( $step_key, array_keys( $this->steps ) ) ) {
                     echo 'done';
                 }
-                $number = 1;
-                if( 'step-one' == $step_key ) {
-                    $number = 1;
-                } else if ( 'step-two' == $step_key ) {
-                    $number = 2;
-                } else if ( 'step-three' == $step_key ) {
-                    $number = 3;
-                }
-                ?>"><span><?php echo !empty( $number ) ? (int) $number: '' ; ?></span><?php echo esc_html( $step['name'] ); ?></li>
+                ?>"><span>1</span><?php echo esc_html( $step['name'] ); ?></li>
             <?php endforeach; ?>
         </ul>
         <?php

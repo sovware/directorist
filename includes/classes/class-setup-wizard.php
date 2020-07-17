@@ -184,34 +184,34 @@ class SetupWizard
      */
     protected function set_steps()
     {
-        $this->steps = apply_filters('dokan_admin_setup_wizard_steps', array(
+        $this->steps = apply_filters('directorist_admin_setup_wizard_steps', array(
             'introduction' => array(
                 'name'    =>  __('Introduction', 'directorist'),
-                'view'    => array($this, 'dokan_setup_introduction'),
+                'view'    => array($this, 'directorist_setup_introduction'),
             ),
             'step-one' => array(
                 'name'    =>  __('Step One', 'directorist'),
-                'view'    => array($this, 'dokan_setup_store'),
-                'handler' => array($this, 'dokan_setup_store_save'),
+                'view'    => array($this, 'directorist_setup_store'),
+                'handler' => array($this, 'directorist_setup_store_save'),
             ),
             'step-two' => array(
                 'name'    =>  __('Step Two', 'directorist'),
-                'view'    => array($this, 'dokan_setup_selling'),
-                'handler' => array($this, 'dokan_setup_selling_save'),
+                'view'    => array($this, 'directorist_setup_selling'),
+                'handler' => array($this, 'directorist_setup_selling_save'),
             ),
             'step-three' => array(
                 'name'    =>  __('Step Three', 'directorist'),
-                'view'    => array($this, 'dokan_setup_withdraw'),
-                'handler' => array($this, 'dokan_setup_withdraw_save'),
+                'view'    => array($this, 'directorist_setup_withdraw'),
+                'handler' => array($this, 'directorist_setup_withdraw_save'),
             ),
         ));
     }
-    public function dokan_setup_store()
+    public function directorist_setup_store()
     {
-        $general_options        = get_option('dokan_general', array());
+        $general_options        = get_option('directorist_general', array());
         $custom_store_url       = !empty($general_options['custom_store_url']) ? $general_options['custom_store_url'] : 'store';
 
-        $selling_options        = get_option('dokan_selling', array());
+        $selling_options        = get_option('directorist_selling', array());
         $shipping_fee_recipient = !empty($selling_options['shipping_fee_recipient']) ? $selling_options['shipping_fee_recipient'] : 'seller';
         $tax_fee_recipient      = !empty($selling_options['tax_fee_recipient']) ? $selling_options['tax_fee_recipient'] : 'seller';
 
@@ -268,21 +268,21 @@ class SetupWizard
             <div class="wcsc-footer">
                 <p class="wc-setup-actions step">
                     <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="w-skip-link"><?php esc_html_e('Skip this step', 'directorist'); ?></a>
-                    <?php wp_nonce_field('dokan-setup'); ?>
+                    <?php wp_nonce_field('directorist-setup'); ?>
                     <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e('Continue', 'directorist'); ?>" name="save_step" />
                 </p>
             </div>
         </form>
     <?php
-        // dokan_get_template( 'admin-setup-wizard/step-store.php', $args );
+        // directorist_get_template( 'admin-setup-wizard/step-store.php', $args );
     }
 
     /**
      * Save store options.
      */
-    public function dokan_setup_store_save()
+    public function directorist_setup_store_save()
     {
-        check_admin_referer('dokan-setup');
+        check_admin_referer('directorist-setup');
 
         $_post_data = wp_unslash($_POST);
 
@@ -294,7 +294,7 @@ class SetupWizard
         $atbdp_option['enable_featured_listing'] = !empty($_post_data['enable_featured_listing']) ? $_post_data['enable_featured_listing'] : '';
         $atbdp_option['featured_listing_price'] = !empty($_post_data['featured_listing_price']) ? $_post_data['featured_listing_price'] : '';
 
-        do_action('dokan_admin_setup_wizard_save_step_store');
+        do_action('directorist_admin_setup_wizard_save_step_store');
 
 
         $create_pages = [
@@ -337,7 +337,7 @@ class SetupWizard
         exit;
     }
 
-    public function dokan_setup_selling()
+    public function directorist_setup_selling()
     {
         $dummy_csv = ATBDP_URL . 'templates/import-export/data/dummy.csv';
     ?>
@@ -388,7 +388,7 @@ class SetupWizard
             <div class="wcsc-footer">
                 <p class="wc-setup-actions step">
                     <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="w-skip-link"><?php esc_html_e('Skip this step', 'directorist'); ?></a>
-                    <?php wp_nonce_field('dokan-setup'); ?>
+                    <?php wp_nonce_field('directorist-setup'); ?>
                     <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e('Continue', 'directorist'); ?>" name="save_step" />
                 </p>
             </div>
@@ -397,9 +397,9 @@ class SetupWizard
 
     }
 
-    public function dokan_setup_selling_save()
+    public function directorist_setup_selling_save()
     {
-        check_admin_referer('dokan-setup');
+        check_admin_referer('directorist-setup');
 
         $_post_data = wp_unslash($_POST);
 
@@ -408,7 +408,7 @@ class SetupWizard
         exit;
     }
 
-    public function dokan_setup_withdraw()
+    public function directorist_setup_withdraw()
     { ?>
 
         <div class="wcsc-body">
@@ -435,7 +435,7 @@ class SetupWizard
     /**
      * Introduction step.
      */
-    public function dokan_setup_introduction()
+    public function directorist_setup_introduction()
     {
     ?>
         <div class="wcsc-body">
@@ -488,17 +488,17 @@ class SetupWizard
             <meta name="viewport" content="width=device-width" />
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <title><?php esc_html_e('Directorist &rsaquo; Setup Wizard', 'directorist'); ?></title>
-            <?php wp_print_scripts('wc-setup'); ?>
+            <?php wp_print_scripts('directorist-setup'); ?>
             <?php do_action('admin_print_styles'); ?>
             <?php do_action('admin_head'); ?>
             <?php do_action('directorist_setup_wizard_styles'); ?>
         </head>
 
-        <body class="wc-setup wp-core-ui<?php echo get_transient('dokan_setup_wizard_no_wc') ? ' dokan-setup-wizard-activated-wc' : '';  ?>">
+        <body class="wc-setup wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? ' directorist-setup-wizard-activated-wc' : '';  ?>">
             <?php
-            /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/dokan-logo.png', DOKAN_FILE );*/
+            /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/directorist-logo.png', directorist_FILE );*/
             ?>
-            <!--<h1 id="wc-logo"><a href="https://wedevs.com/dokan/"><img src="<?php /*echo esc_url( $logo_url ); */ ?>" alt="Dokan Logo" width="135" height="auto" /></a></h1>-->
+            <!--<h1 id="wc-logo"><a href="https://wedevs.com/directorist/"><img src="<?php /*echo esc_url( $logo_url ); */ ?>" alt="directorist Logo" width="135" height="auto" /></a></h1>-->
         <?php
     }
 
@@ -514,12 +514,20 @@ class SetupWizard
                 <!-- { wcd-none } class for hide steps -->
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php
-                                if ($step_key === $this->step) {
-                                    echo 'active';
-                                } elseif (array_search($this->step, array_keys($this->steps)) > array_search($step_key, array_keys($this->steps))) {
-                                    echo 'done';
-                                }
-                                ?>"><span>1</span><?php echo esc_html($step['name']); ?></li>
+                        if ($step_key === $this->step) {
+                            echo 'active';
+                        } elseif (array_search($this->step, array_keys($this->steps)) > array_search($step_key, array_keys($this->steps))) {
+                            echo 'done';
+                        }
+                        $number = 1;
+                        if ( 'step-one' == $step_key ) {
+                            $number = 1;
+                        } else if ( 'step-two' == $step_key ) {
+                            $number = 2;
+                        } else if ( 'step-three' == $step_key ) {
+                            $number = 3;
+                        }
+                        ?>"><span><?php echo $number; ?></span><?php echo esc_html($step['name']); ?></li>
                 <?php endforeach; ?>
             </ul>
         <?php
@@ -534,8 +542,8 @@ class SetupWizard
             wp_redirect(esc_url_raw(add_query_arg('step', 'introduction')));
             exit;
         }
-
-        echo '<div class="wc-setup-content">';
+        $introduction_class = ! isset( $_GET['step'] ) ? 'atbdp_introduction' : '';
+        echo '<div class="wc-setup-content ' . $introduction_class .'">';
         call_user_func($this->steps[$this->step]['view']);
         echo '</div>';
     }

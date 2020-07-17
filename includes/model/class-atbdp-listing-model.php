@@ -25,6 +25,28 @@ if ( ! class_exists( 'ATBDP_Listings_Model' ) ) :
                 }
             ]);
         }
+
+        // get_listings_ids
+        public static function get_listings_ids( array $args = [] ) {
+            $default = [
+                'post_type'      => ATBDP_POST_TYPE,
+                'posts_per_page' => -1,
+                'post_status'    => 'publish',
+                'fields'         => 'ids'
+            ];
+            $args = array_merge( $default, $args );
+
+            return ATBDP_Cache_Helper::get_the_transient([
+                'group'      => 'atbdp_listings_query',
+                'name'       => 'atbdp_listings_ids',
+                'args'       => $args,
+                'expiration' => DAY_IN_SECONDS * 30,
+                'value'      => function( $data ) {
+                    var_dump( get_posts( $data['args'] ) );
+                    return get_posts( $data['args'] );
+                }
+            ]);
+        }
     }
 endif;
     

@@ -64,10 +64,10 @@ if (!class_exists('ATBDP_Tools')) :
             $position           = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
             $metas              = isset($_POST['meta']) ? atbdp_sanitize_array($_POST['meta']) : array();
             $tax_inputs         = isset($_POST['tax_input']) ? atbdp_sanitize_array($_POST['tax_input']) : array();
-            $limit              = apply_filters('atbdp_listing_import_limit_per_cycle', 5);
             $all_posts          = csv_get_data($this->file, true, $delimiter);
             $posts              = array_slice($all_posts, $position);
             $total_length       = count($all_posts);
+            $limit              = apply_filters('atbdp_listing_import_limit_per_cycle', ($total_length > 20) ? 20 : 2);
 
             if ( ! $total_length ) {
                 $data['error'] = __('No data found', 'directorist');

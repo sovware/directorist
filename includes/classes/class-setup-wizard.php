@@ -67,7 +67,13 @@ class SetupWizard
 
     public function enqueue_scripts()
     {
-        wp_enqueue_style('atbdp_setup_wizard', ATBDP_PUBLIC_ASSETS . 'css/setup-wizard.css', ATBDP_VERSION, true);
+        wp_enqueue_style('atbdp_setup_wizard', ATBDP_ADMIN_ASSETS . 'css/setup-wizard.css', ATBDP_VERSION, true);
+        wp_register_script('wc-setup', ATBDP_ADMIN_ASSETS . 'js/setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
+        wp_enqueue_script('wc-setup');
+        $data = array(
+            'ajaxurl'        => admin_url('admin-ajax.php'),
+        );
+        wp_localize_script('wc-setup', 'import_export_data', $data);
     }
 
     /**
@@ -233,13 +239,16 @@ class SetupWizard
     }
 
     public function dokan_setup_selling()
-    { ?>
+    {
+        $dummy_csv = ATBDP_URL . 'templates/import-export/data/dummy.csv';
+    ?>
         <div class="wcsc-header">
             <h1>Dummy data</h1>
         </div>
-        <form method="post">
+        <form method="post" id="atbdp_dummy_form">
             <div class="wcsc-body">
-                <div>
+                <div class="atbdp_dummy_body">
+                    <input type="hidden" id="dummy_csv_file" value="<?php echo $dummy_csv; ?>">
                     <div class="w-form-group">
                         <label for="atbdp-listings-to-import"><?php esc_html_e('Number of Listings to import', 'directorist'); ?></label>
                         <div>
@@ -259,6 +268,20 @@ class SetupWizard
                             <input type="checkbox" class="w-switch" id="atbdp-import-image">
                         </div>
                     </div>
+                </div>
+                <div class="directorist-importer__importing" style="display: none;">
+                    <header>
+                        <span class="spinner is-active"></span>
+                        <h2><?php esc_html_e('Importing', 'directorist');
+                            ?></h2>
+                        <p><?php esc_html_e('Your listing are now being imported...', 'directorist');
+                            ?></p>
+                    </header>
+                    <section>
+                        <span class="importer-notice">Your listings are now being imported</span>
+                        <progress class="directorist-importer-progress" max="100" value="0"></progress>
+                        <span class="importer-details"></span>
+                    </section>
                 </div>
 
                 <!-- add dummy contents here -->

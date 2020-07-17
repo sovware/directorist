@@ -1523,7 +1523,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $paged = atbdp_get_paged_num();
 
                 $has_featured = get_directorist_option('enable_featured_listing');
-                if ($has_featured || is_fee_manager_active()) {
+                if ( $has_featured || is_fee_manager_active() ) {
                     $has_featured = $atts['_featured'];
                 }
 

@@ -4136,12 +4136,12 @@ function get_advance_search_result_page_link()
 if (!function_exists('get_atbdp_listings_ids')) {
     function get_atbdp_listings_ids()
     {
-        $arg = (array(
+        $arg = array(
             'post_type'      => 'at_biz_dir',
             'posts_per_page' => -1,
             'post_status'    => 'publish',
             'fields'         => 'ids'
-        ));
+        );
 
         $ids = ATBDP_Cache_Helper::get_the_transient([
             'group'  => 'atbdp_listings_query',

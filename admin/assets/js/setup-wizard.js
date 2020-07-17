@@ -1,10 +1,12 @@
 jQuery(document).ready(function($) {
+        
         const import_dummy = $('#atbdp_dummy_form');
         let position = 0;
         let failed = 0;
         let imported = 0;
         $(import_dummy).on('submit', function(e) {
                 e.preventDefault();
+        
                 $('.atbdp_dummy_body').fadeOut(300);
                 $('.directorist-importer__importing').fadeIn(300);
                 $(this)
@@ -21,6 +23,7 @@ jQuery(document).ready(function($) {
                         form_data.append('action', 'atbdp_dummy_data_import');
                         form_data.append('file', $('#dummy_csv_file').val());
                         form_data.append('limit', $('#atbdp-listings-to-import').val());
+                        form_data.append('image', ($('#atbdp-import-image')).is(':checked') ? 1 : '');
                         form_data.append('delimiter', ',');
                         form_data.append('update_existing', '');
                         form_data.append('position', position);

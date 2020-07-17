@@ -63,28 +63,41 @@ class SetupWizard
                     "post_status"  => 'publish',
                 );
                 $post_id = wp_insert_post($args);
-                wp_send_json($post);
-                die();
                 if (!is_wp_error($post_id)) {
                     $imported++;
                 } else {
                     $failed++;
                 }
-
-                if ($tax_inputs) {
-                    foreach ( $tax_inputs as $taxonomy => $term ) {
-                        if ('category' == $taxonomy) {
-                            $taxonomy = ATBDP_CATEGORY;
-                        } elseif ('location' == $taxonomy) {
-                            $taxonomy = ATBDP_LOCATION;
-                        } else {
-                            $taxonomy = ATBDP_TAGS;
-                        }
-
-                        $final_term = isset($post[$term]) ? $post[$term] : '';
-                        $term_exists = get_term_by( 'name', $final_term, $taxonomy );
+                foreach($post as $key => $value){
+                    if ('category' == $key) {
+                        $taxonomy = ATBDP_CATEGORY;
+                        $term_exists = get_term_by( 'name', $value, $taxonomy );
                         if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
-                            $result = wp_insert_term( $final_term, $taxonomy );
+                            $result = wp_insert_term( $value, $taxonomy );
+                            if( !is_wp_error( $result ) ){
+                                $term_id = $result['term_id'];
+                                wp_set_object_terms($post_id, $term_id, $taxonomy);
+                            }
+                        }else{
+                            wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
+                        }
+                    } elseif ('location' == $key) {
+                        $taxonomy = ATBDP_LOCATION;
+                        $term_exists = get_term_by( 'name', $value, $taxonomy );
+                        if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
+                            $result = wp_insert_term( $value, $taxonomy );
+                            if( !is_wp_error( $result ) ){
+                                $term_id = $result['term_id'];
+                                wp_set_object_terms($post_id, $term_id, $taxonomy);
+                            }
+                        }else{
+                            wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
+                        }
+                    } elseif ('tag' == $key){
+                        $taxonomy = ATBDP_TAGS;
+                        $term_exists = get_term_by( 'name', $value, $taxonomy );
+                        if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
+                            $result = wp_insert_term( $value, $taxonomy );
                             if( !is_wp_error( $result ) ){
                                 $term_id = $result['term_id'];
                                 wp_set_object_terms($post_id, $term_id, $taxonomy);
@@ -93,7 +106,32 @@ class SetupWizard
                             wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
                         }
                     }
+                    
                 }
+                die();
+                // if ($tax_inputs) {
+                //     foreach ( $tax_inputs as $taxonomy => $term ) {
+                //         if ('category' == $taxonomy) {
+                //             $taxonomy = ATBDP_CATEGORY;
+                //         } elseif ('location' == $taxonomy) {
+                //             $taxonomy = ATBDP_LOCATION;
+                //         } else {
+                //             $taxonomy = ATBDP_TAGS;
+                //         }
+
+                //         $final_term = isset($post[$term]) ? $post[$term] : '';
+                //         $term_exists = get_term_by( 'name', $final_term, $taxonomy );
+                //         if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
+                //             $result = wp_insert_term( $final_term, $taxonomy );
+                //             if( !is_wp_error( $result ) ){
+                //                 $term_id = $result['term_id'];
+                //                 wp_set_object_terms($post_id, $term_id, $taxonomy);
+                //             }
+                //         }else{
+                //             wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
+                //         }
+                //     }
+                // }
 
                 foreach ($metas as $index => $value) {
                     $meta_value = $post[$value] ? $post[$value] : '';
@@ -179,12 +217,12 @@ class SetupWizard
     public function enqueue_scripts()
     {
         wp_enqueue_style('atbdp_setup_wizard', ATBDP_ADMIN_ASSETS . 'css/setup-wizard.css', ATBDP_VERSION, true);
-        wp_register_script('atbdp-setup', ATBDP_ADMIN_ASSETS . 'js/setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
-        wp_enqueue_script('atbdp-setup');
+        wp_register_script('directorist-setup', ATBDP_ADMIN_ASSETS . 'js/setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
+        wp_enqueue_script('directorist-setup');
         $data = array(
             'ajaxurl'        => admin_url('admin-ajax.php'),
         );
-        wp_localize_script('atbdp-setup', 'import_export_data', $data);
+        wp_localize_script('directorist-setup', 'import_export_data', $data);
     }
 
     /**
@@ -376,7 +414,7 @@ class SetupWizard
                     <div class="w-form-group">
                         <label for="atbdp-import-image"><?php esc_html_e('Import images', 'directorist'); ?></label>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" class="w-switch" id="atbdp-import-image">
+                            <input type="checkbox" value="1" class="w-switch" id="atbdp-import-image">
                         </div>
                     </div>
                 </div>

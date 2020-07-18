@@ -38,22 +38,18 @@ class SetupWizard
         $imported           = 0;
         $failed             = 0;
         $count              = 0;
-        $new_listing_status = get_directorist_option('new_listing_status', 'pending');
-        $preview_image      = isset($_POST['_listing_prv_img']) ? sanitize_text_field($_POST['_listing_prv_img']) : '';
-        $title              = isset($_POST['title']) ? sanitize_text_field($_POST['title']) : '';
-        $file              = isset($_POST['file']) ? sanitize_text_field($_POST['file']) : '';
-        $description        = isset($_POST['description']) ? sanitize_text_field($_POST['description']) : '';
-        $limit             = isset($_POST['limit']) ? sanitize_text_field($_POST['limit']) : 0;
-        $metas              = isset($_POST['meta']) ? atbdp_sanitize_array($_POST['meta']) : array();
-        $tax_inputs         = isset($_POST['tax_input']) ? atbdp_sanitize_array($_POST['tax_input']) : array();
+        $preview_image      = isset($_POST['image']) ? sanitize_text_field($_POST['image']) : '';
+        $file               = isset($_POST['file']) ? sanitize_text_field($_POST['file']) : '';
+        $total_length       = isset($_POST['limit']) ? sanitize_text_field($_POST['limit']) : 0;
+        $position           = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
         $all_posts          = $this->read_csv($file);
-        $total_length       = count($all_posts);
+        $posts              = array_slice($all_posts, $position);
+        $limit              =  (((int)$position + 2) > $total_length) ? 1 : 2;
         if ( ! $total_length ) {
             $data['error'] = __('No data found', 'directorist');
             die();
         }
-        foreach ($all_posts as $index => $post) {
-            
+        foreach ($posts as $index => $post) {
                 if ($count === $limit ) break;
                 // start importing listings
                 $args = array(
@@ -106,29 +102,25 @@ class SetupWizard
                             wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
                         }
                     }
-                    $skipped = array('name', 'details', 'category', 'location', 'tag', 'preview_image');
+                    $skipped = array('name', 'details', 'category', 'location', 'tag', 'listing_prv_img');
                     
                     if(!in_array( $key, $skipped )){
                         update_post_meta( $post_id, '_'.$key, $value );
-                    }
-
-                    
+                    }     
                 }
-           
                 $exp_dt = calc_listing_expiry_date();
                 update_post_meta($post_id, '_expiry_date', $exp_dt);
                 update_post_meta($post_id, '_featured', 0);
                 update_post_meta($post_id, '_listing_status', 'post_status');
-                // $preview_url = isset($post[$preview_image]) ? $post[$preview_image] : '';
+                $preview_url = isset($post['listing_prv_img']) ? $post['listing_prv_img'] : '';
 
-                // if ( $preview_url ) {
-                //    $attachment_id = $this->atbdp_insert_attachment_from_url($preview_url, $post_id);
-                //    update_post_meta($post_id, '_listing_prv_img', $attachment_id);
-                // }
-
+                if ( $preview_image && $preview_url ) {
+                   $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($preview_url, $post_id);
+                   update_post_meta($post_id, '_listing_prv_img', $attachment_id);
+                }
                 $count++;
         }
-        $data['next_position'] = (int) $limit + (int) $count;
+        $data['next_position'] = (int) $position + (int) $count;
         $data['percentage']    = absint(min(round((($data['next_position']) / $total_length) * 100), 100));
         $data['url']           = admin_url('index.php?page=directorist-setup&step=step-three');
         $data['total']         = $total_length;
@@ -403,7 +395,7 @@ class SetupWizard
                             ?></p>
                     </header>
                     <section>
-                        <span class="importer-notice">Your listings are now being imported</span>
+                        <span class="importer-notice"><?php esc_html_e('Please don\'t reload the page', 'directorist')?></span>
                         <progress class="directorist-importer-progress" max="100" value="0"></progress>
                         <span class="importer-details"></span>
                     </section>

@@ -127,7 +127,7 @@ if (!class_exists('ATBDP_Tools')) :
                     $preview_url = isset($post[$preview_image]) ? $post[$preview_image] : '';
 
                     if ( $preview_url ) {
-                       $attachment_id = $this->atbdp_insert_attachment_from_url($preview_url, $post_id);
+                       $attachment_id = self::atbdp_insert_attachment_from_url($preview_url, $post_id);
                        update_post_meta($post_id, '_listing_prv_img', $attachment_id);
                     }
 
@@ -145,7 +145,7 @@ if (!class_exists('ATBDP_Tools')) :
         }
 
 
-       public function atbdp_insert_attachment_from_url($url, $parent_post_id = null) {
+       public static function atbdp_insert_attachment_from_url($url, $parent_post_id = null) {
 
             if( !class_exists( 'WP_Http' ) )
                 include_once( ABSPATH . WPINC . '/class-http.php' );

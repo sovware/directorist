@@ -432,15 +432,15 @@ class SetupWizard
         <div class="atbdp-c-body">
             <div class="wsteps-done">
                 <span class="wicon-done dashicons dashicons-yes"></span>
-                <h2>Awesome, your directory is ready!</h2>
+                <h2><?php esc_html_e('Awesome, your directory is ready!', 'directorist'); ?></h2>
                 <div>
-                    <a href="" class="wbtn wbtn-primary">Visit Directorist Dashbaord</a>
-                    <a href="" class="wbtn wbtn-outline-primary">Create your First Listing</a>
+                    <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="wbtn wbtn-primary"><?php esc_html_e('Visit Directorist Dashboard', 'directorist'); ?></a>
+                    <a href="<?php echo esc_url(admin_url().'post-new.php?post_type=at_biz_dir'); ?>" class="wbtn wbtn-outline-primary"><?php esc_html_e('Create your First Listing', 'directorist'); ?></a>
                 </div>
             </div>
         </div>
         <div class="atbdp-c-footer atbdp-c-footer-center">
-            <a href="" class="w-footer-link">Return to the WordPress Dashboard</a>
+            <a href="<?php echo esc_url(admin_url()); ?>" class="w-footer-link"><?php esc_html_e('Return to the WordPress Dashboard', 'directorist'); ?></a>
         </div>
     <?php
     }

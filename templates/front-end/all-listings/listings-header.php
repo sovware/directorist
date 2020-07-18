@@ -303,27 +303,19 @@ if ($display_header == 'yes') { ?>
                                     $category_slug = get_query_var('atbdp_category');
                                     $category = get_term_by('slug', $category_slug,ATBDP_CATEGORY);
                                     $category_id = !empty($category_slug) ? $category->term_id : '';
+                                    $category_select = !empty($_GET['in_cat']) ? $_GET['in_cat'] : $category_id;
+
                                     $tag_args = array(
                                         'post_type'=> ATBDP_POST_TYPE,
                                         'tax_query' => array(
-                                                array(
-                                                    'taxonomy' => ATBDP_CATEGORY,
-                                                    'terms'    => !empty($_GET['in_cat']) ? $_GET['in_cat'] : $category_id,
-                                                )
+                                            array(
+                                                'taxonomy' => ATBDP_CATEGORY,
+                                                'terms'    => $category_select,
+                                            )
                                         )
                                     );
-                                    $category_select = !empty($_GET['in_cat']) ? $_GET['in_cat'] : $category_id;
-                                    
-                                    $tag_posts = ATBDP_Cache_Helper::get_the_transient([
-                                        'group' => 'atbdp_listings_query',
-                                        'name'  => 'atbdp_listings_by_tag',
-                                        'args'  => $tag_args,
-                                        'cache' => apply_filters( 'atbdp_cache_listings_by_tag', true ),
-                                        'value' => function( $args ) {
-                                            return get_posts( $args['args'] );
-                                        }
-                                    ]);
 
+                                    $tag_posts = ATBDP_Listings_Model::get_listings( $tag_args );
 
                                     if(!empty($tag_posts)) {
                                         foreach ($tag_posts as $tag_post) {
@@ -332,6 +324,7 @@ if ($display_header == 'yes') { ?>
                                     }
                                     $tag_id = !empty($tag_id) ? $tag_id : '';
 
+                                    
                                     if ( 'all_tags' == $listing_tags_field || empty( $category_select ) ) {
                                         $terms = ATBDP_Terms_Model::get_tags_term();
                                     } else {

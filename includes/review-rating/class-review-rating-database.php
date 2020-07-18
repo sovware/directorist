@@ -501,12 +501,6 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
             ]);
 
             return $ratings;
-
-
-
-
-
-
         }
 
 

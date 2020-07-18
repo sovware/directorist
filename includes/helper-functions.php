@@ -1716,11 +1716,11 @@ function atbdp_display_price_range($price_range)
 function atbdp_listings_count_by_category($term_id)
 {
     $args = array(
-        'fields' => 'ids',
+        'fields'         => 'ids',
         'posts_per_page' => -1,
-        'post_type' => ATBDP_POST_TYPE,
-        'post_status' => 'publish',
-        'tax_query' => array(
+        'post_type'      => ATBDP_POST_TYPE,
+        'post_status'    => 'publish',
+        'tax_query'      => array(
             array(
                 'taxonomy' => ATBDP_CATEGORY,
                 'field' => 'term_id',
@@ -1730,17 +1730,9 @@ function atbdp_listings_count_by_category($term_id)
         ),
     );
 
-    $total_categories = ATBDP_Cache_Helper::get_the_transient([
-        'group' => 'atbdp_listings_query',
-        'name'  => 'atbdp_listings_by_category',
-        'args'  => $args,
-        'cache' => apply_filters( 'atbdp_cache_atbdp_listings_by_category', true ),
-        'value' => function( $args ) {
-            return count( get_posts( $args['args'] ) );
-        }
-    ]);
+    $total_categories = ATBDP_Listings_Model::get_listings( $args );
 
-    return $total_categories;
+    return count( $total_categories );
 }
 
 /**

@@ -1806,7 +1806,6 @@ function atbdp_list_categories($settings)
  */
 function atbdp_listings_count_by_location($term_id)
 {
-
     $args = array(
         'fields' => 'ids',
         'posts_per_page' => -1,
@@ -1819,24 +1818,11 @@ function atbdp_listings_count_by_location($term_id)
                 'terms' => $term_id,
                 'include_children' => true
             )
-        ),
-        'meta_query' => apply_filters('atbdp_listings_with_location_meta_query', array(
-            'relation' => 'OR',
-            array(
-                'key' => '_expiry_date',
-                'value' => current_time('mysql'),
-                'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
-                'type' => 'DATETIME'
-            ),
-            array(
-                'key' => '_never_expire',
-                'value' => 1,
-            ),
-        ))
+        )
     );
 
-    return count(get_posts($args));
-
+    $total_location = ATBDP_Listings_Model::get_listings( $args );
+    return count( $total_location );
 }
 
 /**

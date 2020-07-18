@@ -24,7 +24,6 @@ $container_fluid = 'container-fluid';
                         $cat_image = !empty($image) ? atbdp_get_image_source($image, apply_filters('atbdp_category_image_size', array('350', '280'))) : '';
                         $icon = !empty($icon) ? $icon : '';
                         $icon_type = substr($icon, 0,2);
-
                         ?>
                         <div class="<?php echo $span; ?>">
                             <a class="atbd_category_single <?php echo !empty($cat_image) ? '' : 'atbd_category-default'; ?>"

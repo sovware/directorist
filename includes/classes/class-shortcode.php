@@ -12,14 +12,15 @@ if (!class_exists('ATBDP_Shortcode')):
             add_shortcode('directorist_location', array($this, 'atbdp_location'));
             add_shortcode('directorist_tag', array($this, 'atbdp_tag'));
 
+            add_shortcode('directorist_all_categories', array($this, 'all_categories'));
+            add_shortcode('directorist_all_locations', array($this, 'all_locations'));
+
             add_shortcode('directorist_search_listing', array($this, 'search_listing'));
             add_shortcode('directorist_add_listing', array($this, 'add_listing'));
             add_shortcode('directorist_author_profile', array($this, 'author_profile'));
             add_shortcode('directorist_custom_registration', array($this, 'user_registration'));
             add_shortcode('directorist_user_login', array($this, 'custom_user_login'));
             add_shortcode('directorist_user_dashboard', array($this, 'user_dashboard'));
-            add_shortcode('directorist_all_categories', array($this, 'all_categories'));
-            add_shortcode('directorist_all_locations', array($this, 'all_locations'));
             
             $checkout = new ATBDP_Checkout;
             add_shortcode('directorist_checkout', array($checkout, 'display_checkout_content'));
@@ -1404,7 +1405,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 'slug' => !empty($categories) ? $categories : '',
             );
 
-            $terms = get_terms(ATBDP_CATEGORY, apply_filters('atbdp_all_categories_argument', $args));
+            $args = apply_filters('atbdp_all_categories_argument', $args);
+            $terms = get_terms(ATBDP_CATEGORY, $args);
             $terms = array_slice($terms, 0, $atts['cat_per_page']);
 
             if (!empty($redirect_page_url)) {
@@ -1891,8 +1893,10 @@ if (!class_exists('ATBDP_Shortcode')):
                 'slug' => !empty($locations) ? $locations : ''
             );
 
-            $terms = get_terms(ATBDP_LOCATION, apply_filters('atbdp_all_locations_argument', $args));
+            $args = apply_filters('atbdp_all_locations_argument', $args);
+            $terms = get_terms( ATBDP_LOCATION, $args );
             $terms = array_slice($terms, 0, $atts['loc_per_page']);
+
             if (!empty($redirect_page_url)) {
                 $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                 return $redirect;

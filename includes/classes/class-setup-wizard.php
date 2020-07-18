@@ -5,7 +5,8 @@
  *
  * Walkthrough to the basic setup upon installation
  */
-class SetupWizard {
+class SetupWizard
+{
     /** @var string Currenct Step */
     public $step   = '';
 
@@ -22,26 +23,145 @@ class SetupWizard {
     /**
      * Hook in tabs.
      */
-    public function __construct() {
+    public function __construct()
+    {
 
-            add_action('admin_menu', array( $this, 'admin_menus') );
-            add_action('admin_init', array( $this, 'setup_wizard' ), 99);
+        add_action('admin_menu', array($this, 'admin_menus'));
+        add_action('admin_init', array($this, 'setup_wizard'), 99);
+        add_action('wp_ajax_atbdp_dummy_data_import', array($this, 'atbdp_dummy_data_import'));
+    }
 
+
+    public function atbdp_dummy_data_import()
+    {
+        $data               = array();
+        $imported           = 0;
+        $failed             = 0;
+        $count              = 0;
+        $preview_image      = isset($_POST['image']) ? sanitize_text_field($_POST['image']) : '';
+        $file               = isset($_POST['file']) ? sanitize_text_field($_POST['file']) : '';
+        $total_length       = isset($_POST['limit']) ? sanitize_text_field($_POST['limit']) : 0;
+        $position           = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
+        $all_posts          = $this->read_csv($file);
+        $posts              = array_slice($all_posts, $position);
+        $limit              =  (((int)$position + 2) > $total_length) ? 1 : 2;
+        if ( ! $total_length ) {
+            $data['error'] = __('No data found', 'directorist');
+            die();
+        }
+        foreach ($posts as $index => $post) {
+                if ($count === $limit ) break;
+                // start importing listings
+                $args = array(
+                    "post_title"   => isset($post['name']) ? $post['name'] : '',
+                    "post_content" => isset($post['details']) ? $post['details'] : '',
+                    "post_type"    => 'at_biz_dir',
+                    "post_status"  => 'publish',
+                );
+                $post_id = wp_insert_post($args);
+                if (!is_wp_error($post_id)) {
+                    $imported++;
+                } else {
+                    $failed++;
+                }
+                foreach($post as $key => $value){
+                    if ('category' == $key) {
+                        $taxonomy = ATBDP_CATEGORY;
+                        $term_exists = get_term_by( 'name', $value, $taxonomy );
+                        if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
+                            $result = wp_insert_term( $value, $taxonomy );
+                            if( !is_wp_error( $result ) ){
+                                $term_id = $result['term_id'];
+                                wp_set_object_terms($post_id, $term_id, $taxonomy);
+                            }
+                        }else{
+                            wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
+                        }
+                    } elseif ('location' == $key) {
+                        $taxonomy = ATBDP_LOCATION;
+                        $term_exists = get_term_by( 'name', $value, $taxonomy );
+                        if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
+                            $result = wp_insert_term( $value, $taxonomy );
+                            if( !is_wp_error( $result ) ){
+                                $term_id = $result['term_id'];
+                                wp_set_object_terms($post_id, $term_id, $taxonomy);
+                            }
+                        }else{
+                            wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
+                        }
+                    } elseif ('tag' == $key){
+                        $taxonomy = ATBDP_TAGS;
+                        $term_exists = get_term_by( 'name', $value, $taxonomy );
+                        if ( ! $term_exists ) { // @codingStandardsIgnoreLine.
+                            $result = wp_insert_term( $value, $taxonomy );
+                            if( !is_wp_error( $result ) ){
+                                $term_id = $result['term_id'];
+                                wp_set_object_terms($post_id, $term_id, $taxonomy);
+                            }
+                        }else{
+                            wp_set_object_terms($post_id, $term_exists->term_id, $taxonomy);
+                        }
+                    }
+                    $skipped = array('name', 'details', 'category', 'location', 'tag', 'listing_prv_img');
+                    
+                    if(!in_array( $key, $skipped )){
+                        update_post_meta( $post_id, '_'.$key, $value );
+                    }     
+                }
+                $exp_dt = calc_listing_expiry_date();
+                update_post_meta($post_id, '_expiry_date', $exp_dt);
+                update_post_meta($post_id, '_featured', 0);
+                update_post_meta($post_id, '_listing_status', 'post_status');
+                $preview_url = isset($post['listing_prv_img']) ? $post['listing_prv_img'] : '';
+
+                if ( $preview_image && $preview_url ) {
+                   $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($preview_url, $post_id);
+                   update_post_meta($post_id, '_listing_prv_img', $attachment_id);
+                }
+                $count++;
+        }
+        $data['next_position'] = (int) $position + (int) $count;
+        $data['percentage']    = absint(min(round((($data['next_position']) / $total_length) * 100), 100));
+        $data['url']           = admin_url('index.php?page=directorist-setup&step=step-three');
+        $data['total']         = $total_length;
+        $data['imported']      = $imported;
+        $data['failed']        = $failed;
+
+        wp_send_json($data);
+        die();
+    }
+
+
+    public function read_csv($file){
+        $fp = fopen($file, 'r');
+        $header = fgetcsv($fp);
+
+        // get the rest of the rows
+        $data = array();
+        while ($row = fgetcsv($fp)) {
+        $arr = array();
+        foreach ($header as $i => $col)
+            $arr[$col] = $row[$i];
+        $data[] = $arr;
+        }
+        return $data;
     }
 
     /**
      * Add admin menus/screens.
      */
-    public function admin_menus() {
-        add_submenu_page( null, '', '', 'manage_options', 'directorist-setup', '' );
+    public function admin_menus()
+    {
+        add_submenu_page(null, '', '', 'manage_options', 'directorist-setup', '');
     }
 
     /**
      * Show the setup wizard.
      */
-    public function setup_wizard() {
+    public function setup_wizard()
+    {
 
-        if ( empty( $_GET['page'] ) || 'directorist-setup' !== $_GET['page'] ) {
+        if (empty($_GET['page']) || 'directorist-setup' !== $_GET['page']) {
             return;
         }
 
@@ -49,17 +169,28 @@ class SetupWizard {
 
 
 
-        $this->step = isset( $_GET['step'] ) ? sanitize_key( $_GET['step'] ) : current( array_keys( $this->steps ) );
+        $this->step = isset($_GET['step']) ? sanitize_key($_GET['step']) : current(array_keys($this->steps));
 
-        //$this->enqueue_scripts();
+        $this->enqueue_scripts();
 
-        if ( ! empty( $_POST['save_step'] ) && isset( $this->steps[ $this->step ]['handler'] ) ) { // WPCS: CSRF ok.
-            call_user_func_array( $this->steps[ $this->step ]['handler'], array( $this ) );
+        if (!empty($_POST['save_step']) && isset($this->steps[$this->step]['handler'])) { // WPCS: CSRF ok.
+            call_user_func_array($this->steps[$this->step]['handler'], array($this));
         }
 
         ob_start();
         $this->set_setup_wizard_template();
         exit;
+    }
+
+    public function enqueue_scripts()
+    {
+        wp_enqueue_style('atbdp_setup_wizard', ATBDP_ADMIN_ASSETS . 'css/setup-wizard.css', ATBDP_VERSION, true);
+        wp_register_script('directorist-setup', ATBDP_ADMIN_ASSETS . 'js/setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
+        wp_enqueue_script('directorist-setup');
+        $data = array(
+            'ajaxurl'        => admin_url('admin-ajax.php'),
+        );
+        wp_localize_script('directorist-setup', 'import_export_data', $data);
     }
 
     /**
@@ -69,101 +200,121 @@ class SetupWizard {
      *
      * @return void
      */
-    protected function set_steps() {
-        $this->steps = apply_filters( 'dokan_admin_setup_wizard_steps', array(
+    protected function set_steps()
+    {
+        $this->steps = apply_filters('directorist_admin_setup_wizard_steps', array(
             'introduction' => array(
-                'name'    =>  __( 'Introduction', 'directorist' ),
-                'view'    => array( $this, 'dokan_setup_introduction' ),
+                'name'    =>  __('Introduction', 'directorist'),
+                'view'    => array($this, 'directorist_setup_introduction'),
             ),
             'step-one' => array(
-                'name'    =>  __( 'Step One', 'directorist' ),
-                'view'    => array( $this, 'dokan_setup_store' ),
-                'handler' => array( $this, 'dokan_setup_store_save' ),
+                'name'    =>  __('Step One', 'directorist'),
+                'view'    => array($this, 'directorist_setup_store'),
+                'handler' => array($this, 'directorist_setup_store_save'),
             ),
             'step-two' => array(
-                'name'    =>  __( 'Step Two', 'directorist' ),
-                'view'    => array( $this, 'dokan_setup_selling' ),
-                'handler' => array( $this, 'dokan_setup_selling_save' ),
+                'name'    =>  __('Step Two', 'directorist'),
+                'view'    => array($this, 'directorist_setup_selling'),
+                'handler' => array($this, 'directorist_setup_selling_save'),
             ),
             'step-three' => array(
-                'name'    =>  __( 'Step Three', 'directorist' ),
-                'view'    => array( $this, 'dokan_setup_withdraw' ),
-                'handler' => array( $this, 'dokan_setup_withdraw_save' ),
+                'name'    =>  __('Step Three', 'directorist'),
+                'view'    => array($this, 'directorist_setup_withdraw'),
+                'handler' => array($this, 'directorist_setup_withdraw_save'),
             ),
-        ) );
+        ));
     }
-    public function dokan_setup_store() {
-        $general_options        = get_option( 'dokan_general', array() );
-        $custom_store_url       = ! empty( $general_options['custom_store_url'] ) ? $general_options['custom_store_url'] : 'store';
+    public function directorist_setup_store()
+    {
+        $general_options        = get_option('directorist_general', array());
+        $custom_store_url       = !empty($general_options['custom_store_url']) ? $general_options['custom_store_url'] : 'store';
 
-        $selling_options        = get_option( 'dokan_selling', array() );
-        $shipping_fee_recipient = ! empty( $selling_options['shipping_fee_recipient'] ) ? $selling_options['shipping_fee_recipient'] : 'seller';
-        $tax_fee_recipient      = ! empty( $selling_options['tax_fee_recipient'] ) ? $selling_options['tax_fee_recipient'] : 'seller';
-       
+        $selling_options        = get_option('directorist_selling', array());
+        $shipping_fee_recipient = !empty($selling_options['shipping_fee_recipient']) ? $selling_options['shipping_fee_recipient'] : 'seller';
+        $tax_fee_recipient      = !empty($selling_options['tax_fee_recipient']) ? $selling_options['tax_fee_recipient'] : 'seller';
+
 
         $recipients = array(
-            'seller' => __( 'Vendor', 'directorist' ),
-            'admin'  => __( 'Admin', 'directorist' ),
+            'seller' => __('Vendor', 'directorist'),
+            'admin'  => __('Admin', 'directorist'),
         );
 
-            ?>
-    <h1><?php esc_html_e( 'Store Setup', 'directorist' ); ?></h1>
-    <form method="post">
-        <div>
-            <select name="select_listing_map" id="">
-                <option value="openstreet">Openstreetmap</option>
-                <option value="google">google</option>
-            </select>
+?>
+        <div class="atbdp-c-header">
+            <h1><?php esc_html_e('Store Setup', 'directorist'); ?></h1>
         </div>
-        <div>
-            <label for="google_api"> Google Map API key
-                <input type="text" name="map_api_key">
-            </label>
-        </div>
-        <div>
-            <label for="enable_monetization"> Enable Monetization Feature
-                <input type="checkbox" name='enable_monetization' id='enable_monetization' value= 1 >
-            </label>
-        </div>
-        <div>
-            <label for="enable_featured_listing"> Monetize by Featured Listing
-                <input type="checkbox" name='enable_featured_listing' id='enable_featured_listing' value= 1 >
-            </label>
-        </div>
-        <div>
-            <label for="featured_listing_price"> Price in USD
-                <input type="text" name='featured_listing_price' id='featured_listing_price' value= 19.99 >
-            </label>
-        </div>
-        <p class="wc-setup-actions step">
-            <input type="submit" class="button-primary button button-large button-next" value="<?php esc_attr_e( 'Continue', 'directorist' ); ?>" name="save_step" />
-            <a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="button button-large button-next"><?php esc_html_e( 'Skip this step', 'directorist' ); ?></a>
-            <?php wp_nonce_field( 'dokan-setup' ); ?>
-        </p>
-    </form>
+
+        <form method="post">
+            <div class="atbdp-c-body">
+                <div class="w-form-group">
+                    <label for="select_map">Select Map</label>
+                    <div><select name="select_listing_map" id="select_map">
+                            <option value="openstreet">Openstreetmap</option>
+                            <option value="google">google</option>
+                        </select></div>
+                </div>
+                <div class="w-form-group">
+                    <label for="google_api"> Google Map API key</label>
+                    <div><input type="text" name="map_api_key" id="google_api"></div>
+                </div>
+                <div class="w-form-group">
+                    <label for="enable_monetization"> Enable Monetization Feature</label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='enable_monetization' class="w-switch" id='enable_monetization' value=1>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="enable_featured_listing"> Monetize by Featured Listing</label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='enable_featured_listing' class="w-switch" id='enable_featured_listing' value=1>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="featured_listing_price"> Price in USD</label>
+                    <div>
+                        <div class="w-input-group">
+                            <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99>
+                            <span>USD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="atbdp-c-footer">
+                <p class="atbdp-setup-actions step">
+                    <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="w-skip-link"><?php esc_html_e('Skip this step', 'directorist'); ?></a>
+                    <?php wp_nonce_field('directorist-setup'); ?>
+                    <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e('Continue', 'directorist'); ?>" name="save_step" />
+                </p>
+            </div>
+        </form>
     <?php
-       // dokan_get_template( 'admin-setup-wizard/step-store.php', $args );
+        // directorist_get_template( 'admin-setup-wizard/step-store.php', $args );
     }
 
     /**
      * Save store options.
      */
-    public function dokan_setup_store_save() {
-        check_admin_referer( 'dokan-setup' );
+    public function directorist_setup_store_save()
+    {
+        check_admin_referer('directorist-setup');
 
         $_post_data = wp_unslash($_POST);
 
         $atbdp_option = get_option('atbdp_option');
-        $pages = !empty( $_post_data['share_essentials'] ) ? $_post_data['share_essentials'] : '';
-        $atbdp_option['select_listing_map'] = !empty( $_post_data['select_listing_map'] ) ? $_post_data['select_listing_map'] : '';
-        $atbdp_option['map_api_key'] = !empty( $_post_data['map_api_key'] ) ? $_post_data['map_api_key'] : '';
-        $atbdp_option['enable_monetization'] = !empty( $_post_data['enable_monetization'] ) ? $_post_data['enable_monetization'] : '';
-        $atbdp_option['enable_featured_listing'] = !empty( $_post_data['enable_featured_listing'] ) ? $_post_data['enable_featured_listing'] : '';
-        $atbdp_option['featured_listing_price'] = !empty( $_post_data['featured_listing_price'] ) ? $_post_data['featured_listing_price'] : '';
-        
-        do_action( 'dokan_admin_setup_wizard_save_step_store' );
+        $pages = !empty($_post_data['share_essentials']) ? $_post_data['share_essentials'] : '';
+        $atbdp_option['select_listing_map'] = !empty($_post_data['select_listing_map']) ? $_post_data['select_listing_map'] : '';
+        $atbdp_option['map_api_key'] = !empty($_post_data['map_api_key']) ? $_post_data['map_api_key'] : '';
+        $atbdp_option['enable_monetization'] = !empty($_post_data['enable_monetization']) ? $_post_data['enable_monetization'] : '';
+        $atbdp_option['enable_featured_listing'] = !empty($_post_data['enable_featured_listing']) ? $_post_data['enable_featured_listing'] : '';
+        $atbdp_option['featured_listing_price'] = !empty($_post_data['featured_listing_price']) ? $_post_data['featured_listing_price'] : '';
 
-        
+        do_action('directorist_admin_setup_wizard_save_step_store');
+
+
         $create_pages = [
             'checkout_page'        => [
                 'post_title'         => 'Checkout',
@@ -178,9 +329,9 @@ class SetupWizard {
                 'post_content'       => '[directorist_transaction_failure]',
             ],
         ];
-        
-        if ( ! empty( $atbdp_option['enable_monetization'] ) ) {
-            foreach ( $create_pages as $key => $name ) {
+
+        if (!empty($atbdp_option['enable_monetization'])) {
+            foreach ($create_pages as $key => $name) {
 
                 $args = [
                     'post_title' => $name['post_title'],
@@ -189,84 +340,141 @@ class SetupWizard {
                     'post_type' => 'page',
                     'comment_status' => 'closed'
                 ];
-                if ( empty ( $atbdp_option[ $key ] ) ) {
-                    $id = wp_insert_post( $args );
+                if (empty($atbdp_option[$key])) {
+                    $id = wp_insert_post($args);
 
-                    if( $id ) {
-                        $atbdp_option[ $key ] = $id; 
+                    if ($id) {
+                        $atbdp_option[$key] = $id;
                     }
                 }
-
             }
         }
-        update_option( 'atbdp_option', $atbdp_option );
+        update_option('atbdp_option', $atbdp_option);
 
-        wp_redirect( esc_url_raw( $this->get_next_step_link() ) );
+        wp_redirect(esc_url_raw($this->get_next_step_link()));
         exit;
     }
 
-    public function dokan_setup_selling() { ?>
-    <form method="post">
-        <h4>Dummy data</h4>
-        <p class="wc-setup-actions step">
-            <input type="submit" class="button-primary button button-large button-next" value="<?php esc_attr_e( 'Continue', 'directorist' ); ?>" name="save_step" />
-            <a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="button button-large button-next"><?php esc_html_e( 'Skip this step', 'directorist' ); ?></a>
-            <?php wp_nonce_field( 'dokan-setup' ); ?>
-        </p>
-    </form>
+    public function directorist_setup_selling()
+    {
+        $dummy_csv = ATBDP_URL . 'templates/import-export/data/dummy.csv';
+    ?>
+        <div class="atbdp-c-header">
+            <h1>Dummy data</h1>
+        </div>
+        <form method="post" id="atbdp_dummy_form">
+            <div class="atbdp-c-body">
+                <div class="atbdp_dummy_body">
+                    <input type="hidden" id="dummy_csv_file" value="<?php echo $dummy_csv; ?>">
+                    <div class="w-form-group">
+                        <label for="atbdp-listings-to-import"><?php esc_html_e('Number of Listings to import', 'directorist'); ?></label>
+                        <div>
+                            <select name="total_listings_to_import" id="atbdp-listings-to-import">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="25">25</option>
+                                <option value="30">30</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="w-form-group">
+                        <label for="atbdp-import-image"><?php esc_html_e('Import images', 'directorist'); ?></label>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" value="1" class="w-switch" id="atbdp-import-image">
+                        </div>
+                    </div>
+                </div>
+                <div class="directorist-importer__importing" style="display: none;">
+                    <header>
+                        <span class="spinner is-active"></span>
+                        <h2><?php esc_html_e('Importing', 'directorist');
+                            ?></h2>
+                        <p><?php esc_html_e('Your listing are now being imported...', 'directorist');
+                            ?></p>
+                    </header>
+                    <section>
+                        <span class="importer-notice"><?php esc_html_e('Please don\'t reload the page', 'directorist')?></span>
+                        <progress class="directorist-importer-progress" max="100" value="0"></progress>
+                        <span class="importer-details"></span>
+                    </section>
+                </div>
+
+                <!-- add dummy contents here -->
+            </div>
+            <div class="atbdp-c-footer">
+                <p class="atbdp-setup-actions step">
+                    <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="w-skip-link"><?php esc_html_e('Skip this step', 'directorist'); ?></a>
+                    <?php wp_nonce_field('directorist-setup'); ?>
+                    <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e('Continue', 'directorist'); ?>" name="save_step" />
+                </p>
+            </div>
+        </form>
     <?php
-        
+
     }
 
-    public function dokan_setup_selling_save() {
-        check_admin_referer( 'dokan-setup' );
+    public function directorist_setup_selling_save()
+    {
+        check_admin_referer('directorist-setup');
 
         $_post_data = wp_unslash($_POST);
 
-        $pages = !empty( $_post_data['map'] ) ? $_post_data['map'] : '';
-        wp_redirect( esc_url_raw( $this->get_next_step_link() ) );
+        $pages = !empty($_post_data['map']) ? $_post_data['map'] : '';
+        wp_redirect(esc_url_raw($this->get_next_step_link()));
         exit;
     }
 
-    public function dokan_setup_withdraw() { ?>
-        
-        <div>
-            <h2>Awesome, your directory is ready!</h2>
+    public function directorist_setup_withdraw()
+    { ?>
+
+        <div class="atbdp-c-body">
+            <div class="wsteps-done">
+                <span class="wicon-done dashicons dashicons-yes"></span>
+                <h2><?php esc_html_e('Awesome, your directory is ready!', 'directorist'); ?></h2>
+                <div>
+                    <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="wbtn wbtn-primary"><?php esc_html_e('Visit Directorist Dashboard', 'directorist'); ?></a>
+                    <a href="<?php echo esc_url(admin_url().'post-new.php?post_type=at_biz_dir'); ?>" class="wbtn wbtn-outline-primary"><?php esc_html_e('Create your First Listing', 'directorist'); ?></a>
+                </div>
+            </div>
         </div>
-        <div>
-            <h2>Next steps</h2>
-            <a href="">Create your first listing!</a>
+        <div class="atbdp-c-footer atbdp-c-footer-center">
+            <a href="<?php echo esc_url(admin_url()); ?>" class="w-footer-link"><?php esc_html_e('Return to the WordPress Dashboard', 'directorist'); ?></a>
         </div>
-        <div>
-            <a href="">Getting started guide</a>
-            <a href="">Have questions? Get help.</a>
-        </div>
-        <?php
+    <?php
     }
 
-    public function get_steps() {
+    public function get_steps()
+    {
         return $this->steps;
     }
 
     /**
      * Introduction step.
      */
-    public function dokan_setup_introduction() {
-        ?>
-        <h1><?php esc_html_e( 'Welcome to the world of Directorist!', 'directorist' ); ?></h1>
-        <p><?php echo wp_kses( __( 'Thank you for choosing Directorist to power your online marketplace! This quick setup wizard will help you configure the basic settings. <strong>It’s completely optional and shouldn’t take longer than three minutes.</strong>', 'directorist' ), [ 'strong' => [] ] ); ?></p>
-        <p><?php esc_html_e( 'No time right now? If you don’t want to go through the wizard, you can skip and return to the WordPress dashboard. Come back anytime if you change your mind!', 'directorist' ); ?></p>
-        <p class="wc-setup-actions step">
-            <a href="<?php echo esc_url( $this->get_next_step_link() ); ?>" class="button-primary button button-large button-next"><?php esc_html_e( 'Let\'s Go!', 'directorist' ); ?></a>
-            <a href="<?php echo esc_url( admin_url() ); ?>" class="button button-large"><?php esc_html_e( 'Not right now', 'directorist' ); ?></a>
-        </p>
-        <?php
+    public function directorist_setup_introduction()
+    {
+    ?>
+        <div class="atbdp-c-body">
+            <h1 class="atbdp-c-intro-title"><?php esc_html_e('Welcome to the world of Directorist!', 'directorist'); ?></h1>
+            <p><?php echo wp_kses(__('Thank you for choosing Directorist to power your online marketplace! This quick setup wizard will help you configure the basic settings. <strong>It’s completely optional and shouldn’t take longer than three minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
+            <p><?php esc_html_e('No time right now? If you don’t want to go through the wizard, you can skip and return to the WordPress dashboard. Come back anytime if you change your mind!', 'directorist'); ?></p>
+        </div>
+        <div class="atbdp-c-footer">
+            <p class="atbdp-setup-actions step">
+                <a href="<?php echo esc_url(admin_url()); ?>" class="wbtn wbtn-white"><?php esc_html_e('Not right now', 'directorist'); ?></a>
+                <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="wbtn wbtn-primary"><?php esc_html_e('Let\'s Go!', 'directorist'); ?></a>
+            </p>
+        </div>
+    <?php
     }
 
-    public function get_next_step_link() {
-        $keys = array_keys( $this->steps );
-    
-        return add_query_arg( 'step', $keys[ array_search( $this->step, array_keys( $this->steps ) ) + 1 ] );
+    public function get_next_step_link()
+    {
+        $keys = array_keys($this->steps);
+
+        return add_query_arg('step', $keys[array_search($this->step, array_keys($this->steps)) + 1]);
     }
 
     /**
@@ -276,7 +484,8 @@ class SetupWizard {
      *
      * @return void
      */
-    protected function set_setup_wizard_template() {
+    protected function set_setup_wizard_template()
+    {
         $this->setup_wizard_header();
         $this->setup_wizard_steps();
         $this->setup_wizard_content();
@@ -286,74 +495,90 @@ class SetupWizard {
     /**
      * Setup Wizard Header.
      */
-    public function setup_wizard_header() {
+    public function setup_wizard_header()
+    {
         set_current_screen();
-        ?>
+    ?>
         <!DOCTYPE html>
-    <html <?php language_attributes(); ?>>
+        <html <?php language_attributes(); ?>>
+
         <head>
             <meta name="viewport" content="width=device-width" />
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title><?php esc_html_e( 'Directorist &rsaquo; Setup Wizard', 'directorist' ); ?></title>
-            <?php wp_print_scripts( 'wc-setup' ); ?>
-            <?php do_action( 'admin_print_styles' ); ?>
-            <?php do_action( 'admin_head' ); ?>
-            <?php do_action( 'directorist_setup_wizard_styles' ); ?>
+            <title><?php esc_html_e('Directorist &rsaquo; Setup Wizard', 'directorist'); ?></title>
+            <?php wp_print_scripts('directorist-setup'); ?>
+            <?php do_action('admin_print_styles'); ?>
+            <?php do_action('admin_head'); ?>
+            <?php do_action('directorist_setup_wizard_styles'); ?>
         </head>
-    <body class="wc-setup wp-core-ui<?php echo get_transient( 'dokan_setup_wizard_no_wc' ) ? ' dokan-setup-wizard-activated-wc' : '';  ?>">
-        <?php
-       /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/dokan-logo.png', DOKAN_FILE );*/
-        ?>
-        <!--<h1 id="wc-logo"><a href="https://wedevs.com/dokan/"><img src="<?php /*echo esc_url( $logo_url ); */?>" alt="Dokan Logo" width="135" height="auto" /></a></h1>-->
+
+        <body class="atbdp-setup wp-core-ui<?php echo get_transient('directorist_setup_wizard_no_wc') ? ' directorist-setup-wizard-activated-wc' : '';  ?>">
+            <?php
+            /* $logo_url = ( ! empty( $this->custom_logo ) ) ? $this->custom_logo : plugins_url( 'assets/images/directorist-logo.png', directorist_FILE );*/
+            ?>
+            <!--<h1 id="atbdp-logo"><a href="https://wedevs.com/directorist/"><img src="<?php /*echo esc_url( $logo_url ); */ ?>" alt="directorist Logo" width="135" height="auto" /></a></h1>-->
         <?php
     }
 
     /**
      * Output the steps.
      */
-    public function setup_wizard_steps() {
+    public function setup_wizard_steps()
+    {
         $ouput_steps = $this->steps;
-        array_shift( $ouput_steps );
+        array_shift($ouput_steps);
+        $hide = ! isset( $_GET['step'] ) ? 'atbdp-none' : '';
         ?>
-        <ol class="wc-setup-steps">
-            <?php foreach ( $ouput_steps as $step_key => $step ) : ?>
-                <li class="<?php
-                if ( $step_key === $this->step ) {
-                    echo 'active';
-                } elseif ( array_search( $this->step, array_keys( $this->steps ) ) > array_search( $step_key, array_keys( $this->steps ) ) ) {
-                    echo 'done';
-                }
-                ?>"><?php echo esc_html( $step['name'] ); ?></li>
-            <?php endforeach; ?>
-        </ol>
+            <ul class="atbdp-setup-steps <?php echo $hide; ?>">
+                <?php foreach ($ouput_steps as $step_key => $step) : ?>
+                    <li class="<?php
+                        if ($step_key === $this->step) {
+                            echo 'active';
+                        } elseif (array_search($this->step, array_keys($this->steps)) > array_search($step_key, array_keys($this->steps))) {
+                            echo 'done';
+                        }
+                        $number = 1;
+                        if ( 'step-one' == $step_key ) {
+                            $number = 1;
+                        } else if ( 'step-two' == $step_key ) {
+                            $number = 2;
+                        } else if ( 'step-three' == $step_key ) {
+                            $number = 3;
+                        }
+                        ?>"><span><?php echo $number; ?></span><?php echo esc_html($step['name']); ?></li>
+                <?php endforeach; ?>
+            </ul>
         <?php
     }
 
     /**
      * Output the content for the current step.
      */
-    public function setup_wizard_content() {
-        if ( empty( $this->steps[ $this->step ]['view'] ) ) {
-            wp_redirect( esc_url_raw( add_query_arg( 'step', 'introduction' ) ) );
+    public function setup_wizard_content()
+    {
+        if (empty($this->steps[$this->step]['view'])) {
+            wp_redirect(esc_url_raw(add_query_arg('step', 'introduction')));
             exit;
         }
-
-        echo '<div class="wc-setup-content">';
-        call_user_func( $this->steps[ $this->step ]['view'] );
+        $introduction_class = ! isset( $_GET['step'] ) ? 'atbdp_introduction' : '';
+        echo '<div class="atbdp-setup-content '. $introduction_class .'">';
+        call_user_func($this->steps[$this->step]['view']);
         echo '</div>';
     }
 
     /**
      * Setup Wizard Footer.
      */
-    public function setup_wizard_footer() {
+    public function setup_wizard_footer()
+    {
         ?>
-        <?php if ( 'next_steps' === $this->step ) : ?>
-            <a class="wc-return-to-dashboard" href="<?php echo esc_url( admin_url() ); ?>"><?php esc_html_e( 'Return to the WordPress Dashboard', 'directorist' ); ?></a>
-        <?php endif; ?>
+            <?php if ('next_steps' === $this->step) : ?>
+                <a class="atbdp-return-to-dashboard" href="<?php echo esc_url(admin_url()); ?>"><?php esc_html_e('Return to the WordPress Dashboard', 'directorist'); ?></a>
+            <?php endif; ?>
         </body>
+
         </html>
-        <?php
+<?php
     }
 }
 new SetupWizard();

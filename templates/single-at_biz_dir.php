@@ -242,61 +242,68 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 <span class="<?php atbdp_icon_type(true); ?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, 'directorist') ?>
                             </h4>
                         </div>
-                    <?php } ?>
+                    <?php } 
+                    ob_start();
+                    ?>
+                    <div class="atbd_listing_action_area">
+                        <?php 
+                        /**
+                         * @since 6.4.4
+                         */
+                        do_action( 'atbdp_single_listing_before_favourite_icon' );
+                        if ($enable_favourite) { ?>
+                            <div class="atbd_action atbd_save" id="atbdp-favourites">
+                                <?php echo the_atbdp_favourites_link(); ?>
+                            </div>
+                        <?php }  
+                        if ($enable_social_share) { ?>
+                        <div class="atbd_action atbd_share">
+                            <span class="<?php atbdp_icon_type(true); ?>-share"></span>
+                            <?php esc_html_e('Share', 'directorist'); ?>
+                            <div class="atbd_directory_social_wrap">
+                                <?php 
+                                $twt_lnk = 'https://twitter.com/intent/tweet?text=' . $p_title . '&amp;url=' . $p_lnk;
+                                $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
+                                $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
+                                ?>
+                                <ul>
+                                    <li>
+                                        <a target="_blank" href="<?php echo esc_url( $fb_lnk ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-facebook"><?php esc_html_e('Facebook', 'directorist'); ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a target="_blank" href="<?php echo esc_url( $twt_lnk ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-twitter"><?php esc_html_e('Twitter', 'directorist'); ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a target="_blank" href="<?php echo esc_url( $in_link ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-linkedin"><?php esc_html_e('LinkedIn', 'directorist'); ?></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <?php }  
+                        if ($enable_report_abuse) {
+                            $public_report = apply_filters('atbdp_allow_public_report', false);
+                            ?>
+                            <div class="atbd_action atbd_report">
+                                <?php
+                                if(atbdp_logged_in_user() || $public_report){?>
+                                    <a href="javascript:void(0)" data-target="atbdp-report-abuse-modal" class="atbdp-report-abuse-modal">
+                                    <span class="<?php atbdp_icon_type( true ); ?>-flag"></span>
+                                    <?php esc_html_e('Report', 'directorist'); ?>
+                                    </a>
+                               <?php }else{?>
+                                <a href="javascript:void(0)" class="atbdp-require-login">
+                                    <span class="<?php atbdp_icon_type( true ); ?>-flag"></span>
+                                    <?php esc_html_e('Report', 'directorist'); ?>
+                                </a>
+                                <?php }
+                                ?>
+                                    <input type="hidden" id="atbdp-post-id" value="<?php echo get_the_id(); ?>"/>
+                            </div>
+                        <?php } ?>
+                    </div>
                     <?php
-                    $listing_header = '<div class="atbd_listing_action_area">';
-
-                    /**
-                     * @since 6.4.4
-                     */
-                    //$listing_header .= do_action( 'atbdp_single_listing_before_favourite_icon' );
-                    $listing_header .= '<div class="atbd_action">' . do_action( 'atbdp_single_listing_before_favourite_icon' ) . '</div>';
-
-                    if ($enable_favourite) {
-                        $listing_header .= '<div class="atbd_action atbd_save"
-                                 id="atbdp-favourites">' . the_atbdp_favourites_link() . '</div>';
-                    }
-                    if ($enable_social_share) {
-                        $listing_header .= '<div class="atbd_action atbd_share">';
-                        $listing_header .= '<span class="' . atbdp_icon_type() . '-share"></span>' . __('Share', 'directorist') . '';
-
-                        $listing_header .= '<div class="atbd_directory_social_wrap">';
-                        //prepare the data for the links because links needs to be escaped
-                        $twt_lnk = 'https://twitter.com/intent/tweet?text=' . $p_title . '&amp;url=' . $p_lnk;
-                        $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
-                        $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
-                        $listing_header .= '
-                         <ul>
-                        <li>
-                            <a href="' . esc_url($fb_lnk) . '" target="_blank">
-                                <span class="' . atbdp_icon_type() . '-facebook"></span>' . __('Facebook', 'directorist') . '</a>
-                        </li>
-                        <li>
-                            <a href="' . esc_url($twt_lnk) . '" target="_blank">
-                                <span class="' . atbdp_icon_type() . '-twitter"></span>' . __('Twitter', 'directorist') . '</a>
-
-                        </li>
-                        <li>
-                            <a href="' . esc_url($in_link) . '" target="_blank">
-                                <span class="' . atbdp_icon_type() . '-linkedin"></span>' . __('LinkedIn', 'directorist') . '</a>
-                        </li>
-                    </ul>';
-                        $listing_header .= '</div>'; //Ends social share
-                        $listing_header .= '</div>';
-                    }
-                    if ($enable_report_abuse) {
-                        $public_report = apply_filters('atbdp_allow_public_report', false);
-                        $listing_header .= '<div class="atbd_action atbd_report">';
-                        if (atbdp_logged_in_user() || $public_report) {
-                            $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href="javascript:void(0)" data-target="atbdp-report-abuse-modal" class="atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
-                        } else {
-                            $listing_header .= '<a href="javascript:void(0)"
-                               class="atbdp-require-login"><span
-                                        class="' . atbdp_icon_type() . '-flag"></span>' . __('Report', 'directorist') . '</a>';
-                        }
-                        $listing_header .= '<input type="hidden" id="atbdp-post-id" value="' . get_the_ID() . '"/>';
-                        $listing_header .= '</div>';
-                    } ?>
+                    $listing_header = ob_get_clean(); ?>
                     <div class="at-modal atm-fade" id="atbdp-report-abuse-modal">
                         <div class="at-modal-content at-modal-md">
                             <div class="atm-contents-inner">
@@ -326,7 +333,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                             </div>
                         </div>
                     </div>
-                    <?php $listing_header .= '</div>';
+                    <?php
                     /**
                      * @since 5.0
                      */

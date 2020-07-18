@@ -68,6 +68,7 @@ if (!class_exists('ATBDP_Tools')) :
             $all_posts          = csv_get_data($this->file, true, $delimiter);
             $posts              = array_slice($all_posts, $position);
             $total_length       = count($all_posts);
+            $limit              = apply_filters('atbdp_listing_import_limit_per_cycle', ($total_length > 20) ? 20 : 2);
 
             if ( ! $total_length ) {
                 $data['error'] = __('No data found', 'directorist');
@@ -127,7 +128,7 @@ if (!class_exists('ATBDP_Tools')) :
                     $preview_url = isset($post[$preview_image]) ? $post[$preview_image] : '';
 
                     if ( $preview_url ) {
-                       $attachment_id = $this->atbdp_insert_attachment_from_url($preview_url, $post_id);
+                       $attachment_id = self::atbdp_insert_attachment_from_url($preview_url, $post_id);
                        update_post_meta($post_id, '_listing_prv_img', $attachment_id);
                     }
 
@@ -145,7 +146,7 @@ if (!class_exists('ATBDP_Tools')) :
         }
 
 
-       public function atbdp_insert_attachment_from_url($url, $parent_post_id = null) {
+       public static function atbdp_insert_attachment_from_url($url, $parent_post_id = null) {
 
             if( !class_exists( 'WP_Http' ) )
                 include_once( ABSPATH . WPINC . '/class-http.php' );

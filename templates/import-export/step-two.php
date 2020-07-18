@@ -81,7 +81,7 @@ $fields = $args['fields'];
 					?></p>
 			</header>
 			<section>
-				<span class="importer-notice">Your listings are now being imported</span>
+				<span class="importer-notice"><?php esc_html_e('Please don\'t reload the page', 'directorist')?></span>
 				<progress class="directorist-importer-progress" max="100" value="0"></progress>
 				<span class="importer-details"></span>
 			</section>

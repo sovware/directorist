@@ -2960,8 +2960,10 @@ if (!class_exists('ATBDP_Shortcode')):
             if ($count_meta_queries) {
                 $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
             }
+            
+            // $all_listings = new WP_Query($args);
+            $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args, [ 'cache', false ] );
 
-            $all_listings = new WP_Query($args);
             $data_for_template = compact('all_listings', 'paged', 'paginate', 'author_id');
             ob_start();
             $include = apply_filters('include_style_settings', true);

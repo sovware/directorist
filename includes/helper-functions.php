@@ -2343,16 +2343,24 @@ function atbdp_image_cropping($attachmentId, $width, $height, $crop = true, $qua
 }
 
 
-function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
+function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price = false )
 {
     ?>
     <div class="col-lg-12">
         <div class="row" <?php echo (get_directorist_option('grid_view_as', 'normal_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
+            <?php
+            if ( ! empty( $all_listings ) ) :
+                // Prime caches to reduce future queries.
+                if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
+                    _prime_post_caches( $all_listings->ids );
+                }
 
+                $original_post = $GLOBALS['post'];
 
-            <?php if ($all_listings->have_posts()) {
-                while ($all_listings->have_posts()) {
-                    $all_listings->the_post();
+                foreach ( $all_listings->ids as $listings_id ) :
+                    $GLOBALS['post'] = get_post( $listings_id );
+                    setup_postdata( $GLOBALS['post'] );
+
                     $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
                     $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
                     $featured = get_post_meta(get_the_ID(), '_featured', true);
@@ -2758,24 +2766,23 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                             </article>
                         </div>
                     </div>
+                <?php
+                    
+                endforeach;
 
-                <?php }
+                $GLOBALS['post'] = $original_post;
                 wp_reset_postdata();
-            } else { ?>
+
+            else: ?>
                 <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
-            <?php } ?>
+            <?php endif; ?>
 
         </div> <!--ends .row -->
         <div class="row">
             <div class="col-lg-12">
-                <?php
-                if (!empty($paginate)) {
-                    ?>
-                    <?php
-                    $paged = atbdp_get_paged_num();
-                    echo atbdp_pagination($all_listings, $paged);
-                    ?>
-                <?php } ?>
+                <?php if ( ! empty($paginate)) {
+                    echo atbdp_pagination( $all_listings );
+                } ?>
             </div>
         </div>
 

@@ -45,7 +45,7 @@ class ATBDP_Cache_Helper {
         $defaults = [
             'group'      => '',
             'name'       => '',
-            'args'       => '',
+            'query_args' => '',
             'update'     => false,
             'expiration' => 0,
             'cache'      => true,
@@ -53,7 +53,7 @@ class ATBDP_Cache_Helper {
         ];
         $args = array_merge( $defaults, $args );
 
-        $transient_name    = self::get_transient_name( $args['name'], $args['args'] );
+        $transient_name    = self::get_transient_name( $args['name'], $args['query_args'] );
         $transient_version = self::get_transient_version( $args['group'], $args['update'] );
         $transient_value   = $args['cache'] ? get_transient( $transient_name ) : false;
 

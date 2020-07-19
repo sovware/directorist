@@ -1,6 +1,5 @@
 <?php
 !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
-$all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 $paginate = !empty($paginate) ? $paginate : '';
 $is_disable_price = get_directorist_option('disable_list_price');
 $container_fluid = 'container-fluid';
@@ -47,21 +46,24 @@ $container_fluid = 'container-fluid';
                     <div class="atbd_author_meta">
                         <?php
                         $args = array(
-                            'post_type' => ATBDP_POST_TYPE,
-                            'post_status' => 'publish',
-                            'author' => $author_id,
-                            'orderby' => 'post_date',
-                            'order' => 'ASC',
-                            'posts_per_page' => -1 // no limit
+                            'post_type'      => ATBDP_POST_TYPE,
+                            'post_status'    => 'publish',
+                            'author'         => $author_id,
+                            'orderby'        => 'post_date',
+                            'order'          => 'ASC',
+                            'posts_per_page' => -1, // no limit
+                            'fields'         => 'ids'
                         );
                         $current_user_posts = get_posts($args);
+
                         $total_listing = apply_filters('atbdp_author_listing_count', count($current_user_posts));
                         $enable_review = get_directorist_option('enable_review', 1);
                         $review_in_post = 0;
                         $all_reviews = 0;
-                        foreach ($current_user_posts as $post) {
-                            $average = ATBDP()->review->get_average($post->ID);
-                            if (!empty($average)) {
+
+                        foreach ($current_user_posts as $post_id) {
+                            $average = ATBDP()->review->get_average( $post_id );
+                            if ( ! empty( $average ) ) {
                                 $averagee = array($average);
                                 foreach ($averagee as $key) {
                                     $all_reviews += $key;
@@ -69,10 +71,10 @@ $container_fluid = 'container-fluid';
                                 $review_in_post++;
                             }
                         }
+
                         $author_rating = (!empty($all_reviews) && !empty($review_in_post)) ? ($all_reviews / $review_in_post) : 0;
                         $author_rating = substr($author_rating, '0', '3');
-                        if ($enable_review) {
-                        ?>
+                        if ($enable_review) { ?>
                             <div class="atbd_listing_meta">
                                 <span class="atbd_meta atbd_listing_rating">
                                     <?php echo $author_rating; ?><i class="<?php atbdp_icon_type(true); ?>-star"></i>
@@ -222,8 +224,8 @@ $container_fluid = 'container-fluid';
                         <div class="atbd_author_filter_area">
                             <?php
                             /*
-                         * @since 6.2.3
-                         */
+                             * @since 6.2.3
+                             */
                             do_action('atbpd_before_author_listings_category_dropdown', $all_listings);
                             ?>
                             <div class="atbd_dropdown">
@@ -248,7 +250,7 @@ $container_fluid = 'container-fluid';
         <div class="row atbd_authors_listing">
             <?php
             $listings = apply_filters('atbdp_author_listings', true);
-            if ($listings) {
+            if ( $listings ) {
                 listing_view_by_grid($all_listings, $paginate, $is_disable_price);
             } else {
                 // for dev

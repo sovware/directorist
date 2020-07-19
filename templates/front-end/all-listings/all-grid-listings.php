@@ -44,14 +44,14 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
         ?>
         <div class="row" <?php echo ($view_as !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
             <?php
-            // Prime caches to reduce future queries.
-            if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
-                _prime_post_caches( $all_listings->ids );
-            }
-
-            $original_post = $GLOBALS['post'];
-
             if ( ! empty( $all_listings->ids ) ) :
+                // Prime caches to reduce future queries.
+                if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
+                    _prime_post_caches( $all_listings->ids );
+                }
+
+                $original_post = $GLOBALS['post'];
+
                 foreach ( $all_listings->ids as $listings_id ) :
                     $GLOBALS['post'] = get_post( $listings_id );
                     setup_postdata( $GLOBALS['post'] );
@@ -487,14 +487,13 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     </div>
                 <?php
                 endforeach;
+
+                $GLOBALS['post'] = $original_post;
+                wp_reset_postdata();
+                
                 else: ?>
                     <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
-                <?php
-            endif;
-
-            $GLOBALS['post'] = $original_post;
-		    wp_reset_postdata();
-            ?>
+            <?php endif; ?>
 
         </div>
         <!--end row-->

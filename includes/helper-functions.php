@@ -4918,15 +4918,15 @@ function get_plasma_slider()
     
     // Get the preview images
     $preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
-    $preview_img_link = ! empty($preview_img) ? atbdp_get_image_source($preview_img_id, 'large') : '';
+    $preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
     $preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
     $preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
-    
+
     // Get the gallery images
     $listing_img  = get_post_meta( $listing_id, '_listing_img', true );
     $listing_imgs = ( ! empty( $listing_img ) ) ? $listing_img : array();
-    $image_links  = array();                                                                           // define a link placeholder variable
-    
+    $image_links  = array(); // define a link placeholder variable
+
     foreach ( $listing_imgs as $img_id ) {
         $alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
         $alt = ( ! empty( $alt )  ) ? $alt : get_the_title( $img_id );
@@ -4936,7 +4936,7 @@ function get_plasma_slider()
             'src' => atbdp_get_image_source( $img_id, 'large' ),
         ];
     }
-    
+
     // Get the options
     $background_size  = get_directorist_option('single_slider_image_size', 'cover');
     $background_type  = get_directorist_option('single_slider_background_type', 'custom-color');

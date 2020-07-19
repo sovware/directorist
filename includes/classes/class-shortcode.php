@@ -2774,8 +2774,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 return ob_get_clean();
 
             }
-            return '<span>' . __('No Results Found.', 'directorist'
-                ) . '</span>';
+            return '<span>' . __('No Results Found.', 'directorist') . '</span>';
         }
 
         public function search_listing($atts, $content = null)

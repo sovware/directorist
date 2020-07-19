@@ -4938,25 +4938,20 @@ function get_plasma_slider()
     }
 
     // Get the options
-    $background_size  = get_directorist_option('single_slider_image_size', 'cover');
     $background_type  = get_directorist_option('single_slider_background_type', 'custom-color');
-    $slider_width     = get_directorist_option('gallery_crop_width', 670);
-    $slider_height    = get_directorist_option('gallery_crop_height', 750);
-    $background_color = get_directorist_option('single_slider_background_color', 'gainsboro');
-    $show_thumbnails  = get_directorist_option('dsiplay_thumbnail_img', true);
     
     // Set the options
-    $data['images']                     = [];
-    $data['alt']                        = $listing_title;
-    $data['background-size']            = $background_size;
-    $data['blur-background']            = ( 'blur' === $background_type ) ? true : false;
-    $data['width']                      = $slider_width;
-    $data['height']                     = $slider_height;
-    $data['background-color']           = $background_color;
-    $data['thumbnail-background-color'] = '#fff';
-    $data['show-thumbnails']            = $show_thumbnails;
-    $data['gallery']                    = true;
-    $data['rtl']                        = is_rtl();
+    $data['images']             = [];
+    $data['alt']                = $listing_title;
+    $data['background-size']    = get_directorist_option('single_slider_image_size', 'cover');
+    $data['blur-background']    = ( 'blur' === $background_type ) ? true : false;
+    $data['width']              = get_directorist_option('gallery_crop_width', 670);
+    $data['height']             = get_directorist_option('gallery_crop_height', 750);
+    $data['background-color']   = get_directorist_option('single_slider_background_color', 'gainsboro');
+    $data['thumbnail-bg-color'] = '#fff';
+    $data['show-thumbnails']    = get_directorist_option('dsiplay_thumbnail_img', true);
+    $data['gallery']            = true;
+    $data['rtl']                = is_rtl();
 
     if ( $show_gallery && ! empty( $image_links ) ) {
         $data['images'] = $image_links;

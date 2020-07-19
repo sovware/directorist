@@ -27,6 +27,7 @@ class ATBDP_Cache_Helper {
         if ( false === $transient_value || true === $refresh ) {
             $transient_value = (string) time();
             set_transient( $transient_name, $transient_value );
+            self::log( [ 'title' => $transient_name ] );
         }
 
         return $transient_value;
@@ -90,14 +91,14 @@ class ATBDP_Cache_Helper {
         add_action( 'save_post', array( __CLASS__, 'reset_query_cache' ), 10, 3 );
         add_action( 'delete_post', array( __CLASS__, 'reset_query_cache' ) );
         
-        add_action( 'created_' . ATBDP_CATEGORY, array( __CLASS__, 'reset_category_cache' ), 10, 2 );
-        add_action( 'delete_' . ATBDP_CATEGORY, array( __CLASS__, 'reset_category_cache' ), 10, 2 );
+        // add_action( 'created_' . ATBDP_CATEGORY, array( __CLASS__, 'reset_category_cache' ), 10, 2 );
+        // add_action( 'delete_' . ATBDP_CATEGORY, array( __CLASS__, 'reset_category_cache' ), 10, 2 );
 
-        add_action( 'created_' . ATBDP_LOCATION, array( __CLASS__, 'reset_location_cache' ), 10, 2 );
-        add_action( 'delete_' . ATBDP_LOCATION, array( __CLASS__, 'reset_location_cache' ), 10, 2 );
+        // add_action( 'created_' . ATBDP_LOCATION, array( __CLASS__, 'reset_location_cache' ), 10, 2 );
+        // add_action( 'delete_' . ATBDP_LOCATION, array( __CLASS__, 'reset_location_cache' ), 10, 2 );
 
-        add_action( 'created_' . ATBDP_TAGS, array( __CLASS__, 'reset_tag_cache' ), 10, 2 );
-        add_action( 'delete_' . ATBDP_TAGS, array( __CLASS__, 'reset_tag_cache' ), 10, 2 );
+        // add_action( 'created_' . ATBDP_TAGS, array( __CLASS__, 'reset_tag_cache' ), 10, 2 );
+        // add_action( 'delete_' . ATBDP_TAGS, array( __CLASS__, 'reset_tag_cache' ), 10, 2 );
     }
 
     // reset_query_cache

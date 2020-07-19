@@ -4351,10 +4351,10 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
     }
 
     $args =  array(
-        'orderby' => $settings['orderby'],
-        'order' => $settings['order'],
-        'hide_empty' => $settings['hide_empty'],
-        'parent' => $settings['term_id'],
+        'orderby'      => $settings['orderby'],
+        'order'        => $settings['order'],
+        'hide_empty'   => $settings['hide_empty'],
+        'parent'       => $settings['term_id'],
         'hierarchical' => !empty($settings['hide_empty']) ? true : false
     );
 

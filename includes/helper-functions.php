@@ -4355,7 +4355,7 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
         'order'        => $settings['order'],
         'hide_empty'   => $settings['hide_empty'],
         'parent'       => $settings['term_id'],
-        'hierarchical' => !empty($settings['hide_empty']) ? true : false
+        'hierarchical' => ! empty($settings['hide_empty']) ? true : false
     );
 
     if (ATBDP_CATEGORY == $taxonomy_id){

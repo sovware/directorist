@@ -4331,7 +4331,6 @@ if (!function_exists('tract_duplicate_review')) {
 
 function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 {
-
     if ($settings['immediate_category']) {
 
         if ($settings['term_id'] > $settings['parent'] && !in_array($settings['term_id'], $settings['ancestors'])) {
@@ -4365,16 +4364,7 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
         $arg = apply_filters('atbdp_search_listing_location_argument', $args);
     }
 
-    $terms = ATBDP_Cache_Helper::get_the_transient([
-        'group'       => 'atbdp_taxonomy_terms',
-        'name'        => 'atbdp_taxonomy_' . $taxonomy_id,
-        'args'        => $arg,
-        'taxonomy_id' => $taxonomy_id,
-        'cache'       => apply_filters( 'atbdp_cache_search_listing_taxonomy', true ),
-        'value'       => function( $args ) {
-            return get_terms( $args['taxonomy_id'], $args['args'] );
-        }
-    ]);
+    $terms = get_terms( $taxonomy_id, $arg );
 
     $html = '';
 

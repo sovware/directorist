@@ -274,7 +274,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 ),
             );
 
-            if (isset($_GET['custom_field'])) {
+            if ( isset($_GET['custom_field'])) {
                 $cf = array_filter($_GET['custom_field']);
 
                 foreach ($cf as $key => $values) {
@@ -468,7 +468,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     'distance' => $_GET['miles'],           // this is the maximum distance to search
                     'units' => $radius_search_unit       // this supports options: miles, mi, kilometers, km
                 );
-            } elseif (isset($_GET['address'])) {
+            } elseif ( ! empty($_GET['address']) ) {
                 $address = $_GET['address'];
                 $meta_queries[] = array(
                     'key' => '_address',

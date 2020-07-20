@@ -1,12 +1,12 @@
+/* eslint-disable */
 jQuery(document).ready(function($) {
-        
         const import_dummy = $('#atbdp_dummy_form');
         let position = 0;
         let failed = 0;
         let imported = 0;
         $(import_dummy).on('submit', function(e) {
                 e.preventDefault();
-        
+
                 $('.atbdp_dummy_body').fadeOut(300);
                 $('.directorist-importer__importing').fadeIn(300);
                 $(this)
@@ -55,8 +55,42 @@ jQuery(document).ready(function($) {
                                         window.console.log(response);
                                 },
                         });
-    
+
                 };
                 run_import();
         });
-    });
+
+        //options
+        $('.atbdp-sw-gmap-key').hide();
+        $('#select_map').on('change', function (e) {
+                if($(this).val() === 'google'){
+                        $('.atbdp-sw-gmap-key').show();
+                }else{
+                        $('.atbdp-sw-gmap-key').hide();
+                }
+        });
+        if($('#select_map').val() === 'google'){
+                $('.atbdp-sw-gmap-key').show();
+        }else{
+                $('.atbdp-sw-gmap-key').hide();
+        }
+
+        $('.atbdp-sw-featured-listing').hide();
+        $('.atbdp-sw-listing-price').hide();
+        $('#enable_monetization').on('change', function(){
+                if($(this).prop("checked") === true){
+                        $('.atbdp-sw-featured-listing').show();
+                        $('.atbdp-sw-listing-price').show();
+                }else{
+                        $('.atbdp-sw-featured-listing').hide();
+                        $('.atbdp-sw-listing-price').hide();
+                }
+        });
+        if($('#enable_monetization').prop("checked") === true){
+                $('.atbdp-sw-featured-listing').show();
+                $('.atbdp-sw-listing-price').show();
+        }else{
+                $('.atbdp-sw-featured-listing').hide();
+                $('.atbdp-sw-listing-price').hide();
+        }
+});

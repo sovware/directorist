@@ -121,10 +121,10 @@ class SetupWizard
                         }
                     }
                     $skipped = array('name', 'details', 'category', 'location', 'tag', 'listing_prv_img');
-                    
+
                     if(!in_array( $key, $skipped )){
                         update_post_meta( $post_id, '_'.$key, $value );
-                    }     
+                    }
                 }
                 $exp_dt = calc_listing_expiry_date();
                 update_post_meta($post_id, '_expiry_date', $exp_dt);
@@ -271,7 +271,7 @@ class SetupWizard
                             <option value="google">google</option>
                         </select></div>
                 </div>
-                <div class="w-form-group">
+                <div class="w-form-group atbdp-sw-gmap-key">
                     <label for="google_api"> Google Map API key</label>
                     <div><input type="text" name="map_api_key" id="google_api"></div>
                 </div>
@@ -283,7 +283,7 @@ class SetupWizard
                         </div>
                     </div>
                 </div>
-                <div class="w-form-group">
+                <div class="w-form-group atbdp-sw-featured-listing">
                     <label for="enable_featured_listing"> Monetize by Featured Listing</label>
                     <div>
                         <div class="w-toggle-switch">
@@ -291,7 +291,7 @@ class SetupWizard
                         </div>
                     </div>
                 </div>
-                <div class="w-form-group">
+                <div class="w-form-group atbdp-sw-listing-price">
                     <label for="featured_listing_price"> Price in USD</label>
                     <div>
                         <div class="w-input-group">

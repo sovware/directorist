@@ -4,7 +4,7 @@ if ( ! class_exists( 'ATBDP_Listings_Model' ) ) :
         // get_archive_listings_query
         public static function get_archive_listings_query( array $query_args = [], array $custom_option = [] ) {
             $default_option = [
-                'cache'  => true,
+                'cache'  => false,
                 'update' => false,
             ];
             $default_option = array_merge( $default_option, $custom_option );
@@ -26,6 +26,8 @@ if ( ! class_exists( 'ATBDP_Listings_Model' ) ) :
                         'per_page'     => (int) $query->get( 'posts_per_page' ),
                         'current_page' => $paginated ? (int) max( 1, $query->get( 'paged', 1 ) ) : 1,
                     ];
+
+                    // var_dump( $results );
 
                     return $results;
                 }

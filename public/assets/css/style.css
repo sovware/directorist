@@ -2399,6 +2399,8 @@ input[type="radio"].atbdp_radio_input:checked + label:before {
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area {
   display: flex;
+  flex-wrap: wrap;
+  margin: -3px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area span,
@@ -2416,16 +2418,12 @@ input[type="radio"].atbdp_radio_input:checked + label:before {
   color: #7a82a6;
   cursor: pointer;
   border-radius: 4px;
+  margin: 3px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action a,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a {
   color: #7a82a6;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action + .atbd_action,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action + .atbd_action {
-  margin-left: 6px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share,

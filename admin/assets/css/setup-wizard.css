@@ -248,7 +248,7 @@
 .atbdp-setup-steps li:last-child:after{
     content:none;
 }
-.atbdp-setup-steps li span{
+.atbdp-setup-steps li span.atbdp-sw-circle{
     display: inline-flex;
     background: #fff;
     width: 34px;
@@ -260,14 +260,68 @@
     color: #9299B8;
     margin-bottom: 12px;
 }
-.atbdp-setup-steps li.done span{
+.atbdp-setup-steps li span.atbdp-sw-circle .dashicons{
+    display: none;
+}
+.atbdp-setup-steps li.done span.atbdp-sw-circle{
     background: #0FB73B;
     color: #fff;
 }
-.atbdp-setup-steps li.active span{
+.atbdp-setup-steps li.done span.atbdp-sw-circle span{
+    display: none;
+}
+.atbdp-setup-steps li.done span.atbdp-sw-circle span.dashicons{
+    display: inline-block;
+}
+.atbdp-setup-steps li.active span.atbdp-sw-circle{
     background: #272B41;
     color: #fff;
 }
 .atbdp-none{
     display: none;
+}
+
+.directorist-importer__importing h2{
+    margin-top: 0;
+}
+/* progressbar style */
+.directorist-importer__importing progress {
+    border-radius: 15px;
+    width: 100%;
+    height: 30px;
+    overflow: hidden;
+}
+
+.directorist-importer__importing progress::-webkit-progress-bar {
+    background: #E8F0F8;
+    border-radius: 15px;
+}
+
+.directorist-importer__importing progress::-webkit-progress-value {
+    background: #2C99FF;
+}
+
+.directorist-importer__importing progress::-moz-progress-bar {
+    background: #E8F0F8;
+    border-radius: 15px;
+    border: none;
+    box-shadow: none;
+}
+
+.directorist-importer__importing progress[value]::-moz-progress-bar {
+    background: #2C99FF;
+}
+
+.directorist-importer__importing span.importer-notice {
+    display: block;
+    color: #5A5F7D;
+    font-size: 15px;
+    padding-bottom: 13px;
+}
+
+.directorist-importer__importing span.importer-details {
+    display: block;
+    color: #5A5F7D;
+    font-size: 15px;
+    padding-top: 13px;
 }

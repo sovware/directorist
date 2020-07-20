@@ -28,9 +28,27 @@ class SetupWizard
 
         add_action('admin_menu', array($this, 'admin_menus'));
         add_action('admin_init', array($this, 'setup_wizard'), 99);
+        add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
         add_action('wp_ajax_atbdp_dummy_data_import', array($this, 'atbdp_dummy_data_import'));
     }
 
+    public function render_run_admin_setup_wizard_notice() {
+
+        $setup_wizard = get_option( 'directorist_setup_wizard_completed' );
+
+        if( $setup_wizard ) {
+            return;
+        }
+
+        ?>
+
+        <div id="message" class="updated atbdp-message">
+            <p><?php echo wp_kses_post( __( '<strong>Welcome to Directorist</strong> &#8211; You&lsquo;re almost ready to start', 'directorist' ) ); ?></p>
+            <p class="submit"><a href="<?php echo esc_url( admin_url( 'admin.php?page=directorist-setup' ) ); ?>" class="button-primary"><?php esc_html_e( 'Run the Setup Wizard', 'directorist' ); ?></a></p>
+        </div>
+
+    <?php
+    }
 
     public function atbdp_dummy_data_import()
     {
@@ -427,8 +445,9 @@ class SetupWizard
     }
 
     public function directorist_setup_withdraw()
-    { ?>
-
+    {
+        update_option( 'directorist_setup_wizard_completed', true );
+        ?>
         <div class="atbdp-c-body">
             <div class="wsteps-done">
                 <span class="wicon-done dashicons dashicons-yes"></span>
@@ -534,7 +553,7 @@ class SetupWizard
                     <li class="<?php
                         if ($step_key === $this->step) {
                             echo 'active';
-                        } elseif (array_search($this->step, array_keys($this->steps)) > array_search($step_key, array_keys($this->steps))) {
+                        } elseif ( array_search( $this->step, array_keys($this->steps ) ) > array_search( $step_key, array_keys( $this->steps ) ) ) {
                             echo 'done';
                         }
                         $number = 1;
@@ -545,7 +564,7 @@ class SetupWizard
                         } else if ( 'step-three' == $step_key ) {
                             $number = 3;
                         }
-                        ?>"><span><?php echo $number; ?></span><?php echo esc_html($step['name']); ?></li>
+                        ?>"><span class="atbdp-sw-circle"><span><?php echo $number; ?></span> <span class="dashicons dashicons-yes"></span></span><?php echo esc_html($step['name']); ?> </li>
                 <?php endforeach; ?>
             </ul>
         <?php

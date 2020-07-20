@@ -26,10 +26,12 @@ class SetupWizard
     public function __construct()
     {
 
-        add_action('admin_menu', array($this, 'admin_menus'));
-        add_action('admin_init', array($this, 'setup_wizard'), 99);
+        add_action( 'admin_menu', array( $this, 'admin_menus' ) );
+        add_action( 'admin_init', array( $this, 'setup_wizard'), 99);
         add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
-        add_action('wp_ajax_atbdp_dummy_data_import', array($this, 'atbdp_dummy_data_import'));
+        add_action( 'wp_ajax_atbdp_dummy_data_import', array( $this, 'atbdp_dummy_data_import') );
+        add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
+        
     }
 
     public function render_run_admin_setup_wizard_notice() {
@@ -44,10 +46,23 @@ class SetupWizard
 
         <div id="message" class="updated atbdp-message">
             <p><?php echo wp_kses_post( __( '<strong>Welcome to Directorist</strong> &#8211; You&lsquo;re almost ready to start', 'directorist' ) ); ?></p>
-            <p class="submit"><a href="<?php echo esc_url( admin_url( 'admin.php?page=directorist-setup' ) ); ?>" class="button-primary"><?php esc_html_e( 'Run the Setup Wizard', 'directorist' ); ?></a></p>
+            <p class="submit">
+                <a href="<?php echo esc_url( admin_url( 'admin.php?page=directorist-setup' ) ); ?>" class="button-primary"><?php esc_html_e( 'Run the Setup Wizard', 'directorist' ); ?></a>
+                <a class="button-secondary skip" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'directorist-hide-notice', 'install' ), 'directorist_hide_notices_nonce', '_atbdp_notice_nonce' ) ); ?>"><?php _e( 'Skip setup', 'directorist' ); ?></a>
+            </p>
         </div>
 
     <?php
+    }
+
+    public function hide_notices() {
+        if ( isset( $_GET['directorist-hide-notice'] ) && isset( $_GET['_atbdp_notice_nonce'] ) ) { // WPCS: input var ok, CSRF ok.
+			if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_atbdp_notice_nonce'] ) ), 'directorist_hide_notices_nonce' ) ) { // WPCS: input var ok, CSRF ok.
+				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'directorist' ) );
+			}
+
+			update_option( 'directorist_setup_wizard_completed', true );
+		}
     }
 
     public function atbdp_dummy_data_import()
@@ -564,7 +579,7 @@ class SetupWizard
                         } else if ( 'step-three' == $step_key ) {
                             $number = 3;
                         }
-                        ?>"><span><?php echo $number; ?></span><?php echo esc_html($step['name']); ?></li>
+                        ?>"><span class="atbdp-sw-circle"><span><?php echo $number; ?></span> <span class="dashicons dashicons-yes"></span></span><?php echo esc_html($step['name']); ?> </li>
                 <?php endforeach; ?>
             </ul>
         <?php

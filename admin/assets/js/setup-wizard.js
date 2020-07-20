@@ -76,21 +76,30 @@ jQuery(document).ready(function($) {
         }
 
         $('.atbdp-sw-featured-listing').hide();
-        $('.atbdp-sw-listing-price').hide();
         $('#enable_monetization').on('change', function(){
                 if($(this).prop("checked") === true){
                         $('.atbdp-sw-featured-listing').show();
-                        $('.atbdp-sw-listing-price').show();
                 }else{
                         $('.atbdp-sw-featured-listing').hide();
-                        $('.atbdp-sw-listing-price').hide();
                 }
         });
         if($('#enable_monetization').prop("checked") === true){
                 $('.atbdp-sw-featured-listing').show();
-                $('.atbdp-sw-listing-price').show();
         }else{
                 $('.atbdp-sw-featured-listing').hide();
+        }
+
+        $('.atbdp-sw-listing-price').hide();
+        $('#enable_featured_listing').on('change', function(){
+                if($(this).prop("checked") === true){
+                        $('.atbdp-sw-listing-price').show();
+                }else{
+                        $('.atbdp-sw-listing-price').hide();
+                }
+        });
+        if($('#enable_monetization').prop("checked") === true){
+                $('.atbdp-sw-listing-price').show();
+        }else{
                 $('.atbdp-sw-listing-price').hide();
         }
 });

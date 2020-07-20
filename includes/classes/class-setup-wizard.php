@@ -32,8 +32,8 @@ class SetupWizard
         add_action('wp_ajax_atbdp_dummy_data_import', array($this, 'atbdp_dummy_data_import'));
     }
 
-    public function render_run_admin_setup_wizard_notice() { 
-        
+    public function render_run_admin_setup_wizard_notice() {
+
         $setup_wizard = get_option( 'directorist_setup_wizard_completed' );
 
         if( $setup_wizard ) {
@@ -445,7 +445,7 @@ class SetupWizard
     }
 
     public function directorist_setup_withdraw()
-    { 
+    {
         update_option( 'directorist_setup_wizard_completed', true );
         ?>
         <div class="atbdp-c-body">
@@ -564,7 +564,7 @@ class SetupWizard
                         } else if ( 'step-three' == $step_key ) {
                             $number = 3;
                         }
-                        ?>"><span><?php echo $number; ?></span><?php echo esc_html($step['name']); ?></li>
+                        ?>"><span class="atbdp-sw-circle"><span><?php echo $number; ?></span> <span class="dashicons dashicons-yes"></span></span><?php echo esc_html($step['name']); ?> </li>
                 <?php endforeach; ?>
             </ul>
         <?php

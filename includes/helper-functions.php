@@ -4672,11 +4672,12 @@ function atbdp_create_required_pages(){
         'custom_registration' => array(
             'title' => __('Registration', 'directorist'),
             'content' => '[directorist_custom_registration]'
-        ), 'user_login' => array(
+        ), 
+        'user_login' => array(
             'title' => __('Login', 'directorist'),
             'content' => '[directorist_user_login]'
         ),
-        'checkout_page' => array(
+        /* 'checkout_page' => array(
             'title' => __('Checkout', 'directorist'),
             'content' => '[directorist_checkout]'
         ),
@@ -4687,7 +4688,7 @@ function atbdp_create_required_pages(){
         'transaction_failure_page' => array(
             'title' => __('Transaction Failure', 'directorist'),
             'content' => '[directorist_transaction_failure]'
-        ),
+        ), */
     ));
     $new_settings = 0; // lets keep track of new settings so that we do not update option unnecessarily.
     // lets iterate over the array and insert a new page with with the appropriate shortcode if the page id is not available in the option array.

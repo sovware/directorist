@@ -32,8 +32,8 @@ class SetupWizard
         add_action('wp_ajax_atbdp_dummy_data_import', array($this, 'atbdp_dummy_data_import'));
     }
 
-    public function render_run_admin_setup_wizard_notice() { 
-        
+    public function render_run_admin_setup_wizard_notice() {
+
         $setup_wizard = get_option( 'directorist_setup_wizard_completed' );
 
         if( $setup_wizard ) {
@@ -291,7 +291,7 @@ class SetupWizard
                         </div>
                     </div>
                 </div>
-                <div class="w-form-group atbdp-sw-listing-price">
+                <div class="w-form-group atbdp-sw-listing-pricse">
                     <label for="featured_listing_price"> Price in USD</label>
                     <div>
                         <div class="w-input-group">
@@ -445,7 +445,7 @@ class SetupWizard
     }
 
     public function directorist_setup_withdraw()
-    { 
+    {
         update_option( 'directorist_setup_wizard_completed', true );
         ?>
         <div class="atbdp-c-body">

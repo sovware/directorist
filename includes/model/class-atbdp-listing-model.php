@@ -27,8 +27,6 @@ if ( ! class_exists( 'ATBDP_Listings_Model' ) ) :
                         'current_page' => $paginated ? (int) max( 1, $query->get( 'paged', 1 ) ) : 1,
                     ];
 
-                    // var_dump( $results );
-
                     return $results;
                 }
             ];

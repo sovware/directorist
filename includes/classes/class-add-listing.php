@@ -662,6 +662,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                 }
                 if (!empty($post_id)) {
                     do_action('atbdp_after_created_listing', $post_id);
+                    $data['id'] = $post_id;
+                    
                     // handling media files
                     $listing_images = atbdp_get_listing_attachment_ids($post_id);
                     $files = !empty($_FILES["listing_img"]) ? $_FILES["listing_img"] : array();
@@ -850,7 +852,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $data['preview_mode'] = true;
                 }
                 if ($p['listing_id']) {
-                    $data['id'] = $post_id;
                     $data['edited_listing'] = true;
                 }
                 wp_send_json($data);

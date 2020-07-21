@@ -77,7 +77,7 @@ class SetupWizard
         $position           = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
         $all_posts          = $this->read_csv($file);
         $posts              = array_slice($all_posts, $position);
-        $limit              =  (((int)$position + 2) > $total_length) ? 1 : 2;
+        $limit              = 1;
         if ( ! $total_length ) {
             $data['error'] = __('No data found', 'directorist');
             die();

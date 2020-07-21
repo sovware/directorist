@@ -139,15 +139,26 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 6.4.4 - Jul 6, 2020 =
+= 6.5.0 - Jul 18, 2020 =
 
 * Add - CSV Bulk Importer for listing, category, location, tag, media etc.
+* Add - Object Caching
+* Add - Elementor Page Builder Widgets
+* Add - Setup Wizard with dummy data importer
 * Add - Some more options to control listing review
 * Add - Default latitude and longitude of listings map view
 * Fix - Review issue of related listings
 * Fix - Multi-author's listing issue of author profile page
+* Fix - Listings sorting issue of single tag and category page
+* Fix - Listings count issue of user dashboard page
+* Fix - Add listing form issue with Post Your Need extension
 * Fix - Listing renewal link issue
+* Fix - Listing tag widget's issue
+* Fix - Style issues
 * Improve - Database Query
+* Improve - Page loading time
+* Improve - Listings thumbnail
+* Improve - Spacing
 
 = 6.4.3 - Jun 23, 2020 =
 

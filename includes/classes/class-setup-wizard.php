@@ -403,11 +403,10 @@ class SetupWizard
                         <label for="atbdp-listings-to-import"><?php esc_html_e('Number of Listings to import', 'directorist'); ?></label>
                         <div>
                             <select name="total_listings_to_import" id="atbdp-listings-to-import">
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="15">15</option>
-                                <option value="20">20</option>
-                                <option value="25">25</option>
+                                <option value="6">6</option>
+                                <option value="12" selected>12</option>
+                                <option value="18">18</option>
+                                <option value="24">24</option>
                                 <option value="30">30</option>
                             </select>
                         </div>

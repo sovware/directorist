@@ -4308,24 +4308,15 @@ if (!function_exists('tract_duplicate_review')) {
             )
         ];
 
-        $reviews = ATBDP_Cache_Helper::get_the_transient([
-            'group' => 'atbdp_ratings_query',
-            'name'  => 'atbdp_all_ratings_query',
-            'args'  => $args,
-            'cache' => apply_filters( 'atbdp_cache_name', true ),
-            'value' => function( $data ) {
-                $reviews = new WP_Query( $data['args'] );
 
-                $review_meta = array();
-                foreach ($reviews->posts as $key => $val) {
-                    $review_meta[] = !empty($val) ? $val : array();
-                }
+        $reviews = new WP_Query( $args );
 
-                return ( $review_meta ) ? $review_meta : false;
-            }
-        ]);
+        $review_meta = array();
+        foreach ($reviews->posts as $key => $val) {
+            $review_meta[] = !empty($val) ? $val : array();
+        }
 
-        return $reviews;
+        return ( $review_meta ) ? $review_meta : false;
     }
 }
 

@@ -268,10 +268,11 @@
       }
 
       forEach(this.filesMeta, function (file) {
+
         var meta_data = {
           id: file.id,
           url: file.url,
-          oldFile: file.oldFile
+          oldFile: file.oldFile,
         };
 
         if ("attachmentID" in file) {
@@ -283,7 +284,6 @@
         }
 
         if ("file" in file) {
-          // meta_data.file = file.file;
           meta_data.name = file.name;
           meta_data.fileSize = file.fileSize;
           meta_data.fileSizeInText = file.fileSizeInText;

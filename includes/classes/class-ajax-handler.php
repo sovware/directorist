@@ -64,8 +64,98 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             //login
             add_action('wp_ajax_ajaxlogin', array($this, 'atbdp_ajax_login'));
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));
+
             // regenerate pages
             add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
+            
+            // Guset Reception
+            add_action('wp_ajax_atbdp_guest_reception', array($this, 'guest_reception'));
+            add_action('wp_ajax_nopriv_atbdp_guest_reception', array($this, 'guest_reception'));
+
+        }
+
+        // guest_reception
+        public function guest_reception() {
+
+            // Get the data
+            $email = ( ! empty( $_GET['email'] ) ) ? $_GET['email'] : '';
+            $email = ( ! empty( $_POST['email'] ) ) ? $_POST['email'] : $email;
+
+            // Data Validation
+            // ---------------------------
+            $error_log = [];
+
+            // Validate email
+            if ( empty( $email ) ) {
+                $error_log['email'] = [
+                    'key' => 'invalid_email',
+                    'message' => 'Invalid Email',
+                ];
+            }
+
+            // Send error log if has any error
+            if ( ! empty( $error_log  ) ) {
+                $data = [
+                    'status'      => false,
+                    'status_code' => 'invalid_data',
+                    'message'     => 'Invalid data found',
+                    'data'        => [
+                        'error_log' => $error_log
+                    ],
+                ];
+    
+                wp_send_json( $data, 200 );
+            }
+
+            // User Validation
+            // ---------------------------
+            // Check if user exist
+            $email = esc_html( $email  );
+            $email = sanitize_email( $email );
+            $user  = get_user_by( 'email', $email );
+
+            if ( $user ) {
+                $data = [
+                    'status'      => true,
+                    'status_code' => 'user_exist',
+                    'message'     => 'User already existed',
+                    'data'        => [
+                        'user_id' => $user->ID
+                    ],
+                ];
+
+                wp_send_json( $data, 200 );
+            }
+
+            // User Registration
+            // ---------------------------
+            // Register the user
+            $user_name = preg_replace( '/@.+$/', '', $email );
+            $rand      = rand( 10000, 90000 );
+            $username  = "{$user_name}_{$rand}";
+            $new_user  = register_new_user( $username, $email );
+
+            if ( ! $new_user ) {
+                $data = [
+                    'status'      => false,
+                    'status_code' => 'unknown_error',
+                    'message'     => 'Sorry, something went wrong, please try again',
+                    'data'        => null,
+                ];
+
+                wp_send_json( $data, 200 );
+            }
+
+            $data = [
+                'status'      => true,
+                'status_code' => 'registration_successfull',
+                'message'     => 'The user is registrated successfully',
+                'data'        => [
+                    'user_id' => $new_user,
+                ],
+            ];
+
+            wp_send_json( $data, 200 );
         }
 
         /**

@@ -47,6 +47,7 @@ class ATBDP_Cache_Helper {
             'group'      => '',
             'name'       => '',
             'query_args' => '',
+            'data'       => [],
             'update'     => false,
             'expiration' => 0,
             'cache'      => true,
@@ -65,7 +66,10 @@ class ATBDP_Cache_Helper {
             $value = $transient_value['value'];
         } else {
             if ( is_callable( $args['value'] ) ) {
-                $value = $args['value']( $args );
+                $cb_data               = $args['data'];
+                $cb_data['query_args'] = $args['query_args'];
+
+                $value = $args['value']( $cb_data );
             } else {
                 $value = $args['value'];
             }
@@ -117,13 +121,13 @@ class ATBDP_Cache_Helper {
         }
         
         // Reset Cache for Review Table
-        if ( 'atbdp_listing_review' === $post->post_type ) {
+        /* if ( 'atbdp_listing_review' === $post->post_type ) {
             $approve_immediately = get_directorist_option('approve_immediately', 1);
 
             if ( $update || ! empty( $approve_immediately ) ) {
                 self::get_transient_version( 'atbdp_ratings_query', true );
             }
-        }
+        } */
     }
 
     // reset_category_cache

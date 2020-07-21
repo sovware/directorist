@@ -79,7 +79,7 @@ class SetupWizard
         $position           = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
         $all_posts          = $this->read_csv($file);
         $posts              = array_slice($all_posts, $position);
-        $limit              =  (((int)$position + 2) > $total_length) ? 1 : 2;
+        $limit              = 1;
         if ( ! $total_length ) {
             $data['error'] = __('No data found', 'directorist');
             die();
@@ -305,7 +305,7 @@ class SetupWizard
                         </div>
                     </div>
                 </div>
-                <div class="w-form-group atbdp-sw-listing-price">
+                <div class="w-form-group atbdp-sw-listing-pricse">
                     <label for="featured_listing_price"> Price in USD</label>
                     <div>
                         <div class="w-input-group">
@@ -402,11 +402,10 @@ class SetupWizard
                         <label for="atbdp-listings-to-import"><?php esc_html_e('Number of Listings to import', 'directorist'); ?></label>
                         <div>
                             <select name="total_listings_to_import" id="atbdp-listings-to-import">
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="15">15</option>
-                                <option value="20">20</option>
-                                <option value="25">25</option>
+                                <option value="6">6</option>
+                                <option value="12" selected>12</option>
+                                <option value="18">18</option>
+                                <option value="24">24</option>
                                 <option value="30">30</option>
                             </select>
                         </div>

@@ -306,7 +306,7 @@ class SetupWizard
                         </div>
                     </div>
                 </div>
-                <div class="w-form-group atbdp-sw-listing-price">
+                <div class="w-form-group atbdp-sw-listing-pricse">
                     <label for="featured_listing_price"> Price in USD</label>
                     <div>
                         <div class="w-input-group">

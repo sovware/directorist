@@ -353,9 +353,6 @@ jQuery(function ($) {
                         }
                     }
                 }
-
-                console.log( files, files_meta );
-                return;
             } else {
                 $(".listing_submit_btn").removeClass("atbd_loading");
                 err_log.listing_gallery = { msg: 'Listing gallery has invalid files' };
@@ -605,9 +602,6 @@ jQuery(function ($) {
                     $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                     $(".listing_submit_btn").removeClass("atbd_loading");
                 } else {
-                    console.log( response.id );
-                    var upload_post_media = upload_post_media( response.id, listings_attachments );
-                    return;
                     // preview on and no need to redirect to payment
                     if ((response.preview_mode === true) && (response.need_payment !== true)) {
                         if (response.edited_listing !== true) {

@@ -1,5 +1,7 @@
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 /**
  * Setup wizard class
  *
@@ -23,15 +25,18 @@ class SetupWizard
     /**
      * Hook in tabs.
      */
-    public function __construct()
-    {
-
-        add_action( 'admin_menu', array( $this, 'admin_menus' ) );
-        add_action( 'admin_init', array( $this, 'setup_wizard'), 99);
-        add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
-        add_action( 'wp_ajax_atbdp_dummy_data_import', array( $this, 'atbdp_dummy_data_import') );
-        add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
+    public function __construct() {
+        if( ! function_exists('wp_get_current_user') ) {
+            include( ABSPATH . "wp-includes/pluggable.php" ); 
+        }
         
+        if ( current_user_can( 'manage_options' ) ) {
+            add_action( 'admin_menu', array( $this, 'admin_menus' ) );
+            add_action( 'admin_init', array( $this, 'setup_wizard' ), 99 );
+            add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
+            add_action( 'wp_ajax_atbdp_dummy_data_import', array( $this, 'atbdp_dummy_data_import' ) );
+            add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
+        }
     }
 
     public function render_run_admin_setup_wizard_notice() {
@@ -41,9 +46,7 @@ class SetupWizard
         if( $setup_wizard ) {
             return;
         }
-
         ?>
-
         <div id="message" class="updated atbdp-message">
             <p><?php echo wp_kses_post( __( '<strong>Welcome to Directorist</strong> &#8211; You&lsquo;re almost ready to start', 'directorist' ) ); ?></p>
             <p class="submit">
@@ -51,7 +54,6 @@ class SetupWizard
                 <a class="button-secondary skip" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'directorist-hide-notice', 'install' ), 'directorist_hide_notices_nonce', '_atbdp_notice_nonce' ) ); ?>"><?php _e( 'Skip setup', 'directorist' ); ?></a>
             </p>
         </div>
-
     <?php
     }
 
@@ -164,7 +166,6 @@ class SetupWizard
         die();
     }
 
-
     public function read_csv($file){
         $fp = fopen($file, 'r');
         $header = fgetcsv($fp);
@@ -199,8 +200,6 @@ class SetupWizard
         }
 
         $this->set_steps();
-
-
 
         $this->step = isset($_GET['step']) ? sanitize_key($_GET['step']) : current(array_keys($this->steps));
 
@@ -274,7 +273,7 @@ class SetupWizard
 
 ?>
         <div class="atbdp-c-header">
-            <h1><?php esc_html_e('Store Setup', 'directorist'); ?></h1>
+            <h1><?php esc_html_e('Recommend Settings', 'directorist'); ?></h1>
         </div>
 
         <form method="post">
@@ -283,7 +282,7 @@ class SetupWizard
                     <label for="select_map">Select Map</label>
                     <div><select name="select_listing_map" id="select_map">
                             <option value="openstreet">Openstreetmap</option>
-                            <option value="google">google</option>
+                            <option value="google">Google</option>
                         </select></div>
                 </div>
                 <div class="w-form-group atbdp-sw-gmap-key">

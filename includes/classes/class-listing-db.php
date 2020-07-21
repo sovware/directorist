@@ -69,26 +69,28 @@ class ATBDP_Listing_DB {
      * @param int $user_id [optional] The id of the user. Default is current user id.
      * @return WP_Query   it returns an object of the WP_Query class with the items/listings on success and false on failure.
      */
-    public function get_listing_by_user($user_id=0)
+    public function get_listing_by_user( $user_id = 0 )
     {
        $pagination = get_directorist_option('user_listings_pagination',1);
        $listingS_per_page = get_directorist_option('user_listings_per_page',9);
+
         //for pagination
-        $paged                     = atbdp_get_paged_num();
-        $args = array(
-            'author'=> !empty($user_id) ? absint($user_id) :  get_current_user_id(),
-            'post_type'=> ATBDP_POST_TYPE,
-            'posts_per_page'=> (int) $listingS_per_page,
-            'order'=> 'DESC',
-            'orderby' => 'date',
-            'post_status' => array('publish', 'pending', 'private'),
+        $paged = atbdp_get_paged_num();
+        $args  = array(
+            'author'         => ! empty( $user_id ) ? absint( $user_id ) : get_current_user_id(),
+            'post_type'      => ATBDP_POST_TYPE,
+            'posts_per_page' => (int) $listingS_per_page,
+            'order'          => 'DESC',
+            'orderby'        => 'date',
+            'post_status'    => array('publish', 'pending', 'private'),
         );
-        if(!empty($pagination)) {
-            $args['paged']          = $paged;
+        if( ! empty( $pagination) ) {
+            $args['paged'] = $paged;
         }else{
-            $args['no_found_rows']  = false;
+            $args['no_found_rows'] = false;
         }
-        wp_reset_postdata();
+        $args = apply_filters('atbdp_user_dashboard_query_arguments', $args);
+        // return ATBDP_Listings_Model::get_listings_query( $args );
         return new WP_Query(apply_filters('atbdp_user_dashboard_query_arguments',$args));
     }
 

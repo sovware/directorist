@@ -286,6 +286,8 @@ final class Directorist_Base
             // add uninstall menu
             add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
 
+            self::init_hooks();
+
         }
 
         return self::$instance;
@@ -301,6 +303,18 @@ final class Directorist_Base
     private function update_database()
     {
         $this->update_review_table();
+    }
+
+    /**
+     * Init Hooks
+     *
+     * @access private
+     * @since 6.4.5
+     * @return void
+     */
+    public static function init_hooks()
+    {
+        ATBDP_Cache_Helper::reset_cache();
     }
 
 
@@ -352,6 +366,7 @@ final class Directorist_Base
         require_once ATBDP_LIB_DIR . 'vafpress/bootstrap.php'; // load option framework.
         require_once ATBDP_INC_DIR . 'helper-functions.php';
 
+        load_dependencies('all', ATBDP_INC_DIR . 'model/');
         load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
 
         load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR

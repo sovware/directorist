@@ -26,11 +26,44 @@ class SetupWizard
     public function __construct()
     {
 
-        add_action('admin_menu', array($this, 'admin_menus'));
-        add_action('admin_init', array($this, 'setup_wizard'), 99);
-        add_action('wp_ajax_atbdp_dummy_data_import', array($this, 'atbdp_dummy_data_import'));
+        add_action( 'admin_menu', array( $this, 'admin_menus' ) );
+        add_action( 'admin_init', array( $this, 'setup_wizard'), 99);
+        add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
+        add_action( 'wp_ajax_atbdp_dummy_data_import', array( $this, 'atbdp_dummy_data_import') );
+        add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
+        
     }
 
+    public function render_run_admin_setup_wizard_notice() {
+
+        $setup_wizard = get_option( 'directorist_setup_wizard_completed' );
+
+        if( $setup_wizard ) {
+            return;
+        }
+
+        ?>
+
+        <div id="message" class="updated atbdp-message">
+            <p><?php echo wp_kses_post( __( '<strong>Welcome to Directorist</strong> &#8211; You&lsquo;re almost ready to start', 'directorist' ) ); ?></p>
+            <p class="submit">
+                <a href="<?php echo esc_url( admin_url( 'admin.php?page=directorist-setup' ) ); ?>" class="button-primary"><?php esc_html_e( 'Run the Setup Wizard', 'directorist' ); ?></a>
+                <a class="button-secondary skip" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'directorist-hide-notice', 'install' ), 'directorist_hide_notices_nonce', '_atbdp_notice_nonce' ) ); ?>"><?php _e( 'Skip setup', 'directorist' ); ?></a>
+            </p>
+        </div>
+
+    <?php
+    }
+
+    public function hide_notices() {
+        if ( isset( $_GET['directorist-hide-notice'] ) && isset( $_GET['_atbdp_notice_nonce'] ) ) { // WPCS: input var ok, CSRF ok.
+			if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_atbdp_notice_nonce'] ) ), 'directorist_hide_notices_nonce' ) ) { // WPCS: input var ok, CSRF ok.
+				wp_die( esc_html__( 'Action failed. Please refresh the page and retry.', 'directorist' ) );
+			}
+
+			update_option( 'directorist_setup_wizard_completed', true );
+		}
+    }
 
     public function atbdp_dummy_data_import()
     {
@@ -103,10 +136,10 @@ class SetupWizard
                         }
                     }
                     $skipped = array('name', 'details', 'category', 'location', 'tag', 'listing_prv_img');
-                    
+
                     if(!in_array( $key, $skipped )){
                         update_post_meta( $post_id, '_'.$key, $value );
-                    }     
+                    }
                 }
                 $exp_dt = calc_listing_expiry_date();
                 update_post_meta($post_id, '_expiry_date', $exp_dt);
@@ -253,7 +286,7 @@ class SetupWizard
                             <option value="google">google</option>
                         </select></div>
                 </div>
-                <div class="w-form-group">
+                <div class="w-form-group atbdp-sw-gmap-key">
                     <label for="google_api"> Google Map API key</label>
                     <div><input type="text" name="map_api_key" id="google_api"></div>
                 </div>
@@ -265,7 +298,7 @@ class SetupWizard
                         </div>
                     </div>
                 </div>
-                <div class="w-form-group">
+                <div class="w-form-group atbdp-sw-featured-listing">
                     <label for="enable_featured_listing"> Monetize by Featured Listing</label>
                     <div>
                         <div class="w-toggle-switch">
@@ -273,7 +306,7 @@ class SetupWizard
                         </div>
                     </div>
                 </div>
-                <div class="w-form-group">
+                <div class="w-form-group atbdp-sw-listing-price">
                     <label for="featured_listing_price"> Price in USD</label>
                     <div>
                         <div class="w-input-group">
@@ -427,8 +460,9 @@ class SetupWizard
     }
 
     public function directorist_setup_withdraw()
-    { ?>
-
+    {
+        update_option( 'directorist_setup_wizard_completed', true );
+        ?>
         <div class="atbdp-c-body">
             <div class="wsteps-done">
                 <span class="wicon-done dashicons dashicons-yes"></span>
@@ -534,7 +568,7 @@ class SetupWizard
                     <li class="<?php
                         if ($step_key === $this->step) {
                             echo 'active';
-                        } elseif (array_search($this->step, array_keys($this->steps)) > array_search($step_key, array_keys($this->steps))) {
+                        } elseif ( array_search( $this->step, array_keys($this->steps ) ) > array_search( $step_key, array_keys( $this->steps ) ) ) {
                             echo 'done';
                         }
                         $number = 1;
@@ -545,7 +579,7 @@ class SetupWizard
                         } else if ( 'step-three' == $step_key ) {
                             $number = 3;
                         }
-                        ?>"><span><?php echo $number; ?></span><?php echo esc_html($step['name']); ?></li>
+                        ?>"><span class="atbdp-sw-circle"><span><?php echo $number; ?></span> <span class="dashicons dashicons-yes"></span></span><?php echo esc_html($step['name']); ?> </li>
                 <?php endforeach; ?>
             </ul>
         <?php

@@ -438,11 +438,15 @@ if (!function_exists('atbdp_pagination')) {
     {
         $navigation = '';
         $largeNumber = 999999999; // we need a large number here
+
+        $total = ( isset( $custom_post_query->total_pages ) ) ? $custom_post_query->total_pages : $custom_post_query->max_num_pages;
+        $paged = ( isset( $custom_post_query->current_page ) ) ? $custom_post_query->current_page : $paged;
+
         $links = paginate_links(array(
-            'base' => str_replace($largeNumber, '%#%', esc_url(get_pagenum_link($largeNumber))),
-            'format' => '?paged=%#%',
-            'current' => max(1, $paged),
-            'total' => $custom_post_query->max_num_pages,
+            'base'      => str_replace($largeNumber, '%#%', esc_url(get_pagenum_link($largeNumber))),
+            'format'    => '?paged=%#%',
+            'current'   => max(1, $paged),
+            'total'     => $total,
             'prev_text' => apply_filters('atbdp_pagination_prev_text', '<span class="fa fa-chevron-left"></span>'),
             'next_text' => apply_filters('atbdp_pagination_next_text', '<span class="fa fa-chevron-right atbdp_right_nav"></span>'),
         ));
@@ -1712,11 +1716,11 @@ function atbdp_display_price_range($price_range)
 function atbdp_listings_count_by_category($term_id)
 {
     $args = array(
-        'fields' => 'ids',
+        'fields'         => 'ids',
         'posts_per_page' => -1,
-        'post_type' => ATBDP_POST_TYPE,
-        'post_status' => 'publish',
-        'tax_query' => array(
+        'post_type'      => ATBDP_POST_TYPE,
+        'post_status'    => 'publish',
+        'tax_query'      => array(
             array(
                 'taxonomy' => ATBDP_CATEGORY,
                 'field' => 'term_id',
@@ -1724,21 +1728,11 @@ function atbdp_listings_count_by_category($term_id)
                 'include_children' => true
             )
         ),
-        'meta_query' => apply_filters('atbdp_listings_with_category_meta_query', array(
-            'relation' => 'OR',
-            array(
-                'key' => '_expiry_date',
-                'value' => current_time('mysql'),
-                'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
-                'type' => 'DATETIME'
-            ),
-            array(
-                'key' => '_never_expire',
-                'value' => 1,
-            ),
-        ))
     );
-    return count(get_posts($args));
+
+    $total_categories = ATBDP_Listings_Model::get_listings( $args );
+
+    return count( $total_categories );
 }
 
 /**
@@ -1812,7 +1806,6 @@ function atbdp_list_categories($settings)
  */
 function atbdp_listings_count_by_location($term_id)
 {
-
     $args = array(
         'fields' => 'ids',
         'posts_per_page' => -1,
@@ -1825,24 +1818,11 @@ function atbdp_listings_count_by_location($term_id)
                 'terms' => $term_id,
                 'include_children' => true
             )
-        ),
-        'meta_query' => apply_filters('atbdp_listings_with_location_meta_query', array(
-            'relation' => 'OR',
-            array(
-                'key' => '_expiry_date',
-                'value' => current_time('mysql'),
-                'compare' => '>', // eg. expire date 6 <= current date 7 will return the post
-                'type' => 'DATETIME'
-            ),
-            array(
-                'key' => '_never_expire',
-                'value' => 1,
-            ),
-        ))
+        )
     );
 
-    return count(get_posts($args));
-
+    $total_location = ATBDP_Listings_Model::get_listings( $args );
+    return count( $total_location );
 }
 
 /**
@@ -2079,9 +2059,9 @@ function atbdp_get_listings_orderby_options($sort_by_items)
         unset($options['rand']);
     }
     $args = array(
-        'post_type' => ATBDP_POST_TYPE,
+        'post_type'   => ATBDP_POST_TYPE,
         'post_status' => 'publish',
-        'meta_key' => '_price'
+        'meta_key'    => '_price'
     );
 
     $values = new WP_Query($args);
@@ -2363,16 +2343,24 @@ function atbdp_image_cropping($attachmentId, $width, $height, $crop = true, $qua
 }
 
 
-function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
+function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price = false )
 {
     ?>
     <div class="col-lg-12">
         <div class="row" <?php echo (get_directorist_option('grid_view_as', 'normal_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
+            <?php
+            if ( ! empty( $all_listings ) ) :
+                // Prime caches to reduce future queries.
+                if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
+                    _prime_post_caches( $all_listings->ids );
+                }
 
+                $original_post = $GLOBALS['post'];
 
-            <?php if ($all_listings->have_posts()) {
-                while ($all_listings->have_posts()) {
-                    $all_listings->the_post();
+                foreach ( $all_listings->ids as $listings_id ) :
+                    $GLOBALS['post'] = get_post( $listings_id );
+                    setup_postdata( $GLOBALS['post'] );
+
                     $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
                     $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
                     $featured = get_post_meta(get_the_ID(), '_featured', true);
@@ -2778,24 +2766,23 @@ function listing_view_by_grid($all_listings, $paginate, $is_disable_price)
                             </article>
                         </div>
                     </div>
+                <?php
+                    
+                endforeach;
 
-                <?php }
+                $GLOBALS['post'] = $original_post;
                 wp_reset_postdata();
-            } else { ?>
+
+            else: ?>
                 <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
-            <?php } ?>
+            <?php endif; ?>
 
         </div> <!--ends .row -->
         <div class="row">
             <div class="col-lg-12">
-                <?php
-                if (!empty($paginate)) {
-                    ?>
-                    <?php
-                    $paged = atbdp_get_paged_num();
-                    echo atbdp_pagination($all_listings, $paged);
-                    ?>
-                <?php } ?>
+                <?php if ( ! empty($paginate)) {
+                    echo atbdp_pagination( $all_listings );
+                } ?>
             </div>
         </div>
 
@@ -3238,13 +3225,21 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
 {
     $class_name = 'container-fluid';
     $container = apply_filters('list_view_container', $class_name);
+
+    // Prime caches to reduce future queries.
+    if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
+        _prime_post_caches( $all_listings->ids );
+    }
+
+    $original_post = $GLOBALS['post'];
     ?>
     <div class="<?php echo !empty($container) ? $container : 'container'; ?>">
         <div class="row">
             <div class="<?php echo apply_filters('atbdp_listing_list_view_html_class', 'col-md-12') ?>">
                 <?php
-                while ($all_listings->have_posts()) {
-                    $all_listings->the_post(); 
+                foreach ( $all_listings->ids as $listings_id ) :
+                    $GLOBALS['post'] = get_post( $listings_id );
+                    setup_postdata( $GLOBALS['post'] );
                     
                     $thumbnail_link_attr = " " . apply_filters( 'list_view_thumbnail_link_add_attr', '' );
                     $thumbnail_link_attr = trim( $thumbnail_link_attr );
@@ -3602,9 +3597,10 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                             </div>
                         </article>
                     </div>
+                    <?php
+                endforeach;
 
-
-                <?php }
+                $GLOBALS['post'] = $original_post;
                 wp_reset_postdata(); ?>
                 <?php
                 /**
@@ -3612,11 +3608,9 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                  */
                 do_action('atbdp_before_listings_pagination');
 
-                if ('yes' == $show_pagination) { ?>
-                    <?php
-                    echo atbdp_pagination($all_listings, $paged);
-                    ?>
-                <?php } ?>
+                if ('yes' == $show_pagination) {
+                    echo atbdp_pagination($all_listings);
+                } ?>
 
             </div>
         </div>
@@ -4034,52 +4028,64 @@ function bdas_dropdown_terms($args = array(), $echo = true)
 
 function atbdp_get_custom_field_ids($category = 0)
 {
-
-
+    $rq = [
+        'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'post__in'       => '',
+        'meta_query'     => array(
+            array(
+                'key'     => 'searchable',
+                'value'   => 1,
+                'type'    => 'NUMERIC',
+                'compare' => '='
+            ),
+        ),
+        'orderby' => 'meta_value_num',
+        'order'   => 'ASC',
+        'fields'  => 'ids',
+    ];
+    
     // Get global fields
     $args = array(
-        'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-        'post_status' => 'publish',
+        'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+        'post_status'    => 'publish',
         'posts_per_page' => -1,
-        'fields' => 'ids',
-        'meta_query' => array(
+        'fields'         => 'ids',
+        'meta_query'     => array(
             array(
-                'key' => 'associate',
+                'key'   => 'associate',
                 'value' => 'form'
             ),
         )
     );
 
-    $field_ids = get_posts($args);
-
     // Get category fields
-    if ($category > 0) {
-
-        $args = array(
-            'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-            'post_status' => 'publish',
-            'posts_per_page' => -1,
-            'fields' => 'ids',
-            'meta_query' => array(
-                'relation' => 'AND',
-                array(
-                    'key' => 'category_pass',
-                    'value' => $category,
-                    'compare' => 'EXISTS',
-                ),
-                array(
-                    'key' => 'associate',
-                    'value' => 'categories',
-                    'compare' => 'LIKE',
-                )
+    if ( $category > 0 ) {
+        $args['meta_query'] = array(
+            'relation' => 'AND',
+            array(
+                'key'     => 'category_pass',
+                'value'   => $category,
+                'compare' => 'EXISTS',
+            ),
+            array(
+                'key'     => 'associate',
+                'value'   => 'categories',
+                'compare' => 'LIKE',
             )
         );
-
-        $category_fields = get_posts($args);
-        $field_ids = array_merge($field_ids, $category_fields);
-        $field_ids = array_unique($field_ids);
-
     }
+
+    $field_ids = ATBDP_Cache_Helper::get_the_transient([
+        'group' => 'atbdp_custom_field_query',
+        'name'  => 'atbdp_custom_field_ids',
+        'args'  => $args,
+        'cache' => apply_filters( 'atbdp_cache_custom_field_ids', true ),
+        'value' => function( $args ) {
+            return get_posts( $args['args'] );
+        }
+    ]);
 
     // Return
     if (empty($field_ids)) {
@@ -4115,13 +4121,25 @@ function get_advance_search_result_page_link()
 if (!function_exists('get_atbdp_listings_ids')) {
     function get_atbdp_listings_ids()
     {
-        $arg = (array(
-            'post_type' => 'at_biz_dir',
+        $arg = array(
+            'post_type'      => 'at_biz_dir',
             'posts_per_page' => -1,
-            'post_status' => 'publish',
-        ));
+            'post_status'    => 'publish',
+            'fields'         => 'ids'
+        );
 
-        return new WP_Query($arg);
+        $ids = ATBDP_Cache_Helper::get_the_transient([
+            'group'  => 'atbdp_listings_query',
+            'name'   => 'atbdp_listings_ids',
+            'args'   => $arg,
+            'cache'  => apply_filters('cache_atbdp_listings_ids', true),
+            'value'  => function( $data ) {
+                $query = new WP_Query( $data['args'] );
+                return wp_parse_id_list( $query->posts );
+            }
+        ]);
+
+        return $ids;
     }
 }
 
@@ -4181,7 +4199,7 @@ function atbdp_can_use_yoast()
 
 }
 
-/**
+/**arg
  *
  * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
  * @since     5.5.2
@@ -4269,7 +4287,7 @@ function send_review_for_approval($data)
 if (!function_exists('tract_duplicate_review')) {
     function tract_duplicate_review($reviewer, $listing)
     {
-        $reviews = new WP_Query(array(
+        $args = [
             'post_type' => 'atbdp_listing_review',
             'posts_per_page' => -1,
             'post_status' => 'publish',
@@ -4288,20 +4306,31 @@ if (!function_exists('tract_duplicate_review')) {
                     'value' => 'pending',
                 )
             )
-        ));
+        ];
 
-        $review_meta = array();
-        foreach ($reviews->posts as $key => $val) {
-            $review_meta[] = !empty($val) ? $val : array();
-        }
+        $reviews = ATBDP_Cache_Helper::get_the_transient([
+            'group' => 'atbdp_ratings_query',
+            'name'  => 'atbdp_all_ratings_query',
+            'args'  => $args,
+            'cache' => apply_filters( 'atbdp_cache_name', true ),
+            'value' => function( $data ) {
+                $reviews = new WP_Query( $data['args'] );
 
-        return ($review_meta) ? $review_meta : false;
+                $review_meta = array();
+                foreach ($reviews->posts as $key => $val) {
+                    $review_meta[] = !empty($val) ? $val : array();
+                }
+
+                return ( $review_meta ) ? $review_meta : false;
+            }
+        ]);
+
+        return $reviews;
     }
 }
 
 function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
 {
-
     if ($settings['immediate_category']) {
 
         if ($settings['term_id'] > $settings['parent'] && !in_array($settings['term_id'], $settings['ancestors'])) {
@@ -4322,21 +4351,20 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
     }
 
     $args =  array(
-        'orderby' => $settings['orderby'],
-        'order' => $settings['order'],
-        'hide_empty' => $settings['hide_empty'],
-        'parent' => $settings['term_id'],
-        'hierarchical' => !empty($settings['hide_empty']) ? true : false
+        'orderby'      => $settings['orderby'],
+        'order'        => $settings['order'],
+        'hide_empty'   => $settings['hide_empty'],
+        'parent'       => $settings['term_id'],
+        'hierarchical' => ! empty($settings['hide_empty']) ? true : false
     );
 
-    if(ATBDP_CATEGORY == $taxonomy_id){
+    if (ATBDP_CATEGORY == $taxonomy_id){
         $arg = apply_filters('atbdp_search_listing_category_argument', $args);
-    }else{
+    } else {
         $arg = apply_filters('atbdp_search_listing_location_argument', $args);
     }
 
-
-    $terms = get_terms($taxonomy_id, $arg);
+    $terms = get_terms( $taxonomy_id, $arg );
 
     $html = '';
 
@@ -4644,11 +4672,12 @@ function atbdp_create_required_pages(){
         'custom_registration' => array(
             'title' => __('Registration', 'directorist'),
             'content' => '[directorist_custom_registration]'
-        ), 'user_login' => array(
+        ), 
+        'user_login' => array(
             'title' => __('Login', 'directorist'),
             'content' => '[directorist_user_login]'
         ),
-        'checkout_page' => array(
+        /* 'checkout_page' => array(
             'title' => __('Checkout', 'directorist'),
             'content' => '[directorist_checkout]'
         ),
@@ -4659,7 +4688,7 @@ function atbdp_create_required_pages(){
         'transaction_failure_page' => array(
             'title' => __('Transaction Failure', 'directorist'),
             'content' => '[directorist_transaction_failure]'
-        ),
+        ), */
     ));
     $new_settings = 0; // lets keep track of new settings so that we do not update option unnecessarily.
     // lets iterate over the array and insert a new page with with the appropriate shortcode if the page id is not available in the option array.
@@ -4890,15 +4919,15 @@ function get_plasma_slider()
     
     // Get the preview images
     $preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
-    $preview_img_link = ! empty($preview_img) ? atbdp_get_image_source($preview_img_id, 'large') : '';
+    $preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
     $preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
     $preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
-    
+
     // Get the gallery images
     $listing_img  = get_post_meta( $listing_id, '_listing_img', true );
     $listing_imgs = ( ! empty( $listing_img ) ) ? $listing_img : array();
-    $image_links  = array();                                                                           // define a link placeholder variable
-    
+    $image_links  = array(); // define a link placeholder variable
+
     foreach ( $listing_imgs as $img_id ) {
         $alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
         $alt = ( ! empty( $alt )  ) ? $alt : get_the_title( $img_id );
@@ -4908,27 +4937,22 @@ function get_plasma_slider()
             'src' => atbdp_get_image_source( $img_id, 'large' ),
         ];
     }
-    
+
     // Get the options
-    $background_size  = get_directorist_option('single_slider_image_size', 'cover');
     $background_type  = get_directorist_option('single_slider_background_type', 'custom-color');
-    $slider_width     = get_directorist_option('gallery_crop_width', 670);
-    $slider_height    = get_directorist_option('gallery_crop_height', 750);
-    $background_color = get_directorist_option('single_slider_background_color', 'gainsboro');
-    $show_thumbnails  = get_directorist_option('dsiplay_thumbnail_img', true);
     
     // Set the options
-    $data['images']                     = [];
-    $data['alt']                        = $listing_title;
-    $data['background-size']            = $background_size;
-    $data['blur-background']            = ( 'blur' === $background_type ) ? true : false;
-    $data['width']                      = $slider_width;
-    $data['height']                     = $slider_height;
-    $data['background-color']           = $background_color;
-    $data['thumbnail-background-color'] = '#fff';
-    $data['show-thumbnails']            = $show_thumbnails;
-    $data['gallery']                    = true;
-    $data['rtl']                        = is_rtl();
+    $data['images']             = [];
+    $data['alt']                = $listing_title;
+    $data['background-size']    = get_directorist_option('single_slider_image_size', 'cover');
+    $data['blur-background']    = ( 'blur' === $background_type ) ? true : false;
+    $data['width']              = get_directorist_option('gallery_crop_width', 670);
+    $data['height']             = get_directorist_option('gallery_crop_height', 750);
+    $data['background-color']   = get_directorist_option('single_slider_background_color', 'gainsboro');
+    $data['thumbnail-bg-color'] = '#fff';
+    $data['show-thumbnails']    = get_directorist_option('dsiplay_thumbnail_img', true);
+    $data['gallery']            = true;
+    $data['rtl']                = is_rtl();
 
     if ( $show_gallery && ! empty( $image_links ) ) {
         $data['images'] = $image_links;

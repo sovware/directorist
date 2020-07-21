@@ -479,23 +479,28 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
                     return false;
             }
 
+            $ratings = ATBDP_Cache_Helper::get_the_transient([
+                'name '      => "atbdp_ratings_by_{$db_field}_{$value}",
+                'group'      => "atbdp_ratings_query",
+                'db_field'   => $db_field,
+                'value'      => $value,
+                'limit'      => $limit,
+                'table_name' => $this->table_name,
+                'cache'      => apply_filters( 'atbdp_cache_ratings_query', true ),
+                'value'      => function( $args ) {
+                    global $wpdb;
 
-            $cache_key = md5( 'atbdp_ratings' . serialize( $value ) );
+                    $db_field   = $args['db_field'];
+                    $value      = $args['value'];
+                    $limit      = $args['limit'];
+                    $table_name = $args['table_name'];
 
-            $ratings = wp_cache_get( $cache_key, 'ratings' );
+                    $schema = $wpdb->prepare( "SELECT rating FROM $table_name WHERE $db_field = %s LIMIT %d", $value, $limit );
+                    return $wpdb->get_results( $schema );
+                }
+            ]);
 
-            if( $ratings === false ) {
-                $args = $wpdb->prepare( "SELECT rating FROM $this->table_name WHERE $db_field = %s LIMIT %d", $value, $limit );
-                if ( ! $ratings = $wpdb->get_results( $args ) ) { return false; }
-                wp_cache_set( $cache_key, $ratings, 'ratings', 5 ); // cache it for 1 minutes now then increase  it to 1 hour
-            }
             return $ratings;
-
-
-
-
-
-
         }
 
 

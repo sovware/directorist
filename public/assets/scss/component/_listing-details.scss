@@ -72,6 +72,8 @@
     }
     .atbd_listing_action_area {
       display: flex;
+      flex-wrap: wrap;
+      margin: -3px;
       span {
         margin-right: 10px;
         width: auto;
@@ -84,6 +86,7 @@
         color: #7a82a6;
         cursor: pointer;
         border-radius: 4px;
+        margin: 3px;
         a {
           color: #7a82a6;
           &:hover {
@@ -92,9 +95,6 @@
         }
         &:hover {
           @extend .atbd_color-primary;
-        }
-        & + .atbd_action {
-          margin-left: 6px;
         }
         &.atbd_share {
           position: relative;

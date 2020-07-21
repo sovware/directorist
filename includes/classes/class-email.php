@@ -38,30 +38,6 @@ if (!class_exists('ATBDP_Email')):
             add_action('atbdp_deleted_expired_listings', array($this, 'notify_owner_listing_deleted'));
             add_action('atbdp_deleted_expired_listings', array($this, 'notify_admin_listing_deleted'));
 
-            //send new user confirmation notification to user
-            add_filter('wp_mail_from_name', array($this, 'atbdp_wp_mail_from_name'));
-            add_filter('wp_mail_from', array($this, 'atbdp_wp_mail_from'));
-
-        }
-
-
-        /**
-         * @since 5.8.1
-         */
-        public function atbdp_wp_mail_from()
-        {
-            $custom_mail = get_directorist_option('email_from_email', get_option('admin_email'));
-            $admin_email = $custom_mail ? $custom_mail : get_option('admin_email');
-            return apply_filters('atbdp_mail_from', $admin_email);
-        }
-
-        /**
-         * @since 5.8
-         */
-        public function atbdp_wp_mail_from_name()
-        {
-            $site_name = get_option('blogname');
-            return $site_name;
         }
 
         /**

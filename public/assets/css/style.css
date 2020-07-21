@@ -2399,6 +2399,7 @@ input[type="radio"].atbdp_radio_input:checked + label:before {
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   margin: -3px;
 }

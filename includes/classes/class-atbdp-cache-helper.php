@@ -43,8 +43,6 @@ class ATBDP_Cache_Helper {
 
     // get_the_transient
     public static function get_the_transient( $args = [] ) {
-
-        
         $defaults = [
             'group'      => '',
             'name'       => '',
@@ -55,10 +53,10 @@ class ATBDP_Cache_Helper {
             'value'      => null,
         ];
         $args = array_merge( $defaults, $args );
+
         $transient_name    = self::get_transient_name( $args['name'], $args['query_args'] );
         $transient_version = self::get_transient_version( $args['group'], $args['update'] );
         $transient_value   = $args['cache'] ? get_transient( $transient_name ) : false;
-
         
         $has_transient         = isset( $transient_value['value'], $transient_value['version'] ) ? true : false;
         $transient_not_updated = ( $has_transient && $transient_value['version'] === $transient_version ) ? true : false;

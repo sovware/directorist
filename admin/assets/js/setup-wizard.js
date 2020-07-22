@@ -104,5 +104,6 @@ jQuery(document).ready(function($) {
         }
 
         /* custom select */
-        $('#select_map').select2();
+        $('#select_map').select2({minimumResultsForSearch: -1});
+        $('#atbdp-listings-to-import').select2({minimumResultsForSearch: -1});
 });

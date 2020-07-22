@@ -4632,18 +4632,18 @@ function atbdp_create_required_pages(){
             'title' => __('All Listings', 'directorist'),
             'content' => '[directorist_all_listing]'
         ),
-        'all_categories_page' => array(
+        /* 'all_categories_page' => array(
             'title' => __('All Categories', 'directorist'),
             'content' => '[directorist_all_categories]'
-        ),
+        ), */
         'single_category_page' => array(
             'title' => __('Single Category', 'directorist'),
             'content' => '[directorist_category]'
         ),
-        'all_locations_page' => array(
+        /* 'all_locations_page' => array(
             'title' => __('All Locations', 'directorist'),
             'content' => '[directorist_all_locations]'
-        ),
+        ), */
         'single_location_page' => array(
             'title' => __('Single Location', 'directorist'),
             'content' => '[directorist_location]'

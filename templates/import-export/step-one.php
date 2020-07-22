@@ -40,7 +40,7 @@ $upload_dir = wp_upload_dir();
 								?>
 								<div class="csv-upload">
 									<input type="file" id="upload" name="import" required size="25" />
-									<label for="upload"><span class="upload-btn"><?php esc_html_e( 'Upload CSV', 'directorist' ); ?></span> <span class="file-name"><?php esc_html_e( 'No file chosen', 'directorist' ); ?></span></label>
+									<label for="upload"><span class="upload-btn"><i class="dashicons dashicons-upload"></i> <?php esc_html_e( 'Upload CSV', 'directorist' ); ?></span> <span class="file-name"><?php esc_html_e( 'No file chosen', 'directorist' ); ?></span></label>
 									<small>
 										<?php
 										printf(

@@ -153,9 +153,9 @@ function atbdp_create_picvacyAndTerms_pages()
 }
 
 // fire up the functionality for one time
-if (!get_option('atbdp_picvacyAndTerms_pages')) {
+/* if (!get_option('atbdp_picvacyAndTerms_pages')) {
     add_action('wp_loaded', 'atbdp_create_picvacyAndTerms_pages');
-}
+} */
 
 function atbdp_handle_attachment($file_handler, $post_id, $set_thu = false)
 {

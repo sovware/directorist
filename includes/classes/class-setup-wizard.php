@@ -42,7 +42,7 @@ class SetupWizard
     public function render_run_admin_setup_wizard_notice() {
 
         $setup_wizard = get_option( 'directorist_setup_wizard_completed' );
-        $atpdp_setup_wizard = apply_filters( 'atbdp_setup_wizard', false );
+        $atpdp_setup_wizard = apply_filters( 'atbdp_setup_wizard', true );
         if( $setup_wizard || ! $atpdp_setup_wizard ) {
             return;
         }
@@ -840,9 +840,11 @@ class SetupWizard
             <ul class="atbdp-setup-steps <?php echo $hide; ?>">
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php
-                        if ($step_key === $this->step) {
+                        if ($step_key === $this->step && 'step-four' != $step_key ) {
                             echo 'active';
                         } elseif ( array_search( $this->step, array_keys($this->steps ) ) > array_search( $step_key, array_keys( $this->steps ) ) ) {
+                            echo 'done';
+                        } elseif ( isset( $_GET['step'] ) && 'step-four' == $_GET['step'] ) {
                             echo 'done';
                         }
                         $number = 1;

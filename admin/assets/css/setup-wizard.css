@@ -233,7 +233,7 @@
 .atbdp-setup-steps li:after {
     position: absolute;
     content: '';
-    width: 180px;
+    width: 120px;
     height: 3px;
     background: #C6D0DC;
     left: 35px;

@@ -42,10 +42,11 @@ class SetupWizard
     public function render_run_admin_setup_wizard_notice() {
 
         $setup_wizard = get_option( 'directorist_setup_wizard_completed' );
-
-        if( $setup_wizard ) {
+        $atpdp_setup_wizard = apply_filters( 'atbdp_setup_wizard', false );
+        if( $setup_wizard || ! $atpdp_setup_wizard ) {
             return;
         }
+        
         ?>
         <div id="message" class="updated atbdp-message">
             <p><?php echo wp_kses_post( __( '<strong>Welcome to Directorist</strong> &#8211; You&lsquo;re almost ready to start', 'directorist' ) ); ?></p>

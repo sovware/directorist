@@ -31,7 +31,7 @@ class SetupWizard
         add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
         add_action( 'wp_ajax_atbdp_dummy_data_import', array( $this, 'atbdp_dummy_data_import') );
         add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
-        
+
     }
 
     public function render_run_admin_setup_wizard_notice() {
@@ -306,7 +306,7 @@ class SetupWizard
                         </div>
                     </div>
                 </div>
-                <div class="w-form-group atbdp-sw-listing-pricse">
+                <div class="w-form-group atbdp-sw-listing-price">
                     <label for="featured_listing_price"> Price in USD</label>
                     <div>
                         <div class="w-input-group">

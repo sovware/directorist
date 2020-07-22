@@ -4,9 +4,6 @@
  * @since   7.0
  * @version 7.0
  */
-
-
-// var_dump($p_id);
 ?>
 <div class="atbd_content_module atbd_general_information_module">
 

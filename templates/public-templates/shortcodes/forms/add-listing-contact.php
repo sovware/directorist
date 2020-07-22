@@ -107,7 +107,7 @@ if ( $has_contact_info ) { ?>
                 do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_frontend', $listing_info); // @dev
 
                 if ($plan_social_networks && !$display_social_info_for && $display_social_info_field) {
-                    ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
+                    $form->add_listing_socials_template();
                 }
 
                 /**
@@ -129,7 +129,7 @@ if ( $has_contact_info ) { ?>
         <div class="atbd_content_module atbd_business_hour_module">
             <div class="atbd_content_module_title_area">
                 <div class="atbd_area_title">
-                    <h4><?php _e('Opening/Business Hour Information', 'directorist'); ?></h4>
+                    <h4><?php esc_html_e('Opening/Business Hour Information', 'directorist'); ?></h4>
                 </div>
             </div>
 
@@ -147,6 +147,7 @@ if ( $has_contact_info ) { ?>
         </div>
         <?php
     }
+    
     /**
      * It fires before map
      * @param string $type Page type.

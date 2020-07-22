@@ -13,8 +13,7 @@ class Directorist_Listing_Forms {
     public $add_listing_post;
 
     private function __construct() {
-        $this->add_listing_id   = get_query_var('atbdp_listing_id', 0);
-        $this->add_listing_post = !empty($this->add_listing_id) ? get_post($this->add_listing_id) : '';
+        add_action( 'wp', array($this, 'wp_hook') );
     }
 
     public static function instance() {
@@ -22,6 +21,11 @@ class Directorist_Listing_Forms {
             self::$instance = new self;
         }
         return self::$instance;
+    }
+
+    public function wp_hook() {
+        $this->add_listing_id   = get_query_var('atbdp_listing_id', 0);
+        $this->add_listing_post = !empty($this->add_listing_id) ? get_post($this->add_listing_id) : '';
     }
 
     public function get_add_listing_id() {
@@ -525,7 +529,6 @@ class Directorist_Listing_Forms {
     public function add_listing_contact_template() {
         $p_id    = $this->get_add_listing_id();
         $fm_plan = get_post_meta($p_id, '_fm_plans', true);
-        $social  = get_post_meta($p_id, '_social', true);
         $address_label = get_directorist_option('address_label', __('Google Address', 'directorist'));
         $zip_label     = get_directorist_option('zip_label', __('Zip/Post Code', 'directorist'));
         $phone_label   = get_directorist_option('phone_label', __('Phone Number', 'directorist'));
@@ -535,8 +538,9 @@ class Directorist_Listing_Forms {
         $website_label = get_directorist_option('website_label', __('Website', 'directorist'));
 
         $args = array(
+            'form'                       => $this,
             'p_id'                       => $p_id,
-            'listing'                    => get_post($p_id),
+            'listing'                    => $this->add_listing_post,
             'listing_info'               => $this->get_listing_info(),
             'display_fax_for'            => get_directorist_option('display_fax_for', 0),
             'display_phone2_for'         => get_directorist_option('display_fax_for', 0),
@@ -586,7 +590,6 @@ class Directorist_Listing_Forms {
             'website'                    => get_post_meta($p_id, '_website', true),
             'website_placeholder'        => get_directorist_option('website_placeholder', __('Listing Website eg. http://example.com', 'directorist')),
             'plan_social_networks'       => is_fee_manager_active() ? is_plan_allowed_listing_social_networks($fm_plan) : true,
-            'social_info'                => !empty($social) ? $social : array(),
             'plan_hours'                 => is_fee_manager_active() ? is_plan_allowed_business_hours($fm_plan) : true,
         );
 
@@ -595,28 +598,43 @@ class Directorist_Listing_Forms {
         atbdp_get_shortcode_template( 'forms/add-listing-contact', $args );
     }
 
-    public function add_listing_map_template() {
+    public function add_listing_socials_template() {
         $p_id    = $this->get_add_listing_id();
-        $fm_plan = get_post_meta($p_id, '_fm_plans', true);
+        $social  = get_post_meta($p_id, '_social', true);
+        $social_label = get_directorist_option('social_label', __('Social Information', 'directorist'));
 
         $args = array(
-            'p_id'                       => $p_id,
-            'listing_info'               => $this->get_listing_info(),
-            'display_map_for'            => get_directorist_option('display_map_for', 0),
-            'display_map_field'          => get_directorist_option('display_map_field', 1),
-            'display_address_for'        => get_directorist_option('display_address_for', 0),
-            'display_address_field'      => get_directorist_option('display_address_field', 1),
-            'address_label'              => get_directorist_option('address_label', __('Google Address', 'directorist')),
-            'require_address'            => get_directorist_option('require_address'),
-            'address'                    => get_post_meta($p_id, '_address', true),
-            'address_placeholder'        => get_directorist_option('address_placeholder', __('Listing address eg. New York, USA', 'directorist')),
-            'select_listing_map'         => get_directorist_option('select_listing_map', 'google'),
-            'hide_map'                   => get_post_meta($p_id, '_hide_map', true),
-            'display_map_for'            => get_directorist_option('display_map_for', 0),
-            'manual_lat'                 => get_post_meta($p_id, '_manual_lat', true),
-            'manual_lng'                 => get_post_meta($p_id, '_manual_lng', true),
-            'default_latitude'           => get_directorist_option('default_latitude', '40.7127753'),
-            'default_longitude'          => get_directorist_option('default_longitude', '-74.0059728'),
+            'form'    => $this,
+            'socials' => !empty($social) ? $social : array(),
+            'social_label_html' => $this->add_listing_generate_label( $social_label, get_directorist_option('require_social_info') ),
+        );
+        atbdp_get_shortcode_template( 'forms/add-listing-socials', $args );
+    }
+
+    public function add_listing_map_template() {
+        $p_id    = $this->get_add_listing_id();
+        $address_label = get_directorist_option('address_label', __('Google Address', 'directorist'));
+        $manual_lat          = get_post_meta($p_id, '_manual_lat', true);
+        $manual_lng          = get_post_meta($p_id, '_manual_lng', true);
+        $default_latitude    = get_directorist_option('default_latitude', '40.7127753');
+        $default_longitude   = get_directorist_option('default_longitude', '-74.0059728');
+
+        $args = array(
+            'form'                   => $this,
+            'p_id'                   => $p_id,
+            'listing_info'           => $this->get_listing_info(),
+            'display_map_for'        => get_directorist_option('display_map_for', 0),
+            'display_map_field'      => get_directorist_option('display_map_field', 1),
+            'display_address_for'    => get_directorist_option('display_address_for', 0),
+            'display_address_field'  => get_directorist_option('display_address_field', 1),
+            'address_label_html'     => $this->add_listing_generate_label( $address_label, get_directorist_option('require_address') ),
+            'address'                => get_post_meta($p_id, '_address', true),
+            'address_placeholder'    => get_directorist_option('address_placeholder', __('Listing address eg. New York, USA', 'directorist')),
+            'select_listing_map'     => get_directorist_option('select_listing_map', 'google'),
+            'hide_map'               => !empty(get_post_meta($p_id, '_hide_map', true)) ? true : false,
+            'display_map_for'        => get_directorist_option('display_map_for', 0),
+            'latitude'               => !empty($manual_lat) ? $manual_lat : $default_latitude,
+            'longitude'              => !empty($manual_lng) ? $manual_lng : $default_longitude,
         );
 
         atbdp_get_shortcode_template( 'forms/add-listing-map', $args );
@@ -640,6 +658,7 @@ class Directorist_Listing_Forms {
         }
 
         $args = array(
+            'form'               => $this,
             'p_id'               => $p_id,
             'listing_info'       => $this->get_listing_info(),
             'title'              => $this->get_add_listing_image_title(),
@@ -666,6 +685,7 @@ class Directorist_Listing_Forms {
         $p_id  = $this->get_add_listing_id();
 
         $args = array(
+            'form'                     => $this,
             'p_id'                     => $p_id,
             'guest_listings'           => get_directorist_option('guest_listings', 0),
             'guest_email_label'        => get_directorist_option('guest_email', __('Your Email', 'directorist')),
@@ -696,6 +716,7 @@ class Directorist_Listing_Forms {
             $value = get_post_meta($p_id, $id, true);
 
             $args = array(
+                'form'         => $this,
                 'title'        => get_the_title($id),
                 'cf_required'  => get_post_meta($id, 'required', true),
                 'instructions' => get_post_meta($id, 'instructions', true),

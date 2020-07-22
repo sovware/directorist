@@ -102,4 +102,8 @@ jQuery(document).ready(function($) {
         }else{
                 $('.atbdp-sw-listing-price').hide();
         }
+
+        /* custom select */
+        $('#select_map').select2({minimumResultsForSearch: -1});
+        $('#atbdp-listings-to-import').select2({minimumResultsForSearch: -1});
 });

@@ -685,24 +685,26 @@ class Directorist_Listing_Forms {
 
     public function add_listing_submit_template() {
         $p_id  = $this->get_add_listing_id();
+        $guest_email_label = get_directorist_option('guest_email', __('Your Email', 'directorist'));
 
         $args = array(
             'form'                     => $this,
             'p_id'                     => $p_id,
-            'guest_listings'           => get_directorist_option('guest_listings', 0),
-            'guest_email_label'        => get_directorist_option('guest_email', __('Your Email', 'directorist')),
+            'display_guest_listings'   => get_directorist_option('guest_listings', 0),
+            'guest_email_label_html'   => $this->add_listing_generate_label( $guest_email_label, true ),
             'guest_email_placeholder'  => get_directorist_option('guest_email_placeholder', __('example@gmail.com', 'directorist')),
-            'terms_label'              => get_directorist_option('terms_label', __('I agree with all', 'directorist')),
-            'terms_label_link'         => get_directorist_option('terms_label_link', __('terms & conditions', 'directorist')),
-            't_C_page_link'            => ATBDP_Permalink::get_terms_and_conditions_page_url(),
-            'privacy_page_link'        => ATBDP_Permalink::get_privacy_policy_page_url(),
+            'display_privacy'          => get_directorist_option('listing_privacy', 1),
+            'privacy_is_required'      => get_directorist_option('require_privacy'),
+            'privacy_checked'          => (bool) get_post_meta($p_id, '_privacy_policy', true),
             'privacy_label'            => get_directorist_option('privacy_label', __('I agree to the', 'directorist')),
-            'privacy_label_link'       => get_directorist_option('privacy_label_link', __('Privacy & Policy', 'directorist')),
-            'listing_privacy'          => get_directorist_option('listing_privacy', 1),
-            'require_privacy'          => get_directorist_option('require_privacy'),
-            'listing_terms_condition'  => get_directorist_option('listing_terms_condition', 1),
-            'require_terms_conditions' => get_directorist_option('require_terms_conditions'),
-            't_c_check'                => get_post_meta($p_id, '_t_c_check', true),
+            'privacy_link'             => ATBDP_Permalink::get_privacy_policy_page_url(),
+            'privacy_link_text'        => get_directorist_option('privacy_label_link', __('Privacy & Policy', 'directorist')),
+            'display_terms'            => get_directorist_option('listing_terms_condition', 1),
+            'terms_is_required'        => get_directorist_option('require_terms_conditions'),
+            'terms_checked'            => (bool) get_post_meta($p_id, '_t_c_check', true),
+            'terms_label'              => get_directorist_option('terms_label', __('I agree with all', 'directorist')),
+            'terms_link'               => ATBDP_Permalink::get_terms_and_conditions_page_url(),
+            'terms_link_text'          => get_directorist_option('terms_label_link', __('terms & conditions', 'directorist')),
             'submit_label'             => get_directorist_option('submit_label', __('Save & Preview', 'directorist')),
         );
 

@@ -150,39 +150,39 @@
          * @hooked Directorist_Listing_Forms > add_listing_custom_fields_template - 10
          */
         do_action( 'directorist_add_listing_before_location' );
-		
-		if ($display_loc) { ?>
-			<div class="form-group" id="atbdp_locations">
-				<label for="at_biz_dir-location"><?php echo esc_html($location_label_html);?></label>
-				<select name="tax_input[at_biz_dir-location][]" class="form-control" id="at_biz_dir-location"<?php echo $multiple_loc ? ' multiple="multiple"' : '' ?>>
+        
+        if ($display_loc) { ?>
+        	<div class="form-group" id="atbdp_locations">
+        		<label for="at_biz_dir-location"><?php echo esc_html($location_label_html);?></label>
+        		<select name="tax_input[at_biz_dir-location][]" class="form-control" id="at_biz_dir-location"<?php echo $multiple_loc ? ' multiple="multiple"' : '' ?>>
 
-					<?php
-					if (!$multiple_loc) {
-						printf('<option>%s</option>', $loc_placeholder);
-					}
-					
-					echo $location_fields;
-					?>
-				</select>
-			</div>
-			<?php
-		}
+        			<?php
+        			if (!$multiple_loc) {
+        				printf('<option>%s</option>', $loc_placeholder);
+        			}
+        			
+        			echo $location_fields;
+        			?>
+        		</select>
+        	</div>
+        	<?php
+        }
 
-		if ($plan_tag && $display_tag) { ?>
-			<div class="form-group tag_area" id="atbdp_tags">
-				<label for="at_biz_dir-tags"><?php echo esc_html($tag_label_html);?></label>
-				<select name="tax_input[at_biz_dir-tags][]" class="form-control" id="at_biz_dir-tags" multiple="multiple">
-					<?php foreach ($all_tags as $tag) {
-						$checked = in_array($tag->term_id, $listing_tag_ids) ? ' selected' : '';
-						?>
+        if ($plan_tag && $display_tag) { ?>
+        	<div class="form-group tag_area" id="atbdp_tags">
+        		<label for="at_biz_dir-tags"><?php echo esc_html($tag_label_html);?></label>
+        		<select name="tax_input[at_biz_dir-tags][]" class="form-control" id="at_biz_dir-tags" multiple="multiple">
+        			<?php foreach ($all_tags as $tag) {
+        				$checked = in_array($tag->term_id, $listing_tag_ids) ? ' selected' : '';
+        				?>
 
-						<option<?php echo esc_attr($checked); ?> value='<?php echo esc_attr($tag->name); ?>'><?php echo esc_html($tag->name) ?></option>
-						<?php
-					}
-					?>
-				</select>
+        				<option<?php echo esc_attr($checked); ?> value='<?php echo esc_attr($tag->name); ?>'><?php echo esc_html($tag->name) ?></option>
+        				<?php
+        			}
+        			?>
+        		</select>
 
-				<?php
+        		<?php
 				/**
 				 * @since 4.7.2
 				 */
@@ -223,8 +223,8 @@
 		if ($listing_cat_ids) { ?>
 			<div id="atbdp-custom-fields-list-selected" data-post_id="<?php echo esc_attr( $p_id ); ?>">
 				<?php
-		        $category = wp_get_object_terms($p_id, ATBDP_CATEGORY, array('fields' => 'ids'));
-		        $selected_category = count($category) ? $category[0] : -1;
+				$category = wp_get_object_terms($p_id, ATBDP_CATEGORY, array('fields' => 'ids'));
+				$selected_category = count($category) ? $category[0] : -1;
 				$selected_category = !empty($selected_category) ? $selected_category : '';
 				do_action('wp_ajax_atbdp_custom_fields_listings_front_selected', $p_id, $selected_category); ?>
 			</div>

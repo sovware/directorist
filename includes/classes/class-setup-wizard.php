@@ -65,7 +65,44 @@ class SetupWizard
 			}
 
 			update_option( 'directorist_setup_wizard_completed', true );
-		}
+        }
+        
+        $create_pages = [
+            'checkout_page'        => [
+                'post_title'         => 'Checkout',
+                'post_content'       => '[directorist_checkout]',
+            ],
+            'payment_receipt_page' => [
+                'post_title'         => 'Payment Receipt',
+                'post_content'       => '[directorist_payment_receipt]',
+            ],
+            'transaction_failure_page' => [
+                'post_title'         => 'Transaction Failure',
+                'post_content'       => '[directorist_transaction_failure]',
+            ],
+        ];
+        $atbdp_option = get_option( 'atbdp_option' );
+         
+        if (!empty($atbdp_option['enable_monetization'])) {
+            foreach ($create_pages as $key => $name) {
+
+                $args = [
+                    'post_title' => $name['post_title'],
+                    'post_content' => $name['post_content'],
+                    'post_status' => 'publish',
+                    'post_type' => 'page',
+                    'comment_status' => 'closed'
+                ];
+                if (empty($atbdp_option[$key])) {
+                    $id = wp_insert_post($args);
+
+                    if ($id) {
+                        $atbdp_option[$key] = $id;
+                    }
+                }
+            }
+        }
+        update_option('atbdp_option', $atbdp_option);
     }
 
     public function atbdp_dummy_data_import()
@@ -218,6 +255,7 @@ class SetupWizard
     public function enqueue_scripts()
     {
         wp_enqueue_style('atbdp_setup_wizard', ATBDP_ADMIN_ASSETS . 'css/setup-wizard.css', ATBDP_VERSION, true);
+        wp_enqueue_style('atbdp_setup_select2', ATBDP_PUBLIC_ASSETS . 'css/select2.min.css', ATBDP_VERSION, true);
         wp_register_script('directorist-setup', ATBDP_ADMIN_ASSETS . 'js/setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
         wp_register_script('directorist-select2', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array('jquery'), ATBDP_VERSION, true);
         wp_enqueue_script('directorist-setup');
@@ -583,12 +621,12 @@ class SetupWizard
         $atbdp_option['enable_featured_listing'] = !empty($_post_data['enable_featured_listing']) ? $_post_data['enable_featured_listing'] : '';
         $atbdp_option['featured_listing_price'] = !empty($_post_data['featured_listing_price']) ? $_post_data['featured_listing_price'] : '';
 
-        do_action('directorist_admin_setup_wizard_save_step_store');
+        do_action('directorist_admin_setup_wizard_save_step_two');
 
         $create_pages = [
             'checkout_page'        => [
                 'post_title'         => 'Checkout',
-                'post_content'       => '[directorist_transaction_failure]',
+                'post_content'       => '[directorist_checkout]',
             ],
             'payment_receipt_page' => [
                 'post_title'         => 'Payment Receipt',

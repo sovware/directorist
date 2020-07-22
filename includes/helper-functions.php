@@ -2219,9 +2219,9 @@ function the_atbdp_favourites_link($post_id = 0)
         $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
 
         if (in_array($post_id, $favourites)) {
-            return '<span class="' . atbdp_icon_type() . '-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '">' . __('Favorite', 'directorist') . '</a>';
+            return '<span class="' . atbdp_icon_type() . '-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         } else {
-            return '<span class="' . atbdp_icon_type() . '-heart-o"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '">' . __('Favorite', 'directorist') . '</a>';
+            return '<span class="' . atbdp_icon_type() . '-heart-o"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         }
 
     } else {

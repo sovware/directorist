@@ -259,7 +259,6 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         if ($enable_social_share) { ?>
                         <div class="atbd_action atbd_share">
                             <span class="<?php atbdp_icon_type(true); ?>-share"></span>
-                            <?php esc_html_e('Share', 'directorist'); ?>
                             <div class="atbd_directory_social_wrap">
                                 <?php 
                                 $twt_lnk = 'https://twitter.com/intent/tweet?text=' . $p_title . '&amp;url=' . $p_lnk;
@@ -289,12 +288,10 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 if(atbdp_logged_in_user() || $public_report){?>
                                     <a href="javascript:void(0)" data-target="atbdp-report-abuse-modal" class="atbdp-report-abuse-modal">
                                     <span class="<?php atbdp_icon_type( true ); ?>-flag"></span>
-                                    <?php esc_html_e('Report', 'directorist'); ?>
                                     </a>
                                <?php }else{?>
                                 <a href="javascript:void(0)" class="atbdp-require-login">
                                     <span class="<?php atbdp_icon_type( true ); ?>-flag"></span>
-                                    <?php esc_html_e('Report', 'directorist'); ?>
                                 </a>
                                 <?php }
                                 ?>

@@ -27,9 +27,9 @@ class SetupWizard
      */
     public function __construct() {
         if( ! function_exists('wp_get_current_user') ) {
-            include( ABSPATH . "wp-includes/pluggable.php" ); 
+            include( ABSPATH . "wp-includes/pluggable.php" );
         }
-        
+
         if ( current_user_can( 'manage_options' ) ) {
             add_action( 'admin_menu', array( $this, 'admin_menus' ) );
             add_action( 'admin_init', array( $this, 'setup_wizard' ), 99 );
@@ -46,7 +46,7 @@ class SetupWizard
         if( $setup_wizard || ! $atpdp_setup_wizard ) {
             return;
         }
-        
+
         ?>
         <div id="message" class="updated atbdp-message">
             <p><?php echo wp_kses_post( __( '<strong>Welcome to Directorist</strong> &#8211; You&lsquo;re almost ready to start', 'directorist' ) ); ?></p>
@@ -545,8 +545,8 @@ class SetupWizard
                         </div>
                     </div>
                 </div>
-                <div class="w-form-group atbdp-sw-listing-pricse">
-                    <label for="featured_listing_price"><?php _e( 'Price in USD', 'directorist' ); ?></label>
+                <div class="w-form-group atbdp-sw-listing-price">
+                    <label for="featured_listing_price"><?php _e( 'Price', 'directorist' ); ?></label>
                     <div>
                         <div class="w-input-group">
                             <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99>

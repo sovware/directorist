@@ -644,7 +644,6 @@ class Directorist_Listing_Forms {
         $p_id        = $this->get_add_listing_id();
         $fm_plan     = get_post_meta($p_id, '_fm_plans', true);
 
-        $max_size   = get_directorist_option('max_gallery_upload_size', 4);
         $plan_image = get_directorist_option('max_gallery_image_limit', 5);
         $slider_unl = '';
         if (is_fee_manager_active()) {
@@ -657,6 +656,10 @@ class Directorist_Listing_Forms {
             }
         }
 
+        $max_file_size = get_directorist_option('max_gallery_upload_size_per_file', 0);
+        $max_total_file_size = get_directorist_option('max_gallery_upload_size', 4);
+        $video_label = get_directorist_option('video_label', __('Video Url', 'directorist'));
+
         $args = array(
             'form'               => $this,
             'p_id'               => $p_id,
@@ -666,15 +669,14 @@ class Directorist_Listing_Forms {
             'plan_slider'        => $this->get_plan_slider(),
             'listing_img'        => atbdp_get_listing_attachment_ids($p_id),
             'videourl'           => get_post_meta($p_id, '_videourl', true),
-            'plan_image'         => $plan_image,
             'slider_unl'         => $slider_unl,
-            'req_gallery_image'  => get_directorist_option('require_gallery_img'),
-            'max_size_kb'        => (int)$max_size * 1024,
+            'max_file_items'     => !empty($slider_unl) ? '999' : $plan_image,
+            'min_file_items'     => !empty(get_directorist_option('require_gallery_img')) ? '1' : '',
+            'max_file_size_kb'        => (float) $max_file_size * 1024,
+        	'max_total_file_size_kb'  => (float) $max_total_file_size * 1024,
             'gallery_label'      => get_directorist_option('gallery_label', __('Select Files', 'directorist')),
-            'listing_img'        => atbdp_get_listing_attachment_ids($p_id),
-            'video_label'        => get_directorist_option('video_label', __('Video Url', 'directorist')),
+            'video_label_html'   => $this->add_listing_generate_label( $video_label, get_directorist_option('require_video') ),
             'video_placeholder'  => get_directorist_option('video_placeholder', __('Only YouTube & Vimeo URLs.', 'directorist')),
-            'require_video'      => get_directorist_option('require_video'),
             'videourl'           => get_post_meta($p_id, '_videourl', true),
         );
 

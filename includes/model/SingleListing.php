@@ -48,7 +48,7 @@ class Directorist_Single_Listing {
         return $result;
     }
 
-    public function the_header_actions() {
+    public function header_actions_template() {
         $args = array(
             'listing_id'           => $this->get_id(),
             'enable_favourite'     => get_directorist_option('enable_favourite', 1),
@@ -100,7 +100,7 @@ class Directorist_Single_Listing {
         echo apply_filters('atbdp_single_listing_gallery_section', $slider);
     }
 
-    public function the_header_meta() {
+    public function header_meta_template() {
         $id = $this->get_id();
         $fm_plan = get_post_meta($id, '_fm_plans', true);
 
@@ -109,6 +109,7 @@ class Directorist_Single_Listing {
         $review_count_html = $reviews_count . $reviews;
 
         $args = array(
+            'listing'                      => $this,
             'listing_id'                   => $this->get_id(),
             'plan_price'                   => is_fee_manager_active() ? is_plan_allowed_price($fm_plan) : true,
             'plan_average_price'           => is_fee_manager_active() ? is_plan_allowed_average_price_range($fm_plan) : true,
@@ -148,6 +149,7 @@ class Directorist_Single_Listing {
         $content = do_shortcode(wpautop($content));
 
         $args = array(
+            'listing'                      => $this,
             'listing_id'                   => $id,
             'listing_details_text'         => apply_filters('atbdp_single_listing_details_section_text', get_directorist_option('listing_details_text', __('Listing Details', 'directorist'))),
             'p_title'                      => get_the_title(),
@@ -291,6 +293,7 @@ class Directorist_Single_Listing {
         $has_custom_fields  = !empty($field_data) ? true : false;
 
         $args = array(
+            'listing'            => $this,
             'plan_custom_field'  => is_fee_manager_active() ? is_plan_allowed_custom_fields($fm_plan) : true,
             'section_title'      => get_directorist_option('custom_section_lable', __('Details', 'directorist')),
             'has_custom_fields'  => apply_filters('atbdp_single_listing_custom_field', $has_custom_fields),
@@ -309,6 +312,7 @@ class Directorist_Single_Listing {
         $fm_plan = get_post_meta($id, '_fm_plans', true);
 
         $args = array(
+            'listing'          => $this,
             'enable_video_url' => get_directorist_option('atbd_video_url', 1),
             'videourl'         => get_post_meta($id, '_videourl', true),
             'plan_video'       => is_fee_manager_active() ? is_plan_allowed_listing_video($fm_plan) : true,
@@ -375,6 +379,7 @@ class Directorist_Single_Listing {
         $cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
 
         $args = array(
+            'listing'               => $this,
 			'disable_map'           => get_directorist_option('disable_map', 0),
 			'hide_map'              => get_post_meta($id, '_hide_map', true),
 			'default_latitude'      => get_directorist_option('default_latitude', '40.7127753'),
@@ -417,6 +422,7 @@ class Directorist_Single_Listing {
         $address_map_link = get_directorist_option('address_map_link', 0);
 
         $args = array(
+            'listing'                   => $this,
 			'address'                   => $address,
 			'phone'                     => get_post_meta($id, '_phone', true),
 			'phone2'                    => get_post_meta($id, '_phone2', true),
@@ -434,7 +440,7 @@ class Directorist_Single_Listing {
 			'contact_info_text'         => get_directorist_option('contact_info_text', __('Contact Information', 'directorist')),
 			'display_address_field'     => get_directorist_option('display_address_field', 1),
 			'address_label'             => get_directorist_option('address_label', __('Address', 'directorist')),
-			'address_text'              => !empty($address_map_link)?'<a target="google_map" href="https://www.google.de/maps/search/?'.esc_html($address).'">'.esc_html($address).'</a>': esc_html($address),
+			'address_html'              => !empty($address_map_link)?'<a target="google_map" href="https://www.google.de/maps/search/?'.esc_html($address).'">'.esc_html($address).'</a>': esc_html($address),
 	        'display_phone_field'       => get_directorist_option('display_phone_field', 1),
 	        'phone_label'               => get_directorist_option('phone_label', __('Phone', 'directorist')),
 	        'display_phone2_field'      => get_directorist_option('display_phone_field2', 1),
@@ -468,6 +474,7 @@ class Directorist_Single_Listing {
         $user_registered = get_the_author_meta('user_registered', $author_id);
 
         $args = array(
+            'listing'           => $this,
             'author_id'         => $author_id,
             'section_title'     => get_directorist_option('atbd_author_info_title', __('Author Info', 'directorist')),
             'u_pro_pic'         => !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '',
@@ -498,6 +505,7 @@ class Directorist_Single_Listing {
         $fm_plan = get_post_meta($id, '_fm_plans', true);
 
         $args = array(
+            'listing'               => $this,
             'listing_id'            => $id,
             'plan_permission'       => is_fee_manager_active() ? is_plan_allowed_owner_contact_widget($fm_plan) : true,
             'hide_contact_owner'    => get_post_meta($id, '_hide_contact_owner', true),
@@ -517,6 +525,7 @@ class Directorist_Single_Listing {
         $id = $this->get_id();
 
         $args = array(
+            'listing'            => $this,
             'listing_id'         => $id,
             'tags'               => get_the_terms($id, ATBDP_TAGS),
             'enable_single_tag'  => get_directorist_option('enable_single_tag', 1),

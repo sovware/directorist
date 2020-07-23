@@ -120,21 +120,21 @@ do_action('atbdp_before_listing_section');
         ob_start();
         ?>
         <div class="atbd_listing_action_area">
-            <?php 
+            <?php
             /**
              * @since 6.4.4
              */
             do_action( 'atbdp_single_listing_before_favourite_icon' );
             if ($enable_favourite) { ?>
-                <div class="atbd_action atbd_save" id="atbdp-favourites">
+                <div class="atbd_action atbd_save atbd_tooltip" id="atbdp-favourites" aria-label="Favorite">
                     <?php echo the_atbdp_favourites_link(); ?>
                 </div>
-            <?php }  
+            <?php }
             if ($enable_social_share) { ?>
-            <div class="atbd_action atbd_share">
+            <div class="atbd_action atbd_share atbd_tooltip" aria-label="Share">
                 <span class="<?php atbdp_icon_type(true); ?>-share"></span>
                 <div class="atbd_directory_social_wrap">
-                    <?php 
+                    <?php
                     $twt_lnk = 'https://twitter.com/intent/tweet?text=' . $p_title . '&amp;url=' . $p_lnk;
                     $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
                     $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
@@ -153,11 +153,11 @@ do_action('atbdp_before_listing_section');
                 </div>
 
             </div>
-            <?php }  
+            <?php }
             if ($enable_report_abuse) {
                 $public_report = apply_filters('atbdp_allow_public_report', false);
                 ?>
-                <div class="atbd_action atbd_report">
+                <div class="atbd_action atbd_report atbd_tooltip" aria-label="Report">
                     <?php
                     if(atbdp_logged_in_user() || $public_report){?>
                         <a href="javascript:void(0)" data-target="atbdp-report-abuse-modal" class="atbdp-report-abuse-modal">

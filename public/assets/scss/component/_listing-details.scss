@@ -76,7 +76,6 @@
       flex-wrap: wrap;
       margin: -3px;
       span {
-        margin-right: 10px;
         width: auto;
         height: auto;
         top: 0;
@@ -138,6 +137,11 @@
               top: -9px;
               left: 0;
             }
+          }
+        }
+        &.atbd_report{
+          a span{
+            pointer-events: none;
           }
         }
       }

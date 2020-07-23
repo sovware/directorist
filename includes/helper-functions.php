@@ -2353,8 +2353,6 @@ function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price 
             $column_width   = 100 / (int)$columns . '%';
             $query_is_array = is_array( $all_listings ) ? true : false;
 
-            var_dump( $all_listings->posts );
-
             $listings_have_post = false;
             if ( $query_is_array ) {
                 $listings_have_post = ( ! empty( $all_listings ) ) ? true : false;
@@ -2379,10 +2377,12 @@ function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price 
                     $GLOBALS['post'] = $original_post;
                     wp_reset_postdata();
                 } else {
+                    // var_dump( $all_listings->posts );
                     while ( $all_listings->have_posts() ) {
                         $all_listings->the_post();
                         view( 'listings-grid-loop' );
                     }
+                    wp_reset_postdata();
                 }
             else: ?>
                 <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
@@ -2392,7 +2392,8 @@ function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price 
         <div class="row">
             <div class="col-lg-12">
                 <?php if ( ! empty($paginate)) {
-                    echo atbdp_pagination( $all_listings );
+                    $paged = atbdp_get_paged_num();
+                    echo atbdp_pagination( $all_listings, $paged );
                 } ?>
             </div>
         </div>
@@ -4582,7 +4583,7 @@ function view( $file_path, $data = null )
 {
     $path = ATBDP_VIEW_DIR . $file_path . '.php';
     if ( file_exists($path) ) {
-        require_once($path);
+        include($path);
     }
 }
 

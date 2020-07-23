@@ -3295,55 +3295,5 @@ if (!class_exists('ATBDP_Shortcode')):
 
             return ob_get_clean();
         }
-
-
-        // get_listings_transient
-        public function get_listings_transient( $args = [] ) {
-            $defaults = [ 'name' => '', 'args' => '' ];
-            $args = array_merge( $defaults, $args );
-
-            $listings = ATBDP_Cache_Helper::get_the_transient([
-                'group'      => 'atbdp_listings_query',
-                'name'       => $args['name'],
-                'args'       => $args['args'],
-                'expiration' => DAY_IN_SECONDS * 30,
-                'value'      => function( $data ) {
-                    $data['args']['fields'] = 'ids';
-                    $query                  = new \WP_Query( $data['args'] );
-                    $paginated              = ! $query->get( 'no_found_rows' );
-                    
-                    $results = (object) [
-                        'ids'          => wp_parse_id_list( $query->posts ),
-                        'total'        => $paginated ? (int) $query->found_posts : count( $query->posts ),
-                        'total_pages'  => $paginated ? (int) $query->max_num_pages : 1,
-                        'per_page'     => (int) $query->get( 'posts_per_page' ),
-                        'current_page' => $paginated ? (int) max( 1, $query->get( 'paged', 1 ) ) : 1,
-                    ];
-
-                    echo "<div>Updated</div>";
-                    return $results;
-                }
-            ]);
-            
-
-            $default_data = [
-                'ids'          => [],
-                'total'        => 0,
-                'total_pages'  => 1,
-                'per_page'     => 10,
-                'current_page' => 1,
-            ];
-
-            $results = ( object ) $default_data;
-
-            if ( ! is_null( $listings ) && is_object( $listings ) ) {
-                $results = ( object ) array_merge( $default_data, (array) $listings );
-            }
-
-            // var_dump( $results  );
-
-            return $results;
-        }
-
     }
 endif;

@@ -14,10 +14,10 @@ if ( ! class_exists( 'ATBDP_Listings_Model' ) ) :
                 'name'       => 'atbdp_listings_archive',
                 'query_args' => $query_args,
                 'expiration' => DAY_IN_SECONDS * 30,
-                'value'      => function( $option ) {
-                    $option['query_args']['fields'] = 'ids';
-                    $query = new \WP_Query( $option['query_args'] );
-                    $paginated = ! $query->get( 'no_found_rows' );
+                'value'      => function( $data ) {
+                    $data['query_args']['fields'] = 'ids';
+                    $query                        = new \WP_Query( $data['query_args'] );
+                    $paginated                    = ! $query->get( 'no_found_rows' );
                     
                     $results = (object) [
                         'ids'          => wp_parse_id_list( $query->posts ),
@@ -38,12 +38,12 @@ if ( ! class_exists( 'ATBDP_Listings_Model' ) ) :
         // get_listings
         public static function get_listings( array $args = [] ) {
             return ATBDP_Cache_Helper::get_the_transient([
-                'group' => 'atbdp_listings_query',
-                'name'  => 'atbdp_listings',
-                'query_args'  => $args,
-                'cache' => apply_filters( 'atbdp_cache_listings', true ),
-                'value' => function( $option ) {
-                    return get_posts( $option['query_args'] );
+                'group'      => 'atbdp_listings_query',
+                'name'       => 'atbdp_listings',
+                'query_args' => $args,
+                'cache'      => apply_filters( 'atbdp_cache_listings', true ),
+                'value'      => function( $data ) {
+                    return get_posts( $data['query_args'] );
                 }
             ]);
         }
@@ -51,12 +51,12 @@ if ( ! class_exists( 'ATBDP_Listings_Model' ) ) :
         // get_listings_query
         public static function get_listings_query( array $args = [] ) {
             return ATBDP_Cache_Helper::get_the_transient([
-                'group' => 'atbdp_listings_query',
-                'name'  => 'atbdp_listings_query',
-                'query_args'  => $args,
-                'cache' => apply_filters( 'atbdp_cache_listings', true ),
-                'value' => function( $option ) {
-                    return new WP_Query( $option['query_args'] );
+                'group'      => 'atbdp_listings_query',
+                'name'       => 'atbdp_listings_query',
+                'query_args' => $args,
+                'cache'      => apply_filters( 'atbdp_cache_listings', true ),
+                'value'      => function( $data ) {
+                    return new WP_Query( $data['query_args'] );
                 }
             ]);
         }
@@ -76,8 +76,8 @@ if ( ! class_exists( 'ATBDP_Listings_Model' ) ) :
                 'name'       => 'atbdp_cache_listings',
                 'query_args' => $query_args,
                 'expiration' => DAY_IN_SECONDS * 30,
-                'value'      => function( $option ) {
-                    return get_posts( $option['query_args'] );
+                'value'      => function( $data ) {
+                    return get_posts( $data['query_args'] );
                 }
             ]);
         }

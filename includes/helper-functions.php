@@ -4078,12 +4078,12 @@ function atbdp_get_custom_field_ids($category = 0)
     }
 
     $field_ids = ATBDP_Cache_Helper::get_the_transient([
-        'group' => 'atbdp_custom_field_query',
-        'name'  => 'atbdp_custom_field_ids',
-        'args'  => $args,
-        'cache' => apply_filters( 'atbdp_cache_custom_field_ids', true ),
-        'value' => function( $args ) {
-            return get_posts( $args['args'] );
+        'group'      => 'atbdp_custom_field_query',
+        'name'       => 'atbdp_custom_field_ids',
+        'query_args' => $args,
+        'cache'      => apply_filters( 'atbdp_cache_custom_field_ids', true ),
+        'value'      => function( $data ) {
+            return get_posts( $data['query_args'] );
         }
     ]);
 
@@ -4129,12 +4129,12 @@ if (!function_exists('get_atbdp_listings_ids')) {
         );
 
         $ids = ATBDP_Cache_Helper::get_the_transient([
-            'group'  => 'atbdp_listings_query',
-            'name'   => 'atbdp_listings_ids',
-            'args'   => $arg,
-            'cache'  => apply_filters('cache_atbdp_listings_ids', true),
-            'value'  => function( $data ) {
-                $query = new WP_Query( $data['args'] );
+            'group'      => 'atbdp_listings_query',
+            'name'       => 'atbdp_listings_ids',
+            'query_args' => $arg,
+            'cache'      => apply_filters('cache_atbdp_listings_ids', true),
+            'value'      => function( $data ) {
+                $query = new WP_Query( $data['query_args'] );
                 return wp_parse_id_list( $query->posts );
             }
         ]);

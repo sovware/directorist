@@ -20,12 +20,12 @@ $c_args = array(
 );
 
 $custom_fields = ATBDP_Cache_Helper::get_the_transient([
-    'group' => 'atbdp_custom_field_query',
-    'name'  => 'atbdp_all_custom_fields',
-    'args'  => $c_args,
-    'cache' => apply_filters( 'atbdp_cache_atbdp_all_custom_fields', 1 ),
-    'value' => function( $data ) {
-        return  new WP_Query( $data['args'] );
+    'group'      => 'atbdp_custom_field_query',
+    'name'       => 'atbdp_all_custom_fields',
+    'query_args' => $c_args,
+    'cache'      => apply_filters( 'atbdp_cache_atbdp_all_custom_fields', 1 ),
+    'value'      => function( $data ) {
+        return  new WP_Query( $data['query_args'] );
     }
 ]);
 

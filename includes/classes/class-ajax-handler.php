@@ -1164,12 +1164,12 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             );
 
             $custom_fields = ATBDP_Cache_Helper::get_the_transient([
-                'group'  => 'atbdp_custom_field_query',
-                'name'   => 'atbdp_custom_fields',
-                'args'   => $args,
-                'cache'  => apply_filters( 'atbdp_cache_custom_fields', true ),
-                'value'  => function( $args ) {
-                    return get_posts( $args['args'] );
+                'group'      => 'atbdp_custom_field_query',
+                'name'       => 'atbdp_custom_fields',
+                'query_args' => $args,
+                'cache'      => apply_filters( 'atbdp_cache_custom_fields', true ),
+                'value'      => function( $data ) {
+                    return get_posts( $data['query_args'] );
                 }
             ]);
 

@@ -69,6 +69,10 @@ class ATBDP_Cache_Helper {
                 $cb_data               = $args['data'];
                 $cb_data['query_args'] = $args['query_args'];
 
+                if ( isset( $args['args'] ) ) {
+                    $cb_data['args'] = $args['args'];
+                }
+
                 $value = $args['value']( $cb_data );
             } else {
                 $value = $args['value'];

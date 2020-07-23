@@ -720,14 +720,6 @@ if (!class_exists('ATBDP_Shortcode')):
                 $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
             }
 
-            $args = apply_filters('atbdp_listing_search_query_argument', $args);
-            $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
-
-            $default_radius_distance = !empty($_GET['miles']) ? $_GET['miles'] : $default_radius_distance;
-            wp_localize_script( $handel, 'atbdp_range_slider', array(
-                'Miles'     =>  $miles,
-                'default_val'   =>  $default_radius_distance
-            ) );
             $cat_id = !empty($_GET['in_cat']) ? $_GET['in_cat'] : '';
             $loc_id = !empty($_GET['in_loc']) ? $_GET['in_loc'] : '';
             $cat_name = get_term_by('id', $cat_id, ATBDP_CATEGORY);
@@ -738,9 +730,28 @@ if (!class_exists('ATBDP_Shortcode')):
             } else {
                 $in_loc = !empty($_GET['address']) ? sprintf(__('in %s', 'directorist'), $_GET['address']) : '';
             }
-            $result = ( 1 < $all_listings->total ) ? __('results', 'directorist') : __('result', 'directorist');
 
-            $header_title = sprintf(__('%d %s %s %s', 'directorist'), $all_listings->total, $result, $for_cat, $in_loc);
+            $args = apply_filters('atbdp_listing_search_query_argument', $args);
+
+            if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.0', '<=' ) && 'listings_with_map' == $view  ) {
+                $all_listings = new WP_Query( $args );
+                
+                $result = ( 1 < count($all_listings->posts) ) ? __('results', 'directorist') : __('result', 'directorist');
+                $header_title = sprintf(__('%d %s %s %s', 'directorist'), $all_listings->total, $result, $for_cat, $in_loc);
+
+            } else {
+                $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
+
+                $result = ( 1 < $all_listings->total ) ? __('results', 'directorist') : __('result', 'directorist');
+                $header_title = sprintf(__('%d %s %s %s', 'directorist'), $all_listings->total, $result, $for_cat, $in_loc);
+            }
+
+            $default_radius_distance = !empty($_GET['miles']) ? $_GET['miles'] : $default_radius_distance;
+            wp_localize_script( $handel, 'atbdp_range_slider', array(
+                'Miles'     =>  $miles,
+                'default_val'   =>  $default_radius_distance
+            ) );
+            
             $listing_filters_button = get_directorist_option('search_result_filters_button_display', 1);
             $filters = get_directorist_option('search_result_filter_button_text', __('Filters', 'directorist'));
             $text_placeholder = get_directorist_option('search_result_search_text_placeholder', __('What are you looking for?', 'directorist'));

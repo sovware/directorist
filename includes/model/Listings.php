@@ -708,7 +708,7 @@ class Directorist_Listings {
 			$args['meta_query'] = array_merge( array( 'relation' => 'AND' ), $meta_queries );
 		}
 
-		$args    = apply_filters( 'atbdp_all_listings_query_arguments', $args );
+		$args = apply_filters( 'atbdp_all_listings_query_arguments', $args );
 		$this->query = new WP_Query( $args );
 	}
 
@@ -912,7 +912,7 @@ class Directorist_Listings {
 		        'units' => $this->radius_search_unit
 		    );
 		}
-		elseif (isset($_GET['address'])) {
+		elseif ( ! empty($_GET['address']) ) {
 		    $address = sanitize_text_field( $_GET['address'] );
 		    $meta_queries[] = array(
 		        'key' => '_address',

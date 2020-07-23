@@ -1841,9 +1841,18 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
 
                 $args = apply_filters('atbdp_single_category_query_arguments', $args);
-                $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
 
-                $listing_count = '<span>' . $all_listings->total . '</span>';
+                if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.0', '<=' ) && 'listings_with_map' == $view  ) {
+                    $all_listings = new WP_Query( $args );
+                    if ('yes' == $show_pagination) {
+                        $listing_count = '<span>' . $all_listings->found_posts . '</span>';
+                    } else {
+                        $listing_count = '<span>' . count($all_listings->posts) . '</span>';
+                    }
+                } else {
+                    $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
+                    $listing_count = '<span>' . $all_listings->total . '</span>';
+                }
 
                 $display_header = !empty($display_header) ? $display_header : '';
                 $header_title = !empty($header_title) ? $listing_count . ' ' . $header_title : '';
@@ -2336,9 +2345,18 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
 
                 $args = apply_filters( 'atbdp_single_location_query_arguments', $args );
-                $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
 
-                $listing_count = '<span>' . $all_listings->total . '</span>';
+                if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.0', '<=' ) && 'listings_with_map' == $view  ) {
+                    $all_listings = new WP_Query( $args );
+                    if ('yes' == $show_pagination) {
+                        $listing_count = '<span>' . $all_listings->found_posts . '</span>';
+                    } else {
+                        $listing_count = '<span>' . count($all_listings->posts) . '</span>';
+                    }
+                } else {
+                    $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
+                    $listing_count = '<span>' . $all_listings->total . '</span>';
+                }
 
                 $display_header = !empty($display_header) ? $display_header : '';
                 $header_title = !empty($header_title) ? $listing_count . ' ' . $header_title : '';
@@ -2743,8 +2761,18 @@ if (!class_exists('ATBDP_Shortcode')):
                 }
 
                 $args = apply_filters('atbdp_single_tag_query_arguments', $args);
-                $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
-                $listing_count = '<span>' . $all_listings->total . '</span>';
+
+                if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.0', '<=' ) && 'listings_with_map' == $view  ) {
+                    $all_listings = new WP_Query( $args );
+                    if ('yes' == $show_pagination) {
+                        $listing_count = '<span>' . $all_listings->found_posts . '</span>';
+                    } else {
+                        $listing_count = '<span>' . count($all_listings->posts) . '</span>';
+                    }
+                } else {
+                    $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
+                    $listing_count = '<span>' . $all_listings->total . '</span>';
+                }
 
                 $display_header = !empty($display_header) ? $display_header : '';
                 $header_title = !empty($header_title) ? $listing_count . ' ' . $header_title : '';

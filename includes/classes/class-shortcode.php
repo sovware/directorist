@@ -258,7 +258,8 @@ class ATBDP_Shortcode {
             if ($ajax) {
             	wp_die();
             }
-        } else {
+        }
+        else {
         	echo '<div class="custom_field_empty_area"></div>';
         	if ($ajax) {
         		wp_die();

@@ -735,10 +735,9 @@ if (!class_exists('ATBDP_Shortcode')):
 
             if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.0', '<=' ) && 'listings_with_map' == $view  ) {
                 $all_listings = new WP_Query( $args );
-                
-                $result = ( 1 < count($all_listings->posts) ) ? __('results', 'directorist') : __('result', 'directorist');
-                $header_title = sprintf(__('%d %s %s %s', 'directorist'), $all_listings->total, $result, $for_cat, $in_loc);
 
+                $result = (1 < count($all_listings->posts)) ? __('results', 'directorist') : __('result', 'directorist');
+                $header_title = sprintf(__('%d %s %s %s', 'directorist'), $all_listings->found_posts, $result, $for_cat, $in_loc);
             } else {
                 $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
 

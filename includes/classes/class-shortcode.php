@@ -1282,7 +1282,12 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             $arguments = apply_filters('atbdp_all_listings_query_arguments', $args);
-            $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $arguments );
+
+            if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.0', '<=' ) && 'listings_with_map' == $view  ) {
+                $all_listings = new WP_Query( $arguments );
+            } else {
+                $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $arguments );
+            }
 
             $paginate = get_directorist_option('paginate_all_listings');
             $listing_count = '<span>' . $all_listings->total . '</span>';
@@ -1311,7 +1316,9 @@ if (!class_exists('ATBDP_Shortcode')):
             $grid_container_fluid = apply_filters('atbdp_listings_grid_container_fluid', $listing_grid_container_fluid);
             $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
             $include = apply_filters('include_style_settings', true);
+
             ob_start();
+
             if ($include) {
                 include ATBDP_DIR . 'public/assets/css/style.php';
             }

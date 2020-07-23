@@ -18,7 +18,9 @@
 						<?php echo $location['subterm_html'];?>
 					</div>
 				</div>
-			<?php } ?>
+				<?php
+			}
+			?>
 		</div>
 	</div>
 </div>

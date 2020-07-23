@@ -1031,7 +1031,7 @@ class Directorist_Listings {
 			return $redirect;
 		}
 
-		// Extention - Listings with Map //@todo
+		// Extention - Listings with Map @todo @kowsar
 		if ( 'listings_with_map' == $this->view ) {
 			$template_file = "listing-with-map/map-view";
 			$extension_file = BDM_TEMPLATES_DIR . '/map-view';

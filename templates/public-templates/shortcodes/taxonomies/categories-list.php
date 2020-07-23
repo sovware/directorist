@@ -17,6 +17,8 @@
 					<?php echo $category['subterm_html'];?>
 				</div>
 			</div>
-		<?php } ?>
+			<?php
+		}
+		?>
 	</div>
 </div>

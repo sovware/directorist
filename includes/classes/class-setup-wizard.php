@@ -1,5 +1,7 @@
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 /**
  * Setup wizard class
  *
@@ -23,27 +25,29 @@ class SetupWizard
     /**
      * Hook in tabs.
      */
-    public function __construct()
-    {
+    public function __construct() {
+        if( ! function_exists('wp_get_current_user') ) {
+            include( ABSPATH . "wp-includes/pluggable.php" );
+        }
 
-        add_action( 'admin_menu', array( $this, 'admin_menus' ) );
-        add_action( 'admin_init', array( $this, 'setup_wizard'), 99);
-        add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
-        add_action( 'wp_ajax_atbdp_dummy_data_import', array( $this, 'atbdp_dummy_data_import') );
-        add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
-        
+        if ( current_user_can( 'manage_options' ) ) {
+            add_action( 'admin_menu', array( $this, 'admin_menus' ) );
+            add_action( 'admin_init', array( $this, 'setup_wizard' ), 99 );
+            add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
+            add_action( 'wp_ajax_atbdp_dummy_data_import', array( $this, 'atbdp_dummy_data_import' ) );
+            add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
+        }
     }
 
     public function render_run_admin_setup_wizard_notice() {
 
         $setup_wizard = get_option( 'directorist_setup_wizard_completed' );
-
-        if( $setup_wizard ) {
+        $atpdp_setup_wizard = apply_filters( 'atbdp_setup_wizard', true );
+        if( $setup_wizard || ! $atpdp_setup_wizard ) {
             return;
         }
 
         ?>
-
         <div id="message" class="updated atbdp-message">
             <p><?php echo wp_kses_post( __( '<strong>Welcome to Directorist</strong> &#8211; You&lsquo;re almost ready to start', 'directorist' ) ); ?></p>
             <p class="submit">
@@ -51,7 +55,6 @@ class SetupWizard
                 <a class="button-secondary skip" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'directorist-hide-notice', 'install' ), 'directorist_hide_notices_nonce', '_atbdp_notice_nonce' ) ); ?>"><?php _e( 'Skip setup', 'directorist' ); ?></a>
             </p>
         </div>
-
     <?php
     }
 
@@ -62,7 +65,44 @@ class SetupWizard
 			}
 
 			update_option( 'directorist_setup_wizard_completed', true );
-		}
+        }
+        
+        $create_pages = [
+            'checkout_page'        => [
+                'post_title'         => 'Checkout',
+                'post_content'       => '[directorist_checkout]',
+            ],
+            'payment_receipt_page' => [
+                'post_title'         => 'Payment Receipt',
+                'post_content'       => '[directorist_payment_receipt]',
+            ],
+            'transaction_failure_page' => [
+                'post_title'         => 'Transaction Failure',
+                'post_content'       => '[directorist_transaction_failure]',
+            ],
+        ];
+        $atbdp_option = get_option( 'atbdp_option' );
+         
+        if (!empty($atbdp_option['enable_monetization'])) {
+            foreach ($create_pages as $key => $name) {
+
+                $args = [
+                    'post_title' => $name['post_title'],
+                    'post_content' => $name['post_content'],
+                    'post_status' => 'publish',
+                    'post_type' => 'page',
+                    'comment_status' => 'closed'
+                ];
+                if (empty($atbdp_option[$key])) {
+                    $id = wp_insert_post($args);
+
+                    if ($id) {
+                        $atbdp_option[$key] = $id;
+                    }
+                }
+            }
+        }
+        update_option('atbdp_option', $atbdp_option);
     }
 
     public function atbdp_dummy_data_import()
@@ -77,7 +117,7 @@ class SetupWizard
         $position           = isset($_POST['position']) ? sanitize_text_field($_POST['position']) : 0;
         $all_posts          = $this->read_csv($file);
         $posts              = array_slice($all_posts, $position);
-        $limit              =  (((int)$position + 2) > $total_length) ? 1 : 2;
+        $limit              = 1;
         if ( ! $total_length ) {
             $data['error'] = __('No data found', 'directorist');
             die();
@@ -155,7 +195,7 @@ class SetupWizard
         }
         $data['next_position'] = (int) $position + (int) $count;
         $data['percentage']    = absint(min(round((($data['next_position']) / $total_length) * 100), 100));
-        $data['url']           = admin_url('index.php?page=directorist-setup&step=step-three');
+        $data['url']           = admin_url('index.php?page=directorist-setup&step=step-four');
         $data['total']         = $total_length;
         $data['imported']      = $imported;
         $data['failed']        = $failed;
@@ -163,7 +203,6 @@ class SetupWizard
         wp_send_json($data);
         die();
     }
-
 
     public function read_csv($file){
         $fp = fopen($file, 'r');
@@ -200,8 +239,6 @@ class SetupWizard
 
         $this->set_steps();
 
-
-
         $this->step = isset($_GET['step']) ? sanitize_key($_GET['step']) : current(array_keys($this->steps));
 
         $this->enqueue_scripts();
@@ -218,8 +255,11 @@ class SetupWizard
     public function enqueue_scripts()
     {
         wp_enqueue_style('atbdp_setup_wizard', ATBDP_ADMIN_ASSETS . 'css/setup-wizard.css', ATBDP_VERSION, true);
+        wp_enqueue_style('atbdp_setup_select2', ATBDP_PUBLIC_ASSETS . 'css/select2.min.css', ATBDP_VERSION, true);
         wp_register_script('directorist-setup', ATBDP_ADMIN_ASSETS . 'js/setup-wizard.js', array('jquery'), ATBDP_VERSION, true);
+        wp_register_script('directorist-select2', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array('jquery'), ATBDP_VERSION, true);
         wp_enqueue_script('directorist-setup');
+        wp_enqueue_script('directorist-select2');
         $data = array(
             'ajaxurl'        => admin_url('admin-ajax.php'),
         );
@@ -238,60 +278,297 @@ class SetupWizard
         $this->steps = apply_filters('directorist_admin_setup_wizard_steps', array(
             'introduction' => array(
                 'name'    =>  __('Introduction', 'directorist'),
-                'view'    => array($this, 'directorist_setup_introduction'),
+                'view'    => array( $this, 'directorist_setup_introduction' ),
             ),
             'step-one' => array(
                 'name'    =>  __('Step One', 'directorist'),
-                'view'    => array($this, 'directorist_setup_store'),
-                'handler' => array($this, 'directorist_setup_store_save'),
+                'view'    => array( $this, 'directorist_step_one' ),
+                'handler' => array( $this, 'directorist_step_one_save' ),
             ),
             'step-two' => array(
                 'name'    =>  __('Step Two', 'directorist'),
-                'view'    => array($this, 'directorist_setup_selling'),
-                'handler' => array($this, 'directorist_setup_selling_save'),
+                'view'    => array( $this, 'directorist_step_two' ),
+                'handler' => array( $this, 'directorist_step_two_save' ),
             ),
             'step-three' => array(
                 'name'    =>  __('Step Three', 'directorist'),
-                'view'    => array($this, 'directorist_setup_withdraw'),
-                'handler' => array($this, 'directorist_setup_withdraw_save'),
+                'view'    => array( $this, 'directorist_step_three' ),
+                'handler' => array( $this, 'directorist_step_three_save' ),
+            ),
+            'step-four' => array(
+                'name'    =>  __('Step Four', 'directorist'),
+                'view'    => array( $this, 'directorist_step_four' ),
             ),
         ));
     }
-    public function directorist_setup_store()
-    {
-        $general_options        = get_option('directorist_general', array());
-        $custom_store_url       = !empty($general_options['custom_store_url']) ? $general_options['custom_store_url'] : 'store';
 
-        $selling_options        = get_option('directorist_selling', array());
-        $shipping_fee_recipient = !empty($selling_options['shipping_fee_recipient']) ? $selling_options['shipping_fee_recipient'] : 'seller';
-        $tax_fee_recipient      = !empty($selling_options['tax_fee_recipient']) ? $selling_options['tax_fee_recipient'] : 'seller';
-
-
-        $recipients = array(
-            'seller' => __('Vendor', 'directorist'),
-            'admin'  => __('Admin', 'directorist'),
-        );
-
-?>
+    public function directorist_step_one() { ?>
         <div class="atbdp-c-header">
-            <h1><?php esc_html_e('Store Setup', 'directorist'); ?></h1>
+            <h1><?php esc_html_e('Recommend Pages', 'directorist'); ?></h1>
         </div>
 
         <form method="post">
             <div class="atbdp-c-body">
                 <div class="w-form-group">
-                    <label for="select_map">Select Map</label>
+                    <label for="add_listing_page"><?php _e( 'Add Listing', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='add_listing' class="w-switch" id='add_listing' value=1 checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="all_listings"><?php _e( 'All Listings', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='all_listings' class="w-switch" id='all_listings' value=1 checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="single_category"><?php _e( 'Single Category', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='single_category' class="w-switch" id='single_category' value=1 checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="single_location"><?php _e( 'Single Location', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='single_location' class="w-switch" id='single_location' value=1 checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="single_tag"><?php _e( 'Single Tag', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='single_tag' class="w-switch" id='single_tag' value=1 checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="author_profile"><?php _e( 'Author Profile', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='author_profile' class="w-switch" id='author_profile' value=1 checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="dashboard"><?php _e( 'Dashboard', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='dashboard' class="w-switch" id='dashboard' value=1 checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="login"><?php _e( 'Login', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='login' class="w-switch" id='login' value=1 checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="registration"><?php _e( 'Registration', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='registration' class="w-switch" id='registration' value=1 checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="search_listing"><?php _e( 'Search Listing', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='search_listing' class="w-switch" id='search_listing' value=1 checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="search_result"><?php _e( 'Search Result', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='search_result' class="w-switch" id='search_result' value=1 checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="all_categories"><?php _e( 'All Categories', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='all_categories' class="w-switch" id='all_categories' value=1>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="all_locations"><?php _e( 'All Locations', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='all_locations' class="w-switch" id='all_locations' value=1>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="terms_conditions"><?php _e( 'Terms & Conditions', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='terms_conditions' class="w-switch" id='terms_conditions' value=1>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-form-group">
+                    <label for="privacy_policy"><?php _e( 'Privacy Policy', 'directorist' ); ?></label>
+                    <div>
+                        <div class="w-toggle-switch">
+                            <input type="checkbox" name='privacy_policy' class="w-switch" id='privacy_policy' value=1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="atbdp-c-footer">
+                <p class="atbdp-setup-actions step">
+                    <a href="<?php echo esc_url($this->get_next_step_link()); ?>" class="w-skip-link"><?php esc_html_e('Skip this step', 'directorist'); ?></a>
+                    <?php wp_nonce_field('directorist-setup'); ?>
+                    <input type="submit" class="wbtn wbtn-primary" value="<?php esc_attr_e('Continue', 'directorist'); ?>" name="save_step" />
+                </p>
+            </div>
+        </form>
+        <?php
+    }
+
+    public function directorist_step_one_save() {
+        check_admin_referer('directorist-setup');
+
+        $_post_data = wp_unslash( $_POST );
+        $add_listing        = !empty( $_post_data['add_listing'] ) ? $_post_data['add_listing'] : '';
+        $single_category    = !empty( $_post_data['single_category'] ) ? $_post_data['single_category'] : '';
+        $all_listings       = !empty( $_post_data['all_listings'] ) ? $_post_data['all_listings'] : '';
+        $single_location    = !empty( $_post_data['single_location'] ) ? $_post_data['single_location'] : '';
+        $single_tag         = !empty( $_post_data['single_tag'] ) ? $_post_data['single_tag'] : '';
+        $author_profile     = !empty( $_post_data['author_profile'] ) ? $_post_data['author_profile'] : '';
+        $dashboard          = !empty( $_post_data['dashboard'] ) ? $_post_data['dashboard'] : '';
+        $login              = !empty( $_post_data['login'] ) ? $_post_data['login'] : '';
+        $registration       = !empty( $_post_data['registration'] ) ? $_post_data['registration'] : '';
+        $search_listing     = !empty( $_post_data['search_listing'] ) ? $_post_data['search_listing'] : '';
+        $search_result      = !empty( $_post_data['search_result'] ) ? $_post_data['search_result'] : '';
+        $all_categories     = !empty( $_post_data['all_categories'] ) ? $_post_data['all_categories'] : '';
+        $all_locations      = !empty( $_post_data['all_locations'] ) ? $_post_data['all_locations'] : '';
+        $terms_conditions   = !empty( $_post_data['terms_conditions'] ) ? $_post_data['terms_conditions'] : '';
+        $privacy_policy     = !empty( $_post_data['privacy_policy'] ) ? $_post_data['privacy_policy'] : '';
+        if ( empty( $add_listing ) ) {
+            wp_delete_post(get_directorist_option('add_listing_page'), true);
+        }
+        if ( empty( $all_listings ) ) {
+            wp_delete_post(get_directorist_option('all_listing_page'), true);
+        }
+        if ( empty( $single_category ) ) {
+            wp_delete_post(get_directorist_option('single_category_page'), true);
+        }
+        if ( empty( $single_location ) ) {
+            wp_delete_post(get_directorist_option('single_location_page'), true);
+        }
+        if ( empty( $single_tag ) ) {
+            wp_delete_post(get_directorist_option('single_tag_page'), true);
+        }
+        if ( empty( $author_profile ) ) {
+            wp_delete_post(get_directorist_option('author_profile_page'), true);
+        }
+        if ( empty( $dashboard ) ) {
+            wp_delete_post(get_directorist_option('user_dashboard'), true);
+        }
+        if ( empty( $login ) ) {
+            wp_delete_post(get_directorist_option('user_login'), true);
+        }
+        if ( empty( $registration ) ) {
+            wp_delete_post(get_directorist_option('custom_registration'), true);
+        }
+        if ( empty( $search_listing ) ) {
+            wp_delete_post(get_directorist_option('search_listing'), true);
+        }
+        if ( empty( $search_result ) ) {
+            wp_delete_post(get_directorist_option('search_result_page'), true);
+        }
+
+        $atbdp_option = get_option('atbdp_option');
+        $create_pages = [];
+        if ( ! empty( $all_categories ) ) {
+            $create_pages['all_categories_page'] = array(
+                'post_title' => __('All Categories', 'directorist'),
+                'post_content' => '[directorist_all_categories]'
+            );
+        }
+        if ( ! empty( $all_locations ) ) {
+            $create_pages['all_locations_page'] = array(
+                'post_title' => __('All Locations', 'directorist'),
+                'post_content' => '[directorist_all_locations]'
+            );
+        }
+        if ( ! empty( $terms_conditions ) ) {
+            $create_pages['terms_conditions'] = array(
+                'post_title' => __('Terms and Conditions', 'directorist'),
+                'post_content' => ''
+            );
+        }
+        if ( ! empty( $privacy_policy ) ) {
+            $create_pages['privacy_policy'] = array(
+                'post_title' => __('Privacy Policy', 'directorist'),
+                'post_content' => ''
+            );
+        }
+
+        if ( ! empty( $create_pages ) ) {
+            foreach ( $create_pages as $key => $name ) {
+
+                $args = [
+                    'post_title' => $name['post_title'],
+                    'post_content' => $name['post_content'],
+                    'post_status' => 'publish',
+                    'post_type' => 'page',
+                    'comment_status' => 'closed'
+                ];
+                if ( empty( $atbdp_option[ $key ] ) ) {
+                    $id = wp_insert_post($args);
+
+                    if ($id) {
+                        $atbdp_option[$key] = $id;
+                    }
+                }
+            }
+        }
+
+        update_option('atbdp_option', $atbdp_option);
+        wp_redirect(esc_url_raw($this->get_next_step_link()));
+        exit;
+    }
+
+    public function directorist_step_two()
+    {
+
+    ?>
+        <div class="atbdp-c-header">
+            <h1><?php esc_html_e('Recommend Settings', 'directorist'); ?></h1>
+        </div>
+
+        <form method="post">
+            <div class="atbdp-c-body">
+                <div class="w-form-group">
+                    <label for="select_map"><?php _e( 'Select Map', 'directorist' ); ?></label>
                     <div><select name="select_listing_map" id="select_map">
-                            <option value="openstreet">Openstreetmap</option>
-                            <option value="google">google</option>
+                            <option value="openstreet"><?php _e( 'Openstreet', 'directorist' ); ?></option>
+                            <option value="google"><?php _e( 'Google', 'directorist' ); ?></option>
                         </select></div>
                 </div>
                 <div class="w-form-group atbdp-sw-gmap-key">
-                    <label for="google_api"> Google Map API key</label>
+                    <label for="google_api"><?php _e( 'Google Map API key', 'directorist' ); ?></label>
                     <div><input type="text" name="map_api_key" id="google_api"></div>
                 </div>
                 <div class="w-form-group">
-                    <label for="enable_monetization"> Enable Monetization Feature</label>
+                    <label for="enable_monetization"><?php _e( 'Enable Monetization Feature', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='enable_monetization' class="w-switch" id='enable_monetization' value=1>
@@ -299,15 +576,15 @@ class SetupWizard
                     </div>
                 </div>
                 <div class="w-form-group atbdp-sw-featured-listing">
-                    <label for="enable_featured_listing"> Monetize by Featured Listing</label>
+                    <label for="enable_featured_listing"><?php _e( 'Monetize by Featured Listing', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
                             <input type="checkbox" name='enable_featured_listing' class="w-switch" id='enable_featured_listing' value=1>
                         </div>
                     </div>
                 </div>
-                <div class="w-form-group atbdp-sw-listing-pricse">
-                    <label for="featured_listing_price"> Price in USD</label>
+                <div class="w-form-group atbdp-sw-listing-price">
+                    <label for="featured_listing_price"><?php _e( 'Price', 'directorist' ); ?></label>
                     <div>
                         <div class="w-input-group">
                             <input type="text" name='featured_listing_price' id='featured_listing_price' value=19.99>
@@ -325,33 +602,31 @@ class SetupWizard
             </div>
         </form>
     <?php
-        // directorist_get_template( 'admin-setup-wizard/step-store.php', $args );
     }
 
     /**
      * Save store options.
      */
-    public function directorist_setup_store_save()
+    public function directorist_step_two_save()
     {
         check_admin_referer('directorist-setup');
 
-        $_post_data = wp_unslash($_POST);
+        $_post_data = wp_unslash( $_POST );
 
         $atbdp_option = get_option('atbdp_option');
-        $pages = !empty($_post_data['share_essentials']) ? $_post_data['share_essentials'] : '';
+        $pages = !empty( $_post_data['share_essentials'] ) ? $_post_data['share_essentials'] : '';
         $atbdp_option['select_listing_map'] = !empty($_post_data['select_listing_map']) ? $_post_data['select_listing_map'] : '';
         $atbdp_option['map_api_key'] = !empty($_post_data['map_api_key']) ? $_post_data['map_api_key'] : '';
         $atbdp_option['enable_monetization'] = !empty($_post_data['enable_monetization']) ? $_post_data['enable_monetization'] : '';
         $atbdp_option['enable_featured_listing'] = !empty($_post_data['enable_featured_listing']) ? $_post_data['enable_featured_listing'] : '';
         $atbdp_option['featured_listing_price'] = !empty($_post_data['featured_listing_price']) ? $_post_data['featured_listing_price'] : '';
 
-        do_action('directorist_admin_setup_wizard_save_step_store');
-
+        do_action('directorist_admin_setup_wizard_save_step_two');
 
         $create_pages = [
             'checkout_page'        => [
                 'post_title'         => 'Checkout',
-                'post_content'       => '[directorist_transaction_failure]',
+                'post_content'       => '[directorist_checkout]',
             ],
             'payment_receipt_page' => [
                 'post_title'         => 'Payment Receipt',
@@ -388,12 +663,12 @@ class SetupWizard
         exit;
     }
 
-    public function directorist_setup_selling()
+    public function directorist_step_three()
     {
         $dummy_csv = ATBDP_URL . 'templates/import-export/data/dummy.csv';
     ?>
         <div class="atbdp-c-header">
-            <h1>Dummy data</h1>
+            <h1><?php _e( 'Price in USD', 'directorist' ); ?></h1>
         </div>
         <form method="post" id="atbdp_dummy_form">
             <div class="atbdp-c-body">
@@ -444,10 +719,9 @@ class SetupWizard
             </div>
         </form>
     <?php
-
     }
 
-    public function directorist_setup_selling_save()
+    public function directorist_step_three_save()
     {
         check_admin_referer('directorist-setup');
 
@@ -458,7 +732,7 @@ class SetupWizard
         exit;
     }
 
-    public function directorist_setup_withdraw()
+    public function directorist_step_four()
     {
         update_option( 'directorist_setup_wizard_completed', true );
         ?>
@@ -540,6 +814,7 @@ class SetupWizard
             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <title><?php esc_html_e('Directorist &rsaquo; Setup Wizard', 'directorist'); ?></title>
             <?php wp_print_scripts('directorist-setup'); ?>
+            <?php wp_print_scripts('directorist-select2'); ?>
             <?php do_action('admin_print_styles'); ?>
             <?php do_action('admin_head'); ?>
             <?php do_action('directorist_setup_wizard_styles'); ?>
@@ -565,9 +840,11 @@ class SetupWizard
             <ul class="atbdp-setup-steps <?php echo $hide; ?>">
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php
-                        if ($step_key === $this->step) {
+                        if ($step_key === $this->step && 'step-four' != $step_key ) {
                             echo 'active';
                         } elseif ( array_search( $this->step, array_keys($this->steps ) ) > array_search( $step_key, array_keys( $this->steps ) ) ) {
+                            echo 'done';
+                        } elseif ( isset( $_GET['step'] ) && 'step-four' == $_GET['step'] ) {
                             echo 'done';
                         }
                         $number = 1;
@@ -577,8 +854,10 @@ class SetupWizard
                             $number = 2;
                         } else if ( 'step-three' == $step_key ) {
                             $number = 3;
+                        } else if ( 'step-four' == $step_key ) {
+                            $number = 4;
                         }
-                        ?>"><span class="atbdp-sw-circle"><span><?php echo $number; ?></span> <span class="dashicons dashicons-yes"></span></span><?php echo esc_html($step['name']); ?> </li>
+                        ?>"><span class="atbdp-sw-circle"><span><?php echo $number; ?></span> <span class="dashicons dashicons-yes"></span></span><?php echo esc_html( $step['name'] ); ?> </li>
                 <?php endforeach; ?>
             </ul>
         <?php
@@ -589,7 +868,7 @@ class SetupWizard
      */
     public function setup_wizard_content()
     {
-        if (empty($this->steps[$this->step]['view'])) {
+        if ( empty( $this->steps[ $this->step ]['view'] ) ) {
             wp_redirect(esc_url_raw(add_query_arg('step', 'introduction')));
             exit;
         }
@@ -605,7 +884,7 @@ class SetupWizard
     public function setup_wizard_footer()
     {
         ?>
-            <?php if ('next_steps' === $this->step) : ?>
+            <?php if ( 'next_steps' === $this->step ) : ?>
                 <a class="atbdp-return-to-dashboard" href="<?php echo esc_url(admin_url()); ?>"><?php esc_html_e('Return to the WordPress Dashboard', 'directorist'); ?></a>
             <?php endif; ?>
         </body>

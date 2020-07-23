@@ -2219,9 +2219,9 @@ function the_atbdp_favourites_link($post_id = 0)
         $favourites = (array)get_user_meta(get_current_user_id(), 'atbdp_favourites', true);
 
         if (in_array($post_id, $favourites)) {
-            return '<span class="' . atbdp_icon_type() . '-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '">' . __('Favorite', 'directorist') . '</a>';
+            return '<span class="' . atbdp_icon_type() . '-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         } else {
-            return '<span class="' . atbdp_icon_type() . '-heart-o"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '">' . __('Favorite', 'directorist') . '</a>';
+            return '<span class="' . atbdp_icon_type() . '-heart-o"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         }
 
     } else {
@@ -4632,18 +4632,18 @@ function atbdp_create_required_pages(){
             'title' => __('All Listings', 'directorist'),
             'content' => '[directorist_all_listing]'
         ),
-        'all_categories_page' => array(
+        /* 'all_categories_page' => array(
             'title' => __('All Categories', 'directorist'),
             'content' => '[directorist_all_categories]'
-        ),
+        ), */
         'single_category_page' => array(
             'title' => __('Single Category', 'directorist'),
             'content' => '[directorist_category]'
         ),
-        'all_locations_page' => array(
+        /* 'all_locations_page' => array(
             'title' => __('All Locations', 'directorist'),
             'content' => '[directorist_all_locations]'
-        ),
+        ), */
         'single_location_page' => array(
             'title' => __('Single Location', 'directorist'),
             'content' => '[directorist_location]'

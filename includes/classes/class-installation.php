@@ -40,8 +40,9 @@ if (!class_exists('ATBDP_Installation')):
             add_option( 'atbdp_roles_mapped', true );
 
             $atbdp_option = get_option('atbdp_option');
+            $atpdp_setup_wizard = apply_filters( 'atbdp_setup_wizard', true );
 
-            if( ! $atbdp_option ) {
+            if( ! $atbdp_option && $atpdp_setup_wizard ) {
                 set_transient( '_directorist_setup_page_redirect', true, 30 );
             }
 

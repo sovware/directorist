@@ -153,9 +153,9 @@ function atbdp_create_picvacyAndTerms_pages()
 }
 
 // fire up the functionality for one time
-if (!get_option('atbdp_picvacyAndTerms_pages')) {
+/* if (!get_option('atbdp_picvacyAndTerms_pages')) {
     add_action('wp_loaded', 'atbdp_create_picvacyAndTerms_pages');
-}
+} */
 
 function atbdp_handle_attachment($file_handler, $post_id, $set_thu = false)
 {
@@ -211,7 +211,7 @@ function atbdp_get_plugin_data($plugin)
 
 function atbdp_is_extension_active()
 {
-    if (class_exists('BD_Business_Hour') || class_exists('DCL_Base') || class_exists('Listings_fAQs') || class_exists('BD_Gallery') || class_exists('BD_Google_Recaptcha') || class_exists('BD_Map_View') || class_exists('Directorist_Paypal_Gateway') || class_exists('Post_Your_Need') || class_exists('ATBDP_Pricing_Plans') || class_exists('BD_Slider_Carousel') || class_exists('Directorist_Social_Login') || class_exists('Directorist_Stripe_Gateway') || class_exists('DWPP_Pricing_Plans') || class_exists('Directorist_Mark_as_Sold') || class_exists('Directorist_Live_Chat') || class_exists('BD_Booking')) {
+    if (class_exists('BD_Business_Hour') || class_exists('DCL_Base') || class_exists('Listings_fAQs') || class_exists('BD_Gallery') || class_exists('BD_Google_Recaptcha') || class_exists('BD_Map_View') || class_exists('Directorist_Paypal_Gateway') || class_exists('Post_Your_Need') || class_exists('ATBDP_Pricing_Plans') || class_exists('BD_Slider_Carousel') || class_exists('Directorist_Social_Login') || class_exists('Directorist_Stripe_Gateway') || class_exists('DWPP_Pricing_Plans') || class_exists('Directorist_Mark_as_Sold') || class_exists('Directorist_Live_Chat') || class_exists('BD_Booking') || class_exists('ATDListingCompare')) {
         return true;
     } else {
         return false;

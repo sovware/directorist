@@ -2406,7 +2406,6 @@ input[type="radio"].atbdp_radio_input:checked + label:before {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area span,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area span {
-  margin-right: 10px;
   width: auto;
   height: auto;
   top: 0;
@@ -2475,6 +2474,11 @@ input[type="radio"].atbdp_radio_input:checked + label:before {
   width: 100%;
   top: -9px;
   left: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_report a span,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_report a span {
+  pointer-events: none;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbdb_content_module_contents {

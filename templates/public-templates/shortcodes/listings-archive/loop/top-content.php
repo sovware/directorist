@@ -63,7 +63,7 @@
 
 	    /**
 	     * @since 7.0
-	     * @hooked Directorist_Template_Hooks::mark_as_favourite_button - 10
+	     * @hooked Directorist_Listings::mark_as_favourite_button - 10
 	     */
 	    do_action( "directorist_{$listings->view}_view_top_content_end", $listings );
 		?>

@@ -18,7 +18,7 @@ do_action('atbdp_before_all_listings_grid', $listings);
     <?php
     /**
      * @since 7.0
-     * @hooked Directorist_Template_Hooks::archive_header - 10
+     * @hooked Directorist_Listings::archive_header - 10
      */
     do_action( 'directorist_archive_header', $listings );
     ?>

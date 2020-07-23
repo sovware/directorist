@@ -1171,8 +1171,10 @@ class Directorist_Listings {
         $listings_data = [];
         $lat_lon = [];
 
-        while ( $this->query->have_posts() ) : $this->query->the_post();
-            global $post; $ls_data = [];
+        while ( $this->query->have_posts() ) {
+        	$this->query->the_post();
+            global $post;
+            $ls_data = [];
 
             $ls_data['manual_lat']      = get_post_meta($post->ID, '_manual_lat', true);
             $ls_data['manual_lng']      = get_post_meta($post->ID, '_manual_lng', true);
@@ -1186,7 +1188,7 @@ class Directorist_Listings {
             ];
 
             if ( ! empty( $ls_data['listing_prv_img']) ) {
-                $ls_data['prv_image']   = atbdp_get_image_source( $ls_data['listing_prv_img'], 'large' );
+                $ls_data['prv_image'] = atbdp_get_image_source( $ls_data['listing_prv_img'], 'large' );
             }
 
             $ls_data['default_image'] = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
@@ -1218,7 +1220,9 @@ class Directorist_Listings {
 
             $ls_data['info_content'] = trim( ob_get_clean() );
             $listings_data[] = $ls_data;
-        endwhile;
+        }
+
+        wp_reset_postdata();
 
         wp_localize_script( $script_id, 'atbdp_lat_lon', $lat_lon );
         wp_localize_script( $script_id, 'listings_data', $listings_data );
@@ -1232,7 +1236,8 @@ class Directorist_Listings {
 
         if (empty($opt['display_map_info'])) {
             $disable_info_window = 'yes';
-        } elseif (empty($opt['display_image_map'] || $opt['display_title_map'] || $opt['display_address_map'] || $opt['display_direction_map'])){
+        }
+        elseif (empty($opt['display_image_map'] || $opt['display_title_map'] || $opt['display_address_map'] || $opt['display_direction_map'])){
             $disable_info_window = 'yes';
         }
 
@@ -1243,46 +1248,50 @@ class Directorist_Listings {
         );
         wp_localize_script( 'atbdp-map-view', 'atbdp_map', $data );
 
-        ?><div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->listings_map_height)?$this->listings_map_height:'';?>px;"><?php
-        while( $this->query->have_posts() ) : $this->query->the_post();
-            global $post; $ls_data = [];
+        ?>
+        <div class="atbdp-body atbdp-map embed-responsive embed-responsive-16by9 atbdp-margin-bottom" data-type="markerclusterer" style="height: <?php echo !empty($this->listings_map_height)?$this->listings_map_height:'';?>px;">
+        	<?php
+	        while( $this->query->have_posts() ) {
+	        	$this->query->the_post();
+	            global $post;
+	            $ls_data = [];
 
-            $ls_data['post_id']         = $post->ID;
-            $ls_data['manual_lat']      = get_post_meta($post->ID, '_manual_lat', true);
-            $ls_data['manual_lng']      = get_post_meta($post->ID, '_manual_lng', true);
-            $ls_data['listing_img']     = get_post_meta(get_the_ID(), '_listing_img', true);
-            $ls_data['listing_prv_img'] = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-            $ls_data['crop_width']      = get_directorist_option('crop_width', 360);
-            $ls_data['crop_height']     = get_directorist_option('crop_height', 300);
-            $ls_data['address']         = get_post_meta(get_the_ID(), '_address', true);
-            $ls_data['font_type']       = get_directorist_option('font_type','line');
-            $ls_data['fa_or_la']        = ('line' == $ls_data['font_type']) ? "la " : "fa ";
-            $ls_data['cats']            = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
+	            $ls_data['post_id']         = $post->ID;
+	            $ls_data['manual_lat']      = get_post_meta($post->ID, '_manual_lat', true);
+	            $ls_data['manual_lng']      = get_post_meta($post->ID, '_manual_lng', true);
+	            $ls_data['listing_img']     = get_post_meta(get_the_ID(), '_listing_img', true);
+	            $ls_data['listing_prv_img'] = get_post_meta(get_the_ID(), '_listing_prv_img', true);
+	            $ls_data['crop_width']      = get_directorist_option('crop_width', 360);
+	            $ls_data['crop_height']     = get_directorist_option('crop_height', 300);
+	            $ls_data['address']         = get_post_meta(get_the_ID(), '_address', true);
+	            $ls_data['font_type']       = get_directorist_option('font_type','line');
+	            $ls_data['fa_or_la']        = ('line' == $ls_data['font_type']) ? "la " : "fa ";
+	            $ls_data['cats']            = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
 
-            if(!empty($ls_data['cats'])){
-                $cat_icon = get_cat_icon($ls_data['cats'][0]->term_id);
-            }
+	            if(!empty($ls_data['cats'])){
+	                $cat_icon = get_cat_icon($ls_data['cats'][0]->term_id);
+	            }
 
-            $cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
-            $icon_type = substr($cat_icon, 0,2);
-            $fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
-            $ls_data['cat_icon'] = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
-            
-            if (!empty($ls_data['listing_prv_img'])) {
-                $ls_data['prv_image']   = atbdp_get_image_source($ls_data['listing_prv_img'], 'large');
-            }
+	            $cat_icon = !empty($cat_icon) ? $cat_icon : 'fa-map-marker';
+	            $icon_type = substr($cat_icon, 0,2);
+	            $fa_or_la = ('la' == $icon_type) ? "la " : "fa ";
+	            $ls_data['cat_icon'] = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
+	            
+	            if (!empty($ls_data['listing_prv_img'])) {
+	                $ls_data['prv_image']   = atbdp_get_image_source($ls_data['listing_prv_img'], 'large');
+	            }
 
-            if (!empty($ls_data['listing_img'][0])) {
-                $ls_data['default_img'] = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
-                $ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
-            }
-            
-            if ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) :
-                $opt['ls_data'] = $ls_data;
-                atbdp_get_shortcode_template( 'listings-archive/loop/google-map', $opt );
-            endif;
-        endwhile;
-        wp_reset_postdata();
+	            if (!empty($ls_data['listing_img'][0])) {
+	                $ls_data['default_img'] = atbdp_image_cropping(ATBDP_PUBLIC_ASSETS . 'images/grid.jpg', $ls_data['crop_width'], $ls_data['crop_height'], true, 100)['url'];
+	                $ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
+	            }
+	            
+	            if ( ! empty( $ls_data['manual_lat'] ) && ! empty( $ls_data['manual_lng'] ) ) {
+	                $opt['ls_data'] = $ls_data;
+	                atbdp_get_shortcode_template( 'listings-archive/loop/google-map', $opt );
+	            }
+	        }
+	        wp_reset_postdata();
 
         echo "</div>";
     }
@@ -1500,4 +1509,156 @@ class Directorist_Listings {
     	);
         atbdp_get_shortcode_template( 'listings-archive/advanced-search-form', $args );
     }
+
+    // Hooks ------------
+    
+    public static function archive_header($listings) {
+        if ( !$listings->header ) {
+            return;
+        }
+
+        atbdp_get_shortcode_template( 'listings-archive/listings-header', array('listings' => $listings) );
+    }
+
+    public static function business_hours_badge( $content ) {
+        $plan_hours = true;
+        if (is_fee_manager_active()) {
+            $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
+        }
+
+        $bdbh = get_post_meta( get_the_ID(), '_bdbh', true );
+        $business_hours = ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array();
+        $disable_bz_hour_listing = get_post_meta( get_the_ID(), '_disable_bz_hour_listing', true );
+        $enable247hour = get_post_meta( get_the_ID(), '_enable247hour', true );
+
+        $u_badge_html = '';
+        if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
+            // lets check is it 24/7
+            $open = get_directorist_option('open_badge_text', __('Open Now', 'directorist'));
+
+            if (!empty($enable247hour)) {
+              $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">' . $open . '</span>';
+            }
+            else {
+              $bh_statement = BD_Business_Hour()->show_business_open_close($business_hours);
+  
+              return $content . "\n" . "$bh_statement";
+            }
+        }
+
+        return $content;
+    }
+
+	public static function featured_badge( $content ) {
+		$featured = get_post_meta( get_the_ID(), '_featured', true );
+		$display_feature_badge_cart = get_directorist_option( 'display_feature_badge_cart', 1 ) ? true : false;
+		$feature_badge_text         = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
+
+		if ( $featured && $$display_feature_badge_cart ) {
+			$badge_html = '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text. '</span>';
+			return $content . $badge_html;
+		}
+
+		return $content;
+	}
+
+	public static function popular_badge( $content ) {
+		$popular_listing_id = atbdp_popular_listings(get_the_ID());
+		$display_popular_badge_cart = get_directorist_option( 'display_popular_badge_cart', 1 ) ? true : false;
+		$popular_badge_text         = get_directorist_option( 'popular_badge_text', __( 'Popular', 'directorist' ) );
+		
+		if ($popular_listing_id === get_the_ID() && $display_popular_badge_cart) {
+			$badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
+			return $content . $badge;
+		}
+
+		return $content;
+	}
+
+	public static function new_listing_badge( $content ) {
+		global $post;
+
+		$new_listing_time = get_directorist_option('new_listing_day');
+		$new_badge_text = get_directorist_option('new_badge_text', 'New');
+		$enable_new_listing = get_directorist_option('display_new_badge_cart', 1);
+        $each_hours = 60 * 60 * 24; // seconds in a day
+        $s_date1 = strtotime(current_time('mysql')); // seconds for date 1
+        $s_date2 = strtotime($post->post_date); // seconds for date 2
+        $s_date_diff = abs($s_date1 - $s_date2); // different of the two dates in seconds
+        $days = round($s_date_diff / $each_hours); // divided the different with second in a day
+        $new = '<span class="atbd_badge atbd_badge_new">' . $new_badge_text . '</span>';
+        if ($days <= (int)$new_listing_time) {
+        	if (!empty($enable_new_listing)) {
+        		return  $content .= $new;
+        	}
+
+        }
+
+        return $content;
+    }
+
+    public static function featured_badge_list_view( $content ) {
+    	$featured = get_post_meta(get_the_ID(), '_featured', true);
+    	$display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
+    	$feature_badge_text = get_directorist_option('feature_badge_text', 'Featured');
+
+    	if ( $featured && !empty( $display_feature_badge_cart ) ) {
+    		$badge = "<span class='atbd_badge atbd_badge_featured'>$feature_badge_text</span>";
+    		$content .= $badge;
+    	}
+
+    	return $content;
+    }
+
+    public static function populer_badge_list_view( $content ) {
+    	$display_popular_badge_cart = get_directorist_option('display_popular_badge_cart', 1);
+    	$popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
+
+    	if ( atbdp_popular_listings(get_the_ID()) === get_the_ID() && !empty($display_popular_badge_cart)) {
+    		$badge = "<span class='atbd_badge atbd_badge_popular'>$popular_badge_text;</span>";
+    		$content .= $badge;
+    	}
+
+    	return $content;
+    }
+
+    public static function new_badge_list_view( $content ) {
+    	$content .= new_badge();
+
+    	return $content;
+    }
+
+    public static function list_view_business_hours() {
+    	$content = '';
+    	$plan_hours              = true;
+    	$disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
+    	$enable247hour           = get_post_meta(get_the_ID(), '_enable247hour', true);
+    	$bdbh                    = get_post_meta(get_the_ID(), '_bdbh', true);
+    	$business_hours          = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array();
+
+    	if (is_fee_manager_active()) {
+    		$plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
+    	}
+
+    	if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
+    		if ( ! empty($enable247hour) ) {
+    			$content = "<span class='atbd_badge atbd_badge_open'>" . get_directorist_option('open_badge_text') . "</span>";
+    		}
+    		else {
+    			if (class_exists('BD_Business_Hour')) {
+    				$content = BD_Business_Hour()->show_business_open_close($business_hours, false);
+    			}
+    		}
+    	}
+
+    	echo $content;
+    }
+
+	public static function mark_as_favourite_button() {
+		$display_mark_as_fav = get_directorist_option( 'display_mark_as_fav', 1 );
+		
+		if ( ! empty( $display_mark_as_fav ) ) {
+			echo atbdp_listings_mark_as_favourite( get_the_ID() );
+		}
+	}
 }

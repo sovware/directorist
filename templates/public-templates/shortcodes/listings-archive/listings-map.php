@@ -6,7 +6,7 @@
  */
 
 /**
- * @param WP_Query $all_listings It contains all the queried listings by a user
+ * @param WP_Query $listings It contains all the queried listings by a user
  * @since 7.0
  * @package Directorist
  */
@@ -17,7 +17,7 @@ do_action('atbdp_before_all_listings_map', $listings);
     <?php
     /**
      * @since 7.0
-     * @hooked Directorist_Template_Hooks::archive_header - 10
+     * @hooked Directorist_Listings::archive_header - 10
      */
     do_action( 'directorist_archive_header', $listings );
     ?>

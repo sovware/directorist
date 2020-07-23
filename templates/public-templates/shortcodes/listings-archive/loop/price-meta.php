@@ -25,7 +25,7 @@
 
     /**
      * @since 7.0
-     * @hooked Directorist_Template_Hooks::list_view_business_hours - 10
+     * @hooked Directorist_Listings::list_view_business_hours - 10
      */
     do_action( "directorist_{$listings->view}_view_listing_meta_end", $listings );
 	?>

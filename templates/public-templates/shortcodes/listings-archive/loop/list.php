@@ -19,9 +19,9 @@ $featured_class = $listings->loop['featured'] ? 'directorist-featured-listings' 
                 /**
                  * @since 5.0
                  *
-                 * @hooked Directorist_Template_Hooks::featured_badge_list_view - 10
-                 * @hooked Directorist_Template_Hooks::populer_badge_list_view - 15
-                 * @hooked Directorist_Template_Hooks::new_badge_list_view - 20
+                 * @hooked Directorist_Listings::featured_badge_list_view - 10
+                 * @hooked Directorist_Listings::populer_badge_list_view - 15
+                 * @hooked Directorist_Listings::new_badge_list_view - 20
                  */
                 ?>
                 <span class="atbd_lower_badge"><?php echo apply_filters('atbdp_list_lower_badges', '');?></span>

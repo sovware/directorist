@@ -319,7 +319,7 @@ class Directorist_Listing_Search_Form {
         }
     }
 
-    public function form_top_fields_html() {
+    public function form_top_fields() {
         ob_start();
 
         $this->search_text_template();

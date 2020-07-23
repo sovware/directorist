@@ -7,9 +7,9 @@
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_search_area single_area ads-advaced--wrapper" style="background-image: url('<?php echo esc_url($bgimg); ?>')">
 
-    <div class="<?php echo esc_attr( $container_class ); ?>">
+	<div class="<?php echo esc_attr( $container_class ); ?>">
 
-        <?php
+		<?php
         /**
          * @since 5.0.8
          */
@@ -17,52 +17,51 @@
 
         if ( $searchform->show_title_subtitle && ( $searchform->search_bar_title || $searchform->search_bar_sub_title ) ) { ?>
 
-            <div class="atbd_search_title_area">
-                <?php if ($searchform->search_bar_title): ?>
-                    <h2 class="title"><?php echo esc_html($searchform->search_bar_title); ?></h2>
-                <?php endif; ?>
+        	<div class="atbd_search_title_area">
+        		<?php if ($searchform->search_bar_title): ?>
+        			<h2 class="title"><?php echo esc_html($searchform->search_bar_title); ?></h2>
+        		<?php endif; ?>
 
-                <?php if ($searchform->search_bar_sub_title): ?>
-                    <p class="sub_title"><?php echo esc_html($searchform->search_bar_sub_title); ?></p>
-                <?php endif; ?>
-            </div>
+        		<?php if ($searchform->search_bar_sub_title): ?>
+        			<p class="sub_title"><?php echo esc_html($searchform->search_bar_sub_title); ?></p>
+        		<?php endif; ?>
+        	</div>
 
         <?php } ?>
 
         <form action="<?php echo ATBDP_Permalink::get_search_result_page_link(); ?>" role="form" class="atbd_ads-form">
-            <div class="atbd_seach_fields_wrapper"<?php echo $border_inline_style; ?>>
-                <?php
+        	<div class="atbd_seach_fields_wrapper"<?php echo $border_inline_style; ?>>
+        		<?php
                 /**
                  * @since 5.10.0
                  */
                 do_action('atbdp_before_search_form');
-                ?>
-
-                <?php if ($searchform->has_search_text_field || $searchform->has_category_field || $searchform->has_location_field) { ?>
-                    <div class="row atbdp-search-form">
-                        <?php $searchform->form_top_fields_html();?>
-                    </div>
-                    <?php
+                
+                if ($searchform->has_search_text_field || $searchform->has_category_field || $searchform->has_location_field) { ?>
+                	<div class="row atbdp-search-form">
+                		<?php $searchform->form_top_fields();?>
+                	</div>
+                	<?php
                 }
 
                 if ( $searchform->more_filters_display == 'always_open' ){
-                    $searchform->advanced_search_form_fields_template();
+                	$searchform->advanced_search_form_fields_template();
                 }
                 else {
-                    $searchform->more_buttons_template();
+                	$searchform->more_buttons_template();
 
-                    if ($searchform->has_more_filters_button) { ?>
-                        <div class="<?php echo ('overlapping' === $searchform->more_filters_display ) ? 'ads_float' : 'ads_slide' ?>">
-                            <?php $searchform->advanced_search_form_fields_template();?>
-                        </div>
-                        <?php
-                    }
+                	if ($searchform->has_more_filters_button) { ?>
+                		<div class="<?php echo ('overlapping' === $searchform->more_filters_display ) ? 'ads_float' : 'ads_slide' ?>">
+                			<?php $searchform->advanced_search_form_fields_template();?>
+                		</div>
+                		<?php
+                	}
                 }
                 ?>
             </div>
         </form>
 
-        <?php $searchform->top_categories_template();?>
+        <?php $searchform->top_categories_template(); ?>
 
     </div>
 </div>

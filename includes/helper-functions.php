@@ -4128,18 +4128,8 @@ if (!function_exists('get_atbdp_listings_ids')) {
             'fields'         => 'ids'
         );
 
-        $ids = ATBDP_Cache_Helper::get_the_transient([
-            'group'      => 'atbdp_listings_query',
-            'name'       => 'atbdp_listings_ids',
-            'query_args' => $arg,
-            'cache'      => apply_filters('cache_atbdp_listings_ids', true),
-            'value'      => function( $data ) {
-                $query = new WP_Query( $data['query_args'] );
-                return wp_parse_id_list( $query->posts );
-            }
-        ]);
-
-        return $ids;
+        $query = new WP_Query( $arg );
+        return $query;
     }
 }
 

@@ -1281,16 +1281,17 @@ if (!class_exists('ATBDP_Shortcode')):
                 $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
             }
 
+            $paginate = get_directorist_option('paginate_all_listings');
+
             $arguments = apply_filters('atbdp_all_listings_query_arguments', $args);
 
             if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.0', '<=' ) && 'listings_with_map' == $view  ) {
                 $all_listings = new WP_Query( $arguments );
+                $listing_count = '<span>' . $all_listings->total . '</span>';
             } else {
                 $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $arguments );
+                $listing_count = '<span>' . $all_listings->total . '</span>';
             }
-
-            $paginate = get_directorist_option('paginate_all_listings');
-            $listing_count = '<span>' . $all_listings->total . '</span>';
 
             $display_header = !empty($display_header) ? $display_header : '';
             $header_title_for_search = !empty($header_title) ? $header_title : '';

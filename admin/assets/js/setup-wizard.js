@@ -4,6 +4,7 @@ jQuery(document).ready(function($) {
         let position = 0;
         let failed = 0;
         let imported = 0;
+        let redirect_url = '';
         $(import_dummy).on('submit', function(e) {
                 e.preventDefault();
 
@@ -39,6 +40,7 @@ jQuery(document).ready(function($) {
                                 success(response) {
                                         imported += response.imported;
                                         failed += response.failed;
+                                        redirect_url = response.url;
                                         $('.importer-details').html(
                                                 `Imported ${response.next_position} out of ${response.total}`
                                         );
@@ -48,11 +50,11 @@ jQuery(document).ready(function($) {
                                                 run_import();
                                                 counter++;
                                         } else {
-                                                window.location = `${response.url}`;
+                                                window.location = response.url;
                                         }
                                 },
                                 error(response) {
-                                        window.console.log(response);
+                                        window.location = redirect_url;
                                 },
                         });
 

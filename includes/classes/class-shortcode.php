@@ -1282,7 +1282,6 @@ if (!class_exists('ATBDP_Shortcode')):
             }
 
             $paginate = get_directorist_option('paginate_all_listings');
-
             $arguments = apply_filters('atbdp_all_listings_query_arguments', $args);
 
             if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.0', '<=' ) && 'listings_with_map' == $view  ) {

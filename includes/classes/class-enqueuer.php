@@ -172,6 +172,8 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             wp_register_script( 'markercluster-version', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/leaflet.markercluster-versions.js', array( 'leaflet-versions' ) );
             wp_register_script( 'leaflet-setup', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/libs-setup.js', array( 'markercluster-version' ) );
 
+            wp_register_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+
             // Google map needs to be enqueued from google server with a valid API key. So, it is not possible to store map js file locally as this file will be unique for all users based on their MAP API key.
             $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
             wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
@@ -887,11 +889,11 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
         $search_dependency = array( 'jquery', 'jquery-ui-slider',
             'select2script' );
         wp_enqueue_script( 'atbdp_search_listing', ATBDP_PUBLIC_ASSETS . 'js/search-listing.js',
-            /**
-             * @since 5.0.1
-             * It returns the dependencies for search form js
-             */
-            apply_filters( 'atbdp_search_listing_jquery_dependency', $search_dependency ), ATBDP_VERSION, true );
+        /**
+         * @since 5.0.1
+         * It returns the dependencies for search form js
+         */
+        apply_filters( 'atbdp_search_listing_jquery_dependency', $search_dependency ), ATBDP_VERSION, true );
 
         wp_enqueue_script( 'atbdp-range-slider' );
 

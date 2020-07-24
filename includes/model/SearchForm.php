@@ -434,7 +434,7 @@ class Directorist_Listing_Search_Form {
             wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
         }
         
-        wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
+        wp_enqueue_script( 'atbdp-search-listing' );
         wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
             'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
             'ajax_url' => admin_url('admin-ajax.php'),

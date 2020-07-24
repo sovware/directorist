@@ -4,7 +4,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 class Directorist_Listing_Search_Form {

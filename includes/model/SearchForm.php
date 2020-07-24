@@ -416,10 +416,12 @@ class Directorist_Listing_Search_Form {
     }
 
     public function render_search_shortcode() {
+        ob_start();
+        
         if ( $this->logged_in_user_only && ! atbdp_logged_in_user() ) {
             return ATBDP()->helper->guard( array('type' => 'auth') );
         }
-
+        
         if ($this->redirect_page_url) {
             $redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
             return $redirect;
@@ -431,13 +433,13 @@ class Directorist_Listing_Search_Form {
         else {
             wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
         }
-
+        
         wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
         wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
             'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
             'ajax_url' => admin_url('admin-ajax.php'),
         ));
-
+        
         ATBDP()->enquirer->search_listing_scripts_styles();
 
         $bgimg = get_directorist_option('search_home_bg');
@@ -448,7 +450,7 @@ class Directorist_Listing_Search_Form {
         $container_class = is_directoria_active() ? 'container' : 'container-fluid';
         $container_class = apply_filters('atbdp_search_home_container_fluid', $container_class);
         $search_border = get_directorist_option('search_border', 1);
-
+        
         $args = array(
             'searchform'          => $this,
             'bgimg'               => $bgimg,
@@ -457,6 +459,8 @@ class Directorist_Listing_Search_Form {
         );
 
         atbdp_get_shortcode_template( 'search/search', $args );
+
+        return ob_get_clean();
     }
 
     public function directoria_bgimg() {

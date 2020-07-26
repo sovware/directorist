@@ -9,14 +9,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Directorist_Single_Listing {
 
+	protected static $instance = null;
+
 	public $id;
 	public $post;
 
-	public function __construct( $id = '' ) {
+	private function __construct( $id = '' ) {
 		if ( ! $id ) {
 			$id = get_the_ID();
 		}
 		$this->id = (int) $id;
+	}
+
+	public static function instance() {
+		if ( null == self::$instance ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
 	}
 
 	public function get_id() {
@@ -134,6 +143,68 @@ class Directorist_Single_Listing {
          * @since 5.0
          */
         echo apply_filters('atbdp_before_listing_title', $html);
+    }
+
+    public function single_content_wrapper($content) {
+    	$id = $this->get_id();
+        $single_page_id = get_directorist_option('single_listing_page');
+
+        if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
+
+            $include = apply_filters('include_style_settings', true);
+
+            if ($include) {
+                include ATBDP_DIR . 'public/assets/css/style.php';
+            }
+
+            /**
+             * @since 5.10.0
+             * It fires before single listing load
+             */
+            do_action('atbdp_before_single_listing_load', $id);
+
+            $content = !empty($single_page_id) ? get_post_field('post_content', $single_page_id) : '[directorist_listing_top_area][directorist_listing_tags][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]';
+
+            $payment   = isset($_GET['payment']) ? $_GET['payment'] : '';
+            $redirect  = isset($_GET['redirect']) ? $_GET['redirect'] : '';
+            $edit_link = !empty($payment) ? add_query_arg('redirect', $redirect, ATBDP_Permalink::get_edit_listing_page_link($id)) : ATBDP_Permalink::get_edit_listing_page_link($id);
+
+            $display_preview = get_directorist_option('preview_enable', 1);
+            $url = $submit_text = '';
+
+            if ( $display_preview && $redirect ) {
+	            $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : $id;
+	            $edited = isset($_GET['edited']) ? $_GET['edited'] : '';
+				$pid = isset($_GET['p']) ? $_GET['p'] : '';
+				$pid = empty($pid) ? $post_id : $pid;
+	            if (empty($payment)){
+	                $url = add_query_arg(array('p' => $pid, 'post_id' => $pid, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $redirect);
+	                $submit_text = __('Submit', 'directorist');
+	            }
+	            else {
+	                $url = add_query_arg(array('atbdp_listing_id' => $pid, 'reviewed' => 'yes'), $_GET['redirect']);
+	                $submit_text = __('Pay & Submit', 'directorist');
+	            }
+            }
+
+            $args = array(
+            	'listing'           => $this,
+            	'author_id'         => get_post_field('post_author', $id),
+            	'content'           => $content,
+            	'class_col'         => is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12',
+            	'class_float'       => $redirect ? 'atbdp_float_active' : 'atbdp_float_none',
+            	'display_back_link' => get_directorist_option('display_back_link', 1),
+            	'edit_link'         => $edit_link,
+            	'edit_text'         => apply_filters('atbdp_listing_edit_btn_text', __(' Edit', 'directorist')),
+            	'url'               => $url,
+            	'submit_text'       => apply_filters('atbdp_listing_preview_btn_text', $submit_text),
+            );
+
+            $html = atbdp_return_shortcode_template( 'single-listing/content-wrapper', $args );
+            return $html;
+        }
+
+        return $content;
     }
 
     public function render_shortcode_top_area() {

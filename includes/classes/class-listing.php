@@ -54,7 +54,6 @@ if (!class_exists('ATBDP_Listing')):
             // remove adjacent_posts_rel_link_wp_head for accurate post views
             remove_action('wp_head', array($this, 'adjacent_posts_rel_link_wp_head', 10));
             add_action('wp_head', array($this, 'track_post_views'));
-            add_filter('the_content', array($this, 'the_content'), 20); // add the output of the single page when the content filter fires in our post type. This way is better than using a custom post template because it will not match the style of all theme.
             add_filter('post_thumbnail_html', array($this, 'post_thumbnail_html'), 10, 3);
             add_action('wp_head', array($this, 'og_metatags'));
             add_action('template_redirect', array($this, 'atbdp_listing_status_controller'));
@@ -189,88 +188,6 @@ if (!class_exists('ATBDP_Listing')):
             return $html;
 
         }
-
-        public function the_content($content)
-        {
-            $id = get_directorist_option('single_listing_page');
-            if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
-                $include = apply_filters('include_style_settings', true);
-                if ($include) {
-                    include ATBDP_DIR . 'public/assets/css/style.php';
-                }
-                global $post;
-                /**
-                 * @since 5.10.0
-                 * It fires before single listing load
-                 */
-                do_action('atbdp_before_single_listing_load', $post->ID);
-                ob_start();
-                $listing_author_id = get_post_field('post_author', $post->ID);
-
-                $content = !empty($id) ? get_post_field('post_content', $id) : '[directorist_listing_top_area][directorist_listing_tags][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]';
-
-
-                $content = do_shortcode($content);
-                $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
-                $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
-                // run block content if its available
-                ?>
-                <section id="directorist" class="directorist atbd_wrapper">
-                    <div class="row">
-                        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
-
-                            <?php
-                            $display_back_link = get_directorist_option('display_back_link', 1);
-                            $html_edit_back = '';
-                            //is current user is logged in and the original author of the listing
-                            if (atbdp_logged_in_user() && $listing_author_id == get_current_user_id()) {
-                                //ok show the edit option
-
-                                $html_edit_back .= '<div class="edit_btn_wrap">';
-                                if (!empty($display_back_link)) {
-                                    if (!isset($_GET['redirect'])) {
-                                        $html_edit_back .= '<a href="javascript:history.back()" class="atbd_go_back"><i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '</a> ';
-                                    }
-                                }
-                                $html_edit_back .= '<div class="' . $class . '">';
-                                $html_edit_back .= atbdp_get_preview_button();
-                                $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
-                                $url = isset($_GET['redirect']) ? $_GET['redirect'] : '';
-                                $edit_link = !empty($payment)?add_query_arg('redirect', $url, ATBDP_Permalink::get_edit_listing_page_link($post->ID)):ATBDP_Permalink::get_edit_listing_page_link($post->ID);
-                                $html_edit_back .= '<a href="' . esc_url($edit_link) . '" class="btn btn-outline-light">
-                        <span class="' . atbdp_icon_type() . '-edit"></span>' . apply_filters('atbdp_listing_edit_btn_text', esc_html__(' Edit', 'directorist')) . '</a>';
-                                $html_edit_back .= '</div>';
-                                $html_edit_back .= '</div>';
-                            } else {
-                                if (!empty($display_back_link)) {
-                                    $html_edit_back .= '<div class="edit_btn_wrap">
-                            <a href="javascript:history.back()" class="atbd_go_back">
-                                <i class="' . atbdp_icon_type() . '-angle-left"></i>' . esc_html__(' Go Back', 'directorist') . '
-                            </a>
-                       </div>';
-                                }
-                            }
-
-                            /**
-                             * @since 5.5.4
-                             */
-                            echo apply_filters('atbdp_single_listing_edit_back', $html_edit_back);
-
-                            if (function_exists('do_blocks')) {
-                                echo $content;
-                            } ?>
-                        </div>
-                        <?php include ATBDP_TEMPLATES_DIR . 'sidebar-listing.php'; ?>
-                    </div>
-                </section>
-                <?php
-                return ob_get_clean();
-
-            }
-
-            return $content;
-        }
-
 
         public function modify_search_query(WP_Query $query)
         {

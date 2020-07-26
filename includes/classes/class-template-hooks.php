@@ -57,8 +57,7 @@ class Directorist_Template_Hooks {
 		add_action( 'atbdp_listing_thumbnail_area', array( 'Directorist_Listings', 'mark_as_favourite_button') );
 
 		// Single Listing content wrapper
-		$single_listing = Directorist_Single_Listing::instance();
-		add_filter('the_content', array( $single_listing, 'single_content_wrapper' ), 20 );
+		add_filter('the_content', array( 'Directorist_Single_Listing', 'single_content_wrapper' ), 20 );
 	}
 
     // instance
@@ -70,6 +69,6 @@ class Directorist_Template_Hooks {
 	}
 }
 
-add_action( 'wp', function(){
+add_action( 'init', function(){
 	Directorist_Template_Hooks::instance();
 } );

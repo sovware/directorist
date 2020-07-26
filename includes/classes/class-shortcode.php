@@ -102,52 +102,52 @@ class ATBDP_Shortcode {
 	}
 
 	public function directorist_listing_header() {
-		$listing = Directorist_Single_Listing::instance();
+		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_top_area();
 	}
 
 	public function directorist_tags() {
-		$listing = Directorist_Single_Listing::instance();
+		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_tags();
 	}
 
 	public function directorist_custom_field() {
-		$listing = Directorist_Single_Listing::instance();
+		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_custom_fields();
 	}
 
 	public function directorist_listing_video() {
-		$listing = Directorist_Single_Listing::instance();
+		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_video();
 	}
 
 	public function directorist_listing_map() {
-		$listing = Directorist_Single_Listing::instance();
+		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_map();
 	}
 
 	public function directorist_listing_contact_information() {
-		$listing = Directorist_Single_Listing::instance();
+		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_contact_information();
 	}
 
 	public function directorist_listing_author_details() {
-		$listing = Directorist_Single_Listing::instance();
+		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_author_info();
 	}
 
 	public function directorist_listing_contact_owner() {
-		$listing = Directorist_Single_Listing::instance();
+		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_contact_owner();
 	}
 
 	public function directorist_listing_review() {
-		$listing = Directorist_Single_Listing::instance();
+		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_listing_review();
 	}
 	
 	public function directorist_related_listings() {
-		$listing = Directorist_Single_Listing::instance();
+		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_related_listings();
         // @todo @kowsar filter=atbdp_related_listing_template in "Post Your Need" extention
 	}

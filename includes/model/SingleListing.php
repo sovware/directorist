@@ -14,18 +14,11 @@ class Directorist_Single_Listing {
 	public $id;
 	public $post;
 
-	private function __construct( $id = '' ) {
+	public function __construct( $id = '' ) {
 		if ( ! $id ) {
 			$id = get_the_ID();
 		}
 		$this->id = (int) $id;
-	}
-
-	public static function instance() {
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-		return self::$instance;
 	}
 
 	public function get_id() {
@@ -145,8 +138,8 @@ class Directorist_Single_Listing {
         echo apply_filters('atbdp_before_listing_title', $html);
     }
 
-    public function single_content_wrapper($content) {
-    	$id = $this->get_id();
+    public static function single_content_wrapper($content) {
+    	$id = get_the_ID();
         $single_page_id = get_directorist_option('single_listing_page');
 
         if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
@@ -188,7 +181,6 @@ class Directorist_Single_Listing {
             }
 
             $args = array(
-            	'listing'           => $this,
             	'author_id'         => get_post_field('post_author', $id),
             	'content'           => $content,
             	'class_col'         => is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12',

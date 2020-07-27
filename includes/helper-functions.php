@@ -2349,19 +2349,19 @@ function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price 
     <div class="col-lg-12">
         <div class="row" <?php echo (get_directorist_option('grid_view_as', 'normal_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
             <?php
-            $columns        = get_directorist_option('all_listing_columns', 3);
-            $column_width   = 100 / (int)$columns . '%';
-            $query_is_array = is_array( $all_listings ) ? true : false;
+            $columns       = get_directorist_option('all_listing_columns', 3);
+            $column_width  = 100 / (int)$columns . '%';
+            $query_is_post = method_exists( $all_listings, 'have_posts' ) ? true : false;
 
             $listings_have_post = false;
-            if ( $query_is_array ) {
+            if ( ! $query_is_post ) {
                 $listings_have_post = ( ! empty( $all_listings ) ) ? true : false;
             } else {
                 $listings_have_post = ( $all_listings->have_posts() ) ? true : false;
             }
 
             if ( $listings_have_post ) :
-                if ( $query_is_array ) {
+                if ( ! $query_is_post ) {
                     // Prime caches to reduce future queries.
                     if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
                         _prime_post_caches( $all_listings->ids );

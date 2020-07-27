@@ -222,8 +222,15 @@ if (!class_exists('ATBDP_Listing')):
                     do_action('atbdp_before_single_listing_load', $post->ID);
                     ob_start();
                     $listing_author_id = get_post_field('post_author', $post->ID);
-                    $content = get_post_field('post_content', $id);
-                    $content = do_shortcode($content);
+
+                    if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->db->is_built_with_elementor( $id ) ) {
+                        $content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $id );
+                    }
+                    else {
+                        $content = get_post_field('post_content', $id);
+                        $content = do_shortcode($content);                       
+                    }
+
                     $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
                     $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                     // run block content if its available

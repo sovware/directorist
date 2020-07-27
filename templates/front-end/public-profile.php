@@ -257,7 +257,6 @@ $container_fluid = 'container-fluid';
                 do_action('atbdp_author_listings_html', $all_listings);
             }
             ?>
-
         </div>
     </div>
 </div>

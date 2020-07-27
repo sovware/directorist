@@ -170,10 +170,10 @@ $container_fluid = 'container-fluid';
                                 }
 
                                 if (!empty($website)) { ?>
-                                    <li>
-                                        <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
-                                        <span class="atbd_info"><a target="_blank" href="<?php echo !empty($website) ? esc_html($website) : ''; ?>"><?php echo !empty($website) ? esc_html($website) : ''; ?></a></span>
-                                    </li>
+                                <li>
+                                    <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
+                                    <span class="atbd_info"><a target="_blank" href="<?php echo !empty($website) ? esc_html($website) : ''; ?>"><?php echo !empty($website) ? esc_html($website) : ''; ?></a></span>
+                                </li>
                                 <?php } ?>
                             </ul>
                         </div>

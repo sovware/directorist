@@ -169,20 +169,15 @@ $container_fluid = 'container-fluid';
                                     }
                                 }
 
-                                if (!empty($website)) {
-                                    ?>
-                                    <li>
-                                        <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
-                                        <span class="atbd_info"><a target="_blank" href="<?php echo !empty($website) ? esc_html($website) : ''; ?>"><?php echo !empty($website) ? esc_html($website) : ''; ?></a></span>
-                                    </li>
-                                <?php
-                                }
-                                ?>
+                                if (!empty($website)) { ?>
+                                <li>
+                                    <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
+                                    <span class="atbd_info"><a target="_blank" href="<?php echo !empty($website) ? esc_html($website) : ''; ?>"><?php echo !empty($website) ? esc_html($website) : ''; ?></a></span>
+                                </li>
+                                <?php } ?>
                             </ul>
                         </div>
-                        <?php
-                        if (!empty($facebook || $twitter || $linkedIn || $youtube)) {
-                        ?>
+                        <?php if (!empty($facebook || $twitter || $linkedIn || $youtube)) { ?>
                             <div class="atbd_social_wrap">
                                 <div class="atbd_director_social_wrap">
                                     <?php
@@ -257,7 +252,6 @@ $container_fluid = 'container-fluid';
                 do_action('atbdp_author_listings_html', $all_listings);
             }
             ?>
-
         </div>
     </div>
 </div>

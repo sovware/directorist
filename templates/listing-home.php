@@ -393,7 +393,9 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
 
         <div class="row">
             <div class="col-md-12">
-                <?php if (1 == $show_popular_category) {
+                <?php 
+                
+                if (1 == $show_popular_category) {
                     /*@todo; let user decide what the popular category should be counted based on, and how to sort them*/
                     $args = array(
                         'type'          => ATBDP_POST_TYPE,
@@ -406,7 +408,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                         'no_found_rows' => true,                    // Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
                     );
                     $args = apply_filters('atbdp_top_category_argument', $args);
-                    $top_categories_ = ATBDP_Terms_Model::get_categories_taxanomy( $args );
+                    $top_categories = ATBDP_Terms_Model::get_categories_taxanomy( $args );
 
                     if ( ! empty( $top_categories ) ) { ?>
                         <div class="directory_home_category_area">

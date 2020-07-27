@@ -90,7 +90,6 @@ class ATBDP_Listing_DB {
             $args['no_found_rows'] = false;
         }
         $args = apply_filters('atbdp_user_dashboard_query_arguments', $args);
-        // return ATBDP_Listings_Model::get_listings_query( $args );
         return new WP_Query(apply_filters('atbdp_user_dashboard_query_arguments',$args));
     }
 

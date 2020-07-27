@@ -174,9 +174,7 @@ $container_fluid = 'container-fluid';
                                         <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
                                         <span class="atbd_info"><a target="_blank" href="<?php echo !empty($website) ? esc_html($website) : ''; ?>"><?php echo !empty($website) ? esc_html($website) : ''; ?></a></span>
                                     </li>
-                                <?php
-                                }
-                                ?>
+                                <?php } ?>
                             </ul>
                         </div>
                         <?php if (!empty($facebook || $twitter || $linkedIn || $youtube)) { ?>

@@ -1,5 +1,6 @@
 (function ($) {
     jQuery(document).ready(function ($) {
+    console.log( atbdp_lat_lon );
 var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'

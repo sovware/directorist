@@ -1,8 +1,11 @@
 <?php
 wp_enqueue_script('leaflet-subgroup-realworld');
+$zoom = get_directorist_option('map_view_zoom_level', 5);
 $data = array(
-    'zoom'       => !empty($zoom) ? $zoom : 1,
+    'zoom' => $zoom,
 );
+
+
 $default_latitude = get_directorist_option( 'default_latitude', '40.7127753' );
 $default_longitude = get_directorist_option( 'default_longitude', '-74.0059728' );
 wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $data );
@@ -39,8 +42,12 @@ $marker_icons = [];
             $GLOBALS['post'] = get_post( $listings_id );
             setup_postdata( $GLOBALS['post'] );
             
-            $manual_lat            = get_post_meta(get_the_ID(), '_manual_lat', true);
-            $manual_lng            = get_post_meta(get_the_ID(), '_manual_lng', true);
+            $manual_lat = get_post_meta(get_the_ID(), '_manual_lat', true);
+            $manual_lat = ( ! empty( $manual_lat ) ) ? $manual_lat : $default_latitude ;
+            
+            $manual_lng = get_post_meta(get_the_ID(), '_manual_lng', true);
+            $manual_lng = ( ! empty( $manual_lng ) ) ? $manual_lng : $default_longitude ;
+
             $listing_img           = get_post_meta(get_the_ID(), '_listing_img', true);
             $listing_prv_img       = get_post_meta(get_the_ID(), '_listing_prv_img', true);
             $crop_width            = get_directorist_option('crop_width', 360);

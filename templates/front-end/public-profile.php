@@ -180,9 +180,7 @@ $container_fluid = 'container-fluid';
                                 ?>
                             </ul>
                         </div>
-                        <?php
-                        if (!empty($facebook || $twitter || $linkedIn || $youtube)) {
-                        ?>
+                        <?php if (!empty($facebook || $twitter || $linkedIn || $youtube)) { ?>
                             <div class="atbd_social_wrap">
                                 <div class="atbd_director_social_wrap">
                                     <?php

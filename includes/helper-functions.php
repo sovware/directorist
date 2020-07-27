@@ -2354,14 +2354,19 @@ function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price 
             $query_is_post = method_exists( $all_listings, 'have_posts' ) ? true : false;
 
             $listings_have_post = false;
-            if ( ! $query_is_post ) {
-                $listings_have_post = ( ! empty( $all_listings ) ) ? true : false;
-            } else {
+            if ( $query_is_post ) {
                 $listings_have_post = ( $all_listings->have_posts() ) ? true : false;
+            } else {
+                $listings_have_post = ( ! empty( $all_listings ) ) ? true : false;
             }
 
             if ( $listings_have_post ) :
                 if ( ! $query_is_post ) {
+                    while ( $all_listings->have_posts() ) {
+                        $all_listings->the_post();
+                        view( 'listings-grid-loop' );
+                    }
+                } else {
                     // Prime caches to reduce future queries.
                     if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
                         _prime_post_caches( $all_listings->ids );
@@ -2375,15 +2380,8 @@ function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price 
                     endforeach;
     
                     $GLOBALS['post'] = $original_post;
-                    wp_reset_postdata();
-                } else {
-                    // var_dump( $all_listings->posts );
-                    while ( $all_listings->have_posts() ) {
-                        $all_listings->the_post();
-                        view( 'listings-grid-loop' );
-                    }
-                    wp_reset_postdata();
                 }
+                wp_reset_postdata();
             else: ?>
                 <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
             <?php endif; ?>

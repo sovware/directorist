@@ -2361,7 +2361,7 @@ function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price 
             }
 
             if ( $listings_have_post ) :
-                if ( ! $query_is_post ) {
+                if ( $query_is_post ) {
                     while ( $all_listings->have_posts() ) {
                         $all_listings->the_post();
                         view( 'listings-grid-loop' );

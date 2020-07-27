@@ -34,7 +34,7 @@
 				<?php
 			}
 
-			echo do_shortcode($content);
+			echo $content;
 			?>
 
 		</div>

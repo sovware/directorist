@@ -140,15 +140,15 @@ class Directorist_Single_Listing {
 
     public static function single_content_wrapper($content) {
     	$id = get_the_ID();
-        $single_page_id = get_directorist_option('single_listing_page');
+    	$single_page_id = get_directorist_option('single_listing_page');
 
-        if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
+    	if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
 
-            $include = apply_filters('include_style_settings', true);
+    		$include = apply_filters('include_style_settings', true);
 
-            if ($include) {
-                include ATBDP_DIR . 'public/assets/css/style.php';
-            }
+    		if ($include) {
+    			include ATBDP_DIR . 'public/assets/css/style.php';
+    		}
 
             /**
              * @since 5.10.0
@@ -156,7 +156,19 @@ class Directorist_Single_Listing {
              */
             do_action('atbdp_before_single_listing_load', $id);
 
-            $content = !empty($single_page_id) ? get_post_field('post_content', $single_page_id) : '[directorist_listing_top_area][directorist_listing_tags][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]';
+            if ( !empty($single_page_id) ) {
+            	if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->db->is_built_with_elementor( $single_page_id ) ) {
+            		$content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $single_page_id );
+            	}
+            	else {
+            		$content = get_post_field('post_content', $single_page_id);
+            		$content = do_shortcode($content);
+            	}
+            }
+            else {
+            	$content = '[directorist_listing_top_area][directorist_listing_tags][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]';
+            	$content = do_shortcode($content);
+            }
 
             $payment   = isset($_GET['payment']) ? $_GET['payment'] : '';
             $redirect  = isset($_GET['redirect']) ? $_GET['redirect'] : '';
@@ -166,18 +178,18 @@ class Directorist_Single_Listing {
             $url = $submit_text = '';
 
             if ( $display_preview && $redirect ) {
-	            $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : $id;
-	            $edited = isset($_GET['edited']) ? $_GET['edited'] : '';
-				$pid = isset($_GET['p']) ? $_GET['p'] : '';
-				$pid = empty($pid) ? $post_id : $pid;
-	            if (empty($payment)){
-	                $url = add_query_arg(array('p' => $pid, 'post_id' => $pid, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $redirect);
-	                $submit_text = __('Submit', 'directorist');
-	            }
-	            else {
-	                $url = add_query_arg(array('atbdp_listing_id' => $pid, 'reviewed' => 'yes'), $_GET['redirect']);
-	                $submit_text = __('Pay & Submit', 'directorist');
-	            }
+            	$post_id = isset($_GET['post_id']) ? $_GET['post_id'] : $id;
+            	$edited = isset($_GET['edited']) ? $_GET['edited'] : '';
+            	$pid = isset($_GET['p']) ? $_GET['p'] : '';
+            	$pid = empty($pid) ? $post_id : $pid;
+            	if (empty($payment)){
+            		$url = add_query_arg(array('p' => $pid, 'post_id' => $pid, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $redirect);
+            		$submit_text = __('Submit', 'directorist');
+            	}
+            	else {
+            		$url = add_query_arg(array('atbdp_listing_id' => $pid, 'reviewed' => 'yes'), $_GET['redirect']);
+            		$submit_text = __('Pay & Submit', 'directorist');
+            	}
             }
 
             $args = array(

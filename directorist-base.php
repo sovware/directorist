@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
  * Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
- * Version: 6.4.0
+ * Version: 6.4.3
  * Author: AazzTech
  * Author URI: https://aazztech.com
  * Text Domain: directorist
@@ -173,12 +173,12 @@ final class Directorist_Base
     public $seo;
 
     /**
-     * ATBDP_Validator Object.
+     * ATBDP_Tools Object.
      *
-     * @var ATBDP_Validator
+     * @var ATBDP_Tools
      * @since 4.7.2
      */
-    public $validator;
+    public $tools;
 
     /**
      * ATBDP_Single_Templates Object.
@@ -224,6 +224,7 @@ final class Directorist_Base
             self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
             self::$instance->enquirer = new ATBDP_Enqueuer;
+            self::$instance->hooks = new ATBDP_Hooks;
             self::$instance->metabox = new ATBDP_Metabox;
             self::$instance->ajax_handler = new ATBDP_Ajax_Handler;
             self::$instance->helper = new ATBDP_Helper;
@@ -236,14 +237,13 @@ final class Directorist_Base
             self::$instance->shortcode = new ATBDP_Shortcode;
             self::$instance->email = new ATBDP_Email;
             self::$instance->seo = new ATBDP_SEO;
-            self::$instance->validator = new ATBDP_Validator;
+            // self::$instance->validator = new ATBDP_Validator;
             // self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
+            self::$instance->tools = new ATBDP_Tools;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
-
-
+            self::$instance->update_database();
             // new settings
             new ATBDP_Settings_Manager();
-
             /*Extensions Link*/
             /*initiate extensions link*/
             new ATBDP_Extensions();
@@ -251,13 +251,10 @@ final class Directorist_Base
             new ATBDP_Themes();
             /*Initiate Review and Rating Features*/
             self::$instance->review = new ATBDP_Review_Rating;
-
             //activate rewrite api
             new ATBDP_Rewrite;
-
             //map custom capabilities
             add_filter('map_meta_cap', array(self::$instance->roles, 'meta_caps'), 10, 4);
-
             //add dtbdp custom body class
             add_filter('body_class', array(self::$instance, 'atbdp_body_class'), 99);
 
@@ -289,13 +286,59 @@ final class Directorist_Base
             new ATBDP_Upgrade;
             // add upgrade feature
             new ATBDP_Help_Support;
-            //validator
-            new ATBDP_Validator();
             // add uninstall menu
             add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
+
+            self::init_hooks();
+
         }
 
         return self::$instance;
+    }
+
+    /**
+     * Update Database
+     *
+     * @access private
+     * @since 6.4.4
+     * @return void
+     */
+    private function update_database()
+    {
+        $this->update_review_table();
+    }
+
+    /**
+     * Init Hooks
+     *
+     * @access private
+     * @since 6.4.5
+     * @return void
+     */
+    public static function init_hooks()
+    {
+        ATBDP_Cache_Helper::reset_cache();
+    }
+
+
+    /**
+     * Update Review Table
+     *
+     * @access private
+     * @since 6.4.4
+     * @return void
+     */
+    private function update_review_table()
+    {
+        $current_charset_collate = get_option('atbdp_review_table_charset_collate');
+        $review_rating = new ATBDP_Review_Rating_DB();
+        
+        $charset_collate = $review_rating->get_charset_collate();
+        
+        if ( $charset_collate !== $current_charset_collate ) {
+            add_action('admin_init', array( $review_rating, 'update_table_collation'));
+            update_option('atbdp_review_table_charset_collate', $charset_collate);
+        }
     }
 
 
@@ -326,9 +369,15 @@ final class Directorist_Base
         require_once ATBDP_LIB_DIR . 'vafpress/bootstrap.php'; // load option framework.
         require_once ATBDP_INC_DIR . 'helper-functions.php';
         require_once ATBDP_INC_DIR . 'template-functions.php';
+
+        load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
+        load_dependencies('all', ATBDP_INC_DIR . 'model/');
+        load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
+
         load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
         load_dependencies('all', ATBDP_MODEL_DIR); // load all php files from ATBDP_MODEL_DIR
         load_dependencies('all', ATBDP_LIB_DIR); // load all php files from ATBDP_LIB_DIR
+        
         /*LOAD Rating and Review functionality*/
         load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');
         /*Load gateway related stuff*/
@@ -343,7 +392,7 @@ final class Directorist_Base
         require_once ATBDP_INC_DIR . 'custom-actions.php';
         require_once ATBDP_INC_DIR . 'custom-filters.php';
         /*Load Elementor Widgets*/
-        //require_once ATBDP_INC_DIR . 'elementor/init.php';
+        require_once ATBDP_INC_DIR . 'elementor/init.php';
 
     }
 
@@ -424,6 +473,9 @@ final class Directorist_Base
     {
 
         load_plugin_textdomain('directorist', false, ATBDP_LANG_DIR);
+        if ( get_transient( '_directorist_setup_page_redirect' ) ) {
+            directorist_redirect_to_admin_setup_wizard();
+        }
     }
 
     /**
@@ -1179,6 +1231,7 @@ final class Directorist_Base
                                 $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                                 $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
                                 $u_pro_pic = is_array($u_pro_pic) ? $u_pro_pic[0] : $u_pro_pic;
+                                $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );    
                                 $custom_gravatar = "<img src='$u_pro_pic' alt='Author'>";
                                 $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                                 $user_img = !empty($u_pro_pic) ? $custom_gravatar : $avatar_img;
@@ -1211,11 +1264,12 @@ final class Directorist_Base
                                         </div>
                                     </div>
                                 </div>
+                                <?php if( !empty( $enable_reviewer_content ) ) { ?>
                                 <div class="form-group">
                                 <textarea name="content" id="review_content" class="form-control" cols="20" rows="5"
                                           placeholder="<?php echo !empty($cur_user_review) ? __('Update your review.....', 'directorist') : __('Write your review.....', 'directorist'); ?>"><?php echo !empty($cur_user_review) ? stripslashes($cur_user_review->content) : ''; ?></textarea>
                                 </div>
-
+                                <?php } ?>
                                 <?php
                                 if ($guest_review && !atbdp_logged_in_user()){
                                 ?>
@@ -1340,9 +1394,7 @@ final class Directorist_Base
      */
     public function atbdp_parse_videos($url)
     {
-
         $embeddable_url = '';
-
         // Check for YouTube
         $is_youtube = preg_match('/youtu\.be/i', $url) || preg_match('/youtube\.com\/watch/i', $url);
 

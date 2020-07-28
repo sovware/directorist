@@ -222,6 +222,9 @@
             font-weight: 500;
             span{
               color: #7A82A6;
+              &.atbdp_expired{
+                color: $danger;
+              }
               &.atbdp__private,
               &.atbdp__published,
               &.atbdp__pending{
@@ -366,4 +369,27 @@
       padding: 10px 15px;
     }
   }
+}
+#update_user_profile{
+  position: relative;
+  transition: 0.3s ease;
+  &.loading{
+    padding-right: 30px !important;
+    &:before{
+      position: absolute;
+      content: '';
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #3498db;
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      animation: upspin 2s linear infinite;
+      right: 7px;
+      top: 11px;
+    }
+  }
+}
+@keyframes upspin {
+  0% {tranform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
 }

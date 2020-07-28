@@ -289,18 +289,19 @@ jQuery(function ($) {
         listignsGalleryUploader.init();
     }
 
-
-
-
     var formID = $('#add-listing-form');
     var on_processing = false;
+    var has_media = true;
 
 
     $('body').on('submit', formID, function (e) {
         e.preventDefault();
         var error_count = 0;
         var err_log = {};
-
+        if( $( '#atbdp_front_media_wrap:visible' ).length == 0 )
+        {
+            has_media = false;
+        }
         if ( on_processing ) {
             $('.listing_submit_btn').attr( 'disabled', true );
             return;
@@ -333,7 +334,7 @@ jQuery(function ($) {
         // ajax action
         form_data.append('action', 'add_listing_action');
 
-        if ( listingMediaUploader ) {
+        if ( listingMediaUploader && has_media ) {
             var hasValidFiles = listingMediaUploader.hasValidFiles();
             if ( hasValidFiles ) {
                 //files
@@ -600,7 +601,6 @@ jQuery(function ($) {
                 if (response.error === true) {
                     $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                     $(".listing_submit_btn").removeClass("atbd_loading");
-                    window.location.href = response.redirect_url;
                 } else {
                     // preview on and no need to redirect to payment
                     if ((response.preview_mode === true) && (response.need_payment !== true)) {
@@ -652,4 +652,5 @@ jQuery(function ($) {
             scrollTop: scroll_top
         }, 800);
     }
+
 });

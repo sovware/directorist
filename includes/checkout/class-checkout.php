@@ -137,7 +137,13 @@ class ATBDP_Checkout
         if (empty($order_id)) {
             return __('Sorry! No order id has been provided.', 'directorist');
         }
+
         $meta = get_post_meta($order_id);
+
+        if ( empty($meta['_listing_id']) ) {
+            return __('Sorry! order not found.', 'directorist');
+        }
+
         $listing_id = $meta['_listing_id'];
 
         $data = apply_filters('atbdp_payment_receipt_data', array(), $order_id, $listing_id);

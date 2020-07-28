@@ -67,7 +67,8 @@ $c_symbol = atbdp_currency_symbol($currency);
             </div>
         <?php } ?>
         <?php if('map_api' == $location_source && !empty($search_by_radius)) {
-            wp_enqueue_script('atbdp-range-slider');
+             $handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
+             wp_enqueue_script($handel);
             $radius_search_unit            = get_directorist_option('radius_search_unit', 'miles');
             if(!empty($radius_search_unit) && 'kilometers' == $radius_search_unit) {
                 $miles = __(' Kilometers', 'directorist');
@@ -75,7 +76,7 @@ $c_symbol = atbdp_currency_symbol($currency);
                 $miles = __(' Miles', 'directorist');
             }
             $default_radius_distance = get_directorist_option('search_default_radius_distance', 0);
-            wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
+            wp_localize_script( $handel, 'atbdp_range_slider', array(
                 'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
             ) );

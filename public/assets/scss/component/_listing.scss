@@ -618,3 +618,7 @@ span.atbd_get_loc_wid {
     opacity: 0;
   }
 }
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price{
+  word-break: break-all;
+}

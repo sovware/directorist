@@ -1,6 +1,5 @@
 <?php
 !empty($args['data']) ? extract($args['data']) : array(); // data array contains all required var.
-$all_listings = !empty($all_listings) ? $all_listings : new WP_Query;
 $is_disable_price = get_directorist_option('disable_list_price');
 $display_sortby_dropdown = get_directorist_option('display_sort_by', 1);
 $display_viewas_dropdown = get_directorist_option('display_view_as', 1);
@@ -45,14 +44,24 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
         ?>
         <div class="row" <?php echo ($view_as !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
             <?php
-            if ($all_listings->have_posts()) {
-                while ($all_listings->have_posts()) {
-                    $all_listings->the_post();
+            if ( ! empty( $all_listings->ids ) ) :
+                // Prime caches to reduce future queries.
+                if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
+                    _prime_post_caches( $all_listings->ids );
+                }
+
+                $original_post = $GLOBALS['post'];
+
+                foreach ( $all_listings->ids as $listings_id ) :
+                    $GLOBALS['post'] = get_post( $listings_id );
+                    setup_postdata( $GLOBALS['post'] );
+                    
                     $listing_id = get_the_ID();
                     $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
                     $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
                     $featured = get_post_meta(get_the_ID(), '_featured', true);
                     $price = get_post_meta(get_the_ID(), '_price', true);
+                    $price = '';
                     $price_range = get_post_meta(get_the_ID(), '_price_range', true);
                     $atbd_listing_pricing = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
                     $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
@@ -216,6 +225,11 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                     $l_badge_html .= new_badge();
                                     $l_badge_html .= '</span>';
 
+                                    /**
+                                     * @since 6.4.4
+                                     */
+                                    do_action( 'atbdp_all_grid_listings_before_favourite_icon' );
+                                    
                                     /**
                                      * @since 5.0
                                      */
@@ -471,12 +485,15 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                             <?php do_action('atbdp_after_single_listing_wrapper_class',$listing_id); ?>
                         </div>
                     </div>
-                <?php }
+                <?php
+                endforeach;
+
+                $GLOBALS['post'] = $original_post;
                 wp_reset_postdata();
-            } else { ?>
-                <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
-            <?php }
-            ?>
+                
+                else: ?>
+                    <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
+            <?php endif; ?>
 
         </div>
         <!--end row-->
@@ -491,7 +508,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                 $show_pagination = !empty($show_pagination) ? $show_pagination : '';
                 if ('yes' == $show_pagination) {
                     $paged = !empty($paged) ? $paged : '';
-                    echo atbdp_pagination($all_listings, $paged);
+                    echo atbdp_pagination( $all_listings );
                 } ?>
             </div>
         </div>

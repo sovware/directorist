@@ -18,7 +18,17 @@ $c_args = array(
     'post_status' => 'publish',
 
 );
-$custom_fields = new WP_Query($c_args);
+
+$custom_fields = ATBDP_Cache_Helper::get_the_transient([
+    'group'      => 'atbdp_custom_field_query',
+    'name'       => 'atbdp_all_custom_fields',
+    'query_args' => $c_args,
+    'cache'      => apply_filters( 'atbdp_cache_atbdp_all_custom_fields', 1 ),
+    'value'      => function( $data ) {
+        return  new WP_Query( $data['query_args'] );
+    }
+]);
+
 $custom_fields_posts = $custom_fields->posts;
 $has_field_value = array();
 $has_field_ids = array();

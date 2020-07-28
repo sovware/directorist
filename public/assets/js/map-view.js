@@ -119,7 +119,8 @@ MarkerLabel.prototype.draw = function () {
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             zoomControl: true,
             scrollwheel: false,
-            gestureHandling: 'cooperative'
+            gestureHandling: 'cooperative',
+            averageCenter: true,
         };
 
         // create map
@@ -188,8 +189,9 @@ MarkerLabel.prototype.draw = function () {
                 strokeColor: '',
                 strokeWeight: 0
             },
-            map_icon_label: '<div class="atbd_map_shape"><i class="' + icon + '"></i></div>'
+            map_icon_label: icon !== undefined && '<div class="atbd_map_shape"><i class="' + icon + '"></i></div>'
         });
+
         // add to array
         map.markers.push(marker);
         // if marker contains HTML, add it to an infoWindow

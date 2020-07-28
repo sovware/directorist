@@ -81,6 +81,7 @@ $enable_video_url = get_directorist_option('atbd_video_url', 1);
 $disable_contact_info = get_directorist_option('disable_contact_info');
 $disable_contact_owner = get_directorist_option('disable_contact_owner', 1);
 $display_title_for = get_directorist_option('display_title_for', 0);
+$title_placeholder = get_directorist_option( 'title_placeholder', __( 'Enter a title', 'directorist' ) );
 $display_desc_for = get_directorist_option('display_desc_for', 0);
 $display_cat_for = get_directorist_option('display_cat_for', 'users');
 $display_loc_for = get_directorist_option('display_loc_for', 0);
@@ -136,6 +137,7 @@ $contact_hide_label = get_directorist_option('contact_hide_label', __('Check it 
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 $fm_plan = !empty(get_post_meta($p_id, '_fm_plans', true)) ? get_post_meta($p_id, '_fm_plans', true) : '';
 $currency = get_directorist_option('g_currency', 'USD');
+
 $plan_cat = array();
 if (is_fee_manager_active()) {
     $plan_cat = is_plan_allowed_category($fm_plan);
@@ -154,14 +156,14 @@ $query_args = array(
     'active_term_id' => 0,
     'ancestors' => array()
 );
-?>
+
+do_action('atbdb_before_add_listing_from_wrapper'); ?>
+
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
     <div class="<?php echo apply_filters('atbdp_add_listing_container_fluid', $container_fluid) ?>">
         <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" method="post" id="add-listing-form">
             <fieldset>
-                <?php
-                do_action('atbdb_before_add_listing_from_frontend');//for dev purpose
-                ?>
+                <?php do_action('atbdb_before_add_listing_from_frontend');//for dev purpose ?>
                 <div class="atbdp-form-fields">
                     <div class="atbd_add_listing_title">
                         <h3><?php echo !empty($p_id) ? __('Update', 'directorist') : __('Add New', 'directorist'); ?></h3>
@@ -205,7 +207,7 @@ $query_args = array(
                                             <input type="text" name="listing_title"
                                                    value="<?php echo !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>"
                                                    class="form-control directory_field"
-                                                   placeholder="<?php echo __('Enter a title', 'directorist'); ?>"/>
+                                                   placeholder="<?php echo !empty( $title_placeholder ) ? esc_attr( $title_placeholder ) : __( 'Enter a title', 'directorist' ); ?>"/>
                                         </div>
                                     <?php } ?>
                                     <?php if (empty($display_desc_for)) { ?>
@@ -431,8 +433,11 @@ $query_args = array(
                                         $cf_required = get_post_meta(get_the_ID(), 'required', true);
                                         $post_meta = get_post_meta($post_id);
                                         $instructions = get_post_meta(get_the_ID(), 'instructions', true);
+
+                                        $classes = 'form-group atbdp_custom_field_area';
+                                        $custom_fields_class = apply_filters( 'atbdp_custom_field_class', $classes, $post_id );
                                         ?>
-                                        <div class="form-group" id="atbdp_custom_field_area">
+                                        <div class="<?php echo $custom_fields_class; ?>" id="atbdp_custom_field_area">
                                             <label for=""><?php the_title(); ?><?php if ($cf_required) {
                                                     echo '<span style="color: red"> *</span>';
                                                 }
@@ -723,7 +728,7 @@ $query_args = array(
                                         <div id="atbdp-custom-fields-list" data-post_id="<?php echo $p_id; ?>">
                                             <?php
                                             $selected_category = '';
-                                            do_action('wp_ajax_atbdp_custom_fields_listings_front', $p_id, $selected_category); ?>
+                                            // do_action('wp_ajax_atbdp_custom_fields_listings_front', $p_id, $selected_category); ?>
                                         </div>
                                         <?php
                                     }
@@ -735,7 +740,7 @@ $query_args = array(
                                         <div id="atbdp-custom-fields-list-selected" data-post_id="<?php echo $p_id; ?>">
                                             <?php
                                             $selected_category = !empty($selected_category) ? $selected_category : '';
-                                            do_action('wp_ajax_atbdp_custom_fields_listings_front_selected', $p_id, $selected_category); ?>
+                                            // do_action('wp_ajax_atbdp_custom_fields_listings_front_selected', $p_id, $selected_category); ?>
                                         </div>
                                         <?php
                                     }
@@ -894,7 +899,7 @@ $query_args = array(
                                                         echo get_directorist_option('require_website') ? '<span class="atbdp_make_str_red">*</span>' : ''; ?></label>
 
                                                     <input type="text" id="atbdp_website" name="website"
-                                                           value="<?php echo !empty($website) ? esc_url($website) : ''; ?>"
+                                                           value="<?php echo !empty($website) ? esc_attr($website) : ''; ?>"
                                                            class="form-control directory_field"
                                                            placeholder="<?php echo esc_attr($website_placeholder); ?>"/>
                                                 </div>
@@ -1360,8 +1365,10 @@ $query_args = array(
         </form>
     </div> <!--ends container-fluid-->
 </div>
-
 <?php
+
+do_action('atbdb_after_add_listing_from_wrapper');
+
 if ('openstreet' == $select_listing_map) {
     wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
     wp_enqueue_script('openstreet_layer');

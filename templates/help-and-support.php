@@ -10,7 +10,7 @@
             <br>
             <h3><?php _e('2. Support Forum', 'directorist')?></h3>
             <p> <?php _e('If you need any helps, please don\'t hesitate to post on our ', 'directorist')?><a
-                        href="https://directorist.com/support-forum/" target="_blank"> <?php _e('support forum', 'directorist')?></a>.</p>
+                        href="https://directorist.com/dashboard/#support" target="_blank"> <?php _e('support forum', 'directorist')?></a>.</p>
             <br>
          <!--   <h3><?php /*_e('3. Video Tutorials', 'directorist')*/?></h3>
             <div>
@@ -73,6 +73,13 @@
                 </li>
                 <li>
                     <a href="https://directorist.com/product/directorist-mark-as-sold/" target="_blank"><?php _e('Directorist - Mark as Sold', 'directorist')?></a>
+                </li>
+                <li>
+                    <a href="https://directorist.com/product/rank-featured-listings/" target="_blank"><?php _e('Directorist - Rank Featured Listings
+', 'directorist')?></a>
+                </li>
+                <li>
+                    <a href="https://directorist.com/product/directorist-booking/" target="_blank"><?php _e('Directorist - Booking ( Reservation & Appointment )')?></a>
                 </li>
             </ul>
 

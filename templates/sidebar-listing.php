@@ -6,7 +6,7 @@
  *
  * @package Directorist
  */
- if (  is_active_sidebar( 'right-sidebar-listing' ) ) { ?>
+?>
 <!-- start col-md-4  -->
 <div class="directorist col-lg-4 col-md-12">
     <div class="directorist atbd_sidebar">
@@ -15,4 +15,3 @@
     </div>
 </div>
 <!-- end col-md-4  -->
-<?php } ?>

@@ -37,31 +37,16 @@ if (!class_exists('ATBDP_Email')):
             /*Fire up email for deleted/trashed listings*/
             add_action('atbdp_deleted_expired_listings', array($this, 'notify_owner_listing_deleted'));
             add_action('atbdp_deleted_expired_listings', array($this, 'notify_admin_listing_deleted'));
-
-            //send new user confirmation notification to user
-            add_filter('wp_mail_from_name', array($this, 'atbdp_wp_mail_from_name'));
-            add_filter('wp_mail_from', array($this, 'atbdp_wp_mail_from'));
-
+            add_filter('wp_mail_from_name', array($this, 'atbdp_wp_mail_from_name'));	
         }
 
-
-        /**
-         * @since 5.8.1
-         */
-        public function atbdp_wp_mail_from()
-        {
-            $custom_mail = get_directorist_option('email_from_email', get_option('admin_email'));
-            $admin_email = $custom_mail ? $custom_mail : get_option('admin_email');
-            return apply_filters('atbdp_mail_from', $admin_email);
-        }
-
-        /**
-         * @since 5.8
-         */
-        public function atbdp_wp_mail_from_name()
-        {
-            $site_name = get_option('blogname');
-            return $site_name;
+          /**	
+         * @since 5.8	
+         */	
+        public function atbdp_wp_mail_from_name()	
+        {	
+            $site_name = get_option('blogname');	
+            return $site_name;	
         }
 
         /**
@@ -111,6 +96,7 @@ if (!class_exists('ATBDP_Email')):
             $never_exp = get_post_meta($listing_id, '_never_expire', true);
             if($renewal){
                 $token = 'cB0XtpVzGb180dgPi3hADW-'.$listing_id;
+                update_post_meta($listing_id, '_renewal_token', $token);
                 $renewal_link = add_query_arg('token', $token, ATBDP_Permalink::get_renewal_page_link($listing_id));
             }else{
                 $renewal_link = ATBDP_Permalink::get_renewal_page_link($listing_id);

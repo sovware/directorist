@@ -60,12 +60,12 @@ input[type="checkbox"] {
 .atbd_content_active #directorist.atbd_wrapper .h1 a:hover, .atbd_content_active #directorist.atbd_wrapper .h2 a:hover, .atbd_content_active #directorist.atbd_wrapper .h3 a:hover, .atbd_content_active #directorist.atbd_wrapper .h4 a:hover, .atbd_content_active #directorist.atbd_wrapper .h5 a:hover, .atbd_content_active #directorist.atbd_wrapper .h6 a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area h4 span,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 span, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action a:hover,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action:hover,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap ul li a > span,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap ul li a > span, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title span, .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .review_content a, .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span, .atbd_content_active #directorist.atbd_wrapper .atbd_upload_btn span {
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li a > span,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li a > span, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title span, .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .review_content a, .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span, .atbd_content_active #directorist.atbd_wrapper .atbd_upload_btn span {
   color: #444752;
 }
 
-.atbd_bg-primary, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a, #directorist.atbd_wrapper .author_info_module .atbdb_content_module_contents .atbd_social_wrap p a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_rating, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-search .submit_btn .btn-primary,
+.atbd_bg-primary, #directorist.atbd_wrapper .author_info_module .atbdb_content_module_contents .atbd_social_wrap p a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_rating, .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp-search .submit_btn .btn-primary,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-search .submit_btn .btn-primary,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-search .submit_btn .btn-primary, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbdp.atbdp-widget-tags ul li a:hover, .atbd_content_active .widget.atbd_widget[id^='bd'] .directorist.atbdp-widget-tags ul li a:hover,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp.atbdp-widget-tags ul li a:hover,
@@ -76,9 +76,7 @@ input[type="checkbox"] {
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span,
 .atbd_content_active .widget.atbd_widget[id^='dcl'] .atbdp-widget-categories > ul.atbdp_parent_location > li:hover > a span,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_category > li:hover > a span,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_location > li:hover > a span, .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_social_wrap p a:hover,
-.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_author_info_widget .atbd_social_wrap p a:hover,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a:hover {
+.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp-widget-categories > ul.atbdp_parent_location > li:hover > a span {
   background: #444752;
 }
 
@@ -201,14 +199,18 @@ input[type="checkbox"] {
   transform: translate(0, -50%);
 }
 
+/*rtl:begin:ignore*/
 .plasmaSlider__controlRight {
+  left: unset;
   right: 15px;
 }
 
 .plasmaSlider__controlLeft {
+  right: unset;
   left: 15px;
 }
 
+/*rtl:end:ignore*/
 .plasmaSlider__arrowBtn {
   margin: 0;
   padding: 0;
@@ -483,14 +485,18 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlLeft {
   transform: translate(0, -50%);
 }
 
+/*rtl:begin:ignore*/
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlRight {
+  left: unset;
   right: 15px;
 }
 
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlLeft {
+  right: unset;
   left: 15px;
 }
 
+/*rtl:end:ignore*/
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn {
   margin: 0;
   padding: 0;
@@ -1160,6 +1166,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   height: 32px;
   top: 20px;
   right: 20px;
+  left: auto;
   position: absolute;
   transform: none;
   background: #444752;
@@ -1475,7 +1482,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup,
 .atbd_content_active #directorist.atbd_wrapper #gmap.leaflet-container .leaflet-popup {
+  /*rtl:begin:ignore*/
   left: -95px !important;
+  /*rtl:end:ignore*/
 }
 
 .atbd_content_active #directorist.atbd_wrapper #map.leaflet-container .leaflet-popup-content-wrapper,
@@ -1530,6 +1539,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   border-radius: 50%;
   color: #fff;
   right: 10px;
+  left: auto;
   top: 10px;
   display: flex;
   align-items: center;
@@ -2162,8 +2172,10 @@ div#listing_notifier span {
   content: '';
   width: 7px;
   height: 7px;
+  /*rtl:begin:ignore*/
   border-left: 1px solid #444752;
   border-bottom: 1px solid #444752;
+  /*rtl:end:ignore*/
   position: absolute;
   left: 0;
   top: 0;
@@ -2298,6 +2310,54 @@ div#listing_notifier span {
   padding: 0 15px !important;
 }
 
+input[type="radio"].atbdp_radio_input {
+  display: none;
+}
+
+input[type="radio"].atbdp_radio_input + label {
+  position: relative;
+  padding-left: 23px;
+  font-weight: 700;
+}
+
+input[type="radio"].atbdp_radio_input + label::before {
+  position: absolute;
+  content: '';
+  width: 15px;
+  height: 15px;
+  border: 1px solid #b3afaf;
+  border-radius: 100%;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: .3s ease;
+  box-sizing: border-box;
+}
+
+input[type="radio"].atbdp_radio_input:checked + label:before {
+  border: 5px solid #444;
+}
+
+.atbdp_input_group {
+  margin-bottom: 8px;
+}
+
+.atbdp_option_title {
+  margin-bottom: 10px;
+}
+
+#directorist.atbd_wrapper .lost_reset_password p {
+  margin-bottom: 15px !important;
+}
+
+#directorist.atbd_wrapper .lost_reset_password label {
+  display: block;
+}
+
+#directorist.atbd_wrapper .lost_reset_password input[type="password"] {
+  width: 100%;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -2387,11 +2447,13 @@ div#listing_notifier span {
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area {
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: -3px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area span,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area span {
-  margin-right: 10px;
   width: auto;
   height: auto;
   top: 0;
@@ -2404,6 +2466,7 @@ div#listing_notifier span {
   color: #7a82a6;
   cursor: pointer;
   border-radius: 4px;
+  margin: 3px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action a,
@@ -2411,25 +2474,20 @@ div#listing_notifier span {
   color: #7a82a6;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action + .atbd_action,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action + .atbd_action {
-  margin-left: 6px;
-}
-
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share {
   position: relative;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share:hover .atbd_director_social_wrap,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share:hover .atbd_director_social_wrap {
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share:hover .atbd_directory_social_wrap,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share:hover .atbd_directory_social_wrap {
   opacity: 1;
   visibility: visible;
   top: calc(100% + 10px);
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap {
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap {
   position: absolute;
   transition: all 0.2s ease-in-out;
   z-index: 2;
@@ -2445,25 +2503,30 @@ div#listing_notifier span {
   box-shadow: 0 5px 20px rgba(167, 178, 199, 0.3);
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap ul li a,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap ul li a {
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li a,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li a {
   padding: 11px 20px;
   display: block;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap ul li + li,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap ul li + li {
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li + li,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li + li {
   border-top: 1px solid #e3e6ef;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap:before,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_director_social_wrap:before {
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap:before,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap:before {
   position: absolute;
   content: '';
   height: 9px;
   width: 100%;
   top: -9px;
   left: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_report a span,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_report a span {
+  pointer-events: none;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbdb_content_module_contents {
@@ -2589,106 +2652,6 @@ div#listing_notifier span {
   width: 65%;
   display: inline-block;
   vertical-align: top;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap {
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a {
-  display: inline-block;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  line-height: 35px;
-  width: 35px;
-  text-align: center;
-  border-radius: 4px;
-  color: #ffffff;
-  overflow: hidden;
-  transition: all ease-in-out 300ms !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a:hover {
-  border-radius: 50%;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.facebook:hover {
-  background-color: #4267B2 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.twitter:hover {
-  background-color: #1da1f2 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.youtube:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.youtube-play:hover {
-  background-color: #ff0000 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.instagram:hover {
-  background-color: #c32aa3 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.linkedin:hover {
-  background-color: #007bb5 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.google-plus:hover {
-  background-color: #db4437 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.snapchat:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.snapchat-ghost:hover {
-  background-color: #eae800 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.reddit:hover {
-  background-color: #ff4500 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.pinterest:hover {
-  background-color: #bd081c !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.tumblr:hover {
-  background-color: #35465d !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.flickr:hover {
-  background-color: #f40083 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.vimeo:hover {
-  background-color: #1ab7ea !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.vine:hover {
-  background-color: #00b489 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.github:hover {
-  background-color: #444752 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.dribbble:hover {
-  background-color: #ea4c89 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.behance:hover {
-  background-color: #196EE3 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.soundcloud:hover {
-  background-color: #ff5500 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a.stack-overflow:hover {
-  background-color: #ff5500 !important;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_contact_information_module .atbd_director_social_wrap a span.fa {
-  line-height: inherit;
-  font-size: 16px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_directry_gallery_wrapper {
@@ -3266,6 +3229,103 @@ div#listing_notifier span {
 
 .atbd-listing-tags .atbdb_content_module_contents ul li {
   flex: 0 0 33.33%;
+}
+
+.atbd_director_social_wrap {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.atbd_director_social_wrap a {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  line-height: 35px;
+  width: 35px;
+  text-align: center;
+  background: #444752;
+  border-radius: 4px;
+  color: #ffffff !important;
+  overflow: hidden;
+  transition: all ease-in-out 300ms !important;
+}
+
+.atbd_director_social_wrap a.facebook:hover {
+  background-color: #4267B2 !important;
+}
+
+.atbd_director_social_wrap a.twitter:hover {
+  background-color: #1da1f2 !important;
+}
+
+.atbd_director_social_wrap a.youtube:hover, .atbd_director_social_wrap a.youtube-play:hover {
+  background-color: #ff0000 !important;
+}
+
+.atbd_director_social_wrap a.instagram:hover {
+  background-color: #c32aa3 !important;
+}
+
+.atbd_director_social_wrap a.linkedin:hover {
+  background-color: #007bb5 !important;
+}
+
+.atbd_director_social_wrap a.google-plus:hover {
+  background-color: #db4437 !important;
+}
+
+.atbd_director_social_wrap a.snapchat:hover, .atbd_director_social_wrap a.snapchat-ghost:hover {
+  background-color: #eae800 !important;
+}
+
+.atbd_director_social_wrap a.reddit:hover {
+  background-color: #ff4500 !important;
+}
+
+.atbd_director_social_wrap a.pinterest:hover {
+  background-color: #bd081c !important;
+}
+
+.atbd_director_social_wrap a.tumblr:hover {
+  background-color: #35465d !important;
+}
+
+.atbd_director_social_wrap a.flickr:hover {
+  background-color: #f40083 !important;
+}
+
+.atbd_director_social_wrap a.vimeo:hover {
+  background-color: #1ab7ea !important;
+}
+
+.atbd_director_social_wrap a.vine:hover {
+  background-color: #00b489 !important;
+}
+
+.atbd_director_social_wrap a.github:hover {
+  background-color: #444752 !important;
+}
+
+.atbd_director_social_wrap a.dribbble:hover {
+  background-color: #ea4c89 !important;
+}
+
+.atbd_director_social_wrap a.behance:hover {
+  background-color: #196EE3 !important;
+}
+
+.atbd_director_social_wrap a.soundcloud:hover {
+  background-color: #ff5500 !important;
+}
+
+.atbd_director_social_wrap a.stack-overflow:hover {
+  background-color: #ff5500 !important;
+}
+
+.atbd_director_social_wrap a span.fa {
+  line-height: inherit;
+  font-size: 16px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper p {
@@ -3961,6 +4021,10 @@ span.atbd_get_loc_wid {
   }
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price {
+  word-break: break-all;
+}
+
 .atbd_content_active .widget.atbd_widget[id^='bd'],
 .atbd_content_active .widget.atbd_widget[id^='dcl'],
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget {
@@ -4553,43 +4617,6 @@ span.atbd_get_loc_wid {
   color: #7a82a6;
   font-size: 12px;
   vertical-align: top;
-}
-
-.atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_social_wrap,
-.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_author_info_widget .atbd_social_wrap,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap {
-  margin-bottom: 0;
-  padding: 12px 0 0;
-}
-
-.atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_social_wrap p,
-.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_author_info_widget .atbd_social_wrap p,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p {
-  display: inline-block;
-}
-
-.atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_social_wrap p + p,
-.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_author_info_widget .atbd_social_wrap p + p,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p + p {
-  margin-left: 10px;
-}
-
-.atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_social_wrap p a,
-.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_author_info_widget .atbd_social_wrap p a,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a {
-  line-height: 34px;
-  width: 34px;
-  text-align: center;
-  background: #f1f3f8;
-  display: inline-block;
-  border-radius: 5px;
-  transition: 0.3s;
-}
-
-.atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .atbd_social_wrap p a:hover,
-.atbd_content_active .widget.atbd_widget[id^='dcl'] .atbd_author_info_widget .atbd_social_wrap p a:hover,
-.atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_author_info_widget .atbd_social_wrap p a:hover {
-  color: #ffffff;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'] .atbd_author_info_widget .btn,
@@ -5727,6 +5754,10 @@ span.atbd_get_loc_wid {
   color: #7A82A6;
 }
 
+.atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta p span.atbdp_expired {
+  color: #e23636;
+}
+
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta p span.atbdp__private, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta p span.atbdp__published, .atbd_content_active #directorist.atbd_wrapper.dashboard_area .atbd_single_listing .atbd_listing_bottom_content .listing-meta p span.atbdp__pending {
   line-height: 24px;
   display: inline-block;
@@ -5846,6 +5877,37 @@ span.atbd_get_loc_wid {
 
 #directorist.atbd_wrapper .user_info_wrap .form-group .form-control {
   padding: 10px 15px;
+}
+
+#update_user_profile {
+  position: relative;
+  transition: 0.3s ease;
+}
+
+#update_user_profile.loading {
+  padding-right: 30px !important;
+}
+
+#update_user_profile.loading:before {
+  position: absolute;
+  content: '';
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3498db;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  animation: upspin 2s linear infinite;
+  right: 7px;
+  top: 11px;
+}
+
+@keyframes upspin {
+  0% {
+    tranform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-selection {
@@ -7039,6 +7101,7 @@ p.atbd-min {
   background: #444752;
   position: absolute;
   top: 0;
+  /*rtl:ignore*/
   left: 0;
 }
 

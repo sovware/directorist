@@ -818,7 +818,7 @@ jQuery(function ($) {
     }
 
     //Display review rating
-    var lf_opt17 = $("#enable_owner_review,#review_num,#enable_reviewer_img,#review_approval");
+    var lf_opt17 = $("#enable_owner_review,#review_num,#enable_reviewer_img,#review_approval,#approve_immediately,#guest_review,#review_approval_text,#enable_reviewer_content,#required_reviewer_content");
     lf_opt17.hide();
     $('input[name="enable_review"]').on("change", function () {
         if($(this).is(":checked") === true){
@@ -1099,17 +1099,17 @@ jQuery(function ($) {
     }
 
     //Display email notification
-    var lf_opt36 = $("#email_from_name,#email_from_email,#admin_email_lists,#notify_admin,#notify_user");
-    lf_opt36.show();
+    var disable_email_notification = $("#email_from_name,#email_from_email,#admin_email_lists,#notify_admin,#notify_user");
+    disable_email_notification.show();
     $('input[name="disable_email_notification"]').on("change", function () {
         if($(this).is(":checked") === true){
-            lf_opt36.hide();
+            disable_email_notification.hide();
         }else{
-            lf_opt36.show();
+            disable_email_notification.show();
         }
     });
     if($('input[name="disable_email_notification"]').is(":checked") === true){
-        lf_opt36.hide();
+        disable_email_notification.hide();
     }
 
     //Email header
@@ -1612,6 +1612,20 @@ jQuery(function ($) {
         lf_opt62.show();
     }
 
+    //Display review content
+    var enable_reviewer_content_effects = $("#required_reviewer_content");
+    enable_reviewer_content_effects.hide();
+    $('input[name="enable_reviewer_content"]').on("change", function () {
+        if($(this).is(":checked") === true){
+            enable_reviewer_content_effects.show();
+        }else{
+            enable_reviewer_content_effects.hide();
+        }
+    });
+    if($('input[name="enable_reviewer_content"]').is(":checked") === true){
+        enable_reviewer_content_effects.show();
+    }
+
     /* Copy shortcodes on click */
     var textToCopy = document.querySelectorAll(".description.atbdp_settings_description strong");
     textToCopy.forEach((el, index) =>{
@@ -1776,4 +1790,5 @@ jQuery(function ($) {
     } else if($('select[name="button_type"]').val() === "danger_outline"){
         danger_outline.show();
     }
+    
 });

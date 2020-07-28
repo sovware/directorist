@@ -233,7 +233,7 @@
       var width_style = 'width: '+ ((total_items + 1) * 100) +'%;';
       var left = ( next_index === 0 ) ? 'left: ' : 'left: -';
       if ( this.options.rtl ) {
-        left = ( next_index === 0 ) ? 'left: ' : 'left: ';
+        left = ( next_index === 0 ) ? 'right: ' : 'right: -';
       }
       var style = width_style + left + (next_index * 100) + '%;'
       

@@ -50,9 +50,10 @@ if (!class_exists('ATBDP_Listing')):
             $this->add_listing = new ATBDP_Add_Listing;
             $this->db = new ATBDP_Listing_DB;
             // for search functionality
-            //add_action('pre_get_posts', array($this, 'modify_search_query'), 1, 10);
+            // add_action('pre_get_posts', array($this, 'modify_search_query'), 1, 10);
             // remove adjacent_posts_rel_link_wp_head for accurate post views
             remove_action('wp_head', array($this, 'adjacent_posts_rel_link_wp_head', 10));
+            add_action('plugins_loaded', array($this, 'manage_listings_status'));
             add_action('wp_head', array($this, 'track_post_views'));
             add_filter('the_content', array($this, 'the_content'), 20); // add the output of the single page when the content filter fires in our post type. This way is better than using a custom post template because it will not match the style of all theme.
             add_filter('post_thumbnail_html', array($this, 'post_thumbnail_html'), 10, 3);
@@ -61,62 +62,76 @@ if (!class_exists('ATBDP_Listing')):
 
         }
 
+        
+
         /**
          * @since 6.3.5
          */
-
-      public function atbdp_listing_status_controller()
-        {
-            $status = isset($_GET['listing_status']) ? esc_attr($_GET['listing_status']) : '';
-            $preview = isset($_GET['preview']) ? esc_attr($_GET['preview']) : '';
+        public function atbdp_listing_status_controller() {
+            $status   = isset($_GET['listing_status']) ? esc_attr($_GET['listing_status']) : '';
+            $preview  = isset($_GET['preview']) ? esc_attr($_GET['preview']) : '';
             $reviewed = isset($_GET['reviewed']) ? esc_attr($_GET['reviewed']) : '';
-            $id = isset($_GET['listing_id']) ? (int)($_GET['listing_id']) : '';
-            $edited = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
-            $new_l_status = get_directorist_option('new_listing_status', 'pending');
-            $monitization = get_directorist_option('enable_monetization', 0);
-            $featured_enabled = get_directorist_option('enable_featured_listing');
-            $edit_l_status = get_directorist_option('edit_listing_status');
-            $payment = isset($_GET['payment']) ? $_GET['payment'] : '';
-            $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
-            $listing_id = isset($_GET['post_id']) ? $_GET['post_id'] : $listing_id;
-            $id = $id ? $id : $listing_id;
-            $listing_status = $edited ? $edit_l_status : $new_l_status;
-            if ($preview || $status || $reviewed) {
-                //if listing under a purchased package
-                if (is_fee_manager_active()) {
-                    $plan_id = get_post_meta($id, '_fm_plans', true);
-                    $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id);
-                    if($edited && $plan_purchased){
-                        $post_status = $listing_status;
-                    }else{
-                        if ((('package' === package_or_PPL($plan_id)) || $plan_purchased) && ('publish' === $new_l_status)) {
-                            // status for paid users
-                            $post_status = $listing_status;
-                        } else {
-                            // status for non paid users
-                            $post_status = 'pending';
-                        }
-                    }  
-                } elseif (!empty($featured_enabled && $monitization)) {
-                    if($payment){
-                        $post_status = 'pending';
-                    }else{
-                        $post_status = $listing_status;
-                    }
-                } else {
-                    $post_status = $listing_status;
-                }
-
-                $post_status = $status ? $status : $post_status;
+            
+            if ( $preview || $status || $reviewed ) {
+                $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
+                $listing_id = isset($_GET['post_id']) ? $_GET['post_id'] : $listing_id;
                 
+                $id = isset($_GET['listing_id']) ? (int)($_GET['listing_id']) : '';
+                $id = ( ! empty( $id ) ) ? $id : $listing_id;
+                $id = ( ! empty( $id ) ) ? $id : get_the_ID();
+
+                $edited = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
+                $args = [ 'id' => $id, 'edited' => $edited ];
+                $post_status = atbdp_get_listing_status_after_submission( $args );
+
                 $args = array(
-                    'ID' => $id ? $id : get_the_ID(),
+                    'ID' => $id ? $id : get_the_id(),
                     'post_status' => $post_status,
                 );
-                if('at_biz_dir' === get_post_type($id ? $id : get_the_ID())){
-                    wp_update_post(apply_filters('atbdp_reviewed_listing_status_controller_argument', $args));
+
+                $is_directory_post = ( 'at_biz_dir' === get_post_type( $id ) ) ? true : false;
+
+                if ( $is_directory_post ) {
+                    wp_update_post( apply_filters('atbdp_reviewed_listing_status_controller_argument', $args) );
                 }
-            }     
+            }
+            
+        }
+
+        // manage_listings_status
+        public function manage_listings_status() {
+            add_action('atbdp_order_created', [ $this, 'update_listing_status'], 10, 2);
+        }
+
+        // update_listing_status
+        public function update_listing_status( $order_id, $listing_id ) {
+            $featured_enabled = get_directorist_option('enable_featured_listing');
+            $pricing_plan_enabled = is_fee_manager_active();
+
+            if ( $pricing_plan_enabled ) { return; }; 
+            if ( ! $featured_enabled ) { return; }; 
+            
+            $listing_status = get_directorist_option('new_listing_status', 'pending');
+            $post_status = $listing_status;
+            $order_meta = get_post_meta( $order_id );
+            $payment_status = $order_meta['_payment_status'][0];
+
+            $post_status = get_directorist_option('new_listing_status', 'pending');
+
+            if ( 'completed' !== $payment_status ) {
+                $post_status = 'pending';
+            }
+
+            $args = array(
+                'ID' => $listing_id,
+                'post_status' => $post_status,
+            );
+
+            $is_directory_post = ( 'at_biz_dir' === get_post_type( $listing_id ) ) ? true : false;
+
+            if ( $is_directory_post ) {
+                wp_update_post( apply_filters('atbdp_reviewed_listing_status_controller_argument', $args) );
+            }
         }
 
         /**
@@ -207,15 +222,22 @@ if (!class_exists('ATBDP_Listing')):
                     do_action('atbdp_before_single_listing_load', $post->ID);
                     ob_start();
                     $listing_author_id = get_post_field('post_author', $post->ID);
-                    $content = get_post_field('post_content', $id);
-                    $content = do_shortcode($content);
+
+                    if ( did_action( 'elementor/loaded' ) && \Elementor\Plugin::$instance->db->is_built_with_elementor( $id ) ) {
+                        $content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display( $id );
+                    }
+                    else {
+                        $content = get_post_field('post_content', $id);
+                        $content = do_shortcode($content);                       
+                    }
+
                     $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
                     $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                     // run block content if its available
                     ?>
                     <section id="directorist" class="directorist atbd_wrapper">
                         <div class="row">
-                            <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+                            <div class="<?php echo apply_filters('atbdp_single_listing_sidebar_class', esc_attr($main_col_size)); ?> col-md-12 atbd_col_left">
 
                                 <?php
                                 $display_back_link = get_directorist_option('display_back_link', 1);

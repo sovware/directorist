@@ -178,13 +178,14 @@ $display_back_link = get_directorist_option('display_back_link', 1);
 $enable_single_location_taxonomy = get_directorist_option('enable_single_location_taxonomy', 0);
 $enable_single_tag = get_directorist_option('enable_single_tag', 1);
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
+$active_sidebar = is_active_sidebar('right-sidebar-listing') ? true : false;
 $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 ?>
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
         <?php
         $html_edit_back = '';
-        $html_edit_back .= '<div class="' . esc_attr($main_col_size) . ' col-md-12 atbd_col_left">';
+        $html_edit_back .= '<div class="' . apply_filters('atbdp_single_listing_sidebar_class', esc_attr($main_col_size)) . ' col-md-12 atbd_col_left">';
         //is current user is logged in and the original author of the listing
         if (atbdp_logged_in_user() && $listing_author_id == get_current_user_id()) {
             //ok show the edit option
@@ -226,7 +227,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
          */
         do_action('atbdp_before_single_listing_section');
         ?>
-        <div class="<?php echo esc_attr($main_col_size); ?> col-md-12 atbd_col_left">
+        <div class="<?php echo apply_filters('atbdp_single_listing_sidebar_class', esc_attr($main_col_size)); ?> col-md-12 atbd_col_left">
             <?php
             /**
              * @since 5.2.1
@@ -241,54 +242,65 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 <span class="<?php atbdp_icon_type(true); ?>-file-text atbd_area_icon"></span><?php _e($listing_details_text, 'directorist') ?>
                             </h4>
                         </div>
-                    <?php } ?>
+                    <?php }
+                    ob_start();
+                    ?>
+                    <div class="atbd_listing_action_area">
+                        <?php
+                        /**
+                         * @since 6.4.4
+                         */
+                        do_action( 'atbdp_single_listing_before_favourite_icon' );
+                        if ($enable_favourite) { ?>
+                            <div class="atbd_action atbd_save atbd_tooltip" id="atbdp-favourites" aria-label="Favorite">
+                                <?php echo the_atbdp_favourites_link(); ?>
+                            </div>
+                        <?php }
+                        if ($enable_social_share) { ?>
+                        <div class="atbd_action atbd_share atbd_tooltip" aria-label="Share">
+                            <span class="<?php atbdp_icon_type(true); ?>-share"></span>
+                            <div class="atbd_directory_social_wrap">
+                                <?php
+                                $twt_lnk = 'https://twitter.com/intent/tweet?text=' . $p_title . '&amp;url=' . $p_lnk;
+                                $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
+                                $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
+                                ?>
+                                <ul>
+                                    <li>
+                                        <a target="_blank" href="<?php echo esc_url( $fb_lnk ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-facebook"><?php esc_html_e('Facebook', 'directorist'); ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a target="_blank" href="<?php echo esc_url( $twt_lnk ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-twitter"><?php esc_html_e('Twitter', 'directorist'); ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a target="_blank" href="<?php echo esc_url( $in_link ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-linkedin"><?php esc_html_e('LinkedIn', 'directorist'); ?></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                        <?php }
+                        if ($enable_report_abuse) {
+                            $public_report = apply_filters('atbdp_allow_public_report', false);
+                            ?>
+                            <div class="atbd_action atbd_report atbd_tooltip" aria-label="Report">
+                                <?php
+                                if(atbdp_logged_in_user() || $public_report){?>
+                                    <a href="javascript:void(0)" data-target="atbdp-report-abuse-modal" class="atbdp-report-abuse-modal">
+                                    <span class="<?php atbdp_icon_type( true ); ?>-flag"></span>
+                                    </a>
+                               <?php }else{?>
+                                <a href="javascript:void(0)" class="atbdp-require-login">
+                                    <span class="<?php atbdp_icon_type( true ); ?>-flag"></span>
+                                </a>
+                                <?php }
+                                ?>
+                                    <input type="hidden" id="atbdp-post-id" value="<?php echo get_the_id(); ?>"/>
+                            </div>
+                        <?php } ?>
+                    </div>
                     <?php
-                    $listing_header = '<div class="atbd_listing_action_area">';
-                    if ($enable_favourite) {
-                        $listing_header .= '<div class="atbd_action atbd_save"
-                                 id="atbdp-favourites">' . the_atbdp_favourites_link() . '</div>';
-                    }
-                    if ($enable_social_share) {
-                        $listing_header .= '<div class="atbd_action atbd_share">';
-                        $listing_header .= '<span class="' . atbdp_icon_type() . '-share"></span>' . __('Share', 'directorist') . '';
-
-                        $listing_header .= '<div class="atbd_director_social_wrap">';
-                        //prepare the data for the links because links needs to be escaped
-                        $twt_lnk = 'https://twitter.com/intent/tweet?text=' . $p_title . '&amp;url=' . $p_lnk;
-                        $fb_lnk = "https://www.facebook.com/share.php?u={$p_lnk}&title={$p_title}";
-                        $in_link = "http://www.linkedin.com/shareArticle?mini=true&url={$p_lnk}&title={$p_title}";
-                        $listing_header .= '
-                         <ul>
-                        <li>
-                            <a href="' . esc_url($fb_lnk) . '" target="_blank">
-                                <span class="' . atbdp_icon_type() . '-facebook"></span>' . __('Facebook', 'directorist') . '</a>
-                        </li>
-                        <li>
-                            <a href="' . esc_url($twt_lnk) . '" target="_blank">
-                                <span class="' . atbdp_icon_type() . '-twitter"></span>' . __('Twitter', 'directorist') . '</a>
-
-                        </li>
-                        <li>
-                            <a href="' . esc_url($in_link) . '" target="_blank">
-                                <span class="' . atbdp_icon_type() . '-linkedin"></span>' . __('LinkedIn', 'directorist') . '</a>
-                        </li>
-                    </ul>';
-                        $listing_header .= '</div>'; //Ends social share
-                        $listing_header .= '</div>';
-                    }
-                    if ($enable_report_abuse) {
-                        $public_report = apply_filters('atbdp_allow_public_report', false);
-                        $listing_header .= '<div class="atbd_action atbd_report">';
-                        if (atbdp_logged_in_user() || $public_report) {
-                            $listing_header .= '<span class="' . atbdp_icon_type() . '-flag"></span><a href="javascript:void(0)" data-target="atbdp-report-abuse-modal">' . __('Report', 'directorist') . '</a>'; //Modal (report abuse form)
-                        } else {
-                            $listing_header .= '<a href="javascript:void(0)"
-                               class="atbdp-require-login"><span
-                                        class="' . atbdp_icon_type() . '-flag"></span>' . __('Report', 'directorist') . '</a>';
-                        }
-                        $listing_header .= '<input type="hidden" id="atbdp-post-id" value="' . get_the_ID() . '"/>';
-                        $listing_header .= '</div>';
-                    } ?>
+                    $listing_header = ob_get_clean(); ?>
                     <div class="at-modal atm-fade" id="atbdp-report-abuse-modal">
                         <div class="at-modal-content at-modal-md">
                             <div class="atm-contents-inner">
@@ -297,24 +309,19 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                     <div class="col-lg-12">
                                         <form id="atbdp-report-abuse-form" class="form-vertical">
                                             <div class="modal-header">
-                                                <h3 class="modal-title"
-                                                    id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', 'directorist'); ?></h3>
+                                                <h3 class="modal-title" id="atbdp-report-abuse-modal-label"><?php _e('Report Abuse', 'directorist'); ?></h3>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label for="atbdp-report-abuse-message"><?php _e('Your Complaint', 'directorist'); ?>
                                                         <span class="atbdp-star">*</span></label>
-                                                    <textarea class="form-control" id="atbdp-report-abuse-message"
-                                                              rows="3"
-                                                              placeholder="<?php _e('Message', 'directorist'); ?>..."
-                                                              required></textarea>
+                                                    <textarea class="form-control" id="atbdp-report-abuse-message" rows="3" placeholder="<?php _e('Message', 'directorist'); ?>..." required></textarea>
                                                 </div>
                                                 <div id="atbdp-report-abuse-g-recaptcha"></div>
                                                 <div id="atbdp-report-abuse-message-display"></div>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="submit"
-                                                        class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
+                                                <button type="submit" class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
                                             </div>
                                         </form>
                                     </div>
@@ -323,7 +330,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                             </div>
                         </div>
                     </div>
-                    <?php $listing_header .= '</div>';
+                    <?php
                     /**
                      * @since 5.0
                      */
@@ -387,8 +394,8 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                             }
 
                             $data_info .= '</div>';
-                            ?>
-                            <?php if (!empty($enable_review)) {
+                        ?>
+                        <?php if (!empty($enable_review)) {
                                 $reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
                                 $data_info .= '<div class="atbd_rating_count">';
 
@@ -404,7 +411,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                             $data_info .= new_badge();
                             /*Print Featured ribbon if it is featured*/
                             if ($featured && !empty($display_feature_badge_single)) {
-                                $data_info .= apply_filters( 'atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>' );
+                                $data_info .= apply_filters('atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>');
                             }
                             $popular_listing_id = atbdp_popular_listings(get_the_ID());
                             $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
@@ -421,7 +428,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                             foreach ($cats as $cat) {
                                 $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                 $space = str_repeat(' ', 1);
-                                $output [] = "{$space}<a href='{$link}'>{$cat->name}</a>";
+                                $output[] = "{$space}<a href='{$link}'>{$cat->name}</a>";
                             }
                             $data_info .= ' <li>
                                         <p class="directory_tag">
@@ -441,7 +448,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                             foreach ($locs as $loc) {
                                 $link = ATBDP_Permalink::atbdp_get_location_page($loc);
                                 $space = str_repeat(' ', 1);
-                                $output [] = "{$space}<a href='{$link}'>{$loc->name}</a>";
+                                $output[] = "{$space}<a href='{$link}'>{$loc->name}</a>";
                             }
                             $data_info .= join(',', $output);
 
@@ -530,7 +537,6 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         }
                         $has_field_value[] = $has_field_details;
                     }
-
                 } else {
                     $has_field_details = get_post_meta($listing_id, $custom_fields_post->ID, true);
                     if (!empty($has_field_details)) {
@@ -538,7 +544,6 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                     }
                     $has_field_value[] = $has_field_details;
                 }
-
             }
             wp_reset_postdata();
             $has_field = join($has_field_value);
@@ -550,25 +555,25 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 
             // tags
             if (!empty($tags) && !empty($enable_single_tag)) {
-                ?>
+            ?>
                 <div class="atbd_content_module atbd-listing-tags">
                     <?php if (!empty($tags_section_lable)) { ?>
                         <div class="atbd_content_module_title_area">
                             <div class="atbd_area_title">
                                 <h4>
-                                    <span class="<?php echo apply_filters('atbdp_single_listing_tag_icon', atbdp_icon_type().'-tags'); ?>"></span> <?php echo esc_attr($tags_section_lable); ?>
+                                    <span class="<?php echo apply_filters('atbdp_single_listing_tag_icon', atbdp_icon_type() . '-tags'); ?>"></span> <?php echo esc_attr($tags_section_lable); ?>
                                 </h4>
                             </div>
                         </div> <!-- ends: .atbd_content_module_title_area -->
                     <?php } ?>
                     <div class="atbdb_content_module_contents">
                         <ul>
-                            <?php foreach ( $tags as $tag ) {
+                            <?php foreach ($tags as $tag) {
                                 $link = ATBDP_Permalink::atbdp_get_tag_page($tag);
                                 $name = $tag->name; ?>
                                 <li>
                                     <a href="<?php echo esc_url($link); ?>">
-                                        <span class="<?php echo apply_filters('atbdp_single_listing_tags_icon', atbdp_icon_type().'-tag'); ?>"></span>
+                                        <span class="<?php echo apply_filters('atbdp_single_listing_tags_icon', atbdp_icon_type() . '-tag'); ?>"></span>
                                         <?php echo esc_attr($name); ?>
                                     </a>
                                 </li>
@@ -579,7 +584,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
             <?php }
 
             if (!empty($has_field) && $plan_custom_field) {
-                ?>
+            ?>
                 <!-- atbdp custom fields -->
                 <div class="atbd_content_module atbd_custom_fields_contents">
                     <div class="atbd_content_module_title_area">
@@ -601,10 +606,11 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 $field_title = get_the_title($field_id);
                                 $field_type = get_post_meta($field_id, 'type', true);
                                 if (!empty($field_details)) {
-                                    ?>
+                            ?>
                                     <li>
                                         <div class="atbd_custom_field_title">
-                                            <p><?php echo esc_attr($field_title); ?></p></div>
+                                            <p><?php echo esc_attr($field_title); ?></p>
+                                        </div>
                                         <div class="atbd_custom_field_content">
                                             <div><?php if ('color' == $field_type) {
                                                     printf('<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details);
@@ -644,7 +650,6 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                                         }
                                                     }
                                                     echo join(',', $output);
-
                                                 } else {
                                                     $content = apply_filters('get_the_content', $field_details);
                                                     echo do_shortcode(wpautop($content));
@@ -653,7 +658,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                             </div>
                                         </div>
                                     </li>
-                                    <?php
+                            <?php
                                 }
                             }
                             wp_reset_query();
@@ -661,7 +666,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         </ul>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
-                <?php
+            <?php
             }
             $plan_video = true;
             if (is_fee_manager_active()) {
@@ -678,9 +683,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                     </div>
 
                     <div class="atbdb_content_module_contents">
-                        <iframe class="atbd_embeded_video embed-responsive-item"
-                                src="<?php echo esc_attr(ATBDP()->atbdp_parse_videos($videourl)) ?>"
-                                allowfullscreen></iframe>
+                        <iframe class="atbd_embeded_video embed-responsive-item" src="<?php echo esc_attr(ATBDP()->atbdp_parse_videos($videourl)) ?>" allowfullscreen></iframe>
                     </div>
                 </div><!-- end .atbd_custom_fields_contents -->
             <?php } ?>
@@ -713,7 +716,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                 $email_label = get_directorist_option('email_label', __('Email', 'directorist'));
                 $website_label = get_directorist_option('website_label', __('Website', 'directorist'));
                 $zip_label = get_directorist_option('zip_label', __('Zip/Post Code', 'directorist'));
-                ?>
+            ?>
                 <div class="atbd_content_module atbd_contact_information_module">
                     <div class="atbd_content_module_title_area">
                         <div class="atbd_area_title">
@@ -730,8 +733,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 $address_text = !empty($address_map_link) ? '<a target="google_map" href="https://www.google.com/maps/search/' . esc_html($address) . '">' . esc_html($address) . '</a>' : esc_html($address);
                                 if (!empty($address) && !empty($display_address_field)) { ?>
                                     <li>
-                                        <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php _e($address_label, 'directorist'); ?>
+                                        <div class="atbd_info_title"><span class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php _e($address_label, 'directorist'); ?>
                                         </div>
                                         <div class="atbd_info"><?php echo $address_text; ?></div>
                                     </li>
@@ -745,11 +747,9 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 if (isset($phone) && !is_empty_v($phone) && !empty($display_phone_field) && $plan_phone) { ?>
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
-                                        <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true); ?>-phone"></span><?php _e($phone_label, 'directorist'); ?>
+                                        <div class="atbd_info_title"><span class="<?php atbdp_icon_type(true); ?>-phone"></span><?php _e($phone_label, 'directorist'); ?>
                                         </div>
-                                        <div class="atbd_info"><a
-                                                    href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a>
+                                        <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone)); ?>"><?php echo esc_html(stripslashes($phone)); ?></a>
                                         </div>
                                     </li>
                                 <?php } ?>
@@ -758,11 +758,9 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 if (isset($phone2) && !is_empty_v($phone2) && !empty($display_phone2_field)) { ?>
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
-                                        <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true); ?>-phone"></span><?php echo $phone_label2; ?>
+                                        <div class="atbd_info_title"><span class="<?php atbdp_icon_type(true); ?>-phone"></span><?php echo $phone_label2; ?>
                                         </div>
-                                        <div class="atbd_info"><a
-                                                    href="tel:<?php echo esc_html(stripslashes($phone2)); ?>"><?php echo esc_html(stripslashes($phone2)); ?></a>
+                                        <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($phone2)); ?>"><?php echo esc_html(stripslashes($phone2)); ?></a>
                                         </div>
                                     </li>
                                 <?php } ?>
@@ -770,11 +768,9 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 if (isset($fax) && !is_empty_v($fax) && !empty($display_fax_field)) { ?>
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
-                                        <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true); ?>-fax"></span><?php echo $fax_label; ?>
+                                        <div class="atbd_info_title"><span class="<?php atbdp_icon_type(true); ?>-fax"></span><?php echo $fax_label; ?>
                                         </div>
-                                        <div class="atbd_info"><a
-                                                    href="tel:<?php echo esc_html(stripslashes($fax)); ?>"><?php echo esc_html(stripslashes($fax)); ?></a>
+                                        <div class="atbd_info"><a href="tel:<?php echo esc_html(stripslashes($fax)); ?>"><?php echo esc_html(stripslashes($fax)); ?></a>
                                         </div>
                                     </li>
                                 <?php } ?>
@@ -785,11 +781,9 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 }
                                 if (!empty($email) && !empty($display_email_field) && $plan_email) { ?>
                                     <li>
-                                        <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true); ?>-envelope"></span><?php _e($email_label, 'directorist'); ?>
+                                        <div class="atbd_info_title"><span class="<?php atbdp_icon_type(true); ?>-envelope"></span><?php _e($email_label, 'directorist'); ?>
                                         </div>
-                                        <span class="atbd_info"><a target="_top"
-                                                                   href="mailto:<?php echo esc_html($email); ?>"><?php echo esc_html($email); ?></a></span>
+                                        <span class="atbd_info"><a target="_top" href="mailto:<?php echo esc_html($email); ?>"><?php echo esc_html($email); ?></a></span>
                                     </li>
                                 <?php } ?>
                                 <?php
@@ -799,19 +793,16 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 }
                                 if (!empty($website) && !empty($display_website_field) && $plan_webLink) { ?>
                                     <li>
-                                        <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true); ?>-globe"></span><?php _e($website_label, 'directorist'); ?>
+                                        <div class="atbd_info_title"><span class="<?php atbdp_icon_type(true); ?>-globe"></span><?php _e($website_label, 'directorist'); ?>
                                         </div>
-                                        <a target="_blank" href="<?php echo esc_url($website); ?>"
-                                           class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($website); ?></a>
+                                        <a target="_blank" href="<?php echo esc_url($website); ?>" class="atbd_info" <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($website); ?></a>
                                     </li>
                                 <?php } ?>
                                 <?php
                                 if (isset($zip) && !is_empty_v($zip) && !empty($display_zip_field)) { ?>
                                     <!-- In Future, We will have to use a loop to print more than 1 number-->
                                     <li>
-                                        <div class="atbd_info_title"><span
-                                                    class="<?php atbdp_icon_type(true); ?>-at"></span><?php _e($zip_label, 'directorist'); ?>
+                                        <div class="atbd_info_title"><span class="<?php atbdp_icon_type(true); ?>-at"></span><?php _e($zip_label, 'directorist'); ?>
                                         </div>
                                         <div class="atbd_info"><?php echo esc_html($zip); ?></div>
                                     </li>
@@ -832,7 +823,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 
                                     $n = esc_attr($link_id);
                                     $l = esc_url($link_url);
-                                    ?>
+                                ?>
                                     <a target='_blank' href="<?php echo $l; ?>" class="<?php echo $n; ?>">
                                         <span class="fa fa-<?php echo $n; ?>"></span>
                                     </a>
@@ -858,18 +849,15 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                     </div>
                     <form id="atbdp-contact-form" class="form-vertical contact_listing_owner">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="atbdp-contact-name"
-                                   placeholder="<?php _e('Name', 'directorist'); ?>" required/>
+                            <input type="text" class="form-control" id="atbdp-contact-name" placeholder="<?php _e('Name', 'directorist'); ?>" required />
                         </div>
 
                         <div class="form-group">
-                            <input type="email" class="form-control" id="atbdp-contact-email"
-                                   placeholder="<?php _e('Email', 'directorist'); ?>" required/>
+                            <input type="email" class="form-control" id="atbdp-contact-email" placeholder="<?php _e('Email', 'directorist'); ?>" required />
                         </div>
 
                         <div class="form-group">
-                            <textarea class="form-control" id="atbdp-contact-message" rows="3"
-                                      placeholder="<?php _e('Message', 'directorist'); ?>..." required></textarea>
+                            <textarea class="form-control" id="atbdp-contact-message" rows="3" placeholder="<?php _e('Message', 'directorist'); ?>..." required></textarea>
                         </div>
                         <?php
                         /**
@@ -884,9 +872,8 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         <button type="submit" class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
                     </form>
                 </div>
-                <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>"/>
-                <input type="hidden" id="atbdp-listing-email"
-                       value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>"/>
+                <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>" />
+                <input type="hidden" id="atbdp-listing-email" value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>" />
             <?php }
             /**
              * @since 5.0.5
@@ -943,9 +930,12 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
             ?>
         </div>
         <?php
-        include ATBDP_TEMPLATES_DIR . 'sidebar-listing.php';
+        if (apply_filters('atbdp_single_listing_sidebar', $active_sidebar)) {
+            include ATBDP_TEMPLATES_DIR . 'sidebar-listing.php';
+        }
         ?>
-    </div> <!--ends .row-->
+    </div>
+    <!--ends .row-->
 </section>
 <?php
 if ('openstreet' == $select_listing_map) {
@@ -955,150 +945,164 @@ if ('openstreet' == $select_listing_map) {
 }
 ?>
 <script>
-    <?php if('google' == $select_listing_map) { ?>
-    var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
+    <?php if ('google' == $select_listing_map) { ?>
+        var MAP_PIN = 'M0-48c-9.8 0-17.7 7.8-17.7 17.4 0 15.5 17.7 30.6 17.7 30.6s17.7-15.4 17.7-30.6c0-9.6-7.9-17.4-17.7-17.4z';
 
-    var inherits = function (childCtor, parentCtor) {
-        /** @constructor */
-        function tempCtor() {
+        var inherits = function(childCtor, parentCtor) {
+            /** @constructor */
+            function tempCtor() {}
+
+            tempCtor.prototype = parentCtor.prototype;
+            childCtor.superClass_ = parentCtor.prototype;
+            childCtor.prototype = new tempCtor();
+            childCtor.prototype.constructor = childCtor;
+        };
+
+        function Marker(options) {
+            google.maps.Marker.apply(this, arguments);
+
+            if (options.map_icon_label) {
+                this.MarkerLabel = new MarkerLabel({
+                    map: this.map,
+                    marker: this,
+                    text: options.map_icon_label
+                });
+                this.MarkerLabel.bindTo('position', this, 'position');
+            }
         }
 
-        tempCtor.prototype = parentCtor.prototype;
-        childCtor.superClass_ = parentCtor.prototype;
-        childCtor.prototype = new tempCtor();
-        childCtor.prototype.constructor = childCtor;
-    };
+        // Apply the inheritance
+        inherits(Marker, google.maps.Marker);
 
-    function Marker(options) {
-        google.maps.Marker.apply(this, arguments);
+        // Custom Marker SetMap
+        Marker.prototype.setMap = function() {
+            google.maps.Marker.prototype.setMap.apply(this, arguments);
+            (this.MarkerLabel) && this.MarkerLabel.setMap.apply(this.MarkerLabel, arguments);
+        };
 
-        if (options.map_icon_label) {
-            this.MarkerLabel = new MarkerLabel({
-                map: this.map,
-                marker: this,
-                text: options.map_icon_label
+        // Marker Label Overlay
+        var MarkerLabel = function(options) {
+            var self = this;
+            this.setValues(options);
+
+            // Create the label container
+            this.div = document.createElement('div');
+            this.div.className = 'map-icon-label';
+
+            // Trigger the marker click handler if clicking on the label
+            google.maps.event.addDomListener(this.div, 'click', function(e) {
+                (e.stopPropagation) && e.stopPropagation();
+                google.maps.event.trigger(self.marker, 'click');
             });
-            this.MarkerLabel.bindTo('position', this, 'position');
-        }
-    }
+        };
 
-    // Apply the inheritance
-    inherits(Marker, google.maps.Marker);
+        // Create MarkerLabel Object
+        MarkerLabel.prototype = new google.maps.OverlayView;
 
-    // Custom Marker SetMap
-    Marker.prototype.setMap = function () {
-        google.maps.Marker.prototype.setMap.apply(this, arguments);
-        (this.MarkerLabel) && this.MarkerLabel.setMap.apply(this.MarkerLabel, arguments);
-    };
+        // Marker Label onAdd
+        MarkerLabel.prototype.onAdd = function() {
+            var pane = this.getPanes().overlayImage.appendChild(this.div);
+            var self = this;
 
-    // Marker Label Overlay
-    var MarkerLabel = function (options) {
-        var self = this;
-        this.setValues(options);
+            this.listeners = [
+                google.maps.event.addListener(this, 'position_changed', function() {
+                    self.draw();
+                }),
+                google.maps.event.addListener(this, 'text_changed', function() {
+                    self.draw();
+                }),
+                google.maps.event.addListener(this, 'zindex_changed', function() {
+                    self.draw();
+                })
+            ];
+        };
 
-        // Create the label container
-        this.div = document.createElement('div');
-        this.div.className = 'map-icon-label';
+        // Marker Label onRemove
+        MarkerLabel.prototype.onRemove = function() {
+            this.div.parentNode.removeChild(this.div);
 
-        // Trigger the marker click handler if clicking on the label
-        google.maps.event.addDomListener(this.div, 'click', function (e) {
-            (e.stopPropagation) && e.stopPropagation();
-            google.maps.event.trigger(self.marker, 'click');
-        });
-    };
+            for (var i = 0, I = this.listeners.length; i < I; ++i) {
+                google.maps.event.removeListener(this.listeners[i]);
+            }
+        };
 
-    // Create MarkerLabel Object
-    MarkerLabel.prototype = new google.maps.OverlayView;
+        // Implement draw
+        MarkerLabel.prototype.draw = function() {
+            var projection = this.getProjection();
+            var position = projection.fromLatLngToDivPixel(this.get('position'));
+            var div = this.div;
 
-    // Marker Label onAdd
-    MarkerLabel.prototype.onAdd = function () {
-        var pane = this.getPanes().overlayImage.appendChild(this.div);
-        var self = this;
+            this.div.innerHTML = this.get('text').toString();
 
-        this.listeners = [
-            google.maps.event.addListener(this, 'position_changed', function () {
-                self.draw();
-            }),
-            google.maps.event.addListener(this, 'text_changed', function () {
-                self.draw();
-            }),
-            google.maps.event.addListener(this, 'zindex_changed', function () {
-                self.draw();
-            })
-        ];
-    };
-
-    // Marker Label onRemove
-    MarkerLabel.prototype.onRemove = function () {
-        this.div.parentNode.removeChild(this.div);
-
-        for (var i = 0, I = this.listeners.length; i < I; ++i) {
-            google.maps.event.removeListener(this.listeners[i]);
-        }
-    };
-
-    // Implement draw
-    MarkerLabel.prototype.draw = function () {
-        var projection = this.getProjection();
-        var position = projection.fromLatLngToDivPixel(this.get('position'));
-        var div = this.div;
-
-        this.div.innerHTML = this.get('text').toString();
-
-        div.style.zIndex = this.get('zIndex'); // Allow label to overlay marker
-        div.style.position = 'absolute';
-        div.style.display = 'block';
-        div.style.left = (position.x - (div.offsetWidth / 2)) + 'px';
-        div.style.top = (position.y - div.offsetHeight) + 'px';
-    };
+            div.style.zIndex = this.get('zIndex'); // Allow label to overlay marker
+            div.style.position = 'absolute';
+            div.style.display = 'block';
+            div.style.left = (position.x - (div.offsetWidth / 2)) + 'px';
+            div.style.top = (position.y - div.offsetHeight) + 'px';
+        };
 
     <?php } ?>
 
 
-    jQuery(document).ready(function ($) {
+    jQuery(document).ready(function($) {
         // Do not show map if lat long is empty or map is globally disabled.
-        <?php if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng)) && !empty($display_map_field) && empty($hide_map) ){
-        if('google' == $select_listing_map) {
+        <?php if (!$disable_map && (!empty($manual_lat) && !empty($manual_lng)) && !empty($display_map_field) && empty($hide_map)) {
+            if ('google' == $select_listing_map) {
         ?>
 
-        // initialize all vars here to avoid hoisting related misunderstanding.
-        var map, info_window, saved_lat_lng, info_content;
-        saved_lat_lng = {
-            lat:<?php echo (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
-            lng: <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : false ?> }; // default is London city
-        info_content = "<?php echo $info_content; ?>";
+                // initialize all vars here to avoid hoisting related misunderstanding.
+                var map, info_window, saved_lat_lng, info_content;
+                saved_lat_lng = {
+                    lat: <?php echo (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
+                    lng: <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : false ?>
+                }; // default is London city
+                info_content = "<?php echo $info_content; ?>";
 
-        // create an info window for map
-        <?php if(!empty($display_map_info)) {?>
-        info_window = new google.maps.InfoWindow({
-            content: info_content,
-            maxWidth: 400/*Add configuration for max width*/
-        });
-        <?php } ?>
-        function initMap() {
-            /* Create new map instance*/
-            map = new google.maps.Map(document.getElementById('gmap'), {
-                zoom: <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>,
-                center: saved_lat_lng
-            });
-            /*var marker = new google.maps.Marker({
-                map: map,
-                position: saved_lat_lng
-            });*/
-            var marker = new Marker({
-                position: saved_lat_lng,
-                map: map,
-                icon: {
-                    path: MAP_PIN,
-                    fillColor: 'transparent',
-                    fillOpacity: 1,
-                    strokeColor: '',
-                    strokeWeight: 0
-                },
-                map_icon_label: '<div class="atbd_map_shape"><i class="<?php echo $cat_icon; ?>"></i></div>'
-            });
+                // create an info window for map
+                <?php if (!empty($display_map_info)) { ?>
+                    info_window = new google.maps.InfoWindow({
+                        content: info_content,
+                        maxWidth: 400 /*Add configuration for max width*/
+                    });
+                <?php } ?>
 
-            <?php if(!empty($display_map_info)) {?>
+                function initMap() {
+                    /* Create new map instance*/
+                    map = new google.maps.Map(document.getElementById('gmap'), {
+                        zoom: <?php echo !empty($map_zoom_level) ? intval($map_zoom_level) : 16; ?>,
+                        center: saved_lat_lng
+                    });
+                    /*var marker = new google.maps.Marker({
+                        map: map,
+                        position: saved_lat_lng
+                    });*/
+                    var marker = new Marker({
+                        position: saved_lat_lng,
+                        map: map,
+                        icon: {
+                            path: MAP_PIN,
+                            fillColor: 'transparent',
+                            fillOpacity: 1,
+                            strokeColor: '',
+                            strokeWeight: 0
+                        },
+                        map_icon_label: '<div class="atbd_map_shape"><i class="<?php echo $cat_icon; ?>"></i></div>'
+                    });
+
+                    <?php if (!empty($display_map_info)) { ?>
+                        marker.addListener('click', function() {
+                            info_window.open(map, marker);
+                        });
+                        google.maps.event.addListener(info_window, 'domready', function() {
+                            var closeBtn = $('#iw-close-btn').get();
+                            google.maps.event.addDomListener(closeBtn[0], 'click', function() {
+                                info_window.close();
+                            });
+                        });
+                    <?php } ?>
+                }
+
+            <?php if ( ! empty( $display_map_info ) ) { ?>
             marker.addListener('click', function () {
                 info_window.open(map, marker);
             });
@@ -1106,49 +1110,50 @@ if ('openstreet' == $select_listing_map) {
                 var closeBtn = $('.iw-close-btn').get();
                 google.maps.event.addDomListener(closeBtn[0], 'click', function () {
                     info_window.close();
+                    initMap();
+                //Convert address tags to google map links -
+                $('address').each(function() {
+                    var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
+                    $(this).html(link);
                 });
-            });
-            <?php } ?>
-        }
+            <?php } elseif ('openstreet' == $select_listing_map) { ?>
 
-        initMap();
-        //Convert address tags to google map links -
-        $('address').each(function () {
-            var link = "<a href='http://maps.google.com/maps?q=" + encodeURIComponent($(this).text()) + "' target='_blank'>" + $(this).text() + "</a>";
-            $(this).html(link);
-        });
-        <?php } elseif('openstreet' == $select_listing_map) { ?>
-        function mapLeaflet(lat, lon) {
-            const fontAwesomeIcon = L.divIcon({
-                html: '<div class="atbd_map_shape"><span class="<?php echo $cat_icon; ?>"></span></div>',
-                iconSize: [20, 20],
-                className: 'myDivIcon'
-            });
-            var mymap = L.map('gmap').setView([lat, lon], <?php echo !empty($map_zoom_level) ? $map_zoom_level : 16;?>);
-            <?php if(!empty($display_map_info)) { ?>
-            L.marker([lat, lon], {icon: fontAwesomeIcon}).addTo(mymap).bindPopup(`<?php echo $info_content; ?>`);
-            <?php } else { ?>
-            L.marker([lat, lon], {icon: fontAwesomeIcon}).addTo(mymap);
-            <?php } ?>
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            }).addTo(mymap);
-        }
+                function mapLeaflet(lat, lon) {
+                    const fontAwesomeIcon = L.divIcon({
+                        html: '<div class="atbd_map_shape"><span class="<?php echo $cat_icon; ?>"></span></div>',
+                        iconSize: [20, 20],
+                        className: 'myDivIcon'
+                    });
+                    var mymap = L.map('gmap').setView([lat, lon], <?php echo !empty($map_zoom_level) ? $map_zoom_level : 16; ?>);
+                    <?php if (!empty($display_map_info)) { ?>
+                        L.marker([lat, lon], {
+                            icon: fontAwesomeIcon
+                        }).addTo(mymap).bindPopup(`<?php echo $info_content; ?>`);
+                    <?php } else { ?>
+                        L.marker([lat, lon], {
+                            icon: fontAwesomeIcon
+                        }).addTo(mymap);
+                    <?php } ?>
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(mymap);
+                }
 
-        let lat = <?php echo (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
-            lon = <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : false ?>;
+                let lat = <?php echo (!empty($manual_lat)) ? floatval($manual_lat) : false ?>,
+                    lon = <?php echo (!empty($manual_lng)) ? floatval($manual_lng) : false ?>;
 
-        mapLeaflet(lat, lon);
+                mapLeaflet(lat, lon);
 
-        <?php  } } ?>
+        <?php  }
+        } ?>
         /* initialize slick  */
 
         /* image gallery slider */
         function sliderNavigation(slider, prevArrow, nextArrow) {
-            $(prevArrow).on('click', function () {
+            $(prevArrow).on('click', function() {
                 slider.slick('slickPrev');
             });
-            $(nextArrow).on('click', function () {
+            $(nextArrow).on('click', function() {
                 slider.slick('slickNext');
             });
         }
@@ -1165,7 +1170,7 @@ if ('openstreet' == $select_listing_map) {
         });
 
 
-        $(".olAlphaImg").on("click", function () {
+        $(".olAlphaImg").on("click", function() {
             $('.mapHover').addClass('active');
         });
 

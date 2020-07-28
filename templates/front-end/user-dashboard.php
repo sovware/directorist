@@ -39,11 +39,17 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
         </div>
         <?php }
         if(isset($_GET['renew']) && ('success' === $_GET['renew'])){ ?>
-        <div class="alert alert-info alert-dismissable fade show" role="alert">
-            <span class="fa fa-info-circle"></span>
+        <div class="alert alert-success alert-dismissable fade show" role="alert">
+            <span class="fa fa-check"></span>
             <?php esc_html_e('Renewed successfully.', 'directorist'); ?>
         </div>
         <?php }
+        if( isset( $_GET['renew_with_plan'] ) ){ ?>
+            <div class="alert alert-danger alert-dismissable fade show" role="alert">
+                <span class="fa fa-info-circle"></span>
+                <?php printf(__('Please select a plan for %s to continue.', 'directorist') , get_the_title( sanitize_text_field( $_GET['renew_with_plan'] ) )); ?>
+            </div>
+            <?php }
         ?>
     <div class="<?php echo apply_filters('atbdp_deshboard_container_fluid', $container_fluid) ?>">
         <div class="row">
@@ -65,7 +71,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                 <?php if (!empty($my_listing_tab)) { ?>
                                     <li class="atbdp_tab_nav--content-link">
                                         <a href="" target="my_listings" class="atbd_tn_link tabItemActive">
-                                            <?php $list_found = ($listings->found_posts > 0) ? $listings->found_posts : '0';
+                                            <?php $list_found = $listings->found_posts;
                                             printf(__('%s (%s)', 'directorist'), $my_listing_tab_text, $list_found); ?>
                                         </a>
                                     </li>
@@ -212,6 +218,12 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                 <div class="listing-meta">
                                                                     <div class="listing-meta-content">
                                                                     <?php
+
+                                                                    /**
+                                                                    * @since 6.4.4
+                                                                    */
+                                                                    do_action( 'atbdp_user_dashboard_before_expiration', $post );
+
                                                                     /**
                                                                      * @since 5.0.3
                                                                      */
@@ -220,8 +232,11 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                                     $exp_text = !empty($never_exp)
                                                                         ? __('Never Expires', 'directorist')
                                                                         : date_i18n($date_format, strtotime($exp_date)); ?>
-                                                                    <p><?php printf(__('<span>Expiration:</span> %s', 'directorist'), ('expired' == $lstatus) ? '<span style="color: red">' . __('Expired', 'directorist') . '</span>' : $exp_text); ?></p>
-                                                                    <p><?php printf(__('<span class="%s">%s</span> ', 'directorist'),'atbdp__'.strtolower($status), $status ); ?></p></div>
+                                                                    <p>
+                                                                        <span><?php _e('Expiration', 'directorist'); ?>:</span>
+                                                                        <span class="<?php echo ('expired' == $lstatus) ? esc_html('atbdp_expired') : ''; ?>"><?php echo esc_attr($exp_text)?></span>
+                                                                    </p>
+                                                                    <p><?php printf(__('<span class="%s">%s</span> ', 'directorist'),'atbdp__'.strtolower($status), $status ); ?></></div>
                                                                     <?php
                                                                     /**
                                                                      * Fires before the action buttons are rendered

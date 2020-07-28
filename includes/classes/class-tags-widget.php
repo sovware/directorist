@@ -39,7 +39,7 @@ if (!class_exists('BD_Tags_Widget')) {
             //$chech_tag = get_the_terms(get_the_ID(), ATBDP_TAGS);
             $chech_tag = get_the_terms(get_the_ID(), ATBDP_TAGS);
             if (!$allowWidget) return;
-            if (!$chech_tag) return;
+            
             $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Tags', 'directorist');
 
             $query_args = array(
@@ -57,6 +57,8 @@ if (!class_exists('BD_Tags_Widget')) {
                 'active_term_id'         => 0,
                 'ancestors'              => array()
             );
+
+            if ( $query_args['display_single_tag'] && !$chech_tag) return ;
 
             if( $query_args['immediate_category'] ) {
 

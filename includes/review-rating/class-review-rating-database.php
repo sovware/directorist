@@ -16,6 +16,8 @@ if ( ! defined('ABSPATH') ) { die( 'You should not access this file directly'  )
 if (!class_exists('ATBDP_Review_Rating_DB')):
 
     class ATBDP_Review_Rating_DB extends ATBDP_Database {
+        public $charset = 'utf8mb4';
+        public $collate = 'utf8mb4_bin';
 
         /**
          * Get things started
@@ -25,12 +27,21 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
          */
         public function __construct() {
             global $wpdb;
-
+            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
             $this->table_name  = $wpdb->prefix . 'atbdp_review';
             $this->primary_key = 'id';
             $this->version     = '1.0';
+        }
 
-
+        /**
+         * Get Charset Collate
+         *
+         * @access public
+         * @since 6.4.4
+         */
+        public function get_charset_collate()
+        {
+            return $this->charset . "::" . $this->collate;
         }
 
         /**
@@ -468,23 +479,15 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
                     return false;
             }
 
-
             $cache_key = md5( 'atbdp_ratings' . serialize( $value ) );
-
             $ratings = wp_cache_get( $cache_key, 'ratings' );
 
-            if( $ratings === false ) {
+            if ( $ratings === false ) {
                 $args = $wpdb->prepare( "SELECT rating FROM $this->table_name WHERE $db_field = %s LIMIT %d", $value, $limit );
                 if ( ! $ratings = $wpdb->get_results( $args ) ) { return false; }
                 wp_cache_set( $cache_key, $ratings, 'ratings', 5 ); // cache it for 1 minutes now then increase  it to 1 hour
             }
             return $ratings;
-
-
-
-
-
-
         }
 
 
@@ -722,13 +725,30 @@ if (!class_exists('ATBDP_Review_Rating_DB')):
 			date_created datetime NOT NULL,
 			PRIMARY KEY  (id),
 		    KEY user (post_id)
-			) CHARACTER SET utf8 COLLATE utf8_general_ci;";
+            ) CHARACTER SET {$this->charset} COLLATE {$this->collate};";
             //  if we have already created a table then the _db_version should be the same next time if this function runs, and the check below will prevent the plugin to use dbDelta twice unnecessarily. During testing/development process, remove the condition, or delete the option or increase $this->version
             if (get_option($this->table_name . '_db_version') < $this->version){
                 dbDelta( $sql );
             }
 
             update_option( $this->table_name . '_db_version', $this->version );
+        }
+
+        
+        /**
+         * Update Table Collation
+         *
+         * @access public
+         * @since 6.4.4
+         */
+        public function update_table_collation() {
+            global $wpdb;
+            $table = 'wp_atbdp_review';
+
+            $charset = $this->charset;
+            $collate = $this->collate;
+
+            $wpdb->query($wpdb->prepare("ALTER TABLE $table CONVERT TO CHARACTER SET $charset COLLATE $collate;"));
         }
     }
 

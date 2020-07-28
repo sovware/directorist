@@ -197,8 +197,11 @@ css for Custom Field
 }
 
 #directorist.atbd_wrapper .extension_detail.ext_d {
-  height: 195px;
+  min-height: 140px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 #directorist.atbd_wrapper .extension_detail.ext_d p {
@@ -207,17 +210,19 @@ css for Custom Field
 
 #directorist.atbd_wrapper .extension_detail.ext_d .btn_wrapper {
   width: 100%;
-  position: absolute;
-  margin: 0;
-  left: 0;
-  bottom: 0;
+  margin-top: auto;
 }
 
-#directorist.atbd_wrapper .ext_title {
-  text-align: center;
+#directorist.atbd_wrapper .extension_detail.ext_d > a, #directorist.atbd_wrapper .extension_detail.ext_d p, #directorist.atbd_wrapper .extension_detail.ext_d div {
+  display: block;
+}
+
+#directorist.atbd_wrapper .extension_detail.ext_d > p {
+  margin-bottom: 15px;
 }
 
 #directorist.atbd_wrapper .ext_title a {
+  text-align: center;
   text-decoration: none;
   font-weight: 500;
   font-size: 18px;
@@ -844,6 +849,438 @@ div#need_post_area label input:checked + span {
 
 span.atbdp-tick-cross {
   padding-left: 20px;
+}
+
+.atbdp-timestamp-wrap select,
+.atbdp-timestamp-wrap input {
+  margin-bottom: 5px !important;
+}
+
+/* csv styles */
+.csv-action-btns {
+  margin-top: 30px;
+}
+
+.csv-action-btns a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  line-height: 44px;
+  padding: 0 20px;
+  background: #fff;
+  border: 1px solid #E3E6EF;
+  color: #272B41;
+  border-radius: 5px;
+  font-weight: 600;
+  margin-right: 7px;
+}
+
+.csv-action-btns a span {
+  color: #9299B8;
+}
+
+.csv-action-btns a:last-child {
+  margin-right: 0;
+}
+
+.csv-action-btns a.btn-active {
+  background: #2C99FF;
+  color: #fff;
+  border-color: #2C99FF;
+}
+
+.csv-action-btns a.btn-active span {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.csv-action-steps ul {
+  width: 700px;
+  margin: 80px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.csv-action-steps ul li {
+  text-align: center;
+  position: relative;
+  text-align: center;
+  width: 25%;
+}
+
+.csv-action-steps ul li:before {
+  position: absolute;
+  content: url(../images/csv-step.png);
+  left: 112px;
+  top: 8px;
+  width: 125px;
+  overflow: hidden;
+}
+
+.csv-action-steps ul li .step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: #9299B8;
+  box-shadow: 5px 0 10px rgba(146, 153, 184, 0.15);
+  background: #fff;
+}
+
+.csv-action-steps ul li .step .dashicons {
+  margin: 0;
+  display: none;
+}
+
+.csv-action-steps ul li .step-text {
+  display: block;
+  margin-top: 15px;
+  color: #9299B8;
+  font-weight: 500;
+}
+
+.csv-action-steps ul li.active .step {
+  background: #272B41;
+  color: #fff;
+}
+
+.csv-action-steps ul li.active .step-text {
+  color: #272B41;
+}
+
+.csv-action-steps ul li.done:before {
+  content: url(../images/csv-step-done.png);
+}
+
+.csv-action-steps ul li.done .step {
+  background: #0FB73B;
+  color: #fff;
+}
+
+.csv-action-steps ul li.done .step .step-count {
+  display: none;
+}
+
+.csv-action-steps ul li.done .step .dashicons {
+  display: block;
+}
+
+.csv-action-steps ul li.done .step-text {
+  color: #272B41;
+}
+
+.csv-action-steps ul li:last-child:before, .csv-action-steps ul li:last-child.done:before {
+  content: none;
+}
+
+.csv-wrapper {
+  margin-top: 20px;
+}
+
+.csv-wrapper .csv-center {
+  width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 5px 8px rgba(146, 153, 184, 0.15);
+}
+
+.csv-wrapper form header {
+  padding: 30px 30px 20px;
+  border-bottom: 1px solid #F1F2F6;
+}
+
+.csv-wrapper form header h2 {
+  margin: 0 0 15px 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.csv-wrapper form header p {
+  color: #5A5F7D;
+  margin: 0;
+}
+
+.csv-wrapper form .form-content {
+  padding: 30px;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options {
+  margin: 0;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options h4 {
+  margin: 0 0 15px 0;
+  font-size: 15px;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options .csv-upload {
+  position: relative;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options .csv-upload #upload {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options .csv-upload #upload + label {
+  display: inline-block;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options .csv-upload #upload + label .upload-btn {
+  line-height: 40px;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 0 20px;
+  background: #5A5F7D;
+  color: #fff;
+  font-weight: 500;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options .csv-upload #upload + label .file-name {
+  color: #9299B8;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options .csv-upload small {
+  font-size: 13px;
+  color: #9299B8;
+  display: block;
+  margin-top: 10px;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options .update-existing {
+  padding-top: 30px;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options .update-existing label.ue {
+  font-size: 15px;
+  font-weight: 500;
+  color: #272B41;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options .csv-delimiter {
+  padding-top: 30px;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options .csv-delimiter label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #272B41;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.csv-wrapper form .form-content .directorist-importer-options .csv-delimiter input {
+  width: 120px;
+  border-radius: 4px;
+  border: 1px solid #C6D0DC;
+  height: 36px;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper h3 {
+  margin-top: 0;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table {
+  border: 0 none;
+  box-shadow: none;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table thead {
+  background: #F4F5F7;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table thead th {
+  border: 0 none;
+  font-weight: 500;
+  color: #272B41;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-name {
+  padding-top: 15px;
+  padding-left: 0;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-name p {
+  margin: 0 0 5px;
+  color: #272B41;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-name .description {
+  color: #9299b8;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-field {
+  padding-top: 20px;
+  padding-right: 0;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-field select {
+  border: 1px solid #C6D0DC;
+  border-radius: 4px;
+  line-height: 40px;
+  padding: 0 15px;
+}
+
+.csv-wrapper form .atbdp-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 30px;
+  background: #F4F5F7;
+}
+
+.csv-wrapper form .atbdp-actions .button {
+  background: #2C99FF;
+  color: #fff;
+  border: 0 none;
+  line-height: 44px;
+  padding: 0 20px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.csv-wrapper .directorist-importer__importing header {
+  padding: 30px 30px 20px;
+  border-bottom: 1px solid #F1F2F6;
+}
+
+.csv-wrapper .directorist-importer__importing header h2 {
+  margin: 0 0 15px 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.csv-wrapper .directorist-importer__importing header p {
+  color: #5A5F7D;
+  margin: 0;
+}
+
+.csv-wrapper .directorist-importer__importing section {
+  padding: 25px 30px 30px;
+}
+
+.csv-wrapper .directorist-importer__importing span.importer-notice {
+  display: block;
+  color: #5A5F7D;
+  font-size: 15px;
+  padding-bottom: 13px;
+}
+
+.csv-wrapper .directorist-importer__importing span.importer-details {
+  display: block;
+  color: #5A5F7D;
+  font-size: 15px;
+  padding-top: 13px;
+}
+
+.csv-wrapper .directorist-importer__importing progress {
+  border-radius: 15px;
+  width: 100%;
+  height: 30px;
+  overflow: hidden;
+}
+
+.csv-wrapper .directorist-importer__importing progress::-webkit-progress-bar {
+  background: #E8F0F8;
+  border-radius: 15px;
+}
+
+.csv-wrapper .directorist-importer__importing progress::-webkit-progress-value {
+  background: #2C99FF;
+}
+
+.csv-wrapper .directorist-importer__importing progress::-moz-progress-bar {
+  background: #E8F0F8;
+  border-radius: 15px;
+  border: none;
+  box-shadow: none;
+}
+
+.csv-wrapper .directorist-importer__importing progress[value]::-moz-progress-bar {
+  background: #2C99FF;
+}
+
+.csv-wrapper .csv-import-done .wc-progress-form-content {
+  padding: 100px 30px 80px;
+}
+
+.csv-wrapper .csv-import-done .wc-progress-form-content .wc-actions {
+  text-align: center;
+}
+
+.csv-wrapper .csv-import-done .wc-progress-form-content .wc-actions .dashicons {
+  width: 100px;
+  height: 100px;
+  display: inline-flex;
+  border-radius: 50%;
+  background: #0FB73B;
+  font-size: 70px;
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+}
+
+.csv-wrapper .csv-import-done .wc-progress-form-content .wc-actions p {
+  color: #5A5F7D;
+  font-size: 20px;
+  margin: 10px 0 0;
+}
+
+.csv-wrapper .csv-import-done .wc-progress-form-content .wc-actions p strong {
+  color: #272B41;
+  font-weight: 600;
+}
+
+.csv-wrapper .csv-import-done .wc-progress-form-content .wc-actions .import-complete {
+  font-size: 20px;
+  color: #272B41;
+  margin: 16px 0 0;
+}
+
+.csv-wrapper .csv-import-done .atbdp-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 30px;
+  background: #F4F5F7;
+}
+
+.csv-wrapper .csv-import-done .atbdp-actions .button {
+  background: #2C99FF;
+  color: #fff;
+  border: 0 none;
+  line-height: 44px;
+  padding: 0 20px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.csv-wrapper .csv-center.csv-export {
+  padding: 100px 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.csv-wrapper .csv-center.csv-export .button-secondary {
+  background: #2C99FF;
+  color: #fff;
+  border: 0 none;
+  line-height: 44px;
+  padding: 0 20px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 15px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

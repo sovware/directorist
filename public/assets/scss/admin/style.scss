@@ -156,23 +156,29 @@
       margin-top: 25px;
     }
     &.ext_d{
-      height:195px;
+      min-height:140px;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
       p{
         margin: 0;
       }
       .btn_wrapper{
         width: 100%;
-        position: absolute;
-        margin: 0;
-        left: 0;
-        bottom: 0;
+        margin-top: auto;
+      }
+      & > a, p, div{
+        display: block;
+      }
+      & > p{
+        margin-bottom: 15px;
       }
     }
   }
   .ext_title {
-    text-align: center;
     a{
+      text-align: center;
       text-decoration: none;
       font-weight: 500;
       font-size: 18px;
@@ -771,4 +777,381 @@ div#need_post_area{
 }
 span.atbdp-tick-cross{
   padding-left: 20px;
+}
+.atbdp-timestamp-wrap select,
+.atbdp-timestamp-wrap input{
+  margin-bottom: 5px !important;
+}
+
+/* csv styles */
+.csv-action-btns{
+  margin-top: 30px;
+  a{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    line-height: 44px;
+    padding: 0 20px;
+    background: #fff;
+    border: 1px solid #E3E6EF;
+    color: #272B41;
+    border-radius: 5px;
+    font-weight: 600;
+    margin-right: 7px;
+    span{
+      color: #9299B8;
+    }
+    &:last-child{
+      margin-right: 0;
+    }
+    &.btn-active{
+      background: #2C99FF;
+      color: #fff;
+      border-color: #2C99FF;
+      span{
+        color: rgba(#fff, 0.8);
+      }
+    }
+  }
+}
+.csv-action-steps{
+  ul{
+    width: 700px;
+    margin: 80px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    li{
+      text-align: center;
+      position: relative;
+      text-align: center;
+      width: 25%;
+      &:before{
+        position: absolute;
+        content: url(../images/csv-step.png);
+        left: 112px;
+        top: 8px;
+        width: 125px;
+        overflow: hidden;
+      }
+      .step{
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        color: #9299B8;
+        box-shadow: 5px 0 10px rgba(#9299B8, 0.15);
+        background: #fff;
+        .dashicons{
+          margin: 0;
+          display: none;
+        }
+      }
+      .step-text{
+        display: block;
+        margin-top: 15px;
+        color: #9299B8;
+        font-weight: 500;
+      }
+      &.active{
+        .step{
+          background: #272B41;
+          color: #fff;
+        }
+        .step-text{
+          color: #272B41;
+        }
+      }
+      &.done{
+        &:before{
+          content: url(../images/csv-step-done.png);
+        }
+        .step{
+          background: #0FB73B;
+          color: #fff;
+          .step-count{
+            display: none;
+          }
+          .dashicons{
+            display: block;
+          }
+        }
+        .step-text{
+          color: #272B41;
+        }
+      }
+      &:last-child:before, &:last-child.done:before{
+        content: none;
+      }
+    }
+  }
+}
+.csv-wrapper{
+  margin-top: 20px;
+  .csv-center{
+    width: 700px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 5px 8px rgba(#9299B8, 0.15);
+  }
+  form{
+    header{
+      padding: 30px 30px 20px;
+      border-bottom: 1px solid #F1F2F6;
+      h2{
+        margin: 0 0 15px 0;
+        font-size: 22px;
+        font-weight: 500;
+      }
+      p{
+        color: #5A5F7D;
+        margin: 0;
+      }
+    }
+    .form-content{
+      padding: 30px;
+      .directorist-importer-options{
+        margin: 0;
+        h4{
+          margin: 0 0 15px 0;
+          font-size: 15px;
+        }
+        .csv-upload{
+          position:relative;
+          #upload{
+            opacity: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+            & + label{
+              display: inline-block;
+              .upload-btn{
+                line-height: 40px;
+                display: inline-block;
+                border-radius: 5px;
+                padding: 0 20px;
+                background: #5A5F7D;
+                color: #fff;
+                font-weight: 500;
+              }
+              .file-name{
+                color: #9299B8;
+                display: inline-block;
+                margin-left: 5px;
+              }
+            }
+          }
+          small{
+            font-size: 13px;
+            color: #9299B8;
+            display: block;
+            margin-top: 10px;
+          }
+        }
+        .update-existing{
+          padding-top: 30px;
+          label.ue{
+            font-size: 15px;
+            font-weight: 500;
+            color: #272B41;
+            display: block;
+            margin-bottom: 15px;
+          }
+        }
+        .csv-delimiter{
+          padding-top: 30px;
+          label{
+            font-size: 15px;
+            font-weight: 500;
+            color: #272B41;
+            display: block;
+            margin-bottom: 15px;
+          }
+          input{
+            width: 120px;
+            border-radius: 4px;
+            border: 1px solid #C6D0DC;
+            height: 36px;
+          }
+        }
+      }
+      .atbdp-importer-mapping-table-wrapper{
+        h3{
+          margin-top: 0;
+        }
+        .atbdp-importer-mapping-table{
+          border: 0 none;
+          box-shadow: none;
+          thead{
+            background: #F4F5F7;
+            th{
+              border: 0 none;
+              font-weight: 500;
+              color: #272B41;
+            }
+          }
+          tbody{
+            .atbdp-importer-mapping-table-name{
+              padding-top: 15px;
+              padding-left: 0;
+              p{
+                margin: 0 0 5px;
+                color: #272B41;
+              }
+              .description{
+                color: #9299b8;
+              }
+            }
+            .atbdp-importer-mapping-table-field{
+              padding-top: 20px;
+              padding-right: 0;
+              select{
+                border: 1px solid #C6D0DC;
+                border-radius: 4px;
+                line-height: 40px;
+                padding: 0 15px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .atbdp-actions{
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px 30px;
+      background: #F4F5F7;
+      .button{
+        background: #2C99FF;
+        color: #fff;
+        border: 0 none;
+        line-height: 44px;
+        padding: 0 20px;
+        border-radius: 5px;
+        font-weight: 500;
+        font-size: 15px;
+      }
+    }
+  }
+  .directorist-importer__importing{
+    header{
+      padding: 30px 30px 20px;
+      border-bottom: 1px solid #F1F2F6;
+      h2{
+        margin: 0 0 15px 0;
+        font-size: 22px;
+        font-weight: 500;
+      }
+      p{
+        color: #5A5F7D;
+        margin: 0;
+      }
+    }
+    section {
+        padding: 25px 30px 30px;
+    }
+    span.importer-notice {
+      display: block;
+      color: #5A5F7D;
+      font-size: 15px;
+      padding-bottom: 13px;
+    }
+    span.importer-details {
+        display: block;
+        color: #5A5F7D;
+        font-size: 15px;
+        padding-top: 13px;
+    }
+    progress {
+      border-radius: 15px;
+      width: 100%;
+      height: 30px;
+      overflow: hidden;
+    }
+    progress::-webkit-progress-bar {
+      background: #E8F0F8;
+      border-radius: 15px;
+    }
+    progress::-webkit-progress-value {
+      background: #2C99FF;
+    }
+    progress::-moz-progress-bar {
+      background: #E8F0F8;
+      border-radius: 15px;
+      border: none;
+      box-shadow: none;
+    }
+    progress[value]::-moz-progress-bar {
+      background: #2C99FF;
+    }
+  }
+  .csv-import-done{
+    .wc-progress-form-content{
+      padding: 100px 30px 80px;
+      .wc-actions{
+        text-align: center;
+        .dashicons{
+          width: 100px;
+          height: 100px;
+          display: inline-flex;
+          border-radius: 50%;
+          background: #0FB73B;
+          font-size: 70px;
+          color: #fff;
+          align-items: center;
+          justify-content: center;
+        }
+        p{
+          color: #5A5F7D;
+          font-size: 20px;
+          margin: 10px 0 0;
+          strong{
+            color: #272B41;
+            font-weight: 600;
+          }
+        }
+        .import-complete{
+          font-size: 20px;
+          color: #272B41;
+          margin: 16px 0 0;
+        }
+      }
+    }
+    .atbdp-actions{
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px 30px;
+      background: #F4F5F7;
+      .button{
+        background: #2C99FF;
+        color: #fff;
+        border: 0 none;
+        line-height: 44px;
+        padding: 0 20px;
+        border-radius: 5px;
+        font-weight: 500;
+        font-size: 15px;
+      }
+    }
+  }
+  .csv-center.csv-export {
+    padding: 100px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .button-secondary{
+      background: #2C99FF;
+      color: #fff;
+      border: 0 none;
+      line-height: 44px;
+      padding: 0 20px;
+      border-radius: 5px;
+      font-weight: 500;
+      font-size: 15px;
+    }
+  }
 }

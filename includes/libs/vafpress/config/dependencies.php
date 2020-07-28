@@ -154,7 +154,7 @@ return array(
 	 * Styles.
 	 */
 	'styles' => array(
-		'always' => array('tipsy', 'font-awesome'),
+		'always' => array('tipsy'),
 		'paths' => array(
 			'bootstrap-colorpicker' => array(
 				'path' => VP_PUBLIC_URL . '/css/vendor/bootstrap-colorpicker.css',

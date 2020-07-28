@@ -82,13 +82,11 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_content_active #directorist.atbd_wrapper {
   div, p, a, li {
-    //font-family: 'Roboto', Sans-serif !important;
     font-size: $font-size-base;
   }
 
   color: $text-color;
   font-size: 15px;
-  //font-family: 'Roboto', Sans-serif !important;
   text-align: initial;
 
   .modal-footer {
@@ -431,6 +429,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
       height: 32px;
       top: 20px;
       right: 20px;
+      left: auto;
       position: absolute;
       transform: none;
       background: #444752;
@@ -506,11 +505,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   #login {
     p {
       margin-bottom: 10px !important;
-
       label {
         display: block;
       }
-
       input {
         background: #fff !important;
         padding: 10px 15px;
@@ -760,7 +757,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 30px;
 
   .leaflet-popup {
+    /*rtl:begin:ignore*/
     left: -95px !important;
+    /*rtl:end:ignore*/
   }
 
   .leaflet-popup-content-wrapper {
@@ -810,6 +809,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
     border-radius: 50%;
     color: #fff;
     right: 10px;
+    left: auto;
     top: 10px;
     display: flex;
     align-items: center;
@@ -1456,8 +1456,10 @@ div#listing_notifier span {
         content: '';
         width: 7px;
         height: 7px;
+        /*rtl:begin:ignore*/
         border-left: 1px solid $primary;
         border-bottom: 1px solid $primary;
+        /*rtl:end:ignore*/
         position: absolute;
         left: 0;
         top: 0;
@@ -1593,6 +1595,53 @@ div#listing_notifier span {
     border-radius: 0 !important;
   }
 }
-.atbdp_nlf{
+.atbdp_nlf {
   padding: 0 15px !important;
+}
+input[type="radio"].atbdp_radio_input {
+  display: none;
+  + label{
+    position: relative;
+    padding-left: 23px;
+    font-weight: 700;
+    &::before {
+        position: absolute;
+        content: '';
+        width: 15px;
+        height: 15px;
+        border: 1px solid #b3afaf;
+        border-radius: 100%;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: .3s ease;
+        box-sizing: border-box;
+    }
+  }
+
+  &:checked + label:before {
+    border: 5px solid #444;
+  }
+}
+
+
+.atbdp_input_group {
+  margin-bottom: 8px;
+}
+
+.atbdp_option_title {
+  margin-bottom: 10px;
+}
+
+//reset password form
+#directorist.atbd_wrapper .lost_reset_password{
+  p{
+    margin-bottom: 15px !important;
+  }
+  label{
+    display: block;
+  }
+  input[type="password"]{
+    width: 100%;
+  }
 }

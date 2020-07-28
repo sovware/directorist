@@ -23,13 +23,16 @@ body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlLeft {
       -ms-transform: translate(0, -50%);
           transform: translate(0, -50%);
 }
-
+/*rtl:begin:ignore*/
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlRight {
+  left: unset;
   right: 15px;
 }
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__controlLeft {
+  right: unset;
   left: 15px;
 }
+/*rtl:end:ignore*/
 
 body.atbd_content_active #directorist.atbd_wrapper .plasmaSlider__arrowBtn {
   margin: 0;

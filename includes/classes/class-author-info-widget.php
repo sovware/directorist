@@ -32,10 +32,9 @@ if (!class_exists('BD_Author_Info_Widget')) {
         public function widget($args, $instance)
         {
             if (is_singular(ATBDP_POST_TYPE)) {
-                $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', 'directorist');
-                
-                $template_file = 'author-info.php';
-                $theme_template_file =  ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
+                $title                 = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Title', 'directorist');
+                $template_file         = 'author-info.php';
+                $theme_template_file   = ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
                 $default_template_file = ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR . $template_file;
 
                 // Load theme template if exist
@@ -66,11 +65,8 @@ if (!class_exists('BD_Author_Info_Widget')) {
             ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
-                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
-                       name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
-                       value="<?php echo esc_attr($title); ?>">
+                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
             </p>
-
             <?php
         }
 

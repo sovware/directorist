@@ -64,8 +64,98 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             //login
             add_action('wp_ajax_ajaxlogin', array($this, 'atbdp_ajax_login'));
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));
+
             // regenerate pages
             add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
+            
+            // Guset Reception
+            add_action('wp_ajax_atbdp_guest_reception', array($this, 'guest_reception'));
+            add_action('wp_ajax_nopriv_atbdp_guest_reception', array($this, 'guest_reception'));
+
+        }
+
+        // guest_reception
+        public function guest_reception() {
+
+            // Get the data
+            $email = ( ! empty( $_GET['email'] ) ) ? $_GET['email'] : '';
+            $email = ( ! empty( $_POST['email'] ) ) ? $_POST['email'] : $email;
+
+            // Data Validation
+            // ---------------------------
+            $error_log = [];
+
+            // Validate email
+            if ( empty( $email ) ) {
+                $error_log['email'] = [
+                    'key' => 'invalid_email',
+                    'message' => 'Invalid Email',
+                ];
+            }
+
+            // Send error log if has any error
+            if ( ! empty( $error_log  ) ) {
+                $data = [
+                    'status'      => false,
+                    'status_code' => 'invalid_data',
+                    'message'     => 'Invalid data found',
+                    'data'        => [
+                        'error_log' => $error_log
+                    ],
+                ];
+    
+                wp_send_json( $data, 200 );
+            }
+
+            // User Validation
+            // ---------------------------
+            // Check if user exist
+            $email = esc_html( $email  );
+            $email = sanitize_email( $email );
+            $user  = get_user_by( 'email', $email );
+
+            if ( $user ) {
+                $data = [
+                    'status'      => true,
+                    'status_code' => 'user_exist',
+                    'message'     => 'User already existed',
+                    'data'        => [
+                        'user_id' => $user->ID
+                    ],
+                ];
+
+                wp_send_json( $data, 200 );
+            }
+
+            // User Registration
+            // ---------------------------
+            // Register the user
+            $user_name = preg_replace( '/@.+$/', '', $email );
+            $rand      = rand( 10000, 90000 );
+            $username  = "{$user_name}_{$rand}";
+            $new_user  = register_new_user( $username, $email );
+
+            if ( ! $new_user ) {
+                $data = [
+                    'status'      => false,
+                    'status_code' => 'unknown_error',
+                    'message'     => 'Sorry, something went wrong, please try again',
+                    'data'        => null,
+                ];
+
+                wp_send_json( $data, 200 );
+            }
+
+            $data = [
+                'status'      => true,
+                'status_code' => 'registration_successfull',
+                'message'     => 'The user is registrated successfully',
+                'data'        => [
+                    'user_id' => $new_user,
+                ],
+            ];
+
+            wp_send_json( $data, 200 );
         }
 
         /**
@@ -360,6 +450,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $msg = '';
             if (isset($_POST['page'])) {
                 $enable_reviewer_img = get_directorist_option('enable_reviewer_img', 1);
+                $enable_reviewer_content = get_directorist_option('enable_reviewer_content', 1);
                 $review_num = get_directorist_option('review_num', 5);
                 // Sanitize the received page
                 $page = sanitize_text_field($_POST['page']);
@@ -409,10 +500,11 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         $msg .= ATBDP()->review->print_static_rating($review->rating);
                         $msg .= '</div>';
                         $msg .= '</div>';
-
+                        if( !empty( $enable_reviewer_content ) ) {
                         $msg .= '<div class="review_content">';
                         $msg .= '<p>' . stripslashes(esc_html($review->content)) . '</p>';
                         $msg .= '</div>';
+                        }
                         $msg .= '</div>';
                     endforeach;
                 } else {
@@ -525,23 +617,11 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             // Always exit to avoid further execution
             exit();
         }
-
-
-        /**
-         * @since 6.3.0
-         */
-
-        public function insert_guest_user()
-        {
-        }
-
         public function save_listing_review()
         {
             $guest_review = get_directorist_option('guest_review', 0);
             $guest_email = isset($_POST['guest_user_email']) ? esc_attr($_POST['guest_user_email']) : '';
-
             if ($guest_review && $guest_email) {
-
                 $string = $guest_email;
                 $explode = explode("@", $string);
                 array_pop($explode);
@@ -551,7 +631,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     $random = substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyz'), 1, 5);
                     $userName = $userName . $random;
                 }
-
                 // Check if user exist by email
                 if (email_exists($guest_email)) {
                     $data = array(
@@ -589,7 +668,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     'post_id' => absint($_POST['post_id']),
                     'name' => !empty($user->display_name) ? $user->display_name : $u_name,
                     'email' => !empty($user->user_email) ? $user->user_email : $u_email,
-                    'content' => sanitize_textarea_field($_POST['content']),
+                    'content' => !empty( $_POST['content'] ) ? sanitize_textarea_field( $_POST['content'] ) : '',
                     'rating' => floatval($_POST['rating']),
                     'by_guest' => !empty($user->ID) ? 0 : 1,
                     'by_user_id' => !empty($user->ID) ? $user->ID : 0,
@@ -672,7 +751,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             if (!in_array('listing_review', get_directorist_option('notify_admin', array()))) return false; // vail if order created notification to admin off
             // sanitize form values
             $post_id = (int) $_POST["post_id"];
-            $message = esc_textarea($_POST["content"]);
+            $message = !empty( $_POST["content"] ) ? esc_textarea( $_POST["content"] ) : '';
 
             // vars
             $user = wp_get_current_user();
@@ -716,7 +795,9 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          */
         public function validate_listing_review()
         {
-            if (!empty($_POST['rating']) && !empty($_POST['content']) && !empty($_POST['post_id'])) {
+            $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );
+            $required_reviewer_content = get_directorist_option( 'required_reviewer_content', 1 );
+            if (!empty($_POST['rating']) && ( empty( $enable_reviewer_content ) || ( !empty( $_POST['content'] ) || empty( $required_reviewer_content ) ) ) && !empty($_POST['post_id'])) {
                 return true;
             }
             return false;
@@ -908,7 +989,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
          */
         public function ajax_callback_send_contact_email()
         {
-
             /**
              * If fires sending processing the submitted contact information
              * @since 4.4.0
@@ -1066,25 +1146,32 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $custom_field_ids = atbdp_get_custom_field_ids($term_id);
 
             $args = array(
-                'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-                'post_status' => 'publish',
+                'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+                'post_status'    => 'publish',
                 'posts_per_page' => -1,
-                'post__in' => $custom_field_ids,
-                'meta_query' => array(
+                'post__in'       => $custom_field_ids,
+                'meta_query'     => array(
                     array(
-                        'key' => 'searchable',
-                        'value' => 1,
-                        'type' => 'NUMERIC',
+                        'key'     => 'searchable',
+                        'value'   => 1,
+                        'type'    => 'NUMERIC',
                         'compare' => '='
                     ),
                 ),
                 'orderby' => 'meta_value_num',
-                'order' => 'ASC',
+                'order'   => 'ASC',
+                'fields'  => 'ids',
             );
-            $acadp_query = new WP_Query($args);
 
-            // Start the Loop
-            global $post;
+            $custom_fields = ATBDP_Cache_Helper::get_the_transient([
+                'group'      => 'atbdp_custom_field_query',
+                'name'       => 'atbdp_custom_fields',
+                'query_args' => $args,
+                'cache'      => apply_filters( 'atbdp_cache_custom_fields', true ),
+                'value'      => function( $data ) {
+                    return get_posts( $data['query_args'] );
+                }
+            ]);
 
             // Process output
             ob_start();

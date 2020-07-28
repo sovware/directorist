@@ -65,8 +65,9 @@ You can extend the functionality of this plugin using free & premium extensions.
 Directorist is not developed by a single person. A team of dedicated developers and designers spent countless hours to make this plugin and they are working on it constantly to improve it and to add new features. Therefore, you get the most professional directory plugin from us. As it is backed by a company, you will get premium support now and upcoming years without any worries.
 
 = OTHER FEATURES =
-* CSV Bulk Importer for listing, category, location, tag, media etc.
-* Supports Elemontor Page Builder widgets
+* CSV Bulk Importer (listing, category, location, tag, media etc.)
+* Highly-optimized and rocket-fast performance to ensure scalability
+* Elemontor Page Builder widgets
 * Listing and Review submission without login (Guest Submission)
 * Private Directory
 * GDPR ready
@@ -142,11 +143,11 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 = 6.5.0 - Jul 28, 2020 =
 
-* Add - CSV Bulk Importer for listing, category, location, tag, media etc.
+* Add - CSV Bulk Importer (listing, category, location, tag, media etc.)
 * Add - Object Caching
 * Add - Elementor Page Builder Widgets
 * Add - Setup Wizard with dummy data importer
-* Add - Some more options to control listing review
+* Add - A few more options to control listing review
 * Add - Default latitude and longitude of listings map view
 * Fix - Email conflict with Contact Form 7
 * Fix - Review issue of related listings

@@ -304,7 +304,7 @@ class SetupWizard
 
     public function directorist_step_one() { ?>
         <div class="atbdp-c-header">
-            <h1><?php esc_html_e('Recommend Pages', 'directorist'); ?></h1>
+            <h><?php esc_html_e('Fill out the form to get maps and monetization feature to work right away.', 'directorist'); ?></h>
         </div>
 
         <form method="post">
@@ -565,7 +565,7 @@ class SetupWizard
                 </div>
                 <div class="w-form-group atbdp-sw-gmap-key">
                     <label for="google_api"><?php _e( 'Google Map API key', 'directorist' ); ?></label>
-                    <div><input type="text" name="map_api_key" id="google_api"></div>
+                    <div><input type="text" name="map_api_key" id="google_api"><small><?php _e( '* API Key is required for Google Map to work properly', 'directorist' ); ?></small></div>
                 </div>
                 <div class="w-form-group">
                     <label for="enable_monetization"><?php _e( 'Enable Monetization Feature', 'directorist' ); ?></label>
@@ -668,7 +668,7 @@ class SetupWizard
         $dummy_csv = ATBDP_URL . 'templates/import-export/data/dummy.csv';
     ?>
         <div class="atbdp-c-header">
-            <h1><?php _e( 'Price in USD', 'directorist' ); ?></h1>
+            <h1><?php _e( 'Import Dummy Data', 'directorist' ); ?></h1>
         </div>
         <form method="post" id="atbdp_dummy_form">
             <div class="atbdp-c-body">
@@ -739,7 +739,7 @@ class SetupWizard
         <div class="atbdp-c-body">
             <div class="wsteps-done">
                 <span class="wicon-done dashicons dashicons-yes"></span>
-                <h2><?php esc_html_e('Awesome, your directory is ready!', 'directorist'); ?></h2>
+                <h2><?php esc_html_e('Great, you are all set to begin your journey!', 'directorist'); ?></h2>
                 <div>
                     <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="wbtn wbtn-primary"><?php esc_html_e('Visit Directorist Dashboard', 'directorist'); ?></a>
                     <a href="<?php echo esc_url(admin_url().'post-new.php?post_type=at_biz_dir'); ?>" class="wbtn wbtn-outline-primary"><?php esc_html_e('Create your First Listing', 'directorist'); ?></a>
@@ -764,9 +764,10 @@ class SetupWizard
     {
     ?>
         <div class="atbdp-c-body">
+            <img src="<?php echo esc_url(ATBDP_PUBLIC_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist">
             <h1 class="atbdp-c-intro-title"><?php esc_html_e('Welcome to the world of Directorist!', 'directorist'); ?></h1>
-            <p><?php echo wp_kses(__('Thank you for choosing Directorist to power your online directory! This quick setup wizard will help you configure the basic settings. <strong>It’s completely optional and shouldn’t take longer than three minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
-            <p><?php esc_html_e('No time right now? If you don’t want to go through the wizard, you can skip and return to the WordPress dashboard. Come back anytime if you change your mind!', 'directorist'); ?></p>
+            <p><?php echo wp_kses(__('Thank you for choosing Directorist to amp your business directory. This quick setup wizard will help you <strong>configure the basic settings and get you started in no longer than 3 minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
+            <p><?php esc_html_e('If you don\'t want to run the setup wizard now, you can skip and return to the WordPress dashboard. You can always come back and run the wizard at your convenience.', 'directorist'); ?></p>
         </div>
         <div class="atbdp-c-footer">
             <p class="atbdp-setup-actions step">
@@ -837,6 +838,7 @@ class SetupWizard
         array_shift($ouput_steps);
         $hide = ! isset( $_GET['step'] ) ? 'atbdp-none' : '';
         ?>
+            <img src="<?php echo esc_url(ATBDP_PUBLIC_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist">
             <ul class="atbdp-setup-steps <?php echo $hide; ?>">
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php

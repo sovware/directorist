@@ -931,7 +931,9 @@ span.atbdp-tick-cross{
               display: inline-block;
               .upload-btn{
                 line-height: 40px;
-                display: inline-block;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
                 border-radius: 5px;
                 padding: 0 20px;
                 background: #5A5F7D;

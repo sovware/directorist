@@ -42,7 +42,7 @@ $map_container              = apply_filters('atbdp_map_container',$container);
             <?php
             $show_pagination = !empty($show_pagination) ? $show_pagination : '';
             if ('yes' == $show_pagination) {
-                atbdp_pagination($all_listings);
+                echo atbdp_pagination($all_listings);
             } ?>
     </div>
     <!-- Use reset postdata to restore orginal query -->

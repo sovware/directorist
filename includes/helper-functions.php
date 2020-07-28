@@ -451,10 +451,10 @@ if (!function_exists('atbdp_pagination')) {
             'next_text' => apply_filters('atbdp_pagination_next_text', '<span class="fa fa-chevron-right atbdp_right_nav"></span>'),
         ));
 
-
         if ($links) {
             $navigation = _navigation_markup($links, 'pagination', ' ');
         }
+
         return apply_filters('atbdp_pagination', $navigation, $links, $custom_post_query, $paged);
     }
 }

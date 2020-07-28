@@ -23,7 +23,7 @@ $fields = $args['fields'];
 		<form class="atbdp-progress-form-content directorist-importer" id="atbdp_csv_step_two" method="post">
 			<header>
 				<h2><?php esc_html_e('Map CSV fields to listings', 'directorist'); ?></h2>
-				<p><?php esc_html_e('Select fields from your CSV file to map against listings fields, or to ignore during import.', 'directorist'); ?></p>
+				<p><?php esc_html_e('Select Directorist fields to map it against your CSV file fields, leave it as "Do not import" to skip certain fields.', 'directorist'); ?></p>
 			</header>
 			<div class="form-content">
 				<section class="atbdp-importer-mapping-table-wrapper">

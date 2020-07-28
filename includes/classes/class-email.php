@@ -683,7 +683,7 @@ This email is sent automatically for information purpose only. Please do not res
         {
             if (get_directorist_option('disable_email_notification')) return false;
             if (!in_array('listing_submitted', get_directorist_option('notify_admin', array()))) return false;
-            $s = __('[==SITE_NAME==] A new listings is received on your website', 'directorist');
+            $s = __('[==SITE_NAME==] A new listing has been submitted on your website', 'directorist');
             $sub = str_replace('==SITE_NAME==', get_option('blogname'), $s);
 
             $body = $this->get_listing_submitted_admin_tmpl();

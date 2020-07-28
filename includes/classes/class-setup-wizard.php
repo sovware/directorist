@@ -739,7 +739,7 @@ class SetupWizard
         <div class="atbdp-c-body">
             <div class="wsteps-done">
                 <span class="wicon-done dashicons dashicons-yes"></span>
-                <h2><?php esc_html_e('Great, you are all set to begin your journey!', 'directorist'); ?></h2>
+                <h2><?php esc_html_e('Great, your directory is ready!', 'directorist'); ?></h2>
                 <div>
                     <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="wbtn wbtn-primary"><?php esc_html_e('Visit Directorist Dashboard', 'directorist'); ?></a>
                     <a href="<?php echo esc_url(admin_url().'post-new.php?post_type=at_biz_dir'); ?>" class="wbtn wbtn-outline-primary"><?php esc_html_e('Create your First Listing', 'directorist'); ?></a>

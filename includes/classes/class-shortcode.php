@@ -1044,7 +1044,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 array(
                     'key'     => '_listing_status',
                     'value'   => 'expired',
-                    'compare' => '!=',                // eg. expire date 6 <= current date 7 will return the post
+                    'compare' => '!=',
                 ),
             );
             

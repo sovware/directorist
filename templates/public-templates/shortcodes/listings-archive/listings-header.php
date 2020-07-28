@@ -19,7 +19,7 @@
 									<?php } ?>
 									<?php echo $listings->filter_button_text; ?>
 								</a>
-							<?php
+								<?php
 							}
 							/**
 							* @since 5.4.0
@@ -31,15 +31,14 @@
 							}
 							?>
 						</div>
-					<?php
+						<?php
 					}
 					/**
 					 * @since 5.4.0
 					 */
 					do_action('atbdp_after_total_listing_found_in_listings_header', $listings->header_title);
 					
-					if ($listings->has_header_toolbar()) {
-					?>
+					if ($listings->has_header_toolbar()) { ?>
 						<div class="atbd_listing_action_btn btn-toolbar" role="toolbar">
 							<?php
 							if ($listings->display_viewas_dropdown) {
@@ -51,7 +50,9 @@
 							}
 							?>
 						</div>
-					<?php } ?>
+						<?php
+					}
+					?>
 				</div>
 
 				<div class="<?php $listings->filter_container_class(); ?>">

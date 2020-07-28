@@ -9,7 +9,7 @@ class Directorist_Template_Hooks {
 
 	protected static $instance = null;
 
-	private function __construct( $id = '' ) {
+	private function __construct() {
 
         // Author Profile
 		$author = Directorist_Listing_Author::instance();
@@ -55,6 +55,9 @@ class Directorist_Template_Hooks {
 
         // Listing Thumbnail Area
 		add_action( 'atbdp_listing_thumbnail_area', array( 'Directorist_Listings', 'mark_as_favourite_button') );
+
+		// Single Listing content wrapper
+		add_filter('the_content', array( 'Directorist_Single_Listing', 'single_content_wrapper' ), 20 );
 	}
 
     // instance

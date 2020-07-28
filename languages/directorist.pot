@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2020-07-28 08:44+0600\n"
+"POT-Creation-Date: 2020-07-28 16:53+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -1029,7 +1029,7 @@ msgid ""
 "\n"
 "The following Listing has been deleted on your website ==SITE_NAME==\n"
 "\n"
-"Listing Summery:\n"
+"Listing Summary:\n"
 "ID: ==LISTING_ID==\n"
 "Title: ==LISTING_TITLE==\n"
 "\n"
@@ -1089,7 +1089,7 @@ msgid ""
 "\n"
 "A new listing has been submitted on your website [==SITE_NAME==].\n"
 "\n"
-"Listing Summery:\n"
+"Listing Summary:\n"
 "ID: ==LISTING_ID==\n"
 "Title: ==LISTING_TITLE==\n"
 "Link: ==LISTING_LINK==\n"
@@ -1108,7 +1108,7 @@ msgid ""
 "The listing #==LISTING_ID== has been been published on your website "
 "[==SITE_NAME==].\n"
 "\n"
-"Listing Summery:\n"
+"Listing Summary:\n"
 "ID: ==LISTING_ID==\n"
 "Title: ==LISTING_TITLE==\n"
 "Link: ==LISTING_LINK==\n"
@@ -1127,7 +1127,7 @@ msgid ""
 "The listing #==LISTING_ID== has been been edited on your website "
 "[==SITE_NAME==].\n"
 "\n"
-"Listing Summery:\n"
+"Listing Summary:\n"
 "ID: ==LISTING_ID==\n"
 "Title: ==LISTING_TITLE==\n"
 "Link: ==LISTING_LINK==\n"
@@ -1145,7 +1145,7 @@ msgid ""
 "\n"
 "The listing #==LISTING_ID== has a new review [==SITE_NAME==].\n"
 "\n"
-"Listing Summery:\n"
+"Listing Summary:\n"
 "ID: ==LISTING_ID==\n"
 "Title: ==LISTING_TITLE==\n"
 "Link: ==LISTING_LINK==\n"
@@ -1178,7 +1178,7 @@ msgid ""
 msgstr ""
 
 #: includes/classes/class-email.php:686
-msgid "[==SITE_NAME==] A new listings is received on your website"
+msgid "[==SITE_NAME==] A new listing has been submitted on your website"
 msgstr ""
 
 #: includes/classes/class-email.php:708
@@ -5396,7 +5396,7 @@ msgid "Step Four"
 msgstr ""
 
 #: includes/classes/class-setup-wizard.php:307
-msgid "Recommend Pages"
+msgid "Recommended Pages"
 msgstr ""
 
 #: includes/classes/class-setup-wizard.php:313
@@ -5471,7 +5471,9 @@ msgid "Continue"
 msgstr ""
 
 #: includes/classes/class-setup-wizard.php:554
-msgid "Recommend Settings"
+msgid ""
+"Fill out the form to get maps and monetization feature to work right "
+"away"
 msgstr ""
 
 #: includes/classes/class-setup-wizard.php:562
@@ -5480,6 +5482,10 @@ msgstr ""
 
 #: includes/classes/class-setup-wizard.php:563
 msgid "Google"
+msgstr ""
+
+#: includes/classes/class-setup-wizard.php:568
+msgid "* API Key is required for Google Map to work properly"
 msgstr ""
 
 #: includes/classes/class-setup-wizard.php:571
@@ -5494,7 +5500,7 @@ msgid "Monetize by Featured Listing"
 msgstr ""
 
 #: includes/classes/class-setup-wizard.php:671
-msgid "Price in USD"
+msgid "Import Dummy Data"
 msgstr ""
 
 #: includes/classes/class-setup-wizard.php:678
@@ -5521,7 +5527,7 @@ msgid "Please don't reload the page"
 msgstr ""
 
 #: includes/classes/class-setup-wizard.php:742
-msgid "Awesome, your directory is ready!"
+msgid "Great, your directory is ready!"
 msgstr ""
 
 #: includes/classes/class-setup-wizard.php:744
@@ -5533,38 +5539,37 @@ msgid "Create your First Listing"
 msgstr ""
 
 #: includes/classes/class-setup-wizard.php:750
-#: includes/classes/class-setup-wizard.php:888
+#: includes/classes/class-setup-wizard.php:893
 msgid "Return to the WordPress Dashboard"
 msgstr ""
 
-#: includes/classes/class-setup-wizard.php:767
+#: includes/classes/class-setup-wizard.php:770
 msgid "Welcome to the world of Directorist!"
 msgstr ""
 
-#: includes/classes/class-setup-wizard.php:768
+#: includes/classes/class-setup-wizard.php:771
 msgid ""
-"Thank you for choosing Directorist to power your online directory! This "
-"quick setup wizard will help you configure the basic settings. "
-"<strong>It’s completely optional and shouldn’t take longer than three "
-"minutes.</strong>"
+"Thank you for choosing Directorist to amp your business directory. This "
+"quick setup wizard will help you <strong>configure the basic settings "
+"and get you started in no longer than 3 minutes.</strong>"
 msgstr ""
 
-#: includes/classes/class-setup-wizard.php:769
+#: includes/classes/class-setup-wizard.php:772
 msgid ""
-"No time right now? If you don’t want to go through the wizard, you can "
-"skip and return to the WordPress dashboard. Come back anytime if you "
-"change your mind!"
+"If you don't want to run the setup wizard now, you can skip and return "
+"to the WordPress dashboard. You can always come back and run the wizard "
+"at your convenience."
 msgstr ""
 
-#: includes/classes/class-setup-wizard.php:773
+#: includes/classes/class-setup-wizard.php:776
 msgid "Not right now"
 msgstr ""
 
-#: includes/classes/class-setup-wizard.php:774
+#: includes/classes/class-setup-wizard.php:777
 msgid "Let's Go!"
 msgstr ""
 
-#: includes/classes/class-setup-wizard.php:815
+#: includes/classes/class-setup-wizard.php:818
 msgid "Directorist &rsaquo; Setup Wizard"
 msgstr ""
 
@@ -7543,13 +7548,13 @@ msgstr ""
 #: templates/extension.php:68 templates/extension.php:91
 #: templates/extension.php:114 templates/extension.php:138
 #: templates/extension.php:160 templates/extension.php:183
-#: templates/extension.php:206 templates/extension.php:228
-#: templates/extension.php:250 templates/extension.php:272
-#: templates/extension.php:296 templates/extension.php:320
+#: templates/extension.php:206 templates/extension.php:229
+#: templates/extension.php:251 templates/extension.php:273
+#: templates/extension.php:295 templates/extension.php:319
 #: templates/extension.php:343 templates/extension.php:366
-#: templates/extension.php:389 templates/themes.php:21
-#: templates/themes.php:43 templates/themes.php:65 templates/themes.php:86
-#: templates/themes.php:106
+#: templates/extension.php:389 templates/extension.php:412
+#: templates/themes.php:21 templates/themes.php:43 templates/themes.php:65
+#: templates/themes.php:86 templates/themes.php:106
 msgid "Get It Now"
 msgstr ""
 
@@ -7622,87 +7627,97 @@ msgid ""
 msgstr ""
 
 #: templates/extension.php:201
-msgid " Rank Featured Listings "
+msgid " Compare Listing "
 msgstr ""
 
 #: templates/extension.php:202
+msgid ""
+"Use compare listings to view listings side by side and compare its "
+"features."
+msgstr ""
+
+#: templates/extension.php:224
+msgid " Rank Featured Listings "
+msgstr ""
+
+#: templates/extension.php:225
 msgid ""
 "Rank Featured Listings is used to rank your featured listing items on "
 "your directory website."
 msgstr ""
 
-#: templates/extension.php:223
+#: templates/extension.php:246
 msgid " Post Your Need "
 msgstr ""
 
-#: templates/extension.php:224
+#: templates/extension.php:247
 msgid ""
 "Add new feature for your users where they can post for any kind of need "
 "or service that they want."
 msgstr ""
 
-#: templates/extension.php:245
+#: templates/extension.php:268
 msgid " Listings With Map "
 msgstr ""
 
-#: templates/extension.php:246
+#: templates/extension.php:269
 msgid ""
 "It adds new layout view that is listings and map side by side with "
 "advanced search/filters."
 msgstr ""
 
-#: templates/extension.php:267
+#: templates/extension.php:290
 msgid " Directorist Social Login "
 msgstr ""
 
-#: templates/extension.php:268
+#: templates/extension.php:291
 msgid ""
 "It lets your visitors register and login to your site using their "
 "social profiles (Facebook and Google)."
 msgstr ""
 
-#: templates/extension.php:291
+#: templates/extension.php:314
 msgid " Google reCAPTCHA "
 msgstr ""
 
-#: templates/extension.php:292
+#: templates/extension.php:315
 msgid "Protect your directory from spam entries with Google reCAPTCHA."
 msgstr ""
 
-#: templates/extension.php:314
+#: templates/extension.php:337
 msgid " Listings Slider and Carousel "
 msgstr ""
 
-#: templates/extension.php:315
+#: templates/extension.php:338
 msgid ""
 "Display listings slider anywhere on your website using this extension."
 msgstr ""
 
-#: templates/extension.php:338
+#: templates/extension.php:361
 msgid " Image Gallery "
 msgstr ""
 
-#: templates/extension.php:339
+#: templates/extension.php:362
 msgid ""
 "Display listing images gallery on single listing page using this "
 "extension."
 msgstr ""
 
-#: templates/extension.php:361
+#: templates/extension.php:384
 msgid " Listing FAQs "
 msgstr ""
 
-#: templates/extension.php:362
+#: templates/extension.php:385
 msgid ""
 "You can easily display listing's Frequently Asked Questions on each "
 "listing by using this extension."
 msgstr ""
 
-#: templates/extension.php:384
+#: templates/extension.php:407
 msgid " Booking ( Reservation & Appointment ) "
 msgstr ""
 
-#: templates/extension.php:385
+#: templates/extension.php:408
 msgid ""
 "Add a reservation/booking system on your directory using this extension."
 msgstr ""
@@ -8357,15 +8372,15 @@ msgid "Directorist - Mark as Sold"
 msgstr ""
 
 #: templates/help-and-support.php:78
-msgid "Directorist - Rank Featured Listings\n"
+msgid "Directorist - Compare Listing"
 msgstr ""
 
-#: templates/help-and-support.php:82
+#: templates/help-and-support.php:81
 msgid "Directorist - Booking ( Reservation & Appointment )"
 msgstr ""
 
 #: templates/import-export/export.php:12
-msgid "Download a simple CSV"
+msgid "Download a sample CSV"
 msgstr ""
 
 #: templates/import-export/step-done.php:19
@@ -8449,8 +8464,8 @@ msgstr ""
 
 #: templates/import-export/step-two.php:26
 msgid ""
-"Select fields from your CSV file to map against listings fields, or to "
-"ignore during import."
+"Select Directorist fields to map it against your CSV file fields, leave "
+"it as \"Do not import\" to skip certain fields."
 msgstr ""
 
 #: templates/import-export/step-two.php:30

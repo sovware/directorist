@@ -10,7 +10,7 @@
     box-shadow: 0 5px 15px rgba(146,153,184,0.2);
     border-radius: 5px;
     overflow: hidden;
-    margin: 0 auto;
+    margin: 0 auto 100px;
 }
 .atbdp-setup-content .atbdp-c-header{
     padding: 32px 40px 23px;
@@ -23,6 +23,10 @@
 }
 .atbdp-setup-content .atbdp-c-body{
     padding: 30px 40px 50px;
+}
+.atbdp-setup-content .atbdp-c-logo{
+    text-align: center;
+    margin-bottom: 40px;
 }
 .atbdp-setup-content .atbdp-c-body p{
     font-size: 16px;
@@ -99,7 +103,11 @@
     box-sizing: border-box;
     cursor: pointer;
 }
-
+.atbdp-sw-gmap-key small{
+    display: block;
+    margin-top: 4px;
+    color: #9299B8;
+}
 
 .w-toggle-switch {
     position: relative;
@@ -216,6 +224,7 @@
     width: 450px;
     margin: 100px auto 20px;
     display: flex;
+    flex-wrap: wrap;
     padding: 0;
     justify-content: space-between;
     align-items: center;
@@ -279,6 +288,13 @@
 .atbdp-setup-steps li.active span.atbdp-sw-circle{
     background: #272B41;
     color: #fff;
+}
+.atbdp-setup-steps li.atbdsw-logo{
+    flex: 0 0 100%;
+    margin-bottom: 50px;
+}
+.atbdp-setup-steps li.atbdsw-logo:after{
+    content: none;
 }
 .atbdp-none{
     display: none;

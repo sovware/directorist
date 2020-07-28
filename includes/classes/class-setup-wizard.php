@@ -66,7 +66,7 @@ class SetupWizard
 
 			update_option( 'directorist_setup_wizard_completed', true );
         }
-        
+
         $create_pages = [
             'checkout_page'        => [
                 'post_title'         => 'Checkout',
@@ -82,7 +82,7 @@ class SetupWizard
             ],
         ];
         $atbdp_option = get_option( 'atbdp_option' );
-         
+
         if (!empty($atbdp_option['enable_monetization'])) {
             foreach ($create_pages as $key => $name) {
 
@@ -764,7 +764,9 @@ class SetupWizard
     {
     ?>
         <div class="atbdp-c-body">
-            <img src="<?php echo esc_url(ATBDP_PUBLIC_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist">
+            <div class="atbdp-c-logo">
+                <img src="<?php echo esc_url(ATBDP_PUBLIC_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist">
+            </div>
             <h1 class="atbdp-c-intro-title"><?php esc_html_e('Welcome to the world of Directorist!', 'directorist'); ?></h1>
             <p><?php echo wp_kses(__('Thank you for choosing Directorist to amp your business directory. This quick setup wizard will help you <strong>configure the basic settings and get you started in no longer than 3 minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
             <p><?php esc_html_e('If you don\'t want to run the setup wizard now, you can skip and return to the WordPress dashboard. You can always come back and run the wizard at your convenience.', 'directorist'); ?></p>
@@ -838,8 +840,9 @@ class SetupWizard
         array_shift($ouput_steps);
         $hide = ! isset( $_GET['step'] ) ? 'atbdp-none' : '';
         ?>
-            <img src="<?php echo esc_url(ATBDP_PUBLIC_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist">
+
             <ul class="atbdp-setup-steps <?php echo $hide; ?>">
+            <li class="atbdsw-logo"><img src="<?php echo esc_url(ATBDP_PUBLIC_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist"></li>
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php
                         if ($step_key === $this->step && 'step-four' != $step_key ) {

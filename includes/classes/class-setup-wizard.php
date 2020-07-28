@@ -304,7 +304,7 @@ class SetupWizard
 
     public function directorist_step_one() { ?>
         <div class="atbdp-c-header">
-            <h><?php esc_html_e('Fill out the form to get maps and monetization feature to work right away.', 'directorist'); ?></h>
+            <h1><?php esc_html_e('Recommended Pages', 'directorist'); ?></h1>
         </div>
 
         <form method="post">
@@ -551,7 +551,7 @@ class SetupWizard
 
     ?>
         <div class="atbdp-c-header">
-            <h1><?php esc_html_e('Recommend Settings', 'directorist'); ?></h1>
+            <h1><?php esc_html_e('Fill out the form to get maps and monetization feature to work right away', 'directorist'); ?></h1>
         </div>
 
         <form method="post">

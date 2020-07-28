@@ -186,7 +186,7 @@ Dear Administrator,
 
 The following Listing has been deleted on your website ==SITE_NAME==
 
-Listing Summery:
+Listing Summary:
 ID: ==LISTING_ID==
 Title: ==LISTING_TITLE==
 
@@ -260,7 +260,7 @@ Dear Administrator,
 
 A new listing has been submitted on your website [==SITE_NAME==].
 
-Listing Summery:
+Listing Summary:
 ID: ==LISTING_ID==
 Title: ==LISTING_TITLE==
 Link: ==LISTING_LINK==
@@ -284,7 +284,7 @@ Dear Administrator,
 
 The listing #==LISTING_ID== has been been published on your website [==SITE_NAME==].
 
-Listing Summery:
+Listing Summary:
 ID: ==LISTING_ID==
 Title: ==LISTING_TITLE==
 Link: ==LISTING_LINK==
@@ -308,7 +308,7 @@ Dear Administrator,
 
 The listing #==LISTING_ID== has been been edited on your website [==SITE_NAME==].
 
-Listing Summery:
+Listing Summary:
 ID: ==LISTING_ID==
 Title: ==LISTING_TITLE==
 Link: ==LISTING_LINK==
@@ -332,7 +332,7 @@ Dear Administrator,
 
 The listing #==LISTING_ID== has a new review [==SITE_NAME==].
 
-Listing Summery:
+Listing Summary:
 ID: ==LISTING_ID==
 Title: ==LISTING_TITLE==
 Link: ==LISTING_LINK==

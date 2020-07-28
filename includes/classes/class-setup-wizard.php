@@ -49,7 +49,7 @@ class SetupWizard
 
         ?>
         <div id="message" class="updated atbdp-message">
-            <p><?php echo wp_kses_post( __( '<strong>Welcome to Directorist</strong> &#8211; You&lsquo;re almost ready to start', 'directorist' ) ); ?></p>
+            <p><?php echo wp_kses_post( __( '<strong>Welcome to Directorist</strong> &#8211; You&lsquo;re almost ready to start your directory!', 'directorist' ) ); ?></p>
             <p class="submit">
                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=directorist-setup' ) ); ?>" class="button-primary"><?php esc_html_e( 'Run the Setup Wizard', 'directorist' ); ?></a>
                 <a class="button-secondary skip" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'directorist-hide-notice', 'install' ), 'directorist_hide_notices_nonce', '_atbdp_notice_nonce' ) ); ?>"><?php _e( 'Skip setup', 'directorist' ); ?></a>
@@ -765,7 +765,7 @@ class SetupWizard
     ?>
         <div class="atbdp-c-body">
             <h1 class="atbdp-c-intro-title"><?php esc_html_e('Welcome to the world of Directorist!', 'directorist'); ?></h1>
-            <p><?php echo wp_kses(__('Thank you for choosing Directorist to power your online marketplace! This quick setup wizard will help you configure the basic settings. <strong>It’s completely optional and shouldn’t take longer than three minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
+            <p><?php echo wp_kses(__('Thank you for choosing Directorist to power your online directory! This quick setup wizard will help you configure the basic settings. <strong>It’s completely optional and shouldn’t take longer than three minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
             <p><?php esc_html_e('No time right now? If you don’t want to go through the wizard, you can skip and return to the WordPress dashboard. Come back anytime if you change your mind!', 'directorist'); ?></p>
         </div>
         <div class="atbdp-c-footer">

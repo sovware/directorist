@@ -55,6 +55,7 @@ $symbol = atbdp_currency_symbol($currency);
                                 $after = '';
                                 ('after' == $c_position) ? $after = $symbol : $before = $symbol;
                                 echo $before . esc_html(atbdp_format_payment_amount($op['price'])) . $after;
+                                do_action('atbdp_checkout_after_total_price', $args);
                             } ?>
                         </td>
                     </tr>

@@ -5,12 +5,14 @@
     padding: 0;
 }
 .atbdp-setup-content{
-    width: 700px;
-    background: #fff;
-    box-shadow: 0 5px 15px rgba(146,153,184,0.2);
-    border-radius: 5px;
-    overflow: hidden;
+    font-family: Arial; 
     margin: 0 auto 100px;
+    width: 700px;
+    color: #3e3e3e;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(146,153,184,0.2);
+    background: #fff;
+    overflow: hidden;
 }
 .atbdp-setup-content .atbdp-c-header{
     padding: 32px 40px 23px;
@@ -221,6 +223,7 @@
 }
 
 .atbdp-setup-steps{
+    font-family: arial;
     width: 450px;
     margin: 100px auto 20px;
     display: flex;
@@ -228,6 +231,7 @@
     padding: 0;
     justify-content: space-between;
     align-items: center;
+    color: #3e3e3e;
     list-style: none;
 }
 .atbdp_introduction{

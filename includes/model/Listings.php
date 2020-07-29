@@ -1037,7 +1037,7 @@ class Directorist_Listings {
 			$extension_file = BDM_TEMPLATES_DIR . '/map-view';
 
 			ob_start();
-			atbdp_get_shortcode_ext_template( $template_file, $extension_file, null, $this, true );
+			// atbdp_get_shortcode_ext_template( $template_file, $extension_file, null, $this, true );
 			return ob_get_clean();
 		}
 

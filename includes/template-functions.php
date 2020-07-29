@@ -16,13 +16,9 @@ function atbdp_get_shortcode_template_paths( $template_file ) {
 }
 
 // atbdp_get_template
-function atbdp_get_template( $template_file, $args = array(), $template = null, $extract_template = false ) {
+function atbdp_get_template( $template_file, $args = array() ) {
     if ( is_array( $args ) ) {
         extract( $args );
-    }
-
-    if ( $template && is_object( $template ) && true == $extract_template ) {
-        extract( (array)$template );
     }
 
     $theme_template  = '/directorist/' . $template_file . '.php';
@@ -39,55 +35,33 @@ function atbdp_get_template( $template_file, $args = array(), $template = null, 
     include $file;
 }
 
-// atbdp_get_template
-function atbdp_get_ext_template( $template_file, $extension_file, $args = array(), $template = null, $extract_template = false ) {
-    if ( is_array( $args ) ) {
-        extract( $args );
-    }
-
-    if ( $template && is_object( $template ) && true == $extract_template ) {
-        extract( (array)$template );
-    }
-
-    $theme_template  = '/directorist/' . $template_file . '.php';
-    $plugin_template = $extension_file . '.php';
-
-    if ( file_exists( get_stylesheet_directory() . $theme_template ) ) {
-        $file = get_stylesheet_directory() . $theme_template;
-    } elseif ( file_exists( get_template_directory() . $theme_template ) ) {
-        $file = get_template_directory() . $theme_template;
-    } else {
-        $file = $plugin_template;
-    }
-
-    include $file;
+// atbdp_get_shortcode_template
+function atbdp_get_shortcode_template( $template, $args = array() ) {
+    $args = apply_filters( 'atbdp_shortcode_template_args', $args, $template );
+    $template = 'shortcodes/' . $template;
+    atbdp_get_template( $template, $args );
 }
 
-// atbdp_get_shortcode_template
-function atbdp_get_shortcode_template( $template, $args = array(), $helper = null, $extract_helper = false ) {
-    $template = 'shortcodes/' . $template;
-    atbdp_get_template( $template, $args, $helper, $extract_helper );
+// atbdp_get_widget_template
+function atbdp_get_widget_template( $template, $args = array() ) {
+    $args = apply_filters( 'atbdp_widget_template_args', $args, $template );
+    $template = 'widgets/' . $template;
+    atbdp_get_template( $template, $args );
 }
 
 // atbdp_return_shortcode_template
 function atbdp_return_shortcode_template( $template, $args = array() ) {
-    $template = 'shortcodes/' . $template;
     ob_start();
-    atbdp_get_template( $template, $args );
-
+    atbdp_get_shortcode_template( $template, $args );
     return ob_get_clean();
 }
 
-// atbdp_get_shortcode_template
-function atbdp_get_shortcode_ext_template( $template_file, $extension_file, $args = array(), $helper = null, $extract_helper = false ) {
-    $template_file = 'shortcodes/extension/' . $template_file;
-    atbdp_get_ext_template( $template_file, $extension_file, $args, $helper, $extract_helper );
-}
+// atbdp_return_shortcode_template
+function atbdp_return_widget_template( $template, $args = array() ) {
+    ob_start();
+    atbdp_get_widget_template( $template, $args );
 
-// atbdp_get_widget_template
-function atbdp_get_widget_template( $template, $args = array(), $helper = null, $extract_helper = false ) {
-    $template = 'widgets/' . $template;
-    atbdp_get_template( $template, $args, $helper, $extract_helper );
+    return ob_get_clean();
 }
 
 // atbdp_search_result_page_link

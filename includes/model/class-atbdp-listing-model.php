@@ -4,8 +4,7 @@ if ( ! class_exists( 'ATBDP_Listings_Model' ) ) :
         // get_archive_listings_query
         public static function get_archive_listings_query( array $query_args = [], array $custom_option = [] ) {
             $default_option = [
-                'cache'  => true,
-                'update' => false,
+                'cache' => true, 'update' => false,
             ];
             $default_option = array_merge( $default_option, $custom_option );
 

@@ -31,11 +31,12 @@
 			*/
 			do_action('atbdp_listings_before_phone');
 			?>
+			
 
 			<?php if (!empty($listings->loop['phone_number']) && $listings->display_phone_field): ?>
-				<li>
-					<p><span class="<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $listings->loop['phone_number'] ); ?>"><?php ATBDP_Helper::sanitize_html( $listings->loop['phone_number'] ); ?></a></p>
-				</li>
+			<li>
+				<p><span class="<?php atbdp_icon_type(true); ?>-phone"></span><a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $listings->loop['phone_number'] ); ?>"><?php ATBDP_Helper::sanitize_html( $listings->loop['phone_number'] ); ?></a></p>
+			</li>
 			<?php endif; ?>
 
 		<?php endif; ?>

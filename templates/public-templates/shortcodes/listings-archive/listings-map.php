@@ -28,7 +28,7 @@ do_action('atbdp_before_all_listings_map', $listings);
     $listings->map_template();
 
     if ($listings->show_pagination) {
-        echo atbdp_pagination($listings->query, $listings->paged);
+        echo atbdp_pagination( $listings->query_results );
     }
     ?>
 </div>

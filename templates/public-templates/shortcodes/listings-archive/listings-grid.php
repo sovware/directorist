@@ -36,17 +36,7 @@ do_action('atbdp_before_all_listings_grid', $listings);
         ?>
 
         <div class="row"<?php echo esc_attr($listings->masonary_grid_attr()); ?>>
-
-        	<?php
-        	if ($listings->query->have_posts()) {
-        		$listings->loop_template('grid');
-        	}
-        	else { ?>
-        		<p class="atbdp_nlf"><?php esc_html_e('No listing found.', 'directorist'); ?></p>
-                <?php
-            }
-            ?>
-
+        	<?php $listings->setup_loop( ['template' => 'grid'] ); ?>
         </div>
 
         <div class="row">
@@ -57,8 +47,8 @@ do_action('atbdp_before_all_listings_grid', $listings);
                  */
                 do_action('atbdp_before_listings_pagination');
 
-                if ($listings->show_pagination) {
-                    echo atbdp_pagination($listings->query, $listings->paged);
+                if ( $listings->show_pagination ) {
+                    echo atbdp_pagination( $listings->query_results );
                 }
                 ?>
             </div>

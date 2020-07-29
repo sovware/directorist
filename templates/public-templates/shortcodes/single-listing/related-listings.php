@@ -11,15 +11,7 @@
 	</div>
 	<div class="atbd_margin_fix">
 		<div class="related__carousel">
-			<?php
-			if ($listings->query->have_posts()) {
-				$listings->loop_template('related-grid');
-			}
-			else { ?>
-				<p class="atbdp_nlf"><?php esc_html_e('No listing found.', 'directorist'); ?></p>
-				<?php
-			}
-			?>
+			<?php $listings->setup_loop(); ?>
 		</div>
 	</div>
 </div>

@@ -307,9 +307,17 @@ class Directorist_Single_Listing {
     		'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
     		'posts_per_page' => -1,
     		'post_status' => 'publish',
-    	);
-
-    	$custom_fields = new WP_Query($args);
+		);
+		
+		$custom_fields = ATBDP_Cache_Helper::get_the_transient([
+			'group'      => 'atbdp_custom_field_query',
+			'name'       => 'atbdp_all_custom_fields',
+			'query_args' => $args,
+			'cache'      => apply_filters( 'atbdp_cache_atbdp_all_custom_fields', 1 ),
+			'value'      => function( $data ) {
+				return  new WP_Query( $data['query_args'] );
+			}
+		]);
 
     	$cats = get_the_terms($id, ATBDP_CATEGORY);
     	$category_ids = array();
@@ -694,19 +702,13 @@ class Directorist_Single_Listing {
     	);
 
     	$meta_queries = array();
-    	$meta_queries[] = array(
-    		'relation' => 'OR',
-    		array(
-    			'key' => '_expiry_date',
-    			'value' => current_time('mysql'),
-    			'compare' => '>',
-    			'type' => 'DATETIME'
-    		),
-    		array(
-    			'key' => '_never_expire',
-    			'value' => 1,
-    		)
-    	);
+		$meta_queries['expired'] = array(
+			array(
+				'key'     => '_listing_status',
+				'value'   => 'expired',
+				'compare' => '!=',
+			),
+		);
 
     	$meta_queries = apply_filters('atbdp_related_listings_meta_queries', $meta_queries);
     	$count_meta_queries = count($meta_queries);
@@ -714,9 +716,7 @@ class Directorist_Single_Listing {
     		$args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
     	}
 
-    	$args    = apply_filters( 'atbdp_related_listing_args', $args );
-    	$query = new WP_Query( $args );
-    	return $query;
+    	return apply_filters( 'atbdp_related_listing_args', $args );
     }
 
     public function render_shortcode_related_listings() {
@@ -742,7 +742,7 @@ class Directorist_Single_Listing {
 
     	$query = $this->related_listings_query();
     	
-    	$listings = new Directorist_Listings(array(), 'related', $query);
+    	$listings = new Directorist_Listings(array(), 'related', $query, ['cache' => false]);
     	$args = array(
     		'listings' => $listings,
     		'class'    => is_directoria_active() ? 'containere' : 'containess-fluid',

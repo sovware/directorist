@@ -38,15 +38,7 @@ do_action('atbdp_before_all_listings_list', $listings);
     <div class="<?php echo esc_attr( $container ); ?>">
         <div class="row">
             <div class="<?php echo esc_attr( $col_container ); ?>">
-                <?php
-                if ($listings->query->have_posts()) {
-                    $listings->loop_template('list');
-                }
-                else { ?>
-                    <p class="atbdp_nlf"><?php esc_html_e('No listing found.', 'directorist'); ?></p>
-                    <?php
-                }
-                ?>
+                <?php $listings->setup_loop( ['template' => 'list'] ); ?>
             </div>
         </div>
 
@@ -58,8 +50,8 @@ do_action('atbdp_before_all_listings_list', $listings);
                  */
                 do_action('atbdp_before_listings_pagination');
                 
-                if ($listings->show_pagination) {
-                    echo atbdp_pagination($listings->query, $listings->paged);
+                if ( $listings->show_pagination ) {
+                    echo atbdp_pagination( $listings->query_results );
                 } ?>
             </div>
         </div>

@@ -145,7 +145,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 * Add - CSV Bulk Importer (listing, category, location, tag, media etc.)
 * Add - Object Caching
-* Add - Elementor Page Builder Widgets
+* Add - Elementor Page Builder widgets
 * Add - Setup Wizard with dummy data importer
 * Add - A few more options to control listing review
 * Add - Default latitude and longitude of listings map view

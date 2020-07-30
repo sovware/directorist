@@ -55,6 +55,7 @@ class ATBDP_Order
         $order_items = apply_filters('atbdp_order_items_data', array(), $order_id); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
 
         $featured = get_post_meta($order_id, '_featured', true);
+        $listing_id = get_post_meta($order_id, '_listing_id', true);
         if ($featured) {
             $order_items[] = atbdp_get_featured_settings_array();
         }
@@ -92,6 +93,7 @@ class ATBDP_Order
                     <?php
                     $amount = get_post_meta($order_id, '_amount', true);
                     echo $before . esc_html($amount) . $after;
+                    do_action('atbdp_email_receipt_after_total_price', $listing_id);
                     ?>
                 </td>
             </tr>

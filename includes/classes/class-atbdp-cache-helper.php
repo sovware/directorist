@@ -55,6 +55,12 @@ class ATBDP_Cache_Helper {
         ];
         $args = array_merge( $defaults, $args );
 
+        $enable_cahce = get_directorist_option( 'atbdp_enable_cache', true ); 
+        $args['cache'] = ( $enable_cahce ) ? $args['cache'] : false;
+
+        $reset_cahce = get_directorist_option( 'atbdp_reset_cache', false ); 
+        $args['update'] = ( $reset_cahce ) ? true : $args['update'];
+
         $transient_name    = self::get_transient_name( $args['name'], $args['query_args'] );
         $transient_version = self::get_transient_version( $args['group'], $args['update'] );
         $transient_value   = $args['cache'] ? get_transient( $transient_name ) : false;
@@ -85,7 +91,9 @@ class ATBDP_Cache_Helper {
                 ];
 
                 set_transient( $transient_name, $transient_value, $args['expiration'] );
-            }
+            } 
+
+            var_dump( $value );
             
         }
 

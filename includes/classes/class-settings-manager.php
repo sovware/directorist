@@ -6361,6 +6361,18 @@ The Administrator of ==SITE_NAME==
                         'label' => __('Show Category Filter on Author Page', 'directorist'),
                         'default' => '1',
                     ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'atbdp_enable_cache',
+                        'label' => __('Enable Cache', 'directorist'),
+                        'default' => '1',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'atbdp_reset_cache',
+                        'label' => __('Reset Cache', 'directorist'),
+                        'default' => '0',
+                    ),
                 )
             );
         }

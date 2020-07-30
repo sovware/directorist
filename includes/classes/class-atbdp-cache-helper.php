@@ -93,8 +93,6 @@ class ATBDP_Cache_Helper {
                 set_transient( $transient_name, $transient_value, $args['expiration'] );
             } 
 
-            var_dump( $value );
-            
         }
 
         return $value;

@@ -50,6 +50,7 @@ if (!class_exists('ATBDP_Cron')) :
             // see if fires via email notification
             $this->update_renewal_status(); // we will send about to expire notification here
             $this->update_expired_status();  // we will send expired notification here
+            $this->update_expired_listing_status();  // we will send expired notification here
             $this->send_renewal_reminders(); // we will send renewal notification after expiration here
             $this->delete_expired_listings(); // we will delete listings here certain days after expiration here.
         }
@@ -171,6 +172,58 @@ if (!class_exists('ATBDP_Cron')) :
                     ));
                     // Hook for developers
                     do_action('atbdp_listing_expired', $listing->ID);
+                }
+            }
+        }
+
+        /**
+         * Move listings to expired status (only if applicable).
+         *
+         * @since    3.1.0
+         * @access   private
+         */
+        private function update_expired_listing_status()
+        {
+            // Define the query
+            $args = array(
+                'post_type'      => ATBDP_POST_TYPE,
+                'posts_per_page' => -1,
+                'post_status'    => 'publish', // get expired post with published status
+            );
+                $meta = array();
+                $meta['renewed_by_admin'] = array(
+                    'relation' => 'OR',
+                    array(
+                        'key'      => '_expiry_date',
+                        'value'      => current_time('mysql'),
+                        'compare' => '>', // eg. expire date 6 <= current date 7 will return the post 
+                        'type'    => 'DATETIME'
+                    ),
+                    array(
+                        'key'      => '_never_expire',
+                        'value' => 1,
+                    )
+                    );
+                    $meta['get_expired'] = array(
+                        'key'      => '_listing_status',
+                        'value' => 'expired',
+                        'compare' => '=',
+                    );
+            
+            $args['meta_query'] =  array_merge(array('relation' => 'AND'), $meta);
+            $listings  = new WP_Query($args);
+            if ($listings->found_posts) {
+                foreach ($listings->posts as $listing) {
+                    // prepare the post meta data
+                    $metas = array(
+                        '_listing_status' => 'post_status',
+                        '_renewal_reminder_sent' => 0,
+                    );
+                    wp_update_post(array(
+                        'ID'           => $listing->ID,
+                        'post_status' => 'publish', // update the status to private so that we do not run this func a second time
+                        'meta_input' => $metas, // insert all meta data once to reduce update meta query
+                    ));
                 }
             }
         }

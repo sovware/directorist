@@ -313,7 +313,7 @@ class SetupWizard
                     <label for="add_listing_page"><?php _e( 'Add Listing', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='add_listing' class="w-switch" id='add_listing' value=1 checked>
+                            <input type="checkbox" name='add_listing' class="w-switch" id='add_listing' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -321,7 +321,7 @@ class SetupWizard
                     <label for="all_listings"><?php _e( 'All Listings', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='all_listings' class="w-switch" id='all_listings' value=1 checked>
+                            <input type="checkbox" name='all_listings' class="w-switch" id='all_listings' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -329,7 +329,7 @@ class SetupWizard
                     <label for="single_category"><?php _e( 'Single Category', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='single_category' class="w-switch" id='single_category' value=1 checked>
+                            <input type="checkbox" name='single_category' class="w-switch" id='single_category' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -337,7 +337,7 @@ class SetupWizard
                     <label for="single_location"><?php _e( 'Single Location', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='single_location' class="w-switch" id='single_location' value=1 checked>
+                            <input type="checkbox" name='single_location' class="w-switch" id='single_location' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -345,7 +345,7 @@ class SetupWizard
                     <label for="single_tag"><?php _e( 'Single Tag', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='single_tag' class="w-switch" id='single_tag' value=1 checked>
+                            <input type="checkbox" name='single_tag' class="w-switch" id='single_tag' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -353,7 +353,7 @@ class SetupWizard
                     <label for="author_profile"><?php _e( 'Author Profile', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='author_profile' class="w-switch" id='author_profile' value=1 checked>
+                            <input type="checkbox" name='author_profile' class="w-switch" id='author_profile' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -361,7 +361,7 @@ class SetupWizard
                     <label for="dashboard"><?php _e( 'Dashboard', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='dashboard' class="w-switch" id='dashboard' value=1 checked>
+                            <input type="checkbox" name='dashboard' class="w-switch" id='dashboard' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -369,7 +369,7 @@ class SetupWizard
                     <label for="login"><?php _e( 'Login', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='login' class="w-switch" id='login' value=1 checked>
+                            <input type="checkbox" name='login' class="w-switch" id='login' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -377,7 +377,7 @@ class SetupWizard
                     <label for="registration"><?php _e( 'Registration', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='registration' class="w-switch" id='registration' value=1 checked>
+                            <input type="checkbox" name='registration' class="w-switch" id='registration' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -385,7 +385,7 @@ class SetupWizard
                     <label for="search_listing"><?php _e( 'Search Listing', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='search_listing' class="w-switch" id='search_listing' value=1 checked>
+                            <input type="checkbox" name='search_listing' class="w-switch" id='search_listing' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -393,7 +393,7 @@ class SetupWizard
                     <label for="search_result"><?php _e( 'Search Result', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='search_result' class="w-switch" id='search_result' value=1 checked>
+                            <input type="checkbox" name='search_result' class="w-switch" id='search_result' value=1 checked disabled>
                         </div>
                     </div>
                 </div>

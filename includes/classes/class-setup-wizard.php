@@ -445,54 +445,10 @@ class SetupWizard
         check_admin_referer('directorist-setup');
 
         $_post_data = wp_unslash( $_POST );
-        $add_listing        = !empty( $_post_data['add_listing'] ) ? $_post_data['add_listing'] : '';
-        $single_category    = !empty( $_post_data['single_category'] ) ? $_post_data['single_category'] : '';
-        $all_listings       = !empty( $_post_data['all_listings'] ) ? $_post_data['all_listings'] : '';
-        $single_location    = !empty( $_post_data['single_location'] ) ? $_post_data['single_location'] : '';
-        $single_tag         = !empty( $_post_data['single_tag'] ) ? $_post_data['single_tag'] : '';
-        $author_profile     = !empty( $_post_data['author_profile'] ) ? $_post_data['author_profile'] : '';
-        $dashboard          = !empty( $_post_data['dashboard'] ) ? $_post_data['dashboard'] : '';
-        $login              = !empty( $_post_data['login'] ) ? $_post_data['login'] : '';
-        $registration       = !empty( $_post_data['registration'] ) ? $_post_data['registration'] : '';
-        $search_listing     = !empty( $_post_data['search_listing'] ) ? $_post_data['search_listing'] : '';
-        $search_result      = !empty( $_post_data['search_result'] ) ? $_post_data['search_result'] : '';
         $all_categories     = !empty( $_post_data['all_categories'] ) ? $_post_data['all_categories'] : '';
         $all_locations      = !empty( $_post_data['all_locations'] ) ? $_post_data['all_locations'] : '';
         $terms_conditions   = !empty( $_post_data['terms_conditions'] ) ? $_post_data['terms_conditions'] : '';
         $privacy_policy     = !empty( $_post_data['privacy_policy'] ) ? $_post_data['privacy_policy'] : '';
-        if ( empty( $add_listing ) ) {
-            wp_delete_post(get_directorist_option('add_listing_page'), true);
-        }
-        if ( empty( $all_listings ) ) {
-            wp_delete_post(get_directorist_option('all_listing_page'), true);
-        }
-        if ( empty( $single_category ) ) {
-            wp_delete_post(get_directorist_option('single_category_page'), true);
-        }
-        if ( empty( $single_location ) ) {
-            wp_delete_post(get_directorist_option('single_location_page'), true);
-        }
-        if ( empty( $single_tag ) ) {
-            wp_delete_post(get_directorist_option('single_tag_page'), true);
-        }
-        if ( empty( $author_profile ) ) {
-            wp_delete_post(get_directorist_option('author_profile_page'), true);
-        }
-        if ( empty( $dashboard ) ) {
-            wp_delete_post(get_directorist_option('user_dashboard'), true);
-        }
-        if ( empty( $login ) ) {
-            wp_delete_post(get_directorist_option('user_login'), true);
-        }
-        if ( empty( $registration ) ) {
-            wp_delete_post(get_directorist_option('custom_registration'), true);
-        }
-        if ( empty( $search_listing ) ) {
-            wp_delete_post(get_directorist_option('search_listing'), true);
-        }
-        if ( empty( $search_result ) ) {
-            wp_delete_post(get_directorist_option('search_result_page'), true);
-        }
 
         $atbdp_option = get_option('atbdp_option');
         $create_pages = [];

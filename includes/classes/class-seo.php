@@ -106,7 +106,7 @@ if ( !class_exists('ATBDP_SEO') ):
             $LOC_page_ID = get_directorist_option('single_location_page');
             $Tag_page_ID = get_directorist_option('single_tag_page');
 
-            if( $post->ID != $CAT_page_ID && $post->ID != $LOC_page_ID && $post->ID != $Tag_page_ID && (!is_singular('at_biz_dir'))) {
+            if( ($post->ID != $CAT_page_ID) && ($post->ID != $LOC_page_ID) && ($post->ID != $Tag_page_ID) && (!is_singular('at_biz_dir'))) {
                 return $desc;
             }
 
@@ -255,7 +255,7 @@ if ( !class_exists('ATBDP_SEO') ):
             $LOC_page_ID = get_directorist_option('single_location_page');
             $Tag_page_ID = get_directorist_option('single_tag_page');
 
-            if( $post->ID != $CAT_page_ID && $post->ID != $LOC_page_ID && $post->ID != $Tag_page_ID && (!is_singular('at_biz_dir'))) {
+            if( ($post->ID != $CAT_page_ID) && ($post->ID != $LOC_page_ID) && ($post->ID != $Tag_page_ID) && (!is_singular('at_biz_dir'))) {
                 return $title;
             }
 

@@ -23,7 +23,7 @@ if (!class_exists('ATBDP_Cron')) :
             add_action('wp', array($this, 'atbdp_custom_schedule_cron'));
             add_action('directorist_hourly_scheduled_events', array($this, 'atbdp_schedule_tasks'));
             // schedule task run after every 5 minutes || use bellow line for debug
-            //add_action('init', array($this, 'atbdp_schedule_tasks'));
+            add_action('init', array($this, 'atbdp_schedule_tasks'));
             add_filter('cron_schedules', array($this, 'atbdp_cron_init'));
         }
 
@@ -71,7 +71,6 @@ if (!class_exists('ATBDP_Cron')) :
          */
         private function update_renewal_status()
         {
-
             $can_renew       = get_directorist_option('can_renew_listing');
             $renew_email_threshold = get_directorist_option('email_to_expire_day'); // before how many days of expiration, a renewal message should be sent
             if ($can_renew && $renew_email_threshold > 0) {
@@ -83,6 +82,7 @@ if (!class_exists('ATBDP_Cron')) :
                     'posts_per_page' => -1,
                     'post_status'    => 'publish',
                     'meta_query'     => array(
+                        'relation' => 'AND',
                         array(
                             'key'      => '_listing_status',
                             'value'      => 'post_status',
@@ -134,6 +134,7 @@ if (!class_exists('ATBDP_Cron')) :
                 'posts_per_page' => -1,
                 'post_status'    => 'publish', // get expired post with published status
                 'meta_query'     => array(
+                    'relation' => 'AND',
                     array(
                         'key'      => '_expiry_date',
                         'value'      => current_time('mysql'),
@@ -246,6 +247,7 @@ if (!class_exists('ATBDP_Cron')) :
                     'posts_per_page' => -1,
                     'post_status'    => 'private',
                     'meta_query'     => array(
+                        'relation' => 'AND',
                         array(
                             'key'      => '_listing_status',
                             'value'      => 'expired',
@@ -300,6 +302,7 @@ if (!class_exists('ATBDP_Cron')) :
                 'posts_per_page' => -1,
                 'post_status'    => 'private',
                 'meta_query'     => array(
+                    'relation' => 'AND',
                     array(
                         'key'      => '_listing_status',
                         'value'      => 'expired',

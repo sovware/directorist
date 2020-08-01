@@ -67,7 +67,7 @@ Directorist is not developed by a single person. A team of dedicated developers 
 = OTHER FEATURES =
 * CSV Bulk Importer (listing, category, location, tag, media etc.)
 * Highly-optimized and rocket-fast performance to ensure scalability
-* Elemontor Page Builder widgets
+* Elementor Page Builder widgets
 * Listing and Review submission without login (Guest Submission)
 * Private Directory
 * GDPR ready

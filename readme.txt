@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.4
-Stable tag: 6.5.0
+Stable tag: 6.5.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -140,6 +140,14 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.5.1 - Aug 1, 2020 =
+
+* Fix - Previously renewed listings disappearing issue
+* Fix - Page deleting issue of Setup Wizard
+* Add - New options to have more control over caching 
+* Remove - 'Favourite' text from single listing page
+* Improve - Font in Setup Wizard
 
 = 6.5.0 - Jul 28, 2020 =
 

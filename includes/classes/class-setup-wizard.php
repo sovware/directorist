@@ -26,17 +26,12 @@ class SetupWizard
      * Hook in tabs.
      */
     public function __construct() {
-        if( ! function_exists('wp_get_current_user') ) {
-            include( ABSPATH . "wp-includes/pluggable.php" );
-        }
-
-        if ( current_user_can( 'manage_options' ) ) {
+        
             add_action( 'admin_menu', array( $this, 'admin_menus' ) );
             add_action( 'admin_init', array( $this, 'setup_wizard' ), 99 );
             add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
             add_action( 'wp_ajax_atbdp_dummy_data_import', array( $this, 'atbdp_dummy_data_import' ) );
             add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
-        }
     }
 
     public function render_run_admin_setup_wizard_notice() {

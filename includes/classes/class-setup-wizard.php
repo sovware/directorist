@@ -26,17 +26,12 @@ class SetupWizard
      * Hook in tabs.
      */
     public function __construct() {
-        if( ! function_exists('wp_get_current_user') ) {
-            include( ABSPATH . "wp-includes/pluggable.php" );
-        }
-
-        if ( current_user_can( 'manage_options' ) ) {
+        
             add_action( 'admin_menu', array( $this, 'admin_menus' ) );
             add_action( 'admin_init', array( $this, 'setup_wizard' ), 99 );
             add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
             add_action( 'wp_ajax_atbdp_dummy_data_import', array( $this, 'atbdp_dummy_data_import' ) );
             add_action( 'wp_loaded', array( $this, 'hide_notices' ) );
-        }
     }
 
     public function render_run_admin_setup_wizard_notice() {
@@ -49,7 +44,7 @@ class SetupWizard
 
         ?>
         <div id="message" class="updated atbdp-message">
-            <p><?php echo wp_kses_post( __( '<strong>Welcome to Directorist</strong> &#8211; You&lsquo;re almost ready to start', 'directorist' ) ); ?></p>
+            <p><?php echo wp_kses_post( __( '<strong>Welcome to Directorist</strong> &#8211; You&lsquo;re almost ready to start your directory!', 'directorist' ) ); ?></p>
             <p class="submit">
                 <a href="<?php echo esc_url( admin_url( 'admin.php?page=directorist-setup' ) ); ?>" class="button-primary"><?php esc_html_e( 'Run the Setup Wizard', 'directorist' ); ?></a>
                 <a class="button-secondary skip" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'directorist-hide-notice', 'install' ), 'directorist_hide_notices_nonce', '_atbdp_notice_nonce' ) ); ?>"><?php _e( 'Skip setup', 'directorist' ); ?></a>
@@ -66,7 +61,7 @@ class SetupWizard
 
 			update_option( 'directorist_setup_wizard_completed', true );
         }
-        
+
         $create_pages = [
             'checkout_page'        => [
                 'post_title'         => 'Checkout',
@@ -82,7 +77,7 @@ class SetupWizard
             ],
         ];
         $atbdp_option = get_option( 'atbdp_option' );
-         
+
         if (!empty($atbdp_option['enable_monetization'])) {
             foreach ($create_pages as $key => $name) {
 
@@ -304,7 +299,7 @@ class SetupWizard
 
     public function directorist_step_one() { ?>
         <div class="atbdp-c-header">
-            <h1><?php esc_html_e('Recommend Pages', 'directorist'); ?></h1>
+            <h1><?php esc_html_e('Recommended Pages', 'directorist'); ?></h1>
         </div>
 
         <form method="post">
@@ -313,7 +308,7 @@ class SetupWizard
                     <label for="add_listing_page"><?php _e( 'Add Listing', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='add_listing' class="w-switch" id='add_listing' value=1 checked>
+                            <input type="checkbox" name='add_listing' class="w-switch" id='add_listing' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -321,7 +316,7 @@ class SetupWizard
                     <label for="all_listings"><?php _e( 'All Listings', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='all_listings' class="w-switch" id='all_listings' value=1 checked>
+                            <input type="checkbox" name='all_listings' class="w-switch" id='all_listings' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -329,7 +324,7 @@ class SetupWizard
                     <label for="single_category"><?php _e( 'Single Category', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='single_category' class="w-switch" id='single_category' value=1 checked>
+                            <input type="checkbox" name='single_category' class="w-switch" id='single_category' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -337,7 +332,7 @@ class SetupWizard
                     <label for="single_location"><?php _e( 'Single Location', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='single_location' class="w-switch" id='single_location' value=1 checked>
+                            <input type="checkbox" name='single_location' class="w-switch" id='single_location' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -345,7 +340,7 @@ class SetupWizard
                     <label for="single_tag"><?php _e( 'Single Tag', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='single_tag' class="w-switch" id='single_tag' value=1 checked>
+                            <input type="checkbox" name='single_tag' class="w-switch" id='single_tag' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -353,7 +348,7 @@ class SetupWizard
                     <label for="author_profile"><?php _e( 'Author Profile', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='author_profile' class="w-switch" id='author_profile' value=1 checked>
+                            <input type="checkbox" name='author_profile' class="w-switch" id='author_profile' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -361,7 +356,7 @@ class SetupWizard
                     <label for="dashboard"><?php _e( 'Dashboard', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='dashboard' class="w-switch" id='dashboard' value=1 checked>
+                            <input type="checkbox" name='dashboard' class="w-switch" id='dashboard' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -369,7 +364,7 @@ class SetupWizard
                     <label for="login"><?php _e( 'Login', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='login' class="w-switch" id='login' value=1 checked>
+                            <input type="checkbox" name='login' class="w-switch" id='login' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -377,7 +372,7 @@ class SetupWizard
                     <label for="registration"><?php _e( 'Registration', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='registration' class="w-switch" id='registration' value=1 checked>
+                            <input type="checkbox" name='registration' class="w-switch" id='registration' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -385,7 +380,7 @@ class SetupWizard
                     <label for="search_listing"><?php _e( 'Search Listing', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='search_listing' class="w-switch" id='search_listing' value=1 checked>
+                            <input type="checkbox" name='search_listing' class="w-switch" id='search_listing' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -393,7 +388,7 @@ class SetupWizard
                     <label for="search_result"><?php _e( 'Search Result', 'directorist' ); ?></label>
                     <div>
                         <div class="w-toggle-switch">
-                            <input type="checkbox" name='search_result' class="w-switch" id='search_result' value=1 checked>
+                            <input type="checkbox" name='search_result' class="w-switch" id='search_result' value=1 checked disabled>
                         </div>
                     </div>
                 </div>
@@ -445,54 +440,10 @@ class SetupWizard
         check_admin_referer('directorist-setup');
 
         $_post_data = wp_unslash( $_POST );
-        $add_listing        = !empty( $_post_data['add_listing'] ) ? $_post_data['add_listing'] : '';
-        $single_category    = !empty( $_post_data['single_category'] ) ? $_post_data['single_category'] : '';
-        $all_listings       = !empty( $_post_data['all_listings'] ) ? $_post_data['all_listings'] : '';
-        $single_location    = !empty( $_post_data['single_location'] ) ? $_post_data['single_location'] : '';
-        $single_tag         = !empty( $_post_data['single_tag'] ) ? $_post_data['single_tag'] : '';
-        $author_profile     = !empty( $_post_data['author_profile'] ) ? $_post_data['author_profile'] : '';
-        $dashboard          = !empty( $_post_data['dashboard'] ) ? $_post_data['dashboard'] : '';
-        $login              = !empty( $_post_data['login'] ) ? $_post_data['login'] : '';
-        $registration       = !empty( $_post_data['registration'] ) ? $_post_data['registration'] : '';
-        $search_listing     = !empty( $_post_data['search_listing'] ) ? $_post_data['search_listing'] : '';
-        $search_result      = !empty( $_post_data['search_result'] ) ? $_post_data['search_result'] : '';
         $all_categories     = !empty( $_post_data['all_categories'] ) ? $_post_data['all_categories'] : '';
         $all_locations      = !empty( $_post_data['all_locations'] ) ? $_post_data['all_locations'] : '';
         $terms_conditions   = !empty( $_post_data['terms_conditions'] ) ? $_post_data['terms_conditions'] : '';
         $privacy_policy     = !empty( $_post_data['privacy_policy'] ) ? $_post_data['privacy_policy'] : '';
-        if ( empty( $add_listing ) ) {
-            wp_delete_post(get_directorist_option('add_listing_page'), true);
-        }
-        if ( empty( $all_listings ) ) {
-            wp_delete_post(get_directorist_option('all_listing_page'), true);
-        }
-        if ( empty( $single_category ) ) {
-            wp_delete_post(get_directorist_option('single_category_page'), true);
-        }
-        if ( empty( $single_location ) ) {
-            wp_delete_post(get_directorist_option('single_location_page'), true);
-        }
-        if ( empty( $single_tag ) ) {
-            wp_delete_post(get_directorist_option('single_tag_page'), true);
-        }
-        if ( empty( $author_profile ) ) {
-            wp_delete_post(get_directorist_option('author_profile_page'), true);
-        }
-        if ( empty( $dashboard ) ) {
-            wp_delete_post(get_directorist_option('user_dashboard'), true);
-        }
-        if ( empty( $login ) ) {
-            wp_delete_post(get_directorist_option('user_login'), true);
-        }
-        if ( empty( $registration ) ) {
-            wp_delete_post(get_directorist_option('custom_registration'), true);
-        }
-        if ( empty( $search_listing ) ) {
-            wp_delete_post(get_directorist_option('search_listing'), true);
-        }
-        if ( empty( $search_result ) ) {
-            wp_delete_post(get_directorist_option('search_result_page'), true);
-        }
 
         $atbdp_option = get_option('atbdp_option');
         $create_pages = [];
@@ -551,7 +502,7 @@ class SetupWizard
 
     ?>
         <div class="atbdp-c-header">
-            <h1><?php esc_html_e('Recommend Settings', 'directorist'); ?></h1>
+            <h1><?php esc_html_e('Fill out the form to get maps and monetization feature to work right away', 'directorist'); ?></h1>
         </div>
 
         <form method="post">
@@ -565,7 +516,7 @@ class SetupWizard
                 </div>
                 <div class="w-form-group atbdp-sw-gmap-key">
                     <label for="google_api"><?php _e( 'Google Map API key', 'directorist' ); ?></label>
-                    <div><input type="text" name="map_api_key" id="google_api"></div>
+                    <div><input type="text" name="map_api_key" id="google_api"><small><?php _e( '* API Key is required for Google Map to work properly', 'directorist' ); ?></small></div>
                 </div>
                 <div class="w-form-group">
                     <label for="enable_monetization"><?php _e( 'Enable Monetization Feature', 'directorist' ); ?></label>
@@ -668,7 +619,7 @@ class SetupWizard
         $dummy_csv = ATBDP_URL . 'templates/import-export/data/dummy.csv';
     ?>
         <div class="atbdp-c-header">
-            <h1><?php _e( 'Price in USD', 'directorist' ); ?></h1>
+            <h1><?php _e( 'Import Dummy Data', 'directorist' ); ?></h1>
         </div>
         <form method="post" id="atbdp_dummy_form">
             <div class="atbdp-c-body">
@@ -739,7 +690,7 @@ class SetupWizard
         <div class="atbdp-c-body">
             <div class="wsteps-done">
                 <span class="wicon-done dashicons dashicons-yes"></span>
-                <h2><?php esc_html_e('Awesome, your directory is ready!', 'directorist'); ?></h2>
+                <h2><?php esc_html_e('Great, your directory is ready!', 'directorist'); ?></h2>
                 <div>
                     <a href="<?php echo esc_url(admin_url().'edit.php?post_type=at_biz_dir'); ?>" class="wbtn wbtn-primary"><?php esc_html_e('Visit Directorist Dashboard', 'directorist'); ?></a>
                     <a href="<?php echo esc_url(admin_url().'post-new.php?post_type=at_biz_dir'); ?>" class="wbtn wbtn-outline-primary"><?php esc_html_e('Create your First Listing', 'directorist'); ?></a>
@@ -764,9 +715,12 @@ class SetupWizard
     {
     ?>
         <div class="atbdp-c-body">
+            <div class="atbdp-c-logo">
+                <img src="<?php echo esc_url(ATBDP_PUBLIC_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist">
+            </div>
             <h1 class="atbdp-c-intro-title"><?php esc_html_e('Welcome to the world of Directorist!', 'directorist'); ?></h1>
-            <p><?php echo wp_kses(__('Thank you for choosing Directorist to power your online marketplace! This quick setup wizard will help you configure the basic settings. <strong>It’s completely optional and shouldn’t take longer than three minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
-            <p><?php esc_html_e('No time right now? If you don’t want to go through the wizard, you can skip and return to the WordPress dashboard. Come back anytime if you change your mind!', 'directorist'); ?></p>
+            <p><?php echo wp_kses(__('Thank you for choosing Directorist to amp your business directory. This quick setup wizard will help you <strong>configure the basic settings and get you started in no longer than 3 minutes.</strong>', 'directorist'), ['strong' => []]); ?></p>
+            <p><?php esc_html_e('If you don\'t want to run the setup wizard now, you can skip and return to the WordPress dashboard. You can always come back and run the wizard at your convenience.', 'directorist'); ?></p>
         </div>
         <div class="atbdp-c-footer">
             <p class="atbdp-setup-actions step">
@@ -837,7 +791,9 @@ class SetupWizard
         array_shift($ouput_steps);
         $hide = ! isset( $_GET['step'] ) ? 'atbdp-none' : '';
         ?>
+
             <ul class="atbdp-setup-steps <?php echo $hide; ?>">
+            <li class="atbdsw-logo"><img src="<?php echo esc_url(ATBDP_PUBLIC_ASSETS . 'images/directorist-logo.png');?>" alt="Directorist"></li>
                 <?php foreach ($ouput_steps as $step_key => $step) : ?>
                     <li class="<?php
                         if ($step_key === $this->step && 'step-four' != $step_key ) {

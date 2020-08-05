@@ -187,7 +187,30 @@
                     </div>
                     <?php
                 }
-                if (!class_exists('Directorist_Featured_Labels')){
+                if (!class_exists('ATDListingCompare') ){
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--WooCommerce Fee Manager-->
+                        <div class="single_extension">
+                            <img src="https://directorist.com/wp-content/uploads/2020/07/Compare-Listings-360x230.png"
+                                 alt="Compare Listing">
+
+                            <div class="extension_detail ext_d">
+                                <a href="https://directorist.com/product/compare-listing/" target="_blank"
+                                   class="ext_title"><h4>
+                                        <?php esc_html_e(' Compare Listing ', 'directorist'); ?>  </h4></a>
+                                <p><?php esc_html_e('Use compare listings to view listings side by side and compare its features.', 'directorist'); ?></p>
+
+                                <div class="btn_wrapper">
+                                    <a href="https://directorist.com/product/compare-listing/" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+                if (!class_exists('Directorist_Featured_Labels') && 0){
                     ?>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                         <!--WooCommerce Fee Manager-->

@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.0
 Tested up to:  5.4
-Stable tag: 6.4.3
+Stable tag: 6.5.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -65,7 +65,9 @@ You can extend the functionality of this plugin using free & premium extensions.
 Directorist is not developed by a single person. A team of dedicated developers and designers spent countless hours to make this plugin and they are working on it constantly to improve it and to add new features. Therefore, you get the most professional directory plugin from us. As it is backed by a company, you will get premium support now and upcoming years without any worries.
 
 = OTHER FEATURES =
-* Supports Elemontor Page Builder
+* CSV Bulk Importer (listing, category, location, tag, media etc.)
+* Highly-optimized and rocket-fast performance to ensure scalability
+* Elementor Page Builder widgets
 * Listing and Review submission without login (Guest Submission)
 * Private Directory
 * GDPR ready
@@ -139,14 +141,23 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 6.5.0 - Jul 18, 2020 =
+= 6.5.1 - Aug 1, 2020 =
 
-* Add - CSV Bulk Importer for listing, category, location, tag, media etc.
+* Fix - Previously renewed listings disappearing issue
+* Fix - Page deleting issue of Setup Wizard
+* Add - New options to have more control over caching 
+* Remove - 'Favourite' text from single listing page
+* Improve - Font in Setup Wizard
+
+= 6.5.0 - Jul 28, 2020 =
+
+* Add - CSV Bulk Importer (listing, category, location, tag, media etc.)
 * Add - Object Caching
-* Add - Elementor Page Builder Widgets
+* Add - Elementor Page Builder widgets
 * Add - Setup Wizard with dummy data importer
-* Add - Some more options to control listing review
+* Add - A few more options to control listing review
 * Add - Default latitude and longitude of listings map view
+* Fix - Email conflict with Contact Form 7
 * Fix - Review issue of related listings
 * Fix - Multi-author's listing issue of author profile page
 * Fix - Listings sorting issue of single tag and category page

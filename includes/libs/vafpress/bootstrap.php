@@ -214,6 +214,12 @@ if( !function_exists('vp_enqueue_scripts') )
 {
 	function vp_enqueue_scripts()
 	{
+		global $wp_version;
+		if( '5.4' < $wp_version ){
+			wp_register_script('atbdp-jquery-migrate', "/wp-includes/js/jquery/jquery-migrate.min.js", array(), '1.4.1');
+			wp_enqueue_script( 'atbdp-jquery-migrate' );
+		}
+
 		$loader = VP_WP_Loader::instance();
 		$loader->build();
 	}

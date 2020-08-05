@@ -2358,6 +2358,11 @@ input[type="radio"].atbdp_radio_input:checked + label:before {
   width: 100%;
 }
 
+input#privacy_policy,
+.atbd_term_and_condition_area input {
+  outline: none;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

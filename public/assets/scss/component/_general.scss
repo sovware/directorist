@@ -1645,3 +1645,8 @@ input[type="radio"].atbdp_radio_input {
     width: 100%;
   }
 }
+
+input#privacy_policy,
+.atbd_term_and_condition_area input{
+  outline: none;
+}

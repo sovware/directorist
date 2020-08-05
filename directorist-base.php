@@ -286,6 +286,9 @@ final class Directorist_Base
             new ATBDP_Upgrade;
             // add upgrade feature
             new ATBDP_Help_Support;
+            new ATBDP_Tools;
+            //validator
+            new ATBDP_Validator();
             // add uninstall menu
             add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
 

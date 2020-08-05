@@ -8,7 +8,7 @@ if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
                 'update' => false,
             ];
             $default_option = array_merge( $default_option, $custom_option );
-
+            
             $fixed_option = [
                 'group'      => 'atbdp_listings_query',
                 'name'       => 'atbdp_listings_archive',

@@ -48,6 +48,10 @@ class Directorist_Listing_Author {
 	function prepare_data() {
 		$id = ! empty( $_GET['author_id'] ) ? $_GET['author_id'] : get_current_user_id();
 		$this->id = intval( $id );
+
+		if ( ! $this->id ) {
+			return ATBDP_Helper::guard( [ 'type' => '404' ] );
+		}
 		
 		$this->all_listings = $this->get_all_posts();
 		$this->get_rating();

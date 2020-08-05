@@ -130,7 +130,7 @@ class Directorist_Listings {
 			'view'                     => get_directorist_option( 'default_listing_view', 'grid' ),
 			'_featured'                => 1,
 			'filterby'                 => '',
-			'orderby'                  => get_directorist_option( 'order_listing_by', 'date' ),
+			'orderby'                  => apply_filters( 'atbdp_default_listing_orderby', get_directorist_option( 'order_listing_by', 'date' ) ),
 			'order'                    => get_directorist_option( 'sort_listing_by', 'asc' ),
 			'listings_per_page'        => get_directorist_option( 'all_listing_page_items', 6 ),
 			'show_pagination'          => !empty( get_directorist_option( 'paginate_all_listings', 1 ) ) ? 'yes' : '',
@@ -995,7 +995,9 @@ class Directorist_Listings {
 			'added_favourite' => __('Added to favorite', 'directorist'),
 			'please_login' => __('Please login first', 'directorist')
 		));
-		wp_enqueue_script('atbdp-range-slider');
+
+		$handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
+    	wp_enqueue_script($handel);
 
 		if ( 'kilometers' == $this->radius_search_unit ) {
 			$miles = __( ' Kilometers', 'directorist' );

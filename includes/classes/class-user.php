@@ -116,9 +116,7 @@ class ATBDP_User {
         $display_password            = get_directorist_option('display_password_reg',1);
         $require_password            = get_directorist_option('require_password_reg',0);
         $registration_privacy        = get_directorist_option('registration_privacy',1);
-        $require_privacy             = get_directorist_option('require_registration_privacy',0);
         $terms_condition             = get_directorist_option('regi_terms_condition',1);
-        $require_terms_condition     = get_directorist_option('require_regi_terms_conditions',0);
         //password validation
         if(!empty($require_password) && !empty($display_password) && empty($password)){
             $password_validation = 'yes';
@@ -140,11 +138,11 @@ class ATBDP_User {
             $bio_validation = 'yes';
         }
         //privacy validation
-        if(!empty($registration_privacy) && !empty($require_privacy) && empty($privacy_policy)){
+        if(!empty($registration_privacy) && empty($privacy_policy)){
             $privacy_validation = 'yes';
         }
         //terms & conditions validation
-        if(!empty($terms_condition) && !empty($require_terms_condition) && empty($t_c_check)){
+        if(!empty($terms_condition) && empty($t_c_check)){
             $t_c_validation = 'yes';
         }
         $reg_errors = new WP_Error;
@@ -230,9 +228,7 @@ class ATBDP_User {
         $display_bio                 = get_directorist_option('display_bio_reg',1);
         $require_bio                 = get_directorist_option('require_bio_reg',0);
         $registration_privacy        = get_directorist_option('registration_privacy',1);
-        $require_privacy             = get_directorist_option('require_registration_privacy',0);
         $terms_condition             = get_directorist_option('regi_terms_condition',1);
-        $require_terms_condition     = get_directorist_option('require_regi_terms_conditions',0);
 
         // if the form is submitted then save the form
         if ( isset($_POST['atbdp_user_submit'] ) ) {
@@ -272,11 +268,11 @@ class ATBDP_User {
                 $bio_validation = 'yes';
             }
             //privacy validation
-            if(!empty($registration_privacy) && !empty($require_privacy) && empty($privacy_policy)){
+            if(!empty($registration_privacy) && empty($privacy_policy)){
                 $privacy_validation = 'yes';
             }
             //terms & conditions validation
-            if(!empty($terms_condition) && !empty($require_terms_condition) && empty($t_c_check)){
+            if(!empty($terms_condition) && empty($t_c_check)){
                 $t_c_validation = 'yes';
             }
             // validate all the inputs

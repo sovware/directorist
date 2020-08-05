@@ -1239,7 +1239,7 @@ jQuery(function ($) {
     }
 
     //Display privacy fields in registration form
-    var lf_registration_privacy = $("#registration_privacy_label,#registration_privacy_label_link, #require_registration_privacy");
+    var lf_registration_privacy = $("#registration_privacy_label,#registration_privacy_label_link");
     lf_registration_privacy.hide();
     $('input[name="registration_privacy"]').on("change", function () {
         if($(this).is(":checked") === true){

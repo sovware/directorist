@@ -141,11 +141,7 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
                                 if (!empty(get_directorist_option('registration_privacy',1))) {
                                     ?>
                                     <div class="atbd_privacy_policy_area directory_regi_btn">
-                                        <?php
-                                        if (get_directorist_option('require_registration_privacy') == 1) {
-                                            printf('<span class="atbdp_make_str_red"> *</span>');
-                                        }
-                                        ?>
+                                        <span class="atbdp_make_str_red"> *</span>
                                         <input id="privacy_policy" type="checkbox"
                                                name="privacy_policy" <?php if (!empty($privacy_policy)) if ('on' == $privacy_policy) {
                                             echo 'checked';

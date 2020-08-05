@@ -832,15 +832,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'label' => __('Linking Text', 'directorist'),
                     'default' => __('Privacy & Policy', 'directorist'),
                 ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'require_registration_privacy',
-                    'label' => __('Required', 'directorist'),
-                    'default' => 1,
-                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.
-
-', 'directorist'),
-                ),
             ));
         }
 
@@ -869,15 +860,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'name' => 'regi_terms_label_link',
                     'label' => __('Linking Text', 'directorist'),
                     'default' => __('terms & conditions', 'directorist'),
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'require_regi_terms_conditions',
-                    'label' => __('Required', 'directorist'),
-                    'default' => 1,
-                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.
-
-', 'directorist'),
                 ),
             ));
         }

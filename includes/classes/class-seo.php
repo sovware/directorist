@@ -580,6 +580,7 @@ if (!class_exists('ATBDP_SEO')) :
                 'thumbnail_url'    => '',
             ];
 
+            $title             = '';
             $meta_desc         = '';
             $atbdp_page        = '';
             $CAT_page_ID       = get_directorist_option('single_category_page');
@@ -589,7 +590,7 @@ if (!class_exists('ATBDP_SEO')) :
             $home_page_id      = get_option('page_on_front');
             $default_thumbnail = get_the_post_thumbnail_url();
             $default_thumbnail = ! empty( $default_thumbnail ) ? $default_thumbnail : get_the_post_thumbnail_url( $home_page_id );
-            
+
             if (is_singular('at_biz_dir')) {
                 $title         = get_the_title();
                 $desc          = esc_html( get_the_excerpt() );

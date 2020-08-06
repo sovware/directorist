@@ -592,11 +592,8 @@ if (!class_exists('ATBDP_SEO')) :
             
             if (is_singular('at_biz_dir')) {
                 $title         = get_the_title();
-                $excerpt       = esc_html( get_the_excerpt() );
-                $content       = esc_html( get_the_content() );
-                $desc          = ! empty( $excerpt ) ? $excerpt : $content;
-                $desc          = ( strlen( $desc ) > 200 ) ? substr( $desc, 0, 200 ) . "..." : $desc;
-                $meta_desc     = $desc;
+                $desc          = esc_html( get_the_excerpt() );
+                $meta_desc     = ( strlen( $desc ) > 200 ) ? substr( $desc, 0, 200 ) . "..." : $desc;
                 $thumbnail_url = get_the_post_thumbnail_url();
                 
                 if ( empty( $thumbnail_url ) ) {

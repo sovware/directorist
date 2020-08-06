@@ -51,4 +51,9 @@ if ($plan_permission && !$hide_contact_owner && empty($disable_contact_owner)) {
                 </div>
                 <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>" />
                 <input type="hidden" id="atbdp-listing-email" value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>" />
-<?php } ?>
+<?php } 
+/**
+ * @since 5.0.5
+ */
+do_action('atbdp_after_contact_listing_owner_section', $listing_id);
+?>

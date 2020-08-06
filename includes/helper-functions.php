@@ -3770,8 +3770,8 @@ function atbdp_get_current_url()
 /**
  * Check if Yoast SEO plugin is active and Directorist can use that.
  *
- * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
- * @since     5.4.4
+ * @return bool $can_use_yoast "true" if can use Yoast, "false" if not.
+ * @since 5.4.4
  *
  */
 function atbdp_can_use_yoast()
@@ -3791,6 +3791,11 @@ function atbdp_can_use_yoast()
 
 }
 
+// atbdp_yoast_is_active
+function atbdp_yoast_is_active() {
+    return atbdp_can_use_yoast();
+}
+
 /**arg
  *
  * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
@@ -3801,13 +3806,14 @@ function atbdp_disable_overwrite_yoast()
 {
     $overwrite = false;
     $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
-    if ( ! empty($overwrite_yoast) || ! atbdp_can_use_yoast() ) {
+    if ( ! empty($overwrite_yoast) || ! atbdp_yoast_is_active() ) {
         $overwrite = true;
     }
 
     return $overwrite;
 
 }
+
 
 if (!function_exists('atbdp_page')) {
     function atbdp_page()

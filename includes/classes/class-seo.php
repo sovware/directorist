@@ -598,6 +598,15 @@ if (!class_exists('ATBDP_SEO')) :
                 $desc          = ( strlen( $desc ) > 200 ) ? substr( $desc, 0, 200 ) . "..." : $desc;
                 $meta_desc     = $desc;
                 $thumbnail_url = get_the_post_thumbnail_url();
+                
+                if ( empty( $thumbnail_url ) ) {
+                    $listing_img_id = get_post_meta( get_the_ID(), '_listing_prv_img', true);
+                    if ( empty( $listing_img_id )  ) {
+                        $listing_img_id = get_post_meta( get_the_ID(), '_listing_img', true );
+                        $listing_img_id = ( ! empty( $listing_img_id ) ) ? $listing_img_id[0] : null;
+                    }
+                    $thumbnail_url = ! empty($listing_img_id) ? wp_get_attachment_url($listing_img_id) : '';
+                }
             }
 
             $atbdp_page = '';
@@ -717,7 +726,7 @@ if (!class_exists('ATBDP_SEO')) :
                 $meta_desc = apply_filters('atbdp_seo_meta_description_pre', __($meta_desc, 'directorist'), $atbdp_page, '');
             }
 
-            $seo_meta['title']            = $title;
+            $seo_meta['title']            = ! empty( $title ) ? $title : get_the_title();
             $seo_meta['meta_desc']        = ! empty( $meta_desc ) ? $meta_desc : get_bloginfo('description');
             $seo_meta['page']             = $atbdp_page;
             $seo_meta['current_page_url'] = $current_url;

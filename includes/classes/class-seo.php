@@ -2,7 +2,7 @@
 defined('ABSPATH') || die('Direct access is not allowed.');
 if (!class_exists('ATBDP_SEO')) :
     /**
-     * Class ATBDP_Email
+     * Class ATBDP_SEO
      */
     class ATBDP_SEO {
         public function __construct()

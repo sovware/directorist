@@ -16,10 +16,17 @@
 		return result;
 	};
 
-	var is_ie      = $.browser.msie;
+	var browser = (function() {
+		var test = function(regexp) {return regexp.test(window.navigator.userAgent)}
+		switch (true) {
+			case test(/edg/i): return "ie";
+			case test(/trident/i): return "ie";
+		}
+	})();
+
 	var ie_version = 0;
 
-	if(is_ie)
+	if('ie' === browser)
 	{
 		ie_version = jQuery.browser.version;
 		ie_version = parseFloat(ie_version);

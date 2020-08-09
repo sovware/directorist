@@ -148,8 +148,9 @@ if (!class_exists('ATBDP_Tools')) :
 
        public static function atbdp_insert_attachment_from_url($url, $parent_post_id = null) {
 
-            if( !class_exists( 'WP_Http' ) )
+            if( !class_exists( 'WP_Http' ) ){
                 include_once( ABSPATH . WPINC . '/class-http.php' );
+            }
         
             $http = new WP_Http();
             $response = $http->request( $url );

@@ -61,7 +61,6 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
                     $featured = get_post_meta(get_the_ID(), '_featured', true);
                     $price = get_post_meta(get_the_ID(), '_price', true);
-                    $price = '';
                     $price_range = get_post_meta(get_the_ID(), '_price_range', true);
                     $atbd_listing_pricing = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
                     $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);

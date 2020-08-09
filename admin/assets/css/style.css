@@ -1285,4 +1285,8 @@ span.atbdp-tick-cross {
   font-size: 15px;
 }
 
+.iris-border .iris-palette-container .iris-palette {
+  padding: 0 !important;
+}
+
 /*# sourceMappingURL=map/style.css.map */

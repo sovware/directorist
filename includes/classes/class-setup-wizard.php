@@ -183,7 +183,7 @@ class SetupWizard
                 $preview_url = isset($post['listing_prv_img']) ? $post['listing_prv_img'] : '';
 
                 if ( $preview_image && $preview_url ) {
-                   $attachment_id = $this->upload_file($preview_url);
+                   $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($preview_url, $post_id);
                    update_post_meta($post_id, '_listing_prv_img', $attachment_id);
                 }
                 $count++;
@@ -198,36 +198,6 @@ class SetupWizard
         wp_send_json($data);
         die();
     }
-
-
-    private function upload_file($file_url)
-    {
-        if (!filter_var($file_url, FILTER_VALIDATE_URL)) {
-            return false;
-        }
-        $contents = @file_get_contents($file_url);
-        if ($contents === false) {
-            return false;
-        }
-        $upload = wp_upload_bits(basename($file_url), null, $contents);
-        if (isset($upload['error']) && $upload['error']) {
-            return false;
-        }
-        $type = '';
-        if (!empty($upload['type'])) {
-            $type = $upload['type'];
-        } else {
-            $mime = wp_check_filetype($upload['file']);
-            if ($mime) {
-                $type = $mime['type'];
-            }
-        }
-        $attachment = array('post_title' => basename($upload['file']), 'post_content' => '', 'post_type' => 'attachment', 'post_mime_type' => $type, 'guid' => $upload['url']);
-        $id = wp_insert_attachment($attachment, $upload['file']);
-        wp_update_attachment_metadata($id, wp_generate_attachment_metadata($id, $upload['file']));
-        return $id;
-    }
-
 
     public function read_csv($file){
         $fp = fopen($file, 'r');

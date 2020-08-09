@@ -68,7 +68,7 @@ if (!class_exists('ATBDP_Tools')) :
             $all_posts          = csv_get_data($this->file, true, $delimiter);
             $posts              = array_slice($all_posts, $position);
             $total_length       = count($all_posts);
-            $limit              = apply_filters('atbdp_listing_import_limit_per_cycle', ($total_length > 20) ? 20 : 2);
+            $limit              = apply_filters('atbdp_listing_import_limit_per_cycle', ($total_length > 100) ? 20 : (($total_length < 35) ? 2 : 5));
 
             if ( ! $total_length ) {
                 $data['error'] = __('No data found', 'directorist');
@@ -146,50 +146,32 @@ if (!class_exists('ATBDP_Tools')) :
         }
 
 
-       public static function atbdp_insert_attachment_from_url($url, $parent_post_id = null) {
+       public static function atbdp_insert_attachment_from_url( $file_url ) {
 
-            if( !class_exists( 'WP_Http' ) ){
-                include_once( ABSPATH . WPINC . '/class-http.php' );
+        if (!filter_var($file_url, FILTER_VALIDATE_URL)) {
+            return false;
+        }
+        $contents = @file_get_contents($file_url);
+        if ($contents === false) {
+            return false;
+        }
+        $upload = wp_upload_bits(basename($file_url), null, $contents);
+        if (isset($upload['error']) && $upload['error']) {
+            return false;
+        }
+        $type = '';
+        if (!empty($upload['type'])) {
+            $type = $upload['type'];
+        } else {
+            $mime = wp_check_filetype($upload['file']);
+            if ($mime) {
+                $type = $mime['type'];
             }
-        
-            $http = new WP_Http();
-            $response = $http->request( $url );
-            if( $response['response']['code'] != 200 ) {
-                return false;
-            }
-        
-            $upload = wp_upload_bits( basename($url), null, $response['body'] );
-            if ( !empty( $upload['error'] ) ) {
-                return false;
-            }
-        
-            $file_path = $upload['file'];
-            $file_name = basename( $file_path );
-            $file_type = wp_check_filetype( $file_name, null );
-            $attachment_title = sanitize_file_name( pathinfo( $file_name, PATHINFO_FILENAME ) );
-            $wp_upload_dir = wp_upload_dir();
-        
-            $post_info = array(
-                'guid'           => $wp_upload_dir['url'] . '/' . $file_name,
-                'post_mime_type' => $file_type['type'],
-                'post_title'     => $attachment_title,
-                'post_content'   => '',
-                'post_status'    => 'inherit',
-            );
-        
-            // Create the attachment
-            $attach_id = wp_insert_attachment( $post_info, $file_path, $parent_post_id );
-        
-            // Include image.php
-            require_once( ABSPATH . 'wp-admin/includes/image.php' );
-        
-            // Define attachment metadata
-            $attach_data = wp_generate_attachment_metadata( $attach_id, $file_path );
-        
-            // Assign metadata to attachment
-            wp_update_attachment_metadata( $attach_id,  $attach_data );
-        
-            return $attach_id;
+        }
+        $attachment = array('post_title' => basename($upload['file']), 'post_content' => '', 'post_type' => 'attachment', 'post_mime_type' => $type, 'guid' => $upload['url']);
+        $id = wp_insert_attachment($attachment, $upload['file']);
+        wp_update_attachment_metadata($id, wp_generate_attachment_metadata($id, $upload['file']));
+        return $id;
         
         }
 

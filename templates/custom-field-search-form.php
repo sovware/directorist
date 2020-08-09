@@ -13,7 +13,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
     }
 
     $original_post = ! empty( $GLOBALS['post'] ) ? $GLOBALS['post'] : array();
-    
+
     foreach ( $custom_fields as $field_id ) : 
         $GLOBALS['post'] = get_post( $field_id );
         setup_postdata( $GLOBALS['post'] );
@@ -154,9 +154,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
         
     endforeach; 
 
-    if ( ! empty( $original_post ) ) {
-        $GLOBALS['post'] = $original_post;
-    }
+    $GLOBALS['post'] = $original_post;
     wp_reset_postdata();
 
 endif;

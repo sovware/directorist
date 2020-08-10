@@ -521,6 +521,7 @@ if (!class_exists('ATBDP_SEO')) :
         // atbdp_add_og_meta
         public function atbdp_add_og_meta() {
             $seo_meta = $this->get_seo_meta_data();
+
             $og_metas = apply_filters( 'atbdp_og_metas', [
                 'site_name'   => [
                     'property' => 'og:site_name',
@@ -528,7 +529,7 @@ if (!class_exists('ATBDP_SEO')) :
                 ],
                 'title' => [
                     'property' => 'og:title',
-                    'content'  => $seo_meta['title'],
+                    'content'  => $seo_meta['title'] . ' | ' . $seo_meta['site_name'],
                 ],
                 'description' => [
                     'property' => 'og:description',
@@ -544,9 +545,44 @@ if (!class_exists('ATBDP_SEO')) :
                 ],
                 'twitter_card' => [
                     'name'    => 'twitter:card',
-                    'content' => 'summary',
+                    'content' => 'summary_large_image',
                 ],
             ]);
+
+            /* if (atbdp_yoast_is_active()) {
+
+                $og_metas['title'] = [
+                    'property' => 'og:title',
+                    'content' => $seo_meta['og_title'],
+                ];
+
+                $og_metas['description'] = [
+                    'property' => 'og:description',
+                    'content' => $seo_meta['og_description'],
+                ];
+
+                // if ( ! empty( $og_image ) ) {
+                //     $og_metas['image'] = [
+                //         'property' => 'og:image_',
+                //         'content'  => $og_image,
+                //     ];
+                // }
+                
+                $og_metas['twitter_title'] = [
+                    'property' => 'og:twitter_title',
+                    'content'  => $seo_meta['twitter_title'],
+                ];
+
+                $og_metas['twitter_description'] = [
+                    'property' => 'og:twitter_description',
+                    'content'  => $seo_meta['twitter_description'],
+                ];
+
+                $og_metas['twitter_image'] = [
+                    'property' => 'og:twitter_image',
+                    'content'  => $seo_meta['twitter_image'],
+                ];
+            } */
 
             if ( empty( $og_metas ) || ! is_array( $og_metas ) ) {
                 return;
@@ -586,10 +622,17 @@ if (!class_exists('ATBDP_SEO')) :
             $CAT_page_ID       = get_directorist_option('single_category_page');
             $LOC_page_ID       = get_directorist_option('single_location_page');
             $TAG_page_ID       = get_directorist_option('single_tag_page');
-            $current_url       = home_url( add_query_arg( array(), $wp->request ) );
+            $current_url       = home_url( add_query_arg( array(), $wp->request ) ) . '/';
             $home_page_id      = get_option('page_on_front');
             $default_thumbnail = get_the_post_thumbnail_url();
             $default_thumbnail = ! empty( $default_thumbnail ) ? $default_thumbnail : get_the_post_thumbnail_url( $home_page_id );
+
+            $og_title            = '';
+            $og_description      = '';
+            $og_image            = '';
+            $twitter_title       = '';
+            $twitter_description = '';
+            $twitter_image       = '';
 
             if (is_singular('at_biz_dir')) {
                 $title         = get_the_title();
@@ -622,9 +665,9 @@ if (!class_exists('ATBDP_SEO')) :
                 $location =  get_term_by('id', $location, ATBDP_LOCATION);
 
 
-                $in_s_string_text       = !empty($query) ? sprintf(__('%s', 'directorist'), $query) : '';
-                $in_cat_text            = !empty($category) ? sprintf(__(' %s %s ', 'directorist'), !empty($query) ? 'from' : '', $category->name) : '';
-                $in_loc_text            = !empty($location) ? sprintf(__('%s %s', 'directorist'), !empty($category) ? 'in' : '', $location->name) : '';
+                $in_s_string_text = !empty($query) ? sprintf(__('%s', 'directorist'), $query) : '';
+                $in_cat_text      = !empty($category) ? sprintf(__(' %s %s ', 'directorist'), !empty($query) ? 'from' : '', $category->name) : '';
+                $in_loc_text      = !empty($location) ? sprintf(__('%s %s', 'directorist'), !empty($category) ? 'in' : '', $location->name) : '';
 
                 $how_to = get_directorist_option('meta_title_for_search_result', 'searched_value');
                 if ('searched_value' === $how_to) {
@@ -670,6 +713,16 @@ if (!class_exists('ATBDP_SEO')) :
                     $thumbnail_url = wp_get_attachment_url( $thumb_id );
                 }
 
+                /* if ( atbdp_yoast_is_active() ) {
+                    $category_url        = get_term_link( $slug, ATBDP_CATEGORY );
+                    $og_title            = YoastSEO()->meta->for_url( $category_url )->open_graph_title;
+                    $og_description      = YoastSEO()->meta->for_url( $category_url )->open_graph_description;
+                    $og_image            = YoastSEO()->meta->for_url( $category_url )->open_graph_images;
+                    $twitter_title       = YoastSEO()->meta->for_url( $category_url )->twitter_title;
+                    $twitter_description = YoastSEO()->meta->for_url( $category_url )->twitter_description;
+                    $twitter_image       = YoastSEO()->meta->for_url( $category_url )->twitter_image;
+                } */
+
             } elseif (atbdp_is_page('all_locations')) {
                 $atbdp_page = 'all_locations';
                 $title = (get_directorist_option('all_locations_meta_title')) ? get_directorist_option('all_locations_meta_title') : $title;
@@ -688,6 +741,16 @@ if (!class_exists('ATBDP_SEO')) :
                     $thumbnail_url = wp_get_attachment_url( $thumb_id );
                 }
 
+                /* if ( atbdp_yoast_is_active() ) {
+                    $location_url        = get_term_link( 'dubai', ATBDP_LOCATION );
+                    $og_title            = YoastSEO()->meta->for_url( $location_url )->open_graph_title;
+                    $og_description      = YoastSEO()->meta->for_url( $location_url )->open_graph_description;
+                    $og_image            = YoastSEO()->meta->for_url( $location_url )->open_graph_images;
+                    $twitter_title       = YoastSEO()->meta->for_url( $location_url )->twitter_title;
+                    $twitter_description = YoastSEO()->meta->for_url( $location_url )->twitter_description;
+                    $twitter_image       = YoastSEO()->meta->for_url( $location_url )->twitter_image;
+                } */
+
             } elseif (atbdp_is_page('single_tag')) {
                 $atbdp_page = 'single_tag';
                 $slug = get_query_var('atbdp_tag');
@@ -700,6 +763,16 @@ if (!class_exists('ATBDP_SEO')) :
                     $thumb_id      = get_term_meta( $term->term_id, 'image', true );
                     $thumbnail_url = wp_get_attachment_url( $thumb_id );
                 }
+
+                /* if ( atbdp_yoast_is_active() ) {
+                    $tag_url             = get_term_link( $slug, ATBDP_TAGS );
+                    $og_title            = YoastSEO()->meta->for_url( $tag_url )->open_graph_title;
+                    $og_description      = YoastSEO()->meta->for_url( $tag_url )->open_graph_description;
+                    $og_image            = YoastSEO()->meta->for_url( $tag_url )->open_graph_images;
+                    $twitter_title       = YoastSEO()->meta->for_url( $tag_url )->twitter_title;
+                    $twitter_description = YoastSEO()->meta->for_url( $tag_url )->twitter_description;
+                    $twitter_image       = YoastSEO()->meta->for_url( $tag_url )->twitter_image;
+                } */
                 
             } elseif (atbdp_is_page('registration')) {
                 $atbdp_page = 'registration';
@@ -729,6 +802,13 @@ if (!class_exists('ATBDP_SEO')) :
             $seo_meta['page']             = $atbdp_page;
             $seo_meta['current_page_url'] = $current_url;
             $seo_meta['thumbnail_url']    = ! empty( $thumbnail_url ) ? $thumbnail_url : $default_thumbnail;
+            
+            $seo_meta['og_title']            = $og_title;
+            $seo_meta['og_description']      = $og_description;
+            $seo_meta['og_image']            = $og_image;
+            $seo_meta['twitter_title']       = $twitter_title;
+            $seo_meta['twitter_description'] = $twitter_description;
+            $seo_meta['twitter_image']       = $twitter_image;
             
             return $seo_meta;
         }

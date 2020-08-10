@@ -1,5 +1,5 @@
  <?php
-     $fields = $atbdp_query->posts;
+    $fields = $atbdp_query->posts;
     $allow_decimal = get_directorist_option('allow_decimal', 1);
             if (isset($_POST['term_id'])){
             foreach ($fields as $post){

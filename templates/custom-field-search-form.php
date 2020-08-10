@@ -12,7 +12,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
         _prime_post_caches( $custom_fields );
     }
 
-    $original_post = $GLOBALS['post'];
+    $original_post = ! empty( $GLOBALS['post'] ) ? $GLOBALS['post'] : array();
 
     foreach ( $custom_fields as $field_id ) : 
         $GLOBALS['post'] = get_post( $field_id );

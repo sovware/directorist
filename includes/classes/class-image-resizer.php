@@ -22,7 +22,7 @@ class Atbdp_Image_resizer
      */
     public function __construct($attachmentId)
     {
-        $this->attachmentId = $attachmentId;
+        $this->attachmentId = ( is_string( $attachmentId ) || is_int( $attachmentId ) ) ? $attachmentId : '' ;
     }
 
     /**
@@ -40,9 +40,9 @@ class Atbdp_Image_resizer
 
         // Get the attachment
         $attachmentUrl = wp_get_attachment_url($this->attachmentId, 'full');
-
+        
         // Bail if we don't have an attachment URL
-        if ( ! $attachmentUrl) {
+        if ( ! $attachmentUrl ) {
             return array('url' => $this->attachmentId, 'width' => $width, 'height' => $height);
         }
 

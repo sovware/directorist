@@ -143,7 +143,7 @@
                     filter2.map((key, value) => {
                         if(key.closest('.vp-right-panel' && '.vp-panel')){
                             var panel_id = key.closest('.vp-panel').getAttribute('id');
-                            search_store.push($(`a[href=#${panel_id}]`).text().trim());
+                            search_store.push($(`a[href='#${panel_id}']`).text().trim());
                         } else if(key.closest('.vp-left-panel' && '.vp-menu-level-1')){
                             search_store.push($(key).closest('a').text().trim());
                         }
@@ -181,7 +181,7 @@
                     var panel_id = el_len[tg_index].closest('.vp-panel').getAttribute('id');
 
                     // click to tab
-                    $(`a[href=#${panel_id}]`).click();
+                    $(`a[href='#${panel_id}']`).click();
                     // animation add
                     var body = $("html, body");
 
@@ -234,7 +234,7 @@
                         if(filter3[count].closest('.vp-right-panel' && '.vp-panel')){
                             var id = filter3[count].closest('.vp-panel').getAttribute('id');
                             // click tab use enter key
-                            $(`a[href=#${id}]`).click();
+                            $(`a[href='#${id}']`).click();
                             // animation scroll top for enter key
                             var body = $("html, body");
                             if(filter3[count].closest('.vp-section')){

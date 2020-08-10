@@ -21,8 +21,8 @@ function atbdp_directorist_button_classes($type='primary'){
  * @return string image scource
  */
  function atbdp_get_image_source($id = null, $size = 'medium'){
-     // void if source id is empty
-     if(empty($id)){return '';}
+    // void if source id is empty
+    if ( empty( $id ) || ! ( is_string( $id ) || is_int( $id ) ) ) { return ''; }
     $image_obj = wp_get_attachment_image_src($id, $size);
     return is_array($image_obj) ? $image_obj[0] : '';
  }

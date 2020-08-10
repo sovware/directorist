@@ -5,7 +5,7 @@
     padding: 0;
 }
 .atbdp-setup-content{
-    font-family: Arial; 
+    font-family: Arial;
     margin: 0 auto 100px;
     width: 700px;
     color: #3e3e3e;
@@ -399,4 +399,8 @@
 .select2-container--default .select2-results__option--highlighted,
 .select2-container--default .select2-results__option[aria-selected=true].select2-results__option--highlighted{
     background-color: #4353FF !important;
+}
+
+.btn-hide{
+    display:none;
 }

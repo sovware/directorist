@@ -1,3 +1,4 @@
+/* eslint-disable */
 (function($) {
         /* Show and hide manual coordinate input field */
         if (!$('input#manual_coordinate').is(':checked')) {
@@ -211,6 +212,21 @@ jQuery(function($) {
                                 $('#atbdp-custom-fields-list').show();
                         }
                         $('#atbdp-custom-fields-list').html(response);
+                        function atbdp_tooltip(){
+                                var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
+                                atbd_tooltip.forEach(function(el){
+                                    if(el.getAttribute('aria-label') !== " "){
+                                        document.body.addEventListener('mouseover', function(e) {
+                                            for (var target = e.target; target && target != this; target = target.parentNode) {
+                                                if (target.matches('.atbd_tooltip')) {
+                                                    el.classList.add('atbd_tooltip_active');
+                                                }
+                                            }
+                                        }, false);
+                                    }
+                                });
+                        }
+                        atbdp_tooltip();
                 });
 
                 $('#atbdp-custom-fields-list-selected').hide();

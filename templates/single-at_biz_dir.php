@@ -81,9 +81,9 @@ $review_info = '';
 $review_info = '';
 if (!empty($enable_review)) {
     $review_info = "<div class='miwl-rating'><span class='atbd_meta atbd_listing_rating'>$average<i class='" . atbdp_icon_type() . "-star'></i></span>";
-    
+
     $review_info .= "<div class='atbd_rating_count'>";
-    
+
     $review_info .= "<p>" . $reviews_count . $reviews . "</p>";
 
     $review_info .= "</div></div>";
@@ -262,13 +262,13 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 ?>
                                 <ul>
                                     <li>
-                                        <a target="_blank" href="<?php echo esc_url( $fb_lnk ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-facebook"><?php esc_html_e('Facebook', 'directorist'); ?></span></a>
+                                        <a target="_blank" href="<?php echo esc_url( $fb_lnk ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-facebook"></span> <?php esc_html_e('Facebook', 'directorist'); ?></a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="<?php echo esc_url( $twt_lnk ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-twitter"><?php esc_html_e('Twitter', 'directorist'); ?></span></a>
+                                        <a target="_blank" href="<?php echo esc_url( $twt_lnk ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-twitter"></span> <?php esc_html_e('Twitter', 'directorist'); ?></a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="<?php echo esc_url( $in_link ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-linkedin"><?php esc_html_e('LinkedIn', 'directorist'); ?></span></a>
+                                        <a target="_blank" href="<?php echo esc_url( $in_link ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-linkedin"></span> <?php esc_html_e('LinkedIn', 'directorist'); ?></a>
                                     </li>
                                 </ul>
                             </div>

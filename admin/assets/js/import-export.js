@@ -44,7 +44,7 @@ jQuery(document).ready(function($) {
                                         form_data.append(`meta[${value}]`, name);
                                 }
                         });
-                        
+
                         $.ajax({
                                 method: 'POST',
                                 processData: false,

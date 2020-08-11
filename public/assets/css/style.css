@@ -3445,6 +3445,25 @@ input#privacy_policy,
   color: #5a6671;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_no_image .atbd_single_listing_wrapper {
+  display: block;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_no_image .atbd_listing_thumbnail_area .atbd_lower_badge {
+  padding: 10px 20px;
+  position: static;
+  display: block;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_no_image .atbd_listing_thumbnail_area .atbd_lower_badge.atbd-no-spacing {
+  padding: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_no_image .atbd_listing_info {
+  border-left: 0 none;
+  border-right: 0 none;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area {
   margin: 0;
   position: relative;

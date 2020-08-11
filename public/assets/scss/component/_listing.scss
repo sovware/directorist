@@ -150,6 +150,25 @@
         }
       }
     }
+    &.atbd_listing_no_image{
+      .atbd_single_listing_wrapper{
+        display: block;
+      }
+      .atbd_listing_thumbnail_area{
+        .atbd_lower_badge{
+          padding: 10px 20px;
+          position: static;
+          display: block;
+          &.atbd-no-spacing{
+            padding: 0;
+          }
+        }
+      }
+      .atbd_listing_info{
+        border-left: 0 none;
+        border-right: 0 none;
+      }
+    }
     .atbd_listing_thumbnail_area {
       margin: 0;
       position: relative;

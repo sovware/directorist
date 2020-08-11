@@ -153,6 +153,12 @@
 
     });
 
+    // redirect to import import_page_link
+    $('#csv_import input[name="csv_import"]').on('change', function (event) {
+        event.preventDefault();
+        window.location = atbdp_admin_data.import_page_link;
+
+    });
 
     /*This function handles all ajax request*/
     function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler) {

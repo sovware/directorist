@@ -299,8 +299,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
             /*LOCATION*/
             $labels = array(
-                'name' => _x('Directory Locations', 'Location general name', 'directorist'),
-                'singular_name' => _x('Directory Location', 'Location singular name', 'directorist'),
+                'name' => _x('Locations', 'Location general name', 'directorist'),
+                'singular_name' => _x('Location', 'Location singular name', 'directorist'),
                 'search_items' => __('Search Location', 'directorist'),
                 'all_items' => __('All Locations', 'directorist'),
                 'parent_item' => __('Parent Location', 'directorist'),
@@ -309,7 +309,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 'update_item' => __('Update Location', 'directorist'),
                 'add_new_item' => __('Add New Location', 'directorist'),
                 'new_item_name' => __('New Location Name', 'directorist'),
-                'menu_name' => __('Directory Locations', 'directorist'),
+                'menu_name' => __('Locations', 'directorist'),
             );
 
             $args = array(
@@ -335,8 +335,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             /*CATEGORY*/
 
             $labels2 = array(
-                'name' => _x('Directory categories', 'Category general name', 'directorist'),
-                'singular_name' => _x('Directory category', 'Category singular name', 'directorist'),
+                'name' => _x('Categories', 'Category general name', 'directorist'),
+                'singular_name' => _x('Category', 'Category singular name', 'directorist'),
                 'search_items' => __('Search category', 'directorist'),
                 'all_items' => __('All categories', 'directorist'),
                 'parent_item' => __('Parent category', 'directorist'),
@@ -345,7 +345,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 'update_item' => __('Update category', 'directorist'),
                 'add_new_item' => __('Add New category', 'directorist'),
                 'new_item_name' => __('New category Name', 'directorist'),
-                'menu_name' => __('Directory Categories', 'directorist'),
+                'menu_name' => __('Categories', 'directorist'),
             );
 
             $args2 = array(
@@ -369,8 +369,8 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
             /*TAGS*/
             $labels3 = array(
-                'name' => _x('Directory Tags', 'Tag general name', 'directorist'),
-                'singular_name' => _x('Directory Tag', 'Tag singular name', 'directorist'),
+                'name' => _x('Tags', 'Tag general name', 'directorist'),
+                'singular_name' => _x('Tag', 'Tag singular name', 'directorist'),
                 'search_items' => __('Search tag', 'directorist'),
                 'all_items' => __('All Tags', 'directorist'),
                 'parent_item' => __('Parent tag', 'directorist'),
@@ -379,7 +379,7 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 'update_item' => __('Update tag', 'directorist'),
                 'add_new_item' => __('Add New tag', 'directorist'),
                 'new_item_name' => __('New tag Name', 'directorist'),
-                'menu_name' => __('Directory Tags', 'directorist'),
+                'menu_name' => __('Tags', 'directorist'),
             );
 
             $capabilities = array(

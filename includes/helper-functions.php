@@ -4121,6 +4121,16 @@ function get_uninstall_settings_submenus() {
     )
     );
 }
+function get_csv_import_settings_submenus() {
+    return apply_filters('atbdp_csv_import_settings_fields', array(
+        array(
+            'type' => 'toggle',
+            'name' => 'csv_import',
+            'label' => __('Run Importer', 'directorist'),
+        ),
+    )
+    );
+}
 
 function atbdp_email_html($subject, $message){
     $site_name = wp_specialchars_decode( get_option( 'blogname' ), ENT_QUOTES );

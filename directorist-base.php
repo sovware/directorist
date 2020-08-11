@@ -246,8 +246,6 @@ final class Directorist_Base
             /*Extensions Link*/
             /*initiate extensions link*/
             new ATBDP_Extensions();
-            /*Theme Link*/
-            new ATBDP_Themes();
             /*Initiate Review and Rating Features*/
             self::$instance->review = new ATBDP_Review_Rating;
             //activate rewrite api
@@ -281,8 +279,6 @@ final class Directorist_Base
             new ATBDP_Cron;
             // add upgrade feature
             new ATBDP_Upgrade;
-            // add upgrade feature
-            new ATBDP_Help_Support;
             // add uninstall menu
             add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
 
@@ -506,6 +502,18 @@ final class Directorist_Base
                     'type' => 'section',
                     'title' => __('Uninstall Settings', 'directorist'),
                     'fields' => get_uninstall_settings_submenus(),
+                ),
+            )),
+        );
+        $menus['csv_import'] = array(
+            'title' => __('Listings Import', 'directorist'),
+            'name' => 'csv_import',
+            'icon' => 'font-awesome:fa-upload',
+            'controls' => apply_filters('atbdp_csv_import_settings_controls', array(
+                'currency_section' => array(
+                    'type' => 'section',
+                    'title' => __('Listings Import (CSV)', 'directorist'),
+                    'fields' => get_csv_import_settings_submenus(),
                 ),
             )),
         );

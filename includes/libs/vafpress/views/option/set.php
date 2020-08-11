@@ -93,10 +93,26 @@
 						</div>
 					</div>
 				</form>
-			</div>
-		</div>
+            </div>
+            <div class="vp-documentation-panel">
+                <div id="directorist" class="atbd_wrapper atbdp_support_wrapper atbd_help_support">
+                    <!--Support Block-->
+                    <div class="wrap wrap_left">
+                        <div class="postbox wpcs-admin-extra">
+                            <h3><?php _e('1. Documentation', 'directorist')?></h3>
+                            <p><a href="https://directorist.com/documentation/directorist/" target="_blank"><?php _e('Click here', 'directorist')?></a> <?php _e('for the documentation.', 'directorist')?></p>
+                            <br>
+                            <h3><?php _e('2. Support Forum', 'directorist')?></h3>
+                            <p> <?php _e('If you need any helps, please don\'t hesitate to post on our ', 'directorist')?><a
+                                        href="https://directorist.com/dashboard/#support" target="_blank"> <?php _e('support forum', 'directorist')?></a>.</p>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-	</div>
+    </div>
 </div>
 
 <script>

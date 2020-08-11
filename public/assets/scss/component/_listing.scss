@@ -619,6 +619,8 @@ span.atbd_get_loc_wid {
     z-index: 9999;
     text-align: center;
     min-width: 150px;
+    max-height: 200px;
+    overflow-y: auto;
   }
   &[aria-label]:hover:before, &[aria-label]:hover:after{
     display: block;

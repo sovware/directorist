@@ -4126,7 +4126,7 @@ function get_csv_import_settings_submenus() {
         array(
             'type' => 'toggle',
             'name' => 'csv_import',
-            'label' => __('Run Importer', 'directorist'),
+            'label' => __('CSV', 'directorist'),
         ),
     )
     );

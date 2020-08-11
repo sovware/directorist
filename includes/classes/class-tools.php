@@ -242,7 +242,12 @@ if (!class_exists('ATBDP_Tools')) :
          */
         public function add_tools_submenu()
         {
-            add_submenu_page(null, __('Tools', 'directorist'), __('Tools', 'directorist'), 'manage_options', 'tools', array($this, 'render_tools_submenu_page'));
+            add_submenu_page(null,
+            __('Tools', 'directorist'),
+            __('Tools', 'directorist'),
+            'manage_options',
+            'tools',
+            array($this, 'render_tools_submenu_page'));
         }
 
         public function render_tools_submenu_page()

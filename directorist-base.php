@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-Copyright 2018 AazzTech.com.
+Copyright (c) 2020 AazzTech (website: aazztech.com). All rights reserved.
 */
 // prevent direct access to the file
 defined('ABSPATH') || die('No direct script access allowed!');
@@ -512,7 +512,7 @@ final class Directorist_Base
             'controls' => apply_filters('atbdp_csv_import_settings_controls', array(
                 'currency_section' => array(
                     'type' => 'section',
-                    'title' => __('Listings Import (CSV)', 'directorist'),
+                    'title' => __('Listings Import', 'directorist'),
                     'fields' => get_csv_import_settings_submenus(),
                 ),
             )),

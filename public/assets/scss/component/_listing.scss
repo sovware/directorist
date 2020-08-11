@@ -622,3 +622,29 @@ span.atbd_get_loc_wid {
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price{
   word-break: break-all;
 }
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.listing_preview_img_none{
+  .atbd_listing_image{
+    padding: 5px;
+    .atbd_author{
+      position: static;
+      transform: none;
+    }
+  }
+  .atbd_upper_badge,
+  .atbd_lower_badge{
+    position: static;
+    padding: 5px;
+  }
+  .atbd_listing_thumbnail_area{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+    margin: -5px;
+  }
+  .atbd_listing_info{
+    border-left: 0;
+    border-right: 0;
+  }
+}

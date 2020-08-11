@@ -375,7 +375,6 @@ if (!class_exists('ATBDP_SEO')) :
 
         public function atbdp_texonomy_canonical()
         {
-
             global $post;
 
             if (!isset($post)) return;

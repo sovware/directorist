@@ -2902,8 +2902,9 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                     $display_address_field = get_directorist_option('display_address_field', 1);
                     $display_phone_field = get_directorist_option('display_phone_field', 1);
                     $display_preview_image = get_directorist_option('display_preview_image', 1);
+                    $no_preview = $display_preview_image ? '' : 'atbd_listing_no_image';
                     ?>
-                    <div class="atbd_single_listing atbd_listing_list">
+                    <div class="atbd_single_listing atbd_listing_list <?php echo $no_preview; ?>">
                         <article
                                 class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                             <figure class="atbd_listing_thumbnail_area">

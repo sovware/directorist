@@ -1,5 +1,15 @@
 <div class="wrap">
-	<h2><?php echo $set->get_title(); ?></h2>
+    <div style="margin-bottom: -15px; display: flex; flex-wrap: wrap; max-width: 902px;">
+        <div style="flex-grow: 1">
+            <h2><?php echo $set->get_title(); ?></h2>
+        </div>
+
+        <div style="margin: 1rem 0; flex-grow: 1; text-align: right">
+            <a target="_blank" href="https://directorist.com/documentation/directorist/" class="button button-primary">Documentation</a>
+            <a target="_blank" href="https://directorist.com/dashboard/#support" class="button button-primary">Support Forum</a>
+        </div>
+    </div>
+
 	<div id="vp-wrap" class="vp-wrap">
 		<div id="vp-option-panel"class="vp-option-panel <?php echo ($set->get_layout() === 'fixed') ? 'fixed-layout' : 'fluid-layout' ; ?>">
 			<div class="vp-left-panel">
@@ -93,22 +103,6 @@
 						</div>
 					</div>
 				</form>
-            </div>
-        </div>
-        <div class="vp-documentation-panel">
-            <div id="directorist" class="atbd_wrapper atbdp_support_wrapper atbd_help_support">
-                <!--Support Block-->
-                <div class="wrap wrap_left">
-                    <div class="postbox wpcs-admin-extra">
-                        <h3><?php _e('1. Documentation', 'directorist')?></h3>
-                        <p><a href="https://directorist.com/documentation/directorist/" target="_blank"><?php _e('Click here', 'directorist')?></a> <?php _e('for the documentation.', 'directorist')?></p>
-                        <br>
-                        <h3><?php _e('2. Support Forum', 'directorist')?></h3>
-                        <p> <?php _e('If you need any helps, please don\'t hesitate to post on our ', 'directorist')?><a
-                                    href="https://directorist.com/dashboard/#support" target="_blank"> <?php _e('support forum', 'directorist')?></a>.</p>
-                        <br>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

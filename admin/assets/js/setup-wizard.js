@@ -9,6 +9,7 @@ jQuery(document).ready(function($) {
                 e.preventDefault();
 
                 $('.atbdp_dummy_body').fadeOut(300);
+                $('.atbdp-c-footer').fadeOut(300);
                 $('.directorist-importer__importing').fadeIn(300);
                 $(this)
                         .parent('.csv-fields')

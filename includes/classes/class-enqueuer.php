@@ -143,6 +143,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
                 $data = array(
                     'nonce'          => wp_create_nonce( 'atbdp_nonce_action_js' ),
                     'ajaxurl'        => admin_url( 'admin-ajax.php' ),
+                    'import_page_link'      => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
                     'nonceName'      => 'atbdp_nonce_js',
                     'AdminAssetPath' => ATBDP_ADMIN_ASSETS,
                     'i18n_text'      => $i18n_text,

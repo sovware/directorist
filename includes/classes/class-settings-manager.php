@@ -28,10 +28,10 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 'use_util_menu' => true, // show import and export menu
                 'minimum_role' => 'manage_options',
                 'layout' => 'fixed',
-                'page_title' => __('Directory Settings', 'directorist'),
-                'menu_label' => __('Directory Settings', 'directorist'),
+                'page_title' => __('Settings', 'directorist'),
+                'menu_label' => __('Settings', 'directorist'),
                 'template' => array(
-                    'title' => __('Directory Settings', 'directorist'),
+                    'title' => __('Settings', 'directorist'),
                     'logo' => esc_url(ATBDP_ADMIN_ASSETS . 'images/settings_icon.png'),
                     'menus' => $this->get_settings_menus(),
                 ),

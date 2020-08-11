@@ -10,6 +10,10 @@ css for Custom Field
   for shortable field*/
 }
 
+#directorist.atbd_wrapper .atcc_pt_40 {
+  padding-top: 40px;
+}
+
 #directorist.atbd_wrapper * {
   box-sizing: border-box;
 }
@@ -279,6 +283,10 @@ css for Custom Field
 
 #directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon .btn {
   opacity: 0.5;
+}
+
+#directorist.atbd_wrapper .attc_extension_wrapper__heading {
+  margin-bottom: 15px;
 }
 
 #directorist.atbd_wrapper .btn_wrapper a + a {
@@ -1287,6 +1295,33 @@ span.atbdp-tick-cross {
 
 .iris-border .iris-palette-container .iris-palette {
   padding: 0 !important;
+}
+
+#csv_import .vp-input + span {
+  background: #007cba;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  border-radius: 3px;
+  color: #fff;
+  background-image: none;
+  width: auto;
+  cursor: pointer;
+}
+
+#csv_import .vp-input + span:after {
+  content: 'Run Importer';
+}
+
+.vp-wrap {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.vp-documentation-panel #directorist.atbd_wrapper {
+  padding: 4px 20px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

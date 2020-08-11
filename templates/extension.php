@@ -2,7 +2,9 @@
     <div class="attc_extension_wrapper">
         <div class="container-fluid">
             <div class="row">
-                <h3><?php esc_html_e('Themes', 'directorist'); ?></h3>
+                <div class="col-lg-12 attc_extension_wrapper__heading">
+                    <h3><?php esc_html_e('Themes', 'directorist'); ?></h3>
+                </div>
                 <?php
                 if (!function_exists('directoria_setup')){
                     ?>
@@ -70,8 +72,9 @@
                 </div>
                 <?php
                 } ?>
-                <hr>
-                <h3><?php esc_html_e('Extensions', 'directorist'); ?></h3>
+                <div class="col-lg-12 attc_extension_wrapper__heading atcc_pt_40">
+                    <h3><?php esc_html_e('Extensions', 'directorist'); ?></h3>
+                </div>
                 <?php
                 if (!class_exists('ATBDP_Pricing_Plans')) {
                     ?>
@@ -464,7 +467,7 @@
                     <?php
                 }
                 ?>
-        
+
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <!--Reservation-->
                     <div class="single_extension">

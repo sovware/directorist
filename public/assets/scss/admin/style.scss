@@ -3,6 +3,10 @@
 #directorist.atbd_wrapper {
   padding: 18px 20px;
 
+  .atcc_pt_40{
+    padding-top: 40px;
+  }
+
   * {
     box-sizing: border-box;
   }
@@ -235,6 +239,9 @@
         }
       }
     }
+  }
+  .attc_extension_wrapper__heading{
+    margin-bottom: 15px;
   }
   .btn_wrapper {
     a + a {
@@ -1160,4 +1167,35 @@ span.atbdp-tick-cross{
 
 .iris-border .iris-palette-container .iris-palette{
   padding: 0 !important;
+}
+
+#csv_import{
+  .vp-input{
+    & + span{
+      background: #007cba;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      border-radius: 3px;
+      color: #fff;
+      background-image: none;
+      width: auto;
+      cursor: pointer;
+      &:after{
+        content: 'Run Importer';
+      }
+    }
+  }
+}
+
+.vp-wrap{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.vp-documentation-panel{
+  #directorist.atbd_wrapper {
+    padding: 4px 20px;
+  }
 }

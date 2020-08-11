@@ -486,7 +486,7 @@ class VP_Option
 		{
 			// setup utility menu
 			$util_menu = new VP_Option_Control_Group_Menu();
-			$util_menu->set_title(__('Import/Export Settings', 'directorist'));
+			$util_menu->set_title(__('Settings Import/Export', 'directorist'));
 			$util_menu->set_name('menu_util');
 			$util_menu->set_icon('font-awesome:fa-ambulance');
 
@@ -501,7 +501,7 @@ class VP_Option
 
 			// setup exim section
 			$exim_section = new VP_Option_Control_Group_Section();
-			$exim_section->set_title(__('Export/Import Settings DATA', 'directorist'));
+			$exim_section->set_title(__('Settings Export/Import DATA', 'directorist'));
 			$exim_section->set_name('section_exim');
 
 			// setup exim field

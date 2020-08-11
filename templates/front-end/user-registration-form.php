@@ -162,6 +162,7 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
                                             printf('<span class="atbdp_make_str_red"> *</span>');
                                         }
                                         ?>
+                                        <span class="atbdp_make_str_red"> *</span>
                                         <input id="listing_t" type="checkbox"
                                                name="t_c_check" <?php if (!empty($t_c_check)) if ('on' == $t_c_check) {
                                             echo 'checked';

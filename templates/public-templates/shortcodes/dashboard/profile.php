@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-md-3 col-sm-6 offset-sm-3 offset-md-0">
                 <div class="user_pro_img_area">
-                    <div id="user_profile_pic" class="ez-media-uploader" data-type="images" data-min-file-items="0" data-max-file-items="1" data-max-total-file-size="0" data-allow-multiple="0" data-show-alerts="false" data-show-file-size="false" data-featured="false" data-allow-sorting="false" data-show-info="false" data-uploader-type="avater">
+                    <div id="user_profile_pic" class="ez-media-uploader" data-type="jpg, jpeg, png, gif" data-min-file-items="0" data-max-file-items="1" data-max-total-file-size="0" data-allow-multiple="0" data-show-alerts="false" data-show-file-size="false" data-featured="false" data-allow-sorting="false" data-show-info="false" data-uploader-type="avater">
 
                         <div class="ezmu__loading-section ezmu--show">
                             <span class="ezmu__loading-icon">

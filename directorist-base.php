@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
  * Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
- * Version: 6.5.1
+ * Version: 6.5.2
  * Author: AazzTech
  * Author URI: https://aazztech.com
  * Text Domain: directorist
@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-Copyright 2018 AazzTech.com.
+Copyright (c) 2020 AazzTech (website: aazztech.com). All rights reserved.
 */
 // prevent direct access to the file
 defined('ABSPATH') || die('No direct script access allowed!');
@@ -247,8 +247,6 @@ final class Directorist_Base
             /*Extensions Link*/
             /*initiate extensions link*/
             new ATBDP_Extensions();
-            /*Theme Link*/
-            new ATBDP_Themes();
             /*Initiate Review and Rating Features*/
             self::$instance->review = new ATBDP_Review_Rating;
             //activate rewrite api
@@ -284,11 +282,6 @@ final class Directorist_Base
             new ATBDP_Cron;
             // add upgrade feature
             new ATBDP_Upgrade;
-            // add upgrade feature
-            new ATBDP_Help_Support;
-            new ATBDP_Tools;
-            //validator
-            // new ATBDP_Validator();
             // add uninstall menu
             add_filter('atbdp_settings_menus', array(self::$instance, 'add_uninstall_menu'));
 
@@ -515,6 +508,18 @@ final class Directorist_Base
                     'type' => 'section',
                     'title' => __('Uninstall Settings', 'directorist'),
                     'fields' => get_uninstall_settings_submenus(),
+                ),
+            )),
+        );
+        $menus['csv_import'] = array(
+            'title' => __('Listings Import', 'directorist'),
+            'name' => 'csv_import',
+            'icon' => 'font-awesome:fa-upload',
+            'controls' => apply_filters('atbdp_csv_import_settings_controls', array(
+                'currency_section' => array(
+                    'type' => 'section',
+                    'title' => __('Listings Import', 'directorist'),
+                    'fields' => get_csv_import_settings_submenus(),
                 ),
             )),
         );

@@ -55,13 +55,6 @@ $cat_icon = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon;
 $display_thumbnail_img = get_directorist_option('dsiplay_thumbnail_img', 1);
 extract($listing_info);
 /*Prepare Listing Image links*/
-$listing_imgs = (!empty($listing_img) && !empty($display_slider_image)) ? $listing_img : array();
-$image_links = array(); // define a link placeholder variable
-$full_image_links = array(); // define a link placeholder variable
-foreach ($listing_imgs as $id) {
-    $full_image_links[$id] = atbdp_get_image_source($id, 'large');
-    $image_links_thumbnails[$id] = atbdp_get_image_source($id, 'thumbnail'); // store the attachment id and url
-}
 /*Code for Business Hour Extensions*/
 $text247 = get_directorist_option('text247', __('Open 24/7', 'directorist')); // text for 24/7 type listing
 $business_hour_title = get_directorist_option('business_hour_title', __('Business Hour', 'directorist')); // text Business Hour Title
@@ -100,8 +93,10 @@ $tg = !empty($tagline) ? esc_html($tagline) : '';
 $ad = !empty($address) ? esc_html($address) : '';
 $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 $listing_prv_imgurl = atbdp_image_cropping($listing_prv_img, 150, 150, true, 100)['url'];
-$img_url = !empty($listing_prv_imgurl) ? $listing_prv_imgurl : $default_image;
-$image = "<img src=" . $img_url . ">";
+$listing_prv_imgurl = is_string( $listing_prv_imgurl ) ? $listing_prv_imgurl : '';
+
+$img_url = ! empty($listing_prv_imgurl) ? $listing_prv_imgurl : $default_image;
+$image = "<img src=" . $img_url . "\>";
 $display_map_info = apply_filters('atbdp_listing_map_info_window', get_directorist_option('display_map_info', 1));
 $display_image_map = get_directorist_option('display_image_map', 1);
 $display_title_map = get_directorist_option('display_title_map', 1);
@@ -267,13 +262,13 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                 ?>
                                 <ul>
                                     <li>
-                                        <a target="_blank" href="<?php echo esc_url( $fb_lnk ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-facebook"><?php esc_html_e('Facebook', 'directorist'); ?></span></a>
+                                        <a target="_blank" href="<?php echo esc_url( $fb_lnk ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-facebook"></span> <?php esc_html_e('Facebook', 'directorist'); ?></a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="<?php echo esc_url( $twt_lnk ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-twitter"><?php esc_html_e('Twitter', 'directorist'); ?></span></a>
+                                        <a target="_blank" href="<?php echo esc_url( $twt_lnk ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-twitter"></span> <?php esc_html_e('Twitter', 'directorist'); ?></a>
                                     </li>
                                     <li>
-                                        <a target="_blank" href="<?php echo esc_url( $in_link ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-linkedin"><?php esc_html_e('LinkedIn', 'directorist'); ?></span></a>
+                                        <a target="_blank" href="<?php echo esc_url( $in_link ); ?>"><span class="<?php atbdp_icon_type( true ); ?>-linkedin"></span> <?php esc_html_e('LinkedIn', 'directorist'); ?></a>
                                     </li>
                                 </ul>
                             </div>
@@ -339,25 +334,8 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                 </div>
                 <div class="atbdb_content_module_contents">
                     <?php
-                    $listing_prv_imgurl = !empty($listing_prv_img) ? atbdp_get_image_source($listing_prv_img, 'large') : '';
-                    $gallery_image = '';
-                    $plan_slider = true;
-                    if (is_fee_manager_active()) {
-                        $plan_slider = is_plan_allowed_slider($fm_plan);
-                    }
-
-                    $args = array(
-                        // 'image_links' => $image_links,
-                        'image_links' => $full_image_links,
-                        'display_prv_image' => $display_prv_image,
-                        'listing_prv_imgurl' => $listing_prv_imgurl,
-                        'plan_slider' => $plan_slider,
-                        'p_title' => $p_title,
-                        'display_thumbnail_img' => $display_thumbnail_img,
-                    );
-                    $slider = get_plasma_slider($args);
+                    $slider = get_plasma_slider();
                     echo apply_filters('atbdp_single_listing_gallery_section', $slider);
-
                     ?>
                     <div class="atbd_listing_detail">
                         <?php

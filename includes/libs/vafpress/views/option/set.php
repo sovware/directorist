@@ -93,10 +93,25 @@
 						</div>
 					</div>
 				</form>
-			</div>
-		</div>
-
-	</div>
+            </div>
+        </div>
+        <div class="vp-documentation-panel">
+            <div id="directorist" class="atbd_wrapper atbdp_support_wrapper atbd_help_support">
+                <!--Support Block-->
+                <div class="wrap wrap_left">
+                    <div class="postbox wpcs-admin-extra">
+                        <h3><?php _e('1. Documentation', 'directorist')?></h3>
+                        <p><a href="https://directorist.com/documentation/directorist/" target="_blank"><?php _e('Click here', 'directorist')?></a> <?php _e('for the documentation.', 'directorist')?></p>
+                        <br>
+                        <h3><?php _e('2. Support Forum', 'directorist')?></h3>
+                        <p> <?php _e('If you need any helps, please don\'t hesitate to post on our ', 'directorist')?><a
+                                    href="https://directorist.com/dashboard/#support" target="_blank"> <?php _e('support forum', 'directorist')?></a>.</p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -143,7 +158,7 @@
                     filter2.map((key, value) => {
                         if(key.closest('.vp-right-panel' && '.vp-panel')){
                             var panel_id = key.closest('.vp-panel').getAttribute('id');
-                            search_store.push($(`a[href=#${panel_id}]`).text().trim());
+                            search_store.push($(`a[href='#${panel_id}']`).text().trim());
                         } else if(key.closest('.vp-left-panel' && '.vp-menu-level-1')){
                             search_store.push($(key).closest('a').text().trim());
                         }
@@ -181,7 +196,7 @@
                     var panel_id = el_len[tg_index].closest('.vp-panel').getAttribute('id');
 
                     // click to tab
-                    $(`a[href=#${panel_id}]`).click();
+                    $(`a[href='#${panel_id}']`).click();
                     // animation add
                     var body = $("html, body");
 
@@ -234,7 +249,7 @@
                         if(filter3[count].closest('.vp-right-panel' && '.vp-panel')){
                             var id = filter3[count].closest('.vp-panel').getAttribute('id');
                             // click tab use enter key
-                            $(`a[href=#${id}]`).click();
+                            $(`a[href='#${id}']`).click();
                             // animation scroll top for enter key
                             var body = $("html, body");
                             if(filter3[count].closest('.vp-section')){

@@ -338,7 +338,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             <div class="user_pro_img_area">
                                                 <div class="user_img" id="profile_pic_container">
                                                 <div id="user_profile_pic" class="ez-media-uploader"
-                                                        data-type="images"
+                                                        data-type="jpg, jpeg, png, gif"
                                                         data-min-file-items="0"
                                                         data-max-file-items="1"
                                                         data-max-total-file-size="0"

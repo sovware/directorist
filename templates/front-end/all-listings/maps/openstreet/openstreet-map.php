@@ -73,9 +73,9 @@ $marker_icons = [];
             $cat_icon  = ('none' == $cat_icon) ? 'fa fa-map-marker' : $fa_or_la . $cat_icon ;
 
             $marker_icons[] = [
-                'cats' => $cats,
+                'cats'      => $cats,
                 'font_type' => $font_type,
-                'cat_icon' => $cat_icon,
+                'cat_icon'  => $cat_icon,
             ];
 
             wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(

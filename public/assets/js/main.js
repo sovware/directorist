@@ -4,10 +4,8 @@
     Author: Aazztech
     Author URI: www.aazztech.com
 */
-; (function ($) {
-    // Form Handler
-    var form_handler = new ATBDP_Form_Handler();
-
+/* eslint-disable */
+;(function ($) {
     //sorting toggle
     $('.sorting span').on('click', function () {
         $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');
@@ -61,26 +59,26 @@
 		if ( ! data || typeof data !== 'object' ) {
 			var data = {};
 		}
-		
+
 		for ( var key in field_map) {
 			var field_item = field_map[ key ];
 			var field_key = field_item.field_key;
 			var field_type = field_item.type;
-			
+
 			if ( 'name' === field_type ) {
 				var field = form.find( '[name="'+ field_key +'"]' );
 			} else {
 				var field = form.find( field_key );
 			}
-			
+
 			if ( field.length ) {
 				var data_key = ( 'name' === field_type ) ? field_key : field.attr('name') ;
 				var data_value = ( field.val() ) ? field.val() : '';
-				
+
 				data[data_key] = data_value;
-			} 
+			}
 		}
-		
+
 		return data;
 	}
 
@@ -110,10 +108,10 @@
 			{ type: 'id', field_key: '#review_rating' },
 			{ type: 'id', field_key: '#review_duplicate' },
 		];
-		
+
 		var _data = { action: 'save_listing_review' };
 		_data = prepear_form_data( $form, field_field_map, _data );
-		
+
         // atbdp_do_ajax($form, 'save_listing_review', _data, function (response) {
 
         jQuery.post(atbdp_public_data.ajaxurl, _data, function(response) {
@@ -160,7 +158,7 @@
                         });
                     }
                 }
-                
+
 
             } else if (response.success) {
                 d = atbdp_public_data.currentDate; // build the date string, month is 0 based so add 1 to that to get real month.
@@ -175,14 +173,14 @@
                     '<span class="review_time">' + d + '</span> ' + '</div> ' + '</div> ' +
                     '<div class="atbd_rated_stars">' + print_static_rating(rating) + '</div> ' +
                     '</div> ';
-                if( atbdp_public_data.enable_reviewer_content ) {    
-                output +=    
+                if( atbdp_public_data.enable_reviewer_content ) {
+                output +=
                     '<div class="review_content"> ' +
                     '<p>' + content + '</p> ' +
                     //'<a href="#"><span class="fa fa-mail-reply-all"></span>Reply</a> ' +
                     '</div> ';
                 }
-                output +=       
+                output +=
                     '</div>';
 
                 // output += '<div class="single_review"  id="single_review_'+response.data.id+'">' +
@@ -858,12 +856,21 @@
     });
 
     /* atbd tooltip */
-    var atbd_tooltip = $('.atbd_tooltip');
-    if (atbd_tooltip.attr('aria-label') !== " ") {
-        $('body').on("hover", ".atbd_tooltip", function () {
-            $(".atbd_tooltip").toggleClass('atbd_tooltip_active');
-        })
+    function atbdp_tooltip(){
+        var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
+        atbd_tooltip.forEach(function(el){
+            if(el.getAttribute('aria-label') !== " "){
+                document.body.addEventListener('mouseover', function(e) {
+                    for (var target = e.target; target && target != this; target = target.parentNode) {
+                        if (target.matches('.atbd_tooltip')) {
+                            el.classList.add('atbd_tooltip_active');
+                        }
+                    }
+                }, false);
+            }
+        });
     }
+    atbdp_tooltip();
 
     /* User Dashboard tab */
     $(function () {
@@ -975,6 +982,13 @@
     });
     $(".atbd_dropdown-toggle").on("click", function (e) {
         e.preventDefault();
+    });
+
+    //
+    $('.atbd_listing_no_image .atbd_lower_badge').each(function(i, elm){
+        if( !$.trim( $(elm).html() ).length ) {
+            $(this).addClass('atbd-no-spacing');
+        }
     });
 
 })(jQuery);

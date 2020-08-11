@@ -2873,23 +2873,25 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                     $display_address_field = get_directorist_option('display_address_field', 1);
                     $display_phone_field = get_directorist_option('display_phone_field', 1);
+                    $display_preview_image = get_directorist_option('display_preview_image', 1);
+                    $no_preview = $display_preview_image ? '' : 'atbd_listing_no_image';
                     ?>
-                    <div class="atbd_single_listing atbd_listing_list">
+                    <div class="atbd_single_listing atbd_listing_list <?php echo $no_preview; ?>">
                         <article
                                 class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
-                            <figure class="atbd_listing_thumbnail_area"
-                                    style=" <?php echo (empty(get_directorist_option('display_preview_image')) || 'no' == $display_image) ? 'display:none' : '' ?>">
+                            <figure class="atbd_listing_thumbnail_area">
                                 <?php
                                 $disable_single_listing = get_directorist_option('disable_single_listing');
-                                if (empty($disable_single_listing)){
-                                ?>
-                                <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"<?php echo $thumbnail_link_attr; ?>>
-                                    <?php
+                                if($display_preview_image){
+                                    if (empty($disable_single_listing)){ ?>
+                                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"<?php echo $thumbnail_link_attr; ?>>
+                                        <?php
                                     }
                                     atbdp_thumbnail_card();
                                     if (empty($disable_single_listing)) {
-                                        echo '</a>';
+                                            echo '</a>';
                                     }
+                                }
                                     //Start lower badge
                                     $l_badge_html = '<span class="atbd_lower_badge">';
                                     if ($featured && !empty($display_feature_badge_cart)) {
@@ -3742,8 +3744,8 @@ function atbdp_get_current_url()
 /**
  * Check if Yoast SEO plugin is active and Directorist can use that.
  *
- * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
- * @since     5.4.4
+ * @return bool $can_use_yoast "true" if can use Yoast, "false" if not.
+ * @since 5.4.4
  *
  */
 function atbdp_can_use_yoast()
@@ -3763,6 +3765,11 @@ function atbdp_can_use_yoast()
 
 }
 
+// atbdp_yoast_is_active
+function atbdp_yoast_is_active() {
+    return atbdp_can_use_yoast();
+}
+
 /**arg
  *
  * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
@@ -3773,13 +3780,14 @@ function atbdp_disable_overwrite_yoast()
 {
     $overwrite = false;
     $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
-    if ( ! empty($overwrite_yoast) || ! atbdp_can_use_yoast() ) {
+    if ( ! empty($overwrite_yoast) || ! atbdp_yoast_is_active() ) {
         $overwrite = true;
     }
 
     return $overwrite;
 
 }
+
 
 if (!function_exists('atbdp_page')) {
     function atbdp_page()
@@ -4081,6 +4089,16 @@ function get_uninstall_settings_submenus() {
             'label' => __('Remove Data on Uninstall?', 'directorist'),
             'description'=> __('Checked it if you would like Directorist to completely remove all of its data when the plugin is deleted.','directorist'),
             'default' => 0,
+        ),
+    )
+    );
+}
+function get_csv_import_settings_submenus() {
+    return apply_filters('atbdp_csv_import_settings_fields', array(
+        array(
+            'type' => 'toggle',
+            'name' => 'csv_import',
+            'label' => __('CSV', 'directorist'),
         ),
     )
     );

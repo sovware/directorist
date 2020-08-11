@@ -153,6 +153,12 @@
 
     });
 
+    // redirect to import import_page_link
+    $('#csv_import input[name="csv_import"]').on('change', function (event) {
+        event.preventDefault();
+        window.location = atbdp_admin_data.import_page_link;
+
+    });
 
     /*This function handles all ajax request*/
     function atbdp_do_ajax(ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler) {
@@ -1239,7 +1245,7 @@ jQuery(function ($) {
     }
 
     //Display privacy fields in registration form
-    var lf_registration_privacy = $("#registration_privacy_label,#registration_privacy_label_link, #require_registration_privacy");
+    var lf_registration_privacy = $("#registration_privacy_label,#registration_privacy_label_link");
     lf_registration_privacy.hide();
     $('input[name="registration_privacy"]').on("change", function () {
         if($(this).is(":checked") === true){

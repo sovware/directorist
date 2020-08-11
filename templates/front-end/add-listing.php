@@ -1171,9 +1171,11 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                                                     $gallery_label = get_directorist_option('gallery_label', __('Select Files', 'directorist'));
                                                     ?>
                                                     <div id="_listing_gallery" class="ez-media-uploader"
+                                                         data-type="jpg, jpeg, png, gif"
                                                          data-max-file-items="<?php echo !empty($slider_unl) ? '999' : $plan_image; ?>"
                                                          data-min-file-items="<?php echo !empty($req_gallery_image) ? '1' : ''; ?>"
                                                          data-max-file-size="<?php echo $max_file_size_kb; ?>"
+                                                         data-max-total-file-size="<?php echo $max_total_file_size_kb; ?>"
                                                          data-max-total-file-size="<?php echo $max_total_file_size_kb; ?>"
                                                          data-show-alerts="0">
                                                         <div class="ezmu__loading-section ezmu--show">

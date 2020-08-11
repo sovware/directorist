@@ -742,6 +742,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 100%;
 }
 
+#directorist.atbd_wrapper .table {
+  margin-top: 0;
+}
+
 #directorist.atbd_wrapper {
   clear: both;
 }
@@ -3489,6 +3493,25 @@ input#privacy_policy,
   color: #5a6671;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_no_image .atbd_single_listing_wrapper {
+  display: block;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_no_image .atbd_listing_thumbnail_area .atbd_lower_badge {
+  padding: 10px 20px;
+  position: static;
+  display: block;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_no_image .atbd_listing_thumbnail_area .atbd_lower_badge.atbd-no-spacing {
+  padding: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_no_image .atbd_listing_info {
+  border-left: 0 none;
+  border-right: 0 none;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area {
   margin: 0;
   position: relative;
@@ -4007,6 +4030,8 @@ span.atbd_get_loc_wid {
   z-index: 9999;
   text-align: center;
   min-width: 150px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
 .atbd_tooltip.atbd_tooltip_active[aria-label]:hover:before, .atbd_tooltip.atbd_tooltip_active[aria-label]:hover:after {
@@ -4028,6 +4053,34 @@ span.atbd_get_loc_wid {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_meta .atbd_listing_price {
   word-break: break-all;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.listing_preview_img_none .atbd_listing_image {
+  padding: 5px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.listing_preview_img_none .atbd_listing_image .atbd_author {
+  position: static;
+  transform: none;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.listing_preview_img_none .atbd_upper_badge,
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.listing_preview_img_none .atbd_lower_badge {
+  position: static;
+  padding: 5px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.listing_preview_img_none .atbd_listing_thumbnail_area {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: -5px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.listing_preview_img_none .atbd_listing_info {
+  border-left: 0;
+  border-right: 0;
 }
 
 .atbd_content_active .widget.atbd_widget[id^='bd'],

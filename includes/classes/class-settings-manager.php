@@ -28,10 +28,10 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 'use_util_menu' => true, // show import and export menu
                 'minimum_role' => 'manage_options',
                 'layout' => 'fixed',
-                'page_title' => __('Directory Settings', 'directorist'),
-                'menu_label' => __('Directory Settings', 'directorist'),
+                'page_title' => __('Settings', 'directorist'),
+                'menu_label' => __('Settings', 'directorist'),
                 'template' => array(
-                    'title' => __('Directory Settings', 'directorist'),
+                    'title' => __('Settings', 'directorist'),
                     'logo' => esc_url(ATBDP_ADMIN_ASSETS . 'images/settings_icon.png'),
                     'menus' => $this->get_settings_menus(),
                 ),
@@ -832,15 +832,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'label' => __('Linking Text', 'directorist'),
                     'default' => __('Privacy & Policy', 'directorist'),
                 ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'require_registration_privacy',
-                    'label' => __('Required', 'directorist'),
-                    'default' => 1,
-                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.
-
-', 'directorist'),
-                ),
             ));
         }
 
@@ -869,15 +860,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'name' => 'regi_terms_label_link',
                     'label' => __('Linking Text', 'directorist'),
                     'default' => __('terms & conditions', 'directorist'),
-                ),
-                array(
-                    'type' => 'toggle',
-                    'name' => 'require_regi_terms_conditions',
-                    'label' => __('Required', 'directorist'),
-                    'default' => 1,
-                    'description' => __('Here YES means users must agree to before submitting a listing from frontend.
-
-', 'directorist'),
                 ),
             ));
         }

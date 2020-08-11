@@ -15,11 +15,11 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
         public $enable_multiple_image = 0;
 
         public function __construct() {
+            add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
             add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
             // best hook to enqueue scripts for front-end is 'template_redirect'
             // 'Professional WordPress Plugin Development' by Brad Williams
             add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), -10 );
-            add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
             add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
 
         }
@@ -36,10 +36,12 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             wp_enqueue_script(
                 'wp-color-picker',
                 admin_url( 'js/color-picker.min.js' ),
-                array( 'iris' ),
+                array( 'iris', 'wp-i18n' ),
                 false,
                 1
             );
+            wp_enqueue_script( 'wp-color-picker' );
+
             $colorpicker_l10n = array(
                 'clear'         => __( 'Clear' ),
                 'defaultString' => __( 'Default' ),
@@ -141,6 +143,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
                 $data = array(
                     'nonce'          => wp_create_nonce( 'atbdp_nonce_action_js' ),
                     'ajaxurl'        => admin_url( 'admin-ajax.php' ),
+                    'import_page_link'      => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
                     'nonceName'      => 'atbdp_nonce_js',
                     'AdminAssetPath' => ATBDP_ADMIN_ASSETS,
                     'i18n_text'      => $i18n_text,
@@ -508,6 +511,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
     }
 
     public function add_listing_scripts_styles() {
+        wp_enqueue_script( 'wp-color-picker' );
         $select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
         wp_register_style( 'sweetalertcss', ATBDP_ADMIN_ASSETS . 'css/sweetalert.min.css', false, ATBDP_VERSION );
         wp_register_script( 'sweetalert', ATBDP_ADMIN_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -519,6 +523,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             'sweetalert',
             'jquery-ui-sortable',
             'select2script',
+            'wp-color-picker',
         );
 
         $disable_map     = get_directorist_option( 'display_map_field' );

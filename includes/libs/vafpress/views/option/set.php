@@ -5,8 +5,8 @@
         </div>
 
         <div style="margin: 1rem 0; flex-grow: 1; text-align: right">
-            <a target="_blank" href="https://directorist.com/documentation/directorist/" class="button button-primary">Documentation</a>
-            <a target="_blank" href="https://directorist.com/dashboard/#support" class="button button-primary">Support Forum</a>
+            <a target="_blank" href="https://directorist.com/documentation/directorist/" class="button button-secondery">Documentation</a>
+            <a target="_blank" href="https://directorist.com/dashboard/#support" class="button button-secondery">Support Forum</a>
         </div>
     </div>
 

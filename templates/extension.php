@@ -10,7 +10,7 @@
                     ?>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <div class="single_extension single_thm">
-                        <img src="https://directorist.com/wp-content/uploads/2017/08/directoria_theme_prev-1.jpg"
+                        <img src="https://directorist.com/wp-content/uploads/2017/08/directoria_theme_prev-1-360x230.jpg"
                              alt="Directoria">
 
                         <div class="extension_detail">
@@ -32,7 +32,7 @@
                     ?>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                         <div class="single_extension single_thm">
-                            <img src="https://directorist.com/wp-content/uploads/2019/08/dlist_prev_img-1.jpg"
+                            <img src="https://directorist.com/wp-content/uploads/2019/08/dlist_prev_img-1-360x230.jpg"
                                  alt="Direo">
 
                             <div class="extension_detail">
@@ -54,7 +54,7 @@
                 ?>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <div class="single_extension single_thm">
-                        <img src="https://directorist.com/wp-content/uploads/2019/11/DService.jpg"
+                        <img src="https://directorist.com/wp-content/uploads/2019/11/DService-360x230.jpg"
                              alt="dService">
 
                         <div class="extension_detail">

@@ -2901,23 +2901,24 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                     $display_address_field = get_directorist_option('display_address_field', 1);
                     $display_phone_field = get_directorist_option('display_phone_field', 1);
+                    $display_preview_image = get_directorist_option('display_preview_image', 1);
                     ?>
                     <div class="atbd_single_listing atbd_listing_list">
                         <article
                                 class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
-                            <figure class="atbd_listing_thumbnail_area"
-                                    style=" <?php echo (empty(get_directorist_option('display_preview_image')) || 'no' == $display_image) ? 'display:none' : '' ?>">
+                            <figure class="atbd_listing_thumbnail_area">
                                 <?php
                                 $disable_single_listing = get_directorist_option('disable_single_listing');
-                                if (empty($disable_single_listing)){
-                                ?>
-                                <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"<?php echo $thumbnail_link_attr; ?>>
-                                    <?php
+                                if($display_preview_image){
+                                    if (empty($disable_single_listing)){ ?>
+                                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"<?php echo $thumbnail_link_attr; ?>>
+                                        <?php
                                     }
                                     the_thumbnail_card();
                                     if (empty($disable_single_listing)) {
-                                        echo '</a>';
+                                            echo '</a>';
                                     }
+                                }
                                     //Start lower badge
                                     $l_badge_html = '<span class="atbd_lower_badge">';
                                     if ($featured && !empty($display_feature_badge_cart)) {
@@ -3630,50 +3631,64 @@ function bdas_dropdown_terms($args = array(), $echo = true)
 
 function atbdp_get_custom_field_ids($category = 0)
 {
+    $rq = [
+        'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+        'post_status'    => 'publish',
+        'posts_per_page' => -1,
+        'post__in'       => '',
+        'meta_query'     => array(
+            array(
+                'key'     => 'searchable',
+                'value'   => 1,
+                'type'    => 'NUMERIC',
+                'compare' => '='
+            ),
+        ),
+        'orderby' => 'meta_value_num',
+        'order'   => 'ASC',
+        'fields'  => 'ids',
+    ];
+    
     // Get global fields
     $args = array(
-        'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-        'post_status' => 'publish',
+        'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
+        'post_status'    => 'publish',
         'posts_per_page' => -1,
-        'fields' => 'ids',
-        'meta_query' => array(
+        'fields'         => 'ids',
+        'meta_query'     => array(
             array(
-                'key' => 'associate',
+                'key'   => 'associate',
                 'value' => 'form'
             ),
         )
     );
 
-    $field_ids = get_posts($args);
-
     // Get category fields
-    if ($category > 0) {
-
-        $args = array(
-            'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-            'post_status' => 'publish',
-            'posts_per_page' => -1,
-            'fields' => 'ids',
-            'meta_query' => array(
-                'relation' => 'AND',
-                array(
-                    'key' => 'category_pass',
-                    'value' => $category,
-                    'compare' => 'EXISTS',
-                ),
-                array(
-                    'key' => 'associate',
-                    'value' => 'categories',
-                    'compare' => 'LIKE',
-                )
+    if ( $category > 0 ) {
+        $args['meta_query'] = array(
+            'relation' => 'AND',
+            array(
+                'key'     => 'category_pass',
+                'value'   => $category,
+                'compare' => 'EXISTS',
+            ),
+            array(
+                'key'     => 'associate',
+                'value'   => 'categories',
+                'compare' => 'LIKE',
             )
         );
-
-        $category_fields = get_posts($args);
-        $field_ids = array_merge($field_ids, $category_fields);
-        $field_ids = array_unique($field_ids);
-
     }
+
+    $field_ids = ATBDP_Cache_Helper::get_the_transient([
+        'group'      => 'atbdp_custom_field_query',
+        'name'       => 'atbdp_custom_field_ids',
+        'query_args' => $args,
+        'cache'      => apply_filters( 'atbdp_cache_custom_field_ids', true ),
+        'value'      => function( $data ) {
+            return get_posts( $data['query_args'] );
+        }
+    ]);
 
     // Return
     if (empty($field_ids)) {
@@ -3681,6 +3696,7 @@ function atbdp_get_custom_field_ids($category = 0)
     }
 
     return $field_ids;
+
 }
 
 function get_advance_search_result_page_link()

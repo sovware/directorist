@@ -16,7 +16,7 @@ Create a classified website, business directory website like Yelp, Foursquare et
 
 Want to build an online directory of business listings similar to Yelp, Yellow-Pages or Tripadvisor on your WordPress site? Well, if the answer is **YES**, you have come to the right place. Directorist streamlines the process of creating powerful business directories or classified websites.
 
-[Live Demos](https://directorist.com/demos/) | [Documentation](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/product/category/themes/) | [Extensions](https://directorist.com/product/category/extensions/) | [Roadmap](https://directorist.com/roadmap/)
+[LIVE DEMO](https://directorist.com/demos/) | [DOCUMENTATION](https://directorist.com/documentation/directorist/) | [THEMES](https://directorist.com/product/category/themes/) | [EXTENSIONS](https://directorist.com/product/category/extensions/) | [SUPPORT](https://directorist.com/dashboard/)
 
 Meet our powerful **Directorist Business Directory** plugin, highly optimized that can scale to millions of listings ensuring the most dynamic experience of managing online directory business. Using Directorist, you can create lists of businesses based on the location, category, and other interests without writing a single line code. You can also make classified websites like a car selling a website, a booking site, a land selling website and what not!
 

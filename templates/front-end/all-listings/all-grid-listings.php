@@ -108,8 +108,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     $display_address_field = get_directorist_option('display_address_field', 1);
                     $display_phone_field = get_directorist_option('display_phone_field', 1);
                     $display_image = !empty($display_image) ? $display_image : '';
-                    $listing_preview_img = empty(get_directorist_option('display_preview_image', 1)) || 'no' == $display_image ? 'no' : 'yes';
-                    $prv_image = '';
+                    $listing_preview_img = empty(get_directorist_option('display_preview_image', 1)) || ('no' == $display_image) ? 'no' : 'yes';
                     if (!empty($listing_prv_img)) {
                         $prv_image_full = atbdp_get_image_source($listing_prv_img, 'full');
                     }
@@ -118,7 +117,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     }
                     $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
-                    $listing_preview_img_class = 'no' == $listing_preview_img || (empty($prv_image) && empty($default_image) && empty($gallery_img)) ? ' listing_preview_img_none' : '';
+                    $listing_preview_img_class = ('no' == $listing_preview_img) ? ' listing_preview_img_none' : '';
                     /*Code for Business Hour Extensions*/
                     $atbdp_column = apply_filters('atbdp_column_class','atbdp_column');
                     ?>

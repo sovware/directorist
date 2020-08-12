@@ -2901,8 +2901,9 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                     $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                     $display_address_field = get_directorist_option('display_address_field', 1);
                     $display_phone_field = get_directorist_option('display_phone_field', 1);
-                    $display_preview_image = get_directorist_option('display_preview_image', 1);
-                    $no_preview = $display_preview_image ? '' : 'atbd_listing_no_image';
+                    $display_image = !empty($display_image) ? $display_image : '';
+                    $listing_preview_img = empty(get_directorist_option('display_preview_image', 1)) || ('no' == $display_image) ? 'no' : 'yes';
+                    $no_preview =  ('no' == $listing_preview_img) ? ' listing_preview_img_none' : '';
                     ?>
                     <div class="atbd_single_listing atbd_listing_list <?php echo $no_preview; ?>">
                         <article
@@ -2910,7 +2911,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                             <figure class="atbd_listing_thumbnail_area">
                                 <?php
                                 $disable_single_listing = get_directorist_option('disable_single_listing');
-                                if($display_preview_image){
+                                if( 'yes' == $listing_preview_img ){
                                     if (empty($disable_single_listing)){ ?>
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"<?php echo $thumbnail_link_attr; ?>>
                                         <?php

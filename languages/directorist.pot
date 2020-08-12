@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2020-08-11 15:25+0600\n"
+"POT-Creation-Date: 2020-08-11 16:51+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
 "X-Poedit-Basepath: ..\n"
 "Language: en_US\n"
-"X-Generator: Poedit 2.2.4\n"
+"X-Generator: Poedit 2.3.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
 #: config.php:41
@@ -1830,7 +1830,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: includes/classes/class-seo.php:668
+#: includes/classes/class-seo.php:667
 #: includes/classes/class-shortcode.php:3302
 #: includes/classes/class-shortcode.php:3303
 #: includes/classes/class-shortcode.php:3311
@@ -1840,12 +1840,12 @@ msgstr ""
 msgid "%s"
 msgstr ""
 
-#: includes/classes/class-seo.php:669
+#: includes/classes/class-seo.php:668
 #, php-format
 msgid " %s %s "
 msgstr ""
 
-#: includes/classes/class-seo.php:670
+#: includes/classes/class-seo.php:669
 #, php-format
 msgid "%s %s"
 msgstr ""
@@ -7000,7 +7000,7 @@ msgid "Invalid template supplied"
 msgstr ""
 
 #: includes/libs/vafpress/classes/option.php:489
-msgid "Import/Export Settings"
+msgid "Settings Import/Export"
 msgstr ""
 
 #: includes/libs/vafpress/classes/option.php:495
@@ -7009,7 +7009,7 @@ msgid "Restore Default"
 msgstr ""
 
 #: includes/libs/vafpress/classes/option.php:504
-msgid "Export/Import Settings DATA"
+msgid "Settings Export/Import DATA"
 msgstr ""
 
 #: includes/libs/vafpress/classes/option/control/set.php:359
@@ -7142,43 +7142,27 @@ msgid ""
 "gone."
 msgstr ""
 
-#: includes/libs/vafpress/views/option/set.php:67
+#: includes/libs/vafpress/views/option/set.php:8
+msgid "Documentation"
+msgstr ""
+
+#: includes/libs/vafpress/views/option/set.php:9
+msgid "Support"
+msgstr ""
+
+#: includes/libs/vafpress/views/option/set.php:77
 msgid "Search settings here..."
 msgstr ""
 
-#: includes/libs/vafpress/views/option/set.php:74
-#: includes/libs/vafpress/views/option/set.php:91
+#: includes/libs/vafpress/views/option/set.php:84
+#: includes/libs/vafpress/views/option/set.php:101
 msgid "Saving Now"
 msgstr ""
 
-#: includes/libs/vafpress/views/option/set.php:76
-#: includes/libs/vafpress/views/option/set.php:90
+#: includes/libs/vafpress/views/option/set.php:86
+#: includes/libs/vafpress/views/option/set.php:100
 #: templates/front-end/user-dashboard.php:573
 msgid "Save Changes"
-msgstr ""
-
-#: includes/libs/vafpress/views/option/set.php:103
-msgid "1. Documentation"
-msgstr ""
-
-#: includes/libs/vafpress/views/option/set.php:104
-msgid "Click here"
-msgstr ""
-
-#: includes/libs/vafpress/views/option/set.php:104
-msgid "for the documentation."
-msgstr ""
-
-#: includes/libs/vafpress/views/option/set.php:106
-msgid "2. Support Forum"
-msgstr ""
-
-#: includes/libs/vafpress/views/option/set.php:107
-msgid "If you need any helps, please don't hesitate to post on our "
-msgstr ""
-
-#: includes/libs/vafpress/views/option/set.php:108
-msgid "support forum"
 msgstr ""
 
 #: includes/payments/class-order.php:51
@@ -8307,12 +8291,12 @@ msgstr ""
 #: templates/front-end/user-registration-form.php:120
 #: templates/front-end/user-registration-form.php:127
 #: templates/front-end/user-registration-form.php:134
-#: templates/front-end/user-registration-form.php:186
+#: templates/front-end/user-registration-form.php:187
 #, php-format
 msgid "%s "
 msgstr ""
 
-#: templates/front-end/user-registration-form.php:182
+#: templates/front-end/user-registration-form.php:183
 msgid "Password will be e-mailed to you."
 msgstr ""
 

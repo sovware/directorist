@@ -519,52 +519,62 @@ if (!class_exists('ATBDP_SEO')) :
 
         // atbdp_add_og_meta
         public function atbdp_add_og_meta() {
-            $seo_meta = $this->get_seo_meta_data();
-            $title = ( atbdp_yoast_is_active() ) ? $seo_meta['title'] : $seo_meta['title'] . ' | ' . $seo_meta['site_name'];
-
-            $og_metas = apply_filters( 'atbdp_og_metas', [
+            $seo_meta_data       = $this->get_seo_meta_data();
+            $og_metas = [
                 'site_name'   => [
                     'property' => 'og:site_name',
-                    'content'  => $seo_meta['site_name'],
+                    'content'  => '',
                 ],
                 'title' => [
                     'property' => 'og:title',
-                    'content'  =>  $title,
+                    'content'  =>  '',
                 ],
                 'description' => [
                     'property' => 'og:description',
-                    'content'  => $seo_meta['description'],
+                    'content'  => '',
                 ],
                 'url' => [
                     'property' => 'og:url',
-                    'content'  => $seo_meta['current_page'],
+                    'content'  => '',
                 ],
                 'image' => [
                     'property' => 'og:image',
-                    'content'  => $seo_meta['image'],
+                    'content'  => '',
                 ],
                 'twitter_card' => [
                     'name'    => 'twitter:card',
-                    'content' => 'summary_large_image',
+                    'content' => '',
                 ],
-            ]);
-
-            if ( atbdp_yoast_is_active() ) {
-                $og_metas['twitter_title'] = [
+                'twitter_title' => [
                     'property' => 'og:twitter_title',
-                    'content'  => $seo_meta['twitter_title'],
-                ];
-
-                $og_metas['twitter_description'] = [
+                    'content'  => '',
+                ],
+                'twitter_description' => [
                     'property' => 'og:twitter_description',
-                    'content'  => $seo_meta['twitter_description'],
-                ];
-
-                $og_metas['twitter_image'] = [
+                    'content'  => '',
+                ],
+                'twitter_image' => [
                     'property' => 'og:twitter_image',
-                    'content'  => $seo_meta['twitter_image'],
-                ];
+                    'content'  => '',
+                ]
+            ];
+
+            // Sync the data
+            foreach ( $seo_meta_data as $meta_key => $meta_value ) {
+                if ( ! empty( $og_metas[ $meta_key ] ) ) {
+                    $og_metas[ $meta_key ]['content'] = $seo_meta_data[ $meta_key ];
+                }
             }
+
+            if ( ! empty( $seo_meta_data['site_name'] ) && ! empty( $og_metas['title'] ) ) {
+                $site_name           = $seo_meta_data['site_name'];
+                $title               = $og_metas['title']['content'];
+
+                $title_has_site_name = preg_match( '/'. $site_name .'/', $title ) ;
+                $og_metas['title']['content'] = ( $title_has_site_name ) ? $title : $title . ' | ' . $site_name;
+            }
+
+            $og_metas = apply_filters( 'atbdp_og_metas', $og_metas );
 
             if ( empty( $og_metas ) || ! is_array( $og_metas ) ) {
                 return;
@@ -577,6 +587,7 @@ if (!class_exists('ATBDP_SEO')) :
                         $props .= "{$attr}='{$value}' ";
                     }
                 }
+
                 $props = trim( $props );
                 if ( ! empty( $props ) ) {
                     echo "<meta {$props} />\n";
@@ -772,25 +783,26 @@ if (!class_exists('ATBDP_SEO')) :
                 'url' => '', 'seo_meta' => [],
             ];
 
-            $args     = array_merge( $default, $args );
-            $seo_meta = $args['seo_meta'];
-            $url      = $args['url'];
+            $args       = array_merge( $default, $args );
+            $url        = $args['url'];
+            $seo_meta   = $args['seo_meta'];
+            $yoast_meta = YoastSEO()->meta->for_url( $url );
 
-            if ( empty( $args['url'] ) ) {
+            if ( empty( $yoast_meta ) ) {
                 return $seo_meta;
             }
 
-            $og_images = YoastSEO()->meta->for_url( $url )->open_graph_images;
+            // Image
+            $og_images = $yoast_meta->open_graph_images;
             $og_image  = ( ! empty( $og_images ) && is_array( $og_images ) ) ? reset( $og_images )['url'] : '';
 
             $yoast_seo_meta = [
-                'title'       => YoastSEO()->meta->for_url( $url )->open_graph_title,
-                'description' => YoastSEO()->meta->for_url( $url )->open_graph_description,
-                'image'       => $og_image,
-
-                'twitter_title'       => YoastSEO()->meta->for_url( $url )->twitter_title,
-                'twitter_description' => YoastSEO()->meta->for_url( $url )->twitter_description,
-                'twitter_image'       => YoastSEO()->meta->for_url( $url )->twitter_image,
+                'title'               => $yoast_meta->open_graph_title,
+                'description'         => $yoast_meta->open_graph_description,
+                'image'               => $og_image,
+                'twitter_title'       => $yoast_meta->twitter_title,
+                'twitter_description' => $yoast_meta->twitter_description,
+                'twitter_image'       => $yoast_meta->twitter_image,
             ];
 
             foreach ( $yoast_seo_meta as $yoast_meta_key => $yoast_meta_value  ) {

@@ -308,11 +308,14 @@ class ATBDP_Permalink{
         $link = '/';
 
         if ( atbdp_required_polylang_url() ) {
-            $page_settings = pll_get_post( $page_settings );
-            $link = get_permalink( $page_settings ) . "?category={$term->slug}";
-            return apply_filters('atbdp_single_category', $link);
-        }
+            $translation_page = pll_get_post( $page_settings );
 
+            if ( $translation_page ) {
+                $link = get_permalink( $translation_page ) . "?category={$term->slug}";
+                return apply_filters('atbdp_single_category', $link);
+            }
+        }
+        
         if ( $page_settings  ) {
             $link = get_permalink( $page_settings );
 
@@ -342,10 +345,14 @@ class ATBDP_Permalink{
         $link = '/';
 
         if ( atbdp_required_polylang_url() ) {
-            $page_settings = pll_get_post( $page_settings );
-            $link = get_permalink( $page_settings ) . "?location={$term->slug}";
-            return apply_filters('atbdp_single_location', $link);
+            $translation_page = pll_get_post( $page_settings );
+
+            if ( $translation_page ) {
+                $link = get_permalink( $translation_page ) . "?location={$term->slug}";
+                return apply_filters('atbdp_single_location', $link);
+            }
         }
+
 
         if( $page_settings  ) {
             $link = get_permalink( $page_settings );
@@ -377,10 +384,12 @@ class ATBDP_Permalink{
         $link = '/';
 
         if ( atbdp_required_polylang_url() ) {
-            $page_settings = pll_get_post( $page_settings );
-            $query_string = ( ! empty( $term ) ) ? "?tag={$term->slug}" : '';
-            $link = get_permalink( $page_settings ) . $query_string;
-            return apply_filters('atbdp_single_tag', $link);
+            $translation_page = pll_get_post( $page_settings );
+
+            if ( $translation_page ) {
+                $link = get_permalink( $translation_page ) . "?tag={$term->slug}";
+                return apply_filters('atbdp_single_tag', $link);
+            }
         }
 
         if ( $page_settings  ) {

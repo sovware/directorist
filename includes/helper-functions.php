@@ -18,6 +18,21 @@ if ( !function_exists('get_help') ) {
     }
 }
 
+if ( ! function_exists( 'atbdp_polylang_is_active' ) ) :
+    function atbdp_required_polylang_url() {
+        if ( class_exists('Polylang') ) {
+            $pll_current_language = pll_current_language();
+            $pll_default_language = pll_default_language();
+            
+            if ( $pll_current_language !== $pll_default_language ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+endif;
+
 
 if ( ! function_exists( 'atbdp_get_listing_order' ) ) :
     // atbdp_get_listing_order

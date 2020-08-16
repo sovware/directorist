@@ -85,6 +85,9 @@ class ATBDP_Enqueuer {
                 $admin_scripts_dependency[] = 'atbdp-google-map-admin';
             }
 
+            wp_register_style( 'leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/openstreet-map/leaflet.css');
+            wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
+            
             // Register all styles for the admin pages
             /*Public Common Asset: */
             wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION );
@@ -288,7 +291,7 @@ class ATBDP_Enqueuer {
         //listings data
         $review_approval = get_directorist_option( 'review_approval_text', __( 'Your review has been received. It requires admin approval to publish.', 'directorist' ) );
         $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 ); 
-        $data            = array(
+        $data = array(
             'nonce'                       => wp_create_nonce( 'atbdp_nonce_action_js' ),
             'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
             'ajaxurl'                     => admin_url( 'admin-ajax.php' ),

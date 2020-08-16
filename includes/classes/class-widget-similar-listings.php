@@ -38,19 +38,9 @@ if (!class_exists('BD_Similar_Listings_Widget')) {
                 $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Similar Listings', 'directorist');
                 $sim_listing_num = !empty($instance['sim_listing_num']) ? $instance['sim_listing_num'] : 5;
                 
-                $template_file = 'similar-listing.php';
-                $theme_template_file =  ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
-                $default_template_file = ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR . $template_file;
-
-                // Load theme template if exist
-                $theme_template = atbdp_get_theme_file( $theme_template_file );
-                if ( $theme_template ) {
-                    include $theme_template;
-                } 
-
-                // Load default template
-                if ( file_exists( $default_template_file ) ) {
-                    include $default_template_file;
+                $template_path = atbdp_get_widget_template_path( 'similar-listing' );
+                if ( file_exists( $template_path ) ) {
+                    include $template_path;
                 }
             }
         }

@@ -75,21 +75,10 @@ if ( !class_exists('BD_Search_Widget')) {
             $currency                = get_directorist_option('g_currency', 'USD');
             $c_symbol                = atbdp_currency_symbol($currency);
 
-            $template_file = 'search.php';
-            $theme_template_file =  ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
-            $default_template_file = ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR . $template_file;
-
-            // Load theme template if exist
-            $theme_template = atbdp_get_theme_file( $theme_template_file );
-            if ( $theme_template ) {
-                include $theme_template;
-            } 
-
-            // Load default template
-            if ( file_exists( $default_template_file ) ) {
-                include $default_template_file;
+            $template_path = atbdp_get_widget_template_path( 'search' );
+            if ( file_exists( $template_path ) ) {
+                include $template_path;
             }
-            
         }
 
         /**

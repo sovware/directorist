@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                 parent::__construct(
                     'bdco_widget', // Base ID
-                    esc_html__('Directorist - Custom Contact Form', 'directorist'), // Name
+                    esc_html__('Directorist - Contact Listing Owner', 'directorist'), // Name
                     $widget_options, // Args
                     'fdgfdg'
                 );
@@ -46,19 +46,9 @@ if ( ! defined( 'ABSPATH' ) ) {
                     if ($plan_permission) {
                         $title = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Contact Listing Owner', 'directorist');
                         
-                        $template_file = 'contact-listing-owner.php';
-                        $theme_template_file =  ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
-                        $default_template_file = ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR . $template_file;
-
-                        // Load theme template if exist
-                        $theme_template = atbdp_get_theme_file( $theme_template_file );
-                        if ( $theme_template ) {
-                            include $theme_template;
-                        } 
-
-                        // Load default template
-                        if ( file_exists( $default_template_file ) ) {
-                            include $default_template_file;
+                        $template_path = atbdp_get_widget_template_path( 'contact-listing-owner' );
+                        if ( file_exists( $template_path ) ) {
+                            include $template_path;
                         }
                     }
 

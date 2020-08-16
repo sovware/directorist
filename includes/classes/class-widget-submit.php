@@ -1,26 +1,22 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    die( '-1' );
-}
-
-if ( !class_exists('BD_All_Map_Widget')) {
+if (!class_exists('BD_Submit_Item_Widget')) {
     /**
-     * Adds BD_Map_Widget widget.
+     * Adds BD_Popular_Listing_Widget widget.
      */
-    class BD_All_Map_Widget extends WP_Widget {
-
-        /*
-         * register search widget
+    class BD_Submit_Item_Widget extends WP_Widget
+    {
+        /**
+         * Register widget with WordPress.
          */
-        public function __construct ()
+        function __construct ()
         {
             $widget_options = array(
                 'classname' => 'atbd_widget',
-                'description' => esc_html__('You can show all listings map by this widget', 'directorist'),
+                'description' => esc_html__('You can show submit listing button by this widget', 'directorist'),
             );
             parent::__construct(
-                'bdamw_widget', // Base ID
-                esc_html__('Directorist - Map', 'directorist'), // Name
+                'bdsb_widget', // Base ID
+                esc_html__('Directorist - Submit Listing', 'directorist'), // Name
                 $widget_options // Args
             );
         }
@@ -33,30 +29,23 @@ if ( !class_exists('BD_All_Map_Widget')) {
          * @param array $args Widget arguments.
          * @param array $instance Saved values from database.
          */
-        public function widget ($args, $instance)
+        public function widget($args, $instance)
         {
             $single_only  = !empty( $instance['single_only'] ) ? 1 : 0;
-
-            $template_file = 'map-all.php';
-            $theme_template_file =  ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
-            $default_template_file = ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR . $template_file;
-
-            // Load theme template if exist
-            $theme_template = atbdp_get_theme_file( $theme_template_file );
-            if ( $theme_template ) {
-                include $theme_template;
-            } 
-
-            // Load default template
-            include $default_template_file;
+            
+            $template_path = atbdp_get_widget_template_path( 'submit-listing' );
+            if ( file_exists( $template_path ) ) {
+                include $template_path;
+            }
 
             /* if(!empty($single_only)) {
                 if(is_singular(ATBDP_POST_TYPE)) {
-                    include ATBDP_TEMPLATES_DIR . "widget-templates/all-map.php";
+                    include ATBDP_TEMPLATES_DIR . "widget-templates/submit.php";
                 }
             } else {
-                include ATBDP_TEMPLATES_DIR . "widget-templates/all-map.php";
+                include ATBDP_TEMPLATES_DIR . "widget-templates/submit.php";
             } */
+
         }
 
         /**
@@ -67,24 +56,16 @@ if ( !class_exists('BD_All_Map_Widget')) {
          * @param array $instance Previously saved values from database.
          * @return void
          */
-        public function form ($instance)
+        public function form($instance)
         {
-            $title          = !empty($instance['title']) ? esc_html($instance['title']) : __( 'Map','directorist' );
-            $map_zoom_level = !empty($instance['zoom']) ? esc_html($instance['zoom']) : 10;
-            $single_only    = !empty($instance['single_only']) ? 1 : 0;
+            $title       = !empty($instance['title']) ? esc_html($instance['title']) : esc_html__('Submit a Listing', 'directorist');
+            $single_only = !empty($instance['single_only']) ? 1 : 0;
             ?>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_attr_e('Title:', 'directorist'); ?></label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
                        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
                        value="<?php echo esc_attr($title); ?>">
-            </p>
-
-            <p>
-                <label for="<?php echo esc_attr($this->get_field_id('zoom')); ?>"><?php esc_attr_e('Map zoom level:', 'directorist'); ?></label>
-                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('zoom')); ?>"
-                       name="<?php echo esc_attr($this->get_field_name('zoom')); ?>" type="number"
-                       value="<?php echo esc_attr($map_zoom_level); ?>">
             </p>
 
             <p>
@@ -106,13 +87,11 @@ if ( !class_exists('BD_All_Map_Widget')) {
          */
         public function update($new_instance, $old_instance)
         {
-            $instance                = array();
-            $instance['title']       = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
-            $instance['zoom']        = (!empty($new_instance['zoom'])) ? strip_tags($new_instance['zoom']) : '3';
+            $instance = array();
+            $instance['title'] = (!empty($new_instance['title'])) ? strip_tags($new_instance['title']) : '';
             $instance['single_only'] = (!empty($new_instance['single_only'])) ? 1 : 0;
 
             return $instance;
         }
     }
-
-} // end class exist
+}

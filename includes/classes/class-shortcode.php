@@ -64,7 +64,7 @@ class ATBDP_Shortcode {
 	}
 
 	public function listing_archive( $atts ) {
-		$listings = new Directorist_Listings($atts);
+		$listings = new Directorist_Listings( $atts );
 		return $listings->render_shortcode();
 	}
 

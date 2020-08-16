@@ -62,10 +62,10 @@ class Directorist_Listings {
 	public $view_as;
 	public $sort_by_items;
 	public $views;
-    //
+  //
 	public $location_placeholder;
 	public $locations_fields;
-    //
+  //
 	public $c_symbol;
 	public $popular_badge_text;
 	public $feature_badge_text;

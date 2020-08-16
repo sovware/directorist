@@ -1139,17 +1139,17 @@ class Directorist_Listings {
 	}
 
 	public function load_openstreet_map() {
-		$script_path = ATBDP_URL . 'public/assets/js/openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
+		$script_path = ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$opt = $this->get_map_options();
 
-		wp_enqueue_script('leaflet-subgroup-realworld');
-		wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $opt );
-		wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
+		// wp_enqueue_script('leaflet-subgroup-realworld');
+		wp_localize_script( 'leaflet-load-scripts', 'atbdp_map', $opt );
+		wp_localize_script( 'leaflet-load-scripts', 'atbdp_lat_lon', array(
 			'lat'=>40.7128,
 			'lon'=>74.0060,
 		));
 
-		$this->render_osm_map_info_card('leaflet-subgroup-realworld');
+		$this->render_osm_map_info_card( 'leaflet-load-scripts' );
 
 		$map_height = $this->listings_map_height . "px;";
 		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";

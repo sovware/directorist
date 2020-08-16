@@ -52,8 +52,8 @@ class ATBDP_Shortcode {
 		]);
 
 		// Register Shorcodes
-		foreach ( $shortcodes as $shortcodes => $callback ) {
-			add_shortcode( $shortcodes, $callback);
+		foreach ( $shortcodes as $shortcode => $callback ) {
+			add_shortcode( $shortcode, $callback);
 		}
 
     // Ajax

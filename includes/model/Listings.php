@@ -1593,7 +1593,7 @@ class Directorist_Listings {
 			$display_feature_badge_cart = get_directorist_option( 'display_feature_badge_cart', 1 ) ? true : false;
 			$feature_badge_text         = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
 
-			if ( $featured && $$display_feature_badge_cart ) {
+			if ( $featured && $display_feature_badge_cart ) {
 				$badge_html = '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text. '</span>';
 				return $content . $badge_html;
 			}

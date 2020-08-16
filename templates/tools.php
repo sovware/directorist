@@ -1,45 +1,59 @@
 <?php
+
 /**
- * @author AazzTech
+ * Admin View: listing import form
+ *
+ * @package directorist/Admin
  */
 
-defined( 'ABSPATH' ) || exit;
+if (!defined('ABSPATH')) {
+	exit;
+}
+$tabs = array('csv_import', 'csv_export');
+
+if (!empty($_GET['tab'])) {
+	$current_tab = $_GET['tab'];
+} else {
+	$current_tab = 'csv_import';
+}
+$url = admin_url() . 'edit.php?post_type=at_biz_dir&page=tools&tab=csv_import';
+$steps = isset($_GET['step']) ? sanitize_key($_GET['step']) : '';
 ?>
-
-<table class="widefat" cellspacing="0">
-	<thead>
-		<tr>
-			<th colspan="2"><h2><?php esc_html_e( 'Template Overrides', 'directorist' ); ?></h2></th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td><?php esc_html_e( 'Overrides', 'directorist' ); ?></td>
-			<td>
-				<?php
-				if ( ! empty( $theme_overrides ) ) {
-					$total_overrides = count( $theme_overrides );
-					foreach ($theme_overrides as $override) {
-						if ( $override['core_version'] && ( empty( $override['version'] ) || version_compare( $override['version'], $override['core_version'], '<' ) ) ) {
-							$current_version = $override['version'] ? $override['version'] : '-';
-
-							printf( __( '<code>%1$s</code> - This is version <strong style="color:red">%2$s</strong> which is out of date, core version is %3$s', 'directorist' ),
-								esc_html( $override['file'] ),
-								esc_html( $current_version ),
-								esc_html( $override['core_version'] )
-							);
-						}
-						else {
-							echo esc_html( $override['file'] );
-						}
-						echo '<br/>';
-					}
-				}
-				else {
-					esc_html_e( 'No templates have been overriden', 'directorist' );
-				}
-				?>
-			</td>
-		</tr>
-	</tbody>
-</table>
+<div class="csv-action-btns">
+	<a class="<?php echo 'csv_import' == $current_tab ? 'btn-active' : ''; ?>" href="<?php echo esc_url($url); ?>"><span class="dashicons dashicons-download"></span> <?php _ex('Import', 'admin csv', 'directorist'); ?></a>
+	<a class="<?php echo 'csv_export' == $current_tab ? 'btn-active' : ''; ?>" href="<?php echo esc_url(add_query_arg('tab', 'csv_export')); ?>"><span class="dashicons dashicons-upload"></span> <?php _ex('Export', 'admin csv', 'directorist'); ?></a>
+<?php if ('csv_import' == $current_tab) { ?>
+</div>
+<div class="csv-action-steps">
+	<ul>
+		<li class="<?php echo !$steps ? esc_attr('active') : ($steps > 1 ? esc_attr('done') : ''); ?>">
+			<span class="step"><span class="step-count">1</span> <span class="dashicons dashicons-yes"></span></span>
+			<span class="step-text"><?php _e('Upload CSV File', 'directorist'); ?></span>
+		</li>
+		<li class="atbdp-mapping-step <?php echo ('2' == $steps) ? esc_attr('active') : ($steps > 2 ? esc_attr('done') : ''); ?>">
+			<span class="step"><span class="step-count">2</span> <span class="dashicons dashicons-yes"></span></span>
+			<span class="step-text"><?php _e('Column Mapping', 'directorist'); ?></span>
+		</li>
+		<li class="atbdp-progress-step <?php echo  ($steps == 3) ? esc_attr('done') : ''; ?>">
+			<span class="step"><span class="step-count">3</span> <span class="dashicons dashicons-yes"></span></span>
+			<span class="step-text"><?php _e('Import', 'directorist'); ?></span>
+		</li>
+		<li class="<?php echo ('3' == $steps) ? esc_attr('active done') : ''; ?>">
+			<span class="step"><span class="step-count">4</span> <span class="dashicons dashicons-yes"></span></span>
+			<span class="step-text"><?php _e('Done', 'directorist'); ?></span>
+		</li>
+	</ul>
+</div>
+<?php }
+	if ('csv_import' == $current_tab) {
+		if (!$steps) {
+			ATBDP()->load_template('import-export/step-one');
+		} elseif ('2' == $steps) {
+			ATBDP()->load_template('import-export/step-two', $args);
+		} elseif ('3' == $steps) {
+			ATBDP()->load_template('import-export/step-done');
+		}
+	}
+	if ('csv_export' == $current_tab) {
+		ATBDP()->load_template('import-export/export');
+	} ?>

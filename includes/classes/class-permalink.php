@@ -21,12 +21,9 @@ class ATBDP_Permalink{
      */
     public static function get_search_result_page_link()
     {
-
         $link = home_url();
         $id = get_directorist_option('search_result_page'); // get the page id of the search page.
-        if( $id ) $link = get_permalink( $id );
-
-
+        if ( $id ) $link = get_permalink( $id );
 
         return apply_filters('atbdp_search_result_page_url', $link );
     }
@@ -93,7 +90,6 @@ class ATBDP_Permalink{
      */
     public static function get_registration_page_link($query_vars=array())
     {
-
         $link = home_url();
         $id = get_directorist_option('custom_registration'); // get the page id of the custom registration page.
         if( $id ) $link = get_permalink( $id );

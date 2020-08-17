@@ -230,11 +230,6 @@ class Directorist_Single_Listing {
 									'before' => '',
 									'after'  => '',
 								],
-								'directorist_related_listings' => [
-									'order'  => apply_filters( 'directorist_related_listings_order', 10 ),
-									'before' => '',
-									'after'  => '',
-								],
 							]);
 
 							// Sort the shortcodes

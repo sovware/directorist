@@ -172,17 +172,17 @@ class ATBDP_Shortcode {
 	}
 
 	public function add_listing($atts) {
-		$forms  = Directorist_Listing_Forms::instance();
+		$forms = Directorist_Listing_Forms::instance();
 		return $forms->render_shortcode_add_listing($atts);
 	}
 
 	public function user_registration() {
-		$forms  = Directorist_Listing_Forms::instance();
+		$forms = Directorist_Listing_Forms::instance();
 		return $forms->render_shortcode_custom_registration();
 	}
 
 	public function custom_user_login() {
-		$forms  = Directorist_Listing_Forms::instance();
+		$forms = Directorist_Listing_Forms::instance();
 		return $forms->render_shortcode_user_login();
 	}
 
@@ -193,7 +193,7 @@ class ATBDP_Shortcode {
 			$post_ID = !empty($_POST['post_id']) ? (int)$_POST['post_id'] : '';
 			$term_id = $_POST['term_id'];
 		}
-        // Get custom fields
+    // Get custom fields
 		$categories = !empty($term_id) ? $term_id : array();
 		$args = array(
 			'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,

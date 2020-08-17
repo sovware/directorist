@@ -25,7 +25,7 @@ class Directorist_Template_Hooks {
 		add_action( 'directorist_dashboard_navigation',       array( $dashboard, 'nav_buttons_template' ), 15 );
 		add_action( 'directorist_dashboard_tab_contents',     array( $dashboard, 'tab_contents_html' ) );
 
-        // Add Listing
+    // Add Listing
 		$forms = Directorist_Listing_Forms::instance();
 		add_action( 'directorist_add_listing_title',            array( $forms, 'add_listing_title_template' ) );
 		add_action( 'directorist_add_listing_contents',         array( $forms, 'add_listing_general_template' ) );

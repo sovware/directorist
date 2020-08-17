@@ -107,7 +107,7 @@ class ATBDP_Shortcode {
 	public function search_result($atts) {
 		$listings = new Directorist_Listings( $atts, 'search' );
 		return $listings->render_shortcode();
-        // @todo @kowsar 'Post_Your_Need' template file - atbdp_get_theme_file("/directorist/shortcodes/listings/extension/post-your-need/need-card.php")
+    // @todo @kowsar 'Post_Your_Need' template file - atbdp_get_theme_file("/directorist/shortcodes/listings/extension/post-your-need/need-card.php")
 	}
 
 	public function directorist_listing_header() {
@@ -158,7 +158,7 @@ class ATBDP_Shortcode {
 	public function directorist_related_listings() {
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_related_listings();
-        // @todo @kowsar filter=atbdp_related_listing_template in "Post Your Need" extention
+    // @todo @kowsar filter=atbdp_related_listing_template in "Post Your Need" extention
 	}
 
 	public function author_profile($atts) {

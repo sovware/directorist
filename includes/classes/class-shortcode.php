@@ -90,12 +90,12 @@ class ATBDP_Shortcode {
 	}
 
 	public function all_categories($atts) {
-		$taxonomy  = new Directorist_Listing_Taxonomy($atts, 'category');
+		$taxonomy = new Directorist_Listing_Taxonomy($atts, 'category');
 		return $taxonomy->render_shortcode();
 	}
 
 	public function all_locations($atts) {
-		$taxonomy  = new Directorist_Listing_Taxonomy($atts, 'location');
+		$taxonomy = new Directorist_Listing_Taxonomy($atts, 'location');
 		return $taxonomy->render_shortcode();
 	}
 

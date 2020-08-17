@@ -95,7 +95,7 @@
                                                 // show promotions if the featured is available
                                                 if ($featured_active && !$item['featured'] && !is_fee_manager_active()) { ?>
                                                     <div class="atbd_promote_btn_wrapper">
-                                                        <a href="<?php echo esc_url(ATBDP_Permalink::get_checkout_page_link($item['id'])) ?>" data-listing_id="<?php echo $post->ID; ?>" class="directory_btn btn btn-primary"><?php esc_html_e('Promote', 'directorist'); ?></a>
+                                                        <a href="<?php echo esc_url(ATBDP_Permalink::get_checkout_page_link($item['id'])) ?>" data-listing_id="<?php echo $item['id']; ?>" class="directory_btn btn btn-primary"><?php esc_html_e('Promote', 'directorist'); ?></a>
                                                     </div>
 	                                                <?php
 	                                            }

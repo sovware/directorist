@@ -252,7 +252,7 @@ class Directorist_Single_Listing {
 									$arg['before']( $id );
 								} 
 								
-								do_action( "{before_$shortcode_key}", $id );
+								do_action( "before_{$shortcode_key}", $id );
 
 								echo "[{$shortcode_key}]";
 
@@ -260,7 +260,7 @@ class Directorist_Single_Listing {
 									$shortcode['after']( $id );
 								} 
 								
-								do_action( "{after_$shortcode_key}", $id );
+								do_action( "after_{$shortcode_key}", $id );
 							}
 
 							$content = ob_get_clean();

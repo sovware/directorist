@@ -166,7 +166,104 @@ class Directorist_Single_Listing {
             	}
             }
             else {
-            	$content = '[directorist_listing_top_area][directorist_listing_tags][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]';
+							ob_start();
+							$single_listing_shortcodes = apply_filters( 'single_listing_shortcodes', [
+								'directorist_listing_top_area' => [
+									'order'  => apply_filters( 'directorist_listing_top_area_order', 0 ),
+									'before' => '',
+									'after'  => '',
+								],
+								'directorist_listing_tags' => [
+									'order'  => apply_filters( 'directorist_listing_tags_order', 1 ),
+									'before' => '',
+									'after'  => function() {
+										/**
+										 * Fires after the title and sub title of the listing is rendered on the single listing page
+										 *
+										 * @since 1.0.0
+										 */
+										do_action('atbdp_after_listing_tagline');
+									},
+								],
+								'directorist_listing_custom_fields' => [
+									'order'  => apply_filters( 'directorist_listing_custom_fields_order', 2 ),
+									'before' => '',
+									'after'  => '',
+								],
+								'directorist_listing_video' => [
+									'order'  => apply_filters( 'directorist_listing_video_order', 3 ),
+									'before' => '',
+									'after'  => '',
+								],
+								'directorist_listing_map' => [
+									'order'  => apply_filters( 'directorist_listing_map_order', 4 ),
+									'before' => '',
+									'after'  => '',
+								],
+								'directorist_listing_contact_information' => [
+									'order'  => apply_filters( 'directorist_listing_contact_information_order', 5 ),
+									'before' => '',
+									'after'  => '',
+								],
+								'directorist_listing_contact_owner' => [
+									'order'  => apply_filters( 'directorist_listing_contact_owner_order', 6 ),
+									'before' => '',
+									'after'  => function( $id ){
+										/**
+										* @since 5.0.5
+										*/
+										do_action('atbdp_after_contact_listing_owner_section', $id);
+									},
+								],
+								'directorist_listing_author_info' => [
+									'order'  => apply_filters( 'directorist_listing_author_info_order', 7 ),
+									'before' => '',
+									'after'  => '',
+								],
+								'directorist_listing_review' => [
+									'order'  => apply_filters( 'directorist_listing_review_order', 8 ),
+									'before' => '',
+									'after'  => '',
+								],
+								'directorist_related_listings' => [
+									'order'  => apply_filters( 'directorist_related_listings_order', 9 ),
+									'before' => '',
+									'after'  => '',
+								],
+								'directorist_related_listings' => [
+									'order'  => apply_filters( 'directorist_related_listings_order', 10 ),
+									'before' => '',
+									'after'  => '',
+								],
+							]);
+
+							// Sort the shortcodes
+							$sorted_shortcodes = [];
+							foreach ( $single_listing_shortcodes as $shortcode => $arg ) {
+								$sorted_shortcodes[$shortcode] = ( isset( $arg['order'] ) && is_numeric( $arg['order'] )  ) ? $arg['order'] : 0;
+							}
+							asort( $sorted_shortcodes );
+
+							// Print the sorted shortcodes
+							foreach ( $sorted_shortcodes as $shortcode_key => $value ) {
+								$shortcode = $single_listing_shortcodes[ $shortcode_key ];
+
+								if ( ! empty( $shortcode['before'] ) && is_callable( $shortcode['before'] )  ) {
+									$arg['before']( $id );
+								} 
+								
+								do_action( "{before_$shortcode_key}", $id );
+
+								echo "[{$shortcode_key}]";
+
+								if ( ! empty( $shortcode['after'] ) && is_callable( $shortcode['after'] )  ) {
+									$shortcode['after']( $id );
+								} 
+								
+								do_action( "{after_$shortcode_key}", $id );
+							}
+
+							$content = ob_get_clean();
             	$content = do_shortcode($content);
             }
 

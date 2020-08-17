@@ -27,10 +27,10 @@ class ATBDP_Cache_Helper {
         if ( false === $transient_value || true === $refresh ) {
             $transient_value = (string) time();
             set_transient( $transient_name, $transient_value );
-            self::log([ 
-                'title' => $transient_name, 
-                'content' => $transient_value 
-            ]);
+            // self::log([ 
+            //     'title' => $transient_name, 
+            //     'content' => $transient_value 
+            // ]);
         }
 
         return $transient_value;

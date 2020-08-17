@@ -117,7 +117,7 @@ class ATBDP_Checkout
             //displaying data for checkout
 
             $template = atbdp_get_shortcode_template_path( 'payment/checkout' );
-            $template = apply_filters( 'atbdp_payment_receipt_template_path', $template );
+            $template = apply_filters( 'atbdp_checkout_template_path', $template );
 
             if ( file_exists( $template ) ) {
                 include $template;
@@ -337,7 +337,7 @@ class ATBDP_Checkout
     {
         ob_start();
         $template = atbdp_get_shortcode_template_path( 'payment/transaction-failure' );
-        $template = apply_filters( 'atbdp_payment_receipt_template_path', $template );
+        $template = apply_filters( 'atbdp_transaction_failure_template_path', $template );
 
         if ( file_exists( $template ) ) {
             include $template;

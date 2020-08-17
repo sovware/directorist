@@ -253,9 +253,9 @@ class ATBDP_Shortcode {
 		$atbdp_query = new WP_Query($args);
 
 		if ($atbdp_query->have_posts()) {
-            // Start the Loop
+      // Start the Loop
 			global $post;
-            // Process output
+      // Process output
 			ob_start();
 			$include = apply_filters('include_style_settings', true);
 			include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';

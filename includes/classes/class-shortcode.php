@@ -249,7 +249,7 @@ class ATBDP_Shortcode {
             // Process output
 			ob_start();
 			$include = apply_filters('include_style_settings', true);
-			include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
+			include ATBDP_TEMPLATES_DIR . 'admin-templates/listing-form/add-listing-custom-field.php';
             wp_reset_postdata(); // Restore global post data stomped by the_post()
             $output = ob_get_clean();
 

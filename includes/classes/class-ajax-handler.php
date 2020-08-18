@@ -1175,7 +1175,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             // Process output
             ob_start();
-            require ATBDP_TEMPLATES_DIR . 'custom-field-search-form.php';
+            require ATBDP_TEMPLATES_DIR . 'custom-fields.php';
             wp_reset_postdata(); // Restore global post data stomped by the_post()
             $output = ob_get_clean();
 

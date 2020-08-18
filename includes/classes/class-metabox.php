@@ -94,7 +94,7 @@ class ATBDP_Metabox {
             // Process output
             ob_start();
 
-            include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
+            include ATBDP_TEMPLATES_DIR . 'admin-templates/listing-form/add-listing-custom-field.php';
             wp_reset_postdata(); // Restore global post data stomped by the_post()
             $output = ob_get_clean();
 
@@ -188,7 +188,7 @@ wp_reset_postdata();
 
         // add nonce security token
         wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
-        ATBDP()->load_template('add-listing', compact('listing_info') ); // load metabox view and pass data to it.
+        ATBDP()->load_template('admin-templates/listing-form/add-listing', compact('listing_info') ); // load metabox view and pass data to it.
     }
     /**
      * It displays meta box for listing contact information from the backend editor of ATBDP_POST_TYPE
@@ -216,7 +216,7 @@ wp_reset_postdata();
         $listing_contact_info['hide_contact_owner']      = get_post_meta($post->ID, '_hide_contact_owner', true);
         $listing_contact_info['id_itself']              = $post->ID;
 
-        ATBDP()->load_template('contact-info', compact('listing_contact_info') );
+        ATBDP()->load_template('admin-templates/listing-form/contact-info', compact('listing_contact_info') );
     }
     /**
      * It displays meta box for uploading image from the backend editor of ATBDP_POST_TYPE

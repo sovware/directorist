@@ -13,14 +13,13 @@ class ATBDP_Shortcode {
 			'directorist_category'    => [ $this, 'category_archive' ],
 			'directorist_tag'         => [ $this, 'tag_archive' ],
 			'directorist_location'    => [ $this, 'location_archive' ],
-			'directorist_location'    => [ $this, 'location_archive' ],
 			
 			// Taxonomy
 			'directorist_all_categories' => [ $this, 'all_categories' ],
 			'directorist_all_locations'  => [ $this, 'all_locations' ],
 
 			// Search
-			'directorist_search_listing' => [ $this, 'search_result' ],
+			'directorist_search_listing' => [ $this, 'search_listing' ],
 			'directorist_search_result'  => [ $this, 'search_result' ],
 
 			// Single
@@ -56,7 +55,7 @@ class ATBDP_Shortcode {
 			add_shortcode( $shortcode, $callback);
 		}
 
-    // Ajax
+    	// Ajax
 		add_action('wp_ajax_atbdp_custom_fields_listings_front',                 array($this, 'ajax_callback_custom_fields'), 10, 2);
 		add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front',          array($this, 'ajax_callback_custom_fields'), 10, 2);
 		add_action('wp_ajax_atbdp_custom_fields_listings_front_selected',        array($this, 'ajax_callback_custom_fields'), 10, 2);
@@ -107,7 +106,7 @@ class ATBDP_Shortcode {
 	public function search_result($atts) {
 		$listings = new Directorist_Listings( $atts, 'search' );
 		return $listings->render_shortcode();
-    // @todo @kowsar 'Post_Your_Need' template file - atbdp_get_theme_file("/directorist/shortcodes/listings/extension/post-your-need/need-card.php")
+    	// @todo @kowsar 'Post_Your_Need' template file - atbdp_get_theme_file("/directorist/shortcodes/listings/extension/post-your-need/need-card.php")
 	}
 
 	public function directorist_listing_header() {
@@ -158,7 +157,7 @@ class ATBDP_Shortcode {
 	public function directorist_related_listings() {
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_related_listings();
-    // @todo @kowsar filter=atbdp_related_listing_template in "Post Your Need" extention
+    	// @todo @kowsar filter=atbdp_related_listing_template in "Post Your Need" extention
 	}
 
 	public function author_profile($atts) {
@@ -193,7 +192,7 @@ class ATBDP_Shortcode {
 			$post_ID = !empty($_POST['post_id']) ? (int)$_POST['post_id'] : '';
 			$term_id = $_POST['term_id'];
 		}
-    // Get custom fields
+    	// Get custom fields
 		$categories = !empty($term_id) ? $term_id : array();
 		$args = array(
 			'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
@@ -253,9 +252,9 @@ class ATBDP_Shortcode {
 		$atbdp_query = new WP_Query($args);
 
 		if ($atbdp_query->have_posts()) {
-      // Start the Loop
+      		// Start the Loop
 			global $post;
-      // Process output
+      		// Process output
 			ob_start();
 			$include = apply_filters('include_style_settings', true);
 			include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';

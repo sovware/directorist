@@ -21,7 +21,8 @@ echo '</div>';
             }
             if (!empty($u_pro_pic)) { ?><img
                 src="<?php echo esc_url($u_pro_pic[0]); ?>"
-                alt="Avatar Image"><?php } ?></div>
+                alt="Avatar Image"><?php } ?>
+        </div>
         <div class="atbd_name_time">
             <h4><?php echo esc_html($author_name); ?></h4>
             <span class="review_time"><?php
@@ -112,3 +113,5 @@ echo '</div>';
         class="<?php echo atbdp_directorist_button_classes(); ?>"><?php _e('View Profile', 'directorist'); ?>
     </a>
 </div>
+
+<?php echo $args['after_widget']; ?> 

@@ -35,6 +35,25 @@ function atbdp_get_template( $template_file, $args = array() ) {
     include $file;
 }
 
+// atbdp_get_template_path
+function atbdp_get_template_path( $template_file ) {
+
+    $theme_template  = '/directorist/' . $template_file . '.php';
+    $plugin_template = ATBDP_TEMPLATES_DIR . 'public-templates/' . $template_file . '.php';
+
+    if ( file_exists( get_stylesheet_directory() . $theme_template ) ) {
+        $file = get_stylesheet_directory() . $theme_template;
+    } elseif ( file_exists( get_template_directory() . $theme_template ) ) {
+        $file = get_template_directory() . $theme_template;
+    } else {
+        $file = $plugin_template;
+    }
+
+    return $file;
+}
+
+
+
 // atbdp_get_shortcode_template
 function atbdp_get_shortcode_template( $template, $args = array() ) {
     $args = apply_filters( 'atbdp_shortcode_template_args', $args, $template );
@@ -42,11 +61,23 @@ function atbdp_get_shortcode_template( $template, $args = array() ) {
     atbdp_get_template( $template, $args );
 }
 
+// atbdp_get_shortcode_template_path
+function atbdp_get_shortcode_template_path( $template ) {
+    $template = 'shortcodes/' . $template;
+    return atbdp_get_template_path( $template);
+}
+
 // atbdp_get_widget_template
 function atbdp_get_widget_template( $template, $args = array() ) {
     $args = apply_filters( 'atbdp_widget_template_args', $args, $template );
     $template = 'widgets/' . $template;
     atbdp_get_template( $template, $args );
+}
+
+// atbdp_get_widget_template_path
+function atbdp_get_widget_template_path( $template ) {
+    $template = 'widgets/' . $template;
+    return atbdp_get_template_path( $template );
 }
 
 // atbdp_return_shortcode_template

@@ -116,11 +116,11 @@ class ATBDP_Checkout
             $symbol = atbdp_currency_symbol($currency);
             //displaying data for checkout
 
-            $path = atbdp_get_theme_file("/directorist/shortcodes/payment/checkout.php");
-            if ( $path ) {
-                include $path;
-            } else {
-                include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/payment/checkout.php";
+            $template = atbdp_get_shortcode_template_path( 'payment/checkout' );
+            $template = apply_filters( 'atbdp_checkout_template_path', $template );
+
+            if ( file_exists( $template ) ) {
+                include $template;
             }
         }
         return ob_get_clean();
@@ -154,6 +154,7 @@ class ATBDP_Checkout
             'order_id' => $order_id,
             'o_metas' => $meta,
         ));
+
         // we need to provide payment receipt shortcode with the order details array as we passed in the order checkout form page.
         $order_items = apply_filters('atbdp_order_items', array(), $order_id, $listing_id, $data); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
         // let's add featured listing data if the order has featured listing in it
@@ -171,20 +172,20 @@ class ATBDP_Checkout
         $data['order_items'] = $order_items;
 
         ob_start();
-        $data = !empty($args['data']) ? $args['data'] : array();
         extract($data);
         $c_position      = get_directorist_option('payment_currency_position');
         $currency        = atbdp_get_payment_currency();
         $symbol          = atbdp_currency_symbol($currency);
         $container_fluid = 'container-fluid';
-        $order_id = (!empty($order_id)) ? $order_id : '';
+        $order_id        = (!empty($order_id)) ? $order_id : '';
 
-        $path = atbdp_get_theme_file("/directorist/shortcodes/payment/payment-receipt.php");
-        if ( $path ) {
-            include $path;
-        } else {
-            include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/payment/payment-receipt.php";
+        $template = atbdp_get_shortcode_template_path( 'payment/payment-receipt' );
+        $template = apply_filters( 'atbdp_payment_receipt_template_path', $template );
+
+        if ( file_exists( $template ) ) {
+            include $template;
         }
+
         return ob_get_clean();
     }
 
@@ -335,12 +336,13 @@ class ATBDP_Checkout
     public function transaction_failure()
     {
         ob_start();
-        $path = atbdp_get_theme_file("/directorist/shortcodes/payment/transaction-failure.php");
-        if ( $path ) {
-            include $path;
-        } else {
-            include ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/payment/transaction-failure.php";
+        $template = atbdp_get_shortcode_template_path( 'payment/transaction-failure' );
+        $template = apply_filters( 'atbdp_transaction_failure_template_path', $template );
+
+        if ( file_exists( $template ) ) {
+            include $template;
         }
+
         return ob_get_clean();
     }
 } // ends class

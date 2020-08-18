@@ -57,19 +57,11 @@ if ( !class_exists('BD_Map_Widget')) {
                     $cat_icon                       = get_cat_icon($cats[0]->term_id);
                 }
                 $cat_icon = !empty($cat_icon) ? $fa_or_la . $cat_icon : 'fa fa-map-marker';
-                
-                $template_file = 'map-single.php';
-                $theme_template_file =  ATBDP_WIDGET_TEMPLATES_THEME_DIR . $template_file;
-                $default_template_file = ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR . $template_file;
 
-                // Load theme template if exist
-                $theme_template = atbdp_get_theme_file( $theme_template_file );
-                if ( $theme_template ) {
-                    include $theme_template;
-                } 
-
-                // Load default template
-                include $default_template_file;
+                $template_path = atbdp_get_widget_template_path( 'map-single' );
+                if ( file_exists( $template_path ) ) {
+                    include $template_path;
+                }
             }
         }
 

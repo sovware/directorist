@@ -62,10 +62,10 @@ class Directorist_Listings {
 	public $view_as;
 	public $sort_by_items;
 	public $views;
-    //
+  //
 	public $location_placeholder;
 	public $locations_fields;
-    //
+  //
 	public $c_symbol;
 	public $popular_badge_text;
 	public $feature_badge_text;
@@ -1016,15 +1016,27 @@ class Directorist_Listings {
 			return $redirect;
 		}
 
-		// Extention - Listings with Map @todo @kowsar
+
+
+		// if ( ! empty( $this->view ) ) {
+		// 	ob_start();
+		// 	$sanitize_view = preg_replace( '/[_]/', '-', $this->view );
+		// 	$extension_file = apply_filters( "atbdp_{$this->view}", $sanitize_view );
+
+		// 	// echo $sanitize_view;
+
+		// 	return ob_get_clean();
+		// }
+
+		/* // Extention - Listings with Map @todo @kowsar
 		if ( 'listings_with_map' == $this->view ) {
 			$template_file = "listing-with-map/map-view";
 			$extension_file = BDM_TEMPLATES_DIR . '/map-view';
 
 			ob_start();
-			// atbdp_get_shortcode_ext_template( $template_file, $extension_file, null, $this, true );
+			atbdp_get_shortcode_ext_template( $extension_file, null, $this, true );
 			return ob_get_clean();
-		}
+		} */
 
 		$template_file = "listings-archive/listings-{$this->view}";
 
@@ -1139,17 +1151,17 @@ class Directorist_Listings {
 	}
 
 	public function load_openstreet_map() {
-		$script_path = ATBDP_URL . 'public/assets/js/openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
+		$script_path = ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$opt = $this->get_map_options();
 
-		wp_enqueue_script('leaflet-subgroup-realworld');
-		wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_map', $opt );
-		wp_localize_script( 'leaflet-subgroup-realworld', 'atbdp_lat_lon', array(
+		// wp_enqueue_script('leaflet-subgroup-realworld');
+		wp_localize_script( 'leaflet-load-scripts', 'atbdp_map', $opt );
+		wp_localize_script( 'leaflet-load-scripts', 'atbdp_lat_lon', array(
 			'lat'=>40.7128,
 			'lon'=>74.0060,
 		));
 
-		$this->render_osm_map_info_card('leaflet-subgroup-realworld');
+		$this->render_osm_map_info_card( 'leaflet-load-scripts' );
 
 		$map_height = $this->listings_map_height . "px;";
 		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
@@ -1559,41 +1571,12 @@ class Directorist_Listings {
 			atbdp_get_shortcode_template( 'listings-archive/listings-header', array('listings' => $listings) );
 		}
 
-		public static function business_hours_badge( $content ) {
-			$plan_hours = true;
-			if (is_fee_manager_active()) {
-				$plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
-			}
-
-			$bdbh = get_post_meta( get_the_ID(), '_bdbh', true );
-			$business_hours = ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array();
-			$disable_bz_hour_listing = get_post_meta( get_the_ID(), '_disable_bz_hour_listing', true );
-			$enable247hour = get_post_meta( get_the_ID(), '_enable247hour', true );
-
-			$u_badge_html = '';
-			if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
-            // lets check is it 24/7
-				$open = get_directorist_option('open_badge_text', __('Open Now', 'directorist'));
-
-				if (!empty($enable247hour)) {
-					$u_badge_html .= ' <span class="atbd_badge atbd_badge_open">' . $open . '</span>';
-				}
-				else {
-					$bh_statement = BD_Business_Hour()->show_business_open_close($business_hours);
-					
-					return $content . "\n" . "$bh_statement";
-				}
-			}
-
-			return $content;
-		}
-
 		public static function featured_badge( $content ) {
 			$featured = get_post_meta( get_the_ID(), '_featured', true );
 			$display_feature_badge_cart = get_directorist_option( 'display_feature_badge_cart', 1 ) ? true : false;
 			$feature_badge_text         = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
 
-			if ( $featured && $$display_feature_badge_cart ) {
+			if ( $featured && $display_feature_badge_cart ) {
 				$badge_html = '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text. '</span>';
 				return $content . $badge_html;
 			}

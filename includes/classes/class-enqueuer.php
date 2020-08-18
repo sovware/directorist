@@ -1,199 +1,178 @@
 <?php
 
 if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
-    class ATBDP_Enqueuer {
-        /**
-         * Whether to enable multiple image upload feature on add listing page
-         *
-         * Default behavior is to not to show multiple image upload feature
-         * evaluated to true.
-         *
-         * @since 1.2.2
-         * @access public
-         * @var bool
-         */
-        public $enable_multiple_image = 0;
+class ATBDP_Enqueuer {
+    /**
+     * Whether to enable multiple image upload feature on add listing page
+     *
+     * Default behavior is to not to show multiple image upload feature
+     * evaluated to true.
+     *
+     * @since 1.2.2
+     * @access public
+     * @var bool
+     */
+    public $enable_multiple_image = 0;
 
-        public function __construct() {
-            add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
-            add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-            // best hook to enqueue scripts for front-end is 'template_redirect'
-            // 'Professional WordPress Plugin Development' by Brad Williams
-            add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), -10 );
-            add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
+    public function __construct() {
+        add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
+        add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+        // best hook to enqueue scripts for front-end is 'template_redirect'
+        // 'Professional WordPress Plugin Development' by Brad Williams
+        add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), -10 );
+        add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
 
-        }
+    }
 
-        public function custom_color_picker_scripts() {
-            wp_enqueue_style( 'wp-color-picker' );
-            wp_enqueue_script(
-                'iris',
-                admin_url( 'js/iris.min.js' ),
-                array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ),
-                false,
-                1
-            );
-            wp_enqueue_script(
-                'wp-color-picker',
-                admin_url( 'js/color-picker.min.js' ),
-                array( 'iris', 'wp-i18n' ),
-                false,
-                1
-            );
-            wp_enqueue_script( 'wp-color-picker' );
+    public function custom_color_picker_scripts() {
+        wp_enqueue_style( 'wp-color-picker' );
+        wp_enqueue_script(
+            'iris',
+            admin_url( 'js/iris.min.js' ),
+            array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ),
+            false,
+            1
+        );
+        wp_enqueue_script(
+            'wp-color-picker',
+            admin_url( 'js/color-picker.min.js' ),
+            array( 'iris', 'wp-i18n' ),
+            false,
+            1
+        );
+        wp_enqueue_script( 'wp-color-picker' );
 
-            $colorpicker_l10n = array(
-                'clear'         => __( 'Clear' ),
-                'defaultString' => __( 'Default' ),
-                'pick'          => __( 'Select Color' ),
-                'current'       => __( 'Current Color' ),
-            );
-            wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', $colorpicker_l10n );
+        $colorpicker_l10n = array(
+            'clear'         => __( 'Clear' ),
+            'defaultString' => __( 'Default' ),
+            'pick'          => __( 'Select Color' ),
+            'current'       => __( 'Current Color' ),
+        );
+        wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', $colorpicker_l10n );
 
-        }
+    }
 
-        public function admin_enqueue_scripts( $page ) {
-            if ( is_admin() ) {
-                wp_register_script( 'extension-update', ATBDP_ADMIN_ASSETS . 'js/extension-update.js', array( 'jquery' ), ATBDP_VERSION, true );
-                wp_enqueue_script( 'extension-update' );
-                if('at_biz_dir_page_tools' === $page){
-                    wp_register_script( 'atbdp-import-export', ATBDP_ADMIN_ASSETS . 'js/import-export.js', array( 'jquery' ), ATBDP_VERSION, true );
-                    wp_enqueue_script( 'atbdp-import-export' );
-                    $tool_data = array(
-                        'ajaxurl'        => admin_url( 'admin-ajax.php' ),
-                    );
-                    wp_localize_script( 'atbdp-import-export', 'import_export_data', $tool_data );
-                }
-            }
-            global $typenow;
-
-            if ( ATBDP_POST_TYPE == $typenow ) {
-                // make a list of dependency of admin script and then add to this list some other scripts using different conditions to handle different situation.
-                $admin_scripts_dependency = array(
-                    'jquery',
-                    'wp-color-picker',
-                    'sweetalert',
-                    'select2script',
-                    'bs-tooltip',
-                );
-                $disable_map = get_directorist_option( 'display_map_field' );
-                if ( ! empty( $disable_map ) ) {
-                    // get the map api from the user settings
-                    $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
-                    //Google map needs to be enqueued from google server with a valid API key. So, it is not possible to store map js file locally as this file will be unique for all users based on their MAP API key.
-                    wp_register_script( 'atbdp-google-map-admin', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
-                    $admin_scripts_dependency[] = 'atbdp-google-map-admin';
-                }
-
-                //Register all styles for the admin pages
-                /*Public Common Asset: */
-
-                wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION );
-                wp_register_style( 'atbdp-line-awesome', ATBDP_PUBLIC_ASSETS . 'css/line-awesome.min.css', false, ATBDP_VERSION );
-                wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS . 'css/sweetalert.min.css', false, ATBDP_VERSION );
-                wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS . 'css/select2.min.css', false, ATBDP_VERSION );
-                wp_register_style( 'atbdp-admin-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
-                wp_register_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', array( 'atbdp-line-awesome', 'atbdp-font-awesome', 'select2style' ), ATBDP_VERSION );
-                wp_register_style( 'atbdp-pluploadcss', ATBDP_ADMIN_ASSETS . 'css/directorist-plupload.min.css', array( 'atbdp-font-awesome', 'select2style' ), ATBDP_VERSION );
-
-                wp_register_script( 'sweetalert', ATBDP_PUBLIC_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
-
-                /*Public Common Asset: */
-                wp_register_script( 'select2script', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array( 'jquery' ), ATBDP_VERSION, true );
-                wp_register_script( 'popper', ATBDP_ADMIN_ASSETS . 'js/popper.min.js', array( 'jquery' ), ATBDP_VERSION, true );
-                wp_register_script( 'bs-tooltip', ATBDP_ADMIN_ASSETS . 'js/tooltip.js', array( 'jquery', 'popper' ), ATBDP_VERSION, true );
-                wp_register_script( 'atbdp-admin-script', ATBDP_ADMIN_ASSETS . 'js/main.js', $admin_scripts_dependency, ATBDP_VERSION, true );
-                wp_register_script( 'atbdp-plupload-min', ATBDP_ADMIN_ASSETS . 'js/directorist-plupload.min.js', array( 'jquery' ), ATBDP_VERSION );
-                wp_register_script( 'atbdp-plupload', ATBDP_ADMIN_ASSETS . 'js/directorist-plupload.js', array( 'atbdp-plupload-min', 'jquery-ui-datepicker' ), ATBDP_VERSION );
-                // Styles
-                //@todo; later minify the bootstrap
-                /*@todo; we can also load scripts and style using very strict checking like loading based on post.php or edit.php etc. For example, sweetalert should be included in the post.php file where the user will add/edit listing */
-                /* enqueue all styles*/
-
-                wp_enqueue_style( 'atbdp-admin-bootstrap-style' );
-                wp_enqueue_style( 'atbdp-font-awesome' );
-                wp_enqueue_style( 'atbdp-line-awesome' );
-                wp_enqueue_style( 'sweetalertcss' );
-                wp_enqueue_style( 'select2style' );
-                wp_enqueue_style( 'custom-colors' );
-                /* WP COLOR PICKER */
-                wp_enqueue_style( 'wp-color-picker' );
-
-                /* Enqueue all scripts */
-                //wp_enqueue_script('atbdp-bootstrap'); // maybe we do not need the bootstrap js in the admin panel at the moment.
-                wp_enqueue_script( 'sweetalert' );
-                if ( ! $disable_map ) {wp_enqueue_script( 'atbdp-google-map-admin' );}
-                wp_enqueue_script( 'select2script' );
-                wp_enqueue_script( 'atbdp-admin-script' );
-
-                // Internationalization text for javascript file especially add-listing.js
-                $i18n_text = array(
-                    'confirmation_text'       => __( 'Are you sure', 'directorist' ),
-                    'ask_conf_sl_lnk_del_txt' => __( 'Do you really want to remove this Social Link!', 'directorist' ),
-                    'confirm_delete'          => __( 'Yes, Delete it!', 'directorist' ),
-                    'deleted'                 => __( 'Deleted!', 'directorist' ),
-                    'icon_choose_text'        => __( 'Select an icon', 'directorist' ),
-                    'upload_image'            => __( 'Select or Upload Slider Image', 'directorist' ),
-                    'upload_cat_image'        => __( 'Select Category Image', 'directorist' ),
-                    'choose_image'            => __( 'Use this Image', 'directorist' ),
-                    'select_prv_img'          => __( 'Select Preview Image', 'directorist' ),
-                    'insert_prv_img'          => __( 'Insert Preview Image', 'directorist' ),
-                );
-                // is MI extension enabled and active?
-                $data = array(
-                    'nonce'          => wp_create_nonce( 'atbdp_nonce_action_js' ),
+    public function admin_enqueue_scripts( $page ) {
+        if ( is_admin() ) {
+            wp_register_script( 'extension-update', ATBDP_ADMIN_ASSETS . 'js/extension-update.js', array( 'jquery' ), ATBDP_VERSION, true );
+            wp_enqueue_script( 'extension-update' );
+            if('at_biz_dir_page_tools' === $page){
+                wp_register_script( 'atbdp-import-export', ATBDP_ADMIN_ASSETS . 'js/import-export.js', array( 'jquery' ), ATBDP_VERSION, true );
+                wp_enqueue_script( 'atbdp-import-export' );
+                $tool_data = array(
                     'ajaxurl'        => admin_url( 'admin-ajax.php' ),
-                    'import_page_link'      => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
-                    'nonceName'      => 'atbdp_nonce_js',
-                    'AdminAssetPath' => ATBDP_ADMIN_ASSETS,
-                    'i18n_text'      => $i18n_text,
                 );
-                wp_localize_script( 'atbdp-admin-script', 'atbdp_admin_data', $data );
-                wp_enqueue_media();
-
-            }
-
-            if ( ATBDP_CUSTOM_FIELD_POST_TYPE == $typenow ) {
-                wp_enqueue_style( 'atbdp-custom-field', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
-
-            }
-            // lets add a small stylesheet for order listing page
-            if (  ( ATBDP_ORDER_POST_TYPE || ATBDP_CUSTOM_FIELD_POST_TYPE ) == $typenow ) {
-                wp_enqueue_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', false, ATBDP_VERSION );
+                wp_localize_script( 'atbdp-import-export', 'import_export_data', $tool_data );
             }
         }
+        global $typenow;
 
-        /**
-         * It loads all scripts for front end if the current post type is our custom post type
-         * @param bool $force [optional] whether to load the style in the front end forcibly(even if the post type is not our custom post). It is needed for enqueueing file from a inside the short code call
-         */
-        public function front_end_enqueue_scripts( $force = false ) {
-            global $typenow, $post;
-            $select_listing_map       = get_directorist_option( 'select_listing_map', 'google' );
-            $front_scripts_dependency = array( 'jquery' );
-            $disable_map              = false;
-            if ( ! $disable_map ) {
-                if ( 'google' == $select_listing_map ) {
-                    // get the map api from the user settings
-                    $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
-                    //Google map needs to be enqueued from google server with a valid API key. So, it is not possible to store map js file locally as this file will be unique for all users based on their MAP API key.
-                    wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
-                    wp_register_script( 'atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array( 'atbdp-google-map-front' ) );
-                    $front_scripts_dependency[] = 'atbdp-google-map-front';
-                } elseif ( 'openstreet' == $select_listing_map ) {
-                wp_enqueue_style( 'leaf-style', ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/css/openstreet.css' );
-                wp_enqueue_script( 'unpkg', ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/unpkg-min.js' );
-                wp_enqueue_script( 'unpkg-index', ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/unpkg-index.js', array( 'unpkg' ) );
-                wp_enqueue_script( 'unpkg-libs', ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/unpkg-libs.js', array( 'unpkg-index' ) );
-                wp_enqueue_script( 'leaflet-versions', ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/leaflet-versions.js', array( 'unpkg-libs' ) );
-                wp_enqueue_script( 'markercluster-version', ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/leaflet.markercluster-versions.js', array( 'leaflet-versions' ) );
-                wp_enqueue_script( 'leaflet-setup', ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/libs-setup.js', array( 'markercluster-version' ) );
+        if ( ATBDP_POST_TYPE == $typenow ) {
+            // make a list of dependency of admin script and then add to this list some other scripts using different conditions to handle different situation.
+            $admin_scripts_dependency = array(
+                'jquery',
+                'wp-color-picker',
+                'sweetalert',
+                'select2script',
+                'bs-tooltip',
+            );
+            $disable_map = get_directorist_option( 'display_map_field' );
+            if ( ! empty( $disable_map ) ) {
+                // get the map api from the user settings
+                $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
+                //Google map needs to be enqueued from google server with a valid API key. So, it is not possible to store map js file locally as this file will be unique for all users based on their MAP API key.
+                wp_register_script( 'atbdp-google-map-admin', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
+                $admin_scripts_dependency[] = 'atbdp-google-map-admin';
             }
-        }
-        // Registration of all styles and js for the front end should be done here
-        // but the inclusion should be limited to the scope of the page user viewing.
-        // This way,  we can just enqueue any styles and scripts in side the shortcode or any other functions.
 
+            wp_register_style( 'leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/openstreet-map/leaflet.css');
+            wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
+            
+            // Register all styles for the admin pages
+            /*Public Common Asset: */
+            wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION );
+            wp_register_style( 'atbdp-line-awesome', ATBDP_PUBLIC_ASSETS . 'css/line-awesome.min.css', false, ATBDP_VERSION );
+            wp_register_style( 'sweetalertcss', ATBDP_PUBLIC_ASSETS . 'css/sweetalert.min.css', false, ATBDP_VERSION );
+            wp_register_style( 'select2style', ATBDP_PUBLIC_ASSETS . 'css/select2.min.css', false, ATBDP_VERSION );
+            wp_register_style( 'atbdp-admin-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
+            wp_register_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', array( 'atbdp-line-awesome', 'atbdp-font-awesome', 'select2style' ), ATBDP_VERSION );
+            wp_register_style( 'atbdp-pluploadcss', ATBDP_ADMIN_ASSETS . 'css/directorist-plupload.min.css', array( 'atbdp-font-awesome', 'select2style' ), ATBDP_VERSION );
+
+            wp_register_script( 'sweetalert', ATBDP_PUBLIC_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
+
+            /*Public Common Asset: */
+            wp_register_script( 'select2script', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array( 'jquery' ), ATBDP_VERSION, true );
+            wp_register_script( 'popper', ATBDP_ADMIN_ASSETS . 'js/popper.min.js', array( 'jquery' ), ATBDP_VERSION, true );
+            wp_register_script( 'bs-tooltip', ATBDP_ADMIN_ASSETS . 'js/tooltip.js', array( 'jquery', 'popper' ), ATBDP_VERSION, true );
+            wp_register_script( 'atbdp-admin-script', ATBDP_ADMIN_ASSETS . 'js/main.js', $admin_scripts_dependency, ATBDP_VERSION, true );
+            wp_register_script( 'atbdp-plupload-min', ATBDP_ADMIN_ASSETS . 'js/directorist-plupload.min.js', array( 'jquery' ), ATBDP_VERSION );
+            wp_register_script( 'atbdp-plupload', ATBDP_ADMIN_ASSETS . 'js/directorist-plupload.js', array( 'atbdp-plupload-min', 'jquery-ui-datepicker' ), ATBDP_VERSION );
+            // Styles
+            //@todo; later minify the bootstrap
+            /*@todo; we can also load scripts and style using very strict checking like loading based on post.php or edit.php etc. For example, sweetalert should be included in the post.php file where the user will add/edit listing */
+            /* enqueue all styles*/
+
+            wp_enqueue_style( 'atbdp-admin-bootstrap-style' );
+            wp_enqueue_style( 'atbdp-font-awesome' );
+            wp_enqueue_style( 'atbdp-line-awesome' );
+            wp_enqueue_style( 'sweetalertcss' );
+            wp_enqueue_style( 'select2style' );
+            wp_enqueue_style( 'custom-colors' );
+            /* WP COLOR PICKER */
+            wp_enqueue_style( 'wp-color-picker' );
+
+            /* Enqueue all scripts */
+            //wp_enqueue_script('atbdp-bootstrap'); // maybe we do not need the bootstrap js in the admin panel at the moment.
+            wp_enqueue_script( 'sweetalert' );
+            if ( ! $disable_map ) {wp_enqueue_script( 'atbdp-google-map-admin' );}
+            wp_enqueue_script( 'select2script' );
+            wp_enqueue_script( 'atbdp-admin-script' );
+
+            // Internationalization text for javascript file especially add-listing.js
+            $i18n_text = array(
+                'confirmation_text'       => __( 'Are you sure', 'directorist' ),
+                'ask_conf_sl_lnk_del_txt' => __( 'Do you really want to remove this Social Link!', 'directorist' ),
+                'confirm_delete'          => __( 'Yes, Delete it!', 'directorist' ),
+                'deleted'                 => __( 'Deleted!', 'directorist' ),
+                'icon_choose_text'        => __( 'Select an icon', 'directorist' ),
+                'upload_image'            => __( 'Select or Upload Slider Image', 'directorist' ),
+                'upload_cat_image'        => __( 'Select Category Image', 'directorist' ),
+                'choose_image'            => __( 'Use this Image', 'directorist' ),
+                'select_prv_img'          => __( 'Select Preview Image', 'directorist' ),
+                'insert_prv_img'          => __( 'Insert Preview Image', 'directorist' ),
+            );
+            // is MI extension enabled and active?
+            $data = array(
+                'nonce'          => wp_create_nonce( 'atbdp_nonce_action_js' ),
+                'ajaxurl'        => admin_url( 'admin-ajax.php' ),
+                'import_page_link'      => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
+                'nonceName'      => 'atbdp_nonce_js',
+                'AdminAssetPath' => ATBDP_ADMIN_ASSETS,
+                'i18n_text'      => $i18n_text,
+            );
+            wp_localize_script( 'atbdp-admin-script', 'atbdp_admin_data', $data );
+            wp_enqueue_media();
+
+        }
+
+        if ( ATBDP_CUSTOM_FIELD_POST_TYPE == $typenow ) {
+            wp_enqueue_style( 'atbdp-custom-field', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
+
+        }
+        // lets add a small stylesheet for order listing page
+        if (  ( ATBDP_ORDER_POST_TYPE || ATBDP_CUSTOM_FIELD_POST_TYPE ) == $typenow ) {
+            wp_enqueue_style( 'atbdp-admin', ATBDP_ADMIN_ASSETS . 'css/style.css', false, ATBDP_VERSION );
+        }
+    }
+
+    /**
+     * It loads all scripts for front end if the current post type is our custom post type
+     * @param bool $force [optional] whether to load the style in the front end forcibly(even if the post type is not our custom post). It is needed for enqueueing file from a inside the short code call
+     */
+    public function front_end_enqueue_scripts( $force = false ) {
+        global $typenow, $post;
+        $select_listing_map       = get_directorist_option( 'select_listing_map', 'google' );
+        $front_scripts_dependency = array( 'jquery' );
         // @Todo; make unminified css minified then enqueue them.
         wp_register_style( 'atbdp-bootstrap-style', ATBDP_PUBLIC_ASSETS . 'css/bootstrap.css', false, ATBDP_VERSION );
         wp_register_style( 'atbdp-bootstrap-style-rtl', ATBDP_PUBLIC_ASSETS . 'css/bootstrap-rtl.css', false, ATBDP_VERSION );
@@ -223,14 +202,31 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
 
         wp_register_script( 'atbdp_media_uploader', ATBDP_PUBLIC_ASSETS . 'js/ez-media-uploader.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_enqueue_script( 'atbdp_media_uploader' );
-
-        wp_register_script('openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
-        wp_register_style('leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/leaflet.css');
-
+        
         wp_register_script( 'atbdp-plasma-slider-script', ATBDP_PUBLIC_ASSETS . 'js/plasma-slider.js', null, ATBDP_VERSION, true );
+        
+        // Open Street Map
+        wp_register_style( 'leaf-style', ATBDP_PUBLIC_ASSETS . 'css/openstreet-map/openstreet.css' );
+        wp_register_style( 'leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/openstreet-map/leaflet.css');
+        wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
+        wp_register_script( 'unpkg', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/unpkg-min.js' );
+        wp_register_script( 'unpkg-index', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/unpkg-index.js', array( 'unpkg' ) );
+        wp_register_script( 'unpkg-libs', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/unpkg-libs.js', array( 'unpkg-index' ) );
+        wp_register_script( 'leaflet-versions', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/leaflet-versions.js', array( 'unpkg-libs' ) );
+        wp_register_script( 'markercluster-version', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/leaflet.markercluster-versions.js', array( 'leaflet-versions' ) );
+        wp_register_script( 'leaflet-setup', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/libs-setup.js', array( 'markercluster-version' ) );
+        wp_register_script( 'atbdp_open_street', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/openlayers/OpenLayers.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'atbdp_open_street_src', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/openlayers4jgsi/Crosshairs.js', array( 'jquery' ), ATBDP_VERSION, true );
+        wp_register_script( 'leaflet-load-scripts', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/load-scripts.js', array(), ATBDP_VERSION, true );
+        
+        // Google map
+        $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
+        wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
+        wp_register_script( 'atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array( 'atbdp-google-map-front' ) );
+        
+        wp_register_script( 'atbdp-uikit-grid', ATBDP_PUBLIC_ASSETS . 'js/grid.min.js', array( 'jquery', 'atbdp-uikit' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-rating', ATBDP_PUBLIC_ASSETS . 'js/jquery.barrating.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-uikit', ATBDP_PUBLIC_ASSETS . 'js/uikit.min.js', array( 'jquery' ), ATBDP_VERSION, true );
-        wp_register_script( 'atbdp-uikit-grid', ATBDP_PUBLIC_ASSETS . 'js/grid.min.js', array( 'jquery', 'atbdp-uikit' ), ATBDP_VERSION, true );
         wp_register_script( 'sweetalert', ATBDP_PUBLIC_ASSETS . 'js/sweetalert.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-user-dashboard', ATBDP_PUBLIC_ASSETS . 'js/user-dashboard.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'select2script', ATBDP_PUBLIC_ASSETS . 'js/select2.min.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -241,8 +237,6 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
         wp_register_script( 'loc_cat_assets', ATBDP_PUBLIC_ASSETS . 'js/loc_cat.js', array( 'jquery' ), ATBDP_VERSION, true );
         $modal_dependency = apply_filters( 'atbdp_modal_dependency', array( 'jquery' ) );
         wp_register_script( 'at_modal', ATBDP_PUBLIC_ASSETS . 'js/atmodal.js', $modal_dependency, ATBDP_VERSION, true );
-        wp_register_script( 'atbdp_open_street', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers/OpenLayers.js', array( 'jquery' ), ATBDP_VERSION, true );
-        wp_register_script( 'atbdp_open_street_src', ATBDP_PUBLIC_ASSETS . 'openstreet/openlayers4jgsi/Crosshairs.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-plupload-min', ATBDP_ADMIN_ASSETS . 'js/directorist-plupload.min.js', array( 'jquery' ), ATBDP_VERSION );
         wp_register_script( 'atbdp-plupload', ATBDP_ADMIN_ASSETS . 'js/directorist-plupload.js', array( 'atbdp-plupload-min' ), ATBDP_VERSION );
         wp_register_script( 'atbdp-geolocation', ATBDP_PUBLIC_ASSETS . 'js/geolocation.js', array( 'jquery' ), ATBDP_VERSION );
@@ -253,9 +247,6 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
 
         wp_register_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js', array(), ATBDP_VERSION, true );
 
-        wp_register_script( 'leaflet-load-scripts', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/load-scripts.js', array(), ATBDP_VERSION, true );
-        wp_register_script( 'leaflet-subgroup-realworld', ATBDP_URL . 'public/assets/js/openstreet-map/_subGroup-markercluster-controlLayers-realworld.388.js');
-        
         wp_register_script( 'atbdp-map-view', ATBDP_PUBLIC_ASSETS . 'js/map-view.js' );
         wp_register_script( 'atbdp-range-slider-rtl', ATBDP_PUBLIC_ASSETS . 'js/range-slider-rtl.js', array(), ATBDP_VERSION, true );
 
@@ -265,11 +256,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
         wp_enqueue_script( 'select2script' );
         wp_enqueue_script( 'atbdp_validator' );
         wp_enqueue_script( 'at_modal' );
-        $disable_map = get_directorist_option( 'display_map_field' );
-        if ( ! empty( $disable_map ) ) {
-            wp_enqueue_script( 'atbdp_open_street' );
-            wp_enqueue_script( 'atbdp_open_street_src' );
-        }
+        
         /* Enqueue all styles*/
         if ( is_rtl() ) {
             wp_enqueue_style( 'atbdp-bootstrap-style-rtl' );
@@ -292,10 +279,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
         wp_enqueue_script( 'atbdp-bootstrap-script' );
         wp_enqueue_script( 'atbdp-rating' );
         wp_enqueue_script( 'atbdp-plasma-slider-script' );
-        if ( ! empty( $disable_map ) && 'google' == $select_listing_map ) {
-            wp_enqueue_script( 'atbdp-google-map-front' );
-            wp_enqueue_script( 'atbdp-markerclusterer' );
-        }
+        
         wp_enqueue_script( 'atbdp-uikit' );
         wp_enqueue_script( 'atbdp-uikit-grid' );
         wp_enqueue_script( 'atbdp_slick_slider' );
@@ -303,13 +287,11 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
         wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_script( 'wp-color-picker' );
 
-        wp_register_script( 'leaflet-subgroup-realworld', ATBDP_URL . 'templates/front-end/all-listings/maps/openstreet/js/subGroup-merkercluster-controlLayers-realworld.388.js' );
-
+    
         //listings data
-
         $review_approval = get_directorist_option( 'review_approval_text', __( 'Your review has been received. It requires admin approval to publish.', 'directorist' ) );
         $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 ); 
-        $data            = array(
+        $data = array(
             'nonce'                       => wp_create_nonce( 'atbdp_nonce_action_js' ),
             'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
             'ajaxurl'                     => admin_url( 'admin-ajax.php' ),

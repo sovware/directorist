@@ -21,12 +21,9 @@ class ATBDP_Permalink{
      */
     public static function get_search_result_page_link()
     {
-
         $link = home_url();
         $id = get_directorist_option('search_result_page'); // get the page id of the search page.
-        if( $id ) $link = get_permalink( $id );
-
-
+        if ( $id ) $link = get_permalink( $id );
 
         return apply_filters('atbdp_search_result_page_url', $link );
     }
@@ -93,7 +90,6 @@ class ATBDP_Permalink{
      */
     public static function get_registration_page_link($query_vars=array())
     {
-
         $link = home_url();
         $id = get_directorist_option('custom_registration'); // get the page id of the custom registration page.
         if( $id ) $link = get_permalink( $id );
@@ -304,11 +300,19 @@ class ATBDP_Permalink{
      */
     public static function atbdp_get_category_page( $term ) {
 
-        $page_settings =  get_directorist_option('single_category_page');
-
+        $page_settings = get_directorist_option('single_category_page');
         $link = '/';
 
-        if( $page_settings  ) {
+        if ( atbdp_required_polylang_url() ) {
+            $translation_page = pll_get_post( $page_settings );
+
+            if ( $translation_page ) {
+                $link = get_permalink( $translation_page ) . "?category={$term->slug}";
+                return apply_filters('atbdp_single_category', $link);
+            }
+        }
+        
+        if ( $page_settings  ) {
             $link = get_permalink( $page_settings );
 
             if( '' != get_option( 'permalink_structure' ) ) {
@@ -334,13 +338,22 @@ class ATBDP_Permalink{
     public static function atbdp_get_location_page( $term ) {
 
         $page_settings =  get_directorist_option('single_location_page');
-
         $link = '/';
+
+        if ( atbdp_required_polylang_url() ) {
+            $translation_page = pll_get_post( $page_settings );
+
+            if ( $translation_page ) {
+                $link = get_permalink( $translation_page ) . "?location={$term->slug}";
+                return apply_filters('atbdp_single_location', $link);
+            }
+        }
+
 
         if( $page_settings  ) {
             $link = get_permalink( $page_settings );
 
-            if( '' != get_option( 'permalink_structure' ) ) {
+            if ( '' != get_option( 'permalink_structure' ) ) {
                 $link = user_trailingslashit( trailingslashit( $link ) . $term->slug );
 
             } else {
@@ -362,18 +375,28 @@ class ATBDP_Permalink{
      */
     public static function atbdp_get_tag_page( $term ) {
 
-        $page_settings =  get_directorist_option('single_tag_page');
+        $page_settings = get_directorist_option('single_tag_page');
 
         $link = '/';
 
-        if( $page_settings  ) {
+        if ( atbdp_required_polylang_url() ) {
+            $translation_page = pll_get_post( $page_settings );
+
+            if ( $translation_page ) {
+                $link = get_permalink( $translation_page ) . "?tag={$term->slug}";
+                return apply_filters('atbdp_single_tag', $link);
+            }
+        }
+
+        if ( $page_settings  ) {
             $link = get_permalink( $page_settings );
+            $slug = ( ! empty( $term ) ) ? $term->slug : '';
 
             if( '' != get_option( 'permalink_structure' ) ) {
-                $link = user_trailingslashit( trailingslashit( $link ) . $term->slug );
+                $link = user_trailingslashit( trailingslashit( $link ) . $slug );
 
             } else {
-                $link = add_query_arg( 'atbdp_tag', $term->slug, $link );
+                $link = add_query_arg( 'atbdp_tag', $slug, $link );
             }
         }
 

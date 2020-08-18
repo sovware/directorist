@@ -293,7 +293,7 @@ class Directorist_Listing_Forms {
 
 		$p_id = $this->get_add_listing_id();
 
-		if (!empty($p_id)) {
+		if ( ! empty( $p_id ) ) {
 			$listing_info['never_expire'] = get_post_meta($p_id, '_never_expire', true);
 			$listing_info['featured'] = get_post_meta($p_id, '_featured', true);
 			$listing_info['listing_type'] = get_post_meta($p_id, '_listing_type', true);

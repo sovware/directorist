@@ -18,6 +18,21 @@ if ( !function_exists('get_help') ) {
     }
 }
 
+if ( ! function_exists( 'atbdp_polylang_is_active' ) ) :
+    function atbdp_required_polylang_url() {
+        if ( class_exists('Polylang') ) {
+            $pll_current_language = pll_current_language();
+            $pll_default_language = pll_default_language();
+            
+            if ( $pll_current_language !== $pll_default_language ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+endif;
+
 
 if ( ! function_exists( 'atbdp_get_listing_order' ) ) :
     // atbdp_get_listing_order
@@ -2464,25 +2479,32 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                         $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
                         $display_address_field = get_directorist_option('display_address_field', 1);
                         $display_phone_field = get_directorist_option('display_phone_field', 1);
+                        $display_image = !empty($display_image) ? $display_image : '';
+                        $listing_preview_img = empty(get_directorist_option('display_preview_image', 1)) || ('no' == $display_image) ? 'no' : 'yes';
+                        $listing_preview_img_class = ('no' == $listing_preview_img) ? ' listing_preview_img_none' : '';
                         ?>
                         <div class="related_single_carousel" style="margin: 0 10px;">
-                            <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; ?>">
+                            <div class="atbd_single_listing atbd_listing_card 
+                            <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; 
+                            echo esc_html($listing_preview_img_class);
+                            ?>">
                                 <article
                                         class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
-                                    <figure class="atbd_listing_thumbnail_area"
-                                            style=" <?php echo empty(get_directorist_option('display_preview_image', 1)) ? 'display:none' : '' ?>">
+                                    <figure class="atbd_listing_thumbnail_area">
                                         <div class="atbd_listing_image">
                                             <?php
                                             $disable_single_listing = get_directorist_option('disable_single_listing');
-                                            if (empty($disable_single_listing)){
-                                            ?>
-                                            <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
-                                                <?php
-                                                }
+                                            if ('yes' == $listing_preview_img) {
+                                                if (empty($disable_single_listing)){
+                                                ?>
+                                                <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
+                                                    <?php
+                                                    }
                                                 the_thumbnail_card();
                                                 if (empty($disable_single_listing)) {
                                                     echo '</a>';
                                                 }
+                                            }
                                                 if (!empty($display_author_image)) {
                                                     $author = get_userdata($author_id);
                                                     $class = !empty($author->first_name && $author->last_name)?'atbd_tooltip':'';
@@ -2903,7 +2925,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                     $display_phone_field = get_directorist_option('display_phone_field', 1);
                     $display_image = !empty($display_image) ? $display_image : '';
                     $listing_preview_img = empty(get_directorist_option('display_preview_image', 1)) || ('no' == $display_image) ? 'no' : 'yes';
-                    $no_preview =  ('no' == $listing_preview_img) ? ' listing_preview_img_none' : '';
+                    $no_preview =  ('no' == $listing_preview_img) ? ' atbd_listing_no_image' : '';
                     ?>
                     <div class="atbd_single_listing atbd_listing_list <?php echo $no_preview; ?>">
                         <article
@@ -2911,7 +2933,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                             <figure class="atbd_listing_thumbnail_area">
                                 <?php
                                 $disable_single_listing = get_directorist_option('disable_single_listing');
-                                if( 'yes' == $listing_preview_img ){
+                                if('yes' == $listing_preview_img){
                                     if (empty($disable_single_listing)){ ?>
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"<?php echo $thumbnail_link_attr; ?>>
                                         <?php

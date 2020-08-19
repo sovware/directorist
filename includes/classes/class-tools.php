@@ -251,7 +251,7 @@
 
         public function render_tools_submenu_page()
         {
-            ATBDP()->load_template('tools',  array('data' => csv_get_data($this->file, false, $this->delimiter), 'fields' => $this->importable_fields()));
+            ATBDP()->load_template('admin-templates/tools',  array('data' => csv_get_data($this->file, false, $this->delimiter), 'fields' => $this->importable_fields()));
         }
     }
 

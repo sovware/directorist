@@ -616,7 +616,7 @@ class SetupWizard
 
     public function directorist_step_three()
     {
-        $dummy_csv = ATBDP_URL . 'templates/import-export/data/dummy.csv';
+        $dummy_csv = ATBDP_URL . 'templates/admin-templates/import-export/data/dummy.csv';
     ?>
         <div class="atbdp-c-header">
             <h1><?php _e( 'Import Dummy Data', 'directorist' ); ?></h1>

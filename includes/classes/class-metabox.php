@@ -227,7 +227,7 @@ wp_reset_postdata();
 
         $listing_img= get_post_meta($post->ID, '_listing_img', true);
         $listing_prv_img= get_post_meta($post->ID, '_listing_prv_img', true);?>
-        <div id="directorist" class="directorist atbd_wrapper"><?php  ATBDP()->load_template('media-upload', compact('listing_img', 'listing_prv_img') );?></div>
+        <div id="directorist" class="directorist atbd_wrapper"><?php  ATBDP()->load_template('admin-templates/listing-form/media-upload', compact('listing_img', 'listing_prv_img') );?></div>
 
    <?php }
 

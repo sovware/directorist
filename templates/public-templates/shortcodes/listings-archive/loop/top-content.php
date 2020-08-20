@@ -5,9 +5,8 @@
  * @version 7.0
  */
 ?>
-
 <?php if ($listings->display_title || $listings->enable_tagline || $listings->display_review || $listings->display_price): ?>
-
+	<!-- listings-archive > loop > top-content -->
 	<div class="atbd_content_upper">
 
 		<?php do_action( "atbdp_{$listings->view}_view_before_title" );?>

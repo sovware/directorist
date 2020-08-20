@@ -5,7 +5,7 @@
  * @version 7.0
  */
 ?>
-
+<!-- listings-archive > loop > card -->
 <div class="atbd_listing_image">
 	
 	<?php
@@ -21,7 +21,6 @@
 <?php
 /**
  * @since 5.0
- * @hooked Directorist_Listings::business_hours_badge - 10
  */
 ?>
 <span class="atbd_upper_badge bh_only"><?php echo apply_filters('atbdp_upper_badges', '');?></span>

@@ -5,6 +5,7 @@
  * @version 7.0
  */
 ?>
+<!-- listings-archive > loop > card -->
 <div class="atbd_single_listing atbd_listing_card">
 	<article class="atbd_single_listing_wrapper <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
 		

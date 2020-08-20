@@ -838,7 +838,7 @@ jQuery(function ($) {
     }
 
     //Display form tagline
-    var lf_opt18 = $("#tagline_label,#display_tagline_for");
+    var lf_opt18 = $("#tagline_label,#display_tagline_for,#tagline_placeholder");
     lf_opt18.hide();
     $('input[name="display_tagline_field"]').on("change", function () {
         if($(this).is(":checked") === true){

@@ -3689,19 +3689,20 @@ function atbdp_get_custom_field_ids($category = 0)
 
     // Get category fields
     if ( $category > 0 ) {
-        $args['meta_query'] = array(
+        $args['meta_query']['relation'] = 'OR';
+        $args['meta_query']['category_clause'] = [
             'relation' => 'AND',
-            array(
+            [
                 'key'     => 'category_pass',
                 'value'   => $category,
                 'compare' => 'EXISTS',
-            ),
-            array(
+            ],
+            [
                 'key'     => 'associate',
                 'value'   => 'categories',
                 'compare' => 'LIKE',
-            )
-        );
+            ]
+        ];
     }
 
     $field_ids = ATBDP_Cache_Helper::get_the_transient([

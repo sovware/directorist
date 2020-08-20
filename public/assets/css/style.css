@@ -1038,6 +1038,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin: 0;
   padding: 0;
   justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 #directorist.atbd_wrapper .pagination .nav-links .current, #directorist.atbd_wrapper .pagination .nav-links .page-numbers {
@@ -1720,6 +1723,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   align-items: center;
   justify-content: center;
   position: relative;
+  top: -11px;
 }
 
 .atbd_map_shape:before {

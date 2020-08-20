@@ -53,6 +53,8 @@ if (!class_exists('ATBDP_Cron')) :
             $this->update_expired_listing_status();  // we will send expired notification here
             $this->send_renewal_reminders(); // we will send renewal notification after expiration here
             $this->delete_expired_listings(); // we will delete listings here certain days after expiration here.
+            // for additional development
+            do_action('atbdp_schedule_check');
         }
         /**
          * @since 5.0.1

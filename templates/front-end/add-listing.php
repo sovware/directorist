@@ -690,7 +690,7 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                                         <?php
                                         $category = wp_get_object_terms($p_id, ATBDP_CATEGORY, array('fields' => 'ids'));
                                         $selected_category = count($category) ? $category[0] : -1;
-                                        $current_val = get_the_terms($p_id, ATBDP_CATEGORY);;
+                                        $current_val = get_the_terms($p_id, ATBDP_CATEGORY);
                                         $ids = array();
                                         if (!empty($current_val)) {
                                             foreach ($current_val as $single_val) {

@@ -1016,27 +1016,15 @@ class Directorist_Listings {
 			return $redirect;
 		}
 
-
-
-		// if ( ! empty( $this->view ) ) {
-		// 	ob_start();
-		// 	$sanitize_view = preg_replace( '/[_]/', '-', $this->view );
-		// 	$extension_file = apply_filters( "atbdp_{$this->view}", $sanitize_view );
-
-		// 	// echo $sanitize_view;
-
-		// 	return ob_get_clean();
-		// }
-
-		/* // Extention - Listings with Map @todo @kowsar
-		if ( 'listings_with_map' == $this->view ) {
-			$template_file = "listing-with-map/map-view";
-			$extension_file = BDM_TEMPLATES_DIR . '/map-view';
-
+		// Extension Templating
+		$core_view = [ 'grid', 'list', 'map' ];
+		if ( ! empty( $this->view ) && ! in_array(  $this->view, $core_view ) ) {
 			ob_start();
-			atbdp_get_shortcode_ext_template( $extension_file, null, $this, true );
+
+			atbdp_get_shortcode_ext_template( $this->view, '', array('listings' => $this) );
+			
 			return ob_get_clean();
-		} */
+		}
 
 		$template_file = "listings-archive/listings-{$this->view}";
 

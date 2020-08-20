@@ -5,7 +5,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-$download_link = ATBDP_URL .'templates/import-export/data/dummy.csv';
+$download_link = ATBDP_URL .'templates/admin-templates/import-export/data/dummy.csv';
 ?>
 <div class="csv-wrapper">
 	<div class="csv-center csv-export">

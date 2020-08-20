@@ -47,13 +47,13 @@ $steps = isset($_GET['step']) ? sanitize_key($_GET['step']) : '';
 <?php }
 	if ('csv_import' == $current_tab) {
 		if (!$steps) {
-			ATBDP()->load_template('import-export/step-one');
+			ATBDP()->load_template('admin-templates/import-export/step-one');
 		} elseif ('2' == $steps) {
-			ATBDP()->load_template('import-export/step-two', $args);
+			ATBDP()->load_template('admin-templates/import-export/step-two', $args);
 		} elseif ('3' == $steps) {
-			ATBDP()->load_template('import-export/step-done');
+			ATBDP()->load_template('admin-templates/import-export/step-done');
 		}
 	}
 	if ('csv_export' == $current_tab) {
-		ATBDP()->load_template('import-export/export');
+		ATBDP()->load_template('admin-templates/import-export/export');
 	} ?>

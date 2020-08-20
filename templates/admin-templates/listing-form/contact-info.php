@@ -230,7 +230,7 @@ $info_content .= "<p> {$ad}</p></div>";
              **/
             do_action('atbdp_edit_before_social_info_fields', 'add_listing_page_backend', $args['listing_contact_info']);
             if(!empty($display_social_info_field)) {
-                ATBDP()->load_template('meta-partials/social', array('social_info' => $social_info));
+                ATBDP()->load_template('admin-templates/listing-form/social', array('social_info' => $social_info));
             }
             /**
     * It fires after social information fields

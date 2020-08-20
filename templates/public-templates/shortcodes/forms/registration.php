@@ -109,11 +109,7 @@
                                 if (!empty(get_directorist_option('registration_privacy',1))) {
                                     ?>
                                     <div class="atbd_privacy_policy_area directory_regi_btn">
-                                        <?php
-                                        if (get_directorist_option('require_registration_privacy') == 1) {
-                                            printf('<span class="atbdp_make_str_red"> *</span>');
-                                        }
-                                        ?>
+                                       <span class="atbdp_make_str_red"> *</span>
                                         <input id="privacy_policy" type="checkbox"
                                                name="privacy_policy" <?php if (!empty($privacy_policy)) if ('on' == $privacy_policy) {
                                             echo 'checked';
@@ -128,11 +124,7 @@
                                 if (!empty(get_directorist_option('regi_terms_condition',1))) {
                                     ?>
                                     <div class="atbd_term_and_condition_area directory_regi_btn">
-                                        <?php
-                                        if (get_directorist_option('require_regi_terms_conditions') == 1) {
-                                            printf('<span class="atbdp_make_str_red"> *</span>');
-                                        }
-                                        ?>
+                                        <span class="atbdp_make_str_red"> *</span>
                                         <input id="listing_t" type="checkbox"
                                                name="t_c_check" <?php if (!empty($t_c_check)) if ('on' == $t_c_check) {
                                             echo 'checked';

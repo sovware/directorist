@@ -20,10 +20,8 @@ if ( !defined('ATBDP_MODEL_DIR') ) { define('ATBDP_MODEL_DIR', ATBDP_DIR.'includ
 if ( !defined('ATBDP_LIB_DIR') ) { define('ATBDP_LIB_DIR', ATBDP_DIR.'includes/libs/'); }
 // Plugin Template Path
 if ( !defined('ATBDP_TEMPLATES_DIR') ) { define('ATBDP_TEMPLATES_DIR', ATBDP_DIR.'templates/'); }
-
 if ( !defined('ATBDP_SHORTCODE_TEMPLATES_THEME_DIR') ) { define( 'ATBDP_SHORTCODE_TEMPLATES_THEME_DIR', '/directorist/shortcodes/' ); }
 if ( !defined('ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR') ) { define( 'ATBDP_SHORTCODE_TEMPLATES_DEFAULT_DIR', ATBDP_TEMPLATES_DIR . "public-templates/shortcodes/" ); }
-
 if ( !defined('ATBDP_WIDGET_TEMPLATES_THEME_DIR') ) { define( 'ATBDP_WIDGET_TEMPLATES_THEME_DIR', '/directorist/widgets/' ); }
 if ( !defined('ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR') ) { define( 'ATBDP_WIDGET_TEMPLATES_DEFAULT_DIR', ATBDP_TEMPLATES_DIR . "public-templates/widgets/" ); }
 

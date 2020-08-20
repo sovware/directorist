@@ -94,7 +94,7 @@ class ATBDP_Metabox {
             // Process output
             ob_start();
 
-            include ATBDP_TEMPLATES_DIR . 'add-listing-custom-field.php';
+            include ATBDP_TEMPLATES_DIR . 'admin-templates/listing-form/add-listing-custom-field.php';
             wp_reset_postdata(); // Restore global post data stomped by the_post()
             $output = ob_get_clean();
 
@@ -188,7 +188,7 @@ wp_reset_postdata();
 
         // add nonce security token
         wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
-        ATBDP()->load_template('add-listing', compact('listing_info') ); // load metabox view and pass data to it.
+        ATBDP()->load_template('admin-templates/listing-form/add-listing', compact('listing_info') ); // load metabox view and pass data to it.
     }
     /**
      * It displays meta box for listing contact information from the backend editor of ATBDP_POST_TYPE
@@ -216,7 +216,7 @@ wp_reset_postdata();
         $listing_contact_info['hide_contact_owner']      = get_post_meta($post->ID, '_hide_contact_owner', true);
         $listing_contact_info['id_itself']              = $post->ID;
 
-        ATBDP()->load_template('contact-info', compact('listing_contact_info') );
+        ATBDP()->load_template('admin-templates/listing-form/contact-info', compact('listing_contact_info') );
     }
     /**
      * It displays meta box for uploading image from the backend editor of ATBDP_POST_TYPE
@@ -227,7 +227,7 @@ wp_reset_postdata();
 
         $listing_img= get_post_meta($post->ID, '_listing_img', true);
         $listing_prv_img= get_post_meta($post->ID, '_listing_prv_img', true);?>
-        <div id="directorist" class="directorist atbd_wrapper"><?php  ATBDP()->load_template('media-upload', compact('listing_img', 'listing_prv_img') );?></div>
+        <div id="directorist" class="directorist atbd_wrapper"><?php  ATBDP()->load_template('admin-templates/listing-form/media-upload', compact('listing_img', 'listing_prv_img') );?></div>
 
    <?php }
 
@@ -279,7 +279,7 @@ wp_reset_postdata();
         $default_expire_in_days = !empty($default_expire_in_days) ? $default_expire_in_days : '';
         // load the meta fields
         $data = compact('f_active', 'never_expire', 'expiry_date', 'featured', 'listing_status', 'default_expire_in_days');
-        ATBDP()->load_template('meta-partials/expiration-featured-fields', array('data'=> $data));
+        ATBDP()->load_template('admin-templates/listing-form/expiration-featured-fields', array('data'=> $data));
     }
 
     /**

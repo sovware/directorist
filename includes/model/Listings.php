@@ -154,6 +154,9 @@ class Directorist_Listings {
 		$this->defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
 		$this->params    = shortcode_atts( $this->defaults, $this->atts );
 
+		$this->params['listings_map_height'] = ( ! empty( $this->params['listings_map_height'] ) ) ? $this->params['listings_map_height'] : $this->defaults['map_height'];
+
+
 		$this->view                     = atbdp_get_listings_current_view_name( $this->params['view'] );
 		$this->_featured                = $this->params['_featured'];
 		$this->filterby                 = $this->params['filterby'];

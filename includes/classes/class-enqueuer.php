@@ -404,7 +404,8 @@ class ATBDP_Enqueuer {
             'directorist_add_listing',
             'directorist_listing_map',
         ]);
-
+        
+        $map_is_required = true;
         if ( $map_is_required || $is_single_listing_page ) {
             if ( 'openstreet' === $map_type ) {
                 wp_enqueue_style('leaflet-css');

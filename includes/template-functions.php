@@ -52,6 +52,32 @@ function atbdp_get_template_path( $template_file ) {
     return $file;
 }
 
+// atbdp_get_shortcode_ext_template
+function atbdp_get_shortcode_ext_template( string $extension_key = '',  $file_path = '', $data = [] ) {
+    $extension_base_dir  = preg_replace( '/[_]/', '-', $extension_key );
+    $extension_dir_path  = trailingslashit( apply_filters( "atbdp_ext_dir_path_{$extension_key}", "" ) ) ;
+    $extension_file_path = ( ! empty( $file_path ) ) ? $file_path : apply_filters( "atbdp_ext_file_path_{$extension_key}", $extension_base_dir );
+
+    $template_file      = "";
+    $extension_template = "{$extension_dir_path}{$extension_file_path}.php";
+    $theme_template     = get_stylesheet_directory() . "/directorist/extensions/{$extension_base_dir}/{$extension_file_path}.php";
+
+    if ( file_exists( $extension_template ) ) {
+        $template_file = $extension_template;
+    }
+
+    if ( file_exists( $theme_template ) ) {
+        $template_file = $theme_template;
+    }
+
+    if ( file_exists( $template_file ) ) {
+        if ( is_array( $data ) ) {
+            extract( $data );
+        }
+
+        include $template_file;
+    }
+}
 
 
 // atbdp_get_shortcode_template

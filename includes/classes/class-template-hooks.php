@@ -10,7 +10,6 @@ class Directorist_Template_Hooks {
 	protected static $instance = null;
 
 	private function __construct() {
-		die;
     // Author Profile
 		$author = Directorist_Listing_Author::instance();
 		add_action( 'directorist_author_profile_content', array( $author, 'header_template' ) );

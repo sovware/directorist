@@ -6,7 +6,6 @@
 // Start the Loop
 $allow_decimal = get_directorist_option('allow_decimal', 1);
  if ( ! empty( $custom_fields ) ) : 
-
     // Prime caches to reduce future queries.
     if ( is_callable( '_prime_post_caches' ) ) {
         _prime_post_caches( $custom_fields );

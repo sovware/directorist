@@ -1018,19 +1018,39 @@ class Directorist_Listings {
 			return $redirect;
 		}
 
-		// Extension Templating
-		$core_view = [ 'grid', 'list', 'map' ];
-		if ( ! empty( $this->view ) && ! in_array(  $this->view, $core_view ) ) {
-			ob_start();
-		
-			atbdp_get_shortcode_ext_template( $this->view, '', array('listings' => $this) );
-			
+		$old_listings = ( ! empty( $GLOBALS['listings_data'] ) ) ? $GLOBALS['listings_data'] : null;
+		$GLOBALS['listings'] = $this;
+
+		// Manage templating compatibility for old extension
+		$has_old_ext_template = $this->manage_old_ext_templating_compatibility();
+		if ( $has_old_ext_template ) {
+			var_dump( $has_old_ext_template );
+			include $has_old_ext_template;
+
 			return ob_get_clean();
 		}
 
+		// Load the template
 		$template_file = "listings-archive/listings-{$this->view}";
+		atbdp_get_shortcode_template( $template_file, array('listings' => $this), 'listings_archive' );
 
-		return atbdp_return_shortcode_template( $template_file, array('listings' => $this) );
+		$GLOBALS['listings'] = $old_listings;
+
+		return ob_get_clean();
+	}
+
+	public function manage_old_ext_templating_compatibility() {
+		if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.1', '<=' ) ) {
+			if ( 'listings_with_map' === $this->view ) {
+				$file = trailingslashit( BDM_TEMPLATES_DIR ) . "map-view.php";
+
+				if ( file_exists( $file ) ) {
+					return $file;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	public function setup_loop( array $args = [] ) {

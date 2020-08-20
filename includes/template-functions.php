@@ -32,7 +32,10 @@ function atbdp_get_template( $template_file, $args = array() ) {
         $file = $plugin_template;
     }
 
-    include $file;
+
+    if ( file_exists( $file ) ) {
+        include $file;
+    }
 }
 
 // atbdp_get_template_path
@@ -52,19 +55,14 @@ function atbdp_get_template_path( $template_file ) {
     return $file;
 }
 
-// atbdp_get_shortcode_ext_template
-function atbdp_get_shortcode_ext_template( string $extension_key = '',  $file_path = '', $data = [] ) {
-    $extension_base_dir  = preg_replace( '/[_]/', '-', $extension_key );
-    
-    $ext_path = [ 'template_dirrectory_path' => '', 'file_path' => $extension_base_dir ];
-    $ext_path = apply_filters( "atbdp_ext_template_path_{$extension_key}", $ext_path ) ;
-    
-    $ext_dir_path = trailingslashit( $ext_path['template_dirrectory_path'] );
-    $ext_file_path = ( ! empty( $file_path ) ) ? $file_path : $ext_path['file_path'];
+// atbdp_get_extension_template_path
+function atbdp_get_extension_template_path( string $base_path = '', string $file_path = '', string $theme_dir = '' ) {
+    $ext_dir_path       = trailingslashit( $base_path );
+    $ext_file_path      = $file_path;
 
     $template_file      = "";
     $extension_template = "{$ext_dir_path}{$ext_file_path}.php";
-    $theme_template     = get_stylesheet_directory() . "/directorist/extensions/{$extension_base_dir}/{$ext_file_path}.php";
+    $theme_template     = get_stylesheet_directory() . "/directorist/extensions/{$theme_dir}/{$ext_file_path}.php";
 
     if ( file_exists( $extension_template ) ) {
         $template_file = $extension_template;
@@ -74,19 +72,36 @@ function atbdp_get_shortcode_ext_template( string $extension_key = '',  $file_pa
         $template_file = $theme_template;
     }
 
-    if ( file_exists( $template_file ) ) {
-        if ( is_array( $data ) ) {
-            extract( $data );
-        }
+    return $template_file;
+}
 
-        include $template_file;
+// atbdp_get_extension_template
+function atbdp_get_extension_template( string $base_path = '', string $file_path = '', string $theme_dir = '', $data = [] ) {
+    $template = atbdp_get_extension_template_path( $base_path, $file_path, $theme_dir );
+
+    if ( file_exists( $template ) ) {
+        include $template;
     }
 }
 
 
 // atbdp_get_shortcode_template
-function atbdp_get_shortcode_template( $template, $args = array() ) {
+function atbdp_get_shortcode_template( $template, $args = array(), string $shortcode_key = '' ) {
     $args = apply_filters( 'atbdp_shortcode_template_args', $args, $template );
+
+    // Load extension template if exist
+    if ( ! empty( $shortcode_key ) ) {
+        $default = [ 'template_dirrectory' => '', 'file_path' => '', 'theme_dir' => '' ];
+        $ex_args = apply_filters( "atbdp_ext_template_path_{$shortcode_key}", $default, $args );
+        $ex_args = array_merge( $default, $ex_args );
+
+        $extension_path = atbdp_get_extension_template_path( $ex_args['template_dirrectory'], $ex_args['file_path'], $ex_args['theme_dir'] );
+        
+        if ( file_exists( $extension_path ) ) {
+            include $extension_path;
+        }
+    }
+    
     $template = 'shortcodes/' . $template;
     atbdp_get_template( $template, $args );
 }

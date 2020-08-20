@@ -1022,7 +1022,7 @@ class Directorist_Listings {
 		$core_view = [ 'grid', 'list', 'map' ];
 		if ( ! empty( $this->view ) && ! in_array(  $this->view, $core_view ) ) {
 			ob_start();
-
+		
 			atbdp_get_shortcode_ext_template( $this->view, '', array('listings' => $this) );
 			
 			return ob_get_clean();

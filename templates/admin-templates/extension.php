@@ -6,8 +6,7 @@
                     <h3><?php esc_html_e('Themes', 'directorist'); ?></h3>
                 </div>
                 <?php
-                if (!function_exists('directoria_setup')){
-                    ?>
+                if (!function_exists('directoria_setup')) { ?>
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
                     <div class="single_extension single_thm">
                         <img src="https://directorist.com/wp-content/uploads/2017/08/directoria_theme_prev-1-360x230.jpg"

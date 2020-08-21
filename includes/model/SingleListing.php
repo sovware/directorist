@@ -276,11 +276,11 @@ class Directorist_Single_Listing {
             	$pid = empty($pid) ? $post_id : $pid;
             	if (empty($payment)){
             		$url = add_query_arg(array('p' => $pid, 'post_id' => $pid, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $redirect);
-            		$submit_text = __('Submit', 'directorist');
+            		$submit_text = __('Continue', 'directorist');
             	}
             	else {
             		$url = add_query_arg(array('atbdp_listing_id' => $pid, 'reviewed' => 'yes'), $_GET['redirect']);
-            		$submit_text = __('Pay & Submit', 'directorist');
+            		$submit_text = __('Continue', 'directorist');
             	}
             }
 

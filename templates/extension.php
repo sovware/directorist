@@ -237,6 +237,28 @@
                     </div>
                     <?php
                 }
+                if (!class_exists('Directorist_RFL')){
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--Business hour-->
+                        <div class="single_extension">
+                            <img src="https://directorist.com/wp-content/uploads/edd/2020/05/rank_featured_listings-360x230.png"
+                                 alt="Rank Featured Listings">
+
+                            <div class="extension_detail ext_d">
+                                <a href="https://directorist.com/product/directorist-rank-featured-listings/" target="_blank"
+                                   class="ext_title"><h4><?php esc_html_e(' Rank Featured Listings ', 'directorist'); ?></h4></a>
+                                <p><?php esc_html_e('Rank Featured Listings is used to rank your featured listing items on your directory website.', 'directorist'); ?></p>
+
+                                <div class="btn_wrapper">
+                                    <a href="https://directorist.com/product/directorist-rank-featured-listings/" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
                 if (!class_exists('Directorist_Mark_as_Sold')){
                     ?>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">

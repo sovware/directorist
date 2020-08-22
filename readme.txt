@@ -181,7 +181,7 @@ Directorist provides a smart way to manage reviews for all the listings. As a si
 
 Our dedicated support team always loves to get queries from our users and they are quite good at serving our users’ purposes. As we care user’s needs, like the previous days, as always, our users will get the premium support in the coming days.
 
-**Build by a Dynamic Team & Baked by a Wonderful Company**
+**Build by a Dynamic Team & Backed by a Wonderful Company**
 
 We aim to provide you with the best professional business directory plugin. Our team is full of dedicated developers, designers, support engineers and marketers who spent countless hours to make this plugin the most convenient to its users. We’re constantly working to improve the plugin by adding new features and fixing the bugs in the best possible way.
 
@@ -222,6 +222,10 @@ Directorist offers cost-effective premium [Extensions](https://directorist.com/p
 👉 **[Listing FAQs](https://directorist.com/product/directorist-listing-faqs/)** - Set up an **FAQ** section on your directory listing website to satisfy your visitors and convert them into your loyal customers.
 
 👉 **[Social Login](https://directorist.com/product/directorist-social-login/)** - Allow you users to register and login to your directory listing website using their social media channels. In this process, the registration process becomes faster and handy without waiting for the validation process.
+
+👉 **[Rank Featured Listings](https://directorist.com/product/directorist-rank-featured-listings/)** - To rank your featured listing items on your directory website. Sometimes you may need to rank all your featured listings if it happens on a larger scale. Using this extension, you will get complete and the most affordable solution out there you needed.
+
+👉 **[Compare Listings](https://directorist.com/product/directorist-compare-listings/)** - Allows visitors to add a set of listings in a list and compare its features by viewing in a comparison table.
 
 Apart from purchasing above mentioned individual extensions, you can get all of the Directorist Business Directory extensions in a bundle as a bonus at a discounted price from the [Directorist Extensions Bundle](https://directorist.com/product/directorist-extensions-bundle/) package.
 

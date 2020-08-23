@@ -1647,7 +1647,7 @@ class Directorist_Listings {
     	$popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
 
     	if ( atbdp_popular_listings(get_the_ID()) === get_the_ID() && !empty($display_popular_badge_cart)) {
-    		$badge = "<span class='atbd_badge atbd_badge_popular'>$popular_badge_text;</span>";
+    		$badge = "<span class='atbd_badge atbd_badge_popular'>$popular_badge_text</span>";
     		$content .= $badge;
     	}
 

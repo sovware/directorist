@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Directorist_Listings {
 	public $query_args = [];
 	public $query_results = [];
-
-	public $defaults;
+	public $options = [];
+	
 	public $atts;
 	public $type;
 	public $params;
@@ -107,6 +107,12 @@ class Directorist_Listings {
 		$this->atts = !empty( $atts ) ? $atts : array();
 		$this->type = !empty( $type ) ? $type : 'listing';
 
+		$this->set_options();
+
+		if ( 'search' == $this->type ) {
+			$this->update_search_options();
+		}
+
 		$this->prepare_atts_data();
 		$this->prepare_data();
 
@@ -125,36 +131,136 @@ class Directorist_Listings {
 		$this->query_results = $this->get_query_results( $caching_options );
 	}
 
+	// set_options
+	public function set_options() {
+		$this->options['listing_view']                    = get_directorist_option( 'default_listing_view', 'grid' );
+		$this->options['order_listing_by']                = apply_filters( 'atbdp_default_listing_orderby', get_directorist_option( 'order_listing_by', 'date' ) );
+		$this->options['sort_listing_by']                 = get_directorist_option( 'sort_listing_by', 'asc' );
+		$this->options['listings_per_page']               = get_directorist_option( 'all_listing_page_items', 6 );
+		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_all_listings', 1 ) ) ? 'yes' : '';
+		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'display_listings_header', 1 ) ) ? 'yes' : '';
+		$this->options['listing_header_title']            = get_directorist_option( 'all_listing_header_title', __( 'Items Found', 'directorist' ) );
+		$this->options['listing_columns']                 = get_directorist_option( 'all_listing_columns', 3 );
+		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'listing_filters_button', 1 ) ) ? 'yes' : '';
+		$this->options['display_preview_image']           = ! empty( get_directorist_option( 'display_preview_image', 1 ) ) ? 'yes' : '';
+		$this->options['listings_map_height']             = get_directorist_option( 'listings_map_height', 350 );
+		$this->options['enable_featured_listing']         = get_directorist_option( 'enable_featured_listing' );
+		$this->options['listing_popular_by']              = get_directorist_option( 'listing_popular_by' );
+		$this->options['views_for_popular']               = get_directorist_option( 'views_for_popular', 4 );
+		$this->options['radius_search_unit']              = get_directorist_option( 'radius_search_unit', 'miles' );
+		$this->options['view_as_text']                    = get_directorist_option( 'view_as_text', __( 'View As', 'directorist' ) );
+		$this->options['select_listing_map']              = get_directorist_option( 'select_listing_map', 'google' );
+		$this->options['listings_display_filter']         = get_directorist_option( 'listings_display_filter', 'sliding' );
+		$this->options['listing_filters_fields']          = get_directorist_option( 'listing_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
+		$this->options['listing_filters_icon']            = get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
+		$this->options['listings_sort_by_items']          = get_directorist_option( 'listings_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );
+		$this->options['disable_list_price']              = get_directorist_option( 'disable_list_price' );
+		$this->options['listings_view_as_items']          = get_directorist_option( 'listings_view_as_items', array( 'listings_grid', 'listings_list', 'listings_map' ) );
+		$this->options['display_sort_by']                 = get_directorist_option( 'display_sort_by', 1 ) ? true : false;
+		$this->options['sort_by_text']                    = get_directorist_option( 'sort_by_text', __( 'Sort By', 'directorist' ) );
+		$this->options['display_view_as']                 = get_directorist_option( 'display_view_as', 1 );
+		$this->options['grid_view_as']                    = get_directorist_option( 'grid_view_as', 'normal_grid' );
+		$this->options['average_review_for_popular']      = get_directorist_option( 'average_review_for_popular', 4 );
+		$this->options['listing_default_radius_distance'] = get_directorist_option( 'listing_default_radius_distance', 0 );
+		$this->options['listings_category_placeholder']   = get_directorist_option( 'listings_category_placeholder', __( 'Select a category', 'directorist' ) );
+		$this->options['listings_location_placeholder']   = get_directorist_option( 'listings_location_placeholder', __( 'Select a location', 'directorist' ) );
+		$this->options['listings_filter_button_text']     = get_directorist_option( 'listings_filter_button_text', __( 'Filters', 'directorist' ) );
+		$this->options['listing_location_address']        = get_directorist_option( 'listing_location_address', 'map_api' );
+		$this->options['disable_single_listing']          = get_directorist_option( 'disable_single_listing') ? true : false;
+		$this->options['disable_contact_info']            = get_directorist_option( 'disable_contact_info', 0 );
+		$this->options['popular_badge_text']              = get_directorist_option( 'popular_badge_text', __( 'Popular', 'directorist' ) );
+		$this->options['feature_badge_text']              = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
+		$this->options['readmore_text']                   = get_directorist_option( 'readmore_text', __('Read More', 'directorist'));
+		$this->options['display_title']                   = get_directorist_option( 'display_title', 1 ) ? true : false;
+		$this->options['enable_review']                   = get_directorist_option( 'enable_review', 1 ) ? true : false;
+		$this->options['display_price']                   = get_directorist_option( 'display_price', 1 ) ? true : false;
+		$this->options['display_email']                   = get_directorist_option( 'display_email', 0 ) ? true : false;
+		$this->options['display_web_link']                = get_directorist_option( 'display_web_link', 0 ) ? true : false;
+		$this->options['display_category']                = get_directorist_option( 'display_category', 1 ) ? true : false;
+		$this->options['display_view_count']              = get_directorist_option( 'display_view_count', 1 ) ? true : false;
+		$this->options['display_mark_as_fav']             = get_directorist_option( 'display_mark_as_fav', 1 ) ? true : false;
+		$this->options['display_contact_info']            = get_directorist_option( 'display_contact_info', 1 ) ? true : false;
+		$this->options['display_feature_badge_cart']      = get_directorist_option( 'display_feature_badge_cart', 1 ) ? true : false;
+		$this->options['display_popular_badge_cart']      = get_directorist_option( 'display_popular_badge_cart', 1 ) ? true : false;
+		$this->options['enable_tagline']                  = get_directorist_option( 'enable_tagline' ) ? true : false;
+		$this->options['enable_excerpt']                  = get_directorist_option( 'enable_excerpt' ) ? true : false;
+		$this->options['display_author_image']            = get_directorist_option( 'display_author_image', 1 ) ? true : false;
+		$this->options['display_tagline_field']           = get_directorist_option( 'display_tagline_field', 0 ) ? true : false;
+		$this->options['display_pricing_field']           = get_directorist_option( 'display_pricing_field', 1 ) ? true : false;
+		$this->options['display_excerpt_field']           = get_directorist_option( 'display_excerpt_field', 0 ) ? true : false;
+		$this->options['display_address_field']           = get_directorist_option( 'display_address_field', 1 ) ? true : false;
+		$this->options['display_phone_field']             = get_directorist_option( 'display_phone_field', 1 ) ? true : false;
+		$this->options['display_readmore']                = get_directorist_option( 'display_readmore', 0) ? true : false;
+		$this->options['address_location']                = get_directorist_option( 'address_location', 'location' ) ? true : false;
+		$this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20) ? true : false;
+		$this->options['g_currency']                      = get_directorist_option( 'g_currency', 'USD' );
+		$this->options['display_map_info']                = get_directorist_option('display_map_info', 1) ? true : false;
+		$this->options['display_image_map']               = get_directorist_option('display_image_map', 1) ? true : false;
+		$this->options['display_title_map']               = get_directorist_option('display_title_map', 1) ? true : false;
+		$this->options['display_address_map']             = get_directorist_option('display_address_map', 1) ? true : false;
+		$this->options['display_direction_map']           = get_directorist_option('display_direction_map', 1) ? true : false;
+		$this->options['crop_width']                      = get_directorist_option('crop_width', 360);
+		$this->options['crop_height']                     = get_directorist_option('crop_height', 360);
+		$this->options['map_view_zoom_level']             = get_directorist_option('map_view_zoom_level', 16);
+		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+		$this->options['font_type']                       = get_directorist_option('font_type','line');
+		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
+		$this->options['display_feature_badge_cart']      = get_directorist_option( 'display_feature_badge_cart', 1 ) ? true : false;
+	}
+
+	// update_search_options
+	public function update_search_options() {
+		$this->options['display_listings_header']         = ! empty( get_directorist_option( 'search_header', 1 ) ) ? 'yes' : '';
+		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'search_result_filters_button_display', 1 ) ) ? 'yes' : '';
+		$this->options['listings_filter_button_text']     = get_directorist_option( 'search_result_filter_button_text', __( 'Filters', 'directorist' ) );
+		$this->options['listings_filter_button_text']     = get_directorist_option( 'search_result_filter_button_text', __( 'Filters', 'directorist' ) );
+		$this->options['listings_display_filter']         = get_directorist_option( 'search_result_display_filter', 'sliding' );
+		$this->options['listing_filters_fields']          = get_directorist_option( 'search_result_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
+		$this->options['listing_location_address']        = get_directorist_option( 'sresult_location_address', 'map_api' );
+		$this->options['listing_default_radius_distance'] = get_directorist_option( 'sresult_default_radius_distance', 0 );
+		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'search_result_filters_button', 1 ) ) ? 'yes' : '';
+		$this->options['listings_category_placeholder']   = get_directorist_option( 'search_result_category_placeholder', __( 'Select a category', 'directorist' ) );
+		$this->options['listings_location_placeholder']   = get_directorist_option( 'search_result_location_placeholder', __( 'Select a location', 'directorist' ) );
+		$this->options['display_sort_by']                 = get_directorist_option( 'search_sort_by', 1 ) ? true : false;
+		$this->options['display_view_as']                 = get_directorist_option( 'search_view_as', 1 );
+		$this->options['view_as_text']                    = get_directorist_option( 'search_viewas_text', __( 'View As', 'directorist' ) );
+		$this->options['listings_view_as_items']          = get_directorist_option( 'search_view_as_items', array( 'listings_grid', 'listings_list', 'listings_map' ) );
+		$this->options['sort_by_text']                    = get_directorist_option( 'search_sortby_text', __( 'Sort By', 'directorist' ) );
+		$this->options['listings_sort_by_items']          = get_directorist_option( 'search_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );
+		$this->options['order_listing_by']                = apply_filters( 'atbdp_default_listing_orderby', get_directorist_option( 'search_order_listing_by', 'date' ) );
+		$this->options['sort_listing_by']                 = get_directorist_option( 'search_sort_listing_by', 'asc' );
+		$this->options['listing_columns']                 = get_directorist_option( 'search_listing_columns', 3 );
+		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_search_results', 1 ) ) ? 'yes' : '';
+	}
+
 	public function prepare_atts_data() {
 		$defaults = array(
-			'view'                     => get_directorist_option( 'default_listing_view', 'grid' ),
+			'view'                     => $this->options['listing_view'],
 			'_featured'                => 1,
 			'filterby'                 => '',
-			'orderby'                  => apply_filters( 'atbdp_default_listing_orderby', get_directorist_option( 'order_listing_by', 'date' ) ),
-			'order'                    => get_directorist_option( 'sort_listing_by', 'asc' ),
-			'listings_per_page'        => get_directorist_option( 'all_listing_page_items', 6 ),
-			'show_pagination'          => !empty( get_directorist_option( 'paginate_all_listings', 1 ) ) ? 'yes' : '',
-			'header'                   => !empty( get_directorist_option( 'display_listings_header', 1 ) ) ? 'yes' : '',
-			'header_title'             => get_directorist_option( 'all_listing_header_title', __( 'Items Found', 'directorist' ) ),
+			'orderby'                  => $this->options['order_listing_by'],
+			'order'                    => $this->options['sort_listing_by'],
+			'listings_per_page'        => $this->options['listings_per_page'],
+			'show_pagination'          => $this->options['paginate_listings'],
+			'header'                   => $this->options['display_listings_header'],
+			'header_title'             => $this->options['listing_header_title'],
 			'category'                 => '',
 			'location'                 => '',
 			'tag'                      => '',
 			'ids'                      => '',
-			'columns'                  => get_directorist_option( 'all_listing_columns', 3 ),
+			'columns'                  => $this->options['listing_columns'],
 			'featured_only'            => '',
 			'popular_only'             => '',
-			'advanced_filter'          => !empty( get_directorist_option( 'listing_filters_button', 1 ) ) ? 'yes' : '',
-			'display_preview_image'    => !empty( get_directorist_option( 'display_preview_image', 1 ) ) ? 'yes' : '',
+			'advanced_filter'          => $this->options['listing_filters_button'],
+			'display_preview_image'    => $this->options['display_preview_image'],
 			'action_before_after_loop' => 'yes',
 			'logged_in_user_only'      => '',
 			'redirect_page_url'        => '',
-			'map_height'               => get_directorist_option( 'listings_map_height', 350 ),
+			'map_height'               => $this->options['listings_map_height'],
 		);
 
-		$this->defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
-		$this->params    = shortcode_atts( $this->defaults, $this->atts );
-
-		$this->params['map_height'] = ( ! empty( $this->params['map_height'] ) ) ? $this->params['map_height'] : $this->defaults['map_height'];
+		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
+		$this->params = shortcode_atts( $defaults, $this->atts );
 
 		$this->view                     = atbdp_get_listings_current_view_name( $this->params['view'] );
 		$this->_featured                = $this->params['_featured'];
@@ -177,72 +283,72 @@ class Directorist_Listings {
 		$this->action_before_after_loop = $this->params['action_before_after_loop'] == 'yes' ? true : false;
 		$this->logged_in_user_only      = $this->params['logged_in_user_only'] == 'yes' ? true : false;
 		$this->redirect_page_url        = $this->params['redirect_page_url'];
-		$this->listings_map_height      = (int) $this->params['map_height'];
+		$this->listings_map_height      = ( ! empty( $this->params['map_height'] ) ) ? (int) $this->params['map_height'] : $defaults['map_height'];
 	}
 
 	public function prepare_data() {
-		$this->has_featured                = get_directorist_option( 'enable_featured_listing' );
+		$this->has_featured                = $this->options['enable_featured_listing'];
 		$this->has_featured                = $this->has_featured || is_fee_manager_active() ? $this->_featured : $this->has_featured;
-		$this->popular_by                  = get_directorist_option( 'listing_popular_by' );
-		$this->average_review_for_popular  = get_directorist_option( 'average_review_for_popular', 4 );
-		$this->view_to_popular             = get_directorist_option( 'views_for_popular' );
-		$this->radius_search_unit          = get_directorist_option( 'radius_search_unit', 'miles' );
-		$this->default_radius_distance     = get_directorist_option( 'listing_default_radius_distance', 0 );
-		$this->select_listing_map          = get_directorist_option( 'select_listing_map', 'google' );
-		$this->filters_display             = get_directorist_option( 'listings_display_filter', 'sliding' );
-		$this->search_more_filters_fields  = get_directorist_option( 'listing_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
+		$this->popular_by                  = $this->options['listing_popular_by'];
+		$this->average_review_for_popular  = $this->options['average_review_for_popular'];
+		$this->view_to_popular             = $this->options['views_for_popular'];
+		$this->radius_search_unit          = $this->options['radius_search_unit'];
+		$this->default_radius_distance     = $this->options['listing_default_radius_distance'];
+		$this->select_listing_map          = $this->options['select_listing_map'];
+		$this->filters_display             = $this->options['listings_display_filter'];
+		$this->search_more_filters_fields  = $this->options['listing_filters_fields'];
 		$this->has_filters_button          = $this->advanced_filter;
-		$this->has_filters_icon            = get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
-		$this->filter_button_text          = get_directorist_option( 'listings_filter_button_text', __( 'Filters', 'directorist' ) );
+		$this->has_filters_icon            = $this->options['listing_filters_icon'];
+		$this->filter_button_text          = $this->options['listings_filter_button_text'];
 		$this->paged                       = atbdp_get_paged_num();
-		$this->display_sortby_dropdown     = get_directorist_option( 'display_sort_by', 1 ) ? true : false;
-		$this->display_viewas_dropdown     = get_directorist_option( 'display_view_as', 1 ) ? true : false;
-		$this->sort_by_text                = get_directorist_option( 'sort_by_text', __( 'Sort By', 'directorist' ) );
-		$this->view_as_text                = get_directorist_option( 'view_as_text', __( 'View As', 'directorist' ) );
-		$this->view_as                     = get_directorist_option( 'grid_view_as', 'normal_grid' );
-		$view_as_items               = get_directorist_option( 'listings_view_as_items', array( 'listings_grid', 'listings_list', 'listings_map' ) );
-		$this->sort_by_items         = get_directorist_option( 'listings_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );
+		$this->display_sortby_dropdown     = $this->options['display_sort_by'];
+		$this->display_viewas_dropdown     = $this->options['display_view_as'];
+		$this->sort_by_text                = $this->options['sort_by_text'];
+		$this->view_as_text                = $this->options['view_as_text'];
+		$this->view_as                     = $this->options['grid_view_as'];
+		$view_as_items               = $this->options['listings_view_as_items'];
+		$this->sort_by_items         = $this->options['listings_sort_by_items'];
 		$this->views                 = atbdp_get_listings_view_options( $view_as_items );
-		$this->category_placeholder  = get_directorist_option( 'listings_category_placeholder', __( 'Select a category', 'directorist' ) );
-		$this->location_placeholder  = get_directorist_option( 'listings_location_placeholder', __( 'Select a location', 'directorist' ) );
+		$this->category_placeholder  = $this->options['listings_category_placeholder'];
+		$this->location_placeholder  = $this->options['listings_location_placeholder'];
 		$this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
 		$this->locations_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
-		$this->c_symbol                   = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
-		$this->popular_badge_text         = get_directorist_option( 'popular_badge_text', __( 'Popular', 'directorist' ) );
-		$this->feature_badge_text         = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
-		$this->readmore_text              = get_directorist_option( 'readmore_text', __('Read More', 'directorist'));
-		$this->listing_location_address   = get_directorist_option( 'listing_location_address', 'map_api' );
-		$this->is_disable_price           = get_directorist_option( 'disable_list_price' );
-		$this->disable_single_listing     = get_directorist_option( 'disable_single_listing') ? true : false;
-		$this->disable_contact_info       = get_directorist_option( 'disable_contact_info', 0 ) ? true : false;
-		$this->display_title              = get_directorist_option( 'display_title', 1 ) ? true : false;
-		$this->display_review             = get_directorist_option( 'enable_review', 1 ) ? true : false;
-		$this->display_price              = get_directorist_option( 'display_price', 1 ) ? true : false;
-		$this->display_email              = get_directorist_option( 'display_email', 0 ) ? true : false;
-		$this->display_web_link           = get_directorist_option( 'display_web_link', 0 ) ? true : false;
-		$this->display_category           = get_directorist_option( 'display_category', 1 ) ? true : false;
-		$this->display_view_count         = get_directorist_option( 'display_view_count', 1 ) ? true : false;
-		$this->display_mark_as_fav        = get_directorist_option( 'display_mark_as_fav', 1 ) ? true : false;
-		$this->display_publish_date       = get_directorist_option( 'display_tagline_field', 1 ) ? true : false;
-		$this->display_contact_info       = get_directorist_option( 'display_contact_info', 1 ) ? true : false;
-		$this->display_feature_badge_cart = get_directorist_option( 'display_feature_badge_cart', 1 ) ? true : false;
-		$this->display_popular_badge_cart = get_directorist_option( 'display_popular_badge_cart', 1 ) ? true : false;
-		$this->enable_tagline             = get_directorist_option( 'enable_tagline' ) ? true : false;
-		$this->enable_excerpt             = get_directorist_option( 'enable_excerpt' ) ? true : false;
-		$this->display_author_image       = get_directorist_option( 'display_author_image', 1 ) ? true : false;
-		$this->display_tagline_field      = get_directorist_option( 'display_tagline_field', 0 ) ? true : false;
-		$this->display_pricing_field      = get_directorist_option( 'display_pricing_field', 1 ) ? true : false;
-		$this->display_excerpt_field      = get_directorist_option( 'display_excerpt_field', 0 ) ? true : false;
-		$this->display_address_field      = get_directorist_option( 'display_address_field', 1 ) ? true : false;
-		$this->display_phone_field        = get_directorist_option( 'display_phone_field', 1 ) ? true : false;
-		$this->display_readmore           = get_directorist_option( 'display_readmore', 0) ? true : false;
-		$this->address_location           = get_directorist_option( 'address_location', 'location' );
-		$this->excerpt_limit              = get_directorist_option( 'excerpt_limit', 20);
-		$this->display_map_info           = get_directorist_option('display_map_info', 1) ? true : false;
-		$this->display_image_map          = get_directorist_option('display_image_map', 1) ? true : false;
-		$this->display_title_map          = get_directorist_option('display_title_map', 1) ? true : false;
-		$this->display_address_map        = get_directorist_option('display_address_map', 1) ? true : false;
-		$this->display_direction_map      = get_directorist_option('display_direction_map', 1) ? true : false;
+		$this->c_symbol                   = atbdp_currency_symbol( $this->options['g_currency'] );
+		$this->popular_badge_text         = $this->options['popular_badge_text'];
+		$this->feature_badge_text         = $this->options['feature_badge_text'];
+		$this->readmore_text              = $this->options['readmore_text'];
+		$this->listing_location_address   = $this->options['listing_location_address'];
+		$this->is_disable_price           = $this->options['disable_list_price'];
+		$this->disable_single_listing     = $this->options['disable_single_listing'];
+		$this->disable_contact_info       = $this->options['disable_contact_info'];
+		$this->display_title              = $this->options['display_title'];
+		$this->display_review             = $this->options['enable_review'];
+		$this->display_price              = $this->options['display_price'];
+		$this->display_email              = $this->options['display_email'];
+		$this->display_web_link           = $this->options['display_web_link'];
+		$this->display_category           = $this->options['display_category'];
+		$this->display_view_count         = $this->options['display_view_count'];
+		$this->display_mark_as_fav        = $this->options['display_mark_as_fav'];
+		$this->display_publish_date       = $this->options['display_tagline_field'];
+		$this->display_contact_info       = $this->options['display_contact_info'];
+		$this->display_feature_badge_cart = $this->options['display_feature_badge_cart'];
+		$this->display_popular_badge_cart = $this->options['display_popular_badge_cart'];
+		$this->enable_tagline             = $this->options['enable_tagline'];
+		$this->enable_excerpt             = $this->options['enable_excerpt'];
+		$this->display_author_image       = $this->options['display_author_image'];
+		$this->display_tagline_field      = $this->options['display_tagline_field'];
+		$this->display_pricing_field      = $this->options['display_pricing_field'];
+		$this->display_excerpt_field      = $this->options['display_excerpt_field'];
+		$this->display_address_field      = $this->options['display_address_field'];
+		$this->display_phone_field        = $this->options['display_phone_field'];
+		$this->display_readmore           = $this->options['display_readmore'];
+		$this->address_location           = $this->options['address_location'];
+		$this->excerpt_limit              = $this->options['excerpt_limit'];
+		$this->display_map_info           = $this->options['display_map_info'];
+		$this->display_image_map          = $this->options['display_image_map'];
+		$this->display_title_map          = $this->options['display_title_map'];
+		$this->display_address_map        = $this->options['display_address_map'];
+		$this->display_direction_map      = $this->options['display_direction_map'];
 	}
 
 	public function set_loop_data() {
@@ -1013,6 +1119,8 @@ class Directorist_Listings {
 			'default_val' => $this->default_radius_distance
 		));
 
+		ob_start();
+
 		if (!empty($this->redirect_page_url)) {
 			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
 			return $redirect;
@@ -1020,16 +1128,14 @@ class Directorist_Listings {
 
 		$old_listings = ( ! empty( $GLOBALS['listings_data'] ) ) ? $GLOBALS['listings_data'] : null;
 		$GLOBALS['listings'] = $this;
-
+		
 		// Manage templating compatibility for old extension
-		$has_old_ext_template = $this->manage_old_ext_templating_compatibility();
+		$has_old_ext_template = $this->manage_old_ext_compatibility();
 		if ( $has_old_ext_template ) {
-			var_dump( $has_old_ext_template );
-			include $has_old_ext_template;
-
-			return ob_get_clean();
+			return '';
 		}
 
+		
 		// Load the template
 		$template_file = "listings-archive/listings-{$this->view}";
 		atbdp_get_shortcode_template( $template_file, array('listings' => $this), 'listings_archive' );
@@ -1039,14 +1145,10 @@ class Directorist_Listings {
 		return ob_get_clean();
 	}
 
-	public function manage_old_ext_templating_compatibility() {
+	public function manage_old_ext_compatibility() {
 		if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.1', '<=' ) ) {
 			if ( 'listings_with_map' === $this->view ) {
-				$file = trailingslashit( BDM_TEMPLATES_DIR ) . "map-view.php";
-
-				if ( file_exists( $file ) ) {
-					return $file;
-				}
+				return true;
 			}
 		}
 
@@ -1184,15 +1286,15 @@ class Directorist_Listings {
 
 	public function get_map_options() {
 		$opt['select_listing_map']    = $this->select_listing_map;
-		$opt['crop_width']            = get_directorist_option('crop_width', 360);
-		$opt['crop_height']           = get_directorist_option('crop_height', 300);
-		$opt['display_map_info']      = get_directorist_option('display_map_info', 1);
-		$opt['display_image_map']     = get_directorist_option('display_image_map', 1);
-		$opt['display_title_map']     = get_directorist_option('display_title_map', 1);
-		$opt['display_address_map']   = get_directorist_option('display_address_map', 1);
-		$opt['display_direction_map'] = get_directorist_option('display_direction_map', 1);
-		$opt['zoom']                  = get_directorist_option('map_view_zoom_level', 16);
-		$opt['default_image']         = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+		$opt['crop_width']            = $this->options['crop_width'];
+		$opt['crop_height']           = $this->options['crop_height'];
+		$opt['display_map_info']      = $this->options['display_map_info'];
+		$opt['display_image_map']     = $this->options['display_image_map'];
+		$opt['display_title_map']     = $this->options['display_title_map'];
+		$opt['display_address_map']   = $this->options['display_address_map'];
+		$opt['display_direction_map'] = $this->options['display_direction_map'];
+		$opt['zoom']                  = $this->options['map_view_zoom_level'];
+		$opt['default_image']         = $this->options['default_preview_image'];
 
 		$opt['disable_single_listing'] = $this->disable_single_listing;
 
@@ -1238,14 +1340,14 @@ class Directorist_Listings {
 					$ls_data['prv_image'] = atbdp_get_image_source( $ls_data['listing_prv_img'], 'large' );
 				}
 
-				$ls_data['default_image'] = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+				$ls_data['default_image'] = $this->options['default_preview_image'];
 				
 				if ( ! empty( $ls_data['listing_img'][0] ) ) {
 					$ls_data['gallery_img'] = atbdp_get_image_source($ls_data['listing_img'][0], 'medium');
 				}
 
 				$cats      = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-				$font_type = get_directorist_option('font_type','line');
+				$font_type = $this->options['font_type'];
 
 				if ( !empty($cats) ) {
 					$cat_icon = get_cat_icon($cats[0]->term_id);
@@ -1321,10 +1423,10 @@ class Directorist_Listings {
 					$ls_data['manual_lng']      = get_post_meta($listings_id, '_manual_lng', true);
 					$ls_data['listing_img']     = get_post_meta($listings_id, '_listing_img', true);
 					$ls_data['listing_prv_img'] = get_post_meta($listings_id, '_listing_prv_img', true);
-					$ls_data['crop_width']      = get_directorist_option('crop_width', 360);
-					$ls_data['crop_height']     = get_directorist_option('crop_height', 300);
+					$ls_data['crop_width']      = $this->options['crop_width'];
+					$ls_data['crop_height']     = $this->options['crop_height'];
 					$ls_data['address']         = get_post_meta($listings_id, '_address', true);
-					$ls_data['font_type']       = get_directorist_option('font_type','line');
+					$ls_data['font_type']       = $this->options['font_type'];
 					$ls_data['fa_or_la']        = ('line' == $ls_data['font_type']) ? "la " : "fa ";
 					$ls_data['cats']            = get_the_terms($listings_id, ATBDP_CATEGORY);
 
@@ -1414,7 +1516,7 @@ class Directorist_Listings {
 		}
 
 		public function loop_get_published_date() {
-			$publish_date_format = get_directorist_option('publish_date_format', 'time_ago');
+			$publish_date_format = $this->options['publish_date_format'];
 			if ('time_ago' === $publish_date_format) {
 				$text = sprintf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
 			}
@@ -1566,7 +1668,7 @@ class Directorist_Listings {
 		public function advanced_search_form_template() {
 			$args = array(
 				'listings'   => $this,
-				'searchform' => new Directorist_Listing_Search_Form('listing'),
+				'searchform' => new Directorist_Listing_Search_Form( $this->type ),
 			);
 			atbdp_get_shortcode_template( 'listings-archive/advanced-search-form', $args );
 		}

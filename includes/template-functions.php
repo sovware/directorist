@@ -56,13 +56,14 @@ function atbdp_get_template_path( $template_file ) {
 }
 
 // atbdp_get_extension_template_path
-function atbdp_get_extension_template_path( string $base_path = '', string $file_path = '', string $theme_dir = '' ) {
-    $ext_dir_path       = trailingslashit( $base_path );
-    $ext_file_path      = $file_path;
+function atbdp_get_extension_template_path( string $base_path = '', string $file_path = '', string $base_dirrectory = '' ) {
+    $ext_dir_path    = trailingslashit( $base_path );
+    $ext_file_path   = $file_path;
+    $base_dirrectory = preg_replace( '/(\/.+)?(\/)?/', '', $base_dirrectory );
 
     $template_file      = "";
     $extension_template = "{$ext_dir_path}{$ext_file_path}.php";
-    $theme_template     = get_stylesheet_directory() . "/directorist/extensions/{$theme_dir}/{$ext_file_path}.php";
+    $theme_template     = get_stylesheet_directory() . "/directorist/extensions/{$base_dirrectory}/{$ext_file_path}.php";
 
     if ( file_exists( $extension_template ) ) {
         $template_file = $extension_template;
@@ -91,11 +92,11 @@ function atbdp_get_shortcode_template( $template, $args = array(), string $short
 
     // Load extension template if exist
     if ( ! empty( $shortcode_key ) ) {
-        $default = [ 'template_dirrectory' => '', 'file_path' => '', 'theme_dir' => '' ];
+        $default = [ 'template_dirrectory' => '', 'file_path' => '', 'base_dirrectory' => '' ];
         $ex_args = apply_filters( "atbdp_ext_template_path_{$shortcode_key}", $default, $args );
         $ex_args = array_merge( $default, $ex_args );
-
-        $extension_path = atbdp_get_extension_template_path( $ex_args['template_dirrectory'], $ex_args['file_path'], $ex_args['theme_dir'] );
+        
+        $extension_path = atbdp_get_extension_template_path( $ex_args['template_dirrectory'], $ex_args['file_path'], $ex_args['base_dirrectory'] );
         
         if ( file_exists( $extension_path ) ) {
             include $extension_path;

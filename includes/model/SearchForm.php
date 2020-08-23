@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Directorist_Listing_Search_Form {
 
 	// Search Shortcode
+	public $options = [];
+
 	public $atts;
 	public $defaults;
 	public $params;
@@ -77,10 +79,12 @@ class Directorist_Listing_Search_Form {
 	public $select_listing_map;
 
 	public function __construct( $type, $atts = array() ) {
-
 		$this->atts = $atts;
 
+		$this->set_options();
+
 		if ( $type=='search' ) {
+			$this->update_search_options();
 			$this->prepare_search_data($atts);
 		}
 
@@ -98,6 +102,24 @@ class Directorist_Listing_Search_Form {
 		$this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
 		$this->locations_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
 		$this->select_listing_map  = get_directorist_option( 'select_listing_map', 'google' );
+	}
+	
+	// set_options
+	public function set_options() {
+		$this->options['reset_filters_text']      = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
+		$this->options['apply_filters_text']      = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
+		$this->options['search_text_placeholder'] = get_directorist_option( 'listings_search_text_placeholder', __( 'What are you looking for?', 'directorist' ) );
+		$this->options['category_placeholder']    = get_directorist_option( 'listings_category_placeholder', __( 'Select a category', 'directorist' ) );
+		$this->options['location_placeholder']    = get_directorist_option( 'listings_location_placeholder', __( 'Select a location', 'directorist' ) );
+	}
+
+	// update_search_options
+	public function update_search_options() {
+		$this->options['reset_filters_text']      = get_directorist_option('sresult_reset_text', __('Reset Filters', 'directorist'));
+		$this->options['apply_filters_text']      = get_directorist_option( 'sresult_apply_text', __( 'Apply Filters', 'directorist' ) );
+		$this->options['search_text_placeholder'] = get_directorist_option( 'search_result_search_text_placeholder', __( 'What are you looking for?', 'directorist' ) );
+		$this->options['category_placeholder']    = get_directorist_option( 'search_result_category_placeholder', __( 'Select a category', 'directorist' ) );
+		$this->options['location_placeholder']    = get_directorist_option( 'search_location_placeholder', __( 'Select a location', 'directorist' ) );
 	}
 
 	public function prepare_search_data($atts) {
@@ -134,8 +156,8 @@ class Directorist_Listing_Search_Form {
 			'radius_search'          => in_array('radius_search', $search_more_filters_fields) ? 'yes' : '',
 			'reset_filters_button'   => in_array('search_reset_filters', $search_filters) ? 'yes' : '',
 			'apply_filters_button'   => in_array('search_apply_filters', $search_filters) ? 'yes' : '',
-			'reset_filters_text'     => get_directorist_option('search_reset_text', __('Reset Filters', 'directorist')),
-			'apply_filters_text'     => get_directorist_option('search_apply_filter', __('Apply Filters', 'directorist')),
+			'reset_filters_text'     => $this->options['reset_filters_text'],
+			'apply_filters_text'     => $this->options['apply_filters_text'],
 			'logged_in_user_only'    => '',
 			'redirect_page_url'      => '',
 			'more_filters_display'   => get_directorist_option('home_display_filter', 'overlapping'),
@@ -180,8 +202,8 @@ class Directorist_Listing_Search_Form {
 		$this->default_radius_distance = get_directorist_option( 'listing_default_radius_distance', 0 );
 		$this->tag_terms               = get_terms(ATBDP_TAGS);
 		$this->search_text_placeholder = get_directorist_option('search_placeholder', __('What are you looking for?', 'directorist'));
-		$this->category_placeholder    = get_directorist_option('search_category_placeholder', __('Select a category', 'directorist'));
-		$this->location_placeholder    = get_directorist_option('search_location_placeholder', __('location', 'directorist'));
+		$this->category_placeholder    = $this->options['category_placeholder'];
+		$this->location_placeholder    = $this->options['location_placeholder'];
 		$this->search_required_text    = !empty(get_directorist_option('require_search_text')) ? ' required' : '';
 		$this->cat_required_text       = !empty(get_directorist_option('require_search_category')) ? ' required' : '';
 		$this->loc_required_text       = !empty(get_directorist_option('require_search_location')) ? ' required' : '';     
@@ -218,14 +240,14 @@ class Directorist_Listing_Search_Form {
 		$this->has_open_now_field       = in_array( 'search_open_now', $search_more_filters_fields ) ? true : false;
 		$this->has_reset_filters_button = in_array( 'reset_button', $filters_buttons ) ? true : false;
 		$this->has_apply_filters_button = in_array( 'apply_button', $filters_buttons ) ? true : false;
-		$this->reset_filters_text       = get_directorist_option( 'listings_reset_text', __( 'Reset Filters', 'directorist' ) );
-		$this->apply_filters_text       = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
+		$this->reset_filters_text       = $this->options['reset_filters_text'];
+		$this->apply_filters_text       = $this->options['apply_filters_text'];
 
 		$this->default_radius_distance = get_directorist_option('search_default_radius_distance',0);
 		$this->tag_terms               = $this->listing_tag_terms();
-		$this->search_text_placeholder = get_directorist_option( 'listings_search_text_placeholder', __( 'What are you looking for?', 'directorist' ) );
-		$this->category_placeholder  = get_directorist_option( 'listings_category_placeholder', __( 'Select a category', 'directorist' ) );
-		$this->location_placeholder  = get_directorist_option( 'listings_location_placeholder', __( 'Select a location', 'directorist' ) );
+		$this->search_text_placeholder = $this->options['search_text_placeholder'];
+		$this->category_placeholder    = $this->options['category_placeholder'];
+		$this->location_placeholder    = $this->options['location_placeholder'];
 		$this->search_required_text    = '';
 		$this->cat_required_text       = '';
 		$this->loc_required_text       = '';

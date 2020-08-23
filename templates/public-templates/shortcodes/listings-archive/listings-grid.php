@@ -14,7 +14,6 @@ do_action('atbdp_before_all_listings_grid', $listings);
 ?>
 
 <div id="directorist" class="atbd_wrapper ads-advaced--wrapper">
-
     <?php
     /**
      * @since 7.0

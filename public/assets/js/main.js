@@ -766,17 +766,17 @@
         $('#atbdp-report-abuse-form').removeAttr('novalidate');
 
         // Validate contact form
-        /* var atbdp_contact_submitted = false;
+        var atbdp_contact_submitted = false;
 
-        $('#atbdp-contact-form,#atbdp-stcode-contact-form-widget').validator({
+        $('#atbdp-contact-form,#atbdp-contact-form-widget').validator({
             disable: true
         }).on('submit', function (e) {
             e.preventDefault();
 
             if ( atbdp_contact_submitted ) return false;
 
-            var status_area = $('.atbdp-widget-elm, .atbdp-stcode-contact-message-display');
-            status_area.append('<p style="margin-bottom: 10px">Sending the message, please wait...</p>');
+            var status_area = $('.atbdp-widget-elm, .atbdp-contact-message-display');
+            //status_area.append('<p style="margin-bottom: 10px">Sending the message, please wait...</p>');
             
             // Post via AJAX
             var data = {
@@ -802,7 +802,7 @@
 
         });
 
-        $('#atbdp-contact-form,#atbdp-contact-form-widget').removeAttr('novalidate'); */
+        $('#atbdp-contact-form,#atbdp-contact-form-widget').removeAttr('novalidate');
     }
 
     // Report abuse [on modal closed]

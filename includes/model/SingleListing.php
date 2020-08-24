@@ -255,14 +255,13 @@ class Directorist_Single_Listing
 					}
 
 					do_action("before_{$shortcode_key}", $id);
-
 					echo "[{$shortcode_key}]";
+					do_action("after_{$shortcode_key}", $id);
 
 					if (!empty($shortcode['after']) && is_callable($shortcode['after'])) {
 						$shortcode['after']($id);
 					}
-
-					do_action("after_{$shortcode_key}", $id);
+					
 				}
 
 				$content = ob_get_clean();

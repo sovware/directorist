@@ -67,7 +67,7 @@ if (!class_exists('ATBDP_Template')):
 
             if( $post_type == ATBDP_POST_TYPE && 'directorist_template' == $single_listing_template)
             {
-                return ATBDP_DIR . "/templates/custom-template/directorist-single-listing.php";
+                return ATBDP_DIR . "/templates/custom-templates/directorist-single-listing.php";
             }
             return $template;
         }

@@ -33,7 +33,6 @@ $single_temp_margin_right   = get_directorist_option('single_temp_margin_right',
     </style>
     <div id="atbdp-wrapper">
         <div id="atbdp-main">
-
             <?php
             while ( have_posts() ) :
                 the_post();

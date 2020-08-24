@@ -660,6 +660,21 @@ class Directorist_Listings {
 
 	// get_query_results
 	public function get_query_results( array $caching_options = [] ) {
+		if ( ! empty( $this->query_args['orderby'] ) ) {
+			if ( is_string( $this->query_args['orderby'] ) && preg_match( '/rand/', $this->query_args['orderby'] ) ) {
+				$caching_options['cache'] = false;
+			}
+
+			if ( is_array( $this->query_args['orderby'] ) ) {
+				foreach ( $this->query_args['orderby'] as $key => $value ) {
+					if ( 'rand' == $value ) {
+						$caching_options['cache'] = false;
+					}
+				}
+			}
+
+		}
+		
 		return ATBDP_Listings_Data_Store::get_archive_listings_query( $this->query_args, $caching_options );
 	}
 

@@ -269,7 +269,7 @@ class Directorist_Listings {
 		$this->order                    = $this->params['order'];
 		$this->listings_per_page        = (int) $this->params['listings_per_page'];
 		$this->show_pagination          = $this->params['show_pagination'] == 'yes' ? true : false;
-		$this->header                   = $this->params['header'] == 'yes' ? true : false;;
+		$this->header                   = $this->params['header'] == 'yes' ? true : false;
 		$this->header_title             = $this->params['header_title'];
 		$this->categories               = !empty( $this->params['category'] ) ? explode( ',', $this->params['category'] ) : '';
 		$this->tags                     = !empty( $this->params['tag'] ) ? explode( ',', $this->params['tag'] ) : '';
@@ -1143,7 +1143,7 @@ class Directorist_Listings {
 
 		$old_listings = ( ! empty( $GLOBALS['listings_data'] ) ) ? $GLOBALS['listings_data'] : null;
 		$GLOBALS['listings'] = $this;
-		
+		return '';
 		// Manage templating compatibility for old extension
 		$has_old_ext_template = $this->manage_old_ext_compatibility();
 		if ( $has_old_ext_template ) {

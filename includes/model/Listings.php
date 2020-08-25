@@ -218,7 +218,6 @@ class Directorist_Listings {
 		$this->options['listing_filters_fields']          = get_directorist_option( 'search_result_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
 		$this->options['listing_location_address']        = get_directorist_option( 'sresult_location_address', 'map_api' );
 		$this->options['listing_default_radius_distance'] = get_directorist_option( 'sresult_default_radius_distance', 0 );
-		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'search_result_filters_button', 1 ) ) ? 'yes' : '';
 		$this->options['listings_category_placeholder']   = get_directorist_option( 'search_result_category_placeholder', __( 'Select a category', 'directorist' ) );
 		$this->options['listings_location_placeholder']   = get_directorist_option( 'search_result_location_placeholder', __( 'Select a location', 'directorist' ) );
 		$this->options['display_sort_by']                 = get_directorist_option( 'search_sort_by', 1 ) ? true : false;
@@ -284,6 +283,8 @@ class Directorist_Listings {
 		$this->logged_in_user_only      = $this->params['logged_in_user_only'] == 'yes' ? true : false;
 		$this->redirect_page_url        = $this->params['redirect_page_url'];
 		$this->listings_map_height      = ( ! empty( $this->params['map_height'] ) ) ? (int) $this->params['map_height'] : $defaults['map_height'];
+
+		var_dump( $this->advanced_filter );
 	}
 
 	public function prepare_data() {

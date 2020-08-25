@@ -1140,7 +1140,7 @@ class Directorist_Listings {
 			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
 			return $redirect;
 		}
-		
+
 		if ( $this->logged_in_user_only ) {
 			return ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
@@ -1153,7 +1153,6 @@ class Directorist_Listings {
 		if ( $has_old_ext_template ) {
 			return '';
 		}
-
 		
 		// Load the template
 		$template_file = "listings-archive/listings-{$this->view}";
@@ -1320,7 +1319,7 @@ class Directorist_Listings {
 		$map_is_disabled = ( empty($opt['display_map_info']) && (empty($opt['display_image_map']) || empty($opt['display_title_map']) || empty($opt['display_address_map']) || empty($opt['display_direction_map']))) ? true : false;
 		$opt['map_is_disabled'] = $map_is_disabled;
 
-		return $opt;
+		return apply_filters( 'atbdp_map_options', $opt );
 	}
 
 	public function render_osm_map_info_card( $script_id = '' ) {

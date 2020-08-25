@@ -100,6 +100,7 @@ function atbdp_get_shortcode_template( $template, $args = array(), string $short
         
         if ( file_exists( $extension_path ) ) {
             include $extension_path;
+            return;
         }
     }
     

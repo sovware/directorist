@@ -248,7 +248,7 @@ class Directorist_Listings {
 			'location'                 => '',
 			'tag'                      => '',
 			'ids'                      => '',
-			'columns'                  => $this->options['listing_columns'],
+			'column'                  => $this->options['listing_columns'],
 			'featured_only'            => '',
 			'popular_only'             => '',
 			'advanced_filter'          => $this->options['listing_filters_button'],
@@ -275,7 +275,7 @@ class Directorist_Listings {
 		$this->tags                     = !empty( $this->params['tag'] ) ? explode( ',', $this->params['tag'] ) : '';
 		$this->locations                = !empty( $this->params['location'] ) ? explode( ',', $this->params['location'] ) : '';
 		$this->ids                      = !empty( $this->params['ids'] ) ? explode( ',', $this->params['ids'] ) : '';
-		$this->columns                  = (int) $this->params['columns'];
+		$this->columns                  = (int) $this->params['column'];
 		$this->featured_only            = $this->params['featured_only'];
 		$this->popular_only             = $this->params['popular_only'];
 		$this->advanced_filter          = $this->params['advanced_filter'] == 'yes' ? true : false;

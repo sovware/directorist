@@ -1140,10 +1140,14 @@ class Directorist_Listings {
 			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
 			return $redirect;
 		}
+		
+		if ( $this->logged_in_user_only ) {
+			return ATBDP_Helper::guard([ 'type' => 'auth' ]);
+		}
 
 		$old_listings = ( ! empty( $GLOBALS['listings_data'] ) ) ? $GLOBALS['listings_data'] : null;
 		$GLOBALS['listings'] = $this;
-		
+
 		// Manage templating compatibility for old extension
 		$has_old_ext_template = $this->manage_old_ext_compatibility();
 		if ( $has_old_ext_template ) {

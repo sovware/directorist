@@ -512,7 +512,7 @@ if (!class_exists('ATBDP_Helper')) :
             return $links;
         }
 
-        public function show_login_message($message = '')
+        public static function show_login_message($message = '')
         {
 
             $t = !empty($message) ? $message : '';
@@ -628,7 +628,7 @@ if (!class_exists('ATBDP_Helper')) :
                 $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . '</a>'), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . '</a>'));
             ?>
                 <section class="directory_wrapper single_area">
-                    <?php self::show_login_message($error_message); ?>
+                    <?php self::show_login_message( $error_message ); ?>
                 </section>
             <?php
 

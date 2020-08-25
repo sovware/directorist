@@ -283,8 +283,6 @@ class Directorist_Listings {
 		$this->logged_in_user_only      = $this->params['logged_in_user_only'] == 'yes' ? true : false;
 		$this->redirect_page_url        = $this->params['redirect_page_url'];
 		$this->listings_map_height      = ( ! empty( $this->params['map_height'] ) ) ? (int) $this->params['map_height'] : $defaults['map_height'];
-
-		var_dump( $this->advanced_filter );
 	}
 
 	public function prepare_data() {

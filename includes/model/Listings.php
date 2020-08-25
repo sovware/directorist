@@ -1589,6 +1589,10 @@ class Directorist_Listings {
 				$title = sprintf( _nx( '%s result', '%s results', $count, 'search result header', 'directorist' ), $count );
 			}
 
+			if ( ! empty( $this->header_title ) ) {
+				$title = sprintf('<span>%s</span> %s', $count, $this->header_title);
+			}
+
 			return $title;
 		}
 

@@ -120,6 +120,7 @@ class Directorist_Listing_Search_Form {
 		$this->options['search_text_placeholder'] = get_directorist_option( 'search_result_search_text_placeholder', __( 'What are you looking for?', 'directorist' ) );
 		$this->options['category_placeholder']    = get_directorist_option( 'search_result_category_placeholder', __( 'Select a category', 'directorist' ) );
 		$this->options['location_placeholder']    = get_directorist_option( 'search_location_placeholder', __( 'Select a location', 'directorist' ) );
+		$this->options['location_address']        = get_directorist_option( 'search_location_placeholder', __( 'Select a location', 'directorist' ) );
 	}
 
 	public function prepare_search_data($atts) {

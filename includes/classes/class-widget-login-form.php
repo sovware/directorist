@@ -35,16 +35,14 @@ if (!class_exists('BD_Login_Form_Widget')) {
 
             $template_path = atbdp_get_widget_template_path( 'login' );
             if ( file_exists( $template_path ) ) {
-                include $template_path;
-            }
-
-            /* if(!empty($single_only)) {
-                if(is_singular(ATBDP_POST_TYPE)) {
-                    include ATBDP_TEMPLATES_DIR . "widget-templates/login-form.php";
+                if(!empty($single_only)) {
+                    if(is_singular(ATBDP_POST_TYPE)) {
+                        include $template_path;
+                    }
+                } else {
+                    include $template_path;
                 }
-            } else {
-                include ATBDP_TEMPLATES_DIR . "widget-templates/login-form.php";
-            } */
+            }
         }
 
         /**

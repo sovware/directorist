@@ -304,21 +304,26 @@ if (!class_exists('BD_Categories_Widget')) {
             }
 
             $term_slug = get_query_var( ATBDP_CATEGORY );
+
             $args = array(
+                'taxonomy'     => ATBDP_CATEGORY,
                 'orderby'      => $settings['orderby'],
                 'order'        => $settings['order'],
                 'hide_empty'   => $settings['hide_empty'],
-                'parent'       => $settings['term_id'],
+                'parent'       => !empty($settings['term_id']) ? $settings['term_id'] : '',
                 'hierarchical' => ! empty( $settings['hide_empty'] ) ? true : false,
+                'number'       => !empty($settings['max_number']) ? $settings['max_number'] : ''
             );
 
-            $terms = get_terms( ATBDP_CATEGORY, $args );
+            $terms = get_terms( $args );
+
             $html = '';
 
             if( count( $terms ) > 0 ) {
                 $i = 1;
                 foreach( $terms as $term ) {
                     $settings['term_id'] = $term->term_id;
+
                     $count = 0;
                     if( ! empty( $settings['hide_empty'] ) || ! empty( $settings['show_count'] ) ) {
                         $count = atbdp_listings_count_by_category( $term->term_id );
@@ -326,12 +331,12 @@ if (!class_exists('BD_Categories_Widget')) {
                         if( ! empty( $settings['hide_empty'] ) && 0 == $count ) continue;
                     }
 
-                    $html .= sprintf( '<option id="atbdp_category" value="%s" %s>', $term->term_id, selected( $term->term_id, $term_slug, false ) );
+                    $html .= sprintf( '<option value="%s" %s>', $term->term_id, selected( $term->term_id, $term_slug, false ) );
                     $html .= $prefix . $term->name;
                     if( ! empty( $settings['show_count'] ) ) {
                         $html .= ' (' . $count . ')';
                     }
-                    $html .= $this->dropdown_categories( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
+                    //$html .= $this->dropdown_locations( $settings, $prefix . '&nbsp;&nbsp;&nbsp;' );
                     $html .= '</option>';
                     if(!empty($args['number'])) {
                         if( $i++ == $args['number'] ) break;

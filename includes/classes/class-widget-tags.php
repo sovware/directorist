@@ -322,7 +322,7 @@ if (!class_exists('BD_Tags_Widget')) {
                             if (!empty($settings['hide_empty']) && 0 == $count) continue;
                         }
 
-                        $html .= sprintf('<option value="%s" %s>', $term->slug, selected($term->slug, $term_slug, false));
+                        $html .= sprintf('<option value="%s" %s>', $term->term_taxonomy_id, selected($term->slug, $term_slug, false));
                         $html .= $prefix . $term->name;
                         if (!empty($settings['show_count'])) {
                             $html .= ' (' . $count . ')';

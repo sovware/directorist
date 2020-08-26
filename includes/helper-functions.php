@@ -1715,7 +1715,7 @@ function atbdp_display_price_range($price_range)
         </span>';
 
     }
-    return apply_filters( 'atbdp_listing_price', $output );
+    return apply_filters('atbdp_listing_price', $output);
 
 }
 
@@ -3689,20 +3689,19 @@ function atbdp_get_custom_field_ids($category = 0)
 
     // Get category fields
     if ( $category > 0 ) {
-        $args['meta_query']['relation'] = 'OR';
-        $args['meta_query']['category_clause'] = [
+        $args['meta_query'] = array(
             'relation' => 'AND',
-            [
+            array(
                 'key'     => 'category_pass',
                 'value'   => $category,
                 'compare' => 'EXISTS',
-            ],
-            [
+            ),
+            array(
                 'key'     => 'associate',
                 'value'   => 'categories',
                 'compare' => 'LIKE',
-            ]
-        ];
+            )
+        );
     }
 
     $field_ids = ATBDP_Cache_Helper::get_the_transient([

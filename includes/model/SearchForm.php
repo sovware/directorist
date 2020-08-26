@@ -11,6 +11,7 @@ class Directorist_Listing_Search_Form {
 
 	// Search Shortcode
 	public $options = [];
+	public $type = '';
 
 	public $atts;
 	public $defaults;
@@ -79,33 +80,59 @@ class Directorist_Listing_Search_Form {
 	public $select_listing_map;
 
 	public function __construct( $type, $atts = array() ) {
+		$this->type = $type;
 		$this->atts = $atts;
 
-		$this->set_options();
+		$this->set_default_options();
 
-		if ( $type=='search' ) {
-			$this->update_search_options();
+		if ( $type == 'search_form' ) {
+			$this->update_options_for_search_form();
 			$this->prepare_search_data($atts);
 		}
 
-		if ( $type=='listing' ) {
+		if ( $type == 'search' ) {
+			$this->update_options_for_search_result_page();
+			$this->prepare_search_data($atts);
+		}
+
+		if ( $type == 'listing' ) {
 			$this->prepare_listing_data($atts);
 		}
 
-		$this->c_symbol       = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
-		$this->tag_label      = get_directorist_option( 'tag_label', __( 'Tag', 'directorist' ) );
-		$this->website_label  = get_directorist_option( 'website_label', __( 'Website', 'directorist' ) );
-		$this->email_label    = get_directorist_option( 'email_label', __( 'Email', 'directorist' ) );
-		$this->fax_label      = get_directorist_option( 'fax_label', __( 'Fax', 'directorist' ) );
-		$this->address_label  = get_directorist_option( 'address_label', __( 'Address', 'directorist' ) );
-		$this->zip_label      = get_directorist_option( 'zip_label', __( 'Zip', 'directorist' ) );
-		$this->categories_fields = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
-		$this->locations_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
-		$this->select_listing_map  = get_directorist_option( 'select_listing_map', 'google' );
+		$this->c_symbol           = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
+		$this->tag_label          = get_directorist_option( 'tag_label', __( 'Tag', 'directorist' ) );
+		$this->website_label      = get_directorist_option( 'website_label', __( 'Website', 'directorist' ) );
+		$this->email_label        = get_directorist_option( 'email_label', __( 'Email', 'directorist' ) );
+		$this->fax_label          = get_directorist_option( 'fax_label', __( 'Fax', 'directorist' ) );
+		$this->address_label      = get_directorist_option( 'address_label', __( 'Address', 'directorist' ) );
+		$this->zip_label          = get_directorist_option( 'zip_label', __( 'Zip', 'directorist' ) );
+		$this->categories_fields  = search_category_location_filter( $this->search_category_location_args(), ATBDP_CATEGORY );
+		$this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
+		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
 	}
 	
-	// set_options
-	public function set_options() {
+	// set_default_options
+	public function set_default_options() {
+		$this->options['more_filters_fields']     = get_directorist_option( 'listing_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
+		$this->options['search_fields']           = get_directorist_option('search_tsc_fields', array('search_text', 'search_category', 'search_location'));
+		$this->options['search_filters']          = get_directorist_option('listings_filters_button', array('search_reset_filters', 'search_apply_filters'));
+		$this->options['location_address']        = get_directorist_option( 'listing_location_address', 'map_api' );
+		$this->options['search_listing_text']     = get_directorist_option('search_listing_text', __('Search Listing', 'directorist'));
+		$this->options['search_more_filter']      = !empty( get_directorist_option( 'search_more_filter', 1 ) ) ? 'yes' : '';
+		$this->options['search_more_filters']     = get_directorist_option('search_more_filters', __('More Filters', 'directorist'));
+		$this->options['search_button']           = !empty( get_directorist_option( 'search_button', 1 ) ) ? 'yes' : '';
+		$this->options['radius_distance']         = get_directorist_option( 'listing_default_radius_distance', 0 );
+		$this->options['require_search_text']     = !empty(get_directorist_option('require_search_text')) ? ' required' : '';
+		$this->options['require_search_category'] = !empty(get_directorist_option('require_search_category')) ? ' required' : '';
+		$this->options['require_search_location'] = !empty(get_directorist_option('require_search_location')) ? ' required' : '';
+		$this->options['search_placeholder']      = get_directorist_option('listings_search_text_placeholder', __('What are you looking for?', 'directorist'));
+		$this->options['filters_buttons']         = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ) );
+		
+		$this->options['more_filters_button']        = get_directorist_option( 'listing_filters_button', 1 );
+		$this->options['display_more_filter_icon']   = get_directorist_option('listing_filters_icon', 1);
+		$this->options['display_search_button_icon'] = get_directorist_option('listing_filters_icon', 1);
+		$this->options['open_filter_fields']         = get_directorist_option('listings_display_filter', 'overlapping');
+		
 		$this->options['reset_filters_text']      = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
 		$this->options['apply_filters_text']      = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
 		$this->options['search_text_placeholder'] = get_directorist_option( 'listings_search_text_placeholder', __( 'What are you looking for?', 'directorist' ) );
@@ -113,35 +140,68 @@ class Directorist_Listing_Search_Form {
 		$this->options['location_placeholder']    = get_directorist_option( 'listings_location_placeholder', __( 'Select a location', 'directorist' ) );
 	}
 
-	// update_search_options
-	public function update_search_options() {
+	// update_options_for_search_result_page
+	public function update_options_for_search_result_page() {
+		$this->options['more_filters_fields'] = get_directorist_option('search_result_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
+		$this->options['location_address']    = get_directorist_option('sresult_location_address', 'address');
+		$this->options['search_filters']      = get_directorist_option('search_result_filters_button', array('search_reset_filters', 'search_apply_filters'));
+
+		$this->options['more_filters_button'] = get_directorist_option( 'search_result_filters_button_display', 1 );
+		$this->options['radius_distance']     = get_directorist_option( 'sresult_default_radius_distance', 0 );
+
 		$this->options['reset_filters_text']      = get_directorist_option('sresult_reset_text', __('Reset Filters', 'directorist'));
 		$this->options['apply_filters_text']      = get_directorist_option( 'sresult_apply_text', __( 'Apply Filters', 'directorist' ) );
 		$this->options['search_text_placeholder'] = get_directorist_option( 'search_result_search_text_placeholder', __( 'What are you looking for?', 'directorist' ) );
 		$this->options['category_placeholder']    = get_directorist_option( 'search_result_category_placeholder', __( 'Select a category', 'directorist' ) );
-		$this->options['location_placeholder']    = get_directorist_option( 'search_location_placeholder', __( 'Select a location', 'directorist' ) );
-		$this->options['location_address']        = get_directorist_option( 'search_location_placeholder', __( 'Select a location', 'directorist' ) );
+		$this->options['location_placeholder']    = get_directorist_option( 'search_result_location_placeholder', __( 'Select a location', 'directorist' ) );
 	}
 
-	public function prepare_search_data($atts) {
+	// update_options_for_search_form
+	public function update_options_for_search_form() {
+		$this->options['more_filters_fields'] = get_directorist_option('search_more_filters_fields', array( 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
+		$this->options['location_address']    = get_directorist_option('search_location_address', 'address');
+		
+		$this->options['search_filters']             = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'));
+		$this->options['more_filters_button']        = get_directorist_option( 'search_more_filter', 1 );
+		$this->options['display_more_filter_icon']   = get_directorist_option('search_more_filter_icon', 1);
+		$this->options['display_search_button_icon'] = get_directorist_option('search_button_icon', 1);
+		$this->options['open_filter_fields']         = get_directorist_option('home_display_filter', 'overlapping');
+		$this->options['radius_distance']            = get_directorist_option('search_default_radius_distance', 0);
+		
+		$this->options['reset_filters_text']      = get_directorist_option( 'search_reset_text', __('Reset Filters', 'directorist'));
+		$this->options['apply_filters_text']      = get_directorist_option( 'search_apply_filter', __( 'Apply Filters', 'directorist' ) );
+		$this->options['search_text_placeholder'] = get_directorist_option( 'search_placeholder', __( 'What are you looking for?', 'directorist' ) );
+		$this->options['category_placeholder']    = get_directorist_option( 'search_category_placeholder', __( 'Select a category', 'directorist' ) );
+		$this->options['location_placeholder']    = get_directorist_option( 'search_location_placeholder', __( 'Select a location', 'directorist' ) );
+	}
 
-		$search_fields = get_directorist_option('search_tsc_fields', array('search_text', 'search_category', 'search_location'));
-		$search_more_filters_fields = get_directorist_option('search_more_filters_fields', array('search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
-		$search_filters = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'));
-		$search_location_address = get_directorist_option('search_location_address', 'address');
+	// prepare_search_data
+	public function prepare_search_data($atts) {
+		$search_more_filters_fields = $this->options['more_filters_fields'];
+		$search_filters             = $this->options['search_filters'];
+		$search_location_address    = $this->options['location_address'];
+
+		$search_fields        = $search_more_filters_fields;
+		$reset_filters_button = in_array('reset_button', $search_filters) ? 'yes' : '';
+		$apply_filters_button = in_array('apply_button', $search_filters) ? 'yes' : '';
+
+		if ( 'search_form' === $this->type ) {
+			$search_fields = $this->options['search_fields'];
+			$reset_filters_button = in_array('search_reset_filters', $search_filters) ? 'yes' : '';
+			$apply_filters_button = in_array('search_apply_filters', $search_filters) ? 'yes' : '';
+		}
 
 		$this->defaults = array(
 			'show_title_subtitle'    => 'yes',
 			'search_bar_title'       => get_directorist_option('search_title', __("Search here", 'directorist')),
-			'search_bar_sub_title'   => get_directorist_option('search_subtitle', __("Find the best match of your interest
-				", 'directorist')),
+			'search_bar_sub_title'   => get_directorist_option('search_subtitle', __("Find the best match of your interest", 'directorist')),
 			'text_field'             => in_array('search_text', $search_fields) ? 'yes' : '',
 			'category_field'         => in_array('search_category', $search_fields) ? 'yes' : '',
 			'location_field'         => in_array('search_location', $search_fields) ? 'yes' : '',
-			'search_button'          => !empty( get_directorist_option( 'search_button', 1 ) ) ? 'yes' : '',
-			'search_button_text'     => get_directorist_option('search_listing_text', __('Search Listing', 'directorist')),
-			'more_filters_button'    => !empty( get_directorist_option( 'search_more_filter', 1 ) ) ? 'yes' : '',
-			'more_filters_text'      => get_directorist_option('search_more_filters', __('More Filters', 'directorist')),
+			'search_button'          => $this->options['search_button'],
+			'search_button_text'     => $this->options['search_listing_text'],
+			'more_filters_button'    => ( $this->options['more_filters_button'] ) ? 'yes' : '',
+			'more_filters_text'      => $this->options['search_more_filters'],
 			'price_min_max_field'    => in_array('search_price', $search_more_filters_fields) ? 'yes' : '',
 			'price_range_field'      => in_array('search_price_range', $search_more_filters_fields) ? 'yes' : '',
 			'rating_field'           => in_array('search_rating', $search_more_filters_fields) ? 'yes' : '',
@@ -155,13 +215,13 @@ class Directorist_Listing_Search_Form {
 			'address_field'          => in_array('search_address', $search_more_filters_fields) ? 'yes' : '',
 			'zip_code_field'         => in_array('search_zip_code', $search_more_filters_fields) ? 'yes' : '',
 			'radius_search'          => in_array('radius_search', $search_more_filters_fields) ? 'yes' : '',
-			'reset_filters_button'   => in_array('search_reset_filters', $search_filters) ? 'yes' : '',
-			'apply_filters_button'   => in_array('search_apply_filters', $search_filters) ? 'yes' : '',
+			'reset_filters_button'   => $reset_filters_button,
+			'apply_filters_button'   => $apply_filters_button,
 			'reset_filters_text'     => $this->options['reset_filters_text'],
 			'apply_filters_text'     => $this->options['apply_filters_text'],
 			'logged_in_user_only'    => '',
 			'redirect_page_url'      => '',
-			'more_filters_display'   => get_directorist_option('home_display_filter', 'overlapping'),
+			'more_filters_display'   => $this->options['open_filter_fields'],
 		);
 
 		$this->params = shortcode_atts( $this->defaults, $this->atts );
@@ -200,28 +260,28 @@ class Directorist_Listing_Search_Form {
 		$this->more_filters_display = $this->params['more_filters_display'];
 		$this->redirect_page_url    = $this->params['redirect_page_url'];
 
-		$this->default_radius_distance = get_directorist_option( 'listing_default_radius_distance', 0 );
+		$this->default_radius_distance = $this->options['radius_distance'];
 		$this->tag_terms               = get_terms(ATBDP_TAGS);
-		$this->search_text_placeholder = get_directorist_option('search_placeholder', __('What are you looking for?', 'directorist'));
+		$this->search_text_placeholder = $this->options['search_text_placeholder'];
 		$this->category_placeholder    = $this->options['category_placeholder'];
 		$this->location_placeholder    = $this->options['location_placeholder'];
-		$this->search_required_text    = !empty(get_directorist_option('require_search_text')) ? ' required' : '';
-		$this->cat_required_text       = !empty(get_directorist_option('require_search_category')) ? ' required' : '';
-		$this->loc_required_text       = !empty(get_directorist_option('require_search_location')) ? ' required' : '';     
+		$this->search_required_text    = $this->options['require_search_text'];
+		$this->cat_required_text       = $this->options['require_search_category'];
+		$this->loc_required_text       = $this->options['require_search_location'];     
 		$this->category_id             = 'at_biz_dir-category';
 		$this->category_class          = 'search_fields form-control';
 		$this->location_id             = 'at_biz_dir-location';
 		$this->location_class          = 'search_fields form-control';
-		$this->location_source         = ($search_location_address == 'map_api') ? 'map' : 'address';
+		$this->location_source         = ( $search_location_address == 'map_api') ? 'map' : 'address';
 		$this->connectors_title        = get_directorist_option('connectors_title', __('Or', 'directorist'));
 		$this->popular_cat_title       = get_directorist_option('popular_cat_title', __('Browse by popular categories', 'directorist'));
 		$this->popular_cat_num         = get_directorist_option('popular_cat_num', 10);
 	}
 
 	public function prepare_listing_data() {
-		$search_more_filters_fields  = get_directorist_option( 'listing_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
-		$listing_location_address   = get_directorist_option( 'listing_location_address', 'map_api' );
-		$filters_buttons            = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ) );
+		$search_more_filters_fields = $this->options['more_filters_fields'];
+		$listing_location_address   = $this->options['location_address'];
+		$filters_buttons            = $this->options['filters_buttons'];
 
 		$this->has_search_text_field    = in_array( 'search_text', $search_more_filters_fields ) ? true : false;
 		$this->has_category_field       = in_array( 'search_category', $search_more_filters_fields ) ? true : false;
@@ -244,7 +304,7 @@ class Directorist_Listing_Search_Form {
 		$this->reset_filters_text       = $this->options['reset_filters_text'];
 		$this->apply_filters_text       = $this->options['apply_filters_text'];
 
-		$this->default_radius_distance = get_directorist_option('search_default_radius_distance',0);
+		$this->default_radius_distance = $this->options['radius_distance'];
 		$this->tag_terms               = $this->listing_tag_terms();
 		$this->search_text_placeholder = $this->options['search_text_placeholder'];
 		$this->category_placeholder    = $this->options['category_placeholder'];
@@ -366,8 +426,8 @@ class Directorist_Listing_Search_Form {
 		$html = '';
 
 		if ( $this->has_more_filters_button || $this->has_search_button ) {
-			$more_filters_icon   = get_directorist_option('search_more_filter_icon', 1);
-			$search_button_icon  = get_directorist_option('search_button_icon', 1);
+			$more_filters_icon   = $this->options['display_more_filter_icon']; 
+			$search_button_icon  = $this->options['display_search_button_icon'];
 			$more_filters_icon   = !empty($more_filters_icon) ? '<span class="' . atbdp_icon_type() . '-filter"></span>' : '';
 			$search_button_icon  = !empty($search_button_icon) ? '<span class="fa fa-search"></span>' : '';
 

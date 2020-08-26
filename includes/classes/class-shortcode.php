@@ -99,7 +99,7 @@ class ATBDP_Shortcode {
 	}
 
 	public function search_listing($atts) {
-		$searchform = new Directorist_Listing_Search_Form( 'search', $atts );
+		$searchform = new Directorist_Listing_Search_Form( 'search_form', $atts );
 		return $searchform->render_search_shortcode();
 	}
 

@@ -80,7 +80,14 @@ if (!class_exists('BD_Categories_Widget')) {
 
             $template_path = atbdp_get_widget_template_path( 'categories' );
             if ( file_exists( $template_path ) ) {
-                include $template_path;
+                if(!empty($query_args['single_only'])) {
+                    if(is_singular(ATBDP_POST_TYPE)) {
+                        include $template_path;
+                    }
+                } else {
+                    include $template_path;
+                }
+                
             }
 
         }

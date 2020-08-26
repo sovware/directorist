@@ -115,11 +115,11 @@ class Directorist_Listing_Search_Form {
 
 	// update_search_options
 	public function update_search_options() {
-		$this->options['reset_filters_text']      = get_directorist_option('sresult_reset_text', __('Reset Filters', 'directorist'));
-		$this->options['apply_filters_text']      = get_directorist_option( 'sresult_apply_text', __( 'Apply Filters', 'directorist' ) );
-		$this->options['search_text_placeholder'] = get_directorist_option( 'search_result_search_text_placeholder', __( 'What are you looking for?', 'directorist' ) );
-		$this->options['category_placeholder']    = get_directorist_option( 'search_result_category_placeholder', __( 'Select a category', 'directorist' ) );
-		$this->options['location_placeholder']    = get_directorist_option( 'search_location_placeholder', __( 'Select a location', 'directorist' ) );
+		$this->options['reset_filters_text']          = get_directorist_option('search_reset_text', __('Reset Filters', 'directorist'));
+		$this->options['apply_filters_text']          = get_directorist_option( 'search_apply_filter', __( 'Apply Filters', 'directorist' ) );
+		$this->options['search_text_placeholder']     = get_directorist_option( 'search_result_search_text_placeholder', __( 'What are you looking for?', 'directorist' ) );
+		$this->options['search_category_placeholder'] = get_directorist_option( 'search_category_placeholder', __( 'Select a category', 'directorist' ) );
+		$this->options['search_location_placeholder'] = get_directorist_option( 'search_location_placeholder', __( 'Select a location', 'directorist' ) );
 	}
 
 	public function prepare_search_data($atts) {
@@ -202,8 +202,8 @@ class Directorist_Listing_Search_Form {
 		$this->default_radius_distance = get_directorist_option( 'listing_default_radius_distance', 0 );
 		$this->tag_terms               = get_terms(ATBDP_TAGS);
 		$this->search_text_placeholder = get_directorist_option('search_placeholder', __('What are you looking for?', 'directorist'));
-		$this->category_placeholder    = $this->options['category_placeholder'];
-		$this->location_placeholder    = $this->options['location_placeholder'];
+		$this->category_placeholder    = $this->options['search_category_placeholder'];
+		$this->location_placeholder    = $this->options['search_location_placeholder'];
 		$this->search_required_text    = !empty(get_directorist_option('require_search_text')) ? ' required' : '';
 		$this->cat_required_text       = !empty(get_directorist_option('require_search_category')) ? ' required' : '';
 		$this->loc_required_text       = !empty(get_directorist_option('require_search_location')) ? ' required' : '';     

@@ -69,6 +69,7 @@ class Directorist_Listings {
 	public $c_symbol;
 	public $popular_badge_text;
 	public $feature_badge_text;
+	public $info_display_in_single_line;
 	public $readmore_text;
 	public $listing_location_address;
 	public $is_disable_price;
@@ -171,6 +172,7 @@ class Directorist_Listings {
 		$this->options['popular_badge_text']              = get_directorist_option( 'popular_badge_text', __( 'Popular', 'directorist' ) );
 		$this->options['feature_badge_text']              = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
 		$this->options['readmore_text']                   = get_directorist_option( 'readmore_text', __('Read More', 'directorist'));
+		$this->options['info_display_in_single_line']     = get_directorist_option( 'info_display_in_single_line', 0 ) ? 'atbd_single_line_card_info' : '';
 		$this->options['display_title']                   = get_directorist_option( 'display_title', 1 ) ? true : false;
 		$this->options['enable_review']                   = get_directorist_option( 'enable_review', 1 ) ? true : false;
 		$this->options['display_price']                   = get_directorist_option( 'display_price', 1 ) ? true : false;
@@ -191,8 +193,8 @@ class Directorist_Listings {
 		$this->options['display_address_field']           = get_directorist_option( 'display_address_field', 1 ) ? true : false;
 		$this->options['display_phone_field']             = get_directorist_option( 'display_phone_field', 1 ) ? true : false;
 		$this->options['display_readmore']                = get_directorist_option( 'display_readmore', 0) ? true : false;
-		$this->options['address_location']                = get_directorist_option( 'address_location', 'location' ) ? true : false;
-		$this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20) ? true : false;
+		$this->options['address_location']                = get_directorist_option( 'address_location', 'location' );
+		$this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20);
 		$this->options['g_currency']                      = get_directorist_option( 'g_currency', 'USD' );
 		$this->options['display_map_info']                = get_directorist_option('display_map_info', 1) ? true : false;
 		$this->options['display_image_map']               = get_directorist_option('display_image_map', 1) ? true : false;
@@ -218,7 +220,6 @@ class Directorist_Listings {
 		$this->options['listing_filters_fields']          = get_directorist_option( 'search_result_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
 		$this->options['listing_location_address']        = get_directorist_option( 'sresult_location_address', 'map_api' );
 		$this->options['listing_default_radius_distance'] = get_directorist_option( 'sresult_default_radius_distance', 0 );
-		$this->options['listing_filters_button']          = ! empty( get_directorist_option( 'search_result_filters_button', 1 ) ) ? 'yes' : '';
 		$this->options['listings_category_placeholder']   = get_directorist_option( 'search_result_category_placeholder', __( 'Select a category', 'directorist' ) );
 		$this->options['listings_location_placeholder']   = get_directorist_option( 'search_result_location_placeholder', __( 'Select a location', 'directorist' ) );
 		$this->options['display_sort_by']                 = get_directorist_option( 'search_sort_by', 1 ) ? true : false;
@@ -248,7 +249,7 @@ class Directorist_Listings {
 			'location'                 => '',
 			'tag'                      => '',
 			'ids'                      => '',
-			'columns'                  => $this->options['listing_columns'],
+			'column'                  => $this->options['listing_columns'],
 			'featured_only'            => '',
 			'popular_only'             => '',
 			'advanced_filter'          => $this->options['listing_filters_button'],
@@ -275,7 +276,7 @@ class Directorist_Listings {
 		$this->tags                     = !empty( $this->params['tag'] ) ? explode( ',', $this->params['tag'] ) : '';
 		$this->locations                = !empty( $this->params['location'] ) ? explode( ',', $this->params['location'] ) : '';
 		$this->ids                      = !empty( $this->params['ids'] ) ? explode( ',', $this->params['ids'] ) : '';
-		$this->columns                  = (int) $this->params['columns'];
+		$this->columns                  = (int) $this->params['column'];
 		$this->featured_only            = $this->params['featured_only'];
 		$this->popular_only             = $this->params['popular_only'];
 		$this->advanced_filter          = $this->params['advanced_filter'] == 'yes' ? true : false;
@@ -317,6 +318,7 @@ class Directorist_Listings {
 		$this->popular_badge_text         = $this->options['popular_badge_text'];
 		$this->feature_badge_text         = $this->options['feature_badge_text'];
 		$this->readmore_text              = $this->options['readmore_text'];
+		$this->info_display_in_single_line = $this->options['info_display_in_single_line'];
 		$this->listing_location_address   = $this->options['listing_location_address'];
 		$this->is_disable_price           = $this->options['disable_list_price'];
 		$this->disable_single_listing     = $this->options['disable_single_listing'];
@@ -1140,7 +1142,7 @@ class Directorist_Listings {
 			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
 			return $redirect;
 		}
-		
+
 		if ( $this->logged_in_user_only ) {
 			return ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
@@ -1153,7 +1155,6 @@ class Directorist_Listings {
 		if ( $has_old_ext_template ) {
 			return '';
 		}
-
 		
 		// Load the template
 		$template_file = "listings-archive/listings-{$this->view}";
@@ -1320,7 +1321,7 @@ class Directorist_Listings {
 		$map_is_disabled = ( empty($opt['display_map_info']) && (empty($opt['display_image_map']) || empty($opt['display_title_map']) || empty($opt['display_address_map']) || empty($opt['display_direction_map']))) ? true : false;
 		$opt['map_is_disabled'] = $map_is_disabled;
 
-		return $opt;
+		return apply_filters( 'atbdp_map_options', $opt );
 	}
 
 	public function render_osm_map_info_card( $script_id = '' ) {
@@ -1588,6 +1589,10 @@ class Directorist_Listings {
 			}
 			else {
 				$title = sprintf( _nx( '%s result', '%s results', $count, 'search result header', 'directorist' ), $count );
+			}
+
+			if ( ! empty( $this->header_title ) ) {
+				$title = sprintf('<span>%s</span> %s', $count, $this->header_title);
 			}
 
 			return $title;

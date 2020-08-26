@@ -64,7 +64,7 @@
 											do_action('atbdp_user_dashboard_listings_before_expiration', $item['id']);
 											?>
 
-											<p><span><?php esc_html_e('Expiration:', 'directorist'); ?>:</span> <?php echo $item['exp_html']; ?></p>
+											<p><span><?php esc_html_e('Expiration', 'directorist'); ?>:</span> <?php echo $item['exp_html']; ?></p>
 
 											<p><?php printf('<span class="%s">%s</span>', $item['status_label_class'], $item['status_label']) ?></p>
 

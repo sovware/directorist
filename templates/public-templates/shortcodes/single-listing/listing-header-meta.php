@@ -49,19 +49,23 @@
 			</div>
 			<?php
 		}
-		?>
-
+		if ( !empty($cat_list) ) { ?>
 		<div class="atbd_listing_category">
 			<ul class="directory_cats">
-				<?php if ( !empty($cat_list) ) { ?>
 					<li><span class="<?php atbdp_icon_type(true);?>-tags"></span></li>
 					<li><p class="directory_tag"><span><?php echo $cat_list;?></span></p></li>
-					<?php
-				}
-				?>
+			</ul>
+		</div>
+		<?php  }
+		if( $enable_single_location_taxonomy && !empty($loc_list) ){ ?>
+		<div class="atbd-listing-location">
+			<ul class="directory_cats">
+				<li><span class="<?php atbdp_icon_type(true);?>-map-marker"></span></li>
+				<li><p class="directory_tag"><span><?php echo $loc_list;?></span></p></li>
 			</ul>
 		</div>
 		<?php
+		}
 	}
 	?>
 </div>

@@ -119,23 +119,25 @@ class Directorist_Single_Listing
 		$review_count_html = $reviews_count . $reviews;
 
 		$args = array(
-			'listing'                      => $this,
-			'listing_id'                   => $this->get_id(),
-			'plan_price'                   => is_fee_manager_active() ? is_plan_allowed_price($fm_plan) : true,
-			'plan_average_price'           => is_fee_manager_active() ? is_plan_allowed_average_price_range($fm_plan) : true,
-			'enable_review'                => get_directorist_option('enable_review', 'yes'),
-			'is_disable_price'             => get_directorist_option('disable_list_price'),
-			'review_count_html'            => $review_count_html,
-			'price'                        => get_post_meta($id, '_price', true),
-			'price_range'                  => get_post_meta($id, '_price_range', true),
-			'atbd_listing_pricing'         => get_post_meta($id, '_atbd_listing_pricing', true),
-			'enable_new_listing'           => get_directorist_option('display_new_badge_cart', 1),
-			'display_feature_badge_single' => get_directorist_option('display_feature_badge_cart', 1),
-			'display_popular_badge_single' => get_directorist_option('display_popular_badge_cart', 1),
-			'featured'                     => get_post_meta($id, '_featured', true),
-			'feature_badge_text'           => get_directorist_option('feature_badge_text', 'Feature'),
-			'popular_badge_text'           => get_directorist_option('popular_badge_text', 'Popular'),
-			'cat_list'                     => get_the_term_list($id, ATBDP_CATEGORY, '', ', '),
+			'listing'                         => $this,
+			'listing_id'                      => $this->get_id(),
+			'plan_price'                      => is_fee_manager_active() ? is_plan_allowed_price($fm_plan) : true,
+			'plan_average_price'              => is_fee_manager_active() ? is_plan_allowed_average_price_range($fm_plan) : true,
+			'enable_review'                   => get_directorist_option('enable_review', 'yes'),
+			'is_disable_price'                => get_directorist_option('disable_list_price'),
+			'review_count_html'               => $review_count_html,
+			'price'                           => get_post_meta($id, '_price', true),
+			'price_range'                     => get_post_meta($id, '_price_range', true),
+			'atbd_listing_pricing'            => get_post_meta($id, '_atbd_listing_pricing', true),
+			'enable_new_listing'              => get_directorist_option('display_new_badge_cart', 1),
+			'display_feature_badge_single'    => get_directorist_option('display_feature_badge_cart', 1),
+			'display_popular_badge_single'    => get_directorist_option('display_popular_badge_cart', 1),
+			'featured'                        => get_post_meta($id, '_featured', true),
+			'feature_badge_text'              => get_directorist_option('feature_badge_text', 'Feature'),
+			'popular_badge_text'              => get_directorist_option('popular_badge_text', 'Popular'),
+			'cat_list'                        => get_the_term_list($id, ATBDP_CATEGORY, '', ', '),
+			'enable_single_location_taxonomy' => get_directorist_option('enable_single_location_taxonomy', 0),
+			'loc_list'                        => get_the_term_list($id, ATBDP_LOCATION, '', ', '),
 		);
 
 		$html = atbdp_return_shortcode_template('single-listing/listing-header-meta', $args);
@@ -273,22 +275,24 @@ class Directorist_Single_Listing
 			$edit_link = !empty($payment) ? add_query_arg('redirect', $redirect, ATBDP_Permalink::get_edit_listing_page_link($id)) : ATBDP_Permalink::get_edit_listing_page_link($id);
 
 			$display_preview = get_directorist_option('preview_enable', 1);
-			$url = $submit_text = '';
-
+			$submit_text = __('Continue', 'directorist');
+			$url = ''; 
 			if ($display_preview && $redirect) {
 				$post_id = isset($_GET['post_id']) ? $_GET['post_id'] : $id;
 				$edited = isset($_GET['edited']) ? $_GET['edited'] : '';
 				$pid = isset($_GET['p']) ? $_GET['p'] : '';
 				$pid = empty($pid) ? $post_id : $pid;
 				if (empty($payment)) {
-					$url = add_query_arg(array('p' => $pid, 'post_id' => $pid, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $redirect);
-					$submit_text = __('Continue', 'directorist');
+					$redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
+					if( 'view_listing' === $redirect_page){
+						$url = add_query_arg(array('p' => $pid, 'post_id' => $pid, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $redirect);
+					}else{
+						$url = ATBDP_Permalink::get_dashboard_page_link();
+					}
 				} else {
 					$url = add_query_arg(array('atbdp_listing_id' => $pid, 'reviewed' => 'yes'), $_GET['redirect']);
-					$submit_text = __('Continue', 'directorist');
 				}
 			}
-
 			$args = array(
 				'author_id'         => get_post_field('post_author', $id),
 				'content'           => $content,
@@ -838,7 +842,7 @@ class Directorist_Single_Listing
 			return;
 		}
 
-		$is_rtl = is_rtl() ? true : false;
+		$is_rtl = is_rtl() ? 'true' : '';
 		$columns = get_directorist_option('rel_listing_column', 3);
 
 		$localized_data = array(

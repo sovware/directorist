@@ -41,16 +41,14 @@ if (!class_exists('BD_Featured_Listings_Widget')) {
 
             $template_path = atbdp_get_widget_template_path( 'featured-listings' );
             if ( file_exists( $template_path ) ) {
-                include $template_path;
-            }
-
-            /* if(!empty($single_only)) {
-                if(is_singular(ATBDP_POST_TYPE)) {
-                    include ATBDP_TEMPLATES_DIR . "widget-templates/featured-listings.php";
+                if(!empty($single_only)) {
+                    if(is_singular(ATBDP_POST_TYPE)) {
+                        include $template_path;
+                    }
+                } else {
+                    include $template_path;
                 }
-            } else {
-                include ATBDP_TEMPLATES_DIR . "widget-templates/featured-listings.php";
-            } */
+            }
         }
 
         /**

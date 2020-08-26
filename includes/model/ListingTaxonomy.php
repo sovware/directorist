@@ -28,13 +28,26 @@ class Directorist_Listing_Taxonomy {
 	public $terms;
 
 	public function __construct( $atts = array(), $type = 'category' ) {
+		$categories_view = get_directorist_option('display_categories_as', 'grid');
+		$categories_orderby = get_directorist_option('order_category_by', 'id');
+		$categories_order = get_directorist_option('sort_category_by', 'asc');
+		$categories_columns = get_directorist_option('categories_column_number', 3);
+		$categories_show_count = !empty( get_directorist_option('display_listing_count', 1 ) ) ? true : false;
+		$categories_hide_empty = !empty( get_directorist_option('hide_empty_categories') ) ? true : false;
+
+		$locations_view = get_directorist_option('display_locations_as', 'grid');
+		$locations_orderby = get_directorist_option('order_location_by', 'id');
+		$locations_order = get_directorist_option('sort_location_by', 'asc');
+		$locations_columns = get_directorist_option('locations_column_number', 3);
+		$locations_show_count = !empty( get_directorist_option('display_location_listing_count', 1 ) ) ? true : false;
+		$locations_hide_empty = !empty( get_directorist_option('hide_empty_locations') ) ? true : false;
 		$atts = shortcode_atts(array(
-			'view'                => get_directorist_option('display_categories_as', 'grid'),
-			'orderby'             => get_directorist_option('order_category_by', 'id'),
-			'order'               => get_directorist_option('sort_category_by', 'asc'),
+			'view'                => ( 'category' == $type ) ? $categories_view : $locations_view ,
+			'orderby'             => ( 'category' == $type ) ? $categories_orderby : $locations_orderby,
+			'order'               => ( 'category' == $type ) ? $categories_order : $locations_order,
 			'cat_per_page'        => 100,
 			'loc_per_page'        => 100,
-			'columns'             => get_directorist_option('categories_column_number', 3),
+			'columns'             => ( 'category' == $type ) ? $categories_columns : $locations_columns,
 			'slug'                => '',
 			'logged_in_user_only' => '',
 			'redirect_page_url'   => ''
@@ -53,8 +66,8 @@ class Directorist_Listing_Taxonomy {
 		$this->logged_in_user_only = $atts['logged_in_user_only'];
 		$this->redirect_page_url   = $atts['redirect_page_url'];
 
-		$this->show_count = !empty( get_directorist_option('display_listing_count', 1 ) ) ? true : false;
-		$this->hide_empty = !empty( get_directorist_option('hide_empty_categories') ) ? true : false;
+		$this->show_count = ( 'category' == $type ) ? $categories_show_count : $locations_show_count;
+		$this->hide_empty = ( 'category' == $type ) ? $categories_hide_empty : $locations_hide_empty;
 		$this->depth      = ($type == 'category') ? get_directorist_option('categories_depth_number', 1) : get_directorist_option('locations_depth_number', 1);
 
 		$this->set_terms();

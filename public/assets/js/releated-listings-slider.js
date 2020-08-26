@@ -1,4 +1,5 @@
 jQuery(document).ready(function ($) {
+    var rtl = !data.is_rtl ? false : true;
     $('.related__carousel').slick({
         dots: false,
         arrows: false,
@@ -7,7 +8,7 @@ jQuery(document).ready(function ($) {
         slidesToShow: data.rel_listing_column,
         slidesToScroll: 1,
         autoplay: true,
-        rtl: data.is_rtl,
+        rtl: rtl,
         responsive: [
             {
                 breakpoint: 1024,

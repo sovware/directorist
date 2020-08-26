@@ -6077,7 +6077,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'disable_map',
-                    'label' => __('Disable Google Map', 'directorist'),
+                    'label' => __('Disable Map', 'directorist'),
                     'default' => 0,
                 ),
 

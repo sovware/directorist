@@ -69,6 +69,7 @@ class Directorist_Listings {
 	public $c_symbol;
 	public $popular_badge_text;
 	public $feature_badge_text;
+	public $info_display_in_single_line;
 	public $readmore_text;
 	public $listing_location_address;
 	public $is_disable_price;
@@ -171,6 +172,7 @@ class Directorist_Listings {
 		$this->options['popular_badge_text']              = get_directorist_option( 'popular_badge_text', __( 'Popular', 'directorist' ) );
 		$this->options['feature_badge_text']              = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
 		$this->options['readmore_text']                   = get_directorist_option( 'readmore_text', __('Read More', 'directorist'));
+		$this->options['info_display_in_single_line']     = get_directorist_option( 'info_display_in_single_line', 0 ) ? 'atbd_single_line_card_info' : '';
 		$this->options['display_title']                   = get_directorist_option( 'display_title', 1 ) ? true : false;
 		$this->options['enable_review']                   = get_directorist_option( 'enable_review', 1 ) ? true : false;
 		$this->options['display_price']                   = get_directorist_option( 'display_price', 1 ) ? true : false;
@@ -191,8 +193,8 @@ class Directorist_Listings {
 		$this->options['display_address_field']           = get_directorist_option( 'display_address_field', 1 ) ? true : false;
 		$this->options['display_phone_field']             = get_directorist_option( 'display_phone_field', 1 ) ? true : false;
 		$this->options['display_readmore']                = get_directorist_option( 'display_readmore', 0) ? true : false;
-		$this->options['address_location']                = get_directorist_option( 'address_location', 'location' ) ? true : false;
-		$this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20) ? true : false;
+		$this->options['address_location']                = get_directorist_option( 'address_location', 'location' );
+		$this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20);
 		$this->options['g_currency']                      = get_directorist_option( 'g_currency', 'USD' );
 		$this->options['display_map_info']                = get_directorist_option('display_map_info', 1) ? true : false;
 		$this->options['display_image_map']               = get_directorist_option('display_image_map', 1) ? true : false;
@@ -317,6 +319,7 @@ class Directorist_Listings {
 		$this->popular_badge_text         = $this->options['popular_badge_text'];
 		$this->feature_badge_text         = $this->options['feature_badge_text'];
 		$this->readmore_text              = $this->options['readmore_text'];
+		$this->info_display_in_single_line = $this->options['info_display_in_single_line'];
 		$this->listing_location_address   = $this->options['listing_location_address'];
 		$this->is_disable_price           = $this->options['disable_list_price'];
 		$this->disable_single_listing     = $this->options['disable_single_listing'];
@@ -1131,7 +1134,7 @@ class Directorist_Listings {
 
 		wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
 			'Miles'       => $miles,
-			'default_val' => $this->default_radius_distance
+			'default_val' => !empty( $_GET['miles'] ) ? $_GET['miles'] : $this->default_radius_distance
 		));
 
 		ob_start();

@@ -13,5 +13,5 @@
 		</div>
 		<p class="atbd-current-value"></p>
 	</div>
-	<input type="hidden" class="atbdrs-value" name="miles" value="<?php echo esc_attr( $searchform->default_radius_distance ); ?>" />
+	<input type="hidden" class="atbdrs-value" name="miles" value="<?php echo !empty( $_GET['miles'] ) ? $_GET['miles'] : esc_attr( $searchform->default_radius_distance ); ?>" />
 </div>

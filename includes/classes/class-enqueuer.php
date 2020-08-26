@@ -922,10 +922,10 @@ class ATBDP_Enqueuer {
                 'show_more'          => __( 'Show More', 'directorist' ),
                 'show_less'          => __( 'Show Less', 'directorist' ),
                 'select_listing_map' => $select_listing_map,
-                'Miles'              => $miles,
+                'Miles'              => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
             ),
             'ajax_url'    => admin_url( 'admin-ajax.php' ),
-            'Miles'       => $miles,
+            'Miles'       => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
             'default_val' => $default_radius_distance,
         );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );

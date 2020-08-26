@@ -1131,7 +1131,7 @@ class Directorist_Listings {
 
 		wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
 			'Miles'       => $miles,
-			'default_val' => $this->default_radius_distance
+			'default_val' => !empty( $_GET['miles'] ) ? $_GET['miles'] : $this->default_radius_distance
 		));
 
 		ob_start();

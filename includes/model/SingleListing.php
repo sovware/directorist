@@ -842,7 +842,7 @@ class Directorist_Single_Listing
 			return;
 		}
 
-		$is_rtl = is_rtl() ? true : false;
+		$is_rtl = is_rtl() ? 'true' : '';
 		$columns = get_directorist_option('rel_listing_column', 3);
 
 		$localized_data = array(

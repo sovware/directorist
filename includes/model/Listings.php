@@ -151,7 +151,7 @@ class Directorist_Listings {
 		$this->options['radius_search_unit']              = get_directorist_option( 'radius_search_unit', 'miles' );
 		$this->options['view_as_text']                    = get_directorist_option( 'view_as_text', __( 'View As', 'directorist' ) );
 		$this->options['select_listing_map']              = get_directorist_option( 'select_listing_map', 'google' );
-		$this->options['listings_display_filter']         = get_directorist_option( 'listings_display_filter', 'sliding' );
+		$this->options['listings_display_filter']         = get_directorist_option( 'home_display_filter', 'sliding' );
 		$this->options['listing_filters_fields']          = get_directorist_option( 'listing_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
 		$this->options['listing_filters_icon']            = get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
 		$this->options['listings_sort_by_items']          = get_directorist_option( 'listings_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );
@@ -232,6 +232,7 @@ class Directorist_Listings {
 		$this->options['sort_listing_by']                 = get_directorist_option( 'search_sort_listing_by', 'asc' );
 		$this->options['listing_columns']                 = get_directorist_option( 'search_listing_columns', 3 );
 		$this->options['paginate_listings']               = ! empty( get_directorist_option( 'paginate_search_results', 1 ) ) ? 'yes' : '';
+		$this->options['listings_per_page']               = get_directorist_option( 'search_posts_num', 6 );
 	}
 
 	public function prepare_atts_data() {
@@ -249,7 +250,7 @@ class Directorist_Listings {
 			'location'                 => '',
 			'tag'                      => '',
 			'ids'                      => '',
-			'column'                  => $this->options['listing_columns'],
+			'column'                   => $this->options['listing_columns'],
 			'featured_only'            => '',
 			'popular_only'             => '',
 			'advanced_filter'          => $this->options['listing_filters_button'],

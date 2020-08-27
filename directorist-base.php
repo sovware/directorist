@@ -258,7 +258,7 @@ final class Directorist_Base
 
             // display related listings
             // add_action('atbdp_after_single_listing', array(self::$instance, 'show_related_listing'));
-            
+
             //review and rating
             add_action('atbdp_after_map', array(self::$instance, 'show_review'));
             // plugin deactivated popup
@@ -328,9 +328,9 @@ final class Directorist_Base
     {
         $current_charset_collate = get_option('atbdp_review_table_charset_collate');
         $review_rating = new ATBDP_Review_Rating_DB();
-        
+
         $charset_collate = $review_rating->get_charset_collate();
-        
+
         if ( $charset_collate !== $current_charset_collate ) {
             add_action('admin_init', array( $review_rating, 'update_table_collation'));
             update_option('atbdp_review_table_charset_collate', $charset_collate);
@@ -373,7 +373,7 @@ final class Directorist_Base
         load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
         load_dependencies('all', ATBDP_MODEL_DIR); // load all php files from ATBDP_MODEL_DIR
         load_dependencies('all', ATBDP_LIB_DIR); // load all php files from ATBDP_LIB_DIR
-        
+
         /*LOAD Rating and Review functionality*/
         load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');
         /*Load gateway related stuff*/
@@ -1239,7 +1239,7 @@ final class Directorist_Base
                                 $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                                 $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
                                 $u_pro_pic = is_array($u_pro_pic) ? $u_pro_pic[0] : $u_pro_pic;
-                                $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );    
+                                $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );
                                 $custom_gravatar = "<img src='$u_pro_pic' alt='Author'>";
                                 $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                                 $user_img = !empty($u_pro_pic) ? $custom_gravatar : $avatar_img;

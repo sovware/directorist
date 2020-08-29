@@ -116,3 +116,4 @@ if ($enable_review && $plan_review && $allow_review) { ?>
 		<?php
 	}
 }
+do_action('atbdp_single_listing_after_review');

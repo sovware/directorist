@@ -3302,8 +3302,8 @@ The Administrator of ==SITE_NAME==
                             ),
                         ),
                         'default' => array(
-                            'value' => 'px',
-                            'label' => __('Pixel', 'directorist'),
+                            'value' => 'ratio',
+                            'label' => __('Ratio', 'directorist'),
                         ),
                     ),
                     array(

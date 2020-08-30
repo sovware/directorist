@@ -262,12 +262,12 @@ class Directorist_Listing_Search_Form {
 
 		$this->default_radius_distance = $this->options['radius_distance'];
 		$this->tag_terms               = get_terms(ATBDP_TAGS);
-		$this->search_text_placeholder = get_directorist_option('search_placeholder', __('What are you looking for?', 'directorist'));
-		$this->category_placeholder    = $this->options['search_category_placeholder'];
-		$this->location_placeholder    = $this->options['search_location_placeholder'];
-		$this->search_required_text    = !empty(get_directorist_option('require_search_text')) ? ' required' : '';
-		$this->cat_required_text       = !empty(get_directorist_option('require_search_category')) ? ' required' : '';
-		$this->loc_required_text       = !empty(get_directorist_option('require_search_location')) ? ' required' : '';
+		$this->search_text_placeholder = $this->options['search_text_placeholder'];
+		$this->category_placeholder    = $this->options['category_placeholder'];
+		$this->location_placeholder    = $this->options['location_placeholder'];
+		$this->search_required_text    = $this->options['require_search_text'];
+		$this->cat_required_text       = $this->options['require_search_category'];
+		$this->loc_required_text       = $this->options['require_search_location'];
 		$this->category_id             = 'at_biz_dir-category';
 		$this->category_class          = 'search_fields form-control';
 		$this->location_id             = 'at_biz_dir-location';

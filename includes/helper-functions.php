@@ -1726,7 +1726,7 @@ function atbdp_display_price_range($price_range)
         </span>';
 
     }
-    return $output;
+    return apply_filters('atbdp_listing_price', $output);
 
 }
 

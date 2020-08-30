@@ -140,8 +140,8 @@ jQuery(document).ready(function ($) {
             var fax = $("input[name='fax']").val();
             var required_fax = add_listing_validator.fax;
             if ('' === fax && '' !== required_fax && !need_post) {
-                $("#atbdp_fax").append('<span class="atbdp_required">' + w_icon + required_fax + '</span>');
-                to_top('#atbdp_fax');
+                $("#atbdp_fax_number").append('<span class="atbdp_required">' + w_icon + required_fax + '</span>');
+                to_top('#atbdp_fax_number');
                 return false;
             }
         }
@@ -172,8 +172,8 @@ jQuery(document).ready(function ($) {
             var zip = $("input[name='zip']").val();
             var required_zip = add_listing_validator.zip;
             if ('' === zip && '' !== required_zip && !need_post) {
-                $("#atbdp_zip").append('<span class="atbdp_required">' + w_icon + required_zip + '</span>');
-                to_top('#atbdp_zip');
+                $("#atbdp_zip_code").append('<span class="atbdp_required">' + w_icon + required_zip + '</span>');
+                to_top('#atbdp_zip_code');
                 return false;
             }
         }

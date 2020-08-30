@@ -47,7 +47,7 @@ jQuery(document).ready(function ($) {
                 var value = $(this).val();
                 if ('' === value && !need_post) {
                     $(this).parents(".form-group").append('<span class="atbdp_required">'+ w_icon +msg+'</span>');
-                    to_top('#atbdp_custom_field_area');
+                    to_top('.atbdp_custom_field_area');
                     returnValue = false;
                 }
             }

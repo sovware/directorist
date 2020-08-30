@@ -55,7 +55,6 @@ if (!class_exists('ATBDP_Listing')):
             remove_action('wp_head', array($this, 'adjacent_posts_rel_link_wp_head', 10));
             add_action('plugins_loaded', array($this, 'manage_listings_status'));
             add_action('wp_head', array($this, 'track_post_views'));
-            add_filter('the_content', array($this, 'the_content'), 20); // add the output of the single page when the content filter fires in our post type. This way is better than using a custom post template because it will not match the style of all theme.
             add_filter('post_thumbnail_html', array($this, 'post_thumbnail_html'), 10, 3);
             add_action('wp_head', array($this, 'og_metatags'));
             add_action('template_redirect', array($this, 'atbdp_listing_status_controller'));

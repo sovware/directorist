@@ -293,16 +293,16 @@
         var data = 'review_id=' + id;
 
         swal({
-                title: atbdp_public_data.review_sure_msg,
-                text: atbdp_public_data.review_want_to_remove,
-                type: "warning",
-                cancelButtonText: atbdp_public_data.review_cancel_btn_text,
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: atbdp_public_data.review_delete_msg,
-                showLoaderOnConfirm: true,
-                closeOnConfirm: false
-            },
+            title: atbdp_public_data.review_sure_msg,
+            text: atbdp_public_data.review_want_to_remove,
+            type: "warning",
+            cancelButtonText: atbdp_public_data.review_cancel_btn_text,
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: atbdp_public_data.review_delete_msg,
+            showLoaderOnConfirm: true,
+            closeOnConfirm: false
+        },
             function (isConfirm) {
                 if (isConfirm) {
                     // user has confirmed, now remove the review
@@ -341,23 +341,23 @@
     });
 
     /*USER DASHBOARD RELATED SCRIPTS*/
-    $(document).on('click', '#remove_listing', function (e) {
+    $(document).on('click', '.remove_listing', function (e) {
         e.preventDefault();
 
         var $this = $(this);
         var id = $this.data('listing_id');
         var data = 'listing_id=' + id;
         swal({
-                title: atbdp_public_data.listing_remove_title,
-                text: atbdp_public_data.listing_remove_text,
-                type: "warning",
-                cancelButtonText: atbdp_public_data.review_cancel_btn_text,
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: atbdp_public_data.listing_remove_confirm_text,
-                showLoaderOnConfirm: true,
-                closeOnConfirm: false
-            },
+            title: atbdp_public_data.listing_remove_title,
+            text: atbdp_public_data.listing_remove_text,
+            type: "warning",
+            cancelButtonText: atbdp_public_data.review_cancel_btn_text,
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: atbdp_public_data.listing_remove_confirm_text,
+            showLoaderOnConfirm: true,
+            closeOnConfirm: false
+        },
             function (isConfirm) {
                 if (isConfirm) {
                     // user has confirmed, now remove the listing
@@ -397,7 +397,7 @@
 
     // user dashboard image uploader
     var profileMediaUploader = null;
-    if ( $("#user_profile_pic").length ) {
+    if ($("#user_profile_pic").length) {
         profileMediaUploader = new EzMediaUploader({
             containerID: "user_profile_pic",
         });
@@ -414,7 +414,7 @@
         submit_button.attr('disabled', true);
         submit_button.addClass("loading");
 
-        if ( is_processing ) { submit_button.removeAttr('disabled'); return; }
+        if (is_processing) { submit_button.removeAttr('disabled'); return; }
 
         var form_data = new FormData();
         var err_log = {};
@@ -424,7 +424,7 @@
          form_data.append('action', 'update_user_profile');
         if ( profileMediaUploader ) {
             var hasValidFiles = profileMediaUploader.hasValidFiles();
-            if ( hasValidFiles ) {
+            if (hasValidFiles) {
                 //files
                 var files = profileMediaUploader.getTheFiles();
                 var filesMeta = profileMediaUploader.getFilesMeta();
@@ -435,7 +435,7 @@
                     }
                 }
 
-                if ( filesMeta.length ) {
+                if (filesMeta.length) {
                     for (var i = 0; i < filesMeta.length; i++) {
                         var elm = filesMeta[i];
                         for (var key in elm) {
@@ -580,7 +580,7 @@
             $(".atbd_tab").addClass("atbd_tab_slider");
             $(".atbdp_tab_nav--content").addClass("tab_nav_slide");
         }
-        if($(".atbd_dashboard_wrapper ").width() > 590){
+        if ($(".atbd_dashboard_wrapper ").width() > 590) {
             $(".atbdp_tab_nav--content").addClass("tab_nav_slide--fix");
         }
 
@@ -757,56 +757,52 @@
                     }
 
 
-                    atbdp_report_abuse_submitted = false; // Re-enable the submit event
+                    atbdp_report_abuse_submitted = false;  // Re-enable the submit event
                 }, 'json');
 
             }
         });
+
+        $('#atbdp-report-abuse-form').removeAttr('novalidate');
 
         // Validate contact form
         var atbdp_contact_submitted = false;
 
         $('#atbdp-contact-form,#atbdp-contact-form-widget').validator({
-            disable: false
+            disable: true
         }).on('submit', function (e) {
+            e.preventDefault();
 
-            if (atbdp_contact_submitted) return false;
+            if ( atbdp_contact_submitted ) return false;
 
-            // Check for errors
-            if (!e.isDefaultPrevented()) {
+            var status_area = $('.atbdp-widget-elm, .atbdp-contact-message-display');
+            //status_area.append('<p style="margin-bottom: 10px">Sending the message, please wait...</p>');
+            
+            // Post via AJAX
+            var data = {
+                'action': 'atbdp_public_send_contact_email',
+                'post_id': $('#atbdp-post-id').val(),
+                'name': $('#atbdp-contact-name').val(),
+                'email': $('#atbdp-contact-email').val(),
+                'listing_email': $('#atbdp-listing-email').val(),
+                'message': $('#atbdp-contact-message').val(),
+            };
 
-                e.preventDefault();
+            atbdp_contact_submitted = true;
+            $.post(atbdp_public_data.ajaxurl, data, function (response) {
+                if (1 == response.error) {
+                    atbdp_contact_submitted = false;
+                    status_area.addClass('text-danger').html(response.message);
+                } else {
+                    $('#atbdp-contact-message').val('');
+                    status_area.addClass('text-success').html(response.message);
+                }
 
-                atbdp_contact_submitted = true;
-
-
-                $('#atbdp-contact-message-display').append('<div class="atbdp-spinner"></div>');
-
-                // Post via AJAX
-                var data = {
-                    'action': 'atbdp_public_send_contact_email',
-                    'post_id': $('#atbdp-post-id').val(),
-                    'name': $('#atbdp-contact-name').val(),
-                    'email': $('#atbdp-contact-email').val(),
-                    'listing_email': $('#atbdp-listing-email').val(),
-                    'message': $('#atbdp-contact-message').val(),
-                };
-
-                $.post(atbdp_public_data.ajaxurl, data, function (response) {
-                    if (1 == response.error) {
-                        $('#atbdp-contact-message-display').addClass('text-danger').html(response.message);
-                    } else {
-                        $('#atbdp-contact-message').val('');
-                        $('#atbdp-contact-message-display').addClass('text-success').html(response.message);
-                    }
-
-                }, 'json');
-
-            } else {
-                atbdp_contact_submitted = false;
-            }
+            }, 'json');
 
         });
+
+        $('#atbdp-contact-form,#atbdp-contact-form-widget').removeAttr('novalidate');
     }
 
     // Report abuse [on modal closed]

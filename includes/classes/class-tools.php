@@ -1,15 +1,14 @@
 <?php
-defined('ABSPATH') || die('Direct access is not allowed.');
 /**
- * @since 4.7.2
- * @package Directorist
+ *
+ * Handles directorist Tools Page
+ * 
+ * @author AazzTech
  */
-if (!class_exists('ATBDP_Tools')) :
 
+ if ( ! class_exists( 'ATBDP_Tools' ) ) :
     class ATBDP_Tools
     {
-
-
         /**
          * The path to the current file.
          *
@@ -252,7 +251,7 @@ if (!class_exists('ATBDP_Tools')) :
 
         public function render_tools_submenu_page()
         {
-            ATBDP()->load_template('tools',  array('data' => csv_get_data($this->file, false, $this->delimiter), 'fields' => $this->importable_fields()));
+            ATBDP()->load_template('admin-templates/tools',  array('data' => csv_get_data($this->file, false, $this->delimiter), 'fields' => $this->importable_fields()));
         }
     }
 

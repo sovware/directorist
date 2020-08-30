@@ -73,6 +73,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
   width: 50%;
 }
 
+@for $i from 1 through 12 {
+  .atbdp_column.atbdp-col-#{$i} {
+    width: calc( 100% / #{$i} );
+  }
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
   padding-left: 15px;
   padding-right: 15px;
@@ -793,7 +799,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
           }
 
           .miw-contents-footer {
-            #iw-close-btn {
+            .iw-close-btn {
               display: none;
             }
           }
@@ -831,7 +837,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   .leaflet-popup-content {
     .map-info-wrapper {
       .map-info-details {
-        #iw-close-btn {
+        .iw-close-btn {
           display: none;
         }
       }
@@ -1389,7 +1395,7 @@ div#listing_notifier span {
   }
 }
 
-#atbdp_custom_field_area select{
+.atbdp_custom_field_area select{
   background: none;
 }
 

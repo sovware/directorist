@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
  * Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
- * Version: 6.5.2
+ * Version: 7.0.0
  * Author: AazzTech
  * Author URI: https://aazztech.com
  * Text Domain: directorist
@@ -237,8 +237,9 @@ final class Directorist_Base
             self::$instance->shortcode = new ATBDP_Shortcode;
             self::$instance->email = new ATBDP_Email;
             self::$instance->seo = new ATBDP_SEO;
+            // self::$instance->validator = new ATBDP_Validator;
+            // self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
             self::$instance->tools = new ATBDP_Tools;
-            self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
             self::$instance->update_database();
             // new settings
@@ -254,8 +255,10 @@ final class Directorist_Base
             add_filter('map_meta_cap', array(self::$instance->roles, 'meta_caps'), 10, 4);
             //add dtbdp custom body class
             add_filter('body_class', array(self::$instance, 'atbdp_body_class'), 99);
+
             // display related listings
-            add_action('atbdp_after_single_listing', array(self::$instance, 'show_related_listing'));
+            // add_action('atbdp_after_single_listing', array(self::$instance, 'show_related_listing'));
+
             //review and rating
             add_action('atbdp_after_map', array(self::$instance, 'show_review'));
             // plugin deactivated popup
@@ -325,9 +328,9 @@ final class Directorist_Base
     {
         $current_charset_collate = get_option('atbdp_review_table_charset_collate');
         $review_rating = new ATBDP_Review_Rating_DB();
-        
+
         $charset_collate = $review_rating->get_charset_collate();
-        
+
         if ( $charset_collate !== $current_charset_collate ) {
             add_action('admin_init', array( $review_rating, 'update_table_collation'));
             update_option('atbdp_review_table_charset_collate', $charset_collate);
@@ -357,17 +360,23 @@ final class Directorist_Base
      */
     private function includes()
     {
-        // $helper = new ATBDP_Helper;
-        require_once ATBDP_TEMPLATES_DIR . 'single-template-shortcode.php';
-        require_once ATBDP_LIB_DIR . 'vafpress/bootstrap.php'; // load option framework.
-        require_once ATBDP_INC_DIR . 'helper-functions.php';
+        self::require_files([
+            ATBDP_LIB_DIR . 'vafpress/bootstrap',
+            ATBDP_INC_DIR . 'helper-functions',
+            ATBDP_INC_DIR . 'template-functions',
+            ATBDP_INC_DIR . 'custom-actions',
+            ATBDP_INC_DIR . 'custom-filters',
+            ATBDP_INC_DIR . 'elementor/init'
+        ]);
 
+        load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
         load_dependencies('all', ATBDP_INC_DIR . 'model/');
         load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
 
         load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
+        load_dependencies('all', ATBDP_MODEL_DIR); // load all php files from ATBDP_MODEL_DIR
         load_dependencies('all', ATBDP_LIB_DIR); // load all php files from ATBDP_LIB_DIR
-        
+
         /*LOAD Rating and Review functionality*/
         load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');
         /*Load gateway related stuff*/
@@ -378,12 +387,17 @@ final class Directorist_Base
         /*Load payment related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'payments/');
         load_dependencies('all', ATBDP_INC_DIR . 'checkout/');
-        /*Load payment related stuff*/
-        require_once ATBDP_INC_DIR . 'custom-actions.php';
-        require_once ATBDP_INC_DIR . 'custom-filters.php';
-        /*Load Elementor Widgets*/
-        require_once ATBDP_INC_DIR . 'elementor/init.php';
+        
 
+    }
+
+    // require_files
+    public static function require_files( array $files = [] ) {
+        foreach ( $files as $file ) {
+            if ( file_exists( "{$file}.php" ) ) {
+                require_once "{$file}.php";
+            }
+        }
     }
 
     public static function prepare_plugin()
@@ -1220,7 +1234,7 @@ final class Directorist_Base
                         </div>
 
                         <div class="atbdb_content_module_contents atbd_give_review_area">
-                            <form action="" id="atbdp_review_form" method="post">
+                            <form action="#" id="atbdp_review_form" method="post">
                                 <?php wp_nonce_field('atbdp_review_action_form', 'atbdp_review_nonce_form'); ?>
                                 <input type="hidden" name="post_id" value="<?php the_ID(); ?>">
 
@@ -1233,7 +1247,7 @@ final class Directorist_Base
                                 $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
                                 $u_pro_pic = !empty($u_pro_pic) ? wp_get_attachment_image_src($u_pro_pic, 'thumbnail') : '';
                                 $u_pro_pic = is_array($u_pro_pic) ? $u_pro_pic[0] : $u_pro_pic;
-                                $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );    
+                                $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );
                                 $custom_gravatar = "<img src='$u_pro_pic' alt='Author'>";
                                 $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
                                 $user_img = !empty($u_pro_pic) ? $custom_gravatar : $avatar_img;

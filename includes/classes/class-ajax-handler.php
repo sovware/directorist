@@ -809,7 +809,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function atbdp_social_info_handler()
         {
             $id = (!empty($_POST['id'])) ? absint($_POST['id']) : 0;
-            ATBDP()->load_template('ajax/social', array('id' => $id,));
+            ATBDP()->load_template('social', array('id' => $id,));
             die();
         }
 
@@ -1174,7 +1174,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             // Process output
             ob_start();
-            require ATBDP_TEMPLATES_DIR . 'custom-field-search-form.php';
+            require ATBDP_TEMPLATES_DIR . 'custom-fields.php';
             wp_reset_postdata(); // Restore global post data stomped by the_post()
             $output = ob_get_clean();
             

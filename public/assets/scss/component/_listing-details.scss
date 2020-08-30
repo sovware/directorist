@@ -110,6 +110,8 @@
                 display: block;
                 > span {
                   @extend .atbd_color-primary;
+                  display: inline-block;
+                  margin-right: 5px;
                 }
               }
               & + li {

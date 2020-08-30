@@ -247,8 +247,8 @@ add_filter('atbdp_extension_settings_submenus', 'atbdp_extend_extension_settings
  * @return URL if current theme has the file return the actual file path otherwise return false
  */
 
- if(!function_exists('atbdp_get_file_path')){
-     function atbdp_get_file_path( $path = null ){
+ if ( !function_exists('atbdp_get_file_path') ){
+     function atbdp_get_theme_file( $path = null ) {
         $file_path = get_theme_file_path( $path );
         if( file_exists( $file_path ) ){
             return $file_path;
@@ -257,3 +257,20 @@ add_filter('atbdp_extension_settings_submenus', 'atbdp_extend_extension_settings
         }
      }
  }
+
+
+ /* if ( !function_exists('atbdp_get_shortcode_template') ){
+     function atbdp_get_shortcode_template( $path = '' ) {
+        $path = atbdp_get_theme_file("/directorist/$path.php");
+        
+        ob_start();
+        if ( $path ) {
+            include $path;
+        } else {
+            include ATBDP_TEMPLATES_DIR . "shortcode-templates/$path.php";
+        }
+        return ob_get_clean();
+     }
+ } */
+
+

@@ -67,10 +67,6 @@ class ATBDP_Checkout
         if (empty($listing_id) || (!empty($listing_id) && ATBDP_POST_TYPE != get_post_type($listing_id))) {
             return __('Sorry, Something went wrong. Listing ID is missing. Please try again.', 'directorist');
         }
-        $include = apply_filters('include_style_settings', true);
-        if ($include) {
-            include ATBDP_DIR . 'public/assets/css/style.php';
-        }
         // if the checkout form is submitted, then process placing order
         if ('POST' == $_SERVER['REQUEST_METHOD'] && ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action)) {
             // Process the order
@@ -112,7 +108,20 @@ class ATBDP_Checkout
                 'form_data' => apply_filters('atbdp_checkout_form_final_data', $form_data, $listing_id),
                 'listing_id' => $listing_id,
             );
-            ATBDP()->load_template('front-end/checkout-form', $data);
+            // prepare all the variables required by the checkout page.
+            $form_data = !empty($data['form_data']) ? $data['form_data'] : array();
+            $listing_id = !empty($data['listing_id']) ? $data['listing_id'] : 0;
+            $c_position = get_directorist_option('payment_currency_position');
+            $currency = atbdp_get_payment_currency();
+            $symbol = atbdp_currency_symbol($currency);
+            //displaying data for checkout
+
+            $template = atbdp_get_shortcode_template_path( 'payment/checkout' );
+            $template = apply_filters( 'atbdp_checkout_template_path', $template );
+
+            if ( file_exists( $template ) ) {
+                include $template;
+            }
         }
         return ob_get_clean();
     }
@@ -145,6 +154,7 @@ class ATBDP_Checkout
             'order_id' => $order_id,
             'o_metas' => $meta,
         ));
+
         // we need to provide payment receipt shortcode with the order details array as we passed in the order checkout form page.
         $order_items = apply_filters('atbdp_order_items', array(), $order_id, $listing_id, $data); // this is the hook that an extension can hook to, to add new items on checkout page.eg. plan
         // let's add featured listing data if the order has featured listing in it
@@ -160,9 +170,22 @@ class ATBDP_Checkout
             );
         }
         $data['order_items'] = $order_items;
+
         ob_start();
-        include ATBDP_DIR . 'public/assets/css/style.php';
-        ATBDP()->load_template('front-end/payment-receipt', array('data' => $data));
+        extract($data);
+        $c_position      = get_directorist_option('payment_currency_position');
+        $currency        = atbdp_get_payment_currency();
+        $symbol          = atbdp_currency_symbol($currency);
+        $container_fluid = 'container-fluid';
+        $order_id        = (!empty($order_id)) ? $order_id : '';
+
+        $template = atbdp_get_shortcode_template_path( 'payment/payment-receipt' );
+        $template = apply_filters( 'atbdp_payment_receipt_template_path', $template );
+
+        if ( file_exists( $template ) ) {
+            include $template;
+        }
+
         return ob_get_clean();
     }
 
@@ -312,6 +335,14 @@ class ATBDP_Checkout
      */
     public function transaction_failure()
     {
-        return __('Your Transaction was not successful. Please contact support', 'directorist');
+        ob_start();
+        $template = atbdp_get_shortcode_template_path( 'payment/transaction-failure' );
+        $template = apply_filters( 'atbdp_transaction_failure_template_path', $template );
+
+        if ( file_exists( $template ) ) {
+            include $template;
+        }
+
+        return ob_get_clean();
     }
 } // ends class

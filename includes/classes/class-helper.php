@@ -8,106 +8,107 @@ if (!class_exists('ATBDP_Helper')) :
 
     class ATBDP_Helper
     {
-        private $nonce_action = 'atbdp_nonce_action';
-        private $nonce_name = 'atbdp_nonce';
+        private $__nonce_action = 'atbdp_nonce_action';
+        private $__nonce_name   = 'atbdp_nonce';
 
         public function __construct()
         {
             if (!defined('ABSPATH')) {
                 return;
             }
-            add_action('init', array($this, 'check_req_php_version'), 100);
+            add_action('init', [$this, 'check_req_php_version'], 100);
         }
 
         // get_plasma_slider
-        public static function get_plasma_slider( $args )
+        public static function get_plasma_slider($args)
         {
-            $data = array();
+            $data          = [];
             $default_image = get_directorist_option(
-                'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'
+                'default_preview_image',
+                ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'
             );
             $background_type = get_directorist_option('single_slider_background_type', 'custom-color');
 
             // Default
             $data['show-slider'] = get_directorist_option('dsiplay_slider_single_page', true);
-            $is_enabled = ( $data['show-slider'] == true || $data['show-slider'] === '1' ) ? true : false;
+            $is_enabled          = (true == $data['show-slider'] || '1' === $data['show-slider']) ? true : false;
 
-            if ( !$is_enabled ) {
+            if (!$is_enabled) {
                 return '';
             }
 
-            $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
-            $data['images'] = [];
-            $data['alt'] = '';
-            $data['background-size'] = get_directorist_option('single_slider_image_size', 'cover');
-            $data['blur-background'] = ( 'blur' === $background_type ) ? true : false;
-            $data['width'] = get_directorist_option('gallery_crop_width', 670);
-            $data['height'] = get_directorist_option('gallery_crop_height', 750);
-            $data['background-color'] = get_directorist_option('single_slider_background_color', 'gainsboro');
+            $default_image                      = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+            $data['images']                     = [];
+            $data['alt']                        = '';
+            $data['background-size']            = get_directorist_option('single_slider_image_size', 'cover');
+            $data['blur-background']            = ('blur' === $background_type) ? true : false;
+            $data['width']                      = get_directorist_option('gallery_crop_width', 670);
+            $data['height']                     = get_directorist_option('gallery_crop_height', 750);
+            $data['background-color']           = get_directorist_option('single_slider_background_color', 'gainsboro');
             $data['thumbnail-background-color'] = '#fff';
-            $data['show-thumbnails'] = get_directorist_option('dsiplay_thumbnail_img', true);
-            $data['gallery'] = true;
-            $data['rtl'] = is_rtl();
+            $data['show-thumbnails']            = get_directorist_option('dsiplay_thumbnail_img', true);
+            $data['gallery']                    = true;
+            $data['rtl']                        = is_rtl();
 
             // Extend Default
-            if ( isset($args['plan_slider']) ) {
+            if (isset($args['plan_slider'])) {
                 $data['gallery'] = $args['plan_slider'];
             }
 
-            if ( isset($args['listing_prv_imgurl']) && !empty($args['listing_prv_imgurl'])) {
+            if (isset($args['listing_prv_imgurl']) && !empty($args['listing_prv_imgurl'])) {
                 array_push($data['images'], $args['listing_prv_imgurl']);
             }
-            if ( $data['gallery'] && isset($args['image_links']) && is_array($args['image_links'])) {
-                foreach ( $args['image_links'] as $image ) {
+            if ($data['gallery'] && isset($args['image_links']) && is_array($args['image_links'])) {
+                foreach ($args['image_links'] as $image) {
                     array_push($data['images'], $image);
                 }
             }
-            
-            if ( count($data['images']) < 1 ) {
+
+            if (count($data['images']) < 1) {
                 array_push($data['images'], $default_image);
             }
 
-            if ( count($data['images']) < 1 ) {
+            if (count($data['images']) < 1) {
                 array_push($data['images'], $default_image);
             }
 
-            if ( isset($args['p_title']) ) {
+            if (isset($args['p_title'])) {
                 $data['alt'] = $args['p_title'];
             }
-            if ( isset($args['thumbnail-background-color']) ) {
+            if (isset($args['thumbnail-background-color'])) {
                 $data['thumbnail-background-color'] = $args['thumbnail-background-color'];
             }
-            if ( isset($args['background-color']) ) {
+            if (isset($args['background-color'])) {
                 $data['background-color'] = $args['background-color'];
             }
 
-            $padding_top = $data['height'] / $data['width'] * 100;
+            $padding_top         = $data['height'] / $data['width'] * 100;
             $data['padding-top'] = $padding_top;
 
             return self::get_view('plasma-slider', $data);
         }
 
-        public static function view( $file_path, $data = null )
+        public static function view($file_path, $data = null)
         {
             $path = ATBDP_VIEW_DIR . $file_path . '.php';
-            if ( file_exists($path) ) {
-                require_once($path);
+            if (file_exists($path)) {
+                require_once $path;
             }
         }
 
-        public static function get_view( $file_path, $data = null )
+        public static function get_view($file_path, $data = null)
         {
             $view = '';
             ob_start();
-            self::view( $file_path, $data );
-            $view =  ob_get_contents();
+            self::view($file_path, $data);
+            $view = ob_get_contents();
             ob_end_clean();
 
             return $view;
         }
 
         // get_default_slider
-        public static function get_default_slider( $args )
+        public static function get_default_slider($args)
         {
             $gallery_image = '';
             /* $args = array(
@@ -121,15 +122,18 @@ if (!class_exists('ATBDP_Helper')) :
                 'p_title' => '',
                 'image_links_thumbnails' => '',
                 'display_thumbnail_img' => '',
-            ); */
+                ); */
 
             if (!empty($args['image_links']) && $args['plan_slider']) {
                 if (!empty($args['listing_prv_img'] && $args['display_prv_image'])) {
                     if (!empty($args['gallery_cropping'])) {
                         $listing_prv_imgurl = atbdp_image_cropping(
-                            $args['listing_prv_img'], 
-                            $args['custom_gl_width'], $args['custom_gl_height'],
-                            true, 100)['url'];
+                            $args['listing_prv_img'],
+                            $args['custom_gl_width'],
+                            $args['custom_gl_height'],
+                            true,
+                            100
+                        )['url'];
                     } else {
                         $listing_prv_imgurl = atbdp_get_image_source($args['listing_prv_img'], 'large');
                     }
@@ -150,9 +154,9 @@ if (!class_exists('ATBDP_Helper')) :
                     $gallery_image .= '<span class="next fa fa-angle-right"></span>';
                 }
                 $gallery_image .= '</div>';
-                $image_links_thumbnails = !empty($args['image_links_thumbnails']) ? $args['image_links_thumbnails'] : array();
-                $listing_prv_img = !empty($args['listing_prv_img']) ? $args['listing_prv_img'] : '';
-                if (!empty($args['display_thumbnail_img']) && (1 != count($image_links_thumbnails) || (!empty($listing_prv_img) && !empty($display_prv_image) ) )) {
+                $image_links_thumbnails = !empty($args['image_links_thumbnails']) ? $args['image_links_thumbnails'] : [];
+                $listing_prv_img        = !empty($args['listing_prv_img']) ? $args['listing_prv_img'] : '';
+                if (!empty($args['display_thumbnail_img']) && (1 != count($image_links_thumbnails) || (!empty($listing_prv_img) && !empty($display_prv_image)))) {
                     $gallery_image .= '<div class="atbd_directory_image_thumbnail">';
                     $listing_prv_imgurl_thumb = !empty($listing_prv_img) ? atbdp_get_image_source($listing_prv_img, 'thumbnail') : '';
                     if (!empty($listing_prv_imgurl_thumb && !empty($args['display_prv_image']))) {
@@ -162,57 +166,59 @@ if (!class_exists('ATBDP_Helper')) :
                         $gallery_image .= '<div class="single_thumbnail">';
                         $gallery_image .= '<img src="' . esc_url($image_links_thumbnail) . '" alt="' . esc_html($p_title) . '">';
                         $gallery_image .= '</div>';
-                        if (!is_multiple_images_active()) break;
+                        if (!is_multiple_images_active()) {
+                            break;
+                        }
                     }
                     $gallery_image .= '</div>';
                 }
                 $gallery_image .= '</div>';
             } elseif (!empty($args['display_prv_image'])) {
-                $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
+                $default_image     = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
                 $listing_prv_image = !empty($listing_prv_img) ? esc_url($listing_prv_imgurl) : $default_image;
                 $gallery_image .= '<div class="single_image">';
-                $gallery_image .= '<img src="'.$listing_prv_image.'"
-                                     alt="'. esc_html($args['p_title']).'">';
+                $gallery_image .= '<img src="' . $listing_prv_image . '"
+                                     alt="' . esc_html($args['p_title']) . '">';
                 $gallery_image .= '</div>';
             }
 
             return $gallery_image;
         }
 
-        // the_thumbnail_card
-        public static function the_thumbnail_card($img_src = '', $_args = array())
+        // atbdp_thumbnail_card
+        public static function atbdp_thumbnail_card($img_src = '', $_args = [])
         {
             $args = apply_filters('atbdp_preview_image_args', $_args);
 
             // Default
-            $is_blur = get_directorist_option('prv_background_type', 'blur');
-            $is_blur = ('blur' === $is_blur ? true : false);
-            $alt = esc_html(get_the_title());
+            $is_blur           = get_directorist_option('prv_background_type', 'blur');
+            $is_blur           = ('blur' === $is_blur ? true : false);
+            $alt               = esc_html(get_the_title());
             $container_size_by = get_directorist_option('prv_container_size_by', 'px');
-            $by_ratio = ( 'px' === $container_size_by ) ? false : true;
-            $image_size = get_directorist_option('way_to_show_preview', 'cover'); // contain / full / cover
-            $ratio_width = get_directorist_option('crop_width', 360);
-            $ratio_height = get_directorist_option('crop_height', 300);
-            $blur_background = $is_blur;
-            $background_color = get_directorist_option('prv_background_color', 'gainsboro');
+            $by_ratio          = ('px' === $container_size_by) ? false : true;
+            $image_size        = get_directorist_option('way_to_show_preview', 'cover'); // contain / full / cover
+            $ratio_width       = get_directorist_option('crop_width', 360);
+            $ratio_height      = get_directorist_option('crop_height', 300);
+            $blur_background   = $is_blur;
+            $background_color  = get_directorist_option('prv_background_color', 'gainsboro');
 
-            $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
+            $listing_img     = get_post_meta(get_the_ID(), '_listing_img', true);
             $listing_img_src = atbdp_get_image_source($listing_img[0], 'medium');
 
             $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-            $prv_image_src = atbdp_get_image_source($listing_prv_img, 'medium');
+            $prv_image_src   = atbdp_get_image_source($listing_prv_img, 'medium');
 
             $default_image_src = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
-            if ( 'cover' === $image_size ) {
-                $listing_img_src = atbdp_image_cropping($listing_img, $ratio_width, $ratio_height, true, 100)['url'];
-                $prv_image_src = atbdp_image_cropping($listing_prv_img, $ratio_width, $ratio_height, true, 100)['url'];
+            if ('cover' === $image_size) {
+                $listing_img_src   = atbdp_image_cropping($listing_img, $ratio_width, $ratio_height, true, 100)['url'];
+                $prv_image_src     = atbdp_image_cropping($listing_prv_img, $ratio_width, $ratio_height, true, 100)['url'];
                 $default_image_src = atbdp_image_cropping($default_image_src, $ratio_width, $ratio_height, true, 100)['url'];
             }
 
             $has_thumbnail = false;
             $thumbnail_img = '';
-            
+
             if (!empty($listing_img[0]) && empty($listing_prv_img_src)) {
                 $thumbnail_img = $listing_img_src;
                 $has_thumbnail = true;
@@ -230,47 +236,49 @@ if (!class_exists('ATBDP_Helper')) :
                 $has_thumbnail = true;
             }
 
-            if ( !$has_thumbnail ) { return ''; }
-            $image = $thumbnail_img; 
+            if (!$has_thumbnail) {
+                return '';
+            }
+            $image = $thumbnail_img;
 
             // Extend Default
-            if ( isset($args['image']) ) {
+            if (isset($args['image'])) {
                 $image = esc_html(stripslashes($args['image']));
             }
-            if ( isset($args['image-size']) ) {
+            if (isset($args['image-size'])) {
                 $image_size = esc_html(stripslashes($args['image-size']));
             }
-            if ( isset($args['width']) ) {
+            if (isset($args['width'])) {
                 $ratio_width = esc_html(stripslashes($args['width']));
             }
-            if ( isset($args['height']) ) {
+            if (isset($args['height'])) {
                 $ratio_height = esc_html(stripslashes($args['height']));
             }
-            if ( isset($args['alt']) ) {
+            if (isset($args['alt'])) {
                 $alt = esc_html(stripslashes($args['alt']));
             }
-            if ( isset($args['blur-background']) ) {
+            if (isset($args['blur-background'])) {
                 $blur_background = esc_html(stripslashes($args['blur-background']));
             }
-            if ( isset($args['background-color']) ) {
+            if (isset($args['background-color'])) {
                 $background_color = esc_html(stripslashes($args['background-color']));
             }
 
             // Style
             $style = '';
 
-            if ( $by_ratio ) {
+            if ($by_ratio) {
                 $padding_top_value = (int) $ratio_height / (int) $ratio_width * 100;
-                $padding_top_css = "padding-top: $padding_top_value%;";
+                $padding_top_css   = "padding-top: $padding_top_value%;";
                 $style .= $padding_top_css;
             } else {
                 $height_value = (int) $ratio_height;
-                $height_css = "height: {$height_value}px;";
+                $height_css   = "height: {$height_value}px;";
                 $style .= $height_css;
             }
 
             $background_color_css = '';
-            if ( $image_size !== 'full' && !$blur_background ) {
+            if ('full' !== $image_size && !$blur_background) {
                 $background_color_css = "background-color: $background_color";
                 $style .= $background_color_css;
             }
@@ -278,28 +286,28 @@ if (!class_exists('ATBDP_Helper')) :
             // Card Front Wrap
             $card_front_wrap = "<div class='atbd-thumbnail-card-front-wrap'>";
             $card_front__img = "<img src='$image' alt='$alt' class='atbd-thumbnail-card-front-img'/>";
-            $front_wrap_html = $card_front_wrap . $card_front__img . "</div>";
+            $front_wrap_html = $card_front_wrap . $card_front__img . '</div>';
 
             // Card Back Wrap
             $card_back_wrap = "<div class='atbd-thumbnail-card-back-wrap'>";
             $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
-            $back_wrap_html = $card_back_wrap . $card_back__img . "</div>";
+            $back_wrap_html = $card_back_wrap . $card_back__img . '</div>';
 
-            $blur_bg = ( $blur_background ) ? $back_wrap_html : '';
+            $blur_bg = ($blur_background) ? $back_wrap_html : '';
 
-            // Card Contain 
-            $card_contain_wrap = "<div class='atbd-thumbnail-card card-contain' style='$style'>";
-            $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
-            $image_contain_html = $card_contain_wrap . $blur_bg . $front_wrap_html . "</div>";
+            // Card Contain
+            $card_contain_wrap  = "<div class='atbd-thumbnail-card card-contain' style='$style'>";
+            $card_back__img     = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
+            $image_contain_html = $card_contain_wrap . $blur_bg . $front_wrap_html . '</div>';
 
             // Card Cover
-            $card_cover_wrap = "<div class='atbd-thumbnail-card card-cover' style='$style'>";
-            $card_back__img = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
-            $image_cover_html = $card_cover_wrap . $front_wrap_html . "</div>";
+            $card_cover_wrap  = "<div class='atbd-thumbnail-card card-cover' style='$style'>";
+            $card_back__img   = "<img src='$image' class='atbd-thumbnail-card-back-img'/>";
+            $image_cover_html = $card_cover_wrap . $front_wrap_html . '</div>';
 
             // Card Full
-            $card_full_wrap = "<div class='atbd-thumbnail-card card-full' style='$background_color_css'>";
-            $image_full_html = $card_full_wrap . $front_wrap_html . "</div>";
+            $card_full_wrap  = "<div class='atbd-thumbnail-card card-full' style='$background_color_css'>";
+            $image_full_html = $card_full_wrap . $front_wrap_html . '</div>';
 
             $the_html = $image_cover_html;
             switch ($image_size) {
@@ -320,11 +328,10 @@ if (!class_exists('ATBDP_Helper')) :
         public function check_req_php_version()
         {
             if (version_compare(PHP_VERSION, '5.4', '<')) {
-                add_action('admin_notices', array($this, 'notice'), 100);
-
+                add_action('admin_notices', [$this, 'notice'], 100);
 
                 // deactivate the plugin because required php version is less.
-                add_action('admin_init', array($this, 'deactivate_self'), 100);
+                add_action('admin_init', [$this, 'deactivate_self'], 100);
 
                 return;
             }
@@ -355,12 +362,13 @@ if (!class_exists('ATBDP_Helper')) :
             // if we do not pass any nonce and action then use default nonce and action name on this class,
             // else check provided nonce and action
             if (empty($nonce) || empty($action)) {
-                $nonce = (!empty($$method[$this->nonce_name()])) ? $$method[$this->nonce_name()] : null;
+                $nonce        = (!empty($$method[$this->nonce_name()])) ? $$method[$this->nonce_name()] : null;
                 $nonce_action = $this->nonce_action();
             } else {
-                $nonce = (!empty($_REQUEST[$nonce])) ? $_REQUEST[$nonce] : null;
+                $nonce        = (!empty($_REQUEST[$nonce])) ? $_REQUEST[$nonce] : null;
                 $nonce_action = $action;
             }
+
             return wp_verify_nonce($nonce, $nonce_action);
         }
 
@@ -376,26 +384,27 @@ if (!class_exists('ATBDP_Helper')) :
 
         public function social_links()
         {
-            $s = array(
-                'facebook' => __('Facebook', 'directorist'),
-                'twitter' => __('Twitter', 'directorist'),
-                'linkedin' => __('LinkedIn', 'directorist'),
-                'pinterest' => __('Pinterest', 'directorist'),
-                'instagram' => __('Instagram', 'directorist'),
-                'tumblr' => __('Tumblr', 'directorist'),
-                'flickr' => __('Flickr', 'directorist'),
+            $s = [
+                'facebook'       => __('Facebook', 'directorist'),
+                'twitter'        => __('Twitter', 'directorist'),
+                'linkedin'       => __('LinkedIn', 'directorist'),
+                'pinterest'      => __('Pinterest', 'directorist'),
+                'instagram'      => __('Instagram', 'directorist'),
+                'tumblr'         => __('Tumblr', 'directorist'),
+                'flickr'         => __('Flickr', 'directorist'),
                 'snapchat-ghost' => __('Snapchat', 'directorist'),
-                'reddit' => __('Reddit', 'directorist'),
-                'youtube-play' => __('Youtube', 'directorist'),
-                'vimeo' => __('Vimeo', 'directorist'),
-                'vine' => __('Vine', 'directorist'),
-                'github' => __('Github', 'directorist'),
-                'dribbble' => __('Dribbble', 'directorist'),
-                'behance' => __('Behance', 'directorist'),
-                'soundcloud' => __('SoundCloud', 'directorist'),
+                'reddit'         => __('Reddit', 'directorist'),
+                'youtube-play'   => __('Youtube', 'directorist'),
+                'vimeo'          => __('Vimeo', 'directorist'),
+                'vine'           => __('Vine', 'directorist'),
+                'github'         => __('Github', 'directorist'),
+                'dribbble'       => __('Dribbble', 'directorist'),
+                'behance'        => __('Behance', 'directorist'),
+                'soundcloud'     => __('SoundCloud', 'directorist'),
                 'stack-overflow' => __('StackOverFLow', 'directorist'),
-            );
+            ];
             asort($s);
+
             return $s;
         }
 
@@ -407,17 +416,18 @@ if (!class_exists('ATBDP_Helper')) :
                     $icon = 'youtube-play';
                     break;
             }
+
             return $icon;
         }
 
         // format_date
-        public static function format_date( $timestamp ) {
-            $date_format = get_option( 'date_format' );
-            $date = date( $date_format, strtotime( $timestamp ));
+        public static function format_date($timestamp)
+        {
+            $date_format = get_option('date_format');
+            $date        = date($date_format, strtotime($timestamp));
 
             return $date;
         }
-
 
         /**
          * Darken or lighten a given hex color and return it.
@@ -431,7 +441,7 @@ if (!class_exists('ATBDP_Helper')) :
         {
             // determine if we want to lighten or draken the color. Negative -255 means darken, positive integer means lighten
             $brightness = $darken ? -255 : 255;
-            $steps = $percent * $brightness / 100;
+            $steps      = $percent * $brightness / 100;
 
             // Normalize into a six character long hex string
             $hex = str_replace('#', '', $hex);
@@ -441,7 +451,7 @@ if (!class_exists('ATBDP_Helper')) :
 
             // Split into three parts: R, G and B
             $color_parts = str_split($hex, 2);
-            $return = '#';
+            $return      = '#';
 
             foreach ($color_parts as $color) {
                 $color = hexdec($color); // Convert to decimal
@@ -452,31 +462,30 @@ if (!class_exists('ATBDP_Helper')) :
             return $return;
         }
 
-
         /**
          * Lists of html tags that are allowed in a content
          * @return array List of allowed tags in a content
          */
         public function allowed_html()
         {
-            return array(
-                'i' => array(
-                    'class' => array(),
-                ),
-                'strong' => array(
-                    'class' => array(),
-                ),
-                'em' => array(
-                    'class' => array(),
-                ),
-                'a' => array(
-                    'class' => array(),
-                    'href' => array(),
-                    'title' => array(),
-                    'target' => array(),
-                ),
+            return [
+                'i'      => [
+                    'class' => [],
+                ],
+                'strong' => [
+                    'class' => [],
+                ],
+                'em'     => [
+                    'class' => [],
+                ],
+                'a'      => [
+                    'class'  => [],
+                    'href'   => [],
+                    'title'  => [],
+                    'target' => [],
+                ],
 
-            );
+            ];
         }
 
         /**
@@ -490,29 +499,27 @@ if (!class_exists('ATBDP_Helper')) :
         {
             //@TODO: look into this deeply later : http://www.insertcart.com/numeric-pagination-wordpress-using-php/
             $largeNumber = 999999999; // we need a large number here
-            $links = paginate_links(array(
-                'base' => str_replace($largeNumber, '%#%', esc_url(get_pagenum_link($largeNumber))),
-                'format' => '?paged=%#%',
-                'current' => max(1, $paged),
-                'total' => $loop->max_num_pages,
+            $links       = paginate_links([
+                'base'      => str_replace($largeNumber, '%#%', esc_url(get_pagenum_link($largeNumber))),
+                'format'    => '?paged=%#%',
+                'current'   => max(1, $paged),
+                'total'     => $loop->max_num_pages,
                 'prev_text' => __('&laquo; Prev', 'directorist'),
                 'next_text' => __('Next &raquo;', 'directorist'),
-                'type' => 'list',
-            ));
-
+                'type'      => 'list',
+            ]);
 
             return $links;
         }
 
-        public function show_login_message($message = '')
+        public static function show_login_message($message = '')
         {
 
             $t = !empty($message) ? $message : '';
             $t = apply_filters('atbdp_unauthorized_access_message', $t);
             ?>
             <div class="notice_wrapper">
-                <div class="alert alert-warning"><span class="fa fa-info-circle"
-                                                       aria-hidden="true"></span> <?php echo $t; ?></div>
+                <div class="alert alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo $t; ?></div>
             </div>
             <?php
         }
@@ -526,9 +533,12 @@ if (!class_exists('ATBDP_Helper')) :
          */
         public function mysql_to_human_time($mysql_date, $echo = true, $suffix = ' ago.')
         {
-            $date = DateTime::createFromFormat("Y-m-d H:i:s", $mysql_date);
+            $date = DateTime::createFromFormat('Y-m-d H:i:s', $mysql_date);
             $time = human_time_diff($date->getTimestamp()) . $suffix;
-            if (!$echo) return $time;
+            if (!$echo) {
+                return $time;
+            }
+
             echo $time;
         }
 
@@ -539,15 +549,15 @@ if (!class_exists('ATBDP_Helper')) :
          */
         public function output_listings_taxonomy_info($cat, $loc)
         {
-            if (!empty($cat) || !empty($loc)) { ?>
+            if (!empty($cat) || !empty($loc)) {
+            ?>
                 <div class="general_info">
                     <ul>
                         <?php if (!empty($cat)) { ?>
                             <li>
                                 <p class="info_title"><?php _e('Category:', 'directorist'); ?></p>
                                 <p class="directory_tag">
-                                    <span class="fa <?php echo esc_attr(get_cat_icon(@$cat->term_id)); ?>"
-                                          aria-hidden="true"></span>
+                                    <span class="fa                                                    <?php echo esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
                                     <span> <?php if (is_object($cat)) { ?>
                                             <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat); ?>">
                                                 <?php echo esc_html($cat->name); ?>
@@ -594,36 +604,64 @@ if (!class_exists('ATBDP_Helper')) :
             <?php
         }
 
-        // guard
-        public static function guard( Array $args = array() ) {
-            $type           = ( ! empty( $args['type'] ) ) ? $args['type'] : 'auth';
-            $login_redirect = ( ! empty( $args['login_redirect'] ) ) ? $args['login_redirect'] : false;
+        // sanitize_html
+        public static function sanitize_html(string $subject = '', string $return_type = 'echo')
+        {
+            $subject = esc_html(stripslashes($subject));
+            
+            if ('return' === $return_type) {
+                return $subject;
+            }
 
-            if ( 'auth' === $type && ! atbdp_logged_in_user() && ! $login_redirect ) {
+            echo $subject;
+        }
+
+        // guard
+        public static function guard(array $args = [])
+        {
+            $type           = (!empty($args['type'])) ? $args['type'] : 'auth';
+            $login_redirect = (!empty($args['login_redirect'])) ? $args['login_redirect'] : false;
+
+            if ('auth' === $type && !atbdp_logged_in_user() && !$login_redirect) {
                 ob_start();
                 // user not logged in;
-                $error_message = sprintf( __( 'You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist' ), apply_filters( 'atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __( 'Here', 'directorist' ) . '</a>' ), apply_filters( 'atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __( 'Sign Up', 'directorist' ) . '</a>' ) );
-                ?>
-                    <section class="directory_wrapper single_area">
-                        <?php self::show_login_message( $error_message ); ?>
-                    </section>
-                    <?php
+                $error_message = sprintf(__('You need to be logged in to view the content of this page. You can login %s. Don\'t have an account? %s', 'directorist'), apply_filters('atbdp_listing_form_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Here', 'directorist') . '</a>'), apply_filters('atbdp_listing_form_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . '</a>'));
+            ?>
+                <section class="directory_wrapper single_area">
+                    <?php self::show_login_message( $error_message ); ?>
+                </section>
+            <?php
 
                 return ob_get_clean();
             }
 
-            if ( '404' === $type ) { ob_start(); ?>
-            <section class="directory_wrapper single_area">
-                <div class="notice_wrapper">
-                    <div class="alert alert-warning">
-                        <span class="fa fa-info-circle" aria-hidden="true"></span> 
-                        <?php _e('Nothing to show!'); ?>
+            if ('404' === $type) {
+                ob_start(); ?>
+                <section class="directory_wrapper single_area">
+                    <div class="notice_wrapper">
+                        <div class="alert alert-warning">
+                            <span class="fa fa-info-circle" aria-hidden="true"></span>
+                            <?php _e('Nothing to show!'); ?>
+                        </div>
                     </div>
-                </div>
-            </section>
-            <?php return ob_get_clean(); }
+                </section>
+            <?php
+
+                return ob_get_clean();
+            }
 
             return '';
+        }
+
+        // sanitize_tel_attr
+        public static function sanitize_tel_attr( string $tel = '', string $return_type = 'echo' ) {
+            $tel = preg_replace( '/\D/', '', $tel );
+
+            if ( $return_type === 'return' ) {
+                return $tel;
+            }
+
+            echo $tel;   
         }
 
         /**
@@ -631,7 +669,7 @@ if (!class_exists('ATBDP_Helper')) :
          * @param array $cats [optional] the array of Listing Category Objects
          * @param array $locs [optional] the array of Listing Location Objects
          */
-        public function output_listings_all_taxonomy_info($cats = array(), $locs = array())
+        public function output_listings_all_taxonomy_info($cats = [], $locs = [])
         {
             // get terms from db if not provided
             $cats = !empty($cats) ? $cats : get_the_terms(null, ATBDP_CATEGORY);
@@ -647,8 +685,7 @@ if (!class_exists('ATBDP_Helper')) :
                                     <?php foreach ($cats as $cat) { ?>
                                         <li>
                                             <p class="directory_tag">
-                                                <span class="fa <?php echo esc_attr(get_cat_icon(@$cat->term_id)); ?>"
-                                                      aria-hidden="true"></span>
+                                                <span class="fa                                                                <?php echo esc_attr(get_cat_icon(@$cat->term_id)); ?>" aria-hidden="true"></span>
                                                 <span> <?php if (is_object($cat)) { ?>
                                                         <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_category_page($cat)); ?>">
                                                             <?php echo esc_html($cat->name); ?>
@@ -664,13 +701,13 @@ if (!class_exists('ATBDP_Helper')) :
 
                         if (!empty($locs) && is_array($locs)) {
                             $location_count = count($locs);
-                            ?>
+                        ?>
                             <li>
                                 <ul>
                                     <p class="info_title"><?php _e('Location:', 'directorist'); ?></p>
                                     <?php foreach ($locs as $loc) {
-                                        $location_count--; // reduce count to display comma for the right item
-                                        ?>
+                                        $location_count--; // reduce count to display comma for the right item 
+                                    ?>
                                         <li>
                                             <span><?php if (is_object($loc)) { ?>
                                                     <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_location_page($loc)); ?>">
@@ -678,9 +715,12 @@ if (!class_exists('ATBDP_Helper')) :
                                                     </a>
                                                 <?php } ?>
                                             </span><?php
-                                            // @todo; discuss with front-end dev if it is good to put comma here directly or he will do?
-                                            if ($location_count >= 1) echo ",";
-                                            ?>
+                                                    // @todo; discuss with front-end dev if it is good to put comma here directly or he will do?
+                                                    if ($location_count >= 1) {
+                                                        echo ',';
+                                                    }
+
+                                                    ?>
                                         </li>
                                     <?php } ?>
                                 </ul>
@@ -688,7 +728,7 @@ if (!class_exists('ATBDP_Helper')) :
                         <?php } ?>
                     </ul>
                 </div>
-            <?php }
+<?php }
         }
     }
 endif;

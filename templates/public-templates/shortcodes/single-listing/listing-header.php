@@ -27,9 +27,11 @@ do_action('atbdp_before_listing_section');
 	<div class="atbdb_content_module_contents">
 
 		<?php
+
 		if (apply_filters('atbdp_single_listing_slider', true)) {
 			$listing->the_slider();
-		} ?>
+		}
+		?>
 
 		<div class="atbd_listing_detail">
 
@@ -66,5 +68,7 @@ do_action('atbdp_before_listing_section');
 		</div>
 	</div>
 </div>
+
 <?php
+
 do_action('atbdp_after_single_listing_details_section', $listing);

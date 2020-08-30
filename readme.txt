@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.6
 Tested up to:  5.5
-Stable tag: 6.5.2
+Stable tag: 6.6.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -16,7 +16,7 @@ Create a classified website, business directory website like Yelp, Foursquare et
 
 Want to build an online directory of business listings similar to Yelp, Yellow-Pages or Tripadvisor on your WordPress site? Well, if the answer is **YES**, you have come to the right place. Directorist streamlines the process of creating powerful business directories or classified websites.
 
-👉 [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/) | [Support](https://directorist.com/dashboard/) 👈
+👉 [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/product/category/themes/) | [Extensions](https://directorist.com/product/category/extensions/) | [Roadmap](https://directorist.com/roadmap/) | [Support](https://directorist.com/dashboard/) 👈
 
 Meet our powerful **Directorist Business Directory** plugin, highly optimized that can scale to millions of listings ensuring the most dynamic experience of managing online directory business. Using Directorist, you can create lists of businesses based on the location, category, and other interests without writing a single line code. You can also make classified websites like a car selling a website, a booking site, a land selling website and what not!
 
@@ -288,16 +288,15 @@ A. Yes, Directorist is built in such a way that it works smoothly with all the m
 
 == Changelog ==
 
-= 6.5.3 - Aug 30, 2020 =
+= 6.6.0 - Aug 30, 2020 =
 
-* Add - Theming
+* Add - Theming (Customizing templates from theme)
 * Fix - Badge issue of related listings
 * Fix - Custom map marker place issue of listing map view
 * Fix - Conflict with JNews theme
 * Improve - SEO meta info
 * Improve - Polylang plugin compatibility
 * Improve - Browser compatibility
-
 
 = 6.5.2 - Aug 11, 2020 =
 

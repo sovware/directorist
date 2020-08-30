@@ -103,25 +103,6 @@ class VP_ShortcodeGenerator
 		return self::$pool;
 	}
 
-	public static function pool_supports_editor()
-	{
-		foreach (self::$pool as $sg)
-		{
-			if( $sg->supports_editor() )
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public function supports_editor()
-	{
-		$post_type  = VP_Metabox::_get_current_post_type();
-		$has_editor = post_type_supports( $post_type, 'editor' );
-		return $has_editor;
-	}
-
 	public static function pool_can_output()
 	{
 		foreach (self::$pool as $sg)
@@ -146,11 +127,11 @@ class VP_ShortcodeGenerator
 		}
 
 		// if in post / page
-		if( VP_Metabox::_is_post_or_page() )
+		if( 'page' )
 		{
 			// then consider the types
 			if( !in_array("*", $this->types) ) // if wildcard exists, then always shows
-				$can &= in_array(VP_Metabox::_get_current_post_type(), $this->types);
+				$can &= in_array('test_bla_bla', $this->types);
 			else
 				$can &= true;
 		}
@@ -281,7 +262,7 @@ class VP_ShortcodeGenerator
 
 	public static function init_buttons()
 	{
-		if( VP_Metabox::_is_post_or_page() && !current_user_can( 'edit_posts' ) &&
+		if( 'page' && !current_user_can( 'edit_posts' ) &&
 			!current_user_can( 'edit_pages' ) && get_user_option( 'rich_editing' ) == 'true')
 			return;
 

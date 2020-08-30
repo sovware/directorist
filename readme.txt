@@ -18,11 +18,11 @@ Want to build an online directory of business listings similar to Yelp, Yellow-P
 
 👉 [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/themes/) | [Extensions](https://directorist.com/extensions/) | [Roadmap](https://directorist.com/roadmap/) | [Support](https://directorist.com/dashboard/) 👈
 
-Meet our powerful Directorist Business Directory plugin, highly optimized that can scale to millions of listings ensuring the most dynamic experience of managing online directory business. Using Directorist, you can create lists of businesses based on the location, category, and other interests without writing a single line code. You can also make classified websites like a car selling a website, a booking site, a land selling website and what not!
+Meet our powerful **Directorist Business Directory** plugin, highly optimized that can scale to millions of listings ensuring the most dynamic experience of managing online directory business. Using Directorist, you can create lists of businesses based on the location, category, and other interests without writing a single line code. You can also make classified websites like a car selling a website, a booking site, a land selling website and what not!
 
 Directorist is one of the leading and fast-growing business directory plugins in WordPress. It is fully compatible with popular WordPress themes that allows you to transform your existing website into a personalized business directory with tons of advanced features and functionalities.
 
-## WHY SHOULD YOU USE DIRECTORIST?
+## WHY SHOULD YOU USE DIRECTORIST - THE BUSINESS DIRECTORY PLUGIN?
 
 👉 **Beginner Friendly:** Thoughtfully designed user-interface lets users to operate the plugin with zero coding skills and get the most compelling user experience. This beginner-friendly plugin provides you a simple setup wizard to get you started.
 
@@ -70,7 +70,7 @@ Let’s take a look at some of the core features that make this WordPress direct
 
 **Scale to Millions of Listings and Blazing Fast Experience**
 
-There is no doubt that a fast loading web page is crucial for better user experience and the search engine. Keeping that into account Directorist Business Directory plugin is built with industry-standard practices to provide you with a lightning-fast loading experience. It is a highly optimized plugin that can scale to millions of listings ensuring low memory consumption and efficient query execution.
+There is no doubt that a fast loading web page is crucial for better user experience and the search engine. Keeping that into account **Directorist Business Directory** plugin is built with industry-standard practices to provide you with a lightning-fast loading experience. It is a highly optimized plugin that can scale to millions of listings ensuring low memory consumption and efficient query execution.
 
 **Beautiful Modern Design and 100% Responsive**
 
@@ -141,7 +141,7 @@ Location or address search is an important aspect of a business directory and cl
 
 **Robust Payment Gateways**
 
-More options for getting paid means more ways to earn revenue. By default, Directorist Business Directory allows you to use an offline payment method for free. You can set up a bank transfer method as an offline payment gateway using the free version.
+More options for getting paid means more ways to earn revenue. By default, **Directorist Business Directory** allows you to use an offline payment method for free. You can set up a bank transfer method as an offline payment gateway using the free version.
 
 If you want to scale up your payment gateway using an online payment method, and you can use [PayPal](https://directorist.com/product/directorist-paypal/) or [Stripe](https://directorist.com/product/directorist-stripe/) by purchasing cost-effective extensions. In addition to this, using this WordPress directory plugin taxes and recurring options can be added into your online payment system respectively.
 
@@ -181,11 +181,11 @@ Directorist provides a smart way to manage reviews for all the listings. As a si
 
 Our dedicated support team always loves to get queries from our users and they are quite good at serving our users’ purposes. As we care user’s needs, like the previous days, as always, our users will get the premium support in the coming days.
 
-**Build by a Dynamic Team & Baked by a Wonderful Company**
+**Build by a Dynamic Team & Backed by a Wonderful Company**
 
 We aim to provide you with the best professional business directory plugin. Our team is full of dedicated developers, designers, support engineers and marketers who spent countless hours to make this plugin the most convenient to its users. We’re constantly working to improve the plugin by adding new features and fixing the bugs in the best possible way.
 
-Getting Started with the Directorist is only a matter of few clicks. Check out the [detailed guide through our documentation](https://directorist.com/documentation/) on our official website in order to operate the plugin in the best possible way.
+Getting Started with the **Directorist** is only a matter of few clicks. Check out the [detailed guide through our documentation](https://directorist.com/documentation/) on our official website in order to operate the plugin in the best possible way.
 
 ##Paid Extensions to Boost Your Business Directory
 
@@ -223,11 +223,15 @@ Directorist offers cost-effective premium [Extensions](https://directorist.com/p
 
 👉 **[Social Login](https://directorist.com/product/directorist-social-login/)** - Allow you users to register and login to your directory listing website using their social media channels. In this process, the registration process becomes faster and handy without waiting for the validation process.
 
-Apart from purchasing above mentioned individual extensions, you can get all of the Directorist Business Directory extensions in a bundle as a bonus at a discounted price from the [Directorist Extensions Bundle](https://directorist.com/product/directorist-extensions-bundle/) package.
+👉 **[Rank Featured Listings](https://directorist.com/product/directorist-rank-featured-listings/)** - To rank your featured listing items on your directory website. Sometimes you may need to rank all your featured listings if it happens on a larger scale. Using this extension, you will get complete and the most affordable solution out there you needed.
+
+👉 **[Compare Listings](https://directorist.com/product/directorist-compare-listings/)** - Allows visitors to add a set of listings in a list and compare its features by viewing in a comparison table.
+
+Apart from purchasing above mentioned individual extensions, you can get all of the **Directorist Business Directory** extensions in a bundle as a bonus at a discounted price from the [Directorist Extensions Bundle](https://directorist.com/product/directorist-extensions-bundle/) package.
 
 If you face any issues with managing this awesome business directory plugin in person, feel free to reach out! Our dedicated support team is always ready to help you in the best possible ways.
 
-##Contribute to Directorist
+##Contribute to Directorist - The Best Business Directory Plugin
 
 If you want to contribute to the project, you’re most welcome to make it happen. The full source code is available on [GitHub](https://github.com/aazztech/directorist). If you find anything improbable, feel free to shoot a bug report.
 

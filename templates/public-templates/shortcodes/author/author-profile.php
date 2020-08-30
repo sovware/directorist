@@ -9,7 +9,7 @@
     <div class="<?php echo esc_attr($container_fluid); ?>">
         <?php
         /**
-         * @since 7.0
+         * @since 6.6
          * @hooked Directorist_Listing_Author > header_template - 10
          * @hooked Directorist_Listing_Author > about_template - 15
          * @hooked Directorist_Listing_Author > author_listings_template - 20

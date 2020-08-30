@@ -37,7 +37,7 @@
 
 <?php
 /**
- * @since 7.0
+ * @since 6.6
  * @hooked Directorist_Listings::mark_as_favourite_button - 10
  */
 do_action('atbdp_listing_thumbnail_area');

@@ -1147,28 +1147,12 @@ class Directorist_Listings {
 		if ( $this->logged_in_user_only ) {
 			return ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
-
-		// Manage templating compatibility for old extension
-		$has_old_ext_template = $this->manage_old_ext_compatibility();
-		if ( $has_old_ext_template ) {
-			return '';
-		}
 		
 		// Load the template
 		$template_file = "listings-archive/listings-{$this->view}";
 		atbdp_get_shortcode_template( $template_file, array('listings' => $this), 'listings_archive' );
 
 		return ob_get_clean();
-	}
-
-	public function manage_old_ext_compatibility() {
-		if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.1', '<=' ) ) {
-			if ( 'listings_with_map' === $this->view ) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	public function setup_loop( array $args = [] ) {

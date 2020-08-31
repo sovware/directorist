@@ -1148,9 +1148,6 @@ class Directorist_Listings {
 			return ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
 
-		$old_listings = ( ! empty( $GLOBALS['listings_data'] ) ) ? $GLOBALS['listings_data'] : null;
-		$GLOBALS['listings'] = $this;
-
 		// Manage templating compatibility for old extension
 		$has_old_ext_template = $this->manage_old_ext_compatibility();
 		if ( $has_old_ext_template ) {
@@ -1160,8 +1157,6 @@ class Directorist_Listings {
 		// Load the template
 		$template_file = "listings-archive/listings-{$this->view}";
 		atbdp_get_shortcode_template( $template_file, array('listings' => $this), 'listings_archive' );
-
-		$GLOBALS['listings'] = $old_listings;
 
 		return ob_get_clean();
 	}

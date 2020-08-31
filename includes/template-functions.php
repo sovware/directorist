@@ -99,7 +99,12 @@ function atbdp_get_shortcode_template( $template, $args = array(), string $short
         $extension_path = atbdp_get_extension_template_path( $ex_args['template_dirrectory'], $ex_args['file_path'], $ex_args['base_dirrectory'] );
         
         if ( file_exists( $extension_path ) ) {
+            $old_template_data = isset( $GLOBALS['atbdp_template_data'] ) ? $GLOBALS['atbdp_template_data'] : null;
+            $GLOBALS['atbdp_template_data'] = $args;
+
             include $extension_path;
+            
+            $GLOBALS['atbdp_template_data'] = $old_template_data;
             return;
         }
     }

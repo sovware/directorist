@@ -1809,7 +1809,7 @@ class Directorist_Listings {
     }
 
     public static function mark_as_favourite_button() {
-    	$display_mark_as_fav = get_directorist_option( 'display_mark_as_fav', 1 );
+    	$display_mark_as_fav = apply_filters('atbdp_listings_favourite_btn',get_directorist_option( 'display_mark_as_fav', 1 ));
     	
     	if ( ! empty( $display_mark_as_fav ) ) {
     		echo atbdp_listings_mark_as_favourite( get_the_ID() );

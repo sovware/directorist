@@ -72,7 +72,7 @@
 
 	    <?php
 	    /**
-	     * @since 7.0
+	     * @since 6.6
 	     */
 	    do_action( 'directorist_loop_data_list_end', $listings );
 	    ?>

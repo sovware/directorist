@@ -17,7 +17,7 @@
     <div class="<?php echo esc_attr( $container_fluid ); ?>">
         <?php
         /**
-         * @since 7.0
+         * @since 6.6
          * @hooked Directorist_Listing_Dashboard > section_title - 10
          */
         do_action( 'directorist_dashboard_title_area', $display_title );
@@ -28,7 +28,7 @@
 
                 <?php
                 /**
-                 * @since 7.0
+                 * @since 6.6
                  * @hooked Directorist_Listing_Dashboard > nav_tabs_template - 10
                  * @hooked Directorist_Listing_Dashboard > nav_buttons_template - 15
                  */
@@ -41,7 +41,7 @@
 
                 <?php
                 /**
-                 * @since 7.0
+                 * @since 6.6
                  * @hooked Directorist_Listing_Dashboard > tab_contents_html - 10
                  */
                 do_action( 'directorist_dashboard_tab_contents');

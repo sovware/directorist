@@ -146,7 +146,7 @@
 		do_action('atbdp_add_listing_after_excerpt', $p_id);
 
         /**
-         * @since 7.0
+         * @since 6.6
          * @hooked Directorist_Listing_Forms > add_listing_custom_fields_template - 10
          */
         do_action( 'directorist_add_listing_before_location' );

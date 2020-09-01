@@ -92,11 +92,11 @@ function atbdp_get_shortcode_template( $template, $args = array(), string $short
 
     // Load extension template if exist
     if ( ! empty( $shortcode_key ) ) {
-        $default = [ 'template_dirrectory' => '', 'file_path' => '', 'base_dirrectory' => '' ];
+        $default = [ 'template_directory' => '', 'file_path' => '', 'base_directory' => '' ];
         $ex_args = apply_filters( "atbdp_ext_template_path_{$shortcode_key}", $default, $args );
         $ex_args = array_merge( $default, $ex_args );
         
-        $extension_path = atbdp_get_extension_template_path( $ex_args['template_dirrectory'], $ex_args['file_path'], $ex_args['base_dirrectory'] );
+        $extension_path = atbdp_get_extension_template_path( $ex_args['template_directory'], $ex_args['file_path'], $ex_args['base_directory'] );
         
         if ( file_exists( $extension_path ) ) {
             $old_template_data = isset( $GLOBALS['atbdp_template_data'] ) ? $GLOBALS['atbdp_template_data'] : null;

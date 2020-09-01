@@ -7,7 +7,13 @@
 ?>
 <div class="atbd_listing_action_area">
 
-	<?php if ($enable_favourite): ?>
+	<?php 
+	/**
+	 * @since 6.4.2
+	 */
+	do_action('atbdp_single_listing_before_favourite_icon');
+
+	if ($enable_favourite): ?>
 		<div class="atbd_action atbd_save atbd_tooltip" aria-label="<?php esc_html_e('Favorite', 'directorist'); ?>" id="atbdp-favourites"><?php echo the_atbdp_favourites_link(); ?></div>
 	<?php endif; ?>
 

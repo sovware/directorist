@@ -62,7 +62,8 @@
 
 	    /**
 	     * @since 6.6
-	     * @hooked Directorist_Listings::mark_as_favourite_button - 10
+	     * @hooked Directorist_Listings::mark_as_favourite_button - 15
+		 * @hooked CompareButton() || display_compare_btn_on_grid_listings || from extension- 10
 	     */
 	    do_action( "directorist_{$listings->view}_view_top_content_end", $listings );
 		?>

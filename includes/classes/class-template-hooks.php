@@ -49,10 +49,10 @@ class Directorist_Template_Hooks {
 
     // Listings Top - List View
 		add_action( 'directorist_list_view_listing_meta_end', array( 'Directorist_Listings', 'list_view_business_hours') );
-		add_action( 'directorist_list_view_top_content_end',  array( 'Directorist_Listings', 'mark_as_favourite_button') );
+		add_action( 'directorist_list_view_top_content_end',  array( 'Directorist_Listings', 'mark_as_favourite_button'), 15 );
 
     // Listing Thumbnail Area
-		add_action( 'atbdp_listing_thumbnail_area', array( 'Directorist_Listings', 'mark_as_favourite_button') );
+		add_action( 'atbdp_listing_thumbnail_area', array( 'Directorist_Listings', 'mark_as_favourite_button'), 15 );
 
 		// Single Listing content wrapper
 		add_filter('the_content', array( 'Directorist_Single_Listing', 'single_content_wrapper' ), 20 );

@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  AazzTech
- * @since   7.0
- * @version 7.0
+ * @since   6.6
+ * @version 6.6
  */
 ?>
 <?php if ($listings->display_title || $listings->enable_tagline || $listings->display_review || $listings->display_price): ?>

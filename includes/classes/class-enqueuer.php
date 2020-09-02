@@ -922,6 +922,8 @@ class ATBDP_Enqueuer {
                 'category_selection' => $category_placeholder,
                 'show_more'          => __( 'Show More', 'directorist' ),
                 'show_less'          => __( 'Show Less', 'directorist' ),
+                'added_favourite'    => __( 'Added to favorite', 'directorist' ),
+                'please_login'          => __( 'Please login first', 'directorist' ),
                 'select_listing_map' => $select_listing_map,
                 'Miles'              => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
             ),

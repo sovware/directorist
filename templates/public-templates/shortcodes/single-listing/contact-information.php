@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  AazzTech
- * @since   7.0
- * @version 7.0
+ * @since   6.6
+ * @version 6.6
  */
 
 if ((!$hide_contact_info) && !empty($address || $phone ||$phone2 ||$fax || $email || $website || $zip || $social) && empty($disable_contact_info)) { ?>

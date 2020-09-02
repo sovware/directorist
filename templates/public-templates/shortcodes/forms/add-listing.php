@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  AazzTech
- * @since   7.0
- * @version 7.0
+ * @since   6.6
+ * @version 6.6
  */
 ?>
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">

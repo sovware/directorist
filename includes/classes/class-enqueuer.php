@@ -197,6 +197,7 @@ class ATBDP_Enqueuer {
             wp_register_script( 'atbdp-bootstrap-script', ATBDP_PUBLIC_ASSETS . 'js/bootstrap.min.js', array( 'jquery', 'atbdp-popper-script' ), ATBDP_VERSION, true );
         }
 
+        wp_register_script( 'no_script', ATBDP_PUBLIC_ASSETS . 'js/no-script.js', array(), ATBDP_VERSION, true );
         wp_register_script( 'atbdp_form_handler', ATBDP_PUBLIC_ASSETS . 'js/atbdp-form-handler.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_enqueue_script( 'atbdp_form_handler' );
 

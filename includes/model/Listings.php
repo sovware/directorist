@@ -358,6 +358,10 @@ class Directorist_Listings {
 		$id          = get_the_ID();
 		$author_id   = get_the_author_meta( 'ID' );
 		$author_data = get_userdata( $author_id );
+
+		$author_first_name = ! empty( $author_data ) ?  $author_data->first_name : '';
+		$author_last_name = ! empty( $author_data ) ?  $author_data->last_name : '';
+
 		$u_pro_pic   = get_user_meta( $author_id, 'pro_pic', true );
 		$u_pro_pic   = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
 		$bdbh        = get_post_meta( $id, '_bdbh', true );
@@ -388,9 +392,9 @@ class Directorist_Listings {
 			'disable_bz_hour_listing' => get_post_meta( $id, '_disable_bz_hour_listing', true ),
 			'author_id'            => $author_id,
 			'author_data'          => $author_data,
-			'author_full_name'     => $author_data->first_name . ' ' . $author_data->last_name,
+			'author_full_name'     => $author_first_name . ' ' . $author_last_name,
 			'author_link'          => ATBDP_Permalink::get_user_profile_page_link( $author_id ),
-			'author_link_class'    => ! empty( $author_data->first_name && $author_data->last_name ) ? 'atbd_tooltip' : '',
+			'author_link_class'    => ! empty( $author_first_name && $author_last_name ) ? 'atbd_tooltip' : '',
 			'u_pro_pic'            => $u_pro_pic,
 			'avatar_img'           => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
 		);

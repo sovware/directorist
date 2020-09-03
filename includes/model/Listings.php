@@ -360,7 +360,7 @@ class Directorist_Listings {
 		$author_data = get_userdata( $author_id );
 
 		$author_first_name = ! empty( $author_data ) ?  $author_data->first_name : '';
-		$author_last_name = ! empty( $author_data ) ?  $author_data->last_name : '';
+		$author_last_name  = ! empty( $author_data ) ?  $author_data->last_name : '';
 
 		$u_pro_pic   = get_user_meta( $author_id, 'pro_pic', true );
 		$u_pro_pic   = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';

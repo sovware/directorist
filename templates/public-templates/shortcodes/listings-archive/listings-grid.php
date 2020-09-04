@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  AazzTech
- * @since   7.0
- * @version 7.0
+ * @since   6.6
+ * @version 6.6
  */
 
 /**
@@ -16,7 +16,7 @@ do_action('atbdp_before_all_listings_grid', $listings);
 <div id="directorist" class="atbd_wrapper ads-advaced--wrapper">
     <?php
     /**
-     * @since 7.0
+     * @since 6.6
      * @hooked Directorist_Listings::archive_header - 10
      */
     do_action( 'directorist_archive_header', $listings );

@@ -338,6 +338,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
     margin: 0;
     padding: 0;
     justify-content: center;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 
     .current, .page-numbers {
       padding: 0;
@@ -1031,7 +1034,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .map-icon-label i,
-.atbd_map_shape > span {
+.atbd_map_shape > span{
   font-size: 17px !important;
   color: #444752;
   text-align: center;
@@ -1047,6 +1050,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   justify-content: center;
 }
 
+
 .atbd_map_shape {
   width: 50px;
   height: 50px;
@@ -1056,6 +1060,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   align-items: center;
   justify-content: center;
   position: relative;
+  top: -11px;
 
   &:before {
     position: absolute;

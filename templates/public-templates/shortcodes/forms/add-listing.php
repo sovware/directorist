@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  AazzTech
- * @since   7.0
- * @version 7.0
+ * @since   6.6
+ * @version 6.6
  */
 ?>
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
@@ -15,7 +15,7 @@
 				<div class="atbdp-form-fields">
 					<?php
                     /**
-                     * @since 7.0
+                     * @since 6.6
                      * @hooked Directorist_Listing_Forms > add_listing_title_template - 10
                      */
                     do_action( 'directorist_add_listing_title' );
@@ -41,7 +41,7 @@
                     <div class="atbdb_content_module">
                     	<?php
                         /**
-                         * @since 7.0
+                         * @since 6.6
                          * @hooked Directorist_Listing_Forms > add_listing_general_template - 10
                          * @hooked Directorist_Listing_Forms > add_listing_contact_template - 15
                          * @hooked Directorist_Listing_Forms > add_listing_map_template - 20

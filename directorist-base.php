@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
  * Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
- * Version: 7.0.0
+ * Version: 6.6.0
  * Author: AazzTech
  * Author URI: https://aazztech.com
  * Text Domain: directorist
@@ -367,11 +367,14 @@ final class Directorist_Base
      */
     private function includes()
     {
-        // $helper = new ATBDP_Helper;
-        require_once ATBDP_TEMPLATES_DIR . 'single-template-shortcode.php';
-        require_once ATBDP_LIB_DIR . 'vafpress/bootstrap.php'; // load option framework.
-        require_once ATBDP_INC_DIR . 'helper-functions.php';
-        require_once ATBDP_INC_DIR . 'template-functions.php';
+        self::require_files([
+            ATBDP_LIB_DIR . 'vafpress/bootstrap',
+            ATBDP_INC_DIR . 'helper-functions',
+            ATBDP_INC_DIR . 'template-functions',
+            ATBDP_INC_DIR . 'custom-actions',
+            ATBDP_INC_DIR . 'custom-filters',
+            ATBDP_INC_DIR . 'elementor/init'
+        ]);
 
         load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
         load_dependencies('all', ATBDP_INC_DIR . 'model/');
@@ -391,12 +394,17 @@ final class Directorist_Base
         /*Load payment related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'payments/');
         load_dependencies('all', ATBDP_INC_DIR . 'checkout/');
-        /*Load payment related stuff*/
-        require_once ATBDP_INC_DIR . 'custom-actions.php';
-        require_once ATBDP_INC_DIR . 'custom-filters.php';
-        /*Load Elementor Widgets*/
-        require_once ATBDP_INC_DIR . 'elementor/init.php';
+        
 
+    }
+
+    // require_files
+    public static function require_files( array $files = [] ) {
+        foreach ( $files as $file ) {
+            if ( file_exists( "{$file}.php" ) ) {
+                require_once "{$file}.php";
+            }
+        }
     }
 
     public static function prepare_plugin()

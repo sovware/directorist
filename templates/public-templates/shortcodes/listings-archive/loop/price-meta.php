@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  AazzTech
- * @since   7.0
- * @version 7.0
+ * @since   6.6
+ * @version 6.6
  */
 ?>
 <div class="atbd_listing_meta">
@@ -24,7 +24,7 @@
 	do_action('atbdp_after_listing_price');
 
     /**
-     * @since 7.0
+     * @since 6.6
      * @hooked Directorist_Listings::list_view_business_hours - 10
      */
     do_action( "directorist_{$listings->view}_view_listing_meta_end", $listings );

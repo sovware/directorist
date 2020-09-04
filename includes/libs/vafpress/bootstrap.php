@@ -130,7 +130,7 @@ if( !function_exists('vp_metabox_enqueue') )
 {
 	function vp_metabox_enqueue()
 	{
-		if( VP_WP_Admin::is_post_or_page() and VP_Metabox::pool_can_output() )
+		if( VP_WP_Admin::is_post_or_page() and true )
 		{
 			$loader = VP_WP_Loader::instance();
 			$loader->add_main_js( 'vp-metabox' );
@@ -178,7 +178,7 @@ if( !function_exists('vp_post_dummy_editor') )
 			$types = array_unique( array_merge( $types['metabox'], $types['shortcodegenerator'] ) );
 			if( in_array('wpeditor', $types ) )
 			{
-				if( !VP_ShortcodeGenerator::pool_supports_editor() and !VP_Metabox::pool_supports_editor() )
+				if( false and false )
 					$dummy = true;
 			}
 		}
@@ -225,75 +225,7 @@ if( !function_exists('vp_enqueue_scripts') )
 	}
 }
 
-/**
- * Easy way to get metabox values using dot notation
- * example:
- * 
- * vp_metabox('meta_name.field_name')
- * vp_metabox('meta_name.group_name')
- * vp_metabox('meta_name.group_name.0.field_name')
- * 
- */
 
-if( !function_exists('vp_metabox') )
-{
-	function vp_metabox($key, $default = null, $post_id = null)
-	{
-		global $post;
-
-		$vp_metaboxes = VP_Metabox::get_pool();
-
-		if(!is_null($post_id))
-		{
-			$the_post = get_post($post_id);
-			if ( empty($the_post) ) $post_id = null;
-		}
-			
-		if(is_null($post) and is_null($post_id))
-			return $default;
-
-		$keys = explode('.', $key);
-		$temp = NULL;
-
-		foreach ($keys as $idx => $key)
-		{
-			if($idx == 0)
-			{
-				if(array_key_exists($key, $vp_metaboxes))
-				{
-					$temp = $vp_metaboxes[$key];
-					if(!is_null($post_id))
-						$temp->the_meta($post_id);
-					else
-						$temp->the_meta();
-				}
-				else
-				{
-					return $default;
-				}
-			}
-			else
-			{
-				if(is_object($temp) and get_class($temp) === 'VP_Metabox')
-				{
-					$temp = $temp->get_the_value($key);
-				}
-				else
-				{
-					if(is_array($temp) and array_key_exists($key, $temp))
-					{
-						$temp = $temp[$key];
-					}
-					else
-					{
-						return $default;
-					}
-				}
-			}
-		}
-		return $temp;
-	}
-}
 
 /**
  * Easy way to get option values using dot notation

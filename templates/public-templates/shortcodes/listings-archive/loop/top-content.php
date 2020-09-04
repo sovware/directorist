@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  AazzTech
- * @since   7.0
- * @version 7.0
+ * @since   6.6
+ * @version 6.6
  */
 ?>
 <?php if ($listings->display_title || $listings->enable_tagline || $listings->display_review || $listings->display_price): ?>
@@ -61,8 +61,9 @@
 		}
 
 	    /**
-	     * @since 7.0
-	     * @hooked Directorist_Listings::mark_as_favourite_button - 10
+	     * @since 6.6
+	     * @hooked Directorist_Listings::mark_as_favourite_button - 15
+		 * @hooked CompareButton() || display_compare_btn_on_grid_listings || from extension- 10
 	     */
 	    do_action( "directorist_{$listings->view}_view_top_content_end", $listings );
 		?>

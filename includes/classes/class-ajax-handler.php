@@ -199,7 +199,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $info['user_password'] = $_POST['password'];
             $info['remember'] = $keep_signed_in;
 
-            $user_signon = wp_signon($info, false);
+            $user_signon = wp_signon($info, $keep_signed_in);
             if (is_wp_error($user_signon)) {
                 echo json_encode(array(
                     'loggedin' => false,
@@ -1134,7 +1134,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         public function custom_field_search($term_id = 0)
         {
             $ajax = false;
-
             if (isset($_POST['term_id'])) {
 
                 check_ajax_referer('bdas_ajax_nonce', 'security');
@@ -1178,8 +1177,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             require ATBDP_TEMPLATES_DIR . 'custom-fields.php';
             wp_reset_postdata(); // Restore global post data stomped by the_post()
             $output = ob_get_clean();
-
-            print $output;
+            
+            echo $output;
 
             if ($ajax) {
                 wp_die();

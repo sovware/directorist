@@ -221,6 +221,10 @@ final class Directorist_Base
             add_action('widgets_init', array(self::$instance, 'register_widgets'));
 
             self::$instance->includes();
+
+            self::$instance->cpt_manager = new ATBDP_CPT_Manager;
+            self::$instance->cpt_manager->run();
+
             self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
             self::$instance->enquirer = new ATBDP_Enqueuer;
@@ -242,6 +246,7 @@ final class Directorist_Base
             self::$instance->tools = new ATBDP_Tools;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
             self::$instance->update_database();
+
             // new settings
             new ATBDP_Settings_Manager();
             /*Extensions Link*/
@@ -276,6 +281,8 @@ final class Directorist_Base
             if (get_option('atbdp_meta_version') < 1) {
                 add_action('init', array(self::$instance, 'add_custom_meta_keys_for_old_listings'));
             }
+
+        
             // init offline gateway
             new ATBDP_Offline_Gateway;
             // Init Cron jobs to run some periodic tasks

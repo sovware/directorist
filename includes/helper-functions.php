@@ -2,6 +2,17 @@
 // Prohibit direct script loading.
 defined('ABSPATH') || die('No direct script access allowed!');
 
+
+
+// atbdp_load_admin_template
+function atbdp_load_admin_template( string $path = '', $data = [] ) {
+    $file = trailingslashit( ATBDP_DIR ) . "templates/admin-templates/$path.php";
+
+    if ( file_exists( $file ) ) {
+        include( $file );
+    }
+}
+
 if ( !function_exists('get_help') ) {
     function get_help() {
         $path = ATBDP_CLASS_DIR . 'class-helper.php';

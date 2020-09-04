@@ -140,7 +140,7 @@ if (!class_exists('ATBDP_Custom_Post')):
                 'publicly_queryable' => true,
                 'capability_type' => ATBDP_POST_TYPE,
                 'map_meta_cap' => true, // set this true, otherwise, even admin will not be able to edit this post. WordPress will map cap from edit_post to edit_at_biz_dir etc,
-
+                'menu_position' => 5,
             );
 
             // get the rewrite slug from the user settings, if exist use it.

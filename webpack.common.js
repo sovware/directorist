@@ -5,7 +5,7 @@ const VueLoaderPlugin      = require('vue-loader/lib/plugin')
 
 module.exports = {
   entry: {
-    app: "./public/assets/src/js/index.js",
+    admin_app: "./public/assets/src/js/admin-index.js",
   },
   output: {
     filename: "[name].js",
@@ -19,7 +19,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "../css/app.css",
+      filename: "../css/[name].css",
     }),
     new WebpackRTLPlugin({
       minify: true,

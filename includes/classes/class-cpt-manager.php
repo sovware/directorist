@@ -34,6 +34,9 @@ if ( ! class_exists( 'ATBDP_CPT_Manager' ) ) {
 
         // atbdp_cpt_options_metabox_callback
         public function atbdp_cpt_options_metabox_callback() {
+            wp_enqueue_script( 'atbdp_admin_app' );
+            wp_enqueue_style( 'atbdp_admin_css' );
+            
             atbdp_load_admin_template( 'cpt-manager/cpt-options-metabox' );
         }
 

@@ -53,6 +53,10 @@ class ATBDP_Enqueuer {
     }
 
     public function admin_enqueue_scripts( $page ) {
+        // Admin Assets
+        wp_register_style( 'atbdp_admin_css', ATBDP_PUBLIC_ASSETS . 'css/admin_app.css' );
+        wp_register_script( 'atbdp_admin_app', ATBDP_PUBLIC_ASSETS . 'js/admin_app.js', [], false, true );
+
         if ( is_admin() ) {
             wp_register_script( 'extension-update', ATBDP_ADMIN_ASSETS . 'js/extension-update.js', array( 'jquery' ), ATBDP_VERSION, true );
             wp_enqueue_script( 'extension-update' );

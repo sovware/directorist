@@ -222,12 +222,14 @@ final class Directorist_Base
 
             self::$instance->includes();
 
+            self::$instance->enquirer = new ATBDP_Enqueuer;
+            
             self::$instance->cpt_manager = new ATBDP_CPT_Manager;
             self::$instance->cpt_manager->run();
 
             self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
-            self::$instance->enquirer = new ATBDP_Enqueuer;
+            
             self::$instance->hooks = new ATBDP_Hooks;
             self::$instance->metabox = new ATBDP_Metabox;
             self::$instance->ajax_handler = new ATBDP_Ajax_Handler;

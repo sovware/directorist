@@ -54,7 +54,7 @@ class ATBDP_Enqueuer {
 
     public function admin_enqueue_scripts( $page ) {
         // Admin Assets
-        wp_register_style( 'atbdp_admin_css', ATBDP_PUBLIC_ASSETS . 'css/admin_app.css' );
+        wp_register_style( 'atbdp_admin_css', ATBDP_PUBLIC_ASSETS . 'css/admin_app.css', [], '1.0' );
         wp_register_script( 'atbdp_admin_app', ATBDP_PUBLIC_ASSETS . 'js/admin_app.js', [], false, true );
 
         if ( is_admin() ) {

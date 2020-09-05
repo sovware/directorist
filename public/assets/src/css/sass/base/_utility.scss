@@ -1,0 +1,6 @@
+.reset-pseudo-link {
+    &:visited, &:active, &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+}

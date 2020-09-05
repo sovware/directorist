@@ -18,12 +18,6 @@ module.exports = {
     }
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: "../css/[name].css",
-    }),
-    new WebpackRTLPlugin({
-      minify: true,
-    }),
     new VueLoaderPlugin()
   ],
   module: {
@@ -112,7 +106,7 @@ module.exports = {
             options: {
               sourceMap: true,
               sassOptions: {
-                outputStyle: 'compressed',
+                // outputStyle: 'compressed',
               },
             },
           },

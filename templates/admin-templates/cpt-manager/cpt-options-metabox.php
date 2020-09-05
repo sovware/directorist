@@ -1,1 +1,3 @@
-<h1>CPT Manager</h1>
+<div id="atbdp-cpt-manager">
+    <cpt-manager />
+</div>

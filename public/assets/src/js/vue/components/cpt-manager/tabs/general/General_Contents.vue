@@ -1,0 +1,67 @@
+<template>
+    <div class="atbdp-cptm-tab-item general" :class="getActiveClass(index, active_nav_index)">
+        <div class="cptm-tab-content-header">
+            <subNavigation :navLists="sub_navigation" v-model="active_sub_nav"/>
+        </div>
+
+        <div class="cptm-tab-content-body">
+            <template v-for="( sub_tab, index ) in sub_contents" >
+                <component :is="sub_tab" :key="index" :item-index="index" :active-index="active_sub_nav"></component>
+            </template>
+        </div>
+
+    </div>
+</template>
+
+<script>
+import { mapState } from 'vuex';
+import helpers from './../../../mixins/helpers';
+
+import subNavigation from './../../../modules/Sub_Navigation.vue';
+import subTabGeneral from './Sub_Tab_General';
+import subTabPackages from './Sub_Tab_Packages';
+import subTabReviews from './Sub_Tab_Reviews';
+import subTabSchema from './Sub_Tab_Schema';
+import subTabOther from './Sub_Tab_Other';
+
+export default {
+    name: 'general',
+    props: ['index'],
+    components: { subNavigation },
+    mixins: [ helpers ],
+
+    // computed
+    computed: {
+        ...mapState([
+            'active_nav_index',
+        ])
+    },
+
+    // data
+    data() {
+        return {
+            active_sub_nav: 0,
+
+            sub_navigation: [
+                { label: 'General' },
+                { label: 'Packages' },
+                { label: 'Reviews' },
+                { label: 'Schema' },
+                { label: 'Other' },
+            ],
+
+            sub_contents: [
+                subTabGeneral,
+                subTabPackages,
+                subTabReviews,
+                subTabSchema,
+                subTabOther,
+            ],
+        }
+    },
+
+    methods: {
+        
+    },
+}
+</script>

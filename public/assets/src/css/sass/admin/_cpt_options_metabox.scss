@@ -2,9 +2,10 @@
 @import './../base/utility';
 
 $dark: #23282d;
+$primary: #4353FF;
 $nav_link_color:  #7a8289;
 $nav_link_hover_color:  $dark;
-$nav_icon_color: #4353FF;
+$nav_icon_color: $primary;
 
 #atbdp_cpt_options_metabox {
     .inside {
@@ -166,6 +167,7 @@ $nav_icon_color: #4353FF;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    border-bottom: 1px solid #ccc;
 }
 
 .cptm-sub-nav__item {
@@ -193,49 +195,69 @@ $nav_icon_color: #4353FF;
 
 
 
-// Preview Section
-.cptm-layout-preview-section {
-    display: block;
-}
-.cptm-layout-control-area {
-    display: block;
-}
-.cptm-layout-preview-area {
-    display: block;
-}
-
-
-
-.cptm-preview-section {
-    display: block;
+// Builder Section
+.cptm-builder-section {
+    display: flex;
+    flex-wrap: wrap;
 }
 .cptm-widgets-area {
-    display: block;
+    width: 300px;
+}
+.cptm-preview-area {
+    flex-grow: 1;
 }
 
 .cptm-widgets-container {
-    display: block;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.10);
+    background-color: #fff;
 }
 .cptm-widgets-header {
     display: block;
 }
 
 .cptm-widget-nav {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    border-bottom: 1px solid #e3e1e1;
 }
 .cptm-widget-nav-item {
     display: inline-block;
+    margin: 0;
+    padding: 12px 10px;
+    cursor: pointer;
+    flex-basis: calc( 100% / 3 );
+    flex-grow: 1;
+    text-align: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    color: #8a8a8a;
+    border-right: 1px solid #e3e1e1;
+    background-color: #f2f2f2;
+
+    &:last-child {
+        border-right: none;
+    }
+
+    &:hover {
+        color: #2b2b2b;
+    }
+    
     &.active {
         font-weight: bold;
+        color: #2b2b2b;
+        background-color: #fff;
     }
 }
 
 
 .cptm-widgets-body {
-    display: block;
+    padding: 10px;
 }
 .cptm-widgets-list {
     display: block;
+    margin: 0;
 }
 .cptm-widgets-list-item {
     display: block;

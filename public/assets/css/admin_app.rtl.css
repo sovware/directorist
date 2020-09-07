@@ -171,6 +171,7 @@
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
+  border-bottom: 1px solid #ccc;
 }
 
 .cptm-sub-nav__item {
@@ -195,28 +196,31 @@
   font-weight: bold;
 }
 
-.cptm-layout-preview-section {
-  display: block;
-}
-
-.cptm-layout-control-area {
-  display: block;
-}
-
-.cptm-layout-preview-area {
-  display: block;
-}
-
-.cptm-preview-section {
-  display: block;
+.cptm-builder-section {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
 
 .cptm-widgets-area {
-  display: block;
+  width: 300px;
+}
+
+.cptm-preview-area {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
 }
 
 .cptm-widgets-container {
-  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
 .cptm-widgets-header {
@@ -224,22 +228,56 @@
 }
 
 .cptm-widget-nav {
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  margin: 0;
+  border-bottom: 1px solid #e3e1e1;
 }
 
 .cptm-widget-nav-item {
   display: inline-block;
+  margin: 0;
+  padding: 12px 10px;
+  cursor: pointer;
+  -webkit-flex-basis: calc( 100% / 3 );
+      -ms-flex-preferred-size: calc( 100% / 3 );
+          flex-basis: calc( 100% / 3 );
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  cursor: pointer;
+  color: #8a8a8a;
+  border-left: 1px solid #e3e1e1;
+  background-color: #f2f2f2;
+}
+.cptm-widget-nav-item:last-child {
+  border-left: none;
+}
+.cptm-widget-nav-item:hover {
+  color: #2b2b2b;
 }
 .cptm-widget-nav-item.active {
   font-weight: bold;
+  color: #2b2b2b;
+  background-color: #fff;
 }
 
 .cptm-widgets-body {
-  display: block;
+  padding: 10px;
 }
 
 .cptm-widgets-list {
   display: block;
+  margin: 0;
 }
 
 .cptm-widgets-list-item {

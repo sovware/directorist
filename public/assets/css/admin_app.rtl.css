@@ -236,7 +236,6 @@
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
   margin: 0;
-  border-bottom: 1px solid #e3e1e1;
 }
 
 .cptm-widget-nav-item {
@@ -285,19 +284,28 @@
 }
 
 .widget-group-title {
-  margin: 0;
+  margin: 0 0 5px;
+  font-size: 16px;
+  color: #bbb;
 }
 
 .cptm-widgets-sub-list {
   display: block;
+  margin: 0;
 }
 
 .cptm-widgets-sub-list-item {
-  display: inline-block;
+  display: block;
+  padding: 10px 15px;
+  background-color: #eee;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  cursor: move;
 }
 
 .widget-icon {
   display: inline-block;
+  margin-left: 5px;
 }
 
 .widget-label {

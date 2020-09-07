@@ -1,6 +1,10 @@
 
 @import './../base/utility';
 
+$dark: #23282d;
+$nav_link_color:  #7a8289;
+$nav_link_hover_color:  $dark;
+$nav_icon_color: #4353FF;
 
 #atbdp_cpt_options_metabox {
     .inside {
@@ -15,6 +19,7 @@
 
 .atbdp-cpt-manager {
     display: block;
+    color: $dark;
 }
 
 .atbdp-cptm-header {
@@ -32,10 +37,6 @@
 // ====================
 // Header Navigation
 // ====================
-$nav_link_color:  #7a8289;
-$nav_link_hover_color:  #23282d;
-$nav_icon_color: #4353FF;
-
 .cptm-header-navigation {
     margin: 0;
     padding: 0;
@@ -100,6 +101,19 @@ $nav_icon_color: #4353FF;
 // ====================
 // Sub Tabs
 // ====================
+
+.cptm-title-area {
+    margin: 0 0 60px 0;
+}
+
+.cptm-title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: $dark;
+}
+
+
 .atbdp-cptm-tab-contents {
     display: block;
     background-color: #f7f9fa;
@@ -175,4 +189,71 @@ $nav_icon_color: #4353FF;
     &.active {
         font-weight: bold;
     }
+}
+
+
+
+// Preview Section
+.cptm-layout-preview-section {
+    display: block;
+}
+.cptm-layout-control-area {
+    display: block;
+}
+.cptm-layout-preview-area {
+    display: block;
+}
+
+
+
+.cptm-preview-section {
+    display: block;
+}
+.cptm-widgets-area {
+    display: block;
+}
+
+.cptm-widgets-container {
+    display: block;
+}
+.cptm-widgets-header {
+    display: block;
+}
+
+.cptm-widget-nav {
+    display: block;
+}
+.cptm-widget-nav-item {
+    display: inline-block;
+    &.active {
+        font-weight: bold;
+    }
+}
+
+
+.cptm-widgets-body {
+    display: block;
+}
+.cptm-widgets-list {
+    display: block;
+}
+.cptm-widgets-list-item {
+    display: block;
+}
+.widget-group-title {
+    margin: 0;
+}
+
+.cptm-widgets-sub-list {
+    display: block;
+}
+.cptm-widgets-sub-list-item {
+    display: inline-block;
+}
+
+.widget-icon {
+    display: inline-block;
+}
+.widget-label {
+    display: inline-block;
 }

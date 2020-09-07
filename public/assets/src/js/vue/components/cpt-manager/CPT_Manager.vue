@@ -9,6 +9,10 @@
         <div class="atbdp-cptm-body">
             <tabContents />
         </div>
+
+        <div class="atbdp-cptm-footer">
+            <hiddenInputFields />
+        </div>
     </div>
 </template>
 
@@ -16,6 +20,7 @@
 <script>
 // Headers
 import headerNavigation from './Header_Navigation.vue';
+import hiddenInputFields from './HiddenInputFields.vue';
 import tabContents from './tabs/TabContents.vue';
 
 export default {
@@ -23,6 +28,7 @@ export default {
     components: {
         headerNavigation,
         tabContents,
+        hiddenInputFields,
     },
     data() {
         return {

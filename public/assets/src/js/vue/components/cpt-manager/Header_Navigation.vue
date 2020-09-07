@@ -26,8 +26,34 @@ export default {
     computed: {
         ...mapState([
             'active_nav_index',
-            'header_navigation',
         ])
+    },
+
+    data() {
+        return {
+            header_navigation: [
+                {
+                    label: 'General',
+                    icon_class: 'fa fa-map-marker',
+                },
+                {
+                    label: 'Submission Form',
+                    icon_class: 'fa fa-bars',
+                },
+                {
+                    label: 'Single Page Layout',
+                    icon_class: 'fa fa-wpforms',
+                },
+                {
+                    label: 'Listings Card Layout',
+                    icon_class: 'fa fa-picture-o',
+                },
+                {
+                    label: 'Search Forms',
+                    icon_class: 'fa fa-search',
+                },
+            ],
+        };
     },
 
     // methods

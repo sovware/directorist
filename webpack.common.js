@@ -1,7 +1,6 @@
 const path                 = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const WebpackRTLPlugin     = require("webpack-rtl-plugin");
-const VueLoaderPlugin      = require('vue-loader/lib/plugin')
+const VueLoaderPlugin      = require('vue-loader/lib/plugin');
 
 module.exports = {
   entry: {
@@ -48,9 +47,6 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader',
-        options: {
-          esModule: true,
-        }
       },
       {
         test: /\.m?js$/,
@@ -64,16 +60,6 @@ module.exports = {
           },
         ]
       },
-      // Loading TS
-      // {
-      //   test: /\.ts$/,
-      //   include: [ path.resolve(__dirname, "assets/src/js") ],
-      //   exclude: /(node_modules|bower_components)/,
-      //   options: {
-      //     appendTsSuffixTo: [/\.vue$/]
-      //   },
-      //   loader: 'ts-loader',
-      // },
       // Loading SASS
       {
         test: /\.s[ac]ss$/i,
@@ -106,7 +92,7 @@ module.exports = {
             options: {
               sourceMap: true,
               sassOptions: {
-                // outputStyle: 'compressed',
+                outputStyle: 'compressed',
               },
             },
           },
@@ -115,5 +101,5 @@ module.exports = {
     ],
   },
 
-  devtool: 'eval-source-map'
+  devtool: 'source-map'
 };

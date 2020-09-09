@@ -16,11 +16,6 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/vairafiq/directorist-business-directory-plugin#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.30",
-    "@fortawesome/free-brands-svg-icons": "^5.14.0",
-    "@fortawesome/free-regular-svg-icons": "^5.14.0",
-    "@fortawesome/free-solid-svg-icons": "^5.14.0",
-    "@fortawesome/vue-fontawesome": "^2.0.0",
     "gulp": "^3.9.1",
     "node-sass": "^4.14.1",
     "vue": "^2.6.11",

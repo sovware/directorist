@@ -15,8 +15,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import { mapMutations } from 'vuex'
-import helpers from './../mixins/helpers';
+import { mapMutations } from 'vuex';
+import helpers from './../../mixins/helpers';
 
 export default {
     name: 'header-navigation',

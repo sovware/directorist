@@ -5,94 +5,98 @@ if ( ! class_exists( 'ATBDP_CPT_Manager' ) ) {
         // run
         public function run() {
             add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ] );
-            add_action( 'init', [ $this, 'register_cpt' ] );
-            add_action( 'init', [ $this, 'add_meta_boxes' ] );
-            add_action( 'save_post', [ $this, 'save_meta_box_data' ] );
+            add_action( 'init', [ $this, 'register_terms' ] );
+            add_action( 'admin_menu', [ $this, 'add_menu_pages' ] );
         }
 
-
-        // register_cpt
-        public function register_cpt() {
-            register_post_type( 'atbdp-listings-types', [
-                'label'         => 'Listings Types',
-                'labels'        => 'Listings Types',
-                'public'        => true,
-                'menu_icon'     => 'dashicons-location',
-                'supports'      => ['title'],
-                'menu_position' => 5,
-            ]);
-        }
-
-        // add_meta_boxes
-        public function add_meta_boxes() {
-            add_meta_box( 
-                'atbdp_cpt_options_metabox', 
-                'Listings Options',
-                [ $this, 'atbdp_cpt_options_metabox_callback' ], 
-                'atbdp-listings-types', 
-                'advanced', 
-                'high'
+        // add_menu_pages
+        public function add_menu_pages() {
+            add_submenu_page(
+                'edit.php?post_type=at_biz_dir',
+                'Listing Types',
+                'Listing Types',
+                'manage_options',
+                'atbdp-listing-types',
+                [ $this, 'menu_page_callback__listing_types' ],
+                5
             );
         }
 
-        // atbdp_cpt_options_metabox_callback
-        public function atbdp_cpt_options_metabox_callback() {
-            $this->enqueue_scripts();
-
-            $meta_keys = [
-                'general',
-                'has_listing_packages',
-                'listing_packages',
-                'review_stars_mode',
-            ];
-
-            $meta_fields = [];
-            foreach ( $meta_keys as $meta_key ) {
-                $post_meta = get_post_meta( get_the_ID(), $meta_key, true );
-                $meta_fields[$meta_key] = $post_meta;
-            }
-
-            // var_dump( $meta_fields );
+        // menu_page_callback__listing_types
+        public function menu_page_callback__listing_types() {
+            $post_types_list_table = new Listing_Types_List_Table();
             
-            atbdp_load_admin_template( 'cpt-manager/cpt-options-metabox' );
+            $action = $post_types_list_table->current_action();
+            $post_types_list_table->prepare_items();
+            $add_new_link = '?post_type=at_biz_dir&page=' . esc_attr( $_REQUEST['page'] ) . '&action=add_new';
+
+            $data = [
+                'class'                 => $this,
+                'post_types_list_table' => $post_types_list_table,
+                'action'                => $action,
+                'action_link'           => admin_url() . '?post_type=at_biz_dir&page=atbdp-listing-types',
+                'add_new_link'          => $add_new_link,
+            ];
+            
+            // var_dump( $action );
+
+            // handle_listing_type_delete_request
+            $this->handle_listing_type_delete_request();
+
+
+            if ( isset( $_GET['action'] ) && ( 'edit' === $_GET['action'] || 'add_new' === $_GET['action'] )  ) {
+                $this->enqueue_scripts();
+                atbdp_load_admin_template( 'post-types-manager/edit-listing-type' );
+
+                return;
+            }
+
+            atbdp_load_admin_template( 'post-types-manager/all-listing-types', $data );
         }
 
-        // save_meta_box_data
-        public function save_meta_box_data( $post_id ) {
-            $meta_keys = [
-                'general'              => 'json',
-                'has_listing_packages' => 'boolean',
-                'listing_packages'     => 'json',
-                'review_stars_mode'    => 'string',
-            ];
+        // handle_listing_type_delete_request
+        public function handle_listing_type_delete_request() {
+            
+            if ( isset( $_GET['action'] ) && isset( $_GET['listing_type_id'] ) && 'delete' === $_GET['action']  ) {
+                $term_id = absint( $_GET['listing_type_id'] );
+                $status = wp_delete_term( $term_id , 'atbdp_listing_types' );
 
-            foreach ( $meta_keys as $meta_key => $meta_type ) {
-                if ( array_key_exists( $meta_key, $_POST ) ) {
-                    $post_meta  = sanitize_text_field( $_POST[ $meta_key ] );
-                    
-                    switch ( $meta_type ) {
-                        case 'json':
-                            // $post_meta = json_decode( preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $post_meta), true );
-                            // $type = gettype( $post_meta );
-                            
-                            // update_post_meta( $post_id, $meta_key, $type );
-                            // update_post_meta( $post_id, $meta_key, serialize( $post_meta ) );
-                            break;
-                        case 'boolean':
-                            update_post_meta( $post_id, $meta_key, $post_meta );
-                            break;
-                        case 'string':
-                            update_post_meta( $post_id, $meta_key, $post_meta );
-                            break;
-                        case 'integer':
-                            update_post_meta( $post_id, $meta_key, $post_meta );
-                            break;
-                    }
-
-                };
+                if ( $status && ! is_wp_error( $status ) ) {
+                    atbdp_add_flush_alert([
+                        'id'      => 'deleting_listing_type_status',
+                        'page'    => 'all-listing-type',
+                        'page'    => 'global',
+                        'message' => 'Successfully Deleted the listing type',
+                    ]);
+                } else {
+                    atbdp_add_flush_alert([ 
+                        'id'      => 'deleting_listing_type_status',
+                        'page'    => 'all-listing-type',
+                        'page'    => 'global',
+                        'type'    => 'error',
+                        'message' => 'Failed to delete the listing type'
+                    ]);
+                }
+                
             }
         }
 
+        // register_terms
+        public function register_terms() {
+            register_taxonomy( 'atbdp_listing_types', [ ATBDP_POST_TYPE ], [
+                'hierarchical' => false,
+                'labels' => [
+                    'name' => _x( 'Listing Type', 'taxonomy general name', 'directorist' ),
+                    'singular_name' => _x('Listing Type', 'taxonomy singular name', 'directorist'),
+                    'search_items' => __('Search Listing Type', 'directorist'),
+                    'menu_name' => __('Listing Type', 'directorist'),
+                ],
+                'show_ui' => true,
+             ]);
+        }
+
+
+       
         // enqueue_scripts
         public function enqueue_scripts() {
             wp_enqueue_style( 'atbdp-font-awesome' );

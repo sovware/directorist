@@ -1,4 +1,4 @@
-import './vue/cpt_manager';
+import './cpt_manager';
 
 // greet
 // var greet = name => console.log( `Hi ${name}!` )

@@ -63,6 +63,7 @@ $nav_icon_color: $primary;
     text-decoration: none;
     border-right: 1px solid #f2f2f2;
     transition: all ease-in-out 300ms;
+    background-color: #fff;
     @extend .reset-pseudo-link;
     &:hover {
         background-color: #f2f2f2;
@@ -212,10 +213,9 @@ $nav_icon_color: $primary;
     text-align: center;
     color: $dark-2;
     border-radius: 30px;
-    font-size: 12px;
-    line-height: 30px;
-    padding: 0px 15px;
-    margin: 5px;
+    font-size: 10px;
+    padding: 5px 13px;
+    margin: 2px;
     background-color: rgba(255,255,255,0.2);
 }
 
@@ -231,7 +231,6 @@ $nav_icon_color: $primary;
     min-height: 40px;
     cursor: pointer;
     text-align: center;
-    line-height: 40px;
     border: 1px dashed rgba( 255, 255,255, 0.5);
     transition: all ease-in-out 300ms;
     box-sizing: border-box;
@@ -258,6 +257,8 @@ $nav_icon_color: $primary;
 }
 
 .cptm-card-preview-widget {
+    max-width: 400px;
+    margin: 0 auto;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.20);
     background-color: #fff;

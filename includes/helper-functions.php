@@ -2,6 +2,82 @@
 // Prohibit direct script loading.
 defined('ABSPATH') || die('No direct script access allowed!');
 
+function atbdp_add_flush_alert( array $args = [] ) {
+    $default = [
+        'id'          => '',
+        'type'        => 'success',
+        'page'        => '',
+        'dismissible' => true,
+        'message'     => '',
+    ];
+    
+    $args = array_merge( $default, $args );
+    
+    if ( empty( $args['id'] ) ) { return; }
+    
+    $id = $args['id'];
+    unset( $args['id'] );
+    
+    $fulsh_messages = get_transient( 'atbdp_flush_alerts' );
+
+    if ( ! $fulsh_messages ) {
+        $fulsh_messages = [];
+    }
+
+    $fulsh_messages[ $id ] = $args;
+
+    set_transient( 'atbdp_flush_alerts', $fulsh_messages );
+}
+
+// atbdp_show_the_flush_alert
+function atbdp_show_the_flush_alert( string $id = '' ) {
+    if ( ! empty( $id ) ) { return; }
+
+    $fulsh_alerts = get_transient( 'atbdp_flush_alerts' );
+    if ( ! $fulsh_alerts && empty( $fulsh_alerts[ $id ] ) ) { return; }
+
+    $fulsh_alert = $fulsh_alerts[ $id ];
+
+    atbdp_render_the_flush_alert( $fulsh_alert );
+    unset( $fulsh_alerts[ $id ] );
+
+    set_transient( 'atbdp_flush_alerts', $fulsh_alerts );
+}
+
+// atbdp_show_flush_alerts
+function atbdp_show_flush_alerts( array $args = [] ) {
+    $default = [ 'page' => '' ];
+    $args = array_merge( $default, $args );
+
+    $fulsh_alerts = get_transient( 'atbdp_flush_alerts' );
+
+    if ( $fulsh_alerts ) {
+        foreach ( $fulsh_alerts as $id => $alert ) {
+            $alert_page = ! empty( $alert['page'] ) ? $alert['page'] : '';
+
+            if ( ! empty( $args['page'] ) && ( $alert_page !== $args['page'] && 'global' !== $alert_page ) ) {
+                continue;
+            }
+
+            atbdp_render_the_flush_alert( $alert );
+            unset( $fulsh_alerts[ $id ] );
+        }
+    }
+
+    set_transient( 'atbdp_flush_alerts', $fulsh_alerts );
+}
+
+// atbdp_render_the_flush_alert
+function atbdp_render_the_flush_alert( array $alert = [] ) {
+    $classes = 'notice';
+    $classes .= ( ! empty( $alert['type'] ) ) ? ' notice-' .  $alert['type'] : '';
+    $classes .= ( empty( $alert['dismissible'] ) ) ? '' : ' is-dismissible';
+    ?>
+    <div class="<?php echo $classes; ?>">
+        <p><strong><?php echo $alert['message'] ?></strong></p>
+    </div> 
+    <?php
+}
 
 
 // atbdp_load_admin_template

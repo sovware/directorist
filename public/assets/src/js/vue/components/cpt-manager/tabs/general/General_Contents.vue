@@ -15,9 +15,9 @@
 
 <script>
 import { mapState } from 'vuex';
-import helpers from './../../../mixins/helpers';
+import helpers from './../../../../mixins/helpers';
 
-import subNavigation from './../../../modules/Sub_Navigation.vue';
+import subNavigation from './../../../../modules/Sub_Navigation.vue';
 import subTabGeneral from './Sub_Tab_General';
 import subTabPackages from './Sub_Tab_Packages';
 import subTabReviews from './Sub_Tab_Reviews';

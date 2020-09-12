@@ -6,7 +6,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import helpers from './../../mixins/helpers';
+import helpers from './../../../mixins/helpers';
 
 export default {
     name: 'single-page-layout',

@@ -143,7 +143,9 @@
                                 <div class="cptm-card-preview-top-rignt">
                                     <div class="cptm-card-preview-top-rignt-placeholder cptm-placeholder-blcok">
                                         <p class="cptm-placeholder-label hide">Top Rignt</p>
-                                        <div class="cptm-widget-badge">Badge Text</div>
+                                        
+                                        <div class="cptm-widget-badge">Badge Text 1</div>
+                                        <!-- <div class="cptm-widget-badge">Badge Text 2</div> -->
                                     </div>
                                 </div>
 
@@ -186,7 +188,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import helpers from './../../mixins/helpers';
+import helpers from './../../../mixins/helpers';
 
 export default {
     name: 'listings-card-layout',
@@ -202,19 +204,20 @@ export default {
 
     data() {
         return {
-            all_widgets: {
-                widget_name: 'widget_comp',
-                widget_name: 'widget_comp',
-                widget_name: 'widget_comp',
-                widget_name: 'widget_comp',
+            widget_list: {
+                badge: '<div class="cptm-widget-badge">Badge Text 1</div>',
+                button: {
+                    'label': 'Button'
+                },
+                description: {
+                    'label': 'Button'
+                },
+                view_count: {
+                    'meta_key': 'view_count'
+                },
             },
 
-            card_preview_top_left_widgets: [
-                'widget_name',
-                'widget_name',
-                'widget_name',
-            ],
-            card_preview_top_left_widgets: [
+            top_left_widgets: [
                 'widget_name',
                 'widget_name',
                 'widget_name',

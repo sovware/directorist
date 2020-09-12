@@ -3,8 +3,8 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-import store from './components/cpt-manager/store';
-import cpt_manager_component from './components/cpt-manager/CPT_Manager.vue';
+import store from './vue/components/cpt-manager/store';
+import cpt_manager_component from './vue/components/cpt-manager/CPT_Manager.vue';
 
 const cpt_manager_el = document.getElementById( 'atbdp-cpt-manager' );
 if ( cpt_manager_el ) {

@@ -3,13 +3,11 @@
         <div class="cptm-tab-content-header">
             <subNavigation :navLists="sub_navigation" v-model="active_sub_nav"/>
         </div>
-
         <div class="cptm-tab-content-body">
             <template v-for="( sub_tab, index ) in sub_contents" >
                 <component :is="sub_tab" :key="index" :item-index="index" :active-index="active_sub_nav"></component>
             </template>
         </div>
-
     </div>
 </template>
 
@@ -32,23 +30,16 @@ export default {
 
     // computed
     computed: {
-        ...mapState([
-            'active_nav_index',
-        ])
+        ...mapState({
+            active_nav_index: 'active_nav_index',
+            sub_navigation: state => state.submenu.general,
+        }),
     },
 
     // data
     data() {
         return {
             active_sub_nav: 0,
-
-            sub_navigation: [
-                { label: 'General' },
-                { label: 'Packages' },
-                { label: 'Reviews' },
-                { label: 'Schema' },
-                { label: 'Other' },
-            ],
 
             sub_contents: [
                 subTabGeneral,

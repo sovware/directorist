@@ -2,7 +2,7 @@
     <ul class="cptm-sub-navigation">
         <li class="cptm-sub-nav__item" v-for="( nav, index ) in navLists" :key="index">
             <a href="#" class="cptm-sub-nav__item-link" :class="getActiveClass( index, active_nav )" @click.prevent="swichNav( index )">
-                {{ nav.label }}
+                {{ nav }}
             </a>
         </li>
     </ul>

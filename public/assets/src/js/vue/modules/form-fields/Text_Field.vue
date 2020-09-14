@@ -7,7 +7,7 @@
             :value="value" 
             :name="name" 
             :placeholder="placeholder"
-            @input="$emit('input', $event.target.value)"
+            @input="$emit('update', $event.target.value)"
         >
     </div>
 </template>
@@ -15,6 +15,10 @@
 <script>
 export default {
     name: 'text-field',
+    model: {
+        prop: 'value',
+        event: 'input'
+    },
     props: {
         type: {
             type: String,

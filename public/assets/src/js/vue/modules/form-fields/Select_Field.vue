@@ -29,12 +29,12 @@ export default {
             default: '',
         },
         value: {
-            type: Boolean,
+            type: [ String, Number ],
             required: false,
             default: '',
         },
         multiple: {
-            type: Boolean,
+            type: [ Boolean, String, Number ],
             required: false,
             default: '',
         },

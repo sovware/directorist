@@ -24,7 +24,7 @@ export default {
             default: 'Label',
         },
         value: {
-            type: Boolean,
+            type: [ Boolean, String, Number ],
             required: false,
             default: 'Value',
         },

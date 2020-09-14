@@ -74,28 +74,28 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     ],
                                 ],
                             ],
-                        ]
-                    ]),
-                ]),
-                'packages' => [
-                    'label' => 'Packages',
-                    'sections' => [
-                        'labels' => [
-                            'title'       => 'Labels',
-                            'description' => '',
-                            'fields'      => [
-                                'name' => [
-                                    'label' => 'Name',
-                                    'type'  => 'text',
-                                    'value' => '',
-                                    'rules' => [
-                                        'required' => true,
+                        ],
+                        'packages' => [
+                            'label' => 'Packages',
+                            'sections' => [
+                                'labels' => [
+                                    'title'       => 'Labels',
+                                    'description' => '',
+                                    'fields'      => [
+                                        'name' => [
+                                            'label' => 'Name',
+                                            'type'  => 'text',
+                                            'value' => '',
+                                            'rules' => [
+                                                'required' => true,
+                                            ],
+                                        ],
                                     ],
                                 ],
                             ],
                         ],
-                    ],
-                ],
+                    ]),
+                ]),
             ]);
         }
 

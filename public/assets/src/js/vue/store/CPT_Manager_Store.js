@@ -13,7 +13,6 @@ export default new Vuex.Store({
       general: [
         'General',
         'Packages',
-        'Review',
         'Other',
       ],
     },
@@ -37,7 +36,10 @@ export default new Vuex.Store({
 
     updateGeneralSectionData: ( state, payload ) => {
       state.settings.general.submenu.general.sections[ payload.section_key ].fields[ payload.field_key ].value = payload.value;
-    }
+    },
+    updatePackagesSectionData: ( state, payload ) => {
+      state.settings.general.submenu.packages.sections[ payload.section_key ].fields[ payload.field_key ].value = payload.value;
+    },
   },
 
   getters: {

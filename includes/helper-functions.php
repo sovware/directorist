@@ -3712,24 +3712,6 @@ function bdas_dropdown_terms($args = array(), $echo = true)
 
 function atbdp_get_custom_field_ids($category = 0)
 {
-    $rq = [
-        'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
-        'post_status'    => 'publish',
-        'posts_per_page' => -1,
-        'post__in'       => '',
-        'meta_query'     => array(
-            array(
-                'key'     => 'searchable',
-                'value'   => 1,
-                'type'    => 'NUMERIC',
-                'compare' => '='
-            ),
-        ),
-        'orderby' => 'meta_value_num',
-        'order'   => 'ASC',
-        'fields'  => 'ids',
-    ];
-    
     // Get global fields
     $args = array(
         'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
@@ -3747,17 +3729,25 @@ function atbdp_get_custom_field_ids($category = 0)
     // Get category fields
     if ( $category > 0 ) {
         $args['meta_query'] = array(
-            'relation' => 'AND',
+            'relation' => 'OR',
             array(
-                'key'     => 'category_pass',
-                'value'   => $category,
-                'compare' => 'EXISTS',
+                'key'   => 'associate',
+                'value' => 'form'
             ),
+
             array(
-                'key'     => 'associate',
-                'value'   => 'categories',
-                'compare' => 'LIKE',
-            )
+                'relation' => 'AND',
+                array(
+                    'key'     => 'category_pass',
+                    'value'   => $category,
+                    'compare' => 'EXISTS',
+                ),
+                array(
+                    'key'     => 'associate',
+                    'value'   => 'categories',
+                    'compare' => 'LIKE',
+                ),
+            ),
         );
     }
 

@@ -82,12 +82,19 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'title'       => 'Paid listing packages',
                                     'description' => 'Set what packages the user can choose from when submitting a listing of this type.',
                                     'fields'      => [
-                                        'name' => [
-                                            'label' => 'Name',
-                                            'type'  => 'text',
-                                            'value' => '',
-                                            'rules' => [
-                                                'required' => true,
+                                        'package_list' => [
+                                            'label' => __( 'Select Packages', 'directorist' ),
+                                            'type'  => 'select',
+                                            'multiple' => true,
+                                            'options' => [
+                                                [
+                                                    'label' => 'Plan A',
+                                                    'value' => 12565,
+                                                ],
+                                                [
+                                                    'label' => 'Plan B',
+                                                    'value' => 62552,
+                                                ],
                                             ],
                                         ],
                                     ],
@@ -112,19 +119,32 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                         ],
                                         'new_listing_status' => [
                                             'label' => __( 'New Listing Default Status', 'directorist' ),
-                                            'type'  => 'checkbox',
+                                            'type'  => 'select',
                                             'value' => '',
-                                            'rules' => [
-                                                'required' => true,
+                                            'options' => [
+                                                [
+                                                    'label' => __( 'Pending', 'directorist' ),
+                                                    'value' => 'pending',
+                                                ],
+                                                [
+                                                    'label' => __( 'Publish', 'directorist' ),
+                                                    'value' => 'publish',
+                                                ],
                                             ],
                                         ],
                                         'edit_listing_status' => [
                                             'label' => __( 'Edited Listing Default Status', 'directorist' ),
-                                            'type'  => 'text',
+                                            'type'  => 'select',
                                             'value' => '',
-                                            'placeholder' => '',
-                                            'rules' => [
-                                                'required' => true,
+                                            'options' => [
+                                                [
+                                                    'label' => __( 'Pending', 'directorist' ),
+                                                    'value' => 'pending',
+                                                ],
+                                                [
+                                                    'label' => __( 'Publish', 'directorist' ),
+                                                    'value' => 'publish',
+                                                ],
                                             ],
                                         ],
                                         'global_listing_type' => [

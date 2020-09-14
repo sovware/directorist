@@ -8,9 +8,25 @@ export default new Vuex.Store({
   state: {
     active_nav_index: 0,
 
+    settings: {},
+
+    submenu: {
+      general: [
+        'General',
+        'Packages',
+        'Review',
+        'Other',
+      ],
+    },
+
     general: {
       general: {
-        icon: 'fa fa-home',
+        icon: {
+          value: 'fa fa-home',
+          rules: {
+            required: true,
+          }
+        },
         singular_name: 'places',
         plural_name: 'place',
         permalink: 'places',
@@ -104,21 +120,15 @@ export default new Vuex.Store({
   mutations: {
     swichNav: ( state, index ) => {
       state.active_nav_index = index;
+    },
+
+    updateSettings: ( state, value ) => {
+      state.settings = value;
     }
   },
 
   getters: {
-    getPostMetaFields: state => {
-      const meta_fields = {
-        // general: JSON.stringify( state.general.general ),
-        general: JSON.stringify( { data: 'value' } ),
-        // has_listing_packages: state.general.packages.listing_packages.enable.toString(),
-        // listing_packages: JSON.stringify( state.general.packages.listing_packages.packages ),
-        // review_stars_mode: state.general.review.stars_mode,
-      };
-
-      return meta_fields;
-    }
+    
   }
 
 });

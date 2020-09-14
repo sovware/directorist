@@ -106,7 +106,11 @@ $nav_icon_color: $primary;
 // ====================
 
 .cptm-title-area {
-    margin: 0 0 60px 0;
+    margin: 0 0 20px 0;
+}
+
+.cptm-mb-60 {
+    margin-bottom: 60px;
 }
 
 .cptm-title {
@@ -453,3 +457,34 @@ $nav_icon_color: $primary;
     display: inline-block;
 }
 
+
+// Form Fields
+.cptm-form-group {
+    display: block;
+    margin-bottom: 20px;
+    label {
+        display: block;
+        font-size: 14px;
+        font-weight: 400;
+        color: #23282d;
+        margin-bottom: 5px;
+    }
+}
+
+
+.cptm-form-control, .cptm-form-group input {
+    padding: 11px 20px;
+    font-size: 13px;
+    color: #23282d;
+    text-align: left;
+    border: 1px solid #dfdfe2;
+    border-radius: 5px;
+    box-shadow: none;
+    width: 100%;
+    font-weight: 400;
+    margin: 0;
+    line-height: 18px;
+    height: auto;
+    min-height: 30px;
+    background: #fff;
+}

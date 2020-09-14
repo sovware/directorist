@@ -1,6 +1,6 @@
 <template>
     <div class="atbdp-cptm-tab-item listings-page-layout cptm-tab-content tab-full-width" :class="getActiveClass(index, active_nav_index)">
-        <div class="cptm-title-area">
+        <div class="cptm-title-area cptm-mb-60">
             <h3 class="cptm-title">Customize the preview card</h3>
             <p>Need help? Read the documentation or open a ticket in our helpdesk.</p>
         </div>

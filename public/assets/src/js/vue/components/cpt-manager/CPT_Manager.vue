@@ -9,27 +9,37 @@
         <div class="atbdp-cptm-body">
             <tabContents />
         </div>
-
-        <div class="atbdp-cptm-footer">
-            <hiddenInputFields />
-        </div>
     </div>
 </template>
 
 
 <script>
-// Headers
 import headerNavigation from './Header_Navigation.vue';
-import hiddenInputFields from './HiddenInputFields.vue';
 import tabContents from './tabs/TabContents.vue';
 
 export default {
     name: 'cpt-manager',
+    props: {
+        settings: {
+            type: String,
+            required: true,
+        }
+    },
     components: {
         headerNavigation,
         tabContents,
-        hiddenInputFields,
     },
+
+    created() {
+        if ( this.settings && this.settings.length ) {
+            const settings = JSON.parse( this.settings );
+
+            if ( settings ) {
+                this.$store.commit( 'updateSettings', settings );
+            }
+        }
+    },
+
     data() {
         return {
             

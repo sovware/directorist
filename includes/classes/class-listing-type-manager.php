@@ -17,18 +17,18 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         public function prepare_settings() {
             $this->settings = apply_filters( 'atbdp_listing_type_settings_submenu', [ 
                 'general' => apply_filters('atbdp_listing_type_general_menu', [
-                    'label' => 'General',
+                    'label' => __( 'General', 'directorist' ),
                     'icon' => '',
                     'submenu' => apply_filters('atbdp_listing_type_general_submenu', [
                         'general' => [
-                            'label' => 'General',
+                            'label' => __( 'General', 'directorist' ),
                             'sections' => [
                                 'labels' => [
-                                    'title'       => 'Labels',
+                                    'title'       => __( 'Labels', 'directorist' ),
                                     'description' => '',
                                     'fields'      => [
                                         'name' => [
-                                            'label' => 'Name',
+                                            'label' => __( 'Name', 'directorist' ),
                                             'type'  => 'text',
                                             'value' => '',
                                             'rules' => [
@@ -37,7 +37,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                         ],
     
                                         'icon' => [
-                                            'label' => 'Icon',
+                                            'label' => __( 'Icon', 'directorist' ),
                                             'type'  => 'icon',
                                             'value' => '',
                                             'rules' => [
@@ -46,7 +46,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                         ],
     
                                         'singular_name' => [
-                                            'label' => 'Singular name (e.g. Business)',
+                                            'label' => __( 'Singular name (e.g. Business)', 'directorist' ),
                                             'type'  => 'text',
                                             'value' => '',
                                             'rules' => [
@@ -55,7 +55,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                         ],
                                         
                                         'plural_name' => [
-                                            'label' => 'Plural name (e.g. Businesses)',
+                                            'label' => __( 'Plural name (e.g. Businesses)', 'directorist' ),
                                             'type'  => 'text',
                                             'value' => '',
                                             'rules' => [
@@ -64,7 +64,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                         ],
     
                                         'permalink' => [
-                                            'label' => 'Permalink',
+                                            'label' => __( 'Permalink', 'directorist' ),
                                             'type'  => 'text',
                                             'value' => '',
                                             'rules' => [
@@ -79,8 +79,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'label' => 'Packages',
                             'sections' => [
                                 'labels' => [
-                                    'title'       => 'Labels',
-                                    'description' => '',
+                                    'title'       => 'Paid listing packages',
+                                    'description' => 'Set what packages the user can choose from when submitting a listing of this type.',
                                     'fields'      => [
                                         'name' => [
                                             'label' => 'Name',
@@ -89,6 +89,48 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'rules' => [
                                                 'required' => true,
                                             ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'other' => [
+                            'label' => __( 'Other', 'directorist' ),
+                            'sections' => [
+                                'labels' => [
+                                    'title'       => __( 'Common Settings', 'directorist' ),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'default_expiration' => [
+                                            'label' => __( 'Default expiration in days', 'directorist' ),
+                                            'type'  => 'number',
+                                            'value' => '',
+                                            'placeholder' => '365',
+                                            'rules' => [
+                                                'required' => true,
+                                            ],
+                                        ],
+                                        'new_listing_status' => [
+                                            'label' => __( 'New Listing Default Status', 'directorist' ),
+                                            'type'  => 'checkbox',
+                                            'value' => '',
+                                            'rules' => [
+                                                'required' => true,
+                                            ],
+                                        ],
+                                        'edit_listing_status' => [
+                                            'label' => __( 'Edited Listing Default Status', 'directorist' ),
+                                            'type'  => 'text',
+                                            'value' => '',
+                                            'placeholder' => '',
+                                            'rules' => [
+                                                'required' => true,
+                                            ],
+                                        ],
+                                        'global_listing_type' => [
+                                            'label' => __( 'Global Listing Type', 'directorist' ),
+                                            'type'  => 'toggle',
+                                            'value' => '',
                                         ],
                                     ],
                                 ],

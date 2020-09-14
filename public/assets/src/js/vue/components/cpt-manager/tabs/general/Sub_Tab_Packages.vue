@@ -38,7 +38,7 @@ export default {
             form_fields,
         }
     },
-        methods: {
+    methods: {
         updatePackagesSectionData( section_key, field_key, value ) {
             //console.log(  { section_key, field_key, value } );
             this.$store.commit( 'updatePackagesSectionData', { section_key, field_key, value } );

@@ -757,7 +757,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/helpers */ "./public/assets/src/js/vue/mixins/helpers.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../../mixins/helpers */ "./public/assets/src/js/vue/mixins/helpers.js");
+/* harmony import */ var _mixins_form_fields__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../../mixins/form-fields */ "./public/assets/src/js/vue/mixins/form-fields.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -765,10 +789,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'other',
   props: ['itemIndex', 'activeIndex'],
-  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    general_sections: function general_sections(state) {
+      return state.settings.general.submenu.other.sections;
+    }
+  })),
+  data: function data() {
+    return {
+      form_fields: _mixins_form_fields__WEBPACK_IMPORTED_MODULE_2__["default"]
+    };
+  },
+  methods: {
+    updateOtherSectionData: function updateOtherSectionData(section_key, field_key, value) {
+      console.log({
+        section_key: section_key,
+        field_key: field_key,
+        value: value
+      });
+      this.$store.commit('updateOtherSectionData', {
+        section_key: section_key,
+        field_key: field_key,
+        value: value
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -929,6 +979,78 @@ __webpack_require__.r(__webpack_exports__);
     },
     value: {
       type: [String, Number],
+      required: false,
+      default: 'Value'
+    },
+    name: {
+      type: [String, Number],
+      required: false,
+      default: 'Name'
+    },
+    placeholder: {
+      type: [String, Number],
+      required: false,
+      default: 'placeholder'
+    },
+    rules: {
+      type: [Object],
+      required: false,
+      default: null
+    }
+  },
+  computed: {
+    input_type: function input_type() {
+      var supported_types = ['text', 'number', 'password', 'date'];
+
+      if (supported_types.indexOf(this.type)) {
+        return this.type;
+      }
+
+      return 'text';
+    }
+  },
+  data: function data() {
+    return {};
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'text-field',
+  model: {
+    prop: 'value',
+    event: 'input'
+  },
+  props: {
+    type: {
+      type: String,
+      required: false,
+      default: 'text'
+    },
+    label: {
+      type: String,
+      required: false,
+      default: 'Label'
+    },
+    value: {
+      type: Boolean,
       required: false,
       default: 'Value'
     },
@@ -2214,7 +2336,56 @@ var render = function() {
       staticClass: "cptm-tab-sub-content-item tab-other cptm-tab-content",
       class: _vm.getActiveClass(_vm.itemIndex, _vm.activeIndex)
     },
-    [_vm._v("\n    Sub Tab Other\n")]
+    _vm._l(_vm.general_sections, function(section, section_key) {
+      return _c("div", { key: section_key }, [
+        _c("div", { staticClass: "cptm-title-area" }, [
+          section.title.length
+            ? _c("h3", {
+                staticClass: "cptm-title",
+                domProps: { innerHTML: _vm._s(section.title) }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          section.description
+            ? _c("p", { domProps: { innerHTML: _vm._s(section.description) } })
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "cptm-form-fields" },
+          [
+            _vm._l(section.fields, function(field, field_key) {
+              return [
+                _c(
+                  _vm.form_fields[field.type],
+                  _vm._b(
+                    {
+                      key: field_key,
+                      tag: "component",
+                      on: {
+                        update: function($event) {
+                          return _vm.updateOtherSectionData(
+                            section_key,
+                            field_key,
+                            $event
+                          )
+                        }
+                      }
+                    },
+                    "component",
+                    field,
+                    false
+                  )
+                )
+              ]
+            })
+          ],
+          2
+        )
+      ])
+    }),
+    0
   )
 }
 var staticRenderFns = []
@@ -2371,15 +2542,47 @@ var render = function() {
     _vm._v(" "),
     _c("input", {
       staticClass: "cptm-form-control",
-      attrs: {
-        type: _vm.input_type,
-        name: _vm.name,
-        placeholder: _vm.placeholder
-      },
+      attrs: { type: _vm.input_type, placeholder: _vm.placeholder },
       domProps: { value: _vm.value },
       on: {
         input: function($event) {
           return _vm.$emit("update", $event.target.value)
+        }
+      }
+    })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue?vue&type=template&id=6bf1d864&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue?vue&type=template&id=6bf1d864& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "cptm-form-group" }, [
+    _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))]),
+    _vm._v(" "),
+    _c("input", {
+      attrs: { type: "checkbox" },
+      domProps: { checked: _vm.value },
+      on: {
+        change: function($event) {
+          return _vm.$emit("update", $event.target.checked)
         }
       }
     })
@@ -16638,13 +16841,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_form_fields_Text_Field_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../modules/form-fields/Text_Field.vue */ "./public/assets/src/js/vue/modules/form-fields/Text_Field.vue");
+/* harmony import */ var _modules_form_fields_Toggle_Field_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../modules/form-fields/Toggle_Field.vue */ "./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue");
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   text: _modules_form_fields_Text_Field_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
   number: _modules_form_fields_Text_Field_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
   password: _modules_form_fields_Text_Field_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
   hidden: _modules_form_fields_Text_Field_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-  date: _modules_form_fields_Text_Field_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  date: _modules_form_fields_Text_Field_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  toggle: _modules_form_fields_Toggle_Field_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
 });
 
 /***/ }),
@@ -16839,6 +17045,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue":
+/*!***********************************************************************!*\
+  !*** ./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Toggle_Field_vue_vue_type_template_id_6bf1d864___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Toggle_Field.vue?vue&type=template&id=6bf1d864& */ "./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue?vue&type=template&id=6bf1d864&");
+/* harmony import */ var _Toggle_Field_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Toggle_Field.vue?vue&type=script&lang=js& */ "./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Toggle_Field_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Toggle_Field_vue_vue_type_template_id_6bf1d864___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Toggle_Field_vue_vue_type_template_id_6bf1d864___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************!*\
+  !*** ./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Toggle_Field_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--3-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Toggle_Field.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Toggle_Field_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue?vue&type=template&id=6bf1d864&":
+/*!******************************************************************************************************!*\
+  !*** ./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue?vue&type=template&id=6bf1d864& ***!
+  \******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Toggle_Field_vue_vue_type_template_id_6bf1d864___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Toggle_Field.vue?vue&type=template&id=6bf1d864& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/form-fields/Toggle_Field.vue?vue&type=template&id=6bf1d864&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Toggle_Field_vue_vue_type_template_id_6bf1d864___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Toggle_Field_vue_vue_type_template_id_6bf1d864___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./public/assets/src/js/vue/store/CPT_Manager_Store.js":
 /*!*************************************************************!*\
   !*** ./public/assets/src/js/vue/store/CPT_Manager_Store.js ***!
@@ -16886,6 +17161,9 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
     },
     updatePackagesSectionData: function updatePackagesSectionData(state, payload) {
       state.settings.general.submenu.packages.sections[payload.section_key].fields[payload.field_key].value = payload.value;
+    },
+    updateOtherSectionData: function updateOtherSectionData(state, payload) {
+      state.settings.general.submenu.other.sections[payload.section_key].fields[payload.field_key].value = payload.value;
     }
   },
   getters: {}

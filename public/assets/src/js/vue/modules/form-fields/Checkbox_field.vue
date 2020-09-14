@@ -1,13 +1,13 @@
 <template>
 <div class="cptm-form-group">
     <label :for="name">{{ label }}</label>
-    <input class="cptm-form-control" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
+    <input class="cptm-form-control" :type="input_type" :value="value" :name="name" @input="$emit('update', $event.target.value)">
 </div>
 </template>
 
 <script>
 export default {
-    name: 'text-field',
+    name: 'checkbox',
     model: {
         prop: 'value',
         event: 'input'
@@ -33,11 +33,6 @@ export default {
             required: false,
             default: 'Name',
         },
-        placeholder: {
-            type: [String, Number],
-            required: false,
-            default: 'placeholder',
-        },
         rules: {
             type: [Object],
             required: false,
@@ -47,13 +42,8 @@ export default {
 
     computed: {
         input_type() {
-            const supported_types = ['text', 'number', 'password', 'date'];
 
-            if (supported_types.indexOf(this.type)) {
-                return this.type;
-            }
-
-            return 'text';
+            return 'checkbox';
 
         }
     },

@@ -40,6 +40,9 @@ export default new Vuex.Store({
     updatePackagesSectionData: ( state, payload ) => {
       state.settings.general.submenu.packages.sections[ payload.section_key ].fields[ payload.field_key ].value = payload.value;
     },
+    updateOtherSectionData: ( state, payload ) => {
+      state.settings.general.submenu.other.sections[ payload.section_key ].fields[ payload.field_key ].value = payload.value;
+    },
   },
 
   getters: {

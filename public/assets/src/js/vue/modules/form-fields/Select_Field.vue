@@ -1,7 +1,12 @@
 <template>
 <div class="cptm-form-group">
-    <label :for="name">{{ label }}</label>
-    <input class="cptm-form-control" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
+    <label for="">{{label}}</label>
+    <select v-if="multiple" multiple @change="$emit('update', $event.target.value)">
+        <option v-for="( option, option_key ) in options" :key="option_key" :value="option.value">{{ option.label }}</option>
+    </select>
+    <select v-else @change="$emit('update', $event.target.value)">
+        <option v-for="( option, option_key ) in options" :key="option_key" :value="option.value">{{ option.label }}</option>
+    </select>
 </div>
 </template>
 
@@ -21,25 +26,35 @@ export default {
         label: {
             type: String,
             required: false,
-            default: 'Label',
+            default: '',
         },
         value: {
-            type: [String, Number],
+            type: Boolean,
             required: false,
-            default: 'Value',
+            default: '',
+        },
+        multiple: {
+            type: Boolean,
+            required: false,
+            default: '',
+        },
+        options: {
+            type: Array,
+            required: false,
+            default: [],
         },
         name: {
             type: [String, Number],
             required: false,
-            default: 'Name',
+            default: '',
         },
         placeholder: {
             type: [String, Number],
             required: false,
             default: '',
         },
-        validation: {
-            type: [ Object ],
+        rules: {
+            type: Object,
             required: false,
             default: null,
         },

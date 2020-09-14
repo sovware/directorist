@@ -1,7 +1,7 @@
 <template>
 <div class="cptm-form-group">
     <label :for="name">{{ label }}</label>
-    <input class="cptm-form-control" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
+    <input type="checkbox" :checked="value" @change="$emit('update', $event.target.checked)">
 </div>
 </template>
 
@@ -24,7 +24,7 @@ export default {
             default: 'Label',
         },
         value: {
-            type: [String, Number],
+            type: Boolean,
             required: false,
             default: 'Value',
         },
@@ -36,10 +36,10 @@ export default {
         placeholder: {
             type: [String, Number],
             required: false,
-            default: '',
+            default: 'placeholder',
         },
-        validation: {
-            type: [ Object ],
+        rules: {
+            type: Object,
             required: false,
             default: null,
         },

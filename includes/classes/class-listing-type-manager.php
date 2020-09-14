@@ -61,18 +61,82 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         'required' => false,
                     ],
                 ],
+
+                'package_list' => [
+                    'label' => __( 'Select Packages', 'directorist' ),
+                    'type'  => 'select',
+                    'multiple' => true,
+                    'options' => [
+                        [
+                            'label' => 'Plan A',
+                            'value' => 12565,
+                        ],
+                        [
+                            'label' => 'Plan B',
+                            'value' => 62552,
+                        ],
+                    ],
+                ],
+
+                'default_expiration' => [
+                    'label' => __( 'Default expiration in days', 'directorist' ),
+                    'type'  => 'number',
+                    'value' => '',
+                    'placeholder' => '365',
+                    'rules' => [
+                        'required' => true,
+                    ],
+                ],
+
+                'new_listing_status' => [
+                    'label' => __( 'New Listing Default Status', 'directorist' ),
+                    'type'  => 'select',
+                    'value' => '',
+                    'options' => [
+                        [
+                            'label' => __( 'Pending', 'directorist' ),
+                            'value' => 'pending',
+                        ],
+                        [
+                            'label' => __( 'Publish', 'directorist' ),
+                            'value' => 'publish',
+                        ],
+                    ],
+                ],
+
+                'edit_listing_status' => [
+                    'label' => __( 'Edited Listing Default Status', 'directorist' ),
+                    'type'  => 'select',
+                    'value' => '',
+                    'options' => [
+                        [
+                            'label' => __( 'Pending', 'directorist' ),
+                            'value' => 'pending',
+                        ],
+                        [
+                            'label' => __( 'Publish', 'directorist' ),
+                            'value' => 'publish',
+                        ],
+                    ],
+                ],
+
+                'global_listing_type' => [
+                    'label' => __( 'Global Listing Type', 'directorist' ),
+                    'type'  => 'toggle',
+                    'value' => '',
+                ],
             ];
 
-            $this->settings = apply_filters( 'atbdp_listing_type_settings', [ 
+            $this->settings = apply_filters( 'atbdp_listing_type_settings', [
                 'general' => [
                     'label' => 'General',
                     'icon' => '',
-                    'submenu' => [
+                    'submenu' => apply_filters('atbdp_listing_type_general_submenu', [
                         'general' => [
-                            'label' => 'General',
+                            'label' => __( 'General', 'directorist' ),
                             'sections' => [
                                 'labels' => [
-                                    'title'       => 'Labels',
+                                    'title'       => __( 'Labels', 'directorist' ),
                                     'description' => '',
                                     'fields'      => [
                                         'name',
@@ -83,9 +147,36 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     ],
                                 ],
                             ],
-                        ]
-                    ],
-                ],
+                        ],
+                        'packages' => [
+                            'label' => 'Packages',
+                            'sections' => [
+                                'labels' => [
+                                    'title'       => 'Paid listing packages',
+                                    'description' => 'Set what packages the user can choose from when submitting a listing of this type.',
+                                    'fields'      => [
+                                        'package_list'
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'other' => [
+                            'label' => __( 'Other', 'directorist' ),
+                            'sections' => [
+                                'labels' => [
+                                    'title'       => __( 'Common Settings', 'directorist' ),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'default_expiration',
+                                        'new_listing_status',
+                                        'edit_listing_status',
+                                        'global_listing_type',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ]),
+                ]
             ]);
         }
 

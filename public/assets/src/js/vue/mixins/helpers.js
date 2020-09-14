@@ -1,5 +1,9 @@
 export default {
     methods: {
+        updateFieldValue( field_key, value ) {
+            this.$store.commit( 'updateFieldValue', { field_key, value } );
+        },
+        
         getActiveClass( item_index, active_index ) {
             return ( item_index === active_index ) ? 'active' : '';
         },

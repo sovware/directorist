@@ -14,7 +14,6 @@ export default new Vuex.Store({
       general: [
         'General',
         'Packages',
-        'Review',
         'Other',
       ],
     },
@@ -47,13 +46,7 @@ export default new Vuex.Store({
     },
 
     updateValidationStatus: ( state, payload ) => {
-      // let the_fields = state.settings;
-
-      // for ( let i = 0; i < payload.chain_ref.length; i++ ) {
-      //   the_fields = the_fields[ chain_ref[i] ];
-      // }
-
-      // the_fields[ payload.field ].validation = payload.validation;
+      
     }
   },
 

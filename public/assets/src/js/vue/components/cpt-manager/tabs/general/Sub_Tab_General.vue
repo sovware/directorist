@@ -45,9 +45,7 @@ export default {
     },
 
     methods: {
-        updateFieldValue( field_key, value ) {
-            this.$store.commit( 'updateFieldValue', { field_key, value } );
-        },
+        
     }
 }
 </script>

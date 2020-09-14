@@ -43,9 +43,9 @@ export default {
         placeholder: {
             type: [ String, Number],
             required: false,
-            default: 'placeholder',
+            default: '',
         },
-        rules: {
+        validation: {
             type: [ Object ],
             required: false,
             default: null,

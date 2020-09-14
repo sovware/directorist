@@ -13,9 +13,12 @@
         <div class="atbdp-cptm-footer">
             <div class="atbdp-cptm-progress-bar"></div>
             <div class="atbdp-cptm-footer-actions">
-                <button type="button" class="atbdp-cptm-btn cptm-btn-secondery" v-if="fotter_actions.prev.show">Prev</button>
-                <button type="button" class="atbdp-cptm-btn cptm-btn-primary" v-if="fotter_actions.save.show">Save</button>
-                <button type="button" class="atbdp-cptm-btn cptm-btn-secondery" v-if="fotter_actions.next.show">Next</button>
+                <button 
+                    type="button" class="atbdp-cptm-btn cptm-btn-primary" 
+                    v-if="footer_actions.save.show"
+                    @click="saveData()">
+                        Save
+                </button>
             </div>
         </div>
     </div>
@@ -24,6 +27,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import headerNavigation from './Header_Navigation.vue';
 import tabContents from './tabs/TabContents.vue';
 
@@ -31,6 +35,10 @@ export default {
     name: 'cpt-manager',
     props: {
         settings: {
+            type: String,
+            required: true,
+        },
+        fields: {
             type: String,
             required: true,
         }
@@ -42,7 +50,7 @@ export default {
 
     computed: {
         ...mapState({
-            fotter_actions: 'fotter_actions'
+            footer_actions: 'footer_actions'
         })
     },
 
@@ -54,6 +62,14 @@ export default {
                 this.$store.commit( 'updateSettings', settings );
             }
         }
+
+        if ( this.fields && this.fields.length ) {
+            const fields = JSON.parse( this.fields );
+
+            if ( fields ) {
+                this.$store.commit( 'updateFields', fields );
+            }
+        }
     },
 
     data() {
@@ -63,7 +79,13 @@ export default {
     },
 
     methods: {
-        
+        saveData() {
+            let settings = this.$store.state.settings;
+            let fields = this.$store.state.fields;
+
+            let the_form_fields_row_data = {};
+            let validation = {};
+        }
     }
 }
 </script>

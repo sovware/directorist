@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     active_nav_index: 0,
     settings: {},
+    fields: {},
 
     submenu: {
       general: [
@@ -18,10 +19,8 @@ export default new Vuex.Store({
       ],
     },
 
-    fotter_actions: {
-      prev: { show: true },
+    footer_actions: {
       save: { show: true },
-      next: { show: true },
     }
   },
   
@@ -35,13 +34,31 @@ export default new Vuex.Store({
       state.settings = value;
     },
 
+    updateFields: ( state, value ) => {
+      state.fields = value;
+    },
+
+    updateFieldValue: ( state, payload ) => {
+      state.fields[ payload.field_key ].value = payload.value;
+    },
+
     updateGeneralSectionData: ( state, payload ) => {
       state.settings.general.submenu.general.sections[ payload.section_key ].fields[ payload.field_key ].value = payload.value;
+    },
+
+    updateValidationStatus: ( state, payload ) => {
+      // let the_fields = state.settings;
+
+      // for ( let i = 0; i < payload.chain_ref.length; i++ ) {
+      //   the_fields = the_fields[ chain_ref[i] ];
+      // }
+
+      // the_fields[ payload.field ].validation = payload.validation;
     }
   },
 
   getters: {
-    
+
   }
 
 });

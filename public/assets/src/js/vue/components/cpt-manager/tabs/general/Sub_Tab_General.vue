@@ -9,10 +9,10 @@
             <div class="cptm-form-fields">
                 <template v-for="( field, field_key ) in section.fields">
                     <component 
-                        :is="form_fields[ field.type ]" 
+                        :is="field_widgets[ fields[ field ].type ]" 
                         :key="field_key"
-                        v-bind="field"
-                        @update="updateSectionData( section_key, field_key, $event )">
+                        v-bind="fields[ field ]"
+                        @update="updateFieldValue( field, $event )">
                     </component>
                 </template>
             </div>
@@ -22,8 +22,9 @@
 
 <script>
 import { mapState } from 'vuex';
+
 import helpers from './../../../../mixins/helpers';
-import form_fields from './../../../../mixins/form-fields';
+import field_widgets from './../../../../mixins/form-fields';
 
 export default {
     name: 'general',
@@ -32,21 +33,21 @@ export default {
 
     computed: {
         ...mapState({
-            general_sections: state => state.settings.general.submenu.general.sections
+            general_sections: state => state.settings.general.submenu.general.sections,
+            fields: state => state.fields,
         }),
     },
 
     data() {
         return {
-            form_fields,
+            field_widgets,
         }
     },
 
     methods: {
-        updateSectionData( section_key, field_key, value ) {
-            console.log(  { section_key, field_key, value } );
-            this.$store.commit( 'updateGeneralSectionData', { section_key, field_key, value } );
-        }
+        updateFieldValue( field_key, value ) {
+            this.$store.commit( 'updateFieldValue', { field_key, value } );
+        },
     }
 }
 </script>

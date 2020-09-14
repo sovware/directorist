@@ -3,6 +3,7 @@
 if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
     class ATBDP_Listing_Type_Manager {
         public $settings = [];
+        public $fields = [];
 
         // run
         public function run() {
@@ -15,6 +16,53 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         // prepare_settings
         public function prepare_settings() {
+            $this->fields = [
+                'name' => [
+                    'label' => 'Name *',
+                    'type'  => 'text',
+                    'value' => '',
+                    'rules' => [
+                        'required' => true,
+                    ],
+                ],
+
+                'icon' => [
+                    'label' => 'Icon',
+                    'type'  => 'icon',
+                    'value' => '',
+                    'rules' => [
+                        'required' => false,
+                    ],
+                ],
+
+                'singular_name' => [
+                    'label' => 'Singular name (e.g. Business)',
+                    'type'  => 'text',
+                    'value' => '',
+                    'rules' => [
+                        'required' => false,
+                    ],
+                ],
+                
+                'plural_name' => [
+                    'label' => 'Plural name (e.g. Businesses)',
+                    'type'  => 'text',
+                    'value' => '',
+                    'rules' => [
+                        'required' => false,
+                    ],
+                ],
+
+                'permalink' => [
+                    'label' => 'Permalink',
+                    'type'  => 'text',
+                    'value' => '',
+                    'rules' => [
+                        'required' => false,
+                    ],
+                ],
+            ];
+
             $this->settings = apply_filters( 'atbdp_listing_type_settings', [ 
                 'general' => [
                     'label' => 'General',
@@ -27,50 +75,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'title'       => 'Labels',
                                     'description' => '',
                                     'fields'      => [
-                                        'name' => [
-                                            'label' => 'Name',
-                                            'type'  => 'text',
-                                            'value' => '',
-                                            'rules' => [
-                                                'required' => true,
-                                            ],
-                                        ],
-    
-                                        'icon' => [
-                                            'label' => 'Icon',
-                                            'type'  => 'icon',
-                                            'value' => '',
-                                            'rules' => [
-                                                'required' => false,
-                                            ],
-                                        ],
-    
-                                        'singular_name' => [
-                                            'label' => 'Singular name (e.g. Business)',
-                                            'type'  => 'text',
-                                            'value' => '',
-                                            'rules' => [
-                                                'required' => false,
-                                            ],
-                                        ],
-                                        
-                                        'plural_name' => [
-                                            'label' => 'Plural name (e.g. Businesses)',
-                                            'type'  => 'text',
-                                            'value' => '',
-                                            'rules' => [
-                                                'required' => false,
-                                            ],
-                                        ],
-    
-                                        'permalink' => [
-                                            'label' => 'Permalink',
-                                            'type'  => 'text',
-                                            'value' => '',
-                                            'rules' => [
-                                                'required' => false,
-                                            ],
-                                        ],
+                                        'name',
+                                        'icon',
+                                        'singular_name',
+                                        'plural_name' ,
+                                        'permalink',
                                     ],
                                 ],
                             ],
@@ -103,6 +112,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             $data = [
                 'post_types_list_table' => $post_types_list_table,
                 'settings'              => json_encode( $this->settings ),
+                'fields'                => json_encode( $this->fields ),
                 'add_new_link'          => admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=add_new' ),
             ];
 

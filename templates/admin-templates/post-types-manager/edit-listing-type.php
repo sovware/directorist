@@ -6,6 +6,9 @@
 
     
     <div id="atbdp-cpt-manager">
-        <cpt-manager settings='<?php echo $data['settings']; ?>' />
+        <cpt-manager 
+            settings='<?php echo $data['settings']; ?>' 
+            fields='<?php echo $data['fields']; ?>'
+        />
     </div>
 </div>

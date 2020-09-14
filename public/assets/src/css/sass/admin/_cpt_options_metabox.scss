@@ -34,7 +34,42 @@ $nav_icon_color: $primary;
 
 .atbdp-cptm-footer {
     display: block;
+    padding: 20px 10px;
+    background: #fff;
 }
+
+.atbdp-cptm-footer-actions {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.atbdp-cptm-btn {
+    margin: 0 5px;
+    border: 1px solid;
+    padding: 10px 20px;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all ease-in-out 300ms;
+}
+
+.cptm-btn-primary  {
+    color: #fff;
+    border-color: $primary;
+    background-color: $primary;
+    &:hover {
+        background-color: darken( $primary, $amount: 2 );
+    }
+}
+
+.cptm-btn-secondery  {
+    color: $primary;
+    border-color: $primary;
+    background-color: transparent;
+}
+
 
 // ====================
 // Header Navigation

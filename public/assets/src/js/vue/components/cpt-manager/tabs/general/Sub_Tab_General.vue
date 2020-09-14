@@ -1,18 +1,18 @@
 <template>
     <div class="cptm-tab-sub-content-item tab-general cptm-tab-content" :class="getActiveClass( itemIndex, activeIndex )">
-        <div class="" v-for="( section, section_index ) in general_sections" :key="section_index">
+        <div class="" v-for="( section, section_key ) in general_sections" :key="section_key">
             <div class="cptm-title-area">
                 <h3 v-if="section.title.length" class="cptm-title" v-html="section.title"></h3>
                 <p v-if="section.description" v-html="section.description"></p>
             </div>
             
             <div class="cptm-form-fields">
-                <template v-for="( field, field_index ) in section.fields">
+                <template v-for="( field, field_key ) in section.fields">
                     <component 
-                        :is="fields[ field.type ]" 
-                        :key="field_index"
+                        :is="form_fields[ field.type ]" 
+                        :key="field_key"
                         v-bind="field"
-                        v-model="field.value">
+                        @update="updateSectionData( section_key, field_key, $event )">
                     </component>
                 </template>
             </div>
@@ -23,7 +23,7 @@
 <script>
 import { mapState } from 'vuex';
 import helpers from './../../../../mixins/helpers';
-import fields from './../../../../mixins/form-fields';
+import form_fields from './../../../../mixins/form-fields';
 
 export default {
     name: 'general',
@@ -32,18 +32,21 @@ export default {
 
     computed: {
         ...mapState({
-            
+            general_sections: state => state.settings.general.submenu.general.sections
         }),
-
-        general_sections() {
-            return this.objectToSectionArray( this.$store.state.settings.general.submenu.general.sections );
-        }
     },
 
     data() {
         return {
-            fields,
+            form_fields,
         }
     },
+
+    methods: {
+        updateSectionData( section_key, field_key, value ) {
+            console.log(  { section_key, field_key, value } );
+            this.$store.commit( 'updateGeneralSectionData', { section_key, field_key, value } );
+        }
+    }
 }
 </script>

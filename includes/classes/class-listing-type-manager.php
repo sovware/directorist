@@ -15,11 +15,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         // prepare_settings
         public function prepare_settings() {
-            $this->settings = apply_filters( 'atbdp_listing_type_settings', [ 
-                'general' => [
+            $this->settings = apply_filters( 'atbdp_listing_type_settings_submenu', [ 
+                'general' => apply_filters('atbdp_listing_type_general_menu', [
                     'label' => 'General',
                     'icon' => '',
-                    'submenu' => [
+                    'submenu' => apply_filters('atbdp_listing_type_general_submenu', [
                         'general' => [
                             'label' => 'General',
                             'sections' => [
@@ -75,6 +75,25 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ]
+                    ]),
+                ]),
+                'packages' => [
+                    'label' => 'Packages',
+                    'sections' => [
+                        'labels' => [
+                            'title'       => 'Labels',
+                            'description' => '',
+                            'fields'      => [
+                                'name' => [
+                                    'label' => 'Name',
+                                    'type'  => 'text',
+                                    'value' => '',
+                                    'rules' => [
+                                        'required' => true,
+                                    ],
+                                ],
+                            ],
+                        ],
                     ],
                 ],
             ]);

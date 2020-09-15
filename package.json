@@ -16,6 +16,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/vairafiq/directorist-business-directory-plugin#readme",
   "dependencies": {
+    "axios": "^0.20.0",
     "gulp": "^3.9.1",
     "node-sass": "^4.14.1",
     "vue": "^2.6.11",

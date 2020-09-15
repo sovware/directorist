@@ -12,7 +12,123 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             add_action( 'init', [ $this, 'register_terms' ] );
             add_action( 'admin_menu', [ $this, 'add_menu_pages' ] );
             add_action( 'admin_post_delete_listing_type', [ $this, 'handle_delete_listing_type_request' ] );
+
+            add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
         }
+        
+
+        // save_post_type_data
+        public function save_post_type_data() {
+            if ( empty( $_REQUEST['name'] ) ) {
+                wp_send_json( [
+                    'status' => false,
+                    'status_log' => [
+                        'name_is_missing' => 'Name is missing'
+                    ],
+                ], 200 );
+            } 
+            
+
+            $term_id = 0;
+            $mode    = 'create';
+            $listing_type_name = $_REQUEST['name'];
+
+            if ( ! empty( $_REQUEST['listing_type_id'] ) ) {
+                $mode = 'edit';
+                $term_id = absint( $_REQUEST['listing_type_id'] );
+                wp_update_term( $term_id, 'atbdp_listing_types', ['name' => $listing_type_name] );
+            } else {
+                $term = wp_insert_term( $listing_type_name, 'atbdp_listing_types' );
+
+                if ( is_wp_error( $term ) ) {
+                    if ( ! empty( $term->errors['term_exists'] )  ) {
+                        $term_id = $term->error_data['term_exists'];
+                    }
+                } else {
+                    $term_id = $term['term_id'];
+                }
+                
+            }
+
+            if ( empty( $term_id ) ) {
+                wp_send_json( [
+                    'status' => false,
+                    'status_log' => [
+                        'invalid_id' => [
+                            'type' => 'error',
+                            'message' => 'Error found, please try again',
+                        ] 
+                    ],
+                ], 200 );
+            }
+
+            $created_message = ( 'create' == $mode ) ? 'creared' : 'updated';
+
+            if ( empty( $_REQUEST['field_list'] ) ) {
+                wp_send_json( [
+                    'status' => true,
+                    'post_id' => $term_id,
+                    'status_log' => [
+                        'post_created' => [
+                            'type' => 'success',
+                            'message' => 'The Post type has been '. $created_message .' successfully',
+                        ],
+                        'field_list_not_found' => [
+                            'type' => 'error',
+                            'message' => 'Field list not found',
+                        ] ,
+                    ],
+                ], 200 );
+            }
+
+            foreach ( $_REQUEST['field_list'] as $field ) {
+                if ( ! empty( $_REQUEST[ $field ] ) && 'name' !== $field ) {
+                    update_term_meta( $term_id, $field, $this->get_sanitized_field_value( $field, $_REQUEST[ $field ] ) );
+                }
+            }
+
+            wp_send_json( [
+                'status' => true,
+                'post_id' => $term_id,
+                'status_log' => [
+                    'post_created' => [
+                        'type' => 'success',
+                        'message' => 'The post type has been '. $created_message .' successfully'
+                    ]
+                ],
+            ], 200 );
+        }
+
+        // get_field_value 
+        public function get_sanitized_field_value( $key, $value ) {
+
+            if ( ! isset( $this->fields[ $key ] )  ) {
+                return '';
+            }
+
+            if ( 'text' == $this->fields[ $key ]['type'] ) {
+                return sanitize_text_field( $value );
+            }
+
+            if ( 'icon' == $this->fields[ $key ]['type'] ) {
+                return sanitize_text_field( $value );
+            }
+
+            if ( 'select' == $this->fields[ $key ]['type'] ) {
+                return sanitize_text_field( $value );
+            }
+
+            if ( 'select' == $this->fields[ $key ]['type'] ) {
+                return sanitize_text_field( $value );
+            }
+
+            if ( 'toggle' == $this->fields[ $key ]['type'] ) {
+                return sanitize_text_field( $value );
+            }
+
+            return '';
+        }
+
 
         // prepare_settings
         public function prepare_settings() {
@@ -66,6 +182,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'label' => __( 'Select Packages', 'directorist' ),
                     'type'  => 'select',
                     'multiple' => true,
+                    'value' => '',
                     'options' => [
                         [
                             'label' => 'Plan A',
@@ -200,10 +317,30 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             $action = $post_types_list_table->current_action();
             $post_types_list_table->prepare_items();
 
+            $listing_type_id = 0;
+
+            if ( ! empty( $action ) && ( 'edit' === $action ) && ! empty( $_REQUEST['listing_type_id'] )  ) {
+                $listing_type_id = absint( $_REQUEST['listing_type_id'] );
+
+                $term = get_term( $listing_type_id, 'atbdp_listing_types' );
+                $all_term_meta = get_term_meta( $listing_type_id );
+
+                if ( $term ) {
+                    $this->fields[ 'name' ]['value'] = $term->name;
+                }
+
+                foreach ( $all_term_meta as $meta_key => $meta_value ) {
+                    if ( isset( $this->fields[ $meta_key ] ) ) {
+                        $this->fields[ $meta_key ]['value'] = $meta_value[0];
+                    }
+                }
+            }
+
             $data = [
                 'post_types_list_table' => $post_types_list_table,
                 'settings'              => json_encode( $this->settings ),
                 'fields'                => json_encode( $this->fields ),
+                'id'                    => $listing_type_id,
                 'add_new_link'          => admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=add_new' ),
             ];
 
@@ -274,8 +411,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         // enqueue_scripts
         public function enqueue_scripts() {
             wp_enqueue_style( 'atbdp-font-awesome' );
-            wp_enqueue_script( 'atbdp_admin_app' );
             wp_enqueue_style( 'atbdp_admin_css' );
+
+            wp_localize_script( 'atbdp_admin_app', 'ajax_data', [ 'ajax_url' => admin_url( 'admin-ajax.php' ) ] );
+            wp_enqueue_script( 'atbdp_admin_app' );
+            
             
         }
 

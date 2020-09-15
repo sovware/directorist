@@ -53,6 +53,10 @@ $nav_icon_color: $primary;
     border-radius: 5px;
     cursor: pointer;
     transition: all ease-in-out 300ms;
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
 }
 
 .cptm-btn-primary  {
@@ -68,6 +72,30 @@ $nav_icon_color: $primary;
     color: $primary;
     border-color: $primary;
     background-color: transparent;
+}
+
+
+.atbdp-cptm-status-feedback {
+    margin: 20px 0;
+}
+
+.atbdp-cptm-alert {
+    margin: 5px auto;
+    max-width: 500px;
+    padding: 10px 20px;
+    text-align: center;
+    color: #fff;
+    background-color: $primary;
+    border-radius: 5px;
+}
+
+.cptm-alert-success {
+    color: #fff;
+    background-color: $primary;
+}
+.cptm-alert-error {
+    color: #fff;
+    background-color: rgb(197, 22, 22);
 }
 
 

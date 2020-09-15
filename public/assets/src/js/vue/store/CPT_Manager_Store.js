@@ -17,10 +17,7 @@ export default new Vuex.Store({
         'Other',
       ],
     },
-
-    footer_actions: {
-      save: { show: true },
-    }
+    
   },
   
   // mutations

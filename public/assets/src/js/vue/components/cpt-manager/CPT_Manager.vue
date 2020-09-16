@@ -42,7 +42,8 @@ export default {
     props: {
         id: { required: false },
         settings: { required: true },
-        fields: { required: true }
+        fields: { required: true },
+        formFields: { required: true }
     },
     components: {
         headerNavigation,
@@ -72,6 +73,15 @@ export default {
             }
         }
 
+        if ( this.formFields && this.formFields.length ) {
+            const form_fields = JSON.parse( this.formFields );
+
+            if ( form_fields ) {
+                this.$store.commit( 'updateFormFields', form_fields );
+            }
+        }
+
+
 
         if ( this.id && ! isNaN( this.id ) ) {
             const id = parseInt( this.id );
@@ -100,13 +110,11 @@ export default {
 
     methods: {
         saveData() {
-            // let settings = this.$store.state.settings;
             let fields = this.$store.state.fields;
-
             let the_form_fields_row_data = {
                 action: 'save_post_type_data'
             };
-            console.log( this.listing_type_id );
+            
             if ( this.listing_type_id ) {
                 the_form_fields_row_data['listing_type_id'] = this.listing_type_id;
             }
@@ -131,7 +139,7 @@ export default {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;
 
-                    console.log( response.data );
+                    // console.log( response.data );
 
                     if ( response.data.post_id && ! isNaN( response.data.post_id ) ) {
                         self.listing_type_id = response.data.post_id;
@@ -147,7 +155,7 @@ export default {
                         }
                     }
 
-                    console.log( response );
+                    // console.log( response );
                 })
                 .catch( error => {
                     self.footer_actions.save.showLoading = false;

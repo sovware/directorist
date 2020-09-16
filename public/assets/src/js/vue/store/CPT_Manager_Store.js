@@ -9,6 +9,7 @@ export default new Vuex.Store({
     active_nav_index: 0,
     settings: {},
     fields: {},
+    form_fields: {},
 
     submenu: {
       general: [
@@ -32,6 +33,10 @@ export default new Vuex.Store({
 
     updateFields: ( state, value ) => {
       state.fields = value;
+    },
+
+    updateFormFields: ( state, value ) => {
+      state.form_fields = value;
     },
 
     updateFieldValue: ( state, payload ) => {

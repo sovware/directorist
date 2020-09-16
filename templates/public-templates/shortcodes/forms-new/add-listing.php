@@ -34,29 +34,11 @@
                  * @since 1.1.1
                  **/
                 do_action('atbdp_edit_before_title_fields', 'add_listing_page_frontend');
+
+                foreach ($sections as $section){
+                    Directorist_Listing_Forms->add_listing_section_template($section_data);
+                }
                 ?>
-
-
-                <?php foreach ($sections as $section): ?>
-                    
-                <?php endforeach; ?>
-
-
-
-
-                <div class="atbdb_content_module">
-                	<?php
-                    /**
-                     * @since 6.6
-                     * @hooked Directorist_Listing_Forms > add_listing_general_template - 10
-                     * @hooked Directorist_Listing_Forms > add_listing_contact_template - 15
-                     * @hooked Directorist_Listing_Forms > add_listing_map_template - 20
-                     * @hooked Directorist_Listing_Forms > add_listing_image_template - 25
-                     * @hooked Directorist_Listing_Forms > add_listing_submit_template - 30
-                     */
-                    do_action( 'directorist_add_listing_contents');
-                    ?>
-                </div>
             </div>
         </form>
     </div>

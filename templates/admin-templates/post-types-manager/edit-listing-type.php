@@ -10,6 +10,7 @@
             id="<?php echo $data['id']; ?>"
             settings='<?php echo $data['settings']; ?>' 
             fields='<?php echo $data['fields']; ?>'
+            form-fields='<?php echo $data['form_fields']; ?>'
         />
     </div>
 </div>

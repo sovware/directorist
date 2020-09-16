@@ -731,8 +731,20 @@ class Directorist_Listing_Forms {
 		}
 	}
 
-	public function section_template( $data ) {
-		atbdp_get_shortcode_template( 'forms/fields/text', array( 'data' => $data ) );
+	public function add_listing_section_template( $section_data ) {
+		atbdp_get_shortcode_template( 'forms/fields/section', array( 'section_data' => $section_data ) );
+	}
+
+	public function add_listing_field_template( $field_data ) {
+		switch ($field_data['type']) {
+			case 'text':
+			return atbdp_get_shortcode_template( 'forms/fields/text', compact( $field_data ) );
+			break;
+			
+			default:
+			return '';
+			break;
+		}
 	}
 	
 	public function render_shortcode_add_listing($atts) {

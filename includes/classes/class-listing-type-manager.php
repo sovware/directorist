@@ -336,6 +336,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'label' => 'Placeholder',
                             'value' => '',
                         ],
+                        'required' => [
+                            'type'  => 'toggle',
+                            'label' => 'Required',
+                            'value' => true,
+                        ],
                         'tag_with_plan' => [
                             'type'  => 'toggle',
                             'label'  => 'Tag with plan',
@@ -366,14 +371,23 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     ],
                                 ]
                                 
-                            ]
+                                ],
                         ],
                     ],
                     
                     'description' => [
                         'type' => [
-                            'type'  => 'hidden',
-                            'value' => 'text',
+                            'type'  => 'select',
+                            'value' => [
+                                'textarea' => [
+                                    'label' => __( 'Textarea', 'directorist' ),
+                                    'value' => 'textarea',
+                                ],
+                                'wp_editor' => [
+                                    'label' => __( 'WP Editor', 'directorist' ),
+                                    'value' => 'wp_editor',
+                                ],
+                            ]
                         ],
                         'field_key' => [
                             'type'  => 'hidden',
@@ -388,6 +402,16 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'type'  => 'text',
                             'label' => 'Placeholder',
                             'value' => '',
+                        ],
+                        'required' => [
+                            'type'  => 'toggle',
+                            'label' => 'Required',
+                            'value' => false,
+                        ],
+                        'admin_only' => [
+                            'type'  => 'toggle',
+                            'label' => 'Only for Admin Use',
+                            'value' => false,
                         ],
                         'tag_with_plan' => [
                             'type'  => 'toggle',
@@ -425,6 +449,59 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ]
                                 
                             ]
+                        ],
+                    ],
+
+                    'tagline' => [
+                        'type' => [
+                            'type'  => 'hidden',
+                            'value' => 'text',
+                        ],
+                        'field_key' => [
+                            'type'  => 'hidden',
+                            'value' => 'title',
+                        ],
+                        'label' => [
+                            'type'  => 'text',
+                            'label' => 'Label',
+                            'value' => 'Tagline',
+                        ],
+                        'placeholder' => [
+                            'type'  => 'text',
+                            'label' => 'Placeholder',
+                            'value' => '',
+                        ],
+                        'tag_with_plan' => [
+                            'type'  => 'toggle',
+                            'label'  => 'Tag with plan',
+                            'value' => false,
+                        ],
+                        'plan' => [
+                            'type'  => 'option_group',
+                            'label'  => 'Chose a plan',
+                            'show_if' => [
+                                [
+                                    'key'     => 'tag_with_plan',
+                                    'compare' => '=',
+                                    'value'   => true,
+                                ]
+                            ],
+                            'option_groups' => [
+                                [
+                                    'plan' => [
+                                        'type'  => 'select',
+                                        'options' => [],
+                                        'label'  => 'Plan',
+                                        'value' => '',
+                                    ],
+                                    'plan' => [
+                                        'type'  => 'select',
+                                        'label'  => 'Plan',
+                                        'value' => '',
+                                    ],
+                                ]
+                                
+                                ],
                         ],
                     ],
                 ],

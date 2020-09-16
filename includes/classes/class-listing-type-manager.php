@@ -132,6 +132,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         // prepare_settings
         public function prepare_settings() {
+
             $this->fields = [
                 'name' => [
                     'label' => 'Name *',
@@ -244,6 +245,157 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ],
             ];
 
+            $this->form_fields = [
+                'preset' => [
+                    'title' => [
+                        'type' => [
+                            'type'  => 'hidden',
+                            'value' => 'text',
+                        ],
+                        'field_key' => [
+                            'type'  => 'hidden',
+                            'value' => 'title',
+                        ],
+                        'label' => [
+                            'type'  => 'text',
+                            'label' => 'Label',
+                            'value' => 'Title',
+                        ],
+                        'placeholder' => [
+                            'type'  => 'text',
+                            'label' => 'Placeholder',
+                            'value' => '',
+                        ],
+                        'tag_with_plan' => [
+                            'type'  => 'toggle',
+                            'label'  => 'Tag with plan',
+                            'value' => false,
+                        ],
+                        'plan' => [
+                            'type'  => 'option_group',
+                            'label'  => 'Chose a plan',
+                            'show_if' => [
+                                [
+                                    'key'     => 'tag_with_plan',
+                                    'compare' => '=',
+                                    'value'   => true,
+                                ]
+                            ],
+                            'option_groups' => [
+                                [
+                                    'plan' => [
+                                        'type'  => 'select',
+                                        'options' => [],
+                                        'label'  => 'Plan',
+                                        'value' => '',
+                                    ],
+                                    'plan' => [
+                                        'type'  => 'select',
+                                        'label'  => 'Plan',
+                                        'value' => '',
+                                    ],
+                                ]
+                                
+                            ]
+                        ],
+                    ],
+                    
+                    'description' => [
+                        'type' => [
+                            'type'  => 'hidden',
+                            'value' => 'text',
+                        ],
+                        'field_key' => [
+                            'type'  => 'hidden',
+                            'value' => 'description',
+                        ],
+                        'label' => [
+                            'type'  => 'text',
+                            'label' => 'Label',
+                            'value' => 'Description',
+                        ],
+                        'placeholder' => [
+                            'type'  => 'text',
+                            'label' => 'Placeholder',
+                            'value' => '',
+                        ],
+                        'tag_with_plan' => [
+                            'type'  => 'toggle',
+                            'label'  => 'Tag with plan',
+                            'value' => false,
+                        ],
+                        'plan' => [
+                            'type'  => 'option_group',
+                            'label'  => 'Chose a plan',
+                            'show_if' => [
+                                [
+                                    'key'     => 'tag_with_plan',
+                                    'compare' => '=',
+                                    'value'   => true,
+                                ]
+                            ],
+                            'option_groups' => [
+                                [
+                                    'plan' => [
+                                        'type'  => 'select',
+                                        'options' => [],
+                                        'label'  => 'Plan',
+                                        'value' => '',
+                                    ],
+                                    'min' => [
+                                        'type'  => 'number',
+                                        'label'  => 'Min',
+                                        'value' => '',
+                                    ],
+                                    'max' => [
+                                        'type'  => 'number',
+                                        'label'  => 'Min',
+                                        'value' => '',
+                                    ],
+                                ]
+                                
+                            ]
+                        ],
+                    ],
+                ],
+
+                'custom' => [
+                    'text' => [
+                        'type' => [
+                            'type'  => 'hidden',
+                            'value' => 'text',
+                        ],
+                        'field_key' => [
+                            'type'  => 'text',
+                            'label' => 'Label',
+                            'value' => 'description',
+                        ],
+                        'label' => [
+                            'type'  => 'text',
+                            'label' => 'Label',
+                            'value' => '',
+                        ],
+                    ],
+
+                    'number' => [
+                        'type' => [
+                            'type'  => 'hidden',
+                            'value' => 'number',
+                        ],
+                        'field_key' => [
+                            'type'  => 'text',
+                            'label' => 'number',
+                            'value' => '',
+                        ],
+                        'label' => [
+                            'type'  => 'text',
+                            'label' => 'Number',
+                            'value' => 'Description',
+                        ],
+                    ],
+                ],
+            ];
+
             $this->settings = apply_filters( 'atbdp_listing_type_settings', [
                 'general' => [
                     'label' => 'General',
@@ -293,6 +445,76 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                         ],
                     ]),
+                ],
+
+                'submission_form' => [
+                    'label' => 'General',
+                    'icon' => '',
+                    'sections' => [
+                        'fields' => [
+                            'title'       => __( 'Select or create fields for this listing type', 'directorist' ),
+                            'description' => 'need help?',
+                            'form_fields'      => [
+                                'active_fields' => [
+                                    'general' => [
+                                        'title' => [
+                                            'type' => [
+                                                'type'  => 'hidden',
+                                                'value' => 'text',
+                                            ],
+                                            'field_key' => [
+                                                'type'  => 'hidden',
+                                                'value' => 'title',
+                                            ],
+                                            'label' => [
+                                                'type'  => 'text',
+                                                'label' => 'Label',
+                                                'value' => 'Title',
+                                            ],
+                                            'placeholder' => [
+                                                'type'  => 'text',
+                                                'label' => 'Placeholder',
+                                                'value' => '',
+                                            ],
+                                            'tag_with_plan' => [
+                                                'type'  => 'toggle',
+                                                'label'  => 'Tag with plan',
+                                                'value' => false,
+                                            ],
+                                            'plan' => [
+                                                'type'  => 'option_group',
+                                                'label'  => 'Chose a plan',
+                                                'show_if' => [
+                                                    [
+                                                        'key'     => 'tag_with_plan',
+                                                        'compare' => '=',
+                                                        'value'   => true,
+                                                    ]
+                                                ],
+                                                'option_groups' => [
+                                                    [
+                                                        'plan' => [
+                                                            'type'  => 'select',
+                                                            'options' => [],
+                                                            'label'  => 'Plan',
+                                                            'value' => '',
+                                                        ],
+                                                        'plan' => [
+                                                            'type'  => 'select',
+                                                            'label'  => 'Plan',
+                                                            'value' => '',
+                                                        ],
+                                                    ]
+                                                    
+                                                ]
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+
                 ]
             ]);
         }

@@ -131,18 +131,15 @@ export default {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;
 
-                    console.log( response.data.post_id );
+                    console.log( response.data );
 
                     if ( response.data.post_id && ! isNaN( response.data.post_id ) ) {
-                    console.log( 'Update isNaN' );
                         self.listing_type_id = response.data.post_id;
                         self.footer_actions.save.label = 'Update';
                     }
 
                     if ( response.data.status_log ) {
                         for ( let status_key in response.data.status_log  ) {
-                            // console.log( response.data.status_log[ status_key ] );
-
                             self.status_messages.push({ 
                                 type: response.data.status_log[ status_key ].type, 
                                 message: response.data.status_log[ status_key ].message

@@ -4,6 +4,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
     class ATBDP_Listing_Type_Manager {
         public $settings = [];
         public $fields = [];
+        public $form_fields = [];
 
         // run
         public function run() {
@@ -243,6 +244,75 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'type'  => 'toggle',
                     'value' => '',
                 ],
+
+                'submission_form_fields' => [
+                    'type'  => 'array',
+                    'value' => [
+                        'active_fields' => [
+                            'title' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'text',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'title',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Title',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'tag_with_plan' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Tag with plan',
+                                    'value' => false,
+                                ],
+                                'plan' => [
+                                    'type'  => 'option_group',
+                                    'label'  => 'Chose a plan',
+                                    'show_if' => [
+                                        [
+                                            'key'     => 'tag_with_plan',
+                                            'compare' => '=',
+                                            'value'   => true,
+                                        ]
+                                    ],
+                                    'option_groups' => [
+                                        [
+                                            'plan' => [
+                                                'type'  => 'select',
+                                                'options' => [],
+                                                'label'  => 'Plan',
+                                                'value' => '',
+                                            ],
+                                            'plan' => [
+                                                'type'  => 'select',
+                                                'label'  => 'Plan',
+                                                'value' => '',
+                                            ],
+                                        ]
+                                        
+                                    ]
+                                ],
+                            ]
+                        ],
+
+                        'groups' => [
+                            [ 
+                                'name'   => 'general',
+                                'lock'   => true,
+                                'label'  => 'General',
+                                'fields' => [ 'title' ],
+                            ],
+                        ],
+                    ],
+                ],
             ];
 
             $this->form_fields = [
@@ -454,64 +524,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         'fields' => [
                             'title'       => __( 'Select or create fields for this listing type', 'directorist' ),
                             'description' => 'need help?',
-                            'form_fields'      => [
-                                'active_fields' => [
-                                    'general' => [
-                                        'title' => [
-                                            'type' => [
-                                                'type'  => 'hidden',
-                                                'value' => 'text',
-                                            ],
-                                            'field_key' => [
-                                                'type'  => 'hidden',
-                                                'value' => 'title',
-                                            ],
-                                            'label' => [
-                                                'type'  => 'text',
-                                                'label' => 'Label',
-                                                'value' => 'Title',
-                                            ],
-                                            'placeholder' => [
-                                                'type'  => 'text',
-                                                'label' => 'Placeholder',
-                                                'value' => '',
-                                            ],
-                                            'tag_with_plan' => [
-                                                'type'  => 'toggle',
-                                                'label'  => 'Tag with plan',
-                                                'value' => false,
-                                            ],
-                                            'plan' => [
-                                                'type'  => 'option_group',
-                                                'label'  => 'Chose a plan',
-                                                'show_if' => [
-                                                    [
-                                                        'key'     => 'tag_with_plan',
-                                                        'compare' => '=',
-                                                        'value'   => true,
-                                                    ]
-                                                ],
-                                                'option_groups' => [
-                                                    [
-                                                        'plan' => [
-                                                            'type'  => 'select',
-                                                            'options' => [],
-                                                            'label'  => 'Plan',
-                                                            'value' => '',
-                                                        ],
-                                                        'plan' => [
-                                                            'type'  => 'select',
-                                                            'label'  => 'Plan',
-                                                            'value' => '',
-                                                        ],
-                                                    ]
-                                                    
-                                                ]
-                                            ],
-                                        ],
-                                    ],
-                                ],
-                            ],
+                            'form_fields' => 'submission_form_fields',
                         ],
                     ],
 

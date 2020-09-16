@@ -6,14 +6,14 @@
  */
 ?>
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
-	<div class="<?php echo apply_filters('atbdp_add_listing_container_fluid', $container_fluid) ?>">
-		<form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" method="post" id="add-listing-form">
-			<fieldset>
+    <div class="<?php echo apply_filters('atbdp_add_listing_container_fluid', $container_fluid) ?>">
+        <form action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>" method="post" id="add-listing-form">
+            <fieldset>
 
-				<?php do_action('atbdb_before_add_listing_from_frontend');?>
+                <?php do_action('atbdb_before_add_listing_from_frontend');?>
 
-				<div class="atbdp-form-fields">
-					<?php
+                <div class="atbdp-form-fields">
+                    <?php
                     /**
                      * @since 6.6
                      * @hooked Directorist_Listing_Forms > add_listing_title_template - 10
@@ -39,7 +39,7 @@
                     ?>
 
                     <div class="atbdb_content_module">
-                    	<?php
+                        <?php
                         /**
                          * @since 6.6
                          * @hooked Directorist_Listing_Forms > add_listing_general_template - 10

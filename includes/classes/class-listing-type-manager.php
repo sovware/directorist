@@ -2987,11 +2987,184 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 'label' => 'File Type',
                                 'value' => '',
                                 'options' => [
-                                    [
-                                        'label' => __( 'All Types' ),
+                                    'all' => [
+                                        'label' => __( 'All Types', 'directorist' ),
                                         'value' => 'all',
                                     ],
+                                    'image_format' => [
+                                        [
+                                            'label' => __( 'jpg', 'directorist' ),
+                                            'value' => 'jpg',  
+                                        ],
+                                        [
+                                            'label' => __( 'jpeg', 'directorist' ),
+                                            'value' => 'jpeg',  
+                                        ],
+                                        [
+                                            'label' => __( 'gif', 'directorist' ),
+                                            'value' => 'gif',  
+                                        ],
+                                        [
+                                            'label' => __( 'png', 'directorist' ),
+                                            'value' => 'png',  
+                                        ],
+                                        [
+                                            'label' => __( 'bmp', 'directorist' ),
+                                            'value' => 'bmp',  
+                                        ],
+                                        [
+                                            'label' => __( 'ico', 'directorist' ),
+                                            'value' => 'ico',  
+                                        ],
+                                    ],
+                                    'video_format' => [
+                                        [
+                                            'label' => __( 'asf', 'directorist' ),
+                                            'value' => 'asf',  
+                                        ],
+                                        [
+                                            'label' => __( 'flv', 'directorist' ),
+                                            'value' => 'flv',  
+                                        ],
+                                        [
+                                            'label' => __( 'avi', 'directorist' ),
+                                            'value' => 'avi',  
+                                        ],
+                                        [
+                                            'label' => __( 'mkv', 'directorist' ),
+                                            'value' => 'mkv',  
+                                        ],
+                                        [
+                                            'label' => __( 'mp4', 'directorist' ),
+                                            'value' => 'mp4',  
+                                        ],
+                                        [
+                                            'label' => __( 'mpeg', 'directorist' ),
+                                            'value' => 'mpeg',  
+                                        ],
+                                        [
+                                            'label' => __( 'mpg', 'directorist' ),
+                                            'value' => 'mpg',  
+                                        ],
+                                        [
+                                            'label' => __( 'wmv', 'directorist' ),
+                                            'value' => 'wmv',  
+                                        ],
+                                        [
+                                            'label' => __( '3gp', 'directorist' ),
+                                            'value' => '3gp',  
+                                        ],
+                                    ],
+                                    'audio_format' => [
+                                        [
+                                            'label' => __( 'ogg', 'directorist' ),
+                                            'value' => 'ogg',  
+                                        ],
+                                        [
+                                            'label' => __( 'mp3', 'directorist' ),
+                                            'value' => 'mp3',  
+                                        ],
+                                        [
+                                            'label' => __( 'wav', 'directorist' ),
+                                            'value' => 'wav',  
+                                        ],
+                                        [
+                                            'label' => __( 'wma', 'directorist' ),
+                                            'value' => 'wma',  
+                                        ],
+                                    ],
+                                    'text_format' => [
+                                        [
+                                            'label' => __( 'css', 'directorist' ),
+                                            'value' => 'css',  
+                                        ],
+                                        [
+                                            'label' => __( 'csv', 'directorist' ),
+                                            'value' => 'csv',  
+                                        ],
+                                        [
+                                            'label' => __( 'htm', 'directorist' ),
+                                            'value' => 'htm',  
+                                        ],
+                                        [
+                                            'label' => __( 'html', 'directorist' ),
+                                            'value' => 'html',  
+                                        ],
+                                        [
+                                            'label' => __( 'txt', 'directorist' ),
+                                            'value' => 'txt',  
+                                        ],
+                                        [
+                                            'label' => __( 'rtx', 'directorist' ),
+                                            'value' => 'rtx',  
+                                        ],
+                                        [
+                                            'label' => __( 'vtt', 'directorist' ),
+                                            'value' => 'vtt',  
+                                        ],
+                                    ],
+                                    'application_format' => [
+                                        [
+                                            'label' => __( 'doc', 'directorist' ),
+                                            'value' => 'doc',  
+                                        ],
+                                        [
+                                            'label' => __( 'docx', 'directorist' ),
+                                            'value' => 'docx',  
+                                        ],
+                                        [
+                                            'label' => __( 'odt', 'directorist' ),
+                                            'value' => 'odt',  
+                                        ],
+                                        [
+                                            'label' => __( 'pdf', 'directorist' ),
+                                            'value' => 'pdf',  
+                                        ],
+                                        [
+                                            'label' => __( 'pot', 'directorist' ),
+                                            'value' => 'pot',  
+                                        ],
+                                        [
+                                            'label' => __( 'ppt', 'directorist' ),
+                                            'value' => 'ppt',  
+                                        ],
+                                        [
+                                            'label' => __( 'pptx', 'directorist' ),
+                                            'value' => 'pptx',  
+                                        ],
+                                        [
+                                            'label' => __( 'rar', 'directorist' ),
+                                            'value' => 'rar',  
+                                        ],
+                                        [
+                                            'label' => __( 'rtf', 'directorist' ),
+                                            'value' => 'rtf',  
+                                        ],
+                                        [
+                                            'label' => __( 'swf', 'directorist' ),
+                                            'value' => 'swf',  
+                                        ],
+                                        [
+                                            'label' => __( 'xls', 'directorist' ),
+                                            'value' => 'xls',  
+                                        ],
+                                        [
+                                            'label' => __( 'xlsx', 'directorist' ),
+                                            'value' => 'xlsx',  
+                                        ],
+                                        [
+                                            'label' => __( 'gpx', 'directorist' ),
+                                            'value' => 'gpx',  
+                                        ],
+                                    ],
+
                                 ],
+                            ],
+                            'file_size' => [
+                                'type'  => 'text',
+                                'label' => 'File Size',
+                                'description' => __( 'Set maximum file size to upload', 'directorist' ),
+                                'value' => '2mb',
                             ],
                             'description' => [
                                 'type'  => 'text',
@@ -3007,35 +3180,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 'type'  => 'toggle',
                                 'label'  => 'Only For Admin Use',
                                 'value' => false,
-                            ],
-                            'assign_to' => [
-                                'type' => 'radio',
-                                'label' => __( 'Assign to', 'directorist' ),
-                                'value' => 'form',
-                                'options' => [
-                                    'form'  => [
-                                        'label' => __( 'Form', 'directorist' ),
-                                        'value' => 'form',
-                                    ],
-                                    'category'  => [
-                                        'label' => __( 'Category', 'directorist' ),
-                                        'value' => 'category',
-                                        'sub_options' => [
-                                            'type' => 'select',
-                                            'label' => __( 'Select Categories', 'directorist' ),
-                                            'options' => [
-                                                [
-                                                    'label' => 'Category A',
-                                                    'value' => 'category_a'
-                                                ],
-                                                [
-                                                    'label' => 'Category B',
-                                                    'value' => 'category_b'
-                                                ],
-                                            ]
-                                        ],
-                                    ], 
-                                ],
                             ],
                             'tag_with_plan' => [
                                 'type'  => 'toggle',

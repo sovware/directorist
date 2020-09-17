@@ -736,6 +736,20 @@ class Directorist_Listing_Forms {
 	}
 
 	public function add_listing_field_template( $field_data ) {
+		$listing_id = $this->add_listing_id();
+		
+		$value = '';
+		if (!empty($listing_id)) {
+			$field_id = $field_data['id'];
+			$meta = get_post_meta( $listing_id, 'directorist_fields', true );
+			if ( !empty($meta[$field_id]) ) {
+				$value = $meta[$field_id];
+			}
+			$value = $meta[$field_id];
+		}
+
+		$field_data['value'] = $value;
+
 		switch ($field_data['type']) {
 			case 'text':
 			return atbdp_get_shortcode_template( 'forms/fields/text', compact( $field_data ) );

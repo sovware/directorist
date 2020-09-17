@@ -39,6 +39,28 @@ export default new Vuex.Store({
       state.form_fields = value;
     },
 
+    reorderActiveFieldsItems: ( state, payload ) => {
+      const origin_value = state.fields.submission_form_fields.value.groups[ payload.group_index ].fields[ payload.origin_field_index ];
+
+      state.fields.submission_form_fields.value.groups[ payload.group_index ].fields.splice( payload.origin_field_index, 1 );
+      const des_ind = ( payload.origin_field_index === 0 ) ? payload.destination_field_index : payload.destination_field_index + 1 ;
+      state.fields.submission_form_fields.value.groups[ payload.group_index ].fields.splice( des_ind, 0, origin_value );
+    },
+
+    trashActiveFieldItem: ( state, payload ) => {
+      const field_key = state.fields.submission_form_fields.value.groups[ payload.group_index ].fields[ payload.field_index ];
+
+      state.fields.submission_form_fields.value.groups[ payload.group_index ].fields.splice( payload.field_index, 1 );
+      delete state.fields.submission_form_fields.value.active_fields[ field_key ];
+    },
+
+    appendActiveFieldsItem: ( state, payload ) => {
+      const field_data = state.form_fields[ payload.appending_from ][ payload.appending_field_key ];
+
+      state.fields.submission_form_fields.value.active_fields[payload.appending_field_key] = { ...field_data };
+      state.fields.submission_form_fields.value.groups[ payload.group_index ].fields.splice( payload.field_index + 1, 0 , payload.appending_field_key );
+    },
+
     updateFieldValue: ( state, payload ) => {
       state.fields[ payload.field_key ].value = payload.value;
     },
@@ -49,12 +71,17 @@ export default new Vuex.Store({
 
     updateActiveFieldsCollapseState: state => {
       for ( let active_field_key in state.fields.submission_form_fields.value.active_fields ) {
-        state.fields.submission_form_fields.value.active_fields[ active_field_key ].show = true;
+        Vue.set(state.fields.submission_form_fields.value.active_fields[ active_field_key ], 'show', false);
       }
     },
 
-    toggleActiveFieldCollapseState: ( state, active_field_key )  => {
+    toggleActiveFieldCollapseState: ( state, active_field_key ) => {
+
+      console.log( state.fields.submission_form_fields.value.active_fields[ active_field_key ].show );
+      
+      
       state.fields.submission_form_fields.value.active_fields[ active_field_key ].show = ! state.fields.submission_form_fields.value.active_fields[ active_field_key ].show;
+      // console.log( state.fields.submission_form_fields.value.active_fields[ active_field_key ] );
     }
   },
 

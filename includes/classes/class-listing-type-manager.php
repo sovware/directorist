@@ -262,6 +262,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                         'type'  => 'hidden',
                                         'value' => 'title',
                                     ],
+                                    'required' => [
+                                        'type'  => 'hidden',
+                                        'value' => 1,
+                                    ],
                                     'label' => [
                                         'type'  => 'text',
                                         'label' => 'Label',
@@ -368,13 +372,81 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     ],
                                 ]
                             ],
+
+                            'tagline' => [
+                                'label' => 'Tagline',
+                                'icon' => 'fa fa-text-height',
+                                'show' => true,
+                                'options' => [
+                                    'type' => [
+                                        'type'  => 'hidden',
+                                        'value' => 'text',
+                                    ],
+                                    'field_key' => [
+                                        'type'  => 'hidden',
+                                        'value' => 'tagline',
+                                    ],
+                                    'label' => [
+                                        'type'  => 'text',
+                                        'label' => 'Label',
+                                        'value' => 'Tagline',
+                                    ],
+                                    'placeholder' => [
+                                        'type'  => 'text',
+                                        'label' => 'Placeholder',
+                                        'value' => '',
+                                    ],
+                                    'required' => [
+                                        'type'  => 'toggle',
+                                        'label'  => 'Required',
+                                        'value' => false,
+                                    ],
+                                    'only_for_admin' => [
+                                        'type'  => 'toggle',
+                                        'label'  => 'Only For Admin Use',
+                                        'value' => false,
+                                    ],
+                                    'tag_with_plan' => [
+                                        'type'  => 'toggle',
+                                        'label'  => 'Tag with plan',
+                                        'value' => false,
+                                    ],
+                                    'plan' => [
+                                        'type'  => 'option_group',
+                                        'label'  => 'Chose a plan',
+                                        'show_if' => [
+                                            [
+                                                'key'     => 'tag_with_plan',
+                                                'compare' => '=',
+                                                'value'   => true,
+                                            ]
+                                        ],
+                                        'option_groups' => [
+                                            [
+                                                'plan' => [
+                                                    'type'  => 'select',
+                                                    'options' => [],
+                                                    'label'  => 'Plan',
+                                                    'value' => '',
+                                                ],
+                                                'plan' => [
+                                                    'type'  => 'select',
+                                                    'label'  => 'Plan',
+                                                    'value' => '',
+                                                ],
+                                            ]
+                                            
+                                            ],
+                                    ],
+                                ],
+                            ],
                         ],
 
                         'groups' => [
                             [ 
                                 'label'  => 'General',
                                 'lock'   => true,
-                                'fields' => [ 'title', 'description' ],
+                                'fields' => [ 'title', 'description', 'tagline' ],
                             ],
                         ],
                     ],
@@ -387,6 +459,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         'label' => 'Title',
                         'icon' => 'fa fa-text-height',
                         'lock' => true,
+                        'show' => true,
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
@@ -449,6 +522,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'description' => [
                         'label' => 'Description',
                         'icon' => 'fa fa-align-left',
+                        'show' => true,
                         'options' => [
                             'type' => [
                                 'type'  => 'radio',
@@ -531,6 +605,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'tagline' => [
                         'label' => 'Tagline',
                         'icon' => 'fa fa-text-height',
+                        'show' => true,
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
@@ -598,24 +673,28 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'pricing' => [
                         'label' => 'Pricing',
                         'icon' => 'fa fa-text-height',
+                        'show' => true,
                         'options' => [
                             'type' => [
-                                'type'  => 'select',
+                                'type'         => 'select',
                                 'has_multiple' => true,
-                                'value' => [
-                                    'unit' => [
-                                        'label' => __( 'Price', 'directorist' ),
-                                        'value' => 'text',
-                                    ],
-                                    'range' => [
-                                        'label' => __( 'Price Range', 'directorist' ),
-                                        'description' => __( '(Optional - Uncheck to hide pricing for this listing)', 'directorist' ),
-                                        'value' => 'radio',
+                                'value'        => 'both',
+                                'options' => [
+                                    'unit' => 'Unit',
+                                    'price_range' => 'Price_range',
+                                    'group' => [
+                                        'group_label' => '',
+                                        'group_options' => [
+                                            'unit' => 'Unit',
+                                            'price_range' => 'Price_range',
+                                        ],
                                     ],
                                 ]
                             ],
-                            'sub_options' => [
-                                'unit' => [
+                            'unit' => [
+                                'type' => 'option_group',
+                                'label' => 'Unit',
+                                'options' => [
                                     'type' => [
                                         'type'  => 'hidden',
                                         'value' => 'text',
@@ -676,8 +755,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             
                                             ],
                                     ],
-                                ],
-                                'range' => [
+                                ]
+                                
+                            ],
+                            'range' => [
+                                'type' => 'option_group',
+                                'label' => 'Unit',
+                                'options' => [
                                     'type' => [
                                         'type'  => 'hidden',
                                         'value' => 'radio',
@@ -736,10 +820,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                                 ],
                                             ]
                                             
-                                            ],
+                                        ],
                                     ],
-                                ],
-                            ]
+                                ]
+                            ],
                         ],
                     ],
 

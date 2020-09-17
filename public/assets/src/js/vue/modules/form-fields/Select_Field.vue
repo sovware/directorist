@@ -7,6 +7,7 @@
     <select v-else @change="$emit('update', $event.target.value)">
         <option v-for="( option, option_key ) in options" :key="option_key" :value="option.value">{{ option.label }}</option>
     </select>
+    </select>
 </div>
 </template>
 
@@ -41,7 +42,7 @@ export default {
         options: {
             type: Array,
             required: false,
-            default: [],
+            default: null,
         },
         name: {
             type: [String, Number],

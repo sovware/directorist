@@ -128,7 +128,6 @@ export default {
             
             the_form_fields_row_data['field_list'] = field_list;
 
-
             this.status_messages = [];
             this.footer_actions.save.showLoading = true;
             this.footer_actions.save.isDisabled = true;

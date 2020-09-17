@@ -1,7 +1,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import SlideUpDown from 'vue-slide-up-down';
 
 Vue.use(Vuex);
+Vue.component('slide-up-down', SlideUpDown);
 
 import store from './vue/store/CPT_Manager_Store';
 import cpt_manager_component from './vue/components/cpt-manager/CPT_Manager.vue';

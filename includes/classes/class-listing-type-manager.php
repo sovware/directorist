@@ -600,9 +600,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         'icon' => 'fa fa-text-height',
                         'options' => [
                             'type' => [
-                                'type'  => 'select',
-                                'has_multiple' => true,
-                                'value' => [
+                                'type'  => 'radio',
+                                'label' => __( 'Select a method', 'directorist' ),
+                                'value'  => 'unit',
+                                'options' => [
                                     'unit' => [
                                         'label' => __( 'Price', 'directorist' ),
                                         'value' => 'text',
@@ -980,6 +981,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 'type'  => 'toggle',
                                 'label'  => 'Required',
                                 'value' => false,
+                            ],
+                            'allow_new' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Allow New',
+                                'value' => true,
                             ],
                             'only_for_admin' => [
                                 'type'  => 'toggle',
@@ -1916,7 +1922,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         ],
                     ],
 
-
                 ],
 
                 'custom' => [
@@ -1928,15 +1933,204 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 'type'  => 'hidden',
                                 'value' => 'text',
                             ],
-                            'field_key' => [
+                            'label' => [
                                 'type'  => 'text',
                                 'label' => 'Label',
-                                'value' => 'description',
+                                'value' => 'Custom Field',
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => 'custom-field',
+                            ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => 'Placeholder',
+                                'value' => '',
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => '',
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' => false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => 'form',
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                            'tag_with_plan' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Tag with plan',
+                                'value' => false,
+                            ],
+                            'plan' => [
+                                'type'  => 'option_group',
+                                'label'  => 'Chose a plan',
+                                'show_if' => [
+                                    [
+                                        'key'     => 'tag_with_plan',
+                                        'compare' => '=',
+                                        'value'   => true,
+                                    ]
+                                ],
+                                'option_groups' => [
+                                    [
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'options' => [],
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                    
+                                    ],
+                            ],
+                        ]
+                        
+                    ],
+
+                    'textarea' => [
+                        'label' => 'Textarea',
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'textarea',
                             ],
                             'label' => [
                                 'type'  => 'text',
                                 'label' => 'Label',
+                                'value' => 'Custom Field',
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => 'custom-field',
+                            ],
+                            'rows' => [
+                                'type'  => 'number',
+                                'label' => 'Rows',
+                                'value' => 8,
+                            ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => 'Placeholder',
                                 'value' => '',
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => '',
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' => false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => 'form',
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                            'tag_with_plan' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Tag with plan',
+                                'value' => false,
+                            ],
+                            'plan' => [
+                                'type'  => 'option_group',
+                                'label'  => 'Chose a plan',
+                                'show_if' => [
+                                    [
+                                        'key'     => 'tag_with_plan',
+                                        'compare' => '=',
+                                        'value'   => true,
+                                    ]
+                                ],
+                                'option_groups' => [
+                                    [
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'options' => [],
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                    
+                                    ],
                             ],
                         ]
                         
@@ -1944,25 +2138,942 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                     'number' => [
                         'label' => 'Number',
-                        'icon' => 'fa fa-list-ol',
+                        'icon' => 'fa fa-text-width',
                         'options' => [
                             'type' => [
                                 'type'  => 'hidden',
                                 'value' => 'number',
                             ],
-                            'field_key' => [
-                                'type'  => 'text',
-                                'label' => 'number',
-                                'value' => '',
-                            ],
                             'label' => [
                                 'type'  => 'text',
-                                'label' => 'Number',
+                                'label' => 'Label',
+                                'value' => 'Custom Field',
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => 'custom-field',
+                            ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => 'Placeholder',
                                 'value' => '',
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => '',
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' => false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => 'form',
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                            'tag_with_plan' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Tag with plan',
+                                'value' => false,
+                            ],
+                            'plan' => [
+                                'type'  => 'option_group',
+                                'label'  => 'Chose a plan',
+                                'show_if' => [
+                                    [
+                                        'key'     => 'tag_with_plan',
+                                        'compare' => '=',
+                                        'value'   => true,
+                                    ]
+                                ],
+                                'option_groups' => [
+                                    [
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'options' => [],
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                    
+                                    ],
                             ],
                         ]
                         
                     ],
+
+                    'url' => [
+                        'label' => 'URL',
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'text',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => 'Custom Field',
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => 'custom-field',
+                            ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => 'Placeholder',
+                                'value' => '',
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => '',
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' => false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => 'form',
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                            'tag_with_plan' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Tag with plan',
+                                'value' => false,
+                            ],
+                            'plan' => [
+                                'type'  => 'option_group',
+                                'label'  => 'Chose a plan',
+                                'show_if' => [
+                                    [
+                                        'key'     => 'tag_with_plan',
+                                        'compare' => '=',
+                                        'value'   => true,
+                                    ]
+                                ],
+                                'option_groups' => [
+                                    [
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'options' => [],
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                    
+                                    ],
+                            ],
+                        ]
+                        
+                    ],
+
+                    'date' => [
+                        'label' => 'Date',
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'date',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => 'Custom Field',
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => 'custom-field',
+                            ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => 'Placeholder',
+                                'value' => '',
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => '',
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' => false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => 'form',
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                            'tag_with_plan' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Tag with plan',
+                                'value' => false,
+                            ],
+                            'plan' => [
+                                'type'  => 'option_group',
+                                'label'  => 'Chose a plan',
+                                'show_if' => [
+                                    [
+                                        'key'     => 'tag_with_plan',
+                                        'compare' => '=',
+                                        'value'   => true,
+                                    ]
+                                ],
+                                'option_groups' => [
+                                    [
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'options' => [],
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                    
+                                    ],
+                            ],
+                        ]
+                        
+                    ],
+
+                    'time' => [
+                        'label' => 'Time',
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'time',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => 'Custom Field',
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => 'custom-field',
+                            ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => 'Placeholder',
+                                'value' => '',
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => '',
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' => false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => 'form',
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                            'tag_with_plan' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Tag with plan',
+                                'value' => false,
+                            ],
+                            'plan' => [
+                                'type'  => 'option_group',
+                                'label'  => 'Chose a plan',
+                                'show_if' => [
+                                    [
+                                        'key'     => 'tag_with_plan',
+                                        'compare' => '=',
+                                        'value'   => true,
+                                    ]
+                                ],
+                                'option_groups' => [
+                                    [
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'options' => [],
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                    
+                                    ],
+                            ],
+                        ]
+                        
+                    ],
+
+                    'color_picker' => [
+                        'label' => 'Color',
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'color_picker',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => 'Custom Field',
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => 'custom-field',
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => '',
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' => false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => 'form',
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                            'tag_with_plan' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Tag with plan',
+                                'value' => false,
+                            ],
+                            'plan' => [
+                                'type'  => 'option_group',
+                                'label'  => 'Chose a plan',
+                                'show_if' => [
+                                    [
+                                        'key'     => 'tag_with_plan',
+                                        'compare' => '=',
+                                        'value'   => true,
+                                    ]
+                                ],
+                                'option_groups' => [
+                                    [
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'options' => [],
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                    
+                                    ],
+                            ],
+                        ]
+                        
+                    ],
+
+                    'select' => [
+                        'label' => 'Select',
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'select',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => 'Custom Field',
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => 'custom-field',
+                            ],
+                            'options' => [
+                                'type' => 'textarea',
+                                'label' => __( 'Options', 'directorist' ),
+                                'description' => __( 'Each on a new line, for example,
+                                Male: Male
+                                Female: Female
+                                Other: Other', 'directorist' ),
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => '',
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' => false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => 'form',
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                            'tag_with_plan' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Tag with plan',
+                                'value' => false,
+                            ],
+                            'plan' => [
+                                'type'  => 'option_group',
+                                'label'  => 'Chose a plan',
+                                'show_if' => [
+                                    [
+                                        'key'     => 'tag_with_plan',
+                                        'compare' => '=',
+                                        'value'   => true,
+                                    ]
+                                ],
+                                'option_groups' => [
+                                    [
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'options' => [],
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                    
+                                    ],
+                            ],
+                        ]
+                        
+                    ],
+
+                    'checkbox' => [
+                        'label' => 'Checkbox',
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'checkbox',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => 'Custom Field',
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => 'custom-field',
+                            ],
+                            'options' => [
+                                'type' => 'textarea',
+                                'label' => __( 'Options', 'directorist' ),
+                                'description' => __( 'Each on a new line, for example,
+                                Male: Male
+                                Female: Female
+                                Other: Other', 'directorist' ),
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => '',
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' => false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => 'form',
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                            'tag_with_plan' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Tag with plan',
+                                'value' => false,
+                            ],
+                            'plan' => [
+                                'type'  => 'option_group',
+                                'label'  => 'Chose a plan',
+                                'show_if' => [
+                                    [
+                                        'key'     => 'tag_with_plan',
+                                        'compare' => '=',
+                                        'value'   => true,
+                                    ]
+                                ],
+                                'option_groups' => [
+                                    [
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'options' => [],
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                    
+                                    ],
+                            ],
+                        ]
+                        
+                    ],
+
+                    'radio' => [
+                        'label' => 'Radio',
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'radio',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => 'Custom Field',
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => 'custom-field',
+                            ],
+                            'options' => [
+                                'type' => 'textarea',
+                                'label' => __( 'Options', 'directorist' ),
+                                'description' => __( 'Each on a new line, for example,
+                                Male: Male
+                                Female: Female
+                                Other: Other', 'directorist' ),
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => '',
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' => false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => 'form',
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                            'tag_with_plan' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Tag with plan',
+                                'value' => false,
+                            ],
+                            'plan' => [
+                                'type'  => 'option_group',
+                                'label'  => 'Chose a plan',
+                                'show_if' => [
+                                    [
+                                        'key'     => 'tag_with_plan',
+                                        'compare' => '=',
+                                        'value'   => true,
+                                    ]
+                                ],
+                                'option_groups' => [
+                                    [
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'options' => [],
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                    
+                                    ],
+                            ],
+                        ]
+                        
+                    ],
+
+                    'file' => [
+                        'label' => 'File Upload',
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'file',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => 'Custom Field',
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => 'custom-field',
+                            ],
+                            'file_types' => [
+                                'type'  => 'radio',
+                                'label' => 'File Type',
+                                'value' => '',
+                                'options' => [
+                                    [
+                                        'label' => __( 'All Types' ),
+                                        'value' => 'all',
+                                    ],
+                                ],
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => '',
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' => false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => 'form',
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                            'tag_with_plan' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Tag with plan',
+                                'value' => false,
+                            ],
+                            'plan' => [
+                                'type'  => 'option_group',
+                                'label'  => 'Chose a plan',
+                                'show_if' => [
+                                    [
+                                        'key'     => 'tag_with_plan',
+                                        'compare' => '=',
+                                        'value'   => true,
+                                    ]
+                                ],
+                                'option_groups' => [
+                                    [
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'options' => [],
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                        'plan' => [
+                                            'type'  => 'select',
+                                            'label'  => 'Plan',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                    
+                                    ],
+                            ],
+                        ]
+                        
+                    ],
+
+
                 ],
             ];
 

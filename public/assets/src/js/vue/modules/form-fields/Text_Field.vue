@@ -1,6 +1,6 @@
 <template>
-<div class="cptm-form-group">
-    <label :for="name">{{ label }}</label>
+<div class="cptm-form-group" :class="( 'hidden' === input_type ) ? 'cptm-mb-0' : ''">
+    <label v-if="( 'hidden' !== input_type )" :for="name">{{ label }}</label>
     <input class="cptm-form-control" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
 </div>
 </template>

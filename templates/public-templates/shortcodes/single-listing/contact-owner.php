@@ -16,18 +16,18 @@ if ($plan_permission && !$hide_contact_owner && empty($disable_contact_owner)) {
 			</div>
 		</div>
 
-		<form action="atbdp_public_send_contact_email" class="atbdp-form form-vertical contact_listing_owner" data-form-id="atbdp_stcode_contact_email">
+		<form action="atbdp_public_send_contact_email" id="atbdp-contact-form" class="atbdp-form form-vertical contact_listing_owner" data-form-id="atbdp_stcode_contact_email">
 
 			<div class="form-group">
-				<input type="text" class="form-control atbdp-form-field" name="name" placeholder="<?php esc_attr_e('Name', 'directorist'); ?>" required />
+				<input type="text" class="form-control atbdp-form-field" id="atbdp-contact-name" name="name" placeholder="<?php esc_attr_e('Name', 'directorist'); ?>" required />
 			</div>
 
 			<div class="form-group">
-				<input type="email" class="form-control atbdp-form-field" name="email" placeholder="<?php esc_attr_e('Email', 'directorist'); ?>" required />
+				<input type="email" class="form-control atbdp-form-field" id="atbdp-contact-email" name="email" placeholder="<?php esc_attr_e('Email', 'directorist'); ?>" required />
 			</div>
 
 			<div class="form-group">
-				<textarea class="form-control atbdp-form-field" name="message" rows="3" placeholder="<?php esc_attr_e('Message', 'directorist'); ?>..." required></textarea>
+				<textarea class="form-control atbdp-form-field" id="atbdp-contact-message" name="message" rows="3" placeholder="<?php esc_attr_e('Message', 'directorist'); ?>..." required></textarea>
 			</div>
 
 			<input type="hidden" name="post_id" class="atbdp-form-field" value="<?php echo esc_attr($listing_id); ?>" />
@@ -41,9 +41,8 @@ if ($plan_permission && !$hide_contact_owner && empty($disable_contact_owner)) {
 
             do_action('atbdp_before_contact_form_submit_button');
             ?>
-            
-            <div class="atbdp-form-alert" style="margin-bottom: 10px"></div>
-
+            <!-- <div class="atbdp-form-alert" style="margin-bottom: 10px"></div> -->
+			<p class="atbdp-contact-message-display" style="margin-bottom: 10px"></p> 
             <button type="submit" class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
         </form>
     </div>

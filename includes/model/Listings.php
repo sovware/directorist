@@ -358,6 +358,10 @@ class Directorist_Listings {
 		$id          = get_the_ID();
 		$author_id   = get_the_author_meta( 'ID' );
 		$author_data = get_userdata( $author_id );
+
+		$author_first_name = ! empty( $author_data ) ?  $author_data->first_name : '';
+		$author_last_name  = ! empty( $author_data ) ?  $author_data->last_name : '';
+
 		$u_pro_pic   = get_user_meta( $author_id, 'pro_pic', true );
 		$u_pro_pic   = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
 		$bdbh        = get_post_meta( $id, '_bdbh', true );
@@ -388,9 +392,9 @@ class Directorist_Listings {
 			'disable_bz_hour_listing' => get_post_meta( $id, '_disable_bz_hour_listing', true ),
 			'author_id'            => $author_id,
 			'author_data'          => $author_data,
-			'author_full_name'     => $author_data->first_name . ' ' . $author_data->last_name,
+			'author_full_name'     => $author_first_name . ' ' . $author_last_name,
 			'author_link'          => ATBDP_Permalink::get_user_profile_page_link( $author_id ),
-			'author_link_class'    => ! empty( $author_data->first_name && $author_data->last_name ) ? 'atbd_tooltip' : '',
+			'author_link_class'    => ! empty( $author_first_name && $author_last_name ) ? 'atbd_tooltip' : '',
 			'u_pro_pic'            => $u_pro_pic,
 			'avatar_img'           => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
 		);
@@ -1147,28 +1151,12 @@ class Directorist_Listings {
 		if ( $this->logged_in_user_only ) {
 			return ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
-
-		// Manage templating compatibility for old extension
-		$has_old_ext_template = $this->manage_old_ext_compatibility();
-		if ( $has_old_ext_template ) {
-			return '';
-		}
 		
 		// Load the template
 		$template_file = "listings-archive/listings-{$this->view}";
 		atbdp_get_shortcode_template( $template_file, array('listings' => $this), 'listings_archive' );
 
 		return ob_get_clean();
-	}
-
-	public function manage_old_ext_compatibility() {
-		if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.1', '<=' ) ) {
-			if ( 'listings_with_map' === $this->view ) {
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	public function setup_loop( array $args = [] ) {
@@ -1274,6 +1262,15 @@ class Directorist_Listings {
 		}
 	}
 
+	public function inline_map_template() {
+		if ( 'google' == $this->select_listing_map ) {
+			$this->load_google_map();
+		}
+		else {
+			$this->load_inline_openstreet_map();
+		}
+	}
+
 	public function card_template() {
 		atbdp_get_shortcode_template( "listings-archive/loop/card", array('listings' => $this) );
 	}
@@ -1282,14 +1279,16 @@ class Directorist_Listings {
 		$script_path = ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$opt = $this->get_map_options();
 
-		// wp_enqueue_script('leaflet-subgroup-realworld');
-		wp_localize_script( 'leaflet-load-scripts', 'atbdp_map', $opt );
-		wp_localize_script( 'leaflet-load-scripts', 'atbdp_lat_lon', array(
+		wp_enqueue_script('no_script');
+		wp_localize_script( 'no_script', 'atbdp_map', $opt );
+		wp_localize_script( 'no_script', 'atbdp_lat_lon', array(
 			'lat'=>40.7128,
 			'lon'=>74.0060,
 		));
 
-		$this->render_osm_map_info_card( 'leaflet-load-scripts' );
+		$map_card_data = $this->get_osm_map_info_card_data();
+		wp_localize_script( 'leaflet-load-scripts', 'atbdp_lat_lon', $map_card_data['lat_lon'] );
+		wp_localize_script( 'leaflet-load-scripts', 'listings_data', $map_card_data['listings_data'] );
 
 		$map_height = $this->listings_map_height . "px;";
 		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
@@ -1298,6 +1297,52 @@ class Directorist_Listings {
 			'script_path'  => $script_path
 		]);
 		wp_enqueue_script('leaflet-load-scripts');
+	}
+
+	public function load_inline_openstreet_map( array $map_options = [] ) {
+		$script_path = ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
+		$opt = array_merge( $this->get_map_options(), $map_options ) ;
+
+		$map_card_data     = $this->get_osm_map_info_card_data();
+
+		$default_lat_lon   = array( 'lat' => 40.7128, 'lon' => 74.0060 );
+		$atbdp_lat_lon     = ( ! empty( $map_card_data['lat_lon'] ) ) ? $map_card_data['lat_lon'] : $default_lat_lon;
+		$load_scripts_path = ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/load-scripts.js';
+		
+		$map_height = $this->listings_map_height . "px;";
+		echo "<div id='map' style='width: 100%; height: ${map_height};'></div>";
+
+		wp_enqueue_script('no_script');
+		wp_localize_script( 'no_script', 'atbdp_map', $opt );
+		wp_localize_script( 'no_script', 'atbdp_lat_lon', $atbdp_lat_lon);
+
+		wp_localize_script( 'no_script', 'atbdp_lat_lon', $map_card_data['lat_lon'] );
+		wp_localize_script( 'no_script', 'loc_data', [
+			'script_path'  => $script_path
+		]);
+
+		$listings_data = $map_card_data['listings_data'];
+		?>
+		<script>
+			var listings_data = [];
+
+			<?php foreach( $listings_data as $listing_data ) { ?>
+			listings_data.push({
+				address: `<?php echo isset( $listing_data['address'] ) ? $listing_data['address']: '' ; ?>`,
+				cat_icon: `<?php echo isset( $listing_data['cat_icon'] ) ? $listing_data['cat_icon'] : ''; ?>`,
+				default_image: `<?php echo isset( $listing_data['default_image'] ) ? $listing_data['default_image'] : ''; ?>`,
+				prv_image: `<?php echo isset( $listing_data['prv_image'] ) ? $listing_data['prv_image'] : ''; ?>`,
+				listing_img: `<?php echo isset( $listing_data['listing_img'] ) ? $listing_data['listing_img'] : ''; ?>`,
+				listing_prv_img: `<?php echo isset( $listing_data['listing_prv_img'] ) ? $listing_data['listing_prv_img'] : ''; ?>`,
+				info_content: `<?php echo isset( $listing_data['info_content'] ) ? $listing_data['info_content'] : ''; ?>`,
+				manual_lat: `<?php echo isset( $listing_data['manual_lat'] ) ? $listing_data['manual_lat'] : ''; ?>`,
+				manual_lng: `<?php echo isset( $listing_data['manual_lng'] ) ? $listing_data['manual_lng'] : ''; ?>`,
+			});
+			<?php } ?>
+		</script>
+
+		<script src="<?php echo $load_scripts_path; ?>"></script>
+		<?php
 	}
 
 	public function get_map_options() {
@@ -1320,7 +1365,7 @@ class Directorist_Listings {
 		return apply_filters( 'atbdp_map_options', $opt );
 	}
 
-	public function render_osm_map_info_card( $script_id = '' ) {
+	public function get_osm_map_info_card_data() {
 		$opt = $this->get_map_options();
 		
 		$listings_data = [];
@@ -1383,7 +1428,8 @@ class Directorist_Listings {
 					atbdp_get_shortcode_template( 'listings-archive/loop/openstreet-map', $opt );
 				}
 
-				$ls_data['info_content'] = trim( ob_get_clean() );
+				$ls_data['info_content'] = ob_get_clean();
+
 				$listings_data[] = $ls_data;
 			endforeach;
 			
@@ -1391,8 +1437,10 @@ class Directorist_Listings {
 			wp_reset_postdata();
 		endif;
 
-		wp_localize_script( $script_id, 'atbdp_lat_lon', $lat_lon );
-		wp_localize_script( $script_id, 'listings_data', $listings_data );
+		return [
+			'lat_lon'       => $lat_lon,
+			'listings_data' => $listings_data,
+		];
 	}
 
 	public function load_google_map() {

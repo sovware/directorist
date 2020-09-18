@@ -11,7 +11,7 @@
                     <div class="cptm-form-builder-active-fields">
                         <h3 class="cptm-title-3">Active Fields</h3>
                         <p class="cptm-description-text"> Click on a field to edit, Drag & Drop to reorder </p>
-                        
+                    
                         <div class="cptm-form-builder-active-fields-container">
                             <div class="cptm-form-builder-active-fields-group" v-for="( group, group_key ) in form_groups" :key="group_key">
                                 <h3 class="cptm-form-builder-group-title">{{ group.label }}</h3>
@@ -30,14 +30,14 @@
                                             <h4 class="cptm-title-3">{{ form_active_fields[ field_key ].label }}</h4>
                                             <div class="cptm-form-builder-group-field-item-header-actions">
                                                 <a href="#" class="cptm-form-builder-header-action-link action-collapse-up" 
-                                                    :class="( form_active_fields[ field_key ].show ) ? 'action-collapse-up' : 'action-collapse-down'" 
-                                                    @click.prevent="toggleActiveFieldCollapseState( field_key, group_key )">
+                                                    :class="getActiveFieldCollapseClass( field_key )"
+                                                    @click.prevent="toggleActiveFieldCollapseState( field_key )">
                                                     <span class="fa fa-angle-up" aria-hidden="true"></span>
                                                 </a>
                                             </div>
                                         </div>
                                         
-                                        <slide-up-down :active="form_active_fields[ field_key ].show" :duration="300">
+                                        <slide-up-down :active="getActiveFieldCollapseState( field_key )" :duration="300">
                                             <div class="cptm-form-builder-group-field-item-body">
                                                 <template v-for="( option, option_key ) in form_active_fields[ field_key ].options">
                                                     <component 
@@ -71,15 +71,12 @@
                         
                         <ul class="cptm-form-builder-field-list">
                             <template v-for="( field, field_key ) in form_fields.preset">
-                                <li class="cptm-form-builder-field-list-item"
-                                    draggable="true"
-                                    @drag="presetFieldOnDrag( field_key )"
-                                    v-if="! groupHasKey( field_key )" :key="field_key"
-                                    >
-                                    <span class="cptm-form-builder-field-list-icon">
-                                        <span v-if="(field.icon && field.icon.length )" :class="field.icon"></span>
-                                    </span>
-                                    <span class="cptm-form-builder-field-list-label">{{ field.label }}</span>
+                                <li class="cptm-form-builder-field-list-item" draggable="true"
+                                    @drag="presetFieldOnDrag( field_key )" v-if="! groupHasKey( field_key )" :key="field_key">
+                                        <span class="cptm-form-builder-field-list-icon">
+                                            <span v-if="(field.icon && field.icon.length )" :class="field.icon"></span>
+                                        </span>
+                                        <span class="cptm-form-builder-field-list-label">{{ field.label }}</span>
                                 </li>
                             </template>
                         </ul>
@@ -91,7 +88,8 @@
                         <p class="cptm-description-text">Click on a field type you want to create</p>
 
                         <ul class="cptm-form-builder-field-list">
-                            <li class="cptm-form-builder-field-list-item" v-for="( field, field_key ) in form_fields.custom" :key="field_key">
+                            <li class="cptm-form-builder-field-list-item" v-for="( field, field_key ) in form_fields.custom" :key="field_key"
+                                @drag="customFieldOnDrag( field_key )">
                                 <span class="cptm-form-builder-field-list-icon">
                                     <span v-if="(field.icon && field.icon.length )" :class="field.icon"></span>
                                 </span>
@@ -100,8 +98,6 @@
                         </ul>
                     </div>
                 </div>
-                
-                
             </div>
         </div>
     </div>
@@ -118,10 +114,6 @@ export default {
     name: 'submission-form',
     props: ['index'],
     mixins: [ helpers ],
-
-    created() {
-        this.$store.commit( 'updateActiveFieldsCollapseState' );
-    },
 
     // computed
     computed: {
@@ -140,14 +132,43 @@ export default {
             field_widgets,
             
             active_drop_area: '',
-            current_dragging_item: {}
+            current_dragging_item: {},
+            ative_field_collapse_states: {}
         }
     },
 
     methods: {
         ...mapMutations([
-            'toggleActiveFieldCollapseState',
+            // 'toggleActiveFieldCollapseState',
         ]),
+
+        toggleActiveFieldCollapseState( field_key ) {
+
+            if ( typeof this.ative_field_collapse_states[field_key] === 'undefined' ) {
+                this.$set( this.ative_field_collapse_states, field_key, {} );
+                this.$set( this.ative_field_collapse_states[ field_key ], 'collapsed', false );
+            }
+
+            this.ative_field_collapse_states[field_key].collapsed = ! this.ative_field_collapse_states[field_key].collapsed;
+        },
+
+        getActiveFieldCollapseClass( field_key ) {
+
+            if ( typeof this.ative_field_collapse_states[field_key] === 'undefined' ) {
+                return 'action-collapse-down';
+            }
+
+            return ( this.ative_field_collapse_states[field_key].collapsed ) ? 'action-collapse-up' : 'action-collapse-down';
+        },
+
+        getActiveFieldCollapseState( field_key ) {
+
+            if ( typeof this.ative_field_collapse_states[field_key] === 'undefined' ) {
+                return false;
+            }
+
+            return ( this.ative_field_collapse_states[field_key].collapsed ) ? true : false;
+        },
 
         activeFieldOnDragStart( field_key, field_index, group_key ) {
             // console.log( 'activeFieldOnDragStart', {field_key, group_key} );
@@ -172,6 +193,11 @@ export default {
         presetFieldOnDrag( field_key ) {
             this.current_dragging_item = { field_key, from: 'preset' };
             // console.log( field_key );
+        },
+
+        customFieldOnDrag( field_key ) {
+            this.current_dragging_item = { field_key, from: 'custom' };
+            console.log( field_key );
         },
 
         activeFieldOnDrop( args ) {
@@ -201,6 +227,11 @@ export default {
         },
 
         trashActiveFieldItem( field_key, field_index, group_key ) {
+
+            if ( typeof this.ative_field_collapse_states[ field_key ] !== 'undefined' ) {
+                delete this.ative_field_collapse_states[ field_key ];
+            }
+
             this.$store.commit( 'trashActiveFieldItem', { 
                 field_index: field_index,   
                 group_index: group_key,   

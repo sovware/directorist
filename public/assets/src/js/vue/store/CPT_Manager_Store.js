@@ -68,21 +68,6 @@ export default new Vuex.Store({
     updateGeneralSectionData: ( state, payload ) => {
       state.settings.general.submenu.general.sections[ payload.section_key ].fields[ payload.field_key ].value = payload.value;
     },
-
-    updateActiveFieldsCollapseState: state => {
-      for ( let active_field_key in state.fields.submission_form_fields.value.active_fields ) {
-        Vue.set(state.fields.submission_form_fields.value.active_fields[ active_field_key ], 'show', false);
-      }
-    },
-
-    toggleActiveFieldCollapseState: ( state, active_field_key ) => {
-
-      console.log( state.fields.submission_form_fields.value.active_fields[ active_field_key ].show );
-      
-      
-      state.fields.submission_form_fields.value.active_fields[ active_field_key ].show = ! state.fields.submission_form_fields.value.active_fields[ active_field_key ].show;
-      // console.log( state.fields.submission_form_fields.value.active_fields[ active_field_key ] );
-    }
   },
 
   getters: {

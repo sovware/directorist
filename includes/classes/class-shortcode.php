@@ -106,7 +106,6 @@ class ATBDP_Shortcode {
 	public function search_result($atts) {
 		$listings = new Directorist_Listings( $atts, 'search' );
 		return $listings->render_shortcode();
-    	// @todo @kowsar 'Post_Your_Need' template file - atbdp_get_theme_file("/directorist/shortcodes/listings/extension/post-your-need/need-card.php")
 	}
 
 	public function directorist_listing_header() {

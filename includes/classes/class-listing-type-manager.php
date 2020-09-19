@@ -5,10 +5,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         public $settings = [];
         public $fields = [];
         public $form_fields = [];
+        public $default_form = [];
+        public $old_custom_fields = [];
 
         // run
         public function run() {
             $this->prepare_settings();
+            //$this->get_old_custom_fields();
             add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ] );
             add_action( 'init', [ $this, 'register_terms' ] );
             add_action( 'admin_menu', [ $this, 'add_menu_pages' ] );
@@ -63,7 +66,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ], 200 );
             }
 
-            $created_message = ( 'create' == $mode ) ? 'creared' : 'updated';
+            $created_message = ( 'create' == $mode ) ? 'created' : 'updated';
 
             if ( empty( $_REQUEST['field_list'] ) ) {
                 wp_send_json( [
@@ -130,9 +133,131 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             return '';
         }
 
+        public function get_old_custom_fields( $fields_of = 'form' ){
+            $fields = [];
+            $old_fields = atbdp_get_custom_field_ids();
+                foreach( $old_fields as $old_field ){
+                    $field_type = get_post_meta( $old_field, 'type', true );
+                    $description = get_post_meta( $old_field, 'instructions', true );
+                    $required = get_post_meta( $old_field, 'required', true );
+                    $admin_use = get_post_meta( $old_field, 'admin_use', true );
+                    $associate = get_post_meta( $old_field, 'associate', true );
+                    $category_pass = get_post_meta( $old_field, 'category_pass', true );
+                    //var_dump( $associate );
+                    if( ('text' === $field_type) || ('number' === $field_type) || ('date' === $field_type) || ('color' === $field_type) || ('time' === $field_type) ){
+                       $fields[ $field_type ] = [
+                        'label' => get_the_title( $old_field ),
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'text',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => get_the_title( $old_field ),
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => $old_field,
+                            ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => 'Placeholder',
+                                'value' => '',
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => $description,
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => $required == 1 ? true : false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' =>  $admin_use == 1 ? true : false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => $associate,
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'value' => $category_pass,
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                        ]   
+                    ];
+                    }
+                }
+
+                // var_dump( $fields );
+                // die();
+
+            if( 'form' !== $fields_of ){
+                // category specific fields
+                //$fields = atbdp_get_custom_field_ids( 'category' );
+            }
+            //$fields = atbdp_get_custom_field_ids();
+            return $fields;
+        }
 
         // prepare_settings
         public function prepare_settings() {
+
+            $this->default_form = apply_filters( 'atbdp_default_listing_form_sections', [
+                'general_information' => [
+                    'label' => __( 'General Information', 'directorist' ),
+                    'fields' => apply_filters( 'atbdp_general_info_section_fields', [ 'title', 'description', 'pricing', $this->get_old_custom_fields(), 'location', 'tag', 'category', $this->get_old_custom_fields( 'category' ) ] ),
+                ],
+
+                'contact_information' => [
+                    'label' => __( 'Contact Information', 'directorist' ),
+                    'fields' => apply_filters( 'atbdp_contact_info_section_fields', [ 'zip', 'phone', 'phone2', 'fax', 'email', 'website', 'social_info' ] ),
+                ],
+
+                'map' => [
+                    'label' => __( 'Map', 'directorist' ),
+                    'fields' => apply_filters( 'atbdp_map_section_fields', [ 'address', 'map' ] ),
+                ],
+
+                'media' => [
+                    'label' => __( 'Images & Video', 'directorist' ),
+                    'fields' => apply_filters( 'atbdp_media_section_fields', [ 'image_upload', 'video' ] ),
+                ],
+
+                'submit_area' => [
+                    'fields' => apply_filters( 'atbdp_submit_area_fields', [ 'terms_conditions', 'privacy_policy', 'submit_button' ] ),
+                ],
+                
+            ] );
 
             $this->fields = [
                 'name' => [
@@ -1938,7 +2063,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                             'linking_text' => [
                                 'type'  => 'text',
-                                'label' => 'Label',
+                                'label' => 'Linking Text',
                                 'value' => 'Terms & Conditions',
                             ],
                             'required' => [
@@ -1968,7 +2093,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                             'linking_text' => [
                                 'type'  => 'text',
-                                'label' => 'Label',
+                                'label' => 'Linking Text',
                                 'value' => 'Privacy & Policy',
                             ],
                             'required' => [

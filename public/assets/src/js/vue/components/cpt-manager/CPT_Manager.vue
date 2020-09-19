@@ -19,7 +19,7 @@
         <div class="atbdp-cptm-footer">
             <div class="atbdp-cptm-progress-bar"></div>
             <div class="atbdp-cptm-footer-actions">
-                <button type="button" :disabled="footer_actions.save.isDisabled" class="atbdp-cptm-btn cptm-btn-primary" @click="saveData()">
+                <button type="button" :disabled="footer_actions.save.isDisabled" class="cptm-btn cptm-btn-primary" @click="saveData()">
                     <span v-if="footer_actions.save.showLoading" class="fa fa-spinner fa-spin"></span>
                     {{ footer_actions.save.label }}
                 </button>
@@ -111,29 +111,29 @@ export default {
     methods: {
         saveData() {
             let fields = this.$store.state.fields;
-            let the_form_fields_row_data = {
+            let the_form_fields_data = {
                 action: 'save_post_type_data'
             };
             
             if ( this.listing_type_id ) {
-                the_form_fields_row_data['listing_type_id'] = this.listing_type_id;
+                the_form_fields_data['listing_type_id'] = this.listing_type_id;
             }
 
             let field_list = [];
 
             for ( let field in fields ) {
-                the_form_fields_row_data[ field ] = fields[ field ].value;
+                the_form_fields_data[ field ] = fields[ field ].value;
                 field_list.push( field );
             }
             
-            the_form_fields_row_data['field_list'] = field_list;
+            the_form_fields_data['field_list'] = field_list;
 
             this.status_messages = [];
             this.footer_actions.save.showLoading = true;
             this.footer_actions.save.isDisabled = true;
             const self = this;
-
-            axios.get( ajax_data.ajax_url, { params: the_form_fields_row_data })
+            
+            axios.get( ajax_data.ajax_url, { params: the_form_fields_data })
                 .then( response => {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;

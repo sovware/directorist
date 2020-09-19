@@ -2019,7 +2019,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'label' => [
                                 'type'  => 'text',
                                 'label' => 'Label',
-                                'value' => 'Custom Field',
+                                'value' => 'Custom Text',
                             ],
                             'field_key' => [
                                 'type'  => 'text',

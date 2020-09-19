@@ -45,7 +45,7 @@ $nav_icon_color: $primary;
     flex-wrap: wrap;
 }
 
-.atbdp-cptm-btn {
+.cptm-btn {
     margin: 0 5px;
     border: 1px solid;
     padding: 10px 20px;
@@ -72,6 +72,26 @@ $nav_icon_color: $primary;
     color: $primary;
     border-color: $primary;
     background-color: transparent;
+    &:hover {
+        color: #fff;
+        background-color: $primary;
+    }
+}
+
+
+.cptm-form-builder-group-field-drop-area {
+    display: block;
+    padding: 20px;
+    text-align: center;
+    background-color: #e1e1e1;
+    transition: all ease-in-out 300ms;
+    &.drag-enter {
+        background-color: #c6c6c6;
+    }
+}
+.cptm-form-builder-group-field-drop-area-label {
+    margin: 0;
+    pointer-events: none;
 }
 
 
@@ -256,6 +276,10 @@ $nav_icon_color: $primary;
     // max-height: 100vh;
     // overflow: hidden;
     // overflow-y: auto;
+}
+
+.cptm-form-builder-active-fields-footer {
+    text-align: center;
 }
 
 .cptm-form-builder-active-fields-group {

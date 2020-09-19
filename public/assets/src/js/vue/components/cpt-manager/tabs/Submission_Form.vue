@@ -27,7 +27,7 @@
                                         </div>
                                         
                                         <div class="cptm-form-builder-group-field-item-header" draggable="true" @drag="activeFieldOnDragStart( field_key, field_index, group_key )">
-                                            <h4 class="cptm-title-3">{{ form_active_fields[ field_key ].label }}</h4>
+                                            <h4 class="cptm-title-3">{{ ( form_active_fields[ field_key ].options.label && form_active_fields[ field_key ].options.label.value.length ) ? form_active_fields[ field_key ].options.label.value : form_active_fields[ field_key ].label }}</h4>
                                             <div class="cptm-form-builder-group-field-item-header-actions">
                                                 <a href="#" class="cptm-form-builder-header-action-link action-collapse-up" 
                                                     :class="getActiveFieldCollapseClass( field_key )"
@@ -44,6 +44,7 @@
                                                         :is="field_widgets[ option.type ]" 
                                                         :key="option_key"
                                                         v-bind="option"
+                                                        @update="updateActiveFieldsOptionData( field_key, option_key, $event )"
                                                     >
                                                     </component>
                                                 </template>
@@ -51,14 +52,31 @@
                                         </slide-up-down>
 
                                         <div class="cptm-form-builder-group-field-item-drop-area"
-                                            :class="( field_key === active_drop_area ) ? 'drag-enter' : ''"
+                                            :class="( field_key === active_field_drop_area ) ? 'drag-enter' : ''"
                                             @dragenter="activeFieldOnDragEnter( field_key, field_index, group_key )"
                                             @dragover.prevent="activeFieldOnDragOver( field_key, field_index, group_key )"
-                                            @dragleave="activeFieldOnDragLeave( field_key, field_index, group_key )"
+                                            @dragleave="activeFieldOnDragLeave()"
                                             @drop.prevent="activeFieldOnDrop( { field_key, field_index, group_key } )">
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <div class="cptm-form-builder-group-field-drop-area"
+                                    :class="( group_key === active_group_drop_area ) ? 'drag-enter' : ''"
+                                    v-if="! group.fields.length"
+                                    @dragenter="activeGroupOnDragEnter( group_key )"
+                                    @dragover.prevent="activeGroupOnDragOver( group_key )"
+                                    @dragleave="activeGroupOnDragLeave( group_key )"
+                                    @drop="activeFieldOnDrop( { group_key } )">
+                                    <p class="cptm-form-builder-group-field-drop-area-label">Drop Here</p>
+                                </div>
+                            </div>
+
+
+                            <div class="cptm-form-builder-active-fields-footer">
+                                <button type="button" class="cptm-btn cptm-btn-secondery" @click="addNewActiveFieldSection()">
+                                    Add new section
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -71,8 +89,8 @@
                         
                         <ul class="cptm-form-builder-field-list">
                             <template v-for="( field, field_key ) in form_fields.preset">
-                                <li class="cptm-form-builder-field-list-item" draggable="true"
-                                    @drag="presetFieldOnDrag( field_key )" v-if="! groupHasKey( field_key )" :key="field_key">
+                                <li class="cptm-form-builder-field-list-item" draggable="true" v-if="! groupHasKey( field_key )" :key="field_key"
+                                    @drag="presetFieldOnDrag( field_key )">
                                         <span class="cptm-form-builder-field-list-icon">
                                             <span v-if="(field.icon && field.icon.length )" :class="field.icon"></span>
                                         </span>
@@ -88,7 +106,7 @@
                         <p class="cptm-description-text">Click on a field type you want to create</p>
 
                         <ul class="cptm-form-builder-field-list">
-                            <li class="cptm-form-builder-field-list-item" v-for="( field, field_key ) in form_fields.custom" :key="field_key"
+                            <li class="cptm-form-builder-field-list-item" draggable="true" v-for="( field, field_key ) in form_fields.custom" :key="field_key"
                                 @drag="customFieldOnDrag( field_key )">
                                 <span class="cptm-form-builder-field-list-icon">
                                     <span v-if="(field.icon && field.icon.length )" :class="field.icon"></span>
@@ -131,7 +149,8 @@ export default {
         return {
             field_widgets,
             
-            active_drop_area: '',
+            active_field_drop_area: '',
+            active_group_drop_area: '',
             current_dragging_item: {},
             ative_field_collapse_states: {}
         }
@@ -171,58 +190,111 @@ export default {
         },
 
         activeFieldOnDragStart( field_key, field_index, group_key ) {
-            // console.log( 'activeFieldOnDragStart', {field_key, group_key} );
             this.current_dragging_item = { field_key, field_index, group_key };
         },
 
         activeFieldOnDragOver( field_key, field_index, group_key,  ) {
-            // console.log( 'activeFieldOnDragOver', {field_key, field_index, group_key} );
-            this.active_drop_area = field_key;
+            this.active_field_drop_area = field_key;
         },
 
         activeFieldOnDragEnter( field_key, field_index, group_key ) {
-            this.active_drop_area = field_key;
-            
-            // console.log( 'activeFieldOnDragEnter', {field_key, field_index, group_key} );
+            this.active_field_drop_area = field_key;
         },
 
-        activeFieldOnDragLeave( field_key, field_index, group_key ) {
-            this.active_drop_area = '';
+        activeFieldOnDragLeave() {
+            this.active_field_drop_area = '';
+        },
+
+        activeGroupOnDragOver( group_key,  ) {
+            this.active_field_drop_area = group_key;
+        },
+
+        activeGroupOnDragEnter( group_key ) {
+            this.active_group_drop_area = group_key;
+        },
+
+        activeGroupOnDragLeave() {
+            this.active_group_drop_area = '';
         },
 
         presetFieldOnDrag( field_key ) {
-            this.current_dragging_item = { field_key, from: 'preset' };
-            // console.log( field_key );
+            this.current_dragging_item = { inserting_field_key: field_key, inserting_from: 'preset' };
+            // console.log( inserting_field_key:  );
         },
 
         customFieldOnDrag( field_key ) {
-            this.current_dragging_item = { field_key, from: 'custom' };
-            console.log( field_key );
+            this.current_dragging_item = { inserting_field_key: field_key, inserting_from: 'custom' };
+            // console.log( field_key );
         },
 
         activeFieldOnDrop( args ) {
             // console.log( 'activeFieldOnDrop', {field_key: args.field_key, field_index: args.field_index, group_key: args.group_key} );
 
-            if ( this.current_dragging_item.group_key !== 'undefined' && ( args.group_key === this.current_dragging_item.group_key ) ) {
+            const inserting_from          = this.current_dragging_item.inserting_from;
+            const inserting_field_key     = this.current_dragging_item.inserting_field_key;
+            const origin_group_index      = this.current_dragging_item.group_key;
+            const origin_field_index      = this.current_dragging_item.field_index;
+            const destination_group_index = args.group_key;
+            const destination_field_index = args.field_index;
+
+            /* console.log({
+                inserting_from,
+                inserting_field_key,
+                origin_group_index,
+                origin_field_index,
+                destination_group_index,
+                destination_field_index,
+            }); */
+
+            // Reorder
+            if ( 
+                typeof origin_group_index !== 'undefined' &&
+                typeof origin_field_index !== 'undefined' &&
+                typeof destination_group_index !== 'undefined' &&
+                typeof destination_field_index !== 'undefined' &&
+                origin_group_index === destination_group_index
+            ) {
+                // console.log( 'Reorder' );
                 this.$store.commit( 'reorderActiveFieldsItems', { 
-                    group_index: args.group_key, 
-                    origin_field_index: this.current_dragging_item.field_index,   
-                    destination_field_index: args.field_index,
+                    group_index: destination_group_index,
+                    origin_field_index ,
+                    destination_field_index,
                 });
             }
 
-            if ( this.current_dragging_item.from ) {
-                this.$store.commit( 'appendActiveFieldsItem', { 
-                    group_index: args.group_key,
-                    field_index: args.field_index,
-                    appending_from: this.current_dragging_item.from,   
-                    appending_field_key: this.current_dragging_item.field_key,   
+
+            // Move
+            if ( 
+                typeof origin_group_index !== 'undefined' &&
+                typeof origin_field_index !== 'undefined' &&
+                typeof destination_group_index !== 'undefined' &&
+                origin_group_index !== destination_group_index
+            ) {
+                // console.log( 'Move' );
+                this.$store.commit( 'moveActiveFieldsItems', { 
+                    origin_group_index,
+                    origin_field_index,
+                    destination_group_index,
+                    destination_field_index,
                 });
             }
 
-            
+            // Insert
+            if ( 
+                typeof inserting_from !== 'undefined' &&
+                typeof inserting_field_key !== 'undefined' &&
+                typeof destination_group_index !== 'undefined'
+            ) {
+                // console.log( 'Insert' );
+                this.$store.commit( 'insertActiveFieldsItem', { 
+                    inserting_from,
+                    inserting_field_key,
+                    destination_group_index,
+                    destination_field_index,   
+                });
+            }
 
-            this.active_drop_area = '';
+            this.active_field_drop_area = '';
             this.current_dragging_item = {};
         },
 
@@ -236,6 +308,15 @@ export default {
                 field_index: field_index,   
                 group_index: group_key,   
             });
+        },
+
+        // updateActiveFieldsOptionData
+        updateActiveFieldsOptionData( field_key, option_key, value ) {
+            this.$store.commit( 'updateActiveFieldsOptionData', {field_key, option_key, value} );
+        },
+
+        addNewActiveFieldSection() {
+            this.$store.commit( 'addNewActiveFieldSection' );
         },
 
         groupHasKey( field_key ) {

@@ -63,7 +63,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ], 200 );
             }
 
-            $created_message = ( 'create' == $mode ) ? 'creared' : 'updated';
+            $created_message = ( 'create' == $mode ) ? 'created' : 'updated';
 
             if ( empty( $_REQUEST['field_list'] ) ) {
                 wp_send_json( [
@@ -1938,7 +1938,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                             'linking_text' => [
                                 'type'  => 'text',
-                                'label' => 'Label',
+                                'label' => 'Linking Text',
                                 'value' => 'Terms & Conditions',
                             ],
                             'required' => [
@@ -1968,7 +1968,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                             'linking_text' => [
                                 'type'  => 'text',
-                                'label' => 'Label',
+                                'label' => 'Linking Text',
                                 'value' => 'Privacy & Policy',
                             ],
                             'required' => [

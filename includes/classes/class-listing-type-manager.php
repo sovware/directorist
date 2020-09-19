@@ -5,6 +5,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         public $settings = [];
         public $fields = [];
         public $form_fields = [];
+        public $default_form = [];
+        public $old_custom_fields = [];
 
         // run
         public function run() {
@@ -130,9 +132,39 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             return '';
         }
 
+        public function get_old_custom_fields( $fields_of = 'form' ){
+            return [];
+        }
 
         // prepare_settings
         public function prepare_settings() {
+
+            $this->default_form = apply_filters( 'atbdp_default_listing_form_sections', [
+                'general_information' => [
+                    'label' => __( 'General Information', 'directorist' ),
+                    'fields' => apply_filters( 'atbdp_general_info_section_fields', [ 'title', 'description', 'pricing', $this->get_old_custom_fields(), 'location', 'tag', 'category', $this->get_old_custom_fields( 'category' ) ] ),
+                ],
+
+                'contact_information' => [
+                    'label' => __( 'Contact Information', 'directorist' ),
+                    'fields' => apply_filters( 'atbdp_contact_info_section_fields', [ 'zip', 'phone', 'phone2', 'fax', 'email', 'website', 'social_info' ] ),
+                ],
+
+                'map' => [
+                    'label' => __( 'Map', 'directorist' ),
+                    'fields' => apply_filters( 'atbdp_map_section_fields', [ 'address', 'map' ] ),
+                ],
+
+                'media' => [
+                    'label' => __( 'Images & Video', 'directorist' ),
+                    'fields' => apply_filters( 'atbdp_media_section_fields', [ 'image_upload', 'video' ] ),
+                ],
+
+                'submit_area' => [
+                    'fields' => apply_filters( 'atbdp_submit_area_fields', [ 'terms_conditions', 'privacy_policy', 'submit_button' ] ),
+                ],
+                
+            ] );
 
             $this->fields = [
                 'name' => [

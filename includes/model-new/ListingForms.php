@@ -741,11 +741,10 @@ class Directorist_Listing_Forms {
 		$value = '';
 		if (!empty($listing_id)) {
 			$field_id = $field_data['id'];
-			$meta = get_post_meta( $listing_id, 'directorist_fields', true );
-			if ( !empty($meta[$field_id]) ) {
-				$value = $meta[$field_id];
+			$meta_options = get_post_meta( $listing_id, 'directorist_options', true );
+			if ( !empty($meta_options['add_listing_fields'][$field_id]) ) {
+				$value = $meta_options['add_listing_fields'][$field_id];
 			}
-			$value = $meta[$field_id];
 		}
 
 		$field_data['value'] = $value;

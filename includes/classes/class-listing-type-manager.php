@@ -11,7 +11,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         // run
         public function run() {
             $this->prepare_settings();
-            //$this->get_old_custom_fields();
+            $this->get_old_custom_fields();
             add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ] );
             add_action( 'init', [ $this, 'register_terms' ] );
             add_action( 'admin_menu', [ $this, 'add_menu_pages' ] );
@@ -136,7 +136,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         public function get_old_custom_fields( $fields_of = 'form' ){
             $fields = [];
-            $old_fields = atbdp_get_custom_field_ids();
+            $old_fields = atbdp_get_custom_field_ids( '', true );
                 foreach( $old_fields as $old_field ){
                     $field_type = get_post_meta( $old_field, 'type', true );
                     $description = get_post_meta( $old_field, 'instructions', true );
@@ -144,7 +144,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     $admin_use = get_post_meta( $old_field, 'admin_use', true );
                     $associate = get_post_meta( $old_field, 'associate', true );
                     $category_pass = get_post_meta( $old_field, 'category_pass', true );
-                    //var_dump( $associate );
+                    $choices = get_post_meta( $old_field, 'choices', true );
+                    $rows = get_post_meta( $old_field, 'rows', true );
+                    $target = get_post_meta( $old_field, 'target', true );
+                    $file_type = get_post_meta( $old_field, 'file_type', true );
+                    $file_size = get_post_meta( $old_field, 'file_size', true );
                     if( ('text' === $field_type) || ('number' === $field_type) || ('date' === $field_type) || ('color' === $field_type) || ('time' === $field_type) ){
                        $fields[ $field_type ] = [
                         'label' => get_the_title( $old_field ),
@@ -217,16 +221,463 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         ]   
                     ];
                     }
+                    if( ('radio' === $field_type) || ('checkbox' === $field_type) || ('select' === $field_type) ){
+                       $fields[ $field_type ] = [
+                        'label' => get_the_title( $old_field ),
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'select',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => get_the_title( $old_field ),
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => $old_field,
+                            ],
+                            'options' => [
+                                'type' => 'textarea',
+                                'label' => __( 'Options', 'directorist' ),
+                                'value' => $choices,
+                                'description' => __( 'Each on a new line, for example,
+                                Male: Male
+                                Female: Female
+                                Other: Other', 'directorist' ),
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => $description,
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => $required == 1 ? true : false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' =>  $admin_use == 1 ? true : false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __( 'Assign to', 'directorist' ),
+                                'value' => $associate,
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __( 'Form', 'directorist' ),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __( 'Category', 'directorist' ),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'value' => $category_pass,
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ], 
+                                ],
+                            ],
+                        ]  
+                    ];
+                    }
+                    if( ('textarea' === $field_type) ){
+                        $fields[ $field_type ] = [
+                         'label' => get_the_title( $old_field ),
+                         'icon' => 'fa fa-text-width',
+                         'options' => [
+                             'type' => [
+                                 'type'  => 'hidden',
+                                 'value' => 'text',
+                             ],
+                             'label' => [
+                                 'type'  => 'text',
+                                 'label' => 'Label',
+                                 'value' => get_the_title( $old_field ),
+                             ],
+                             'field_key' => [
+                                 'type'  => 'text',
+                                 'label' => 'Key',
+                                 'value' => $old_field,
+                             ],
+                             'placeholder' => [
+                                 'type'  => 'text',
+                                 'label' => 'Placeholder',
+                                 'value' => '',
+                             ],
+                             'description' => [
+                                 'type'  => 'text',
+                                 'label' => 'Description',
+                                 'value' => $description,
+                             ],
+                             'rows' => [
+                                'type'  => 'number',
+                                'label' => $rows,
+                                'value' => 8,
+                            ],
+                             'required' => [
+                                 'type'  => 'toggle',
+                                 'label'  => 'Required',
+                                 'value' => $required == 1 ? true : false,
+                             ],
+                             'only_for_admin' => [
+                                 'type'  => 'toggle',
+                                 'label'  => 'Only For Admin Use',
+                                 'value' =>  $admin_use == 1 ? true : false,
+                             ],
+                             'assign_to' => [
+                                 'type' => 'radio',
+                                 'label' => __( 'Assign to', 'directorist' ),
+                                 'value' => $associate,
+                                 'options' => [
+                                     'form'  => [
+                                         'label' => __( 'Form', 'directorist' ),
+                                         'value' => 'form',
+                                     ],
+                                     'category'  => [
+                                         'label' => __( 'Category', 'directorist' ),
+                                         'value' => 'category',
+                                         'sub_options' => [
+                                             'type' => 'select',
+                                             'label' => __( 'Select Categories', 'directorist' ),
+                                             'value' => $category_pass,
+                                             'options' => [
+                                                 [
+                                                     'label' => 'Category A',
+                                                     'value' => 'category_a'
+                                                 ],
+                                                 [
+                                                     'label' => 'Category B',
+                                                     'value' => 'category_b'
+                                                 ],
+                                             ]
+                                         ],
+                                     ], 
+                                 ],
+                             ],
+                         ]   
+                     ];
+                    }
+                    if( ('url' === $field_type) ){
+                        $fields[ $field_type ] = [
+                         'label' => get_the_title( $old_field ),
+                         'icon' => 'fa fa-text-width',
+                         'options' => [
+                             'type' => [
+                                 'type'  => 'hidden',
+                                 'value' => 'text',
+                             ],
+                             'label' => [
+                                 'type'  => 'text',
+                                 'label' => 'Label',
+                                 'value' => get_the_title( $old_field ),
+                             ],
+                             'field_key' => [
+                                 'type'  => 'text',
+                                 'label' => 'Key',
+                                 'value' => $old_field,
+                             ],
+                             'placeholder' => [
+                                 'type'  => 'text',
+                                 'label' => 'Placeholder',
+                                 'value' => '',
+                             ],
+                             'description' => [
+                                 'type'  => 'text',
+                                 'label' => 'Description',
+                                 'value' => $description,
+                             ],
+                             'required' => [
+                                 'type'  => 'toggle',
+                                 'label'  => 'Required',
+                                 'value' => $required == 1 ? true : false,
+                             ],
+                             'only_for_admin' => [
+                                 'type'  => 'toggle',
+                                 'label'  => 'Only For Admin Use',
+                                 'value' =>  $admin_use == 1 ? true : false,
+                             ],
+                             'target' => [
+                                'type'  => 'toggle',
+                                'label' => 'Open in new tab',
+                                'value' => $target == '_blank' ? true : false,
+                            ],
+                             'assign_to' => [
+                                 'type' => 'radio',
+                                 'label' => __( 'Assign to', 'directorist' ),
+                                 'value' => $associate,
+                                 'options' => [
+                                     'form'  => [
+                                         'label' => __( 'Form', 'directorist' ),
+                                         'value' => 'form',
+                                     ],
+                                     'category'  => [
+                                         'label' => __( 'Category', 'directorist' ),
+                                         'value' => 'category',
+                                         'sub_options' => [
+                                             'type' => 'select',
+                                             'label' => __( 'Select Categories', 'directorist' ),
+                                             'value' => $category_pass,
+                                             'options' => [
+                                                 [
+                                                     'label' => 'Category A',
+                                                     'value' => 'category_a'
+                                                 ],
+                                                 [
+                                                     'label' => 'Category B',
+                                                     'value' => 'category_b'
+                                                 ],
+                                             ]
+                                         ],
+                                     ], 
+                                 ],
+                             ],
+                         ]   
+                     ];
+                    }
+                    if( ('file' === $field_type) ){
+                        $fields[ $field_type ] = [
+                         'label' => get_the_title( $old_field ),
+                         'icon' => 'fa fa-text-width',
+                         'options' => [
+                             'type' => [
+                                 'type'  => 'hidden',
+                                 'value' => 'text',
+                             ],
+                             'label' => [
+                                 'type'  => 'text',
+                                 'label' => 'Label',
+                                 'value' => get_the_title( $old_field ),
+                             ],
+                             'field_key' => [
+                                 'type'  => 'text',
+                                 'label' => 'Key',
+                                 'value' => $old_field,
+                             ],
+                             'placeholder' => [
+                                 'type'  => 'text',
+                                 'label' => 'Placeholder',
+                                 'value' => '',
+                             ],
+                             'description' => [
+                                 'type'  => 'text',
+                                 'label' => 'Description',
+                                 'value' => $description,
+                             ],
+                             'required' => [
+                                 'type'  => 'toggle',
+                                 'label'  => 'Required',
+                                 'value' => $required == 1 ? true : false,
+                             ],
+                             'only_for_admin' => [
+                                 'type'  => 'toggle',
+                                 'label'  => 'Only For Admin Use',
+                                 'value' =>  $admin_use == 1 ? true : false,
+                             ],
+                             'file_types' => [
+                                'type'  => 'radio',
+                                'label' => 'File Type',
+                                'value' => $file_type,
+                                'options' => [
+                                    'all' => [
+                                        'label' => __( 'All Types', 'directorist' ),
+                                        'value' => 'all',
+                                    ],
+                                    'image_format' => [
+                                        [
+                                            'label' => __( 'jpg', 'directorist' ),
+                                            'value' => 'jpg',  
+                                        ],
+                                        [
+                                            'label' => __( 'jpeg', 'directorist' ),
+                                            'value' => 'jpeg',  
+                                        ],
+                                        [
+                                            'label' => __( 'gif', 'directorist' ),
+                                            'value' => 'gif',  
+                                        ],
+                                        [
+                                            'label' => __( 'png', 'directorist' ),
+                                            'value' => 'png',  
+                                        ],
+                                        [
+                                            'label' => __( 'bmp', 'directorist' ),
+                                            'value' => 'bmp',  
+                                        ],
+                                        [
+                                            'label' => __( 'ico', 'directorist' ),
+                                            'value' => 'ico',  
+                                        ],
+                                    ],
+                                    'video_format' => [
+                                        [
+                                            'label' => __( 'asf', 'directorist' ),
+                                            'value' => 'asf',  
+                                        ],
+                                        [
+                                            'label' => __( 'flv', 'directorist' ),
+                                            'value' => 'flv',  
+                                        ],
+                                        [
+                                            'label' => __( 'avi', 'directorist' ),
+                                            'value' => 'avi',  
+                                        ],
+                                        [
+                                            'label' => __( 'mkv', 'directorist' ),
+                                            'value' => 'mkv',  
+                                        ],
+                                        [
+                                            'label' => __( 'mp4', 'directorist' ),
+                                            'value' => 'mp4',  
+                                        ],
+                                        [
+                                            'label' => __( 'mpeg', 'directorist' ),
+                                            'value' => 'mpeg',  
+                                        ],
+                                        [
+                                            'label' => __( 'mpg', 'directorist' ),
+                                            'value' => 'mpg',  
+                                        ],
+                                        [
+                                            'label' => __( 'wmv', 'directorist' ),
+                                            'value' => 'wmv',  
+                                        ],
+                                        [
+                                            'label' => __( '3gp', 'directorist' ),
+                                            'value' => '3gp',  
+                                        ],
+                                    ],
+                                    'audio_format' => [
+                                        [
+                                            'label' => __( 'ogg', 'directorist' ),
+                                            'value' => 'ogg',  
+                                        ],
+                                        [
+                                            'label' => __( 'mp3', 'directorist' ),
+                                            'value' => 'mp3',  
+                                        ],
+                                        [
+                                            'label' => __( 'wav', 'directorist' ),
+                                            'value' => 'wav',  
+                                        ],
+                                        [
+                                            'label' => __( 'wma', 'directorist' ),
+                                            'value' => 'wma',  
+                                        ],
+                                    ],
+                                    'text_format' => [
+                                        [
+                                            'label' => __( 'css', 'directorist' ),
+                                            'value' => 'css',  
+                                        ],
+                                        [
+                                            'label' => __( 'csv', 'directorist' ),
+                                            'value' => 'csv',  
+                                        ],
+                                        [
+                                            'label' => __( 'htm', 'directorist' ),
+                                            'value' => 'htm',  
+                                        ],
+                                        [
+                                            'label' => __( 'html', 'directorist' ),
+                                            'value' => 'html',  
+                                        ],
+                                        [
+                                            'label' => __( 'txt', 'directorist' ),
+                                            'value' => 'txt',  
+                                        ],
+                                        [
+                                            'label' => __( 'rtx', 'directorist' ),
+                                            'value' => 'rtx',  
+                                        ],
+                                        [
+                                            'label' => __( 'vtt', 'directorist' ),
+                                            'value' => 'vtt',  
+                                        ],
+                                    ],
+                                    'application_format' => [
+                                        [
+                                            'label' => __( 'doc', 'directorist' ),
+                                            'value' => 'doc',  
+                                        ],
+                                        [
+                                            'label' => __( 'docx', 'directorist' ),
+                                            'value' => 'docx',  
+                                        ],
+                                        [
+                                            'label' => __( 'odt', 'directorist' ),
+                                            'value' => 'odt',  
+                                        ],
+                                        [
+                                            'label' => __( 'pdf', 'directorist' ),
+                                            'value' => 'pdf',  
+                                        ],
+                                        [
+                                            'label' => __( 'pot', 'directorist' ),
+                                            'value' => 'pot',  
+                                        ],
+                                        [
+                                            'label' => __( 'ppt', 'directorist' ),
+                                            'value' => 'ppt',  
+                                        ],
+                                        [
+                                            'label' => __( 'pptx', 'directorist' ),
+                                            'value' => 'pptx',  
+                                        ],
+                                        [
+                                            'label' => __( 'rar', 'directorist' ),
+                                            'value' => 'rar',  
+                                        ],
+                                        [
+                                            'label' => __( 'rtf', 'directorist' ),
+                                            'value' => 'rtf',  
+                                        ],
+                                        [
+                                            'label' => __( 'swf', 'directorist' ),
+                                            'value' => 'swf',  
+                                        ],
+                                        [
+                                            'label' => __( 'xls', 'directorist' ),
+                                            'value' => 'xls',  
+                                        ],
+                                        [
+                                            'label' => __( 'xlsx', 'directorist' ),
+                                            'value' => 'xlsx',  
+                                        ],
+                                        [
+                                            'label' => __( 'gpx', 'directorist' ),
+                                            'value' => 'gpx',  
+                                        ],
+                                    ],
+
+                                ],
+                            ],
+                            'file_size' => [
+                                'type'  => 'text',
+                                'label' => 'File Size',
+                                'description' => __( 'Set maximum file size to upload', 'directorist' ),
+                                'value' => $file_size,
+                            ],
+                         ]   
+                     ];
+                    }
                 }
-
-                // var_dump( $fields );
-                // die();
-
-            if( 'form' !== $fields_of ){
-                // category specific fields
-                //$fields = atbdp_get_custom_field_ids( 'category' );
-            }
-            //$fields = atbdp_get_custom_field_ids();
             return $fields;
         }
 
@@ -2151,6 +2602,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'placeholder' => [
                                 'type'  => 'text',
                                 'label' => 'Placeholder',
+                                'value' => '',
+                            ],
+                            'target' => [
+                                'type'  => 'text',
+                                'label' => 'Open in new tab',
                                 'value' => '',
                             ],
                             'description' => [

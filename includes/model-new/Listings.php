@@ -372,6 +372,7 @@ class Directorist_Listings {
 			'title'                => get_the_title(),
 			'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),
 			'locs'                 => get_the_terms( $id, ATBDP_LOCATION ),
+			'directorist_options'  => get_post_meta( $id, 'directorist_options', true ),
 			'featured'             => get_post_meta( $id, '_featured', true ),
 			'price'                => get_post_meta( $id, '_price', true ),
 			'price_range'          => get_post_meta( $id, '_price_range', true ),

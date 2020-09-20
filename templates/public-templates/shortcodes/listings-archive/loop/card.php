@@ -4,6 +4,8 @@
  * @since   6.6
  * @version 6.6
  */
+
+$card_data = $listings->loop['directorist_options']['card_fields'];
 ?>
 <!-- listings-archive > loop > card -->
 <div class="atbd_single_listing atbd_listing_card <?php echo esc_attr( $listings->info_display_in_single_line ); ?>">
@@ -11,7 +13,10 @@
 		
 		<?php if ( $listings->display_preview_image ): ?>
 			<figure class="atbd_listing_thumbnail_area">
-				<?php $listings->loop_grid_thumbnail_template();?>
+				<div class="atbd-cover-top-left"></div>
+				<div class="atbd-cover-top-right"></div>
+				<div class="atbd-cover-bottom-left"></div>
+				<div class="atbd-cover-bottom-right"></div>
 			</figure>
 		<?php endif; ?>
 

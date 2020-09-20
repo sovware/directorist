@@ -48,6 +48,12 @@ class ATBDP_Status
             $this->custom_url->custom_link();
         ?>
         </div>
+
+        <div class='postbox'>
+            <?php 
+            include ATBDP_INC_DIR . '/system-status/warning.php';
+            ?>
+        </div>
         <?php
 		
 		//$this->custom_link();

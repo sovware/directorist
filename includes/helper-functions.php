@@ -3710,7 +3710,7 @@ function bdas_dropdown_terms($args = array(), $echo = true)
 
 }
 
-function atbdp_get_custom_field_ids($category = 0)
+function atbdp_get_custom_field_ids($category = 0, $all = false)
 {
     // Get global fields
     $args = array(
@@ -3718,13 +3718,16 @@ function atbdp_get_custom_field_ids($category = 0)
         'post_status'    => 'publish',
         'posts_per_page' => -1,
         'fields'         => 'ids',
-        'meta_query'     => array(
+    );
+
+    if( !$all ){
+        $args['meta_query'] = array(
             array(
                 'key'   => 'associate',
                 'value' => 'form'
             ),
-        )
-    );
+        );
+    }
 
     // Get category fields
     if ( $category > 0 ) {

@@ -151,7 +151,7 @@ class Directorist_Listings {
 		$this->options['radius_search_unit']              = get_directorist_option( 'radius_search_unit', 'miles' );
 		$this->options['view_as_text']                    = get_directorist_option( 'view_as_text', __( 'View As', 'directorist' ) );
 		$this->options['select_listing_map']              = get_directorist_option( 'select_listing_map', 'google' );
-		$this->options['listings_display_filter']         = get_directorist_option( 'home_display_filter', 'sliding' );
+		$this->options['listings_display_filter']         = get_directorist_option( 'listings_display_filter', 'sliding' );
 		$this->options['listing_filters_fields']          = get_directorist_option( 'listing_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
 		$this->options['listing_filters_icon']            = get_directorist_option( 'listing_filters_icon', 1 ) ? true : false;
 		$this->options['listings_sort_by_items']          = get_directorist_option( 'listings_sort_by_items', array( 'a_z', 'z_a', 'latest', 'oldest', 'popular', 'price_low_high', 'price_high_low', 'random' ) );

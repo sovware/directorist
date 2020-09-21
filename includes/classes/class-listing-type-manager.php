@@ -3649,7 +3649,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'type'  => 'button',
                     'link' => esc_url( admin_url(). 'post-new.php?post_type=atbdp_pricing_plans' ),
                     'target' => '_blank',
-                    'class' => 'cptm-btn cptm-btn-secondery',
+                    'extra_class' => 'cptm-btn cptm-btn-secondery',
                     'icon'  => '',
                 ],
                 'export' => [

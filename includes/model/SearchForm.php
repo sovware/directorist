@@ -261,7 +261,7 @@ class Directorist_Listing_Search_Form {
 		$this->redirect_page_url    = $this->params['redirect_page_url'];
 
 		$this->default_radius_distance = $this->options['radius_distance'];
-		$this->tag_terms               = get_terms(ATBDP_TAGS);
+		$this->tag_terms               = $this->listing_tag_terms();
 		$this->search_text_placeholder = $this->options['search_text_placeholder'];
 		$this->category_placeholder    = $this->options['category_placeholder'];
 		$this->location_placeholder    = $this->options['location_placeholder'];

@@ -125,6 +125,7 @@ class Directorist_Single_Listing
 			'plan_average_price'              => is_fee_manager_active() ? is_plan_allowed_average_price_range($fm_plan) : true,
 			'enable_review'                   => get_directorist_option('enable_review', 'yes'),
 			'is_disable_price'                => get_directorist_option('disable_list_price'),
+			'display_pricing_field'			  => get_directorist_option( 'display_pricing_field', 1 ),
 			'review_count_html'               => $review_count_html,
 			'price'                           => get_post_meta($id, '_price', true),
 			'price_range'                     => get_post_meta($id, '_price_range', true),

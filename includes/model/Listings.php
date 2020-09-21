@@ -206,6 +206,7 @@ class Directorist_Listings {
 		$this->options['map_view_zoom_level']             = get_directorist_option('map_view_zoom_level', 16);
 		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 		$this->options['font_type']                       = get_directorist_option('font_type','line');
+		$this->options['display_publish_date']           = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
 		$this->options['display_feature_badge_cart']      = get_directorist_option( 'display_feature_badge_cart', 1 ) ? true : false;
 	}
@@ -332,7 +333,7 @@ class Directorist_Listings {
 		$this->display_category           = $this->options['display_category'];
 		$this->display_view_count         = $this->options['display_view_count'];
 		$this->display_mark_as_fav        = $this->options['display_mark_as_fav'];
-		$this->display_publish_date       = $this->options['display_tagline_field'];
+		$this->display_publish_date       = $this->options['display_publish_date'];
 		$this->display_contact_info       = $this->options['display_contact_info'];
 		$this->display_feature_badge_cart = $this->options['display_feature_badge_cart'];
 		$this->display_popular_badge_cart = $this->options['display_popular_badge_cart'];

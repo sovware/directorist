@@ -14,6 +14,7 @@ export default new Vuex.Store({
     submenu: {
       general: [
         'General',
+        'Preview Image',
         'Packages',
         'Other',
       ],

@@ -1,6 +1,8 @@
 import text from './../modules/form-fields/Text_Field.vue';
 import toggle from './../modules/form-fields/Toggle_Field.vue';
 import select from './../modules/form-fields/Select_Field.vue';
+import image_picker from './../modules/form-fields/Image_Field.vue';
+import button from './../modules/form-fields/Button_Field.vue';
 
 export default {
     text,
@@ -10,4 +12,6 @@ export default {
     date: text,
     toggle,
     select,
+    image_picker,
+    button,
 }

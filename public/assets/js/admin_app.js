@@ -2927,7 +2927,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     general_sections: function general_sections(state) {
-      return state.settings.general.submenu.other.sections;
+      return state.settings.general.submenu.other.sections.labels;
     },
     fields: function fields(state) {
       return state.fields;
@@ -3604,6 +3604,21 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       default: ''
     },
+    id: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    extra_class: {
+      type: String,
+      required: false,
+      default: 'cptm-btn cptm-btn-secondery'
+    },
+    icon: {
+      type: String,
+      required: false,
+      default: ''
+    },
     target: {
       type: String,
       required: false,
@@ -3613,17 +3628,6 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       required: false,
       default: null
-    }
-  },
-  computed: {
-    input_type: function input_type() {
-      var supported_types = ['text', 'number', 'password', 'button'];
-
-      if (supported_types.indexOf(this.type)) {
-        return this.type;
-      }
-
-      return 'text';
     }
   },
   data: function data() {
@@ -5941,11 +5945,11 @@ var render = function() {
     _c("a", { attrs: { href: _vm.link, target: _vm.target } }, [
       _c(
         "button",
-        {
-          staticClass: "cptm-btn cptm-btn-secondery",
-          attrs: { type: "button" }
-        },
-        [_vm._v(_vm._s(_vm.label))]
+        { class: _vm.extra_class, attrs: { id: _vm.id, type: "button" } },
+        [
+          _vm.icon ? _c("span", { class: _vm.icon }) : _vm._e(),
+          _vm._v(" " + _vm._s(_vm.label))
+        ]
       )
     ])
   ])

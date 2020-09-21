@@ -3648,7 +3648,27 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'label' => __( 'Create New Plan', 'directorist' ),
                     'type'  => 'button',
                     'link' => esc_url( admin_url(). 'post-new.php?post_type=atbdp_pricing_plans' ),
-                    'target' => '_blank'
+                    'target' => '_blank',
+                    'class' => 'cptm-btn cptm-btn-secondery',
+                    'icon'  => '',
+                ],
+                'export' => [
+                    'label' => __( 'Export config file', 'directorist' ),
+                    'type'  => 'button',
+                    'link' => '',
+                    'id'    => 'listing-type-export',
+                    'extra_class' => 'cptm-btn cptm-btn-secondery',
+                    'target' => '',
+                    'icon'  => 'fa fa-download',
+                ],
+                'import' => [
+                    'label' => __( 'Import config file', 'directorist' ),
+                    'type'  => 'button',
+                    'link' => '',
+                    'id'    => 'listing-type-import',
+                    'extra_class' => 'cptm-btn cptm-btn-primary',
+                    'target' => '',
+                    'icon'  => 'fa fa-upload',
                 ],
                 'default_expiration' => [
                     'label' => __( 'Default expiration in days', 'directorist' ),
@@ -3800,13 +3820,28 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'label' => __( 'Other', 'directorist' ),
                             'sections' => [
                                 'labels' => [
-                                    'title'       => __( 'Common Settings', 'directorist' ),
-                                    'description' => '',
+                                    [
+                                    'title'       => __( 'Default Status', 'directorist' ),
+                                    'description' => __( 'Need help?', 'directorist' ),
                                     'fields'      => [
-                                        'default_expiration',
                                         'new_listing_status',
                                         'edit_listing_status',
-                                        'global_listing_type',
+                                        ],
+                                    ],
+                                    [
+                                    'title'       => __( 'Expiration', 'directorist' ),
+                                    'description' => __( 'Default time to expire a listing.', 'directorist' ),
+                                    'fields'      => [
+                                        'default_expiration',
+                                        ],
+                                    ],
+                                    [
+                                    'title'       => __( 'Export & Import Config File', 'directorist' ),
+                                    'description' => __( 'Bulk import and export all the form, layout and settings', 'directorist' ),
+                                    'fields'      => [
+                                        'export',
+                                        'import',
+                                        ],
                                     ],
                                 ],
                             ],

@@ -1,7 +1,7 @@
 <template>
 <div class="cptm-form-group">
     <a :href="link" :target="target">
-        <button type="button" class="cptm-btn cptm-btn-secondery">{{ label }}</button>
+        <button :id="id" :class="extra_class" type="button"><span v-if="icon" :class="icon"></span> {{ label }}</button>
     </a>
 </div>
 </template>
@@ -29,6 +29,21 @@ export default {
             required: false,
             default: '',
         },
+        id: {
+            type: String,
+            required: false,
+            default: '',
+        },
+        extra_class: {
+            type: String,
+            required: false,
+            default: 'cptm-btn cptm-btn-secondery',
+        },
+        icon: {
+            type: String,
+            required: false,
+            default: '',
+        },
         target: {
             type: String,
             required: false,
@@ -40,19 +55,6 @@ export default {
             default: null,
         },
     },
-    computed: {
-        input_type() {
-            const supported_types = ['text', 'number', 'password', 'button'];
-
-            if (supported_types.indexOf(this.type)) {
-                return this.type;
-            }
-
-            return 'text';
-
-        }
-    },
-
     data() {
         return {
 

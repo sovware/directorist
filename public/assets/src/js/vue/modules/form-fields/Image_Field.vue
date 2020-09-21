@@ -35,16 +35,7 @@ export default {
         },
     },
     computed: {
-        input_type() {
-            const supported_types = ['text', 'number', 'password', 'image_picker'];
-
-            if (supported_types.indexOf(this.type)) {
-                return this.type;
-            }
-
-            return 'text';
-
-        }
+    
     },
 
     data() {

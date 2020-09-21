@@ -2487,6 +2487,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../../mixins/helpers */ "./public/assets/src/js/vue/mixins/helpers.js");
 /* harmony import */ var _mixins_form_fields__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../../mixins/form-fields */ "./public/assets/src/js/vue/mixins/form-fields.js");
+/* harmony import */ var _modules_Form_Builder_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../../modules/Form_Builder.vue */ "./public/assets/src/js/vue/modules/Form_Builder.vue");
+var _mapState;
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -2515,107 +2518,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -2625,23 +2528,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: ['index'],
   mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
   // computed
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])((_mapState = {
     active_nav_index: 'active_nav_index',
     submission_form_sections: function submission_form_sections(state) {
       return state.settings.submission_form.sections;
     },
     form_groups: function form_groups(state) {
-      return state.fields.submission_form_fields.value.groups;
-    },
-    form_active_fields: function form_active_fields(state) {
-      return state.fields.submission_form_fields.value.active_fields;
-    },
-    form_fields: 'form_fields',
-    fields: 'fields'
-  })),
+      return state.settings.submission_form.sections.form_fields.fields[0];
+    }
+  }, _defineProperty(_mapState, "form_groups", function form_groups(state) {
+    return state.fields.submission_form_fields.value.groups;
+  }), _defineProperty(_mapState, "form_active_fields", function form_active_fields(state) {
+    return state.fields.submission_form_fields.value.fields;
+  }), _defineProperty(_mapState, "form_fields", 'form_fields'), _defineProperty(_mapState, "fields", 'fields'), _mapState))), {}, {
+    form_groups: function form_groups() {
+      return fields[submission_form_sections.form_fields.fields[0]].value.groups;
+    }
+  }),
   data: function data() {
     return {
       field_widgets: _mixins_form_fields__WEBPACK_IMPORTED_MODULE_2__["default"],
+      form_builder: _modules_Form_Builder_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
       active_field_drop_area: '',
       active_group_drop_area: '',
       current_dragging_item: {},
@@ -3076,6 +2983,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -3167,6 +3075,446 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/Form_Builder.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./public/assets/src/js/vue/modules/Form_Builder.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_form_fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../mixins/form-fields */ "./public/assets/src/js/vue/mixins/form-fields.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'form-builder',
+  props: {
+    widgets: {
+      required: true
+    },
+    value: {
+      required: true
+    }
+  },
+  created: function created() {
+    this.parseLocalWidgets();
+    this.groups = this.value.groups;
+    this.active_fields = this.value.fields;
+  },
+  computed: {
+    preset_fields: function preset_fields() {
+      return this.local_widgets.preset;
+    },
+    custom_fields: function custom_fields() {
+      return this.local_widgets.custom;
+    },
+    updated_value: function updated_value() {
+      return {
+        active_fields: this.active_fields,
+        groups: this.groups
+      };
+    }
+  },
+  data: function data() {
+    return {
+      field_widgets: _mixins_form_fields__WEBPACK_IMPORTED_MODULE_0__["default"],
+      local_widgets: {},
+      groups: [],
+      active_fields: {},
+      active_fields_ref: {},
+      active_field_drop_area: '',
+      active_group_drop_area: '',
+      current_dragging_item: {},
+      ative_field_collapse_states: {}
+    };
+  },
+  methods: {
+    parseLocalWidgets: function parseLocalWidgets() {
+      var widgets = _objectSpread({}, this.widgets);
+
+      var preset_fields = {};
+
+      for (var preset_field in widgets.preset) {
+        var preset_field_data = widgets.preset[preset_field];
+
+        if (typeof preset_field_data.options === 'undefined') {
+          preset_field_data.options = {};
+        }
+
+        preset_field_data.options.widget_type = {
+          type: 'hidden',
+          value: 'preset'
+        };
+        preset_field_data.options.widget_name = {
+          type: 'hidden',
+          value: preset_field
+        };
+        preset_fields[preset_field] = preset_field_data;
+      }
+
+      widgets.preset = preset_fields;
+      var custom_fields = {};
+
+      for (var custom_field in widgets.custom) {
+        var custom_field_data = widgets.custom[custom_field];
+
+        if (typeof custom_field_data.options === 'undefined') {
+          custom_field_data.options = {};
+        }
+
+        custom_field_data.options.widget_type = {
+          type: 'hidden',
+          value: 'custom'
+        };
+        custom_field_data.options.widget_name = {
+          type: 'hidden',
+          value: 'custom_field'
+        };
+        custom_fields[custom_field] = custom_field_data;
+      }
+
+      widgets.custom = custom_fields;
+      this.local_widgets = widgets;
+    },
+    getActiveFieldsOption: function getActiveFieldsOption(field_key, data_key) {
+      return this.active_fields[field_key][data_key];
+    },
+    getActiveFieldsSettings: function getActiveFieldsSettings(field_key, data_key) {
+      var widget_type = this.active_fields[field_key].widget_type;
+      var widget_name = this.active_fields[field_key].widget_name;
+      return this.local_widgets[widget_type][widget_name][data_key];
+    },
+    getActiveFieldsOptions: function getActiveFieldsOptions(widget_options) {
+      var options = _objectSpread({}, widget_options);
+
+      delete options.value;
+      return options;
+    },
+    getActiveFieldsHeaderTitle: function getActiveFieldsHeaderTitle(field_key) {
+      var settings_label = this.getActiveFieldsSettings(field_key, 'label');
+      var option_label = this.active_fields[field_key]['label'];
+      return option_label && option_label.length ? option_label : settings_label;
+    },
+    toggleActiveFieldCollapseState: function toggleActiveFieldCollapseState(field_key) {
+      if (typeof this.ative_field_collapse_states[field_key] === 'undefined') {
+        this.$set(this.ative_field_collapse_states, field_key, {});
+        this.$set(this.ative_field_collapse_states[field_key], 'collapsed', false);
+      }
+
+      this.ative_field_collapse_states[field_key].collapsed = !this.ative_field_collapse_states[field_key].collapsed;
+    },
+    getActiveFieldCollapseClass: function getActiveFieldCollapseClass(field_key) {
+      if (typeof this.ative_field_collapse_states[field_key] === 'undefined') {
+        return 'action-collapse-down';
+      }
+
+      return this.ative_field_collapse_states[field_key].collapsed ? 'action-collapse-up' : 'action-collapse-down';
+    },
+    getActiveFieldCollapseState: function getActiveFieldCollapseState(field_key) {
+      if (typeof this.ative_field_collapse_states[field_key] === 'undefined') {
+        return false;
+      }
+
+      return this.ative_field_collapse_states[field_key].collapsed ? true : false;
+    },
+    activeFieldOnDragStart: function activeFieldOnDragStart(field_key, field_index, group_key) {
+      this.current_dragging_item = {
+        field_key: field_key,
+        field_index: field_index,
+        group_key: group_key
+      };
+    },
+    activeFieldOnDragOver: function activeFieldOnDragOver(field_key, field_index, group_key) {
+      this.active_field_drop_area = field_key;
+    },
+    activeFieldOnDragEnter: function activeFieldOnDragEnter(field_key, field_index, group_key) {
+      this.active_field_drop_area = field_key;
+    },
+    activeFieldOnDragLeave: function activeFieldOnDragLeave() {
+      this.active_field_drop_area = '';
+    },
+    activeGroupOnDragOver: function activeGroupOnDragOver(group_key) {
+      this.active_field_drop_area = group_key;
+    },
+    activeGroupOnDragEnter: function activeGroupOnDragEnter(group_key) {
+      this.active_group_drop_area = group_key;
+    },
+    activeGroupOnDragLeave: function activeGroupOnDragLeave() {
+      this.active_group_drop_area = '';
+    },
+    presetFieldOnDrag: function presetFieldOnDrag(field_key) {
+      this.current_dragging_item = {
+        inserting_field_key: field_key,
+        inserting_from: 'preset'
+      }; // console.log( inserting_field_key:  );
+    },
+    customFieldOnDrag: function customFieldOnDrag(field_key) {
+      this.current_dragging_item = {
+        inserting_field_key: field_key,
+        inserting_from: 'custom'
+      }; // console.log( field_key );
+    },
+    activeFieldOnDrop: function activeFieldOnDrop(args) {
+      // console.log( 'activeFieldOnDrop', {field_key: args.field_key, field_index: args.field_index, group_key: args.group_key} );
+      var inserting_from = this.current_dragging_item.inserting_from;
+      var inserting_field_key = this.current_dragging_item.inserting_field_key;
+      var origin_group_index = this.current_dragging_item.group_key;
+      var origin_field_index = this.current_dragging_item.field_index;
+      var destination_group_index = args.group_key;
+      var destination_field_index = args.field_index;
+      /* console.log({
+          inserting_from,
+          inserting_field_key,
+          origin_group_index,
+          origin_field_index,
+          destination_group_index,
+          destination_field_index,
+      }); */
+      // Reorder
+
+      if (typeof origin_group_index !== 'undefined' && typeof origin_field_index !== 'undefined' && typeof destination_group_index !== 'undefined' && typeof destination_field_index !== 'undefined' && origin_group_index === destination_group_index) {
+        console.log('Reorder');
+        this.reorderActiveFieldsItems({
+          group_index: destination_group_index,
+          origin_field_index: origin_field_index,
+          destination_field_index: destination_field_index
+        });
+      } // Move
+
+
+      if (typeof origin_group_index !== 'undefined' && typeof origin_field_index !== 'undefined' && typeof destination_group_index !== 'undefined' && origin_group_index !== destination_group_index) {
+        console.log('Move');
+        this.moveActiveFieldsItems({
+          origin_group_index: origin_group_index,
+          origin_field_index: origin_field_index,
+          destination_group_index: destination_group_index,
+          destination_field_index: destination_field_index
+        });
+      } // Insert
+
+
+      if (typeof inserting_from !== 'undefined' && typeof inserting_field_key !== 'undefined' && typeof destination_group_index !== 'undefined') {
+        console.log('Insert');
+        this.insertActiveFieldsItem({
+          inserting_from: inserting_from,
+          inserting_field_key: inserting_field_key,
+          destination_group_index: destination_group_index,
+          destination_field_index: destination_field_index
+        });
+      }
+
+      this.$emit('update', this.updated_value);
+      this.active_field_drop_area = '';
+      this.current_dragging_item = {};
+    },
+    trashActiveFieldItem: function trashActiveFieldItem(field_key, field_index, group_key) {
+      if (typeof this.ative_field_collapse_states[field_key] !== 'undefined') {
+        delete this.ative_field_collapse_states[field_key];
+      }
+
+      var the_field_key = this.groups[group_key].fields[field_index];
+      this.groups[group_key].fields.splice(field_index, 1);
+      delete this.active_fields[the_field_key];
+      this.$emit('update', this.updated_value);
+    },
+    updateActiveFieldsOptionData: function updateActiveFieldsOptionData(payload) {
+      this.active_fields[payload.field_key][payload.option_key] = payload.value;
+      this.$emit('update', this.updated_value);
+      console.log(payload);
+    },
+    addNewActiveFieldSection: function addNewActiveFieldSection() {
+      this.groups.push({
+        label: 'New Section',
+        fields: []
+      });
+      this.$emit('update', this.updated_value);
+    },
+    reorderActiveFieldsItems: function reorderActiveFieldsItems(payload) {
+      var origin_value = this.groups[payload.group_index].fields[payload.origin_field_index];
+      this.groups[payload.group_index].fields.splice(payload.origin_field_index, 1);
+      var des_ind = payload.origin_field_index === 0 ? payload.destination_field_index : payload.destination_field_index + 1;
+      this.groups[payload.group_index].fields.splice(des_ind, 0, origin_value);
+    },
+    moveActiveFieldsItems: function moveActiveFieldsItems(payload) {
+      var origin_value = this.groups[payload.origin_group_index].fields[payload.origin_field_index]; // Remove from origin group
+
+      this.groups[payload.origin_group_index].fields.splice(payload.origin_field_index, 1); // Insert to destination group
+      // const des_ind = ( payload.origin_field_index === 0 ) ? payload.destination_field_index : payload.destination_field_index + 1 ;
+
+      var des_ind = payload.destination_field_index + 1;
+      this.groups[payload.destination_group_index].fields.splice(des_ind, 0, origin_value);
+    },
+    insertActiveFieldsItem: function insertActiveFieldsItem(payload) {
+      var inserting_field_key = payload.inserting_field_key;
+
+      if (typeof this.active_fields_ref[payload.inserting_field_key] === 'undefined') {
+        this.active_fields_ref[payload.inserting_field_key] = [];
+      }
+
+      if (!this.active_fields_ref[payload.inserting_field_key].length) {
+        this.active_fields_ref[payload.inserting_field_key].push(payload.inserting_field_key);
+      } else {
+        var new_key = payload.inserting_field_key + '_' + (this.active_fields_ref[payload.inserting_field_key].length + 1);
+        this.active_fields_ref[inserting_field_key].push(new_key);
+        inserting_field_key = new_key;
+      }
+
+      var field_data = this.widgets[payload.inserting_from][payload.inserting_field_key];
+      var field_data_options = {};
+
+      for (var option_key in field_data.options) {
+        field_data_options[option_key] = typeof field_data.options[option_key].value !== 'undefined' ? field_data.options[option_key].value : '';
+      }
+
+      this.active_fields[inserting_field_key] = field_data_options;
+      var widget_type = this.active_fields[inserting_field_key].widget_type;
+      var widget_name = this.active_fields[inserting_field_key].widget_name;
+
+      if (typeof payload.destination_field_index !== 'undefined') {
+        this.groups[payload.destination_group_index].fields.splice(payload.destination_field_index + 1, 0, inserting_field_key);
+      } else {
+        this.groups[payload.destination_group_index].fields.push(inserting_field_key);
+      }
+    },
+    groupHasKey: function groupHasKey(field_key) {
+      var match_found = false;
+
+      for (var i = 0; i < this.groups.length; i++) {
+        if (this.groups[i].fields.indexOf(field_key) > -1) {
+          match_found = true;
+          break;
+        }
+      }
+
+      return match_found;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/Sub_Navigation.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./public/assets/src/js/vue/modules/Sub_Navigation.vue?vue&type=script&lang=js& ***!
@@ -3235,7 +3583,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'button',
+  name: 'button-field',
   model: {
     prop: 'value',
     event: 'input'
@@ -3329,17 +3677,7 @@ __webpack_require__.r(__webpack_exports__);
       default: null
     }
   },
-  computed: {
-    input_type: function input_type() {
-      var supported_types = ['text', 'number', 'password', 'image_picker'];
-
-      if (supported_types.indexOf(this.type)) {
-        return this.type;
-      }
-
-      return 'text';
-    }
-  },
+  computed: {},
   data: function data() {
     return {};
   }
@@ -4652,434 +4990,34 @@ var render = function() {
             : _vm._e()
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "cptm-form-builder cptm-row" }, [
-          _c("div", { staticClass: "cptm-col-6" }, [
-            _c("div", { staticClass: "cptm-form-builder-active-fields" }, [
-              _c("h3", { staticClass: "cptm-title-3" }, [
-                _vm._v("Active Fields")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "cptm-description-text" }, [
-                _vm._v(" Click on a field to edit, Drag & Drop to reorder ")
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "cptm-form-builder-active-fields-container" },
-                [
-                  _vm._l(_vm.form_groups, function(group, group_key) {
-                    return _c(
-                      "div",
-                      {
-                        key: group_key,
-                        staticClass: "cptm-form-builder-active-fields-group"
-                      },
-                      [
-                        _c(
-                          "h3",
-                          { staticClass: "cptm-form-builder-group-title" },
-                          [_vm._v(_vm._s(group.label))]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "cptm-form-builder-group-fields" },
-                          _vm._l(group.fields, function(
-                            field_key,
-                            field_index
-                          ) {
-                            return _c(
-                              "div",
-                              {
-                                key: field_index,
-                                staticClass:
-                                  "cptm-form-builder-group-field-item"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "cptm-form-builder-group-field-item-actions"
-                                  },
-                                  [
-                                    !_vm.form_active_fields[field_key].lock
-                                      ? _c(
-                                          "a",
-                                          {
-                                            staticClass:
-                                              "cptm-form-builder-group-field-item-action-link action-trash",
-                                            attrs: { href: "#" },
-                                            on: {
-                                              click: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.trashActiveFieldItem(
-                                                  field_key,
-                                                  field_index,
-                                                  group_key
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _c("span", {
-                                              staticClass: "fa fa-trash-o",
-                                              attrs: { "aria-hidden": "true" }
-                                            })
-                                          ]
-                                        )
-                                      : _vm._e()
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "cptm-form-builder-group-field-item-header",
-                                    attrs: { draggable: "true" },
-                                    on: {
-                                      drag: function($event) {
-                                        return _vm.activeFieldOnDragStart(
-                                          field_key,
-                                          field_index,
-                                          group_key
-                                        )
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("h4", { staticClass: "cptm-title-3" }, [
-                                      _vm._v(
-                                        _vm._s(
-                                          _vm.form_active_fields[field_key]
-                                            .options.label &&
-                                            _vm.form_active_fields[field_key]
-                                              .options.label.value.length
-                                            ? _vm.form_active_fields[field_key]
-                                                .options.label.value
-                                            : _vm.form_active_fields[field_key]
-                                                .label
-                                        )
-                                      )
-                                    ]),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "cptm-form-builder-group-field-item-header-actions"
-                                      },
-                                      [
-                                        _c(
-                                          "a",
-                                          {
-                                            staticClass:
-                                              "cptm-form-builder-header-action-link action-collapse-up",
-                                            class: _vm.getActiveFieldCollapseClass(
-                                              field_key
-                                            ),
-                                            attrs: { href: "#" },
-                                            on: {
-                                              click: function($event) {
-                                                $event.preventDefault()
-                                                return _vm.toggleActiveFieldCollapseState(
-                                                  field_key
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _c("span", {
-                                              staticClass: "fa fa-angle-up",
-                                              attrs: { "aria-hidden": "true" }
-                                            })
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "slide-up-down",
-                                  {
-                                    attrs: {
-                                      active: _vm.getActiveFieldCollapseState(
-                                        field_key
-                                      ),
-                                      duration: 300
-                                    }
-                                  },
-                                  [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "cptm-form-builder-group-field-item-body"
-                                      },
-                                      [
-                                        _vm._l(
-                                          _vm.form_active_fields[field_key]
-                                            .options,
-                                          function(option, option_key) {
-                                            return [
-                                              _c(
-                                                _vm.field_widgets[option.type],
-                                                _vm._b(
-                                                  {
-                                                    key: option_key,
-                                                    tag: "component",
-                                                    on: {
-                                                      update: function($event) {
-                                                        return _vm.updateActiveFieldsOptionData(
-                                                          field_key,
-                                                          option_key,
-                                                          $event
-                                                        )
-                                                      }
-                                                    }
-                                                  },
-                                                  "component",
-                                                  option,
-                                                  false
-                                                )
-                                              )
-                                            ]
-                                          }
-                                        )
-                                      ],
-                                      2
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("div", {
-                                  staticClass:
-                                    "cptm-form-builder-group-field-item-drop-area",
-                                  class:
-                                    field_key === _vm.active_field_drop_area
-                                      ? "drag-enter"
-                                      : "",
-                                  on: {
-                                    dragenter: function($event) {
-                                      return _vm.activeFieldOnDragEnter(
-                                        field_key,
-                                        field_index,
-                                        group_key
-                                      )
-                                    },
-                                    dragover: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.activeFieldOnDragOver(
-                                        field_key,
-                                        field_index,
-                                        group_key
-                                      )
-                                    },
-                                    dragleave: function($event) {
-                                      return _vm.activeFieldOnDragLeave()
-                                    },
-                                    drop: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.activeFieldOnDrop({
-                                        field_key: field_key,
-                                        field_index: field_index,
-                                        group_key: group_key
-                                      })
-                                    }
-                                  }
-                                })
-                              ],
-                              1
-                            )
-                          }),
-                          0
-                        ),
-                        _vm._v(" "),
-                        !group.fields.length
-                          ? _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "cptm-form-builder-group-field-drop-area",
-                                class:
-                                  group_key === _vm.active_group_drop_area
-                                    ? "drag-enter"
-                                    : "",
-                                on: {
-                                  dragenter: function($event) {
-                                    return _vm.activeGroupOnDragEnter(group_key)
-                                  },
-                                  dragover: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.activeGroupOnDragOver(group_key)
-                                  },
-                                  dragleave: function($event) {
-                                    return _vm.activeGroupOnDragLeave(group_key)
-                                  },
-                                  drop: function($event) {
-                                    return _vm.activeFieldOnDrop({
-                                      group_key: group_key
-                                    })
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "p",
-                                  {
-                                    staticClass:
-                                      "cptm-form-builder-group-field-drop-area-label"
-                                  },
-                                  [_vm._v("Drop Here")]
-                                )
-                              ]
-                            )
-                          : _vm._e()
-                      ]
-                    )
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "cptm-form-builder-active-fields-footer" },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "cptm-btn cptm-btn-secondery",
-                          attrs: { type: "button" },
-                          on: {
-                            click: function($event) {
-                              return _vm.addNewActiveFieldSection()
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Add new section\n                            "
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ],
-                2
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "cptm-col-6" }, [
-            _c("div", { staticClass: "cptm-form-builder-preset-fields" }, [
-              _c("h3", { staticClass: "cptm-title-3" }, [
-                _vm._v("Preset Fields")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "cptm-description-text" }, [
-                _vm._v("Click on a field to use it")
-              ]),
-              _vm._v(" "),
-              _c(
-                "ul",
-                { staticClass: "cptm-form-builder-field-list" },
-                [
-                  _vm._l(_vm.form_fields.preset, function(field, field_key) {
-                    return [
-                      !_vm.groupHasKey(field_key)
-                        ? _c(
-                            "li",
-                            {
-                              key: field_key,
-                              staticClass: "cptm-form-builder-field-list-item",
-                              attrs: { draggable: "true" },
-                              on: {
-                                drag: function($event) {
-                                  return _vm.presetFieldOnDrag(field_key)
-                                }
-                              }
-                            },
-                            [
-                              _c(
-                                "span",
-                                {
-                                  staticClass:
-                                    "cptm-form-builder-field-list-icon"
-                                },
-                                [
-                                  field.icon && field.icon.length
-                                    ? _c("span", { class: field.icon })
-                                    : _vm._e()
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "span",
-                                {
-                                  staticClass:
-                                    "cptm-form-builder-field-list-label"
-                                },
-                                [_vm._v(_vm._s(field.label))]
-                              )
-                            ]
-                          )
-                        : _vm._e()
-                    ]
-                  })
-                ],
-                2
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "cptm-form-builder-custom-fields" }, [
-              _c("h3", { staticClass: "cptm-title-3" }, [
-                _vm._v("Custom Fields")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "cptm-description-text" }, [
-                _vm._v("Click on a field type you want to create")
-              ]),
-              _vm._v(" "),
-              _c(
-                "ul",
-                { staticClass: "cptm-form-builder-field-list" },
-                _vm._l(_vm.form_fields.custom, function(field, field_key) {
-                  return _c(
-                    "li",
+        _c(
+          "div",
+          { staticClass: "cptm-form-fields" },
+          [
+            _vm._l(section.fields, function(field, field_key) {
+              return [
+                _c(
+                  _vm.field_widgets[_vm.fields[field].type],
+                  _vm._b(
                     {
                       key: field_key,
-                      staticClass: "cptm-form-builder-field-list-item",
-                      attrs: { draggable: "true" },
+                      tag: "component",
                       on: {
-                        drag: function($event) {
-                          return _vm.customFieldOnDrag(field_key)
+                        update: function($event) {
+                          return _vm.updateFieldValue(field, $event)
                         }
                       }
                     },
-                    [
-                      _c(
-                        "span",
-                        { staticClass: "cptm-form-builder-field-list-icon" },
-                        [
-                          field.icon && field.icon.length
-                            ? _c("span", { class: field.icon })
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "span",
-                        { staticClass: "cptm-form-builder-field-list-label" },
-                        [_vm._v(_vm._s(field.label))]
-                      )
-                    ]
+                    "component",
+                    _vm.fields[field],
+                    false
                   )
-                }),
-                0
-              )
-            ])
-          ])
-        ])
+                )
+              ]
+            })
+          ],
+          2
+        )
       ])
     }),
     0
@@ -5493,6 +5431,442 @@ var render = function() {
     }),
     0
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/Form_Builder.vue?vue&type=template&id=1e1447b0&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./public/assets/src/js/vue/modules/Form_Builder.vue?vue&type=template&id=1e1447b0& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "cptm-form-builder cptm-row" }, [
+    _c("div", { staticClass: "cptm-col-6" }, [
+      _c("div", { staticClass: "cptm-form-builder-active-fields" }, [
+        _c("h3", { staticClass: "cptm-title-3" }, [_vm._v("Active Fields")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "cptm-description-text" }, [
+          _vm._v("Click on a field to edit, Drag & Drop to reorder ")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "cptm-form-builder-active-fields-container" },
+          [
+            _vm._l(_vm.groups, function(group, group_key) {
+              return _c(
+                "div",
+                {
+                  key: group_key,
+                  staticClass: "cptm-form-builder-active-fields-group"
+                },
+                [
+                  _c("h3", { staticClass: "cptm-form-builder-group-title" }, [
+                    _vm._v(_vm._s(group.label))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "cptm-form-builder-group-fields" },
+                    _vm._l(group.fields, function(field_key, field_index) {
+                      return _c(
+                        "div",
+                        {
+                          key: field_index,
+                          staticClass: "cptm-form-builder-group-field-item"
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "cptm-form-builder-group-field-item-actions"
+                            },
+                            [
+                              !_vm.getActiveFieldsSettings(field_key, "lock")
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "cptm-form-builder-group-field-item-action-link action-trash",
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.trashActiveFieldItem(
+                                            field_key,
+                                            field_index,
+                                            group_key
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("span", {
+                                        staticClass: "fa fa-trash-o",
+                                        attrs: { "aria-hidden": "true" }
+                                      })
+                                    ]
+                                  )
+                                : _vm._e()
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "cptm-form-builder-group-field-item-header",
+                              attrs: { draggable: "true" },
+                              on: {
+                                drag: function($event) {
+                                  return _vm.activeFieldOnDragStart(
+                                    field_key,
+                                    field_index,
+                                    group_key
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("h4", { staticClass: "cptm-title-3" }, [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.getActiveFieldsHeaderTitle(field_key)
+                                  )
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "cptm-form-builder-group-field-item-header-actions"
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "cptm-form-builder-header-action-link action-collapse-up",
+                                      class: _vm.getActiveFieldCollapseClass(
+                                        field_key
+                                      ),
+                                      attrs: { href: "#" },
+                                      on: {
+                                        click: function($event) {
+                                          $event.preventDefault()
+                                          return _vm.toggleActiveFieldCollapseState(
+                                            field_key
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("span", {
+                                        staticClass: "fa fa-angle-up",
+                                        attrs: { "aria-hidden": "true" }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "slide-up-down",
+                            {
+                              attrs: {
+                                active: _vm.getActiveFieldCollapseState(
+                                  field_key
+                                ),
+                                duration: 300
+                              }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "cptm-form-builder-group-field-item-body"
+                                },
+                                [
+                                  _vm._l(
+                                    _vm.getActiveFieldsSettings(
+                                      field_key,
+                                      "options"
+                                    ),
+                                    function(option, option_key) {
+                                      return [
+                                        _c(
+                                          _vm.field_widgets[option.type],
+                                          _vm._b(
+                                            {
+                                              key: option_key,
+                                              tag: "component",
+                                              attrs: {
+                                                value:
+                                                  _vm.active_fields[field_key][
+                                                    option_key
+                                                  ]
+                                              },
+                                              on: {
+                                                update: function($event) {
+                                                  return _vm.updateActiveFieldsOptionData(
+                                                    {
+                                                      field_key: field_key,
+                                                      option_key: option_key,
+                                                      value: $event
+                                                    }
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            "component",
+                                            _vm.getActiveFieldsOptions(option),
+                                            false
+                                          )
+                                        )
+                                      ]
+                                    }
+                                  )
+                                ],
+                                2
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", {
+                            staticClass:
+                              "cptm-form-builder-group-field-item-drop-area",
+                            class:
+                              field_key === _vm.active_field_drop_area
+                                ? "drag-enter"
+                                : "",
+                            on: {
+                              dragenter: function($event) {
+                                return _vm.activeFieldOnDragEnter(
+                                  field_key,
+                                  field_index,
+                                  group_key
+                                )
+                              },
+                              dragover: function($event) {
+                                $event.preventDefault()
+                                return _vm.activeFieldOnDragOver(
+                                  field_key,
+                                  field_index,
+                                  group_key
+                                )
+                              },
+                              dragleave: function($event) {
+                                return _vm.activeFieldOnDragLeave()
+                              },
+                              drop: function($event) {
+                                $event.preventDefault()
+                                return _vm.activeFieldOnDrop({
+                                  field_key: field_key,
+                                  field_index: field_index,
+                                  group_key: group_key
+                                })
+                              }
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  !group.fields.length
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "cptm-form-builder-group-field-drop-area",
+                          class:
+                            group_key === _vm.active_group_drop_area
+                              ? "drag-enter"
+                              : "",
+                          on: {
+                            dragenter: function($event) {
+                              return _vm.activeGroupOnDragEnter(group_key)
+                            },
+                            dragover: function($event) {
+                              $event.preventDefault()
+                              return _vm.activeGroupOnDragOver(group_key)
+                            },
+                            dragleave: function($event) {
+                              return _vm.activeGroupOnDragLeave(group_key)
+                            },
+                            drop: function($event) {
+                              return _vm.activeFieldOnDrop({
+                                group_key: group_key
+                              })
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "p",
+                            {
+                              staticClass:
+                                "cptm-form-builder-group-field-drop-area-label"
+                            },
+                            [_vm._v("Drop Here")]
+                          )
+                        ]
+                      )
+                    : _vm._e()
+                ]
+              )
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "cptm-form-builder-active-fields-footer" },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "cptm-btn cptm-btn-secondery",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.addNewActiveFieldSection()
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                        Add new section\n                    "
+                    )
+                  ]
+                )
+              ]
+            )
+          ],
+          2
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "cptm-col-6" }, [
+      _c("div", { staticClass: "cptm-form-builder-preset-fields" }, [
+        _c("h3", { staticClass: "cptm-title-3" }, [_vm._v("Preset Fields")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "cptm-description-text" }, [
+          _vm._v("Click on a field to use it")
+        ]),
+        _vm._v(" "),
+        _c(
+          "ul",
+          { staticClass: "cptm-form-builder-field-list" },
+          [
+            _vm._l(_vm.preset_fields, function(field, field_key) {
+              return [
+                !_vm.groupHasKey(field_key)
+                  ? _c(
+                      "li",
+                      {
+                        key: field_key,
+                        staticClass: "cptm-form-builder-field-list-item",
+                        attrs: { draggable: "true" },
+                        on: {
+                          drag: function($event) {
+                            return _vm.presetFieldOnDrag(field_key)
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "span",
+                          { staticClass: "cptm-form-builder-field-list-icon" },
+                          [
+                            field.icon && field.icon.length
+                              ? _c("span", { class: field.icon })
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "cptm-form-builder-field-list-label" },
+                          [_vm._v(_vm._s(field.label))]
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ]
+            })
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "cptm-form-builder-custom-fields" }, [
+        _c("h3", { staticClass: "cptm-title-3" }, [_vm._v("Custom Fields")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "cptm-description-text" }, [
+          _vm._v("Click on a field type you want to create")
+        ]),
+        _vm._v(" "),
+        _c(
+          "ul",
+          { staticClass: "cptm-form-builder-field-list" },
+          _vm._l(_vm.custom_fields, function(field, field_key) {
+            return _c(
+              "li",
+              {
+                key: field_key,
+                staticClass: "cptm-form-builder-field-list-item",
+                attrs: { draggable: "true" },
+                on: {
+                  drag: function($event) {
+                    return _vm.customFieldOnDrag(field_key)
+                  }
+                }
+              },
+              [
+                _c(
+                  "span",
+                  { staticClass: "cptm-form-builder-field-list-icon" },
+                  [
+                    field.icon && field.icon.length
+                      ? _c("span", { class: field.icon })
+                      : _vm._e()
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { staticClass: "cptm-form-builder-field-list-label" },
+                  [_vm._v(_vm._s(field.label))]
+                )
+              ]
+            )
+          }),
+          0
+        )
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -20102,6 +20476,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_form_fields_Select_Field_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../modules/form-fields/Select_Field.vue */ "./public/assets/src/js/vue/modules/form-fields/Select_Field.vue");
 /* harmony import */ var _modules_form_fields_Image_Field_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../modules/form-fields/Image_Field.vue */ "./public/assets/src/js/vue/modules/form-fields/Image_Field.vue");
 /* harmony import */ var _modules_form_fields_Button_Field_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../modules/form-fields/Button_Field.vue */ "./public/assets/src/js/vue/modules/form-fields/Button_Field.vue");
+/* harmony import */ var _modules_Form_Builder_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../modules/Form_Builder.vue */ "./public/assets/src/js/vue/modules/Form_Builder.vue");
+
 
 
 
@@ -20116,7 +20492,8 @@ __webpack_require__.r(__webpack_exports__);
   toggle: _modules_form_fields_Toggle_Field_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
   select: _modules_form_fields_Select_Field_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
   image_picker: _modules_form_fields_Image_Field_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-  button: _modules_form_fields_Button_Field_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+  button: _modules_form_fields_Button_Field_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+  form_builder: _modules_Form_Builder_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
 });
 
 /***/ }),
@@ -20176,6 +20553,75 @@ __webpack_require__.r(__webpack_exports__);
     }
   }
 });
+
+/***/ }),
+
+/***/ "./public/assets/src/js/vue/modules/Form_Builder.vue":
+/*!***********************************************************!*\
+  !*** ./public/assets/src/js/vue/modules/Form_Builder.vue ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Form_Builder_vue_vue_type_template_id_1e1447b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form_Builder.vue?vue&type=template&id=1e1447b0& */ "./public/assets/src/js/vue/modules/Form_Builder.vue?vue&type=template&id=1e1447b0&");
+/* harmony import */ var _Form_Builder_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form_Builder.vue?vue&type=script&lang=js& */ "./public/assets/src/js/vue/modules/Form_Builder.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Form_Builder_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Form_Builder_vue_vue_type_template_id_1e1447b0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Form_Builder_vue_vue_type_template_id_1e1447b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "public/assets/src/js/vue/modules/Form_Builder.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./public/assets/src/js/vue/modules/Form_Builder.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./public/assets/src/js/vue/modules/Form_Builder.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--3-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Form_Builder.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/Form_Builder.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./public/assets/src/js/vue/modules/Form_Builder.vue?vue&type=template&id=1e1447b0&":
+/*!******************************************************************************************!*\
+  !*** ./public/assets/src/js/vue/modules/Form_Builder.vue?vue&type=template&id=1e1447b0& ***!
+  \******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_vue_vue_type_template_id_1e1447b0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Form_Builder.vue?vue&type=template&id=1e1447b0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/Form_Builder.vue?vue&type=template&id=1e1447b0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_vue_vue_type_template_id_1e1447b0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_Builder_vue_vue_type_template_id_1e1447b0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -20604,12 +21050,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 
 
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -20638,59 +21078,6 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
     },
     updateFormFields: function updateFormFields(state, value) {
       state.form_fields = value;
-    },
-    reorderActiveFieldsItems: function reorderActiveFieldsItems(state, payload) {
-      var origin_value = state.fields.submission_form_fields.value.groups[payload.group_index].fields[payload.origin_field_index];
-      state.fields.submission_form_fields.value.groups[payload.group_index].fields.splice(payload.origin_field_index, 1);
-      var des_ind = payload.origin_field_index === 0 ? payload.destination_field_index : payload.destination_field_index + 1;
-      state.fields.submission_form_fields.value.groups[payload.group_index].fields.splice(des_ind, 0, origin_value);
-    },
-    moveActiveFieldsItems: function moveActiveFieldsItems(state, payload) {
-      var origin_value = state.fields.submission_form_fields.value.groups[payload.origin_group_index].fields[payload.origin_field_index]; // Remove from origin group
-
-      state.fields.submission_form_fields.value.groups[payload.origin_group_index].fields.splice(payload.origin_field_index, 1); // Insert to destination group
-      // const des_ind = ( payload.origin_field_index === 0 ) ? payload.destination_field_index : payload.destination_field_index + 1 ;
-
-      var des_ind = payload.destination_field_index + 1;
-      state.fields.submission_form_fields.value.groups[payload.destination_group_index].fields.splice(des_ind, 0, origin_value);
-    },
-    trashActiveFieldItem: function trashActiveFieldItem(state, payload) {
-      var field_key = state.fields.submission_form_fields.value.groups[payload.group_index].fields[payload.field_index];
-      state.fields.submission_form_fields.value.groups[payload.group_index].fields.splice(payload.field_index, 1);
-      delete state.fields.submission_form_fields.value.active_fields[field_key];
-    },
-    updateActiveFieldsOptionData: function updateActiveFieldsOptionData(state, payload) {
-      state.fields.submission_form_fields.value.active_fields[payload.field_key].options[payload.option_key].value = payload.value;
-    },
-    insertActiveFieldsItem: function insertActiveFieldsItem(state, payload) {
-      var inserting_field_key = payload.inserting_field_key;
-
-      if (typeof state.active_fields_ref[payload.inserting_field_key] === 'undefined') {
-        state.active_fields_ref[payload.inserting_field_key] = [];
-      }
-
-      if (!state.active_fields_ref[payload.inserting_field_key].length) {
-        state.active_fields_ref[payload.inserting_field_key].push(payload.inserting_field_key);
-      } else {
-        var new_key = payload.inserting_field_key + '_' + (state.active_fields_ref[payload.inserting_field_key].length + 1);
-        state.active_fields_ref[inserting_field_key].push(new_key);
-        inserting_field_key = new_key;
-      }
-
-      var field_data = state.form_fields[payload.inserting_from][payload.inserting_field_key];
-      state.fields.submission_form_fields.value.active_fields[inserting_field_key] = _objectSpread({}, field_data);
-
-      if (typeof payload.destination_field_index !== 'undefined') {
-        state.fields.submission_form_fields.value.groups[payload.destination_group_index].fields.splice(payload.destination_field_index + 1, 0, inserting_field_key);
-      } else {
-        state.fields.submission_form_fields.value.groups[payload.destination_group_index].fields.push(inserting_field_key);
-      }
-    },
-    addNewActiveFieldSection: function addNewActiveFieldSection(state) {
-      state.fields.submission_form_fields.value.groups.push({
-        label: 'New Section',
-        fields: []
-      });
     },
     updateFieldValue: function updateFieldValue(state, payload) {
       state.fields[payload.field_key].value = payload.value;

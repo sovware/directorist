@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    name: 'button',
+    name: 'button-field',
     model: {
         prop: 'value',
         event: 'input'

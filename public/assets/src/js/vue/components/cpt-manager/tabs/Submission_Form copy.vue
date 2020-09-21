@@ -6,15 +6,116 @@
                 <p v-if="section.description" v-html="section.description"></p>
             </div>
             
-            <div class="cptm-form-fields">
-                <template v-for="( field, field_key ) in section.fields">
-                    <component 
-                        :is="field_widgets[ fields[ field ].type ]" 
-                        :key="field_key"
-                        v-bind="fields[ field ]"
-                        @update="updateFieldValue( field, $event )">
-                    </component>
-                </template>
+            <div class="cptm-form-builder cptm-row">
+                <div class="cptm-col-6">
+                    <div class="cptm-form-builder-active-fields">
+                        <h3 class="cptm-title-3">Active Fields</h3>
+                        <p class="cptm-description-text">Click on a field to edit, Drag & Drop to reorder </p>
+                    
+                        <div class="cptm-form-builder-active-fields-container">
+                            <div class="cptm-form-builder-active-fields-group" v-for="( group, group_key ) in form_groups" :key="group_key">
+                                <h3 class="cptm-form-builder-group-title">{{ group.label }}</h3>
+
+                                <div class="cptm-form-builder-group-fields">
+                                    <div class="cptm-form-builder-group-field-item" v-for="( field_key, field_index ) in group.fields" :key="field_index">
+                                        <div class="cptm-form-builder-group-field-item-actions">
+                                            <a href="#" class="cptm-form-builder-group-field-item-action-link action-trash"
+                                                v-if="! form_active_fields[ field_key ].lock"
+                                                @click.prevent="trashActiveFieldItem( field_key, field_index, group_key )"
+                                                    ><span class="fa fa-trash-o" aria-hidden="true"></span>
+                                            </a>
+                                        </div>
+                                        
+                                        <div class="cptm-form-builder-group-field-item-header" draggable="true" @drag="activeFieldOnDragStart( field_key, field_index, group_key )">
+                                            <h4 class="cptm-title-3">{{ ( form_active_fields[ field_key ].options.label && form_active_fields[ field_key ].options.label.value.length ) ? form_active_fields[ field_key ].options.label.value : form_active_fields[ field_key ].label }}</h4>
+                                            <div class="cptm-form-builder-group-field-item-header-actions">
+                                                <a href="#" class="cptm-form-builder-header-action-link action-collapse-up" 
+                                                    :class="getActiveFieldCollapseClass( field_key )"
+                                                    @click.prevent="toggleActiveFieldCollapseState( field_key )">
+                                                    <span class="fa fa-angle-up" aria-hidden="true"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        
+                                        <slide-up-down :active="getActiveFieldCollapseState( field_key )" :duration="300">
+                                            <div class="cptm-form-builder-group-field-item-body">
+                                                <template v-for="( option, option_key ) in form_active_fields[ field_key ].options">
+                                                    <component 
+                                                        :is="field_widgets[ option.type ]" 
+                                                        :key="option_key"
+                                                        v-bind="option"
+                                                        @update="updateActiveFieldsOptionData( field_key, option_key, $event )"
+                                                    >
+                                                    </component>
+                                                </template>
+                                            </div>
+                                        </slide-up-down>
+
+                                        <div class="cptm-form-builder-group-field-item-drop-area"
+                                            :class="( field_key === active_field_drop_area ) ? 'drag-enter' : ''"
+                                            @dragenter="activeFieldOnDragEnter( field_key, field_index, group_key )"
+                                            @dragover.prevent="activeFieldOnDragOver( field_key, field_index, group_key )"
+                                            @dragleave="activeFieldOnDragLeave()"
+                                            @drop.prevent="activeFieldOnDrop( { field_key, field_index, group_key } )">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="cptm-form-builder-group-field-drop-area"
+                                    :class="( group_key === active_group_drop_area ) ? 'drag-enter' : ''"
+                                    v-if="! group.fields.length"
+                                    @dragenter="activeGroupOnDragEnter( group_key )"
+                                    @dragover.prevent="activeGroupOnDragOver( group_key )"
+                                    @dragleave="activeGroupOnDragLeave( group_key )"
+                                    @drop="activeFieldOnDrop( { group_key } )">
+                                    <p class="cptm-form-builder-group-field-drop-area-label">Drop Here</p>
+                                </div>
+                            </div>
+
+
+                            <div class="cptm-form-builder-active-fields-footer">
+                                <button type="button" class="cptm-btn cptm-btn-secondery" @click="addNewActiveFieldSection()">
+                                    Add new section
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cptm-col-6">
+                    <div class="cptm-form-builder-preset-fields">
+                        <h3 class="cptm-title-3">Preset Fields</h3>
+                        <p class="cptm-description-text">Click on a field to use it</p>
+                        
+                        <ul class="cptm-form-builder-field-list">
+                            <template v-for="( field, field_key ) in form_fields.preset">
+                                <li class="cptm-form-builder-field-list-item" draggable="true" v-if="! groupHasKey( field_key )" :key="field_key"
+                                    @drag="presetFieldOnDrag( field_key )">
+                                        <span class="cptm-form-builder-field-list-icon">
+                                            <span v-if="(field.icon && field.icon.length )" :class="field.icon"></span>
+                                        </span>
+                                        <span class="cptm-form-builder-field-list-label">{{ field.label }}</span>
+                                </li>
+                            </template>
+                        </ul>
+
+                    </div>
+
+                    <div class="cptm-form-builder-custom-fields">
+                        <h3 class="cptm-title-3">Custom Fields</h3>
+                        <p class="cptm-description-text">Click on a field type you want to create</p>
+
+                        <ul class="cptm-form-builder-field-list">
+                            <li class="cptm-form-builder-field-list-item" draggable="true" v-for="( field, field_key ) in form_fields.custom" :key="field_key"
+                                @drag="customFieldOnDrag( field_key )">
+                                <span class="cptm-form-builder-field-list-icon">
+                                    <span v-if="(field.icon && field.icon.length )" :class="field.icon"></span>
+                                </span>
+                                <span class="cptm-form-builder-field-list-label">{{ field.label }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -26,8 +127,6 @@ import { mapMutations } from 'vuex';
 
 import helpers from './../../../mixins/helpers';
 import field_widgets from './../../../mixins/form-fields';
-import form_builder from './../../../modules/Form_Builder.vue';
-
 
 export default {
     name: 'submission-form',
@@ -55,7 +154,6 @@ export default {
     data() {
         return {
             field_widgets,
-            form_builder,
             
             active_field_drop_area: '',
             active_group_drop_area: '',

@@ -1,6 +1,5 @@
 <template>
     <div class="atbdp-cptm-tab-item search-form cptm-tab-content tab-full-width" :class="getActiveClass(index, active_nav_index)">
-        <p>Submission Form Parent</p>
         <div class="cptm-section" v-for="( section, section_key ) in search_form_sections" :key="section_key">
             <div class="cptm-title-area">
                 <h3 v-if="section.title.length" class="cptm-title" v-html="section.title"></h3>

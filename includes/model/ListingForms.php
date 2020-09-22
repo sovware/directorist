@@ -422,7 +422,7 @@ class Directorist_Listing_Forms {
 
 	public function add_listing_generate_label( $label, $required ) {
 		$required_html = $this->add_listing_required_html();
-		return sprintf( '%s:%s', $label, $required ? $required_html : '' );
+		return wp_kses( sprintf( '%s:%s', $label, $required ? $required_html : '' ), array( 's' ) );
 	}
 
 	public function add_listing_has_contact_info( $args ) {

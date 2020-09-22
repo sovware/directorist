@@ -43,7 +43,6 @@ export default {
         id: { required: false },
         settings: { required: true },
         fields: { required: true },
-        formFields: { required: true }
     },
     components: {
         headerNavigation,
@@ -57,6 +56,7 @@ export default {
     },
 
     created() {
+
         if ( this.settings && this.settings.length ) {
             const settings = JSON.parse( this.settings );
 
@@ -65,6 +65,7 @@ export default {
             }
         }
 
+
         if ( this.fields && this.fields.length ) {
             const fields = JSON.parse( this.fields );
 
@@ -72,15 +73,6 @@ export default {
                 this.$store.commit( 'updateFields', fields );
             }
         }
-
-        if ( this.formFields && this.formFields.length ) {
-            const form_fields = JSON.parse( this.formFields );
-
-            if ( form_fields ) {
-                this.$store.commit( 'updateFormFields', form_fields );
-            }
-        }
-
 
 
         if ( this.id && ! isNaN( this.id ) ) {
@@ -132,17 +124,18 @@ export default {
             this.footer_actions.save.showLoading = true;
             this.footer_actions.save.isDisabled = true;
             const self = this;
-            
+
             axios.get( ajax_data.ajax_url, { params: the_form_fields_data })
                 .then( response => {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;
 
-                    // console.log( response.data );
+                    console.log( response.data );
 
                     if ( response.data.post_id && ! isNaN( response.data.post_id ) ) {
                         self.listing_type_id = response.data.post_id;
                         self.footer_actions.save.label = 'Update';
+                        self.insertParam('listing_type_id', response.data.post_id)
                     }
 
                     if ( response.data.status_log ) {
@@ -161,6 +154,34 @@ export default {
                     self.footer_actions.save.isDisabled = false;
                     console.log( error );
                 });
+        },
+
+        insertParam(key, value) {
+            key = encodeURIComponent(key);
+            value = encodeURIComponent(value);
+
+            // kvp looks like ['key1=value1', 'key2=value2', ...]
+            var kvp = document.location.search.substr(1).split('&');
+            let i=0;
+
+            for(; i<kvp.length; i++){
+                if (kvp[i].startsWith(key + '=')) {
+                    let pair = kvp[i].split('=');
+                    pair[1] = value;
+                    kvp[i] = pair.join('=');
+                    break;
+                }
+            }
+
+            if(i >= kvp.length){
+                kvp[kvp.length] = [key,value].join('=');
+            }
+
+            // can return this or...
+            let params = kvp.join('&');
+
+            // reload page with new params
+            document.location.search = params;
         }
     }
 }

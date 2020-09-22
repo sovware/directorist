@@ -4,8 +4,8 @@
             <div class="cptm-form-builder-active-fields">
                 <h3 class="cptm-title-3">Active Fields</h3>
                 <p class="cptm-description-text">Click on a field to edit, Drag & Drop to reorder </p>
-            
-                <div class="cptm-form-builder-active-fields-container">
+
+                <div class="cptm-form-builder-active-fields-container" v-if="groups.length">
                     <div class="cptm-form-builder-active-fields-group" v-for="( group, group_key ) in groups" :key="group_key">
                         <h3 class="cptm-form-builder-group-title">{{ group.label }}</h3>
 
@@ -32,7 +32,7 @@
                                 </div>
                                 
                                 <slide-up-down :active="getActiveFieldCollapseState( field_key )" :duration="300">
-                                    <div class="cptm-form-builder-group-field-item-body">
+                                    <div class="cptm-form-builder-group-field-item-body" v-if="getActiveFieldsSettings( field_key, 'options' )">
                                         <template v-for="( option, option_key ) in getActiveFieldsSettings( field_key, 'options' )">
                                             <component 
                                                 :is="field_widgets[ option.type ]" 
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="cptm-form-builder-group-field-drop-area"
                             :class="( group_key === active_group_drop_area ) ? 'drag-enter' : ''"
                             v-if="! group.fields.length"
@@ -65,27 +65,31 @@
                             @drop="activeFieldOnDrop( { group_key } )">
                             <p class="cptm-form-builder-group-field-drop-area-label">Drop Here</p>
                         </div>
+                        
+                        <br>
+                        
                     </div>
 
 
                     <div class="cptm-form-builder-active-fields-footer">
-                        <button type="button" class="cptm-btn cptm-btn-secondery" @click="addNewActiveFieldSection()">
+                        <button type="button" class="cptm-btn cptm-btn-secondery" v-if="allow_add_new_section" @click="addNewActiveFieldSection()">
                             Add new section
                         </button>
                     </div>
                 </div>
             </div>
+            
         </div>
 
-        <div class="cptm-col-6">
-            <div class="cptm-form-builder-preset-fields">
-                <h3 class="cptm-title-3">Preset Fields</h3>
-                <p class="cptm-description-text">Click on a field to use it</p>
-                
+        <div class="cptm-col-6" v-if="widget_groups">
+            <div class="cptm-form-builder-preset-fields" v-for="( widget_group, group_key ) in widget_groups" :key="group_key">
+                <h3 class="cptm-title-3">{{ widget_group.title }}</h3>
+                <p class="cptm-description-text">{{ widget_group.description }}</p>
+
                 <ul class="cptm-form-builder-field-list">
-                    <template v-for="( field, field_key ) in preset_fields">
-                        <li class="cptm-form-builder-field-list-item" draggable="true" v-if="! groupHasKey( field_key )" :key="field_key"
-                            @drag="presetFieldOnDrag( field_key )">
+                    <template v-for="( field, field_key ) in widget_group.widgets">
+                        <li class="cptm-form-builder-field-list-item" draggable="true" v-if="widgetCanShow( widget_group, field_key )" :key="field_key"
+                            @drag="widgetItemOnDrag( group_key, field_key )">
                                 <span class="cptm-form-builder-field-list-icon">
                                     <span v-if="(field.icon && field.icon.length )" :class="field.icon"></span>
                                 </span>
@@ -94,21 +98,6 @@
                     </template>
                 </ul>
 
-            </div>
-
-            <div class="cptm-form-builder-custom-fields">
-                <h3 class="cptm-title-3">Custom Fields</h3>
-                <p class="cptm-description-text">Click on a field type you want to create</p>
-
-                <ul class="cptm-form-builder-field-list">
-                    <li class="cptm-form-builder-field-list-item" draggable="true" v-for="( field, field_key ) in custom_fields" :key="field_key"
-                        @drag="customFieldOnDrag( field_key )">
-                        <span class="cptm-form-builder-field-list-icon">
-                            <span v-if="(field.icon && field.icon.length )" :class="field.icon"></span>
-                        </span>
-                        <span class="cptm-form-builder-field-list-label">{{ field.label }}</span>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
@@ -121,39 +110,138 @@ export default {
     name: 'form-builder',
     props: {
         widgets: {
-            required: true,
+            required: false,
+            default: false,
         },
         value: {
-            required: true,
+            required: false,
+            default: '',
+        },
+        dependency: {
+            required: false,
+            default: '',
+        },
+        allow_add_new_section: {
+            type: Boolean,
+            default: true,
+            required: false,
         },
     },
 
     created() {
+        if ( this.value.groups ) {
+            this.groups = this.value.groups;
+        }
+
+        if (  typeof this.value.fields === 'object' ) {
+            this.active_fields = this.value.fields;
+        }
+        
         this.parseLocalWidgets();
-        this.groups = this.value.groups;
-        this.active_fields = this.value.fields;
     },
 
     computed: {
-        preset_fields() {
-            return this.local_widgets.preset;
-        },
-
-        custom_fields() {
-            return this.local_widgets.custom;
-        },
-
         updated_value() {
-            return { active_fields: this.active_fields, groups: this.groups };
+            return { fields: this.active_fields, groups: this.groups };
         },
+
+        widget_groups() {
+
+            if ( this.has_dependency && ! this.dependency_widgets) {
+                return {};
+            }
+
+            if (  this.dependency_widgets ) {
+                return this.dependency_widgets;
+            }
+
+            return this.local_widgets;
+
+        },
+
+        has_dependency() {
+            if ( typeof this.dependency !== 'string' ) { return false; }
+            if ( ! this.dependency.length ) { return false; }
+
+            return true;
+        },
+
+        dependency_data() {
+            if ( ! this.has_dependency ) { return null; }
+
+            if ( typeof this.$store.state.fields[ this.dependency ] === 'undefined' ) { return null; }
+            if ( typeof this.$store.state.fields[ this.dependency ].value === 'undefined' ) { return null; }
+            
+            return this.$store.state.fields[ this.dependency ].value;
+        },
+
+        dependency_widgets() {
+            if ( ! this.dependency_data ) { return null; }
+            if ( ! this.local_widgets ) { return null; }
+
+            let dependency_fields = this.dependency_data.fields;
+
+            if ( this.dependency_fields ) {
+                dependency_fields = this.dependency_fields;
+            }
+           
+            let dependency_widgets = JSON.parse(JSON.stringify( this.local_widgets ));
+
+            for ( let widget_group in dependency_widgets ) {
+                let new_widget_list = {};
+
+                 for ( let field in dependency_fields ) {
+                    let widget_name = dependency_fields[ field ].widget_name;
+
+                    if ( typeof dependency_widgets[ widget_group ].widgets[ widget_name ] !== 'undefined' ) {
+                        // let dep_field_widget_name = ( dependency_fields[ field ].label && dependency_fields[ field ].label.length ) ? true : false;
+                        let dep_field_has_label = ( dependency_fields[ field ].label && dependency_fields[ field ].label.length ) ? true : false;
+                        let dep_widget_has_label = ( dependency_widgets[ widget_group ].widgets[ widget_name ].options.label ) ? true : false;
+                        
+                        // console.log( dependency_widgets[ widget_group ].widgets[ widget_name ].options );
+                        // console.log( { dep_field_has_label, dep_widget_has_label } );
+
+                        if ( dep_field_has_label && ! dep_widget_has_label ) {
+                            // console.log( 'dep_field_has_label && ! dep_widget_has_label' );
+                            dependency_widgets[ widget_group ].widgets[ widget_name ].options.label = {
+                                type: 'hidden',
+                                value: dependency_fields[ field ].label
+                            }
+                        }
+
+                        if ( dep_field_has_label && dep_widget_has_label ) {
+                            // console.log( 'dep_field_has_label && dep_widget_has_label' );
+                            dependency_widgets[ widget_group ].widgets[ widget_name ].options.label.value = dependency_fields[ field ].label;
+                        }
+
+                        dependency_widgets[ widget_group ].widgets[ widget_name ].options.root_data = {
+                            type: 'array',
+                            value: dependency_fields[ field ],
+                        }
+
+                        new_widget_list[ widget_name ] = dependency_widgets[ widget_group ].widgets[ widget_name ];
+                    }
+                }
+
+                dependency_widgets[ widget_group ].widgets = new_widget_list;
+            }
+
+            return dependency_widgets;
+        }
     },
 
     data() {
         return {
             field_widgets,
             local_widgets: {},
-            groups: [],
+            groups: [
+                {
+                    label: 'General',
+                    fields: [],
+                }
+            ],
             active_fields: {},
+            state: {},
 
             active_fields_ref: {},
 
@@ -165,40 +253,23 @@ export default {
     },
 
     methods: {
+        get_updated() {
+            console.log( 'get_updated' );
+        },
         parseLocalWidgets() {
-            let widgets = { ...this.widgets };
-
-            let preset_fields = {};
-            for ( let preset_field in widgets.preset ) {
-                let preset_field_data = widgets.preset[ preset_field ];
-
-                if ( typeof preset_field_data.options === 'undefined' ) {
-                    preset_field_data.options = {};
-                }
-
-                preset_field_data.options.widget_type = { type: 'hidden', value: 'preset' };
-                preset_field_data.options.widget_name = { type: 'hidden', value: preset_field } ;
-
-                preset_fields[ preset_field ] = preset_field_data;
+            if ( ! this.widgets && typeof this.widgets !== 'object' ) {
+                this.local_widgets = null;
             }
 
-            widgets.preset = preset_fields;
-
-            let custom_fields = {};
-            for ( let custom_field in widgets.custom ) {
-                let custom_field_data = widgets.custom[ custom_field ];
-
-                if ( typeof custom_field_data.options === 'undefined' ) {
-                    custom_field_data.options = {};
+            let widgets = JSON.parse(JSON.stringify( this.widgets ));
+            
+            for ( let widget_group in widgets ) {
+                for ( let widget in widgets[ widget_group ].widgets )  {
+                    widgets[ widget_group ].widgets[widget].options.widget_group = { type: 'hidden', value: widget_group };
+                    widgets[ widget_group ].widgets[widget].options.widget_name = { type: 'hidden', value: widget };
                 }
-
-                custom_field_data.options.widget_type = { type: 'hidden', value: 'custom' };
-                custom_field_data.options.widget_name = { type: 'hidden', value: 'custom_field' };
-
-                custom_fields[ custom_field ] = custom_field_data;
             }
-
-            widgets.custom = custom_fields;
+            
             this.local_widgets = widgets;
         },
 
@@ -207,14 +278,45 @@ export default {
         },
 
         getActiveFieldsSettings( field_key, data_key ) {
-            const widget_type = this.active_fields[ field_key ].widget_type;
+            const widget_group = this.active_fields[ field_key ].widget_group;
             const widget_name = this.active_fields[ field_key ].widget_name;
+            
 
-            return this.local_widgets[ widget_type ][ widget_name ][ data_key ];
+            // console.log( this.local_widgets, this.active_fields, widget_group );
+
+            if ( typeof widget_group === 'undefined' ) {
+                return false;
+            }
+
+            if ( typeof widget_name === 'undefined' ) {
+                return false;
+            }
+            
+            if ( typeof this.widget_groups[ widget_group ] === 'undefined' ) {
+                return false;
+            }
+
+            if ( typeof this.widget_groups[ widget_group ].widgets === 'undefined' ) {
+                return false;
+            }
+
+            if ( typeof this.widget_groups[ widget_group ].widgets[ widget_name ] === 'undefined' ) {
+                return false;
+            }
+
+            if ( typeof this.widget_groups[ widget_group ].widgets[ widget_name ][ data_key] === 'undefined' ) {
+                return false;
+            }
+
+            return this.widget_groups[ widget_group ].widgets[ widget_name ][ data_key ];
         },
 
         getActiveFieldsOptions( widget_options ) {
-            const options = { ...widget_options };
+            if ( typeof widget_options !== 'object'  ) {
+                return widget_options;
+            }
+            
+            let options = JSON.parse(JSON.stringify( widget_options ));
             delete options.value;
 
             return options;
@@ -223,6 +325,8 @@ export default {
         getActiveFieldsHeaderTitle( field_key ) {
             const settings_label = this.getActiveFieldsSettings( field_key, 'label' );
             const option_label = this.active_fields[ field_key ]['label'];
+
+            // console.log( {settings_label, option_label} );
             
             return ( option_label && option_label.length ) ? option_label : settings_label;
         },
@@ -248,7 +352,6 @@ export default {
         },
 
         getActiveFieldCollapseState( field_key ) {
-
             if ( typeof this.ative_field_collapse_states[field_key] === 'undefined' ) {
                 return false;
             }
@@ -284,8 +387,8 @@ export default {
             this.active_group_drop_area = '';
         },
 
-        presetFieldOnDrag( field_key ) {
-            this.current_dragging_item = { inserting_field_key: field_key, inserting_from: 'preset' };
+        widgetItemOnDrag( group_key, field_key ) {
+            this.current_dragging_item = { inserting_field_key: field_key, inserting_from: group_key };
             // console.log( inserting_field_key:  );
         },
 
@@ -384,7 +487,6 @@ export default {
         updateActiveFieldsOptionData( payload ) {
             this.active_fields[ payload.field_key ][ payload.option_key ] = payload.value;
             this.$emit( 'update', this.updated_value );
-            console.log( payload );
         },
 
         addNewActiveFieldSection() {
@@ -429,8 +531,7 @@ export default {
                 inserting_field_key = new_key;
             }
 
-            const field_data = this.widgets[ payload.inserting_from ][ payload.inserting_field_key ];
-            
+            const field_data = this.widget_groups[ payload.inserting_from ].widgets[ payload.inserting_field_key ];
             let field_data_options = {};
 
             for ( let option_key in field_data.options ) {
@@ -439,7 +540,8 @@ export default {
             
             this.active_fields[ inserting_field_key ] = field_data_options;
 
-            const widget_type = this.active_fields[ inserting_field_key ].widget_type;
+
+            const widget_group = this.active_fields[ inserting_field_key ].widget_group;
             const widget_name = this.active_fields[ inserting_field_key ].widget_name;
 
             if ( typeof payload.destination_field_index !== 'undefined' ) {
@@ -449,10 +551,22 @@ export default {
             }
         },
 
+        widgetCanShow( widget_group, field_key ) {
 
+            if ( typeof widget_group.allow_multiple === 'undefined' ) {
+                widget_group.allow_multiple = false;
+            }
+            
+            if ( ! widget_group.allow_multiple && this.groupHasKey( field_key ) ) {
+                return false;
+            }
+
+            return true;
+        },
 
         groupHasKey( field_key ) {
             let match_found = false;
+            if ( ! this.groups ) { return match_found; }
 
             for ( let i = 0; i < this.groups.length; i++ ) {
                 if ( this.groups[ i ].fields.indexOf( field_key ) > -1 ) {

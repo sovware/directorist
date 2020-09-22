@@ -127,7 +127,8 @@ $nav_icon_color: $primary;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    border-bottom: 2px solid #dfdfdf
+    border-bottom: 2px solid #dfdfdf;
+    background-color: #fff;
 }
 
 .cptm-header-nav__list-item {

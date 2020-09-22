@@ -710,8 +710,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ],
                 
             ] );
-            
-            
+
+
             $form_field_widgets = [
                 'preset' => [
                     'title' => 'Preset Fields',
@@ -4009,7 +4009,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ],
             ];
 
-
             $this->fields = [
                 'name' => [
                     'label' => 'Name *',
@@ -4056,6 +4055,20 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     ],
                 ],
 
+                'preview_image' => [
+                    'label' => __( 'Select', 'directorist' ),
+                    'type'  => 'image_picker',
+                    'value' => '',
+                    'rules' => [
+                        'required' => false,
+                    ],
+                ],
+
+                'enable_package' => [
+                    'label' => __( 'Enable paid listing packages', 'directorist' ),
+                    'type'  => 'toggle',
+                    'value' => '',
+                ],
                 'package_list' => [
                     'label' => __( 'Select Packages', 'directorist' ),
                     'type'  => 'select',
@@ -4072,7 +4085,32 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         ],
                     ],
                 ],
-
+                'create_plan' => [
+                    'label' => __( 'Create New Plan', 'directorist' ),
+                    'type'  => 'button',
+                    'link' => esc_url( admin_url(). 'post-new.php?post_type=atbdp_pricing_plans' ),
+                    'target' => '_blank',
+                    'extra_class' => 'cptm-btn cptm-btn-secondery',
+                    'icon'  => '',
+                ],
+                'export' => [
+                    'label' => __( 'Export config file', 'directorist' ),
+                    'type'  => 'button',
+                    'link' => '',
+                    'id'    => 'listing-type-export',
+                    'extra_class' => 'cptm-btn cptm-btn-secondery',
+                    'target' => '',
+                    'icon'  => 'fa fa-download',
+                ],
+                'import' => [
+                    'label' => __( 'Import config file', 'directorist' ),
+                    'type'  => 'button',
+                    'link' => '',
+                    'id'    => 'listing-type-import',
+                    'extra_class' => 'cptm-btn cptm-btn-primary',
+                    'target' => '',
+                    'icon'  => 'fa fa-upload',
+                ],
                 'default_expiration' => [
                     'label' => __( 'Default expiration in days', 'directorist' ),
                     'type'  => 'number',
@@ -4120,7 +4158,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'type'  => 'toggle',
                     'value' => '',
                 ],
-                
+
                 'submission_form_fields' => [
                     'type'    => 'form_builder',
                     'widgets' => $form_field_widgets,
@@ -4190,7 +4228,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ]
         
             ];
-            
+ 
 
             $this->settings = apply_filters( 'atbdp_listing_type_settings', [
                 'general' => [
@@ -4213,6 +4251,18 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
+                        'preview_image' => [
+                            'label' => __( 'Preview Image', 'directorist' ),
+                            'sections' => [
+                                'labels' => [
+                                    'title'       => __( 'Default Preview Image', 'directorist' ),
+                                    'description' => __( 'This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist' ),
+                                    'fields'      => [
+                                        'preview_image',
+                                    ],
+                                ],
+                            ],
+                        ],
                         'packages' => [
                             'label' => 'Packages',
                             'sections' => [
@@ -4220,7 +4270,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'title'       => 'Paid listing packages',
                                     'description' => 'Set what packages the user can choose from when submitting a listing of this type.',
                                     'fields'      => [
-                                        'package_list'
+                                        'enable_package',
+                                        'package_list',
+                                        'create_plan',
                                     ],
                                 ],
                             ],
@@ -4229,13 +4281,28 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'label' => __( 'Other', 'directorist' ),
                             'sections' => [
                                 'labels' => [
-                                    'title'       => __( 'Common Settings', 'directorist' ),
-                                    'description' => '',
+                                    [
+                                    'title'       => __( 'Default Status', 'directorist' ),
+                                    'description' => __( 'Need help?', 'directorist' ),
                                     'fields'      => [
-                                        'default_expiration',
                                         'new_listing_status',
                                         'edit_listing_status',
-                                        'global_listing_type',
+                                        ],
+                                    ],
+                                    [
+                                    'title'       => __( 'Expiration', 'directorist' ),
+                                    'description' => __( 'Default time to expire a listing.', 'directorist' ),
+                                    'fields'      => [
+                                        'default_expiration',
+                                        ],
+                                    ],
+                                    [
+                                    'title'       => __( 'Export & Import Config File', 'directorist' ),
+                                    'description' => __( 'Bulk import and export all the form, layout and settings', 'directorist' ),
+                                    'fields'      => [
+                                        'export',
+                                        'import',
+                                        ],
                                     ],
                                 ],
                             ],
@@ -4390,8 +4457,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 'show_ui' => false,
              ]);
         }
-
-
        
         // enqueue_scripts
         public function enqueue_scripts() {

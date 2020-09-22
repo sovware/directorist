@@ -1,5 +1,5 @@
 <template>
-<div class="cptm-tab-sub-content-item tab-packages cptm-tab-content" :class="getActiveClass( itemIndex, activeIndex )">
+<div class="cptm-tab-sub-content-item tab-preview_image cptm-tab-content" :class="getActiveClass( itemIndex, activeIndex )">
     <div class="cptm-section" v-for="( section, section_key ) in general_sections" :key="section_key">
         <div class="cptm-title-area">
             <h3 v-if="section.title.length" class="cptm-title" v-html="section.title"></h3>
@@ -7,8 +7,8 @@
         </div>
         
         <div class="cptm-form-fields">
+            
             <template v-for="( field, field_key ) in section.fields">
- 
                 <component 
                     :is="field_widgets[ fields[ field ].type ]" 
                     :key="field_key"
@@ -27,12 +27,12 @@ import helpers from './../../../../mixins/helpers';
 import field_widgets from './../../../../mixins/form-fields';
 
 export default {
-    name: 'packages',
+    name: 'preview_image',
     props: ['itemIndex', 'activeIndex'],
     mixins: [helpers],
     computed: {
         ...mapState({
-            general_sections: state => state.settings.general.submenu.packages.sections,
+            general_sections: state => state.settings.general.submenu.preview_image.sections,
             fields: state => state.fields,
         }),
     },

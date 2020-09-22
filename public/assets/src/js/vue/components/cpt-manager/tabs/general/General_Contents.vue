@@ -16,6 +16,7 @@ import { mapState } from 'vuex';
 import helpers from './../../../../mixins/helpers';
 import subNavigation from './../../../../modules/Sub_Navigation.vue';
 import subTabGeneral from './Sub_Tab_General';
+import subTabPreveiw from './Sub_Tab_Preview';
 import subTabPackages from './Sub_Tab_Packages';
 import subTabOther from './Sub_Tab_Other';
 
@@ -40,6 +41,7 @@ export default {
 
             sub_contents: [
                 subTabGeneral,
+                subTabPreveiw,
                 subTabPackages,
                 subTabOther,
             ],

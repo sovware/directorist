@@ -153,6 +153,101 @@
 
     });
 
+    // send system info to admin
+    $('#atbdp-send-system-info-submit').on('click', function (event) {
+        event.preventDefault();
+
+        if( !$('#atbdp-email-subject').val() ){
+            alert('The Subject field is required');
+            return;
+        }
+        if( !$('#atbdp-email-address').val() ){
+            alert('The Email field is required');
+            return;
+        }
+        if( !$('#atbdp-email-message').val() ){
+            alert('The Message field is required');
+            return;
+        }
+        system_info = '';
+        if ($('#atbdp_system_info').is(":checked")){
+            var system_info = 'yes';
+        }
+        $.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: {
+                'action': 'send_system_info', //calls wp_ajax_nopriv_ajaxlogin
+                'email': $('#atbdp-email-address').val(),
+                'subject': $('#atbdp-email-subject').val(),
+                'message': $('#atbdp-email-message').val(),
+                'system_info': system_info,
+            },
+            beforeSend: function () {
+                $('#atbdp-send-system-info-submit').val('sending');
+            },
+            success: function (data) {
+                if(data.success) {
+                    $('#atbdp-send-system-info-submit').val('Send Email');
+                    $('.system_info_success').html('successfully send');
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+
+    });
+
+    /**
+     * Generate new Remote View URL and display it on the admin page
+     */
+    $( '#generate-url' ).on( 'click', function( e ) {
+        e.preventDefault();
+        $.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: {
+                'action': 'generate_url', //calls wp_ajax_nopriv_ajaxlogin
+            },
+            success: function (response) {
+                $( '#atbdp-remote-response').html(response.data.message);
+                $( '#system-info-url' ).val( response.data.url );
+                $( '#system-info-url-text-link' )
+                    .attr( 'href', response.data.url )
+                    .css( 'display', 'inline-block' );
+            },
+            error: function(response){
+               // $('#atbdp-remote-response').val(response.data.error);
+            }
+        });
+
+        return false;
+    });
+    
+    $( '#revoke-url' ).on( 'click', function( e ) {
+        e.preventDefault();
+        $.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: {
+                'action': 'revoke_url', //calls wp_ajax_nopriv_ajaxlogin
+            },
+            success: function (response) {
+                $( '#atbdp-remote-response').html(response.data);
+                $( '#system-info-url' ).val( '' );
+                $( '#system-info-url-text-link' )
+                    .attr( 'href', '#' )
+                    .css( 'display', 'none' );
+            },
+            error: function(response){
+               // $('#atbdp-remote-response').val(response.data.error);
+            }
+        });
+
+        return false;
+    });
+
     // redirect to import import_page_link
     $('#csv_import input[name="csv_import"]').on('change', function (event) {
         event.preventDefault();

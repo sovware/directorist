@@ -25,9 +25,13 @@ class ATBDP_Status
      * @return void
      */
     public function status_menu() {
-        add_submenu_page( 'edit.php?post_type=at_biz_dir', __( 'Directorist status', 'directorist' ),  __( 'Status', 'directorist' ) , 'manage_options', 'directorist-status', array( $this, 'status_page' ) );
+        add_submenu_page( 'edit.php?post_type=at_biz_dir', __( 'Directorist status', 'directorist' ),  __( 'Status', 'directorist' ) , 'manage_options', 'directorist-status', array( $this, 'tools_page' ) );
     }
     
+    public function tools_page() {
+        include ATBDP_INC_DIR . '/system-status/template.php'; 
+    }
+
     public function status_page() { ?>
 
         <div class='postbox'>

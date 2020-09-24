@@ -9,7 +9,6 @@ export default new Vuex.Store({
     active_nav_index: 0,
     settings: {},
     fields: {},
-    form_fields: {},
 
     submenu: {
       general: [
@@ -19,8 +18,6 @@ export default new Vuex.Store({
         'Other',
       ],
     },
-
-    active_fields_ref: {}
   },
   
   // mutations

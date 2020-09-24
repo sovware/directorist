@@ -1,12 +1,31 @@
 <template>
-    <div class="atbdp-cptm-tab-item search-form cptm-tab-content" :class="getActiveClass(index, active_nav_index)">
-        Search Forms
+    <div class="atbdp-cptm-tab-item search-form cptm-tab-content tab-full-width" :class="getActiveClass(index, active_nav_index)">
+        <div class="cptm-section" v-for="( section, section_key ) in search_form_sections" :key="section_key">
+            <div class="cptm-title-area">
+                <h3 v-if="section.title.length" class="cptm-title" v-html="section.title"></h3>
+                <p v-if="section.description" v-html="section.description"></p>
+            </div>
+            
+            <div class="cptm-form-fields">
+                <template v-for="( field, field_key ) in section.fields">
+                    <component 
+                        :is="field_widgets[ fields[ field ].type ]" 
+                        :key="field_key"
+                        v-bind="fields[ field ]"
+                        @update="updateFieldValue( field, $event )">
+                    </component>
+                </template>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import { mapMutations } from 'vuex';
+
 import helpers from './../../../mixins/helpers';
+import field_widgets from './../../../mixins/form-fields';
 
 export default {
     name: 'search-form',
@@ -15,9 +34,35 @@ export default {
 
     // computed
     computed: {
-        ...mapState([
-            'active_nav_index',
-        ])
+        ...mapState({
+            fields: 'fields',
+            active_nav_index: 'active_nav_index',
+            search_form_sections: state => state.settings.search_forms.sections,
+        }),
+    },
+
+    data() {
+        return {
+            field_widgets,
+        }
+    },
+
+    methods: {
+        getDependency( props ) {
+            if ( typeof props.dependency === 'undefined' ) {
+                return '';
+            }
+
+            if ( typeof this.$store.state.fields[ props.dependency ] === 'undefined' ) {
+                return '';
+            }
+
+            if ( typeof this.$store.state.fields[ props.dependency ].value === 'undefined' ) {
+                return '';
+            }
+
+            return this.$store.state.fields[ props.dependency ].value;
+        }
     },
 }
 </script>

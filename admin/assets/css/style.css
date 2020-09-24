@@ -15,11 +15,12 @@ css for Custom Field
 }
 
 #directorist.atbd_wrapper * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
-#directorist.atbd_wrapper .iris-picker, #directorist.atbd_wrapper .iris-picker * {
-  -moz-box-sizing: content-box;
+#directorist.atbd_wrapper .iris-picker,
+#directorist.atbd_wrapper .iris-picker * {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
@@ -77,6 +78,8 @@ css for Custom Field
   line-height: 26px;
   width: 26px;
   border-radius: 50%;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
   transition: 0.2s;
   cursor: pointer;
   color: #ffffff;
@@ -151,8 +154,6 @@ css for Custom Field
   width: 26px;
   border-radius: 50%;
   -webkit-transition: 0.2s;
-  -moz-transition: 0.2s;
-  -ms-transition: 0.2s;
   -o-transition: 0.2s;
   transition: 0.2s;
   cursor: pointer;
@@ -174,8 +175,12 @@ css for Custom Field
 
 #directorist.atbd_wrapper .form-check {
   margin-bottom: 25px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #directorist.atbd_wrapper .form-check input {
@@ -203,9 +208,15 @@ css for Custom Field
 #directorist.atbd_wrapper .extension_detail.ext_d {
   min-height: 140px;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 #directorist.atbd_wrapper .extension_detail.ext_d p {
@@ -217,7 +228,9 @@ css for Custom Field
   margin-top: auto;
 }
 
-#directorist.atbd_wrapper .extension_detail.ext_d > a, #directorist.atbd_wrapper .extension_detail.ext_d p, #directorist.atbd_wrapper .extension_detail.ext_d div {
+#directorist.atbd_wrapper .extension_detail.ext_d > a,
+#directorist.atbd_wrapper .extension_detail.ext_d p,
+#directorist.atbd_wrapper .extension_detail.ext_d div {
   display: block;
 }
 
@@ -231,6 +244,8 @@ css for Custom Field
   font-weight: 500;
   font-size: 18px;
   color: #202428;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
   transition: 0.3s;
   display: block;
 }
@@ -255,7 +270,8 @@ css for Custom Field
 #directorist.atbd_wrapper .attc_extension_wrapper .single_extension {
   margin-bottom: 30px;
   background: #ffffff;
-  box-shadow: 0px 5px 10px #e1e7f7;
+  -webkit-box-shadow: 0px 5px 10px #e1e7f7;
+          box-shadow: 0px 5px 10px #e1e7f7;
   padding: 25px;
 }
 
@@ -272,7 +288,7 @@ css for Custom Field
 }
 
 #directorist.atbd_wrapper .attc_extension_wrapper .single_extension.coming_soon .ext_title a:after {
-  content: '(Coming Soon)';
+  content: "(Coming Soon)";
   color: #ff0000;
   font-size: 14px;
 }
@@ -329,7 +345,8 @@ css for Custom Field
 #directorist.atbd_wrapper.atbd_help_support .wrap_right .postbox {
   background: #0073aa;
   border-radius: 3px;
-  box-shadow: 0 10px 20px rgba(103, 103, 103, 0.27);
+  -webkit-box-shadow: 0 10px 20px rgba(103, 103, 103, 0.27);
+          box-shadow: 0 10px 20px rgba(103, 103, 103, 0.27);
 }
 
 #directorist.atbd_wrapper.atbd_help_support .wrap_right .postbox h3 {
@@ -375,7 +392,8 @@ css for Custom Field
 }
 
 #directorist.atbd_wrapper .postbox table.widefat {
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   background: #eff2f5;
 }
 
@@ -404,12 +422,12 @@ css for Custom Field
 }
 
 #directorist.atbd_wrapper .ui-sortable tr.alternate {
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
 }
 
 #directorist.atbd_wrapper .ui-sortable tr.ui-sortable-helper {
-  background-color: #F9F9F9;
-  border-top: 1px solid #DFDFDF;
+  background-color: #f9f9f9;
+  border-top: 1px solid #dfdfdf;
 }
 
 #directorist.atbd_wrapper .business-hour label {
@@ -425,9 +443,14 @@ css for Custom Field
 }
 
 #directorist.atbd_wrapper .form-group .atbd_pricing_options {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 #directorist.atbd_wrapper .form-group .atbd_pricing_options label {
@@ -491,7 +514,8 @@ css for Custom Field
 }
 
 @media (min-width: 1199px) and (max-width: 1510px), (min-width: 768px) and (max-width: 1187px), (min-width: 576px) and (max-width: 694px), (min-width: 320px) and (max-width: 373px) {
-  #directorist.atbd_wrapper .btn.demo, #directorist.atbd_wrapper .btn.get {
+  #directorist.atbd_wrapper .btn.demo,
+  #directorist.atbd_wrapper .btn.get {
     display: block;
     margin: 0;
   }
@@ -534,7 +558,7 @@ css for Custom Field
 }
 
 #shortcode-updated .input label span {
-  background: #008EC2;
+  background: #008ec2;
   width: 160px;
   position: relative;
   border-radius: 3px;
@@ -542,12 +566,14 @@ css for Custom Field
 }
 
 #shortcode-updated .input label span:before {
-  content: 'Upgrade/Regenerate';
+  content: "Upgrade/Regenerate";
   position: absolute;
   color: #fff;
   left: 50%;
   top: 48%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   border-radius: 3px;
 }
 
@@ -592,10 +618,18 @@ css for Custom Field
   background: #c4c4c4;
   right: -5px;
   top: -5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   text-decoration: none;
+  -webkit-transition: 0.2s ease;
+  -o-transition: 0.2s ease;
   transition: 0.2s ease;
 }
 
@@ -610,6 +644,8 @@ css for Custom Field
 }
 
 .plupload-thumbs .thumb:hover .atbdp-thumb-actions {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
   display: flex !important;
 }
 
@@ -620,19 +656,31 @@ css for Custom Field
   left: 0;
   top: 0;
   margin-top: 0;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink {
   background: #000;
   height: 30px;
   width: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   border-radius: 50%;
-  transition: .3s ease;
+  -webkit-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  transition: 0.3s ease;
   font-size: 14px;
 }
 
@@ -657,10 +705,13 @@ css for Custom Field
   border: 1px solid #e3e6ef;
   background: #f8f9fb;
   font-size: 14px;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   line-height: 40px !important;
   padding: 0 30px !important;
   height: auto !important;
+  -webkit-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
   transition: 0.3s ease;
 }
 
@@ -706,14 +757,15 @@ css for Custom Field
   bottom: 100%;
   display: none;
   -webkit-animation: showTooltip 0.3s ease;
-  -o-animation: showTooltip 0.3s ease;
   animation: showTooltip 0.3s ease;
 }
 
 .atbd_tooltip[aria-label]:before {
   content: "";
   left: 50%;
-  transform: translate(-50%, 7px);
+  -webkit-transform: translate(-50%, 7px);
+      -ms-transform: translate(-50%, 7px);
+          transform: translate(-50%, 7px);
   border: 6px solid transparent;
   border-top-color: rgba(0, 0, 0, 0.8);
 }
@@ -721,7 +773,9 @@ css for Custom Field
 .atbd_tooltip[aria-label]:after {
   content: attr(aria-label);
   left: 50%;
-  transform: translate(-50%, -5px);
+  -webkit-transform: translate(-50%, -5px);
+      -ms-transform: translate(-50%, -5px);
+          transform: translate(-50%, -5px);
   min-width: 150px;
   text-align: center;
   background: rgba(0, 0, 0, 0.8);
@@ -732,6 +786,12 @@ css for Custom Field
 
 .atbd_tooltip[aria-label]:hover:before, .atbd_tooltip[aria-label]:hover:after {
   display: block;
+}
+
+@-webkit-keyframes showTooltip {
+  from {
+    opacity: 0;
+  }
 }
 
 @keyframes showTooltip {
@@ -745,7 +805,7 @@ css for Custom Field
 }
 
 .vp-wrap .vp-field .label .description.atbdp_settings_description p strong:after {
-  content: '\f1a7';
+  content: "\f1a7";
   font-family: "LineAwesome";
   color: #000;
   font-weight: normal;
@@ -763,8 +823,12 @@ css for Custom Field
 }
 
 #atbdp-field-details .recurring_time_period {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #atbdp-field-details .recurring_time_period > label {
@@ -793,8 +857,12 @@ div#need_post_area label input:checked + span {
 }
 
 #pyn_service_budget label {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
   display: flex !important;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #pyn_service_budget label #is_hourly {
@@ -821,11 +889,16 @@ div#need_post_area label input:checked + span {
 #priout_example,
 #prioutlight_example,
 #danout_example {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-#primary_example input[type="text"], #primary_example .button,
+#primary_example input[type="text"],
+#primary_example .button,
 #secondary_example input[type="text"],
 #secondary_example .button,
 #success_example input[type="text"],
@@ -870,22 +943,28 @@ span.atbdp-tick-cross {
 }
 
 .csv-action-btns a {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   text-decoration: none;
   line-height: 44px;
   padding: 0 20px;
   background: #fff;
-  border: 1px solid #E3E6EF;
-  color: #272B41;
+  border: 1px solid #e3e6ef;
+  color: #272b41;
   border-radius: 5px;
   font-weight: 600;
   margin-right: 7px;
 }
 
 .csv-action-btns a span {
-  color: #9299B8;
+  color: #9299b8;
 }
 
 .csv-action-btns a:last-child {
@@ -893,9 +972,9 @@ span.atbdp-tick-cross {
 }
 
 .csv-action-btns a.btn-active {
-  background: #2C99FF;
+  background: #2c99ff;
   color: #fff;
-  border-color: #2C99FF;
+  border-color: #2c99ff;
 }
 
 .csv-action-btns a.btn-active span {
@@ -905,9 +984,14 @@ span.atbdp-tick-cross {
 .csv-action-steps ul {
   width: 700px;
   margin: 80px auto 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .csv-action-steps ul li {
@@ -927,14 +1011,21 @@ span.atbdp-tick-cross {
 }
 
 .csv-action-steps ul li .step {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  color: #9299B8;
-  box-shadow: 5px 0 10px rgba(146, 153, 184, 0.15);
+  color: #9299b8;
+  -webkit-box-shadow: 5px 0 10px rgba(146, 153, 184, 0.15);
+          box-shadow: 5px 0 10px rgba(146, 153, 184, 0.15);
   background: #fff;
 }
 
@@ -946,17 +1037,17 @@ span.atbdp-tick-cross {
 .csv-action-steps ul li .step-text {
   display: block;
   margin-top: 15px;
-  color: #9299B8;
+  color: #9299b8;
   font-weight: 500;
 }
 
 .csv-action-steps ul li.active .step {
-  background: #272B41;
+  background: #272b41;
   color: #fff;
 }
 
 .csv-action-steps ul li.active .step-text {
-  color: #272B41;
+  color: #272b41;
 }
 
 .csv-action-steps ul li.done:before {
@@ -964,7 +1055,7 @@ span.atbdp-tick-cross {
 }
 
 .csv-action-steps ul li.done .step {
-  background: #0FB73B;
+  background: #0fb73b;
   color: #fff;
 }
 
@@ -977,7 +1068,7 @@ span.atbdp-tick-cross {
 }
 
 .csv-action-steps ul li.done .step-text {
-  color: #272B41;
+  color: #272b41;
 }
 
 .csv-action-steps ul li:last-child:before, .csv-action-steps ul li:last-child.done:before {
@@ -993,12 +1084,13 @@ span.atbdp-tick-cross {
   margin: 0 auto;
   background: #fff;
   border-radius: 5px;
-  box-shadow: 0 5px 8px rgba(146, 153, 184, 0.15);
+  -webkit-box-shadow: 0 5px 8px rgba(146, 153, 184, 0.15);
+          box-shadow: 0 5px 8px rgba(146, 153, 184, 0.15);
 }
 
 .csv-wrapper form header {
   padding: 30px 30px 20px;
-  border-bottom: 1px solid #F1F2F6;
+  border-bottom: 1px solid #f1f2f6;
 }
 
 .csv-wrapper form header h2 {
@@ -1008,7 +1100,7 @@ span.atbdp-tick-cross {
 }
 
 .csv-wrapper form header p {
-  color: #5A5F7D;
+  color: #5a5f7d;
   margin: 0;
 }
 
@@ -1042,25 +1134,31 @@ span.atbdp-tick-cross {
 
 .csv-wrapper form .form-content .directorist-importer-options .csv-upload #upload + label .upload-btn {
   line-height: 40px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   border-radius: 5px;
   padding: 0 20px;
-  background: #5A5F7D;
+  background: #5a5f7d;
   color: #fff;
   font-weight: 500;
 }
 
 .csv-wrapper form .form-content .directorist-importer-options .csv-upload #upload + label .file-name {
-  color: #9299B8;
+  color: #9299b8;
   display: inline-block;
   margin-left: 5px;
 }
 
 .csv-wrapper form .form-content .directorist-importer-options .csv-upload small {
   font-size: 13px;
-  color: #9299B8;
+  color: #9299b8;
   display: block;
   margin-top: 10px;
 }
@@ -1072,7 +1170,7 @@ span.atbdp-tick-cross {
 .csv-wrapper form .form-content .directorist-importer-options .update-existing label.ue {
   font-size: 15px;
   font-weight: 500;
-  color: #272B41;
+  color: #272b41;
   display: block;
   margin-bottom: 15px;
 }
@@ -1084,7 +1182,7 @@ span.atbdp-tick-cross {
 .csv-wrapper form .form-content .directorist-importer-options .csv-delimiter label {
   font-size: 15px;
   font-weight: 500;
-  color: #272B41;
+  color: #272b41;
   display: block;
   margin-bottom: 15px;
 }
@@ -1092,7 +1190,7 @@ span.atbdp-tick-cross {
 .csv-wrapper form .form-content .directorist-importer-options .csv-delimiter input {
   width: 120px;
   border-radius: 4px;
-  border: 1px solid #C6D0DC;
+  border: 1px solid #c6d0dc;
   height: 36px;
 }
 
@@ -1102,17 +1200,18 @@ span.atbdp-tick-cross {
 
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table {
   border: 0 none;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table thead {
-  background: #F4F5F7;
+  background: #f4f5f7;
 }
 
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table thead th {
   border: 0 none;
   font-weight: 500;
-  color: #272B41;
+  color: #272b41;
 }
 
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-name {
@@ -1122,7 +1221,7 @@ span.atbdp-tick-cross {
 
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-name p {
   margin: 0 0 5px;
-  color: #272B41;
+  color: #272b41;
 }
 
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-name .description {
@@ -1135,21 +1234,25 @@ span.atbdp-tick-cross {
 }
 
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tbody .atbdp-importer-mapping-table-field select {
-  border: 1px solid #C6D0DC;
+  border: 1px solid #c6d0dc;
   border-radius: 4px;
   line-height: 40px;
   padding: 0 15px;
 }
 
 .csv-wrapper form .atbdp-actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   padding: 20px 30px;
-  background: #F4F5F7;
+  background: #f4f5f7;
 }
 
 .csv-wrapper form .atbdp-actions .button {
-  background: #2C99FF;
+  background: #2c99ff;
   color: #fff;
   border: 0 none;
   line-height: 44px;
@@ -1161,7 +1264,7 @@ span.atbdp-tick-cross {
 
 .csv-wrapper .directorist-importer__importing header {
   padding: 30px 30px 20px;
-  border-bottom: 1px solid #F1F2F6;
+  border-bottom: 1px solid #f1f2f6;
 }
 
 .csv-wrapper .directorist-importer__importing header h2 {
@@ -1171,7 +1274,7 @@ span.atbdp-tick-cross {
 }
 
 .csv-wrapper .directorist-importer__importing header p {
-  color: #5A5F7D;
+  color: #5a5f7d;
   margin: 0;
 }
 
@@ -1181,14 +1284,14 @@ span.atbdp-tick-cross {
 
 .csv-wrapper .directorist-importer__importing span.importer-notice {
   display: block;
-  color: #5A5F7D;
+  color: #5a5f7d;
   font-size: 15px;
   padding-bottom: 13px;
 }
 
 .csv-wrapper .directorist-importer__importing span.importer-details {
   display: block;
-  color: #5A5F7D;
+  color: #5a5f7d;
   font-size: 15px;
   padding-top: 13px;
 }
@@ -1201,23 +1304,23 @@ span.atbdp-tick-cross {
 }
 
 .csv-wrapper .directorist-importer__importing progress::-webkit-progress-bar {
-  background: #E8F0F8;
+  background: #e8f0f8;
   border-radius: 15px;
 }
 
 .csv-wrapper .directorist-importer__importing progress::-webkit-progress-value {
-  background: #2C99FF;
+  background: #2c99ff;
 }
 
 .csv-wrapper .directorist-importer__importing progress::-moz-progress-bar {
-  background: #E8F0F8;
+  background: #e8f0f8;
   border-radius: 15px;
   border: none;
   box-shadow: none;
 }
 
 .csv-wrapper .directorist-importer__importing progress[value]::-moz-progress-bar {
-  background: #2C99FF;
+  background: #2c99ff;
 }
 
 .csv-wrapper .csv-import-done .wc-progress-form-content {
@@ -1231,41 +1334,51 @@ span.atbdp-tick-cross {
 .csv-wrapper .csv-import-done .wc-progress-form-content .wc-actions .dashicons {
   width: 100px;
   height: 100px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
   border-radius: 50%;
-  background: #0FB73B;
+  background: #0fb73b;
   font-size: 70px;
   color: #fff;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .csv-wrapper .csv-import-done .wc-progress-form-content .wc-actions p {
-  color: #5A5F7D;
+  color: #5a5f7d;
   font-size: 20px;
   margin: 10px 0 0;
 }
 
 .csv-wrapper .csv-import-done .wc-progress-form-content .wc-actions p strong {
-  color: #272B41;
+  color: #272b41;
   font-weight: 600;
 }
 
 .csv-wrapper .csv-import-done .wc-progress-form-content .wc-actions .import-complete {
   font-size: 20px;
-  color: #272B41;
+  color: #272b41;
   margin: 16px 0 0;
 }
 
 .csv-wrapper .csv-import-done .atbdp-actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   padding: 20px 30px;
-  background: #F4F5F7;
+  background: #f4f5f7;
 }
 
 .csv-wrapper .csv-import-done .atbdp-actions .button {
-  background: #2C99FF;
+  background: #2c99ff;
   color: #fff;
   border: 0 none;
   line-height: 44px;
@@ -1277,13 +1390,19 @@ span.atbdp-tick-cross {
 
 .csv-wrapper .csv-center.csv-export {
   padding: 100px 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .csv-wrapper .csv-center.csv-export .button-secondary {
-  background: #2C99FF;
+  background: #2c99ff;
   color: #fff;
   border: 0 none;
   line-height: 44px;
@@ -1299,9 +1418,15 @@ span.atbdp-tick-cross {
 
 #csv_import .vp-input + span {
   background: #007cba;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding: 0 15px;
   border-radius: 3px;
   color: #fff;
@@ -1311,17 +1436,52 @@ span.atbdp-tick-cross {
 }
 
 #csv_import .vp-input + span:after {
-  content: 'Run Importer';
+  content: "Run Importer";
 }
 
 .vp-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .vp-documentation-panel #directorist.atbd_wrapper {
   padding: 4px 0;
+}
+
+/* System Status */
+.atbds_wrapper .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.atbds_wrapper .col-lg-3 {
+  -webkit-box-flex: 20%;
+      -ms-flex: 20%;
+          flex: 20%;
+  max-width: 20%;
+}
+
+.atbds_wrapper .col-lg-9 {
+  -webkit-box-flex: 80%;
+      -ms-flex: 80%;
+          flex: 80%;
+  max-width: 80%;
+}
+
+.atbds_card.card {
+  min-width: 100%;
+}
+
+.atbds_card .atbds_status-nav .nav-link {
+  font-size: 14px;
+  font-weight: 400;
 }
 
 /*# sourceMappingURL=map/style.css.map */

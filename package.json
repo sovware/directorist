@@ -14,7 +14,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/vairafiq/directorist-business-directory-plugin#readme",
   "dependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^4.0.0"
   },
   "devDependencies": {
     "gulp-autoprefixer": "^6.0.0",

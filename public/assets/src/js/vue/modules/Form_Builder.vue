@@ -138,11 +138,12 @@ export default {
         }
         
         this.parseLocalWidgets();
+        this.$emit( 'update', this.updated_value );
     },
 
     computed: {
         updated_value() {
-            return { fields: this.active_fields, groups: this.groups };
+            return JSON.stringify( { fields: this.active_fields, groups: this.groups } );
         },
 
         widget_groups() {

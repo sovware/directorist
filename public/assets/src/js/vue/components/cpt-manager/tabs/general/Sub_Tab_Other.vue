@@ -23,7 +23,6 @@
 <script>
 import { mapState } from 'vuex';
 import helpers from './../../../../mixins/helpers';
-import field_widgets from './../../../../mixins/form-fields';
 
 export default {
     name: 'other',
@@ -34,14 +33,6 @@ export default {
             general_sections: state => state.settings.general.submenu.other.sections.labels,
             fields: state => state.fields,
         }),
-    },
-    data() {
-        return {
-            field_widgets,
-        }
-    },
-    methods: {
-        
     },
 }
 </script>

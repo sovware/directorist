@@ -1,11 +1,20 @@
 <template>
 <div class="cptm-form-group">
     <label for="">{{label}}</label>
-    <select v-if="multiple" multiple @change="$emit('update', $event.target.value)">
-        <option v-for="( option, option_key ) in options" :key="option_key" :value="option.value">{{ option.label }}</option>
-    </select>
-    <select v-else @change="$emit('update', $event.target.value)">
-        <option v-for="( option, option_key ) in options" :key="option_key" :value="option.value">{{ option.label }}</option>
+    <select @change="update_value( $event.target.value )" :value="local_value">
+        <template v-for="( option, option_key ) in options">
+            <template v-if="option.group && option.options">
+                <optgroup :label="option.group" :key="option_key">
+                    <option v-for="( sub_option, sub_option_key ) in option.options" :key="sub_option_key" :value="sub_option.value">
+                        {{ sub_option.label }}
+                    </option>
+                </optgroup>
+            </template>
+
+            <template v-else>
+                <option :key="option_key" :value="option.value">{{ option.label }}</option>
+            </template>
+        </template>
     </select>
 </div>
 </template>
@@ -33,11 +42,6 @@ export default {
             required: false,
             default: '',
         },
-        multiple: {
-            type: [ Boolean, String, Number ],
-            required: false,
-            default: '',
-        },
         options: {
             type: Array,
             required: false,
@@ -60,6 +64,11 @@ export default {
         },
     },
 
+    created() {
+        this.local_value = this.value;
+        this.$emit( 'update', this.local_value );
+    },
+
     computed: {
         input_type() {
             const supported_types = ['text', 'number', 'password', 'date'];
@@ -69,13 +78,19 @@ export default {
             }
 
             return 'text';
-
         }
     },
 
     data() {
         return {
+            local_value: '',
+        }
+    },
 
+    methods: {
+        update_value( value ) {
+            this.local_value = value;
+            this.$emit( 'update', this.local_value );
         }
     },
 }

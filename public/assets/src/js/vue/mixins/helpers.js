@@ -1,4 +1,12 @@
+import field_widgets from './form-fields';
+
 export default {
+    data() {
+        return {
+            field_widgets
+        }
+    },
+    
     methods: {
         updateFieldValue( field_key, value ) {
             this.$store.commit( 'updateFieldValue', { field_key, value } );

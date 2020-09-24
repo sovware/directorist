@@ -1,5 +1,7 @@
 <?php
 
+use function PHPSTORM_META\type;
+
 if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
     class ATBDP_Listing_Type_Manager {
         public $settings = [];
@@ -23,32 +25,37 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         // save_post_type_data
         public function save_post_type_data() {
-            if ( empty( $_REQUEST['name'] ) ) {
+
+            if ( empty( $_POST['name'] ) ) {
                 wp_send_json( [
                     'status' => false,
                     'status_log' => [
-                        'name_is_missing' => 'Name is missing'
+                        'name_is_missing' => [
+                            'type' => 'error',
+                            'message' => 'Name is missing',
+                        ],
                     ],
                 ], 200 );
-            } 
-            
+            }
 
             $term_id = 0;
             $mode    = 'create';
-            $listing_type_name = $_REQUEST['name'];
+            $listing_type_name = $_POST['name'];
 
-            if ( ! empty( $_REQUEST['listing_type_id'] ) ) {
+            if ( ! empty( $_POST['listing_type_id'] ) && absint( $_POST['listing_type_id'] ) ) {
                 $mode = 'edit';
-                $term_id = absint( $_REQUEST['listing_type_id'] );
+                $term_id = absint( $_POST['listing_type_id'] );
                 wp_update_term( $term_id, 'atbdp_listing_types', ['name' => $listing_type_name] );
             } else {
                 $term = wp_insert_term( $listing_type_name, 'atbdp_listing_types' );
 
                 if ( is_wp_error( $term ) ) {
                     if ( ! empty( $term->errors['term_exists'] )  ) {
+                        $mode = 'edit';
                         $term_id = $term->error_data['term_exists'];
                     }
                 } else {
+                    $mode = 'edit';
                     $term_id = $term['term_id'];
                 }
                 
@@ -68,7 +75,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
             $created_message = ( 'create' == $mode ) ? 'created' : 'updated';
 
-            if ( empty( $_REQUEST['field_list'] ) ) {
+            if ( empty( $_POST['field_list'] ) ) {
                 wp_send_json( [
                     'status' => true,
                     'post_id' => $term_id,
@@ -85,9 +92,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ], 200 );
             }
 
-            foreach ( $_REQUEST['field_list'] as $field ) {
-                if ( ! empty( $_REQUEST[ $field ] ) && 'name' !== $field ) {
-                    update_term_meta( $term_id, $field, $this->get_sanitized_field_value( $field, $_REQUEST[ $field ] ) );
+            $field_list = $this->maybe_json( $_POST['field_list'] );
+            foreach ( $field_list as $field_key ) {
+                if ( isset( $_POST[ $field_key ] ) && 'name' !==  $field_key ) {
+                    $this->update_validated_term_meta( $term_id, $field_key, $_POST[ $field_key ] );
                 }
             }
 
@@ -103,35 +111,32 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             ], 200 );
         }
 
-        // get_field_value 
-        public function get_sanitized_field_value( $key, $value ) {
-            
-            if ( ! isset( $this->fields[ $key ] )  ) {
-                return '';
+        // update_validated_term_meta
+        public function update_validated_term_meta( $term_id, $field_key, $value ) {
+            if ( ! isset( $this->fields[ $field_key ] )  ) {
+                return;
             }
 
-            $plain_formats = [
-                'text',
-                'icon',
-                'select',
-                'radio',
-            ];
+            update_term_meta(  $term_id, $field_key, $this->maybe_serialize( $value ) );
+        }
 
-            $array_formats = [
-                'multi_select',
-                'checkbox',
-                'form_builder',
-            ];
+        // maybe_serialize 
+        public function maybe_serialize( $value = '' ) {
+            return maybe_serialize( $this->maybe_json( $value ));
+        }
 
-            if ( in_array( $this->fields[ $key ]['type'],  $plain_formats) ) {
-                return sanitize_text_field( $value );
+        // maybe_json
+        public function maybe_json( $string ) {
+            $string_alt = $string;
+
+            if ( preg_match( '/(\\\")/', $string_alt ) ) {
+                $string_alt = preg_replace( '/(\\\")/', '"', $string_alt );
+                $string_alt = json_decode( $string_alt );
+
+                $string = ( null !== gettype( $string_alt ) ) ? $string_alt : $string;
             }
 
-            if ( in_array( $this->fields[ $key ]['type'],  $array_formats) ) {
-                return serialize( $value );
-            }
-
-            return '';
+            return $string;
         }
 
         public function get_old_custom_fields( $fields_of = 'form' ){
@@ -4076,12 +4081,29 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'value' => '',
                     'options' => [
                         [
+                            'label' => 'Select...',
+                            'value' => '',
+                        ],
+                        [
                             'label' => 'Plan A',
                             'value' => 12565,
                         ],
                         [
                             'label' => 'Plan B',
                             'value' => 62552,
+                        ],
+                        [
+                            'group' => 'Group',
+                            'options' => [
+                                [
+                                    'label' => 'Plan A',
+                                    'value' => 12565,
+                                ],
+                                [
+                                    'label' => 'Plan B',
+                                    'value' => 62552,
+                                ],
+                            ],
                         ],
                     ],
                 ],
@@ -4127,6 +4149,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'value' => '',
                     'options' => [
                         [
+                            'label' => 'Select...',
+                            'value' => '',
+                        ],
+                        [
                             'label' => __( 'Pending', 'directorist' ),
                             'value' => 'pending',
                         ],
@@ -4142,6 +4168,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'type'  => 'select',
                     'value' => '',
                     'options' => [
+                        [
+                            'label' => 'Select...',
+                            'value' => '',
+                        ],
                         [
                             'label' => __( 'Pending', 'directorist' ),
                             'value' => 'pending',
@@ -4225,7 +4255,41 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                         ]
                     ],
-                ]
+                ],
+
+                'listings_card_grid_view' => [
+                    'type' => 'card_builder',
+                    'layout' => 'grid_view',
+                    'value' => '',
+                ],
+
+                'listings_card_list_view' => [
+                    'type' => 'card_builder',
+                    'layout' => 'list_view',
+                    'value' => '',
+                ],
+
+                'listings_card_height' => [
+                    'type' => 'number',
+                    'label' => 'Height',
+                    'value' => '250',
+                    'unit' => 'px',
+                    'units' => [
+                        [ 'label' => 'px', 'value' => 'px' ],
+                        [ 'label' => '%', 'value' => '%' ],
+                    ],
+                ],
+
+                'listings_card_width' => [
+                    'type' => 'number',
+                    'label' => 'Width',
+                    'value' => '100',
+                    'unit' => '%',
+                    'units' => [
+                        [ 'label' => 'px', 'value' => 'px' ],
+                        [ 'label' => '%', 'value' => '%' ],
+                    ],
+                ],
         
             ];
  
@@ -4332,6 +4396,46 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 'listings_card_layout' => [
                     'label' => 'Listings Card Layout',
                     'icon' => 'fa fa-picture-o',
+                    'submenu' => [
+                        'grid_view' => [
+                            'label' => 'Listings Card Grid Layout',
+                            'sections' => [
+                                'listings_card' => [
+                                    'title' => __( 'Create and customize the listing card for grid view', 'directorist' ),
+                                    'description' => 'need help?',
+                                    'fields' => [
+                                        'listings_card_grid_view'
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'list_view' => [
+                            'label' => 'Listings Card List Layout',
+                            'sections' => [
+                                'listings_card' => [
+                                    'title' => __( 'Create and customize the listing card for listing view', 'directorist' ),
+                                    'description' => 'need help?',
+                                    'fields' => [
+                                        'listings_card_list_view'
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'options' => [
+                            'label' => 'Listings Card Options',
+                            'sections' => [
+                                'listings_card_options' => [
+                                    'title' => __( 'Customize the options', 'directorist' ),
+                                    'description' => 'need help?',
+                                    'fields' => [
+                                        'listings_card_height',
+                                        'listings_card_width'
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                    
                 ],
                 'search_forms' => [
                     'label' => 'Search Forms',
@@ -4370,22 +4474,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             $post_types_list_table->prepare_items();
 
             $listing_type_id = 0;
-
+            
             if ( ! empty( $action ) && ( 'edit' === $action ) && ! empty( $_REQUEST['listing_type_id'] )  ) {
-                $listing_type_id = absint( $_REQUEST['listing_type_id'] );
-
-                $term = get_term( $listing_type_id, 'atbdp_listing_types' );
-                $all_term_meta = get_term_meta( $listing_type_id );
-
-                if ( $term ) {
-                    $this->fields[ 'name' ]['value'] = $term->name;
-                }
-
-                foreach ( $all_term_meta as $meta_key => $meta_value ) {
-                    if ( isset( $this->fields[ $meta_key ] ) ) {
-                        $this->fields[ $meta_key ]['value'] = $meta_value[0];
-                    }
-                }
+                $listing_type_id = $_REQUEST['listing_type_id'];
+                $this->update_fields_with_old_data();
             }
 
             $data = [
@@ -4404,6 +4496,25 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             }
 
             atbdp_load_admin_template( 'post-types-manager/all-listing-types', $data );
+        }
+
+        // update_fields_with_old_data
+        public function update_fields_with_old_data() {
+            $listing_type_id = absint( $_REQUEST['listing_type_id'] );
+
+            $term = get_term( $listing_type_id, 'atbdp_listing_types' );
+            if ( ! $term ) { return; }
+
+            $this->fields[ 'name' ]['value'] = $term->name;
+
+            $all_term_meta = get_term_meta( $term->term_id );
+            if ( 'array' !== getType(  $all_term_meta ) ) { return; }
+            
+            foreach ( $all_term_meta as $meta_key => $meta_value ) {
+                if ( isset( $this->fields[ $meta_key ] ) ) {
+                    $this->fields[ $meta_key ]['value'] = maybe_unserialize( maybe_unserialize( $meta_value[0] ) );
+                }
+            }
         }
 
         // handle_delete_listing_type_request

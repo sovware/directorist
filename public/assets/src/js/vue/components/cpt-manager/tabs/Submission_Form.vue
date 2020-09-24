@@ -22,10 +22,7 @@
 
 <script>
 import { mapState } from 'vuex';
-
 import helpers from './../../../mixins/helpers';
-import field_widgets from './../../../mixins/form-fields';
-
 
 export default {
     name: 'submission-form',
@@ -39,12 +36,6 @@ export default {
             active_nav_index: 'active_nav_index',
             submission_form_sections: state => state.settings.submission_form.sections,
         }),
-    },
-
-    data() {
-        return {
-            field_widgets,
-        }
     },
 }
 </script>

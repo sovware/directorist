@@ -190,7 +190,7 @@ $nav_icon_color: $primary;
 // ====================
 
 .cptm-title-area {
-    margin: 0 0 20px 0;
+    margin: 0 0 40px 0;
 }
 
 .cptm-mb-60 {
@@ -448,9 +448,22 @@ $nav_icon_color: $primary;
     display: flex;
     flex-wrap: wrap;
 }
-.cptm-widgets-area {
+.cptm-options-area {
     width: 300px;
 }
+
+
+.cptm-option-card {
+    background: #fff;
+    box-shadow: 0 20px 35px -25px rgba(0,0,0,0.20);
+}
+.cptm-option-card-header-title-section { display: block; }
+.cptm-option-card-header-title { display: block; }
+.cptm-header-action-area { display: block; }
+.cptm-option-card-header-nav-section { display: block; }
+.cptm-option-card-header-nav { display: block; }
+.cptm-option-card-header-nav-item { display: block; }
+.cptm-option-card-body { display: block; }
 
 
 // Widgets

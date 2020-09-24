@@ -9,7 +9,7 @@
 <script>
 // Tabs
 import genaral_tab from './general/General_Contents.vue';
-import listings_card_layout_tab from './Listings_Card_Layout.vue';
+import listings_card_layout_tab from './listing-card/Listings_Card_Layout.vue';
 import search_forms_tab from './Search_Forms.vue';
 import single_page_layout_tab from './Single_Page_Layout.vue';
 import submission_form_tab from './Submission_Form.vue';

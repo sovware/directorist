@@ -24,7 +24,6 @@
 <script>
 import { mapState } from 'vuex';
 import helpers from './../../../../mixins/helpers';
-import field_widgets from './../../../../mixins/form-fields';
 
 export default {
     name: 'preview_image',
@@ -36,13 +35,5 @@ export default {
             fields: state => state.fields,
         }),
     },
-    data() {
-        return {
-            field_widgets,
-        }
-    },
-    methods: {
-
-    }
 }
 </script>

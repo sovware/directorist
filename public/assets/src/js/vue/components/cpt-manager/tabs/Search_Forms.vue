@@ -23,9 +23,8 @@
 <script>
 import { mapState } from 'vuex';
 import { mapMutations } from 'vuex';
-
 import helpers from './../../../mixins/helpers';
-import field_widgets from './../../../mixins/form-fields';
+
 
 export default {
     name: 'search-form',
@@ -35,34 +34,10 @@ export default {
     // computed
     computed: {
         ...mapState({
-            fields: 'fields',
             active_nav_index: 'active_nav_index',
+            fields: 'fields',
             search_form_sections: state => state.settings.search_forms.sections,
         }),
-    },
-
-    data() {
-        return {
-            field_widgets,
-        }
-    },
-
-    methods: {
-        getDependency( props ) {
-            if ( typeof props.dependency === 'undefined' ) {
-                return '';
-            }
-
-            if ( typeof this.$store.state.fields[ props.dependency ] === 'undefined' ) {
-                return '';
-            }
-
-            if ( typeof this.$store.state.fields[ props.dependency ].value === 'undefined' ) {
-                return '';
-            }
-
-            return this.$store.state.fields[ props.dependency ].value;
-        }
     },
 }
 </script>

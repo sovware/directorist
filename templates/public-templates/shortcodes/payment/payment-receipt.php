@@ -114,6 +114,7 @@
                                     $before = ''; $after = '';
                                     ('after' == $c_position) ? $after = $symbol : $before = $symbol;
                                     echo $before.atbdp_format_payment_amount($order_item['price']).$after;
+                                    do_action('atbdp_payment_receipt_after_total_price', $o_metas);
                                     // increase the total amount
                                     $total = $order_item['price'];
                                 }

@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    name: 'select-field',
+    name: 'radio-field',
     model: {
         prop: 'value',
         event: 'input'

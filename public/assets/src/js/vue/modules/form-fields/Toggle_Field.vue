@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    name: 'text-field',
+    name: 'toggle-field',
     model: {
         prop: 'value',
         event: 'input'

@@ -8,9 +8,8 @@
         
         <div class="cptm-form-fields">
             <template v-for="( field, field_key ) in section.fields">
- 
                 <component 
-                    :is="field_widgets[ fields[ field ].type ]" 
+                    :is="getFormFieldName( fields[ field ].type )" 
                     :key="field_key"
                     v-bind="fields[ field ]"
                     @update="updateFieldValue( field, $event )">

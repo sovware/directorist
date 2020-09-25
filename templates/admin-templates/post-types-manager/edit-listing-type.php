@@ -4,7 +4,6 @@
     <?php atbdp_show_flush_alerts( ['page' => 'edit-listing-type'] ); ?>
     <br>
 
-    
     <div id="atbdp-cpt-manager">
         <cpt-manager
             id="<?php echo $data['id']; ?>"

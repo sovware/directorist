@@ -1,7 +1,9 @@
 <template>
     <div class="atbdp-cptm-tab-contents">
         <template v-for="( tab, index ) in tabs">
-            <component :is="tab" :key="index" :index="index"></component>
+            <keep-alive :key="index">
+                <component :is="tab" :key="index" :index="index"></component>
+            </keep-alive>
         </template>
     </div>
 </template>

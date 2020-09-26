@@ -2028,12 +2028,32 @@ jQuery(function ($) {
   $(".atbds_wrapper a.nav-link").on("click", function (e) {
     e.preventDefault();
 
-    console.log($(this));
+    console.log($(this).data("tabarea"));
+    const atbds_tabParent = $(this).parent().parent().find("a.nav-link");
     var $href = $(this).attr("href");
-    $(".atbds_wrapper a.nav-link").removeClass("active");
+    $(atbds_tabParent).removeClass("active");
     $(this).addClass("active");
+    console.log($(".tab-content[data-tabarea='atbds_system-info-tab']"));
 
-    $(".atbds_content .tab-pane").removeClass("active show");
-    $(".atbds_content " + $href).addClass("active show");
+    switch ($(this).data("tabarea")) {
+      case "atbds_system-status-tab":
+        $(
+          ".tab-content[data-tabarea='atbds_system-status-tab'] >.tab-pane"
+        ).removeClass("active show");
+        $(
+          ".tab-content[data-tabarea='atbds_system-status-tab'] " + $href
+        ).addClass("active show");
+        break;
+      case "atbds_system-info-tab":
+        $(
+          ".tab-content[data-tabarea='atbds_system-info-tab'] >.tab-pane"
+        ).removeClass("active show");
+        $(
+          ".tab-content[data-tabarea='atbds_system-info-tab'] " + $href
+        ).addClass("active show");
+        break;
+      default:
+        break;
+    }
   });
 });

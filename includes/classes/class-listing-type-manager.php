@@ -25,7 +25,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         // save_post_type_data
         public function save_post_type_data() {
-
+              
             if ( empty( $_POST['name'] ) ) {
                 wp_send_json( [
                     'status' => false,
@@ -91,17 +91,18 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     ],
                 ], 200 );
             }
-
+            $url = '';
             $field_list = $this->maybe_json( $_POST['field_list'] );
             foreach ( $field_list as $field_key ) {
                 if ( isset( $_POST[ $field_key ] ) && 'name' !==  $field_key ) {
                     $this->update_validated_term_meta( $term_id, $field_key, $_POST[ $field_key ] );
                 }
             }
-
+            $url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=edit&listing_type_id='. $term_id );
             wp_send_json([
                 'status' => true,
                 'post_id' => $term_id,
+                'redirect_url' => $url,
                 'status_log' => [
                     'post_created' => [
                         'type' => 'success',
@@ -4422,7 +4423,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             
             foreach ( $all_term_meta as $meta_key => $meta_value ) {
                 if ( isset( $this->fields[ $meta_key ] ) ) {
-                    $this->fields[ $meta_key ]['value'] = maybe_unserialize( maybe_unserialize( $meta_value[0] ) );
+                    $value = maybe_unserialize( maybe_unserialize( $meta_value[0] ) );
+                    $this->fields[ $meta_key ]['value'] = $value;
                 }
             }
         }

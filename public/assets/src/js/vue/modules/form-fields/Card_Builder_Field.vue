@@ -54,7 +54,7 @@
                     <!-- <div class="cptm-widget-badge">Badge Text 2</div> -->
                   </div>
                 </div>
-                
+
                 <!-- cptm-card-preview-bottom-left -->
                 <div class="cptm-card-preview-bottom-left">
                   <div class="cptm-card-preview-bottom-left-placeholder cptm-placeholder-blcok">
@@ -74,9 +74,9 @@
                   </div>
                 </div>
 
-                <!-- cptm-card-preview-bottom-rignt -->
-                <div class="cptm-card-preview-bottom-rignt">
-                  <div class="cptm-card-preview-bottom-rignt-placeholder cptm-placeholder-blcok">
+                <!-- cptm-card-preview-bottom-right -->
+                <div class="cptm-card-preview-bottom-right">
+                  <div class="cptm-card-preview-bottom-right-placeholder cptm-placeholder-blcok">
                     <p class="cptm-placeholder-label">Bottom Rignt</p>
 
                     <div class="cptm-widget-insert-area">
@@ -136,8 +136,8 @@
                 </div>
               </div>
             </div>
-            
-            
+
+
             <!-- cptm-listing-card-preview-footer-right-placeholder -->
             <div class="cptm-listing-card-preview-footer-right-placeholder cptm-placeholder-blcok">
               <p class="cptm-placeholder-label">Footer Right</p>

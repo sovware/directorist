@@ -1484,7 +1484,9 @@ span.atbdp-tick-cross {
 }
 
 .atbds_wrapper .atbds_title {
-  margin: 20px 0 35px;
+  font-size: 24px;
+  margin: 30px 0 35px;
+  color: #272b41;
 }
 
 .atbds_content {

@@ -1,5 +1,5 @@
 <template>
-    <div class="cptm-option-card cptm-animation-slide-up">
+    <div class="cptm-option-card" :class="mainWrapperClass">
         <div class="cptm-option-card-header">
             <div class="cptm-option-card-header-title-section">
             <h3 class="cptm-option-card-header-title">Insert Element</h3>
@@ -8,6 +8,7 @@
                 <a
                 href="#"
                 class="cptm-header-action-link cptm-header-action-close"
+                @click.prevent="$emit( 'close' )"
                 >
                 <span class="fa fa-times"></span>
                 </a>
@@ -22,9 +23,11 @@
             </div>
         </div>
 
-        <div class="cptm-option-card-body">Options</div>
+        <div class="cptm-option-card-body">
+            Options
+        </div>
 
-        <span class="cptm-anchor-down"></span>
+        <span class="cptm-anchor-down" v-if="bottomAchhor"></span>
     </div>
 </template>
 
@@ -32,8 +35,43 @@
 export default {
     name: 'widgets-window',
 
-    props: {
+    model: {
+        prop: 'active',
+        event: 'update'
+    },
 
+    props: {
+        active: {
+            type: Boolean,
+            default: false,
+        },
+        animation: {
+            type: String,
+            default: 'cptm-animation-slide-up',
+        },
+        bottomAchhor: {
+            type: Boolean,
+            default: false,
+        },
+        availableWidgets: {
+            type: Object,
+        },
+        accepted_widgets: {
+            type: Array,
+        },
+    },
+
+    mounted() {
+        
+    },
+
+    computed: {
+        mainWrapperClass() {
+            return {
+                active: this.active,
+                [ this.animation ]: true
+            }
+        }
     },
 
     data() {
@@ -43,7 +81,7 @@ export default {
     },
 
     methods: {
-        
+
     },
 }
 </script>

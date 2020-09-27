@@ -457,7 +457,7 @@ $nav_icon_color: $primary;
 
 
 .cptm-option-card {
-    visibility: hidden;
+    display: none;
     transition: all linear 300ms;
     transform-origin: center;
     opacity: 0;
@@ -473,7 +473,7 @@ $nav_icon_color: $primary;
     }
 
     &.active {
-        visibility: visible;
+        display: block;
         opacity: 1;
 
         &.cptm-animation-flip {

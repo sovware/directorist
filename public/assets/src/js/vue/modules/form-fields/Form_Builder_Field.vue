@@ -34,14 +34,15 @@
                                 <slide-up-down :active="getActiveFieldCollapseState( field_key )" :duration="300">
                                     <div class="cptm-form-builder-group-field-item-body" v-if="getActiveFieldsSettings( field_key, 'options' )">
                                         <template v-for="( option, option_key ) in getActiveFieldsSettings( field_key, 'options' )">
-                                            <component 
-                                                :is="option.type + '-field'" 
-                                                :key="option_key"
-                                                v-bind="getActiveFieldsOptions( option )"
-                                                :value="active_fields[ field_key ][ option_key ]"
-                                                @update="updateActiveFieldsOptionData( { field_key, option_key, value: $event } )"
-                                            >
-                                            </component>
+                                                <component 
+                                                    :is="option.type + '-field'" 
+                                                    :key="option_key"
+                                                    v-if="activeIsFieldVisible( option_key, field_key )"
+                                                    v-bind="getActiveFieldsOptions( option )"
+                                                    :value="active_fields[ field_key ][ option_key ]"
+                                                    @update="updateActiveFieldsOptionData( { field_key, option_key, value: $event } )"
+                                                >
+                                                </component>
                                         </template>
                                     </div>
                                 </slide-up-down>
@@ -104,6 +105,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {
     name: 'form-builder',
@@ -141,8 +143,30 @@ export default {
     },
 
     computed: {
+        ...mapState({
+            fields: 'fields',
+        }),
+
         updated_value() {
             return JSON.stringify( { fields: this.active_fields, groups: this.groups } );
+        },
+
+        widget_groups_with_states() {
+            let widget_groups = this.widget_groups;
+
+            for ( let field_key in this.active_fields ) {
+                const widget_group = this.active_fields[ field_key ].widget_group;
+                const widget_name = this.active_fields[ field_key ].widget_name;
+
+                let field_options = widget_groups[ widget_group ].widgets[ widget_name ].options;
+
+                for ( let field in field_options ) {
+                    field_options[ field ][ 'show' ] = this.checkShowIfCondition( field_options[ field ], field_key );
+                }
+
+            }
+
+            return widget_groups;
         },
 
         widget_groups() {
@@ -169,10 +193,10 @@ export default {
         dependency_data() {
             if ( ! this.has_dependency ) { return null; }
 
-            if ( typeof this.$store.state.fields[ this.dependency ] === 'undefined' ) { return null; }
-            if ( typeof this.$store.state.fields[ this.dependency ].value === 'undefined' ) { return null; }
+            if ( typeof this.fields[ this.dependency ] === 'undefined' ) { return null; }
+            if ( typeof this.fields[ this.dependency ].value === 'undefined' ) { return null; }
             
-            return this.$store.state.fields[ this.dependency ].value;
+            return this.fields[ this.dependency ].value;
         },
 
         dependency_widgets() {
@@ -252,9 +276,92 @@ export default {
     },
 
     methods: {
-        get_updated() {
-            console.log( 'get_updated' );
+        activeIsFieldVisible( option_key, field_key ) {
+            let options = this.getActiveFieldsSettings( field_key, 'options' );
+
+            if ( typeof options[ option_key ] === 'undefined' ) {
+                return true;
+            }
+
+            if ( typeof options[ option_key ].show === 'undefined' ) {
+                return true;
+            }
+
+            // console.log( {option_key} );
+            return options[ option_key ].show;
+
         },
+
+        checkShowIfCondition( options, field_key  ) {
+            if ( typeof options === 'undefined' ) { return true; }
+            if ( typeof options.show_if === 'undefined' ) { return true; }
+
+            let faild_condition_count = 0;
+            let self = this;
+        
+            options.show_if.forEach(element => {
+                let terget_field = null;
+                let conditions = null;
+                let compare = 'or';
+
+                if ( element.where.field !== 'self' ) {
+                    terget_field = self.fields[ element.where.field ];
+                }
+
+                if ( element.where.field === 'self' ) {
+                    terget_field = self.active_fields;
+                }
+
+                    
+                if ( terget_field && element.where.widget === 'self' ) {
+                    terget_field = terget_field[ field_key ];
+                }
+
+                if ( terget_field && element.where.widget !== 'self' ) {
+                    terget_field = terget_field[ element.where.widget ];
+                }
+
+                if ( typeof terget_field !== 'undefined' ) {
+                    conditions = element.conditions;
+                }
+
+                if ( typeof element.compare !== 'undefined' ) {
+                    compare = element.compare;
+                }
+
+                if ( conditions && typeof conditions === 'object' ) {
+                    let missmatch_count = 0;
+                    let match_count = 0;
+
+                    conditions.forEach ( item => {
+                        let terget_value = terget_field[ item.key ];
+                        let compare_value = item.value;
+
+                        if ( terget_value !== compare_value ) {
+                            missmatch_count++;
+                        } else {
+                            match_count++;
+                        }
+                    }); 
+
+                    if ( 'and' === compare && missmatch_count ) {
+                        faild_condition_count++;
+                    } else if ( 'or' === compare && ! match_count ) {
+                        faild_condition_count++;
+                    }
+                }
+
+
+                // console.log({ field_key, faild_condition_count } );
+            });
+
+            if ( faild_condition_count ) {
+                return false;
+            }
+            
+            return true;
+        },
+
         parseLocalWidgets() {
             if ( ! this.widgets && typeof this.widgets !== 'object' ) {
                 this.local_widgets = null;
@@ -273,7 +380,7 @@ export default {
         },
 
         getActiveFieldsOption( field_key, data_key ) {
-            return this.active_fields[ field_key ][data_key];
+            return this.active_fields[ field_key ][ data_key ];
         },
 
         getActiveFieldsSettings( field_key, data_key ) {
@@ -292,28 +399,28 @@ export default {
                 return false;
             }
             
-            if ( typeof this.widget_groups[ widget_group ] === 'undefined' ) {
+            if ( typeof this.widget_groups_with_states[ widget_group ] === 'undefined' ) {
                 return false;
             }
 
-            if ( typeof this.widget_groups[ widget_group ].widgets === 'undefined' ) {
+            if ( typeof this.widget_groups_with_states[ widget_group ].widgets === 'undefined' ) {
                 return false;
             }
 
-            if ( typeof this.widget_groups[ widget_group ].widgets[ widget_name ] === 'undefined' ) {
+            if ( typeof this.widget_groups_with_states[ widget_group ].widgets[ widget_name ] === 'undefined' ) {
                 return false;
             }
 
-            if ( typeof this.widget_groups[ widget_group ].widgets[ widget_name ][ data_key] === 'undefined' ) {
+            if ( typeof this.widget_groups_with_states[ widget_group ].widgets[ widget_name ][ data_key] === 'undefined' ) {
                 return false;
             }
 
-            return this.widget_groups[ widget_group ].widgets[ widget_name ][ data_key ];
+            return this.widget_groups_with_states[ widget_group ].widgets[ widget_name ][ data_key ];
         },
 
         getActiveFieldsOptions( widget_options ) {
             if ( typeof widget_options !== 'object'  ) {
-                return widget_options;
+                return {};
             }
             
             let options = JSON.parse(JSON.stringify( widget_options ));
@@ -487,6 +594,8 @@ export default {
         updateActiveFieldsOptionData( payload ) {
             this.active_fields[ payload.field_key ][ payload.option_key ] = payload.value;
             this.$emit( 'update', this.updated_value );
+
+            // console.log( payload );
         },
 
         addNewActiveFieldSection() {

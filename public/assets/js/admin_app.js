@@ -2067,12 +2067,13 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       var config = {};
       axios.post(ajax_data.ajax_url, form_data, config).then(function (response) {
         self.footer_actions.save.showLoading = false;
-        self.footer_actions.save.isDisabled = false; // console.log( response.data );
+        self.footer_actions.save.isDisabled = false;
+        console.log(response.data);
 
         if (response.data.post_id && !isNaN(response.data.post_id)) {
           self.listing_type_id = response.data.post_id;
           self.footer_actions.save.label = 'Update';
-          self.insertParam('listing_type_id', response.data.post_id);
+          window.location = response.data.redirect_url;
         }
 
         if (response.data.status_log) {

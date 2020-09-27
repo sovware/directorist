@@ -2056,4 +2056,8 @@ jQuery(function ($) {
         break;
     }
   });
+
+  $("input").on("change", function () {
+    console.log("change");
+  });
 });

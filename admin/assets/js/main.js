@@ -2024,7 +2024,7 @@ jQuery(function ($) {
     danger_outline.show();
   }
 
-  // Custom Tab For Status
+  // Custom Tab Support Status
   $(".atbds_wrapper a.nav-link").on("click", function (e) {
     e.preventDefault();
 
@@ -2057,6 +2057,7 @@ jQuery(function ($) {
     }
   });
 
+  // Custom Tooltip Support Added
   $(".atbds_tooltip").on("hover", function () {
     const toolTipLabel = $(this).data("label");
     console.log(toolTipLabel);

@@ -69,7 +69,7 @@
                                                 <a href="#atbds_template" class="nav-link" id="atbds_template-tab" data-tabArea="atbds_system-info-tab">Templates</a>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div><!-- ends: .atbds_c-t-menu -->
                                     <div class="atbds_c-t__details">
                                         <div class="tab-content" data-tabArea="atbds_system-info-tab">
                                             <div class="tab-pane active show" id="atbds_system-wp">
@@ -159,7 +159,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            </div><!-- ends: .tab-pane -->
                                             <div class="tab-pane" id="atbds_php">
                                                 <div class="atbds_system-table-wrap">
                                                     <table class="atbds_system-table table-responsive">
@@ -310,7 +310,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            </div><!-- ends: .tab-pane -->
                                             <div class="tab-pane" id="atbds_platform">
                                                 <div class="atbds_system-table-wrap">
                                                     <table class="atbds_system-table table-responsive">
@@ -398,7 +398,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            </div><!-- ends: .tab-pane -->
                                             <div class="tab-pane" id="atbds_setting">
                                                 <div class="atbds_system-table-wrap">
                                                     <table class="atbds_system-table table-responsive">
@@ -486,7 +486,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            </div><!-- ends: .tab-pane -->
                                             <div class="tab-pane" id="atbds_database">
                                                 <div class="atbds_system-table-wrap">
                                                     <table class="atbds_system-table table-responsive">
@@ -574,7 +574,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            </div><!-- ends: .tab-pane -->
                                             <div class="tab-pane" id="atbds_p-count">
                                                 <div class="atbds_system-table-wrap">
                                                     <table class="atbds_system-table table-responsive">
@@ -662,7 +662,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            </div><!-- ends: .tab-pane -->
                                             <div class="tab-pane" id="atbds_sequrity">
                                                 <div class="atbds_system-table-wrap">
                                                     <table class="atbds_system-table table-responsive">
@@ -750,7 +750,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            </div><!-- ends: .tab-pane -->
                                             <div class="tab-pane" id="atbds_plugins">
                                                 <div class="atbds_system-table-wrap">
                                                     <table class="atbds_system-table table-responsive">
@@ -838,7 +838,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            </div><!-- ends: .tab-pane -->
                                             <div class="tab-pane" id="atbds_theme">
                                                 <div class="atbds_system-table-wrap">
                                                     <table class="atbds_system-table table-responsive">
@@ -926,7 +926,7 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            </div><!-- ends: .tab-pane -->
                                             <div class="tab-pane" id="atbds_template">
                                                 <div class="atbds_system-table-wrap">
                                                     <table class="atbds_system-table table-responsive">
@@ -1014,9 +1014,9 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div>
+                                            </div><!-- ends: .tab-pane -->
                                         </div>
-                                    </div>
+                                    </div><!-- ends: .atbds_c-t__details -->
                                 </div>
                             </div>
                         </div>
@@ -1136,7 +1136,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div><!-- ends: .tab-pane -->
                 </div>
             </div>
         </div><!-- ends: .atbds_col-right -->

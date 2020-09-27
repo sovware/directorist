@@ -1283,6 +1283,7 @@ span.atbdp-tick-cross {
       border-bottom: 1px solid $ss-border-light;
       .nav {
         margin: 0 -12.5px;
+        flex-wrap: wrap;
       }
       .nav-item {
         margin: 0 12.5px;
@@ -1295,6 +1296,7 @@ span.atbdp-tick-cross {
         padding: 20px 0;
         text-decoration: none;
         position: relative;
+        white-space: nowrap;
         &.active {
           &:after {
             opacity: 1;
@@ -1303,7 +1305,7 @@ span.atbdp-tick-cross {
         }
         &:focus {
           outline: none;
-          box-shadow: 0 0;
+          box-shadow: 0 0 0 0px #5b9dd9, 0 0 0px 0px rgba(30, 140, 190, 0);
         }
         &:after {
           position: absolute;
@@ -1378,8 +1380,8 @@ span.atbdp-tick-cross {
   max-width: 31.21%;
   position: relative;
   width: 100%;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 1.05%;
+  padding-left: 1.05%;
 }
 /* atbds System Table */
 .atbds_tooltip {
@@ -1427,6 +1429,7 @@ span.atbdp-tick-cross {
     &.atbds_table-title {
       font-weight: 500;
       color: $ss-dark;
+      min-width: 125px;
     }
   }
   tbody {
@@ -1457,7 +1460,7 @@ span.atbdp-tick-cross {
 
 .atbds_warnings__single {
   border-radius: 6px;
-  padding: 30px 70px;
+  padding: 30px 45px;
   background-color: $ss-bg-light;
   margin-bottom: 30px;
   .atbds_warnings__icon {
@@ -1490,6 +1493,7 @@ span.atbdp-tick-cross {
     h5,
     h6 {
       font-size: 18px;
+      line-height: 1.444;
       font-weight: 500;
       color: $ss-dark;
       margin-bottom: 1.25rem;
@@ -1731,5 +1735,80 @@ span.atbdp-tick-cross {
     .atbds_btn {
       padding: 10.5px 33px;
     }
+  }
+}
+
+@media only screen and (max-width: 1599px) {
+  .atbds_warnings__single {
+    padding: 30px;
+  }
+}
+@media only screen and (max-width: 1399px) {
+  .atbds_warnings {
+    .atbds_col-4 {
+      flex: 0 0 47%;
+      max-width: 47%;
+      padding-left: 1.5%;
+      padding-right: 1.5%;
+    }
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .atbds_warnings {
+    .atbds_row {
+      margin: 0px;
+    }
+    .atbds_col-4 {
+      flex: 0 0 100%;
+      max-width: 100%;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+@media only screen and (max-width: 1120px) {
+  .atbds_remoteViewingForm .atbds_form-row input {
+    min-width: 300px;
+  }
+}
+@media only screen and (max-width: 850px) {
+  .atbds_wrapper {
+    padding: 30px;
+    .atbds_row {
+      margin: 0px;
+      flex-flow: column;
+      .atbds_col-left {
+        margin-right: 0;
+      }
+      .atbds_sidebar.pl-30 {
+        padding-left: 0;
+      }
+      .atbds_sidebar {
+        #atbds_status-tab {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
+    }
+  }
+  .atbds_remoteViewingForm .atbds_form-row input {
+    min-width: 100%;
+    margin-bottom: 15px;
+  }
+  .table-responsive {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+  }
+}
+@media only screen and (max-width: 764px) {
+  .atbds_warnings__single {
+    padding: 15px;
+  }
+  .atbds_supportForm {
+    padding: 10px 25px 25px 25px;
+  }
+  .atbds_customCheckbox input[type="checkbox"] + label {
+    padding-left: 28px;
   }
 }

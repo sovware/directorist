@@ -312,16 +312,18 @@ class ATBDP_User {
             }else{
                 $password   =   sanitize_text_field( $_POST['password'] );
             }
-            $email      =   !empty($_POST['email']) ? sanitize_email( $_POST['email'] ) : '';
-            $website    =   !empty($_POST['website']) ? esc_url_raw( $_POST['website'] ) : '';
-            $first_name =   !empty($_POST['fname']) ? sanitize_text_field( $_POST['fname'] ) : '';
-            $last_name  =   !empty($_POST['lname']) ? sanitize_text_field( $_POST['lname'] ) : '';
-            $bio        =   !empty($_POST['bio']) ? sanitize_textarea_field( $_POST['bio'] ) : '';
-
+            $email            =   !empty($_POST['email']) ? sanitize_email( $_POST['email'] ) : '';
+            $website          =   !empty($_POST['website']) ? esc_url_raw( $_POST['website'] ) : '';
+            $first_name       =   !empty($_POST['fname']) ? sanitize_text_field( $_POST['fname'] ) : '';
+            $last_name        =   !empty($_POST['lname']) ? sanitize_text_field( $_POST['lname'] ) : '';
+            $bio              =   !empty($_POST['bio']) ? sanitize_textarea_field( $_POST['bio'] ) : '';
+            $previous_page    =   !empty($_POST['previous_page']) ? esc_url_raw( $_POST['previous_page'] ) : '';
             // call @function complete_registration to create the user
             // only when no WP_error is found
             $user_id = $this->complete_registration($username, $password, $email, $website, $first_name, $last_name, $bio);
             if ($user_id && !is_wp_error( $user_id )) {
+                $redirection_after_reg = get_directorist_option( 'redirection_after_reg');
+                $auto_login = get_directorist_option( 'auto_login' );
                 /*
                  * @since 6.3.0
                  * If fires after completed user registration
@@ -333,7 +335,16 @@ class ATBDP_User {
                 // user has been created successfully, now work on activation process
                 wp_new_user_notification($user_id, null, 'admin'); // send activation to the admin
                 ATBDP()->email->custom_wp_new_user_notification_email($user_id);
-                wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('registration_status' => true)));
+                if( ! empty( $auto_login ) ) {
+                    wp_set_current_user( $user_id, $email );
+                    wp_set_auth_cookie( $user_id );
+                }
+               // wp_get_referer();
+                if( ! empty( $redirection_after_reg ) ) {
+                    wp_safe_redirect(ATBDP_Permalink::get_reg_redirection_page_link( $previous_page ) );
+                } else {
+                    wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('registration_status' => true)));
+                }
                 exit();
             } else {
                 wp_safe_redirect(ATBDP_Permalink::get_registration_page_link(array('errors' => true)));

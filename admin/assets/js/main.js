@@ -2057,7 +2057,14 @@ jQuery(function ($) {
     }
   });
 
-  $("input").on("change", function () {
-    console.log("change");
+  $(".atbds_tooltip").on("hover", function () {
+    const toolTipLabel = $(this).data("label");
+    console.log(toolTipLabel);
+    $(this).find(".atbds_tooltip__text").text(toolTipLabel);
+    $(this).find(".atbds_tooltip__text").addClass("show");
+  });
+
+  $(".atbds_tooltip").on("mouseleave", function () {
+    $(".atbds_tooltip__text").removeClass("show");
   });
 });

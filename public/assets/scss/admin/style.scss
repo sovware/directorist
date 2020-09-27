@@ -1228,6 +1228,12 @@ span.atbdp-tick-cross {
       display: block;
     }
   }
+  .atbds_title {
+    margin: 20px 0 35px;
+  }
+}
+.atbds_content {
+  margin-top: -8px;
 }
 
 /* Spacing */
@@ -1295,6 +1301,10 @@ span.atbdp-tick-cross {
             visibility: visible;
           }
         }
+        &:focus {
+          outline: none;
+          box-shadow: 0 0;
+        }
         &:after {
           position: absolute;
           left: 0;
@@ -1317,7 +1327,8 @@ span.atbdp-tick-cross {
   }
 }
 
-#atbds_support .atbds_card {
+#atbds_support .atbds_card,
+#atbds_r-viewing .atbds_card {
   max-width: 900px;
   min-width: auto;
 }
@@ -1328,11 +1339,12 @@ span.atbdp-tick-cross {
     display: inline-block;
     font-size: 15px;
     font-weight: 500;
-    padding: 10px 20px;
+    padding: 11px 20px;
     color: $ss-gray;
     text-decoration: none;
     background-color: transparent;
     border-radius: 20px;
+    min-width: 150px;
     &.active {
       color: $ss-primary;
       background-color: #fff;
@@ -1363,15 +1375,42 @@ span.atbdp-tick-cross {
 }
 .atbds_col-4 {
   flex: 0 0 33.33333%;
-  max-width: 31.23%;
+  max-width: 31.21%;
   position: relative;
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
 }
 /* atbds System Table */
+.atbds_tooltip {
+  position: relative;
+  cursor: pointer;
+  .atbds_tooltip__text {
+    display: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 24px;
+    padding: 10.5px 15px;
+    min-width: 300px;
+    line-height: 1.7333;
+    border-radius: 4px;
+    background-color: $ss-dark;
+    color: #bebfc6;
+    z-index: 10;
+    &.show {
+      display: inline-block;
+    }
+  }
+}
+
+/* atbds System Table */
+.atbds_system-table-wrap {
+  padding: 0 20px;
+}
 .atbds_system-table {
   width: 100%;
+  border-collapse: collapse;
   tr {
     &:nth-child(2n) {
       td {
@@ -1383,10 +1422,30 @@ span.atbdp-tick-cross {
     font-size: 14px;
     color: $ss-gray;
     padding: 14px 20px;
+    border-radius: 2px;
+    vertical-align: top;
     &.atbds_table-title {
       font-weight: 500;
       color: $ss-dark;
     }
+  }
+  tbody {
+    tr {
+      td {
+        &.atbds_table-pointer {
+          width: 30px;
+        }
+        .atbds_color-success {
+          color: $ss-success;
+        }
+      }
+    }
+  }
+}
+
+.atbds_table-list {
+  li {
+    margin-bottom: 8px;
   }
 }
 
@@ -1463,18 +1522,65 @@ span.atbdp-tick-cross {
   font-size: 14px;
   font-weight: 500;
   display: inline-block;
-  padding: 15px 30px;
+  padding: 12px 30px;
   border-radius: 4px;
-  border: 0 none;
   cursor: pointer;
+  background-color: $ss-border-gray;
+  border: 1px solid $ss-border-gray;
   box-shadow: 0 5px 10px rgba($ss-primary, 0.1);
+  transition: 0.3s;
+  &:hover {
+    background-color: transparent;
+    border: 1px solid $ss-primary;
+  }
   &.atbds_btnPrimary {
     color: #fff;
     background-color: $ss-primary;
+    &:hover {
+      color: $ss-primary;
+      background-color: #fff;
+      border-color: $ss-primary;
+    }
+  }
+  &.atbds_btnDark {
+    color: #fff;
+    background-color: $ss-dark;
+    &:hover {
+      color: $ss-dark;
+      background-color: #fff;
+      border-color: $ss-dark;
+    }
+  }
+  &.atbds_btnGray {
+    color: $ss-dark;
+    background-color: $ss-border-light;
+    &:hover {
+      color: $ss-dark;
+      background-color: #fff;
+      border-color: $ss-border-light;
+    }
   }
 }
 
-/* atbds SupportForm */
+.atbds_btn {
+  &.atbds_btnBordered {
+    background-color: transparent;
+    border: 1px solid;
+    &.atbds_btnPrimary {
+      color: $ss-primary;
+      border-color: $ss-primary;
+    }
+  }
+}
+
+.atbds_buttonGroup {
+  margin: -5px;
+  button {
+    margin: 5px;
+  }
+}
+
+/* atbds Form Row */
 .atbds_form-row {
   &:not(:last-child) {
     margin-bottom: 30px;
@@ -1578,6 +1684,8 @@ span.atbdp-tick-cross {
     }
   }
 }
+
+/* atbds SupportForm */
 .atbds_supportForm {
   padding: 10px 50px 50px 50px;
   color: $ss-gray;
@@ -1598,5 +1706,30 @@ span.atbdp-tick-cross {
   }
   .atbds_customCheckbox {
     margin-top: -14px;
+  }
+}
+
+/* atbds remoteViewingForm */
+.atbds_remoteViewingForm {
+  padding: 10px 50px 50px 50px;
+  p {
+    font-size: 15px;
+    line-height: 1.7333;
+    color: $ss-gray;
+  }
+  .atbds_form-row {
+    input {
+      min-width: 450px;
+      margin-right: 10px;
+    }
+    .btn-test {
+      font-weight: 700;
+    }
+  }
+  .atbds_buttonGroup {
+    margin-top: -10px;
+    .atbds_btn {
+      padding: 10.5px 33px;
+    }
   }
 }

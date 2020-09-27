@@ -1483,6 +1483,14 @@ span.atbdp-tick-cross {
   display: block;
 }
 
+.atbds_wrapper .atbds_title {
+  margin: 20px 0 35px;
+}
+
+.atbds_content {
+  margin-top: -8px;
+}
+
 /* Spacing */
 .atbds_wrapper .pl-30 {
   padding-left: 30px;
@@ -1552,6 +1560,12 @@ span.atbdp-tick-cross {
   visibility: visible;
 }
 
+.atbds_card .card-body .atbds_c-t-menu .nav-link:focus {
+  outline: none;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
+}
+
 .atbds_card .card-body .atbds_c-t-menu .nav-link:after {
   position: absolute;
   left: 0;
@@ -1574,7 +1588,8 @@ span.atbdp-tick-cross {
   padding: 20px 0;
 }
 
-#atbds_support .atbds_card {
+#atbds_support .atbds_card,
+#atbds_r-viewing .atbds_card {
   max-width: 900px;
   min-width: auto;
 }
@@ -1584,11 +1599,12 @@ span.atbdp-tick-cross {
   display: inline-block;
   font-size: 15px;
   font-weight: 500;
-  padding: 10px 20px;
+  padding: 11px 20px;
   color: #5a5f7d;
   text-decoration: none;
   background-color: transparent;
   border-radius: 20px;
+  min-width: 150px;
 }
 
 .atbds_sidebar .nav-link.active {
@@ -1632,7 +1648,7 @@ span.atbdp-tick-cross {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 33.33333%;
           flex: 0 0 33.33333%;
-  max-width: 31.23%;
+  max-width: 31.21%;
   position: relative;
   width: 100%;
   padding-right: 15px;
@@ -1640,8 +1656,40 @@ span.atbdp-tick-cross {
 }
 
 /* atbds System Table */
+.atbds_tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+.atbds_tooltip .atbds_tooltip__text {
+  display: none;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+  top: 24px;
+  padding: 10.5px 15px;
+  min-width: 300px;
+  line-height: 1.7333;
+  border-radius: 4px;
+  background-color: #272b41;
+  color: #bebfc6;
+  z-index: 10;
+}
+
+.atbds_tooltip .atbds_tooltip__text.show {
+  display: inline-block;
+}
+
+/* atbds System Table */
+.atbds_system-table-wrap {
+  padding: 0 20px;
+}
+
 .atbds_system-table {
   width: 100%;
+  border-collapse: collapse;
 }
 
 .atbds_system-table tr:nth-child(2n) td {
@@ -1652,11 +1700,25 @@ span.atbdp-tick-cross {
   font-size: 14px;
   color: #5a5f7d;
   padding: 14px 20px;
+  border-radius: 2px;
+  vertical-align: top;
 }
 
 .atbds_system-table td.atbds_table-title {
   font-weight: 500;
   color: #272b41;
+}
+
+.atbds_system-table tbody tr td.atbds_table-pointer {
+  width: 30px;
+}
+
+.atbds_system-table tbody tr td .atbds_color-success {
+  color: #00bc5e;
+}
+
+.atbds_table-list li {
+  margin-bottom: 8px;
 }
 
 /* atbds warnings */
@@ -1751,12 +1813,21 @@ span.atbdp-tick-cross {
   font-size: 14px;
   font-weight: 500;
   display: inline-block;
-  padding: 15px 30px;
+  padding: 12px 30px;
   border-radius: 4px;
-  border: 0 none;
   cursor: pointer;
+  background-color: #c6d0dc;
+  border: 1px solid #c6d0dc;
   -webkit-box-shadow: 0 5px 10px rgba(62, 98, 245, 0.1);
           box-shadow: 0 5px 10px rgba(62, 98, 245, 0.1);
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.atbds_btn:hover {
+  background-color: transparent;
+  border: 1px solid #3e62f5;
 }
 
 .atbds_btn.atbds_btnPrimary {
@@ -1764,7 +1835,53 @@ span.atbdp-tick-cross {
   background-color: #3e62f5;
 }
 
-/* atbds SupportForm */
+.atbds_btn.atbds_btnPrimary:hover {
+  color: #3e62f5;
+  background-color: #fff;
+  border-color: #3e62f5;
+}
+
+.atbds_btn.atbds_btnDark {
+  color: #fff;
+  background-color: #272b41;
+}
+
+.atbds_btn.atbds_btnDark:hover {
+  color: #272b41;
+  background-color: #fff;
+  border-color: #272b41;
+}
+
+.atbds_btn.atbds_btnGray {
+  color: #272b41;
+  background-color: #e3e6ef;
+}
+
+.atbds_btn.atbds_btnGray:hover {
+  color: #272b41;
+  background-color: #fff;
+  border-color: #e3e6ef;
+}
+
+.atbds_btn.atbds_btnBordered {
+  background-color: transparent;
+  border: 1px solid;
+}
+
+.atbds_btn.atbds_btnBordered.atbds_btnPrimary {
+  color: #3e62f5;
+  border-color: #3e62f5;
+}
+
+.atbds_buttonGroup {
+  margin: -5px;
+}
+
+.atbds_buttonGroup button {
+  margin: 5px;
+}
+
+/* atbds Form Row */
 .atbds_form-row:not(:last-child) {
   margin-bottom: 30px;
 }
@@ -1876,6 +1993,7 @@ span.atbdp-tick-cross {
   color: #fff;
 }
 
+/* atbds SupportForm */
 .atbds_supportForm {
   padding: 10px 50px 50px 50px;
   color: #5a5f7d;
@@ -1900,6 +2018,34 @@ span.atbdp-tick-cross {
 
 .atbds_supportForm .atbds_customCheckbox {
   margin-top: -14px;
+}
+
+/* atbds remoteViewingForm */
+.atbds_remoteViewingForm {
+  padding: 10px 50px 50px 50px;
+}
+
+.atbds_remoteViewingForm p {
+  font-size: 15px;
+  line-height: 1.7333;
+  color: #5a5f7d;
+}
+
+.atbds_remoteViewingForm .atbds_form-row input {
+  min-width: 450px;
+  margin-right: 10px;
+}
+
+.atbds_remoteViewingForm .atbds_form-row .btn-test {
+  font-weight: 700;
+}
+
+.atbds_remoteViewingForm .atbds_buttonGroup {
+  margin-top: -10px;
+}
+
+.atbds_remoteViewingForm .atbds_buttonGroup .atbds_btn {
+  padding: 10.5px 33px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

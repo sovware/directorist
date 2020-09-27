@@ -1,6 +1,6 @@
 <template>
 <div class="cptm-form-group" :class="( 'hidden' === input_type ) ? 'cptm-mb-0' : ''">
-    <label v-if="( 'hidden' !== input_type )" :for="name">{{ label }}</label>
+    <label v-if="( 'hidden' !== input_type && label.length )" :for="name">{{ label }}</label>
     <input class="cptm-form-control" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
 </div>
 </template>
@@ -21,7 +21,7 @@ export default {
         label: {
             type: String,
             required: false,
-            default: 'Label',
+            default: '',
         },
         value: {
             type: [String, Number],
@@ -47,12 +47,18 @@ export default {
 
     computed: {
         input_type() {
-            const supported_types = ['text', 'number', 'password', 'date'];
+            const supported_types = {
+                'text-field': 'text', 
+                'number-field': 'number', 
+                'password-field': 'password', 
+                'date-field': 'date',
+                'hidden-field': 'hidden', 
+            };
 
-            if (supported_types.indexOf(this.type)) {
-                return this.type;
+            if ( typeof supported_types[ this.type ] !== 'undefined' ) {
+                return supported_types[ this.type ];
             }
-
+            
             return 'text';
 
         }

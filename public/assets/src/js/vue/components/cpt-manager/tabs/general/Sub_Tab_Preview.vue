@@ -10,7 +10,7 @@
             
             <template v-for="( field, field_key ) in section.fields">
                 <component 
-                    :is="field_widgets[ fields[ field ].type ]" 
+                    :is="getFormFieldName( fields[ field ].type )" 
                     :key="field_key"
                     v-bind="fields[ field ]"
                     @update="updateFieldValue( field, $event )">
@@ -24,7 +24,6 @@
 <script>
 import { mapState } from 'vuex';
 import helpers from './../../../../mixins/helpers';
-import field_widgets from './../../../../mixins/form-fields';
 
 export default {
     name: 'preview_image',
@@ -36,13 +35,5 @@ export default {
             fields: state => state.fields,
         }),
     },
-    data() {
-        return {
-            field_widgets,
-        }
-    },
-    methods: {
-
-    }
 }
 </script>

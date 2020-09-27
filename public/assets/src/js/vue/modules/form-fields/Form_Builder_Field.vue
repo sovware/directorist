@@ -35,7 +35,7 @@
                                     <div class="cptm-form-builder-group-field-item-body" v-if="getActiveFieldsSettings( field_key, 'options' )">
                                         <template v-for="( option, option_key ) in getActiveFieldsSettings( field_key, 'options' )">
                                             <component 
-                                                :is="field_widgets[ option.type ]" 
+                                                :is="option.type + '-field'" 
                                                 :key="option_key"
                                                 v-bind="getActiveFieldsOptions( option )"
                                                 :value="active_fields[ field_key ][ option_key ]"
@@ -104,7 +104,6 @@
 </template>
 
 <script>
-import field_widgets from './../mixins/form-fields';
 
 export default {
     name: 'form-builder',
@@ -138,11 +137,12 @@ export default {
         }
         
         this.parseLocalWidgets();
+        this.$emit( 'update', this.updated_value );
     },
 
     computed: {
         updated_value() {
-            return { fields: this.active_fields, groups: this.groups };
+            return JSON.stringify( { fields: this.active_fields, groups: this.groups } );
         },
 
         widget_groups() {
@@ -232,7 +232,6 @@ export default {
 
     data() {
         return {
-            field_widgets,
             local_widgets: {},
             groups: [
                 {
@@ -283,6 +282,7 @@ export default {
             
 
             // console.log( this.local_widgets, this.active_fields, widget_group );
+            // console.log( { widget_group, widget_name } );
 
             if ( typeof widget_group === 'undefined' ) {
                 return false;

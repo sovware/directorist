@@ -74,7 +74,6 @@ export default {
             }
         }
 
-
         if ( this.id && ! isNaN( this.id ) ) {
             const id = parseInt( this.id );
 
@@ -103,34 +102,39 @@ export default {
     methods: {
         saveData() {
             let fields = this.$store.state.fields;
-            let the_form_fields_data = {
-                action: 'save_post_type_data'
-            };
+
+            let form_data = new FormData();
+            form_data.append( 'action', 'save_post_type_data' );
             
             if ( this.listing_type_id ) {
-                the_form_fields_data['listing_type_id'] = this.listing_type_id;
+                form_data.append( 'listing_type_id', this.listing_type_id );
+                this.footer_actions.save.label = 'Update';
             }
 
             let field_list = [];
 
             for ( let field in fields ) {
-                the_form_fields_data[ field ] = fields[ field ].value;
+                let value = ( typeof fields[ field ].value === 'undefined' ) ? '' : fields[ field ].value;
+                
+                form_data.append( field, value );
                 field_list.push( field );
             }
             
-            the_form_fields_data['field_list'] = field_list;
+            form_data.append( 'field_list', JSON.stringify( field_list ) );
 
             this.status_messages = [];
             this.footer_actions.save.showLoading = true;
             this.footer_actions.save.isDisabled = true;
             const self = this;
 
-            axios.get( ajax_data.ajax_url, { params: the_form_fields_data })
+            let config = {};
+
+            axios.post( ajax_data.ajax_url, form_data, config )
                 .then( response => {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;
 
-                    console.log( response.data );
+                    // console.log( response.data );
 
                     if ( response.data.post_id && ! isNaN( response.data.post_id ) ) {
                         self.listing_type_id = response.data.post_id;

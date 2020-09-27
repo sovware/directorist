@@ -1,6 +1,6 @@
 <template>
-    <div class="atbdp-cptm-tab-item search-form cptm-tab-content tab-full-width" :class="getActiveClass(index, active_nav_index)">
-        <div class="cptm-section" v-for="( section, section_key ) in search_form_sections" :key="section_key">
+    <div class="atbdp-cptm-tab-item listings-page-layout cptm-tab-content tab-full-width" :class="getActiveClass(itemIndex, activeIndex)">
+        <div class="cptm-section" v-for="( section, section_key ) in sections" :key="section_key">
             <div class="cptm-title-area">
                 <h3 v-if="section.title.length" class="cptm-title" v-html="section.title"></h3>
                 <p v-if="section.description" v-html="section.description"></p>
@@ -22,22 +22,29 @@
 
 <script>
 import { mapState } from 'vuex';
-import { mapMutations } from 'vuex';
-import helpers from './../../../mixins/helpers';
-
+import helpers from './../../../../mixins/helpers';
 
 export default {
-    name: 'search-form',
-    props: ['index'],
+    name: 'grid-view-layout',
+    props: [ 'itemIndex', 'activeIndex' ],
     mixins: [ helpers ],
+
+    created() {
+        
+    },
 
     // computed
     computed: {
         ...mapState({
-            active_nav_index: 'active_nav_index',
             fields: 'fields',
-            search_form_sections: state => state.settings.search_forms.sections,
+            sections: state => state.settings.listings_card_layout.submenu.grid_view.sections,
         }),
+    },
+
+    data() {
+        return {
+            
+        }
     },
 }
 </script>

@@ -2,7 +2,8 @@
 @import './../base/utility';
 
 $dark: #23282d;
-$dark-2: #424242;
+$dark-2: #7b7d8b;
+$dark-3: #272b41;
 $primary: #4353FF;
 $nav_link_color:  #7a8289;
 $nav_link_hover_color:  $dark;
@@ -190,7 +191,7 @@ $nav_icon_color: $primary;
 // ====================
 
 .cptm-title-area {
-    margin: 0 0 20px 0;
+    margin: 0 0 40px 0;
 }
 
 .cptm-mb-60 {
@@ -448,8 +449,156 @@ $nav_icon_color: $primary;
     display: flex;
     flex-wrap: wrap;
 }
-.cptm-widgets-area {
+.cptm-options-area {
     width: 300px;
+    perspective: 800px;
+    
+}
+
+
+.cptm-option-card {
+    visibility: hidden;
+    transition: all linear 300ms;
+    transform-origin: center;
+    opacity: 0;
+    border-radius: 5px;
+    text-align: left;
+    
+
+    &.cptm-animation-flip {
+        transform: rotate3d( 0, 1, 0, 45deg );
+    }
+    &.cptm-animation-slide-up {
+        transform: translate(0, 30px);
+    }
+
+    &.active {
+        visibility: visible;
+        opacity: 1;
+
+        &.cptm-animation-flip {
+            transform: rotate3d( 0, 0, 0, 0deg );
+        }
+        &.cptm-animation-slide-up {
+            transform: translate(0, 0);
+        }
+    }
+}
+
+.cptm-anchor-down {
+    display: block;
+    text-align: center;
+    position: relative;
+    top: -1px;
+    &:after {
+        content: '';
+        display: inline-block;
+        width: 0;
+        height: 0;
+        border-left: 15px solid transparent;
+        border-right: 15px solid transparent;
+        border-top: 15px solid #fff;
+    }
+}
+
+.cptm-header-action-link {
+    display: inline-block;
+    padding: 0 10px;
+    text-decoration: none;
+    color: darken($primary, 30);
+    transition: all ease-in-out 300ms;
+    @extend .reset-pseudo-link;
+    &:hover {
+        color: #fff;
+    }
+}
+
+
+.cptm-option-card-header {
+    border-radius: 5px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: $primary;
+}
+.cptm-option-card-header-title-section {
+    display: flex;
+    color: #fff;
+    padding: 10px;
+}
+.cptm-option-card-header-title {
+    flex-grow: 1;
+    margin: 0;
+    text-align: left;
+    color: #fff;
+}
+.cptm-header-action-area {
+    display: flex;
+    padding: 0 0 0 10px;
+    justify-content: center;
+    align-items: center;
+}
+.cptm-option-card-header-nav-section { display: block; }
+
+.cptm-option-card-header-nav {
+    display: flex;
+    color: #fff;
+    flex-wrap: wrap;
+    padding: 0;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+.cptm-option-card-header-nav-item {
+    display: block;
+    flex-grow: 1;
+    text-align: center;
+    padding: 8px 10px;
+    cursor: pointer;
+    margin-bottom: 0;
+    transition: all ease-in-out 300ms;
+    &.active {
+        background-color: rgba(255, 255, 255, 0.15);
+    }
+}
+.cptm-option-card-body {
+    padding: 10px;
+    border-radius: 5px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    box-shadow: 0 10px 40px 0 rgba(0,0,0,.2);
+    background-color: #fff;
+}
+
+
+.cptm-widget-insert-area {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.cptm-widget-insert-wrap {
+    position: relative;
+}
+
+.cptm-widget-insert-modal-container {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 300px;
+    transform: translate(-50%, -100%);
+}
+
+.cptm-widget-insert-link {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 50%;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba( 0,0,0, 0.20);
 }
 
 
@@ -457,12 +606,13 @@ $nav_icon_color: $primary;
 .cptm-widget-badge {
     display: inline-block;
     text-align: center;
-    color: $dark-2;
-    border-radius: 30px;
-    font-size: 10px;
-    padding: 5px 13px;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 11px;
+    padding: 2px 8px;
     margin: 2px;
-    background-color: rgba(255,255,255,0.2);
+    font-weight: 700;
+    background-color: rgba(255,255,255,.2);
 }
 
 
@@ -473,14 +623,15 @@ $nav_icon_color: $primary;
 }
 
 .cptm-placeholder-blcok {
+    padding: 2px;
     position: relative;
     min-height: 40px;
-    cursor: pointer;
     text-align: center;
     border: 1px dashed rgba( 255, 255,255, 0.5);
     transition: all ease-in-out 300ms;
     box-sizing: border-box;
     border-radius: 5px;
+    z-index: 99;
     &:hover, &.drag-over {
         border-color: rgba(255, 255, 255, 1);
     }
@@ -517,12 +668,21 @@ $nav_icon_color: $primary;
 .cptm-card-preview-thumbnail {
     position: relative;
     height: 230px;
-    background: cornflowerblue;
+    background: $dark-3;
 }
 
 .cptm-card-preview-thumbnail-overlay {
     position: relative;
     height: 100%;
+}
+
+.cptm-card-preview-thumbnail-bg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 72px;
+    color: $dark-2;
 }
 
 .cptm-card-preview-top-left {

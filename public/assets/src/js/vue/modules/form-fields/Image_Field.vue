@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    name: 'image_picker',
+    name: 'image-field',
     model: {
         prop: 'value',
         event: 'input'

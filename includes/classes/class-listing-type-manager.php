@@ -1098,34 +1098,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                                 [ 'key' => 'pricing_type', 'value' => 'price_unit' ],
                                             ]
                                         ],
-<<<<<<< HEAD
-                                        'plan' => [
-                                            'type'  => 'select',
-                                            'label'  => 'Chose a plan',
-                                            'show_if' => [
-                                                [
-                                                    'key'     => 'tag_with_plan',
-                                                    'compare' => '=',
-                                                    'value'   => true,
-                                                ]
-                                            ],
-                                            'option_groups' => [
-                                                [
-                                                    'plan' => [
-                                                        'type'  => 'select',
-                                                        'options' => [],
-                                                        'label'  => 'Plan',
-                                                        'value' => '',
-                                                    ],
-                                                    'plan' => [
-                                                        'type'  => 'select',
-                                                        'label'  => 'Plan',
-                                                        'value' => '',
-                                                    ],
-                                                ]
-
-                                            ],
-=======
 
                                     ],
                                     'value' => 'number',
@@ -1145,7 +1117,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                                 [ 'key' => 'pricing_type', 'value' => 'both' ],
                                                 [ 'key' => 'pricing_type', 'value' => 'price_unit' ],
                                             ]
->>>>>>> f11b27d95a8e351f7f7899c6c1b844adc2e6d217
                                         ],
                                     ],
                                     'value' => 'Price [USD]',

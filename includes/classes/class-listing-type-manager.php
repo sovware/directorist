@@ -21,11 +21,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
         }
 
-        
+
 
         // save_post_type_data
         public function save_post_type_data() {
-              
+
             if ( empty( $_POST['name'] ) ) {
                 wp_send_json( [
                     'status' => false,
@@ -58,7 +58,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     $mode = 'edit';
                     $term_id = $term['term_id'];
                 }
-                
+
             }
 
             if ( empty( $term_id ) ) {
@@ -68,7 +68,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         'invalid_id' => [
                             'type' => 'error',
                             'message' => 'Error found, please try again',
-                        ] 
+                        ]
                     ],
                 ], 200 );
             }
@@ -121,7 +121,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             update_term_meta(  $term_id, $field_key, $this->maybe_serialize( $value ) );
         }
 
-        // maybe_serialize 
+        // maybe_serialize
         public function maybe_serialize( $value = '' ) {
             return maybe_serialize( $this->maybe_json( $value ));
         }
@@ -221,10 +221,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                                 ],
                                             ]
                                         ],
-                                    ], 
+                                    ],
                                 ],
                             ],
-                        ]   
+                        ]
                     ];
                     }
                     if( ('radio' === $field_type) || ('checkbox' === $field_type) || ('select' === $field_type) ){
@@ -297,10 +297,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                                 ],
                                             ]
                                         ],
-                                    ], 
+                                    ],
                                 ],
                             ],
-                        ]  
+                        ]
                     ];
                     }
                     if( ('textarea' === $field_type) ){
@@ -374,10 +374,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                                  ],
                                              ]
                                          ],
-                                     ], 
+                                     ],
                                  ],
                              ],
-                         ]   
+                         ]
                      ];
                     }
                     if( ('url' === $field_type) ){
@@ -451,10 +451,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                                  ],
                                              ]
                                          ],
-                                     ], 
+                                     ],
                                  ],
                              ],
-                         ]   
+                         ]
                      ];
                     }
                     if( ('file' === $field_type) ){
@@ -508,167 +508,167 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'image_format' => [
                                         [
                                             'label' => __( 'jpg', 'directorist' ),
-                                            'value' => 'jpg',  
+                                            'value' => 'jpg',
                                         ],
                                         [
                                             'label' => __( 'jpeg', 'directorist' ),
-                                            'value' => 'jpeg',  
+                                            'value' => 'jpeg',
                                         ],
                                         [
                                             'label' => __( 'gif', 'directorist' ),
-                                            'value' => 'gif',  
+                                            'value' => 'gif',
                                         ],
                                         [
                                             'label' => __( 'png', 'directorist' ),
-                                            'value' => 'png',  
+                                            'value' => 'png',
                                         ],
                                         [
                                             'label' => __( 'bmp', 'directorist' ),
-                                            'value' => 'bmp',  
+                                            'value' => 'bmp',
                                         ],
                                         [
                                             'label' => __( 'ico', 'directorist' ),
-                                            'value' => 'ico',  
+                                            'value' => 'ico',
                                         ],
                                     ],
                                     'video_format' => [
                                         [
                                             'label' => __( 'asf', 'directorist' ),
-                                            'value' => 'asf',  
+                                            'value' => 'asf',
                                         ],
                                         [
                                             'label' => __( 'flv', 'directorist' ),
-                                            'value' => 'flv',  
+                                            'value' => 'flv',
                                         ],
                                         [
                                             'label' => __( 'avi', 'directorist' ),
-                                            'value' => 'avi',  
+                                            'value' => 'avi',
                                         ],
                                         [
                                             'label' => __( 'mkv', 'directorist' ),
-                                            'value' => 'mkv',  
+                                            'value' => 'mkv',
                                         ],
                                         [
                                             'label' => __( 'mp4', 'directorist' ),
-                                            'value' => 'mp4',  
+                                            'value' => 'mp4',
                                         ],
                                         [
                                             'label' => __( 'mpeg', 'directorist' ),
-                                            'value' => 'mpeg',  
+                                            'value' => 'mpeg',
                                         ],
                                         [
                                             'label' => __( 'mpg', 'directorist' ),
-                                            'value' => 'mpg',  
+                                            'value' => 'mpg',
                                         ],
                                         [
                                             'label' => __( 'wmv', 'directorist' ),
-                                            'value' => 'wmv',  
+                                            'value' => 'wmv',
                                         ],
                                         [
                                             'label' => __( '3gp', 'directorist' ),
-                                            'value' => '3gp',  
+                                            'value' => '3gp',
                                         ],
                                     ],
                                     'audio_format' => [
                                         [
                                             'label' => __( 'ogg', 'directorist' ),
-                                            'value' => 'ogg',  
+                                            'value' => 'ogg',
                                         ],
                                         [
                                             'label' => __( 'mp3', 'directorist' ),
-                                            'value' => 'mp3',  
+                                            'value' => 'mp3',
                                         ],
                                         [
                                             'label' => __( 'wav', 'directorist' ),
-                                            'value' => 'wav',  
+                                            'value' => 'wav',
                                         ],
                                         [
                                             'label' => __( 'wma', 'directorist' ),
-                                            'value' => 'wma',  
+                                            'value' => 'wma',
                                         ],
                                     ],
                                     'text_format' => [
                                         [
                                             'label' => __( 'css', 'directorist' ),
-                                            'value' => 'css',  
+                                            'value' => 'css',
                                         ],
                                         [
                                             'label' => __( 'csv', 'directorist' ),
-                                            'value' => 'csv',  
+                                            'value' => 'csv',
                                         ],
                                         [
                                             'label' => __( 'htm', 'directorist' ),
-                                            'value' => 'htm',  
+                                            'value' => 'htm',
                                         ],
                                         [
                                             'label' => __( 'html', 'directorist' ),
-                                            'value' => 'html',  
+                                            'value' => 'html',
                                         ],
                                         [
                                             'label' => __( 'txt', 'directorist' ),
-                                            'value' => 'txt',  
+                                            'value' => 'txt',
                                         ],
                                         [
                                             'label' => __( 'rtx', 'directorist' ),
-                                            'value' => 'rtx',  
+                                            'value' => 'rtx',
                                         ],
                                         [
                                             'label' => __( 'vtt', 'directorist' ),
-                                            'value' => 'vtt',  
+                                            'value' => 'vtt',
                                         ],
                                     ],
                                     'application_format' => [
                                         [
                                             'label' => __( 'doc', 'directorist' ),
-                                            'value' => 'doc',  
+                                            'value' => 'doc',
                                         ],
                                         [
                                             'label' => __( 'docx', 'directorist' ),
-                                            'value' => 'docx',  
+                                            'value' => 'docx',
                                         ],
                                         [
                                             'label' => __( 'odt', 'directorist' ),
-                                            'value' => 'odt',  
+                                            'value' => 'odt',
                                         ],
                                         [
                                             'label' => __( 'pdf', 'directorist' ),
-                                            'value' => 'pdf',  
+                                            'value' => 'pdf',
                                         ],
                                         [
                                             'label' => __( 'pot', 'directorist' ),
-                                            'value' => 'pot',  
+                                            'value' => 'pot',
                                         ],
                                         [
                                             'label' => __( 'ppt', 'directorist' ),
-                                            'value' => 'ppt',  
+                                            'value' => 'ppt',
                                         ],
                                         [
                                             'label' => __( 'pptx', 'directorist' ),
-                                            'value' => 'pptx',  
+                                            'value' => 'pptx',
                                         ],
                                         [
                                             'label' => __( 'rar', 'directorist' ),
-                                            'value' => 'rar',  
+                                            'value' => 'rar',
                                         ],
                                         [
                                             'label' => __( 'rtf', 'directorist' ),
-                                            'value' => 'rtf',  
+                                            'value' => 'rtf',
                                         ],
                                         [
                                             'label' => __( 'swf', 'directorist' ),
-                                            'value' => 'swf',  
+                                            'value' => 'swf',
                                         ],
                                         [
                                             'label' => __( 'xls', 'directorist' ),
-                                            'value' => 'xls',  
+                                            'value' => 'xls',
                                         ],
                                         [
                                             'label' => __( 'xlsx', 'directorist' ),
-                                            'value' => 'xlsx',  
+                                            'value' => 'xlsx',
                                         ],
                                         [
                                             'label' => __( 'gpx', 'directorist' ),
-                                            'value' => 'gpx',  
+                                            'value' => 'gpx',
                                         ],
                                     ],
 
@@ -680,7 +680,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 'description' => __( 'Set maximum file size to upload', 'directorist' ),
                                 'value' => $file_size,
                             ],
-                         ]   
+                         ]
                      ];
                     }
                 }
@@ -713,7 +713,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 'submit_area' => [
                     'fields' => apply_filters( 'atbdp_submit_area_fields', [ 'terms_conditions', 'privacy_policy', 'submit_button' ] ),
                 ],
-                
+
             ] );
 
 
@@ -781,12 +781,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //     ]
                                 // ],
                             ],
                         ],
-                        
+
                         'description' => [
                             'label' => 'Description',
                             'icon' => 'fa fa-align-left',
@@ -874,7 +874,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ]   
                             ]
                         ],
-    
+
                         'tagline' => [
                             'label' => 'Tagline',
                             'icon' => 'fa fa-text-height',
@@ -937,7 +937,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
@@ -968,7 +968,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                                 [ 'key' => 'pricing_type', 'value' => 'price_range' ],
                                             ]
                                         ],
-                                        
+
                                     ],
                                     'label'  => 'Price range label',
                                     'value' => 'Price range',
@@ -987,7 +987,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                                 [ 'key' => 'pricing_type', 'value' => 'price_range' ],
                                             ]
                                         ],
-                                        
+
                                     ],
                                     'label'  => 'Price Type Label',
                                     'value' => 'cheap',
@@ -1009,7 +1009,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                                 [ 'key' => 'pricing_type', 'value' => 'price_unit' ],
                                             ]
                                         ],
-                                        
+
                                     ],
                                     'value' => 'number',
                                     'options' => [
@@ -1037,7 +1037,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ]
                         ],
-    
+
                         'view_count' => [
                             'label' => 'View Count',
                             'icon' => 'fa fa-text-height',
@@ -1099,12 +1099,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'excerpt' => [
                             'label' => 'Excerpt',
                             'icon' => 'fa fa-text-height',
@@ -1166,12 +1166,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'location' => [
                             'label' => 'Location',
                             'icon' => 'fa fa-text-height',
@@ -1238,12 +1238,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'tag' => [
                             'label' => 'Tag',
                             'icon' => 'fa fa-text-height',
@@ -1315,12 +1315,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'category' => [
                             'label' => 'Category',
                             'icon' => 'fa fa-text-height',
@@ -1387,12 +1387,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'address' => [
                             'label' => 'Address',
                             'icon' => 'fa fa-text-height',
@@ -1454,12 +1454,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'map' => [
                             'label' => 'Map',
                             'icon' => 'fa fa-text-height',
@@ -1516,12 +1516,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'zip' => [
                             'label' => 'Zip/Post Code',
                             'icon' => 'fa fa-text-height',
@@ -1583,12 +1583,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'phone' => [
                             'label' => 'Phone',
                             'icon' => 'fa fa-text-height',
@@ -1650,12 +1650,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'phone2' => [
                             'label' => 'Phone 2',
                             'icon' => 'fa fa-text-height',
@@ -1717,12 +1717,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'fax' => [
                             'label' => 'Fax',
                             'icon' => 'fa fa-text-height',
@@ -1784,12 +1784,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'email' => [
                             'label' => 'Email',
                             'icon' => 'fa fa-text-height',
@@ -1851,12 +1851,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'website' => [
                             'label' => 'Website',
                             'icon' => 'fa fa-text-height',
@@ -1918,12 +1918,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'social_info' => [
                             'label' => 'Social Info',
                             'icon' => 'fa fa-text-height',
@@ -1980,12 +1980,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'image_upload' => [
                             'label' => 'Images',
                             'icon' => 'fa fa-text-height',
@@ -2057,12 +2057,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'video' => [
                             'label' => 'Video',
                             'icon' => 'fa fa-text-height',
@@ -2124,12 +2124,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ],
                         ],
-    
+
                         'terms_conditions' => [
                             'label' => 'Terms & Conditions',
                             'icon' => 'fa fa-text-height',
@@ -2159,7 +2159,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'privacy_policy' => [
                             'label' => 'Privacy & Policy',
                             'icon' => 'fa fa-text-height',
@@ -2189,7 +2189,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'submit_button' => [
                             'label' => 'Submit Button',
                             'icon' => 'fa fa-text-height',
@@ -2212,7 +2212,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'label'  => 'Enable Preview Mode',
                                     'value' => true,
                                 ]
-                             
+
                             ],
                         ],
                     ],
@@ -2305,13 +2305,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ]
-                            
+
                         ],
-    
+
                         'textarea' => [
                             'label' => 'Textarea',
                             'icon' => 'fa fa-text-width',
@@ -2399,13 +2399,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ]
-                            
+
                         ],
-    
+
                         'number' => [
                             'label' => 'Number',
                             'icon' => 'fa fa-text-width',
@@ -2488,13 +2488,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ]
-                            
+
                         ],
-    
+
                         'url' => [
                             'label' => 'URL',
                             'icon' => 'fa fa-text-width',
@@ -2582,13 +2582,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ]
-                            
+
                         ],
-    
+
                         'date' => [
                             'label' => 'Date',
                             'icon' => 'fa fa-text-width',
@@ -2671,13 +2671,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ]
-                            
+
                         ],
-    
+
                         'time' => [
                             'label' => 'Time',
                             'icon' => 'fa fa-text-width',
@@ -2760,13 +2760,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ]
-                            
+
                         ],
-    
+
                         'color_picker' => [
                             'label' => 'Color',
                             'icon' => 'fa fa-text-width',
@@ -2844,13 +2844,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ]
-                            
+
                         ],
-    
+
                         'select' => [
                             'label' => 'Select',
                             'icon' => 'fa fa-text-width',
@@ -2936,13 +2936,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ]
-                            
+
                         ],
-    
+
                         'checkbox' => [
                             'label' => 'Checkbox',
                             'icon' => 'fa fa-text-width',
@@ -3028,13 +3028,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ]
-                            
+
                         ],
-    
+
                         'radio' => [
                             'label' => 'Radio',
                             'icon' => 'fa fa-text-width',
@@ -3121,13 +3121,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ]
-                            
+
                         ],
-    
+
                         'file' => [
                             'label' => 'File Upload',
                             'icon' => 'fa fa-text-width',
@@ -3160,27 +3160,27 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'options' => [
                                                 [
                                                     'label' => __( 'jpg', 'directorist' ),
-                                                    'value' => 'jpg',  
+                                                    'value' => 'jpg',
                                                 ],
                                                 [
                                                     'label' => __( 'jpeg', 'directorist' ),
-                                                    'value' => 'jpeg',  
+                                                    'value' => 'jpeg',
                                                 ],
                                                 [
                                                     'label' => __( 'gif', 'directorist' ),
-                                                    'value' => 'gif',  
+                                                    'value' => 'gif',
                                                 ],
                                                 [
                                                     'label' => __( 'png', 'directorist' ),
-                                                    'value' => 'png',  
+                                                    'value' => 'png',
                                                 ],
                                                 [
                                                     'label' => __( 'bmp', 'directorist' ),
-                                                    'value' => 'bmp',  
+                                                    'value' => 'bmp',
                                                 ],
                                                 [
                                                     'label' => __( 'ico', 'directorist' ),
-                                                    'value' => 'ico',  
+                                                    'value' => 'ico',
                                                 ],
                                             ],
                                         ],
@@ -3189,39 +3189,39 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'options' => [
                                                 [
                                                     'label' => __( 'asf', 'directorist' ),
-                                                    'value' => 'asf',  
+                                                    'value' => 'asf',
                                                 ],
                                                 [
                                                     'label' => __( 'flv', 'directorist' ),
-                                                    'value' => 'flv',  
+                                                    'value' => 'flv',
                                                 ],
                                                 [
                                                     'label' => __( 'avi', 'directorist' ),
-                                                    'value' => 'avi',  
+                                                    'value' => 'avi',
                                                 ],
                                                 [
                                                     'label' => __( 'mkv', 'directorist' ),
-                                                    'value' => 'mkv',  
+                                                    'value' => 'mkv',
                                                 ],
                                                 [
                                                     'label' => __( 'mp4', 'directorist' ),
-                                                    'value' => 'mp4',  
+                                                    'value' => 'mp4',
                                                 ],
                                                 [
                                                     'label' => __( 'mpeg', 'directorist' ),
-                                                    'value' => 'mpeg',  
+                                                    'value' => 'mpeg',
                                                 ],
                                                 [
                                                     'label' => __( 'mpg', 'directorist' ),
-                                                    'value' => 'mpg',  
+                                                    'value' => 'mpg',
                                                 ],
                                                 [
                                                     'label' => __( 'wmv', 'directorist' ),
-                                                    'value' => 'wmv',  
+                                                    'value' => 'wmv',
                                                 ],
                                                 [
                                                     'label' => __( '3gp', 'directorist' ),
-                                                    'value' => '3gp',  
+                                                    'value' => '3gp',
                                                 ],
                                             ],
                                         ],
@@ -3231,19 +3231,19 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'options' => [
                                                 [
                                                     'label' => __( 'ogg', 'directorist' ),
-                                                    'value' => 'ogg',  
+                                                    'value' => 'ogg',
                                                 ],
                                                 [
                                                     'label' => __( 'mp3', 'directorist' ),
-                                                    'value' => 'mp3',  
+                                                    'value' => 'mp3',
                                                 ],
                                                 [
                                                     'label' => __( 'wav', 'directorist' ),
-                                                    'value' => 'wav',  
+                                                    'value' => 'wav',
                                                 ],
                                                 [
                                                     'label' => __( 'wma', 'directorist' ),
-                                                    'value' => 'wma',  
+                                                    'value' => 'wma',
                                                 ],
                                             ],
                                         ],
@@ -3252,31 +3252,31 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'options' => [
                                                 [
                                                     'label' => __( 'css', 'directorist' ),
-                                                    'value' => 'css',  
+                                                    'value' => 'css',
                                                 ],
                                                 [
                                                     'label' => __( 'csv', 'directorist' ),
-                                                    'value' => 'csv',  
+                                                    'value' => 'csv',
                                                 ],
                                                 [
                                                     'label' => __( 'htm', 'directorist' ),
-                                                    'value' => 'htm',  
+                                                    'value' => 'htm',
                                                 ],
                                                 [
                                                     'label' => __( 'html', 'directorist' ),
-                                                    'value' => 'html',  
+                                                    'value' => 'html',
                                                 ],
                                                 [
                                                     'label' => __( 'txt', 'directorist' ),
-                                                    'value' => 'txt',  
+                                                    'value' => 'txt',
                                                 ],
                                                 [
                                                     'label' => __( 'rtx', 'directorist' ),
-                                                    'value' => 'rtx',  
+                                                    'value' => 'rtx',
                                                 ],
                                                 [
                                                     'label' => __( 'vtt', 'directorist' ),
-                                                    'value' => 'vtt',  
+                                                    'value' => 'vtt',
                                                 ],
                                             ],
 
@@ -3286,59 +3286,59 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'options' => [
                                                 [
                                                     'label' => __( 'doc', 'directorist' ),
-                                                    'value' => 'doc',  
+                                                    'value' => 'doc',
                                                 ],
                                                 [
                                                     'label' => __( 'docx', 'directorist' ),
-                                                    'value' => 'docx',  
+                                                    'value' => 'docx',
                                                 ],
                                                 [
                                                     'label' => __( 'odt', 'directorist' ),
-                                                    'value' => 'odt',  
+                                                    'value' => 'odt',
                                                 ],
                                                 [
                                                     'label' => __( 'pdf', 'directorist' ),
-                                                    'value' => 'pdf',  
+                                                    'value' => 'pdf',
                                                 ],
                                                 [
                                                     'label' => __( 'pot', 'directorist' ),
-                                                    'value' => 'pot',  
+                                                    'value' => 'pot',
                                                 ],
                                                 [
                                                     'label' => __( 'ppt', 'directorist' ),
-                                                    'value' => 'ppt',  
+                                                    'value' => 'ppt',
                                                 ],
                                                 [
                                                     'label' => __( 'pptx', 'directorist' ),
-                                                    'value' => 'pptx',  
+                                                    'value' => 'pptx',
                                                 ],
                                                 [
                                                     'label' => __( 'rar', 'directorist' ),
-                                                    'value' => 'rar',  
+                                                    'value' => 'rar',
                                                 ],
                                                 [
                                                     'label' => __( 'rtf', 'directorist' ),
-                                                    'value' => 'rtf',  
+                                                    'value' => 'rtf',
                                                 ],
                                                 [
                                                     'label' => __( 'swf', 'directorist' ),
-                                                    'value' => 'swf',  
+                                                    'value' => 'swf',
                                                 ],
                                                 [
                                                     'label' => __( 'xls', 'directorist' ),
-                                                    'value' => 'xls',  
+                                                    'value' => 'xls',
                                                 ],
                                                 [
                                                     'label' => __( 'xlsx', 'directorist' ),
-                                                    'value' => 'xlsx',  
+                                                    'value' => 'xlsx',
                                                 ],
                                                 [
                                                     'label' => __( 'gpx', 'directorist' ),
-                                                    'value' => 'gpx',  
+                                                    'value' => 'gpx',
                                                 ],
                                             ],
                                         ]
-    
+
                                     ],
                                 ],
                                 'file_size' => [
@@ -3391,14 +3391,14 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 //                 'value' => '',
                                 //             ],
                                 //         ]
-                                        
+
                                 //         ],
                                 // ],
                             ]
-                            
+
                         ],
                     ]
-                    
+
 
 
                 ],
@@ -3421,7 +3421,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-                        
+
                         'description' => [
                             'label' => 'Description',
                             'icon' => 'fa fa-align-left',
@@ -3433,7 +3433,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ]
                         ],
-    
+
                         'tagline' => [
                             'label' => 'Tagline',
                             'icon' => 'fa fa-text-height',
@@ -3446,7 +3446,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'pricing' => [
                             'label' => 'Pricing',
                             'icon' => 'fa fa-text-height',
@@ -3459,7 +3459,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'view_count' => [
                             'label' => 'View Count',
                             'icon' => 'fa fa-text-height',
@@ -3471,7 +3471,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'excerpt' => [
                             'label' => 'Excerpt',
                             'icon' => 'fa fa-text-height',
@@ -3483,7 +3483,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'location' => [
                             'label' => 'Location',
                             'icon' => 'fa fa-text-height',
@@ -3495,7 +3495,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'tag' => [
                             'label' => 'Tag',
                             'icon' => 'fa fa-text-height',
@@ -3507,7 +3507,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'category' => [
                             'label' => 'Category',
                             'icon' => 'fa fa-text-height',
@@ -3519,7 +3519,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'address' => [
                             'label' => 'Address',
                             'icon' => 'fa fa-text-height',
@@ -3531,7 +3531,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'map' => [
                             'label' => 'Map',
                             'icon' => 'fa fa-text-height',
@@ -3543,7 +3543,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'zip' => [
                             'label' => 'Zip/Post Code',
                             'icon' => 'fa fa-text-height',
@@ -3555,7 +3555,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'phone' => [
                             'label' => 'Phone',
                             'icon' => 'fa fa-text-height',
@@ -3567,7 +3567,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'phone2' => [
                             'label' => 'Phone 2',
                             'icon' => 'fa fa-text-height',
@@ -3579,7 +3579,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'fax' => [
                             'label' => 'Fax',
                             'icon' => 'fa fa-text-height',
@@ -3591,7 +3591,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'email' => [
                             'label' => 'Email',
                             'icon' => 'fa fa-text-height',
@@ -3603,7 +3603,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'website' => [
                             'label' => 'Website',
                             'icon' => 'fa fa-text-height',
@@ -3615,7 +3615,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'social_info' => [
                             'label' => 'Social Info',
                             'icon' => 'fa fa-text-height',
@@ -3627,7 +3627,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'image_upload' => [
                             'label' => 'Images',
                             'icon' => 'fa fa-text-height',
@@ -3639,7 +3639,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'video' => [
                             'label' => 'Video',
                             'icon' => 'fa fa-text-height',
@@ -3651,7 +3651,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'terms_conditions' => [
                             'label' => 'Terms & Conditions',
                             'icon' => 'fa fa-text-height',
@@ -3663,7 +3663,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'privacy_policy' => [
                             'label' => 'Privacy & Policy',
                             'icon' => 'fa fa-text-height',
@@ -3675,7 +3675,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-    
+
                         'submit_button' => [
                             'label' => 'Submit Button',
                             'icon' => 'fa fa-text-height',
@@ -3685,7 +3685,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'label'  => 'Required',
                                     'value' => false,
                                 ],
-                             
+
                             ],
                         ],
 
@@ -3699,9 +3699,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => false,
                                 ],
                             ]
-                            
+
                         ],
-    
+
                         'textarea' => [
                             'label' => 'Textarea',
                             'icon' => 'fa fa-text-width',
@@ -3712,9 +3712,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => false,
                                 ],
                             ]
-                            
+
                         ],
-    
+
                         'number' => [
                             'label' => 'Number',
                             'icon' => 'fa fa-text-width',
@@ -3725,9 +3725,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => false,
                                 ],
                             ]
-                            
+
                         ],
-    
+
                         'url' => [
                             'label' => 'URL',
                             'icon' => 'fa fa-text-width',
@@ -3738,9 +3738,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => false,
                                 ],
                             ]
-                            
+
                         ],
-    
+
                         'date' => [
                             'label' => 'Date',
                             'icon' => 'fa fa-text-width',
@@ -3751,9 +3751,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => false,
                                 ],
                             ]
-                            
+
                         ],
-    
+
                         'time' => [
                             'label' => 'Time',
                             'icon' => 'fa fa-text-width',
@@ -3764,9 +3764,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => false,
                                 ],
                             ]
-                            
+
                         ],
-    
+
                         'color_picker' => [
                             'label' => 'Color',
                             'icon' => 'fa fa-text-width',
@@ -3777,9 +3777,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => false,
                                 ],
                             ]
-                            
+
                         ],
-    
+
                         'select' => [
                             'label' => 'Select',
                             'icon' => 'fa fa-text-width',
@@ -3790,9 +3790,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => false,
                                 ],
                             ]
-                            
+
                         ],
-    
+
                         'checkbox' => [
                             'label' => 'Checkbox',
                             'icon' => 'fa fa-text-width',
@@ -3803,9 +3803,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => false,
                                 ],
                             ]
-                            
+
                         ],
-    
+
                         'radio' => [
                             'label' => 'Radio',
                             'icon' => 'fa fa-text-width',
@@ -3816,9 +3816,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => false,
                                 ],
                             ]
-                            
+
                         ],
-    
+
                         'file' => [
                             'label' => 'File Upload',
                             'icon' => 'fa fa-text-width',
@@ -3829,7 +3829,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => false,
                                 ],
                             ]
-                            
+
                         ],
                     ],
                 ],
@@ -3862,7 +3862,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         'required' => false,
                     ],
                 ],
-                
+
                 'plural_name' => [
                     'label' => 'Plural name (e.g. Businesses)',
                     'type'  => 'text',
@@ -4056,7 +4056,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                         ]
                     ],
-                    
+
                 ],
 
                 'search_form_fields' => [
@@ -4111,9 +4111,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         [ 'label' => '%', 'value' => '%' ],
                     ],
                 ],
-        
+
             ];
- 
+
 
             $this->settings = apply_filters( 'atbdp_listing_type_settings', [
                 'general' => [
@@ -4223,7 +4223,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'sections' => [
                                 'listings_card' => [
                                     'title' => __( 'Create and customize the listing card for grid view', 'directorist' ),
-                                    'description' => 'need help?',
+                                    'description' => 'need help? Read the documentation or open a ticket in our helpdesk.',
                                     'fields' => [
                                         'listings_card_grid_view'
                                     ],
@@ -4256,7 +4256,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                         ],
                     ],
-                    
+
                 ],
                 'search_forms' => [
                     'label' => 'Search Forms',
@@ -4290,12 +4290,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         // menu_page_callback__listing_types
         public function menu_page_callback__listing_types() {
             $post_types_list_table = new Listing_Types_List_Table( $this );
-            
+
             $action = $post_types_list_table->current_action();
             $post_types_list_table->prepare_items();
 
             $listing_type_id = 0;
-            
+
             if ( ! empty( $action ) && ( 'edit' === $action ) && ! empty( $_REQUEST['listing_type_id'] )  ) {
                 $listing_type_id = $_REQUEST['listing_type_id'];
                 $this->update_fields_with_old_data();
@@ -4330,7 +4330,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
             $all_term_meta = get_term_meta( $term->term_id );
             if ( 'array' !== getType(  $all_term_meta ) ) { return; }
-            
+
             foreach ( $all_term_meta as $meta_key => $meta_value ) {
                 if ( isset( $this->fields[ $meta_key ] ) ) {
                     $value = maybe_unserialize( maybe_unserialize( $meta_value[0] ) );
@@ -4368,7 +4368,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'message' => 'Successfully Deleted the listing type',
                 ]);
             } else {
-                atbdp_add_flush_alert([ 
+                atbdp_add_flush_alert([
                     'id'      => 'deleting_listing_type_status',
                     'page'    => 'all-listing-type',
                     'type'    => 'error',
@@ -4390,7 +4390,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 'show_ui' => false,
              ]);
         }
-       
+
         // enqueue_scripts
         public function enqueue_scripts() {
             wp_enqueue_style( 'atbdp-font-awesome' );
@@ -4398,8 +4398,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
             wp_localize_script( 'atbdp_admin_app', 'ajax_data', [ 'ajax_url' => admin_url( 'admin-ajax.php' ) ] );
             wp_enqueue_script( 'atbdp_admin_app' );
-            
-            
+
+
         }
 
         // register_scripts

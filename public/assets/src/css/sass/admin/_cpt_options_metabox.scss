@@ -193,7 +193,8 @@ $light-gray: #F4F5F7;
 // ====================
 
 .cptm-title-area {
-    margin: 0 0 40px 0;
+    width: 510px;
+    margin: 0 auto 40px;
 }
 
 .cptm-mb-60 {
@@ -450,11 +451,14 @@ $light-gray: #F4F5F7;
 .cptm-builder-section {
     display: flex;
     flex-wrap: wrap;
+    position: relative;
 }
 .cptm-options-area {
     width: 300px;
     perspective: 800px;
-
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 
@@ -465,6 +469,7 @@ $light-gray: #F4F5F7;
     opacity: 0;
     border-radius: 5px;
     text-align: left;
+    pointer-events: none;
 
 
     &.cptm-animation-flip {
@@ -477,6 +482,7 @@ $light-gray: #F4F5F7;
     &.active {
         visibility: visible;
         opacity: 1;
+        pointer-events: all;
 
         &.cptm-animation-flip {
             transform: rotate3d( 0, 0, 0, 0deg );
@@ -588,12 +594,16 @@ $light-gray: #F4F5F7;
     top: 0;
     width: 300px;
     transform: translate(-50%, -100%);
+    pointer-events: none;
+    &.active{
+        pointer-events: all;
+    }
 }
 
 .cptm-widget-insert-link {
     display: inline-block;
-    width: 25px;
-    height: 25px;
+    width: 26px;
+    height: 26px;
     line-height: 25px;
     border-radius: 50%;
     font-size: 14px;
@@ -601,6 +611,14 @@ $light-gray: #F4F5F7;
     text-decoration: none;
     background-color: #fff;
     box-shadow: 0 0 5px rgba( 0,0,0, 0.20);
+    color: #5A5F7D;
+}
+.cptm-listing-card-preview-body,
+.cptm-listing-card-preview-footer{
+    .cptm-widget-insert-link{
+        background: $dark;
+        color: #fff;
+    }
 }
 
 
@@ -615,6 +633,54 @@ $light-gray: #F4F5F7;
     margin: 2px;
     font-weight: 700;
     background-color: rgba(255,255,255,.2);
+    transition: 0.3s ease;
+    position: relative;
+    &:before{
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 100%;
+        left: -8px;
+        top: -8px;
+        border: 3px solid #2C99FF;
+        padding: 5px;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.3s ease;
+    }
+    &:hover{
+        &:before{
+            visibility: visible;
+            opacity: 1;
+        }
+        .cptm-widget-badge-tools{
+            visibility: visible;
+            opacity: 1;
+            pointer-events: all;
+        }
+    }
+}
+.cptm-widget-badge-tools {
+    position: absolute;
+    width: 100%;
+    background: #2C99FF;
+    left: -8px;
+    top: -40px;
+    padding: 5px;
+    border: 3px solid #2C99FF;
+    border-radius: 1px 1px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+    a{
+        padding: 0 7px;
+        font-size: 14px;
+        color: #fff;
+    }
 }
 
 
@@ -653,6 +719,11 @@ $light-gray: #F4F5F7;
     font-size: 13px;
     &.hide {
         display: none;
+    }
+}
+.cptm-listing-card-preview-footer{
+    .cptm-placeholder-label{
+        color: #868EAE;
     }
 }
 
@@ -737,14 +808,49 @@ $light-gray: #F4F5F7;
 
 .cptm-listing-card-preview-body {
     display: block;
-    padding: 20px;
+    padding: 35px 20px 20px;
+    position: relative;
+}
+
+.cptm-listing-card-author-avatar{
+    z-index: 99;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: calc(100% - 40px);
+    transform: translate(-50%, -50%);
+    .cptm-placeholder-blcok{
+        border-color: rgba(#C6D0DC, 0.5);
+        padding: 0;
+        min-height: auto;
+        height: 51px;
+        .cptm-placeholder-author-thumb{
+            margin: 0;
+            img{
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+                background: #C6D0DC;
+                border: 4px solid #fff;
+            }
+        }
+    }
+    .cptm-widget-insert-area{
+        top: 0;
+        bottom: auto;
+        transform: translate(-50%, -50%);
+        .cptm-widget-insert-link{
+            background:#fff;
+            color: #5A5F7D;
+        }
+    }
 }
 
 .cptm-listing-card-preview-body-placeholder {
     display: block;
     min-height: 206px;
-    border-color: rgba(#fff, 0.15
-    );
+    border-color: #E3E6EF;
     &:hover {
         border-color: #717171;
     }
@@ -753,15 +859,15 @@ $light-gray: #F4F5F7;
 .cptm-listing-card-preview-footer {
     display: flex;
     flex-wrap: wrap;
-    padding: 10px;
-    background-color: #f2f2f2;
+    padding: 20px;
+    background-color: #F4F5F7;
     border-radius: 0 0 5px 5px;
 }
 
 .cptm-listing-card-preview-footer-left-placeholder {
     flex-grow: 1;
     margin-right: 5px;
-    border-color: #a4a4a4;
+    border-color: #C6D0DC;
     &:hover {
         border-color: #1e1e1e;
     }
@@ -769,8 +875,7 @@ $light-gray: #F4F5F7;
 
 .cptm-listing-card-preview-footer-right-placeholder {
     flex-grow: 1;
-    margin-left: 5px;
-    border-color: #7d7d7d;
+    border-color: #C6D0DC;
     &:hover {
         border-color: #1e1e1e;
     }

@@ -3463,6 +3463,25 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-builder",
   props: [],
@@ -8141,7 +8160,28 @@ var staticRenderFns = [
                           ),
                           _vm._v(" "),
                           _c("div", { staticClass: "cptm-widget-badge" }, [
-                            _vm._v("Badge Text")
+                            _vm._v(
+                              "\n                    Badge Text\n                    "
+                            ),
+                            _c(
+                              "div",
+                              { staticClass: "cptm-widget-badge-tools" },
+                              [
+                                _c("a", { attrs: { href: "" } }, [
+                                  _c("span", {
+                                    staticClass: "fa fa-arrows-alt"
+                                  })
+                                ]),
+                                _vm._v(" "),
+                                _c("a", { attrs: { href: "" } }, [
+                                  _c("span", { staticClass: "fa fa-cog" })
+                                ]),
+                                _vm._v(" "),
+                                _c("a", { attrs: { href: "" } }, [
+                                  _c("span", { staticClass: "fa fa-trash" })
+                                ])
+                              ]
+                            )
                           ])
                         ]
                       )
@@ -8498,6 +8538,39 @@ var staticRenderFns = [
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "cptm-listing-card-preview-body" }, [
+              _c("div", { staticClass: "cptm-listing-card-author-avatar" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "cptm-listing-card-author-avatar-placeholder cptm-placeholder-blcok"
+                  },
+                  [
+                    _c("p", { staticClass: "cptm-placeholder-author-thumb" }, [
+                      _c("img", {
+                        attrs: {
+                          src: "https://via.placeholder.com/150",
+                          alt: ""
+                        }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "cptm-widget-insert-area" }, [
+                      _c("div", { staticClass: "cptm-widget-insert-wrap" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "cptm-widget-insert-link",
+                            attrs: { href: "#" }
+                          },
+                          [_c("span", { staticClass: "fa fa-plus" })]
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
               _c(
                 "div",
                 {
@@ -8513,7 +8586,10 @@ var staticRenderFns = [
                     _c("div", { staticClass: "cptm-widget-insert-wrap" }, [
                       _c(
                         "div",
-                        { staticClass: "cptm-widget-insert-modal-container" },
+                        {
+                          staticClass:
+                            "cptm-widget-insert-modal-container active"
+                        },
                         [
                           _c(
                             "div",

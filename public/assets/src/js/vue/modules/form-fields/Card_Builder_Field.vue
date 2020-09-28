@@ -97,7 +97,15 @@
                       </div>
                     </div>
 
-                    <div class="cptm-widget-badge">Badge Text</div>
+                    <div class="cptm-widget-badge">
+                      Badge Text
+                      <div class="cptm-widget-badge-tools">
+                        <a href=""><span class="fa fa-arrows-alt"></span></a>
+                        <a href=""><span class="fa fa-cog"></span></a>
+                        <a href=""><span class="fa fa-trash"></span></a>
+
+                      </div>
+                    </div>
                     <!-- <div class="cptm-widget-badge">Badge Text 2</div> -->
                   </div>
                 </div>
@@ -201,12 +209,23 @@
 
           <!-- cptm-listing-card-preview-body -->
           <div class="cptm-listing-card-preview-body">
+            <!-- cptm-listing-card-author-avatar -->
+            <div class="cptm-listing-card-author-avatar">
+              <div class="cptm-listing-card-author-avatar-placeholder cptm-placeholder-blcok">
+                <p class="cptm-placeholder-author-thumb"><img src="https://via.placeholder.com/150" alt=""></p>
+                <div class="cptm-widget-insert-area">
+                  <div class="cptm-widget-insert-wrap">
+                    <a href="#" class="cptm-widget-insert-link"><span class="fa fa-plus"></span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="cptm-listing-card-preview-body-placeholder cptm-placeholder-blcok">
               <p class="cptm-placeholder-label">Body Contents</p>
 
               <div class="cptm-widget-insert-area">
                 <div class="cptm-widget-insert-wrap">
-                  <div class="cptm-widget-insert-modal-container">
+                  <div class="cptm-widget-insert-modal-container active">
                     <div class="cptm-option-card active cptm-animation-slide-up">
                       <div class="cptm-option-card-header">
                         <div class="cptm-option-card-header-title-section">

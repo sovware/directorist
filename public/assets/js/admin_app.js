@@ -2222,6 +2222,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2990,6 +2991,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
 //
 //
 //
@@ -3022,7 +3028,38 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'widgets-window',
-  props: {},
+  model: {
+    prop: 'active',
+    event: 'update'
+  },
+  props: {
+    active: {
+      type: Boolean,
+      default: false
+    },
+    animation: {
+      type: String,
+      default: 'cptm-animation-slide-up'
+    },
+    bottomAchhor: {
+      type: Boolean,
+      default: false
+    },
+    availableWidgets: {
+      type: Object
+    },
+    accepted_widgets: {
+      type: Array
+    }
+  },
+  mounted: function mounted() {},
+  computed: {
+    mainWrapperClass: function mainWrapperClass() {
+      return _defineProperty({
+        active: this.active
+      }, this.animation, true);
+    }
+  },
   data: function data() {
     return {};
   },
@@ -3300,188 +3337,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-builder",
   props: [],
@@ -3546,7 +3401,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   },
   data: function data() {
     return {
-      widgets: {
+      active_insert_widget_key: 'thumbnail_top_right',
+      available_widgets: {
         listing_title: {
           type: "title",
           id: "listing_title",
@@ -3683,38 +3539,65 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       layout: {
         thumbnail: {
           top_right: {
+            label: 'Top Right',
             max_widget: 2,
             max_widget_info_text: "Up to 2 items can be added",
             accepted_widgets: ["open_now_badge", "favorite_badge"],
-            widgets: ["open_now_badge", "favorite_badge"]
+            active_widgets: ["open_now_badge"],
+            bottomAchhor: true
           },
           top_left: {
+            label: 'Top Left',
+            widget_insert_window: {
+              active: false,
+              bottom_achhor: true
+            },
             max_widget: 2,
             max_widget_info_text: "Up to 2 items can be added",
             accepted_widgets: ["open_now_badge", "favorite_badge"],
             widgets: ["favorite_badge", "favorite_badge"]
           },
           bottom_right: {
+            label: 'Bottom Right',
+            widget_insert_window: {
+              active: false,
+              bottom_achhor: true
+            },
             max_widget: 2,
             max_widget_info_text: "Up to 2 items can be added",
             accepted_widgets: ["open_now_badge", "favorite_badge"],
             widgets: ["open_now_badge", "favorite_badge"]
           },
           bottom_left: {
+            label: 'Bottom Left',
+            widget_insert_window: {
+              active: false,
+              bottom_achhor: true
+            },
             max_widget: 2,
             max_widget_info_text: "Up to 2 items can be added",
             accepted_widgets: ["open_now_badge", "favorite_badge"],
             widgets: ["open_now_badge", "favorite_badge"]
           },
           avater: {
+            label: 'Avater',
+            widget_insert_window: {
+              active: false,
+              bottom_achhor: true
+            },
             max_widget: 1,
             max_widget_info_text: "Up to 1 item can be added",
             accepted_widgets: ["user_avater"],
             widgets: ["user_avater"]
           }
         },
-        body: {
-          header: {
+        middle: {
+          body: {
+            label: 'Body',
+            widget_insert_window: {
+              active: false,
+              bottom_achhor: true
+            },
             max_widget: 2,
             accepted_widgets: [{
               label: "Preset",
@@ -3728,11 +3611,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         },
         footer: {
           right: {
+            label: 'Footer Right',
+            widget_insert_window: {
+              active: false,
+              bottom_achhor: true
+            },
             max_widget: 2,
             accepted_widgets: ["category"],
             widgets: ["category"]
           },
           left: {
+            label: 'Footer Left',
+            widget_insert_window: {
+              active: false,
+              bottom_achhor: true
+            },
             max_widget: 2,
             accepted_widgets: ["category"],
             widgets: ["category"]
@@ -3741,7 +3634,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
     };
   },
-  methods: {}
+  methods: {
+    activeInsertWindow: function activeInsertWindow(current_item_key) {
+      // console.log( current_item_key, this.active_insert_widget_key );
+      this.active_insert_widget_key = current_item_key;
+    },
+    closeInsertWindow: function closeInsertWindow(widget_insert_window) {
+      this.active_insert_widget_key = '';
+    },
+    getActiveInsertWindowStatus: function getActiveInsertWindowStatus(current_item_key) {
+      // console.log( current_item_key, this.active_insert_widget_key );
+      if (current_item_key === this.active_insert_widget_key) {
+        return true;
+      }
+
+      return false;
+    }
+  }
 });
 
 /***/ }),
@@ -3755,6 +3664,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 //
@@ -3862,6 +3778,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'form-builder',
   props: {
@@ -3895,12 +3813,29 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     this.parseLocalWidgets();
     this.$emit('update', this.updated_value);
   },
-  computed: {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    fields: 'fields'
+  })), {}, {
     updated_value: function updated_value() {
       return JSON.stringify({
         fields: this.active_fields,
         groups: this.groups
       });
+    },
+    widget_groups_with_states: function widget_groups_with_states() {
+      var widget_groups = this.widget_groups;
+
+      for (var field_key in this.active_fields) {
+        var widget_group = this.active_fields[field_key].widget_group;
+        var widget_name = this.active_fields[field_key].widget_name;
+        var field_options = widget_groups[widget_group].widgets[widget_name].options;
+
+        for (var field in field_options) {
+          field_options[field]['show'] = this.checkShowIfCondition(field_options[field], field_key);
+        }
+      }
+
+      return widget_groups;
     },
     widget_groups: function widget_groups() {
       if (this.has_dependency && !this.dependency_widgets) {
@@ -3929,15 +3864,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return null;
       }
 
-      if (typeof this.$store.state.fields[this.dependency] === 'undefined') {
+      if (typeof this.fields[this.dependency] === 'undefined') {
         return null;
       }
 
-      if (typeof this.$store.state.fields[this.dependency].value === 'undefined') {
+      if (typeof this.fields[this.dependency].value === 'undefined') {
         return null;
       }
 
-      return this.$store.state.fields[this.dependency].value;
+      return this.fields[this.dependency].value;
     },
     dependency_widgets: function dependency_widgets() {
       if (!this.dependency_data) {
@@ -3994,7 +3929,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
       return dependency_widgets;
     }
-  },
+  }),
   data: function data() {
     return {
       local_widgets: {},
@@ -4012,8 +3947,88 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     };
   },
   methods: {
-    get_updated: function get_updated() {
-      console.log('get_updated');
+    activeIsFieldVisible: function activeIsFieldVisible(option_key, field_key) {
+      var options = this.getActiveFieldsSettings(field_key, 'options');
+
+      if (typeof options[option_key] === 'undefined') {
+        return true;
+      }
+
+      if (typeof options[option_key].show === 'undefined') {
+        return true;
+      } // console.log( {option_key} );
+
+
+      return options[option_key].show;
+    },
+    checkShowIfCondition: function checkShowIfCondition(options, field_key) {
+      if (typeof options === 'undefined') {
+        return true;
+      }
+
+      if (typeof options.show_if === 'undefined') {
+        return true;
+      }
+
+      var faild_condition_count = 0;
+      var self = this;
+      options.show_if.forEach(function (element) {
+        var terget_field = null;
+        var conditions = null;
+        var compare = 'or';
+
+        if (element.where.field !== 'self') {
+          terget_field = self.fields[element.where.field];
+        }
+
+        if (element.where.field === 'self') {
+          terget_field = self.active_fields;
+        }
+
+        if (terget_field && element.where.widget === 'self') {
+          terget_field = terget_field[field_key];
+        }
+
+        if (terget_field && element.where.widget !== 'self') {
+          terget_field = terget_field[element.where.widget];
+        }
+
+        if (typeof terget_field !== 'undefined') {
+          conditions = element.conditions;
+        }
+
+        if (typeof element.compare !== 'undefined') {
+          compare = element.compare;
+        }
+
+        if (conditions && _typeof(conditions) === 'object') {
+          var missmatch_count = 0;
+          var match_count = 0;
+          conditions.forEach(function (item) {
+            var terget_value = terget_field[item.key];
+            var compare_value = item.value;
+
+            if (terget_value !== compare_value) {
+              missmatch_count++;
+            } else {
+              match_count++;
+            }
+          });
+
+          if ('and' === compare && missmatch_count) {
+            faild_condition_count++;
+          } else if ('or' === compare && !match_count) {
+            faild_condition_count++;
+          }
+        } // console.log({ field_key, faild_condition_count } );
+
+      });
+
+      if (faild_condition_count) {
+        return false;
+      }
+
+      return true;
     },
     parseLocalWidgets: function parseLocalWidgets() {
       if (!this.widgets && _typeof(this.widgets) !== 'object') {
@@ -4053,27 +4068,27 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return false;
       }
 
-      if (typeof this.widget_groups[widget_group] === 'undefined') {
+      if (typeof this.widget_groups_with_states[widget_group] === 'undefined') {
         return false;
       }
 
-      if (typeof this.widget_groups[widget_group].widgets === 'undefined') {
+      if (typeof this.widget_groups_with_states[widget_group].widgets === 'undefined') {
         return false;
       }
 
-      if (typeof this.widget_groups[widget_group].widgets[widget_name] === 'undefined') {
+      if (typeof this.widget_groups_with_states[widget_group].widgets[widget_name] === 'undefined') {
         return false;
       }
 
-      if (typeof this.widget_groups[widget_group].widgets[widget_name][data_key] === 'undefined') {
+      if (typeof this.widget_groups_with_states[widget_group].widgets[widget_name][data_key] === 'undefined') {
         return false;
       }
 
-      return this.widget_groups[widget_group].widgets[widget_name][data_key];
+      return this.widget_groups_with_states[widget_group].widgets[widget_name][data_key];
     },
     getActiveFieldsOptions: function getActiveFieldsOptions(widget_options) {
       if (_typeof(widget_options) !== 'object') {
-        return widget_options;
+        return {};
       }
 
       var options = JSON.parse(JSON.stringify(widget_options));
@@ -4210,7 +4225,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     },
     updateActiveFieldsOptionData: function updateActiveFieldsOptionData(payload) {
       this.active_fields[payload.field_key][payload.option_key] = payload.value;
-      this.$emit('update', this.updated_value);
+      this.$emit('update', this.updated_value); // console.log( payload );
     },
     addNewActiveFieldSection: function addNewActiveFieldSection() {
       this.groups.push({
@@ -6781,23 +6796,9 @@ var render = function() {
           [
             _vm._l(section.fields, function(field, field_key) {
               return [
-                _c(
-                  _vm.getFormFieldName(_vm.fields[field].type),
-                  _vm._b(
-                    {
-                      key: field_key,
-                      tag: "component",
-                      on: {
-                        update: function($event) {
-                          return _vm.updateFieldValue(field, $event)
-                        }
-                      }
-                    },
-                    "component",
-                    _vm.fields[field],
-                    false
-                  )
-                )
+                false
+                  ? undefined
+                  : _vm._e()
               ]
             })
           ],
@@ -7725,58 +7726,63 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "cptm-option-card", class: _vm.mainWrapperClass },
+    [
+      _c("div", { staticClass: "cptm-option-card-header" }, [
+        _c("div", { staticClass: "cptm-option-card-header-title-section" }, [
+          _c("h3", { staticClass: "cptm-option-card-header-title" }, [
+            _vm._v("Insert Element")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "cptm-header-action-area" }, [
+            _c(
+              "a",
+              {
+                staticClass: "cptm-header-action-link cptm-header-action-close",
+                attrs: { href: "#" },
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.$emit("close")
+                  }
+                }
+              },
+              [_c("span", { staticClass: "fa fa-times" })]
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(0)
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "cptm-option-card-body" }, [
+        _vm._v("\n        Options\n    ")
+      ]),
+      _vm._v(" "),
+      _vm.bottomAchhor
+        ? _c("span", { staticClass: "cptm-anchor-down" })
+        : _vm._e()
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "cptm-option-card cptm-animation-slide-up" },
-      [
-        _c("div", { staticClass: "cptm-option-card-header" }, [
-          _c("div", { staticClass: "cptm-option-card-header-title-section" }, [
-            _c("h3", { staticClass: "cptm-option-card-header-title" }, [
-              _vm._v("Insert Element")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "cptm-header-action-area" }, [
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "cptm-header-action-link cptm-header-action-close",
-                  attrs: { href: "#" }
-                },
-                [_c("span", { staticClass: "fa fa-times" })]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "cptm-option-card-header-nav-section" }, [
-            _c("ul", { staticClass: "cptm-option-card-header-nav" }, [
-              _c(
-                "li",
-                { staticClass: "cptm-option-card-header-nav-item active" },
-                [_vm._v("Preset Field")]
-              ),
-              _vm._v(" "),
-              _c("li", { staticClass: "cptm-option-card-header-nav-item" }, [
-                _vm._v("Custom Field")
-              ])
-            ])
-          ])
+    return _c("div", { staticClass: "cptm-option-card-header-nav-section" }, [
+      _c("ul", { staticClass: "cptm-option-card-header-nav" }, [
+        _c("li", { staticClass: "cptm-option-card-header-nav-item active" }, [
+          _vm._v("Preset Field")
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "cptm-option-card-body" }, [
-          _vm._v("Options")
-        ]),
-        _vm._v(" "),
-        _c("span", { staticClass: "cptm-anchor-down" })
-      ]
-    )
+        _c("li", { staticClass: "cptm-option-card-header-nav-item" }, [
+          _vm._v("Custom Field")
+        ])
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -7835,1180 +7841,469 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", {}, [
+    _c("div", { staticClass: "cptm-builder-section" }, [
+      _c("div", { staticClass: "cptm-preview-area" }, [
+        _c("div", { staticClass: "cptm-card-preview-widget" }, [
+          _c("div", { staticClass: "cptm-listing-card-preview-header" }, [
+            _c("div", { staticClass: "cptm-card-preview-thumbnail" }, [
+              _c(
+                "div",
+                { staticClass: "cptm-card-preview-thumbnail-overlay" },
+                [
+                  _c("div", { staticClass: "cptm-card-preview-top-left" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "cptm-card-preview-top-left-placeholder cptm-placeholder-blcok"
+                      },
+                      [
+                        _c("p", { staticClass: "cptm-placeholder-label" }, [
+                          _vm._v(_vm._s(_vm.layout.thumbnail.top_right.label))
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "cptm-widget-insert-area" }, [
+                          _c(
+                            "div",
+                            { staticClass: "cptm-widget-insert-wrap" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "cptm-widget-insert-modal-container"
+                                },
+                                [
+                                  _c(
+                                    "widgets-window",
+                                    _vm._b(
+                                      {
+                                        attrs: {
+                                          availableWidgets:
+                                            _vm.available_widgets,
+                                          active: _vm.getActiveInsertWindowStatus(
+                                            "thumbnail_top_right"
+                                          )
+                                        },
+                                        on: {
+                                          close: function($event) {
+                                            return _vm.closeInsertWindow()
+                                          }
+                                        }
+                                      },
+                                      "widgets-window",
+                                      _vm.layout.thumbnail.top_right,
+                                      false
+                                    )
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "cptm-widget-insert-link",
+                                  attrs: { href: "#" },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.activeInsertWindow(
+                                        "thumbnail_top_right"
+                                      )
+                                    }
+                                  }
+                                },
+                                [_c("span", { staticClass: "fa fa-plus" })]
+                              )
+                            ]
+                          )
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "cptm-card-preview-top-rignt" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "cptm-card-preview-top-rignt-placeholder cptm-placeholder-blcok"
+                      },
+                      [
+                        _c(
+                          "p",
+                          { staticClass: "cptm-placeholder-label hide" },
+                          [_vm._v("Top Rignt")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "cptm-widget-insert-area" }, [
+                          _c(
+                            "div",
+                            { staticClass: "cptm-widget-insert-wrap" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "cptm-widget-insert-modal-container"
+                                },
+                                [
+                                  _c("widgets-window", {
+                                    attrs: {
+                                      active: false,
+                                      "bottom-achhor": true
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _vm._m(0)
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(1)
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "cptm-card-preview-bottom-left" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "cptm-card-preview-bottom-left-placeholder cptm-placeholder-blcok"
+                      },
+                      [
+                        _c("p", { staticClass: "cptm-placeholder-label" }, [
+                          _vm._v("Bottom Left")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "cptm-widget-insert-area" }, [
+                          _c(
+                            "div",
+                            { staticClass: "cptm-widget-insert-wrap" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "cptm-widget-insert-modal-container"
+                                },
+                                [
+                                  _c("widgets-window", {
+                                    attrs: {
+                                      args: {
+                                        active: false,
+                                        bottom_achhor: true
+                                      }
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _vm._m(2)
+                            ]
+                          )
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "cptm-card-preview-bottom-right" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "cptm-card-preview-bottom-right-placeholder cptm-placeholder-blcok"
+                      },
+                      [
+                        _c("p", { staticClass: "cptm-placeholder-label" }, [
+                          _vm._v("Bottom Rignt")
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "cptm-widget-insert-area" }, [
+                          _c(
+                            "div",
+                            { staticClass: "cptm-widget-insert-wrap" },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "cptm-widget-insert-modal-container"
+                                },
+                                [
+                                  _c("widgets-window", {
+                                    attrs: {
+                                      args: {
+                                        active: false,
+                                        bottom_achhor: true
+                                      }
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _vm._m(3)
+                            ]
+                          )
+                        ])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "cptm-listing-card-preview-body" }, [
+            _vm._m(5),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "cptm-listing-card-preview-body-placeholder cptm-placeholder-blcok"
+              },
+              [
+                _c("p", { staticClass: "cptm-placeholder-label" }, [
+                  _vm._v("Body Contents")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "cptm-widget-insert-area" }, [
+                  _c("div", { staticClass: "cptm-widget-insert-wrap" }, [
+                    _c(
+                      "div",
+                      { staticClass: "cptm-widget-insert-modal-container" },
+                      [
+                        _c("widgets-window", {
+                          attrs: {
+                            args: { active: false, bottom_achhor: true }
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _vm._m(6)
+                  ])
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "cptm-listing-card-preview-footer" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "cptm-listing-card-preview-footer-left-placeholder cptm-placeholder-blcok"
+              },
+              [
+                _c("p", { staticClass: "cptm-placeholder-label" }, [
+                  _vm._v("Footer Left")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "cptm-widget-insert-area" }, [
+                  _c("div", { staticClass: "cptm-widget-insert-wrap" }, [
+                    _c(
+                      "div",
+                      { staticClass: "cptm-widget-insert-modal-container" },
+                      [
+                        _c("widgets-window", {
+                          attrs: {
+                            args: { active: false, bottom_achhor: true }
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _vm._m(7)
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "cptm-listing-card-preview-footer-right-placeholder cptm-placeholder-blcok"
+              },
+              [
+                _c("p", { staticClass: "cptm-placeholder-label" }, [
+                  _vm._v("Footer Right")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "cptm-widget-insert-area" }, [
+                  _c("div", { staticClass: "cptm-widget-insert-wrap" }, [
+                    _c(
+                      "div",
+                      { staticClass: "cptm-widget-insert-modal-container" },
+                      [
+                        _c("widgets-window", {
+                          attrs: {
+                            args: { active: false, bottom_achhor: true }
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _vm._m(8)
+                  ])
+                ])
+              ]
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "cptm-options-area" },
+        [
+          _c("widgets-window", {
+            attrs: { args: { active: true, animation: "cptm-animation-flip" } }
+          })
+        ],
+        1
+      )
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", {}, [
-      _c("div", { staticClass: "cptm-builder-section" }, [
-        _c("div", { staticClass: "cptm-preview-area" }, [
-          _c("div", { staticClass: "cptm-card-preview-widget" }, [
-            _c("div", { staticClass: "cptm-listing-card-preview-header" }, [
-              _c("div", { staticClass: "cptm-card-preview-thumbnail" }, [
-                _c(
-                  "div",
-                  { staticClass: "cptm-card-preview-thumbnail-overlay" },
-                  [
-                    _c("div", { staticClass: "cptm-card-preview-top-left" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "cptm-card-preview-top-left-placeholder cptm-placeholder-blcok"
-                        },
-                        [
-                          _c("p", { staticClass: "cptm-placeholder-label" }, [
-                            _vm._v("Top Left")
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "cptm-widget-insert-area" },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "cptm-widget-insert-wrap" },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "cptm-widget-insert-modal-container"
-                                    },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "cptm-option-card cptm-animation-slide-up"
-                                        },
-                                        [
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "cptm-option-card-header"
-                                            },
-                                            [
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "cptm-option-card-header-title-section"
-                                                },
-                                                [
-                                                  _c(
-                                                    "h3",
-                                                    {
-                                                      staticClass:
-                                                        "cptm-option-card-header-title"
-                                                    },
-                                                    [_vm._v("Insert Element")]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "div",
-                                                    {
-                                                      staticClass:
-                                                        "cptm-header-action-area"
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "a",
-                                                        {
-                                                          staticClass:
-                                                            "cptm-header-action-link cptm-header-action-close",
-                                                          attrs: { href: "#" }
-                                                        },
-                                                        [
-                                                          _c("span", {
-                                                            staticClass:
-                                                              "fa fa-times"
-                                                          })
-                                                        ]
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "cptm-option-card-header-nav-section"
-                                                },
-                                                [
-                                                  _c(
-                                                    "ul",
-                                                    {
-                                                      staticClass:
-                                                        "cptm-option-card-header-nav"
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "li",
-                                                        {
-                                                          staticClass:
-                                                            "cptm-option-card-header-nav-item active"
-                                                        },
-                                                        [_vm._v("Preset Field")]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "li",
-                                                        {
-                                                          staticClass:
-                                                            "cptm-option-card-header-nav-item"
-                                                        },
-                                                        [_vm._v("Custom Field")]
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "cptm-option-card-body"
-                                            },
-                                            [_vm._v("Options")]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("span", {
-                                            staticClass: "cptm-anchor-down"
-                                          })
-                                        ]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "cptm-widget-insert-link",
-                                      attrs: { href: "#" }
-                                    },
-                                    [_c("span", { staticClass: "fa fa-plus" })]
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "cptm-card-preview-top-rignt" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "cptm-card-preview-top-rignt-placeholder cptm-placeholder-blcok"
-                        },
-                        [
-                          _c(
-                            "p",
-                            { staticClass: "cptm-placeholder-label hide" },
-                            [_vm._v("Top Rignt")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "cptm-widget-insert-area" },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "cptm-widget-insert-wrap" },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "cptm-widget-insert-modal-container"
-                                    },
-                                    [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "cptm-option-card cptm-animation-slide-up"
-                                        },
-                                        [
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "cptm-option-card-header"
-                                            },
-                                            [
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "cptm-option-card-header-title-section"
-                                                },
-                                                [
-                                                  _c(
-                                                    "h3",
-                                                    {
-                                                      staticClass:
-                                                        "cptm-option-card-header-title"
-                                                    },
-                                                    [_vm._v("Insert Element")]
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "div",
-                                                    {
-                                                      staticClass:
-                                                        "cptm-header-action-area"
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "a",
-                                                        {
-                                                          staticClass:
-                                                            "cptm-header-action-link cptm-header-action-close",
-                                                          attrs: { href: "#" }
-                                                        },
-                                                        [
-                                                          _c("span", {
-                                                            staticClass:
-                                                              "fa fa-times"
-                                                          })
-                                                        ]
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "cptm-option-card-header-nav-section"
-                                                },
-                                                [
-                                                  _c(
-                                                    "ul",
-                                                    {
-                                                      staticClass:
-                                                        "cptm-option-card-header-nav"
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "li",
-                                                        {
-                                                          staticClass:
-                                                            "cptm-option-card-header-nav-item active"
-                                                        },
-                                                        [_vm._v("Preset Field")]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "li",
-                                                        {
-                                                          staticClass:
-                                                            "cptm-option-card-header-nav-item"
-                                                        },
-                                                        [_vm._v("Custom Field")]
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "cptm-option-card-body"
-                                            },
-                                            [_vm._v("Options")]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("span", {
-                                            staticClass: "cptm-anchor-down"
-                                          })
-                                        ]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "a",
-                                    {
-                                      staticClass: "cptm-widget-insert-link",
-                                      attrs: { href: "#" }
-                                    },
-                                    [_c("span", { staticClass: "fa fa-plus" })]
-                                  )
-                                ]
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "cptm-widget-badge" }, [
-                            _vm._v(
-                              "\n                    Badge Text\n                    "
-                            ),
-                            _c(
-                              "div",
-                              { staticClass: "cptm-widget-badge-tools" },
-                              [
-                                _c("a", { attrs: { href: "" } }, [
-                                  _c("span", {
-                                    staticClass: "fa fa-arrows-alt"
-                                  })
-                                ]),
-                                _vm._v(" "),
-                                _c("a", { attrs: { href: "" } }, [
-                                  _c("span", { staticClass: "fa fa-cog" })
-                                ]),
-                                _vm._v(" "),
-                                _c("a", { attrs: { href: "" } }, [
-                                  _c("span", { staticClass: "fa fa-trash" })
-                                ])
-                              ]
-                            )
-                          ])
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "cptm-card-preview-bottom-left" },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "cptm-card-preview-bottom-left-placeholder cptm-placeholder-blcok"
-                          },
-                          [
-                            _c("p", { staticClass: "cptm-placeholder-label" }, [
-                              _vm._v("Bottom Left")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "cptm-widget-insert-area" },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "cptm-widget-insert-wrap" },
-                                  [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "cptm-widget-insert-modal-container"
-                                      },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "cptm-option-card cptm-animation-slide-up"
-                                          },
-                                          [
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass:
-                                                  "cptm-option-card-header"
-                                              },
-                                              [
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "cptm-option-card-header-title-section"
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "h3",
-                                                      {
-                                                        staticClass:
-                                                          "cptm-option-card-header-title"
-                                                      },
-                                                      [_vm._v("Insert Element")]
-                                                    ),
-                                                    _vm._v(" "),
-                                                    _c(
-                                                      "div",
-                                                      {
-                                                        staticClass:
-                                                          "cptm-header-action-area"
-                                                      },
-                                                      [
-                                                        _c(
-                                                          "a",
-                                                          {
-                                                            staticClass:
-                                                              "cptm-header-action-link cptm-header-action-close",
-                                                            attrs: { href: "#" }
-                                                          },
-                                                          [
-                                                            _c("span", {
-                                                              staticClass:
-                                                                "fa fa-times"
-                                                            })
-                                                          ]
-                                                        )
-                                                      ]
-                                                    )
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "cptm-option-card-header-nav-section"
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "ul",
-                                                      {
-                                                        staticClass:
-                                                          "cptm-option-card-header-nav"
-                                                      },
-                                                      [
-                                                        _c(
-                                                          "li",
-                                                          {
-                                                            staticClass:
-                                                              "cptm-option-card-header-nav-item active"
-                                                          },
-                                                          [
-                                                            _vm._v(
-                                                              "Preset Field"
-                                                            )
-                                                          ]
-                                                        ),
-                                                        _vm._v(" "),
-                                                        _c(
-                                                          "li",
-                                                          {
-                                                            staticClass:
-                                                              "cptm-option-card-header-nav-item"
-                                                          },
-                                                          [
-                                                            _vm._v(
-                                                              "Custom Field"
-                                                            )
-                                                          ]
-                                                        )
-                                                      ]
-                                                    )
-                                                  ]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass:
-                                                  "cptm-option-card-body"
-                                              },
-                                              [_vm._v("Options")]
-                                            ),
-                                            _vm._v(" "),
-                                            _c("span", {
-                                              staticClass: "cptm-anchor-down"
-                                            })
-                                          ]
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "cptm-widget-insert-link",
-                                        attrs: { href: "#" }
-                                      },
-                                      [
-                                        _c("span", {
-                                          staticClass: "fa fa-plus"
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "cptm-card-preview-bottom-right" },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "cptm-card-preview-bottom-right-placeholder cptm-placeholder-blcok"
-                          },
-                          [
-                            _c("p", { staticClass: "cptm-placeholder-label" }, [
-                              _vm._v("Bottom Rignt")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "cptm-widget-insert-area" },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "cptm-widget-insert-wrap" },
-                                  [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "cptm-widget-insert-modal-container"
-                                      },
-                                      [
-                                        _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "cptm-option-card cptm-animation-slide-up"
-                                          },
-                                          [
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass:
-                                                  "cptm-option-card-header"
-                                              },
-                                              [
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "cptm-option-card-header-title-section"
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "h3",
-                                                      {
-                                                        staticClass:
-                                                          "cptm-option-card-header-title"
-                                                      },
-                                                      [_vm._v("Insert Element")]
-                                                    ),
-                                                    _vm._v(" "),
-                                                    _c(
-                                                      "div",
-                                                      {
-                                                        staticClass:
-                                                          "cptm-header-action-area"
-                                                      },
-                                                      [
-                                                        _c(
-                                                          "a",
-                                                          {
-                                                            staticClass:
-                                                              "cptm-header-action-link cptm-header-action-close",
-                                                            attrs: { href: "#" }
-                                                          },
-                                                          [
-                                                            _c("span", {
-                                                              staticClass:
-                                                                "fa fa-times"
-                                                            })
-                                                          ]
-                                                        )
-                                                      ]
-                                                    )
-                                                  ]
-                                                ),
-                                                _vm._v(" "),
-                                                _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "cptm-option-card-header-nav-section"
-                                                  },
-                                                  [
-                                                    _c(
-                                                      "ul",
-                                                      {
-                                                        staticClass:
-                                                          "cptm-option-card-header-nav"
-                                                      },
-                                                      [
-                                                        _c(
-                                                          "li",
-                                                          {
-                                                            staticClass:
-                                                              "cptm-option-card-header-nav-item active"
-                                                          },
-                                                          [
-                                                            _vm._v(
-                                                              "Preset Field"
-                                                            )
-                                                          ]
-                                                        ),
-                                                        _vm._v(" "),
-                                                        _c(
-                                                          "li",
-                                                          {
-                                                            staticClass:
-                                                              "cptm-option-card-header-nav-item"
-                                                          },
-                                                          [
-                                                            _vm._v(
-                                                              "Custom Field"
-                                                            )
-                                                          ]
-                                                        )
-                                                      ]
-                                                    )
-                                                  ]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass:
-                                                  "cptm-option-card-body"
-                                              },
-                                              [_vm._v("Options")]
-                                            ),
-                                            _vm._v(" "),
-                                            _c("span", {
-                                              staticClass: "cptm-anchor-down"
-                                            })
-                                          ]
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "a",
-                                      {
-                                        staticClass: "cptm-widget-insert-link",
-                                        attrs: { href: "#" }
-                                      },
-                                      [
-                                        _c("span", {
-                                          staticClass: "fa fa-plus"
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "cptm-card-preview-thumbnail-bg" },
-                      [_c("span", { staticClass: "fa fa-picture-o" })]
-                    )
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "cptm-listing-card-preview-body" }, [
-              _c("div", { staticClass: "cptm-listing-card-author-avatar" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "cptm-listing-card-author-avatar-placeholder cptm-placeholder-blcok"
-                  },
-                  [
-                    _c("p", { staticClass: "cptm-placeholder-author-thumb" }, [
-                      _c("img", {
-                        attrs: {
-                          src: "https://via.placeholder.com/150",
-                          alt: ""
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "cptm-widget-insert-area" }, [
-                      _c("div", { staticClass: "cptm-widget-insert-wrap" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "cptm-widget-insert-link",
-                            attrs: { href: "#" }
-                          },
-                          [_c("span", { staticClass: "fa fa-plus" })]
-                        )
-                      ])
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "cptm-listing-card-preview-body-placeholder cptm-placeholder-blcok"
-                },
-                [
-                  _c("p", { staticClass: "cptm-placeholder-label" }, [
-                    _vm._v("Body Contents")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "cptm-widget-insert-area" }, [
-                    _c("div", { staticClass: "cptm-widget-insert-wrap" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "cptm-widget-insert-modal-container active"
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "cptm-option-card active cptm-animation-slide-up"
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "cptm-option-card-header" },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "cptm-option-card-header-title-section"
-                                    },
-                                    [
-                                      _c(
-                                        "h3",
-                                        {
-                                          staticClass:
-                                            "cptm-option-card-header-title"
-                                        },
-                                        [_vm._v("Insert Element")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "cptm-header-action-area"
-                                        },
-                                        [
-                                          _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "cptm-header-action-link cptm-header-action-close",
-                                              attrs: { href: "#" }
-                                            },
-                                            [
-                                              _c("span", {
-                                                staticClass: "fa fa-times"
-                                              })
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "cptm-option-card-header-nav-section"
-                                    },
-                                    [
-                                      _c(
-                                        "ul",
-                                        {
-                                          staticClass:
-                                            "cptm-option-card-header-nav"
-                                        },
-                                        [
-                                          _c(
-                                            "li",
-                                            {
-                                              staticClass:
-                                                "cptm-option-card-header-nav-item active"
-                                            },
-                                            [_vm._v("Preset Field")]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "li",
-                                            {
-                                              staticClass:
-                                                "cptm-option-card-header-nav-item"
-                                            },
-                                            [_vm._v("Custom Field")]
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "cptm-option-card-body" },
-                                [_vm._v("Options")]
-                              ),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "cptm-anchor-down" })
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "cptm-widget-insert-link",
-                          attrs: { href: "#" }
-                        },
-                        [_c("span", { staticClass: "fa fa-plus" })]
-                      )
-                    ])
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "cptm-listing-card-preview-footer" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "cptm-listing-card-preview-footer-left-placeholder cptm-placeholder-blcok"
-                },
-                [
-                  _c("p", { staticClass: "cptm-placeholder-label" }, [
-                    _vm._v("Footer Left")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "cptm-widget-insert-area" }, [
-                    _c("div", { staticClass: "cptm-widget-insert-wrap" }, [
-                      _c(
-                        "div",
-                        { staticClass: "cptm-widget-insert-modal-container" },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "cptm-option-card cptm-animation-slide-up"
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "cptm-option-card-header" },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "cptm-option-card-header-title-section"
-                                    },
-                                    [
-                                      _c(
-                                        "h3",
-                                        {
-                                          staticClass:
-                                            "cptm-option-card-header-title"
-                                        },
-                                        [_vm._v("Insert Element")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "cptm-header-action-area"
-                                        },
-                                        [
-                                          _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "cptm-header-action-link cptm-header-action-close",
-                                              attrs: { href: "#" }
-                                            },
-                                            [
-                                              _c("span", {
-                                                staticClass: "fa fa-times"
-                                              })
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "cptm-option-card-header-nav-section"
-                                    },
-                                    [
-                                      _c(
-                                        "ul",
-                                        {
-                                          staticClass:
-                                            "cptm-option-card-header-nav"
-                                        },
-                                        [
-                                          _c(
-                                            "li",
-                                            {
-                                              staticClass:
-                                                "cptm-option-card-header-nav-item active"
-                                            },
-                                            [_vm._v("Preset Field")]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "li",
-                                            {
-                                              staticClass:
-                                                "cptm-option-card-header-nav-item"
-                                            },
-                                            [_vm._v("Custom Field")]
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "cptm-option-card-body" },
-                                [_vm._v("Options")]
-                              ),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "cptm-anchor-down" })
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "cptm-widget-insert-link",
-                          attrs: { href: "#" }
-                        },
-                        [_c("span", { staticClass: "fa fa-plus" })]
-                      )
-                    ])
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "cptm-listing-card-preview-footer-right-placeholder cptm-placeholder-blcok"
-                },
-                [
-                  _c("p", { staticClass: "cptm-placeholder-label" }, [
-                    _vm._v("Footer Right")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "cptm-widget-insert-area" }, [
-                    _c("div", { staticClass: "cptm-widget-insert-wrap" }, [
-                      _c(
-                        "div",
-                        { staticClass: "cptm-widget-insert-modal-container" },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "cptm-option-card cptm-animation-slide-up"
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "cptm-option-card-header" },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "cptm-option-card-header-title-section"
-                                    },
-                                    [
-                                      _c(
-                                        "h3",
-                                        {
-                                          staticClass:
-                                            "cptm-option-card-header-title"
-                                        },
-                                        [_vm._v("Insert Element")]
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass: "cptm-header-action-area"
-                                        },
-                                        [
-                                          _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "cptm-header-action-link cptm-header-action-close",
-                                              attrs: { href: "#" }
-                                            },
-                                            [
-                                              _c("span", {
-                                                staticClass: "fa fa-times"
-                                              })
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass:
-                                        "cptm-option-card-header-nav-section"
-                                    },
-                                    [
-                                      _c(
-                                        "ul",
-                                        {
-                                          staticClass:
-                                            "cptm-option-card-header-nav"
-                                        },
-                                        [
-                                          _c(
-                                            "li",
-                                            {
-                                              staticClass:
-                                                "cptm-option-card-header-nav-item active"
-                                            },
-                                            [_vm._v("Preset Field")]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "li",
-                                            {
-                                              staticClass:
-                                                "cptm-option-card-header-nav-item"
-                                            },
-                                            [_vm._v("Custom Field")]
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "cptm-option-card-body" },
-                                [_vm._v("Options")]
-                              ),
-                              _vm._v(" "),
-                              _c("span", { staticClass: "cptm-anchor-down" })
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "cptm-widget-insert-link",
-                          attrs: { href: "#" }
-                        },
-                        [_c("span", { staticClass: "fa fa-plus" })]
-                      )
-                    ])
-                  ])
-                ]
-              )
-            ])
-          ])
+    return _c(
+      "a",
+      { staticClass: "cptm-widget-insert-link", attrs: { href: "#" } },
+      [_c("span", { staticClass: "fa fa-plus" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cptm-widget-badge" }, [
+      _vm._v("\n                    Badge Text\n                    "),
+      _c("div", { staticClass: "cptm-widget-badge-tools" }, [
+        _c("a", { attrs: { href: "" } }, [
+          _c("span", { staticClass: "fa fa-arrows-alt" })
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "cptm-options-area" }, [
-          _c(
-            "div",
-            { staticClass: "cptm-option-card active cptm-animation-flip" },
-            [
-              _c("div", { staticClass: "cptm-option-card-header" }, [
-                _c(
-                  "div",
-                  { staticClass: "cptm-option-card-header-title-section" },
-                  [
-                    _c("h3", { staticClass: "cptm-option-card-header-title" }, [
-                      _vm._v("Widget Settings")
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "cptm-header-action-area" }, [
-                      _c(
-                        "a",
-                        {
-                          staticClass:
-                            "cptm-header-action-link cptm-header-action-close",
-                          attrs: { href: "#" }
-                        },
-                        [_c("span", { staticClass: "fa fa-times" })]
-                      )
-                    ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "cptm-option-card-body" }, [
-                _vm._v("Options")
-              ])
-            ]
-          )
+        _c("a", { attrs: { href: "" } }, [
+          _c("span", { staticClass: "fa fa-cog" })
+        ]),
+        _vm._v(" "),
+        _c("a", { attrs: { href: "" } }, [
+          _c("span", { staticClass: "fa fa-trash" })
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "cptm-widget-insert-link", attrs: { href: "#" } },
+      [_c("span", { staticClass: "fa fa-plus" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "cptm-widget-insert-link", attrs: { href: "#" } },
+      [_c("span", { staticClass: "fa fa-plus" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cptm-card-preview-thumbnail-bg" }, [
+      _c("span", { staticClass: "fa fa-picture-o" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "cptm-listing-card-author-avatar" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "cptm-listing-card-author-avatar-placeholder cptm-placeholder-blcok"
+        },
+        [
+          _c("p", { staticClass: "cptm-placeholder-author-thumb" }, [
+            _c("img", {
+              attrs: { src: "https://via.placeholder.com/150", alt: "" }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "cptm-widget-insert-area" }, [
+            _c("div", { staticClass: "cptm-widget-insert-wrap" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "cptm-widget-insert-link",
+                  attrs: { href: "#" }
+                },
+                [_c("span", { staticClass: "fa fa-plus" })]
+              )
+            ])
+          ])
+        ]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "cptm-widget-insert-link", attrs: { href: "#" } },
+      [_c("span", { staticClass: "fa fa-plus" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "cptm-widget-insert-link", attrs: { href: "#" } },
+      [_c("span", { staticClass: "fa fa-plus" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "cptm-widget-insert-link", attrs: { href: "#" } },
+      [_c("span", { staticClass: "fa fa-plus" })]
+    )
   }
 ]
 render._withStripped = true
@@ -9203,39 +8498,44 @@ var render = function() {
                                             ),
                                             function(option, option_key) {
                                               return [
-                                                _c(
-                                                  option.type + "-field",
-                                                  _vm._b(
-                                                    {
-                                                      key: option_key,
-                                                      tag: "component",
-                                                      attrs: {
-                                                        value:
-                                                          _vm.active_fields[
-                                                            field_key
-                                                          ][option_key]
-                                                      },
-                                                      on: {
-                                                        update: function(
-                                                          $event
-                                                        ) {
-                                                          return _vm.updateActiveFieldsOptionData(
-                                                            {
-                                                              field_key: field_key,
-                                                              option_key: option_key,
-                                                              value: $event
-                                                            }
-                                                          )
-                                                        }
-                                                      }
-                                                    },
-                                                    "component",
-                                                    _vm.getActiveFieldsOptions(
-                                                      option
-                                                    ),
-                                                    false
-                                                  )
+                                                _vm.activeIsFieldVisible(
+                                                  option_key,
+                                                  field_key
                                                 )
+                                                  ? _c(
+                                                      option.type + "-field",
+                                                      _vm._b(
+                                                        {
+                                                          key: option_key,
+                                                          tag: "component",
+                                                          attrs: {
+                                                            value:
+                                                              _vm.active_fields[
+                                                                field_key
+                                                              ][option_key]
+                                                          },
+                                                          on: {
+                                                            update: function(
+                                                              $event
+                                                            ) {
+                                                              return _vm.updateActiveFieldsOptionData(
+                                                                {
+                                                                  field_key: field_key,
+                                                                  option_key: option_key,
+                                                                  value: $event
+                                                                }
+                                                              )
+                                                            }
+                                                          }
+                                                        },
+                                                        "component",
+                                                        _vm.getActiveFieldsOptions(
+                                                          option
+                                                        ),
+                                                        false
+                                                      )
+                                                    )
+                                                  : _vm._e()
                                               ]
                                             }
                                           )
@@ -25518,7 +24818,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   // state
   state: {
-    active_nav_index: 3,
+    active_nav_index: 1,
     settings: {},
     fields: {},
     submenu: {

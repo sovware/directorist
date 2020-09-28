@@ -463,7 +463,7 @@ $light-gray: #F4F5F7;
 
 
 .cptm-option-card {
-    visibility: hidden;
+    display: none;
     transition: all linear 300ms;
     transform-origin: center;
     opacity: 0;
@@ -480,7 +480,7 @@ $light-gray: #F4F5F7;
     }
 
     &.active {
-        visibility: visible;
+        display: block;
         opacity: 1;
         pointer-events: all;
 

@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // state
   state: {
-    active_nav_index: 3,
+    active_nav_index: 1,
     settings: {},
     fields: {},
 

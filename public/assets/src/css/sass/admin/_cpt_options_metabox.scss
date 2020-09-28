@@ -880,6 +880,19 @@ $light-gray: #F4F5F7;
 }
 
 
+.cptm-multi-option-group {
+    display: block;
+}
+.cptm-multi-option-label {
+    display: block;
+}
+.cptm-multi-option-group-section {
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #f2f2f2;
+}
+
+
 .cptm-form-control, .cptm-form-group input {
     padding: 11px 20px;
     font-size: 13px;

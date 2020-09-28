@@ -26,22 +26,17 @@ export default {
         value: {
             type: [String, Number],
             required: false,
-            default: 'Value',
+            default: '',
         },
         name: {
             type: [String, Number],
             required: false,
-            default: 'Name',
+            default: '',
         },
         placeholder: {
             type: [String, Number],
             required: false,
             default: '',
-        },
-        validation: {
-            type: [ Object ],
-            required: false,
-            default: null,
         },
     },
 

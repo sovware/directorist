@@ -21,12 +21,12 @@ export default {
         label: {
             type: String,
             required: false,
-            default: 'Label',
+            default: '',
         },
         value: {
             type: [ Boolean, String, Number ],
             required: false,
-            default: 'Value',
+            default: '',
         },
         rules: {
             type: Object,

@@ -1,5 +1,5 @@
 <template>
-    <text-field v-bind="the_props" />
+    <text-field v-bind="the_props" @update="$emit('update', $event)"/>
 </template>
 
 <script>
@@ -18,12 +18,12 @@ export default {
         value: {
             type: [String, Number],
             required: false,
-            default: 'Value',
+            default: '',
         },
         name: {
             type: [String, Number],
             required: false,
-            default: 'Name',
+            default: '',
         },
         placeholder: {
             type: [String, Number],

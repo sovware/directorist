@@ -148,7 +148,8 @@ export default {
         }),
 
         updated_value() {
-            return JSON.stringify( { fields: this.active_fields, groups: this.groups } );
+            // return JSON.stringify( { fields: this.active_fields, groups: this.groups } );
+            return { fields: this.active_fields, groups: this.groups };
         },
 
         widget_groups_with_states() {
@@ -279,6 +280,16 @@ export default {
         activeIsFieldVisible( option_key, field_key ) {
             let options = this.getActiveFieldsSettings( field_key, 'options' );
 
+            const widget_group = this.active_fields[ field_key ].widget_group;
+            const widget_name = this.active_fields[ field_key ].widget_name;
+
+            if ( 'pricing' === field_key ) {
+                let widget_options = this.widget_groups_with_states[ widget_group ].widgets[ widget_name ].options[ option_key ];
+                // console.log( { widget_group, widget_name, widget_options } );
+                // console.log( {options, option_key, field_key } );
+            }
+
+
             if ( typeof options[ option_key ] === 'undefined' ) {
                 return true;
             }
@@ -302,38 +313,48 @@ export default {
             options.show_if.forEach(element => {
                 let terget_field = null;
                 let conditions = null;
+                let where_field_is = 'self';
+                let where_widget_is = 'self';
                 let compare = 'or';
 
-                if ( element.where.field !== 'self' ) {
-                    terget_field = self.fields[ element.where.field ];
+                if ( typeof element.where !== 'undefined' && typeof element.where.field !== 'undefined') {
+                    where_field_is = element.where.field;
                 }
 
-                if ( element.where.field === 'self' ) {
-                    terget_field = self.active_fields;
-                }
-
-                    
-                if ( terget_field && element.where.widget === 'self' ) {
-                    terget_field = terget_field[ field_key ];
-                }
-
-                if ( terget_field && element.where.widget !== 'self' ) {
-                    terget_field = terget_field[ element.where.widget ];
-                }
-
-                if ( typeof terget_field !== 'undefined' ) {
-                    conditions = element.conditions;
+                if ( typeof element.where !== 'undefined' && typeof element.where.widget !== 'undefined') {
+                    where_widget_is = element.where.widget;
                 }
 
                 if ( typeof element.compare !== 'undefined' ) {
                     compare = element.compare;
+                }
+                
+                if ( where_field_is !== 'self' ) {
+                    terget_field = self.fields[ where_field_is ];
+                }
+
+                if ( where_field_is === 'self' ) {
+                    terget_field = self.active_fields;
+                }
+                    
+                if ( terget_field && where_widget_is === 'self' ) {
+                    terget_field = terget_field[ field_key ];
+                }
+
+                if ( terget_field && where_widget_is !== 'self' ) {
+                    terget_field = terget_field[ where_widget_is ];
+                }
+
+
+                if ( typeof terget_field !== 'undefined' ) {
+                    conditions = element.conditions;
                 }
 
                 if ( conditions && typeof conditions === 'object' ) {
                     let missmatch_count = 0;
                     let match_count = 0;
 
-                    conditions.forEach ( item => {
+                    conditions.forEach( item => {
                         let terget_value = terget_field[ item.key ];
                         let compare_value = item.value;
 

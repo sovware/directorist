@@ -34,6 +34,7 @@
                                 <slide-up-down :active="getActiveFieldCollapseState( field_key )" :duration="300">
                                     <div class="cptm-form-builder-group-field-item-body" v-if="getActiveFieldsSettings( field_key, 'options' )">
                                         <template v-for="( option, option_key ) in getActiveFieldsSettings( field_key, 'options' )">
+                                                {{ active_fields[ field_key ][ option_key ] }}
                                                 <component 
                                                     :is="option.type + '-field'" 
                                                     :key="option_key"
@@ -67,7 +68,7 @@
                             <p class="cptm-form-builder-group-field-drop-area-label">Drop Here</p>
                         </div>
                         
-                        <br>
+                        <br>       
                         
                     </div>
 

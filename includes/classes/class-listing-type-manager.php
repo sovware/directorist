@@ -839,12 +839,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                                 'plans' => [
                                     'type' => 'multi-options',
-                                    'show_if' => [
+                                    'show_ifs' => [
                                         [ 'conditions' => [ [ 'key' => 'tag_with_plan', 'value' => true ] ] ],
                                     ],
                                     'label' => 'Setup the plan',
                                     'value' => [
-                                        [ 'plan_id' => '2', 'min' => '', 'max' => '' ]
+                                        [ 'plan_id' => '1', 'min' => '10', 'max' => '50' ],
+                                        [ 'plan_id' => '2', 'min' => '5', 'max' => '100' ],
                                     ],
                                     'add-new-button-label' => 'Add new plan',
                                     'unlock_options_by_first' => true,
@@ -4031,7 +4032,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'description' => [
                                 'widget_group' => 'preset',
                                 'widget_name' => 'description',
-                                'type'        => 'text',
+                                'type'        => 'wp_editor',
                                 'field_key'   => 'description',
                                 'required'    => false,
                                 'label'       => 'Description',
@@ -4118,7 +4119,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             $this->settings = apply_filters( 'atbdp_listing_type_settings', [
                 'general' => [
                     'label' => 'General',
-                    'icon' => 'fa fa-map-marker',
+                    'icon' => '<i class="uil uil-estate"></i>',
                     'submenu' => apply_filters('atbdp_listing_type_general_submenu', [
                         'general' => [
                             'label' => __( 'General', 'directorist' ),
@@ -4197,10 +4198,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                 'submission_form' => [
                     'label' => 'Submission Form',
-                    'icon' => 'fa fa-bars',
+                    'icon' => '<span class="fa fa-bars"></span>',
                     'sections' => [
                         'form_fields' => [
-                            'title'       => __( 'Select or create fields for this listing type', 'directorist' ),
+                            'title' => __( 'Select or create fields for this listing type', 'directorist' ),
                             'description' => 'need help?',
                             'fields' => [
                                 'submission_form_fields'
@@ -4212,11 +4213,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                 'single_page_layout' => [
                     'label' => 'Single Page Layout',
-                    'icon' => 'fa fa-wpforms',
+                    'icon' => '<span class="fa fa-bars"></span>',
                 ],
                 'listings_card_layout' => [
                     'label' => 'Listings Card Layout',
-                    'icon' => 'fa fa-picture-o',
+                    'icon' => '<span class="fa fa-picture-o"></span>',
                     'submenu' => [
                         'grid_view' => [
                             'label' => 'Listings Card Grid Layout',
@@ -4260,7 +4261,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ],
                 'search_forms' => [
                     'label' => 'Search Forms',
-                    'icon' => 'fa fa-search',
+                    'icon' => '<span class="fa fa-search"></span>',
                     'sections' => [
                         'form_fields' => [
                             'title' => __( 'Customize the search form for this listing type', 'directorist' ),
@@ -4393,6 +4394,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         // enqueue_scripts
         public function enqueue_scripts() {
+            wp_enqueue_style( 'atbdp-unicons' );
             wp_enqueue_style( 'atbdp-font-awesome' );
             wp_enqueue_style( 'atbdp_admin_css' );
 
@@ -4404,7 +4406,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         // register_scripts
         public function register_scripts() {
-            wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION );
+            wp_register_style( 'atbdp-unicons', '//unicons.iconscout.com/release/v3.0.3/css/line.css', false );
+            wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false );
         }
 
     }

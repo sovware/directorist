@@ -41,8 +41,7 @@ export default {
             default: '',
         },
         value: {
-            type: Object,
-            default: false,
+            default: '',
         },
         options: {
             type: Object,
@@ -60,6 +59,8 @@ export default {
     
 
     created() {
+        console.log( this.value );
+
         this.setup();
     },
 
@@ -94,7 +95,7 @@ export default {
 
     methods: {
         setup() {
-            console.log( this.value );
+            // console.log( this.value );
 
             /* if ( typeof this.value === 'object' ) {
                 let options_groups = [];

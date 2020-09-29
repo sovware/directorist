@@ -25,6 +25,8 @@ $light-gray: #F4F5F7;
 .atbdp-cpt-manager {
     display: block;
     color: $dark;
+    background: #fff;
+    padding: 30px;
 }
 
 .atbdp-cptm-header {
@@ -129,63 +131,65 @@ $light-gray: #F4F5F7;
     margin: 0;
     padding: 0;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
-    border-bottom: 2px solid #dfdfdf;
-    background-color: #fff;
+    background-color: #F4F5F7;
+    border-radius: 6px 6px 0 0;
 }
 
 .cptm-header-nav__list-item {
     margin: 0;
     display: inline-block;
     list-style: none;
-    justify-content: center;
-    align-items: center;
     text-align: center;
-    width: 20%;
+    padding: 0 25px;
 }
 
 .cptm-header-nav__list-item-link {
+    @extend .reset-pseudo-link;
     display: block;
     padding: 45px 0;
     text-decoration: none;
     border-right: 1px solid #f2f2f2;
     transition: all ease-in-out 300ms;
-    background-color: #fff;
-    @extend .reset-pseudo-link;
-    &:hover {
-        background-color: #f2f2f2;
-    }
+    background-color: #F4F5F7;
+    position: relative;
+    border-bottom: 2px solid transparent;
+
     &.active {
+        border-bottom-color: $primary;
         .cptm-header-nav__icon {
             color: #fff;
-            background-color: $nav_icon_color;
+            background-color: $primary;
         }
         .cptm-header-nav__label {
-            color: $nav_link_hover_color;
+            color: $primary;
         }
     }
 }
 
 .cptm-header-nav__icon {
-    display: inline-block;
+    display: inline-flex;
     margin-bottom: 15px;
-    min-width: 50px;
-    min-height: 50px;
+    min-width: 44px;
+    min-height: 44px;
     text-align: center;
     font-size: 18px;
-    line-height: 50px;
     text-align: center;
-    line-height: 50px;
     border-radius: 50%;
-    border: 2px solid $nav_icon_color;
-    color: $nav_icon_color;
+    background: rgba($primary, 0.1);
+    color: $primary;
     transition: all ease-in-out 300ms;
+    align-items: center;
+    justify-content: center;
 }
 .cptm-header-nav__label {
     display: block;
     font-weight: bold;
-    color: $nav_link_color;
+    color: #5A5F7D;
     transition: all ease-in-out 300ms;
+    font-size: 15px;
 }
 
 // ====================
@@ -211,7 +215,7 @@ $light-gray: #F4F5F7;
 
 .atbdp-cptm-tab-contents {
     display: block;
-    background-color: #f7f9fa;
+    background-color: #fff;
 }
 
 .atbdp-cptm-tab-item {
@@ -222,7 +226,7 @@ $light-gray: #F4F5F7;
 }
 
 .cptm-tab-content-header {
-    background-color: #fff;
+    background-color: #F8F9FB;
 }
 .cptm-tab-content-body {
     display: block;
@@ -419,7 +423,6 @@ $light-gray: #F4F5F7;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid #ccc;
 }
 
 .cptm-sub-nav__item {

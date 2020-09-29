@@ -112,10 +112,14 @@ export default {
             }
 
             let field_list = [];
-
             for ( let field in fields ) {
                 let value = ( typeof fields[ field ].value === 'undefined' ) ? '' : fields[ field ].value;
-                
+                let value_type = typeof value;
+
+                if ( 'object' ===  value_type ) {
+                    value = JSON.stringify( value );
+                }
+
                 form_data.append( field, value );
                 field_list.push( field );
             }

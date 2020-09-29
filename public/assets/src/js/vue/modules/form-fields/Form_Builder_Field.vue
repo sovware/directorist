@@ -34,10 +34,10 @@
                                 <slide-up-down :active="getActiveFieldCollapseState( field_key )" :duration="300">
                                     <div class="cptm-form-builder-group-field-item-body" v-if="getActiveFieldsSettings( field_key, 'options' )">
                                         <template v-for="( option, option_key ) in getActiveFieldsSettings( field_key, 'options' )">
-                                                {{ active_fields[ field_key ][ option_key ] }}
                                                 <component 
                                                     :is="option.type + '-field'" 
                                                     :key="option_key"
+                                                    :stringify-value="false"
                                                     v-if="activeIsFieldVisible( option_key, field_key )"
                                                     v-bind="getActiveFieldsOptions( option )"
                                                     :value="active_fields[ field_key ][ option_key ]"
@@ -131,13 +131,16 @@ export default {
     },
 
     created() {
-        if ( this.value.groups ) {
-            this.groups = this.value.groups;
-        }
+        if ( this.value && typeof this.value === 'object' ) {
+            if ( this.value.groups ) {
+                this.groups = this.value.groups;
+            }
 
-        if (  typeof this.value.fields === 'object' ) {
-            this.active_fields = this.value.fields;
+            if ( typeof this.value.fields === 'object' ) {
+                this.active_fields = this.value.fields;
+            }
         }
+       
         
         this.parseLocalWidgets();
         this.$emit( 'update', this.updated_value );
@@ -149,7 +152,6 @@ export default {
         }),
 
         updated_value() {
-            // return JSON.stringify( { fields: this.active_fields, groups: this.groups } );
             return { fields: this.active_fields, groups: this.groups };
         },
 

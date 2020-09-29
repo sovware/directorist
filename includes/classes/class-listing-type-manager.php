@@ -25,7 +25,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         // save_post_type_data
         public function save_post_type_data() {
-
+           
             if ( empty( $_POST['name'] ) ) {
                 wp_send_json( [
                     'status' => false,
@@ -51,8 +51,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                 if ( is_wp_error( $term ) ) {
                     if ( ! empty( $term->errors['term_exists'] )  ) {
-                        $mode = 'edit';
-                        $term_id = $term->error_data['term_exists'];
+                        wp_send_json( [
+                            'status' => false,
+                            'status_log' => [
+                                'name_exists' => [
+                                    'type' => 'error',
+                                    'message' => 'The name already exists',
+                                ]
+                            ],
+                        ], 200 );
                     }
                 } else {
                     $mode = 'edit';
@@ -116,6 +123,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         public function update_validated_term_meta( $term_id, $field_key, $value ) {
             if ( ! isset( $this->fields[ $field_key ] )  ) {
                 return;
+            }
+
+            if ( 'toggle' === $this->fields[ $field_key ]['type'] ) {
+                $value = ( 'true' === $value || true === $value || '1' === $value || 1 === $value ) ? true : 0;
             }
 
             update_term_meta(  $term_id, $field_key, $this->maybe_serialize( $value ) );
@@ -757,33 +768,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'label'  => 'Required',
                                     'value' => true,
                                 ],
-                                // 'plan' => [
-                                //     'type'  => 'multi-option',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'options' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //     ]
-                                // ],
+                                
                             ],
                         ],
 
@@ -823,6 +808,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
+                                    'name'  => 'required',
                                     'label'  => 'Required',
                                     'value' => false,
                                 ],
@@ -839,26 +825,23 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                                 'plans' => [
                                     'type' => 'multi-options',
-                                    'show_ifs' => [
+                                    'show_if' => [
                                         [ 'conditions' => [ [ 'key' => 'tag_with_plan', 'value' => true ] ] ],
                                     ],
                                     'label' => 'Setup the plan',
-                                    'value' => [
-                                        [ 'plan_id' => '1', 'min' => '10', 'max' => '50' ],
-                                        [ 'plan_id' => '2', 'min' => '5', 'max' => '100' ],
-                                    ],
+                                    'value' => [],
                                     'add-new-button-label' => 'Add new plan',
-                                    'unlock_options_by_first' => true,
+                                    'show_options_after_first' => true,
+                                    'unique_key' => 'plan_id',
                                     'options' => [
                                         'plan_id' => [
                                             'type' => 'select',
                                             'label' => 'Chose a plan',
                                             'value' => '',
-                                            'options' => [
-                                                [ 'value' => '', 'label' => 'Select...' ],
-                                                [ 'value' => 1, 'label' => 'Plan A' ],
-                                                [ 'value' => 2, 'label' => 'Plan B' ],
-                                                [ 'value' => 3, 'label' => 'Plan C' ],
+                                            'options-source' => [
+                                                'field_from' => 'package_list.value',
+                                                'value_from' => 'plan_id', 
+                                                'label_from' => 'plan_name'
                                             ],
                                         ],
                                         'min' => [
@@ -3894,48 +3877,42 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 'enable_package' => [
                     'label' => __( 'Enable paid listing packages', 'directorist' ),
                     'type'  => 'toggle',
+                    'name'  => 'enable_package',
                     'value' => '',
                 ],
                 'package_list' => [
-                    'label' => __( 'Select Packages', 'directorist' ),
-                    'type'  => 'select',
-                    'multiple' => true,
-                    'value' => '',
+                    'type' => 'multi-options',
+                    'show_if' => [
+                        [ 'conditions' => [ [ 'key' => 'enable_package', 'value' => true ] ] ],
+                    ],
+                    'label' => __( 'Prepare Packages', 'directorist' ),
+                    'value' => [],
+                    'add-new-button-label' => 'Add new plan',
+                    'remove-button-label' => 'Delete',
+                    'unlock_options_by_first' => true,
+                    'unique_key' => 'plan_id',
                     'options' => [
-                        [
-                            'label' => 'Select...',
+                        'plan_id' => [
+                            'type' => 'number',
+                            'label' => 'Plan ID',
                             'value' => '',
                         ],
-                        [
-                            'label' => 'Plan A',
-                            'value' => 12565,
+                        'plan_name' => [
+                            'type' => 'text',
+                            'label' => 'Plan Name',
+                            'value' => '',
                         ],
-                        [
-                            'label' => 'Plan B',
-                            'value' => 62552,
+                        'featured' => [
+                            'type' => 'toggle',
+                            'label' => 'Featured',
+                            'value' => false,
                         ],
-                        [
-                            'group' => 'Group',
-                            'options' => [
-                                [
-                                    'label' => 'Plan A',
-                                    'value' => 12565,
-                                ],
-                                [
-                                    'label' => 'Plan B',
-                                    'value' => 62552,
-                                ],
-                            ],
+                        'featured_label' => [
+                            'type' => 'text',
+                            'label' => 'Featured Label',
+                            'value' => 'Recommadned',
                         ],
-                    ],
-                ],
-                'create_plan' => [
-                    'label' => __( 'Create New Plan', 'directorist' ),
-                    'type'  => 'button',
-                    'link' => esc_url( admin_url(). 'post-new.php?post_type=atbdp_pricing_plans' ),
-                    'target' => '_blank',
-                    'extra_class' => 'cptm-btn cptm-btn-secondery',
-                    'icon'  => '',
+                    ]
                 ],
                 'export' => [
                     'label' => __( 'Export config file', 'directorist' ),
@@ -4038,6 +4015,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 'label'       => 'Description',
                                 'placeholder' => '',
                                 'tag_with_plan' => false,
+                                'plans' => [
+                                    [ 'plan_id' => '1', 'min' => '', 'max' => '' ],
+                                ],
                             ],
                             'tagline' => [
                                 'widget_group' => 'preset',
@@ -4158,7 +4138,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'fields'      => [
                                         'enable_package',
                                         'package_list',
-                                        'create_plan',
                                     ],
                                 ],
                             ],
@@ -4338,6 +4317,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     $this->fields[ $meta_key ]['value'] = $value;
                 }
             }
+
+            // var_dump( $this->fields['enable_package'] );
         }
 
         // handle_delete_listing_type_request

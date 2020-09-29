@@ -25,9 +25,6 @@
         <button type="button" class="cptm-btn cptm-btn-primary" @click="addNewOptionGroup()">
             {{ addNewButtonLabel }}
         </button>
-
-        <!-- <pre>{{ options }}</pre> -->
-        <pre>{{ syncedValue }}</pre>
     </div>
 </template>
 
@@ -45,7 +42,6 @@ export default {
         },
         options: {
             type: Object,
-            default: false,
         },
         addNewButtonLabel: {
             type: String,
@@ -59,8 +55,6 @@ export default {
     
 
     created() {
-        console.log( this.value );
-
         this.setup();
     },
 
@@ -72,7 +66,7 @@ export default {
 
     computed: {
         finalValue() {
-            return JSON.parse( JSON.stringify( this.syncedValue ) );
+            return this.syncedValue;
         },
 
         syncedValue() {
@@ -95,31 +89,42 @@ export default {
 
     methods: {
         setup() {
-            // console.log( this.value );
-
-            /* if ( typeof this.value === 'object' ) {
-                let options_groups = [];
-
-                this.value.forEach( ( option_group, option_group_index ) => {
-                    let group_option_item = {};
-
-                    for ( let option_key in option_group[ option_group_index ] ) {
-                        if ( typeof this.options[ option_key ] !== 'undefined' ) {
-                            group_option_item[ option_key ] = JSON.parse( JSON.stringify( this.options[ option_key ] ) );
-                            group_option_item[ option_key ].value = option_group[ option_group_index ][option_key];
-                        }
-                    }
-
-                    options_groups.push( group_option_item );
-                });
-
-                this.active_groups = options_groups;
-
-            } else  */
-            
-            if ( this.options && typeof this.options === 'object' ) {
+            if ( ! this.loadOldData() && this.options && typeof this.options === 'object' ) {
                 this.active_groups.push( JSON.parse( JSON.stringify( this.options ) ) );
             }
+        },
+
+        loadOldData() {
+            if ( typeof this.value !== 'object' ) { return false; }
+            if ( ! this.value.length ) { return false; }
+
+            let options_groups = [];
+            let total_group = this.value.length;
+
+            // console.log( total_group );
+
+            /* for ( let i = 0; total_group < i; i++ ) {
+
+            } */
+
+
+            this.value.forEach( ( option_group, option_group_index ) => {
+                let group_option_item = {};
+
+                for ( let option_key in option_group ) {
+                    if ( typeof this.options[ option_key ] !== 'undefined' ) {
+                        group_option_item[ option_key ] = JSON.parse( JSON.stringify( this.options[ option_key ] ) );
+                        group_option_item[ option_key ].value = option_group[option_key];
+                    }
+
+                }
+                
+                options_groups.push( group_option_item );
+            });
+
+            this.active_groups = options_groups;
+
+            return true;
         },
 
         updateValue( group_key, field_key, value ) {

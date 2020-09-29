@@ -2,7 +2,7 @@
     <div class="">
         <ul class="cptm-header-navigation">
             <!-- cptm-header-nav__list-item -->
-            <li class="cptm-header-nav__list-item" v-for="( nav, index ) in headerNavigation" :key="index">
+            <li class="cptm-header-nav__list-item" :class="nav.key" v-for="( nav, index ) in headerNavigation" :key="index">
                 <a href="#" class="cptm-header-nav__list-item-link" :class="getActiveClass(index, active_nav_index)" @click.prevent="swichNav(index)">
                     <span class="cptm-header-nav__icon">
                         <span :class="nav.icon_class"></span>
@@ -33,6 +33,7 @@ export default {
 
                 for ( let nav_item in state.settings ) {
                     header_navigation.push({
+                        key: nav_item,
                         label: ( state.settings[ nav_item ].label ) ? state.settings[ nav_item ].label : '',
                         icon_class: ( state.settings[ nav_item ].icon ) ? state.settings[ nav_item ].icon : '',
                     });

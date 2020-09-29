@@ -21,27 +21,22 @@ export default {
         label: {
             type: String,
             required: false,
-            default: 'Label',
+            default: '',
         },
         value: {
             type: [ Boolean, String, Number ],
             required: false,
-            default: 'Value',
+            default: '',
         },
         name: {
             type: [String, Number],
             required: false,
-            default: 'Name',
+            default: '',
         },
         placeholder: {
             type: [String, Number],
             required: false,
-            default: 'placeholder',
-        },
-        rules: {
-            type: Object,
-            required: false,
-            default: null,
+            default: '',
         },
     },
 

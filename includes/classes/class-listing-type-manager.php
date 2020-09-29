@@ -689,97 +689,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         // prepare_settings
         public function prepare_settings() {
-
-            $fields = [
-                'pricing' => [
-                    'value' => [
-                        'pricing_type' => 'both',
-                        'price_range' => [
-                            'label' => 'Price Range',
-                            'options' => [
-                                [ 'value' => 'cheap','label' => 'Cheap', ],
-                                [ 'value' => 'moderate','label' => 'Moderate', ],
-                                [ 'value' => 'expensive','label' => 'Expensive', ],
-                                [ 'value' => 'high','label' => 'Ultra High', ],
-                            ],
-                        ],
-                        'price_unit' => [
-                            'label'       => 'Price [USD]',
-                            'placeholder' => '',
-                            'field_type'  => 'number'
-                        ],
-                    ]
-                ]
-            ];
-
-            $widget = [
-                'pricing' => [
-                    'label' => 'Pricing',
-                    'icon' => 'fa fa-text-height',
-                    'options' => [
-                        'pricing_type' => [
-                            'type'  => 'select',
-                            'label'  => 'Select Pricing Type',
-                            'value' => 'both',
-                            'options' => [
-                                [ 'value' => '', 'label' => 'Select...' ],
-                                [ 'value' => 'price_unit', 'label' => 'Price Unit' ],
-                                [ 'value' => 'price_range', 'label' => 'Price Range' ],
-                            ],
-                        ],
-                        'price_range_label' => [
-                            'type'  => 'text',
-                            'show_if'  => [
-                                [
-                                    'where' => 'self',
-                                    'compare' => 'or',
-                                    'check' => [
-                                        [ 'pricing_type' => 'both' ],
-                                        [ 'pricing_type' => 'price_range' ],
-                                    ]
-                                ],
-
-                            ],
-                            'label'  => 'Price range label',
-                            'value' => 'Price range',
-                            'options' => [
-                                [ 'value' => 'number','label' => 'Number', ],
-                                [ 'value' => 'text','label' => 'text', ],
-                            ],
-                        ],
-                        'price_range_options' => [
-                            'type'  => 'select',
-                            'label'  => 'Price Type Label',
-                            'value' => 'cheap',
-                            'options' => [
-                                [ 'value' => 'cheap','label' => 'Cheap', ],
-                                [ 'value' => 'moderate','label' => 'Moderate', ],
-                                [ 'value' => 'expensive','label' => 'Expensive', ],
-                                [ 'value' => 'high','label' => 'Ultra High', ],
-                            ],
-                        ],
-                        'price_unit_field_type' => [
-                            'type'  => 'select',
-                            'label'  => 'Price Unit field type',
-                            'value' => 'number',
-                            'options' => [
-                                [ 'value' => 'number','label' => 'Number', ],
-                                [ 'value' => 'text','label' => 'text', ],
-                            ],
-                        ],
-                        'price_unit_field_label' => [
-                            'type'  => 'text',
-                            'label'  => 'Price Unit field label',
-                            'value' => 'Price [USD]',
-                            'options' => [
-                                [ 'value' => 'number','label' => 'Number', ],
-                                [ 'value' => 'text','label' => 'text', ],
-                            ],
-                        ],
-                    ]
-                ]
-            ];
-
             $this->default_form = apply_filters( 'atbdp_default_listing_form_sections', [
                 'general_information' => [
                     'label' => __( 'General Information', 'directorist' ),
@@ -885,6 +794,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'options' => [
                                 'type' => [
                                     'type'  => 'radio',
+                                    'label' => 'Type',
                                     'value' => 'wp_editor',
                                     'options' => [
                                         [
@@ -926,38 +836,42 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'label'  => 'Tag with plan',
                                     'value' => false,
                                 ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'min' => [
-                                //                 'type'  => 'number',
-                                //                 'label'  => 'Min',
-                                //                 'value' => '',
-                                //             ],
-                                //             'max' => [
-                                //                 'type'  => 'number',
-                                //                 'label'  => 'Min',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
 
-                                //     ]
-                                // ],
+                                'plans' => [
+                                    'type' => 'multi-options',
+                                    'show_if' => [
+                                        [ 'conditions' => [ [ 'key' => 'tag_with_plan', 'value' => true ] ] ],
+                                    ],
+                                    'label' => 'Setup the plan',
+                                    'value' => [
+                                        [ 'plan_id' => '2', 'min' => '', 'max' => '' ]
+                                    ],
+                                    'add-new-button-label' => 'Add new plan',
+                                    'unlock_options_by_first' => true,
+                                    'options' => [
+                                        'plan_id' => [
+                                            'type' => 'select',
+                                            'label' => 'Chose a plan',
+                                            'value' => '',
+                                            'options' => [
+                                                [ 'value' => '', 'label' => 'Select...' ],
+                                                [ 'value' => 1, 'label' => 'Plan A' ],
+                                                [ 'value' => 2, 'label' => 'Plan B' ],
+                                                [ 'value' => 3, 'label' => 'Plan C' ],
+                                            ],
+                                        ],
+                                        'min' => [
+                                            'type' => 'number',
+                                            'label' => 'Min',
+                                            'value' => '',
+                                        ],
+                                        'max' => [
+                                            'type' => 'number',
+                                            'label' => 'Max',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                ]   
                             ]
                         ],
 
@@ -1048,7 +962,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'type'  => 'text',
                                     'show_if' => [
                                         [
-                                            'where' => [ 'field' => 'self', 'widget' => 'self' ],
                                             'compare' => 'or',
                                             'conditions' => [
                                                 [ 'key' => 'pricing_type', 'value' => 'both' ],
@@ -1068,7 +981,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'type'  => 'select',
                                     'show_if'  => [
                                         [
-                                            'where' => [ 'field' => 'self', 'widget' => 'self' ],
                                             'compare' => 'or',
                                             'conditions' => [
                                                 [ 'key' => 'pricing_type', 'value' => 'both' ],
@@ -1091,7 +1003,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'label'  => 'Price Unit field type',
                                     'show_if'  => [
                                         [
-                                            'where' => [ 'field' => 'self', 'widget' => 'self' ],
                                             'compare' => 'or',
                                             'conditions' => [
                                                 [ 'key' => 'pricing_type', 'value' => 'both' ],
@@ -1111,7 +1022,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'label'  => 'Price Unit field label',
                                     'show_if'  => [
                                         [
-                                            'where' => [ 'field' => 'self', 'widget' => 'self' ],
                                             'compare' => 'or',
                                             'conditions' => [
                                                 [ 'key' => 'pricing_type', 'value' => 'both' ],

@@ -57,11 +57,6 @@ export default {
             required: false,
             default: '',
         },
-        rules: {
-            type: Object,
-            required: false,
-            default: null,
-        },
     },
 
     created() {

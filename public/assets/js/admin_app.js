@@ -2169,6 +2169,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       for (var nav_item in state.settings) {
         header_navigation.push({
+          key: nav_item,
           label: state.settings[nav_item].label ? state.settings[nav_item].label : '',
           icon_class: state.settings[nav_item].icon ? state.settings[nav_item].icon : ''
         });
@@ -2200,7 +2201,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -3095,12 +3095,12 @@ __webpack_require__.r(__webpack_exports__);
     type: {
       type: String,
       required: false,
-      default: 'text'
+      default: 'button'
     },
     label: {
       type: String,
       required: false,
-      default: 'Label'
+      default: ''
     },
     link: {
       type: String,
@@ -3817,10 +3817,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     fields: 'fields'
   })), {}, {
     updated_value: function updated_value() {
-      return JSON.stringify({
+      // return JSON.stringify( { fields: this.active_fields, groups: this.groups } );
+      return {
         fields: this.active_fields,
         groups: this.groups
-      });
+      };
     },
     widget_groups_with_states: function widget_groups_with_states() {
       var widget_groups = this.widget_groups;
@@ -3949,6 +3950,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   methods: {
     activeIsFieldVisible: function activeIsFieldVisible(option_key, field_key) {
       var options = this.getActiveFieldsSettings(field_key, 'options');
+      var widget_group = this.active_fields[field_key].widget_group;
+      var widget_name = this.active_fields[field_key].widget_name;
+
+      if ('pricing' === field_key) {
+        var widget_options = this.widget_groups_with_states[widget_group].widgets[widget_name].options[option_key]; // console.log( { widget_group, widget_name, widget_options } );
+        // console.log( {options, option_key, field_key } );
+      }
 
       if (typeof options[option_key] === 'undefined') {
         return true;
@@ -3975,30 +3983,40 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       options.show_if.forEach(function (element) {
         var terget_field = null;
         var conditions = null;
+        var where_field_is = 'self';
+        var where_widget_is = 'self';
         var compare = 'or';
 
-        if (element.where.field !== 'self') {
-          terget_field = self.fields[element.where.field];
+        if (typeof element.where !== 'undefined' && typeof element.where.field !== 'undefined') {
+          where_field_is = element.where.field;
         }
 
-        if (element.where.field === 'self') {
-          terget_field = self.active_fields;
-        }
-
-        if (terget_field && element.where.widget === 'self') {
-          terget_field = terget_field[field_key];
-        }
-
-        if (terget_field && element.where.widget !== 'self') {
-          terget_field = terget_field[element.where.widget];
-        }
-
-        if (typeof terget_field !== 'undefined') {
-          conditions = element.conditions;
+        if (typeof element.where !== 'undefined' && typeof element.where.widget !== 'undefined') {
+          where_widget_is = element.where.widget;
         }
 
         if (typeof element.compare !== 'undefined') {
           compare = element.compare;
+        }
+
+        if (where_field_is !== 'self') {
+          terget_field = self.fields[where_field_is];
+        }
+
+        if (where_field_is === 'self') {
+          terget_field = self.active_fields;
+        }
+
+        if (terget_field && where_widget_is === 'self') {
+          terget_field = terget_field[field_key];
+        }
+
+        if (terget_field && where_widget_is !== 'self') {
+          terget_field = terget_field[where_widget_is];
+        }
+
+        if (typeof terget_field !== 'undefined') {
+          conditions = element.conditions;
         }
 
         if (conditions && _typeof(conditions) === 'object') {
@@ -4336,12 +4354,12 @@ __webpack_require__.r(__webpack_exports__);
     value: {
       type: [String, Number],
       required: false,
-      default: 'Value'
+      default: ''
     },
     name: {
       type: [String, Number],
       required: false,
-      default: 'Name'
+      default: ''
     }
   },
   computed: {
@@ -4380,17 +4398,17 @@ __webpack_require__.r(__webpack_exports__);
     label: {
       type: String,
       required: false,
-      default: 'Label'
+      default: ''
     },
     value: {
       type: [String, Number],
       required: false,
-      default: 'Value'
+      default: ''
     },
     name: {
       type: [String, Number],
       required: false,
-      default: 'Name'
+      default: ''
     },
     placeholder: {
       type: [String, Number],
@@ -4444,12 +4462,12 @@ __webpack_require__.r(__webpack_exports__);
     label: {
       type: String,
       required: false,
-      default: 'Label'
+      default: ''
     },
     value: {
       type: [Boolean, String, Number],
       required: false,
-      default: 'Value'
+      default: ''
     },
     rules: {
       type: Object,
@@ -4460,6 +4478,148 @@ __webpack_require__.r(__webpack_exports__);
   computed: {},
   data: function data() {
     return {};
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--3-0!./node_modules/vue-loader/lib??vue-loader-options!./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  'name': 'multi_options_field',
+  props: {
+    label: {
+      type: String,
+      default: ''
+    },
+    value: {
+      type: Object,
+      default: false
+    },
+    options: {
+      type: Object,
+      default: false
+    },
+    addNewButtonLabel: {
+      type: String,
+      default: 'Add new'
+    },
+    removeButtonLabel: {
+      type: String,
+      default: 'Remove'
+    }
+  },
+  created: function created() {
+    this.setup();
+  },
+  data: function data() {
+    return {
+      active_groups: []
+    };
+  },
+  computed: {
+    finalValue: function finalValue() {
+      return JSON.parse(JSON.stringify(this.syncedValue));
+    },
+    syncedValue: function syncedValue() {
+      var updated_value = [];
+      this.active_groups.forEach(function (option_group) {
+        var option_group_item = {};
+
+        for (var key in option_group) {
+          option_group_item[key] = option_group[key].value;
+        }
+
+        updated_value.push(option_group_item);
+      });
+      return updated_value;
+    }
+  },
+  methods: {
+    setup: function setup() {
+      console.log(this.value);
+      /* if ( typeof this.value === 'object' ) {
+          let options_groups = [];
+            this.value.forEach( ( option_group, option_group_index ) => {
+              let group_option_item = {};
+                for ( let option_key in option_group[ option_group_index ] ) {
+                  if ( typeof this.options[ option_key ] !== 'undefined' ) {
+                      group_option_item[ option_key ] = JSON.parse( JSON.stringify( this.options[ option_key ] ) );
+                      group_option_item[ option_key ].value = option_group[ option_group_index ][option_key];
+                  }
+              }
+                options_groups.push( group_option_item );
+          });
+            this.active_groups = options_groups;
+        } else  */
+
+      if (this.options && _typeof(this.options) === 'object') {
+        this.active_groups.push(JSON.parse(JSON.stringify(this.options)));
+      }
+    },
+    updateValue: function updateValue(group_key, field_key, value) {
+      this.active_groups[group_key][field_key].value = value;
+      this.$emit('update', this.finalValue);
+    },
+    addNewOptionGroup: function addNewOptionGroup() {
+      this.active_groups.push(JSON.parse(JSON.stringify(this.options)));
+      this.$emit('update', this.finalValue);
+    },
+    removeOptionGroup: function removeOptionGroup(option_group_key) {
+      this.active_groups.splice(option_group_key, 1);
+      this.$emit('update', this.finalValue);
+    },
+    getSanitizedOption: function getSanitizedOption(option) {
+      if (typeof option.value !== 'undefined') {
+        var sanitized_option = JSON.parse(JSON.stringify(option));
+        delete sanitized_option.value;
+        return sanitized_option;
+      }
+
+      return option;
+    }
   }
 });
 
@@ -4493,12 +4653,12 @@ __webpack_require__.r(__webpack_exports__);
     value: {
       type: [String, Number],
       required: false,
-      default: 'Value'
+      default: ''
     },
     name: {
       type: [String, Number],
       required: false,
-      default: 'Name'
+      default: ''
     },
     placeholder: {
       type: [String, Number],
@@ -4549,12 +4709,12 @@ __webpack_require__.r(__webpack_exports__);
     value: {
       type: [String, Number],
       required: false,
-      default: 'Value'
+      default: ''
     },
     name: {
       type: [String, Number],
       required: false,
-      default: 'Name'
+      default: ''
     },
     placeholder: {
       type: [String, Number],
@@ -4643,11 +4803,6 @@ __webpack_require__.r(__webpack_exports__);
       type: [String, Number],
       required: false,
       default: ''
-    },
-    rules: {
-      type: Object,
-      required: false,
-      default: null
     }
   },
   created: function created() {
@@ -4819,22 +4974,17 @@ __webpack_require__.r(__webpack_exports__);
     value: {
       type: [String, Number],
       required: false,
-      default: 'Value'
+      default: ''
     },
     name: {
       type: [String, Number],
       required: false,
-      default: 'Name'
+      default: ''
     },
     placeholder: {
       type: [String, Number],
       required: false,
       default: ''
-    },
-    validation: {
-      type: [Object],
-      required: false,
-      default: null
     }
   },
   computed: {
@@ -4892,27 +5042,22 @@ __webpack_require__.r(__webpack_exports__);
     label: {
       type: String,
       required: false,
-      default: 'Label'
+      default: ''
     },
     value: {
       type: [Boolean, String, Number],
       required: false,
-      default: 'Value'
+      default: ''
     },
     name: {
       type: [String, Number],
       required: false,
-      default: 'Name'
+      default: ''
     },
     placeholder: {
       type: [String, Number],
       required: false,
-      default: 'placeholder'
-    },
-    rules: {
-      type: Object,
-      required: false,
-      default: null
+      default: ''
     }
   },
   computed: {
@@ -6713,7 +6858,11 @@ var render = function() {
       _vm._l(_vm.headerNavigation, function(nav, index) {
         return _c(
           "li",
-          { key: index, staticClass: "cptm-header-nav__list-item" },
+          {
+            key: index,
+            staticClass: "cptm-header-nav__list-item",
+            class: nav.key
+          },
           [
             _c(
               "a",
@@ -6796,9 +6945,23 @@ var render = function() {
           [
             _vm._l(section.fields, function(field, field_key) {
               return [
-                false
-                  ? undefined
-                  : _vm._e()
+                _c(
+                  _vm.getFormFieldName(_vm.fields[field].type),
+                  _vm._b(
+                    {
+                      key: field_key,
+                      tag: "component",
+                      on: {
+                        update: function($event) {
+                          return _vm.updateFieldValue(field, $event)
+                        }
+                      }
+                    },
+                    "component",
+                    _vm.fields[field],
+                    false
+                  )
+                )
               ]
             })
           ],
@@ -7810,7 +7973,7 @@ var render = function() {
     _c("a", { attrs: { href: _vm.link, target: _vm.target } }, [
       _c(
         "button",
-        { class: _vm.extra_class, attrs: { id: _vm.id, type: "button" } },
+        { class: _vm.extra_class, attrs: { id: _vm.id, type: _vm.type } },
         [
           _vm.icon ? _c("span", { class: _vm.icon }) : _vm._e(),
           _vm._v(" " + _vm._s(_vm.label))
@@ -8770,7 +8933,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("text-field", _vm._b({}, "text-field", _vm.the_props, false))
+  return _c(
+    "text-field",
+    _vm._b(
+      {
+        on: {
+          update: function($event) {
+            return _vm.$emit("update", $event)
+          }
+        }
+      },
+      "text-field",
+      _vm.the_props,
+      false
+    )
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -8838,6 +9015,118 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue?vue&type=template&id=6e8e46a4&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue?vue&type=template&id=6e8e46a4& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "cptm-multi-option-group" },
+    [
+      _c("h3", { staticClass: "cptm-multi-option-label" }, [
+        _vm._v(_vm._s(_vm.label))
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.active_groups, function(option_group, option_group_key) {
+        return [
+          _c(
+            "div",
+            {
+              key: option_group_key,
+              staticClass: "cptm-multi-option-group-section"
+            },
+            [
+              _vm._l(option_group, function(option, option_key) {
+                return [
+                  _c(
+                    option.type + "-field",
+                    _vm._b(
+                      {
+                        key: option_key,
+                        tag: "component",
+                        attrs: { value: option.value },
+                        on: {
+                          update: function($event) {
+                            return _vm.updateValue(
+                              option_group_key,
+                              option_key,
+                              $event
+                            )
+                          }
+                        }
+                      },
+                      "component",
+                      _vm.getSanitizedOption(option),
+                      false
+                    )
+                  )
+                ]
+              }),
+              _vm._v(" "),
+              _c("p", { staticStyle: { "text-align": "right" } }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "cptm-btn cptm-btn-secondery",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function($event) {
+                        return _vm.removeOptionGroup(option_group_key)
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(_vm.removeButtonLabel) +
+                        "\n                "
+                    )
+                  ]
+                )
+              ])
+            ],
+            2
+          )
+        ]
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "cptm-btn cptm-btn-primary",
+          attrs: { type: "button" },
+          on: {
+            click: function($event) {
+              return _vm.addNewOptionGroup()
+            }
+          }
+        },
+        [_vm._v("\n        " + _vm._s(_vm.addNewButtonLabel) + "\n    ")]
+      ),
+      _vm._v(" "),
+      _c("pre", [_vm._v(_vm._s(_vm.syncedValue))])
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/form-fields/Number_Field.vue?vue&type=template&id=3a104a19&":
 /*!************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./public/assets/src/js/vue/modules/form-fields/Number_Field.vue?vue&type=template&id=3a104a19& ***!
@@ -8853,7 +9142,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("text-field", _vm._b({}, "text-field", _vm.the_props, false))
+  return _c(
+    "text-field",
+    _vm._b(
+      {
+        on: {
+          update: function($event) {
+            return _vm.$emit("update", $event)
+          }
+        }
+      },
+      "text-field",
+      _vm.the_props,
+      false
+    )
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -8877,7 +9180,21 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("text-field", _vm._b({}, "text-field", _vm.the_props, false))
+  return _c(
+    "text-field",
+    _vm._b(
+      {
+        on: {
+          update: function($event) {
+            return _vm.$emit("update", $event)
+          }
+        }
+      },
+      "text-field",
+      _vm.the_props,
+      false
+    )
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -23736,6 +24053,7 @@ var map = {
 	"./form-fields/Hidden_Field.vue": "./public/assets/src/js/vue/modules/form-fields/Hidden_Field.vue",
 	"./form-fields/Icon_Field.vue": "./public/assets/src/js/vue/modules/form-fields/Icon_Field.vue",
 	"./form-fields/Image_Field.vue": "./public/assets/src/js/vue/modules/form-fields/Image_Field.vue",
+	"./form-fields/Multi_Options_Field.vue": "./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue",
 	"./form-fields/Number_Field.vue": "./public/assets/src/js/vue/modules/form-fields/Number_Field.vue",
 	"./form-fields/Password_Field.vue": "./public/assets/src/js/vue/modules/form-fields/Password_Field.vue",
 	"./form-fields/Radio_Field.vue": "./public/assets/src/js/vue/modules/form-fields/Radio_Field.vue",
@@ -24382,6 +24700,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Image_Field_vue_vue_type_template_id_1239e7d1___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Image_Field_vue_vue_type_template_id_1239e7d1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue":
+/*!******************************************************************************!*\
+  !*** ./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Multi_Options_Field_vue_vue_type_template_id_6e8e46a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Multi_Options_Field.vue?vue&type=template&id=6e8e46a4& */ "./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue?vue&type=template&id=6e8e46a4&");
+/* harmony import */ var _Multi_Options_Field_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Multi_Options_Field.vue?vue&type=script&lang=js& */ "./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Multi_Options_Field_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Multi_Options_Field_vue_vue_type_template_id_6e8e46a4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Multi_Options_Field_vue_vue_type_template_id_6e8e46a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************!*\
+  !*** ./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Multi_Options_Field_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--3-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Multi_Options_Field.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_3_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Multi_Options_Field_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue?vue&type=template&id=6e8e46a4&":
+/*!*************************************************************************************************************!*\
+  !*** ./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue?vue&type=template&id=6e8e46a4& ***!
+  \*************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Multi_Options_Field_vue_vue_type_template_id_6e8e46a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Multi_Options_Field.vue?vue&type=template&id=6e8e46a4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./public/assets/src/js/vue/modules/form-fields/Multi_Options_Field.vue?vue&type=template&id=6e8e46a4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Multi_Options_Field_vue_vue_type_template_id_6e8e46a4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Multi_Options_Field_vue_vue_type_template_id_6e8e46a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

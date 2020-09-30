@@ -7,7 +7,7 @@ export default {
     name: 'hidden-field',
     model: {
         prop: 'value',
-        event: 'input'
+        event: 'update'
     },
     props: {
         label: {
@@ -30,6 +30,10 @@ export default {
             required: false,
             default: '',
         },
+        validation: {
+            type: Array,
+            required: false,
+        },
     },
 
     computed: {
@@ -40,6 +44,7 @@ export default {
                 value: this.value,
                 name: this.name,
                 placeholder: this.placeholder,
+                validation: this.validation,
             }
         },
     },

@@ -42,6 +42,10 @@ export default {
             required: false,
             default: '',
         },
+        validation: {
+            type: Array,
+            required: false,
+        },
     },
 
     created() {

@@ -1,7 +1,9 @@
 <template>
-    <div class="cptm-form-group">
-        <label for="">{{label}}</label>
-        <select @change="update_value( $event.target.value )" :value="local_value">
+    <div class="cptm-form-group" :class="formGroupClass">
+        <label v-if="label.length">{{label}}</label>
+        <select @change="update_value( $event.target.value )" :value="local_value" class="cptm-form-control">
+            <option v-if="default_option" :value="default_option.value">{{ default_option.label }}</option>
+            
             <template v-for="( option, option_key ) in the_options">
                 <template v-if="option.group && option.the_options">
                     <optgroup :label="option.group" :key="option_key">
@@ -16,15 +18,23 @@
                 </template>
             </template>
         </select>
+        
+        <div class="cptm-form-group-feedback" v-if="validationMessages">
+            <div class="cptm-form-alert" :class="'cptm-' + validationMessages.type">
+                {{ validationMessages.message }}
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 
 import { mapState } from 'vuex';
+import validation from './../../mixins/validation';
 
 export default {
     name: 'select-field',
+    mixins: [ validation ],
     model: {
         prop: 'value',
         event: 'input'
@@ -63,10 +73,9 @@ export default {
             required: false,
             default: '',
         },
-        rules: {
-            type: Object,
+        validation: {
+            type: Array,
             required: false,
-            default: null,
         },
     },
 
@@ -132,6 +141,11 @@ export default {
             }
 
             let options = [];
+
+            if ( typeof this.optionsSource.default_option !== 'undefined' ) {
+                this.default_option = this.optionsSource.default_option;
+            }
+
             let value_from = this.optionsSource.value_from;
             let label_from = this.optionsSource.label_from;
 
@@ -150,12 +164,38 @@ export default {
 
             // console.log( { terget_field, terget_fields, options } );
             return options;
-        }
+        },
+
+        hasInvalidValue() {
+            let match_found = false;
+
+            if ( this.default_option &&  typeof this.default_option.value !== 'undefined' && 
+                this.local_value === this.default_option.value ) {
+                    return false;
+            }
+
+            for ( let option of this.the_options ) {
+                if ( typeof option.options !== 'undefined' ) {
+                    for ( let sub_option of option.options ) {
+                        if ( sub_option.value === this.local_value ) {
+                            match_found = true;
+                        }
+                    }
+                } else {
+                    if ( option.value === this.local_value ) {
+                        match_found = true;
+                    }
+                }
+            }
+
+            return ! match_found;
+        },
     },
 
     data() {
         return {
             local_value: '',
+            default_option: { value: '', label: 'Select...' },
         }
     },
 
@@ -168,7 +208,15 @@ export default {
         update_value( value ) {
             this.local_value = value;
             this.$emit( 'update', this.local_value );
-        }
+        },
+
+        syncValidationWithLocalState( validation_log ) {
+            if ( this.hasInvalidValue ) {
+                validation_log[ 'invalid_value' ].has_error = true;
+            }
+
+            return validation_log;
+        }   
     },
 }
 </script>

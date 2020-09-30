@@ -985,6 +985,23 @@ $light-gray: #F4F5F7;
         color: #23282d;
         margin-bottom: 5px;
     }
+
+    &.cpt-has-error .cptm-form-control {
+        border: 1px solid rgb(192, 51, 51);
+    }
+}
+
+.cptm-form-group-feedback {
+    display: block;
+}
+
+.cptm-form-alert {
+    padding: 10px 0;
+    transition: all ease-in-out 300ms;
+
+    &.cptm-error {
+        color: #c82424;
+    }
 }
 
 .cptm-input-toggle-wrap {
@@ -1045,7 +1062,22 @@ $light-gray: #F4F5F7;
 }
 
 
-.cptm-form-control, .cptm-form-group input {
+.cptm-form-control, 
+select.cptm-form-control, 
+input[type="date"].cptm-form-control, 
+input[type="datetime-local"].cptm-form-control, 
+input[type="datetime"].cptm-form-control, 
+input[type="email"].cptm-form-control, 
+input[type="month"].cptm-form-control, 
+input[type="number"].cptm-form-control, 
+input[type="password"].cptm-form-control, 
+input[type="search"].cptm-form-control, 
+input[type="tel"].cptm-form-control, 
+input[type="text"].cptm-form-control, 
+input[type="time"].cptm-form-control, 
+input[type="url"].cptm-form-control, 
+input[type="week"].cptm-form-control
+input[type="text"].cptm-form-control {
     padding: 11px 20px;
     font-size: 13px;
     color: #23282d;
@@ -1060,4 +1092,8 @@ $light-gray: #F4F5F7;
     height: auto;
     min-height: 30px;
     background: #fff;
+    &:hover {
+        color: #23282d;
+        
+    }
 }

@@ -25,6 +25,17 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         // save_post_type_data
         public function save_post_type_data() {
+
+            /* wp_send_json( [
+                'package_list' => $_POST['package_list'],
+                'status' => false,
+                'status_log' => [
+                    'name_is_missing' => [
+                        'type' => 'error',
+                        'message' => 'testing',
+                    ],
+                ],
+            ], 200 ); */
            
             if ( empty( $_POST['name'] ) ) {
                 wp_send_json( [
@@ -778,7 +789,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'show' => true,
                             'options' => [
                                 'type' => [
-                                    'type'  => 'radio',
+                                    'type'  => 'select',
                                     'label' => 'Type',
                                     'value' => 'wp_editor',
                                     'options' => [
@@ -824,7 +835,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
 
                                 'plans' => [
-                                    'type' => 'multi-options',
+                                    'type' => 'multi-fields',
                                     'show_if' => [
                                         [ 'conditions' => [ [ 'key' => 'tag_with_plan', 'value' => true ] ] ],
                                     ],
@@ -832,10 +843,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => [],
                                     'add-new-button-label' => 'Add new plan',
                                     'show_options_after_first' => true,
-                                    'unique_key' => 'plan_id',
-                                    'options' => [
+                                    'praimary_key' => 'plan_id',
+                                    'fields' => [
                                         'plan_id' => [
                                             'type' => 'select',
+                                            'unique' => true,
                                             'label' => 'Chose a plan',
                                             'value' => '',
                                             'options-source' => [
@@ -3881,7 +3893,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'value' => '',
                 ],
                 'package_list' => [
-                    'type' => 'multi-options',
+                    'type' => 'multi-fields',
                     'show_if' => [
                         [ 'conditions' => [ [ 'key' => 'enable_package', 'value' => true ] ] ],
                     ],
@@ -3890,10 +3902,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'add-new-button-label' => 'Add new plan',
                     'remove-button-label' => 'Delete',
                     'unlock_options_by_first' => true,
-                    'unique_key' => 'plan_id',
-                    'options' => [
+                    'primary_key' => 'plan_id',
+                    'fields' => [
                         'plan_id' => [
                             'type' => 'number',
+                            'unique' => true,
                             'label' => 'Plan ID',
                             'value' => '',
                         ],
@@ -4318,7 +4331,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 }
             }
 
-            // var_dump( $this->fields['enable_package'] );
+            // var_dump( $this->fields['package_list'] );
         }
 
         // handle_delete_listing_type_request

@@ -128,6 +128,10 @@ export default {
             default: true,
             required: false,
         },
+        validation: {
+            type: Array,
+            required: false,
+        },
     },
 
     created() {

@@ -28,10 +28,9 @@ export default {
             required: false,
             default: '',
         },
-        rules: {
-            type: Object,
+        validation: {
+            type: Array,
             required: false,
-            default: null,
         },
     },
     computed: {

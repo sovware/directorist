@@ -20,6 +20,10 @@ export default {
             required: false,
             default: '',
         },
+        validation: {
+            type: Array,
+            required: false,
+        },
     },
 
     computed: {
@@ -28,6 +32,7 @@ export default {
                 type: 'hidden-field',
                 value: this.value,
                 name: this.name,
+                validation: this.validation,
             }
         },
     },

@@ -836,22 +836,23 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                                 'plans' => [
                                     'type' => 'multi-fields',
-                                    'show_if' => [
-                                        [ 'conditions' => [ [ 'key' => 'tag_with_plan', 'value' => true ] ] ],
-                                    ],
                                     'label' => 'Setup the plan',
                                     'value' => [],
                                     'add-new-button-label' => 'Add new plan',
-                                    'show_options_after_first' => true,
                                     'praimary_key' => 'plan_id',
-                                    'fields' => [
+                                    'show_if' => [[
+                                        'conditions' => [ 
+                                            [ 'key' => 'tag_with_plan', 'value' => true ]
+                                        ]
+                                    ]],
+                                    'options' => [
                                         'plan_id' => [
                                             'type' => 'select',
                                             'unique' => true,
                                             'label' => 'Chose a plan',
                                             'value' => '',
                                             'options-source' => [
-                                                'field_from' => 'package_list.value',
+                                                'where' => 'package_list.value',
                                                 'value_from' => 'plan_id', 
                                                 'label_from' => 'plan_name'
                                             ],
@@ -860,11 +861,21 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'type' => 'number',
                                             'label' => 'Min',
                                             'value' => '',
+                                            'show_if' => [[
+                                                'conditions' => [
+                                                    [ 'key' => 'plan_id', 'value' => '', 'compare' => 'not' ]
+                                                ]
+                                            ]],
                                         ],
                                         'max' => [
                                             'type' => 'number',
                                             'label' => 'Max',
                                             'value' => '',
+                                            'show_if' => [[
+                                                'conditions' => [
+                                                    [ 'key' => 'plan_id', 'value' => '', 'compare' => 'not' ]
+                                                ]
+                                            ]],
                                         ],
                                     ]
                                 ]   
@@ -3903,7 +3914,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'remove-button-label' => 'Delete',
                     'unlock_options_by_first' => true,
                     'primary_key' => 'plan_id',
-                    'fields' => [
+                    'options' => [
                         'plan_id' => [
                             'type' => 'number',
                             'unique' => true,
@@ -3924,6 +3935,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'type' => 'text',
                             'label' => 'Featured Label',
                             'value' => 'Recommadned',
+                            'show_if' => [[
+                                'conditions' => [
+                                    [ 'key' => 'featured', 'value' => true ]
+                                ]
+                            ]],
                         ],
                     ]
                 ],

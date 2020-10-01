@@ -8,6 +8,7 @@
                     <component 
                         :is="option.type + '-field'"
                         :key="option_key"
+                        v-if="theFieldIsActive( option_key, option_group_key, option )"
                         v-bind="getSanitizedOption( option )"
                         :validation="getValidation( option_key, option_group_key, option )"
                         :value="option.value"
@@ -30,6 +31,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     'name': 'multi-fields-field',
     
@@ -41,7 +44,7 @@ export default {
         value: {
             default: '',
         },
-        fields: {
+        options: {
             type: Object,
         },
         addNewButtonLabel: {
@@ -70,6 +73,10 @@ export default {
     },
 
     computed: {
+        ...mapState({
+            fields: 'fields',
+        }),
+
         finalValue() {
             return this.syncedValue;
         },
@@ -117,8 +124,8 @@ export default {
 
     methods: {
         setup() {
-            if ( ! this.loadOldData() && this.fields && typeof this.fields === 'object' ) {
-                this.active_fields_groups.push( JSON.parse( JSON.stringify( this.fields ) ) );
+            if ( ! this.loadOldData() && this.options && typeof this.options === 'object' ) {
+                this.active_fields_groups.push( JSON.parse( JSON.stringify( this.options ) ) );
             }
         },
 
@@ -130,29 +137,16 @@ export default {
 
         getValidation( option_key, option_group_key, option ) {
             let validation = [];
-
-            // console.log({ option_key, unique, hasDuplicateKey });
             
             let unique = option.unique;
             let value_length = option.value.length;
             let hasDuplicateFeildValue = this.hasDuplicateFeildValue( option_key, option.value, option_group_key );
-
-            // if ( 'plan_id' === option_key ) {
-            //     console.log( { unique, value_length, option_key, hasDuplicateFeildValue, option_group_key, option } );
-            // }
             
             if ( option.unique && hasDuplicateFeildValue ) {
-                // if ( 'plan_id' === option_key ) {
-                //     // console.log( 'duplicate_value_found' );
-                // }
                 validation.push({
                     error_key: 'duplicate_value'
                 });
             }
-
-            // if ( 'the_plan_id' === option_key ) {
-            //    console.log( {validation} );
-            // }
 
             return validation;
         },
@@ -192,7 +186,7 @@ export default {
             let fields_groups = [];
 
             for ( let option_group_item of this.value ) {
-                let fields = JSON.parse( JSON.stringify( this.fields ) );
+                let fields = JSON.parse( JSON.stringify( this.options ) );
 
                 for ( let value_key in option_group_item ) {
                     if ( typeof fields[ value_key ] !== 'undefined' ) {
@@ -214,7 +208,7 @@ export default {
         },
 
         addNewOptionGroup() {
-            this.active_fields_groups.push( JSON.parse( JSON.stringify( this.fields ) ) );
+            this.active_fields_groups.push( JSON.parse( JSON.stringify( this.options ) ) );
             this.$emit( 'update',  this.finalValue );
         },
 
@@ -233,6 +227,113 @@ export default {
 
             return option;
         },
+
+        theFieldIsActive( option_key, option_group_key, option ) {
+            
+            if ( ! this.checkShowIfCondition( option_key, option, option_group_key )  ) {
+                return false;
+            }
+
+            return true;
+        },
+
+        checkShowIfCondition( option_key, option, option_group_key ) {
+            if ( ! option.show_if ) { return true; }
+
+            let accepted_condition_comparations = [ 'or', 'and' ];
+            let accepted_value_comparations = [ '=', 'not' ];
+
+            let success_conditions = 0;
+            let faild_conditions = 0;
+
+            for ( let condition of option.show_if ) {
+                let terget_fields = 'self';
+                let condition_compare_type = 'or';
+                let condition_status = null;
+
+                if ( condition.where && condition.where.length ) {
+                    terget_fields = condition.where;
+                }
+
+                if ( condition.compare && accepted_condition_comparations.indexOf( condition.compare ) ) {
+                    condition_compare_type = condition.compare;
+                }
+
+                terget_fields = terget_fields.split( '.' );
+                
+                let base_field = this.finalValue[ option_group_key ];
+                let base_terget_missmatched = false;
+
+                if ( 'self' !== terget_fields[0] ) {
+                    base_field = this.fields;
+                }
+
+                for ( let field of terget_fields ) {
+                    if ( 'self' === field || 'root' === field ) { continue; }
+
+                    if ( typeof base_field[ field ] === 'undefined' ) {
+                        base_terget_missmatched = true;
+                        break;
+                    }
+
+                    base_field = base_field[ field ];
+                }
+
+                if ( base_terget_missmatched ) {
+                    return true;
+                }
+
+                let success_subconditions = 0;
+                let faild_subconditions = 0;
+
+                for ( let sub_condition of condition.conditions ) {
+                    let terget_value = base_field[ sub_condition.key ];
+                    let compare_value = sub_condition.value;
+                    let compare_type = ( sub_condition.compare ) ? sub_condition.compare : '=';
+
+                    if ( '=' === compare_type ) {
+                        if ( terget_value === compare_value ) {
+                            success_subconditions++;
+                        } else {
+                            faild_subconditions++;
+                        }
+                    }
+
+                    if ( 'not' === compare_type ) {
+                        if ( terget_value !== compare_value ) {
+                            success_subconditions++;
+                        } else {
+                            faild_subconditions++;
+                        }
+                    }
+                }
+
+                let status = false;
+
+                if ( 'or' === condition_compare_type && success_subconditions ) {
+                    status = true;
+                }
+
+                if ( 'and' === condition_compare_type && ! faild_subconditions ) {
+                    status = true;
+                }
+
+                if ( ! status ) {
+                    faild_conditions++;
+                }
+
+                // console.log( {option_key, condition_compare_type, faild_conditions, success_conditions, status} );
+                // console.log( {option_key, option, terget_fields, base_field, option_group_key, base_terget_missmatched} );
+            }
+
+            // console.log( { option_key, faild_conditions } );
+
+            if ( faild_conditions ) {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
 </script>

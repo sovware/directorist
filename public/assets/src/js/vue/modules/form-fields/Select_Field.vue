@@ -30,11 +30,12 @@
 <script>
 
 import { mapState } from 'vuex';
+import helpers from './../../mixins/helpers';
 import validation from './../../mixins/validation';
 
 export default {
     name: 'select-field',
-    mixins: [ validation ],
+    mixins: [ helpers, validation ],
     model: {
         prop: 'value',
         event: 'input'
@@ -105,13 +106,13 @@ export default {
                 return false;
             }
 
-            if ( typeof this.optionsSource.field_from !== 'string' ) {
+            if ( typeof this.optionsSource.where !== 'string' ) {
                 return false;
             }
 
             let terget_field = null;
 
-            let terget_fields = this.optionsSource.field_from.split('.');
+            let terget_fields = this.optionsSource.where.split('.');
             let terget_missmatched = false;
 
             if ( terget_fields && typeof terget_fields === 'object'  ) {

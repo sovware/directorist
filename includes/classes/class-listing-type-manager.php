@@ -878,7 +878,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             ]],
                                         ],
                                     ]
-                                ]   
+                                ]
                             ]
                         ],
 
@@ -4020,6 +4020,46 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 'submission_form_fields' => [
                     'type'    => 'form-builder',
                     'widgets' => $form_field_widgets,
+                    'group-options' => [
+                        'label' => [
+                            'type'  => 'text',
+                            'label' => 'Group Name',
+                            'value' => '',
+                        ],
+
+                        'tag_with_plan' => [
+                            'type'  => 'toggle',
+                            'label'  => 'Tag with plan',
+                            'value' => false,
+                        ],
+
+                        'plans' => [
+                            'type' => 'multi-fields',
+                            'label' => 'Setup the plan',
+                            'value' => [],
+                            'add-new-button-label' => 'Add new plan',
+                            'praimary_key' => 'plan_id',
+                            'show_if' => [[
+                                'conditions' => [ 
+                                    [ 'key' => 'tag_with_plan', 'value' => true ]
+                                ]
+                            ]],
+                            'options' => [
+                                'plan_id' => [
+                                    'type' => 'select',
+                                    'unique' => true,
+                                    'label' => 'Chose a plan',
+                                    'value' => '',
+                                    'options-source' => [
+                                        'where' => 'package_list.value',
+                                        'value_from' => 'plan_id', 
+                                        'label_from' => 'plan_name'
+                                    ],
+                                ],
+                            ]
+                        ]
+                    ],
+
                     'value' => [
                         'fields' => [
                             'title' => [
@@ -4061,8 +4101,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         ],
                         'groups' => [
                             [
-                                'label' => 'General',
-                                'fields' => ['title', 'description', 'tagline'],
+                                'label' => 'General Group',
+                                'lock' => true,
+                                'fields' => ['title', 'description'],
                             ],
                         ]
                     ],

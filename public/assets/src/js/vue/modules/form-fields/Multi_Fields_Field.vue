@@ -124,9 +124,10 @@ export default {
 
     methods: {
         setup() {
-            if ( ! this.loadOldData() && this.options && typeof this.options === 'object' ) {
+            this.loadOldData();
+            /* if ( ! this.loadOldData() && this.options && typeof this.options === 'object' ) {
                 this.active_fields_groups.push( JSON.parse( JSON.stringify( this.options ) ) );
-            }
+            } */
         },
 
         hasDuplicateKey( array ) {

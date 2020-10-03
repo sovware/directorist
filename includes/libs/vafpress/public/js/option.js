@@ -15,23 +15,6 @@
 		if (this.prop('tagName') == 'BODY' && arguments[0] == 'folded') { calculatePositionAndSize(); }
 		return result;
 	};
-
-	var browser = (function() {
-		var test = function(regexp) {return regexp.test(window.navigator.userAgent)}
-		switch (true) {
-			case test(/edg/i): return "ie";
-			case test(/trident/i): return "ie";
-		}
-	})();
-
-	var ie_version = 0;
-
-	if('ie' === browser)
-	{
-		ie_version = jQuery.browser.version;
-		ie_version = parseFloat(ie_version);
-	}
-
 	// custom checkbox and radiobutton event binding
 	vp.custom_check_radio_event(".vp-wrap", ".vp-field.vp-checked-field .field .input label");
 

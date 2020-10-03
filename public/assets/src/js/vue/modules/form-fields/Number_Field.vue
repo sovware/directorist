@@ -1,5 +1,5 @@
 <template>
-    <text-field v-bind="the_props" />
+    <text-field v-bind="the_props" @update="$emit('update', $event)"/>
 </template>
 
 <script>
@@ -7,7 +7,7 @@ export default {
     name: 'hidden-field',
     model: {
         prop: 'value',
-        event: 'input'
+        event: 'update'
     },
     props: {
         label: {
@@ -18,17 +18,21 @@ export default {
         value: {
             type: [String, Number],
             required: false,
-            default: 'Value',
+            default: '',
         },
         name: {
             type: [String, Number],
             required: false,
-            default: 'Name',
+            default: '',
         },
         placeholder: {
             type: [String, Number],
             required: false,
             default: '',
+        },
+        validation: {
+            type: Array,
+            required: false,
         },
     },
 
@@ -40,6 +44,7 @@ export default {
                 value: this.value,
                 name: this.name,
                 placeholder: this.placeholder,
+                validation: this.validation,
             }
         },
     },

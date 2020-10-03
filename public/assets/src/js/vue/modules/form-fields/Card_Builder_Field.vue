@@ -12,41 +12,20 @@
                 <!-- cptm-card-preview-top-left -->
                 <div class="cptm-card-preview-top-left">
                   <div class="cptm-card-preview-top-left-placeholder cptm-placeholder-blcok">
-                    <p class="cptm-placeholder-label">Top Left</p>
+                    <p class="cptm-placeholder-label">{{ layout.thumbnail.top_right.label }}</p>
 
                     <div class="cptm-widget-insert-area">
                       <div class="cptm-widget-insert-wrap">
                         <div class="cptm-widget-insert-modal-container">
-                          <div class="cptm-option-card cptm-animation-slide-up">
-                            <div class="cptm-option-card-header">
-                              <div class="cptm-option-card-header-title-section">
-                                <h3 class="cptm-option-card-header-title">Insert Element</h3>
-
-                                <div class="cptm-header-action-area">
-                                  <a
-                                    href="#"
-                                    class="cptm-header-action-link cptm-header-action-close"
-                                  >
-                                    <span class="fa fa-times"></span>
-                                  </a>
-                                </div>
-                              </div>
-
-                              <div class="cptm-option-card-header-nav-section">
-                                <ul class="cptm-option-card-header-nav">
-                                  <li class="cptm-option-card-header-nav-item active">Preset Field</li>
-                                  <li class="cptm-option-card-header-nav-item">Custom Field</li>
-                                </ul>
-                              </div>
-                            </div>
-
-                            <div class="cptm-option-card-body">Options</div>
-
-                            <span class="cptm-anchor-down"></span>
-                          </div>
+                          <widgets-window
+                            v-bind="layout.thumbnail.top_right"
+                            :availableWidgets="available_widgets"
+                            :active="getActiveInsertWindowStatus( 'thumbnail_top_right' )"
+                            @close="closeInsertWindow()"
+                          />
                         </div>
 
-                        <a href="#" class="cptm-widget-insert-link">
+                        <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_top_right' )">
                           <span class="fa fa-plus"></span>
                         </a>
                       </div>
@@ -62,33 +41,7 @@
                     <div class="cptm-widget-insert-area">
                       <div class="cptm-widget-insert-wrap">
                         <div class="cptm-widget-insert-modal-container">
-                          <div class="cptm-option-card cptm-animation-slide-up">
-                            <div class="cptm-option-card-header">
-                              <div class="cptm-option-card-header-title-section">
-                                <h3 class="cptm-option-card-header-title">Insert Element</h3>
-
-                                <div class="cptm-header-action-area">
-                                  <a
-                                    href="#"
-                                    class="cptm-header-action-link cptm-header-action-close"
-                                  >
-                                    <span class="fa fa-times"></span>
-                                  </a>
-                                </div>
-                              </div>
-
-                              <div class="cptm-option-card-header-nav-section">
-                                <ul class="cptm-option-card-header-nav">
-                                  <li class="cptm-option-card-header-nav-item active">Preset Field</li>
-                                  <li class="cptm-option-card-header-nav-item">Custom Field</li>
-                                </ul>
-                              </div>
-                            </div>
-
-                            <div class="cptm-option-card-body">Options</div>
-
-                            <span class="cptm-anchor-down"></span>
-                          </div>
+                          <widgets-window :active="false" :bottom-achhor="true"/>
                         </div>
 
                         <a href="#" class="cptm-widget-insert-link">
@@ -97,11 +50,19 @@
                       </div>
                     </div>
 
-                    <div class="cptm-widget-badge">Badge Text</div>
+                    <div class="cptm-widget-badge">
+                      Badge Text
+                      <div class="cptm-widget-badge-tools">
+                        <a href=""><span class="fa fa-arrows-alt"></span></a>
+                        <a href=""><span class="fa fa-cog"></span></a>
+                        <a href=""><span class="fa fa-trash"></span></a>
+
+                      </div>
+                    </div>
                     <!-- <div class="cptm-widget-badge">Badge Text 2</div> -->
                   </div>
                 </div>
-                
+
                 <!-- cptm-card-preview-bottom-left -->
                 <div class="cptm-card-preview-bottom-left">
                   <div class="cptm-card-preview-bottom-left-placeholder cptm-placeholder-blcok">
@@ -110,33 +71,7 @@
                     <div class="cptm-widget-insert-area">
                       <div class="cptm-widget-insert-wrap">
                         <div class="cptm-widget-insert-modal-container">
-                          <div class="cptm-option-card cptm-animation-slide-up">
-                            <div class="cptm-option-card-header">
-                              <div class="cptm-option-card-header-title-section">
-                                <h3 class="cptm-option-card-header-title">Insert Element</h3>
-
-                                <div class="cptm-header-action-area">
-                                  <a
-                                    href="#"
-                                    class="cptm-header-action-link cptm-header-action-close"
-                                  >
-                                    <span class="fa fa-times"></span>
-                                  </a>
-                                </div>
-                              </div>
-
-                              <div class="cptm-option-card-header-nav-section">
-                                <ul class="cptm-option-card-header-nav">
-                                  <li class="cptm-option-card-header-nav-item active">Preset Field</li>
-                                  <li class="cptm-option-card-header-nav-item">Custom Field</li>
-                                </ul>
-                              </div>
-                            </div>
-
-                            <div class="cptm-option-card-body">Options</div>
-
-                            <span class="cptm-anchor-down"></span>
-                          </div>
+                          <widgets-window :args="{ active: false, bottom_achhor: true }"/>
                         </div>
 
                         <a href="#" class="cptm-widget-insert-link">
@@ -147,41 +82,15 @@
                   </div>
                 </div>
 
-                <!-- cptm-card-preview-bottom-rignt -->
-                <div class="cptm-card-preview-bottom-rignt">
-                  <div class="cptm-card-preview-bottom-rignt-placeholder cptm-placeholder-blcok">
+                <!-- cptm-card-preview-bottom-right -->
+                <div class="cptm-card-preview-bottom-right">
+                  <div class="cptm-card-preview-bottom-right-placeholder cptm-placeholder-blcok">
                     <p class="cptm-placeholder-label">Bottom Rignt</p>
 
                     <div class="cptm-widget-insert-area">
                       <div class="cptm-widget-insert-wrap">
                         <div class="cptm-widget-insert-modal-container">
-                          <div class="cptm-option-card cptm-animation-slide-up">
-                            <div class="cptm-option-card-header">
-                              <div class="cptm-option-card-header-title-section">
-                                <h3 class="cptm-option-card-header-title">Insert Element</h3>
-
-                                <div class="cptm-header-action-area">
-                                  <a
-                                    href="#"
-                                    class="cptm-header-action-link cptm-header-action-close"
-                                  >
-                                    <span class="fa fa-times"></span>
-                                  </a>
-                                </div>
-                              </div>
-
-                              <div class="cptm-option-card-header-nav-section">
-                                <ul class="cptm-option-card-header-nav">
-                                  <li class="cptm-option-card-header-nav-item active">Preset Field</li>
-                                  <li class="cptm-option-card-header-nav-item">Custom Field</li>
-                                </ul>
-                              </div>
-                            </div>
-
-                            <div class="cptm-option-card-body">Options</div>
-
-                            <span class="cptm-anchor-down"></span>
-                          </div>
+                          <widgets-window :args="{ active: false, bottom_achhor: true }"/>
                         </div>
 
                         <a href="#" class="cptm-widget-insert-link">
@@ -201,36 +110,24 @@
 
           <!-- cptm-listing-card-preview-body -->
           <div class="cptm-listing-card-preview-body">
+            <!-- cptm-listing-card-author-avatar -->
+            <div class="cptm-listing-card-author-avatar">
+              <div class="cptm-listing-card-author-avatar-placeholder cptm-placeholder-blcok">
+                <p class="cptm-placeholder-author-thumb"><img src="https://via.placeholder.com/150" alt=""></p>
+                <div class="cptm-widget-insert-area">
+                  <div class="cptm-widget-insert-wrap">
+                    <a href="#" class="cptm-widget-insert-link"><span class="fa fa-plus"></span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="cptm-listing-card-preview-body-placeholder cptm-placeholder-blcok">
               <p class="cptm-placeholder-label">Body Contents</p>
 
               <div class="cptm-widget-insert-area">
                 <div class="cptm-widget-insert-wrap">
                   <div class="cptm-widget-insert-modal-container">
-                    <div class="cptm-option-card active cptm-animation-slide-up">
-                      <div class="cptm-option-card-header">
-                        <div class="cptm-option-card-header-title-section">
-                          <h3 class="cptm-option-card-header-title">Insert Element</h3>
-
-                          <div class="cptm-header-action-area">
-                            <a href="#" class="cptm-header-action-link cptm-header-action-close">
-                              <span class="fa fa-times"></span>
-                            </a>
-                          </div>
-                        </div>
-
-                        <div class="cptm-option-card-header-nav-section">
-                          <ul class="cptm-option-card-header-nav">
-                            <li class="cptm-option-card-header-nav-item active">Preset Field</li>
-                            <li class="cptm-option-card-header-nav-item">Custom Field</li>
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div class="cptm-option-card-body">Options</div>
-
-                      <span class="cptm-anchor-down"></span>
-                    </div>
+                    <widgets-window :args="{ active: false, bottom_achhor: true }"/>
                   </div>
 
                   <a href="#" class="cptm-widget-insert-link">
@@ -249,30 +146,7 @@
               <div class="cptm-widget-insert-area">
                 <div class="cptm-widget-insert-wrap">
                   <div class="cptm-widget-insert-modal-container">
-                    <div class="cptm-option-card cptm-animation-slide-up">
-                      <div class="cptm-option-card-header">
-                        <div class="cptm-option-card-header-title-section">
-                          <h3 class="cptm-option-card-header-title">Insert Element</h3>
-
-                          <div class="cptm-header-action-area">
-                            <a href="#" class="cptm-header-action-link cptm-header-action-close">
-                              <span class="fa fa-times"></span>
-                            </a>
-                          </div>
-                        </div>
-
-                        <div class="cptm-option-card-header-nav-section">
-                          <ul class="cptm-option-card-header-nav">
-                            <li class="cptm-option-card-header-nav-item active">Preset Field</li>
-                            <li class="cptm-option-card-header-nav-item">Custom Field</li>
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div class="cptm-option-card-body">Options</div>
-
-                      <span class="cptm-anchor-down"></span>
-                    </div>
+                    <widgets-window :args="{ active: false, bottom_achhor: true }"/>
                   </div>
 
                   <a href="#" class="cptm-widget-insert-link">
@@ -281,8 +155,8 @@
                 </div>
               </div>
             </div>
-            
-            
+
+
             <!-- cptm-listing-card-preview-footer-right-placeholder -->
             <div class="cptm-listing-card-preview-footer-right-placeholder cptm-placeholder-blcok">
               <p class="cptm-placeholder-label">Footer Right</p>
@@ -290,30 +164,7 @@
               <div class="cptm-widget-insert-area">
                 <div class="cptm-widget-insert-wrap">
                   <div class="cptm-widget-insert-modal-container">
-                    <div class="cptm-option-card cptm-animation-slide-up">
-                      <div class="cptm-option-card-header">
-                        <div class="cptm-option-card-header-title-section">
-                          <h3 class="cptm-option-card-header-title">Insert Element</h3>
-
-                          <div class="cptm-header-action-area">
-                            <a href="#" class="cptm-header-action-link cptm-header-action-close">
-                              <span class="fa fa-times"></span>
-                            </a>
-                          </div>
-                        </div>
-
-                        <div class="cptm-option-card-header-nav-section">
-                          <ul class="cptm-option-card-header-nav">
-                            <li class="cptm-option-card-header-nav-item active">Preset Field</li>
-                            <li class="cptm-option-card-header-nav-item">Custom Field</li>
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div class="cptm-option-card-body">Options</div>
-
-                      <span class="cptm-anchor-down"></span>
-                    </div>
+                    <widgets-window :args="{ active: false, bottom_achhor: true }"/>
                   </div>
 
                   <a href="#" class="cptm-widget-insert-link">
@@ -327,21 +178,7 @@
       </div>
 
       <div class="cptm-options-area">
-        <div class="cptm-option-card active cptm-animation-flip">
-          <div class="cptm-option-card-header">
-            <div class="cptm-option-card-header-title-section">
-              <h3 class="cptm-option-card-header-title">Widget Settings</h3>
-
-              <div class="cptm-header-action-area">
-                <a href="#" class="cptm-header-action-link cptm-header-action-close">
-                  <span class="fa fa-times"></span>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <div class="cptm-option-card-body">Options</div>
-        </div>
+        <widgets-window :args="{ active: true, animation: 'cptm-animation-flip' }"/>
       </div>
     </div>
   </div>
@@ -416,7 +253,9 @@ export default {
 
   data() {
     return {
-      widgets: {
+      active_insert_widget_key: 'thumbnail_top_right',
+
+      available_widgets: {
         listing_title: {
           type: "title",
           id: "listing_title",
@@ -563,30 +402,40 @@ export default {
       layout: {
         thumbnail: {
           top_right: {
+            label: 'Top Right',
             max_widget: 2,
             max_widget_info_text: "Up to 2 items can be added",
             accepted_widgets: ["open_now_badge", "favorite_badge"],
-            widgets: ["open_now_badge", "favorite_badge"],
+            active_widgets: ["open_now_badge"],
+            bottomAchhor: true,
           },
           top_left: {
+            label: 'Top Left',
+            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 2,
             max_widget_info_text: "Up to 2 items can be added",
             accepted_widgets: ["open_now_badge", "favorite_badge"],
             widgets: ["favorite_badge", "favorite_badge"],
           },
           bottom_right: {
+            label: 'Bottom Right',
+            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 2,
             max_widget_info_text: "Up to 2 items can be added",
             accepted_widgets: ["open_now_badge", "favorite_badge"],
             widgets: ["open_now_badge", "favorite_badge"],
           },
           bottom_left: {
+            label: 'Bottom Left',
+            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 2,
             max_widget_info_text: "Up to 2 items can be added",
             accepted_widgets: ["open_now_badge", "favorite_badge"],
             widgets: ["open_now_badge", "favorite_badge"],
           },
           avater: {
+            label: 'Avater',
+            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 1,
             max_widget_info_text: "Up to 1 item can be added",
             accepted_widgets: ["user_avater"],
@@ -594,8 +443,10 @@ export default {
           },
         },
 
-        body: {
-          header: {
+        middle: {
+          body: {
+            label: 'Body',
+            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 2,
             accepted_widgets: [
               { label: "Preset", widgets: ["listing_title"] },
@@ -607,11 +458,15 @@ export default {
 
         footer: {
           right: {
+            label: 'Footer Right',
+            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 2,
             accepted_widgets: ["category"],
             widgets: ["category"],
           },
           left: {
+            label: 'Footer Left',
+            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 2,
             accepted_widgets: ["category"],
             widgets: ["category"],
@@ -621,6 +476,25 @@ export default {
     };
   },
 
-  methods: {},
+  methods: {
+    activeInsertWindow( current_item_key ) {
+      // console.log( current_item_key, this.active_insert_widget_key );
+      this.active_insert_widget_key = current_item_key;
+    },
+
+    closeInsertWindow( widget_insert_window ) {
+      this.active_insert_widget_key = '';
+    },
+
+    getActiveInsertWindowStatus( current_item_key ) {
+      // console.log( current_item_key, this.active_insert_widget_key );
+
+      if ( current_item_key === this.active_insert_widget_key ) {
+        return true;
+      }
+
+      return false;
+    }
+  },
 };
 </script>

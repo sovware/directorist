@@ -91,7 +91,7 @@ class ATBDP_Enqueuer {
 
             wp_register_style( 'leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/openstreet-map/leaflet.css');
             wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
-            
+
             // Register all styles for the admin pages
             /*Public Common Asset: */
             wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION );
@@ -207,9 +207,9 @@ class ATBDP_Enqueuer {
 
         wp_register_script( 'atbdp_media_uploader', ATBDP_PUBLIC_ASSETS . 'js/ez-media-uploader.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_enqueue_script( 'atbdp_media_uploader' );
-        
+
         wp_register_script( 'atbdp-plasma-slider-script', ATBDP_PUBLIC_ASSETS . 'js/plasma-slider.js', null, ATBDP_VERSION, true );
-        
+
         // Open Street Map
         wp_register_style( 'leaf-style', ATBDP_PUBLIC_ASSETS . 'css/openstreet-map/openstreet.css' );
         wp_register_style( 'leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/openstreet-map/leaflet.css');
@@ -223,12 +223,12 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp_open_street', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/openlayers/OpenLayers.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp_open_street_src', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/openlayers4jgsi/Crosshairs.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'leaflet-load-scripts', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/load-scripts.js', array(), ATBDP_VERSION, true );
-        
+
         // Google map
         $map_api_key = get_directorist_option( 'map_api_key', 'AIzaSyCwxELCisw4mYqSv_cBfgOahfrPFjjQLLo' ); // eg. zaSyBtTwA-Y_X4OMsIsc9WLs7XEqavZ3ocQLQ
         wp_register_script( 'atbdp-google-map-front', '//maps.googleapis.com/maps/api/js?key=' . $map_api_key . '&libraries=places', false, ATBDP_VERSION, true );
         wp_register_script( 'atbdp-markerclusterer', ATBDP_PUBLIC_ASSETS . 'js/markerclusterer.js', array( 'atbdp-google-map-front' ) );
-        
+
         wp_register_script( 'atbdp-uikit-grid', ATBDP_PUBLIC_ASSETS . 'js/grid.min.js', array( 'jquery', 'atbdp-uikit' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-rating', ATBDP_PUBLIC_ASSETS . 'js/jquery.barrating.min.js', array( 'jquery' ), ATBDP_VERSION, true );
         wp_register_script( 'atbdp-uikit', ATBDP_PUBLIC_ASSETS . 'js/uikit.min.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -247,7 +247,7 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp-geolocation', ATBDP_PUBLIC_ASSETS . 'js/geolocation.js', array( 'jquery' ), ATBDP_VERSION );
         wp_register_script( 'atbdp-geolocation-widget', ATBDP_PUBLIC_ASSETS . 'js/geolocation-widget.js', array( 'jquery' ), ATBDP_VERSION );
         wp_register_script( 'atbdp-range-slider', ATBDP_PUBLIC_ASSETS . 'js/range-slider.js', array(), ATBDP_VERSION, true );
-        
+
         wp_register_script( 'atbdp-related-listings-slider', ATBDP_PUBLIC_ASSETS . 'js/releated-listings-slider.js', array( 'atbdp_slick_slider', 'jquery' ), ATBDP_VERSION, true );
 
         wp_register_script( 'atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js', array(), ATBDP_VERSION, true );
@@ -261,7 +261,7 @@ class ATBDP_Enqueuer {
         wp_enqueue_script( 'select2script' );
         wp_enqueue_script( 'atbdp_validator' );
         wp_enqueue_script( 'at_modal' );
-        
+
         /* Enqueue all styles*/
         if ( is_rtl() ) {
             wp_enqueue_style( 'atbdp-bootstrap-style-rtl' );
@@ -284,7 +284,7 @@ class ATBDP_Enqueuer {
         wp_enqueue_script( 'atbdp-bootstrap-script' );
         wp_enqueue_script( 'atbdp-rating' );
         wp_enqueue_script( 'atbdp-plasma-slider-script' );
-        
+
         wp_enqueue_script( 'atbdp-uikit' );
         wp_enqueue_script( 'atbdp-uikit-grid' );
         wp_enqueue_script( 'atbdp_slick_slider' );
@@ -292,10 +292,10 @@ class ATBDP_Enqueuer {
         wp_enqueue_style( 'wp-color-picker' );
         wp_enqueue_script( 'wp-color-picker' );
 
-    
+
         //listings data
         $review_approval = get_directorist_option( 'review_approval_text', __( 'Your review has been received. It requires admin approval to publish.', 'directorist' ) );
-        $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 ); 
+        $enable_reviewer_content = get_directorist_option( 'enable_reviewer_content', 1 );
         $data = array(
             'nonce'                       => wp_create_nonce( 'atbdp_nonce_action_js' ),
             'ajax_nonce'                  => wp_create_nonce( 'bdas_ajax_nonce' ),
@@ -395,7 +395,7 @@ class ATBDP_Enqueuer {
         if ( $include && $stylesheet_is_required ) {
             wp_enqueue_style( 'atbdp-settings-style' );
         }
-        
+
         // Map Scripts
         $disable_map     = get_directorist_option( 'display_map_field' );
         $map_type        = get_directorist_option('select_listing_map', 'openstreet');
@@ -409,7 +409,7 @@ class ATBDP_Enqueuer {
             'directorist_add_listing',
             'directorist_listing_map',
         ]);
-        
+
         $map_is_required = true;
         if ( $map_is_required || $is_single_listing_page ) {
             if ( 'openstreet' === $map_type ) {
@@ -457,8 +457,8 @@ class ATBDP_Enqueuer {
 
         if ( $search_style_is_required && is_rtl() ) {
             wp_enqueue_style('atbdp-search-style-rtl');
-        } 
-        
+        }
+
         if ( $search_style_is_required && ! is_rtl() ) {
             wp_enqueue_style('atbdp-search-style');
         }
@@ -473,7 +473,7 @@ class ATBDP_Enqueuer {
             wp_enqueue_style('atbdp-inline-style');
         }
     }
-    
+
     // has_shortcodes_in_post
     public function has_shortcodes_in_post( array $dependency ) {
         global $post;
@@ -516,7 +516,7 @@ class ATBDP_Enqueuer {
 
         $disable_map     = get_directorist_option( 'display_map_field' );
         $map_is_disabled = ( ! empty( $disable_map ) ) ? true : false;
-        
+
         if ( ! $map_is_disabled && 'google' == $select_listing_map ) {$dependency[] = 'atbdp-google-map-front';}
 
         wp_register_script( 'atbdp_add_listing_js', ATBDP_PUBLIC_ASSETS . 'js/template-scripts/add-listing.js', $dependency, ATBDP_VERSION, true );

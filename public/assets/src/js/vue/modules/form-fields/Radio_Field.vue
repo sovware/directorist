@@ -1,7 +1,7 @@
 <template>
     <div class="cptm-form-group">
         <label for="">{{label}}</label>
-        <select @change="update_value( $event.target.value )" :value="local_value">
+        <select @change="update_value( $event.target.value )" :value="local_value" class="cptm-form-control">
             <template v-for="( option, option_key ) in options">
                 <template v-if="option.group && option.options">
                     <optgroup :label="option.group" :key="option_key">
@@ -57,10 +57,9 @@ export default {
             required: false,
             default: '',
         },
-        rules: {
-            type: Object,
+        validation: {
+            type: Array,
             required: false,
-            default: null,
         },
     },
 

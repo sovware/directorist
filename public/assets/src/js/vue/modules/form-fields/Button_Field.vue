@@ -1,7 +1,7 @@
 <template>
 <div class="cptm-form-group">
     <a :href="link" :target="target">
-        <button :id="id" :class="extra_class" type="button"><span v-if="icon" :class="icon"></span> {{ label }}</button>
+        <button :id="id" :class="extra_class" :type="type"><span v-if="icon" :class="icon"></span> {{ label }}</button>
     </a>
 </div>
 </template>
@@ -17,12 +17,12 @@ export default {
         type: {
             type: String,
             required: false,
-            default: 'text',
+            default: 'button',
         },
         label: {
             type: String,
             required: false,
-            default: 'Label',
+            default: '',
         },
         link: {
             type: String,
@@ -49,10 +49,9 @@ export default {
             required: false,
             default: '',
         },
-        rules: {
-            type: Object,
+        validation: {
+            type: Array,
             required: false,
-            default: null,
         },
     },
     data() {

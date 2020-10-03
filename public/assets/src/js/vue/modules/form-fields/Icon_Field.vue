@@ -13,22 +13,26 @@ export default {
         label: {
             type: String,
             required: false,
-            default: 'Label',
+            default: '',
         },
         value: {
             type: [String, Number],
             required: false,
-            default: 'Value',
+            default: '',
         },
         name: {
             type: [String, Number],
             required: false,
-            default: 'Name',
+            default: '',
         },
         placeholder: {
             type: [String, Number],
             required: false,
             default: '',
+        },
+        validation: {
+            type: Array,
+            required: false,
         },
     },
 

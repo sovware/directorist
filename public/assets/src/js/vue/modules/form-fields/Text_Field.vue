@@ -1,13 +1,22 @@
 <template>
-<div class="cptm-form-group" :class="( 'hidden' === input_type ) ? 'cptm-mb-0' : ''">
+<div class="cptm-form-group" :class="formGroupClass">
     <label v-if="( 'hidden' !== input_type && label.length )" :for="name">{{ label }}</label>
     <input class="cptm-form-control" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
+
+    <div class="cptm-form-group-feedback" v-if="validationMessages">
+        <div class="cptm-form-alert" :class="'cptm-' + validationMessages.type">
+            {{ validationMessages.message }}
+        </div>
+    </div>
 </div>
 </template>
 
 <script>
+import validation from './../../mixins/validation';
+
 export default {
     name: 'text-field',
+    mixins: [ validation ],
     model: {
         prop: 'value',
         event: 'input'
@@ -26,12 +35,12 @@ export default {
         value: {
             type: [String, Number],
             required: false,
-            default: 'Value',
+            default: '',
         },
         name: {
             type: [String, Number],
             required: false,
-            default: 'Name',
+            default: '',
         },
         placeholder: {
             type: [String, Number],
@@ -39,9 +48,8 @@ export default {
             default: '',
         },
         validation: {
-            type: [ Object ],
+            type: Array,
             required: false,
-            default: null,
         },
     },
 
@@ -60,8 +68,14 @@ export default {
             }
             
             return 'text';
+        },
 
-        }
+        formGroupClass() {
+            return {
+                ...this.validationClass,
+                'cptm-mb-0': ( 'hidden' === this.input_type ) ? true : false,
+            }
+        },
     },
 
     data() {

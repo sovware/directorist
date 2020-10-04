@@ -14,7 +14,7 @@ class ATBDP_Status
     }
 
     public function include() {
-        include ATBDP_INC_DIR . '/system-status/system-info.php';
+        include ATBDP_INC_DIR . '/system-status/system-information/system-information.php';
         include ATBDP_INC_DIR . '/system-status/send-mail.php';
         include ATBDP_INC_DIR . '/system-status/custom-url.php';
     }

@@ -53,9 +53,9 @@
                     <div class="cptm-widget-badge">
                       Badge Text
                       <div class="cptm-widget-badge-tools">
-                        <a href=""><span class="fa fa-arrows-alt"></span></a>
-                        <a href=""><span class="fa fa-cog"></span></a>
-                        <a href=""><span class="fa fa-trash"></span></a>
+                        <a href=""><span class="uil uil-expand-arrows"></span></a>
+                        <a href=""><span class="uil uil-cog"></span></a>
+                        <a href=""><span class="uil uil-trash-alt"></span></a>
 
                       </div>
                     </div>
@@ -102,7 +102,7 @@
                 </div>
 
                 <div class="cptm-card-preview-thumbnail-bg">
-                    <span class="fa fa-picture-o"></span>
+                    <span class="uil uil-scenery"></span>
                 </div>
               </div>
             </div>

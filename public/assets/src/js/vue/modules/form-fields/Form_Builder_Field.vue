@@ -20,12 +20,12 @@
                                         </a>
                                     </div>
                                 </div>
-                                
+
                                 <div class="cptm-form-builder-group-actions">
                                     <a href="#" class="cptm-form-builder-group-field-item-action-link action-trash"
                                         v-if=" ( typeof group.lock !== 'undefined' ) ? ! group.lock : true"
                                         @click.prevent="trashActiveGroupItem( group_key )">
-                                        <span class="fa fa-trash-o" aria-hidden="true"></span>
+                                        <span class="uil uil-trash" aria-hidden="true"></span>
                                     </a>
                                 </div>
                             </div>
@@ -33,8 +33,8 @@
                             <slide-up-down :active="getActiveGroupCollapseState( group_key )" :duration="500">
                                 <div class="cptm-form-builder-group-options">
                                     <template v-for="( option, option_key ) in groupOptions">
-                                            <component 
-                                                :is="option.type + '-field'" 
+                                            <component
+                                                :is="option.type + '-field'"
                                                 :key="option_key"
                                                 v-bind="getSanitizedFieldsOptions( option )"
                                                 :value="getActiveGroupOptionValue( option_key, group_key )"
@@ -44,37 +44,37 @@
                                     </template>
                                 </div>
                             </slide-up-down>
-                            
+
                         </div>
 
                         <slide-up-down :active="( '' === current_dragging_group ) ? true : false" :duration="500">
                             <div class="cptm-form-builder-group-fields">
                                 <div class="cptm-form-builder-group-field-item" v-for="( field_key, field_index ) in group.fields" :key="field_index">
                                     <div class="cptm-form-builder-group-field-item-actions">
-                                        
+
                                         <a href="#" class="cptm-form-builder-group-field-item-action-link action-trash"
                                             v-if="! getActiveFieldsSettings( field_key, 'lock' )"
                                             @click.prevent="trashActiveFieldItem( field_key, field_index, group_key )"
-                                                ><span class="fa fa-trash-o" aria-hidden="true"></span>
+                                                ><span class="uil uil-trash-alt" aria-hidden="true"></span>
                                         </a>
                                     </div>
-                                    
+
                                     <div class="cptm-form-builder-group-field-item-header" draggable="true" @drag="activeFieldOnDragStart( field_key, field_index, group_key )">
                                         <h4 class="cptm-title-3">{{ getActiveFieldsHeaderTitle( field_key ) }}</h4>
                                         <div class="cptm-form-builder-group-field-item-header-actions">
-                                            <a href="#" class="cptm-form-builder-header-action-link action-collapse-up" 
+                                            <a href="#" class="cptm-form-builder-header-action-link action-collapse-up"
                                                 :class="getActiveFieldCollapseClass( field_key )"
                                                 @click.prevent="toggleActiveFieldCollapseState( field_key )">
                                                 <span class="fa fa-angle-up" aria-hidden="true"></span>
                                             </a>
                                         </div>
                                     </div>
-                                    
+
                                     <slide-up-down :active="getActiveFieldCollapseState( field_key )" :duration="300">
                                         <div class="cptm-form-builder-group-field-item-body" v-if="getActiveFieldsSettings( field_key, 'options' )">
                                             <template v-for="( option, option_key ) in getActiveFieldsSettings( field_key, 'options' )">
-                                                    <component 
-                                                        :is="option.type + '-field'" 
+                                                    <component
+                                                        :is="option.type + '-field'"
                                                         :key="option_key"
                                                         v-if="theFieldIsActive( option_key, field_key )"
                                                         v-bind="getSanitizedFieldsOptions( option )"
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                         </slide-up-down>
-                        
+
 
                         <slide-up-down :active="( '' === current_dragging_group ) ? true : false" :duration="500">
                             <div class="cptm-form-builder-group-field-drop-area"
@@ -109,15 +109,15 @@
                                 <p class="cptm-form-builder-group-field-drop-area-label">Drop Here</p>
                             </div>
                         </slide-up-down>
-                        
-                        
+
+
                         <div class="cptm-item-footer-drop-area cptm-group-item-drop-area"
                             :class="( group_key === current_drag_enter_group_item ) ? 'drag-enter' : ''"
                             @dragenter="activeGroupItemOnDragEnter( group_key )"
                             @dragover.prevent="activeGroupItemOnDragOver( group_key )"
                             @dragleave="activeGroupItemOnDragLeave( group_key )"
                             @drop="activeGroupItemOnDrop( group_key )">
-                        
+
                         </div>
                     </div>
 
@@ -129,7 +129,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
         <div class="cptm-col-6" v-if="widget_groups">
@@ -197,7 +197,7 @@ export default {
                 this.active_fields = this.value.fields;
             }
         }
-       
+
         this.parseLocalWidgets();
         this.$emit( 'update', this.updated_value );
     },
@@ -255,7 +255,7 @@ export default {
 
             if ( typeof this.fields[ this.dependency ] === 'undefined' ) { return null; }
             if ( typeof this.fields[ this.dependency ].value === 'undefined' ) { return null; }
-            
+
             return this.fields[ this.dependency ].value;
         },
 
@@ -268,7 +268,7 @@ export default {
             if ( this.dependency_fields ) {
                 dependency_fields = this.dependency_fields;
             }
-           
+
             let dependency_widgets = JSON.parse(JSON.stringify( this.local_widgets ));
 
             for ( let widget_group in dependency_widgets ) {
@@ -281,7 +281,7 @@ export default {
                         // let dep_field_widget_name = ( dependency_fields[ field ].label && dependency_fields[ field ].label.length ) ? true : false;
                         let dep_field_has_label = ( dependency_fields[ field ].label && dependency_fields[ field ].label.length ) ? true : false;
                         let dep_widget_has_label = ( dependency_widgets[ widget_group ].widgets[ widget_name ].options.label ) ? true : false;
-                        
+
                         // console.log( dependency_widgets[ widget_group ].widgets[ widget_name ].options );
                         // console.log( { dep_field_has_label, dep_widget_has_label } );
 
@@ -380,7 +380,7 @@ export default {
 
             let faild_condition_count = 0;
             let self = this;
-        
+
             options.show_if.forEach(element => {
                 let terget_field = null;
                 let conditions = null;
@@ -399,7 +399,7 @@ export default {
                 if ( typeof element.compare !== 'undefined' ) {
                     compare = element.compare;
                 }
-                
+
                 if ( where_field_is !== 'self' ) {
                     terget_field = self.fields[ where_field_is ];
                 }
@@ -407,7 +407,7 @@ export default {
                 if ( where_field_is === 'self' ) {
                     terget_field = self.active_fields;
                 }
-                    
+
                 if ( terget_field && where_widget_is === 'self' ) {
                     terget_field = terget_field[ field_key ];
                 }
@@ -434,7 +434,7 @@ export default {
                         } else {
                             match_count++;
                         }
-                    }); 
+                    });
 
                     if ( 'and' === compare && missmatch_count ) {
                         faild_condition_count++;
@@ -450,7 +450,7 @@ export default {
             if ( faild_condition_count ) {
                 return false;
             }
-            
+
             return true;
         },
 
@@ -460,14 +460,14 @@ export default {
             }
 
             let widgets = JSON.parse(JSON.stringify( this.widgets ));
-            
+
             for ( let widget_group in widgets ) {
                 for ( let widget in widgets[ widget_group ].widgets )  {
                     widgets[ widget_group ].widgets[widget].options.widget_group = { type: 'hidden', value: widget_group };
                     widgets[ widget_group ].widgets[widget].options.widget_name = { type: 'hidden', value: widget };
                 }
             }
-            
+
             this.local_widgets = widgets;
         },
 
@@ -478,7 +478,7 @@ export default {
         getActiveFieldsSettings( field_key, data_key ) {
             const widget_group = this.active_fields[ field_key ].widget_group;
             const widget_name = this.active_fields[ field_key ].widget_name;
-            
+
 
             // console.log( this.local_widgets, this.active_fields, widget_group );
             // console.log( { widget_group, widget_name } );
@@ -490,7 +490,7 @@ export default {
             if ( typeof widget_name === 'undefined' ) {
                 return false;
             }
-            
+
             if ( typeof this.widget_groups_with_states[ widget_group ] === 'undefined' ) {
                 return false;
             }
@@ -514,7 +514,7 @@ export default {
             if ( typeof field_options !== 'object'  ) {
                 return field_options;
             }
-            
+
             let options = JSON.parse(JSON.stringify( field_options ));
             delete options.value;
 
@@ -526,7 +526,7 @@ export default {
             const option_label = this.active_fields[ field_key ]['label'];
 
             // console.log( {settings_label, option_label} );
-            
+
             return ( option_label && option_label.length ) ? option_label : settings_label;
         },
 
@@ -626,7 +626,7 @@ export default {
             this.active_field_drop_area = '';
         },
 
-        // 
+        //
         activeGroupOnDragOver( group_key,  ) {
             this.active_field_drop_area = group_key;
         },
@@ -666,8 +666,8 @@ export default {
             if ( this.current_dragging_group === '' ) {
                 this.current_dragging_group = '';
                 this.current_drag_enter_group_item = '';
-                
-                return;    
+
+                return;
             }
 
             const origin_value = this.groups[ this.current_dragging_group ];
@@ -680,7 +680,7 @@ export default {
             this.current_drag_enter_group_item = '';
         },
 
-        // 
+        //
         widgetItemOnDrag( group_key, field_key ) {
             this.current_dragging_widget_window = { inserting_field_key: field_key, inserting_from: group_key };
             // console.log( inserting_field_key:  );
@@ -711,7 +711,7 @@ export default {
             }); */
 
             // Reorder
-            if ( 
+            if (
                 typeof origin_group_index !== 'undefined' &&
                 typeof origin_field_index !== 'undefined' &&
                 typeof destination_group_index !== 'undefined' &&
@@ -719,7 +719,7 @@ export default {
                 origin_group_index === destination_group_index
             ) {
                 console.log( 'Reorder' );
-                this.reorderActiveFieldsItems({ 
+                this.reorderActiveFieldsItems({
                     group_index: destination_group_index,
                     origin_field_index ,
                     destination_field_index,
@@ -728,14 +728,14 @@ export default {
 
 
             // Move
-            if ( 
+            if (
                 typeof origin_group_index !== 'undefined' &&
                 typeof origin_field_index !== 'undefined' &&
                 typeof destination_group_index !== 'undefined' &&
                 origin_group_index !== destination_group_index
             ) {
                 console.log( 'Move' );
-                this.moveActiveFieldsItems( { 
+                this.moveActiveFieldsItems( {
                     origin_group_index,
                     origin_field_index,
                     destination_group_index,
@@ -744,17 +744,17 @@ export default {
             }
 
             // Insert
-            if ( 
+            if (
                 typeof inserting_from !== 'undefined' &&
                 typeof inserting_field_key !== 'undefined' &&
                 typeof destination_group_index !== 'undefined'
             ) {
                 console.log( 'Insert' );
-                this.insertActiveFieldsItem({ 
+                this.insertActiveFieldsItem({
                     inserting_from,
                     inserting_field_key,
                     destination_group_index,
-                    destination_field_index,   
+                    destination_field_index,
                 });
             }
 
@@ -833,7 +833,7 @@ export default {
             for ( let option_key in field_data.options ) {
                 field_data_options[ option_key ] = ( typeof field_data.options[ option_key ].value !== 'undefined' ) ? field_data.options[ option_key ].value : '';
             }
-            
+
             this.active_fields[ inserting_field_key ] = field_data_options;
 
 
@@ -852,7 +852,7 @@ export default {
             if ( typeof widget_group.allow_multiple === 'undefined' ) {
                 widget_group.allow_multiple = false;
             }
-            
+
             if ( ! widget_group.allow_multiple && this.groupHasKey( field_key ) ) {
                 return false;
             }

@@ -1720,6 +1720,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   align-items: center;
   justify-content: center;
   position: relative;
+  top: -10px;
 }
 
 .atbd_map_shape:before {

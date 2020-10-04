@@ -310,8 +310,9 @@ if (!class_exists('ATBDP_SEO')) :
                 if (!empty($overwrite_yoast)) {
                     return '';
                 }
-                if ($slug = get_query_var('atbdp_location')) {
 
+                $slug = get_query_var('atbdp_location');
+                if ( ! empty( $slug ) ) {
                     $term = get_term_by('slug', $slug, 'at_biz_dir-location');
                     $replacements['%%term_title%%'] = $term->name;
 
@@ -385,7 +386,6 @@ if (!class_exists('ATBDP_SEO')) :
             $url = get_permalink($post->ID);
             // Location page
             if ($post->ID == $LOC_page_ID) {
-
                 if ($slug = get_query_var('atbdp_location')) {
                     $term = get_term_by('slug', $slug, ATBDP_LOCATION);
                     $url = ATBDP_Permalink::atbdp_get_location_page($term);
@@ -693,7 +693,7 @@ if (!class_exists('ATBDP_SEO')) :
                 $seo_meta['description'] = (get_directorist_option('single_category_meta_desc')) ? get_directorist_option('single_category_meta_desc') : $seo_meta['description'];
                 
                 // show term description as meta description first
-                if ($post->ID == $CAT_page_ID && $slug) {
+                if ( $post->ID == $CAT_page_ID && $slug && ! empty( $term ) ) {
                     $seo_meta['description'] = ! empty( $term->description ) ? $term->description : $seo_meta['description'];
                     $thumb_id = get_term_meta( $term->term_id, 'image', true );
                     $seo_meta['image'] = wp_get_attachment_url( $thumb_id );
@@ -718,7 +718,7 @@ if (!class_exists('ATBDP_SEO')) :
                 $seo_meta['description'] = (get_directorist_option('single_locations_meta_desc')) ? get_directorist_option('single_locations_meta_desc') : $seo_meta['description'];
                 
                 // show term description as meta description first
-                if ($post->ID == $LOC_page_ID && $slug) {
+                if ($post->ID == $LOC_page_ID && $slug && ! empty( $term )) {
                     $seo_meta['description'] = ! empty( $term->description ) ? $term->description : $seo_meta['description'];
                     $thumb_id = get_term_meta( $term->term_id, 'image', true );
                     $seo_meta['image'] = wp_get_attachment_url( $thumb_id );
@@ -738,7 +738,7 @@ if (!class_exists('ATBDP_SEO')) :
                 $seo_meta['title'] = !empty($term) ? $term->name : '';
 
                 // show term description as meta description first
-                if ($post->ID == $TAG_page_ID && $slug ) {
+                if ($post->ID == $TAG_page_ID && $slug && ! empty( $term )) {
                     $seo_meta['description'] = ! empty( $term->description ) ? $term->description : $seo_meta['description'];
                     $thumb_id = get_term_meta( $term->term_id, 'image', true );
                     $seo_meta['image'] = wp_get_attachment_url( $thumb_id );

@@ -1519,7 +1519,9 @@ if (!class_exists('ATBDP_Shortcode')):
                 'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
             ) );
+            $category_query_string = isset( $_GET['category'] ) ? $_GET['category'] : '';
             $category_slug = get_query_var('atbdp_category');
+            $category_slug = ! empty( $category_slug ) ? $category_slug : $category_query_string;
 
             $term = '';
 
@@ -2005,7 +2007,9 @@ if (!class_exists('ATBDP_Shortcode')):
         public function atbdp_location($atts)
         {
             wp_enqueue_script('adminmainassets');
+            $query_string = isset( $_GET['location'] ) ? $_GET['location'] : '';
             $term_slug = get_query_var('atbdp_location');
+            $term_slug = ! empty( $term_slug ) ? $term_slug : $query_string;
             wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
                 'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
@@ -2444,7 +2448,9 @@ if (!class_exists('ATBDP_Shortcode')):
                 'Miles'     =>  $miles,
                 'default_val'   =>  $default_radius_distance
             ) );
+            $query_string = isset( $_GET['tag'] ) ? $_GET['tag'] : '';
             $term_slug = get_query_var('atbdp_tag');
+            $term_slug = ! empty( $term_slug ) ? $term_slug : $query_string;
 
             $term = '';
 

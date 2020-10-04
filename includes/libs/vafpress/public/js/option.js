@@ -15,6 +15,7 @@
 		if (this.prop('tagName') == 'BODY' && arguments[0] == 'folded') { calculatePositionAndSize(); }
 		return result;
 	};
+
 	// custom checkbox and radiobutton event binding
 	vp.custom_check_radio_event(".vp-wrap", ".vp-field.vp-checked-field .field .input label");
 

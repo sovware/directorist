@@ -385,6 +385,20 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Login Message', 'directorist'),
                             'fields' => $this->get_reg_Login_text(),
                         ),
+                        'auto_login_after_registration' => array(
+                            'type' => 'toggle',
+                            'name' => 'auto_login',
+                            'label' => __('Auto Login after Registration', 'directorist'),
+                            'default' => 0,
+                        ),
+                        'registration_redirection' =>  array(
+                            'type' => 'select',
+                            'name' => 'redirection_after_reg',
+                            'label' => __('Redirection after Registration', 'directorist'),
+                            'items' => $this->get_pages_with_prev_page(),
+                            'default' => atbdp_get_option('user_dashboard', 'atbdp_general'),
+                            'validation' => 'numeric',
+                        ), 
                     )),
                 ),
                 /*Submenu : login form settings*/
@@ -2516,6 +2530,29 @@ The Administrator of ==SITE_NAME==
             return $pages_options;
         }
 
+        /**
+         * Get all the page with previous page in an array where each page is an array of key:value:id and key:label:name
+         *
+         * Example : array(
+         *                  array('value'=> 1, 'label'=> 'page_name'),
+         *                  array('value'=> 50, 'label'=> 'page_name'),
+         *          )
+         * @return array page names with key value pairs in a multi-dimensional array
+         * @since 3.0.0
+         */
+        function get_pages_with_prev_page()
+        {
+            $pages = get_pages();
+            $pages_options = array();
+            $pages_options[] = array( 'value' => 'previous_page', 'label' => 'Previous Page' );
+            if ($pages) {
+                foreach ($pages as $page) {
+                    $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);
+                }
+            }
+
+            return $pages_options;
+        }
 
         /**
          * Get all the submenus for the extension menu

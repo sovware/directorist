@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
 if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
     class ATBDP_Listing_Type_Manager {
         public $settings = [];
@@ -20,8 +18,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
             add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
         }
-
-
 
         // save_post_type_data
         public function save_post_type_data() {
@@ -852,9 +848,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'label' => 'Chose a plan',
                                             'value' => '',
                                             'options-source' => [
-                                                'where' => 'package_list.value',
-                                                'value_from' => 'plan_id', 
-                                                'label_from' => 'plan_name'
+                                                'where'      => 'package_list.options',
+                                                'source_map' => [
+                                                    'id'    => 'id',
+                                                    'value' => 'value',
+                                                    'label' => 'label',
+                                                ],
+                                                'filter_by' => 'package_list.value',
                                             ],
                                         ],
                                         'min' => [
@@ -3889,12 +3889,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ],
 
                 'preview_image' => [
-                    'label' => __( 'Select', 'directorist' ),
-                    'type'  => 'image',
-                    'value' => '',
-                    'rules' => [
-                        'required' => false,
-                    ],
+                    'label'       => __( 'Select', 'directorist' ),
+                    'type'        => 'wp-media-picker',
+                    'default-img' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
+                    'value'       => '',
                 ],
 
                 'enable_package' => [
@@ -3904,43 +3902,16 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'value' => '',
                 ],
                 'package_list' => [
-                    'type' => 'multi-fields',
+                    'type' => 'checkbox',
                     'show_if' => [
                         [ 'conditions' => [ [ 'key' => 'enable_package', 'value' => true ] ] ],
                     ],
-                    'label' => __( 'Prepare Packages', 'directorist' ),
+                    'label' => __( 'Select Packages', 'directorist' ),
                     'value' => [],
-                    'add-new-button-label' => 'Add new plan',
-                    'remove-button-label' => 'Delete',
-                    'unlock_options_by_first' => true,
-                    'primary_key' => 'plan_id',
                     'options' => [
-                        'plan_id' => [
-                            'type' => 'number',
-                            'unique' => true,
-                            'label' => 'Plan ID',
-                            'value' => '',
-                        ],
-                        'plan_name' => [
-                            'type' => 'text',
-                            'label' => 'Plan Name',
-                            'value' => '',
-                        ],
-                        'featured' => [
-                            'type' => 'toggle',
-                            'label' => 'Featured',
-                            'value' => false,
-                        ],
-                        'featured_label' => [
-                            'type' => 'text',
-                            'label' => 'Featured Label',
-                            'value' => 'Recommadned',
-                            'show_if' => [[
-                                'conditions' => [
-                                    [ 'key' => 'featured', 'value' => true ]
-                                ]
-                            ]],
-                        ],
+                        [ 'value' => '1', 'id' => 'plan-1', 'label' => 'Plan A' ],
+                        [ 'value' => '2', 'id' => 'plan-2', 'label' => 'Plan B' ],
+                        [ 'value' => '3', 'id' => 'plan-3', 'label' => 'Plan C' ],
                     ]
                 ],
                 'export' => [
@@ -4034,29 +4005,20 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         ],
 
                         'plans' => [
-                            'type' => 'multi-fields',
-                            'label' => 'Setup the plan',
+                            'type' => 'checkbox',
+                            'label' => 'Chose the plans',
                             'value' => [],
-                            'add-new-button-label' => 'Add new plan',
-                            'praimary_key' => 'plan_id',
                             'show_if' => [[
                                 'conditions' => [ 
                                     [ 'key' => 'tag_with_plan', 'value' => true ]
                                 ]
                             ]],
-                            'options' => [
-                                'plan_id' => [
-                                    'type' => 'select',
-                                    'unique' => true,
-                                    'label' => 'Chose a plan',
-                                    'value' => '',
-                                    'options-source' => [
-                                        'where' => 'package_list.value',
-                                        'value_from' => 'plan_id', 
-                                        'label_from' => 'plan_name'
-                                    ],
-                                ],
-                            ]
+                            'options-source' => [
+                                'where'      => 'package_list.options',
+                                'filter_by'  => 'package_list.value',
+                                'value_from' => 'value',
+                                'label_from' => 'label'
+                            ],
                         ]
                     ],
 
@@ -4445,6 +4407,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         // enqueue_scripts
         public function enqueue_scripts() {
+            wp_enqueue_media();
             wp_enqueue_style( 'atbdp-unicons' );
             wp_enqueue_style( 'atbdp-font-awesome' );
             wp_enqueue_style( 'atbdp_admin_css' );

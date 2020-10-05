@@ -1,6 +1,6 @@
 <template>
     <div class="cptm-form-builder cptm-row">
-        <div class="cptm-col-6">
+        <div class="cptm-col-6 cptm-vh">
             <div class="cptm-form-builder-active-fields">
                 <h3 class="cptm-title-3">Active Fields</h3>
                 <p class="cptm-description-text">Click on a field to edit, Drag & Drop to reorder </p>
@@ -132,7 +132,7 @@
             
         </div>
 
-        <div class="cptm-col-6" v-if="widget_groups">
+        <div class="cptm-col-6 cptm-vh" v-if="widget_groups">
             <div class="cptm-form-builder-preset-fields" v-for="( widget_group, group_key ) in widget_groups" :key="group_key">
                 <h3 class="cptm-title-3">{{ widget_group.title }}</h3>
                 <p class="cptm-description-text">{{ widget_group.description }}</p>

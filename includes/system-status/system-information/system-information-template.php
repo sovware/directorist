@@ -44,7 +44,7 @@ $atbdp_option       = get_option('atbdp_option');
                             <a href="#atbds_sequrity" class="nav-link" id="atbds_sequrity-tab" data-tabArea="atbds_system-info-tab">Sequrity</a>
                         </li>
                         <li class="nav-item">
-                            <a href="#atbds_plugins" class="nav-link" id="atbds_plugins-tab" data-tabArea="atbds_system-info-tab">Active Plugins <span class="atbds__pl-count">(2)</span></a>
+                            <a href="#atbds_plugins" class="nav-link" id="atbds_plugins-tab" data-tabArea="atbds_system-info-tab">Active Plugins <span class="atbds__pl-count">(<?php echo count( $active_plugins ) ?>)</span></a>
                         </li>
                         <li class="nav-item">
                             <a href="#atbds_theme" class="nav-link" id="atbds_theme-tab" data-tabArea="atbds_system-info-tab">Theme</a>
@@ -543,86 +543,21 @@ $atbdp_option       = get_option('atbdp_option');
                             <div class="atbds_system-table-wrap">
                                 <table class="atbds_system-table table-responsive">
                                     <tbody>
+                                    <?php
+                                    foreach ( $post_type_counts as $post_type ) {
+                                    ?>
                                         <tr>
-                                            <td class="atbds_table-title">Home URL:</td>
+                                            <td class="atbds_table-title"><?php echo esc_html( $post_type->type ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
+                                                <span class="atbds_tooltip">
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span class="atbds_url">Http://Masudr.Com/Arman/Directorist</span></td>
+                                            <td><?php echo absint( $post_type->count ); ?></td>
                                         </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">Site URL:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span class="atbds_url">Http://Masudr.Com/Arman/Directorist</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">Directorist Version:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>6.5.1</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Version:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>5.5.1</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Multisite:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>-</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Memory Limit:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span class="atbds_color-success">1GB</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Multisite:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>-</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Cron:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span class="atbds_color-success"><i class="fa fa-check"></i></span></td>
-                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -632,84 +567,36 @@ $atbdp_option       = get_option('atbdp_option');
                                 <table class="atbds_system-table table-responsive">
                                     <tbody>
                                         <tr>
-                                            <td class="atbds_table-title">Home URL:</td>
+                                            <td class="atbds_table-title"><?php _e( 'Secure connection (HTTPS)', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
+                                                <span class="atbds_tooltip" data-label="<?php _e( 'Is the connection to your site secure?', 'directorist' ); ?>">
                                                     <i class="fa fa-question-circle"></i>
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span class="atbds_url">Http://Masudr.Com/Arman/Directorist</span></td>
+                                            <td>
+                                            <?php if ( $security['secure_connection'] ) : ?>
+                                                <mark class="yes"><span class="dashicons dashicons-yes"></span></mark>
+                                            <?php else : ?>
+                                                <mark class="error"><span class="dashicons dashicons-warning"></span><?php echo __( 'Your site is not using HTTPS.', 'directorist' ); ?></mark>
+                                            <?php endif; ?>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="atbds_table-title">Site URL:</td>
+                                            <td class="atbds_table-title"><?php _e( 'Hide errors from visitors', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
+                                                <span class="atbds_tooltip" data-label="<?php _e( 'Error messages can contain sensitive information about your site environment. These should be hidden from untrusted visitors.', 'directorist' ); ?>">
                                                     <i class="fa fa-question-circle"></i>
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span class="atbds_url">Http://Masudr.Com/Arman/Directorist</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">Directorist Version:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
+                                            <td>
+                                            <?php if ( $security['hide_errors'] ) : ?>
+                                                <span class="atbds_color-success"><i class="fa fa-check"></i></span>
+                                            <?php else : ?>
+                                                <mark class="error"><span class="dashicons dashicons-warning"></span><?php _e( 'Error messages should not be shown to visitors.', 'directorist' ); ?></mark>
+                                            <?php endif; ?>
                                             </td>
-                                            <td><span>6.5.1</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Version:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>5.5.1</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Multisite:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>-</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Memory Limit:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span class="atbds_color-success">1GB</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Multisite:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>-</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Cron:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span class="atbds_color-success"><i class="fa fa-check"></i></span></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -719,86 +606,47 @@ $atbdp_option       = get_option('atbdp_option');
                             <div class="atbds_system-table-wrap">
                                 <table class="atbds_system-table table-responsive">
                                     <tbody>
+                                    <?php
+                                    foreach ( $active_plugins as $plugin ) {
+                                        if ( ! empty( $plugin['name'] ) ) {
+                                            $dirname = dirname( $plugin['plugin'] );
+
+                                            // Link the plugin name to the plugin url if available.
+                                            $plugin_name = esc_html( $plugin['name'] );
+                                            if ( ! empty( $plugin['url'] ) ) {
+                                                $plugin_name = '<a href="' . esc_url( $plugin['url'] ) . '" aria-label="' . esc_attr__( 'Visit plugin homepage' , 'directorist' ) . '" target="_blank">' . $plugin_name . '</a>';
+                                            }
+
+                                            $version_string = '';
+                                            $network_string = '';
+                                            if ( ! empty( $plugin['latest_verison'] ) && version_compare( $plugin['latest_verison'], $plugin['version'], '>' ) ) {
+                                                /* translators: %s: plugin latest version */
+                                                $version_string = ' &ndash; <strong style="color:red;">' . sprintf( esc_html__( '%s is available', 'directorist' ), $plugin['latest_verison'] ) . '</strong>';
+                                            }
+
+                                            if ( false != $plugin['network_activated'] ) {
+                                                $network_string = ' &ndash; <strong style="color:black;">' . __( 'Network enabled', 'directorist' ) . '</strong>';
+                                            }
+                                            ?>
                                         <tr>
-                                            <td class="atbds_table-title">Home URL:</td>
+                                            <td class="atbds_table-title"><?php echo $plugin_name; ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
+                                                <span class="atbds_tooltip">
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span class="atbds_url">Http://Masudr.Com/Arman/Directorist</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">Site URL:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
+                                            <td>
+                                            <?php
+                                                /* translators: %s: plugin author */
+                                                printf( __( 'by %s', 'directorist' ), $plugin['author_name'] );
+                                                echo ' &ndash; ' . esc_html( $plugin['version'] ) . $version_string . $network_string;
+                                            ?>
                                             </td>
-                                            <td><span class="atbds_url">Http://Masudr.Com/Arman/Directorist</span></td>
                                         </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">Directorist Version:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>6.5.1</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Version:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>5.5.1</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Multisite:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>-</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Memory Limit:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span class="atbds_color-success">1GB</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Multisite:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>-</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Cron:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span class="atbds_color-success"><i class="fa fa-check"></i></span></td>
-                                        </tr>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -808,85 +656,99 @@ $atbdp_option       = get_option('atbdp_option');
                                 <table class="atbds_system-table table-responsive">
                                     <tbody>
                                         <tr>
-                                            <td class="atbds_table-title">Home URL:</td>
+                                            <td class="atbds_table-title"><?php _e( 'Name', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
+                                                <span class="atbds_tooltip" data-label="<?php _e( 'The name of the current active theme.', 'directorist' ); ?>">
                                                     <i class="fa fa-question-circle"></i>
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span class="atbds_url">Http://Masudr.Com/Arman/Directorist</span></td>
+                                            <td><?php echo esc_html( $theme['name'] ) ?></td>
                                         </tr>
                                         <tr>
-                                            <td class="atbds_table-title">Site URL:</td>
+                                            <td class="atbds_table-title"><?php _e( 'Version', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
+                                                <span class="atbds_tooltip" data-label="<?php _e( 'The installed version of the current active theme.', 'directorist' ); ?>">
                                                     <i class="fa fa-question-circle"></i>
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span class="atbds_url">Http://Masudr.Com/Arman/Directorist</span></td>
+                                            <td>
+                                                <?php
+                                                echo esc_html( $theme['version'] );
+                                                if ( version_compare( $theme['version'], $theme['version_latest'], '<' ) ) {
+                                                    /* translators: %s: theme latest version */
+                                                    echo ' &ndash; <strong style="color:red;">' . sprintf( __( '%s is available', 'directorist' ), esc_html( $theme['version_latest'] ) ) . '</strong>';
+                                                }
+                                                ?>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="atbds_table-title">Directorist Version:</td>
+                                            <td class="atbds_table-title"><?php _e( 'Author URL', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
+                                                <span class="atbds_tooltip" data-label="<?php _e( 'The theme developers URL.', 'directorist' ); ?>">
                                                     <i class="fa fa-question-circle"></i>
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span>6.5.1</span></td>
+                                            <td><span><?php echo esc_html( $theme['author_url'] ) ?></span></td>
                                         </tr>
                                         <tr>
-                                            <td class="atbds_table-title">WP Version:</td>
+                                            <td class="atbds_table-title"><?php _e( 'Child theme', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
+                                                <span class="atbds_tooltip" data-label="<?php _e( 'Displays whether or not the current theme is a child theme.', 'directorist' ); ?>">
                                                     <i class="fa fa-question-circle"></i>
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span>5.5.1</span></td>
+                                            <td>
+                                            <?php
+                                                echo $theme['is_child_theme'] ? '<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>' : '<span class="dashicons dashicons-no-alt"></span> &ndash; ' . sprintf( __( 'If you are modifying Directorist on a parent theme that you did not build personally we recommend using a child theme. See: <a href="%s" target="_blank">How to create a child theme</a>', 'directorist' ), 'https://developer.wordpress.org/themes/advanced-topics/child-themes/' );
+                                            ?>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                        if ( $theme['is_child_theme'] ) :
+                                        ?>
+                                        <tr>
+                                            <td class="atbds_table-title"><?php _e( 'Parent theme name', 'directorist' ); ?>:</td>
+                                            <td class="atbds_table-pointer">
+                                                <span class="atbds_tooltip" data-label="<?php _e( 'The name of the parent theme.', 'directorist' ); ?>">
+                                                    <i class="fa fa-question-circle"></i>
+                                                    <span class="atbds_tooltip__text"></span>
+                                                </span>
+                                            </td>
+                                            <td><?php echo esc_html( $theme['parent_name'] ); ?></td>
                                         </tr>
                                         <tr>
-                                            <td class="atbds_table-title">WP Multisite:</td>
+                                            <td class="atbds_table-title"><?php _e( 'Parent theme version', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
+                                                <span class="atbds_tooltip" data-label="<?php _e( 'The installed version of the parent theme.', 'directorist' ); ?>">
                                                     <i class="fa fa-question-circle"></i>
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span>-</span></td>
+                                            <td>
+                                            <?php
+                                                echo esc_html( $theme['parent_version'] );
+                                                if ( version_compare( $theme['parent_version'], $theme['parent_latest_verison'], '<' ) ) {
+                                                    /* translators: %s: parant theme latest version */
+                                                    echo ' &ndash; <strong style="color:red;">' . sprintf( __( '%s is available', 'directorist' ), esc_html( $theme['parent_latest_verison'] ) ) . '</strong>';
+                                                }
+                                            ?>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="atbds_table-title">WP Memory Limit:</td>
+                                            <td class="atbds_table-title"><?php _e( 'Parent theme author URL', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
+                                                <span class="atbds_tooltip" data-label="<?php _e( 'The parent theme developers URL.', 'directorist' ); ?>">
                                                     <i class="fa fa-question-circle"></i>
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span class="atbds_color-success">1GB</span></td>
+                                            <td><?php echo esc_html( $theme['parent_author_url'] ) ?></td>
                                         </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Multisite:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>-</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Cron:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span class="atbds_color-success"><i class="fa fa-check"></i></span></td>
-                                        </tr>
+                                        <?php endif ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -895,86 +757,67 @@ $atbdp_option       = get_option('atbdp_option');
                             <div class="atbds_system-table-wrap">
                                 <table class="atbds_system-table table-responsive">
                                     <tbody>
+                                    <?php 		
+			                        if ( ! empty( $theme['overrides'] ) ) { ?>
                                         <tr>
-                                            <td class="atbds_table-title">Home URL:</td>
+                                            <td class="atbds_table-title"><?php _e( 'Overrides', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
+                                                <span class="atbds_tooltip">
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span class="atbds_url">Http://Masudr.Com/Arman/Directorist</span></td>
+                                            <td>
+                                            <?php
+                                            $total_overrides = count( $theme['overrides'] );
+                                            for ( $i = 0; $i < $total_overrides; $i++ ) {
+                                                $override = $theme['overrides'][ $i ];
+                                                if ( $override['core_version'] && ( empty( $override['version'] ) || version_compare( $override['version'], $override['core_version'], '<' ) ) ) {
+                                                    $current_version = $override['version'] ? $override['version'] : '-';
+                                                    printf(
+                                                        __( '%1$s version %2$s is out of date. The core version is %3$s', 'directorist' ),
+                                                        '<code>' . $override['file'] . '</code>',
+                                                        '<strong style="color:red">' . $current_version . '</strong>',
+                                                        $override['core_version']
+                                                    );
+                                                } else {
+                                                    echo esc_html( $override['file'] );
+                                                }
+                                                if ( ( count( $theme['overrides'] ) - 1 ) !== $i ) {
+                                                    echo ', ';
+                                                }
+                                                echo '<br />';
+                                            }
+                                            ?>
+                                            </td>
                                         </tr>
+                                        <?php
+                                         } else {
+                                        ?>
                                         <tr>
-                                            <td class="atbds_table-title">Site URL:</td>
+                                            <td class="atbds_table-title"><?php _e( 'Overrides', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
+                                                <span class="atbds_tooltip">
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span class="atbds_url">Http://Masudr.Com/Arman/Directorist</span></td>
+                                            <td>&ndash;</td>
                                         </tr>
+                                        <?php
+                                        }
+                                        if ( true === $theme['has_outdated_templates'] ) {
+                                        ?>
                                         <tr>
-                                            <td class="atbds_table-title">Directorist Version:</td>
+                                            <td class="atbds_table-title"><?php _e( 'Outdated templates', 'directorist' ); ?>:</td>
                                             <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
+                                                <span class="atbds_tooltip">
                                                     <span class="atbds_tooltip__text"></span>
                                                 </span>
                                             </td>
-                                            <td><span>6.5.1</span></td>
+                                            <td><mark class="error"><span class="dashicons dashicons-warning"></span></mark></td>
                                         </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Version:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>5.5.1</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Multisite:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>-</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Memory Limit:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span class="atbds_color-success">1GB</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Multisite:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span>-</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="atbds_table-title">WP Cron:</td>
-                                            <td class="atbds_table-pointer">
-                                                <span class="atbds_tooltip" data-label="Whether or not you have WordPress Multisite enabled.">
-                                                    <i class="fa fa-question-circle"></i>
-                                                    <span class="atbds_tooltip__text"></span>
-                                                </span>
-                                            </td>
-                                            <td><span class="atbds_color-success"><i class="fa fa-check"></i></span></td>
-                                        </tr>
+                                        <?php
+                                            }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>

@@ -509,8 +509,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     endforeach;
                 } else {
                     $msg .= ' <div class="notice alert alert-info" role="alert" id="review_notice">
-                                <span class="' . atbdp_icon_type(false) . '-info-circle" aria-hidden="true"></span>' .
-                        __(' No reviews found. Be the first to post a review !', 'directorist') . '</div>';
+                                <span class="' . atbdp_icon_type(false) . '-info-circle" aria-hidden="true"></span> ' .
+                        __('No reviews found. Be the first to post a review !', 'directorist') . '</div>';
                 }
                 // Optional, wrap the output into a container
                 $msg = "<div class='atbdp-universal-content'>" . $msg . "</div><br class = 'clear' />";

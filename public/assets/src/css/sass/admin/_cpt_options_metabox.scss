@@ -1245,3 +1245,26 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
     color: #23282d;
   }
 }
+
+.tab-general {
+  .cptm-title-area {
+    margin-left: 0;
+  }
+  .cptm-form-group {
+    .cptm-form-control {
+      background: #fff;
+      border: 1px solid #e3e6ef;
+    }
+  }
+}
+.tab-preview_image,
+.tab-packages,
+.tab-other {
+  .cptm-title-area {
+    margin-left: 0;
+    p {
+      font-size: 15px;
+      color: #5a5f7d;
+    }
+  }
+}

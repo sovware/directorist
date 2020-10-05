@@ -23932,6 +23932,9 @@ module.exports = g;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cpt_manager__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cpt_manager */ "./public/assets/src/js/cpt_manager.js");
 
+document.querySelectorAll('.la-icon i').forEach(function (item) {
+  className.push(item.getAttribute('class'));
+});
 
 /***/ }),
 

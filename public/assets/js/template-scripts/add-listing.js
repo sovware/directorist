@@ -315,30 +315,40 @@ jQuery(function($) {
 
                 const form_data = new FormData();
                 $('.listing_submit_btn').addClass('atbd_loading');
-
-                function atbdp_multi_select(field, name) {
-                        var field = $(`${field}[name^="${name}"]`);
-                        if (field.length) {
-                                if (field.length > 1) {
-                                        field.each(function(index, value) {
-                                                const type = $(value).attr('type');
-                                                if (type !== 'checkbox') {
-                                                        const name = $(this).attr('name');
-                                                        var value = $(this).val();
-                                                        form_data.append(name, value);
-                                                }
-                                        });
-                                } else {
-                                        var name = field.attr('name');
-                                        const value = field.val();
-                                        form_data.append(name, value);
-                                }
-                        }
-                }
-
-                // ajax action
                 form_data.append('action', 'add_listing_action');
 
+                var fieldValuePairs = $('#add-listing-form').serializeArray();
+                $.each( fieldValuePairs, function( index, fieldValuePair ) {
+                        var field = document.getElementsByName( fieldValuePair.name )[0];
+                        var type = field.type;
+
+                        //process array type fields
+                        if ( field.name.indexOf('[') > -1 ){
+                                var field_name = field.name.substr(0, field.name.indexOf("["));
+                                var ele = $( "[name^='"+ field_name +"']" );
+                                if ( ele.length && ( ele.length > 1 ) ) {
+                                        ele.each(function(index, value) {
+                                                const type = $(value).attr('type');
+                                                const name = $(this).attr('name');
+                                                var value = $(this).val();
+                                                form_data.append(name, value);
+                                        });
+                                } else {
+                                        var name = ele.attr('name');
+                                        const value = ele.val();
+                                        form_data.append(name, value);
+                                }
+                        }else{
+                                //process normal input fields
+                                if( ( type === 'hidden' ) || ( type === 'text' ) || ( type === 'number' ) || ( type === 'tel' ) || ( type === 'email' ) || ( type === 'date' ) || ( type === 'time' ) ){
+                                        form_data.append( field.name, field.value );   
+                                }
+
+                        }
+                        
+                        
+                });
+/*
                 if (listingMediaUploader && has_media) {
                         var hasValidFiles = listingMediaUploader.hasValidFiles();
                         if (hasValidFiles) {
@@ -441,10 +451,6 @@ jQuery(function($) {
                 form_data.append('guest_user_email', atbdp_element_value('input[name="guest_user_email"]'));
                 form_data.append('privacy_policy', atbdp_element_value('input[name="privacy_policy"]:checked'));
                 form_data.append('t_c_check', atbdp_element_value('input[name="t_c_check"]:checked'));
-                // custom fields
-                atbdp_multi_select('input', 'custom_field');
-                atbdp_multi_select('textarea', 'custom_field');
-                atbdp_multi_select('select', 'custom_field');
 
                 const field_checked = $('input[name^="custom_field"]:checked');
                 if (field_checked.length > 1) {
@@ -589,7 +595,7 @@ jQuery(function($) {
                         var value = booking_field.val();
                         form_data.append(name, value);
                 }
-
+*/
                 if (error_count) {
                         on_processing = false;
                         $('.listing_submit_btn').attr('disabled', false);
@@ -608,6 +614,8 @@ jQuery(function($) {
                         url: atbdp_add_listing.ajaxurl,
                         data: form_data,
                         success(response) {
+                                // console.log( response );
+                                // return;
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {

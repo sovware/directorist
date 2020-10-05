@@ -1179,7 +1179,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             wp_reset_postdata(); // Restore global post data stomped by the_post()
             $output = ob_get_clean();
 
-            print $output;
+            echo $output;
 
             if ($ajax) {
                 wp_die();

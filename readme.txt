@@ -4,7 +4,7 @@ Donate link: https://directorist.com/product/category/extensions/
 Tags: directory, listings, classifieds, business directory, real-estate
 Requires at least: 4.6
 Tested up to:  5.5
-Stable tag: 6.5.2
+Stable tag: 6.5.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -140,6 +140,22 @@ Directorist is not developed by a single person. A team of dedicated developers 
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.5.3 - Oct 5, 2020 =
+
+* Add - Polylang plugin compatibility
+* Add - Browser compatibility
+* Fix - Badge issue of related listings
+* Fix - Custom map marker placement issue
+* Fix - Conflict with JNews theme
+* Fix - Registration validation error
+* Fix - Changed preview submit button text
+* Add - More customization option of registration form
+* Fix - Email issue in review
+* Fix - Disable price issue in single listing
+* Fix - Tags filter source issue
+* Fix - Open filter fields issue in listings page
+* Fix - Translation issue
 
 = 6.5.2 - Aug 11, 2020 =
 

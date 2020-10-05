@@ -183,12 +183,12 @@ function atbdp_get_preview_button()
             $post_id = isset($_GET['post_id']) ? $_GET['post_id'] : get_the_ID();
             $edited = isset($_GET['edited']) ? $_GET['edited'] : '';
             $id = empty($id) ? $post_id : $id;
-            if (empty($payment)){
+            if ( empty($payment) ){
                 $url = add_query_arg(array('p' => $id, 'post_id' => $id, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $_GET['redirect']);
             }else{
                 $url = add_query_arg(array('atbdp_listing_id' => $id, 'reviewed' => 'yes'), $_GET['redirect']);
             }
-            return '<a href="' . esc_url($url) . '" class="btn btn-success">' . apply_filters('atbdp_listing_preview_btn_text', !empty($payment) ? esc_html__(' Continue', 'directorist') : esc_html__(' Submit', 'directorist')) . '</a>';
+            return '<a href="' . esc_url($url) . '" class="btn btn-success">' . apply_filters('atbdp_listing_preview_btn_text',  esc_html__(' Continue','directorist') )  . '</a>';
         }
     }
 }

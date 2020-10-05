@@ -3841,9 +3841,117 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'form-builder',
+  name: "form-builder",
   props: {
     widgets: {
       required: false,
@@ -3855,11 +3963,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     },
     value: {
       required: false,
-      default: ''
+      default: ""
     },
     dependency: {
       required: false,
-      default: ''
+      default: ""
     },
     allow_add_new_section: {
       type: Boolean,
@@ -3872,21 +3980,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     }
   },
   created: function created() {
-    if (this.value && _typeof(this.value) === 'object') {
+    if (this.value && _typeof(this.value) === "object") {
       if (this.value.groups) {
         this.groups = this.value.groups;
       }
 
-      if (_typeof(this.value.fields) === 'object') {
+      if (_typeof(this.value.fields) === "object") {
         this.active_fields = this.value.fields;
       }
     }
 
     this.parseLocalWidgets();
-    this.$emit('update', this.updated_value);
+    this.$emit("update", this.updated_value);
   },
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
-    fields: 'fields'
+    fields: "fields"
   })), {}, {
     updated_value: function updated_value() {
       return {
@@ -3903,7 +4011,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         var field_options = widget_groups[widget_group].widgets[widget_name].options;
 
         for (var field in field_options) {
-          field_options[field]['show'] = this.checkShowIfCondition(field_options[field], field_key);
+          field_options[field]["show"] = this.checkShowIfCondition(field_options[field], field_key);
         }
       }
 
@@ -3921,7 +4029,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return this.local_widgets;
     },
     has_dependency: function has_dependency() {
-      if (typeof this.dependency !== 'string') {
+      if (typeof this.dependency !== "string") {
         return false;
       }
 
@@ -3936,11 +4044,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return null;
       }
 
-      if (typeof this.fields[this.dependency] === 'undefined') {
+      if (typeof this.fields[this.dependency] === "undefined") {
         return null;
       }
 
-      if (typeof this.fields[this.dependency].value === 'undefined') {
+      if (typeof this.fields[this.dependency].value === "undefined") {
         return null;
       }
 
@@ -3969,7 +4077,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         for (var field in dependency_fields) {
           var widget_name = dependency_fields[field].widget_name;
 
-          if (typeof dependency_widgets[widget_group].widgets[widget_name] !== 'undefined') {
+          if (typeof dependency_widgets[widget_group].widgets[widget_name] !== "undefined") {
             // let dep_field_widget_name = ( dependency_fields[ field ].label && dependency_fields[ field ].label.length ) ? true : false;
             var dep_field_has_label = dependency_fields[field].label && dependency_fields[field].label.length ? true : false;
             var dep_widget_has_label = dependency_widgets[widget_group].widgets[widget_name].options.label ? true : false; // console.log( dependency_widgets[ widget_group ].widgets[ widget_name ].options );
@@ -3978,7 +4086,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             if (dep_field_has_label && !dep_widget_has_label) {
               // console.log( 'dep_field_has_label && ! dep_widget_has_label' );
               dependency_widgets[widget_group].widgets[widget_name].options.label = {
-                type: 'hidden',
+                type: "hidden",
                 value: dependency_fields[field].label
               };
             }
@@ -3989,7 +4097,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }
 
             dependency_widgets[widget_group].widgets[widget_name].options.root_data = {
-              type: 'array',
+              type: "array",
               value: dependency_fields[field]
             };
             new_widget_list[widget_name] = dependency_widgets[widget_group].widgets[widget_name];
@@ -4006,37 +4114,37 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     return {
       local_widgets: {},
       groups: [{
-        label: 'General',
+        label: "General",
         fields: []
       }],
       active_fields: {},
       state: {},
       active_fields_ref: {},
       current_dragging_widget_window: {},
-      active_field_drop_area: '',
-      active_group_drop_area: '',
-      current_drag_enter_group_item: '',
-      current_dragging_group: '',
+      active_field_drop_area: "",
+      active_group_drop_area: "",
+      current_drag_enter_group_item: "",
+      current_dragging_group: "",
       ative_field_collapse_states: {},
       ative_group_collapse_states: {}
     };
   },
   methods: {
     activeIsFieldVisible: function activeIsFieldVisible(option_key, field_key) {
-      var options = this.getActiveFieldsSettings(field_key, 'options');
+      var options = this.getActiveFieldsSettings(field_key, "options");
       var widget_group = this.active_fields[field_key].widget_group;
       var widget_name = this.active_fields[field_key].widget_name;
 
-      if ('pricing' === field_key) {
+      if ("pricing" === field_key) {
         var widget_options = this.widget_groups_with_states[widget_group].widgets[widget_name].options[option_key]; // console.log( { widget_group, widget_name, widget_options } );
         // console.log( {options, option_key, field_key } );
       }
 
-      if (typeof options[option_key] === 'undefined') {
+      if (typeof options[option_key] === "undefined") {
         return true;
       }
 
-      if (typeof options[option_key].show === 'undefined') {
+      if (typeof options[option_key].show === "undefined") {
         return true;
       } // console.log( {option_key} );
 
@@ -4048,11 +4156,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return true;
     },
     checkShowIfCondition: function checkShowIfCondition(options, field_key) {
-      if (typeof options === 'undefined') {
+      if (typeof options === "undefined") {
         return true;
       }
 
-      if (typeof options.show_if === 'undefined') {
+      if (typeof options.show_if === "undefined") {
         return true;
       }
 
@@ -4061,43 +4169,43 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       options.show_if.forEach(function (element) {
         var terget_field = null;
         var conditions = null;
-        var where_field_is = 'self';
-        var where_widget_is = 'self';
-        var compare = 'or';
+        var where_field_is = "self";
+        var where_widget_is = "self";
+        var compare = "or";
 
-        if (typeof element.where !== 'undefined' && typeof element.where.field !== 'undefined') {
+        if (typeof element.where !== "undefined" && typeof element.where.field !== "undefined") {
           where_field_is = element.where.field;
         }
 
-        if (typeof element.where !== 'undefined' && typeof element.where.widget !== 'undefined') {
+        if (typeof element.where !== "undefined" && typeof element.where.widget !== "undefined") {
           where_widget_is = element.where.widget;
         }
 
-        if (typeof element.compare !== 'undefined') {
+        if (typeof element.compare !== "undefined") {
           compare = element.compare;
         }
 
-        if (where_field_is !== 'self') {
+        if (where_field_is !== "self") {
           terget_field = self.fields[where_field_is];
         }
 
-        if (where_field_is === 'self') {
+        if (where_field_is === "self") {
           terget_field = self.active_fields;
         }
 
-        if (terget_field && where_widget_is === 'self') {
+        if (terget_field && where_widget_is === "self") {
           terget_field = terget_field[field_key];
         }
 
-        if (terget_field && where_widget_is !== 'self') {
+        if (terget_field && where_widget_is !== "self") {
           terget_field = terget_field[where_widget_is];
         }
 
-        if (typeof terget_field !== 'undefined') {
+        if (typeof terget_field !== "undefined") {
           conditions = element.conditions;
         }
 
-        if (conditions && _typeof(conditions) === 'object') {
+        if (conditions && _typeof(conditions) === "object") {
           var missmatch_count = 0;
           var match_count = 0;
           conditions.forEach(function (item) {
@@ -4111,9 +4219,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
             }
           });
 
-          if ('and' === compare && missmatch_count) {
+          if ("and" === compare && missmatch_count) {
             faild_condition_count++;
-          } else if ('or' === compare && !match_count) {
+          } else if ("or" === compare && !match_count) {
             faild_condition_count++;
           }
         } // console.log({ field_key, faild_condition_count } );
@@ -4127,7 +4235,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return true;
     },
     parseLocalWidgets: function parseLocalWidgets() {
-      if (!this.widgets && _typeof(this.widgets) !== 'object') {
+      if (!this.widgets && _typeof(this.widgets) !== "object") {
         this.local_widgets = null;
       }
 
@@ -4136,11 +4244,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       for (var widget_group in widgets) {
         for (var widget in widgets[widget_group].widgets) {
           widgets[widget_group].widgets[widget].options.widget_group = {
-            type: 'hidden',
+            type: "hidden",
             value: widget_group
           };
           widgets[widget_group].widgets[widget].options.widget_name = {
-            type: 'hidden',
+            type: "hidden",
             value: widget
           };
         }
@@ -4156,34 +4264,34 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       var widget_name = this.active_fields[field_key].widget_name; // console.log( this.local_widgets, this.active_fields, widget_group );
       // console.log( { widget_group, widget_name } );
 
-      if (typeof widget_group === 'undefined') {
+      if (typeof widget_group === "undefined") {
         return false;
       }
 
-      if (typeof widget_name === 'undefined') {
+      if (typeof widget_name === "undefined") {
         return false;
       }
 
-      if (typeof this.widget_groups_with_states[widget_group] === 'undefined') {
+      if (typeof this.widget_groups_with_states[widget_group] === "undefined") {
         return false;
       }
 
-      if (typeof this.widget_groups_with_states[widget_group].widgets === 'undefined') {
+      if (typeof this.widget_groups_with_states[widget_group].widgets === "undefined") {
         return false;
       }
 
-      if (typeof this.widget_groups_with_states[widget_group].widgets[widget_name] === 'undefined') {
+      if (typeof this.widget_groups_with_states[widget_group].widgets[widget_name] === "undefined") {
         return false;
       }
 
-      if (typeof this.widget_groups_with_states[widget_group].widgets[widget_name][data_key] === 'undefined') {
+      if (typeof this.widget_groups_with_states[widget_group].widgets[widget_name][data_key] === "undefined") {
         return false;
       }
 
       return this.widget_groups_with_states[widget_group].widgets[widget_name][data_key];
     },
     getSanitizedFieldsOptions: function getSanitizedFieldsOptions(field_options) {
-      if (_typeof(field_options) !== 'object') {
+      if (_typeof(field_options) !== "object") {
         return field_options;
       }
 
@@ -4192,65 +4300,65 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return options;
     },
     getActiveFieldsHeaderTitle: function getActiveFieldsHeaderTitle(field_key) {
-      var settings_label = this.getActiveFieldsSettings(field_key, 'label');
-      var option_label = this.active_fields[field_key]['label']; // console.log( {settings_label, option_label} );
+      var settings_label = this.getActiveFieldsSettings(field_key, "label");
+      var option_label = this.active_fields[field_key]["label"]; // console.log( {settings_label, option_label} );
 
       return option_label && option_label.length ? option_label : settings_label;
     },
     toggleActiveFieldCollapseState: function toggleActiveFieldCollapseState(field_key) {
-      if (typeof this.ative_field_collapse_states[field_key] === 'undefined') {
+      if (typeof this.ative_field_collapse_states[field_key] === "undefined") {
         this.$set(this.ative_field_collapse_states, field_key, {});
-        this.$set(this.ative_field_collapse_states[field_key], 'collapsed', false);
+        this.$set(this.ative_field_collapse_states[field_key], "collapsed", false);
       }
 
       this.ative_field_collapse_states[field_key].collapsed = !this.ative_field_collapse_states[field_key].collapsed;
     },
     getActiveFieldCollapseClass: function getActiveFieldCollapseClass(field_key) {
-      if (typeof this.ative_field_collapse_states[field_key] === 'undefined') {
-        return 'action-collapse-down';
+      if (typeof this.ative_field_collapse_states[field_key] === "undefined") {
+        return "action-collapse-down";
       }
 
-      return this.ative_field_collapse_states[field_key].collapsed ? 'action-collapse-up' : 'action-collapse-down';
+      return this.ative_field_collapse_states[field_key].collapsed ? "action-collapse-up" : "action-collapse-down";
     },
     getActiveFieldCollapseState: function getActiveFieldCollapseState(field_key) {
-      if (typeof this.ative_field_collapse_states[field_key] === 'undefined') {
+      if (typeof this.ative_field_collapse_states[field_key] === "undefined") {
         return false;
       }
 
       return this.ative_field_collapse_states[field_key].collapsed ? true : false;
     },
     toggleActiveGroupCollapseState: function toggleActiveGroupCollapseState(group_key) {
-      if (typeof this.ative_group_collapse_states[group_key] === 'undefined') {
+      if (typeof this.ative_group_collapse_states[group_key] === "undefined") {
         this.$set(this.ative_group_collapse_states, group_key, {});
-        this.$set(this.ative_group_collapse_states[group_key], 'collapsed', false);
+        this.$set(this.ative_group_collapse_states[group_key], "collapsed", false);
       }
 
       this.ative_group_collapse_states[group_key].collapsed = !this.ative_group_collapse_states[group_key].collapsed;
     },
     getActiveGroupCollapseState: function getActiveGroupCollapseState(group_key) {
-      if (typeof this.ative_group_collapse_states[group_key] === 'undefined') {
+      if (typeof this.ative_group_collapse_states[group_key] === "undefined") {
         return false;
       }
 
       return this.ative_group_collapse_states[group_key].collapsed ? true : false;
     },
     getActiveGroupOptionValue: function getActiveGroupOptionValue(option_key, group_key) {
-      if (typeof this.groups[group_key][option_key] === 'undefined') {
-        return '';
+      if (typeof this.groups[group_key][option_key] === "undefined") {
+        return "";
       }
 
       return this.groups[group_key][option_key];
     },
     updateActiveGroupOptionData: function updateActiveGroupOptionData(option_key, group_key, $event) {
       this.groups[group_key][option_key] = $event;
-      this.$emit('update', this.updated_value);
+      this.$emit("update", this.updated_value);
     },
     getActiveGroupCollapseClass: function getActiveGroupCollapseClass(group_key) {
-      if (typeof this.ative_group_collapse_states[group_key] === 'undefined') {
-        return 'action-collapse-down';
+      if (typeof this.ative_group_collapse_states[group_key] === "undefined") {
+        return "action-collapse-down";
       }
 
-      return this.ative_group_collapse_states[group_key].collapsed ? 'action-collapse-up' : 'action-collapse-down';
+      return this.ative_group_collapse_states[group_key].collapsed ? "action-collapse-up" : "action-collapse-down";
     },
     trashActiveGroupItem: function trashActiveGroupItem(group_key) {
       var _iterator = _createForOfIteratorHelper(this.groups[group_key].fields),
@@ -4260,7 +4368,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         for (_iterator.s(); !(_step = _iterator.n()).done;) {
           var field = _step.value;
 
-          if (typeof this.active_fields[field] === 'undefined') {
+          if (typeof this.active_fields[field] === "undefined") {
             continue;
           }
 
@@ -4289,7 +4397,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       this.active_field_drop_area = field_key;
     },
     activeFieldOnDragLeave: function activeFieldOnDragLeave() {
-      this.active_field_drop_area = '';
+      this.active_field_drop_area = "";
     },
     //
     activeGroupOnDragOver: function activeGroupOnDragOver(group_key) {
@@ -4299,14 +4407,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       this.active_group_drop_area = group_key;
     },
     activeGroupOnDragLeave: function activeGroupOnDragLeave() {
-      this.active_group_drop_area = '';
+      this.active_group_drop_area = "";
     },
     //
     activeGroupOnDragStart: function activeGroupOnDragStart(group_key) {
       this.current_dragging_group = group_key;
     },
     activeGroupOnDragEnd: function activeGroupOnDragEnd() {
-      this.current_dragging_group = '';
+      this.current_dragging_group = "";
     },
     activeGroupItemOnDragOver: function activeGroupItemOnDragOver(group_key) {
       this.current_drag_enter_group_item = group_key;
@@ -4315,7 +4423,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       this.current_drag_enter_group_item = group_key;
     },
     activeGroupItemOnDragLeave: function activeGroupItemOnDragLeave() {
-      this.current_drag_enter_group_item = '';
+      this.current_drag_enter_group_item = "";
     },
     activeGroupItemOnDrop: function activeGroupItemOnDrop(dest_group_key) {
       console.log({
@@ -4323,9 +4431,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         current_dragging_group: this.current_dragging_group
       });
 
-      if (this.current_dragging_group === '') {
-        this.current_dragging_group = '';
-        this.current_drag_enter_group_item = '';
+      if (this.current_dragging_group === "") {
+        this.current_dragging_group = "";
+        this.current_drag_enter_group_item = "";
         return;
       }
 
@@ -4333,8 +4441,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       this.groups.splice(this.current_dragging_group, 1);
       var des_ind = this.current_dragging_group === 0 ? dest_group_key : dest_group_key + 1;
       this.groups.splice(des_ind, 0, origin_value);
-      this.current_dragging_group = '';
-      this.current_drag_enter_group_item = '';
+      this.current_dragging_group = "";
+      this.current_drag_enter_group_item = "";
     },
     //
     widgetItemOnDrag: function widgetItemOnDrag(group_key, field_key) {
@@ -4346,7 +4454,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     customFieldOnDrag: function customFieldOnDrag(field_key) {
       this.current_dragging_widget_window = {
         inserting_field_key: field_key,
-        inserting_from: 'custom'
+        inserting_from: "custom"
       }; // console.log( field_key );
     },
     activeFieldOnDrop: function activeFieldOnDrop(args) {
@@ -4358,17 +4466,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       var destination_group_index = args.group_key;
       var destination_field_index = args.field_index;
       /* console.log({
-          inserting_from,
-          inserting_field_key,
-          origin_group_index,
-          origin_field_index,
-          destination_group_index,
-          destination_field_index,
-      }); */
+                inserting_from,
+                inserting_field_key,
+                origin_group_index,
+                origin_field_index,
+                destination_group_index,
+                destination_field_index,
+            }); */
       // Reorder
 
-      if (typeof origin_group_index !== 'undefined' && typeof origin_field_index !== 'undefined' && typeof destination_group_index !== 'undefined' && typeof destination_field_index !== 'undefined' && origin_group_index === destination_group_index) {
-        console.log('Reorder');
+      if (typeof origin_group_index !== "undefined" && typeof origin_field_index !== "undefined" && typeof destination_group_index !== "undefined" && typeof destination_field_index !== "undefined" && origin_group_index === destination_group_index) {
+        console.log("Reorder");
         this.reorderActiveFieldsItems({
           group_index: destination_group_index,
           origin_field_index: origin_field_index,
@@ -4377,8 +4485,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       } // Move
 
 
-      if (typeof origin_group_index !== 'undefined' && typeof origin_field_index !== 'undefined' && typeof destination_group_index !== 'undefined' && origin_group_index !== destination_group_index) {
-        console.log('Move');
+      if (typeof origin_group_index !== "undefined" && typeof origin_field_index !== "undefined" && typeof destination_group_index !== "undefined" && origin_group_index !== destination_group_index) {
+        console.log("Move");
         this.moveActiveFieldsItems({
           origin_group_index: origin_group_index,
           origin_field_index: origin_field_index,
@@ -4388,8 +4496,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       } // Insert
 
 
-      if (typeof inserting_from !== 'undefined' && typeof inserting_field_key !== 'undefined' && typeof destination_group_index !== 'undefined') {
-        console.log('Insert');
+      if (typeof inserting_from !== "undefined" && typeof inserting_field_key !== "undefined" && typeof destination_group_index !== "undefined") {
+        console.log("Insert");
         this.insertActiveFieldsItem({
           inserting_from: inserting_from,
           inserting_field_key: inserting_field_key,
@@ -4398,30 +4506,30 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         });
       }
 
-      this.$emit('update', this.updated_value);
-      this.active_field_drop_area = '';
+      this.$emit("update", this.updated_value);
+      this.active_field_drop_area = "";
       this.current_dragging_widget_window = {};
     },
     trashActiveFieldItem: function trashActiveFieldItem(field_key, field_index, group_key) {
-      if (typeof this.ative_field_collapse_states[field_key] !== 'undefined') {
+      if (typeof this.ative_field_collapse_states[field_key] !== "undefined") {
         delete this.ative_field_collapse_states[field_key];
       }
 
       var the_field_key = this.groups[group_key].fields[field_index];
       this.groups[group_key].fields.splice(field_index, 1);
       delete this.active_fields[the_field_key];
-      this.$emit('update', this.updated_value);
+      this.$emit("update", this.updated_value);
     },
     updateActiveFieldsOptionData: function updateActiveFieldsOptionData(payload) {
       this.active_fields[payload.field_key][payload.option_key] = payload.value;
-      this.$emit('update', this.updated_value); // console.log( payload );
+      this.$emit("update", this.updated_value); // console.log( payload );
     },
     addNewActiveFieldSection: function addNewActiveFieldSection() {
       this.groups.push({
-        label: 'Group',
+        label: "Group",
         fields: []
       });
-      this.$emit('update', this.updated_value);
+      this.$emit("update", this.updated_value);
     },
     reorderActiveFieldsItems: function reorderActiveFieldsItems(payload) {
       var origin_value = this.groups[payload.group_index].fields[payload.origin_field_index];
@@ -4441,14 +4549,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     insertActiveFieldsItem: function insertActiveFieldsItem(payload) {
       var inserting_field_key = payload.inserting_field_key;
 
-      if (typeof this.active_fields_ref[payload.inserting_field_key] === 'undefined') {
+      if (typeof this.active_fields_ref[payload.inserting_field_key] === "undefined") {
         this.active_fields_ref[payload.inserting_field_key] = [];
       }
 
       if (!this.active_fields_ref[payload.inserting_field_key].length) {
         this.active_fields_ref[payload.inserting_field_key].push(payload.inserting_field_key);
       } else {
-        var new_key = payload.inserting_field_key + '_' + (this.active_fields_ref[payload.inserting_field_key].length + 1);
+        var new_key = payload.inserting_field_key + "_" + (this.active_fields_ref[payload.inserting_field_key].length + 1);
         this.active_fields_ref[inserting_field_key].push(new_key);
         inserting_field_key = new_key;
       }
@@ -4457,21 +4565,21 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       var field_data_options = {};
 
       for (var option_key in field_data.options) {
-        field_data_options[option_key] = typeof field_data.options[option_key].value !== 'undefined' ? field_data.options[option_key].value : '';
+        field_data_options[option_key] = typeof field_data.options[option_key].value !== "undefined" ? field_data.options[option_key].value : "";
       }
 
       this.active_fields[inserting_field_key] = field_data_options;
       var widget_group = this.active_fields[inserting_field_key].widget_group;
       var widget_name = this.active_fields[inserting_field_key].widget_name;
 
-      if (typeof payload.destination_field_index !== 'undefined') {
+      if (typeof payload.destination_field_index !== "undefined") {
         this.groups[payload.destination_group_index].fields.splice(payload.destination_field_index + 1, 0, inserting_field_key);
       } else {
         this.groups[payload.destination_group_index].fields.push(inserting_field_key);
       }
     },
     widgetCanShow: function widgetCanShow(widget_group, field_key) {
-      if (typeof widget_group.allow_multiple === 'undefined') {
+      if (typeof widget_group.allow_multiple === "undefined") {
         widget_group.allow_multiple = false;
       }
 
@@ -9172,7 +9280,9 @@ var render = function() {
         _c("h3", { staticClass: "cptm-title-3" }, [_vm._v("Active Fields")]),
         _vm._v(" "),
         _c("p", { staticClass: "cptm-description-text" }, [
-          _vm._v("Click on a field to edit, Drag & Drop to reorder ")
+          _vm._v(
+            "\n        Click on a field to edit, Drag & Drop to reorder\n      "
+          )
         ]),
         _vm._v(" "),
         _c(
@@ -9215,7 +9325,13 @@ var render = function() {
                                 {
                                   staticClass: "cptm-form-builder-group-title"
                                 },
-                                [_vm._v(_vm._s(group.label))]
+                                [
+                                  _vm._v(
+                                    "\n                  " +
+                                      _vm._s(group.label) +
+                                      "\n                "
+                                  )
+                                ]
                               ),
                               _vm._v(" "),
                               _c(
@@ -9279,7 +9395,7 @@ var render = function() {
                                     },
                                     [
                                       _c("span", {
-                                        staticClass: "uil uil-trash",
+                                        staticClass: "uil uil-trash-alt",
                                         attrs: { "aria-hidden": "true" }
                                       })
                                     ]
@@ -9425,11 +9541,13 @@ var render = function() {
                                 [
                                   _c("h4", { staticClass: "cptm-title-3" }, [
                                     _vm._v(
-                                      _vm._s(
-                                        _vm.getActiveFieldsHeaderTitle(
-                                          field_key
-                                        )
-                                      )
+                                      "\n                    " +
+                                        _vm._s(
+                                          _vm.getActiveFieldsHeaderTitle(
+                                            field_key
+                                          )
+                                        ) +
+                                        "\n                  "
                                     )
                                   ]),
                                   _vm._v(" "),
@@ -9637,7 +9755,11 @@ var render = function() {
                                   staticClass:
                                     "cptm-form-builder-group-field-drop-area-label"
                                 },
-                                [_vm._v("Drop Here")]
+                                [
+                                  _vm._v(
+                                    "\n                Drop Here\n              "
+                                  )
+                                ]
                               )
                             ]
                           )
@@ -9689,11 +9811,7 @@ var render = function() {
                           }
                         }
                       },
-                      [
-                        _vm._v(
-                          "\n                        Add new group\n                    "
-                        )
-                      ]
+                      [_vm._v("\n            Add new group\n          ")]
                     )
                   : _vm._e()
               ]

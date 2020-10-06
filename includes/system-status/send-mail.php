@@ -10,6 +10,10 @@ class ATBDP_Send_Mail
     }
 
     public function send_system_info() {
+        $nonce = isset( $_POST['_nonce'] ) ? $_POST['_nonce'] : '';
+        if ( ! wp_verify_nonce( $nonce, '_debugger_email_nonce' ) ) {
+            die ( 'huh!');
+        }
 		$user = wp_get_current_user();
 		$email = isset( $_POST['email'] ) ? $_POST['email'] : '';
 		$subject = isset( $_POST['subject'] ) ? sanitize_text_field( $_POST['subject'] ) : '';
@@ -76,6 +80,7 @@ class ATBDP_Send_Mail
                             </div>
                             <div class="atbds_form-row">
                             <p class='system_info_success'></p>
+                            <input type="hidden" name='_email_nonce' id='atbdp_email_nonce' value='<?php echo wp_create_nonce( '_debugger_email_nonce' ); ?>' />
                                 <button class="atbds_btn atbds_btnPrimary" id="atbdp-send-system-info-submit">Send Mail</button>
                             </div>
                         </form>

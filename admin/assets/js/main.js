@@ -200,12 +200,12 @@
         system_info: system_info,
       },
       beforeSend: function () {
-        $("#atbdp-send-system-info-submit").val("sending");
+        $("#atbdp-send-system-info-submit").html("sending");
       },
       success: function (data) {
         if (data.success) {
-          $("#atbdp-send-system-info-submit").val("Send Email");
-          $(".system_info_success").html("successfully send");
+          $("#atbdp-send-system-info-submit").html("Send Email");
+          $(".system_info_success").html("Successfully send");
         }
       },
       error: function (data) {

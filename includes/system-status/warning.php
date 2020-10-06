@@ -19,94 +19,139 @@ $warnings = [];
 if( empty( $add_listing ) ) {
     $warnings[] = array(
         'title' => __( 'Add listing page not selected', 'directorist'),
-        'desc'  => __( "Please select the page on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages'>here</a>", 'directorist')
+        'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+        'link_text' => __( 'Select Page', 'directorist' )
     );
 }
 if( empty( $user_dashboard ) ) {
     $warnings[] = array(
         'title' => __( 'Dashboard page not selected', 'directorist'),
-        'desc'  => __( "Please select the page on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages'>here</a>", 'directorist')
+        'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+        'link_text' => __( 'Select Page', 'directorist' )
     );
 }
 if( empty( $user_profile ) ) {
     $warnings[] = array(
         'title' => __( 'User Profile page not selected', 'directorist'),
-        'desc'  => __( "Please select the page on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages'>here</a>", 'directorist')
+        'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+        'link_text' => __( 'Select Page', 'directorist' )
     );
 }
 if( empty( $single_category_page ) ) {
     $warnings[] = array(
         'title' => __( 'Single Category page not selected', 'directorist'),
-        'desc'  => __( "Please select the page on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages'>here</a>", 'directorist')
+        'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+        'link_text' => __( 'Select Page', 'directorist' )
     );
 }
 if( empty( $single_location_page ) ) {
     $warnings[] = array(
         'title' => __( 'Single Location page not selected', 'directorist'),
-        'desc'  => __( "Please select the page on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages'>here</a>", 'directorist')
+        'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+        'link_text' => __( 'Select Page', 'directorist' )
     );
 }
 if( empty( $single_tag_page ) ) {
     $warnings[] = array(
         'title' => __( 'Single Location page not selected', 'directorist'),
-        'desc'  => __( "Please select the page on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages'>here</a>", 'directorist')
+        'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+        'link_text' => __( 'Select Page', 'directorist' )
     );
 }
 if( empty( $custom_registration ) ) {
     $warnings[] = array(
         'title' => __( 'Registration page not selected', 'directorist'),
-        'desc'  => __( "Please select the page on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages'>here</a>", 'directorist')
+        'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+        'link_text' => __( 'Select Page', 'directorist' )
     );
 }
 if( empty( $user_login ) ) {
     $warnings[] = array(
         'title' => __( 'Login page not selected', 'directorist'),
-        'desc'  => __( "Please select the page on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages'>here</a>", 'directorist')
+        'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+        'link_text' => __( 'Select Page', 'directorist' )
     );
 }
 if( empty( $search_result_page ) ) {
     $warnings[] = array(
         'title' => __( 'Search Result page not selected', 'directorist'),
-        'desc'  => __( "Please select the page on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages'>here</a>", 'directorist')
+        'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+        'link_text' => __( 'Select Page', 'directorist' )
     );
 }
 if( empty( $checkout_page ) && ! empty( $enable_monetization ) && ! empty( $enable_featured_listing ) ) {
     $warnings[] = array(
         'title' => __( 'Checkout page not selected', 'directorist'),
-        'desc'  => __( "Please select the page on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages'>here</a>", 'directorist')
+        'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+        'link_text' => __( 'Select Page', 'directorist' )
     );
 }
 if( empty( $payment_receipt_page ) && ! empty( $enable_monetization ) && ! empty( $enable_featured_listing ) ) {
     $warnings[] = array(
         'title' => __( 'Payment Receipt page not selected', 'directorist'),
-        'desc'  => __( "Please select the page on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages'>here</a>", 'directorist')
+        'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+        'link_text' => __( 'Select Page', 'directorist' )
     );
 }
 if( empty( $transaction_failure_page ) && ! empty( $enable_monetization ) && ! empty( $enable_featured_listing ) ) {
     $warnings[] = array(
         'title' => __( 'Transaction Failure page not selected', 'directorist'),
-        'desc'  => __( "Please select the page on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages'>here</a>", 'directorist')
+        'desc'  => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'  => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_pages",
+        'link_text' => __( 'Select Page', 'directorist' )
     );
 }
 if( 'google' == $select_listing_map && empty( $map_api_key ) ) {
     $warnings[] = array(
-        'title' => __( 'Map Api Key is missing', 'directorist'),
-        'desc'  => __( "Please give the map api key on <a target='_blank' href='".admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_map_setting'>here</a>", 'directorist')
+        'title'      => __( 'Map Api Key is missing', 'directorist'),
+        'desc'       => __( "Contains a collection of relevant data that will help you debug your website accurately and more efficiently.", 'directorist'),
+        'link'       => admin_url()."/edit.php?post_type=at_biz_dir&page=aazztech_settings#_map_setting",
+        'link_text'  => __( 'Give the Api', 'directorist' )
     );
 }
 $_count = count( $warnings );
 $warning_count = ! empty( $_count ) ? '( ' . $_count . ' )' : '';
 ?>
-<div class='postbox'>
-    <h2><?php _e( "Warning ", 'directorist' ); echo $warning_count;?></h2>
-    <?php if( ! empty( $warnings) ) : 
-        foreach ( $warnings as $warning ) :	
-        ?>
-            <div>
-                <h4 class='title'><?php echo $warning['title']; ?></h4>
-                <p class='warning-content'><?php echo $warning['desc']; ?></p>
+<div class="card atbds_card">
+    <div class="card-head">
+        <h4><?php _e( "Warning ", 'directorist' ); echo $warning_count;?></h4>
+    </div>
+    <div class="card-body">
+        <div class="atbds_content__tab">
+            <div class="atbds_warnings">
+                <div class="atbds_row">
+                <?php if( ! empty( $warnings) ) : 
+                    foreach ( $warnings as $warning ) :	
+                    ?>
+                    <div class="atbds_col-4">
+                        <div class="atbds_warnings__single atbds_text-center">
+                            <div class="atbds_warnings__icon">
+                                <i class="la la-exclamation-triangle"></i>
+                            </div>
+                            <div class="atbds_warnigns__content">
+                                <h4><?php echo $warning['title']; ?></h4>
+                                <p><?php echo $warning['desc']; ?></p>
+                                <a href="<?php echo $warning['link']; ?>" class="atbds_btnLink"><?php echo $warning['link_text']; ?> <i class="la la-angle-right"></i></a>
+                            </div>
+                        </div><!-- ends: .atbds_warnings__single -->
+                    </div>
+                    <?php
+                    endforeach;
+                endif; ?>
+                    
+                </div>
             </div>
-    <?php
-        endforeach;
-    endif; ?>
+        </div>
+    </div>
 </div>

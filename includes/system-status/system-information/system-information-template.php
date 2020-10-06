@@ -13,54 +13,49 @@ $atbdp_option       = get_option('atbdp_option');
 <div class="tab-pane active show" id="atbds_system-info">
     <div class="card atbds_card">
         <div class="card-head">
-            <h4>System Information</h4>
+            <h4><?php _e( 'System Information', 'directorist' );?></h4>
         </div>
         <div class="card-body">
             <div class="atbds_content__tab">
                 <div class="atbds_c-t-menu">
                     <ul class="nav" id="atbds_ststus-tab" role="tablist">
                         <li class="nav-item">
-                            <a href="#atbds_system-wp" class="nav-link active" id="atbds_system-info-tab" data-tabArea="atbds_system-info-tab">Wordpress Environment</a>
+                            <a href="#atbds_system-wp" class="nav-link active" id="atbds_system-info-tab" data-tabArea="atbds_system-info-tab"><?php _e( 'Wordpress Environment', 'directorist' ); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#atbds_php" class="nav-link" id="atbds_php-tab" data-tabArea="atbds_system-info-tab">PHP</a>
+                            <a href="#atbds_php" class="nav-link" id="atbds_php-tab" data-tabArea="atbds_system-info-tab"><?php _e( 'PHP', 'directorist' ); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#atbds_server" class="nav-link" id="atbds_server-tab" data-tabArea="atbds_system-info-tab">Server Environment</a>
+                            <a href="#atbds_server" class="nav-link" id="atbds_server-tab" data-tabArea="atbds_system-info-tab"><?php _e( 'Server Environment', 'directorist' ); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#atbds_platform" class="nav-link" id="atbds_platform-tab" data-tabArea="atbds_system-info-tab">User Platform</a>
+                            <a href="#atbds_platform" class="nav-link" id="atbds_platform-tab" data-tabArea="atbds_system-info-tab"><?php _e( 'User Platform', 'directorist' ); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#atbds_setting" class="nav-link" id="atbds_setting-tab" data-tabArea="atbds_system-info-tab">Settings</a>
+                            <a href="#atbds_setting" class="nav-link" id="atbds_setting-tab" data-tabArea="atbds_system-info-tab"><?php _e( 'Settings', 'directorist' ); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#atbds_database" class="nav-link" id="atbds_database-tab" data-tabArea="atbds_system-info-tab">Database</a>
+                            <a href="#atbds_database" class="nav-link" id="atbds_database-tab" data-tabArea="atbds_system-info-tab"><?php _e( 'Database', 'directorist' ); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#atbds_p-count" class="nav-link" id="atbds_p-count-tab" data-tabArea="atbds_system-info-tab">Post Type Counts</a>
+                            <a href="#atbds_p-count" class="nav-link" id="atbds_p-count-tab" data-tabArea="atbds_system-info-tab"><?php _e( 'Post Type Counts', 'directorist' ); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#atbds_sequrity" class="nav-link" id="atbds_sequrity-tab" data-tabArea="atbds_system-info-tab">Sequrity</a>
+                            <a href="#atbds_sequrity" class="nav-link" id="atbds_sequrity-tab" data-tabArea="atbds_system-info-tab"><?php _e( 'Security', 'directorist' ); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#atbds_plugins" class="nav-link" id="atbds_plugins-tab" data-tabArea="atbds_system-info-tab">Active Plugins <span class="atbds__pl-count">(<?php echo count( $active_plugins ) ?>)</span></a>
+                            <a href="#atbds_plugins" class="nav-link" id="atbds_plugins-tab" data-tabArea="atbds_system-info-tab"><?php _e( 'Active Plugins', 'directorist' ); ?> <span class="atbds__pl-count">(<?php echo count( $active_plugins ) ?>)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#atbds_theme" class="nav-link" id="atbds_theme-tab" data-tabArea="atbds_system-info-tab">Theme</a>
+                            <a href="#atbds_theme" class="nav-link" id="atbds_theme-tab" data-tabArea="atbds_system-info-tab"><?php _e( 'Theme', 'directorist' ); ?></a>
                         </li>
                         <li class="nav-item">
-                            <a href="#atbds_template" class="nav-link" id="atbds_template-tab" data-tabArea="atbds_system-info-tab">Templates</a>
+                            <a href="#atbds_template" class="nav-link" id="atbds_template-tab" data-tabArea="atbds_system-info-tab"><?php _e( 'Templates', 'directorist' ); ?></a>
                         </li>
                     </ul>
                 </div><!-- ends: .atbds_c-t-menu -->
                 <div class="atbds_c-t__details">
                     <div class="tab-content" data-tabArea="atbds_system-info-tab">
-
-
-
-
-
                         <div class="tab-pane active show" id="atbds_system-wp">
                             <div class="atbds_system-table-wrap">
                                 <table class="atbds_system-table table-responsive">
@@ -175,12 +170,6 @@ $atbdp_option       = get_option('atbdp_option');
                                 </table>
                             </div>
                         </div><!-- ends: .tab-pane -->
-
-
-
-
-
-
                         <div class="tab-pane" id="atbds_php">
                             <div class="atbds_system-table-wrap">
                                 <table class="atbds_system-table table-responsive">
@@ -195,9 +184,6 @@ $atbdp_option       = get_option('atbdp_option');
                                 </table>
                             </div>
                         </div>
-
-
-
                         <div class="tab-pane" id="atbds_server">
                             <div class="atbds_system-table-wrap">
                                 <table class="atbds_system-table table-responsive">
@@ -386,8 +372,6 @@ $atbdp_option       = get_option('atbdp_option');
                                 </table>
                             </div>
                         </div><!-- ends: .tab-pane -->
-
-
                         <div class="tab-pane" id="atbds_platform">
                             <div class="atbds_system-table-wrap">
                                 <table class="atbds_system-table table-responsive">

@@ -32,7 +32,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     ],
                 ],
             ], 200 ); */
-           
+
             if ( empty( $_POST['name'] ) ) {
                 wp_send_json( [
                     'status' => false,
@@ -775,7 +775,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'label'  => 'Required',
                                     'value' => true,
                                 ],
-                                
+
                             ],
                         ],
 
@@ -837,7 +837,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'add-new-button-label' => 'Add new plan',
                                     'praimary_key' => 'plan_id',
                                     'show_if' => [[
-                                        'conditions' => [ 
+                                        'conditions' => [
                                             [ 'key' => 'tag_with_plan', 'value' => true ]
                                         ]
                                     ]],
@@ -884,7 +884,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'tagline' => [
                             'label' => 'Tagline',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-text-fields',
                             'show' => true,
                             'options' => [
                                 'type' => [
@@ -952,7 +952,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'pricing' => [
                             'label' => 'Pricing',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-bill',
                             'options' => [
                                 'pricing_type' => [
                                     'type'  => 'select',
@@ -1047,7 +1047,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'view_count' => [
                             'label' => 'View Count',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-eye',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1114,7 +1114,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'excerpt' => [
                             'label' => 'Excerpt',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-subject',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1181,7 +1181,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'location' => [
                             'label' => 'Location',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-map-marker',
                             'options' => [
                                 'type' => [
                                     'type'  => 'radio',
@@ -1253,7 +1253,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'tag' => [
                             'label' => 'Tag',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-tag-alt',
                             'options' => [
                                 'type' => [
                                     'type'  => 'radio',
@@ -1330,7 +1330,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'category' => [
                             'label' => 'Category',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-folder-open',
                             'options' => [
                                 'type' => [
                                     'type'  => 'radio',
@@ -1402,7 +1402,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'address' => [
                             'label' => 'Address',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-postcard',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1469,7 +1469,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'map' => [
                             'label' => 'Map',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-map',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1531,7 +1531,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'zip' => [
                             'label' => 'Zip/Post Code',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-map-pin',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1598,7 +1598,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'phone' => [
                             'label' => 'Phone',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-phone',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1665,7 +1665,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'phone2' => [
                             'label' => 'Phone 2',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-phone',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1732,7 +1732,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'fax' => [
                             'label' => 'Fax',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-print',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1799,7 +1799,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'email' => [
                             'label' => 'Email',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-envelope',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1866,7 +1866,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'website' => [
                             'label' => 'Website',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-globe',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1933,7 +1933,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'social_info' => [
                             'label' => 'Social Info',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-user-arrows',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -1995,7 +1995,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'image_upload' => [
                             'label' => 'Images',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-image',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2072,7 +2072,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'video' => [
                             'label' => 'Video',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-video',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2139,7 +2139,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'terms_conditions' => [
                             'label' => 'Terms & Conditions',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-file-exclamation-alt',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2169,7 +2169,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'privacy_policy' => [
                             'label' => 'Privacy & Policy',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-file-exclamation-alt',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2199,7 +2199,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'submit_button' => [
                             'label' => 'Submit Button',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-link-h',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2232,7 +2232,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'widgets' => [
                         'text' => [
                             'label' => 'Text',
-                            'icon' => 'fa fa-text-width',
+                            'icon' => 'uil uil-text',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2321,7 +2321,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'textarea' => [
                             'label' => 'Textarea',
-                            'icon' => 'fa fa-text-width',
+                            'icon' => 'uil uil-text-fields',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2415,7 +2415,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'number' => [
                             'label' => 'Number',
-                            'icon' => 'fa fa-text-width',
+                            'icon' => 'uil uil-0-plus',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2504,7 +2504,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'url' => [
                             'label' => 'URL',
-                            'icon' => 'fa fa-text-width',
+                            'icon' => 'uil uil-link-add',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2598,7 +2598,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'date' => [
                             'label' => 'Date',
-                            'icon' => 'fa fa-text-width',
+                            'icon' => 'uil uil-calender',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2687,7 +2687,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'time' => [
                             'label' => 'Time',
-                            'icon' => 'fa fa-text-width',
+                            'icon' => 'uil uil-clock',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2776,7 +2776,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'color_picker' => [
                             'label' => 'Color',
-                            'icon' => 'fa fa-text-width',
+                            'icon' => 'uil uil-palette',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2860,7 +2860,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'select' => [
                             'label' => 'Select',
-                            'icon' => 'fa fa-text-width',
+                            'icon' => 'uil uil-file-check',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -2952,7 +2952,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'checkbox' => [
                             'label' => 'Checkbox',
-                            'icon' => 'fa fa-text-width',
+                            'icon' => 'uil uil-check-square',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -3044,7 +3044,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'radio' => [
                             'label' => 'Radio',
-                            'icon' => 'fa fa-text-width',
+                            'icon' => 'uil uil-circle',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -3137,7 +3137,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'file' => [
                             'label' => 'File Upload',
-                            'icon' => 'fa fa-text-width',
+                            'icon' => 'uil uil-file-upload-alt',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -3443,7 +3443,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                         'tagline' => [
                             'label' => 'Tagline',
-                            'icon' => 'fa fa-text-height',
+                            'icon' => 'uil uil-text-fields',
                             'show' => true,
                             'options' => [
                                 'required' => [
@@ -4009,7 +4009,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'label' => 'Chose the plans',
                             'value' => [],
                             'show_if' => [[
-                                'conditions' => [ 
+                                'conditions' => [
                                     [ 'key' => 'tag_with_plan', 'value' => true ]
                                 ]
                             ]],
@@ -4209,7 +4209,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                 'submission_form' => [
                     'label' => 'Submission Form',
-                    'icon' => '<span class="fa fa-bars"></span>',
+                    'icon' => '<span class="uil uil-file-edit-alt"></span>',
                     'sections' => [
                         'form_fields' => [
                             'title' => __( 'Select or create fields for this listing type', 'directorist' ),
@@ -4224,11 +4224,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                 'single_page_layout' => [
                     'label' => 'Single Page Layout',
-                    'icon' => '<span class="fa fa-bars"></span>',
+                    'icon' => '<span class="uil uil-credit-card"></span>',
                 ],
                 'listings_card_layout' => [
                     'label' => 'Listings Card Layout',
-                    'icon' => '<span class="fa fa-picture-o"></span>',
+                    'icon' => '<span class="uil uil-list-ul"></span>',
                     'submenu' => [
                         'grid_view' => [
                             'label' => 'Listings Card Grid Layout',
@@ -4272,7 +4272,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ],
                 'search_forms' => [
                     'label' => 'Search Forms',
-                    'icon' => '<span class="fa fa-search"></span>',
+                    'icon' => '<span class="uil uil-search"></span>',
                     'sections' => [
                         'form_fields' => [
                             'title' => __( 'Customize the search form for this listing type', 'directorist' ),

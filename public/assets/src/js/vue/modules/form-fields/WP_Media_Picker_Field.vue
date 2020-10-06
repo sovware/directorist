@@ -39,7 +39,6 @@ export default {
             default: '',
         },
         value: {
-            type: [ Object ],
             required: false,
             default: '',
         },

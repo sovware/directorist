@@ -2,7 +2,6 @@
     <div class="cptm-form-group">
         <label for="">{{label}}</label>
         <div class="cptm-checkbox-area">
-            <pre>{{ theOptions }}</pre>
             <div class="cptm-checkbox-item" v-for="( option, option_index ) in getTheOptions()" :key="option_index">
                 <input type="checkbox" class="cptm-checkbox" 
                     :name="( option.name && option.name.length ) ? option.name : ''"

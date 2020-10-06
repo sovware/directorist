@@ -72,6 +72,102 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_atbdp_guest_reception', array($this, 'guest_reception'));
             add_action('wp_ajax_nopriv_atbdp_guest_reception', array($this, 'guest_reception'));
 
+            // custom field
+            add_action('wp_ajax_atbdp_custom_fields_listings_front',                 array($this, 'ajax_callback_custom_fields'), 10, 2);
+            add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front',          array($this, 'ajax_callback_custom_fields'), 10, 2);
+            add_action('wp_ajax_atbdp_custom_fields_listings_front_selected',        array($this, 'ajax_callback_custom_fields'), 10, 2);
+            add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
+
+        }
+
+        public function ajax_callback_custom_fields($post_id = 0, $term_id = array()) {
+            $ajax = false;
+            if (isset($_POST['term_id'])) {
+                $ajax = true;
+                $post_ID = !empty($_POST['post_id']) ? (int)$_POST['post_id'] : '';
+                $term_id = $_POST['term_id'];
+            }
+            // Get custom fields
+            $categories = !empty($term_id) ? $term_id : array();
+            $args = array(
+                'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
+                'posts_per_page' => -1,
+                'status' => 'published'
+            );
+            $meta_queries = array();
+    
+            if ( ! empty( $categories ) && is_array( $categories )){
+                if ( count( $categories ) > 1) {
+                    $sub_meta_queries = array();
+                    foreach ($categories as $value) {
+                        $sub_meta_queries[] = array(
+                            'key' => 'category_pass',
+                            'value' => $value,
+                            'compare' => '='
+                        );
+                    }
+    
+                    $meta_queries[] = array_merge(array('relation' => 'OR'), $sub_meta_queries);
+                } else {
+                    $meta_queries[] = array(
+                        'key' => 'category_pass',
+                        'value' => $categories[0],
+                        'compare' => '='
+                    );
+                }
+            }
+            $meta_queries[] = array(
+                array(
+                    'relation' => 'OR',
+                    array(
+                        'key' => 'admin_use',
+                        'compare' => 'NOT EXISTS'
+                    ),
+                    array(
+                        'key' => 'admin_use',
+                        'value' => 1,
+                        'compare' => '!='
+                    ),
+                )
+            );
+            $meta_queries[] = array(
+                array(
+                    'key' => 'associate',
+                    'value' => 'categories',
+                    'compare' => 'LIKE',
+                ),
+            );
+    
+    
+            $count_meta_queries = count($meta_queries);
+            if ($count_meta_queries) {
+                $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
+            }
+    
+            $atbdp_query = new WP_Query($args);
+    
+            if ($atbdp_query->have_posts()) {
+                  // Start the Loop
+                global $post;
+                  // Process output
+                ob_start();
+                $include = apply_filters('include_style_settings', true);
+                include ATBDP_TEMPLATES_DIR . 'admin-templates/listing-form/add-listing-custom-field.php';
+                wp_reset_postdata(); // Restore global post data stomped by the_post()
+                $output = ob_get_clean();
+    
+                print $output;
+    
+                if ($ajax) {
+                    wp_die();
+                }
+            }
+            else {
+                echo '<div class="custom_field_empty_area"></div>';
+                if ($ajax) {
+                    wp_die();
+                }
+            }
         }
 
         // guest_reception

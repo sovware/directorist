@@ -21,6 +21,10 @@ export default {
             }
             
             validation_log = this.syncValidationWithProps( validation_log );
+
+            if ( this.hasInvalidValue() ) {
+                validation_log[ 'invalid_value' ].has_error = true;
+            }
             
             if ( typeof this.syncValidationWithLocalState === 'function' ) {
                 validation_log = this.syncValidationWithLocalState( validation_log );
@@ -42,10 +46,10 @@ export default {
                 }
             }
 
-            // console.log( this.validation, the_status );
-
             return the_status;
         },
+
+        
 
         validationMessages() {
             if ( ! this.validationStatus.messages || typeof this.validationStatus.messages !== 'object' ) {
@@ -97,6 +101,35 @@ export default {
             }
 
             return validation_log;
+        },
+
+        hasInvalidValue() {
+            let match_found = false;
+
+            if ( this.default_option && typeof this.default_option.value !== 'undefined' && 
+                this.local_value === this.default_option.value ) {
+                    return false;
+            }
+            
+            if ( ! this.options || typeof this.options !== 'object' ) {
+                return false;
+            }
+
+            for ( let option of this.options ) {
+                if ( typeof option.options !== 'undefined' ) {
+                    for ( let sub_option of option.options ) {
+                        if ( sub_option.value === this.local_value ) {
+                            match_found = true;
+                        }
+                    }
+                } else {
+                    if ( option.value === this.local_value ) {
+                        match_found = true;
+                    }
+                }
+            }
+
+            return ! match_found;
         },
     },
 }

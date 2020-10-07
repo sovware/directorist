@@ -104,9 +104,8 @@
                   <div
                     class="cptm-form-builder-group-field-item-header"
                     draggable="true"
-                    @drag="
-                      activeFieldOnDragStart(field_key, field_index, group_key)
-                    "
+                    @drag="activeFieldOnDragStart(field_key, field_index, group_key)"
+                    @dragend="activeFieldOnDragEnd()"
                   >
                     <h4 class="cptm-title-3">
                       {{ getActiveFieldsHeaderTitle(field_key) }}
@@ -159,9 +158,8 @@
                       </template>
                     </div>
                   </slide-up-down>
-
-                  <div
-                    class="cptm-form-builder-group-field-item-drop-area"
+                  
+                  <div class="cptm-form-builder-group-field-item-drop-area"
                     :class="
                       field_key === active_field_drop_area ? 'drag-enter' : ''
                     "
@@ -180,13 +178,8 @@
               </div>
             </slide-up-down>
 
-            <slide-up-down
-              :active="'' === current_dragging_group ? true : false"
-              :duration="500"
-            >
-              <div
-                class="cptm-form-builder-group-field-drop-area"
-                :class="
+            <slide-up-down :active="'' === current_dragging_group ? true : false" :duration="500">
+              <div class="cptm-form-builder-group-field-drop-area" :class="
                   group_key === active_group_drop_area ? 'drag-enter' : ''
                 "
                 v-if="!group.fields.length"
@@ -244,6 +237,7 @@
               v-if="widgetCanShow(widget_group, field_key)"
               :key="field_key"
               @drag="widgetItemOnDrag(group_key, field_key)"
+              @dragend="widgetItemOnDragEnd()"
             >
               <span class="cptm-form-builder-field-list-icon">
                 <span
@@ -264,7 +258,6 @@
 
 <script>
 import { mapState } from "vuex";
-
 export default {
   name: "form-builder",
   props: {
@@ -294,41 +287,32 @@ export default {
       required: false,
     },
   },
-
   created() {
     if (this.value && typeof this.value === "object") {
       if (this.value.groups) {
         this.groups = this.value.groups;
       }
-
       if (typeof this.value.fields === "object") {
         this.active_fields = this.value.fields;
       }
     }
-
     this.parseLocalWidgets();
     this.$emit("update", this.updated_value);
   },
-
   computed: {
     ...mapState({
       fields: "fields",
     }),
-
     updated_value() {
       return { fields: this.active_fields, groups: this.groups };
     },
-
     widget_groups_with_states() {
       let widget_groups = this.widget_groups;
-
       for (let field_key in this.active_fields) {
         const widget_group = this.active_fields[field_key].widget_group;
         const widget_name = this.active_fields[field_key].widget_name;
-
         let field_options =
           widget_groups[widget_group].widgets[widget_name].options;
-
         for (let field in field_options) {
           field_options[field]["show"] = this.checkShowIfCondition(
             field_options[field],
@@ -336,22 +320,17 @@ export default {
           );
         }
       }
-
       return widget_groups;
     },
-
     widget_groups() {
       if (this.has_dependency && !this.dependency_widgets) {
         return {};
       }
-
       if (this.dependency_widgets) {
         return this.dependency_widgets;
       }
-
       return this.local_widgets;
     },
-
     has_dependency() {
       if (typeof this.dependency !== "string") {
         return false;
@@ -359,25 +338,20 @@ export default {
       if (!this.dependency.length) {
         return false;
       }
-
       return true;
     },
-
     dependency_data() {
       if (!this.has_dependency) {
         return null;
       }
-
       if (typeof this.fields[this.dependency] === "undefined") {
         return null;
       }
       if (typeof this.fields[this.dependency].value === "undefined") {
         return null;
       }
-
       return this.fields[this.dependency].value;
     },
-
     dependency_widgets() {
       if (!this.dependency_data) {
         return null;
@@ -385,21 +359,15 @@ export default {
       if (!this.local_widgets) {
         return null;
       }
-
       let dependency_fields = this.dependency_data.fields;
-
       if (this.dependency_fields) {
         dependency_fields = this.dependency_fields;
       }
-
       let dependency_widgets = JSON.parse(JSON.stringify(this.local_widgets));
-
       for (let widget_group in dependency_widgets) {
         let new_widget_list = {};
-
         for (let field in dependency_fields) {
           let widget_name = dependency_fields[field].widget_name;
-
           if (
             typeof dependency_widgets[widget_group].widgets[widget_name] !==
             "undefined"
@@ -415,10 +383,8 @@ export default {
             ].options.label
               ? true
               : false;
-
             // console.log( dependency_widgets[ widget_group ].widgets[ widget_name ].options );
             // console.log( { dep_field_has_label, dep_widget_has_label } );
-
             if (dep_field_has_label && !dep_widget_has_label) {
               // console.log( 'dep_field_has_label && ! dep_widget_has_label' );
               dependency_widgets[widget_group].widgets[
@@ -428,33 +394,27 @@ export default {
                 value: dependency_fields[field].label,
               };
             }
-
             if (dep_field_has_label && dep_widget_has_label) {
               // console.log( 'dep_field_has_label && dep_widget_has_label' );
               dependency_widgets[widget_group].widgets[
                 widget_name
               ].options.label.value = dependency_fields[field].label;
             }
-
             dependency_widgets[widget_group].widgets[
               widget_name
             ].options.root_data = {
               type: "array",
               value: dependency_fields[field],
             };
-
             new_widget_list[widget_name] =
               dependency_widgets[widget_group].widgets[widget_name];
           }
         }
-
         dependency_widgets[widget_group].widgets = new_widget_list;
       }
-
       return dependency_widgets;
     },
   },
-
   data() {
     return {
       local_widgets: {},
@@ -464,56 +424,42 @@ export default {
           fields: [],
         },
       ],
-
       active_fields: {},
       state: {},
-
       active_fields_ref: {},
-
       current_dragging_widget_window: {},
       active_field_drop_area: "",
-
       active_group_drop_area: "",
       current_drag_enter_group_item: "",
       current_dragging_group: "",
-
       ative_field_collapse_states: {},
       ative_group_collapse_states: {},
     };
   },
-
   methods: {
     activeIsFieldVisible(option_key, field_key) {
       let options = this.getActiveFieldsSettings(field_key, "options");
-
       const widget_group = this.active_fields[field_key].widget_group;
       const widget_name = this.active_fields[field_key].widget_name;
-
       if ("pricing" === field_key) {
         let widget_options = this.widget_groups_with_states[widget_group]
           .widgets[widget_name].options[option_key];
         // console.log( { widget_group, widget_name, widget_options } );
         // console.log( {options, option_key, field_key } );
       }
-
       if (typeof options[option_key] === "undefined") {
         return true;
       }
-
       if (typeof options[option_key].show === "undefined") {
         return true;
       }
-
       // console.log( {option_key} );
       return options[option_key].show;
     },
-
     theFieldIsActive(option_key, field_key) {
       // console.log( option_key, field_key );
-
       return true;
     },
-
     checkShowIfCondition(options, field_key) {
       if (typeof options === "undefined") {
         return true;
@@ -521,94 +467,74 @@ export default {
       if (typeof options.show_if === "undefined") {
         return true;
       }
-
       let faild_condition_count = 0;
       let self = this;
-
       options.show_if.forEach((element) => {
         let terget_field = null;
         let conditions = null;
         let where_field_is = "self";
         let where_widget_is = "self";
         let compare = "or";
-
         if (
           typeof element.where !== "undefined" &&
           typeof element.where.field !== "undefined"
         ) {
           where_field_is = element.where.field;
         }
-
         if (
           typeof element.where !== "undefined" &&
           typeof element.where.widget !== "undefined"
         ) {
           where_widget_is = element.where.widget;
         }
-
         if (typeof element.compare !== "undefined") {
           compare = element.compare;
         }
-
         if (where_field_is !== "self") {
           terget_field = self.fields[where_field_is];
         }
-
         if (where_field_is === "self") {
           terget_field = self.active_fields;
         }
-
         if (terget_field && where_widget_is === "self") {
           terget_field = terget_field[field_key];
         }
-
         if (terget_field && where_widget_is !== "self") {
           terget_field = terget_field[where_widget_is];
         }
-
         if (typeof terget_field !== "undefined") {
           conditions = element.conditions;
         }
-
         if (conditions && typeof conditions === "object") {
           let missmatch_count = 0;
           let match_count = 0;
-
           conditions.forEach((item) => {
             let terget_value = terget_field[item.key];
             let compare_value = item.value;
-
             if (terget_value !== compare_value) {
               missmatch_count++;
             } else {
               match_count++;
             }
           });
-
           if ("and" === compare && missmatch_count) {
             faild_condition_count++;
           } else if ("or" === compare && !match_count) {
             faild_condition_count++;
           }
         }
-
         // console.log({ field_key, faild_condition_count } );
       });
-
       if (faild_condition_count) {
         return false;
       }
-
       return true;
     },
-
     parseLocalWidgets() {
       if (!this.widgets && typeof this.widgets !== "object") {
         this.local_widgets = null;
       }
-
       let widgets = JSON.parse(JSON.stringify(this.widgets));
-
       for (let widget_group in widgets) {
         for (let widget in widgets[widget_group].widgets) {
           widgets[widget_group].widgets[widget].options.widget_group = {
@@ -621,40 +547,31 @@ export default {
           };
         }
       }
-
       this.local_widgets = widgets;
     },
-
     getActiveFieldsOption(field_key, data_key) {
       return this.active_fields[field_key][data_key];
     },
-
     getActiveFieldsSettings(field_key, data_key) {
       const widget_group = this.active_fields[field_key].widget_group;
       const widget_name = this.active_fields[field_key].widget_name;
-
       // console.log( this.local_widgets, this.active_fields, widget_group );
       // console.log( { widget_group, widget_name } );
-
       if (typeof widget_group === "undefined") {
         return false;
       }
-
       if (typeof widget_name === "undefined") {
         return false;
       }
-
       if (typeof this.widget_groups_with_states[widget_group] === "undefined") {
         return false;
       }
-
       if (
         typeof this.widget_groups_with_states[widget_group].widgets ===
         "undefined"
       ) {
         return false;
       }
-
       if (
         typeof this.widget_groups_with_states[widget_group].widgets[
           widget_name
@@ -662,7 +579,6 @@ export default {
       ) {
         return false;
       }
-
       if (
         typeof this.widget_groups_with_states[widget_group].widgets[
           widget_name
@@ -670,34 +586,26 @@ export default {
       ) {
         return false;
       }
-
       return this.widget_groups_with_states[widget_group].widgets[widget_name][
         data_key
       ];
     },
-
     getSanitizedFieldsOptions(field_options) {
       if (typeof field_options !== "object") {
         return field_options;
       }
-
       let options = JSON.parse(JSON.stringify(field_options));
       delete options.value;
-
       return options;
     },
-
     getActiveFieldsHeaderTitle(field_key) {
       const settings_label = this.getActiveFieldsSettings(field_key, "label");
       const option_label = this.active_fields[field_key]["label"];
-
       // console.log( {settings_label, option_label} );
-
       return option_label && option_label.length
         ? option_label
         : settings_label;
     },
-
     toggleActiveFieldCollapseState(field_key) {
       if (typeof this.ative_field_collapse_states[field_key] === "undefined") {
         this.$set(this.ative_field_collapse_states, field_key, {});
@@ -707,31 +615,25 @@ export default {
           false
         );
       }
-
       this.ative_field_collapse_states[field_key].collapsed = !this
         .ative_field_collapse_states[field_key].collapsed;
     },
-
     getActiveFieldCollapseClass(field_key) {
       if (typeof this.ative_field_collapse_states[field_key] === "undefined") {
         return "action-collapse-down";
       }
-
       return this.ative_field_collapse_states[field_key].collapsed
         ? "action-collapse-up"
         : "action-collapse-down";
     },
-
     getActiveFieldCollapseState(field_key) {
       if (typeof this.ative_field_collapse_states[field_key] === "undefined") {
         return false;
       }
-
       return this.ative_field_collapse_states[field_key].collapsed
         ? true
         : false;
     },
-
     toggleActiveGroupCollapseState(group_key) {
       if (typeof this.ative_group_collapse_states[group_key] === "undefined") {
         this.$set(this.ative_group_collapse_states, group_key, {});
@@ -741,57 +643,45 @@ export default {
           false
         );
       }
-
       this.ative_group_collapse_states[group_key].collapsed = !this
         .ative_group_collapse_states[group_key].collapsed;
     },
-
     getActiveGroupCollapseState(group_key) {
       if (typeof this.ative_group_collapse_states[group_key] === "undefined") {
         return false;
       }
-
       return this.ative_group_collapse_states[group_key].collapsed
         ? true
         : false;
     },
-
     getActiveGroupOptionValue(option_key, group_key) {
       if (typeof this.groups[group_key][option_key] === "undefined") {
         return "";
       }
-
       return this.groups[group_key][option_key];
     },
-
     updateActiveGroupOptionData(option_key, group_key, $event) {
       this.groups[group_key][option_key] = $event;
       this.$emit("update", this.updated_value);
     },
-
     getActiveGroupCollapseClass(group_key) {
       if (typeof this.ative_group_collapse_states[group_key] === "undefined") {
         return "action-collapse-down";
       }
-
       return this.ative_group_collapse_states[group_key].collapsed
         ? "action-collapse-up"
         : "action-collapse-down";
     },
-
     trashActiveGroupItem(group_key) {
       for (let field of this.groups[group_key].fields) {
         if (typeof this.active_fields[field] === "undefined") {
           continue;
         }
-
         console.log(field, group_key, this.active_fields[field]);
         delete this.active_fields[field];
       }
-
       this.groups.splice(group_key, 1);
     },
-
     activeFieldOnDragStart(field_key, field_index, group_key) {
       this.current_dragging_widget_window = {
         field_key,
@@ -799,77 +689,61 @@ export default {
         group_key,
       };
     },
-
+    activeFieldOnDragEnd() {
+      this.current_dragging_widget_window = '';
+    },
+    activeFieldOnDragEnd(field_key) {
+      this.active_field_drop_area = '';
+    },
     activeFieldOnDragOver(field_key) {
       this.active_field_drop_area = field_key;
     },
-
     activeFieldOnDragEnter(field_key) {
       this.active_field_drop_area = field_key;
     },
-
     activeFieldOnDragLeave() {
       this.active_field_drop_area = "";
     },
-
     //
     activeGroupOnDragOver(group_key) {
       this.active_field_drop_area = group_key;
     },
-
     activeGroupOnDragEnter(group_key) {
       this.active_group_drop_area = group_key;
     },
-
     activeGroupOnDragLeave() {
       this.active_group_drop_area = "";
     },
-
     //
     activeGroupOnDragStart(group_key) {
       this.current_dragging_group = group_key;
     },
-
     activeGroupOnDragEnd() {
       this.current_dragging_group = "";
     },
-
     activeGroupItemOnDragOver(group_key) {
       this.current_drag_enter_group_item = group_key;
     },
-
     activeGroupItemOnDragEnter(group_key) {
       this.current_drag_enter_group_item = group_key;
     },
-
     activeGroupItemOnDragLeave() {
       this.current_drag_enter_group_item = "";
     },
-
     activeGroupItemOnDrop(dest_group_key) {
-      console.log({
-        dest_group_key,
-        current_dragging_group: this.current_dragging_group,
-      });
-
       if (this.current_dragging_group === "") {
         this.current_dragging_group = "";
         this.current_drag_enter_group_item = "";
-
         return;
       }
-
       const origin_value = this.groups[this.current_dragging_group];
       this.groups.splice(this.current_dragging_group, 1);
-
       const des_ind =
         this.current_dragging_group === 0 ? dest_group_key : dest_group_key + 1;
       this.groups.splice(des_ind, 0, origin_value);
-
       this.current_dragging_group = "";
       this.current_drag_enter_group_item = "";
     },
-
     //
     widgetItemOnDrag(group_key, field_key) {
       this.current_dragging_widget_window = {
@@ -878,7 +752,9 @@ export default {
       };
       // console.log( inserting_field_key:  );
     },
-
+    widgetItemOnDragEnd(){
+      this.current_dragging_widget_window = '';
+    },
     customFieldOnDrag(field_key) {
       this.current_dragging_widget_window = {
         inserting_field_key: field_key,
@@ -886,27 +762,30 @@ export default {
       };
       // console.log( field_key );
     },
-
     activeFieldOnDrop(args) {
       // console.log( 'activeFieldOnDrop', {field_key: args.field_key, field_index: args.field_index, group_key: args.group_key} );
+      
 
-      const inserting_from = this.current_dragging_widget_window.inserting_from;
-      const inserting_field_key = this.current_dragging_widget_window
-        .inserting_field_key;
-      const origin_group_index = this.current_dragging_widget_window.group_key;
-      const origin_field_index = this.current_dragging_widget_window
-        .field_index;
+      const inserting_from          = this.current_dragging_widget_window.inserting_from;
+      const inserting_field_key     = this.current_dragging_widget_window.inserting_field_key;
+      const origin_group_index      = this.current_dragging_widget_window.group_key;
+      const origin_field_index      = this.current_dragging_widget_window.field_index;
       const destination_group_index = args.group_key;
       const destination_field_index = args.field_index;
 
+      this.active_group_drop_area = '';
+      this.active_field_drop_area = '';
+      this.current_dragging_widget_window = '';
+      
+
       /* console.log({
-                inserting_from,
-                inserting_field_key,
-                origin_group_index,
-                origin_field_index,
-                destination_group_index,
-                destination_field_index,
-            }); */
+          inserting_from,
+          inserting_field_key,
+          origin_group_index,
+          origin_field_index,
+          destination_group_index,
+          destination_field_index,
+      }); */
 
       // Reorder
       if (
@@ -956,42 +835,30 @@ export default {
       }
 
       this.$emit("update", this.updated_value);
-
-      this.active_field_drop_area = "";
-      this.current_dragging_widget_window = {};
+      
     },
-
     trashActiveFieldItem(field_key, field_index, group_key) {
       if (typeof this.ative_field_collapse_states[field_key] !== "undefined") {
         delete this.ative_field_collapse_states[field_key];
       }
-
       const the_field_key = this.groups[group_key].fields[field_index];
-
       this.groups[group_key].fields.splice(field_index, 1);
       delete this.active_fields[the_field_key];
-
       this.$emit("update", this.updated_value);
     },
-
     updateActiveFieldsOptionData(payload) {
       this.active_fields[payload.field_key][payload.option_key] = payload.value;
       this.$emit("update", this.updated_value);
-
       // console.log( payload );
     },
-
     addNewActiveFieldSection() {
       this.groups.push({ label: "Group", fields: [] });
-
       this.$emit("update", this.updated_value);
     },
-
     reorderActiveFieldsItems(payload) {
       const origin_value = this.groups[payload.group_index].fields[
         payload.origin_field_index
       ];
-
       this.groups[payload.group_index].fields.splice(
         payload.origin_field_index,
         1
@@ -1002,18 +869,15 @@ export default {
           : payload.destination_field_index + 1;
       this.groups[payload.group_index].fields.splice(des_ind, 0, origin_value);
     },
-
     moveActiveFieldsItems(payload) {
       const origin_value = this.groups[payload.origin_group_index].fields[
         payload.origin_field_index
       ];
-
       // Remove from origin group
       this.groups[payload.origin_group_index].fields.splice(
         payload.origin_field_index,
         1
       );
-
       // Insert to destination group
       // const des_ind = ( payload.origin_field_index === 0 ) ? payload.destination_field_index : payload.destination_field_index + 1 ;
       const des_ind = payload.destination_field_index + 1;
@@ -1023,17 +887,14 @@ export default {
         origin_value
       );
     },
-
     insertActiveFieldsItem(payload) {
       let inserting_field_key = payload.inserting_field_key;
-
       if (
         typeof this.active_fields_ref[payload.inserting_field_key] ===
         "undefined"
       ) {
         this.active_fields_ref[payload.inserting_field_key] = [];
       }
-
       if (!this.active_fields_ref[payload.inserting_field_key].length) {
         this.active_fields_ref[payload.inserting_field_key].push(
           payload.inserting_field_key
@@ -1046,24 +907,19 @@ export default {
         this.active_fields_ref[inserting_field_key].push(new_key);
         inserting_field_key = new_key;
       }
-
       const field_data = this.widget_groups[payload.inserting_from].widgets[
         payload.inserting_field_key
       ];
       let field_data_options = {};
-
       for (let option_key in field_data.options) {
         field_data_options[option_key] =
           typeof field_data.options[option_key].value !== "undefined"
             ? field_data.options[option_key].value
             : "";
       }
-
       this.active_fields[inserting_field_key] = field_data_options;
-
       const widget_group = this.active_fields[inserting_field_key].widget_group;
       const widget_name = this.active_fields[inserting_field_key].widget_name;
-
       if (typeof payload.destination_field_index !== "undefined") {
         this.groups[payload.destination_group_index].fields.splice(
           payload.destination_field_index + 1,
@@ -1076,32 +932,26 @@ export default {
         );
       }
     },
-
     widgetCanShow(widget_group, field_key) {
       if (typeof widget_group.allow_multiple === "undefined") {
         widget_group.allow_multiple = false;
       }
-
       if (!widget_group.allow_multiple && this.groupHasKey(field_key)) {
         return false;
       }
-
       return true;
     },
-
     groupHasKey(field_key) {
       let match_found = false;
       if (!this.groups) {
         return match_found;
       }
-
       for (let i = 0; i < this.groups.length; i++) {
         if (this.groups[i].fields.indexOf(field_key) > -1) {
           match_found = true;
           break;
         }
       }
-
       return match_found;
     },
   },

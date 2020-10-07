@@ -1661,12 +1661,12 @@ span.atbdp-tick-cross {
 }
 
 /* atbds System Table */
-.atbds_tooltip {
+.atbd_tooltip {
   position: relative;
   cursor: pointer;
 }
 
-.atbds_tooltip .atbds_tooltip__text {
+.atbd_tooltip .atbd_tooltip__text {
   display: none;
   position: absolute;
   left: 50%;
@@ -1683,7 +1683,7 @@ span.atbdp-tick-cross {
   z-index: 10;
 }
 
-.atbds_tooltip .atbds_tooltip__text.show {
+.atbd_tooltip .atbd_tooltip__text.show {
   display: inline-block;
 }
 
@@ -1905,7 +1905,7 @@ span.atbdp-tick-cross {
   border-color: #c6d0dc;
   min-height: 46px;
   border-radius: 4px;
-  padding: 12px 20px;
+  padding: 0 20px;
 }
 
 .atbds_form-row input:focus,
@@ -1915,6 +1915,10 @@ span.atbdp-tick-cross {
   border-color: #c6d0dc;
   -webkit-box-shadow: 0 0;
           box-shadow: 0 0;
+}
+
+.atbds_form-row textarea {
+  padding: 12px 20px;
 }
 
 .atbds_form-row label {

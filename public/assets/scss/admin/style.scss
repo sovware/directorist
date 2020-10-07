@@ -1386,10 +1386,10 @@ span.atbdp-tick-cross {
   padding-left: 1.05%;
 }
 /* atbds System Table */
-.atbds_tooltip {
+.atbd_tooltip {
   position: relative;
   cursor: pointer;
-  .atbds_tooltip__text {
+  .atbd_tooltip__text {
     display: none;
     position: absolute;
     left: 50%;
@@ -1602,13 +1602,16 @@ span.atbdp-tick-cross {
     border-color: $ss-border-gray;
     min-height: 46px;
     border-radius: 4px;
-    padding: 12px 20px;
+    padding: 0 20px;
     &:focus {
       background-color: $ss-bg-lighter;
       color: $ss-light;
       border-color: $ss-border-gray;
       box-shadow: 0 0;
     }
+  }
+  textarea {
+    padding: 12px 20px;
   }
   label {
     display: inline-block;

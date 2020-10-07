@@ -11,6 +11,10 @@ class ATBDP_Custom_Url
     }
 
     public function generate_url() {
+		$nonce = isset( $_POST['_nonce'] ) ? $_POST['_nonce'] : '';
+		if ( ! wp_verify_nonce( $nonce, '_generate_custom_url' ) ) {
+            die ( 'huh!');
+        }
 		$token   = rand();
 		$expires = apply_filters( 'atbdp_system_info_remote_token_expire', DAY_IN_SECONDS * 3 );
 		set_transient( 'system_info_remote_token', $token, $expires );
@@ -24,8 +28,12 @@ class ATBDP_Custom_Url
     }
 
     public function revoke_url() {
+		$nonce = isset( $_POST['_nonce'] ) ? $_POST['_nonce'] : '';
+		if ( ! wp_verify_nonce( $nonce, '_revoke_custom_url' ) ) {
+            die ( 'huh!' );
+        }
 		delete_transient( 'system_info_remote_token' );
-		wp_send_json_success( __( 'Secret URL has been revoked.', 'connections' ) );
+		wp_send_json_success( __( 'Secret URL has been revoked.', 'directorist' ) );
     }
     
     public function view() {
@@ -69,13 +77,13 @@ class ATBDP_Custom_Url
 		?>
 		<div class="card atbds_card">
 			<div class="card-head">
-				<h4>Remote Viewing</h4>
+				<h4><?php _e( 'Remote Viewing', 'directorist' ); ?></h4>
 			</div>
 			<div class="card-body">
 				<div id="atbdp-remote-response"></div>
 				<div class="atbds_content__tab">
 					<div class="atbds_remoteViewingForm">
-						<p>Create a secret URL that support can use to remotely view your system information. The secret URL will expire after 72 hours and can be revoked at any time.</p>
+						<p><?php _e( 'Create a secret URL that support can use to remotely view your system information. The secret URL will expire after 72 hours and can be revoked at any time.', 'directorist' ); ?></p>
 						<form action="#">
 							<div class="atbds_form-row">
 								<input type="url" id="system-info-url" onclick="this.focus();this.select()" value="<?php echo esc_url( $url ? $url : '' ); ?>">
@@ -85,8 +93,8 @@ class ATBDP_Custom_Url
 							</div>
 							<div class="atbds_form-row">
 								<div class="atbds_buttonGroup">
-									<button id='generate-url' name="generate-url" class="atbds_btn atbds_btnDark">Create Url</button>
-									<button id='revoke-url' name="revoke-url" class="atbds_btn atbds_btnGray">Revoke Url</button>
+									<button id='generate-url' name="generate-url" class="atbds_btn atbds_btnDark" data-nonce="<?php echo wp_create_nonce( '_generate_custom_url' ); ?>" ><?php _e( 'Create Url', 'directorist' ); ?></button>
+									<button id='revoke-url' name="revoke-url" class="atbds_btn atbds_btnGray" data-nonce="<?php echo wp_create_nonce( '_revoke_custom_url' ); ?>" ><?php _e( 'Revoke Url', 'directorist' ); ?></button>
 								</div>
 							</div>
 						</form>

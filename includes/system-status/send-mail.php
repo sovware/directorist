@@ -51,37 +51,37 @@ class ATBDP_Send_Mail
 		?>
         <div class="card atbds_card">
             <div class="card-head">
-                <h4>Support</h4>
+                <h4><?php _e( 'Support', 'directorist' ); ?></h4>
             </div>
             <div class="card-body">
                 <div class="atbds_content__tab">
                     <div class="atbds_supportForm">
-                        <h4>Send To</h4>
-                        <p>Contains a collection of relevant data that will help you debug your website accurately and more efficiently.</p>
+                        <h4><?php _e( 'Send To', 'directorist' ); ?></h4>
+                        <p><?php _e( 'Contains a collection of relevant data that will help you debug your website accurately and more efficiently.', 'directorist' ); ?></p>
 
                         <form id="atbdp-send-system-info" method="post" enctype="multipart/form-data" action="<?php echo esc_url( self_admin_url( 'admin-ajax.php' ) ); ?>">
                             <div class="atbds_form-row">
-                                <label>Email Address</label>
+                                <label><?php _e( 'Email Address', 'directorist' ); ?></label>
                                 <input type="email" name="email" id="atbdp-email-address" placeholder="<?php _e( 'user@email.com', 'directorist'); ?>">
                             </div>
                             <div class="atbds_form-row">
-                                <label>Subject</label>
+                                <label><?php _e( 'Subject', 'directorist' ); ?></label>
                                 <input type="text" name="subject" id="atbdp-email-subject" placeholder="<?php _e( 'Subject', 'directorist'); ?>"/>
                             </div>
                             <div class="atbds_form-row">
-                                <label>Additional Message</label>
+                                <label><?php _e( 'Additional Message', 'directorist' ); ?></label>
                                 <textarea name="message" id="atbdp-email-message"></textarea>
                             </div>
                             <div class="atbds_form-row">
                                 <div class="atbds_customCheckbox">
                                     <input type="checkbox" name='atbdp_system_info' id='atbdp_system_info' checked>
-                                    <label for="atbds_check_support">Your system information will be attached automatically to this email.</label>
+                                    <label for="atbds_check_support"><?php _e( 'Your system information will be attached automatically to this email.', 'directorist' ); ?></label>
                                 </div>
                             </div>
                             <div class="atbds_form-row">
                             <p class='system_info_success'></p>
                             <input type="hidden" name='_email_nonce' id='atbdp_email_nonce' value='<?php echo wp_create_nonce( '_debugger_email_nonce' ); ?>' />
-                                <button class="atbds_btn atbds_btnPrimary" id="atbdp-send-system-info-submit">Send Mail</button>
+                                <button class="atbds_btn atbds_btnPrimary" id="atbdp-send-system-info-submit"><?php _e( 'Send Mail', 'directorist' ); ?></button>
                             </div>
                         </form>
                     </div><!-- ends: .atbds_supportForm -->

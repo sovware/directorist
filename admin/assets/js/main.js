@@ -224,7 +224,8 @@
       type: "post",
       url: atbdp_admin_data.ajaxurl,
       data: {
-        action: "generate_url", //calls wp_ajax_nopriv_ajaxlogin
+        action: "generate_url", //calls wp_ajax_nopriv_ajaxlogin nonce: ()
+        _nonce: $(this).attr('data-nonce')
       },
       success: function (response) {
         $("#atbdp-remote-response").html(response.data.message);
@@ -248,6 +249,7 @@
       url: atbdp_admin_data.ajaxurl,
       data: {
         action: "revoke_url", //calls wp_ajax_nopriv_ajaxlogin
+        _nonce: $(this).attr('data-nonce')
       },
       success: function (response) {
         $("#atbdp-remote-response").html(response.data);

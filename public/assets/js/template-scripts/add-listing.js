@@ -346,7 +346,7 @@ jQuery(function($) {
                         if ( field.name.indexOf('[') > -1 ){
                                 const field_name = field.name.substr(0, field.name.indexOf("["));
                                 const ele = $( "[name^='"+ field_name +"']" );
-                                console.log( ele );
+                                //console.log( ele );
                                 if ( ele.length && ( ele.length > 1 ) ) {
                                         ele.each(function(index, value) {
                                                 const field_type = $(this).attr('type');
@@ -357,8 +357,8 @@ jQuery(function($) {
                                                         }
                                                 } else if (field_type === 'checkbox') {
                                                         var name = $(this).attr('name');
-                                                        var value = atbdp_is_checked(name);
-                                                        form_data.append(name, value);
+                                                        var val = atbdp_element_value( 'input[name="'+ name +'"]:checked' );
+                                                        form_data.append(name, val);
                                                 } else {
                                                         var name = $(this).attr('name');
                                                         var value = $(this).val();

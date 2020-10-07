@@ -509,8 +509,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     endforeach;
                 } else {
                     $msg .= ' <div class="notice alert alert-info" role="alert" id="review_notice">
-                                <span class="' . atbdp_icon_type(false) . '-info-circle" aria-hidden="true"></span>' .
-                        __(' No reviews found. Be the first to post a review !', 'directorist') . '</div>';
+                                <span class="' . atbdp_icon_type(false) . '-info-circle" aria-hidden="true"></span> ' .
+                        __('No reviews found. Be the first to post a review !', 'directorist') . '</div>';
                 }
                 // Optional, wrap the output into a container
                 $msg = "<div class='atbdp-universal-content'>" . $msg . "</div><br class = 'clear' />";
@@ -681,7 +681,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         send_review_for_approval($data);
                     }
                 } elseif ($id = ATBDP()->review->db->add($data)) {
-                    //$this->atbdp_send_email_review_to_user();
+                    $this->atbdp_send_email_review_to_user();
                     $this->atbdp_send_email_review_to_admin();
                     wp_send_json_success(array('id' => $id));
                 }

@@ -184,6 +184,12 @@ $privacy_label_link          = get_directorist_option('registration_privacy_labe
                                 </div>
                                 <?php } ?>
                                 <div class="directory_regi_btn">
+                                    <?php  
+                                    $redirection_after_reg = get_directorist_option( 'redirection_after_reg' );
+                                    if( ! empty( $redirection_after_reg ) && 'previous_page' == $redirection_after_reg ) {
+                                    ?>
+                                    <input type="hidden" name='previous_page' value='<?php echo wp_get_referer(); ?>'>
+                                     <?php } ?>
                                     <button type="submit" class="btn btn-primary" name="atbdp_user_submit"><?php printf(__('%s ', 'directorist'),$reg_signup); ?></button>
                                 </div>
                                 <?php if(!empty($display_login)) { ?>

@@ -356,9 +356,19 @@ jQuery(function($) {
                                                                 form_data.append(name, $(this).val());
                                                         }
                                                 } else if (field_type === 'checkbox') {
-                                                        var name = $(this).attr('name');
-                                                        var val = atbdp_element_value( 'input[name="'+ name +'"]:checked' );
-                                                        form_data.append(name, val);
+                                                        const new_field = $('input[name^="'+ name +'"]:checked');
+                                                        //console.log( new_field.length )
+                                                        if (new_field.length > 1) {
+                                                                new_field.each(function() {
+                                                                        const name = $(this).attr('name');
+                                                                        const value = $(this).val();
+                                                                        form_data.append(name, value);
+                                                                });
+                                                        } else {
+                                                                var name = new_field.attr('name');
+                                                                var value = new_field.val();
+                                                                form_data.append(name, value);
+                                                        }
                                                 } else {
                                                         var name = $(this).attr('name');
                                                         var value = $(this).val();

@@ -69,7 +69,7 @@
 
 						<span class="ezmu-dictionary-info-min-file-items"><?php esc_html_e('Minimum __DT__ file is required', 'directorist') ?></span>
 
-						<span class="ezmu-dictionary-info-max-file-items" data-featured="<?php echo !empty($slider_unl) ? '1' : ''; ?>"><?php echo !empty($slider_unl) ? __('Unlimited images with this plan!', 'directorist') : __('Maximum __DT__ file is allowed', 'directorist'); ?></span>
+						<span class="ezmu-dictionary-info-max-file-items" data-featured="<?php echo !empty($slider_unl) ? '1' : ''; ?>"><?php echo !empty($slider_unl) ? __('Unlimited images with this plan!', 'directorist') : ( ( $max_file_items > 1 ) ? __('Maximum __DT__ files are allowed', 'directorist') : __('Maximum __DT__ file is allowed', 'directorist') ); ?></span>
 					</div>
 				</div>
 				<?php

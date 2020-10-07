@@ -10,6 +10,10 @@ class ATBDP_Send_Mail
     }
 
     public function send_system_info() {
+        $nonce = isset( $_POST['_nonce'] ) ? $_POST['_nonce'] : '';
+        if ( ! wp_verify_nonce( $nonce, '_debugger_email_nonce' ) ) {
+            die ( 'huh!');
+        }
 		$user = wp_get_current_user();
 		$email = isset( $_POST['email'] ) ? $_POST['email'] : '';
 		$subject = isset( $_POST['subject'] ) ? sanitize_text_field( $_POST['subject'] ) : '';
@@ -34,8 +38,9 @@ class ATBDP_Send_Mail
 	}
 
     public function system_info() {
+        include_once  ATBDP_INC_DIR . '/system-status/system-info.php'; 
 		ob_start();
-		new ATBDP_System_Info();
+		new ATBDP_System_Info_Email_Link();
 		return ob_get_clean();
 	}
 
@@ -44,58 +49,45 @@ class ATBDP_Send_Mail
                 return;
         }
 		?>
-        <h3><span><?php _e( 'Send to:', 'directorist' ); ?></span></h3>
+        <div class="card atbds_card">
+            <div class="card-head">
+                <h4>Support</h4>
+            </div>
+            <div class="card-body">
+                <div class="atbds_content__tab">
+                    <div class="atbds_supportForm">
+                        <h4>Send To</h4>
+                        <p>Contains a collection of relevant data that will help you debug your website accurately and more efficiently.</p>
 
-        <div class="inside">
-
-            <div id="atbdp-email-response"></div>
-
-            <form id="atbdp-send-system-info" method="post" enctype="multipart/form-data" action="<?php echo esc_url( self_admin_url( 'admin-ajax.php' ) ); ?>">
-                <table class="form-table">
-                    <tr>
-                        <th scope="row">
-                            <label for="atbdp-email-address">
-                                <?php _e( 'Email Address', 'directorist' ); ?>
-                            </label>
-                        </th>
-                        <td>
-                            <input type="email" name="email" id="atbdp-email-address" class="regular-text" placeholder="<?php _e( 'user@email.com', 'directorist'); ?>"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">
-                            <label for="atbdp-email-subject">
-                                <?php _e( 'Subject', 'directorist' ); ?>
-                            </label>
-                        </th>
-                        <td>
-                            <input type="text" name="subject" id="atbdp-email-subject" class="regular-text" placeholder="<?php _e( 'Subject', 'directorist'); ?>"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">
-                            <label for="atbdp-email-message">
-                                <?php _e( 'Additional Message', 'directorist' ); ?>
-                            </label>
-                        </th>
-                        <td>
-                            <textarea name="message" id="atbdp-email-message" class="large-text" rows="10" cols="50" placeholder="<?php _e( 'Enter additional message here.', 'directorist' ); ?>"></textarea>
-                            <p class="description">
-                            <input type="checkbox" name='atbdp_system_info' id='atbdp_system_info' checked>
-                                <?php _e(
-                                    'Your system information will be attached automatically to this email.',
-                                    'directorist'
-                                ) ?>
-                            </p>
-
-                        </td>
-                    </tr>
-                </table>
-                <p class='system_info_success'></p>
-                <?php submit_button( __( 'Send Email', 'directorist' ), 'secondary', 'submit', TRUE, array( 'id' => 'atbdp-send-system-info-submit' ) ) ?>
-            </form>
-
-        </div><!-- .inside -->
+                        <form id="atbdp-send-system-info" method="post" enctype="multipart/form-data" action="<?php echo esc_url( self_admin_url( 'admin-ajax.php' ) ); ?>">
+                            <div class="atbds_form-row">
+                                <label>Email Address</label>
+                                <input type="email" name="email" id="atbdp-email-address" placeholder="<?php _e( 'user@email.com', 'directorist'); ?>">
+                            </div>
+                            <div class="atbds_form-row">
+                                <label>Subject</label>
+                                <input type="text" name="subject" id="atbdp-email-subject" placeholder="<?php _e( 'Subject', 'directorist'); ?>"/>
+                            </div>
+                            <div class="atbds_form-row">
+                                <label>Additional Message</label>
+                                <textarea name="message" id="atbdp-email-message"></textarea>
+                            </div>
+                            <div class="atbds_form-row">
+                                <div class="atbds_customCheckbox">
+                                    <input type="checkbox" name='atbdp_system_info' id='atbdp_system_info' checked>
+                                    <label for="atbds_check_support">Your system information will be attached automatically to this email.</label>
+                                </div>
+                            </div>
+                            <div class="atbds_form-row">
+                            <p class='system_info_success'></p>
+                            <input type="hidden" name='_email_nonce' id='atbdp_email_nonce' value='<?php echo wp_create_nonce( '_debugger_email_nonce' ); ?>' />
+                                <button class="atbds_btn atbds_btnPrimary" id="atbdp-send-system-info-submit">Send Mail</button>
+                            </div>
+                        </form>
+                    </div><!-- ends: .atbds_supportForm -->
+                </div>
+            </div>
+        </div>
 		<?php
 		do_action( 'atbdp_tools_email_system_info_after' );
     

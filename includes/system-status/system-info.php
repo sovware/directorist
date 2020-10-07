@@ -2,7 +2,7 @@
 /**
  * @author AazzTech
  */
-class ATBDP_System_Info
+class ATBDP_System_Info_Email_Link
 {
     public function __construct() { 
         include_once  ATBDP_INC_DIR . '/system-status/system-info-template.php'; 

@@ -55,9 +55,11 @@ class ATBDP_Custom_Url
 		}
 
 	}
+	
     public function system_info() {
+		include_once  ATBDP_INC_DIR . '/system-status/system-info.php';
 		ob_start();
-		new ATBDP_System_Info();
+		new ATBDP_System_Info_Email_Link();
 		return ob_get_clean();
 	}
 
@@ -65,33 +67,31 @@ class ATBDP_Custom_Url
 		$token = get_transient( 'system_info_remote_token' );
 		$url   = $token ? home_url() . '/?atbdp-system-info=' . $token : '';
 		?>
-		<div class="postbox">
-			<h3><span><?php _e( 'Remote Viewing', 'directorist' ); ?></span></h3>
-			<div class="inside">
+		<div class="card atbds_card">
+			<div class="card-head">
+				<h4>Remote Viewing</h4>
+			</div>
+			<div class="card-body">
 				<div id="atbdp-remote-response"></div>
-				<p>
-					<?php _e(
-						'Create a secret URL that support can use to remotely view your system information. The secret URL will expire after 72 hours and can be revoked at any time.',
-						'directorist'
-					) ?>
-				</p>
-				<p>
-				<input type="text" id="system-info-url" class="regular-text"
-						onclick="this.focus();this.select()" value="<?php echo esc_url( $url ? $url : '' ); ?>"
-						title="<?php _e(
-							'To copy the URL, click then press Ctrl + C (PC) or Cmd + C (Mac).',
-							'directorist'
-						); ?>"/>&nbsp;&nbsp;<a class="button-secondary" href="<?php echo esc_url( $url ? $url : '#' ); ?>" target="_blank"
+				<div class="atbds_content__tab">
+					<div class="atbds_remoteViewingForm">
+						<p>Create a secret URL that support can use to remotely view your system information. The secret URL will expire after 72 hours and can be revoked at any time.</p>
+						<form action="#">
+							<div class="atbds_form-row">
+								<input type="url" id="system-info-url" onclick="this.focus();this.select()" value="<?php echo esc_url( $url ? $url : '' ); ?>">
+								<a class="button-secondary" href="<?php echo esc_url( $url ? $url : '#' ); ?>" target="_blank"
 												id="system-info-url-text-link" style="display: <?php echo $url ? 'display-inline' : 'none' ; ?>"><?php _e( 'Test', 'directorist' ); ?></a>
-				</p>
-				<p class="submit">
-					<input type="submit" onClick="return false;" class="button-secondary" id='generate-url' name="generate-url"
-							value="<?php _e( 'Generate URL', 'directorist' ) ?>"
-							data-nonce="<?php echo wp_create_nonce( 'generate_remote_system_info_url' ); ?>"/>
-					<input type="submit" onClick="return false;" class="button-secondary" id='revoke-url' name="revoke-url"
-							value="<?php _e( 'Revoke URL', 'directorist' ) ?>"
-							data-nonce="<?php echo wp_create_nonce( 'revoke_remote_system_info_url' ); ?>"/>
-				</p>
+							
+							</div>
+							<div class="atbds_form-row">
+								<div class="atbds_buttonGroup">
+									<button id='generate-url' name="generate-url" class="atbds_btn atbds_btnDark">Create Url</button>
+									<button id='revoke-url' name="revoke-url" class="atbds_btn atbds_btnGray">Revoke Url</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 		<?php

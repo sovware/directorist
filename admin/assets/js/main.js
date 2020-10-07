@@ -194,18 +194,19 @@
       url: atbdp_admin_data.ajaxurl,
       data: {
         action: "send_system_info", //calls wp_ajax_nopriv_ajaxlogin
+        _nonce: $("#atbdp_email_nonce").val(),
         email: $("#atbdp-email-address").val(),
         subject: $("#atbdp-email-subject").val(),
         message: $("#atbdp-email-message").val(),
         system_info: system_info,
       },
       beforeSend: function () {
-        $("#atbdp-send-system-info-submit").val("sending");
+        $("#atbdp-send-system-info-submit").html("Sending");
       },
       success: function (data) {
         if (data.success) {
-          $("#atbdp-send-system-info-submit").val("Send Email");
-          $(".system_info_success").html("successfully send");
+          $("#atbdp-send-system-info-submit").html("Send Email");
+          $(".system_info_success").html("Successfully send");
         }
       },
       error: function (data) {

@@ -56,8 +56,18 @@ input[type="checkbox"] {
 }
 
 /* typography */
-.atbd_color-primary, .atbd_content_active #directorist.atbd_wrapper h1 a:hover, .atbd_content_active #directorist.atbd_wrapper h2 a:hover, .atbd_content_active #directorist.atbd_wrapper h3 a:hover, .atbd_content_active #directorist.atbd_wrapper h4 a:hover, .atbd_content_active #directorist.atbd_wrapper h5 a:hover, .atbd_content_active #directorist.atbd_wrapper h6 a:hover,
-.atbd_content_active #directorist.atbd_wrapper .h1 a:hover, .atbd_content_active #directorist.atbd_wrapper .h2 a:hover, .atbd_content_active #directorist.atbd_wrapper .h3 a:hover, .atbd_content_active #directorist.atbd_wrapper .h4 a:hover, .atbd_content_active #directorist.atbd_wrapper .h5 a:hover, .atbd_content_active #directorist.atbd_wrapper .h6 a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area h4 span,
+.atbd_color-primary, .atbd_content_active #directorist.atbd_wrapper h1 a:hover,
+.atbd_content_active #directorist.atbd_wrapper h2 a:hover,
+.atbd_content_active #directorist.atbd_wrapper h3 a:hover,
+.atbd_content_active #directorist.atbd_wrapper h4 a:hover,
+.atbd_content_active #directorist.atbd_wrapper h5 a:hover,
+.atbd_content_active #directorist.atbd_wrapper h6 a:hover,
+.atbd_content_active #directorist.atbd_wrapper .h1 a:hover,
+.atbd_content_active #directorist.atbd_wrapper .h2 a:hover,
+.atbd_content_active #directorist.atbd_wrapper .h3 a:hover,
+.atbd_content_active #directorist.atbd_wrapper .h4 a:hover,
+.atbd_content_active #directorist.atbd_wrapper .h5 a:hover,
+.atbd_content_active #directorist.atbd_wrapper .h6 a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area h4 span,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 span, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action a:hover,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action:hover,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li a > span,
@@ -780,8 +790,18 @@ body.atbd_content_active #directorist.atbd_wrapper {
   -o-transition: none !important;
 }
 
-.atbd_content_active #directorist.atbd_wrapper h1, .atbd_content_active #directorist.atbd_wrapper h2, .atbd_content_active #directorist.atbd_wrapper h3, .atbd_content_active #directorist.atbd_wrapper h4, .atbd_content_active #directorist.atbd_wrapper h5, .atbd_content_active #directorist.atbd_wrapper h6,
-.atbd_content_active #directorist.atbd_wrapper .h1, .atbd_content_active #directorist.atbd_wrapper .h2, .atbd_content_active #directorist.atbd_wrapper .h3, .atbd_content_active #directorist.atbd_wrapper .h4, .atbd_content_active #directorist.atbd_wrapper .h5, .atbd_content_active #directorist.atbd_wrapper .h6 {
+.atbd_content_active #directorist.atbd_wrapper h1,
+.atbd_content_active #directorist.atbd_wrapper h2,
+.atbd_content_active #directorist.atbd_wrapper h3,
+.atbd_content_active #directorist.atbd_wrapper h4,
+.atbd_content_active #directorist.atbd_wrapper h5,
+.atbd_content_active #directorist.atbd_wrapper h6,
+.atbd_content_active #directorist.atbd_wrapper .h1,
+.atbd_content_active #directorist.atbd_wrapper .h2,
+.atbd_content_active #directorist.atbd_wrapper .h3,
+.atbd_content_active #directorist.atbd_wrapper .h4,
+.atbd_content_active #directorist.atbd_wrapper .h5,
+.atbd_content_active #directorist.atbd_wrapper .h6 {
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
@@ -789,8 +809,18 @@ body.atbd_content_active #directorist.atbd_wrapper {
   letter-spacing: normal;
 }
 
-.atbd_content_active #directorist.atbd_wrapper h1 a, .atbd_content_active #directorist.atbd_wrapper h2 a, .atbd_content_active #directorist.atbd_wrapper h3 a, .atbd_content_active #directorist.atbd_wrapper h4 a, .atbd_content_active #directorist.atbd_wrapper h5 a, .atbd_content_active #directorist.atbd_wrapper h6 a,
-.atbd_content_active #directorist.atbd_wrapper .h1 a, .atbd_content_active #directorist.atbd_wrapper .h2 a, .atbd_content_active #directorist.atbd_wrapper .h3 a, .atbd_content_active #directorist.atbd_wrapper .h4 a, .atbd_content_active #directorist.atbd_wrapper .h5 a, .atbd_content_active #directorist.atbd_wrapper .h6 a {
+.atbd_content_active #directorist.atbd_wrapper h1 a,
+.atbd_content_active #directorist.atbd_wrapper h2 a,
+.atbd_content_active #directorist.atbd_wrapper h3 a,
+.atbd_content_active #directorist.atbd_wrapper h4 a,
+.atbd_content_active #directorist.atbd_wrapper h5 a,
+.atbd_content_active #directorist.atbd_wrapper h6 a,
+.atbd_content_active #directorist.atbd_wrapper .h1 a,
+.atbd_content_active #directorist.atbd_wrapper .h2 a,
+.atbd_content_active #directorist.atbd_wrapper .h3 a,
+.atbd_content_active #directorist.atbd_wrapper .h4 a,
+.atbd_content_active #directorist.atbd_wrapper .h5 a,
+.atbd_content_active #directorist.atbd_wrapper .h6 a {
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
   -ms-transition: 0.3s;
@@ -814,7 +844,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   text-align: initial;
 }
 
-.atbd_content_active #directorist.atbd_wrapper div, .atbd_content_active #directorist.atbd_wrapper p, .atbd_content_active #directorist.atbd_wrapper a, .atbd_content_active #directorist.atbd_wrapper li {
+.atbd_content_active #directorist.atbd_wrapper div,
+.atbd_content_active #directorist.atbd_wrapper p,
+.atbd_content_active #directorist.atbd_wrapper a,
+.atbd_content_active #directorist.atbd_wrapper li {
   font-size: 15px;
 }
 
@@ -900,7 +933,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-right: 10px;
 }
 
-#directorist.atbd_wrapper .iris-picker, #directorist.atbd_wrapper .iris-picker * {
+#directorist.atbd_wrapper .iris-picker,
+#directorist.atbd_wrapper .iris-picker * {
   -moz-box-sizing: content-box;
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
@@ -911,7 +945,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .fa {
-  font: normal normal normal 14px/1 FontAwesome;
+  font: normal normal 900 14px/1 "Font Awesome 5 Free";
 }
 
 #directorist.atbd_wrapper .atbd_rated_stars ul li {
@@ -929,7 +963,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper .atbd_rated_stars ul li span:before {
   content: "\f005";
   font-size: 14px;
-  font-family: 'Fontawesome', Sans-serif;
+  font-family: "Font Awesome 5 Free";
 }
 
 #directorist.atbd_wrapper .atbd_rating_stars .br-widget .br-current-rating {
@@ -940,7 +974,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper .atbd_rating_stars .br-widget a:before {
   content: "\f005";
   font-size: 14px;
-  font-family: 'Fontawesome', Sans-serif;
+  font-family: "Font Awesome 5 Free";
   color: #d4d3f3;
 }
 
@@ -991,7 +1025,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 20px;
 }
 
-#directorist.atbd_wrapper #atbdp_checkout_total_amount, #directorist.atbd_wrapper .atbd_tottal {
+#directorist.atbd_wrapper #atbdp_checkout_total_amount,
+#directorist.atbd_wrapper .atbd_tottal {
   font-size: 20px;
   font-weight: 500;
 }
@@ -1040,7 +1075,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   justify-content: center;
 }
 
-#directorist.atbd_wrapper .pagination .nav-links .current, #directorist.atbd_wrapper .pagination .nav-links .page-numbers {
+#directorist.atbd_wrapper .pagination .nav-links .current,
+#directorist.atbd_wrapper .pagination .nav-links .page-numbers {
   padding: 0;
   line-height: normal;
   height: 35px;
@@ -1061,7 +1097,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   float: none;
 }
 
-#directorist.atbd_wrapper .pagination .nav-links .current:last-child, #directorist.atbd_wrapper .pagination .nav-links .page-numbers:last-child {
+#directorist.atbd_wrapper .pagination .nav-links .current:last-child,
+#directorist.atbd_wrapper .pagination .nav-links .page-numbers:last-child {
   margin-right: 0;
   margin-left: 2px;
 }
@@ -1089,17 +1126,21 @@ body.atbd_content_active #directorist.atbd_wrapper {
   content: none;
 }
 
-#directorist.atbd_wrapper .form-control, .default-ad-search .form-control {
+#directorist.atbd_wrapper .form-control,
+.default-ad-search .form-control {
   padding: 10px 15px;
   height: auto;
   line-height: 1.5 !important;
 }
 
-#directorist.atbd_wrapper .form-control[type="time"], #directorist.atbd_wrapper .form-control[type="date"], .default-ad-search .form-control[type="time"], .default-ad-search .form-control[type="date"] {
+#directorist.atbd_wrapper .form-control[type="time"], #directorist.atbd_wrapper .form-control[type="date"],
+.default-ad-search .form-control[type="time"],
+.default-ad-search .form-control[type="date"] {
   padding: 9px 15px;
 }
 
-#directorist.atbd_wrapper textarea.form-control, .default-ad-search textarea.form-control {
+#directorist.atbd_wrapper textarea.form-control,
+.default-ad-search textarea.form-control {
   padding-top: 0;
 }
 
@@ -1185,7 +1226,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 15px;
 }
 
-.atbdp_login_form_shortcode .login-username label, .atbdp_login_form_shortcode .login-password label, .atbdp_login_form_shortcode .login-remember label {
+.atbdp_login_form_shortcode .login-username label,
+.atbdp_login_form_shortcode .login-password label,
+.atbdp_login_form_shortcode .login-remember label {
   font-size: 15px;
   font-weight: 400;
 }
@@ -1282,7 +1325,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbdp_login_form_shortcode .alert-danger {
-  background: #F9D7D7;
+  background: #f9d7d7;
   padding: 8px 15px;
 }
 
@@ -1560,7 +1603,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transition: .3s ease;
+  transition: 0.3s ease;
 }
 
 .plupload-thumbs .thumb .atbdp-thumb-actions .thumbremovelink:hover {
@@ -1725,7 +1768,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbd_map_shape:before {
   position: absolute;
-  content: '';
+  content: "";
   border-top: 15px solid #444752;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
@@ -1751,7 +1794,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .marker-cluster-shape:before {
   position: absolute;
-  content: '';
+  content: "";
   width: 47px;
   height: 47px;
   left: -6px;
@@ -2126,7 +2169,7 @@ div#listing_notifier span {
 }
 
 .atbd_dropdown .atbd_dropdown-toggle .atbd_drop-caret:before {
-  content: '';
+  content: "";
   width: 7px;
   height: 7px;
   /*rtl:begin:ignore*/
@@ -2217,7 +2260,7 @@ div#listing_notifier span {
 }
 
 .atbd-dropdown-toggle:before {
-  content: '';
+  content: "";
   position: absolute !important;
   width: 100%;
   height: 100%;
@@ -2259,7 +2302,8 @@ div#listing_notifier span {
 }
 
 /* map image radius */
-#map img, #gmap img {
+#map img,
+#gmap img {
   border-radius: 0 !important;
 }
 
@@ -2279,7 +2323,7 @@ input[type="radio"].atbdp_radio_input + label {
 
 input[type="radio"].atbdp_radio_input + label::before {
   position: absolute;
-  content: '';
+  content: "";
   width: 15px;
   height: 15px;
   border: 1px solid #b3afaf;
@@ -2287,7 +2331,7 @@ input[type="radio"].atbdp_radio_input + label::before {
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  transition: .3s ease;
+  transition: 0.3s ease;
   box-sizing: border-box;
 }
 
@@ -2928,7 +2972,8 @@ input#privacy_policy,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat:before, .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat:before {
   position: absolute;
   content: "\f07c";
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
   left: 0;
   top: 0;
 }
@@ -5990,12 +6035,14 @@ span.atbd_get_loc_wid {
   justify-content: center;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .btn_search, .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter {
+.atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .btn_search,
+.atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter {
   padding: 13px 20px;
   margin: 5px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .btn_search span, .atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter span {
+.atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .btn_search span,
+.atbd_content_active #directorist.atbd_wrapper .atbd_submit_btn_wrapper .more-filter span {
   margin-right: 7px;
 }
 
@@ -6208,7 +6255,7 @@ span.atbd_get_loc_wid {
   border: 1px solid #e3e6ef;
   display: block;
   padding: 9px 15px;
-  transition: .3s ease;
+  transition: 0.3s ease;
   cursor: pointer;
 }
 
@@ -6230,23 +6277,27 @@ span.atbd_get_loc_wid {
   align-items: flex-start;
 }
 
-.ads-advanced .bads-tags, .ads-advanced .bads-custom-checks {
+.ads-advanced .bads-tags,
+.ads-advanced .bads-custom-checks {
   display: flex;
   flex-wrap: wrap;
   flex: 4;
   margin: 0 -5px;
 }
 
-.ads-advanced .bads-tags .custom-control, .ads-advanced .bads-custom-checks .custom-control {
+.ads-advanced .bads-tags .custom-control,
+.ads-advanced .bads-custom-checks .custom-control {
   margin: 0 5px;
   width: 140px;
 }
 
-.ads-advanced .bads-tags .fields_hidden, .ads-advanced .bads-custom-checks .fields_hidden {
+.ads-advanced .bads-tags .fields_hidden,
+.ads-advanced .bads-custom-checks .fields_hidden {
   display: none;
 }
 
-.ads-advanced .bads-tags label, .ads-advanced .bads-custom-checks label {
+.ads-advanced .bads-tags label,
+.ads-advanced .bads-custom-checks label {
   line-height: normal;
 }
 
@@ -6256,33 +6307,39 @@ span.atbd_get_loc_wid {
   flex: 4;
 }
 
-.ads-advanced .more-less, .ads-advanced .more-or-less {
+.ads-advanced .more-less,
+.ads-advanced .more-or-less {
   flex: 1;
   text-align: right;
   color: #272b41;
   font-size: 13px !important;
 }
 
-.ads-advanced .more-less:after, .ads-advanced .more-or-less:after {
-  content: '\f107';
-  font-family: "FontAwesome";
+.ads-advanced .more-less:after,
+.ads-advanced .more-or-less:after {
+  content: "\f107";
+  font-family: "Font Awesome 5 Free";
   padding-left: 5px;
+  font-weight: 900;
 }
 
-.ads-advanced .more-less:focus, .ads-advanced .more-or-less:focus {
+.ads-advanced .more-less:focus,
+.ads-advanced .more-or-less:focus {
   outline: 0;
 }
 
-.ads-advanced .more-less.ad:after, .ads-advanced .more-or-less.ad:after {
-  content: '\f107';
+.ads-advanced .more-less.ad:after,
+.ads-advanced .more-or-less.ad:after {
+  content: "\f107";
 }
 
-.ads-advanced .more-less.active:after, .ads-advanced .more-or-less.active:after {
-  content: '\f106';
+.ads-advanced .more-less.active:after,
+.ads-advanced .more-or-less.active:after {
+  content: "\f106";
 }
 
 .ads-advanced .more-less:after {
-  content: '\f106';
+  content: "\f106";
 }
 
 .ads-advanced .wp-picker-container {
@@ -6394,7 +6451,8 @@ span.atbd_get_loc_wid {
   flex: 1;
 }
 
-.ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_text input, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_number input, .ads-advanced .atbdp-custom-fields-search .form-group .atbdp_cf_url input {
+.ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_text input, .ads-advanced .atbdp-custom-fields-search .form-group.atbdp_cf_number input,
+.ads-advanced .atbdp-custom-fields-search .form-group .atbdp_cf_url input {
   margin-bottom: 0 !important;
 }
 
@@ -6484,7 +6542,8 @@ span.atbd_get_loc_wid {
   position: relative;
 }
 
-.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result, .atbd_seach_fields_wrapper .atbdp_map_address_field + .address_result {
+.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result,
+.atbd_seach_fields_wrapper .atbdp_map_address_field + .address_result {
   position: absolute;
   width: 100%;
   left: 0;
@@ -6497,12 +6556,14 @@ span.atbd_get_loc_wid {
   overflow-y: scroll;
 }
 
-.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li, .atbd_seach_fields_wrapper .atbdp_map_address_field + .address_result ul li {
+.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li,
+.atbd_seach_fields_wrapper .atbdp_map_address_field + .address_result ul li {
   border-bottom: 1px solid #e3e6ef;
   padding: 10px 15px 10px !important;
 }
 
-.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li a, .atbd_seach_fields_wrapper .atbdp_map_address_field + .address_result ul li a {
+.atbd_seach_fields_wrapper .atbdp_map_address_field .address_result ul li a,
+.atbd_seach_fields_wrapper .atbdp_map_address_field + .address_result ul li a {
   font-size: 13px;
   line-height: 22px;
   display: block;
@@ -7350,7 +7411,8 @@ p.atbd-min {
   .ads-advanced .form-group label {
     margin-bottom: 10px !important;
   }
-  .ads-advanced .more-less, .ads-advanced .more-or-less {
+  .ads-advanced .more-less,
+  .ads-advanced .more-or-less {
     text-align: left;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn {

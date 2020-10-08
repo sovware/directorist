@@ -560,6 +560,14 @@ class ATBDP_Enqueuer {
             'nonce'           => wp_create_nonce( 'atbdp_nonce_action_js' ),
             'ajaxurl'         => admin_url( 'admin-ajax.php' ),
             'nonceName'       => 'atbdp_nonce_js',
+            'media_uploader'  => apply_filters( 'atbdp_media_uploader', [ 
+                [
+                    'element_id'        => '_listing_gallery',
+                    'meta_name'         => 'listing_img',
+                    'files_meta_name'   => 'files_meta',
+                    'error_msg'         => __('Listing gallery has invalid files', 'directorist'),
+                ]
+            ]),
             'PublicAssetPath' => ATBDP_PUBLIC_ASSETS,
             'i18n_text'       => $i18n_text,
             'create_new_tag'  => $new_tag,

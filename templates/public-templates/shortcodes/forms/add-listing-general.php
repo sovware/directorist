@@ -18,7 +18,7 @@
 		<?php if ($display_title) { ?>
 			<div class="form-group" id="atbdp_listing_title">
 				<label for="listing_title"><?php echo wp_kses_post( $title_label_html );?></label>
-				<input type="text" name="listing_title" id="listing_title" value="<?php echo !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>" class="form-control directory_field" placeholder="<?php esc_attr_e('Enter a title', 'directorist'); ?>"/>
+				<input type="text" data-type="default" name="listing_title" id="listing_title" value="<?php echo !empty($listing->post_title) ? esc_attr($listing->post_title) : ''; ?>" class="form-control directory_field" placeholder="<?php esc_attr_e('Enter a title', 'directorist'); ?>"/>
 			</div>
 			<?php
 		}

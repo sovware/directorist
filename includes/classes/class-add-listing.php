@@ -64,6 +64,8 @@ if (!class_exists('ATBDP_Add_Listing')):
         {
             $p = $_POST;
 
+            // wp_send_json( $p );
+            // die();
             $data = array();
             /**
              * @toda later validate add listing nonce with ja nonce

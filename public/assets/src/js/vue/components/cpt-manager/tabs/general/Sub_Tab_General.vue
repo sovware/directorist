@@ -31,7 +31,7 @@ export default {
 
     computed: {
         ...mapState({
-            general_sections: state => state.settings.general.submenu.general.sections,
+            general_sections: state => state.layouts.general.submenu.general.sections,
             fields: state => state.fields,
         }),
     },

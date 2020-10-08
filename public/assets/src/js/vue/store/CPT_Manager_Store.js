@@ -6,9 +6,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // state
   state: {
-    active_nav_index: 0,
-    settings: {},
+    active_nav_index: 3,
     fields: {},
+    layouts: {},
+    config: {},
 
     submenu: {
       general: [
@@ -26,8 +27,12 @@ export default new Vuex.Store({
       state.active_nav_index = index;
     },
 
-    updateSettings: ( state, value ) => {
-      state.settings = value;
+    updatelayouts: ( state, value ) => {
+      state.layouts = value;
+    },
+
+    updateConfig: ( state, value ) => {
+      state.config = value;
     },
 
     updateFields: ( state, value ) => {
@@ -43,7 +48,7 @@ export default new Vuex.Store({
     },
 
     updateGeneralSectionData: ( state, payload ) => {
-      state.settings.general.submenu.general.sections[ payload.section_key ].fields[ payload.field_key ].value = payload.value;
+      state.layouts.general.submenu.general.sections[ payload.section_key ].fields[ payload.field_key ].value = payload.value;
     },
   },
 

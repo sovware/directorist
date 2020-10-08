@@ -12,20 +12,21 @@
                 <!-- cptm-card-preview-top-left -->
                 <div class="cptm-card-preview-top-left">
                   <div class="cptm-card-preview-top-left-placeholder cptm-placeholder-blcok">
-                    <p class="cptm-placeholder-label">{{ layout.thumbnail.top_right.label }}</p>
+                    <p class="cptm-placeholder-label">{{ layout.thumbnail.top_left.label }}</p>
 
                     <div class="cptm-widget-insert-area">
                       <div class="cptm-widget-insert-wrap">
                         <div class="cptm-widget-insert-modal-container">
                           <widgets-window
-                            v-bind="layout.thumbnail.top_right"
+                            v-bind="layout.thumbnail.top_left"
                             :availableWidgets="available_widgets"
-                            :active="getActiveInsertWindowStatus( 'thumbnail_top_right' )"
+                            :active="getActiveInsertWindowStatus( 'thumbnail_top_left' )"
+                            :bottomAchhor="true"
                             @close="closeInsertWindow()"
                           />
                         </div>
 
-                        <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_top_right' )">
+                        <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_top_left' )">
                           <span class="fa fa-plus"></span>
                         </a>
                       </div>
@@ -41,10 +42,16 @@
                     <div class="cptm-widget-insert-area">
                       <div class="cptm-widget-insert-wrap">
                         <div class="cptm-widget-insert-modal-container">
-                          <widgets-window :active="false" :bottom-achhor="true"/>
+                          <widgets-window
+                            v-bind="layout.thumbnail.top_right"
+                            :availableWidgets="available_widgets"
+                            :active="getActiveInsertWindowStatus( 'thumbnail_top_right' )"
+                            :bottomAchhor="true"
+                            @close="closeInsertWindow()"
+                          />
                         </div>
 
-                        <a href="#" class="cptm-widget-insert-link">
+                        <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_top_right' )">
                           <span class="fa fa-plus"></span>
                         </a>
                       </div>
@@ -71,10 +78,16 @@
                     <div class="cptm-widget-insert-area">
                       <div class="cptm-widget-insert-wrap">
                         <div class="cptm-widget-insert-modal-container">
-                          <widgets-window :args="{ active: false, bottom_achhor: true }"/>
+                          <widgets-window
+                            v-bind="layout.thumbnail.bottom_left"
+                            :availableWidgets="available_widgets"
+                            :active="getActiveInsertWindowStatus( 'thumbnail_bottom_left' )"
+                            :bottomAchhor="true"
+                            @close="closeInsertWindow()"
+                          />
                         </div>
 
-                        <a href="#" class="cptm-widget-insert-link">
+                        <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_bottom_left' )">
                           <span class="fa fa-plus"></span>
                         </a>
                       </div>
@@ -90,10 +103,16 @@
                     <div class="cptm-widget-insert-area">
                       <div class="cptm-widget-insert-wrap">
                         <div class="cptm-widget-insert-modal-container">
-                          <widgets-window :args="{ active: false, bottom_achhor: true }"/>
+                          <widgets-window
+                            v-bind="layout.thumbnail.bottom_right"
+                            :availableWidgets="available_widgets"
+                            :active="getActiveInsertWindowStatus( 'thumbnail_bottom_right' )"
+                            :bottomAchhor="true"
+                            @close="closeInsertWindow()"
+                          />
                         </div>
 
-                        <a href="#" class="cptm-widget-insert-link">
+                        <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_bottom_right' )">
                           <span class="fa fa-plus"></span>
                         </a>
                       </div>
@@ -113,24 +132,47 @@
             <!-- cptm-listing-card-author-avatar -->
             <div class="cptm-listing-card-author-avatar">
               <div class="cptm-listing-card-author-avatar-placeholder cptm-placeholder-blcok">
-                <p class="cptm-placeholder-author-thumb"><img src="https://via.placeholder.com/150" alt=""></p>
+                <p class="cptm-placeholder-author-thumb">
+                  <img src="https://via.placeholder.com/150" alt="">
+                </p>
+
                 <div class="cptm-widget-insert-area">
                   <div class="cptm-widget-insert-wrap">
-                    <a href="#" class="cptm-widget-insert-link"><span class="fa fa-plus"></span></a>
+                    <div class="cptm-widget-insert-modal-container">
+                      <widgets-window
+                        v-bind="layout.thumbnail.avater"
+                        :availableWidgets="available_widgets"
+                        :active="getActiveInsertWindowStatus( 'thumbnail_avater' )"
+                        :bottomAchhor="true"
+                        @close="closeInsertWindow()"
+                      />
+                    </div>
+
+                    <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_avater' )">
+                      <span class="fa fa-plus"></span>
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
+
+
             <div class="cptm-listing-card-preview-body-placeholder cptm-placeholder-blcok">
               <p class="cptm-placeholder-label">Body Contents</p>
 
               <div class="cptm-widget-insert-area">
                 <div class="cptm-widget-insert-wrap">
                   <div class="cptm-widget-insert-modal-container">
-                    <widgets-window :args="{ active: false, bottom_achhor: true }"/>
+                    <widgets-window
+                      v-bind="layout.middle.body"
+                      :availableWidgets="available_widgets"
+                      :active="getActiveInsertWindowStatus( 'thumbnail_body_contents' )"
+                      :bottomAchhor="true"
+                      @close="closeInsertWindow()"
+                    />
                   </div>
 
-                  <a href="#" class="cptm-widget-insert-link">
+                  <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_body_contents' )">
                     <span class="fa fa-plus"></span>
                   </a>
                 </div>
@@ -146,10 +188,16 @@
               <div class="cptm-widget-insert-area">
                 <div class="cptm-widget-insert-wrap">
                   <div class="cptm-widget-insert-modal-container">
-                    <widgets-window :args="{ active: false, bottom_achhor: true }"/>
+                    <widgets-window
+                      v-bind="layout.footer.left"
+                      :availableWidgets="available_widgets"
+                      :active="getActiveInsertWindowStatus( 'thumbnail_footer_left' )"
+                      :bottomAchhor="true"
+                      @close="closeInsertWindow()"
+                    />
                   </div>
 
-                  <a href="#" class="cptm-widget-insert-link">
+                  <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_footer_left' )">
                     <span class="fa fa-plus"></span>
                   </a>
                 </div>
@@ -164,10 +212,16 @@
               <div class="cptm-widget-insert-area">
                 <div class="cptm-widget-insert-wrap">
                   <div class="cptm-widget-insert-modal-container">
-                    <widgets-window :args="{ active: false, bottom_achhor: true }"/>
+                    <widgets-window
+                      v-bind="layout.footer.right"
+                      :availableWidgets="available_widgets"
+                      :active="getActiveInsertWindowStatus( 'thumbnail_footer_right' )"
+                      :bottomAchhor="true"
+                      @close="closeInsertWindow()"
+                    />
                   </div>
 
-                  <a href="#" class="cptm-widget-insert-link">
+                  <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_footer_right' )">
                     <span class="fa fa-plus"></span>
                   </a>
                 </div>
@@ -178,7 +232,7 @@
       </div>
 
       <div class="cptm-options-area">
-        <widgets-window :args="{ active: true, animation: 'cptm-animation-flip' }"/>
+        <widgets-window v-bind="widgetOptionsWindow" @close="closeWidgetOptionsWindow()"/>
       </div>
     </div>
   </div>
@@ -254,6 +308,11 @@ export default {
   data() {
     return {
       active_insert_widget_key: 'thumbnail_top_right',
+
+      widgetOptionsWindow: {
+        active: true, 
+        animation: 'cptm-animation-flip'
+      },
 
       available_widgets: {
         listing_title: {
@@ -407,11 +466,9 @@ export default {
             max_widget_info_text: "Up to 2 items can be added",
             accepted_widgets: ["open_now_badge", "favorite_badge"],
             active_widgets: ["open_now_badge"],
-            bottomAchhor: true,
           },
           top_left: {
             label: 'Top Left',
-            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 2,
             max_widget_info_text: "Up to 2 items can be added",
             accepted_widgets: ["open_now_badge", "favorite_badge"],
@@ -419,7 +476,6 @@ export default {
           },
           bottom_right: {
             label: 'Bottom Right',
-            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 2,
             max_widget_info_text: "Up to 2 items can be added",
             accepted_widgets: ["open_now_badge", "favorite_badge"],
@@ -427,7 +483,6 @@ export default {
           },
           bottom_left: {
             label: 'Bottom Left',
-            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 2,
             max_widget_info_text: "Up to 2 items can be added",
             accepted_widgets: ["open_now_badge", "favorite_badge"],
@@ -435,7 +490,6 @@ export default {
           },
           avater: {
             label: 'Avater',
-            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 1,
             max_widget_info_text: "Up to 1 item can be added",
             accepted_widgets: ["user_avater"],
@@ -446,12 +500,12 @@ export default {
         middle: {
           body: {
             label: 'Body',
-            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 2,
-            accepted_widgets: [
-              { label: "Preset", widgets: ["listing_title"] },
-              { label: "Custom", widgets: ["listing_title"] },
+            widget_groups: [
+              { label: 'Preset', widgets: ['listing_title'] },
+              { label: 'Custom', widgets: ['listing_title'] },
             ],
+            accepted_widgets: ["listing_title"],
             widgets: ["listing_title"],
           },
         },
@@ -459,14 +513,12 @@ export default {
         footer: {
           right: {
             label: 'Footer Right',
-            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 2,
             accepted_widgets: ["category"],
             widgets: ["category"],
           },
           left: {
             label: 'Footer Left',
-            widget_insert_window: { active: false, bottom_achhor: true },
             max_widget: 2,
             accepted_widgets: ["category"],
             widgets: ["category"],
@@ -484,6 +536,10 @@ export default {
 
     closeInsertWindow( widget_insert_window ) {
       this.active_insert_widget_key = '';
+    },
+
+    closeWidgetOptionsWindow() {
+      this.widgetOptionsWindow.active = false;
     },
 
     getActiveInsertWindowStatus( current_item_key ) {

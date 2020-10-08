@@ -689,9 +689,6 @@ input[type="checkbox"].cptm-checkbox {
 .cptm-options-area {
   width: 300px;
   perspective: 800px;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 
 .cptm-option-card {
@@ -812,6 +809,7 @@ input[type="checkbox"].cptm-checkbox {
   position: absolute;
   bottom: 0;
   left: 50%;
+  z-index: 99;
   transform: translate(-50%, 50%);
 }
 

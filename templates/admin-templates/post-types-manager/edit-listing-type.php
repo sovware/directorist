@@ -7,8 +7,9 @@
     <div id="atbdp-cpt-manager">
         <cpt-manager
             id="<?php echo $data['id']; ?>"
-            settings='<?php echo $data['settings']; ?>' 
             fields='<?php echo $data['fields']; ?>'
+            layouts='<?php echo $data['layouts']; ?>' 
+            config='<?php echo $data['config']; ?>' 
         />
     </div>
 </div>

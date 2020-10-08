@@ -28,12 +28,12 @@ export default {
             headerNavigation: state => {
                 let header_navigation = [];
 
-                for ( let nav_item in state.settings ) {
+                for ( let nav_item in state.layouts ) {
                     header_navigation.push({
                         key: nav_item,
-                        label: ( state.settings[ nav_item ].label ) ? state.settings[ nav_item ].label : '',
-                        icon: ( state.settings[ nav_item ].icon ) ? state.settings[ nav_item ].icon : false,
-                        icon_class: ( state.settings[ nav_item ].icon_class ) ? state.settings[ nav_item ].icon_class : false,
+                        label: ( state.layouts[ nav_item ].label ) ? state.layouts[ nav_item ].label : '',
+                        icon: ( state.layouts[ nav_item ].icon ) ? state.layouts[ nav_item ].icon : false,
+                        icon_class: ( state.layouts[ nav_item ].icon_class ) ? state.layouts[ nav_item ].icon_class : false,
                     });
                 }
 

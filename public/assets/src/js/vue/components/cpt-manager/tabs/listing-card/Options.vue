@@ -37,7 +37,7 @@ export default {
     computed: {
         ...mapState({
             fields: 'fields',
-            sections: state => state.settings.listings_card_layout.submenu.options.sections,
+            sections: state => state.layouts.listings_card_layout.submenu.options.sections,
         }),
     },
 

@@ -1,180 +1,161 @@
 <template>
-  <div class>
-    <div class="cptm-builder-section">
-      <!-- cptm-preview-area -->
-      <div class="cptm-preview-area">
-      <pre>{{ layout.thumbnail.top_right }}</pre>
-        <div class="cptm-card-preview-widget">
-          <!-- cptm-listing-card-preview-header -->
-          <div class="cptm-listing-card-preview-header">
-            <div class="cptm-card-preview-thumbnail">
-              <div class="cptm-card-preview-thumbnail-overlay">
+  <div class="cptm-builder-section">
+    <!-- cptm-preview-area -->
+    <div class="cptm-preview-area">
+      <div class="cptm-card-preview-widget">
+        <!-- cptm-listing-card-preview-header -->
+        <div class="cptm-listing-card-preview-header">
+          <div class="cptm-card-preview-thumbnail">
+            <div class="cptm-card-preview-thumbnail-overlay">
 
-                <!-- cptm-card-preview-top-left -->
-                <div class="cptm-card-preview-top-left">
-                  <div class="cptm-card-preview-top-left-placeholder cptm-placeholder-blcok">
-                    <p class="cptm-placeholder-label">{{ layout.thumbnail.top_left.label }}</p>
+              <!-- cptm-card-preview-top-left -->
+              <div class="cptm-card-preview-top-left">
+                <div class="cptm-card-preview-top-left-placeholder cptm-placeholder-blcok">
+                  <p class="cptm-placeholder-label">{{ layout.thumbnail.top_left.label }}</p>
 
-                    <div class="cptm-widget-insert-area">
-                      <div class="cptm-widget-insert-wrap">
-                        <div class="cptm-widget-insert-modal-container">
-                          <widgets-window
-                            v-bind="layout.thumbnail.top_left"
-                            :availableWidgets="available_widgets"
-                            :active="getActiveInsertWindowStatus( 'thumbnail_top_left' )"
-                            :bottomAchhor="true"
-                            @close="closeInsertWindow()"
-                          />
-                        </div>
-
-                        <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_top_left' )">
-                          <span class="fa fa-plus"></span>
-                        </a>
+                  <div class="cptm-widget-insert-area">
+                    <div class="cptm-widget-insert-wrap">
+                      <div class="cptm-widget-insert-modal-container">
+                        <widgets-window
+                          v-bind="layout.thumbnail.top_left"
+                          :availableWidgets="available_widgets"
+                          :active="getActiveInsertWindowStatus( 'thumbnail_top_left' )"
+                          :bottomAchhor="true"
+                          @close="closeInsertWindow()"
+                        />
                       </div>
+
+                      <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_top_left' )">
+                        <span class="fa fa-plus"></span>
+                      </a>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <!-- cptm-card-preview-top-rignt -->
-                <div class="cptm-card-preview-top-rignt">
-                  <div class="cptm-card-preview-top-rignt-placeholder cptm-placeholder-blcok">
-                    <p class="cptm-placeholder-label hide">Top Rignt</p>
+              <!-- cptm-card-preview-top-rignt -->
+              <div class="cptm-card-preview-top-rignt">
+                <div class="cptm-card-preview-top-rignt-placeholder cptm-placeholder-blcok">
+                  <p class="cptm-placeholder-label hide">Top Rignt</p>
 
-                    <div class="cptm-widget-insert-area">
-                      <div class="cptm-widget-insert-wrap">
-                        <div class="cptm-widget-insert-modal-container">
-                          <widgets-window
-                            v-bind="layout.thumbnail.top_right"
-                            :availableWidgets="available_widgets"
-                            :active="getActiveInsertWindowStatus( 'thumbnail_top_right' )"
-                            :bottomAchhor="true"
-                            @widget-selection="layout.thumbnail.top_right.selectedWidgets = $event"
-                            @close="closeInsertWindow()"
-                          />
-                        </div>
-
-                        <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_top_right' )">
-                          <span class="fa fa-plus"></span>
-                        </a>
+                  <div class="cptm-widget-insert-area">
+                    <div class="cptm-widget-insert-wrap">
+                      <div class="cptm-widget-insert-modal-container">
+                        <widgets-window
+                          v-bind="layout.thumbnail.top_right"
+                          :availableWidgets="available_widgets"
+                          id="thumbnail_top_right"
+                          :active="getActiveInsertWindowStatus( 'thumbnail_top_right' )"
+                          :bottomAchhor="true"
+                          @widget-selection="layout.thumbnail.top_right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                          @close="closeInsertWindow()"
+                        />
                       </div>
-                    </div>
 
-                    <div class="cptm-widget-badge">
-                      Badge Text
-                      <div class="cptm-widget-badge-tools">
-                        <a href=""><span class="uil uil-expand-arrows"></span></a>
-                        <a href=""><span class="uil uil-cog"></span></a>
-                        <a href=""><span class="uil uil-trash-alt"></span></a>
-
-                      </div>
-                    </div>
-                    <!-- <div class="cptm-widget-badge">Badge Text 2</div> -->
-                  </div>
-                </div>
-
-                <!-- cptm-card-preview-bottom-left -->
-                <div class="cptm-card-preview-bottom-left">
-                  <div class="cptm-card-preview-bottom-left-placeholder cptm-placeholder-blcok">
-                    <p class="cptm-placeholder-label">Bottom Left</p>
-
-                    <div class="cptm-widget-insert-area">
-                      <div class="cptm-widget-insert-wrap">
-                        <div class="cptm-widget-insert-modal-container">
-                          <widgets-window
-                            v-bind="layout.thumbnail.bottom_left"
-                            :availableWidgets="available_widgets"
-                            :active="getActiveInsertWindowStatus( 'thumbnail_bottom_left' )"
-                            :bottomAchhor="true"
-                            @close="closeInsertWindow()"
-                          />
-                        </div>
-
-                        <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_bottom_left' )">
-                          <span class="fa fa-plus"></span>
-                        </a>
-                      </div>
+                      <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_top_right' )">
+                        <span class="fa fa-plus"></span>
+                      </a>
                     </div>
                   </div>
+
+                  <div class="cptm-widget-preview-area">
+                    <template v-for="( widget, widget_key ) in layout.thumbnail.top_right.selectedWidgets">
+                      <component 
+                        :is="active_widgets[ widget ].type + '-card-widget'" 
+                        :key="widget_key"
+                        :label="active_widgets[ widget ].label"
+                        :options="active_widgets[ widget ].options"
+                        @drag="dragWidget( widget, layout.thumbnail.top_right.selectedWidgets )"
+                        @edit="editWidget( widget, layout.thumbnail.top_right.selectedWidgets )"
+                        @trash="trashWidget( widget, layout.thumbnail.top_right.selectedWidgets )"
+                      >
+                      </component>
+                    </template>
+                    
+                  </div>
+                  
                 </div>
+              </div>
 
-                <!-- cptm-card-preview-bottom-right -->
-                <div class="cptm-card-preview-bottom-right">
-                  <div class="cptm-card-preview-bottom-right-placeholder cptm-placeholder-blcok">
-                    <p class="cptm-placeholder-label">Bottom Rignt</p>
+              <!-- cptm-card-preview-bottom-left -->
+              <div class="cptm-card-preview-bottom-left">
+                <div class="cptm-card-preview-bottom-left-placeholder cptm-placeholder-blcok">
+                  <p class="cptm-placeholder-label">Bottom Left</p>
 
-                    <div class="cptm-widget-insert-area">
-                      <div class="cptm-widget-insert-wrap">
-                        <div class="cptm-widget-insert-modal-container">
-                          <widgets-window
-                            v-bind="layout.thumbnail.bottom_right"
-                            :availableWidgets="available_widgets"
-                            :active="getActiveInsertWindowStatus( 'thumbnail_bottom_right' )"
-                            :bottomAchhor="true"
-                            @close="closeInsertWindow()"
-                          />
-                        </div>
-
-                        <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_bottom_right' )">
-                          <span class="fa fa-plus"></span>
-                        </a>
+                  <div class="cptm-widget-insert-area">
+                    <div class="cptm-widget-insert-wrap">
+                      <div class="cptm-widget-insert-modal-container">
+                        <widgets-window
+                          v-bind="layout.thumbnail.bottom_left"
+                          :availableWidgets="available_widgets"
+                          :active="getActiveInsertWindowStatus( 'thumbnail_bottom_left' )"
+                          :bottomAchhor="true"
+                          @close="closeInsertWindow()"
+                        />
                       </div>
+
+                      <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_bottom_left' )">
+                        <span class="fa fa-plus"></span>
+                      </a>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div class="cptm-card-preview-thumbnail-bg">
-                    <span class="uil uil-scenery"></span>
+              <!-- cptm-card-preview-bottom-right -->
+              <div class="cptm-card-preview-bottom-right">
+                <div class="cptm-card-preview-bottom-right-placeholder cptm-placeholder-blcok">
+                  <p class="cptm-placeholder-label">Bottom Right</p>
+
+                  <div class="cptm-widget-insert-area">
+                    <div class="cptm-widget-insert-wrap">
+                      <div class="cptm-widget-insert-modal-container">
+                        <widgets-window
+                          v-bind="layout.thumbnail.bottom_right"
+                          :availableWidgets="available_widgets"
+                          :active="getActiveInsertWindowStatus( 'thumbnail_bottom_right' )"
+                          :bottomAchhor="true"
+                          @close="closeInsertWindow()"
+                        />
+                      </div>
+
+                      <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_bottom_right' )">
+                        <span class="fa fa-plus"></span>
+                      </a>
+                    </div>
+                  </div>
                 </div>
+              </div>
+
+              <div class="cptm-card-preview-thumbnail-bg">
+                  <span class="uil uil-scenery"></span>
               </div>
             </div>
           </div>
+        </div>
 
-          <!-- cptm-listing-card-preview-body -->
-          <div class="cptm-listing-card-preview-body">
-            <!-- cptm-listing-card-author-avatar -->
-            <div class="cptm-listing-card-author-avatar">
-              <div class="cptm-listing-card-author-avatar-placeholder cptm-placeholder-blcok">
-                <p class="cptm-placeholder-author-thumb">
-                  <img src="https://via.placeholder.com/150" alt="">
-                </p>
-
-                <div class="cptm-widget-insert-area">
-                  <div class="cptm-widget-insert-wrap">
-                    <div class="cptm-widget-insert-modal-container">
-                      <widgets-window
-                        v-bind="layout.thumbnail.avater"
-                        :availableWidgets="available_widgets"
-                        :active="getActiveInsertWindowStatus( 'thumbnail_avater' )"
-                        :bottomAchhor="true"
-                        @close="closeInsertWindow()"
-                      />
-                    </div>
-
-                    <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_avater' )">
-                      <span class="fa fa-plus"></span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="cptm-listing-card-preview-body-placeholder cptm-placeholder-blcok">
-              <p class="cptm-placeholder-label">Body Contents</p>
+        <!-- cptm-listing-card-preview-body -->
+        <div class="cptm-listing-card-preview-body">
+          <!-- cptm-listing-card-author-avatar -->
+          <div class="cptm-listing-card-author-avatar">
+            <div class="cptm-listing-card-author-avatar-placeholder cptm-placeholder-blcok">
+              <p class="cptm-placeholder-author-thumb">
+                <img src="https://via.placeholder.com/150" alt="">
+              </p>
 
               <div class="cptm-widget-insert-area">
                 <div class="cptm-widget-insert-wrap">
                   <div class="cptm-widget-insert-modal-container">
                     <widgets-window
-                      v-bind="layout.middle.body"
+                      v-bind="layout.thumbnail.avater"
                       :availableWidgets="available_widgets"
-                      :active="getActiveInsertWindowStatus( 'thumbnail_body_contents' )"
+                      :active="getActiveInsertWindowStatus( 'thumbnail_avater' )"
                       :bottomAchhor="true"
                       @close="closeInsertWindow()"
                     />
                   </div>
 
-                  <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_body_contents' )">
+                  <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_avater' )">
                     <span class="fa fa-plus"></span>
                   </a>
                 </div>
@@ -182,60 +163,83 @@
             </div>
           </div>
 
-          <!-- cptm-listing-card-preview-footer -->
-          <div class="cptm-listing-card-preview-footer">
-            <!-- cptm-listing-card-preview-footer-left-placeholder -->
-            <div class="cptm-listing-card-preview-footer-left-placeholder cptm-placeholder-blcok">
-              <p class="cptm-placeholder-label">Footer Left</p>
-              <div class="cptm-widget-insert-area">
-                <div class="cptm-widget-insert-wrap">
-                  <div class="cptm-widget-insert-modal-container">
-                    <widgets-window
-                      v-bind="layout.footer.left"
-                      :availableWidgets="available_widgets"
-                      :active="getActiveInsertWindowStatus( 'thumbnail_footer_left' )"
-                      :bottomAchhor="true"
-                      @close="closeInsertWindow()"
-                    />
-                  </div>
 
-                  <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_footer_left' )">
-                    <span class="fa fa-plus"></span>
-                  </a>
+          <div class="cptm-listing-card-preview-body-placeholder cptm-placeholder-blcok">
+            <p class="cptm-placeholder-label">Body Contents</p>
+
+            <div class="cptm-widget-insert-area">
+              <div class="cptm-widget-insert-wrap">
+                <div class="cptm-widget-insert-modal-container">
+                  <widgets-window
+                    v-bind="layout.middle.body"
+                    :availableWidgets="available_widgets"
+                    :active="getActiveInsertWindowStatus( 'thumbnail_body_contents' )"
+                    :bottomAchhor="true"
+                    @close="closeInsertWindow()"
+                  />
                 </div>
+
+                <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_body_contents' )">
+                  <span class="fa fa-plus"></span>
+                </a>
               </div>
             </div>
+          </div>
+        </div>
 
-
-            <!-- cptm-listing-card-preview-footer-right-placeholder -->
-            <div class="cptm-listing-card-preview-footer-right-placeholder cptm-placeholder-blcok">
-              <p class="cptm-placeholder-label">Footer Right</p>
-
-              <div class="cptm-widget-insert-area">
-                <div class="cptm-widget-insert-wrap">
-                  <div class="cptm-widget-insert-modal-container">
-                    <widgets-window
-                      v-bind="layout.footer.right"
-                      :availableWidgets="available_widgets"
-                      :active="getActiveInsertWindowStatus( 'thumbnail_footer_right' )"
-                      :bottomAchhor="true"
-                      @close="closeInsertWindow()"
-                    />
-                  </div>
-
-                  <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_footer_right' )">
-                    <span class="fa fa-plus"></span>
-                  </a>
+        <!-- cptm-listing-card-preview-footer -->
+        <div class="cptm-listing-card-preview-footer">
+          <!-- cptm-listing-card-preview-footer-left-placeholder -->
+          <div class="cptm-listing-card-preview-footer-left-placeholder cptm-placeholder-blcok">
+            <p class="cptm-placeholder-label">Footer Left</p>
+            <div class="cptm-widget-insert-area">
+              <div class="cptm-widget-insert-wrap">
+                <div class="cptm-widget-insert-modal-container">
+                  <widgets-window
+                    v-bind="layout.footer.left"
+                    :availableWidgets="available_widgets"
+                    :active="getActiveInsertWindowStatus( 'thumbnail_footer_left' )"
+                    :bottomAchhor="true"
+                    @close="closeInsertWindow()"
+                  />
                 </div>
+
+                <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_footer_left' )">
+                  <span class="fa fa-plus"></span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- cptm-listing-card-preview-footer-right-placeholder -->
+          <div class="cptm-listing-card-preview-footer-right-placeholder cptm-placeholder-blcok">
+            <p class="cptm-placeholder-label">Footer Right</p>
+
+            <div class="cptm-widget-insert-area">
+              <div class="cptm-widget-insert-wrap">
+                <div class="cptm-widget-insert-modal-container">
+                  <widgets-window
+                    v-bind="layout.footer.right"
+                    :availableWidgets="available_widgets"
+                    :active="getActiveInsertWindowStatus( 'thumbnail_footer_right' )"
+                    :bottomAchhor="true"
+                    @close="closeInsertWindow()"
+                  />
+                </div>
+
+                <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_footer_right' )">
+                  <span class="fa fa-plus"></span>
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="cptm-options-area">
-        <widgets-window v-bind="widgetOptionsWindow" @close="closeWidgetOptionsWindow()"/>
-      </div>
+    <div class="cptm-options-area">
+      <widgets-window v-bind="widgetOptionsWindow" @close="closeWidgetOptionsWindow()"/>
     </div>
   </div>
 </template>
@@ -333,7 +337,7 @@ export default {
         open_now_badge: {
           type: "badge",
           id: "open_now_badge",
-          label: "Badge",
+          label: "Open Now",
           icon: '<span class="uil uil-text-fields"></span>',
           options: {
             label: {
@@ -401,7 +405,7 @@ export default {
         open_now_badge: {
           type: "badge",
           id: "open_now_badge",
-          label: "Badge",
+          label: "Open Now",
           icon: '<span class="uil uil-text-fields"></span>',
           options: {
             label: {
@@ -466,7 +470,7 @@ export default {
             maxWidget: 2,
             maxWidgetInfoText: "Up to 2 items can be added",
             acceptedWidgets: ["open_now_badge", "favorite_badge"],
-            selectedWidgets: ["favorite_badge", "favorite_badge"],
+            selectedWidgets: ["favorite_badge"],
           },
           bottom_right: {
             label: 'Bottom Right',
@@ -523,9 +527,34 @@ export default {
   },
 
   methods: {
+    dragWidget( key, path ) {
+      console.log( 'dragWidget', { key, path } );
+    },
+
+    editWidget( key, path ) {
+      console.log( 'editWidget', { key, path } );
+    },
+
+    trashWidget( key, path ) {
+      if ( ! path.includes( key ) ) { return; }
+      
+      let index = path.indexOf( key );
+      path.splice( index, 1 );
+
+      if ( typeof this.active_widgets[ key ] === 'undefined' ) { return; }
+      delete this.active_widgets[ key ];
+
+      // console.log( this.active_widgets );
+
+    },
+
     activeInsertWindow( current_item_key ) {
       // console.log( current_item_key, this.active_insert_widget_key );
       this.active_insert_widget_key = current_item_key;
+    },
+
+    insertWidget( payload ) {
+      this.active_widgets[ payload.key ] = { ...this.available_widgets[ payload.key ] };
     },
 
     closeInsertWindow( widget_insert_window ) {

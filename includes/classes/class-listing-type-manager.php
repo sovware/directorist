@@ -4395,8 +4395,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 }
             }
 
-            $test = get_term_meta( $listing_type_id, 'submission_form_fields' );
-            var_dump( $test );
+            // $test = get_term_meta( $listing_type_id, 'submission_form_fields' );
+            // var_dump( $test );
         }
 
         // handle_delete_listing_type_request

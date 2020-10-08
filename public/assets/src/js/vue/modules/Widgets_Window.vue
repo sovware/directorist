@@ -20,15 +20,13 @@
         </div>
 
         <div class="cptm-option-card-body">
-            <pre>{{ selectedWidgets }}</pre>
-
             <div v-if="infoTexts.length" class="cptm-info-text-area">
                 <p class="cptm-info-text" :class="'cptm-' + info.type" v-for="( info, text_key ) in infoTexts" :key="text_key">
                     {{ info.text }}
                 </p>
             </div>
 
-            <ul class="cptm-form-builder-field-list" v-if="unSelectedWidgetsList">
+            <ul class="cptm-form-builder-field-list" v-if="Object.keys( unSelectedWidgetsList ).length">
                 <li class="cptm-form-builder-field-list-item clickable" v-for="(widget, widget_key) in unSelectedWidgetsList" :key="widget_key" @click="selectWidget( widget_key )">
                     <span class="cptm-form-builder-field-list-icon" v-html="widget.icon"></span>
                     <span class="cptm-form-builder-field-list-label">
@@ -36,6 +34,8 @@
                     </span>
                 </li>
             </ul>
+
+            <p v-else class="cptm-info-text">Nothing available</p>
         </div>
 
         <span class="cptm-anchor-down" v-if="bottomAchhor"></span>
@@ -52,6 +52,10 @@ export default {
     },
 
     props: {
+        id: {
+            type: [ String, Number],
+            default: '',
+        },
         active: {
             type: Boolean,
             default: false,
@@ -82,11 +86,11 @@ export default {
     computed: {
         widgetsList() {
             if ( ! this.availableWidgets && typeof this.availableWidgets !== 'object' ) {
-                return false;
+                return {};
             }
 
             if ( ! Object.keys( this.availableWidgets ).length ) {
-                return false;
+                return {};
             }
 
             let availableWidgets = JSON.parse( JSON.stringify( this.availableWidgets ) );
@@ -107,14 +111,15 @@ export default {
 
                     return obj;
                 }, {});
-
+    
             return widgets_list;
         },
 
         unSelectedWidgetsList() {
             const self = this;
 
-            if ( ! self.widgetsList ) { return false; }
+            // console.log( this.id, self.widgetsList );
+            if ( ! Object.keys( self.widgetsList ).length ) { return {}; }
 
             let widgets_list = Object.keys( self.widgetsList )
                 .filter( key => ! self.localSelectedWidgets.includes( key ) )
@@ -150,13 +155,12 @@ export default {
             if ( typeof this.selectedWidgets !== 'object' ) {
                 return;
             }
-
-            this.localSelectedWidgets = this.selectedWidgets;
+            
+            let unique_selecte_widgets = new Set( this.selectedWidgets );
+            this.localSelectedWidgets = [ ...unique_selecte_widgets ];
         },
 
         selectWidget( key ) {
-
-            console.log( key );
             let current_index = this.localSelectedWidgets.indexOf( key );
             
             if ( current_index != -1 ) {
@@ -166,7 +170,9 @@ export default {
 
             this.localSelectedWidgets.push( key );
 
-            this.$emit( 'widget-selection', this.localSelectedWidgets );
+            this.$emit( 'widget-selection', { 
+                key, selected_widgets: this.localSelectedWidgets
+            });
         }
     },
 }

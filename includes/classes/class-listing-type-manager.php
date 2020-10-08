@@ -147,8 +147,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
             if ( preg_match( '/(\\\")/', $string_alt ) ) {
                 $string_alt = preg_replace( '/(\\\")/', '"', $string_alt );
-                $string_alt = json_decode( $string_alt );
-                $string = ( ! is_null( $string_alt )) ? json_decode(json_encode( $string_alt ), true) : $string;
+                $string_alt = json_decode( $string_alt, true );
+                $string = ( ! is_null( $string_alt )) ? $string_alt : $string;
             }
 
             return $string;
@@ -4379,8 +4379,6 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 if ( array_key_exists( $group_key, $all_term_meta ) ) {
                     $group_value = maybe_unserialize( maybe_unserialize( $all_term_meta[ $group_key ][0] ) );
 
-                    var_dump( $group_value );
-
                     foreach( $group_fields as $field_index => $field_key ) {
                         if ( 'string' === gettype( $field_key ) && array_key_exists( $field_key, $this->fields )  ) {
                             $this->fields[ $field_key ]['value'] = $group_value[ $field_key ];
@@ -4397,8 +4395,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 }
             }
 
-            // $test = get_term_meta( $listing_type_id, 'submission_form_fields' );
-            // var_dump( $test );
+            $test = get_term_meta( $listing_type_id, 'submission_form_fields' );
+            var_dump( $test );
         }
 
         // handle_delete_listing_type_request

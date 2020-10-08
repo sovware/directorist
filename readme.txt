@@ -141,16 +141,18 @@ Directorist is not developed by a single person. A team of dedicated developers 
 
 == Changelog ==
 
-= 6.5.3 - Oct 5, 2020 =
+= 6.5.3 - Oct 8, 2020 =
 
-* Add - Polylang plugin compatibility
-* Add - Browser compatibility
+* New - Auto login after registration
+* New - Custom redirection after registration
+* New - Polylang plugin compatibility
+* Tweak - Browser compatibility
+* Tweak - Font Awesome version updated
 * Fix - Badge issue of related listings
 * Fix - Custom map marker placement issue
 * Fix - Conflict with JNews theme
 * Fix - Registration validation error
 * Fix - Changed preview submit button text
-* Add - More customization option of registration form
 * Fix - Email issue in review
 * Fix - Disable price issue in single listing
 * Fix - Tags filter source issue

@@ -163,7 +163,6 @@ export default {
             }
 
             // console.log( field_list, skipped_fields );
-            
             form_data.append( 'field_list', JSON.stringify( field_list ) );
 
             this.status_messages = [];

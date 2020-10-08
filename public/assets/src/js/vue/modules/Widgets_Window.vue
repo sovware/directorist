@@ -20,8 +20,21 @@
         </div>
 
         <div class="cptm-option-card-body">
-            <ul class="cptm-form-builder-field-list">
-                <li class=""></li>
+            <pre>{{ selectedWidgets }}</pre>
+
+            <div v-if="infoTexts.length" class="cptm-info-text-area">
+                <p class="cptm-info-text" :class="'cptm-' + info.type" v-for="( info, text_key ) in infoTexts" :key="text_key">
+                    {{ info.text }}
+                </p>
+            </div>
+
+            <ul class="cptm-form-builder-field-list" v-if="unSelectedWidgetsList">
+                <li class="cptm-form-builder-field-list-item clickable" v-for="(widget, widget_key) in unSelectedWidgetsList" :key="widget_key" @click="selectWidget( widget_key )">
+                    <span class="cptm-form-builder-field-list-icon" v-html="widget.icon"></span>
+                    <span class="cptm-form-builder-field-list-label">
+                        {{ widget.label }}
+                    </span>
+                </li>
             </ul>
         </div>
 
@@ -54,22 +67,66 @@ export default {
         availableWidgets: {
             type: Object,
         },
-        accepted_widgets: {
+        acceptedWidgets: {
+            type: Array,
+        },
+        selectedWidgets: {
             type: Array,
         },
     },
 
     mounted() {
-        // console.log({ 
-        //     active: this.active, 
-        //     animation: this.animation,
-        //     bottomAchhor: this.bottomAchhor,
-        //     availableWidgets: this.availableWidgets,
-        //     accepted_widgets: this.accepted_widgets,
-        // });
+        this.init();
     },
 
     computed: {
+        widgetsList() {
+            if ( ! this.availableWidgets && typeof this.availableWidgets !== 'object' ) {
+                return false;
+            }
+
+            if ( ! Object.keys( this.availableWidgets ).length ) {
+                return false;
+            }
+
+            let availableWidgets = JSON.parse( JSON.stringify( this.availableWidgets ) );
+            let accepted_widgets = this.acceptedWidgets;
+
+            if ( ! accepted_widgets && typeof accepted_widgets !== 'object' ) {
+                return availableWidgets;
+            }
+
+            if ( ! accepted_widgets.length ) {
+                return availableWidgets;
+            }
+
+            let widgets_list = Object.keys( availableWidgets )
+                .filter( key => accepted_widgets.includes( key ) )
+                .reduce(( obj, key ) => {
+                    obj[ key ] = availableWidgets[ key ];
+
+                    return obj;
+                }, {});
+
+            return widgets_list;
+        },
+
+        unSelectedWidgetsList() {
+            const self = this;
+
+            if ( ! self.widgetsList ) { return false; }
+
+            let widgets_list = Object.keys( self.widgetsList )
+                .filter( key => ! self.localSelectedWidgets.includes( key ) )
+                .reduce(( obj, key ) => {
+                    obj[ key ] = self.widgetsList[ key ];
+
+                    return obj;
+                }, {});
+
+            return widgets_list;
+        },
+
         mainWrapperClass() {
             return {
                 active: this.active,
@@ -80,12 +137,37 @@ export default {
 
     data() {
         return {
-            
+            infoTexts: [
+                // { type: 'info', text: 'Up to 2 items can be added' }
+            ],
+
+            localSelectedWidgets: [],
         }
     },
 
     methods: {
+        init() {
+            if ( typeof this.selectedWidgets !== 'object' ) {
+                return;
+            }
 
+            this.localSelectedWidgets = this.selectedWidgets;
+        },
+
+        selectWidget( key ) {
+
+            console.log( key );
+            let current_index = this.localSelectedWidgets.indexOf( key );
+            
+            if ( current_index != -1 ) {
+                this.localSelectedWidgets.splice( current_index, 1 );
+                return;
+            }
+
+            this.localSelectedWidgets.push( key );
+
+            this.$emit( 'widget-selection', this.localSelectedWidgets );
+        }
     },
 }
 </script>

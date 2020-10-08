@@ -3,6 +3,7 @@
     <div class="cptm-builder-section">
       <!-- cptm-preview-area -->
       <div class="cptm-preview-area">
+      <pre>{{ layout.thumbnail.top_right }}</pre>
         <div class="cptm-card-preview-widget">
           <!-- cptm-listing-card-preview-header -->
           <div class="cptm-listing-card-preview-header">
@@ -47,6 +48,7 @@
                             :availableWidgets="available_widgets"
                             :active="getActiveInsertWindowStatus( 'thumbnail_top_right' )"
                             :bottomAchhor="true"
+                            @widget-selection="layout.thumbnail.top_right.selectedWidgets = $event"
                             @close="closeInsertWindow()"
                           />
                         </div>
@@ -319,7 +321,7 @@ export default {
           type: "title",
           id: "listing_title",
           label: "Listing Title",
-          icon: "",
+          icon: '<span class="uil uil-text-fields"></span>',
           options: {
             label: {
               type: "text",
@@ -328,12 +330,11 @@ export default {
             },
           },
         },
-
         open_now_badge: {
           type: "badge",
           id: "open_now_badge",
           label: "Badge",
-          icon: "",
+          icon: '<span class="uil uil-text-fields"></span>',
           options: {
             label: {
               type: "text",
@@ -342,12 +343,11 @@ export default {
             },
           },
         },
-
         favorite_badge: {
           type: "badge",
           id: "favorite_badge",
           label: "Favorite",
-          icon: "",
+          icon: '<span class="uil uil-text-fields"></span>',
           options: {
             icon: {
               type: "icon",
@@ -356,12 +356,11 @@ export default {
             },
           },
         },
-
         category: {
           type: "category",
           id: "category",
           label: "Category",
-          icon: "",
+          icon: '<span class="uil uil-text-fields"></span>',
           options: {
             icon: {
               type: "icon",
@@ -370,12 +369,11 @@ export default {
             },
           },
         },
-
         user_avater: {
           type: "avater",
           id: "user_avater",
           label: "User Avater",
-          icon: "",
+          icon: '<span class="uil uil-text-fields"></span>',
           options: {
             align: {
               type: "select",
@@ -391,7 +389,7 @@ export default {
           type: "title",
           id: "listing_title",
           label: "Listing Title",
-          icon: "",
+          icon: '<span class="uil uil-text-fields"></span>',
           options: {
             label: {
               type: "text",
@@ -400,12 +398,11 @@ export default {
             },
           },
         },
-
         open_now_badge: {
           type: "badge",
           id: "open_now_badge",
           label: "Badge",
-          icon: "",
+          icon: '<span class="uil uil-text-fields"></span>',
           options: {
             label: {
               type: "text",
@@ -414,12 +411,11 @@ export default {
             },
           },
         },
-
         favorite_badge: {
           type: "badge",
           id: "favorite_badge",
           label: "Favorite",
-          icon: "",
+          icon: '<span class="uil uil-text-fields"></span>',
           options: {
             icon: {
               type: "icon",
@@ -428,12 +424,11 @@ export default {
             },
           },
         },
-
         category: {
           type: "category",
           id: "category",
           label: "Category",
-          icon: "",
+          icon: '<span class="uil uil-text-fields"></span>',
           options: {
             icon: {
               type: "icon",
@@ -442,12 +437,11 @@ export default {
             },
           },
         },
-
         user_avater: {
           type: "avater",
           id: "user_avater",
           label: "User Avater",
-          icon: "",
+          icon: '<span class="uil uil-text-fields"></span>',
           options: {
             align: {
               type: "select",
@@ -462,66 +456,66 @@ export default {
         thumbnail: {
           top_right: {
             label: 'Top Right',
-            max_widget: 2,
-            max_widget_info_text: "Up to 2 items can be added",
-            accepted_widgets: ["open_now_badge", "favorite_badge"],
-            active_widgets: ["open_now_badge"],
+            maxWidget: 2,
+            maxWidgetInfoText: "Up to 2 items can be added",
+            acceptedWidgets: ["open_now_badge", "favorite_badge"],
+            selectedWidgets: ["open_now_badge"],
           },
           top_left: {
             label: 'Top Left',
-            max_widget: 2,
-            max_widget_info_text: "Up to 2 items can be added",
-            accepted_widgets: ["open_now_badge", "favorite_badge"],
-            widgets: ["favorite_badge", "favorite_badge"],
+            maxWidget: 2,
+            maxWidgetInfoText: "Up to 2 items can be added",
+            acceptedWidgets: ["open_now_badge", "favorite_badge"],
+            selectedWidgets: ["favorite_badge", "favorite_badge"],
           },
           bottom_right: {
             label: 'Bottom Right',
-            max_widget: 2,
-            max_widget_info_text: "Up to 2 items can be added",
-            accepted_widgets: ["open_now_badge", "favorite_badge"],
-            widgets: ["open_now_badge", "favorite_badge"],
+            maxWidget: 2,
+            maxWidgetInfoText: "Up to 2 items can be added",
+            acceptedWidgets: ["open_now_badge", "favorite_badge"],
+            selectedWidgets: ["open_now_badge", "favorite_badge"],
           },
           bottom_left: {
             label: 'Bottom Left',
-            max_widget: 2,
-            max_widget_info_text: "Up to 2 items can be added",
-            accepted_widgets: ["open_now_badge", "favorite_badge"],
-            widgets: ["open_now_badge", "favorite_badge"],
+            maxWidget: 2,
+            maxWidgetInfoText: "Up to 2 items can be added",
+            acceptedWidgets: ["open_now_badge", "favorite_badge"],
+            selectedWidgets: ["open_now_badge", "favorite_badge"],
           },
           avater: {
             label: 'Avater',
-            max_widget: 1,
-            max_widget_info_text: "Up to 1 item can be added",
-            accepted_widgets: ["user_avater"],
-            widgets: ["user_avater"],
+            maxWidget: 1,
+            maxWidgetInfoText: "Up to 1 item can be added",
+            acceptedWidgets: ["user_avater"],
+            selectedWidgets: ["user_avater"],
           },
         },
 
         middle: {
           body: {
             label: 'Body',
-            max_widget: 2,
+            maxWidget: 2,
             widget_groups: [
               { label: 'Preset', widgets: ['listing_title'] },
               { label: 'Custom', widgets: ['listing_title'] },
             ],
-            accepted_widgets: ["listing_title"],
-            widgets: ["listing_title"],
+            acceptedWidgets: ["listing_title"],
+            selectedWidgets: ["listing_title"],
           },
         },
 
         footer: {
           right: {
             label: 'Footer Right',
-            max_widget: 2,
-            accepted_widgets: ["category"],
-            widgets: ["category"],
+            maxWidget: 2,
+            acceptedWidgets: ["category"],
+            selectedWidgets: ["category"],
           },
           left: {
             label: 'Footer Left',
-            max_widget: 2,
-            accepted_widgets: ["category"],
-            widgets: ["category"],
+            maxWidget: 2,
+            acceptedWidgets: ["category"],
+            selectedWidgets: ["category"],
           },
         },
       },

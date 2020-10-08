@@ -205,6 +205,7 @@ export default {
 
         updateValue( group_key, field_key, value ) {
             this.active_fields_groups[ group_key ][ field_key ].value = value;
+            // console.log( { field_key, value } );
             this.$emit( 'update',  this.finalValue );
         },
 

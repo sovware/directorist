@@ -2,29 +2,27 @@
     <div class="cptm-option-card" :class="mainWrapperClass">
         <div class="cptm-option-card-header">
             <div class="cptm-option-card-header-title-section">
-            <h3 class="cptm-option-card-header-title">Insert Element</h3>
+                <h3 class="cptm-option-card-header-title">Insert Element</h3>
 
-            <div class="cptm-header-action-area">
-                <a
-                href="#"
-                class="cptm-header-action-link cptm-header-action-close"
-                @click.prevent="$emit( 'close' )"
-                >
-                <span class="fa fa-times"></span>
-                </a>
-            </div>
+                <div class="cptm-header-action-area">
+                    <a href="#" class="cptm-header-action-link cptm-header-action-close" @click.prevent="$emit( 'close' )">
+                        <span class="fa fa-times"></span>
+                    </a>
+                </div>
             </div>
 
             <div class="cptm-option-card-header-nav-section">
-            <ul class="cptm-option-card-header-nav">
-                <li class="cptm-option-card-header-nav-item active">Preset Field</li>
-                <li class="cptm-option-card-header-nav-item">Custom Field</li>
-            </ul>
+                <ul class="cptm-option-card-header-nav">
+                    <li class="cptm-option-card-header-nav-item active">Preset Field</li>
+                    <li class="cptm-option-card-header-nav-item">Custom Field</li>
+                </ul>
             </div>
         </div>
 
         <div class="cptm-option-card-body">
-            Options
+            <ul class="cptm-form-builder-field-list">
+                <li class=""></li>
+            </ul>
         </div>
 
         <span class="cptm-anchor-down" v-if="bottomAchhor"></span>
@@ -62,7 +60,13 @@ export default {
     },
 
     mounted() {
-        
+        // console.log({ 
+        //     active: this.active, 
+        //     animation: this.animation,
+        //     bottomAchhor: this.bottomAchhor,
+        //     availableWidgets: this.availableWidgets,
+        //     accepted_widgets: this.accepted_widgets,
+        // });
     },
 
     computed: {

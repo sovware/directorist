@@ -30,7 +30,7 @@ export default {
     mixins: [ helpers ],
     computed: {
         ...mapState({
-            general_sections: state => state.settings.general.submenu.other.sections.labels,
+            general_sections: state => state.layouts.general.submenu.other.sections.labels,
             fields: state => state.fields,
         }),
     },

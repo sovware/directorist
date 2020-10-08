@@ -2,8 +2,9 @@
 
 if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
     class ATBDP_Listing_Type_Manager {
-        public $settings = [];
         public $fields = [];
+        public $layouts = [];
+        public $config = [];
         public $default_form = [];
         public $old_custom_fields = [];
 
@@ -22,8 +23,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         // save_post_type_data
         public function save_post_type_data() {
 
-            /* wp_send_json( [
-                'package_list' => $_POST['package_list'],
+           /*  wp_send_json( [
+                'general_config' => $this->maybe_json( $_POST['general_config'] ),
                 'status' => false,
                 'status_log' => [
                     'name_is_missing' => [
@@ -128,7 +129,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
         // update_validated_term_meta
         public function update_validated_term_meta( $term_id, $field_key, $value ) {
-            if ( ! isset( $this->fields[ $field_key ] )  ) {
+            if ( ! isset( $this->fields[ $field_key ] ) && ! array_key_exists( $field_key, $this->config['fields_group'] ) ) {
                 return;
             }
 
@@ -136,12 +137,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 $value = ( 'true' === $value || true === $value || '1' === $value || 1 === $value ) ? true : 0;
             }
 
-            update_term_meta(  $term_id, $field_key, $this->maybe_serialize( $value ) );
-        }
-
-        // maybe_serialize
-        public function maybe_serialize( $value = '' ) {
-            return maybe_serialize( $this->maybe_json( $value ));
+            $value = $this->maybe_json( $value );
+            update_term_meta(  $term_id, $field_key, $value );
         }
 
         // maybe_json
@@ -152,10 +149,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 $string_alt = preg_replace( '/(\\\")/', '"', $string_alt );
                 $string_alt = json_decode( $string_alt );
 
-                $string = ( null !== gettype( $string_alt ) ) ? $string_alt : $string;
+                $string = ( ! is_null( $string_alt )) ? $string_alt : $string;
             }
 
             return $string;
+        }
+
+        // maybe_serialize
+        public function maybe_serialize( $value = '' ) {
+            return maybe_serialize( $this->maybe_json( $value ));
         }
 
         public function get_old_custom_fields( $fields_of = 'form' ){
@@ -3903,6 +3905,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ],
                 'package_list' => [
                     'type' => 'checkbox',
+                    'name' => 'package_list',
                     'show_if' => [
                         [ 'conditions' => [ [ 'key' => 'enable_package', 'value' => true ] ] ],
                     ],
@@ -4007,12 +4010,18 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                         'plans' => [
                             'type' => 'checkbox',
                             'label' => 'Chose the plans',
+                            'name' => 'submission_form_fields_group_plans',
                             'value' => [],
                             'show_if' => [[
                                 'conditions' => [
                                     [ 'key' => 'tag_with_plan', 'value' => true ]
                                 ]
                             ]],
+                            'options' => [
+                                [ 'id' => 'a', 'value' => 'a', 'label' => 'A' ],
+                                [ 'id' => 'b', 'value' => 'b', 'label' => 'B' ],
+                                [ 'id' => 'c', 'value' => 'c', 'label' => 'C' ],
+                            ],
                             'options-source' => [
                                 'where'      => 'package_list.options',
                                 'filter_by'  => 'package_list.value',
@@ -4128,7 +4137,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
             ];
 
 
-            $this->settings = apply_filters( 'atbdp_listing_type_settings', [
+            $this->layouts = apply_filters( 'atbdp_listing_type_settings', [
                 'general' => [
                     'label' => 'General',
                     'icon' => '<i class="uil uil-estate"></i>',
@@ -4284,6 +4293,22 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     ],
                 ],
             ]);
+
+            $this->config = [
+                'fields_group' => [
+                    'general_config' => [
+                        'icon',
+                        'singular_name',
+                        'plural_name',
+                        'permalink',
+                        'preview_image',
+                        'archive_general' => [
+                            'listings_card_height',
+                            'listings_card_width',
+                        ]
+                    ]
+                ]
+            ];
         }
 
         // add_menu_pages
@@ -4315,8 +4340,9 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
             $data = [
                 'post_types_list_table' => $post_types_list_table,
-                'settings'              => json_encode( $this->settings ),
                 'fields'                => json_encode( $this->fields ),
+                'layouts'               => json_encode( $this->layouts ),
+                'config'                => json_encode( $this->config ),
                 'id'                    => $listing_type_id,
                 'add_new_link'          => admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=add_new' ),
             ];
@@ -4334,8 +4360,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         // update_fields_with_old_data
         public function update_fields_with_old_data() {
             $listing_type_id = absint( $_REQUEST['listing_type_id'] );
-
             $term = get_term( $listing_type_id, 'atbdp_listing_types' );
+
             if ( ! $term ) { return; }
 
             $this->fields[ 'name' ]['value'] = $term->name;
@@ -4350,7 +4376,27 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 }
             }
 
-            // var_dump( $this->fields['package_list'] );
+            foreach( $this->config['fields_group'] as $group_key => $group_fields ) {
+                if ( array_key_exists( $group_key, $all_term_meta ) ) {
+                    $group_value = maybe_unserialize( maybe_unserialize( $all_term_meta[ $group_key ][0] ) );
+
+                    
+
+                    foreach( $group_fields as $field_index => $field_key ) {
+                        if ( 'string' === gettype( $field_key ) && array_key_exists( $field_key, $this->fields )  ) {
+                            $this->fields[ $field_key ]['value'] = $group_value->$field_key;
+                        } 
+
+                        if ( 'array' === gettype( $field_key ) ) {
+                            foreach ( $field_key as $sub_field_key ) {
+                                if ( array_key_exists( $sub_field_key, $this->fields ) ) {
+                                    $this->fields[ $sub_field_key ]['value'] = $group_value->$field_index->$sub_field_key;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // handle_delete_listing_type_request

@@ -31,7 +31,7 @@ export default {
     mixins: [helpers],
     computed: {
         ...mapState({
-            general_sections: state => state.settings.general.submenu.preview_image.sections,
+            general_sections: state => state.layouts.general.submenu.preview_image.sections,
             fields: state => state.fields,
         }),
     },

@@ -36,7 +36,7 @@ export default {
         ...mapState({
             active_nav_index: 'active_nav_index',
             fields: 'fields',
-            search_form_sections: state => state.settings.search_forms.sections,
+            search_form_sections: state => state.layouts.search_forms.sections,
         }),
     },
 }

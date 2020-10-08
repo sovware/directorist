@@ -34,7 +34,7 @@ export default {
         ...mapState({
             fields: 'fields',
             active_nav_index: 'active_nav_index',
-            submission_form_sections: state => state.settings.submission_form.sections,
+            submission_form_sections: state => state.layouts.submission_form.sections,
         }),
     },
 }

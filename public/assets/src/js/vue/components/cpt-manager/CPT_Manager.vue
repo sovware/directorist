@@ -41,8 +41,9 @@ export default {
     name: 'cpt-manager',
     props: {
         id: { required: false },
-        settings: { required: true },
         fields: { required: true },
+        layouts: { required: true },
+        config: { required: false },
     },
     components: {
         headerNavigation,
@@ -57,15 +58,6 @@ export default {
 
     created() {
 
-        if ( this.settings && this.settings.length ) {
-            const settings = JSON.parse( this.settings );
-
-            if ( settings ) {
-                this.$store.commit( 'updateSettings', settings );
-            }
-        }
-
-
         if ( this.fields && this.fields.length ) {
             const fields = JSON.parse( this.fields );
 
@@ -73,6 +65,25 @@ export default {
                 this.$store.commit( 'updateFields', fields );
             }
         }
+
+        if ( this.layouts && this.layouts.length ) {
+            const layouts = JSON.parse( this.layouts );
+
+            if ( layouts ) {
+                this.$store.commit( 'updatelayouts', layouts );
+            }
+        }
+
+        if ( this.config && this.config.length ) {
+            const config = JSON.parse( this.config );
+
+            if ( config ) {
+                this.$store.commit( 'updateConfig', config );
+            }
+        }
+
+
+        
 
         if ( this.id && ! isNaN( this.id ) ) {
             const id = parseInt( this.id );
@@ -102,6 +113,7 @@ export default {
     methods: {
         saveData() {
             let fields = this.$store.state.fields;
+            let config = this.$store.state.config;
 
             let form_data = new FormData();
             form_data.append( 'action', 'save_post_type_data' );
@@ -112,17 +124,45 @@ export default {
             }
 
             let field_list = [];
-            for ( let field in fields ) {
-                let value = ( typeof fields[ field ].value === 'undefined' ) ? '' : fields[ field ].value;
-                let value_type = typeof value;
+            let skipped_fields = [];
 
-                if ( 'object' ===  value_type ) {
-                    value = JSON.stringify( value );
+            if ( config.fields_group && typeof config.fields_group === 'object' ) {
+                for ( let group_key in config.fields_group ) {
+                    let group_value = {};
+
+                    for ( let field_key in config.fields_group[ group_key ]  ) {
+                        let field_key_value = config.fields_group[ group_key ][field_key];
+                        let field_key_type  = typeof config.fields_group[ group_key ][field_key];
+                        
+                        if ( 'string' === field_key_type && typeof fields[ field_key_value ] !== 'undefined' ) {
+                            group_value[ field_key_value ] = fields[ field_key_value ].value;
+                            skipped_fields.push( field_key_value );
+                        }
+
+                        if ( 'object' === field_key_type ) {
+                            group_value[ field_key ] = {};
+
+                            for ( let sub_field_key of field_key_value ) {
+                                group_value[ field_key ][ sub_field_key ] = fields[ sub_field_key ].value;
+                                skipped_fields.push( sub_field_key );
+                            }
+                        }
+                    }
+                    
+                    form_data.append( group_key, JSON.stringify( group_value ) );
+                    field_list.push( group_key );
                 }
+            }
 
+            for ( let field in fields ) {
+                if ( skipped_fields.indexOf( field ) !== -1 ) { continue; }
+
+                let value = this.maybeJSON( fields[ field ].value );
                 form_data.append( field, value );
                 field_list.push( field );
             }
+
+            // console.log( field_list, skipped_fields );
             
             form_data.append( 'field_list', JSON.stringify( field_list ) );
 
@@ -131,14 +171,13 @@ export default {
             this.footer_actions.save.isDisabled = true;
             const self = this;
 
-            let config = {};
-
-            axios.post( ajax_data.ajax_url, form_data, config )
+            // return;
+            axios.post( ajax_data.ajax_url, form_data, {} )
                 .then( response => {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;
 
-                    console.log( response.data );
+                    // console.log( response.data );
                     
                     if ( response.data.post_id && ! isNaN( response.data.post_id ) ) {
                         self.listing_type_id = response.data.post_id;
@@ -162,6 +201,17 @@ export default {
                     self.footer_actions.save.isDisabled = false;
                     console.log( error );
                 });
+        },
+
+        maybeJSON( data ) {
+            let value = ( typeof data === 'undefined' ) ? '' : data;
+            let value_type = typeof value;
+
+            if ( 'object' ===  value_type ) {
+                value = JSON.stringify( value );
+            }
+
+            return value;
         },
 
         insertParam(key, value) {

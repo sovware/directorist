@@ -662,6 +662,7 @@ export default {
     },
     updateActiveGroupOptionData(option_key, group_key, $event) {
       this.groups[group_key][option_key] = $event;
+      // console.log( option_key, group_key, $event );
       this.$emit("update", this.updated_value);
     },
     getActiveGroupCollapseClass(group_key) {

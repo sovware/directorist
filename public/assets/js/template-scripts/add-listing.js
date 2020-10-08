@@ -346,33 +346,44 @@ jQuery(function($) {
                         if ( field.name.indexOf('[') > -1 ){
                                 const field_name = field.name.substr(0, field.name.indexOf("["));
                                 const ele = $( "[name^='"+ field_name +"']" );
-                                console.log( ele );
-                                if ( ele.length && ( ele.length > 1 ) ) {
-                                        ele.each(function(index, value) {
-                                                const field_type = $(this).attr('type');
-                                                if (field_type === 'radio') {
+                                // process tax input
+                                if( 'tax_input' !== field_name ){
+                                        if ( ele.length && ( ele.length > 1 ) ) {
+                                                ele.each(function(index, value) {
+                                                        const field_type = $(this).attr('type');
                                                         var name = $(this).attr('name');
-                                                        if ($(this).is(':checked')) {
-                                                                form_data.append(name, $(this).val());
+                                                        if (field_type === 'radio') {
+                                                                if ($(this).is(':checked')) {
+                                                                        form_data.append(name, $(this).val());
+                                                                }
+                                                        } else if (field_type === 'checkbox') {
+                                                                const new_field = $('input[name^="'+ name +'"]:checked');
+                                                                if (new_field.length > 1) {
+                                                                        new_field.each(function() {
+                                                                                const name = $(this).attr('name');
+                                                                                const value = $(this).val();
+                                                                                form_data.append(name, value);
+                                                                        });
+                                                                } else {
+                                                                        var name = new_field.attr('name');
+                                                                        var value = new_field.val();
+                                                                        form_data.append(name, value);
+                                                                }
+                                                        } else {
+                                                                var name = $(this).attr('name');
+                                                                var value = $(this).val();
+                                                                if (!value) {
+                                                                        value = $(this).attr('data-time');
+                                                                }
+                                                                form_data.append(name, value);
                                                         }
-                                                } else if (field_type === 'checkbox') {
-                                                        var name = $(this).attr('name');
-                                                        var value = atbdp_is_checked(name);
-                                                        form_data.append(name, value);
-                                                } else {
-                                                        var name = $(this).attr('name');
-                                                        var value = $(this).val();
-                                                        if (!value) {
-                                                                value = $(this).attr('data-time');
-                                                        }
-                                                        form_data.append(name, value);
-                                                }
-                                        });
-                                } else {
-                                        const name = ele.attr('name');
-                                        const value = ele.val();
-                                        form_data.append( name, value );
-                                }
+                                                });
+                                        } else {
+                                                const name = ele.attr('name');
+                                                const value = ele.val();
+                                                form_data.append( name, value );
+                                        } 
+                                }       
                         }else{
                                 setup_form_data( form_data, type, field );
                         }        
@@ -411,6 +422,41 @@ jQuery(function($) {
                         }
                 }
 
+                // locations
+                const locaitons = $('#at_biz_dir-location').val();
+                if (Array.isArray(locaitons) && locaitons.length) {
+                        for (var key in locaitons) {
+                                var value = locaitons[key];
+                                form_data.append('tax_input[at_biz_dir-location][]', value);
+                        }
+                }
+
+                if (typeof locaitons === 'string') {
+                        form_data.append('tax_input[at_biz_dir-location][]', locaitons);
+                }
+
+                // tags
+                const tags = $('#at_biz_dir-tags').val();
+                if (tags) {
+                        for (var key in tags) {
+                                var value = tags[key];
+                                form_data.append('tax_input[at_biz_dir-tags][]', value);
+                        }
+                }
+
+                // categories
+                const categories = $('#at_biz_dir-categories').val();
+                if (Array.isArray(categories) && categories.length) {
+                        for (var key in categories) {
+                                var value = categories[key];
+                                form_data.append('tax_input[at_biz_dir-category][]', value);
+                        }
+                }
+
+                if (typeof categories === 'string') {
+                        form_data.append('tax_input[at_biz_dir-category][]', categories);
+                }
+
                 if (error_count) {
                         on_processing = false;
                         $('.listing_submit_btn').attr('disabled', false);
@@ -429,8 +475,8 @@ jQuery(function($) {
                         url: atbdp_add_listing.ajaxurl,
                         data: form_data,
                         success(response) {
-                                console.log( response );
-                                return;
+                                // console.log( response );
+                                // return;
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {

@@ -288,15 +288,27 @@ A. Yes, Directorist is built in such a way that it works smoothly with all the m
 
 == Changelog ==
 
-= 6.6.0 - Aug 30, 2020 =
+= 6.6.0 - Nov 01, 2020 =
 
 * Add - Theming (Customizing templates from theme)
+
+= 6.5.3 - Oct 8, 2020 =
+
+* New - Auto login after registration
+* New - Custom redirection after registration
+* New - Polylang plugin compatibility
+* Tweak - Browser compatibility
+* Tweak - Font Awesome version updated
 * Fix - Badge issue of related listings
-* Fix - Custom map marker place issue of listing map view
+* Fix - Custom map marker placement issue
 * Fix - Conflict with JNews theme
-* Improve - SEO meta info
-* Improve - Polylang plugin compatibility
-* Improve - Browser compatibility
+* Fix - Registration validation error
+* Fix - Changed preview submit button text
+* Fix - Email issue in review
+* Fix - Disable price issue in single listing
+* Fix - Tags filter source issue
+* Fix - Open filter fields issue in listings page
+* Fix - Translation issue
 
 = 6.5.2 - Aug 11, 2020 =
 

@@ -466,7 +466,7 @@ jQuery(function($) {
                 }
 
                 on_processing = true;
-                $('.listing_submit_btn').attr('disabled', true);
+                //$('.listing_submit_btn').attr('disabled', true);
 
                 $.ajax({
                         method: 'POST',

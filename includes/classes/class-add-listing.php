@@ -62,29 +62,24 @@ if (!class_exists('ATBDP_Add_Listing')):
          */
         public function atbdp_submit_listing()
         {
-            $p = $_POST;
+                $info = $_POST;
 
-            // wp_send_json( $p );
-            // die();
-            $data = array();
-            /**
-             * @toda later validate add listing nonce with ja nonce
-             */
-            //if (ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action )) {
-            if (1) {
+                // wp_send_json( $info );
+                // die();
+                $data = array();
                 /**
                  * It fires before processing a submitted listing from the front end
                  * @param array $_POST the array containing the submitted listing data.
                  * */
 
-                do_action('atbdp_before_processing_submitted_listing_frontend', $p);
+                do_action('atbdp_before_processing_submitted_listing_frontend', $info);
 
                 // add listing form has been submitted
                 //if (ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action, $_REQUEST['data'] ))
                 // guest user
                 if (!atbdp_logged_in_user()) {
                     $guest = get_directorist_option('guest_listings', 0);
-                    $guest_email = isset($p['guest_user_email']) ? esc_attr($p['guest_user_email']) : '';
+                    $guest_email = isset($info['guest_user_email']) ? esc_attr($info['guest_user_email']) : '';
                     if (!empty($guest && $guest_email)) {
                         atbdp_guest_submission($guest_email);
                     }
@@ -127,72 +122,40 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
                 $display_video_field = get_directorist_option('display_video_field', 1);
                 $display_video_for = get_directorist_option('display_video_for', 0);
-                $custom_field = !empty($p['custom_field']) ? ($p['custom_field']) : array();
                 $preview_enable = get_directorist_option('preview_enable', 1);
-                // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');
-                $metas = array();
-                $content = !empty($p['listing_content']) ? wp_kses($p['listing_content'], wp_kses_allowed_html('post')) : '';
-                $title = !empty($p['listing_title']) ? sanitize_text_field($p['listing_title']) : '';
-                $tag = !empty($p['tax_input']['at_biz_dir-tags']) ? ($p['tax_input']['at_biz_dir-tags']) : array();
-                $location = !empty($p['tax_input']['at_biz_dir-location']) ? ($p['tax_input']['at_biz_dir-location']) : array();
-                $admin_category_select = !empty($p['tax_input']['at_biz_dir-category']) ? ($p['tax_input']['at_biz_dir-category']) : array();
 
-                $metas['_listing_type'] = !empty($p['listing_type']) ? sanitize_text_field($p['listing_type']) : 0;
-                if (empty($display_price_for) && !empty($display_pricing_field)) {
-                    $metas['_price'] = !empty($p['price']) ? (float)$p['price'] : 0;
+                // isolate data
+                $metas = [];
+                foreach( $info as $key => $value ){
+                    if( $key === 'listing_title' ){
+                        $title = sanitize_text_field($value);
+                    }
+                    if( $key === 'listing_content' ){
+                        $content =  wp_kses($value, wp_kses_allowed_html('post'));
+                    }
+                    if( $key == 'tax_input' ){
+                        foreach( $value as $tax_key => $tax_value ){
+                            if( $tax_key === 'at_biz_dir-tags' ){
+                                $tag = $tax_value;
+                            }
+                            if( $tax_key === 'at_biz_dir-location' ){
+                                $location = $tax_value;
+                            }
+                            if( $tax_key === 'at_biz_dir-category' ){
+                                $admin_category_select = $tax_value;
+                            }
+                        }
+                    }
+                    if( ( $key !== 'listing_title' ) && ( $key !== 'listing_content' ) && ( $key !== 'tax_input' ) ){
+                        $key = '_'. $key;
+                        $metas[ $key ] = $value;
+                    }
                 }
-
-                if (empty($display_price_range_for) && !empty($display_price_range_field)) {
-                    $metas['_price_range'] = !empty($p['price_range']) ? $p['price_range'] : '';
-                }
-                $metas['_atbd_listing_pricing'] = !empty($p['atbd_listing_pricing']) ? $p['atbd_listing_pricing'] : '';
-                if (empty($display_video_for) && !empty($display_video_field)) {
-                    $metas['_videourl'] = !empty($p['videourl']) ? sanitize_text_field($p['videourl']) : '';
-                }
-                if (!empty($display_tagline_field) && empty($display_tagline_for)) {
-                    $metas['_tagline'] = !empty($p['tagline']) ? sanitize_text_field($p['tagline']) : '';
-                }
-                if (!empty($display_excerpt_field) && empty($display_short_desc_for)) {
-                    $metas['_excerpt'] = !empty($p['excerpt']) ? sanitize_text_field($p['excerpt']) : '';
-                }
-                if (!empty($display_views_count) && empty($display_views_count_for)) {
-                    $metas['_atbdp_post_views_count'] = !empty($p['atbdp_post_views_count']) ? (int)$p['atbdp_post_views_count'] : '';
-                }
-                if (empty($display_address_for) && !empty($display_address_field)) {
-                    $metas['_address'] = !empty($p['address']) ? sanitize_text_field($p['address']) : '';
-                }
-                if (empty($display_phone_for) && !empty($display_phone_field)) {
-                    $metas['_phone'] = !empty($p['phone']) ? sanitize_text_field($p['phone']) : '';
-                }
-                if (empty($display_phone2_for) && !empty($display_phone2_field)) {
-                    $metas['_phone2'] = !empty($p['phone2']) ? sanitize_text_field($p['phone2']) : '';
-                }
-                if (empty($display_fax_for) && !empty($display_fax_field)) {
-                    $metas['_fax'] = !empty($p['fax']) ? sanitize_text_field($p['fax']) : '';
-                }
-                if (empty($display_email_for) && !empty($display_email_field)) {
-                    $metas['_email'] = !empty($p['email']) ? sanitize_text_field($p['email']) : '';
-                }
-                if (empty($display_website_for) && !empty($display_website_field)) {
-                    $metas['_website'] = !empty($p['website']) ? sanitize_text_field($p['website']) : '';
-                }
-                if (empty($display_zip_for) && !empty($display_zip_field)) {
-                    $metas['_zip'] = !empty($p['zip']) ? sanitize_text_field($p['zip']) : '';
-                }
-                if (empty($display_social_info_for) && !empty($display_social_info_field)) {
-                    $metas['_social'] = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
-                }
-                $metas['_faqs'] = !empty($p['faqs']) ? ($p['faqs']) : array(); // we are expecting array value
-                $metas['_bdbh'] = !empty($p['bdbh']) ? atbdp_sanitize_array($p['bdbh']) : array();
-                $metas['_enable247hour'] = !empty($p['enable247hour']) ? sanitize_text_field($p['enable247hour']) : '';
-                $metas['_disable_bz_hour_listing'] = !empty($p['disable_bz_hour_listing']) ? sanitize_text_field($p['disable_bz_hour_listing']) : '';
-                $metas['_manual_lat'] = !empty($p['manual_lat']) ? sanitize_text_field($p['manual_lat']) : '';
-                $metas['_manual_lng'] = !empty($p['manual_lng']) ? sanitize_text_field($p['manual_lng']) : '';
-                $metas['_hide_map'] = !empty($p['hide_map']) ? sanitize_text_field($p['hide_map']) : '';
-                $metas['_hide_contact_info'] = !empty($p['hide_contact_info']) ? sanitize_text_field($p['hide_contact_info']) : 0;
-                $metas['_hide_contact_owner'] = !empty($p['hide_contact_owner']) ? sanitize_text_field($p['hide_contact_owner']) : 0;
-                $metas['_t_c_check'] = !empty($p['t_c_check']) ? sanitize_text_field($p['t_c_check']) : 0;
-                $metas['_privacy_policy'] = !empty($p['privacy_policy']) ? sanitize_text_field($p['privacy_policy']) : 0;
+                //  wp_send_json( $metas );
+                // die();
+                
+            
+  
                 /**
                  * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
                  * @param array $metas the array of meta keys and meta values
@@ -202,7 +165,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if (is_fee_manager_active()) {
                     $user_id = get_current_user_id();
                     $midway_package_id = selected_plan_id();
-                    $sub_plan_id = get_post_meta($p['listing_id'], '_fm_plans', true);
+                    $sub_plan_id = get_post_meta($info['listing_id'], '_fm_plans', true);
                     $midway_package_id = !empty($midway_package_id) ? $midway_package_id : $sub_plan_id;
                     $plan_purchased = subscribed_package_or_PPL_plans($user_id, 'completed', $midway_package_id);
                     if (!class_exists('DWPP_Pricing_Plans')) {
@@ -259,7 +222,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
                     }
 
-                    $listing_type = !empty($p['listing_type']) ? sanitize_text_field($p['listing_type']) : '';
+                    $listing_type = !empty($info['listing_type']) ? sanitize_text_field($info['listing_type']) : '';
                     //store the plan meta
                     $plan_meta = get_post_meta($subscribed_package_id);
 
@@ -293,7 +256,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     'post_content' => $content,
                     'post_title' => $title,
                     'post_type' => ATBDP_POST_TYPE,
-                    'tax_input' => !empty($p['tax_input']) ? atbdp_sanitize_array($p['tax_input']) : array(),
+                    'tax_input' => !empty($info['tax_input']) ? atbdp_sanitize_array($info['tax_input']) : array(),
                     'meta_input' => $metas,
                 );
                 /**
@@ -303,13 +266,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                 do_action('atbdp_after_add_listing_afrer_validation');
 
                 // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
-                if (!empty($p['listing_id'])) {
+                if (!empty($info['listing_id'])) {
                     /**
                      * @since 5.4.0
                      */
                     do_action('atbdp_before_processing_to_update_listing');
 
-                    $listing_id = absint( $p['listing_id'] );
+                    $listing_id = absint( $info['listing_id'] );
                     $_args = [ 'id' => $listing_id, 'edited' => true ];
                     $post_status = atbdp_get_listing_status_after_submission( $_args );
                     $args['post_status'] = $post_status;
@@ -375,10 +338,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
                         if (!empty($display_title_for)) {
-                            $args['post_title'] = get_the_title(absint($p['listing_id']));
+                            $args['post_title'] = get_the_title(absint($info['listing_id']));
                         }
                         if (!empty($display_desc_for)) {
-                            $post_object = get_post(absint($p['listing_id']));
+                            $post_object = get_post(absint($info['listing_id']));
                             $content = apply_filters('get_the_content', $post_object->post_content);
                             $args['post_content'] = $content;
                         }
@@ -425,46 +388,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             wp_set_object_terms($post_id, '', ATBDP_CATEGORY);
                         }
 
-                        /*
-                             * send the custom field value to the database
-                              */
-                        if (isset($custom_field)) {
-                            foreach ($custom_field as $key => $value) {
-
-                                $type = get_post_meta($key, 'type', true);
-
-                                switch ($type) {
-                                    case 'text' :
-                                        $value = sanitize_text_field($value);
-                                        break;
-                                    case 'textarea' :
-                                        $value = esc_textarea($value);
-                                        break;
-                                    case 'select' :
-                                    case 'radio'  :
-                                        $value = sanitize_text_field($value);
-                                        break;
-                                    case 'checkbox' :
-                                        $value = array_map('esc_attr', $value);
-                                        $value = implode("\n", array_filter($value));
-                                        break;
-                                    case 'url' :
-                                        $value = esc_url_raw($value);
-                                        break;
-                                    default :
-                                        $value = sanitize_text_field($value);
-                                        break;
-                                    case 'email' :
-                                        $value = sanitize_text_field($value);
-                                        break;
-                                    case 'date' :
-                                        $value = sanitize_text_field($value);
-
-                                }
-
-                                update_post_meta($post_id, $key, $value);
-                            }
-                        }
+                      
 
                         // for dev
                         do_action('atbdp_listing_updated', $post_id);//for sending email notification
@@ -568,50 +492,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                               * @param array $_POST the array containing the submitted fee data.
                               * */
                             do_action('atbdp_before_processing_listing_frontend', $post_id);
-
-                            /*
-                            * send the custom field value to the database
-                         */
-
-                            if (isset($custom_field)) {
-
-                                foreach ($custom_field as $key => $value) {
-
-                                    $type = get_post_meta($key, 'type', true);
-
-                                    switch ($type) {
-                                        case 'text' :
-                                            $value = sanitize_text_field($value);
-                                            break;
-                                        case 'textarea' :
-                                            $value = esc_textarea($value);
-                                            break;
-                                        case 'select' :
-                                        case 'radio'  :
-                                            $value = sanitize_text_field($value);
-                                            break;
-                                        case 'checkbox' :
-                                            $value = array_map('esc_attr', $value);
-                                            $value = implode("\n", array_filter($value));
-                                            break;
-                                        case 'url' :
-                                            $value = esc_url_raw($value);
-                                            break;
-                                        default :
-                                            $value = sanitize_text_field($value);
-                                            break;
-                                        case 'email' :
-                                            $value = sanitize_text_field($value);
-                                            break;
-                                        case 'date' :
-                                            $value = sanitize_text_field($value);
-
-                                    }
-
-                                    update_post_meta($post_id, $key, $value);
-                                }
-                            }
-
+                            
                             // set up terms
                             // location
                             if (!empty($location)) {
@@ -818,7 +699,7 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     } else {
                         //no pay extension own yet let treat as general user
-                        if (get_directorist_option('enable_monetization') && !$p['listing_id'] && $featured_enabled && (!is_fee_manager_active())) {
+                        if (get_directorist_option('enable_monetization') && !$info['listing_id'] && $featured_enabled && (!is_fee_manager_active())) {
                             $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
                             $data['need_payment'] = true;
                         } else {
@@ -853,12 +734,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if ($preview_enable) {
                     $data['preview_mode'] = true;
                 }
-                if ($p['listing_id']) {
+                if ($info['listing_id']) {
                     $data['edited_listing'] = true;
                 }
                 wp_send_json($data);
                 die();
-            }
         }
 
 

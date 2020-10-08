@@ -507,11 +507,18 @@ $light-gray: #f4f5f7;
   background-color: #f4f5f7;
   padding: 14px 20px;
   box-sizing: border-box;
-  cursor: move;
   border-radius: 4px;
   display: flex;
   align-items: center;
+  &.clickable {
+    cursor: pointer;
+  }
 }
+
+li[ class="cptm-form-builder-field-list-item" ][ draggable="true" ] {
+  cursor: move;
+}
+
 .cptm-form-builder-field-list-icon {
   display: inline-block;
   width: 28px;
@@ -524,6 +531,16 @@ $light-gray: #f4f5f7;
   font-weight: 500;
   color: $dark-3;
 }
+
+.cptm-info-text-area {
+  margin-bottom: 10px;
+}
+
+.cptm-info-text {
+  margin: 0;
+  color: gray;
+}
+
 
 .cptm-mb-0 {
   margin-bottom: 0 !important;

@@ -31,7 +31,20 @@
                     <input type="hidden" name="add_listing_form" value="1">
                     <input type="hidden" name="listing_id" value="<?php echo !empty($p_id) ? esc_attr($p_id) : ''; ?>">
 
-                    <?php
+                    <?php 
+                        $listing_types = get_terms([
+                            'taxonomy'   => 'atbdp_listing_types',
+                            'hide_empty' => false,
+                            'orderby'    => 'date',
+                            'order'      => 'DSCE',
+                          ]);
+                          foreach ($listing_types as $listing_type) {
+                            $slug = $listing_type->slug;
+                            $name = $listing_type->name;?>
+                            <label for="<?php echo esc_attr( $slug ); ?>"><?php echo esc_attr( $name ); ?></label>
+                            <input type="radio" id="<?php echo esc_attr( $slug ); ?>" name="listing_post_type" value="<?php echo esc_attr( $slug ); ?>">
+                            <?php
+                          }
                     /**
                      * @since 1.1.1
                      **/

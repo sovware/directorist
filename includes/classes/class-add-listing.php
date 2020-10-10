@@ -124,6 +124,17 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $display_video_for = get_directorist_option('display_video_for', 0);
                 $preview_enable = get_directorist_option('preview_enable', 1);
 
+
+
+                 // data validation
+                 $listing_type = !empty( $info['listing_post_type'] ) ? sanitize_text_field( $info['listing_post_type'] ) : '';
+                 if( $listing_type ){
+                     $term = get_term_by( 'slug', $listing_type, 'atbdp_listing_types' );
+                     $submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
+                     wp_send_json( $submission_form );
+                     die();
+                 }
+
                 // isolate data
                 $metas = [];
                 foreach( $info as $key => $value ){

@@ -128,42 +128,61 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                  // data validation
                  $listing_type = !empty( $info['listing_post_type'] ) ? sanitize_text_field( $info['listing_post_type'] ) : '';
+                 $submission_form_fields = [];
+                 $metas = [];
                  if( $listing_type ){
                      $term = get_term_by( 'slug', $listing_type, 'atbdp_listing_types' );
                      $submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
-                     wp_send_json( $submission_form );
-                     die();
+                     $submission_form_fields = $submission_form['fields'];
+                    //  wp_send_json( $submission_form['fields'] );
+                    //  die();
                  }
 
                 // isolate data
-                $metas = [];
                 foreach( $info as $key => $value ){
-                    if( $key === 'listing_title' ){
-                        $title = sanitize_text_field($value);
-                    }
-                    if( $key === 'listing_content' ){
-                        $content =  wp_kses($value, wp_kses_allowed_html('post'));
-                    }
-                    if( $key == 'tax_input' ){
-                        foreach( $value as $tax_key => $tax_value ){
-                            if( $tax_key === 'at_biz_dir-tags' ){
-                                $tag = $tax_value;
-                            }
-                            if( $tax_key === 'at_biz_dir-location' ){
-                                $location = $tax_value;
-                            }
-                            if( $tax_key === 'at_biz_dir-category' ){
-                                $admin_category_select = $tax_value;
+                    foreach( $submission_form_fields as $field ){
+                        $field_key = $field['field_key'];
+                        $label = $field['label'];
+                        wp_send_json(
+                            [
+                            'key' => $key,
+                            'field_key' => $field_key, 
+                            'label' => $label
+                            ]
+                            );
+                        if( ( $key === $field_key ) && !$value ){
+                            $msg = $label .__( 'field is required!', 'directorist' );
+                            $data['error_msg'] = $msg;
+                            $data['error'] = true;
+                        }
+                        if( $key === 'listing_title' ){
+                            $title = sanitize_text_field($value);
+                        }
+                        if( $key === 'listing_content' ){
+                            $content =  wp_kses($value, wp_kses_allowed_html('post'));
+                        }
+                        if( $key == 'tax_input' ){
+                            foreach( $value as $tax_key => $tax_value ){
+                                if( $tax_key === 'at_biz_dir-tags' ){
+                                    $tag = $tax_value;
+                                }
+                                if( $tax_key === 'at_biz_dir-location' ){
+                                    $location = $tax_value;
+                                }
+                                if( $tax_key === 'at_biz_dir-category' ){
+                                    $admin_category_select = $tax_value;
+                                }
                             }
                         }
+                        if( ( $key !== 'listing_title' ) && ( $key !== 'listing_content' ) && ( $key !== 'tax_input' ) ){
+                            $key = '_'. $key;
+                            $metas[ $key ] = $value;
+                        }
                     }
-                    if( ( $key !== 'listing_title' ) && ( $key !== 'listing_content' ) && ( $key !== 'tax_input' ) ){
-                        $key = '_'. $key;
-                        $metas[ $key ] = $value;
-                    }
+                    
                 }
                 //  wp_send_json( $metas );
-                // die();
+                die();
                 
             
   

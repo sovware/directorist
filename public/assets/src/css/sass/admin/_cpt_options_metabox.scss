@@ -513,6 +513,9 @@ $light-gray: #f4f5f7;
   &.clickable {
     cursor: pointer;
   }
+  &.disabled {
+    cursor: not-allowed;
+  }
 }
 
 li[ class="cptm-form-builder-field-list-item" ][ draggable="true" ] {
@@ -706,7 +709,7 @@ input[type="checkbox"].cptm-checkbox {
 }
 .cptm-options-area {
   width: 300px;
-  perspective: 800px;
+  // perspective: 800px;
 }
 
 .cptm-option-card {

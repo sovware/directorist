@@ -27,7 +27,7 @@
             </div>
 
             <ul class="cptm-form-builder-field-list" v-if="Object.keys( unSelectedWidgetsList ).length">
-                <li class="cptm-form-builder-field-list-item clickable" v-for="(widget, widget_key) in unSelectedWidgetsList" :key="widget_key" @click="selectWidget( widget_key )">
+                <li class="cptm-form-builder-field-list-item" :class="{ 'disabled': maxWidgetLimitIsReached, 'clickable': ! maxWidgetLimitIsReached }" v-for="(widget, widget_key) in unSelectedWidgetsList" :key="widget_key" @click="selectWidget( widget_key )">
                     <span class="cptm-form-builder-field-list-icon" v-html="widget.icon"></span>
                     <span class="cptm-form-builder-field-list-label">
                         {{ widget.label }}
@@ -76,6 +76,14 @@ export default {
         },
         selectedWidgets: {
             type: Array,
+        },
+        maxWidget: {
+            type: Number,
+            default: 0, // Unlimitted
+        },
+        maxWidgetInfoText: {
+            type: String,
+            default: 'Up to __DATA__ item{s} can be added',
         },
     },
 
@@ -132,6 +140,23 @@ export default {
             return widgets_list;
         },
 
+        maxWidgetLimitIsReached() {
+            return this.maxWidget && ( this.localSelectedWidgets.length >= this.maxWidget);
+        },
+
+        infoTexts() {
+            let info_texts = [];
+        
+            if ( this.maxWidgetLimitIsReached && Object.keys( this.unSelectedWidgetsList ).length ) {
+                info_texts.push({
+                    type: 'info', 
+                    text: this.decodeInfoText( this.maxWidget, this.maxWidgetInfoText )
+                });
+            }
+
+            return info_texts;
+        },
+
         mainWrapperClass() {
             return {
                 active: this.active,
@@ -142,9 +167,9 @@ export default {
 
     data() {
         return {
-            infoTexts: [
+            /* infoTexts: [
                 // { type: 'info', text: 'Up to 2 items can be added' }
-            ],
+            ], */
 
             localSelectedWidgets: [],
         }
@@ -160,7 +185,35 @@ export default {
             this.localSelectedWidgets = [ ...unique_selecte_widgets ];
         },
 
+        decodeInfoText( data, text ) {
+            let doceded = text.replace(/__DATA__/gi, data);
+    
+            const filter_single_pare = function( str ) {
+            if ( data < 2 ) { return ''; }
+
+                let filtered = str.replace( /{/gi, '' );
+                filtered = filtered.replace( /}/gi, '' );
+
+                return filtered;
+            };
+
+            const filter_double_pare = function( str ) {
+                let pares = str.match( /\w+|w+/gi );
+                if ( typeof pares !== 'object' && pares.length < 2 ) { return ''; }
+                if ( data < 2 ) { return pares[0]; }
+                
+                return pares[1];
+            };
+
+            let filtered_single_pare = doceded.replace( /({\w+})/gi, filter_single_pare );
+            let filtered_double_pare = filtered_single_pare.replace( /({\w+\|\w+})/gi, filter_double_pare );
+
+            return filtered_double_pare;
+        },
+
         selectWidget( key ) {
+            if ( this.maxWidgetLimitIsReached ) { return; }
+
             let current_index = this.localSelectedWidgets.indexOf( key );
             
             if ( current_index != -1 ) {

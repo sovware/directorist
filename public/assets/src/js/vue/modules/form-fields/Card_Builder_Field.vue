@@ -7,126 +7,85 @@
         <div class="cptm-listing-card-preview-header">
           <div class="cptm-card-preview-thumbnail">
             <div class="cptm-card-preview-thumbnail-overlay">
-
-              <!-- cptm-card-preview-top-left -->
+              
               <div class="cptm-card-preview-top-left">
-                <div class="cptm-card-preview-top-left-placeholder cptm-placeholder-blcok">
-                  <p class="cptm-placeholder-label">{{ layout.thumbnail.top_left.label }}</p>
-
-                  <div class="cptm-widget-insert-area">
-                    <div class="cptm-widget-insert-wrap">
-                      <div class="cptm-widget-insert-modal-container">
-                        <widgets-window
-                          v-bind="layout.thumbnail.top_left"
-                          :availableWidgets="available_widgets"
-                          :active="getActiveInsertWindowStatus( 'thumbnail_top_left' )"
-                          :bottomAchhor="true"
-                          @close="closeInsertWindow()"
-                        />
-                      </div>
-
-                      <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_top_left' )">
-                        <span class="fa fa-plus"></span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                <!-- cptm-card-preview-top-left -->
+                <card-widget-placeholder
+                  containerClass="cptm-card-preview-top-left-placeholder"
+                  :label="layout.thumbnail.top_left.label"
+                  :availableWidgets="available_widgets"
+                  :activeWidgets="active_widgets"
+                  :acceptedWidgets="layout.thumbnail.top_left.acceptedWidgets"
+                  :selectedWidgets="layout.thumbnail.top_left.selectedWidgets"
+                  :maxWidget="layout.thumbnail.top_left.maxWidget"
+                  :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_top_left' )"
+                  @insert-widget="layout.thumbnail.top_left.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                  @drag-widget="dragWidget( $event )"
+                  @edit-widget="editWidget( $event )"
+                  @trash-widget=""
+                  @open-widgets-picker-window="activeInsertWindow( 'thumbnail_top_left' )"
+                  @close-widgets-picker-window="closeInsertWindow()"
+                />
               </div>
 
               <!-- cptm-card-preview-top-rignt -->
               <div class="cptm-card-preview-top-rignt">
-                <div class="cptm-card-preview-top-rignt-placeholder cptm-placeholder-blcok">
-                  <p class="cptm-placeholder-label" :class="{ 'hide': layout.thumbnail.top_right.selectedWidgets.length }">
-                    {{ layout.thumbnail.top_right.label }}
-                  </p>
-
-                  <div class="cptm-widget-insert-area">
-                    <div class="cptm-widget-insert-wrap">
-                      <div class="cptm-widget-insert-modal-container">
-                        <widgets-window
-                          v-bind="layout.thumbnail.top_right"
-                          :availableWidgets="available_widgets"
-                          id="thumbnail_top_right"
-                          :active="getActiveInsertWindowStatus( 'thumbnail_top_right' )"
-                          :bottomAchhor="true"
-                          @widget-selection="layout.thumbnail.top_right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
-                          @close="closeInsertWindow()"
-                        />
-                      </div>
-
-                      <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_top_right' )">
-                        <span class="fa fa-plus"></span>
-                      </a>
-                    </div>
-                  </div>
-
-                  <div class="cptm-widget-preview-area">
-                    <template v-for="( widget, widget_key ) in layout.thumbnail.top_right.selectedWidgets">
-                      <component 
-                        :is="active_widgets[ widget ].type + '-card-widget'" 
-                        :key="widget_key"
-                        :label="active_widgets[ widget ].label"
-                        :options="active_widgets[ widget ].options"
-                        @drag="dragWidget( widget, layout.thumbnail.top_right.selectedWidgets )"
-                        @edit="editWidget( widget )"
-                        @trash="trashTopRightWidget( widget )"
-                      >
-                      </component>
-                    </template>
-                    
-                  </div>
-                  
-                </div>
+                <card-widget-placeholder
+                  containerClass="cptm-card-preview-top-rignt-placeholder"
+                  :label="layout.thumbnail.top_right.label"
+                  :availableWidgets="available_widgets"
+                  :activeWidgets="active_widgets"
+                  :acceptedWidgets="layout.thumbnail.top_right.acceptedWidgets"
+                  :selectedWidgets="layout.thumbnail.top_right.selectedWidgets"
+                  :maxWidget="layout.thumbnail.top_right.maxWidget"
+                  :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_top_right' )"
+                  @insert-widget="layout.thumbnail.top_right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                  @drag-widget="dragWidget( $event )"
+                  @edit-widget="editWidget( $event )"
+                  @trash-widget="trashTopRightWidget( $event )"
+                  @open-widgets-picker-window="activeInsertWindow( 'thumbnail_top_right' )"
+                  @close-widgets-picker-window="closeInsertWindow()"
+                />
               </div>
 
               <!-- cptm-card-preview-bottom-left -->
               <div class="cptm-card-preview-bottom-left">
-                <div class="cptm-card-preview-bottom-left-placeholder cptm-placeholder-blcok">
-                  <p class="cptm-placeholder-label">Bottom Left</p>
-
-                  <div class="cptm-widget-insert-area">
-                    <div class="cptm-widget-insert-wrap">
-                      <div class="cptm-widget-insert-modal-container">
-                        <widgets-window
-                          v-bind="layout.thumbnail.bottom_left"
-                          :availableWidgets="available_widgets"
-                          :active="getActiveInsertWindowStatus( 'thumbnail_bottom_left' )"
-                          :bottomAchhor="true"
-                          @close="closeInsertWindow()"
-                        />
-                      </div>
-
-                      <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_bottom_left' )">
-                        <span class="fa fa-plus"></span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                <card-widget-placeholder
+                  containerClass="cptm-card-preview-bottom-left-placeholder"
+                  :label="layout.thumbnail.bottom_left.label"
+                  :availableWidgets="available_widgets"
+                  :activeWidgets="active_widgets"
+                  :acceptedWidgets="layout.thumbnail.bottom_left.acceptedWidgets"
+                  :selectedWidgets="layout.thumbnail.bottom_left.selectedWidgets"
+                  :maxWidget="layout.thumbnail.bottom_left.maxWidget"
+                  :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_bottom_left' )"
+                  @insert-widget="layout.thumbnail.bottom_left.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                  @drag-widget="dragWidget( $event )"
+                  @edit-widget="editWidget( $event )"
+                  @trash-widget=""
+                  @open-widgets-picker-window="activeInsertWindow( 'thumbnail_bottom_left' )"
+                  @close-widgets-picker-window="closeInsertWindow()"
+                />
               </div>
 
               <!-- cptm-card-preview-bottom-right -->
               <div class="cptm-card-preview-bottom-right">
-                <div class="cptm-card-preview-bottom-right-placeholder cptm-placeholder-blcok">
-                  <p class="cptm-placeholder-label">Bottom Right</p>
-
-                  <div class="cptm-widget-insert-area">
-                    <div class="cptm-widget-insert-wrap">
-                      <div class="cptm-widget-insert-modal-container">
-                        <widgets-window
-                          v-bind="layout.thumbnail.bottom_right"
-                          :availableWidgets="available_widgets"
-                          :active="getActiveInsertWindowStatus( 'thumbnail_bottom_right' )"
-                          :bottomAchhor="true"
-                          @close="closeInsertWindow()"
-                        />
-                      </div>
-
-                      <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_bottom_right' )">
-                        <span class="fa fa-plus"></span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                <card-widget-placeholder
+                  containerClass="cptm-card-preview-bottom-right-placeholder"
+                  :label="layout.thumbnail.bottom_right.label"
+                  :availableWidgets="available_widgets"
+                  :activeWidgets="active_widgets"
+                  :acceptedWidgets="layout.thumbnail.bottom_right.acceptedWidgets"
+                  :selectedWidgets="layout.thumbnail.bottom_right.selectedWidgets"
+                  :maxWidget="layout.thumbnail.bottom_right.maxWidget"
+                  :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_bottom_right' )"
+                  @insert-widget="layout.thumbnail.bottom_right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                  @drag-widget="dragWidget( $event )"
+                  @edit-widget="editWidget( $event )"
+                  @trash-widget=""
+                  @open-widgets-picker-window="activeInsertWindow( 'thumbnail_bottom_right' )"
+                  @close-widgets-picker-window="closeInsertWindow()"
+                />
               </div>
 
               <div class="cptm-card-preview-thumbnail-bg">
@@ -430,24 +389,7 @@ export default {
       },
 
       // Active Widgets
-      active_widgets: {
-        /* open_now_badge: {
-          type: "badge",
-          id: "open_now_badge",
-          label: "Open Now",
-          icon: '<span class="uil uil-text-fields"></span>',
-          options: {
-            title: "Open/Closed Settings",
-            fields: {
-              label: {
-                type: "text",
-                label: "Label",
-                value: "Open Now",
-              },
-            },
-          },
-        }, */
-      },
+      active_widgets: {},
 
       // Layout
       layout: {
@@ -464,28 +406,28 @@ export default {
             maxWidget: 2,
             maxWidgetInfoText: "Up to __DATA__ item{s} can be added",
             acceptedWidgets: ["open_now_badge", "favorite_badge"],
-            selectedWidgets: ["favorite_badge"],
+            selectedWidgets: [],
           },
           bottom_right: {
             label: 'Bottom Right',
             maxWidget: 2,
             maxWidgetInfoText: "Up to __DATA__ item{s} can be added",
             acceptedWidgets: ["open_now_badge", "favorite_badge"],
-            selectedWidgets: ["open_now_badge", "favorite_badge"],
+            selectedWidgets: [],
           },
           bottom_left: {
             label: 'Bottom Left',
             maxWidget: 2,
             maxWidgetInfoText: "Up to __DATA__ item{s} can be added",
             acceptedWidgets: ["open_now_badge", "favorite_badge"],
-            selectedWidgets: ["open_now_badge", "favorite_badge"],
+            selectedWidgets: [],
           },
           avater: {
             label: 'Avater',
             maxWidget: 1,
             maxWidgetInfoText: "Up to 1 item can be added",
             acceptedWidgets: ["user_avater"],
-            selectedWidgets: ["user_avater"],
+            selectedWidgets: [],
           },
         },
 
@@ -498,7 +440,7 @@ export default {
               { label: 'Custom', widgets: ['listing_title'] },
             ],
             acceptedWidgets: ["listing_title"],
-            selectedWidgets: ["listing_title"],
+            selectedWidgets: [],
           },
         },
 
@@ -507,13 +449,13 @@ export default {
             label: 'Footer Right',
             maxWidget: 2,
             acceptedWidgets: ["category"],
-            selectedWidgets: ["category"],
+            selectedWidgets: [],
           },
           left: {
             label: 'Footer Left',
             maxWidget: 2,
             acceptedWidgets: ["category"],
-            selectedWidgets: ["category"],
+            selectedWidgets: [],
           },
         },
       },

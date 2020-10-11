@@ -128,24 +128,32 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                  // data validation
                  $listing_type = !empty( $info['listing_post_type'] ) ? sanitize_text_field( $info['listing_post_type'] ) : '';
+                 $submission_form_fields = [];
+                 $metas = [];
                  if( $listing_type ){
                      $term = get_term_by( 'slug', $listing_type, 'atbdp_listing_types' );
                      $submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
-                     wp_send_json( $submission_form );
-                     die();
+                     $submission_form_fields = $submission_form['fields'];
                  }
-
                 // isolate data
-                $metas = [];
-                foreach( $info as $key => $value ){
-                    if( $key === 'listing_title' ){
-                        $title = sanitize_text_field($value);
+                $error = [];
+                foreach( $submission_form_fields as $key => $value ){
+                    $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
+                    $submitted_data = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
+                    $required = !empty( $value['required'] ) ? $value['required'] : '';
+                    $label = !empty( $value['label'] ) ? $value['label'] : '';
+                    if( $required && !$submitted_data ){
+                        $msg = $label .__( ' field is required!', 'directorist' );
+                        array_push( $error, $msg );
                     }
-                    if( $key === 'listing_content' ){
-                        $content =  wp_kses($value, wp_kses_allowed_html('post'));
+                    if( $field_key === 'listing_title' ){
+                        $title = sanitize_text_field( $info[ $field_key ] );
                     }
-                    if( $key == 'tax_input' ){
-                        foreach( $value as $tax_key => $tax_value ){
+                    if( $field_key === 'listing_content' ){
+                        $content =  wp_kses(  $info[ $field_key ], wp_kses_allowed_html('post') );
+                    }
+                    if( $field_key == 'tax_input' ){
+                        foreach(  $info[ $field_key ] as $tax_key => $tax_value ){
                             if( $tax_key === 'at_biz_dir-tags' ){
                                 $tag = $tax_value;
                             }
@@ -157,16 +165,18 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                         }
                     }
-                    if( ( $key !== 'listing_title' ) && ( $key !== 'listing_content' ) && ( $key !== 'tax_input' ) ){
-                        $key = '_'. $key;
-                        $metas[ $key ] = $value;
+                    if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
+                        $key = '_'. $field_key;
+                        $metas[ $key ] = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
                     }
+                // }
+                    
                 }
-                //  wp_send_json( $metas );
-                // die();
-                
-            
-  
+                if( $error ){
+                    $data['error_msg'] = $error;
+                    $data['error'] = true;
+                }
+        
                 /**
                  * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
                  * @param array $metas the array of meta keys and meta values

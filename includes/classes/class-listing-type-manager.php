@@ -966,6 +966,17 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                         [ 'value' => 'both', 'label' => 'Both' ],
                                     ],
                                 ],
+                                'pricing_type' => [
+                                    'type'  => 'select',
+                                    'label'  => 'Select Pricing Type',
+                                    'value' => 'both',
+                                    'options' => [
+                                        [ 'value' => '', 'label' => 'Select...' ],
+                                        [ 'value' => 'price_unit', 'label' => 'Price Unit' ],
+                                        [ 'value' => 'price_range', 'label' => 'Price Range' ],
+                                        [ 'value' => 'both', 'label' => 'Both' ],
+                                    ],
+                                ],
                                 'price_range_label' => [
                                     'type'  => 'text',
                                     'show_if' => [
@@ -4038,7 +4049,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 'widget_group' => 'preset',
                                 'widget_name' => 'title',
                                 'type'        => 'text',
-                                'field_key'   => 'title',
+                                'field_key'   => 'listing_title',
                                 'required'    => true,
                                 'label'       => 'Title',
                                 'placeholder' => '',
@@ -4047,35 +4058,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     [ 'plan_id' => 1, 'max_length' => 200 ]
                                 ],
                             ],
-                            'description' => [
-                                'widget_group' => 'preset',
-                                'widget_name' => 'description',
-                                'type'        => 'wp_editor',
-                                'field_key'   => 'description',
-                                'required'    => false,
-                                'label'       => 'Description',
-                                'placeholder' => '',
-                                'tag_with_plan' => false,
-                                'plans' => [
-                                    [ 'plan_id' => '1', 'min' => '', 'max' => '' ],
-                                ],
-                            ],
-                            'tagline' => [
-                                'widget_group' => 'preset',
-                                'widget_name' => 'tagline',
-                                'type'        => 'text',
-                                'field_key'   => 'tagline',
-                                'required'    => false,
-                                'label'       => 'Tagline',
-                                'placeholder' => '',
-                                'tag_with_plan' => false,
-                            ],
                         ],
                         'groups' => [
                             [
                                 'label' => 'General Group',
                                 'lock' => true,
-                                'fields' => ['title', 'description'],
+                                'fields' => ['title'],
                             ],
                         ]
                     ],

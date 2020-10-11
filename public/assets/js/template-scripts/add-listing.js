@@ -475,15 +475,25 @@ jQuery(function($) {
                         url: atbdp_add_listing.ajaxurl,
                         data: form_data,
                         success(response) {
-                                console.log( response );
-                                return;
+                                 //console.log( response.error_msg );
+                                //  return;
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {
-                                        $('#listing_notifier')
+                                        if( response.error_msg.length > 1 ){
+                                                $('#listing_notifier').show();
+                                                for( var error in response.error_msg ){
+                                                       // console.log( error );
+                                                        $('#listing_notifier').append(`<span>${ response.error_msg[error] }</span>`);
+                                                }
+                                                $('.listing_submit_btn').removeClass('atbd_loading');
+                                        }else{
+                                                $('#listing_notifier')
                                                 .show()
-                                                .html(`<span>${response.error_msg}</span>`);
-                                        $('.listing_submit_btn').removeClass('atbd_loading');
+                                                .html(`<span>${ response.error_msg }</span>`);
+                                                $('.listing_submit_btn').removeClass('atbd_loading');
+                                        }
+                                        
                                 } else {
                                         // preview on and no need to redirect to payment
                                         if (response.preview_mode === true && response.need_payment !== true) {

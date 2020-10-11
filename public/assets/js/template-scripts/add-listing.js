@@ -475,8 +475,8 @@ jQuery(function($) {
                         url: atbdp_add_listing.ajaxurl,
                         data: form_data,
                         success(response) {
-                                 //console.log( response.error_msg );
-                                //  return;
+                                 console.log( response );
+                                 return;
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {

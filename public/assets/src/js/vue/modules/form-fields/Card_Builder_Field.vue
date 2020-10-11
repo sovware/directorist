@@ -138,50 +138,40 @@
         <!-- cptm-listing-card-preview-footer -->
         <div class="cptm-listing-card-preview-footer">
           <!-- cptm-listing-card-preview-footer-left-placeholder -->
-          <div class="cptm-listing-card-preview-footer-left-placeholder cptm-placeholder-blcok">
-            <p class="cptm-placeholder-label">Footer Left</p>
-            <div class="cptm-widget-insert-area">
-              <div class="cptm-widget-insert-wrap">
-                <div class="cptm-widget-insert-modal-container">
-                  <widgets-window
-                    v-bind="layout.footer.left"
-                    :availableWidgets="available_widgets"
-                    :active="getActiveInsertWindowStatus( 'thumbnail_footer_left' )"
-                    :bottomAchhor="true"
-                    @close="closeInsertWindow()"
-                  />
-                </div>
-
-                <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_footer_left' )">
-                  <span class="fa fa-plus"></span>
-                </a>
-              </div>
-            </div>
-          </div>
-
+          <card-widget-placeholder
+            containerClass="cptm-listing-card-preview-footer-left-placeholder"
+            :label="layout.footer.left.label"
+            :availableWidgets="available_widgets"
+            :activeWidgets="active_widgets"
+            :acceptedWidgets="layout.footer.left.acceptedWidgets"
+            :selectedWidgets="layout.footer.left.selectedWidgets"
+            :maxWidget="layout.footer.left.maxWidget"
+            :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_footer_left' )"
+            @insert-widget="layout.footer.left.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+            @drag-widget="dragWidget( $event )"
+            @edit-widget="editWidget( $event )"
+            @trash-widget="trashWidget( $event, 'middle', 'body' )"
+            @open-widgets-picker-window="activeInsertWindow( 'thumbnail_footer_left' )"
+            @close-widgets-picker-window="closeInsertWindow()"
+          />
 
           <!-- cptm-listing-card-preview-footer-right-placeholder -->
-          <div class="cptm-listing-card-preview-footer-right-placeholder cptm-placeholder-blcok">
-            <p class="cptm-placeholder-label">Footer Right</p>
-
-            <div class="cptm-widget-insert-area">
-              <div class="cptm-widget-insert-wrap">
-                <div class="cptm-widget-insert-modal-container">
-                  <widgets-window
-                    v-bind="layout.footer.right"
-                    :availableWidgets="available_widgets"
-                    :active="getActiveInsertWindowStatus( 'thumbnail_footer_right' )"
-                    :bottomAchhor="true"
-                    @close="closeInsertWindow()"
-                  />
-                </div>
-
-                <a href="#" class="cptm-widget-insert-link" @click.prevent="activeInsertWindow( 'thumbnail_footer_right' )">
-                  <span class="fa fa-plus"></span>
-                </a>
-              </div>
-            </div>
-          </div>
+          <card-widget-placeholder
+            containerClass="cptm-listing-card-preview-footer-right-placeholder"
+            :label="layout.footer.right.label"
+            :availableWidgets="available_widgets"
+            :activeWidgets="active_widgets"
+            :acceptedWidgets="layout.footer.right.acceptedWidgets"
+            :selectedWidgets="layout.footer.right.selectedWidgets"
+            :maxWidget="layout.footer.right.maxWidget"
+            :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_footer_right' )"
+            @insert-widget="layout.footer.right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+            @drag-widget="dragWidget( $event )"
+            @edit-widget="editWidget( $event )"
+            @trash-widget="trashWidget( $event, 'middle', 'body' )"
+            @open-widgets-picker-window="activeInsertWindow( 'thumbnail_footer_right' )"
+            @close-widgets-picker-window="closeInsertWindow()"
+          />
         </div>
       </div>
     </div>
@@ -341,7 +331,7 @@ export default {
         },
 
         category: {
-          type: "category",
+          type: "badge",
           id: "category",
           label: "Category",
           icon: '<span class="uil uil-text-fields"></span>',

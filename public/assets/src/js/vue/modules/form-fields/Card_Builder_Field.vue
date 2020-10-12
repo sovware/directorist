@@ -296,18 +296,107 @@ export default {
           },
         },
 
-        open_now_badge: {
+        open_close_badge: {
           type: "badge",
-          id: "open_now_badge",
+          id: "open_close_badge",
           label: "Open Now",
           icon: '<span class="uil uil-text-fields"></span>',
           options: {
             title: "Open/Closed Settings",
             fields: {
-              label: {
+              open_label: {
                 type: "text",
-                label: "Label",
+                label: "Open Badge Text",
                 value: "Open Now",
+              },
+              close_label: {
+                type: "text",
+                label: "Close Badge Text",
+                value: "Close Now",
+              },
+            },
+          },
+        },
+
+        popular_badge: {
+          type: "badge",
+          id: "popular_badge",
+          label: "Popular",
+          icon: '<span class="uil uil-text-fields"></span>',
+          options: {
+            title: "Popular Badge Settings",
+            fields: {
+              popular_label: {
+                type: "text",
+                label: "Popular Badge Text",
+                value: "Popular",
+              },
+              listing_popular_by: {
+                type: 'select',
+                label: "Popular Based on",
+                value: "view_count",
+                options: [
+                  {value: 'view_count', label: 'View Count'},
+                  {value: 'average_rating', label: 'Average Rating'},
+                  {value: 'both', label: 'Both'},
+                ],
+              },
+              views_for_popular: {
+                type: "number",
+                label: "Threshold in Views Count",
+                value: "5",
+                show_if: [
+                  {
+                    condition: [
+                      {key: 'listing_popular_by', value: 'view_count'},
+                      {key: 'listing_popular_by', value: 'both'},
+                    ]
+                  }
+                ],
+              },
+              count_loggedin_user: {
+                type: "toggle",
+                label: "Count Logged-in User View",
+                value: "",
+              },
+            },
+          },
+        },
+
+        featured_badge: {
+          type: "badge",
+          id: "featured_badge",
+          label: "Featured",
+          icon: '<span class="uil uil-text-fields"></span>',
+          options: {
+            title: "Featured Badge Settings",
+            fields: {
+              featured_label: {
+                type: "text",
+                label: "Featured Badge Text",
+                value: "Featured",
+              },
+            },
+          },
+        },
+
+        new_badge: {
+          type: "badge",
+          id: "new_badge",
+          label: "New",
+          icon: '<span class="uil uil-text-fields"></span>',
+          options: {
+            title: "New Badge Settings",
+            fields: {
+              new_label: {
+                type: "text",
+                label: "New Badge Text",
+                value: "New",
+              },
+              new_badge_duration: {
+                type: "number",
+                label: "New Badge Duration in Days",
+                value: "3",
               },
             },
           },
@@ -325,11 +414,6 @@ export default {
                 type: "icon",
                 label: "Icon",
                 value: "fa fa-heart",
-              },
-              text: {
-                type: "text",
-                label: "Text",
-                value: "Text",
               },
             },
           },
@@ -380,28 +464,28 @@ export default {
             label: 'Top Right',
             maxWidget: 2,
             maxWidgetInfoText: "Up to __DATA__ item{s} can be added",
-            acceptedWidgets: ["open_now_badge", "favorite_badge"],
+            acceptedWidgets: ["open_close_badge", "favorite_badge", "new_badge", "popular_badge", "featured_badge"],
             selectedWidgets: [],
           },
           top_left: {
             label: 'Top Left',
             maxWidget: 2,
             maxWidgetInfoText: "Up to __DATA__ item{s} can be added",
-            acceptedWidgets: ["open_now_badge", "favorite_badge"],
+            acceptedWidgets: ["open_close_badge", "favorite_badge", "new_badge", "popular_badge", "featured_badge"],
             selectedWidgets: [],
           },
           bottom_right: {
             label: 'Bottom Right',
             maxWidget: 2,
             maxWidgetInfoText: "Up to __DATA__ item{s} can be added",
-            acceptedWidgets: ["open_now_badge", "favorite_badge"],
+            acceptedWidgets: ["open_close_badge", "favorite_badge", "new_badge", "popular_badge", "featured_badge"],
             selectedWidgets: [],
           },
           bottom_left: {
             label: 'Bottom Left',
             maxWidget: 2,
             maxWidgetInfoText: "Up to __DATA__ item{s} can be added",
-            acceptedWidgets: ["open_now_badge", "favorite_badge"],
+            acceptedWidgets: ["open_close_badge", "favorite_badge", "new_badge", "popular_badge", "featured_badge"],
             selectedWidgets: [],
           },
           avater: {
@@ -430,13 +514,13 @@ export default {
           right: {
             label: 'Footer Right',
             maxWidget: 2,
-            acceptedWidgets: ["category"],
+            acceptedWidgets: ["category", "favorite_badge"],
             selectedWidgets: [],
           },
           left: {
             label: 'Footer Left',
-            maxWidget: 2,
-            acceptedWidgets: ["category"],
+            maxWidget: 1,
+            acceptedWidgets: ["category", "favorite_badge"],
             selectedWidgets: [],
           },
         },

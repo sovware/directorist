@@ -11,6 +11,8 @@
             :availableWidgets="availableWidgets"
             :acceptedWidgets="acceptedWidgets"
             :active="showWidgetsPickerWindow"
+            :maxWidget="maxWidget"
+            :maxWidgetInfoText="maxWidgetInfoText"
             :bottomAchhor="true"
             @widget-selection="$emit('insert-widget', $event)"
             @close="$emit('close-widgets-picker-window')"

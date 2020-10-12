@@ -1,13 +1,8 @@
 <template>
-    <div class="cptm-widget-card cptm-widget-badge">
+    <div class="cptm-widget-card cptm-widget-badge cptm-has-widget-control">
+        <widget-actions @drag="$emit( 'drag' )"  @edit="$emit( 'edit' )"  @trash="$emit( 'trash' )" />
+
         {{ label }}
-        <div class="cptm-widget-badge-tools">
-            <a href="#" @click.prevent="" @drag="$emit('drag')">
-                <span class="uil uil-expand-arrows"></span>
-            </a>
-            <a href="#" @click.prevent="$emit('edit')"><span class="uil uil-cog"></span></a>
-            <a href="#" @click.prevent="$emit('trash')"><span class="uil uil-trash-alt"></span></a>
-        </div>
     </div>
 </template>
 

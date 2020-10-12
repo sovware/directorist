@@ -11,12 +11,12 @@
                 </div>
             </div>
 
-            <div class="cptm-option-card-header-nav-section">
+            <!-- <div class="cptm-option-card-header-nav-section">
                 <ul class="cptm-option-card-header-nav">
                     <li class="cptm-option-card-header-nav-item active">Preset Field</li>
                     <li class="cptm-option-card-header-nav-item">Custom Field</li>
                 </ul>
-            </div>
+            </div> -->
         </div>
 
         <div class="cptm-option-card-body">
@@ -53,7 +53,7 @@ export default {
 
     props: {
         id: {
-            type: [ String, Number],
+            type: [ String, Number ],
             default: '',
         },
         active: {
@@ -177,9 +177,7 @@ export default {
 
     methods: {
         init() {
-            if ( typeof this.selectedWidgets !== 'object' ) {
-                return;
-            }
+            if ( typeof this.selectedWidgets !== 'object' ) { return; }
             
             let unique_selecte_widgets = new Set( this.selectedWidgets );
             this.localSelectedWidgets = [ ...unique_selecte_widgets ];
@@ -213,7 +211,6 @@ export default {
 
         selectWidget( key ) {
             if ( this.maxWidgetLimitIsReached ) { return; }
-
             let current_index = this.localSelectedWidgets.indexOf( key );
             
             if ( current_index != -1 ) {
@@ -222,7 +219,6 @@ export default {
             }
 
             this.localSelectedWidgets.push( key );
-
             this.$emit( 'widget-selection', { 
                 key, selected_widgets: this.localSelectedWidgets
             });

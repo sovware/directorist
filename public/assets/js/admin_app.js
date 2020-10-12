@@ -4194,13 +4194,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
     },
-    trashWidget: function trashWidget(key, section, area) {
-      if (!this.local_layout[section][area].selectedWidgets.includes(key)) {
+    trashWidget: function trashWidget(key, where) {
+      if (!where.selectedWidgets.includes(key)) {
         return;
       }
 
-      var index = this.local_layout[section][area].selectedWidgets.indexOf(key);
-      this.local_layout[section][area].selectedWidgets.splice(index, 1);
+      var index = where.selectedWidgets.indexOf(key);
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].delete(where.selectedWidgets, index);
 
       if (typeof this.active_widgets[key] === 'undefined') {
         return;
@@ -10122,7 +10122,10 @@ var render = function() {
                         return _vm.editWidget($event)
                       },
                       "trash-widget": function($event) {
-                        return _vm.trashWidget($event, "thumbnail", "top_left")
+                        return _vm.trashWidget(
+                          $event,
+                          _vm.local_layout.thumbnail.top_left
+                        )
                       },
                       "open-widgets-picker-window": function($event) {
                         return _vm.activeInsertWindow("thumbnail_top_left")
@@ -10169,7 +10172,10 @@ var render = function() {
                         return _vm.editWidget($event)
                       },
                       "trash-widget": function($event) {
-                        return _vm.trashWidget($event, "thumbnail", "top_right")
+                        return _vm.trashWidget(
+                          $event,
+                          _vm.local_layout.thumbnail.top_right
+                        )
                       },
                       "open-widgets-picker-window": function($event) {
                         return _vm.activeInsertWindow("thumbnail_top_right")
@@ -10220,8 +10226,7 @@ var render = function() {
                       "trash-widget": function($event) {
                         return _vm.trashWidget(
                           $event,
-                          "thumbnail",
-                          "bottom_left"
+                          _vm.local_layout.thumbnail.bottom_left
                         )
                       },
                       "open-widgets-picker-window": function($event) {
@@ -10273,8 +10278,7 @@ var render = function() {
                       "trash-widget": function($event) {
                         return _vm.trashWidget(
                           $event,
-                          "thumbnail",
-                          "bottom_right"
+                          _vm.local_layout.thumbnail.bottom_right
                         )
                       },
                       "open-widgets-picker-window": function($event) {
@@ -10332,7 +10336,10 @@ var render = function() {
                       return _vm.editWidget($event)
                     },
                     "trash-widget": function($event) {
-                      return _vm.trashWidget($event, "thumbnail", "avater")
+                      return _vm.trashWidget(
+                        $event,
+                        _vm.local_layout.thumbnail.avater
+                      )
                     },
                     "open-widgets-picker-window": function($event) {
                       return _vm.activeInsertWindow("thumbnail_avater")
@@ -10370,7 +10377,7 @@ var render = function() {
                   return _vm.editWidget($event)
                 },
                 "trash-widget": function($event) {
-                  return _vm.trashWidget($event, "middle", "body")
+                  return _vm.trashWidget($event, _vm.local_layout.middle.body)
                 },
                 "open-widgets-picker-window": function($event) {
                   return _vm.activeInsertWindow("thumbnail_body_contents")
@@ -10413,7 +10420,7 @@ var render = function() {
                   return _vm.editWidget($event)
                 },
                 "trash-widget": function($event) {
-                  return _vm.trashWidget($event, "middle", "body")
+                  return _vm.trashWidget($event, _vm.local_layout.footer.left)
                 },
                 "open-widgets-picker-window": function($event) {
                   return _vm.activeInsertWindow("thumbnail_footer_left")
@@ -10449,7 +10456,7 @@ var render = function() {
                   return _vm.editWidget($event)
                 },
                 "trash-widget": function($event) {
-                  return _vm.trashWidget($event, "middle", "body")
+                  return _vm.trashWidget($event, _vm.local_layout.footer.right)
                 },
                 "open-widgets-picker-window": function($event) {
                   return _vm.activeInsertWindow("thumbnail_footer_right")

@@ -23,7 +23,7 @@
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.top_left )"
                   @drag-widget="dragWidget( $event )"
                   @edit-widget="editWidget( $event )"
-                  @trash-widget="trashWidget( $event, 'thumbnail', 'top_left' )"
+                  @trash-widget="trashWidget( $event, local_layout.thumbnail.top_left )"
                   @open-widgets-picker-window="activeInsertWindow( 'thumbnail_top_left' )"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -44,7 +44,7 @@
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.top_right )"
                   @drag-widget="dragWidget( $event )"
                   @edit-widget="editWidget( $event )"
-                  @trash-widget="trashWidget( $event, 'thumbnail', 'top_right' )"
+                  @trash-widget="trashWidget( $event, local_layout.thumbnail.top_right )"
                   @open-widgets-picker-window="activeInsertWindow( 'thumbnail_top_right' )"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -65,7 +65,7 @@
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.bottom_left )"
                   @drag-widget="dragWidget( $event )"
                   @edit-widget="editWidget( $event )"
-                  @trash-widget="trashWidget( $event, 'thumbnail', 'bottom_left' )"
+                  @trash-widget="trashWidget( $event, local_layout.thumbnail.bottom_left )"
                   @open-widgets-picker-window="activeInsertWindow( 'thumbnail_bottom_left' )"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -86,7 +86,7 @@
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.bottom_right )"
                   @drag-widget="dragWidget( $event )"
                   @edit-widget="editWidget( $event )"
-                  @trash-widget="trashWidget( $event, 'thumbnail', 'bottom_right' )"
+                  @trash-widget="trashWidget( $event, local_layout.thumbnail.bottom_right )"
                   @open-widgets-picker-window="activeInsertWindow( 'thumbnail_bottom_right' )"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -116,7 +116,7 @@
               @insert-widget="insertWidget( $event, local_layout.thumbnail.avater )"
               @drag-widget="dragWidget( $event )"
               @edit-widget="editWidget( $event )"
-              @trash-widget="trashWidget( $event, 'thumbnail', 'avater' )"
+              @trash-widget="trashWidget( $event, local_layout.thumbnail.avater )"
               @open-widgets-picker-window="activeInsertWindow( 'thumbnail_avater' )"
               @close-widgets-picker-window="closeInsertWindow()"
             />
@@ -134,7 +134,7 @@
             @insert-widget="insertWidget( $event, local_layout.middle.body )"
             @drag-widget="dragWidget( $event )"
             @edit-widget="editWidget( $event )"
-            @trash-widget="trashWidget( $event, 'middle', 'body' )"
+            @trash-widget="trashWidget( $event, local_layout.middle.body )"
             @open-widgets-picker-window="activeInsertWindow( 'thumbnail_body_contents' )"
             @close-widgets-picker-window="closeInsertWindow()"
           />
@@ -155,7 +155,7 @@
             @insert-widget="insertWidget( $event, local_layout.footer.left )"
             @drag-widget="dragWidget( $event )"
             @edit-widget="editWidget( $event )"
-            @trash-widget="trashWidget( $event, 'middle', 'body' )"
+            @trash-widget="trashWidget( $event, local_layout.footer.left )"
             @open-widgets-picker-window="activeInsertWindow( 'thumbnail_footer_left' )"
             @close-widgets-picker-window="closeInsertWindow()"
           />
@@ -173,7 +173,7 @@
             @insert-widget="insertWidget( $event, local_layout.footer.right )"
             @drag-widget="dragWidget( $event )"
             @edit-widget="editWidget( $event )"
-            @trash-widget="trashWidget( $event, 'middle', 'body' )"
+            @trash-widget="trashWidget( $event, local_layout.footer.right )"
             @open-widgets-picker-window="activeInsertWindow( 'thumbnail_footer_right' )"
             @close-widgets-picker-window="closeInsertWindow()"
           />
@@ -369,7 +369,7 @@ export default {
     },
 
     importLayout() {
-      if (  ! this.isTruthyObject( this.layout ) ) {
+      if ( ! this.isTruthyObject( this.layout ) ) {
         return;
       }
 
@@ -413,11 +413,11 @@ export default {
       this.widgetOptionsWindow = this.widgetOptionsWindowDefault;
     },
 
-    trashWidget( key, section, area ) {
-      if ( ! this.local_layout[ section ][ area ].selectedWidgets.includes( key ) ) { return; }
+    trashWidget( key, where ) {
+      if ( ! where.selectedWidgets.includes( key ) ) { return; }
       
-      let index = this.local_layout[ section ][ area ].selectedWidgets.indexOf( key );
-      this.local_layout[ section ][ area ].selectedWidgets.splice( index, 1 );
+      let index = where.selectedWidgets.indexOf( key );
+      Vue.delete( where.selectedWidgets, index);
 
       if ( typeof this.active_widgets[ key ] === 'undefined' ) { return; }
       Vue.delete( this.active_widgets, key);

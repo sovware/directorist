@@ -20,7 +20,7 @@
                   :selectedWidgets="local_layout.thumbnail.top_left.selectedWidgets"
                   :maxWidget="local_layout.thumbnail.top_left.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_top_left' )"
-                  @insert-widget="local_layout.thumbnail.top_left.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                  @insert-widget="insertWidget( $event, local_layout.thumbnail.top_left )"
                   @drag-widget="dragWidget( $event )"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, 'thumbnail', 'top_left' )"
@@ -41,7 +41,7 @@
                   :selectedWidgets="local_layout.thumbnail.top_right.selectedWidgets"
                   :maxWidget="local_layout.thumbnail.top_right.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_top_right' )"
-                  @insert-widget="local_layout.thumbnail.top_right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                  @insert-widget="insertWidget( $event, local_layout.thumbnail.top_right )"
                   @drag-widget="dragWidget( $event )"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, 'thumbnail', 'top_right' )"
@@ -62,7 +62,7 @@
                   :selectedWidgets="local_layout.thumbnail.bottom_left.selectedWidgets"
                   :maxWidget="local_layout.thumbnail.bottom_left.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_bottom_left' )"
-                  @insert-widget="local_layout.thumbnail.bottom_left.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                  @insert-widget="insertWidget( $event, local_layout.thumbnail.bottom_left )"
                   @drag-widget="dragWidget( $event )"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, 'thumbnail', 'bottom_left' )"
@@ -83,7 +83,7 @@
                   :selectedWidgets="local_layout.thumbnail.bottom_right.selectedWidgets"
                   :maxWidget="local_layout.thumbnail.bottom_right.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_bottom_right' )"
-                  @insert-widget="local_layout.thumbnail.bottom_right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                  @insert-widget="insertWidget( $event, local_layout.thumbnail.bottom_right )"
                   @drag-widget="dragWidget( $event )"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, 'thumbnail', 'bottom_right' )"
@@ -113,7 +113,7 @@
               :selectedWidgets="local_layout.thumbnail.avater.selectedWidgets"
               :maxWidget="local_layout.thumbnail.avater.maxWidget"
               :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_avater' )"
-              @insert-widget="local_layout.thumbnail.avater.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+              @insert-widget="insertWidget( $event, local_layout.thumbnail.avater )"
               @drag-widget="dragWidget( $event )"
               @edit-widget="editWidget( $event )"
               @trash-widget="trashWidget( $event, 'thumbnail', 'avater' )"
@@ -131,7 +131,7 @@
             :selectedWidgets="local_layout.middle.body.selectedWidgets"
             :maxWidget="local_layout.middle.body.maxWidget"
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_body_contents' )"
-            @insert-widget="local_layout.middle.body.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+            @insert-widget="insertWidget( $event, local_layout.middle.body )"
             @drag-widget="dragWidget( $event )"
             @edit-widget="editWidget( $event )"
             @trash-widget="trashWidget( $event, 'middle', 'body' )"
@@ -152,7 +152,7 @@
             :selectedWidgets="local_layout.footer.left.selectedWidgets"
             :maxWidget="local_layout.footer.left.maxWidget"
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_footer_left' )"
-            @insert-widget="local_layout.footer.left.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+            @insert-widget="insertWidget( $event, local_layout.footer.left )"
             @drag-widget="dragWidget( $event )"
             @edit-widget="editWidget( $event )"
             @trash-widget="trashWidget( $event, 'middle', 'body' )"
@@ -170,7 +170,7 @@
             :selectedWidgets="local_layout.footer.right.selectedWidgets"
             :maxWidget="local_layout.footer.right.maxWidget"
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_footer_right' )"
-            @insert-widget="local_layout.footer.right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+            @insert-widget="insertWidget( $event, local_layout.footer.right )"
             @drag-widget="dragWidget( $event )"
             @edit-widget="editWidget( $event )"
             @trash-widget="trashWidget( $event, 'middle', 'body' )"
@@ -431,8 +431,9 @@ export default {
       this.active_insert_widget_key = current_item_key;
     },
 
-    insertWidget( payload ) {
-      Vue.set(  this.active_widgets, payload.key, { ...this.available_widgets[ payload.key ] } );
+    insertWidget( payload, where ) {
+      Vue.set( this.active_widgets, payload.key, { ...this.available_widgets[ payload.key ] } );
+      Vue.set( where, 'selectedWidgets', payload.selected_widgets );
     },
 
     closeInsertWindow( widget_insert_window ) {

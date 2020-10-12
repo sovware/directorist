@@ -27,12 +27,18 @@
             </div>
 
             <ul class="cptm-form-builder-field-list" v-if="Object.keys( unSelectedWidgetsList ).length">
-                <li class="cptm-form-builder-field-list-item" :class="{ 'disabled': maxWidgetLimitIsReached, 'clickable': ! maxWidgetLimitIsReached }" v-for="(widget, widget_key) in unSelectedWidgetsList" :key="widget_key" @click="selectWidget( widget_key )">
-                    <span class="cptm-form-builder-field-list-icon" v-html="widget.icon"></span>
-                    <span class="cptm-form-builder-field-list-label">
-                        {{ widget.label }}
-                    </span>
+                <li class="cptm-form-builder-field-list-item" 
+                    :class="widgetListClass( widget_key )"
+                    v-for="(widget, widget_key) in unSelectedWidgetsList" 
+                    :key="widget_key"
+                    @click="selectWidget( widget_key )">
+                        <pre>{{ widget.in_used }}</pre>
+                        <span class="cptm-form-builder-field-list-icon" v-html="widget.icon"></span>
+                        <span class="cptm-form-builder-field-list-label">
+                            {{ widget.label }}
+                        </span>
                 </li>
+               
             </ul>
 
             <p v-else class="cptm-info-text">Nothing available</p>
@@ -46,12 +52,11 @@
 export default {
     name: 'widgets-window',
 
-    model: {
-        prop: 'active',
-        event: 'update'
-    },
-
     props: {
+        test: {
+            type: [ String, Number ],
+            default: '',
+        },
         id: {
             type: [ String, Number ],
             default: '',
@@ -73,6 +78,9 @@ export default {
         },
         acceptedWidgets: {
             type: Array,
+        },
+        activeWidgets: {
+            type: Object,
         },
         selectedWidgets: {
             type: Array,
@@ -126,16 +134,18 @@ export default {
         unSelectedWidgetsList() {
             const self = this;
 
-            // console.log( this.id, self.widgetsList );
             if ( ! Object.keys( self.widgetsList ).length ) { return {}; }
 
+            // Filter unselected widgets
             let widgets_list = Object.keys( self.widgetsList )
-                .filter( key => ! self.localSelectedWidgets.includes( key ) )
+                .filter( key => ! self.localSelectedWidgets.includes( key ) && typeof self.activeWidgets[ key ] === 'undefined' )
                 .reduce(( obj, key ) => {
                     obj[ key ] = self.widgetsList[ key ];
 
                     return obj;
                 }, {});
+
+            let active_widgets_keys = Object.keys( self.activeWidgets );
 
             return widgets_list;
         },
@@ -167,10 +177,6 @@ export default {
 
     data() {
         return {
-            /* infoTexts: [
-                // { type: 'info', text: 'Up to 2 items can be added' }
-            ], */
-
             localSelectedWidgets: [],
         }
     },
@@ -211,6 +217,8 @@ export default {
 
         selectWidget( key ) {
             if ( this.maxWidgetLimitIsReached ) { return; }
+            if ( typeof this.activeWidgets[ key ] !== 'undefined' ) { return; }
+
             let current_index = this.localSelectedWidgets.indexOf( key );
             
             if ( current_index != -1 ) {
@@ -222,7 +230,16 @@ export default {
             this.$emit( 'widget-selection', { 
                 key, selected_widgets: this.localSelectedWidgets
             });
-        }
+        },
+
+
+        widgetListClass( widget_key ) {
+            return { 
+                'hide': typeof this.activeWidgets[ widget_key ] !== 'undefined', 
+                'disabled': this.maxWidgetLimitIsReached || typeof this.activeWidgets[ widget_key ] !== 'undefined', 
+                'clickable': ! this.maxWidgetLimitIsReached 
+            }
+        },
     },
 }
 </script>

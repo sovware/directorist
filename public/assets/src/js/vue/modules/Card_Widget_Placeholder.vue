@@ -10,6 +10,7 @@
           <widgets-window
             :availableWidgets="availableWidgets"
             :acceptedWidgets="acceptedWidgets"
+            :activeWidgets="activeWidgets"
             :active="showWidgetsPickerWindow"
             :maxWidget="maxWidget"
             :maxWidgetInfoText="maxWidgetInfoText"
@@ -48,6 +49,9 @@
 export default {
     name: 'card-widget-placeholder',
     props: {
+        test: {
+          type: String
+        },
         containerClass: {
             type: String,
             default: '',

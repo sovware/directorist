@@ -4284,6 +4284,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                           ],
                     ],
+                    
                     'layout' => [
                         'thumbnail' => [
                             'top_right' => [
@@ -4297,7 +4298,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'maxWidget' => 2,
                                 'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
-                            'bottom_ight' => [
+                            'bottom_right' => [
                                 'maxWidget' => 2,
                                 'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],

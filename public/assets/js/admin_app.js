@@ -3045,9 +3045,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'card-widget-placeholder',
   props: {
+    test: {
+      type: String
+    },
     containerClass: {
       type: String,
       default: ''
@@ -3388,13 +3392,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'widgets-window',
-  model: {
-    prop: 'active',
-    event: 'update'
-  },
   props: {
+    test: {
+      type: [String, Number],
+      default: ''
+    },
     id: {
       type: [String, Number],
       default: ''
@@ -3416,6 +3426,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     },
     acceptedWidgets: {
       type: Array
+    },
+    activeWidgets: {
+      type: Object
     },
     selectedWidgets: {
       type: Array
@@ -3463,18 +3476,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return widgets_list;
     },
     unSelectedWidgetsList: function unSelectedWidgetsList() {
-      var self = this; // console.log( this.id, self.widgetsList );
+      var self = this;
 
       if (!Object.keys(self.widgetsList).length) {
         return {};
-      }
+      } // Filter unselected widgets
+
 
       var widgets_list = Object.keys(self.widgetsList).filter(function (key) {
-        return !self.localSelectedWidgets.includes(key);
+        return !self.localSelectedWidgets.includes(key) && typeof self.activeWidgets[key] === 'undefined';
       }).reduce(function (obj, key) {
         obj[key] = self.widgetsList[key];
         return obj;
       }, {});
+      var active_widgets_keys = Object.keys(self.activeWidgets);
       return widgets_list;
     },
     maxWidgetLimitIsReached: function maxWidgetLimitIsReached() {
@@ -3500,9 +3515,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   },
   data: function data() {
     return {
-      /* infoTexts: [
-          // { type: 'info', text: 'Up to 2 items can be added' }
-      ], */
       localSelectedWidgets: []
     };
   },
@@ -3551,6 +3563,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return;
       }
 
+      if (typeof this.activeWidgets[key] !== 'undefined') {
+        return;
+      }
+
       var current_index = this.localSelectedWidgets.indexOf(key);
 
       if (current_index != -1) {
@@ -3563,6 +3579,13 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         key: key,
         selected_widgets: this.localSelectedWidgets
       });
+    },
+    widgetListClass: function widgetListClass(widget_key) {
+      return {
+        'hide': typeof this.activeWidgets[widget_key] !== 'undefined',
+        'disabled': this.maxWidgetLimitIsReached || typeof this.activeWidgets[widget_key] !== 'undefined',
+        'clickable': !this.maxWidgetLimitIsReached
+      };
     }
   }
 });
@@ -3758,6 +3781,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3955,6 +3979,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "card-builder",
   props: {
@@ -4071,17 +4101,14 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           },
           bottom_right: {
             label: 'Bottom Right',
-            maxWidget: 2,
             selectedWidgets: []
           },
           bottom_left: {
             label: 'Bottom Left',
-            maxWidget: 2,
             selectedWidgets: []
           },
           avater: {
             label: 'Avater',
-            maxWidget: 1,
             selectedWidgets: []
           }
         },
@@ -4149,18 +4176,15 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       });
     },
     editWidget: function editWidget(key) {
-      // console.log( 'editWidget', { key } );
       this.widgetOptionsWindow = _objectSpread(_objectSpread({}, this.widgetOptionsWindowDefault), this.active_widgets[key].options);
       this.widgetOptionsWindow.widget = key;
     },
     updateWidgetOptionsData: function updateWidgetOptionsData(data, widget) {
-      // console.log( { data, widget } );
       if (typeof this.active_widgets[widget.widget] === 'undefined') {
         return;
       }
 
-      this.active_widgets[widget.widget].fields = data; // console.log( this.active_widgets );
-
+      this.active_widgets[widget.widget].fields = data;
       this.$emit('update', this.output_data);
     },
     closeWidgetOptionsWindow: function closeWidgetOptionsWindow() {
@@ -4178,18 +4202,17 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return;
       }
 
-      delete this.active_widgets[key];
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].delete(this.active_widgets, key);
 
       if (key === this.widgetOptionsWindow.widget) {
         this.closeWidgetOptionsWindow();
       }
     },
     activeInsertWindow: function activeInsertWindow(current_item_key) {
-      // console.log( current_item_key, this.active_insert_widget_key );
       this.active_insert_widget_key = current_item_key;
     },
     insertWidget: function insertWidget(payload) {
-      this.active_widgets[payload.key] = _objectSpread({}, this.available_widgets[payload.key]);
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(this.active_widgets, payload.key, _objectSpread({}, this.available_widgets[payload.key]));
     },
     closeInsertWindow: function closeInsertWindow(widget_insert_window) {
       this.active_insert_widget_key = '';
@@ -9366,6 +9389,7 @@ var render = function() {
                 attrs: {
                   availableWidgets: _vm.availableWidgets,
                   acceptedWidgets: _vm.acceptedWidgets,
+                  activeWidgets: _vm.activeWidgets,
                   active: _vm.showWidgetsPickerWindow,
                   maxWidget: _vm.maxWidget,
                   maxWidgetInfoText: _vm.maxWidgetInfoText,
@@ -9801,10 +9825,7 @@ var render = function() {
                   {
                     key: widget_key,
                     staticClass: "cptm-form-builder-field-list-item",
-                    class: {
-                      disabled: _vm.maxWidgetLimitIsReached,
-                      clickable: !_vm.maxWidgetLimitIsReached
-                    },
+                    class: _vm.widgetListClass(widget_key),
                     on: {
                       click: function($event) {
                         return _vm.selectWidget(widget_key)
@@ -9812,6 +9833,8 @@ var render = function() {
                     }
                   },
                   [
+                    _c("pre", [_vm._v(_vm._s(widget.in_used))]),
+                    _vm._v(" "),
                     _c("span", {
                       staticClass: "cptm-form-builder-field-list-icon",
                       domProps: { innerHTML: _vm._s(widget.icon) }
@@ -9822,9 +9845,9 @@ var render = function() {
                       { staticClass: "cptm-form-builder-field-list-label" },
                       [
                         _vm._v(
-                          "\n                    " +
+                          "\n                        " +
                             _vm._s(widget.label) +
-                            "\n                "
+                            "\n                    "
                         )
                       ]
                     )

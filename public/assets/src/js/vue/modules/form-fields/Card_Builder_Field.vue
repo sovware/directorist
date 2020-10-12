@@ -12,6 +12,7 @@
                 <!-- cptm-card-preview-top-left -->
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-top-left-placeholder"
+    
                   :label="local_layout.thumbnail.top_left.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
@@ -32,6 +33,7 @@
               <div class="cptm-card-preview-top-rignt">
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-top-rignt-placeholder"
+    
                   :label="local_layout.thumbnail.top_right.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
@@ -52,6 +54,7 @@
               <div class="cptm-card-preview-bottom-left">
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-bottom-left-placeholder"
+    
                   :label="local_layout.thumbnail.bottom_left.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
@@ -72,6 +75,7 @@
               <div class="cptm-card-preview-bottom-right">
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-bottom-right-placeholder"
+    
                   :label="local_layout.thumbnail.bottom_right.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
@@ -101,6 +105,7 @@
           <div class="cptm-listing-card-author-avatar">
             <card-widget-placeholder
               containerClass="cptm-listing-card-author-avatar-placeholder"
+
               :label="local_layout.thumbnail.avater.label"
               :availableWidgets="available_widgets"
               :activeWidgets="active_widgets"
@@ -188,6 +193,8 @@
 </template>
 
 <script>
+import Vue from 'vue';
+
 export default {
   name: "card-builder",
   props: {
@@ -309,17 +316,14 @@ export default {
           },
           bottom_right: {
             label: 'Bottom Right',
-            maxWidget: 2,
             selectedWidgets: [],
           },
           bottom_left: {
             label: 'Bottom Left',
-            maxWidget: 2,
             selectedWidgets: [],
           },
           avater: {
             label: 'Avater',
-            maxWidget: 1,
             selectedWidgets: [],
           },
         },
@@ -390,21 +394,17 @@ export default {
     },
 
     editWidget( key ) {
-      // console.log( 'editWidget', { key } );
       this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...this.active_widgets[ key ].options };
       this.widgetOptionsWindow.widget = key;
     },
 
     updateWidgetOptionsData( data, widget ) {
-      // console.log( { data, widget } );
 
       if ( typeof this.active_widgets[ widget.widget ] === 'undefined' ) {
         return;
       }
 
       this.active_widgets[ widget.widget ].fields = data;
-
-      // console.log( this.active_widgets );
 
       this.$emit( 'update', this.output_data );
     },
@@ -420,7 +420,7 @@ export default {
       this.local_layout[ section ][ area ].selectedWidgets.splice( index, 1 );
 
       if ( typeof this.active_widgets[ key ] === 'undefined' ) { return; }
-      delete this.active_widgets[ key ];
+      Vue.delete( this.active_widgets, key);
 
       if ( key === this.widgetOptionsWindow.widget ) {
         this.closeWidgetOptionsWindow();
@@ -428,12 +428,11 @@ export default {
     },
 
     activeInsertWindow( current_item_key ) {
-      // console.log( current_item_key, this.active_insert_widget_key );
       this.active_insert_widget_key = current_item_key;
     },
 
     insertWidget( payload ) {
-      this.active_widgets[ payload.key ] = { ...this.available_widgets[ payload.key ] };
+      Vue.set(  this.active_widgets, payload.key, { ...this.available_widgets[ payload.key ] } );
     },
 
     closeInsertWindow( widget_insert_window ) {

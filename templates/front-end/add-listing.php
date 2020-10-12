@@ -1238,7 +1238,7 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
 
                                                             <span class="ezmu-dictionary-info-max-file-items"
                                                                   data-featured="<?php echo !empty($slider_unl) ? '1' : ''; ?>">
-                                                                <?php echo !empty($slider_unl) ? __('Unlimited images with this plan!', 'directorist') : __('Maximum __DT__ file is allowed', 'directorist'); ?></span>
+                                                                <?php echo !empty($slider_unl) ? __('Unlimited images with this plan!', 'directorist') : ( ( $plan_image > 1 ) ? __('Maximum __DT__ files are allowed', 'directorist') : __('Maximum __DT__ file is allowed', 'directorist') ); ?></span>
                                                         </div>
                                                     </div>
                                                 <?php } ?>

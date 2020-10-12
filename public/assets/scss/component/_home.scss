@@ -1,5 +1,5 @@
-.atbd_content_active #directorist.atbd_wrapper{
-  .select2-selection{
+.atbd_content_active #directorist.atbd_wrapper {
+  .select2-selection {
     display: block;
     width: 100%;
     padding: 0.375rem 0.75rem;
@@ -13,72 +13,83 @@
     min-height: 44px;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   }
-  &.directory_search_area{
-    .select2-selection{
+  &.directory_search_area {
+    .select2-selection {
       height: 49px;
     }
-    .select2-container--default .select2-selection--single .select2-selection__rendered{
+    .select2-container--default
+      .select2-selection--single
+      .select2-selection__rendered {
       line-height: 47px;
     }
   }
-  .select2-container--default .select2-selection--single .select2-selection__rendered{
+  .select2-container--default
+    .select2-selection--single
+    .select2-selection__rendered {
     line-height: 41px;
   }
-  .select2-container--default .select2-selection--single .select2-selection__arrow{
+  .select2-container--default
+    .select2-selection--single
+    .select2-selection__arrow {
     height: 35px;
     right: 10px;
-    top:0;
+    top: 0;
   }
-  .select2-container--default .select2-selection--single .select2-selection__placeholder{
+  .select2-container--default
+    .select2-selection--single
+    .select2-selection__placeholder {
     color: $text-color;
   }
-  .atbd_search_title_area{
+  .atbd_search_title_area {
     text-align: center;
     margin-bottom: 30px;
-    h2.title{
+    h2.title {
       font-size: 28px;
     }
-    p.sub_title{
+    p.sub_title {
       font-size: 18px;
       text-align: center;
     }
   }
-  .single_search_field{
-    .search_fields{
+  .single_search_field {
+    .search_fields {
       line-height: 35px;
       height: 43px;
     }
-    .select2-container--default .select2-selection--single .select2-selection__arrow{
+    .select2-container--default
+      .select2-selection--single
+      .select2-selection__arrow {
       height: 48px;
     }
   }
-  .atbd_submit_btn_wrapper{
+  .atbd_submit_btn_wrapper {
     margin-top: 20px;
     text-align: center;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    .btn_search, .more-filter{
+    .btn_search,
+    .more-filter {
       padding: 13px 20px;
       margin: 5px;
-      span{
+      span {
         margin-right: 7px;
       }
     }
-    .more-filter{
+    .more-filter {
       background: #fff;
       border: 1px solid #686e77;
-      &:hover{
+      &:hover {
         color: inherit !important;
         background: #fff;
       }
     }
   }
-  .atbd_seach_fields_wrapper{
+  .atbd_seach_fields_wrapper {
     padding: 30px;
     border: 1px solid $border-color;
-    .atbdp-search-form{
+    .atbdp-search-form {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -88,37 +99,37 @@
         flex: 1;
         padding-left: 5px !important;
         padding-right: 5px !important;
-        .form-control{
+        .form-control {
           width: 100%;
         }
-        .select2.select2-container{
+        .select2.select2-container {
           width: 100% !important;
         }
       }
     }
   }
-  .directory_home_category_area{
+  .directory_home_category_area {
     text-align: center;
     margin-top: 60px;
-    >p{
+    > p {
       margin-bottom: 25px;
       font-size: 18px;
       text-align: center;
     }
-    .categories{
-       li{
-         display: inline-block;
-         border: 1px solid $border-color;
-         text-align: center;
-         border-radius: 3px;
-         padding: 10px 20px;
-         margin-bottom: 15px;
-         margin-left: 7px;
-         margin-right: 7px;
-         a p{
-           text-align: center;
-         }
-       }
+    .categories {
+      li {
+        display: inline-block;
+        border: 1px solid $border-color;
+        text-align: center;
+        border-radius: 3px;
+        padding: 10px 20px;
+        margin-bottom: 15px;
+        margin-left: 7px;
+        margin-right: 7px;
+        a p {
+          text-align: center;
+        }
+      }
     }
   }
 }
@@ -140,12 +151,11 @@
   }
 }*/
 
-
 /* ads advance search */
-.ads-advaced--wrapper{
-  .ads_float{
+.ads-advaced--wrapper {
+  .ads_float {
     position: relative;
-    .ads-advanced{
+    .ads-advanced {
       border-radius: 3px;
       z-index: 10000;
       overflow-y: scroll;
@@ -159,33 +169,33 @@
     }
   }
 }
-.ads_float{
-  .ads-advanced{
+.ads_float {
+  .ads-advanced {
     overflow-y: scroll;
   }
 }
 
-.directory_search_area{
-  .ads-advanced{
+.directory_search_area {
+  .ads-advanced {
     padding: 20px 30px 30px;
   }
 }
-.ads_slide{
-  .ads-advanced{
+.ads_slide {
+  .ads-advanced {
     display: none;
   }
 }
-.ads-advanced{
+.ads-advanced {
   border: 1px solid #e3e6ef;
   margin-top: 25px;
   background: #fff;
-  &.ads_ov{
+  &.ads_ov {
     display: block;
   }
-  form{
+  form {
     padding: 20px 30px 30px;
   }
-  .form-group{
+  .form-group {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -193,76 +203,77 @@
     padding-bottom: 15px;
     margin-bottom: 15px !important;
     transition: 0.3s ease;
-    &>label{
-      margin:0 !important;
+    & > label {
+      margin: 0 !important;
       display: block;
       width: 150px;
     }
-    label{
+    label {
       font-weight: 500;
-      &:before, &:after{
+      &:before,
+      &:after {
         content: none !important;
       }
     }
-    .form-control{
+    .form-control {
       height: 44px;
     }
   }
-  .form-control{
+  .form-control {
     box-shadow: none;
   }
-  .custom-control{
-    label{
+  .custom-control {
+    label {
       font-weight: normal;
       position: relative;
       z-index: 1;
     }
   }
-  .price_ranges{
+  .price_ranges {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     flex: 1;
     margin: 0 -5px -10px;
-    width:0;
-    .range_single{
+    width: 0;
+    .range_single {
       padding: 0 5px;
       width: 145px;
       margin-bottom: 10px;
-      input{
+      input {
         height: 44px;
         margin-bottom: 0 !important;
       }
     }
   }
-  .price-frequency{
+  .price-frequency {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     margin-left: 7px;
     margin-bottom: 10px;
     width: auto;
-    .pf-btn{
+    .pf-btn {
       margin-right: -1px !important;
       overflow: hidden;
       margin-bottom: 0 !important;
-      &:first-child{
+      &:first-child {
         border-radius: 3px 0 0 3px;
       }
-      &:last-child{
+      &:last-child {
         border-radius: 0 3px 3px 0;
       }
-      span{
+      span {
         border: 1px solid #e3e6ef;
         display: block;
         padding: 9px 15px;
-        transition: .3s ease;
+        transition: 0.3s ease;
         cursor: pointer;
       }
-      input{
+      input {
         display: none;
-        &:checked{
-          &+span{
+        &:checked {
+          & + span {
             background: #444752;
             color: #fff !important;
             border-color: #444752;
@@ -271,67 +282,70 @@
       }
     }
   }
-  .select-basic{
+  .select-basic {
     width: 250px !important;
   }
-  .ads-filter-tags{
+  .ads-filter-tags {
     align-items: flex-start;
   }
-  .bads-tags, .bads-custom-checks{
+  .bads-tags,
+  .bads-custom-checks {
     display: flex;
     flex-wrap: wrap;
     flex: 4;
     margin: 0 -5px;
-    .custom-control{
+    .custom-control {
       margin: 0 5px;
       width: 140px;
     }
-    .fields_hidden{
+    .fields_hidden {
       display: none;
     }
-    label{
+    label {
       line-height: normal;
     }
   }
-  .atbdp_custom_radios{
+  .atbdp_custom_radios {
     display: flex;
     flex-wrap: wrap;
     flex: 4;
   }
-  .more-less, .more-or-less{
+  .more-less,
+  .more-or-less {
     flex: 1;
     text-align: right;
     color: #272b41;
     font-size: 13px !important;
-    &:after{
-      content: '\f107';
-      font-family: "FontAwesome";
+    &:after {
+      content: "\f107";
+      font-family: "Font Awesome 5 Free";
       padding-left: 5px;
+      font-weight: 900;
     }
-    &:focus{
+    &:focus {
       outline: 0;
     }
-    &.ad{
-      &:after{
-        content: '\f107';
+    &.ad {
+      &:after {
+        content: "\f107";
       }
     }
-    &.active{
-      &:after{
-        content: '\f106';
+    &.active {
+      &:after {
+        content: "\f106";
       }
     }
   }
-  .more-less:after{
-    content: '\f106';
+  .more-less:after {
+    content: "\f106";
   }
-  .wp-picker-container{
+  .wp-picker-container {
     border: 1px solid #e3e6ef;
     padding: 5px;
     border-radius: 3px;
-    .button{
+    .button {
       height: 30px !important;
-      .wp-color-result-text{
+      .wp-color-result-text {
         height: 30px;
         border: 0 none;
         background: #fff;
@@ -341,33 +355,33 @@
       }
     }
   }
-  .bottom-inputs{
+  .bottom-inputs {
     margin-left: -5px;
     margin-right: -5px;
     margin-bottom: -10px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    & > div{
+    & > div {
       width: 33.33%;
       padding-left: 5px;
       padding-right: 5px;
-      .form-control{
+      .form-control {
         margin-bottom: 10px !important;
       }
     }
   }
-  .bdas-filter-actions{
+  .bdas-filter-actions {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     margin: 15px -5px 0 -5px;
-    .btn{
+    .btn {
       padding: 8px 20px !important;
       margin: 0 5px !important;
     }
   }
-  .atbdp-custom-fields-search{
+  .atbdp-custom-fields-search {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -375,28 +389,30 @@
     margin-right: -15px;
     border-bottom: 0;
     padding-bottom: 0;
-    .form-group{
+    .form-group {
       width: 50%;
       padding-left: 15px;
       padding-right: 15px;
       border: 0 none !important;
       padding-bottom: 0 !important;
-      > div{
+      > div {
         border-bottom: 1px solid $border-color;
         padding-bottom: 15px;
         width: 100%;
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        >label{
+        > label {
           width: 150px;
         }
       }
-      &.atbdp_cf_checkbox, &.atbdp_cf_textarea, &.atbdp_cf_radio{
+      &.atbdp_cf_checkbox,
+      &.atbdp_cf_textarea,
+      &.atbdp_cf_radio {
         width: 100%;
       }
-      &.atbdp_cf_textarea{
-        textarea.form-control{
+      &.atbdp_cf_textarea {
+        textarea.form-control {
           padding-top: 10px !important;
           height: 80px;
         }
@@ -404,84 +420,86 @@
       &.atbdp_cf_select,
       &.atbdp_cf_date,
       &.atbdp_cf_time,
-      &.atbdp_cf_color{
+      &.atbdp_cf_color {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        label{
+        label {
           flex: 1;
         }
-        .form-control{
+        .form-control {
           flex: 2;
         }
       }
-      &.atbdp_cf_select{
-        .select-basic{
+      &.atbdp_cf_select {
+        .select-basic {
           width: auto !important;
           flex: 1;
         }
       }
-      &.atbdp_cf_text, &.atbdp_cf_number, .atbdp_cf_url{
-        input{
+      &.atbdp_cf_text,
+      &.atbdp_cf_number,
+      .atbdp_cf_url {
+        input {
           margin-bottom: 0 !important;
         }
       }
-      .form-control{
+      .form-control {
         width: 100% !important;
       }
-      .custom-control{
+      .custom-control {
         width: 140px;
       }
-      > label{
+      > label {
         margin-bottom: 5px !important;
       }
-      &.atbdp_cf_checkbox{
-        > div{
+      &.atbdp_cf_checkbox {
+        > div {
           align-items: flex-start;
         }
       }
     }
   }
-  .atbdp_map_address_field{
+  .atbdp_map_address_field {
     position: relative;
-    .address_result{
+    .address_result {
       position: absolute;
       width: 96%;
       left: 2%;
       top: 45px;
       background: #fff;
-      box-shadow:0 5px 10px rgba($light-gray, 0.2);
+      box-shadow: 0 5px 10px rgba($light-gray, 0.2);
       border-radius: 3px;
       z-index: 1;
       max-height: 300px;
       overflow-y: scroll;
-      ul{
-        li{
+      ul {
+        li {
           border-bottom: 1px solid $border-color;
           padding: 10px 15px 10px;
         }
       }
     }
   }
-  .atbd_seach_fields_wrapper{
-    .atbdp_map_address_field{
+  .atbd_seach_fields_wrapper {
+    .atbdp_map_address_field {
       position: relative;
-      .address_result{
+      .address_result {
         position: absolute;
         width: 100%;
         left: 0;
         top: 45px;
         background: #fff;
-        box-shadow:0 5px 10px rgba($light-gray, 0.2);
+        box-shadow: 0 5px 10px rgba($light-gray, 0.2);
         border-radius: 3px;
         z-index: 2;
         max-height: 300px;
         overflow-y: scroll;
-        ul{
-          li{
+        ul {
+          li {
             border-bottom: 1px solid $border-color;
             padding: 10px 15px 10px;
-            a{
+            a {
               font-size: 13px;
               line-height: 22px;
               display: block;
@@ -490,12 +508,12 @@
         }
       }
     }
-    .atbdp_get_address_field{
+    .atbdp_get_address_field {
       position: relative;
-      #address{
+      #address {
         padding-right: 35px !important;
       }
-      span.atbd_get_loc{
+      span.atbd_get_loc {
         position: absolute;
         right: 15px;
         top: 50%;
@@ -505,24 +523,25 @@
     }
   }
 }
-.atbd_seach_fields_wrapper .atbdp_map_address_field{
+.atbd_seach_fields_wrapper .atbdp_map_address_field {
   position: relative;
-  .address_result, & + .address_result{
+  .address_result,
+  & + .address_result {
     position: absolute;
     width: 100%;
     left: 0;
     top: 45px;
     background: #fff;
-    box-shadow:0 5px 10px rgba($light-gray, 0.2);
+    box-shadow: 0 5px 10px rgba($light-gray, 0.2);
     border-radius: 3px;
     z-index: 1;
     max-height: 300px;
     overflow-y: scroll;
-    ul{
-      li{
+    ul {
+      li {
         border-bottom: 1px solid $border-color;
         padding: 10px 15px 10px !important;
-        a{
+        a {
           font-size: 13px;
           line-height: 22px;
           display: block;
@@ -530,12 +549,12 @@
       }
     }
   }
-  .atbdp_get_address_field{
+  .atbdp_get_address_field {
     position: relative;
-    #address{
+    #address {
       padding-right: 35px !important;
     }
-    span.atbd_get_loc{
+    span.atbd_get_loc {
       position: absolute;
       right: 15px;
       top: 50%;
@@ -544,13 +563,13 @@
     }
   }
 }
-.atbd_header_bar .header_bar_title{
+.atbd_header_bar .header_bar_title {
   font-size: 15px !important;
   margin-bottom: 21px !important;
 }
-.atbd_header_bar .ads-advanced{
+.atbd_header_bar .ads-advanced {
   margin-top: 0;
-  .atbd_seach_fields_wrapper{
+  .atbd_seach_fields_wrapper {
     border-bottom: 1px solid #eef0f6 !important;
     margin-bottom: 15px !important;
     padding: 0 0 15px 0 !important;

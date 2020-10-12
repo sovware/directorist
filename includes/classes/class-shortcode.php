@@ -739,7 +739,13 @@ if (!class_exists('ATBDP_Shortcode')):
                 $result = (1 < count($all_listings->posts)) ? __('results', 'directorist') : __('result', 'directorist');
                 $header_title = sprintf(__('%d %s %s %s', 'directorist'), $all_listings->found_posts, $result, $for_cat, $in_loc);
             } else {
-                $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
+                $options = [];
+
+                if ( $args['orderby'] = 'rand' ) {
+                    $options['cache'] = false;
+                }
+                
+                $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args, $options );
 
                 $result = ( 1 < $all_listings->total ) ? __('results', 'directorist') : __('result', 'directorist');
                 $header_title = sprintf(__('%d %s %s %s', 'directorist'), $all_listings->total, $result, $for_cat, $in_loc);
@@ -1303,7 +1309,13 @@ if (!class_exists('ATBDP_Shortcode')):
                     $listing_count = '<span>' . count($all_listings->posts) . '</span>';
                 }
             } else {
-                $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $arguments );
+                $options = [];
+
+                if ( $args['orderby'] = 'rand' ) {
+                    $options['cache'] = false;
+                }
+
+                $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $arguments, $options );
                 $listing_count = '<span>' . $all_listings->total . '</span>';
             }
 
@@ -1853,7 +1865,13 @@ if (!class_exists('ATBDP_Shortcode')):
                         $listing_count = '<span>' . count($all_listings->posts) . '</span>';
                     }
                 } else {
-                    $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
+                    $options = [];
+
+                    if ( $args['orderby'] = 'rand' ) {
+                        $options['cache'] = false;
+                    }
+
+                    $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args, $options );
                     $listing_count = '<span>' . $all_listings->total . '</span>';
                 }
 
@@ -2359,7 +2377,13 @@ if (!class_exists('ATBDP_Shortcode')):
                         $listing_count = '<span>' . count($all_listings->posts) . '</span>';
                     }
                 } else {
-                    $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
+                    $options = [];
+
+                    if ( $args['orderby'] = 'rand' ) {
+                        $options['cache'] = false;
+                    }
+
+                    $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args, $options );
                     $listing_count = '<span>' . $all_listings->total . '</span>';
                 }
 
@@ -2777,7 +2801,13 @@ if (!class_exists('ATBDP_Shortcode')):
                         $listing_count = '<span>' . count($all_listings->posts) . '</span>';
                     }
                 } else {
-                    $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args );
+                    $options = [];
+
+                    if ( $args['orderby'] = 'rand' ) {
+                        $options['cache'] = false;
+                    }
+
+                    $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args, $options );
                     $listing_count = '<span>' . $all_listings->total . '</span>';
                 }
 

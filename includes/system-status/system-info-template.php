@@ -403,7 +403,7 @@ global $wpdb;
 				<?php if ( $security['secure_connection'] ) : ?>
 					<mark class="yes"><span class="dashicons dashicons-yes"></span></mark>
 				<?php else : ?>
-					<mark class="error"><span class="dashicons dashicons-warning"></span><?php echo __( 'Your site is not using HTTPS.', 'directorist' ); ?></mark>
+					<mark class="error"><span class="dashicons dashicons-warning"></span><?php echo __( 'HTTPS is not enabled on your site.', 'directorist' ); ?></mark>
 				<?php endif; ?>
 			</td>
 		</tr>

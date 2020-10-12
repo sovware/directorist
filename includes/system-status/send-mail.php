@@ -56,10 +56,7 @@ class ATBDP_Send_Mail
             <div class="card-body">
                 <div class="atbds_content__tab">
                     <div class="atbds_supportForm">
-                        <h4><?php _e( 'Send To', 'directorist' ); ?></h4>
-                        <p><?php _e( 'Contains a collection of relevant data that will help you debug your website accurately and more efficiently.', 'directorist' ); ?></p>
-
-                        <form id="atbdp-send-system-info" method="post" enctype="multipart/form-data" action="<?php echo esc_url( self_admin_url( 'admin-ajax.php' ) ); ?>">
+                         <form id="atbdp-send-system-info" method="post" enctype="multipart/form-data" action="<?php echo esc_url( self_admin_url( 'admin-ajax.php' ) ); ?>">
                             <div class="atbds_form-row">
                                 <label><?php _e( 'Email Address', 'directorist' ); ?></label>
                                 <input type="email" name="email" id="atbdp-email-address" placeholder="<?php _e( 'user@email.com', 'directorist'); ?>">
@@ -75,7 +72,7 @@ class ATBDP_Send_Mail
                             <div class="atbds_form-row">
                                 <div class="atbds_customCheckbox">
                                     <input type="checkbox" name='atbdp_system_info' id='atbdp_system_info' checked>
-                                    <label for="atbds_check_support"><?php _e( 'Your system information will be attached automatically to this email.', 'directorist' ); ?></label>
+                                    <label for="atbds_check_support"><?php _e( 'Attach system information.', 'directorist' ); ?></label>
                                 </div>
                             </div>
                             <div class="atbds_form-row">

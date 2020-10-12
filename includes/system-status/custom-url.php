@@ -83,18 +83,19 @@ class ATBDP_Custom_Url
 				<div id="atbdp-remote-response"></div>
 				<div class="atbds_content__tab">
 					<div class="atbds_remoteViewingForm">
-						<p><?php _e( 'Create a secret URL that support can use to remotely view your system information. The secret URL will expire after 72 hours and can be revoked at any time.', 'directorist' ); ?></p>
+						<p><?php _e( 'Create a secret URL to show system information with others. If you face any technical problem to your site then you can share this URL with support agent for faster debugging.', 'directorist' ); ?></p>
+						<p><?php _e( 'This secret URL expires after 72 hours, but you can revoke it anytime.', 'directorist' ); ?></p>
 						<form action="#">
 							<div class="atbds_form-row">
 								<input type="url" id="system-info-url" onclick="this.focus();this.select()" value="<?php echo esc_url( $url ? $url : '' ); ?>">
 								<a class="button-secondary" href="<?php echo esc_url( $url ? $url : '#' ); ?>" target="_blank"
-												id="system-info-url-text-link" style="display: <?php echo $url ? 'display-inline' : 'none' ; ?>"><?php _e( 'Test', 'directorist' ); ?></a>
+												id="system-info-url-text-link" style="display: <?php echo $url ? 'display-inline' : 'none' ; ?>"><?php _e( 'View', 'directorist' ); ?></a>
 							
 							</div>
 							<div class="atbds_form-row">
 								<div class="atbds_buttonGroup">
-									<button id='generate-url' name="generate-url" class="atbds_btn atbds_btnDark" data-nonce="<?php echo wp_create_nonce( '_generate_custom_url' ); ?>" ><?php _e( 'Create Url', 'directorist' ); ?></button>
-									<button id='revoke-url' name="revoke-url" class="atbds_btn atbds_btnGray" data-nonce="<?php echo wp_create_nonce( '_revoke_custom_url' ); ?>" ><?php _e( 'Revoke Url', 'directorist' ); ?></button>
+									<button id='generate-url' name="generate-url" class="atbds_btn atbds_btnDark" data-nonce="<?php echo wp_create_nonce( '_generate_custom_url' ); ?>" ><?php _e( 'Create URL', 'directorist' ); ?></button>
+									<button id='revoke-url' name="revoke-url" class="atbds_btn atbds_btnGray" data-nonce="<?php echo wp_create_nonce( '_revoke_custom_url' ); ?>" ><?php _e( 'Revoke URL', 'directorist' ); ?></button>
 								</div>
 							</div>
 						</form>

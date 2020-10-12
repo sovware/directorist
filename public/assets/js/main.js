@@ -6,6 +6,12 @@
 */
 /* eslint-disable */
 ;(function ($) {
+
+    $('.test').click( function() {
+        var href = $(this).attr('data');
+        $('#myForm').attr('action', href);
+        $('#myForm').submit();
+    });
     //sorting toggle
     $('.sorting span').on('click', function () {
         $(this).toggleClass('fa-sort-amount-asc fa-sort-amount-desc');

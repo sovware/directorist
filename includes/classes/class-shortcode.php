@@ -1296,6 +1296,7 @@ if (!class_exists('ATBDP_Shortcode')):
 
             if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.0', '<=' ) && 'listings_with_map' == $view  ) {
                 $all_listings = new WP_Query( $arguments );
+
                 if ('yes' == $show_pagination) {
                     $listing_count = '<span>' . $all_listings->found_posts . '</span>';
                 } else {

@@ -4116,10 +4116,10 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                           ],
                   
-                          'open_now_badge' => [
+                          'open_close_badge' => [
                             'type' => "badge",
-                            'id' => "open_now_badge",
-                            'label' => "Open Now",
+                            'id' => "open_close_badge",
+                            'label' => "Open/Close",
                             'icon' => '<span class="uil uil-text-fields"></span>',
                             'options' => [
                               'title' => "Open/Closed Settings",
@@ -4133,6 +4133,89 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                           ],
                   
+                          'featured_badge' => [
+                            'type' => "badge",
+                            'id' => "featured_badge",
+                            'label' => "Featured",
+                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'options' => [
+                              'title' => "Featured Badge Settings",
+                              'fields' => [
+                                'label' => [
+                                  'type' => "text",
+                                  'label' => "Label",
+                                  'value' => "Featured",
+                                ],
+                              ],
+                            ],
+                          ],
+
+                          'new_badge' => [
+                            'type' => "badge",
+                            'id' => "new_badge",
+                            'label' => "New",
+                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'options' => [
+                              'title' => "New Badge Settings",
+                              'fields' => [
+                                'label' => [
+                                  'type' => "text",
+                                  'label' => "Label",
+                                  'value' => "New",
+                                ],
+                                'new_badge_duration' => [
+                                  'type' => "number",
+                                  'label' => "New Badge Duration in Days",
+                                  'value' => "3",
+                                ],
+                              ],
+                            ],
+                          ],
+
+                          'popular_badge' => [
+                            'type' => "badge",
+                            'id' => "popular_badge",
+                            'label' => "Popular",
+                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'options' => [
+                              'title' => "Popular Badge Settings",
+                              'fields' => [
+                                'label' => [
+                                  'type' => "text",
+                                  'label' => "Label",
+                                  'value' => "Popular",
+                                ],
+                                'listing_popular_by' => [
+                                  'type' => "select",
+                                  'label' => "Popular Based on",
+                                  'value' => "view_count",
+                                  'options' => [
+                                      [ 'value' => 'view_count', 'label' => 'View Count' ],
+                                      [ 'value' => 'average_rating', 'label' => 'Average Rating' ],
+                                  ],
+                                  'views_for_popular' => [
+                                    'type' => "number",
+                                    'label' => "Threshold in Views Count",
+                                    'value' => "5",
+                                    'show_if' => [
+                                        [
+                                            'condition' => [
+                                                [ 'key' => 'listing_popular_by', 'value' => 'view_count' ],
+                                                [ 'key' => 'listing_popular_by', 'value' => 'both' ],
+                                            ]
+                                        ]
+                                    ]
+                                  ],
+                                  'count_loggedin_user' => [
+                                    'type' => "toggle",
+                                    'label' => "Count Logged-in User View",
+                                    'value' => "",
+                                  ],
+                                ],
+                              ],
+                            ],
+                          ],
+                  
                           'favorite_badge' => [
                             'type' => "badge",
                             'id' => "favorite_badge",
@@ -4140,6 +4223,23 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'icon' => '<span class="uil uil-text-fields"></span>',
                             'options' => [
                               'title' => "Favorite Settings",
+                              'fields' => [
+                                'icon' => [
+                                  'type' => "icon",
+                                  'label' => "Icon",
+                                  'value' => "fa fa-heart",
+                                ],
+                              ],
+                            ],
+                          ],
+
+                          'view_count' => [
+                            'type' => "badge",
+                            'id' => "view_count",
+                            'label' => "View Count",
+                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'options' => [
+                              'title' => "View Count Settings",
                               'fields' => [
                                 'icon' => [
                                   'type' => "icon",
@@ -4190,20 +4290,20 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => 'Top Right',
                                 'maxWidget' => 2,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["open_now_badge", "favorite_badge"],
+                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                                 'selectedWidgets' => [],
                             ],
                             'top_left' => [
                                 'maxWidget' => 2,
-                                'acceptedWidgets' => ["open_now_badge", "favorite_badge"],
+                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
                             'bottom_ight' => [
                                 'maxWidget' => 2,
-                                'acceptedWidgets' => ["open_now_badge", "favorite_badge"],
+                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
                             'bottom_left' => [
                                 'maxWidget' => 2,
-                                'acceptedWidgets' => ["open_now_badge", "favorite_badge"],
+                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
                             'avater' => [
                                 'maxWidget' => 1,
@@ -4225,12 +4325,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         'footer' => [
                             'right' => [
                                 'maxWidget' => 2,
-                                'acceptedWidgets' => ["category"],
+                                'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
                             ],
 
                             'left' => [
-                                'maxWidget' => 2,
-                                'acceptedWidgets' => ["category"],
+                                'maxWidget' => 1,
+                                'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
                             ],
                         ],
                     ],

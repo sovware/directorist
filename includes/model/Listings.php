@@ -1214,10 +1214,13 @@ class Directorist_Listings {
 
 		$options       = atbdp_get_listings_orderby_options( $this->sort_by_items );
 		$current_order = ! empty( $this->current_order ) ? $this->current_order : '';
-
+		global $wp;
+		$current_url =  home_url( $wp->request ) . '/';
+		$pattern = '/page\\/[0-9]+\\//i';
+		$actual_link = preg_replace($pattern, '', $current_url);
 		foreach ( $options as $value => $label ) {
 			$active_class = ( $value == $current_order ) ? ' active' : '';
-			$link         = add_query_arg( 'sort', $value );
+			$link         = add_query_arg( 'sort', $value, $actual_link );
 
 			$link_item['active_class'] = $active_class;
 			$link_item['link']         = $link;

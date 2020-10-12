@@ -349,6 +349,11 @@ export default {
                 label: "Icon",
                 value: "fa fa-heart",
               },
+              text: {
+                type: "text",
+                label: "Text",
+                value: "Text",
+              },
             },
           },
         },

@@ -4184,6 +4184,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                           ],
                     ],
+                    
                     'layout' => [
                         'thumbnail' => [
                             'top_right' => [
@@ -4191,13 +4192,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'maxWidget' => 2,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => ["open_now_badge", "favorite_badge"],
-                                'selectedWidgets' => [],
                             ],
                             'top_left' => [
                                 'maxWidget' => 2,
                                 'acceptedWidgets' => ["open_now_badge", "favorite_badge"],
                             ],
-                            'bottom_ight' => [
+                            'bottom_right' => [
                                 'maxWidget' => 2,
                                 'acceptedWidgets' => ["open_now_badge", "favorite_badge"],
                             ],

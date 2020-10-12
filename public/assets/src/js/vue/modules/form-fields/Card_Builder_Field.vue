@@ -309,12 +309,10 @@ export default {
           },
           bottom_right: {
             label: 'Bottom Right',
-            maxWidget: 2,
             selectedWidgets: [],
           },
           bottom_left: {
             label: 'Bottom Left',
-            maxWidget: 2,
             selectedWidgets: [],
           },
           avater: {
@@ -390,21 +388,17 @@ export default {
     },
 
     editWidget( key ) {
-      // console.log( 'editWidget', { key } );
       this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...this.active_widgets[ key ].options };
       this.widgetOptionsWindow.widget = key;
     },
 
     updateWidgetOptionsData( data, widget ) {
-      // console.log( { data, widget } );
 
       if ( typeof this.active_widgets[ widget.widget ] === 'undefined' ) {
         return;
       }
 
       this.active_widgets[ widget.widget ].fields = data;
-
-      // console.log( this.active_widgets );
 
       this.$emit( 'update', this.output_data );
     },
@@ -428,7 +422,6 @@ export default {
     },
 
     activeInsertWindow( current_item_key ) {
-      // console.log( current_item_key, this.active_insert_widget_key );
       this.active_insert_widget_key = current_item_key;
     },
 

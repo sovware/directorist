@@ -26,17 +26,19 @@
     </div>
 
     <div class="cptm-widget-preview-area" v-if="selectedWidgets.length">
-      <template v-for="(widget, widget_key) in selectedWidgets">
-        <component
-          :is="activeWidgets[widget].type + '-card-widget'"
-          :key="widget_key"
-          :label="activeWidgets[widget].label"
-          :options="activeWidgets[widget].options"
-          @drag="$emit('drag-widget', widget)"
-          @edit="$emit('edit-widget', widget)"
-          @trash="$emit('trash-widget', widget)"
-        >
-        </component>
+      <template v-for="(widget, widget_index) in selectedWidgets">
+        <template v-if="hasValidWidget( widget )">
+          <component
+            :is="activeWidgets[widget].type + '-card-widget'"
+            :key="widget_index"
+            :label="activeWidgets[widget].label"
+            :options="activeWidgets[widget].options"
+            @drag="$emit('drag-widget', widget)"
+            @edit="$emit('edit-widget', widget)"
+            @trash="$emit('trash-widget', widget)"
+          >
+          </component>
+        </template>
       </template>
     </div>
   </div>
@@ -78,6 +80,22 @@ export default {
             type: String,
             default: 'Up to __DATA__ item{s} can be added',
         },
+    },
+
+    methods: {
+      hasValidWidget( widget_key ) {
+        
+        if ( ! this.activeWidgets[ widget_key ] && typeof this.activeWidgets[ widget_key ] !== 'object' ) {
+          console.log( widget_key );
+          return false;
+        }
+
+        if ( typeof this.activeWidgets[ widget_key ].type !== 'string' ) {
+          return false;
+        }
+
+        return true;
+      }
     },
 };
 </script>

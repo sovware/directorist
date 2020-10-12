@@ -1,7 +1,8 @@
 <?php
 
-if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
-    class ATBDP_Listing_Type_Manager {
+if (!class_exists('ATBDP_Listing_Type_Manager')) {
+    class ATBDP_Listing_Type_Manager
+    {
         public $fields = [];
         public $layouts = [];
         public $config = [];
@@ -9,21 +10,23 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         public $old_custom_fields = [];
 
         // run
-        public function run() {
+        public function run()
+        {
             $this->prepare_settings();
             $this->get_old_custom_fields();
-            add_action( 'admin_enqueue_scripts', [ $this, 'register_scripts' ] );
-            add_action( 'init', [ $this, 'register_terms' ] );
-            add_action( 'admin_menu', [ $this, 'add_menu_pages' ] );
-            add_action( 'admin_post_delete_listing_type', [ $this, 'handle_delete_listing_type_request' ] );
+            add_action('admin_enqueue_scripts', [$this, 'register_scripts']);
+            add_action('init', [$this, 'register_terms']);
+            add_action('admin_menu', [$this, 'add_menu_pages']);
+            add_action('admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request']);
 
-            add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
+            add_action('wp_ajax_save_post_type_data', [$this, 'save_post_type_data']);
         }
 
         // save_post_type_data
-        public function save_post_type_data() {
+        public function save_post_type_data()
+        {
 
-           /*  wp_send_json( [
+            /*  wp_send_json( [
                 'general_config' => $this->maybe_json( $_POST['general_config'] ),
                 'status' => false,
                 'status_log' => [
@@ -34,8 +37,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ],
             ], 200 ); */
 
-            if ( empty( $_POST['name'] ) ) {
-                wp_send_json( [
+            if (empty($_POST['name'])) {
+                wp_send_json([
                     'status' => false,
                     'status_log' => [
                         'name_is_missing' => [
@@ -43,23 +46,23 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'message' => 'Name is missing',
                         ],
                     ],
-                ], 200 );
+                ], 200);
             }
 
             $term_id = 0;
             $mode    = 'create';
             $listing_type_name = $_POST['name'];
 
-            if ( ! empty( $_POST['listing_type_id'] ) && absint( $_POST['listing_type_id'] ) ) {
+            if (!empty($_POST['listing_type_id']) && absint($_POST['listing_type_id'])) {
                 $mode = 'edit';
-                $term_id = absint( $_POST['listing_type_id'] );
-                wp_update_term( $term_id, 'atbdp_listing_types', ['name' => $listing_type_name] );
+                $term_id = absint($_POST['listing_type_id']);
+                wp_update_term($term_id, 'atbdp_listing_types', ['name' => $listing_type_name]);
             } else {
-                $term = wp_insert_term( $listing_type_name, 'atbdp_listing_types' );
+                $term = wp_insert_term($listing_type_name, 'atbdp_listing_types');
 
-                if ( is_wp_error( $term ) ) {
-                    if ( ! empty( $term->errors['term_exists'] )  ) {
-                        wp_send_json( [
+                if (is_wp_error($term)) {
+                    if (!empty($term->errors['term_exists'])) {
+                        wp_send_json([
                             'status' => false,
                             'status_log' => [
                                 'name_exists' => [
@@ -67,17 +70,16 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'message' => 'The name already exists',
                                 ]
                             ],
-                        ], 200 );
+                        ], 200);
                     }
                 } else {
                     $mode = 'edit';
                     $term_id = $term['term_id'];
                 }
-
             }
 
-            if ( empty( $term_id ) ) {
-                wp_send_json( [
+            if (empty($term_id)) {
+                wp_send_json([
                     'status' => false,
                     'status_log' => [
                         'invalid_id' => [
@@ -85,35 +87,35 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'message' => 'Error found, please try again',
                         ]
                     ],
-                ], 200 );
+                ], 200);
             }
 
-            $created_message = ( 'create' == $mode ) ? 'created' : 'updated';
+            $created_message = ('create' == $mode) ? 'created' : 'updated';
 
-            if ( empty( $_POST['field_list'] ) ) {
-                wp_send_json( [
+            if (empty($_POST['field_list'])) {
+                wp_send_json([
                     'status' => true,
                     'post_id' => $term_id,
                     'status_log' => [
                         'post_created' => [
                             'type' => 'success',
-                            'message' => 'The Post type has been '. $created_message .' successfully',
+                            'message' => 'The Post type has been ' . $created_message . ' successfully',
                         ],
                         'field_list_not_found' => [
                             'type' => 'error',
                             'message' => 'Field list not found',
-                        ] ,
+                        ],
                     ],
-                ], 200 );
+                ], 200);
             }
             $url = '';
-            $field_list = $this->maybe_json( $_POST['field_list'] );
-            foreach ( $field_list as $field_key ) {
-                if ( isset( $_POST[ $field_key ] ) && 'name' !==  $field_key ) {
-                    $this->update_validated_term_meta( $term_id, $field_key, $_POST[ $field_key ] );
+            $field_list = $this->maybe_json($_POST['field_list']);
+            foreach ($field_list as $field_key) {
+                if (isset($_POST[$field_key]) && 'name' !==  $field_key) {
+                    $this->update_validated_term_meta($term_id, $field_key, $_POST[$field_key]);
                 }
             }
-            $url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=edit&listing_type_id='. $term_id );
+            $url = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=edit&listing_type_id=' . $term_id);
             wp_send_json([
                 'status' => true,
                 'post_id' => $term_id,
@@ -121,62 +123,66 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 'status_log' => [
                     'post_created' => [
                         'type' => 'success',
-                        'message' => 'The post type has been '. $created_message .' successfully'
+                        'message' => 'The post type has been ' . $created_message . ' successfully'
                     ]
                 ],
-            ], 200 );
+            ], 200);
         }
 
         // update_validated_term_meta
-        public function update_validated_term_meta( $term_id, $field_key, $value ) {
-            if ( ! isset( $this->fields[ $field_key ] ) && ! array_key_exists( $field_key, $this->config['fields_group'] ) ) {
+        public function update_validated_term_meta($term_id, $field_key, $value)
+        {
+            if (!isset($this->fields[$field_key]) && !array_key_exists($field_key, $this->config['fields_group'])) {
                 return;
             }
 
-            if ( 'toggle' === $this->fields[ $field_key ]['type'] ) {
-                $value = ( 'true' === $value || true === $value || '1' === $value || 1 === $value ) ? true : 0;
+            if ('toggle' === $this->fields[$field_key]['type']) {
+                $value = ('true' === $value || true === $value || '1' === $value || 1 === $value) ? true : 0;
             }
 
-            $value = $this->maybe_json( $value );
-            update_term_meta(  $term_id, $field_key, $value );
+            $value = $this->maybe_json($value);
+            update_term_meta($term_id, $field_key, $value);
         }
 
         // maybe_json
-        public function maybe_json( $string ) {
+        public function maybe_json($string)
+        {
             $string_alt = $string;
 
-            if ( preg_match( '/(\\\")/', $string_alt ) ) {
-                $string_alt = preg_replace( '/(\\\")/', '"', $string_alt );
-                $string_alt = json_decode( $string_alt, true );
-                $string = ( ! is_null( $string_alt )) ? $string_alt : $string;
+            if (preg_match('/(\\\")/', $string_alt)) {
+                $string_alt = preg_replace('/(\\\")/', '"', $string_alt);
+                $string_alt = json_decode($string_alt, true);
+                $string = (!is_null($string_alt)) ? $string_alt : $string;
             }
 
             return $string;
         }
 
         // maybe_serialize
-        public function maybe_serialize( $value = '' ) {
-            return maybe_serialize( $this->maybe_json( $value ));
+        public function maybe_serialize($value = '')
+        {
+            return maybe_serialize($this->maybe_json($value));
         }
 
-        public function get_old_custom_fields( $fields_of = 'form' ){
+        public function get_old_custom_fields($fields_of = 'form')
+        {
             $fields = [];
-            $old_fields = atbdp_get_custom_field_ids( '', true );
-                foreach( $old_fields as $old_field ){
-                    $field_type = get_post_meta( $old_field, 'type', true );
-                    $description = get_post_meta( $old_field, 'instructions', true );
-                    $required = get_post_meta( $old_field, 'required', true );
-                    $admin_use = get_post_meta( $old_field, 'admin_use', true );
-                    $associate = get_post_meta( $old_field, 'associate', true );
-                    $category_pass = get_post_meta( $old_field, 'category_pass', true );
-                    $choices = get_post_meta( $old_field, 'choices', true );
-                    $rows = get_post_meta( $old_field, 'rows', true );
-                    $target = get_post_meta( $old_field, 'target', true );
-                    $file_type = get_post_meta( $old_field, 'file_type', true );
-                    $file_size = get_post_meta( $old_field, 'file_size', true );
-                    if( ('text' === $field_type) || ('number' === $field_type) || ('date' === $field_type) || ('color' === $field_type) || ('time' === $field_type) ){
-                       $fields[ $field_type ] = [
-                        'label' => get_the_title( $old_field ),
+            $old_fields = atbdp_get_custom_field_ids('', true);
+            foreach ($old_fields as $old_field) {
+                $field_type = get_post_meta($old_field, 'type', true);
+                $description = get_post_meta($old_field, 'instructions', true);
+                $required = get_post_meta($old_field, 'required', true);
+                $admin_use = get_post_meta($old_field, 'admin_use', true);
+                $associate = get_post_meta($old_field, 'associate', true);
+                $category_pass = get_post_meta($old_field, 'category_pass', true);
+                $choices = get_post_meta($old_field, 'choices', true);
+                $rows = get_post_meta($old_field, 'rows', true);
+                $target = get_post_meta($old_field, 'target', true);
+                $file_type = get_post_meta($old_field, 'file_type', true);
+                $file_size = get_post_meta($old_field, 'file_size', true);
+                if (('text' === $field_type) || ('number' === $field_type) || ('date' === $field_type) || ('color' === $field_type) || ('time' === $field_type)) {
+                    $fields[$field_type] = [
+                        'label' => get_the_title($old_field),
                         'icon' => 'fa fa-text-width',
                         'options' => [
                             'type' => [
@@ -186,7 +192,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'label' => [
                                 'type'  => 'text',
                                 'label' => 'Label',
-                                'value' => get_the_title( $old_field ),
+                                'value' => get_the_title($old_field),
                             ],
                             'field_key' => [
                                 'type'  => 'text',
@@ -215,19 +221,19 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                             'assign_to' => [
                                 'type' => 'radio',
-                                'label' => __( 'Assign to', 'directorist' ),
+                                'label' => __('Assign to', 'directorist'),
                                 'value' => $associate,
                                 'options' => [
                                     'form'  => [
-                                        'label' => __( 'Form', 'directorist' ),
+                                        'label' => __('Form', 'directorist'),
                                         'value' => 'form',
                                     ],
                                     'category'  => [
-                                        'label' => __( 'Category', 'directorist' ),
+                                        'label' => __('Category', 'directorist'),
                                         'value' => 'category',
                                         'sub_options' => [
                                             'type' => 'select',
-                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'label' => __('Select Categories', 'directorist'),
                                             'value' => $category_pass,
                                             'options' => [
                                                 [
@@ -245,10 +251,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                         ]
                     ];
-                    }
-                    if( ('radio' === $field_type) || ('checkbox' === $field_type) || ('select' === $field_type) ){
-                       $fields[ $field_type ] = [
-                        'label' => get_the_title( $old_field ),
+                }
+                if (('radio' === $field_type) || ('checkbox' === $field_type) || ('select' === $field_type)) {
+                    $fields[$field_type] = [
+                        'label' => get_the_title($old_field),
                         'icon' => 'fa fa-text-width',
                         'options' => [
                             'type' => [
@@ -258,7 +264,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'label' => [
                                 'type'  => 'text',
                                 'label' => 'Label',
-                                'value' => get_the_title( $old_field ),
+                                'value' => get_the_title($old_field),
                             ],
                             'field_key' => [
                                 'type'  => 'text',
@@ -267,12 +273,12 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                             'options' => [
                                 'type' => 'textarea',
-                                'label' => __( 'Options', 'directorist' ),
+                                'label' => __('Options', 'directorist'),
                                 'value' => $choices,
-                                'description' => __( 'Each on a new line, for example,
+                                'description' => __('Each on a new line, for example,
                                 Male: Male
                                 Female: Female
-                                Other: Other', 'directorist' ),
+                                Other: Other', 'directorist'),
                             ],
                             'description' => [
                                 'type'  => 'text',
@@ -291,19 +297,19 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                             'assign_to' => [
                                 'type' => 'radio',
-                                'label' => __( 'Assign to', 'directorist' ),
+                                'label' => __('Assign to', 'directorist'),
                                 'value' => $associate,
                                 'options' => [
                                     'form'  => [
-                                        'label' => __( 'Form', 'directorist' ),
+                                        'label' => __('Form', 'directorist'),
                                         'value' => 'form',
                                     ],
                                     'category'  => [
-                                        'label' => __( 'Category', 'directorist' ),
+                                        'label' => __('Category', 'directorist'),
                                         'value' => 'category',
                                         'sub_options' => [
                                             'type' => 'select',
-                                            'label' => __( 'Select Categories', 'directorist' ),
+                                            'label' => __('Select Categories', 'directorist'),
                                             'value' => $category_pass,
                                             'options' => [
                                                 [
@@ -321,372 +327,372 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                         ]
                     ];
-                    }
-                    if( ('textarea' === $field_type) ){
-                        $fields[ $field_type ] = [
-                         'label' => get_the_title( $old_field ),
-                         'icon' => 'fa fa-text-width',
-                         'options' => [
-                             'type' => [
-                                 'type'  => 'hidden',
-                                 'value' => 'text',
-                             ],
-                             'label' => [
-                                 'type'  => 'text',
-                                 'label' => 'Label',
-                                 'value' => get_the_title( $old_field ),
-                             ],
-                             'field_key' => [
-                                 'type'  => 'text',
-                                 'label' => 'Key',
-                                 'value' => $old_field,
-                             ],
-                             'placeholder' => [
-                                 'type'  => 'text',
-                                 'label' => 'Placeholder',
-                                 'value' => '',
-                             ],
-                             'description' => [
-                                 'type'  => 'text',
-                                 'label' => 'Description',
-                                 'value' => $description,
-                             ],
-                             'rows' => [
+                }
+                if (('textarea' === $field_type)) {
+                    $fields[$field_type] = [
+                        'label' => get_the_title($old_field),
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'text',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => get_the_title($old_field),
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => $old_field,
+                            ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => 'Placeholder',
+                                'value' => '',
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => $description,
+                            ],
+                            'rows' => [
                                 'type'  => 'number',
                                 'label' => $rows,
                                 'value' => 8,
                             ],
-                             'required' => [
-                                 'type'  => 'toggle',
-                                 'label'  => 'Required',
-                                 'value' => $required == 1 ? true : false,
-                             ],
-                             'only_for_admin' => [
-                                 'type'  => 'toggle',
-                                 'label'  => 'Only For Admin Use',
-                                 'value' =>  $admin_use == 1 ? true : false,
-                             ],
-                             'assign_to' => [
-                                 'type' => 'radio',
-                                 'label' => __( 'Assign to', 'directorist' ),
-                                 'value' => $associate,
-                                 'options' => [
-                                     'form'  => [
-                                         'label' => __( 'Form', 'directorist' ),
-                                         'value' => 'form',
-                                     ],
-                                     'category'  => [
-                                         'label' => __( 'Category', 'directorist' ),
-                                         'value' => 'category',
-                                         'sub_options' => [
-                                             'type' => 'select',
-                                             'label' => __( 'Select Categories', 'directorist' ),
-                                             'value' => $category_pass,
-                                             'options' => [
-                                                 [
-                                                     'label' => 'Category A',
-                                                     'value' => 'category_a'
-                                                 ],
-                                                 [
-                                                     'label' => 'Category B',
-                                                     'value' => 'category_b'
-                                                 ],
-                                             ]
-                                         ],
-                                     ],
-                                 ],
-                             ],
-                         ]
-                     ];
-                    }
-                    if( ('url' === $field_type) ){
-                        $fields[ $field_type ] = [
-                         'label' => get_the_title( $old_field ),
-                         'icon' => 'fa fa-text-width',
-                         'options' => [
-                             'type' => [
-                                 'type'  => 'hidden',
-                                 'value' => 'text',
-                             ],
-                             'label' => [
-                                 'type'  => 'text',
-                                 'label' => 'Label',
-                                 'value' => get_the_title( $old_field ),
-                             ],
-                             'field_key' => [
-                                 'type'  => 'text',
-                                 'label' => 'Key',
-                                 'value' => $old_field,
-                             ],
-                             'placeholder' => [
-                                 'type'  => 'text',
-                                 'label' => 'Placeholder',
-                                 'value' => '',
-                             ],
-                             'description' => [
-                                 'type'  => 'text',
-                                 'label' => 'Description',
-                                 'value' => $description,
-                             ],
-                             'required' => [
-                                 'type'  => 'toggle',
-                                 'label'  => 'Required',
-                                 'value' => $required == 1 ? true : false,
-                             ],
-                             'only_for_admin' => [
-                                 'type'  => 'toggle',
-                                 'label'  => 'Only For Admin Use',
-                                 'value' =>  $admin_use == 1 ? true : false,
-                             ],
-                             'target' => [
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => $required == 1 ? true : false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' =>  $admin_use == 1 ? true : false,
+                            ],
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __('Assign to', 'directorist'),
+                                'value' => $associate,
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __('Form', 'directorist'),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __('Category', 'directorist'),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __('Select Categories', 'directorist'),
+                                            'value' => $category_pass,
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ]
+                    ];
+                }
+                if (('url' === $field_type)) {
+                    $fields[$field_type] = [
+                        'label' => get_the_title($old_field),
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'text',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => get_the_title($old_field),
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => $old_field,
+                            ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => 'Placeholder',
+                                'value' => '',
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => $description,
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => $required == 1 ? true : false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' =>  $admin_use == 1 ? true : false,
+                            ],
+                            'target' => [
                                 'type'  => 'toggle',
                                 'label' => 'Open in new tab',
                                 'value' => $target == '_blank' ? true : false,
                             ],
-                             'assign_to' => [
-                                 'type' => 'radio',
-                                 'label' => __( 'Assign to', 'directorist' ),
-                                 'value' => $associate,
-                                 'options' => [
-                                     'form'  => [
-                                         'label' => __( 'Form', 'directorist' ),
-                                         'value' => 'form',
-                                     ],
-                                     'category'  => [
-                                         'label' => __( 'Category', 'directorist' ),
-                                         'value' => 'category',
-                                         'sub_options' => [
-                                             'type' => 'select',
-                                             'label' => __( 'Select Categories', 'directorist' ),
-                                             'value' => $category_pass,
-                                             'options' => [
-                                                 [
-                                                     'label' => 'Category A',
-                                                     'value' => 'category_a'
-                                                 ],
-                                                 [
-                                                     'label' => 'Category B',
-                                                     'value' => 'category_b'
-                                                 ],
-                                             ]
-                                         ],
-                                     ],
-                                 ],
-                             ],
-                         ]
-                     ];
-                    }
-                    if( ('file' === $field_type) ){
-                        $fields[ $field_type ] = [
-                         'label' => get_the_title( $old_field ),
-                         'icon' => 'fa fa-text-width',
-                         'options' => [
-                             'type' => [
-                                 'type'  => 'hidden',
-                                 'value' => 'text',
-                             ],
-                             'label' => [
-                                 'type'  => 'text',
-                                 'label' => 'Label',
-                                 'value' => get_the_title( $old_field ),
-                             ],
-                             'field_key' => [
-                                 'type'  => 'text',
-                                 'label' => 'Key',
-                                 'value' => $old_field,
-                             ],
-                             'placeholder' => [
-                                 'type'  => 'text',
-                                 'label' => 'Placeholder',
-                                 'value' => '',
-                             ],
-                             'description' => [
-                                 'type'  => 'text',
-                                 'label' => 'Description',
-                                 'value' => $description,
-                             ],
-                             'required' => [
-                                 'type'  => 'toggle',
-                                 'label'  => 'Required',
-                                 'value' => $required == 1 ? true : false,
-                             ],
-                             'only_for_admin' => [
-                                 'type'  => 'toggle',
-                                 'label'  => 'Only For Admin Use',
-                                 'value' =>  $admin_use == 1 ? true : false,
-                             ],
-                             'file_types' => [
+                            'assign_to' => [
+                                'type' => 'radio',
+                                'label' => __('Assign to', 'directorist'),
+                                'value' => $associate,
+                                'options' => [
+                                    'form'  => [
+                                        'label' => __('Form', 'directorist'),
+                                        'value' => 'form',
+                                    ],
+                                    'category'  => [
+                                        'label' => __('Category', 'directorist'),
+                                        'value' => 'category',
+                                        'sub_options' => [
+                                            'type' => 'select',
+                                            'label' => __('Select Categories', 'directorist'),
+                                            'value' => $category_pass,
+                                            'options' => [
+                                                [
+                                                    'label' => 'Category A',
+                                                    'value' => 'category_a'
+                                                ],
+                                                [
+                                                    'label' => 'Category B',
+                                                    'value' => 'category_b'
+                                                ],
+                                            ]
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ]
+                    ];
+                }
+                if (('file' === $field_type)) {
+                    $fields[$field_type] = [
+                        'label' => get_the_title($old_field),
+                        'icon' => 'fa fa-text-width',
+                        'options' => [
+                            'type' => [
+                                'type'  => 'hidden',
+                                'value' => 'text',
+                            ],
+                            'label' => [
+                                'type'  => 'text',
+                                'label' => 'Label',
+                                'value' => get_the_title($old_field),
+                            ],
+                            'field_key' => [
+                                'type'  => 'text',
+                                'label' => 'Key',
+                                'value' => $old_field,
+                            ],
+                            'placeholder' => [
+                                'type'  => 'text',
+                                'label' => 'Placeholder',
+                                'value' => '',
+                            ],
+                            'description' => [
+                                'type'  => 'text',
+                                'label' => 'Description',
+                                'value' => $description,
+                            ],
+                            'required' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Required',
+                                'value' => $required == 1 ? true : false,
+                            ],
+                            'only_for_admin' => [
+                                'type'  => 'toggle',
+                                'label'  => 'Only For Admin Use',
+                                'value' =>  $admin_use == 1 ? true : false,
+                            ],
+                            'file_types' => [
                                 'type'  => 'radio',
                                 'label' => 'File Type',
                                 'value' => $file_type,
                                 'options' => [
                                     'all' => [
-                                        'label' => __( 'All Types', 'directorist' ),
+                                        'label' => __('All Types', 'directorist'),
                                         'value' => 'all',
                                     ],
                                     'image_format' => [
                                         [
-                                            'label' => __( 'jpg', 'directorist' ),
+                                            'label' => __('jpg', 'directorist'),
                                             'value' => 'jpg',
                                         ],
                                         [
-                                            'label' => __( 'jpeg', 'directorist' ),
+                                            'label' => __('jpeg', 'directorist'),
                                             'value' => 'jpeg',
                                         ],
                                         [
-                                            'label' => __( 'gif', 'directorist' ),
+                                            'label' => __('gif', 'directorist'),
                                             'value' => 'gif',
                                         ],
                                         [
-                                            'label' => __( 'png', 'directorist' ),
+                                            'label' => __('png', 'directorist'),
                                             'value' => 'png',
                                         ],
                                         [
-                                            'label' => __( 'bmp', 'directorist' ),
+                                            'label' => __('bmp', 'directorist'),
                                             'value' => 'bmp',
                                         ],
                                         [
-                                            'label' => __( 'ico', 'directorist' ),
+                                            'label' => __('ico', 'directorist'),
                                             'value' => 'ico',
                                         ],
                                     ],
                                     'video_format' => [
                                         [
-                                            'label' => __( 'asf', 'directorist' ),
+                                            'label' => __('asf', 'directorist'),
                                             'value' => 'asf',
                                         ],
                                         [
-                                            'label' => __( 'flv', 'directorist' ),
+                                            'label' => __('flv', 'directorist'),
                                             'value' => 'flv',
                                         ],
                                         [
-                                            'label' => __( 'avi', 'directorist' ),
+                                            'label' => __('avi', 'directorist'),
                                             'value' => 'avi',
                                         ],
                                         [
-                                            'label' => __( 'mkv', 'directorist' ),
+                                            'label' => __('mkv', 'directorist'),
                                             'value' => 'mkv',
                                         ],
                                         [
-                                            'label' => __( 'mp4', 'directorist' ),
+                                            'label' => __('mp4', 'directorist'),
                                             'value' => 'mp4',
                                         ],
                                         [
-                                            'label' => __( 'mpeg', 'directorist' ),
+                                            'label' => __('mpeg', 'directorist'),
                                             'value' => 'mpeg',
                                         ],
                                         [
-                                            'label' => __( 'mpg', 'directorist' ),
+                                            'label' => __('mpg', 'directorist'),
                                             'value' => 'mpg',
                                         ],
                                         [
-                                            'label' => __( 'wmv', 'directorist' ),
+                                            'label' => __('wmv', 'directorist'),
                                             'value' => 'wmv',
                                         ],
                                         [
-                                            'label' => __( '3gp', 'directorist' ),
+                                            'label' => __('3gp', 'directorist'),
                                             'value' => '3gp',
                                         ],
                                     ],
                                     'audio_format' => [
                                         [
-                                            'label' => __( 'ogg', 'directorist' ),
+                                            'label' => __('ogg', 'directorist'),
                                             'value' => 'ogg',
                                         ],
                                         [
-                                            'label' => __( 'mp3', 'directorist' ),
+                                            'label' => __('mp3', 'directorist'),
                                             'value' => 'mp3',
                                         ],
                                         [
-                                            'label' => __( 'wav', 'directorist' ),
+                                            'label' => __('wav', 'directorist'),
                                             'value' => 'wav',
                                         ],
                                         [
-                                            'label' => __( 'wma', 'directorist' ),
+                                            'label' => __('wma', 'directorist'),
                                             'value' => 'wma',
                                         ],
                                     ],
                                     'text_format' => [
                                         [
-                                            'label' => __( 'css', 'directorist' ),
+                                            'label' => __('css', 'directorist'),
                                             'value' => 'css',
                                         ],
                                         [
-                                            'label' => __( 'csv', 'directorist' ),
+                                            'label' => __('csv', 'directorist'),
                                             'value' => 'csv',
                                         ],
                                         [
-                                            'label' => __( 'htm', 'directorist' ),
+                                            'label' => __('htm', 'directorist'),
                                             'value' => 'htm',
                                         ],
                                         [
-                                            'label' => __( 'html', 'directorist' ),
+                                            'label' => __('html', 'directorist'),
                                             'value' => 'html',
                                         ],
                                         [
-                                            'label' => __( 'txt', 'directorist' ),
+                                            'label' => __('txt', 'directorist'),
                                             'value' => 'txt',
                                         ],
                                         [
-                                            'label' => __( 'rtx', 'directorist' ),
+                                            'label' => __('rtx', 'directorist'),
                                             'value' => 'rtx',
                                         ],
                                         [
-                                            'label' => __( 'vtt', 'directorist' ),
+                                            'label' => __('vtt', 'directorist'),
                                             'value' => 'vtt',
                                         ],
                                     ],
                                     'application_format' => [
                                         [
-                                            'label' => __( 'doc', 'directorist' ),
+                                            'label' => __('doc', 'directorist'),
                                             'value' => 'doc',
                                         ],
                                         [
-                                            'label' => __( 'docx', 'directorist' ),
+                                            'label' => __('docx', 'directorist'),
                                             'value' => 'docx',
                                         ],
                                         [
-                                            'label' => __( 'odt', 'directorist' ),
+                                            'label' => __('odt', 'directorist'),
                                             'value' => 'odt',
                                         ],
                                         [
-                                            'label' => __( 'pdf', 'directorist' ),
+                                            'label' => __('pdf', 'directorist'),
                                             'value' => 'pdf',
                                         ],
                                         [
-                                            'label' => __( 'pot', 'directorist' ),
+                                            'label' => __('pot', 'directorist'),
                                             'value' => 'pot',
                                         ],
                                         [
-                                            'label' => __( 'ppt', 'directorist' ),
+                                            'label' => __('ppt', 'directorist'),
                                             'value' => 'ppt',
                                         ],
                                         [
-                                            'label' => __( 'pptx', 'directorist' ),
+                                            'label' => __('pptx', 'directorist'),
                                             'value' => 'pptx',
                                         ],
                                         [
-                                            'label' => __( 'rar', 'directorist' ),
+                                            'label' => __('rar', 'directorist'),
                                             'value' => 'rar',
                                         ],
                                         [
-                                            'label' => __( 'rtf', 'directorist' ),
+                                            'label' => __('rtf', 'directorist'),
                                             'value' => 'rtf',
                                         ],
                                         [
-                                            'label' => __( 'swf', 'directorist' ),
+                                            'label' => __('swf', 'directorist'),
                                             'value' => 'swf',
                                         ],
                                         [
-                                            'label' => __( 'xls', 'directorist' ),
+                                            'label' => __('xls', 'directorist'),
                                             'value' => 'xls',
                                         ],
                                         [
-                                            'label' => __( 'xlsx', 'directorist' ),
+                                            'label' => __('xlsx', 'directorist'),
                                             'value' => 'xlsx',
                                         ],
                                         [
-                                            'label' => __( 'gpx', 'directorist' ),
+                                            'label' => __('gpx', 'directorist'),
                                             'value' => 'gpx',
                                         ],
                                     ],
@@ -696,44 +702,45 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'file_size' => [
                                 'type'  => 'text',
                                 'label' => 'File Size',
-                                'description' => __( 'Set maximum file size to upload', 'directorist' ),
+                                'description' => __('Set maximum file size to upload', 'directorist'),
                                 'value' => $file_size,
                             ],
-                         ]
-                     ];
-                    }
+                        ]
+                    ];
                 }
+            }
             return $fields;
         }
 
         // prepare_settings
-        public function prepare_settings() {
-            $this->default_form = apply_filters( 'atbdp_default_listing_form_sections', [
+        public function prepare_settings()
+        {
+            $this->default_form = apply_filters('atbdp_default_listing_form_sections', [
                 'general_information' => [
-                    'label' => __( 'General Information', 'directorist' ),
-                    'fields' => apply_filters( 'atbdp_general_info_section_fields', [ 'title', 'description', 'pricing', $this->get_old_custom_fields(), 'location', 'tag', 'category', $this->get_old_custom_fields( 'category' ) ] ),
+                    'label' => __('General Information', 'directorist'),
+                    'fields' => apply_filters('atbdp_general_info_section_fields', ['title', 'description', 'pricing', $this->get_old_custom_fields(), 'location', 'tag', 'category', $this->get_old_custom_fields('category')]),
                 ],
 
                 'contact_information' => [
-                    'label' => __( 'Contact Information', 'directorist' ),
-                    'fields' => apply_filters( 'atbdp_contact_info_section_fields', [ 'zip', 'phone', 'phone2', 'fax', 'email', 'website', 'social_info' ] ),
+                    'label' => __('Contact Information', 'directorist'),
+                    'fields' => apply_filters('atbdp_contact_info_section_fields', ['zip', 'phone', 'phone2', 'fax', 'email', 'website', 'social_info']),
                 ],
 
                 'map' => [
-                    'label' => __( 'Map', 'directorist' ),
-                    'fields' => apply_filters( 'atbdp_map_section_fields', [ 'address', 'map' ] ),
+                    'label' => __('Map', 'directorist'),
+                    'fields' => apply_filters('atbdp_map_section_fields', ['address', 'map']),
                 ],
 
                 'media' => [
-                    'label' => __( 'Images & Video', 'directorist' ),
-                    'fields' => apply_filters( 'atbdp_media_section_fields', [ 'image_upload', 'video' ] ),
+                    'label' => __('Images & Video', 'directorist'),
+                    'fields' => apply_filters('atbdp_media_section_fields', ['image_upload', 'video']),
                 ],
 
                 'submit_area' => [
-                    'fields' => apply_filters( 'atbdp_submit_area_fields', [ 'terms_conditions', 'privacy_policy', 'submit_button' ] ),
+                    'fields' => apply_filters('atbdp_submit_area_fields', ['terms_conditions', 'privacy_policy', 'submit_button']),
                 ],
 
-            ] );
+            ]);
 
 
             $form_field_widgets = [
@@ -791,11 +798,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => 'wp_editor',
                                     'options' => [
                                         [
-                                            'label' => __( 'Textarea', 'directorist' ),
+                                            'label' => __('Textarea', 'directorist'),
                                             'value' => 'textarea',
                                         ],
                                         [
-                                            'label' => __( 'WP Editor', 'directorist' ),
+                                            'label' => __('WP Editor', 'directorist'),
                                             'value' => 'wp_editor',
                                         ],
                                     ]
@@ -839,7 +846,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'praimary_key' => 'plan_id',
                                     'show_if' => [[
                                         'conditions' => [
-                                            [ 'key' => 'tag_with_plan', 'value' => true ]
+                                            ['key' => 'tag_with_plan', 'value' => true]
                                         ]
                                     ]],
                                     'options' => [
@@ -864,7 +871,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'value' => '',
                                             'show_if' => [[
                                                 'conditions' => [
-                                                    [ 'key' => 'plan_id', 'value' => '', 'compare' => 'not' ]
+                                                    ['key' => 'plan_id', 'value' => '', 'compare' => 'not']
                                                 ]
                                             ]],
                                         ],
@@ -874,7 +881,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'value' => '',
                                             'show_if' => [[
                                                 'conditions' => [
-                                                    [ 'key' => 'plan_id', 'value' => '', 'compare' => 'not' ]
+                                                    ['key' => 'plan_id', 'value' => '', 'compare' => 'not']
                                                 ]
                                             ]],
                                         ],
@@ -960,10 +967,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'label'  => 'Select Pricing Type',
                                     'value' => 'both',
                                     'options' => [
-                                        [ 'value' => '', 'label' => 'Select...' ],
-                                        [ 'value' => 'price_unit', 'label' => 'Price Unit' ],
-                                        [ 'value' => 'price_range', 'label' => 'Price Range' ],
-                                        [ 'value' => 'both', 'label' => 'Both' ],
+                                        ['value' => '', 'label' => 'Select...'],
+                                        ['value' => 'price_unit', 'label' => 'Price Unit'],
+                                        ['value' => 'price_range', 'label' => 'Price Range'],
+                                        ['value' => 'both', 'label' => 'Both'],
                                     ],
                                 ],
                                 'pricing_type' => [
@@ -971,10 +978,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'label'  => 'Select Pricing Type',
                                     'value' => 'both',
                                     'options' => [
-                                        [ 'value' => '', 'label' => 'Select...' ],
-                                        [ 'value' => 'price_unit', 'label' => 'Price Unit' ],
-                                        [ 'value' => 'price_range', 'label' => 'Price Range' ],
-                                        [ 'value' => 'both', 'label' => 'Both' ],
+                                        ['value' => '', 'label' => 'Select...'],
+                                        ['value' => 'price_unit', 'label' => 'Price Unit'],
+                                        ['value' => 'price_range', 'label' => 'Price Range'],
+                                        ['value' => 'both', 'label' => 'Both'],
                                     ],
                                 ],
                                 'price_range_label' => [
@@ -983,8 +990,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                         [
                                             'compare' => 'or',
                                             'conditions' => [
-                                                [ 'key' => 'pricing_type', 'value' => 'both' ],
-                                                [ 'key' => 'pricing_type', 'value' => 'price_range' ],
+                                                ['key' => 'pricing_type', 'value' => 'both'],
+                                                ['key' => 'pricing_type', 'value' => 'price_range'],
                                             ]
                                         ],
 
@@ -992,8 +999,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'label'  => 'Price range label',
                                     'value' => 'Price range',
                                     'options' => [
-                                        [ 'value' => 'number','label' => 'Number', ],
-                                        [ 'value' => 'text','label' => 'text', ],
+                                        ['value' => 'number', 'label' => 'Number',],
+                                        ['value' => 'text', 'label' => 'text',],
                                     ],
                                 ],
                                 'price_range_options' => [
@@ -1002,8 +1009,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                         [
                                             'compare' => 'or',
                                             'conditions' => [
-                                                [ 'key' => 'pricing_type', 'value' => 'both' ],
-                                                [ 'key' => 'pricing_type', 'value' => 'price_range' ],
+                                                ['key' => 'pricing_type', 'value' => 'both'],
+                                                ['key' => 'pricing_type', 'value' => 'price_range'],
                                             ]
                                         ],
 
@@ -1011,10 +1018,10 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'label'  => 'Price Type Label',
                                     'value' => 'cheap',
                                     'options' => [
-                                        [ 'value' => 'cheap','label' => 'Cheap', ],
-                                        [ 'value' => 'moderate','label' => 'Moderate', ],
-                                        [ 'value' => 'expensive','label' => 'Expensive', ],
-                                        [ 'value' => 'high','label' => 'Ultra High', ],
+                                        ['value' => 'cheap', 'label' => 'Cheap',],
+                                        ['value' => 'moderate', 'label' => 'Moderate',],
+                                        ['value' => 'expensive', 'label' => 'Expensive',],
+                                        ['value' => 'high', 'label' => 'Ultra High',],
                                     ],
                                 ],
                                 'price_unit_field_type' => [
@@ -1024,16 +1031,16 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                         [
                                             'compare' => 'or',
                                             'conditions' => [
-                                                [ 'key' => 'pricing_type', 'value' => 'both' ],
-                                                [ 'key' => 'pricing_type', 'value' => 'price_unit' ],
+                                                ['key' => 'pricing_type', 'value' => 'both'],
+                                                ['key' => 'pricing_type', 'value' => 'price_unit'],
                                             ]
                                         ],
 
                                     ],
                                     'value' => 'number',
                                     'options' => [
-                                        [ 'value' => 'number','label' => 'Number', ],
-                                        [ 'value' => 'text','label' => 'Text', ],
+                                        ['value' => 'number', 'label' => 'Number',],
+                                        ['value' => 'text', 'label' => 'Text',],
                                     ],
                                 ],
                                 'price_unit_field_label' => [
@@ -1043,15 +1050,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                         [
                                             'compare' => 'or',
                                             'conditions' => [
-                                                [ 'key' => 'pricing_type', 'value' => 'both' ],
-                                                [ 'key' => 'pricing_type', 'value' => 'price_unit' ],
+                                                ['key' => 'pricing_type', 'value' => 'both'],
+                                                ['key' => 'pricing_type', 'value' => 'price_unit'],
                                             ]
                                         ],
                                     ],
                                     'value' => 'Price [USD]',
                                     'options' => [
-                                        [ 'value' => 'number','label' => 'Number', ],
-                                        [ 'value' => 'text','label' => 'text', ],
+                                        ['value' => 'number', 'label' => 'Number',],
+                                        ['value' => 'text', 'label' => 'text',],
                                     ],
                                 ],
                             ]
@@ -1200,11 +1207,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => 'multiple',
                                     'options' => [
                                         [
-                                            'label' => __( 'Single Selection', 'directorist' ),
+                                            'label' => __('Single Selection', 'directorist'),
                                             'value' => 'single',
                                         ],
                                         [
-                                            'label' => __( 'Multi Selection', 'directorist' ),
+                                            'label' => __('Multi Selection', 'directorist'),
                                             'value' => 'multiple',
                                         ]
                                     ]
@@ -1272,11 +1279,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => 'multiple',
                                     'options' => [
                                         [
-                                            'label' => __( 'Single Selection', 'directorist' ),
+                                            'label' => __('Single Selection', 'directorist'),
                                             'value' => 'single',
                                         ],
                                         [
-                                            'label' => __( 'Multi Selection', 'directorist' ),
+                                            'label' => __('Multi Selection', 'directorist'),
                                             'value' => 'multiple',
                                         ],
                                     ]
@@ -1349,11 +1356,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => 'multiple',
                                     'options' => [
                                         [
-                                            'label' => __( 'Single Selection', 'directorist' ),
+                                            'label' => __('Single Selection', 'directorist'),
                                             'value' => 'single',
                                         ],
                                         [
-                                            'label' => __( 'Multi Selection', 'directorist' ),
+                                            'label' => __('Multi Selection', 'directorist'),
                                             'value' => 'multiple',
                                         ],
                                     ]
@@ -2208,7 +2215,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                             ],
                         ],
-                        
+
                         'submit_button' => [
                             'label' => 'Submit Button',
                             'icon' => 'uil uil-link-h',
@@ -2284,15 +2291,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'assign_to' => [
                                     'type' => 'radio',
-                                    'label' => __( 'Assign to', 'directorist' ),
+                                    'label' => __('Assign to', 'directorist'),
                                     'value' => 'form',
                                     'options' => [
                                         [
-                                            'label' => __( 'Form', 'directorist' ),
+                                            'label' => __('Form', 'directorist'),
                                             'value' => 'form',
                                         ],
                                         [
-                                            'label' => __( 'Category', 'directorist' ),
+                                            'label' => __('Category', 'directorist'),
                                             'value' => 'category',
                                         ],
                                     ],
@@ -2378,15 +2385,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'assign_to' => [
                                     'type' => 'radio',
-                                    'label' => __( 'Assign to', 'directorist' ),
+                                    'label' => __('Assign to', 'directorist'),
                                     'value' => 'form',
                                     'options' => [
                                         [
-                                            'label' => __( 'Form', 'directorist' ),
+                                            'label' => __('Form', 'directorist'),
                                             'value' => 'form',
                                         ],
                                         [
-                                            'label' => __( 'Category', 'directorist' ),
+                                            'label' => __('Category', 'directorist'),
                                             'value' => 'category',
                                         ],
                                     ],
@@ -2467,15 +2474,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'assign_to' => [
                                     'type' => 'radio',
-                                    'label' => __( 'Assign to', 'directorist' ),
+                                    'label' => __('Assign to', 'directorist'),
                                     'value' => 'form',
                                     'options' => [
                                         [
-                                            'label' => __( 'Form', 'directorist' ),
+                                            'label' => __('Form', 'directorist'),
                                             'value' => 'form',
                                         ],
                                         [
-                                            'label' => __( 'Category', 'directorist' ),
+                                            'label' => __('Category', 'directorist'),
                                             'value' => 'category',
                                         ],
                                     ],
@@ -2561,15 +2568,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'assign_to' => [
                                     'type' => 'radio',
-                                    'label' => __( 'Assign to', 'directorist' ),
+                                    'label' => __('Assign to', 'directorist'),
                                     'value' => 'form',
                                     'options' => [
                                         [
-                                            'label' => __( 'Form', 'directorist' ),
+                                            'label' => __('Form', 'directorist'),
                                             'value' => 'form',
                                         ],
                                         [
-                                            'label' => __( 'Category', 'directorist' ),
+                                            'label' => __('Category', 'directorist'),
                                             'value' => 'category',
                                         ],
                                     ],
@@ -2650,15 +2657,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'assign_to' => [
                                     'type' => 'radio',
-                                    'label' => __( 'Assign to', 'directorist' ),
+                                    'label' => __('Assign to', 'directorist'),
                                     'value' => 'form',
                                     'options' => [
                                         [
-                                            'label' => __( 'Form', 'directorist' ),
+                                            'label' => __('Form', 'directorist'),
                                             'value' => 'form',
                                         ],
                                         [
-                                            'label' => __( 'Category', 'directorist' ),
+                                            'label' => __('Category', 'directorist'),
                                             'value' => 'category',
                                         ],
                                     ],
@@ -2739,15 +2746,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'assign_to' => [
                                     'type' => 'radio',
-                                    'label' => __( 'Assign to', 'directorist' ),
+                                    'label' => __('Assign to', 'directorist'),
                                     'value' => 'form',
                                     'options' => [
                                         [
-                                            'label' => __( 'Form', 'directorist' ),
+                                            'label' => __('Form', 'directorist'),
                                             'value' => 'form',
                                         ],
                                         [
-                                            'label' => __( 'Category', 'directorist' ),
+                                            'label' => __('Category', 'directorist'),
                                             'value' => 'category',
                                         ],
                                     ],
@@ -2823,15 +2830,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'assign_to' => [
                                     'type' => 'radio',
-                                    'label' => __( 'Assign to', 'directorist' ),
+                                    'label' => __('Assign to', 'directorist'),
                                     'value' => 'form',
                                     'options' => [
                                         [
-                                            'label' => __( 'Form', 'directorist' ),
+                                            'label' => __('Form', 'directorist'),
                                             'value' => 'form',
                                         ],
                                         [
-                                            'label' => __( 'Category', 'directorist' ),
+                                            'label' => __('Category', 'directorist'),
                                             'value' => 'category',
                                         ],
                                     ],
@@ -2892,11 +2899,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'options' => [
                                     'type' => 'textarea',
-                                    'label' => __( 'Options', 'directorist' ),
-                                    'description' => __( 'Each on a new line, for example,
+                                    'label' => __('Options', 'directorist'),
+                                    'description' => __('Each on a new line, for example,
                                     Male: Male
                                     Female: Female
-                                    Other: Other', 'directorist' ),
+                                    Other: Other', 'directorist'),
                                 ],
                                 'description' => [
                                     'type'  => 'text',
@@ -2915,15 +2922,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'assign_to' => [
                                     'type' => 'radio',
-                                    'label' => __( 'Assign to', 'directorist' ),
+                                    'label' => __('Assign to', 'directorist'),
                                     'value' => 'form',
                                     'options' => [
                                         [
-                                            'label' => __( 'Form', 'directorist' ),
+                                            'label' => __('Form', 'directorist'),
                                             'value' => 'form',
                                         ],
                                         [
-                                            'label' => __( 'Category', 'directorist' ),
+                                            'label' => __('Category', 'directorist'),
                                             'value' => 'category',
                                         ],
                                     ],
@@ -2984,11 +2991,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'options' => [
                                     'type' => 'textarea',
-                                    'label' => __( 'Options', 'directorist' ),
-                                    'description' => __( 'Each on a new line, for example,
+                                    'label' => __('Options', 'directorist'),
+                                    'description' => __('Each on a new line, for example,
                                     Male: Male
                                     Female: Female
-                                    Other: Other', 'directorist' ),
+                                    Other: Other', 'directorist'),
                                 ],
                                 'description' => [
                                     'type'  => 'text',
@@ -3007,15 +3014,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'assign_to' => [
                                     'type' => 'radio',
-                                    'label' => __( 'Assign to', 'directorist' ),
+                                    'label' => __('Assign to', 'directorist'),
                                     'value' => 'form',
                                     'options' => [
                                         [
-                                            'label' => __( 'Form', 'directorist' ),
+                                            'label' => __('Form', 'directorist'),
                                             'value' => 'form',
                                         ],
                                         [
-                                            'label' => __( 'Category', 'directorist' ),
+                                            'label' => __('Category', 'directorist'),
                                             'value' => 'category',
                                         ],
                                     ],
@@ -3076,12 +3083,11 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'options' => [
                                     'type' => 'custom-options',
-                                    'label' => __( 'Options', 'directorist' ),
-                                    'description' => __( 'Each on a new line, for example,
+                                    'label' => __('Options', 'directorist'),
+                                    'description' => __('Each on a new line, for example,
                                         Male: Male
                                         Female: Female
-                                        Other: Other', 'directorist'
-                                    ),
+                                        Other: Other', 'directorist'),
                                 ],
                                 'description' => [
                                     'type'  => 'text',
@@ -3100,15 +3106,15 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 ],
                                 'assign_to' => [
                                     'type' => 'radio',
-                                    'label' => __( 'Assign to', 'directorist' ),
+                                    'label' => __('Assign to', 'directorist'),
                                     'value' => 'form',
                                     'options' => [
                                         [
-                                            'label' => __( 'Form', 'directorist' ),
+                                            'label' => __('Form', 'directorist'),
                                             'value' => 'form',
                                         ],
                                         [
-                                            'label' => __( 'Category', 'directorist' ),
+                                            'label' => __('Category', 'directorist'),
                                             'value' => 'category',
                                         ],
                                     ],
@@ -3173,34 +3179,34 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                     'value' => '',
                                     'options' => [
                                         [
-                                            'label' => __( 'All Types', 'directorist' ),
+                                            'label' => __('All Types', 'directorist'),
                                             'value' => 'all',
                                         ],
                                         [
-                                            'group' => __( 'Image Format', 'directorist' ),
+                                            'group' => __('Image Format', 'directorist'),
                                             'options' => [
                                                 [
-                                                    'label' => __( 'jpg', 'directorist' ),
+                                                    'label' => __('jpg', 'directorist'),
                                                     'value' => 'jpg',
                                                 ],
                                                 [
-                                                    'label' => __( 'jpeg', 'directorist' ),
+                                                    'label' => __('jpeg', 'directorist'),
                                                     'value' => 'jpeg',
                                                 ],
                                                 [
-                                                    'label' => __( 'gif', 'directorist' ),
+                                                    'label' => __('gif', 'directorist'),
                                                     'value' => 'gif',
                                                 ],
                                                 [
-                                                    'label' => __( 'png', 'directorist' ),
+                                                    'label' => __('png', 'directorist'),
                                                     'value' => 'png',
                                                 ],
                                                 [
-                                                    'label' => __( 'bmp', 'directorist' ),
+                                                    'label' => __('bmp', 'directorist'),
                                                     'value' => 'bmp',
                                                 ],
                                                 [
-                                                    'label' => __( 'ico', 'directorist' ),
+                                                    'label' => __('ico', 'directorist'),
                                                     'value' => 'ico',
                                                 ],
                                             ],
@@ -3209,39 +3215,39 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'group' => '',
                                             'options' => [
                                                 [
-                                                    'label' => __( 'asf', 'directorist' ),
+                                                    'label' => __('asf', 'directorist'),
                                                     'value' => 'asf',
                                                 ],
                                                 [
-                                                    'label' => __( 'flv', 'directorist' ),
+                                                    'label' => __('flv', 'directorist'),
                                                     'value' => 'flv',
                                                 ],
                                                 [
-                                                    'label' => __( 'avi', 'directorist' ),
+                                                    'label' => __('avi', 'directorist'),
                                                     'value' => 'avi',
                                                 ],
                                                 [
-                                                    'label' => __( 'mkv', 'directorist' ),
+                                                    'label' => __('mkv', 'directorist'),
                                                     'value' => 'mkv',
                                                 ],
                                                 [
-                                                    'label' => __( 'mp4', 'directorist' ),
+                                                    'label' => __('mp4', 'directorist'),
                                                     'value' => 'mp4',
                                                 ],
                                                 [
-                                                    'label' => __( 'mpeg', 'directorist' ),
+                                                    'label' => __('mpeg', 'directorist'),
                                                     'value' => 'mpeg',
                                                 ],
                                                 [
-                                                    'label' => __( 'mpg', 'directorist' ),
+                                                    'label' => __('mpg', 'directorist'),
                                                     'value' => 'mpg',
                                                 ],
                                                 [
-                                                    'label' => __( 'wmv', 'directorist' ),
+                                                    'label' => __('wmv', 'directorist'),
                                                     'value' => 'wmv',
                                                 ],
                                                 [
-                                                    'label' => __( '3gp', 'directorist' ),
+                                                    'label' => __('3gp', 'directorist'),
                                                     'value' => '3gp',
                                                 ],
                                             ],
@@ -3251,19 +3257,19 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'group' => '',
                                             'options' => [
                                                 [
-                                                    'label' => __( 'ogg', 'directorist' ),
+                                                    'label' => __('ogg', 'directorist'),
                                                     'value' => 'ogg',
                                                 ],
                                                 [
-                                                    'label' => __( 'mp3', 'directorist' ),
+                                                    'label' => __('mp3', 'directorist'),
                                                     'value' => 'mp3',
                                                 ],
                                                 [
-                                                    'label' => __( 'wav', 'directorist' ),
+                                                    'label' => __('wav', 'directorist'),
                                                     'value' => 'wav',
                                                 ],
                                                 [
-                                                    'label' => __( 'wma', 'directorist' ),
+                                                    'label' => __('wma', 'directorist'),
                                                     'value' => 'wma',
                                                 ],
                                             ],
@@ -3272,31 +3278,31 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'group' => 'Text Format',
                                             'options' => [
                                                 [
-                                                    'label' => __( 'css', 'directorist' ),
+                                                    'label' => __('css', 'directorist'),
                                                     'value' => 'css',
                                                 ],
                                                 [
-                                                    'label' => __( 'csv', 'directorist' ),
+                                                    'label' => __('csv', 'directorist'),
                                                     'value' => 'csv',
                                                 ],
                                                 [
-                                                    'label' => __( 'htm', 'directorist' ),
+                                                    'label' => __('htm', 'directorist'),
                                                     'value' => 'htm',
                                                 ],
                                                 [
-                                                    'label' => __( 'html', 'directorist' ),
+                                                    'label' => __('html', 'directorist'),
                                                     'value' => 'html',
                                                 ],
                                                 [
-                                                    'label' => __( 'txt', 'directorist' ),
+                                                    'label' => __('txt', 'directorist'),
                                                     'value' => 'txt',
                                                 ],
                                                 [
-                                                    'label' => __( 'rtx', 'directorist' ),
+                                                    'label' => __('rtx', 'directorist'),
                                                     'value' => 'rtx',
                                                 ],
                                                 [
-                                                    'label' => __( 'vtt', 'directorist' ),
+                                                    'label' => __('vtt', 'directorist'),
                                                     'value' => 'vtt',
                                                 ],
                                             ],
@@ -3306,55 +3312,55 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                             'group' => 'Application Format',
                                             'options' => [
                                                 [
-                                                    'label' => __( 'doc', 'directorist' ),
+                                                    'label' => __('doc', 'directorist'),
                                                     'value' => 'doc',
                                                 ],
                                                 [
-                                                    'label' => __( 'docx', 'directorist' ),
+                                                    'label' => __('docx', 'directorist'),
                                                     'value' => 'docx',
                                                 ],
                                                 [
-                                                    'label' => __( 'odt', 'directorist' ),
+                                                    'label' => __('odt', 'directorist'),
                                                     'value' => 'odt',
                                                 ],
                                                 [
-                                                    'label' => __( 'pdf', 'directorist' ),
+                                                    'label' => __('pdf', 'directorist'),
                                                     'value' => 'pdf',
                                                 ],
                                                 [
-                                                    'label' => __( 'pot', 'directorist' ),
+                                                    'label' => __('pot', 'directorist'),
                                                     'value' => 'pot',
                                                 ],
                                                 [
-                                                    'label' => __( 'ppt', 'directorist' ),
+                                                    'label' => __('ppt', 'directorist'),
                                                     'value' => 'ppt',
                                                 ],
                                                 [
-                                                    'label' => __( 'pptx', 'directorist' ),
+                                                    'label' => __('pptx', 'directorist'),
                                                     'value' => 'pptx',
                                                 ],
                                                 [
-                                                    'label' => __( 'rar', 'directorist' ),
+                                                    'label' => __('rar', 'directorist'),
                                                     'value' => 'rar',
                                                 ],
                                                 [
-                                                    'label' => __( 'rtf', 'directorist' ),
+                                                    'label' => __('rtf', 'directorist'),
                                                     'value' => 'rtf',
                                                 ],
                                                 [
-                                                    'label' => __( 'swf', 'directorist' ),
+                                                    'label' => __('swf', 'directorist'),
                                                     'value' => 'swf',
                                                 ],
                                                 [
-                                                    'label' => __( 'xls', 'directorist' ),
+                                                    'label' => __('xls', 'directorist'),
                                                     'value' => 'xls',
                                                 ],
                                                 [
-                                                    'label' => __( 'xlsx', 'directorist' ),
+                                                    'label' => __('xlsx', 'directorist'),
                                                     'value' => 'xlsx',
                                                 ],
                                                 [
-                                                    'label' => __( 'gpx', 'directorist' ),
+                                                    'label' => __('gpx', 'directorist'),
                                                     'value' => 'gpx',
                                                 ],
                                             ],
@@ -3365,7 +3371,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 'file_size' => [
                                     'type'  => 'text',
                                     'label' => 'File Size',
-                                    'description' => __( 'Set maximum file size to upload', 'directorist' ),
+                                    'description' => __('Set maximum file size to upload', 'directorist'),
                                     'value' => '2mb',
                                 ],
                                 'description' => [
@@ -3903,14 +3909,14 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ],
 
                 'preview_image' => [
-                    'label'       => __( 'Select', 'directorist' ),
+                    'label'       => __('Select', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
                     'value'       => '',
                 ],
 
                 'enable_package' => [
-                    'label' => __( 'Enable paid listing packages', 'directorist' ),
+                    'label' => __('Enable paid listing packages', 'directorist'),
                     'type'  => 'toggle',
                     'name'  => 'enable_package',
                     'value' => '',
@@ -3919,18 +3925,18 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'type' => 'checkbox',
                     'name' => 'package_list',
                     'show_if' => [
-                        [ 'conditions' => [ [ 'key' => 'enable_package', 'value' => true ] ] ],
+                        ['conditions' => [['key' => 'enable_package', 'value' => true]]],
                     ],
-                    'label' => __( 'Select Packages', 'directorist' ),
+                    'label' => __('Select Packages', 'directorist'),
                     'value' => [],
                     'options' => [
-                        [ 'value' => '1', 'id' => 'plan-1', 'label' => 'Plan A' ],
-                        [ 'value' => '2', 'id' => 'plan-2', 'label' => 'Plan B' ],
-                        [ 'value' => '3', 'id' => 'plan-3', 'label' => 'Plan C' ],
+                        ['value' => '1', 'id' => 'plan-1', 'label' => 'Plan A'],
+                        ['value' => '2', 'id' => 'plan-2', 'label' => 'Plan B'],
+                        ['value' => '3', 'id' => 'plan-3', 'label' => 'Plan C'],
                     ]
                 ],
                 'export' => [
-                    'label' => __( 'Export config file', 'directorist' ),
+                    'label' => __('Export config file', 'directorist'),
                     'type'  => 'button',
                     'link' => '',
                     'id'    => 'listing-type-export',
@@ -3939,7 +3945,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'icon'  => 'fa fa-download',
                 ],
                 'import' => [
-                    'label' => __( 'Import config file', 'directorist' ),
+                    'label' => __('Import config file', 'directorist'),
                     'type'  => 'button',
                     'link' => '',
                     'id'    => 'listing-type-import',
@@ -3948,7 +3954,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'icon'  => 'fa fa-upload',
                 ],
                 'default_expiration' => [
-                    'label' => __( 'Default expiration in days', 'directorist' ),
+                    'label' => __('Default expiration in days', 'directorist'),
                     'type'  => 'number',
                     'value' => '',
                     'placeholder' => '365',
@@ -3958,7 +3964,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                 ],
 
                 'new_listing_status' => [
-                    'label' => __( 'New Listing Default Status', 'directorist' ),
+                    'label' => __('New Listing Default Status', 'directorist'),
                     'type'  => 'select',
                     'value' => '',
                     'options' => [
@@ -3967,18 +3973,18 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'value' => '',
                         ],
                         [
-                            'label' => __( 'Pending', 'directorist' ),
+                            'label' => __('Pending', 'directorist'),
                             'value' => 'pending',
                         ],
                         [
-                            'label' => __( 'Publish', 'directorist' ),
+                            'label' => __('Publish', 'directorist'),
                             'value' => 'publish',
                         ],
                     ],
                 ],
 
                 'edit_listing_status' => [
-                    'label' => __( 'Edited Listing Default Status', 'directorist' ),
+                    'label' => __('Edited Listing Default Status', 'directorist'),
                     'type'  => 'select',
                     'value' => '',
                     'options' => [
@@ -3987,18 +3993,18 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'value' => '',
                         ],
                         [
-                            'label' => __( 'Pending', 'directorist' ),
+                            'label' => __('Pending', 'directorist'),
                             'value' => 'pending',
                         ],
                         [
-                            'label' => __( 'Publish', 'directorist' ),
+                            'label' => __('Publish', 'directorist'),
                             'value' => 'publish',
                         ],
                     ],
                 ],
 
                 'global_listing_type' => [
-                    'label' => __( 'Global Listing Type', 'directorist' ),
+                    'label' => __('Global Listing Type', 'directorist'),
                     'type'  => 'toggle',
                     'value' => '',
                 ],
@@ -4026,13 +4032,13 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'value' => [],
                             'show_if' => [[
                                 'conditions' => [
-                                    [ 'key' => 'tag_with_plan', 'value' => true ]
+                                    ['key' => 'tag_with_plan', 'value' => true]
                                 ]
                             ]],
                             'options' => [
-                                [ 'id' => 'a', 'value' => 'a', 'label' => 'A' ],
-                                [ 'id' => 'b', 'value' => 'b', 'label' => 'B' ],
-                                [ 'id' => 'c', 'value' => 'c', 'label' => 'C' ],
+                                ['id' => 'a', 'value' => 'a', 'label' => 'A'],
+                                ['id' => 'b', 'value' => 'b', 'label' => 'B'],
+                                ['id' => 'c', 'value' => 'c', 'label' => 'C'],
                             ],
                             'options-source' => [
                                 'where'      => 'package_list.options',
@@ -4055,7 +4061,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                                 'placeholder' => '',
                                 'tag_with_plan' => true,
                                 'plans' => [
-                                    [ 'plan_id' => 1, 'max_length' => 200 ]
+                                    ['plan_id' => 1, 'max_length' => 200]
                                 ],
                             ],
                         ],
@@ -4091,13 +4097,150 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
 
                 'listings_card_grid_view' => [
                     'type' => 'card-builder',
-                    'layout' => 'grid_view',
+                    'view' => 'grid-view',
+                    'widgets' => [
+                        'listing_title' => [
+                            'type' => "title",
+                            'id' => "listing_title",
+                            'label' => "Listing Title",
+                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'options' => [
+                              'title' => "Listing Title Settings",
+                              'fields' => [
+                                'label' => [
+                                  'type' => "text",
+                                  'label' => "Label",
+                                  'value' => "text",
+                                ],
+                              ],
+                            ],
+                          ],
+                  
+                          'open_now_badge' => [
+                            'type' => "badge",
+                            'id' => "open_now_badge",
+                            'label' => "Open Now",
+                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'options' => [
+                              'title' => "Open/Closed Settings",
+                              'fields' => [
+                                'label' => [
+                                  'type' => "text",
+                                  'label' => "Label",
+                                  'value' => "Open Now",
+                                ],
+                              ],
+                            ],
+                          ],
+                  
+                          'favorite_badge' => [
+                            'type' => "badge",
+                            'id' => "favorite_badge",
+                            'label' => "Favorite",
+                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'options' => [
+                              'title' => "Favorite Settings",
+                              'fields' => [
+                                'icon' => [
+                                  'type' => "icon",
+                                  'label' => "Icon",
+                                  'value' => "fa fa-heart",
+                                ],
+                              ],
+                            ],
+                          ],
+                  
+                          'category' => [
+                            'type' => "badge",
+                            'id' => "category",
+                            'label' => "Category",
+                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'options' => [
+                              'title' => "Category Settings",
+                              'fields' => [
+                                'icon' => [
+                                  'type' => "icon",
+                                  'label' => "Icon",
+                                  'value' => "fa fa-folder",
+                                ],
+                              ],
+                            ],
+                          ],
+                  
+                          'user_avater' => [
+                            'type' => "avater",
+                            'id' => "user_avater",
+                            'label' => "User Avater",
+                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'options' => [
+                              'title' => "Category Settings",
+                              'fields' => [
+                                'align' => [
+                                  'type' => "select",
+                                  'label' => "Align",
+                                  'value' => "center",
+                                ],
+                              ],
+                            ],
+                          ],
+                    ],
+                    'layout' => [
+                        'thumbnail' => [
+                            'top_right' => [
+                                'label' => 'Top Right',
+                                'maxWidget' => 2,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => ["open_now_badge", "favorite_badge"],
+                                'selectedWidgets' => [],
+                            ],
+                            'top_left' => [
+                                'maxWidget' => 2,
+                                'acceptedWidgets' => ["open_now_badge", "favorite_badge"],
+                            ],
+                            'bottom_ight' => [
+                                'maxWidget' => 2,
+                                'acceptedWidgets' => ["open_now_badge", "favorite_badge"],
+                            ],
+                            'bottom_left' => [
+                                'maxWidget' => 2,
+                                'acceptedWidgets' => ["open_now_badge", "favorite_badge"],
+                            ],
+                            'avater' => [
+                                'maxWidget' => 1,
+                                'acceptedWidgets' => ["user_avater"],
+                            ],
+                        ],
+
+                        'middle' => [
+                            'body' => [
+                                'maxWidget' => 2,
+                                'widgetGroups' => [
+                                    ['label' => 'Preset', 'widgets' => ['listing_title']],
+                                    ['label' => 'Custom', 'widgets' => ['listing_title']],
+                                ],
+                                'acceptedWidgets' => ["listing_title"],
+                            ],
+                        ],
+
+                        'footer' => [
+                            'right' => [
+                                'maxWidget' => 2,
+                                'acceptedWidgets' => ["category"],
+                            ],
+
+                            'left' => [
+                                'maxWidget' => 2,
+                                'acceptedWidgets' => ["category"],
+                            ],
+                        ],
+                    ],
+
                     'value' => '',
                 ],
 
                 'listings_card_list_view' => [
-                    'type' => 'card-builder',
-                    'layout' => 'list_view',
+                    'type' => 'text',
+                    'view' => 'list_view',
                     'value' => '',
                 ],
 
@@ -4107,8 +4250,8 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'value' => '250',
                     'unit' => 'px',
                     'units' => [
-                        [ 'label' => 'px', 'value' => 'px' ],
-                        [ 'label' => '%', 'value' => '%' ],
+                        ['label' => 'px', 'value' => 'px'],
+                        ['label' => '%', 'value' => '%'],
                     ],
                 ],
 
@@ -4118,41 +4261,41 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'value' => '100',
                     'unit' => '%',
                     'units' => [
-                        [ 'label' => 'px', 'value' => 'px' ],
-                        [ 'label' => '%', 'value' => '%' ],
+                        ['label' => 'px', 'value' => 'px'],
+                        ['label' => '%', 'value' => '%'],
                     ],
                 ],
 
             ];
 
 
-            $this->layouts = apply_filters( 'atbdp_listing_type_settings', [
+            $this->layouts = apply_filters('atbdp_listing_type_settings', [
                 'general' => [
                     'label' => 'General',
                     'icon' => '<i class="uil uil-estate"></i>',
                     'submenu' => apply_filters('atbdp_listing_type_general_submenu', [
                         'general' => [
-                            'label' => __( 'General', 'directorist' ),
+                            'label' => __('General', 'directorist'),
                             'sections' => [
                                 'labels' => [
-                                    'title'       => __( 'Labels', 'directorist' ),
+                                    'title'       => __('Labels', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
                                         'name',
                                         'icon',
                                         'singular_name',
-                                        'plural_name' ,
+                                        'plural_name',
                                         'permalink',
                                     ],
                                 ],
                             ],
                         ],
                         'preview_image' => [
-                            'label' => __( 'Preview Image', 'directorist' ),
+                            'label' => __('Preview Image', 'directorist'),
                             'sections' => [
                                 'labels' => [
-                                    'title'       => __( 'Default Preview Image', 'directorist' ),
-                                    'description' => __( 'This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist' ),
+                                    'title'       => __('Default Preview Image', 'directorist'),
+                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
                                     'fields'      => [
                                         'preview_image',
                                     ],
@@ -4173,30 +4316,30 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             ],
                         ],
                         'other' => [
-                            'label' => __( 'Other', 'directorist' ),
+                            'label' => __('Other', 'directorist'),
                             'sections' => [
                                 'labels' => [
                                     [
-                                    'title'       => __( 'Default Status', 'directorist' ),
-                                    'description' => __( 'Need help?', 'directorist' ),
-                                    'fields'      => [
-                                        'new_listing_status',
-                                        'edit_listing_status',
+                                        'title'       => __('Default Status', 'directorist'),
+                                        'description' => __('Need help?', 'directorist'),
+                                        'fields'      => [
+                                            'new_listing_status',
+                                            'edit_listing_status',
                                         ],
                                     ],
                                     [
-                                    'title'       => __( 'Expiration', 'directorist' ),
-                                    'description' => __( 'Default time to expire a listing.', 'directorist' ),
-                                    'fields'      => [
-                                        'default_expiration',
+                                        'title'       => __('Expiration', 'directorist'),
+                                        'description' => __('Default time to expire a listing.', 'directorist'),
+                                        'fields'      => [
+                                            'default_expiration',
                                         ],
                                     ],
                                     [
-                                    'title'       => __( 'Export & Import Config File', 'directorist' ),
-                                    'description' => __( 'Bulk import and export all the form, layout and settings', 'directorist' ),
-                                    'fields'      => [
-                                        'export',
-                                        'import',
+                                        'title'       => __('Export & Import Config File', 'directorist'),
+                                        'description' => __('Bulk import and export all the form, layout and settings', 'directorist'),
+                                        'fields'      => [
+                                            'export',
+                                            'import',
                                         ],
                                     ],
                                 ],
@@ -4210,7 +4353,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'icon' => '<span class="uil uil-file-edit-alt"></span>',
                     'sections' => [
                         'form_fields' => [
-                            'title' => __( 'Select or create fields for this listing type', 'directorist' ),
+                            'title' => __('Select or create fields for this listing type', 'directorist'),
                             'description' => 'need help?',
                             'fields' => [
                                 'submission_form_fields'
@@ -4232,7 +4375,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'label' => 'Listings Card Grid Layout',
                             'sections' => [
                                 'listings_card' => [
-                                    'title' => __( 'Create and customize the listing card for grid view', 'directorist' ),
+                                    'title' => __('Create and customize the listing card for grid view', 'directorist'),
                                     'description' => 'need help? Read the documentation or open a ticket in our helpdesk.',
                                     'fields' => [
                                         'listings_card_grid_view'
@@ -4244,7 +4387,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'label' => 'Listings Card List Layout',
                             'sections' => [
                                 'listings_card' => [
-                                    'title' => __( 'Create and customize the listing card for listing view', 'directorist' ),
+                                    'title' => __('Create and customize the listing card for listing view', 'directorist'),
                                     'description' => 'need help?',
                                     'fields' => [
                                         'listings_card_list_view'
@@ -4256,7 +4399,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                             'label' => 'Listings Card Options',
                             'sections' => [
                                 'listings_card_options' => [
-                                    'title' => __( 'Customize the options', 'directorist' ),
+                                    'title' => __('Customize the options', 'directorist'),
                                     'description' => 'need help?',
                                     'fields' => [
                                         'listings_card_height',
@@ -4273,7 +4416,7 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
                     'icon' => '<span class="uil uil-search"></span>',
                     'sections' => [
                         'form_fields' => [
-                            'title' => __( 'Customize the search form for this listing type', 'directorist' ),
+                            'title' => __('Customize the search form for this listing type', 'directorist'),
                             'description' => 'need help?',
                             'fields' => [
                                 'search_form_fields'
@@ -4301,83 +4444,90 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         }
 
         // add_menu_pages
-        public function add_menu_pages() {
+        public function add_menu_pages()
+        {
             add_submenu_page(
                 'edit.php?post_type=at_biz_dir',
                 'Listing Types',
                 'Listing Types',
                 'manage_options',
                 'atbdp-listing-types',
-                [ $this, 'menu_page_callback__listing_types' ],
+                [$this, 'menu_page_callback__listing_types'],
                 5
             );
         }
 
         // menu_page_callback__listing_types
-        public function menu_page_callback__listing_types() {
-            $post_types_list_table = new Listing_Types_List_Table( $this );
+        public function menu_page_callback__listing_types()
+        {
+            $post_types_list_table = new Listing_Types_List_Table($this);
 
             $action = $post_types_list_table->current_action();
             $post_types_list_table->prepare_items();
 
             $listing_type_id = 0;
 
-            if ( ! empty( $action ) && ( 'edit' === $action ) && ! empty( $_REQUEST['listing_type_id'] )  ) {
+            if (!empty($action) && ('edit' === $action) && !empty($_REQUEST['listing_type_id'])) {
                 $listing_type_id = $_REQUEST['listing_type_id'];
                 $this->update_fields_with_old_data();
             }
 
             $data = [
                 'post_types_list_table' => $post_types_list_table,
-                'fields'                => json_encode( $this->fields ),
-                'layouts'               => json_encode( $this->layouts ),
-                'config'                => json_encode( $this->config ),
+                'fields'                => json_encode($this->fields),
+                'layouts'               => json_encode($this->layouts),
+                'config'                => json_encode($this->config),
                 'id'                    => $listing_type_id,
-                'add_new_link'          => admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=add_new' ),
+                'add_new_link'          => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=add_new'),
             ];
 
-            if ( ! empty( $action ) && ( 'edit' === $action || 'add_new' === $action )  ) {
+            if (!empty($action) && ('edit' === $action || 'add_new' === $action)) {
                 $this->enqueue_scripts();
-                atbdp_load_admin_template( 'post-types-manager/edit-listing-type', $data );
+                atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
 
                 return;
             }
 
-            atbdp_load_admin_template( 'post-types-manager/all-listing-types', $data );
+            atbdp_load_admin_template('post-types-manager/all-listing-types', $data);
         }
 
         // update_fields_with_old_data
-        public function update_fields_with_old_data() {
-            $listing_type_id = absint( $_REQUEST['listing_type_id'] );
-            $term = get_term( $listing_type_id, 'atbdp_listing_types' );
+        public function update_fields_with_old_data()
+        {
+            $listing_type_id = absint($_REQUEST['listing_type_id']);
+            $term = get_term($listing_type_id, 'atbdp_listing_types');
 
-            if ( ! $term ) { return; }
+            if (!$term) {
+                return;
+            }
 
-            $this->fields[ 'name' ]['value'] = $term->name;
+            $this->fields['name']['value'] = $term->name;
 
-            $all_term_meta = get_term_meta( $term->term_id );
-            if ( 'array' !== getType(  $all_term_meta ) ) { return; }
+            $all_term_meta = get_term_meta($term->term_id);
+            if ('array' !== getType($all_term_meta)) {
+                return;
+            }
 
-            foreach ( $all_term_meta as $meta_key => $meta_value ) {
-                if ( isset( $this->fields[ $meta_key ] ) ) {
-                    $value = maybe_unserialize( maybe_unserialize( $meta_value[0] ) );
-                    $this->fields[ $meta_key ]['value'] = $value;
+            foreach ($all_term_meta as $meta_key => $meta_value) {
+                if (isset($this->fields[$meta_key])) {
+                    $value = maybe_unserialize(maybe_unserialize($meta_value[0]));
+                    $this->fields[$meta_key]['value'] = $value;
                 }
             }
 
-            foreach( $this->config['fields_group'] as $group_key => $group_fields ) {
-                if ( array_key_exists( $group_key, $all_term_meta ) ) {
-                    $group_value = maybe_unserialize( maybe_unserialize( $all_term_meta[ $group_key ][0] ) );
+            foreach ($this->config['fields_group'] as $group_key => $group_fields) {
+                if (array_key_exists($group_key, $all_term_meta)) {
+                    $group_value = maybe_unserialize(maybe_unserialize($all_term_meta[$group_key][0]));
 
-                    foreach( $group_fields as $field_index => $field_key ) {
-                        if ( 'string' === gettype( $field_key ) && array_key_exists( $field_key, $this->fields )  ) {
-                            $this->fields[ $field_key ]['value'] = $group_value[ $field_key ];
-                        } 
+                    foreach ($group_fields as $field_index => $field_key) {
+                        if ('string' === gettype($field_key) && array_key_exists($field_key, $this->fields)) {
+                            $this->fields[$field_key]['value'] = $group_value[$field_key];
+                        }
 
-                        if ( 'array' === gettype( $field_key ) ) {
-                            foreach ( $field_key as $sub_field_key ) {
-                                if ( array_key_exists( $sub_field_key, $this->fields ) ) {
-                                    $this->fields[ $sub_field_key ]['value'] = $group_value[$field_index][$sub_field_key];
+                        if ('array' === gettype($field_key)) {
+                            foreach ($field_key as $sub_field_key) {
+                                if (array_key_exists($sub_field_key, $this->fields)) {
+                                    $this->fields[$sub_field_key]['value'] = $group_value[$field_index][$sub_field_key];
                                 }
                             }
                         }
@@ -4390,28 +4540,30 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         }
 
         // handle_delete_listing_type_request
-        public function handle_delete_listing_type_request() {
+        public function handle_delete_listing_type_request()
+        {
 
-            if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'delete_listing_type' ) ) {
-                wp_die( 'Are you cheating? | _wpnonce' );
+            if (!wp_verify_nonce($_REQUEST['_wpnonce'], 'delete_listing_type')) {
+                wp_die('Are you cheating? | _wpnonce');
             }
 
-            if ( ! current_user_can( 'manage_options' ) ) {
-                wp_die( 'Are you cheating? | manage_options' );
+            if (!current_user_can('manage_options')) {
+                wp_die('Are you cheating? | manage_options');
             }
 
-            $term_id = isset( $_REQUEST['listing_type_id'] ) ? absint( $_REQUEST['listing_type_id'] ) : 0;
+            $term_id = isset($_REQUEST['listing_type_id']) ? absint($_REQUEST['listing_type_id']) : 0;
 
-            $this->delete_listing_type( $term_id );
+            $this->delete_listing_type($term_id);
 
 
-            wp_redirect( admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-listing-types' ) );
+            wp_redirect(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-listing-types'));
             exit;
         }
 
         // delete_listing_type
-        public function delete_listing_type( $term_id = 0 ) {
-            if ( wp_delete_term( $term_id , 'atbdp_listing_types' ) ) {
+        public function delete_listing_type($term_id = 0)
+        {
+            if (wp_delete_term($term_id, 'atbdp_listing_types')) {
                 atbdp_add_flush_alert([
                     'id'      => 'deleting_listing_type_status',
                     'page'    => 'all-listing-type',
@@ -4428,37 +4580,37 @@ if ( ! class_exists( 'ATBDP_Listing_Type_Manager' ) ) {
         }
 
         // register_terms
-        public function register_terms() {
-            register_taxonomy( 'atbdp_listing_types', [ ATBDP_POST_TYPE ], [
+        public function register_terms()
+        {
+            register_taxonomy('atbdp_listing_types', [ATBDP_POST_TYPE], [
                 'hierarchical' => false,
                 'labels' => [
-                    'name' => _x( 'Listing Type', 'taxonomy general name', 'directorist' ),
+                    'name' => _x('Listing Type', 'taxonomy general name', 'directorist'),
                     'singular_name' => _x('Listing Type', 'taxonomy singular name', 'directorist'),
                     'search_items' => __('Search Listing Type', 'directorist'),
                     'menu_name' => __('Listing Type', 'directorist'),
                 ],
                 'show_ui' => false,
-             ]);
+            ]);
         }
 
         // enqueue_scripts
-        public function enqueue_scripts() {
+        public function enqueue_scripts()
+        {
             wp_enqueue_media();
-            wp_enqueue_style( 'atbdp-unicons' );
-            wp_enqueue_style( 'atbdp-font-awesome' );
-            wp_enqueue_style( 'atbdp_admin_css' );
+            wp_enqueue_style('atbdp-unicons');
+            wp_enqueue_style('atbdp-font-awesome');
+            wp_enqueue_style('atbdp_admin_css');
 
-            wp_localize_script( 'atbdp_admin_app', 'ajax_data', [ 'ajax_url' => admin_url( 'admin-ajax.php' ) ] );
-            wp_enqueue_script( 'atbdp_admin_app' );
-
-
+            wp_localize_script('atbdp_admin_app', 'ajax_data', ['ajax_url' => admin_url('admin-ajax.php')]);
+            wp_enqueue_script('atbdp_admin_app');
         }
 
         // register_scripts
-        public function register_scripts() {
-            wp_register_style( 'atbdp-unicons', '//unicons.iconscout.com/release/v3.0.3/css/line.css', false );
-            wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false );
+        public function register_scripts()
+        {
+            wp_register_style('atbdp-unicons', '//unicons.iconscout.com/release/v3.0.3/css/line.css', false);
+            wp_register_style('atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false);
         }
-
     }
 }

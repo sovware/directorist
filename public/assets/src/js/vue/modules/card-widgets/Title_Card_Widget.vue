@@ -1,10 +1,10 @@
 <template>
-    <div class="cptm-widget-card cptm-widget-title-card cptm-has-widget-control">
-        <widget-actions @drag="$emit( 'drag' )"  @edit="$emit( 'edit' )"  @trash="$emit( 'trash' )" />
-
+    <div class="cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap">
         <div class="cptm-widget-title-block">
             {{ label }}
         </div>
+
+        <widget-action-tools @drag="$emit( 'drag' )"  @edit="$emit( 'edit' )"  @trash="$emit( 'trash' )" />
     </div>
 </template>
 

@@ -12,14 +12,14 @@
                 <!-- cptm-card-preview-top-left -->
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-top-left-placeholder"
-                  :label="layout.thumbnail.top_left.label"
+                  :label="local_layout.thumbnail.top_left.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="layout.thumbnail.top_left.acceptedWidgets"
-                  :selectedWidgets="layout.thumbnail.top_left.selectedWidgets"
-                  :maxWidget="layout.thumbnail.top_left.maxWidget"
+                  :acceptedWidgets="local_layout.thumbnail.top_left.acceptedWidgets"
+                  :selectedWidgets="local_layout.thumbnail.top_left.selectedWidgets"
+                  :maxWidget="local_layout.thumbnail.top_left.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_top_left' )"
-                  @insert-widget="layout.thumbnail.top_left.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                  @insert-widget="local_layout.thumbnail.top_left.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
                   @drag-widget="dragWidget( $event )"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, 'thumbnail', 'top_left' )"
@@ -32,14 +32,14 @@
               <div class="cptm-card-preview-top-rignt">
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-top-rignt-placeholder"
-                  :label="layout.thumbnail.top_right.label"
+                  :label="local_layout.thumbnail.top_right.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="layout.thumbnail.top_right.acceptedWidgets"
-                  :selectedWidgets="layout.thumbnail.top_right.selectedWidgets"
-                  :maxWidget="layout.thumbnail.top_right.maxWidget"
+                  :acceptedWidgets="local_layout.thumbnail.top_right.acceptedWidgets"
+                  :selectedWidgets="local_layout.thumbnail.top_right.selectedWidgets"
+                  :maxWidget="local_layout.thumbnail.top_right.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_top_right' )"
-                  @insert-widget="layout.thumbnail.top_right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                  @insert-widget="local_layout.thumbnail.top_right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
                   @drag-widget="dragWidget( $event )"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, 'thumbnail', 'top_right' )"
@@ -52,14 +52,14 @@
               <div class="cptm-card-preview-bottom-left">
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-bottom-left-placeholder"
-                  :label="layout.thumbnail.bottom_left.label"
+                  :label="local_layout.thumbnail.bottom_left.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="layout.thumbnail.bottom_left.acceptedWidgets"
-                  :selectedWidgets="layout.thumbnail.bottom_left.selectedWidgets"
-                  :maxWidget="layout.thumbnail.bottom_left.maxWidget"
+                  :acceptedWidgets="local_layout.thumbnail.bottom_left.acceptedWidgets"
+                  :selectedWidgets="local_layout.thumbnail.bottom_left.selectedWidgets"
+                  :maxWidget="local_layout.thumbnail.bottom_left.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_bottom_left' )"
-                  @insert-widget="layout.thumbnail.bottom_left.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                  @insert-widget="local_layout.thumbnail.bottom_left.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
                   @drag-widget="dragWidget( $event )"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, 'thumbnail', 'bottom_left' )"
@@ -72,14 +72,14 @@
               <div class="cptm-card-preview-bottom-right">
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-bottom-right-placeholder"
-                  :label="layout.thumbnail.bottom_right.label"
+                  :label="local_layout.thumbnail.bottom_right.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="layout.thumbnail.bottom_right.acceptedWidgets"
-                  :selectedWidgets="layout.thumbnail.bottom_right.selectedWidgets"
-                  :maxWidget="layout.thumbnail.bottom_right.maxWidget"
+                  :acceptedWidgets="local_layout.thumbnail.bottom_right.acceptedWidgets"
+                  :selectedWidgets="local_layout.thumbnail.bottom_right.selectedWidgets"
+                  :maxWidget="local_layout.thumbnail.bottom_right.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_bottom_right' )"
-                  @insert-widget="layout.thumbnail.bottom_right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+                  @insert-widget="local_layout.thumbnail.bottom_right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
                   @drag-widget="dragWidget( $event )"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, 'thumbnail', 'bottom_right' )"
@@ -101,14 +101,14 @@
           <div class="cptm-listing-card-author-avatar">
             <card-widget-placeholder
               containerClass="cptm-listing-card-author-avatar-placeholder"
-              :label="layout.thumbnail.avater.label"
+              :label="local_layout.thumbnail.avater.label"
               :availableWidgets="available_widgets"
               :activeWidgets="active_widgets"
-              :acceptedWidgets="layout.thumbnail.avater.acceptedWidgets"
-              :selectedWidgets="layout.thumbnail.avater.selectedWidgets"
-              :maxWidget="layout.thumbnail.avater.maxWidget"
+              :acceptedWidgets="local_layout.thumbnail.avater.acceptedWidgets"
+              :selectedWidgets="local_layout.thumbnail.avater.selectedWidgets"
+              :maxWidget="local_layout.thumbnail.avater.maxWidget"
               :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_avater' )"
-              @insert-widget="layout.thumbnail.avater.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+              @insert-widget="local_layout.thumbnail.avater.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
               @drag-widget="dragWidget( $event )"
               @edit-widget="editWidget( $event )"
               @trash-widget="trashWidget( $event, 'thumbnail', 'avater' )"
@@ -119,14 +119,14 @@
 
           <card-widget-placeholder
             containerClass="cptm-listing-card-preview-body-placeholder"
-            :label="layout.middle.body.label"
+            :label="local_layout.middle.body.label"
             :availableWidgets="available_widgets"
             :activeWidgets="active_widgets"
-            :acceptedWidgets="layout.middle.body.acceptedWidgets"
-            :selectedWidgets="layout.middle.body.selectedWidgets"
-            :maxWidget="layout.middle.body.maxWidget"
+            :acceptedWidgets="local_layout.middle.body.acceptedWidgets"
+            :selectedWidgets="local_layout.middle.body.selectedWidgets"
+            :maxWidget="local_layout.middle.body.maxWidget"
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_body_contents' )"
-            @insert-widget="layout.middle.body.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+            @insert-widget="local_layout.middle.body.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
             @drag-widget="dragWidget( $event )"
             @edit-widget="editWidget( $event )"
             @trash-widget="trashWidget( $event, 'middle', 'body' )"
@@ -140,14 +140,14 @@
           <!-- cptm-listing-card-preview-footer-left-placeholder -->
           <card-widget-placeholder
             containerClass="cptm-listing-card-preview-footer-left-placeholder"
-            :label="layout.footer.left.label"
+            :label="local_layout.footer.left.label"
             :availableWidgets="available_widgets"
             :activeWidgets="active_widgets"
-            :acceptedWidgets="layout.footer.left.acceptedWidgets"
-            :selectedWidgets="layout.footer.left.selectedWidgets"
-            :maxWidget="layout.footer.left.maxWidget"
+            :acceptedWidgets="local_layout.footer.left.acceptedWidgets"
+            :selectedWidgets="local_layout.footer.left.selectedWidgets"
+            :maxWidget="local_layout.footer.left.maxWidget"
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_footer_left' )"
-            @insert-widget="layout.footer.left.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+            @insert-widget="local_layout.footer.left.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
             @drag-widget="dragWidget( $event )"
             @edit-widget="editWidget( $event )"
             @trash-widget="trashWidget( $event, 'middle', 'body' )"
@@ -158,14 +158,14 @@
           <!-- cptm-listing-card-preview-footer-right-placeholder -->
           <card-widget-placeholder
             containerClass="cptm-listing-card-preview-footer-right-placeholder"
-            :label="layout.footer.right.label"
+            :label="local_layout.footer.right.label"
             :availableWidgets="available_widgets"
             :activeWidgets="active_widgets"
-            :acceptedWidgets="layout.footer.right.acceptedWidgets"
-            :selectedWidgets="layout.footer.right.selectedWidgets"
-            :maxWidget="layout.footer.right.maxWidget"
+            :acceptedWidgets="local_layout.footer.right.acceptedWidgets"
+            :selectedWidgets="local_layout.footer.right.selectedWidgets"
+            :maxWidget="local_layout.footer.right.maxWidget"
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_footer_right' )"
-            @insert-widget="layout.footer.right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
+            @insert-widget="local_layout.footer.right.selectedWidgets = $event.selected_widgets, insertWidget( $event )"
             @drag-widget="dragWidget( $event )"
             @edit-widget="editWidget( $event )"
             @trash-widget="trashWidget( $event, 'middle', 'body' )"
@@ -190,10 +190,23 @@
 <script>
 export default {
   name: "card-builder",
-  props: [],
+  props: {
+    value: {
+      required: false,
+      default: null,
+    },
+    widgets: {
+      required: false,
+      default: null,
+    },
+    layout: {
+      required: false,
+      default: null,
+    },
+  },
 
   created() {
-    // console.log( this.output_data );
+    this.init();
   },
 
   computed: {
@@ -264,7 +277,7 @@ export default {
 
   data() {
     return {
-      active_insert_widget_key: 'thumbnail_top_right',
+      active_insert_widget_key: '',
 
       // Widget Options Window
       widgetOptionsWindowDefault: {
@@ -278,132 +291,35 @@ export default {
       },
 
       // Available Widgets
-      available_widgets: {
-        listing_title: {
-          type: "title",
-          id: "listing_title",
-          label: "Listing Title",
-          icon: '<span class="uil uil-text-fields"></span>',
-          options: {
-            title: "Listing Title Settings",
-            fields: {
-              label: {
-                type: "text",
-                label: "Label",
-                value: "text",
-              },
-            },
-          },
-        },
-
-        open_now_badge: {
-          type: "badge",
-          id: "open_now_badge",
-          label: "Open Now",
-          icon: '<span class="uil uil-text-fields"></span>',
-          options: {
-            title: "Open/Closed Settings",
-            fields: {
-              label: {
-                type: "text",
-                label: "Label",
-                value: "Open Now",
-              },
-            },
-          },
-        },
-
-        favorite_badge: {
-          type: "badge",
-          id: "favorite_badge",
-          label: "Favorite",
-          icon: '<span class="uil uil-text-fields"></span>',
-          options: {
-            title: "Favorite Settings",
-            fields: {
-              icon: {
-                type: "icon",
-                label: "Icon",
-                value: "fa fa-heart",
-              },
-            },
-          },
-        },
-
-        category: {
-          type: "badge",
-          id: "category",
-          label: "Category",
-          icon: '<span class="uil uil-text-fields"></span>',
-          options: {
-            title: "Category Settings",
-            fields: {
-              icon: {
-                type: "icon",
-                label: "Icon",
-                value: "fa fa-folder",
-              },
-            },
-          },
-        },
-
-        user_avater: {
-          type: "avater",
-          id: "user_avater",
-          label: "User Avater",
-          icon: '<span class="uil uil-text-fields"></span>',
-          options: {
-            title: "Category Settings",
-            fields: {
-              align: {
-                type: "select",
-                label: "Align",
-                value: "center",
-              },
-            },
-          },
-        },
-      },
+      available_widgets: {},
 
       // Active Widgets
       active_widgets: {},
 
       // Layout
-      layout: {
+      local_layout: {
         thumbnail: {
           top_right: {
             label: 'Top Right',
-            maxWidget: 2,
-            maxWidgetInfoText: "Up to __DATA__ item{s} can be added",
-            acceptedWidgets: ["open_now_badge", "favorite_badge"],
             selectedWidgets: [],
           },
           top_left: {
             label: 'Top Left',
-            maxWidget: 2,
-            maxWidgetInfoText: "Up to __DATA__ item{s} can be added",
-            acceptedWidgets: ["open_now_badge", "favorite_badge"],
             selectedWidgets: [],
           },
           bottom_right: {
             label: 'Bottom Right',
             maxWidget: 2,
-            maxWidgetInfoText: "Up to __DATA__ item{s} can be added",
-            acceptedWidgets: ["open_now_badge", "favorite_badge"],
             selectedWidgets: [],
           },
           bottom_left: {
             label: 'Bottom Left',
             maxWidget: 2,
-            maxWidgetInfoText: "Up to __DATA__ item{s} can be added",
-            acceptedWidgets: ["open_now_badge", "favorite_badge"],
             selectedWidgets: [],
           },
           avater: {
             label: 'Avater',
             maxWidget: 1,
-            maxWidgetInfoText: "Up to 1 item can be added",
-            acceptedWidgets: ["user_avater"],
             selectedWidgets: [],
           },
         },
@@ -411,12 +327,6 @@ export default {
         middle: {
           body: {
             label: 'Body',
-            maxWidget: 2,
-            widget_groups: [
-              { label: 'Preset', widgets: ['listing_title'] },
-              { label: 'Custom', widgets: ['listing_title'] },
-            ],
-            acceptedWidgets: ["listing_title"],
             selectedWidgets: [],
           },
         },
@@ -424,14 +334,10 @@ export default {
         footer: {
           right: {
             label: 'Footer Right',
-            maxWidget: 2,
-            acceptedWidgets: ["category"],
             selectedWidgets: [],
           },
           left: {
             label: 'Footer Left',
-            maxWidget: 2,
-            acceptedWidgets: ["category"],
             selectedWidgets: [],
           },
         },
@@ -440,6 +346,45 @@ export default {
   },
 
   methods: {
+    init() {
+      this.importWidgets();
+      this.importLayout();
+    },
+
+    isTruthyObject( obj ) {
+      if ( ! obj && typeof obj !== 'object' ) {
+        return false;
+      }
+
+      return true;
+    },
+
+    importWidgets() {
+      if ( ! this.isTruthyObject( this.widgets ) ) { return; }
+      this.available_widgets = this.widgets;
+    },
+
+    importLayout() {
+      if (  ! this.isTruthyObject( this.layout ) ) {
+        return;
+      }
+
+      for ( let section in this.local_layout ) {
+        
+        if ( ! this.isTruthyObject( this.layout[ section ] ) ) {
+          continue;
+        }
+
+        for ( let area in this.local_layout[ section ] ) {
+          if ( ! this.isTruthyObject( this.layout[ section ][ area ] ) ) {
+            continue;
+          }
+
+          Object.assign( this.local_layout[ section ][ area ], this.layout[ section ][ area ] );
+        }
+      }
+    },
+
     dragWidget( key, path ) {
       console.log( 'dragWidget', { key, path } );
     },
@@ -469,10 +414,10 @@ export default {
     },
 
     trashWidget( key, section, area ) {
-      if ( ! this.layout.[ section ][ area ].selectedWidgets.includes( key ) ) { return; }
+      if ( ! this.local_layout[ section ][ area ].selectedWidgets.includes( key ) ) { return; }
       
-      let index = this.layout.[ section ][ area ].selectedWidgets.indexOf( key );
-      this.layout.[ section ][ area ].selectedWidgets.splice( index, 1 );
+      let index = this.local_layout[ section ][ area ].selectedWidgets.indexOf( key );
+      this.local_layout[ section ][ area ].selectedWidgets.splice( index, 1 );
 
       if ( typeof this.active_widgets[ key ] === 'undefined' ) { return; }
       delete this.active_widgets[ key ];

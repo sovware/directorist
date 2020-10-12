@@ -1,8 +1,8 @@
 <template>
-    <div class="cptm-widget-card cptm-widget-badge cptm-has-widget-control">
-        <widget-actions @drag="$emit( 'drag' )"  @edit="$emit( 'edit' )"  @trash="$emit( 'trash' )" />
-
-        {{ label }}
+    <div class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap">
+        {{ label }} 
+        
+        <widget-action-tools @drag="$emit( 'drag' )"  @edit="$emit( 'edit' )"  @trash="$emit( 'trash' )" />
     </div>
 </template>
 

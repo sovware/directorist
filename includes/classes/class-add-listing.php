@@ -90,38 +90,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $display_title_for = get_directorist_option('display_title_for', 0);
                 $display_desc_for = get_directorist_option('display_desc_for', 0);
                 $featured_enabled = get_directorist_option('enable_featured_listing');
-                $display_tagline_field = get_directorist_option('display_tagline_field', 0);
-                $display_tagline_for = get_directorist_option('display_tagline_for', 0);
-                $display_pricing_field = get_directorist_option('display_pricing_field', 1);
-                $display_price_for = get_directorist_option('display_price_for', 'admin_users');
-                $display_price_range_field = get_directorist_option('display_price_range_field', 1);
-                $display_price_range_for = get_directorist_option('display_price_range_for', 'admin_users');
-                $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
-                $display_short_desc_for = get_directorist_option('display_short_desc_for', 0);
-                $display_address_field = get_directorist_option('display_address_field', 1);
-                $display_address_for = get_directorist_option('display_address_for', 0);
-                $display_views_count = get_directorist_option('display_views_count', 1);
-                $display_views_count_for = get_directorist_option('display_views_count_for', 1);
-                $display_phone_field = get_directorist_option('display_phone_field', 1);
-                $display_phone_for = get_directorist_option('display_phone_for', 0);
-                $display_phone2_field = get_directorist_option('display_phone_field2', 1);
-                $display_phone2_for = get_directorist_option('display_phone2_for', 0);
-                $display_fax_field = get_directorist_option('display_fax', 1);
-                $display_fax_for = get_directorist_option('display_fax_for', 0);
-                $display_email_field = get_directorist_option('display_email_field', 1);
-                $display_email_for = get_directorist_option('display_email_for', 0);
-                $display_website_field = get_directorist_option('display_website_field', 1);
-                $display_website_for = get_directorist_option('display_website_for', 0);
-                $display_zip_field = get_directorist_option('display_zip_field', 1);
-                $display_zip_for = get_directorist_option('display_zip_for', 0);
-                $display_social_info_field = get_directorist_option('display_social_info_field', 1);
-                $display_social_info_for = get_directorist_option('display_social_info_for', 0);
                 $display_prv_field = get_directorist_option('display_prv_field', 1);
                 $display_prv_img_for = get_directorist_option('display_prv_img_for', 0);
                 $display_gallery_field = get_directorist_option('display_gallery_field', 1);
                 $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
-                $display_video_field = get_directorist_option('display_video_field', 1);
-                $display_video_for = get_directorist_option('display_video_for', 0);
                 $preview_enable = get_directorist_option('preview_enable', 1);
 
 
@@ -136,6 +108,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                      $submission_form_fields = $submission_form['fields'];
                  }
                 // isolate data
+                wp_send_json([
+                    'form_data' => $submission_form_fields,
+                ]);
+                die();
                 $error = [];
                 foreach( $submission_form_fields as $key => $value ){
                     $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
@@ -168,9 +144,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
                         $key = '_'. $field_key;
                         $metas[ $key ] = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
-                    }
-                // }
-                    
+                    }                    
                 }
                 if( $error ){
                     $data['error_msg'] = $error;

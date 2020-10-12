@@ -12,7 +12,6 @@
                 <!-- cptm-card-preview-top-left -->
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-top-left-placeholder"
-    
                   :label="local_layout.thumbnail.top_left.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
@@ -21,7 +20,9 @@
                   :maxWidget="local_layout.thumbnail.top_left.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_top_left' )"
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.top_left )"
-                  @drag-widget="dragWidget( $event )"
+                  @drag-widget="onDragStartWidget( $event,local_layout.thumbnail.top_left )"
+                  @drag-end-widget="onDragEndWidget()"
+                  @drop-on-placeholder="handleDropOnPlaceholder( local_layout.thumbnail.top_left )"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, local_layout.thumbnail.top_left )"
                   @open-widgets-picker-window="activeInsertWindow( 'thumbnail_top_left' )"
@@ -33,7 +34,6 @@
               <div class="cptm-card-preview-top-rignt">
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-top-rignt-placeholder"
-    
                   :label="local_layout.thumbnail.top_right.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
@@ -42,7 +42,9 @@
                   :maxWidget="local_layout.thumbnail.top_right.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_top_right' )"
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.top_right )"
-                  @drag-widget="dragWidget( $event )"
+                  @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.top_right )"
+                  @drag-end-widget="onDragEndWidget()"
+                  @drop-on-placeholder="handleDropOnPlaceholder( local_layout.thumbnail.top_right )"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, local_layout.thumbnail.top_right )"
                   @open-widgets-picker-window="activeInsertWindow( 'thumbnail_top_right' )"
@@ -54,7 +56,6 @@
               <div class="cptm-card-preview-bottom-left">
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-bottom-left-placeholder"
-    
                   :label="local_layout.thumbnail.bottom_left.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
@@ -63,7 +64,8 @@
                   :maxWidget="local_layout.thumbnail.bottom_left.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_bottom_left' )"
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.bottom_left )"
-                  @drag-widget="dragWidget( $event )"
+                  @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.bottom_left )"
+                  @drag-end-widget="onDragEndWidget()"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, local_layout.thumbnail.bottom_left )"
                   @open-widgets-picker-window="activeInsertWindow( 'thumbnail_bottom_left' )"
@@ -75,7 +77,6 @@
               <div class="cptm-card-preview-bottom-right">
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-bottom-right-placeholder"
-    
                   :label="local_layout.thumbnail.bottom_right.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
@@ -84,8 +85,9 @@
                   :maxWidget="local_layout.thumbnail.bottom_right.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_bottom_right' )"
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.bottom_right )"
-                  @drag-widget="dragWidget( $event )"
-                  @edit-widget="editWidget( $event )"
+                  @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.bottom_right )"
+                  @drag-end-widget="onDragEndWidget()"
+                  @edit-widget="editWidget()"
                   @trash-widget="trashWidget( $event, local_layout.thumbnail.bottom_right )"
                   @open-widgets-picker-window="activeInsertWindow( 'thumbnail_bottom_right' )"
                   @close-widgets-picker-window="closeInsertWindow()"
@@ -105,7 +107,6 @@
           <div class="cptm-listing-card-author-avatar">
             <card-widget-placeholder
               containerClass="cptm-listing-card-author-avatar-placeholder"
-
               :label="local_layout.thumbnail.avater.label"
               :availableWidgets="available_widgets"
               :activeWidgets="active_widgets"
@@ -114,7 +115,8 @@
               :maxWidget="local_layout.thumbnail.avater.maxWidget"
               :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_avater' )"
               @insert-widget="insertWidget( $event, local_layout.thumbnail.avater )"
-              @drag-widget="dragWidget( $event )"
+              @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.avater )"
+              @drag-end-widget="onDragEndWidget()"
               @edit-widget="editWidget( $event )"
               @trash-widget="trashWidget( $event, local_layout.thumbnail.avater )"
               @open-widgets-picker-window="activeInsertWindow( 'thumbnail_avater' )"
@@ -132,7 +134,8 @@
             :maxWidget="local_layout.middle.body.maxWidget"
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_body_contents' )"
             @insert-widget="insertWidget( $event, local_layout.middle.body )"
-            @drag-widget="dragWidget( $event )"
+            @drag-widget="onDragStartWidget( $event, local_layout.middle.body )"
+            @drag-end-widget="onDragEndWidget()"
             @edit-widget="editWidget( $event )"
             @trash-widget="trashWidget( $event, local_layout.middle.body )"
             @open-widgets-picker-window="activeInsertWindow( 'thumbnail_body_contents' )"
@@ -153,7 +156,8 @@
             :maxWidget="local_layout.footer.left.maxWidget"
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_footer_left' )"
             @insert-widget="insertWidget( $event, local_layout.footer.left )"
-            @drag-widget="dragWidget( $event )"
+            @drag-widget="onDragStartWidget( $event, local_layout.footer.left )"
+            @drag-end-widget="onDragEndWidget()"
             @edit-widget="editWidget( $event )"
             @trash-widget="trashWidget( $event, local_layout.footer.left )"
             @open-widgets-picker-window="activeInsertWindow( 'thumbnail_footer_left' )"
@@ -171,7 +175,8 @@
             :maxWidget="local_layout.footer.right.maxWidget"
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_footer_right' )"
             @insert-widget="insertWidget( $event, local_layout.footer.right )"
-            @drag-widget="dragWidget( $event )"
+            @drag-widget="onDragStartWidget( $event, local_layout.footer.right )"
+            @drag-end-widget="onDragEndWidget()"
             @edit-widget="editWidget( $event )"
             @trash-widget="trashWidget( $event, local_layout.footer.right )"
             @open-widgets-picker-window="activeInsertWindow( 'thumbnail_footer_right' )"
@@ -297,6 +302,8 @@ export default {
         widget: ''
       },
 
+      currentDraggingWidget: { origin: {}, key: '' },
+
       // Available Widgets
       available_widgets: {},
 
@@ -389,8 +396,22 @@ export default {
       }
     },
 
-    dragWidget( key, path ) {
-      console.log( 'dragWidget', { key, path } );
+    onDragStartWidget( key, origin ) {
+      this.currentDraggingWidget.key = key;
+      this.currentDraggingWidget.origin = origin;
+
+      console.log( 'onDragStartWidget', this.currentDraggingWidget );
+    },
+
+    onDragEndWidget() {
+      this.currentDraggingWidget.key = '';
+      this.currentDraggingWidget.origin = '';
+
+      console.log( 'onDragEndWidget', this.currentDraggingWidget );
+    },
+
+    handleDropOnPlaceholder( where ) {
+      console.log( 'handleDropOnPlaceholder', where );
     },
 
     editWidget( key ) {

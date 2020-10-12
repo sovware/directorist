@@ -1,5 +1,10 @@
 <template>
-  <div class="cptm-placeholder-blcok" :class="containerClass">
+  <div
+    class="cptm-placeholder-blcok"
+    :class="containerClass"
+    @drop.prevent="$emit('drop-on-placeholder')"
+    @dragover.prevent=""
+  >
     <p class="cptm-placeholder-label" :class="{ hide: selectedWidgets.length }">
       {{ label }}
     </p>

@@ -4079,7 +4079,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
           },
           avater: {
             label: 'Avater',
-            maxWidget: 1,
             selectedWidgets: []
           }
         },

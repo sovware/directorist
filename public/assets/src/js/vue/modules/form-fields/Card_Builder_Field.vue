@@ -317,7 +317,6 @@ export default {
           },
           avater: {
             label: 'Avater',
-            maxWidget: 1,
             selectedWidgets: [],
           },
         },

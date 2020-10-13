@@ -386,7 +386,7 @@ if (!class_exists('ATBDP_Helper')) :
                 'flickr' => __('Flickr', 'directorist'),
                 'snapchat-ghost' => __('Snapchat', 'directorist'),
                 'reddit' => __('Reddit', 'directorist'),
-                'youtube-play' => __('Youtube', 'directorist'),
+                'youtube' => __('Youtube', 'directorist'),
                 'vimeo' => __('Vimeo', 'directorist'),
                 'vine' => __('Vine', 'directorist'),
                 'github' => __('Github', 'directorist'),

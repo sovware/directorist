@@ -802,7 +802,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                     $l = esc_url($link_url);
                                 ?>
                                     <a target='_blank' href="<?php echo $l; ?>" class="<?php echo $n; ?>">
-                                        <span class="fa fa-<?php echo $n; ?>"></span>
+                                        <span class="fab fa-<?php echo $n; ?>"></span>
                                     </a>
                                 <?php } ?>
                             </div>

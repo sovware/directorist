@@ -99,13 +99,18 @@ if ($display_header == 'yes') { ?>
                                              aria-labelledby="dropdownMenuLink2">';
 
                                     $options = atbdp_get_listings_orderby_options($sort_by_items);
-
+                                    $sort_html .= '<form id="myForm" method="post" action="">';
                                     $current_order = !empty($current_order) ? $current_order : '';
+                                    global $wp;
+                                    $current_url =  home_url( $wp->request ) . '/';
+                                    $pattern = '/page\\/[0-9]+\\//i';
+                                    $actual_link = preg_replace($pattern, '', $current_url);
                                     foreach ($options as $value => $label) {
                                         $active_class = ($value == $current_order) ? ' active' : '';
-
-                                        $sort_html .= sprintf('<a class="atbd_dropdown-item%s" href="%s">%s</a>', $active_class, add_query_arg('sort', $value), $label);
+                                        
+                                        $sort_html .= sprintf('<a class="test atbd_dropdown-item%s" data="%s">%s</a>', $active_class, add_query_arg( 'sort', $value, $actual_link ), $label);
                                     }
+                                    $sort_html .= '</form>';
                                     $sort_html .= ' </div>';
                                     $sort_html .= ' </div>';
                                     /**

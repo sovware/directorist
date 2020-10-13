@@ -828,7 +828,6 @@ if (!class_exists('ATBDP_Shortcode')):
 
         public function all_listing($atts)
         {
-            // return '123';
             wp_enqueue_script('adminmainassets');
             wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
             wp_localize_script('atbdp-search-listing', 'atbdp_search', array(

@@ -218,6 +218,7 @@ final class Directorist_Base
             self::$instance->setup_constants();
 
             add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
+            add_action('plugins_loaded', array(self::$instance, 'add_polylang_swicher_support') );
             add_action('widgets_init', array(self::$instance, 'register_widgets'));
 
             self::$instance->includes();
@@ -289,6 +290,65 @@ final class Directorist_Base
         return self::$instance;
     }
 
+    // add_polylang_swicher_support
+    public function add_polylang_swicher_support() {
+        add_filter('pll_the_language_link', function($url, $current_lang) {
+            // Adjust the category link
+            $category_url = $this->get_polylang_swicher_link_for_term([
+                'term_type'            => 'category',
+                'term_default_page_id' => get_directorist_option('single_category_page'),
+                'term_query_var'       => ( ! empty( $_GET['category'] ) ) ? $_GET['category'] : get_query_var('atbdp_category'),
+                'current_lang'         => $current_lang,
+                'url'                  => $url,
+            ]);
+
+            if ( ! empty( $category_url ) ) { return $category_url; }
+
+            // Adjust the location link
+            $location_url = $this->get_polylang_swicher_link_for_term([
+                'term_type'            => 'location',
+                'term_default_page_id' => get_directorist_option('single_location_page'),
+                'term_query_var'       => ( ! empty( $_GET['location'] ) ) ? $_GET['location'] : get_query_var('atbdp_location'),
+                'current_lang'         => $current_lang,
+                'url'                  => $url,
+            ]);
+
+            if ( ! empty( $location_url ) ) { return $location_url; }
+
+            return $url;
+        }, 10, 2);
+    }
+
+    // get_polylang_swicher_link_for_term
+    public function get_polylang_swicher_link_for_term( $args ) {
+        $default = [
+            'term_type'            => '',
+            'term_query_var'       => '',
+            'term_default_page_id' => '',
+            'current_lang'         => '',
+            'url'                  => '',
+        ];
+
+        $args = array_merge( $default, $args );
+
+        if ( empty( $args[ 'term_query_var' ] ) ) { return false; }
+
+        // Get language slug of the default page
+        $page_lang = pll_get_post_language( $args[ 'term_default_page_id' ] );
+
+        // If current lang slug != default page
+        // modyfy the url
+        if ( $args[ 'current_lang' ] !== $page_lang ) {
+            return $args['url'] ."?". $args['term_type'] ."=". $args['term_query_var'];
+        }
+
+        if ( $args[ 'current_lang' ] === $page_lang  ) {
+            return $args['url'] . $args['term_query_var'];
+        } 
+
+        return false;
+    }
+
     /**
      * Update Database
      *
@@ -310,6 +370,7 @@ final class Directorist_Base
      */
     public static function init_hooks()
     {
+
         ATBDP_Cache_Helper::reset_cache();
     }
 

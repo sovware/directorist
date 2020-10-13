@@ -748,7 +748,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'title' => 'Preset Fields',
                     'description' => 'Click on a field to use it',
                     'allow_multiple' => false,
-                    'widgets' => [
+                    'widgets' => apply_filters( 'atbdp_form_preset_widgets', [
                         'title' => [
                             'label' => 'Title',
                             'icon' => 'fa fa-text-height',
@@ -772,11 +772,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'type'  => 'text',
                                     'label' => 'Placeholder',
                                     'value' => '',
-                                ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
@@ -832,61 +827,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
 
-                                'plans' => [
-                                    'type' => 'multi-fields',
-                                    'label' => 'Setup the plan',
-                                    'value' => [],
-                                    'add-new-button-label' => 'Add new plan',
-                                    'praimary_key' => 'plan_id',
-                                    'show_if' => [[
-                                        'conditions' => [
-                                            ['key' => 'tag_with_plan', 'value' => true]
-                                        ]
-                                    ]],
-                                    'options' => [
-                                        'plan_id' => [
-                                            'type' => 'select',
-                                            'unique' => true,
-                                            'label' => 'Chose a plan',
-                                            'value' => '',
-                                            'options-source' => [
-                                                'where'      => 'package_list.options',
-                                                'source_map' => [
-                                                    'id'    => 'id',
-                                                    'value' => 'value',
-                                                    'label' => 'label',
-                                                ],
-                                                'filter_by' => 'package_list.value',
-                                            ],
-                                        ],
-                                        'min' => [
-                                            'type' => 'number',
-                                            'label' => 'Min',
-                                            'value' => '',
-                                            'show_if' => [[
-                                                'conditions' => [
-                                                    ['key' => 'plan_id', 'value' => '', 'compare' => 'not']
-                                                ]
-                                            ]],
-                                        ],
-                                        'max' => [
-                                            'type' => 'number',
-                                            'label' => 'Max',
-                                            'value' => '',
-                                            'show_if' => [[
-                                                'conditions' => [
-                                                    ['key' => 'plan_id', 'value' => '', 'compare' => 'not']
-                                                ]
-                                            ]],
-                                        ],
-                                    ]
-                                ]
                             ]
                         ],
 
@@ -923,38 +864,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                            
                             ],
                         ],
 
@@ -1096,38 +1006,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => true,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1163,38 +1043,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1235,38 +1085,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1312,38 +1132,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1384,38 +1174,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1451,38 +1211,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1513,38 +1243,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1580,38 +1280,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1647,38 +1317,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1714,38 +1354,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1781,38 +1391,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1848,38 +1428,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1915,38 +1465,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -1977,38 +1497,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -2054,38 +1544,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -2121,38 +1581,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ],
                         ],
 
@@ -2243,14 +1673,14 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
                             ],
                         ],
-                    ],
+                    ] ),
                 ],
 
                 'custom' => [
                     'title' => 'Custom Fields',
                     'description' => 'Click on a field type you want to create',
                     'allow_multiple' => true,
-                    'widgets' => [
+                    'widgets' => apply_filters( 'atbdp_form_custom_widgets', [
                         'text' => [
                             'label' => 'Text',
                             'icon' => 'uil uil-text',
@@ -2304,38 +1734,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ]
 
                         ],
@@ -2398,38 +1798,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ]
 
                         ],
@@ -2487,38 +1857,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ]
 
                         ],
@@ -2581,38 +1921,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ]
 
                         ],
@@ -2670,38 +1980,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ]
 
                         ],
@@ -2759,38 +2039,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ]
 
                         ],
@@ -2843,38 +2093,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ]
 
                         ],
@@ -2935,38 +2155,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ]
 
                         ],
@@ -3027,38 +2217,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ]
 
                         ],
@@ -3119,38 +2279,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ]
 
                         ],
@@ -3389,44 +2519,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'tag_with_plan' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Tag with plan',
-                                    'value' => false,
-                                ],
-                                // 'plan' => [
-                                //     'type'  => 'select',
-                                //     'label'  => 'Chose a plan',
-                                //     'show_if' => [
-                                //         [
-                                //             'key'     => 'tag_with_plan',
-                                //             'compare' => '=',
-                                //             'value'   => true,
-                                //         ]
-                                //     ],
-                                //     'option_groups' => [
-                                //         [
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'options' => [],
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //             'plan' => [
-                                //                 'type'  => 'select',
-                                //                 'label'  => 'Plan',
-                                //                 'value' => '',
-                                //             ],
-                                //         ]
-
-                                //         ],
-                                // ],
+                                
+                            
                             ]
 
                         ],
-                    ]
-
-
+                    ] )
 
                 ],
             ];

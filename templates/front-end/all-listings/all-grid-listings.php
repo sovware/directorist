@@ -118,8 +118,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                     }
                     $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 
-                    $listing_preview_img_class = 'no' == $listing_preview_img || (empty($prv_image) && empty($default_image) && empty($gallery_img)) ? ' listing_preview_img_none' : '';
-                    /*Code for Business Hour Extensions*/
+                    $listing_preview_img_class = ('no' == $listing_preview_img) ? ' listing_preview_img_none' : '';
                     $atbdp_column = apply_filters('atbdp_column_class','atbdp_column');
                     ?>
                     <div class="<?php echo !empty($atbdp_column) ? $atbdp_column : 'atbdp_column'; ?>">

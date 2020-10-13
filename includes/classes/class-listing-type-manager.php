@@ -3862,7 +3862,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 ],
             ];
 
-            $this->fields = [
+            $this->fields = apply_filters( 'atbdp_vue_component_field_list', [
                 'name' => [
                     'label' => 'Name *',
                     'type'  => 'text',
@@ -3915,26 +3915,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'value'       => '',
                 ],
 
-                'enable_package' => [
-                    'label' => __('Enable paid listing packages', 'directorist'),
-                    'type'  => 'toggle',
-                    'name'  => 'enable_package',
-                    'value' => '',
-                ],
-                'package_list' => [
-                    'type' => 'checkbox',
-                    'name' => 'package_list',
-                    'show_if' => [
-                        ['conditions' => [['key' => 'enable_package', 'value' => true]]],
-                    ],
-                    'label' => __('Select Packages', 'directorist'),
-                    'value' => [],
-                    'options' => [
-                        ['value' => '1', 'id' => 'plan-1', 'label' => 'Plan A'],
-                        ['value' => '2', 'id' => 'plan-2', 'label' => 'Plan B'],
-                        ['value' => '3', 'id' => 'plan-3', 'label' => 'Plan C'],
-                    ]
-                ],
                 'export' => [
                     'label' => __('Export config file', 'directorist'),
                     'type'  => 'button',
@@ -4386,9 +4366,10 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     ],
                 ],
 
-            ];
-
-
+            ] );
+            $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
+            $wc_pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-woocommerce-pricing-plans" target="_blank">WooCommerce Pricing Plans</a>';
+            $plan_promo = sprintf(__('Monetize your website by selling listing plans using %s or %s extensions.', 'directorist'), $pricing_plan, $wc_pricing_plan);
             $this->layouts = apply_filters('atbdp_listing_type_settings', [
                 'general' => [
                     'label' => 'General',
@@ -4427,11 +4408,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'sections' => [
                                 'labels' => [
                                     'title'       => 'Paid listing packages',
-                                    'description' => 'Set what packages the user can choose from when submitting a listing of this type.',
-                                    'fields'      => [
-                                        'enable_package',
-                                        'package_list',
-                                    ],
+                                    'description' => $plan_promo,
                                 ],
                             ],
                         ],

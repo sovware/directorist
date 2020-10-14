@@ -11,15 +11,15 @@
               <div class="cptm-card-preview-top-left">
                 <!-- cptm-card-preview-top-left -->
                 <card-widget-placeholder
-                  containerClass="cptm-card-preview-top-left-placeholder"
+                  containerClass="cptm-card-preview-top-left-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.top_left.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
                   :acceptedWidgets="local_layout.thumbnail.top_left.acceptedWidgets"
                   :selectedWidgets="local_layout.thumbnail.top_left.selectedWidgets"
                   :maxWidget="local_layout.thumbnail.top_left.maxWidget"
-                  :widgetDropable="widgetIsDropable( local_layout.thumbnail.top_left )"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_top_left' )"
+                  :widgetDropable="widgetIsDropable( local_layout.thumbnail.top_left )"
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.top_left )"
                   @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.top_left )"
                   @drop-widget="appendWidget( $event, local_layout.thumbnail.top_left )"
@@ -38,7 +38,7 @@
               <!-- cptm-card-preview-top-rignt -->
               <div class="cptm-card-preview-top-rignt">
                 <card-widget-placeholder
-                  containerClass="cptm-card-preview-top-rignt-placeholder"
+                  containerClass="cptm-card-preview-top-rignt-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.top_right.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
@@ -64,7 +64,7 @@
               <!-- cptm-card-preview-bottom-left -->
               <div class="cptm-card-preview-bottom-left">
                 <card-widget-placeholder
-                  containerClass="cptm-card-preview-bottom-left-placeholder"
+                  containerClass="cptm-card-preview-bottom-left-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.bottom_left.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
@@ -72,6 +72,7 @@
                   :selectedWidgets="local_layout.thumbnail.bottom_left.selectedWidgets"
                   :maxWidget="local_layout.thumbnail.bottom_left.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_bottom_left' )"
+                  :widgetDropable="widgetIsDropable( local_layout.thumbnail.bottom_left )"
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.bottom_left )"
                   @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.bottom_left )"
                   @drop-widget="appendWidget( $event, local_layout.thumbnail.bottom_left )"
@@ -89,7 +90,7 @@
               <!-- cptm-card-preview-bottom-right -->
               <div class="cptm-card-preview-bottom-right">
                 <card-widget-placeholder
-                  containerClass="cptm-card-preview-bottom-right-placeholder"
+                  containerClass="cptm-card-preview-bottom-right-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.bottom_right.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
@@ -97,6 +98,7 @@
                   :selectedWidgets="local_layout.thumbnail.bottom_right.selectedWidgets"
                   :maxWidget="local_layout.thumbnail.bottom_right.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_bottom_right' )"
+                  :widgetDropable="widgetIsDropable( local_layout.thumbnail.bottom_right )"
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.bottom_right )"
                   @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.bottom_right )"
                   @drop-widget="appendWidget( $event, local_layout.thumbnail.bottom_right )"
@@ -123,7 +125,7 @@
           <!-- cptm-listing-card-author-avatar -->
           <div class="cptm-listing-card-author-avatar">
             <card-widget-placeholder
-              containerClass="cptm-listing-card-author-avatar-placeholder"
+              containerClass="cptm-listing-card-author-avatar-placeholder cptm-card-dark-light"
               :label="local_layout.thumbnail.avater.label"
               :availableWidgets="available_widgets"
               :activeWidgets="active_widgets"
@@ -131,6 +133,7 @@
               :selectedWidgets="local_layout.thumbnail.avater.selectedWidgets"
               :maxWidget="local_layout.thumbnail.avater.maxWidget"
               :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_avater' )"
+              :widgetDropable="widgetIsDropable( local_layout.thumbnail.avater )"
               @insert-widget="insertWidget( $event, local_layout.thumbnail.avater )"
               @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.avater )"
               @drop-widget="appendWidget( $event, local_layout.thumbnail.avater )"
@@ -144,7 +147,7 @@
           </div>
 
           <card-widget-placeholder
-            containerClass="cptm-listing-card-preview-body-placeholder"
+            containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
             :label="local_layout.middle.body.label"
             :availableWidgets="available_widgets"
             :activeWidgets="active_widgets"
@@ -152,6 +155,7 @@
             :selectedWidgets="local_layout.middle.body.selectedWidgets"
             :maxWidget="local_layout.middle.body.maxWidget"
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_body_contents' )"
+            :widgetDropable="widgetIsDropable( local_layout.middle.body )"
             @insert-widget="insertWidget( $event, local_layout.middle.body )"
             @drag-widget="onDragStartWidget( $event, local_layout.middle.body )"
             @drop-widget="appendWidget( $event, local_layout.middle.body )"
@@ -168,7 +172,7 @@
         <div class="cptm-listing-card-preview-footer">
           <!-- cptm-listing-card-preview-footer-left-placeholder -->
           <card-widget-placeholder
-            containerClass="cptm-listing-card-preview-footer-left-placeholder"
+            containerClass="cptm-listing-card-preview-footer-left-placeholder cptm-card-light"
             :label="local_layout.footer.left.label"
             :availableWidgets="available_widgets"
             :activeWidgets="active_widgets"
@@ -176,6 +180,7 @@
             :selectedWidgets="local_layout.footer.left.selectedWidgets"
             :maxWidget="local_layout.footer.left.maxWidget"
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_footer_left' )"
+            :widgetDropable="widgetIsDropable( local_layout.footer.left )"
             @insert-widget="insertWidget( $event, local_layout.footer.left )"
             @drag-widget="onDragStartWidget( $event, local_layout.footer.left )"
             @drop-widget="appendWidget( $event, local_layout.footer.left )"
@@ -189,7 +194,7 @@
 
           <!-- cptm-listing-card-preview-footer-right-placeholder -->
           <card-widget-placeholder
-            containerClass="cptm-listing-card-preview-footer-right-placeholder"
+            containerClass="cptm-listing-card-preview-footer-right-placeholder cptm-card-light"
             :label="local_layout.footer.right.label"
             :availableWidgets="available_widgets"
             :activeWidgets="active_widgets"
@@ -197,6 +202,7 @@
             :selectedWidgets="local_layout.footer.right.selectedWidgets"
             :maxWidget="local_layout.footer.right.maxWidget"
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_footer_right' )"
+            :widgetDropable="widgetIsDropable( local_layout.footer.right )"
             @insert-widget="insertWidget( $event, local_layout.footer.right )"
             @drag-widget="onDragStartWidget( $event, local_layout.footer.right )"
             @drop-widget="appendWidget( $event, local_layout.footer.right )"
@@ -477,9 +483,8 @@ export default {
 
       Vue.delete( from , from.indexOf( key ) );
       dest_path.selectedWidgets.splice( dest_index, 0, this.currentDraggingWidget.key );
-      // Vue.set( dest_path.selectedWidgets, dest_index, this.currentDraggingWidget.key );
 
-      console.log( { dest_key, dest_path, dest_index } );
+      this.onDragEndWidget();
     },
     
     

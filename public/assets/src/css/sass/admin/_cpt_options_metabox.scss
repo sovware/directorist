@@ -908,9 +908,10 @@ input[type="checkbox"].cptm-checkbox {
     display: inline-block;
     width: 0;
     height: auto;
-    flex: 1;
     &.dropable {
       width: 10px;
+      max-width: 10px;
+      // flex: 1;
     }
   }
 }
@@ -1254,6 +1255,8 @@ input[type="checkbox"].cptm-checkbox {
   flex-grow: 1;
   margin-right: 5px;
   border-color: #c6d0dc;
+  width: calc(50% - 10px);
+  text-align: left;
   &:hover, &.drag-enter {
     border-color: #1e1e1e;
   }
@@ -1262,10 +1265,36 @@ input[type="checkbox"].cptm-checkbox {
 .cptm-listing-card-preview-footer-right-placeholder {
   flex-grow: 1;
   border-color: #c6d0dc;
+  width: calc(50% - 10px);
+  text-align: right;
   &:hover, &.drag-enter {
     border-color: #1e1e1e;
   }
 }
+
+
+.cptm-card-light {
+  .cptm-placeholder-label {
+    color: $dark;
+  }
+  .cptm-widget-badge {
+    background-color: rgba(0,0,0,.8);
+  }
+}
+
+
+.cptm-card-dark-light {
+  .cptm-placeholder-label {
+    padding: 5px 12px;
+    color: #888;
+    border-radius: 30px;
+    background: #fff;
+  }
+  .cptm-widget-badge {
+    background-color: rgba(0,0,0,.8);
+  } 
+}
+
 
 .cptm-widgets-container {
   overflow: hidden;

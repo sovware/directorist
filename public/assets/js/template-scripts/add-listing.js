@@ -465,7 +465,7 @@ jQuery(function($) {
                 }
 
                 on_processing = true;
-                //$('.listing_submit_btn').attr('disabled', true);
+                $('.listing_submit_btn').attr('disabled', true);
 
                 $.ajax({
                         method: 'POST',
@@ -554,15 +554,15 @@ jQuery(function($) {
 
         // scrollToEl
         function scrollToEl(el) {
-                const element = typeof el === 'string' ? el : '';
-                let scroll_top = $(element).offset().top - 50;
-                scroll_top = scroll_top < 0 ? 0 : scroll_top;
+                // const element = typeof el === 'string' ? el : '';
+                // let scroll_top = $(element).offset().top - 50;
+                // scroll_top = scroll_top < 0 ? 0 : scroll_top;
 
-                $('html, body').animate(
-                        {
-                                scrollTop: scroll_top,
-                        },
-                        800
-                );
+                // $('html, body').animate(
+                //         {
+                //                 scrollTop: scroll_top,
+                //         },
+                //         800
+                // );
         }
 });

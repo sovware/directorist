@@ -1980,7 +1980,7 @@ span.atbdp-tick-cross {
 .atbds_customCheckbox input[type="checkbox"] + label:before {
   position: absolute;
   font-size: 12px;
-  left: 5px;
+  left: 4px;
   top: 2px;
   font-weight: 500;
   content: "\f00c";

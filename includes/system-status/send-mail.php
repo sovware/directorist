@@ -72,7 +72,7 @@ class ATBDP_Send_Mail
                             <div class="atbds_form-row">
                                 <div class="atbds_customCheckbox">
                                     <input type="checkbox" name='atbdp_system_info' id='atbdp_system_info' checked>
-                                    <label for="atbds_check_support"><?php _e( 'Attach system information.', 'directorist' ); ?></label>
+                                    <label for="atbdp_system_info"><?php _e( 'Attach system information.', 'directorist' ); ?></label>
                                 </div>
                             </div>
                             <div class="atbds_form-row">

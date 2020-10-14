@@ -4,9 +4,12 @@
 
         <div class="cptm-checkbox-area">
             <div class="cptm-checkbox-item" v-for="( option, option_index ) in getTheOptions()" :key="option_index">
+                <pre>
+                    {{option.value}}
+                </pre>
                 <input type="checkbox" class="cptm-checkbox" 
                     :name="( option.name && option.name.length ) ? option.name : ''"
-                    :value="( option.value && option.value.length ) ? option.value : ''"
+                    :value="option.value"
                     :id="( option.id && option.id.length ) ? option.id : ''"
                     :checked="getCheckedStatus( option )"
                     @change="updateValue( option_index, $event.target.checked, option )"
@@ -50,7 +53,8 @@ export default {
             default: '',
         },
         value: {
-            required: false,
+            type: [String, Number],
+            default: '',
         },
         options: {
             required: false,
@@ -70,10 +74,8 @@ export default {
     },
 
     created() {
-
-        if ( this.value && typeof this.value === 'object' && this.value.length ) {
-            this.local_value = this.value;
-        }
+        
+        this.local_value = this.value;
 
         this.$emit( 'update', this.local_value );
     },
@@ -179,11 +181,17 @@ export default {
         },
 
         getCheckedStatus( option ) {
-            let status = ( this.local_value.indexOf( this.getValue( option ) ) > -1 ) ? true : false;
+            console.log( this.local_value, option.value );
+            return this.local_value.includes( option.value );
 
-            // console.log( { status } );
+            // let status = ( this.local_value.indexOf( option.value ) ? true : false;
+
+            // if( this.local_value.includes( option.value ) ) {
+                
+            // }
+            // // console.log( { status } );
             
-            return status;
+            // return status;
         },
 
         getValue( option ) {

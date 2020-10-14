@@ -12,8 +12,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         // run
         public function run()
         {
-            $this->prepare_settings();
-            $this->get_old_custom_fields();
+
             add_action('admin_enqueue_scripts', [$this, 'register_scripts']);
             add_action('init', [$this, 'register_terms']);
             add_action('admin_menu', [$this, 'add_menu_pages']);
@@ -3781,6 +3780,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 ],
                 'show_ui' => false,
             ]);
+
+            $this->prepare_settings();
+            $this->get_old_custom_fields();
         }
 
         // enqueue_scripts

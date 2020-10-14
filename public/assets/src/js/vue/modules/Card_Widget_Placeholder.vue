@@ -1,9 +1,11 @@
 <template>
   <div
     class="cptm-placeholder-blcok"
-    :class="containerClass"
-    @drop.prevent="$emit('drop-on-placeholder')"
-    @dragover.prevent=""
+    :class="getContainerClass"
+    @drop.prevent="placeholderOnDrop()"
+    @dragover.prevent="$emit('placeholder-dragover-on')"
+    @dragenter="placeholderOnDragEnter()"
+    @dragleave="placeholderOnDragLeave()"
   >
     <p class="cptm-placeholder-label" :class="{ hide: selectedWidgets.length }">
       {{ label }}
@@ -43,7 +45,10 @@
             :key="widget_index"
             :label="activeWidgets[widget].label"
             :options="activeWidgets[widget].options"
+            :widgetDropable="widgetDropable"
             @drag="$emit('drag-widget', widget)"
+            @drop="$emit('drop-widget', widget)"
+            @dragend="$emit('dragend-widget', widget)"
             @edit="$emit('edit-widget', widget)"
             @trash="$emit('trash-widget', widget)"
           >
@@ -85,6 +90,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    widgetDropable: {
+      type: Boolean,
+      default: false,
+    },
     maxWidget: {
       type: Number,
       default: 0,
@@ -95,13 +104,39 @@ export default {
     },
   },
 
+  computed: {
+    getContainerClass() {
+      return {
+        [ this.containerClass ]: true,
+        'drag-enter': this.placeholderDragEnter,
+      }
+    }
+  },
+
+  data() {
+    return {
+      placeholderDragEnter: false,
+    }
+  },
+
   methods: {
+    placeholderOnDrop() {
+      this.placeholderDragEnter = false;
+      this.$emit('placeholder-on-drop')
+    },
+
+    placeholderOnDragEnter() {
+      this.placeholderDragEnter = true;
+      this.$emit('placeholder-on-dragenter');
+    },
+
+    placeholderOnDragLeave() {
+      this.placeholderDragEnter = false;
+      this.$emit('placeholder-on-dragleave');
+    },
+
     hasValidWidget(widget_key) {
-      if (
-        !this.activeWidgets[widget_key] &&
-        typeof this.activeWidgets[widget_key] !== "object"
-      ) {
-        console.log(widget_key);
+      if ( !this.activeWidgets[widget_key] && typeof this.activeWidgets[widget_key] !== "object" ) {
         return false;
       }
 

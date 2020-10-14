@@ -2,9 +2,9 @@ import { mapState } from 'vuex';
 
 export default {
     mounted() {
-        if ( this.defaultOption || typeof this.defaultOption === 'object' ) {
-            this.default_option = this.defaultOption;
-        }
+        // if ( this.defaultOption || typeof this.defaultOption === 'object' ) {
+        //     this.default_option = this.defaultOption;
+        // }
     },
 
     computed: {
@@ -12,7 +12,7 @@ export default {
             fields: 'fields',
         }),
 
-        theOptions() {
+        /* theOptions() {
             if ( this.hasOptionsSource ) {
                 return this.hasOptionsSource;
             }
@@ -22,9 +22,10 @@ export default {
             }
 
             return this.options;
-        },
+        }, */
 
-        hasOptionsSource() {
+        /* hasOptionsSource() {
+            
             if ( ! this.optionsSource || typeof this.optionsSource !== 'object' ) {
                 return false;
             }
@@ -67,12 +68,16 @@ export default {
                 terget_fields = this.filterDataByValue( terget_fields, filter_by );
             }
 
-            if ( ! terget_fields || typeof terget_fields !== 'object' ) {
+            if ( ! terget_fields && typeof terget_fields !== 'object' ) {
                 return false;
             }
 
+            if ( 'description-plan-id' === this.name ) {
+                console.log( terget_fields );
+            }
+
             return terget_fields;
-        },
+        }, */
     },
 
 

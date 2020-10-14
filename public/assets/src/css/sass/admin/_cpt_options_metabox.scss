@@ -871,6 +871,50 @@ input[type="checkbox"].cptm-checkbox {
   }
 }
 
+
+.cptm-widget-card-drop-prepend {
+  border-radius: 10px;
+}
+
+.cptm-widget-card-drop-append {
+  display: block;
+  width: 100%;
+  height: 0;
+  border-radius: 10px;
+  transition: all ease-in-out 300ms;
+  background-color: transparent;
+  border: 1px dashed transparent;
+  &.dropable {
+    border-color: cornflowerblue;
+    height: 10px;
+  }
+  &.drag-enter {
+    background-color: cornflowerblue;
+  }
+}
+
+.cptm-widget-card-wrap {
+  visibility: visible;
+}
+
+.cptm-widget-card-inline-wrap {
+  display: inline-flex;
+  .cptm-widget-card {
+    display: inline-block;
+    flex: 1;
+  }
+
+  .cptm-widget-card-drop-append {
+    display: inline-block;
+    width: 0;
+    height: auto;
+    flex: 1;
+    &.dropable {
+      width: 10px;
+    }
+  }
+}
+
 // Widgets
 .cptm-widget-badge {
   display: inline-block;
@@ -902,7 +946,7 @@ input[type="checkbox"].cptm-checkbox {
   border-radius: 4px;
   z-index: 99;
   &:hover,
-  &.drag-over {
+  &.drag-enter {
     border-color: rgba(255, 255, 255, 1);
   }
 }
@@ -1190,7 +1234,7 @@ input[type="checkbox"].cptm-checkbox {
   display: block;
   min-height: 206px;
   border-color: #e3e6ef;
-  &:hover {
+  &:hover, &.drag-enter {
     border-color: #717171;
   }
   .cptm-placeholder-label {
@@ -1210,7 +1254,7 @@ input[type="checkbox"].cptm-checkbox {
   flex-grow: 1;
   margin-right: 5px;
   border-color: #c6d0dc;
-  &:hover {
+  &:hover, &.drag-enter {
     border-color: #1e1e1e;
   }
 }
@@ -1218,7 +1262,7 @@ input[type="checkbox"].cptm-checkbox {
 .cptm-listing-card-preview-footer-right-placeholder {
   flex-grow: 1;
   border-color: #c6d0dc;
-  &:hover {
+  &:hover, &.drag-enter {
     border-color: #1e1e1e;
   }
 }

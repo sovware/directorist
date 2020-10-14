@@ -854,6 +854,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                             'type' => 'select',
                                             'unique' => true,
                                             'label' => 'Chose a plan',
+                                            'name' => 'description-plan-id',
                                             'value' => '',
                                             'options-source' => [
                                                 'where'      => 'package_list.options',
@@ -4035,11 +4036,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ['key' => 'tag_with_plan', 'value' => true]
                                 ]
                             ]],
-                            'options' => [
-                                ['id' => 'a', 'value' => 'a', 'label' => 'A'],
-                                ['id' => 'b', 'value' => 'b', 'label' => 'B'],
-                                ['id' => 'c', 'value' => 'c', 'label' => 'C'],
-                            ],
                             'options-source' => [
                                 'where'      => 'package_list.options',
                                 'filter_by'  => 'package_list.value',

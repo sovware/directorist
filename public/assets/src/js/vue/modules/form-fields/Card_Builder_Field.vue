@@ -18,13 +18,18 @@
                   :acceptedWidgets="local_layout.thumbnail.top_left.acceptedWidgets"
                   :selectedWidgets="local_layout.thumbnail.top_left.selectedWidgets"
                   :maxWidget="local_layout.thumbnail.top_left.maxWidget"
+                  :widgetDropable="widgetIsDropable( local_layout.thumbnail.top_left )"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_top_left' )"
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.top_left )"
-                  @drag-widget="onDragStartWidget( $event,local_layout.thumbnail.top_left )"
-                  @drag-end-widget="onDragEndWidget()"
-                  @drop-on-placeholder="handleDropOnPlaceholder( local_layout.thumbnail.top_left )"
+                  @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.top_left )"
+                  @drop-widget="appendWidget( $event, local_layout.thumbnail.top_left )"
+                  @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, local_layout.thumbnail.top_left )"
+                  @placeholder-on-drop="handleDropOnPlaceholder( local_layout.thumbnail.top_left )"
+                  @placeholder-on-dragover="handleDragOverOnPlaceholder( local_layout.thumbnail.top_left )"
+                  @placeholder-on-dragenter="handleDragEnterOnPlaceholder( local_layout.thumbnail.top_left )"
+                  @placeholder-on-dragleave="handleDragleaveOnPlaceholder( local_layout.thumbnail.top_left )"
                   @open-widgets-picker-window="activeInsertWindow( 'thumbnail_top_left' )"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -41,12 +46,16 @@
                   :selectedWidgets="local_layout.thumbnail.top_right.selectedWidgets"
                   :maxWidget="local_layout.thumbnail.top_right.maxWidget"
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_top_right' )"
+                  :widgetDropable="widgetIsDropable( local_layout.thumbnail.top_right )"
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.top_right )"
                   @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.top_right )"
-                  @drag-end-widget="onDragEndWidget()"
-                  @drop-on-placeholder="handleDropOnPlaceholder( local_layout.thumbnail.top_right )"
+                  @drop-widget="appendWidget( $event, local_layout.thumbnail.top_right )"
+                  @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, local_layout.thumbnail.top_right )"
+                  @placeholder-on-drop="handleDropOnPlaceholder( local_layout.thumbnail.top_right )"
+                  @placeholder-on-dragover="handleDragOverOnPlaceholder( local_layout.thumbnail.top_right )"
+                  @placeholder-on-dragenter="handleDragEnterOnPlaceholder( local_layout.thumbnail.top_right )"
                   @open-widgets-picker-window="activeInsertWindow( 'thumbnail_top_right' )"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -65,9 +74,13 @@
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_bottom_left' )"
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.bottom_left )"
                   @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.bottom_left )"
-                  @drag-end-widget="onDragEndWidget()"
+                  @drop-widget="appendWidget( $event, local_layout.thumbnail.bottom_left )"
+                  @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, local_layout.thumbnail.bottom_left )"
+                  @placeholder-on-drop="handleDropOnPlaceholder( local_layout.thumbnail.bottom_left )"
+                  @placeholder-on-dragover="handleDragOverOnPlaceholder( local_layout.thumbnail.bottom_left )"
+                  @placeholder-on-dragenter="handleDragEnterOnPlaceholder( local_layout.thumbnail.bottom_left )"
                   @open-widgets-picker-window="activeInsertWindow( 'thumbnail_bottom_left' )"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -86,9 +99,13 @@
                   :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_bottom_right' )"
                   @insert-widget="insertWidget( $event, local_layout.thumbnail.bottom_right )"
                   @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.bottom_right )"
-                  @drag-end-widget="onDragEndWidget()"
-                  @edit-widget="editWidget()"
+                  @drop-widget="appendWidget( $event, local_layout.thumbnail.bottom_right )"
+                  @dragend-widget="onDragEndWidget()"
+                  @edit-widget="editWidget( $event )"
                   @trash-widget="trashWidget( $event, local_layout.thumbnail.bottom_right )"
+                  @placeholder-on-drop="handleDropOnPlaceholder( local_layout.thumbnail.bottom_right )"
+                  @placeholder-on-dragover="handleDragOverOnPlaceholder( local_layout.thumbnail.bottom_right )"
+                  @placeholder-on-dragenter="handleDragEnterOnPlaceholder( local_layout.thumbnail.bottom_right )"
                   @open-widgets-picker-window="activeInsertWindow( 'thumbnail_bottom_right' )"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -116,9 +133,11 @@
               :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_avater' )"
               @insert-widget="insertWidget( $event, local_layout.thumbnail.avater )"
               @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.avater )"
-              @drag-end-widget="onDragEndWidget()"
+              @drop-widget="appendWidget( $event, local_layout.thumbnail.avater )"
+              @dragend-widget="onDragEndWidget()"
               @edit-widget="editWidget( $event )"
               @trash-widget="trashWidget( $event, local_layout.thumbnail.avater )"
+              @placeholder-on-drop="handleDropOnPlaceholder( local_layout.thumbnail.avater )"
               @open-widgets-picker-window="activeInsertWindow( 'thumbnail_avater' )"
               @close-widgets-picker-window="closeInsertWindow()"
             />
@@ -135,9 +154,11 @@
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_body_contents' )"
             @insert-widget="insertWidget( $event, local_layout.middle.body )"
             @drag-widget="onDragStartWidget( $event, local_layout.middle.body )"
-            @drag-end-widget="onDragEndWidget()"
+            @drop-widget="appendWidget( $event, local_layout.middle.body )"
+            @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget( $event )"
             @trash-widget="trashWidget( $event, local_layout.middle.body )"
+            @placeholder-on-drop="handleDropOnPlaceholder( local_layout.middle.body )"
             @open-widgets-picker-window="activeInsertWindow( 'thumbnail_body_contents' )"
             @close-widgets-picker-window="closeInsertWindow()"
           />
@@ -157,9 +178,11 @@
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_footer_left' )"
             @insert-widget="insertWidget( $event, local_layout.footer.left )"
             @drag-widget="onDragStartWidget( $event, local_layout.footer.left )"
-            @drag-end-widget="onDragEndWidget()"
+            @drop-widget="appendWidget( $event, local_layout.footer.left )"
+            @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget( $event )"
             @trash-widget="trashWidget( $event, local_layout.footer.left )"
+            @placeholder-on-drop="handleDropOnPlaceholder( local_layout.footer.left )"
             @open-widgets-picker-window="activeInsertWindow( 'thumbnail_footer_left' )"
             @close-widgets-picker-window="closeInsertWindow()"
           />
@@ -176,9 +199,11 @@
             :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_footer_right' )"
             @insert-widget="insertWidget( $event, local_layout.footer.right )"
             @drag-widget="onDragStartWidget( $event, local_layout.footer.right )"
-            @drag-end-widget="onDragEndWidget()"
+            @drop-widget="appendWidget( $event, local_layout.footer.right )"
+            @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget( $event )"
             @trash-widget="trashWidget( $event, local_layout.footer.right )"
+            @placeholder-on-drop="handleDropOnPlaceholder( local_layout.footer.right )"
             @open-widgets-picker-window="activeInsertWindow( 'thumbnail_footer_right' )"
             @close-widgets-picker-window="closeInsertWindow()"
           />
@@ -232,7 +257,6 @@ export default {
         if (typeof layout[section] !== "object") {
           continue;
         }
-
 
         for (let section_area in layout[section]) {
           output[section][section_area] = [];
@@ -399,24 +423,72 @@ export default {
     onDragStartWidget( key, origin ) {
       this.currentDraggingWidget.key = key;
       this.currentDraggingWidget.origin = origin;
-
-      console.log( 'onDragStartWidget', this.currentDraggingWidget );
     },
 
     onDragEndWidget() {
       this.currentDraggingWidget.key = '';
       this.currentDraggingWidget.origin = '';
-
-      console.log( 'onDragEndWidget', this.currentDraggingWidget );
     },
 
-    handleDropOnPlaceholder( where ) {
-      console.log( 'handleDropOnPlaceholder', where );
+    maxWidgetLimitIsReached( path ) {
+      if ( ! path.maxWidget  ) { return false; }
+      if ( path.selectedWidgets.length >= path.maxWidget  ) { return true; }
+
+      return false;
+    },
+
+    widgetIsAccepted( path,  key ) {
+      if ( ! path.acceptedWidgets  ) { return true; }
+      if ( ! this.isTruthyObject( path.acceptedWidgets )  ) { return true; }
+      if ( path.acceptedWidgets.includes( key ) ) { return true; }
+
+      return false;
+    },
+
+    widgetIsDropable( path ) {
+      return false;
+    },
+
+    appendWidget( widget_key, dest ) {
+      console.log( { widget_key, dest } );
+    },
+    
+    
+    handleDropOnPlaceholder( dest ) {
+      const key  = this.currentDraggingWidget.key;
+      const from = this.currentDraggingWidget.origin.selectedWidgets;
+      const to   = dest.selectedWidgets;
+
+      if ( ! this.isTruthyObject( from ) ) { return; }
+      if ( ! this.isTruthyObject( to ) ) { return; }
+      if ( this.maxWidgetLimitIsReached( dest ) ) { return; }
+      if ( ! this.widgetIsAccepted( dest, key ) ) { return; }
+
+      if ( ! to.includes( key ) ) {
+        Vue.delete( from, from.indexOf( key ) );
+        Vue.set( to, to.length, key );
+      }
+
+      this.onDragEndWidget();
+    },
+
+    handleDragEnterOnPlaceholder( where ) {
+      // console.log( 'handleDragEnterOnPlaceholder', where );
+    },
+
+    handleDragOverOnPlaceholder( where ) {
+      // console.log( 'handleDragOverOnPlaceholder', where );
+    },
+    
+    handleDragleaveOnPlaceholder( where ) {
+      // console.log( 'handleDragleaveOnPlaceholder', where );
     },
 
     editWidget( key ) {
       this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...this.active_widgets[ key ].options };
       this.widgetOptionsWindow.widget = key;
+
+      console.log( key );
     },
 
     updateWidgetOptionsData( data, widget ) {

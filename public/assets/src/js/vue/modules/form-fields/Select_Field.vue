@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import helpers from './../../mixins/helpers';
 import validation from './../../mixins/validation';
 
@@ -82,7 +83,71 @@ export default {
     },
 
     computed: {
-        
+        ...mapState({
+            fields: 'fields',
+        }),
+
+        theOptions() {
+            if ( this.hasOptionsSource ) {
+                return this.hasOptionsSource;
+            }
+
+            if ( ! this.options || typeof this.options !== 'object' ) {
+                return ( this.defaultOption ) ? [ this.defaultOption ] : [];
+            }
+
+            return this.options;
+        },
+
+        hasOptionsSource() {
+            if ( ! this.optionsSource || typeof this.optionsSource !== 'object' ) {
+                return false;
+            }
+
+            if ( typeof this.optionsSource.where !== 'string' ) {
+                return false;
+            }
+            const self = this;
+
+            let terget_fields = this.getTergetFields( this.optionsSource.where );
+            
+            if ( ! terget_fields || typeof terget_fields !== 'object' ) {
+                return false;
+            }
+
+            let filter_by = null;
+            if ( typeof this.optionsSource.filter_by === 'string' && this.optionsSource.filter_by.length ) {
+                filter_by = this.optionsSource.filter_by;
+            }
+
+            if ( filter_by ) {
+                filter_by = this.getTergetFields( this.optionsSource.filter_by );
+            }
+            
+            let has_sourcemap = false;
+
+            if ( this.optionsSource.source_map && typeof this.optionsSource.source_map === 'object'  ) {
+                has_sourcemap = true;
+            }
+
+            if ( ! has_sourcemap && ! filter_by ) {
+                return terget_fields;
+            }
+
+            if ( has_sourcemap ) {
+                terget_fields = this.mapDataByMap( terget_fields, this.optionsSource.source_map );
+            }
+
+            if ( filter_by ) {
+                terget_fields = this.filterDataByValue( terget_fields, filter_by );
+            }
+
+            if ( ! terget_fields && typeof terget_fields !== 'object' ) {
+                return false;
+            }
+
+            return terget_fields;
+        },
     },
 
     data() {
@@ -93,6 +158,10 @@ export default {
 
     methods: {
         setup() {
+            if ( this.defaultOption || typeof this.defaultOption === 'object' ) {
+                this.default_option = this.defaultOption;
+            }
+
             this.local_value = this.value;
             this.$emit( 'update', this.local_value );
         },

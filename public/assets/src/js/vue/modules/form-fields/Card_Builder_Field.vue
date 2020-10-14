@@ -308,6 +308,10 @@ export default {
       if ( typeof this.active_widgets[ this.widgetOptionsWindow.widget ] === 'undedined'  ) { return false; }
 
       return true;
+    },
+
+    _currentDraggingWidget() {
+      return this.currentDraggingWidget;
     }
   },
 
@@ -446,15 +450,41 @@ export default {
     },
 
     widgetIsDropable( path ) {
-      return false;
+
+      if ( ! this._currentDraggingWidget.key.length ) {
+        return false;
+      }
+
+      if ( ! this.isTruthyObject( this._currentDraggingWidget.origin ) ) {
+        return false;
+      }
+
+      if ( this.maxWidgetLimitIsReached( path ) ) {
+        return false;
+      }
+
+      if ( ! this.widgetIsAccepted( path, this._currentDraggingWidget.key ) ) {
+        return false;
+      }
+      
+      return true;
     },
 
-    appendWidget( widget_key, dest ) {
-      console.log( { widget_key, dest } );
+    appendWidget( dest_key, dest_path ) {
+      const dest_index = dest_path.selectedWidgets.indexOf( dest_key ) + 1;
+      const key        = this.currentDraggingWidget.key;
+      const from       = this.currentDraggingWidget.origin.selectedWidgets;
+
+      Vue.delete( from , from.indexOf( key ) );
+      dest_path.selectedWidgets.splice( dest_index, 0, this.currentDraggingWidget.key );
+      // Vue.set( dest_path.selectedWidgets, dest_index, this.currentDraggingWidget.key );
+
+      console.log( { dest_key, dest_path, dest_index } );
     },
     
     
     handleDropOnPlaceholder( dest ) {
+      // return;
       const key  = this.currentDraggingWidget.key;
       const from = this.currentDraggingWidget.origin.selectedWidgets;
       const to   = dest.selectedWidgets;
@@ -525,6 +555,11 @@ export default {
     },
 
     insertWidget( payload, where ) {
+
+      if ( ! this.isTruthyObject( this.available_widgets[ payload.key ] ) ) {
+        return;
+      }
+
       Vue.set( this.active_widgets, payload.key, { ...this.available_widgets[ payload.key ] } );
       Vue.set( where, 'selectedWidgets', payload.selected_widgets );
     },

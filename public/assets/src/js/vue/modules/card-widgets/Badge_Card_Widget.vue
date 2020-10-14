@@ -2,7 +2,7 @@
     <div class="cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-wrap">
         <div class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap">
             {{ label }}
-            <widget-action-tools @drag="$emit( 'drag' )" @dragend="$emit( 'dragend' )" @edit="$emit( 'edit' )"  @trash="$emit( 'trash' )" />
+            <widget-action-tools @drag="dragStart()" @dragend="dragEnd()" @edit="$emit( 'edit' )"  @trash="$emit( 'trash' )" />
         </div>
 
         <span class="cptm-widget-card-drop-append"
@@ -37,7 +37,7 @@ export default {
     computed: {
         dropAppendClass() {
             return {
-                'dropable': this.drop_append_dropable || this.widgetDropable,
+                'dropable': ( ! this.dragging && (this.drop_append_dropable || this.widgetDropable) ),
                 'drag-enter': this.drop_append_drag_enter,
             }
         }
@@ -47,10 +47,21 @@ export default {
         return {
             drop_append_dropable: false,
             drop_append_drag_enter: false,
+            dragging: false,
         }
     },
 
     methods: {
+        dragStart() {
+            this.dragging = true;
+            this.$emit( 'drag' );
+        },
+
+        dragEnd() {
+            this.dragging = false;
+            this.$emit( 'dragend' )
+        },
+
         handleDragEnter() {
             this.$emit( 'dragenter' );
             this.drop_append_drag_enter = true;
@@ -63,7 +74,8 @@ export default {
 
         handleDrop() {
             this.$emit( 'drop' );
-
+            
+            this.dragging = false;
             this.drop_append_dropable = false;
             this.drop_append_drag_enter = false;
         },

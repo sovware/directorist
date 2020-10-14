@@ -4,7 +4,7 @@
             <img src="https://via.placeholder.com/150" alt="">
         </p>
 
-        <widget-action-tools @drag="$emit( 'drag' )"  @edit="$emit( 'edit' )"  @trash="$emit( 'trash' )" />
+        <widget-action-tools @drag="$emit( 'drag' )" @dragend="$emit( 'dragend' )" @edit="$emit( 'edit' )"  @trash="$emit( 'trash' )" />
     </div>
 </template>
 

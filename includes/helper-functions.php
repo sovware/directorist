@@ -18,12 +18,12 @@ if ( !function_exists('get_help') ) {
     }
 }
 
-if ( ! function_exists( 'atbdp_required_polylang_url' ) ) :
+if ( ! function_exists( 'atbdp_polylang_is_active' ) ) :
     function atbdp_required_polylang_url() {
         if ( class_exists('Polylang') ) {
             $pll_current_language = pll_current_language();
             $pll_default_language = pll_default_language();
-
+            
             if ( $pll_current_language !== $pll_default_language ) {
                 return true;
             }
@@ -32,6 +32,7 @@ if ( ! function_exists( 'atbdp_required_polylang_url' ) ) :
         return false;
     }
 endif;
+
 
 if ( ! function_exists( 'atbdp_get_listing_order' ) ) :
     // atbdp_get_listing_order
@@ -1684,6 +1685,17 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
 }
 
 /**
+ * Get price meta html
+ *
+ * @return mixed
+ */
+function atbdp_get_price_meta_html($args) {
+    ob_start();
+    atbdp_get_shortcode_template( 'global/price-meta', $args );
+    return apply_filters('atbdp_listings_review_price', ob_get_clean());
+}
+
+/**
  * Print formatted Price inside a p tag
  *
  *
@@ -1714,7 +1726,7 @@ function atbdp_display_price_range($price_range)
         </span>';
 
     }
-    return $output;
+    return apply_filters('atbdp_listing_price', $output);
 
 }
 
@@ -1744,7 +1756,7 @@ function atbdp_listings_count_by_category($term_id)
         ),
     );
 
-    $total_categories = ATBDP_Listings_Model::get_listings( $args );
+    $total_categories = ATBDP_Listings_Data_Store::get_listings( $args );
 
     return count( $total_categories );
 }
@@ -1835,7 +1847,7 @@ function atbdp_listings_count_by_location($term_id)
         )
     );
 
-    $total_location = ATBDP_Listings_Model::get_listings( $args );
+    $total_location = ATBDP_Listings_Data_Store::get_listings( $args );
     return count( $total_location );
 }
 
@@ -2351,6 +2363,7 @@ function atbdp_image_cropping($attachmentId, $width, $height, $crop = true, $qua
 
 function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price = false )
 {
+    _deprecated_function( __FUNCTION__, '7.0' );
     ?>
     <div class="col-lg-12">
         <div class="row" <?php echo (get_directorist_option('grid_view_as', 'normal_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
@@ -2401,13 +2414,6 @@ function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price 
                 } ?>
             </div>
         </div>
-
-        <style>
-            #directorist.atbd_wrapper .atbdp_column {
-                width: <?php echo !empty($column_width) ? $column_width : '';?>;
-            }
-        </style>
-
     </div>
     <?php
     return true;
@@ -2415,7 +2421,12 @@ function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price 
 
 function related_listing_slider($all_listings, $pagenation, $is_disable_price, $templete = 'default')
 {
+    _deprecated_function( __FUNCTION__, '7.0' );
+
     if ('default' != $templete) return;
+
+    wp_enqueue_script('atbdp-related-listings-slider');
+
     $rel_listing_title = get_directorist_option('rel_listing_title', __('Related Listings', 'directorist'))
     ?>
     <div class="<?php echo is_directoria_active() ? 'containere' : 'containess-fluid'; ?>">
@@ -2424,7 +2435,6 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
         </div>
         <div class="atbd_margin_fix">
             <div class="related__carousel">
-
                 <?php if ($all_listings->have_posts()) {
                     while ($all_listings->have_posts()) {
                         $all_listings->the_post();
@@ -2483,22 +2493,20 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                         $listing_preview_img_class = ('no' == $listing_preview_img) ? ' listing_preview_img_none' : '';
                         ?>
                         <div class="related_single_carousel" style="margin: 0 10px;">
-                        <div class="atbd_single_listing atbd_listing_card 
+                            <div class="atbd_single_listing atbd_listing_card 
                             <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; 
                             echo esc_html($listing_preview_img_class);
                             ?>">
-                                <article
-                                        class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
+                                <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
                                     <figure class="atbd_listing_thumbnail_area">
                                         <div class="atbd_listing_image">
                                             <?php
                                             $disable_single_listing = get_directorist_option('disable_single_listing');
                                             if ('yes' == $listing_preview_img) {
-                                                if (empty($disable_single_listing)){?>
-                                            <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
-                                                <?php
-                                                }
-                                                the_thumbnail_card();
+                                                if (empty($disable_single_listing)){
+                                                ?>
+                                                <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php }
+                                                atbdp_thumbnail_card();
                                                 if (empty($disable_single_listing)) {
                                                     echo '</a>';
                                                 }
@@ -2524,58 +2532,14 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                         </div>
 
                                         <?php
-                                        $plan_hours = true;
-                                        $u_badge_html = '<span class="atbd_upper_badge">';
-                                        if (is_fee_manager_active()) {
-                                            $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
-                                        }
-                                        if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
-                                            //lets check is it 24/7
-                                            if ('2.2.6' > BDBH_VERSION) {
-                                                ?>
-                                                <style>
-                                                    .atbd_badge_close, .atbd_badge_open {
-                                                        position: absolute;
-                                                        left: 15px;
-                                                        top: 15px;
-                                                    }
-                                                </style>
-                                                <?php
-                                            }
-                                            $open = get_directorist_option('open_badge_text', __('Open Now', 'directorist'));
-                                            if (!empty($enable247hour)) {
-                                                $u_badge_html .= ' <span class="atbd_badge atbd_badge_open">' . $open . '</span>';
-
-                                            } else {
-                                                $bh_statement = BD_Business_Hour()->show_business_open_close($business_hours);
-
-                                                $u_badge_html .= $bh_statement;
-                                            }
-                                        }
-                                        $u_badge_html .= '</span>';
-
                                         /**
                                          * @since 5.0
+                                         * @hooked Directorist_Template_Hooks::business_hours_badge - 10
                                          */
-                                        echo apply_filters('atbdp_upper_badges', $u_badge_html);
+                                        ?>
+                                        <span class="atbd_upper_badge bh_only"><?php echo apply_filters('atbdp_upper_badges', '');?></span>
 
-
-                                        //Start lower badge
-                                        $l_badge_html = '<span class="atbd_lower_badge">';
-
-                                        if ($featured && !empty($display_feature_badge_cart)) {
-                                            $l_badge_html .= apply_filters( 'atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>' );
-                                        }
-
-                                        $popular_listing_id = atbdp_popular_listings(get_the_ID());
-                                        $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
-                                        if ($popular_listing_id === get_the_ID()) {
-                                            $l_badge_html .= $badge;
-                                        }
-                                        //print the new badge
-                                        $l_badge_html .= new_badge();
-                                        $l_badge_html .= '</span>';
-
+                                        <?php
                                         /**
                                          * @since 6.4.4
                                          */
@@ -2583,10 +2547,16 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
 
                                         /**
                                          * @since 5.0
+                                         * @hooked Directorist_Template_Hooks::featured_badge - 10
+                                         * @hooked Directorist_Template_Hooks::popular_badge - 15
+                                         * @hooked Directorist_Template_Hooks::new_listing_badge - 20
                                          */
-                                        echo apply_filters('atbdp_grid_lower_badges', $l_badge_html);
+                                        ?>
+                                        <span class="atbd_lower_badge"><?php echo apply_filters('atbdp_grid_lower_badges', '');?></span>
+                                        
+                                        <?php
                                         if (!empty($display_mark_as_fav)) {
-                                            // echo atbdp_listings_mark_as_favourite(get_the_ID());
+                                            echo atbdp_listings_mark_as_favourite(get_the_ID());
                                         }
                                         ?>
                                     </figure>
@@ -2699,10 +2669,10 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                                 ?>
                                                                 <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
                                                                     <li><p>
-                                                                            <span class="<?php atbdp_icon_type(true); ?>-phone"></span><a
-                                                                                    href="tel:<?php echo esc_html(stripslashes($phone_number)); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
-
-                                                                        </p></li>
+                                                                            <span class="<?php atbdp_icon_type(true); ?>-phone"></span>
+                                                                            <a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $phone_number ); ?>"><?php ATBDP_Helper::sanitize_html( $phone_number ); ?></a>
+                                                                        </p>
+                                                                    </li>
                                                                     <?php
                                                                 }
                                                             }
@@ -2845,6 +2815,8 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
 
 function listing_view_by_list($all_listings, $display_image, $show_pagination, $paged)
 {
+    _deprecated_function( __FUNCTION__, '7.0' );
+    
     $class_name = 'container-fluid';
     $container = apply_filters('list_view_container', $class_name);
 
@@ -2923,7 +2895,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                     $display_phone_field = get_directorist_option('display_phone_field', 1);
                     $display_image = !empty($display_image) ? $display_image : '';
                     $listing_preview_img = empty(get_directorist_option('display_preview_image', 1)) || ('no' == $display_image) ? 'no' : 'yes';
-                    $no_preview = ('no' == $listing_preview_img) ? ' atbd_listing_no_image' : '';
+                    $no_preview =  ('no' == $listing_preview_img) ? ' atbd_listing_no_image' : '';
                     ?>
                     <div class="atbd_single_listing atbd_listing_list <?php echo $no_preview; ?>">
                         <article
@@ -2931,12 +2903,12 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                             <figure class="atbd_listing_thumbnail_area">
                                 <?php
                                 $disable_single_listing = get_directorist_option('disable_single_listing');
-                                if( 'yes' == $listing_preview_img ){
+                                if('yes' == $listing_preview_img){
                                     if (empty($disable_single_listing)){ ?>
                                         <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"<?php echo $thumbnail_link_attr; ?>>
                                         <?php
                                     }
-                                    the_thumbnail_card();
+                                    atbdp_thumbnail_card();
                                     if (empty($disable_single_listing)) {
                                             echo '</a>';
                                     }
@@ -3653,24 +3625,6 @@ function bdas_dropdown_terms($args = array(), $echo = true)
 
 function atbdp_get_custom_field_ids($category = 0)
 {
-    $rq = [
-        'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
-        'post_status'    => 'publish',
-        'posts_per_page' => -1,
-        'post__in'       => '',
-        'meta_query'     => array(
-            array(
-                'key'     => 'searchable',
-                'value'   => 1,
-                'type'    => 'NUMERIC',
-                'compare' => '='
-            ),
-        ),
-        'orderby' => 'meta_value_num',
-        'order'   => 'ASC',
-        'fields'  => 'ids',
-    ];
-    
     // Get global fields
     $args = array(
         'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
@@ -3687,20 +3641,27 @@ function atbdp_get_custom_field_ids($category = 0)
 
     // Get category fields
     if ( $category > 0 ) {
-        $args['meta_query']['relation'] = 'OR';
-        $args['meta_query']['category_clause'] = [
-            'relation' => 'AND',
-            [
-                'key'     => 'category_pass',
-                'value'   => $category,
-                'compare' => 'EXISTS',
-            ],
-            [
-                'key'     => 'associate',
-                'value'   => 'categories',
-                'compare' => 'LIKE',
-            ],
-        ];
+        $args['meta_query'] = array(
+            'relation' => 'OR',
+            array(
+                'key'   => 'associate',
+                'value' => 'form'
+            ),
+
+            array(
+                'relation' => 'AND',
+                array(
+                    'key'     => 'category_pass',
+                    'value'   => $category,
+                    'compare' => 'EXISTS',
+                ),
+                array(
+                    'key'     => 'associate',
+                    'value'   => 'categories',
+                    'compare' => 'LIKE',
+                ),
+            ),
+        );
     }
 
     $field_ids = ATBDP_Cache_Helper::get_the_transient([
@@ -3954,12 +3915,12 @@ function search_category_location_filter($settings, $taxonomy_id, $prefix = '')
     if (ATBDP_CATEGORY == $taxonomy_id) {
         $category_slug = get_query_var('atbdp_category');
         $category = get_term_by('slug', $category_slug, ATBDP_CATEGORY);
-        $category_id = !empty($category_slug) ? $category->term_id : '';
+        $category_id = !empty($category->term_id) ? $category->term_id : '';
         $term_id = isset($_GET['in_cat']) ? $_GET['in_cat'] : $category_id;
     } else {
         $location_slug = get_query_var('atbdp_location');
         $location = get_term_by('slug', $location_slug, ATBDP_LOCATION);
-        $location_id = !empty($location_slug) ? $location->term_id : '';
+        $location_id = !empty($location->term_id) ? $location->term_id : '';
         $term_id = isset($_GET['in_loc']) ? $_GET['in_loc'] : $location_id;
     }
 
@@ -4161,82 +4122,82 @@ function atbdp_email_html($subject, $message){
     $allow_email_header = get_directorist_option('allow_email_header', 1);
     if ($allow_email_header){
         $header = apply_filters('atbdp_email_header', '<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_header" style=\'background-color: '.$email_header_color.'; color: #ffffff; border-bottom: 0; font-weight: bold; line-height: 100%; vertical-align: middle; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; border-radius: 3px 3px 0 0;\'>
-										<tr>
-											<td id="header_wrapper" style="padding: 36px 48px; display: block;">
-												<h1 style=\'font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: left; text-shadow: 0 1px 0 #ab79a1; color: #ffffff;\'>'.$subject.'</h1>
-											</td>
-										</tr>
-									</table>');
+                                        <tr>
+                                            <td id="header_wrapper" style="padding: 36px 48px; display: block;">
+                                                <h1 style=\'font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 30px; font-weight: 300; line-height: 150%; margin: 0; text-align: left; text-shadow: 0 1px 0 #ab79a1; color: #ffffff;\'>'.$subject.'</h1>
+                                            </td>
+                                        </tr>
+                                    </table>');
     }
 
     return '<!DOCTYPE html>
 <html lang="en-US">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Directorist</title>
-	</head>
-	<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="padding: 0;">
-		<div id="wrapper" dir="ltr" style="background-color: #f7f7f7; margin: 0; padding: 70px 0; width: 100%; -webkit-text-size-adjust: none;">
-			<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
-				<tr>
-					<td align="center" valign="top">
-						<div id="template_header_image">
-													</div>
-						<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container" style="background-color: #ffffff; border: 1px solid #dedede; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); border-radius: 3px;">
-							<tr>
-								<td align="center" valign="top">
-									<!-- Header -->
-									'.$header.'
-									<!-- End Header -->
-								</td>
-							</tr>
-							<tr>
-								<td align="center" valign="top">
-									<!-- Body -->
-									<table border="0" cellpadding="0" cellspacing="0" width="600" id="template_body">
-										<tr>
-											<td valign="top" id="body_content" style="background-color: #ffffff;">
-												<!-- Content -->
-												<table border="0" cellpadding="20" cellspacing="0" width="100%">
-													<tr>
-														<td valign="top" style="padding: 48px 48px 32px;">
-															<div id="body_content_inner" style=\'color: #636363; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 14px; line-height: 150%; text-align: left;\'>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Directorist</title>
+    </head>
+    <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="padding: 0;">
+        <div id="wrapper" dir="ltr" style="background-color: #f7f7f7; margin: 0; padding: 70px 0; width: 100%; -webkit-text-size-adjust: none;">
+            <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%">
+                <tr>
+                    <td align="center" valign="top">
+                        <div id="template_header_image">
+                                                    </div>
+                        <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_container" style="background-color: #ffffff; border: 1px solid #dedede; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); border-radius: 3px;">
+                            <tr>
+                                <td align="center" valign="top">
+                                    <!-- Header -->
+                                    '.$header.'
+                                    <!-- End Header -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" valign="top">
+                                    <!-- Body -->
+                                    <table border="0" cellpadding="0" cellspacing="0" width="600" id="template_body">
+                                        <tr>
+                                            <td valign="top" id="body_content" style="background-color: #ffffff;">
+                                                <!-- Content -->
+                                                <table border="0" cellpadding="20" cellspacing="0" width="100%">
+                                                    <tr>
+                                                        <td valign="top" style="padding: 48px 48px 32px;">
+                                                            <div id="body_content_inner" style=\'color: #636363; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 14px; line-height: 150%; text-align: left;\'>
 '.$message.'
-															</div>
-														</td>
-													</tr>
-												</table>
-												<!-- End Content -->
-											</td>
-										</tr>
-									</table>
-									<!-- End Body -->
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td align="center" valign="top">
-						<!-- Footer -->
-						<table border="0" cellpadding="10" cellspacing="0" width="600" id="template_footer">
-							<tr>
-								<td valign="top" style="padding: 0; border-radius: 6px;">
-									<table border="0" cellpadding="10" cellspacing="0" width="100%">
-										<tr>
-											<td colspan="2" valign="middle" id="credit" style=\'border-radius: 6px; border: 0; color: #8a8a8a; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 12px; line-height: 150%; text-align: center; padding: 24px 0;\'>
-											</td>
-										</tr>
-									</table>
-								</td>
-							</tr>
-						</table>
-						<!-- End Footer -->
-					</td>
-				</tr>
-			</table>
-		</div>
-	</body>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <!-- End Content -->
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- End Body -->
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" valign="top">
+                        <!-- Footer -->
+                        <table border="0" cellpadding="10" cellspacing="0" width="600" id="template_footer">
+                            <tr>
+                                <td valign="top" style="padding: 0; border-radius: 6px;">
+                                    <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                                        <tr>
+                                            <td colspan="2" valign="middle" id="credit" style=\'border-radius: 6px; border: 0; color: #8a8a8a; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; font-size: 12px; line-height: 150%; text-align: center; padding: 24px 0;\'>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <!-- End Footer -->
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
 </html>';
 }
 
@@ -4378,7 +4339,7 @@ function atbdp_logged_in_user(){
     return _wp_get_current_user()->exists();
 }
 
-function the_thumbnail_card($img_src = '', $_args = array())
+function atbdp_thumbnail_card($img_src = '', $_args = array())
 {
     $args = apply_filters('atbdp_preview_image_args', $_args);
 
@@ -4513,6 +4474,12 @@ function the_thumbnail_card($img_src = '', $_args = array())
 
     echo $the_html;
 }
+
+function the_thumbnail_card($img_src = '', $_args = array()) {
+    _deprecated_function( __FUNCTION__, '7.0', 'atbdp_thumbnail_card()' );
+    return atbdp_thumbnail_card($img_src,$_args);
+}
+
 
 // get_plasma_slider
 function get_plasma_slider()

@@ -138,6 +138,7 @@ export default {
 
         getValidation( option_key, option_group_key, option ) {
             let validation = [];
+
             
             let unique = option.unique;
             let value_length = option.value.length;
@@ -153,7 +154,7 @@ export default {
         },
 
         hasDuplicateFeildValue( current_field_key, current_value, current_group_index ) {
-            if ( ! current_value.length ) { return false; }
+            if ( current_value === '' ) { return false; }
 
             let matched_fields = [];
             let has_duplicate = false;

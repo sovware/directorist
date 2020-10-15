@@ -176,7 +176,7 @@ export default {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;
 
-                    // console.log( response.data );
+                    console.log( response.data );
                     
                     if ( response.data.post_id && ! isNaN( response.data.post_id ) ) {
                         self.listing_type_id = response.data.post_id;

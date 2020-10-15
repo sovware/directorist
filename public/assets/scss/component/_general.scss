@@ -1688,3 +1688,19 @@ input#privacy_policy,
 .atbd_term_and_condition_area input {
   outline: none;
 }
+
+.listing_preview_img_none .atbd_single_listing_wrapper{
+  border: 1px solid #e3e6ef !important;
+  border-bottom: 0 none !important;
+  border-radius: 4px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.listing_preview_img_none .atbd_listing_thumbnail_area .atbdp_add_to_fav_listings{
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.atbd_single_listing.atbd_listing_list.atbd_listing_no_image{
+  border-left: 1px solid #e3e6ef !important;
+  border-right: 1px solid #e3e6ef !important;
+}

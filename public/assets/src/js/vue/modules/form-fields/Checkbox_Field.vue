@@ -81,6 +81,18 @@ export default {
     watch: {
         local_value() {
             this.$emit( 'update', this.local_value );
+        },
+
+        theOptions() {
+            if ( ! this.local_value.length ) { return; }
+
+            let options_values = this.theOptions.map( option => {
+                if ( typeof option.value !== 'undefined' ) { return option.value; }
+            });
+
+            this.local_value = this.local_value.filter( value => {
+                return options_values.includes( value );
+            });
         }
     },
 
@@ -112,6 +124,7 @@ export default {
             }
 
             let terget_fields = this.getTergetFields( this.optionsSource.where );
+            const id_prefix = ( typeof this.optionsSource.id_prefix === 'string' ) ? this.optionsSource.id_prefix + '-' : this.name + '-';
             
             if ( ! terget_fields || typeof terget_fields !== 'object' ) {
                 return false;
@@ -126,7 +139,6 @@ export default {
                 filter_by = this.getTergetFields( this.optionsSource.filter_by );
             }
 
-            
             let has_sourcemap = false;
 
             if ( this.optionsSource.source_map && typeof this.optionsSource.source_map === 'object'  ) {
@@ -148,6 +160,17 @@ export default {
             if ( ! terget_fields && typeof terget_fields !== 'object' ) {
                 return false;
             }
+            
+
+            let i = 0;
+            for ( let option of terget_fields ) {
+                let id = ( typeof option.id !== 'undefined' ) ? option.id : '';
+                
+                terget_fields[ i ].id = id_prefix + id;
+                i++;
+            }
+
+            // console.log( {terget_fields} );
 
             return terget_fields;
         },
@@ -160,34 +183,31 @@ export default {
     },
 
     methods: {
-        updateValue( option_index, status, option ) {
+        updateValue( option_index, checked, option ) {
             let value       = this.getValue( option );
             let value_index = this.local_value.indexOf( value );
-            // let action      = '';
+            let action      = '';
 
-            if ( status && value_index === -1 ) {
+            if ( checked && ! this.local_value.includes( value ) ) {
                 this.local_value.splice( this.local_value.length , 1, value)
-                // action = 'added';
+                action = 'added';
             }
 
-            if ( ! status && value_index != -1 ) {
+            if ( ! checked && this.local_value.includes( value ) ) {
                 this.local_value.splice( value_index, 1 );
-                // action = 'removed';
+                action = 'removed';
             }
 
-            // console.log( {name: this.name, option_index, status, option, action, local_value: this.local_value} );
+            // console.log( {name: this.name, action, option_index, local_value: this.local_value} );
         },
 
         getCheckedStatus( option ) {
-            let status = ( this.local_value.indexOf( this.getValue( option ) ) > -1 ) ? true : false;
-
-            // console.log( { status } );
-            
-            return status;
+            // console.log( { name: this.name, local_value: this.local_value, value: this.getValue( option ) } );
+            return this.local_value.includes( this.getValue( option ) );
         },
 
         getValue( option ) {
-            return ( option.value && option.value.length ) ? option.value : '';
+            return ( typeof option.value !== 'undefined' ) ? option.value : '';
         },
 
         getTheOptions() {

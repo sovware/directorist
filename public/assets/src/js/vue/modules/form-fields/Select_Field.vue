@@ -82,6 +82,18 @@ export default {
         this.setup();
     },
 
+    watch: {
+        local_value() {
+            this.$emit( 'update', this.local_value );
+        },
+
+        theOptions() {
+            if ( ! this.valueIsValid( this.local_value ) ) {
+                this.local_value = '';
+            }
+        },
+    },
+
     computed: {
         ...mapState({
             fields: 'fields',
@@ -107,7 +119,6 @@ export default {
             if ( typeof this.optionsSource.where !== 'string' ) {
                 return false;
             }
-            const self = this;
 
             let terget_fields = this.getTergetFields( this.optionsSource.where );
             
@@ -162,14 +173,25 @@ export default {
                 this.default_option = this.defaultOption;
             }
 
-            this.local_value = this.value;
-            this.$emit( 'update', this.local_value );
+            if ( this.valueIsValid( this.value ) ) {
+                this.local_value = this.value;
+            }
+            
         },
 
         update_value( value ) {
-            this.local_value = value;
-            this.$emit( 'update', this.local_value );
+            this.local_value = ( ! isNaN( Number( value ) ) ) ? Number( value ) : value;
         },
+
+        valueIsValid( value ) {
+            let options_values = this.theOptions.map( option => {
+                if ( typeof option.value !== 'undefined' ) {
+                    return ( ! isNaN( Number( option.value ) ) ) ? Number( option.value ) : option.value
+                }
+            });
+
+            return options_values.includes( value );
+        }
 
         /* syncValidationWithLocalState( validation_log ) {
 

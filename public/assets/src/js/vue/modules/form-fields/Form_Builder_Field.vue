@@ -143,6 +143,7 @@
                         <component
                           :is="option.type + '-field'"
                           :key="option_key"
+                          :field-id="option_key"
                           v-if="theFieldIsActive(option_key, field_key)"
                           v-bind="getSanitizedFieldsOptions(option)"
                           :value="active_fields[field_key][option_key]"

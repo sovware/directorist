@@ -2960,7 +2960,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 ],
             ];
 
-            $this->fields = apply_filters( 'atbdp_vue_component_field_list', [
+            $this->fields = apply_filters( 'atbdp_listing_type_settings_field_list', [
                 'name' => [
                     'label' => 'Name *',
                     'type'  => 'text',
@@ -3116,8 +3116,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'options-source' => [
                                 'where'      => 'package_list.options',
                                 'filter_by'  => 'package_list.value',
-                                'value_from' => 'value',
-                                'label_from' => 'label'
+                                'id_prefix'  => 'form_group',
                             ],
                         ]
                     ],
@@ -3132,10 +3131,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'required'    => true,
                                 'label'       => 'Title',
                                 'placeholder' => '',
-                                'tag_with_plan' => true,
-                                'plans' => [
-                                    ['plan_id' => 1, 'max_length' => 200]
-                                ],
                             ],
                         ],
                         'groups' => [
@@ -3462,7 +3457,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
             $wc_pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-woocommerce-pricing-plans" target="_blank">WooCommerce Pricing Plans</a>';
             $plan_promo = sprintf(__('Monetize your website by selling listing plans using %s or %s extensions.', 'directorist'), $pricing_plan, $wc_pricing_plan);
-            $this->layouts = apply_filters('atbdp_listing_type_settings', [
+            
+            $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
                 'general' => [
                     'label' => 'General',
                     'icon' => '<i class="uil uil-estate"></i>',

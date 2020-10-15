@@ -83,10 +83,10 @@ export default {
 
     methods: {
         mapDataByMap( data, map ) {
-            let flatten_data = JSON.parse( JSON.stringify( data ) );
+            const flatten_data = JSON.parse( JSON.stringify( data ) );
+            const flatten_map = JSON.parse( JSON.stringify( map ) );
            
             let mapped_data = flatten_data.map( element => {
-                let flatten_map = JSON.parse( JSON.stringify( map ) );
                 let item = {};
 
                 for ( let key in flatten_map) {
@@ -102,29 +102,27 @@ export default {
         },
 
         filterDataByValue( data, value ) {
-            let value_is_array = ( value && typeof value === 'object' && value.length ) ? true : false;
+            let value_is_array = ( value && typeof value === 'object' ) ? true : false;
             let value_is_text  = ( typeof value === 'string' || typeof value === 'number' ) ? true : false;
             let flatten_data   = JSON.parse( JSON.stringify( data ) );
 
-            let filtered_data = flatten_data.filter( item => {
+            return flatten_data.filter( item => {
                 if ( value_is_text && value ===  item.value ) {
                     // console.log( 'value_is_text', item.value, value );
                     return item;
                 }
                 
-                if ( value_is_array && value.indexOf( item.value ) != -1 ) {
+                if ( value_is_array && value.includes( item.value ) ) {
                     // console.log( 'value_is_array', item.value, value );
                     return item;
                 }
 
                 if ( ! value_is_text && ! value_is_array ) {
-                    // console.log( 'no filter', item.value, value );
+                    // console.log( 'no filter', item.value, value );   
                     return item;
                 }
 
             });
-
-            return filtered_data;
         },
 
         getFormFieldName( field_type ) {

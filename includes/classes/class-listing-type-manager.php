@@ -24,19 +24,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         // save_post_type_data
         public function save_post_type_data()
         {
-
-            /*  wp_send_json( [
-                'general_config' => $this->maybe_json( $_POST['general_config'] ),
-                'status' => false,
-                'status_log' => [
-                    'name_is_missing' => [
-                        'type' => 'error',
-                        'message' => 'testing',
-                    ],
-                ],
-            ], 200 ); */
-
-            if (empty($_POST['name'])) {
+            if ( empty( $_POST['name'] ) ) {
                 wp_send_json([
                     'status' => false,
                     'status_log' => [
@@ -45,7 +33,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'message' => 'Name is missing',
                         ],
                     ],
-                ], 200);
+                ], 200 );
             }
 
             $term_id = 0;
@@ -148,11 +136,14 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         {
             $string_alt = $string;
 
-            if (preg_match('/(\\\")/', $string_alt)) {
-                $string_alt = preg_replace('/(\\\")/', '"', $string_alt);
-                $string_alt = json_decode($string_alt, true);
-                $string = (!is_null($string_alt)) ? $string_alt : $string;
+            if ( preg_match('/(\\\")/', $string_alt) ) {
+                $string_alt = preg_replace( '/(\\\")/', '"', $string_alt );
+                $string_alt = json_decode( $string_alt, true );
+                $string     = ( ! is_null( $string_alt ) ) ? $string_alt : $string;
             }
+            
+            $test_json = json_decode( $string, true );
+            if ( ! is_null($test_json) ) { $string = $test_json; }
 
             return $string;
         }
@@ -3112,6 +3103,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ['key' => 'tag_with_plan', 'value' => true]
                                 ]
                             ]],
+                            
                             'options-source' => [
                                 'where'      => 'package_list.options',
                                 'filter_by'  => 'package_list.value',
@@ -3137,6 +3129,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => 'General Group',
                                 'lock' => true,
                                 'fields' => ['title'],
+                                'plans' => []
                             ],
                         ]
                     ],
@@ -3453,6 +3446,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 ],
 
             ] );
+
             $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
             $wc_pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-woocommerce-pricing-plans" target="_blank">WooCommerce Pricing Plans</a>';
             $plan_promo = sprintf(__('Monetize your website by selling listing plans using %s or %s extensions.', 'directorist'), $pricing_plan, $wc_pricing_plan);
@@ -3720,7 +3714,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             }
 
             // $test = get_term_meta( $listing_type_id, 'submission_form_fields' );
-            // var_dump( $test );
+            // var_dump( $this->fields[ 'package_list' ]['value'] );
         }
 
         // handle_delete_listing_type_request

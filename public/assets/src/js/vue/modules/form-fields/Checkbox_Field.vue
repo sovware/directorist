@@ -3,24 +3,26 @@
         <label for="">{{label}}</label>
 
         <div class="cptm-checkbox-area">
-            <div class="cptm-checkbox-item" v-for="( option, option_index ) in getTheOptions()" :key="option_index">
+            <div class="cptm-checkbox-item" v-for="( option, option_index ) in theOptions" :key="option_index">
                 <input type="checkbox" class="cptm-checkbox" 
-                    :name="( typeof option.name !== 'undefined' ) ? option.name : ''"
-                    :value="( typeof option.value !== 'undefined' ) ? option.value : ''"
                     :id="( typeof option.id !== 'undefined' ) ? option.id : ''"
-                    :checked="getCheckedStatus( option )"
-                    @change="updateValue( option_index, $event.target.checked, option )"
+                    :value="( typeof option.value !== 'undefined' ) ? option.value : ''"
+                    v-model="local_value"
                 >
+
                 <label :for="( typeof option.id !== 'undefined' ) ? option.id : ''" class="cptm-checkbox-ui"></label>
                 <label :for="( typeof option.id !== 'undefined' ) ? option.id : ''">
                     {{ option.label }}
                 </label>
             </div>
         </div>
+
+        <p class="cptm-info-text" v-if="! theOptions.length">{{ infoTextForNoOption }}</p>
     </div>
 </template>
 
 <script>
+import Vue from 'vue';
 import { mapState } from 'vuex';
 import helpers from './../../mixins/helpers';
 import validation from './../../mixins/validation';
@@ -49,7 +51,6 @@ export default {
             default: '',
         },
         value: {
-            type: Array,
             default: [],
         },
         options: {
@@ -62,6 +63,11 @@ export default {
             type: [String, Number],
             required: false,
             default: '',
+        },
+        infoTextForNoOption: {
+            type: String,
+            required: false,
+            default: 'Nothing available',
         },
         validation: {
             type: Array,
@@ -79,9 +85,12 @@ export default {
             this.$emit( 'update', this.local_value );
         },
 
-        theOptions() {
-            if ( ! this.local_value.length ) { return; }
-            this.local_value = this.filtereValue( this.local_value );
+        hasOptionsSource() {
+            let has_deprecated_value = this.hasDeprecatedValue( this.local_value );
+
+            if ( has_deprecated_value ) {
+                this.local_value = this.removeDeprecatedValue( this.local_value, has_deprecated_value );
+            }
         }
     },
 
@@ -150,7 +159,6 @@ export default {
                 return false;
             }
             
-
             let i = 0;
             for ( let option of terget_fields ) {
                 let id = ( typeof option.id !== 'undefined' ) ? option.id : '';
@@ -172,24 +180,6 @@ export default {
     },
 
     methods: {
-        updateValue( option_index, checked, option ) {
-            let value       = this.getValue( option );
-            let value_index = this.local_value.indexOf( value );
-            // let action      = '';
-
-            if ( checked && ! this.local_value.includes( value ) ) {
-                this.local_value.splice( this.local_value.length , 1, value)
-                // action = 'added';
-            }
-
-            if ( ! checked && this.local_value.includes( value ) ) {
-                this.local_value.splice( value_index, 1 );
-                // action = 'removed';
-            }
-
-            // console.log( {name: this.name, action, option_index, local_value: this.local_value} );
-        },
-
         getCheckedStatus( option ) {
             // console.log( { name: this.name, local_value: this.local_value, value: this.getValue( option ) } );
             return this.local_value.includes( this.getValue( option ) );
@@ -211,11 +201,44 @@ export default {
             let options_values = this.theOptions.map( option => {
                 if ( typeof option.value !== 'undefined' ) { return option.value; }
             });
-
             return value.filter( value_elm => {
                 return options_values.includes( value_elm );
             });
+        },
+
+        hasDeprecatedValue( values ) {
+            if ( ! values && typeof values !== 'object' ) {
+                return [];
+            }
+
+            let flatten_values = JSON.parse( JSON.stringify( values ) );
+            let options_values = this.theOptions.map( option => {
+                if ( typeof option.value !== 'undefined' ) { return option.value; }
+            });
+
+            let deprecated_value = flatten_values.filter( value_elm => {
+                return ! options_values.includes( value_elm );
+            });
+
+            if ( ! deprecated_value && typeof deprecated_value !== 'object' ) {
+                return false;
+            }
+
+            if ( ! deprecated_value.length ) {
+                return false;
+            }
+
+            return deprecated_value;
+        },
+
+        removeDeprecatedValue( _original_value, _deprecated_value ) {
+            let original_value = JSON.parse( JSON.stringify( _original_value ) );
+
+            return original_value.filter( value_elm => {
+                return ! _deprecated_value.includes( value_elm );
+            });
         }
+
     },
 }
 </script>

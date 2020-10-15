@@ -29,6 +29,8 @@ export default {
             if ( typeof this.syncValidationWithLocalState === 'function' ) {
                 validation_log = this.syncValidationWithLocalState( validation_log );
             }
+
+            // console.log( { validation_log } );
             
             return validation_log;
         },
@@ -48,8 +50,6 @@ export default {
 
             return the_status;
         },
-
-        
 
         validationMessages() {
             if ( ! this.validationStatus.messages || typeof this.validationStatus.messages !== 'object' ) {
@@ -110,12 +110,12 @@ export default {
                 this.local_value === this.default_option.value ) {
                     return false;
             }
-            
-            if ( ! this.options || typeof this.options !== 'object' ) {
+
+            if ( ! this.theOptions || typeof this.theOptions !== 'object' ) {
                 return false;
             }
 
-            for ( let option of this.options ) {
+            for ( let option of this.theOptions ) {
                 if ( typeof option.options !== 'undefined' ) {
                     for ( let sub_option of option.options ) {
                         if ( sub_option.value === this.local_value ) {

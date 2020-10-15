@@ -266,6 +266,19 @@ class Directorist_Listing_Forms {
 		return $plan_slider;       
 	}
 
+	public function get_listing_types() {
+		$listing_types = [];
+		$all_types = get_terms(array(
+			'taxonomy'   => 'atbdp_listing_types',
+			'hide_empty' => false,
+		));
+
+		foreach ( $all_types as $type ) {
+			$listing_types[$type->term_id] = $type->name;
+		}
+		return $listing_types;
+	}
+
 	public function get_add_listing_image_title() {
 		if ($this->get_plan_video() && $this->get_plan_slider()) {
 			$title = __("Images & Video", 'directorist');
@@ -744,6 +757,63 @@ class Directorist_Listing_Forms {
 			atbdp_get_shortcode_template( 'forms/add-listing-custom-fields', $args );
 		}
 	}
+
+	public function add_listing_section_template( $section_data ) {
+		atbdp_get_shortcode_template( 'forms/fields/section', array( 'section_data' => $section_data ) );
+	}
+
+	public function add_listing_field_template( $field_data ) {
+		$listing_id = $this->get_add_listing_id();
+		
+		$value = '';
+		if (!empty($listing_id)) {
+			$field_id = $field_data['id'];
+			$meta_options = get_post_meta( $listing_id, 'directorist_options', true );
+			if ( !empty($meta_options['add_listing_fields'][$field_id]) ) {
+				$value = $meta_options['add_listing_fields'][$field_id];
+			}
+		}
+		$field_data['value'] = $value;
+
+		switch ($field_data['widget_name']) {
+			case 'text':
+			atbdp_get_shortcode_template( 'forms/fields/text', $field_data );
+			break;
+			
+			default:
+			break;
+		}
+	}
+
+	public function get_current_listing_type() {
+		$listing_types = $this->get_listing_types();
+		$listing_type_count = count( $listing_types );
+
+		if ($listing_type_count == 1 ) {
+			$type = array_key_first( $listing_types );
+		}
+		else {
+			$type = isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ? $_GET['listing_type'] : '';
+		}
+		return (int) $type;
+	}
+
+	public function build_form_data( $type ) {
+		$form_data = [];
+		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
+
+		foreach ( $submission_form_fields['groups'] as $group ) {
+			$section = $group;
+			$section['fields'] = [];
+			foreach ( $group['fields'] as $field ) {
+				$section['fields'][$field] = $submission_form_fields['fields'][$field];
+			}
+			$form_data[] = $section;
+			
+		}
+
+		return $form_data;
+	}
 	
 	public function render_shortcode_add_listing($atts) {
 		wp_enqueue_script('adminmainassets');
@@ -791,8 +861,8 @@ class Directorist_Listing_Forms {
 
 		$args = array(
 			'p_id'               => $p_id,
+			'listing_form'       => $this,
 			'listing_info'       => $this->get_listing_info(),
-			'container_fluid'    => is_directoria_active() ? 'container' : 'container-fluid',
 			'select_listing_map' => get_directorist_option('select_listing_map', 'google'),
 			'display_map_for'    => get_directorist_option('display_map_for', 0),
 			'display_map_field'  => get_directorist_option('display_map_field', 1),
@@ -820,7 +890,27 @@ class Directorist_Listing_Forms {
 		}
 
 		ATBDP()->enquirer->add_listing_scripts_styles();
-		return atbdp_return_shortcode_template( 'forms/add-listing', $args );
+
+		$listing_types = $this->get_listing_types();
+		$listing_type_count = count( $listing_types );
+
+		// if no listing type exists
+		if ( $listing_type_count == 0 ) {
+			return atbdp_return_shortcode_template( 'forms/add-listing-notype', $args );
+		}
+
+		$type = $this->get_current_listing_type();
+
+		if ( $type ) {
+			$args['form_data'] = $this->build_form_data( $type );
+			return atbdp_return_shortcode_template( 'forms/add-listing', $args );
+		}
+
+		$listing_type_args = [
+			'listing_types' => $listing_types,
+		];
+
+		return atbdp_return_shortcode_template( 'forms/add-listing-type', $listing_type_args );
 	}
 
 	public function render_shortcode_user_login() {

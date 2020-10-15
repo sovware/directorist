@@ -5,7 +5,7 @@
  * @version 6.7
  */
 ?>
-<div class="form-group" id="atbdp_listing_title">
+<div class="form-group" class="directorist-text-field">
 	<?php if (!empty($label)): ?>
 		<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo esc_html( $label )?>:<?php echo !empty($required) ? Directorist_Listing_Forms::instance()->add_listing_required_html() : '';?></label>
 	<?php endif; ?>

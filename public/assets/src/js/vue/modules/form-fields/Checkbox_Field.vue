@@ -4,19 +4,15 @@
 
         <div class="cptm-checkbox-area">
             <div class="cptm-checkbox-item" v-for="( option, option_index ) in getTheOptions()" :key="option_index">
-                <pre>
-                    {{option.value}}
-                </pre>
                 <input type="checkbox" class="cptm-checkbox" 
-                    :name="( option.name && option.name.length ) ? option.name : ''"
-                    :value="option.value"
-                    :id="( option.id && option.id.length ) ? option.id : ''"
+                    :name="( typeof option.name !== 'undefined' ) ? option.name : ''"
+                    :value="( typeof option.value !== 'undefined' ) ? option.value : ''"
+                    :id="( typeof option.id !== 'undefined' ) ? option.id : ''"
                     :checked="getCheckedStatus( option )"
                     @change="updateValue( option_index, $event.target.checked, option )"
                 >
-                <label :for="( option.id && option.id.length ) ? option.id : ''" class="cptm-checkbox-ui"></label>
-
-                <label :for="( option.id && option.id.length ) ? option.id : ''">
+                <label :for="( typeof option.id !== 'undefined' ) ? option.id : ''" class="cptm-checkbox-ui"></label>
+                <label :for="( typeof option.id !== 'undefined' ) ? option.id : ''">
                     {{ option.label }}
                 </label>
             </div>
@@ -38,23 +34,23 @@ export default {
     },
     props: {
         label: {
-            type: String,
+            type: [String, Number],
             required: false,
             default: '',
         },
         id: {
-            type: String,
+            type: [String, Number],
             required: false,
             default: '',
         },
         name: {
-            type: String,
+            type: [String, Number],
             required: false,
             default: '',
         },
         value: {
-            type: [String, Number],
-            default: '',
+            type: Array,
+            default: [],
         },
         options: {
             required: false,
@@ -74,9 +70,7 @@ export default {
     },
 
     created() {
-        
-        this.local_value = this.value;
-
+        this.local_value = this.filtereValue( this.value );
         this.$emit( 'update', this.local_value );
     },
 
@@ -87,14 +81,7 @@ export default {
 
         theOptions() {
             if ( ! this.local_value.length ) { return; }
-
-            let options_values = this.theOptions.map( option => {
-                if ( typeof option.value !== 'undefined' ) { return option.value; }
-            });
-
-            this.local_value = this.local_value.filter( value => {
-                return options_values.includes( value );
-            });
+            this.local_value = this.filtereValue( this.local_value );
         }
     },
 
@@ -188,16 +175,16 @@ export default {
         updateValue( option_index, checked, option ) {
             let value       = this.getValue( option );
             let value_index = this.local_value.indexOf( value );
-            let action      = '';
+            // let action      = '';
 
             if ( checked && ! this.local_value.includes( value ) ) {
                 this.local_value.splice( this.local_value.length , 1, value)
-                action = 'added';
+                // action = 'added';
             }
 
             if ( ! checked && this.local_value.includes( value ) ) {
                 this.local_value.splice( value_index, 1 );
-                action = 'removed';
+                // action = 'removed';
             }
 
             // console.log( {name: this.name, action, option_index, local_value: this.local_value} );
@@ -214,6 +201,20 @@ export default {
 
         getTheOptions() {
             return JSON.parse( JSON.stringify( this.theOptions ) );
+        },
+
+        filtereValue( value ) {
+            if ( ! value && typeof value !== 'object' ) {
+                return [];
+            }
+
+            let options_values = this.theOptions.map( option => {
+                if ( typeof option.value !== 'undefined' ) { return option.value; }
+            });
+
+            return value.filter( value_elm => {
+                return options_values.includes( value_elm );
+            });
         }
     },
 }

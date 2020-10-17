@@ -3136,6 +3136,34 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
                 ],
 
+                'single_listings_quick_actions' => [
+                    'type'         => 'form-builder',
+                    'enable_group' => false,
+                    'widgets'      => $form_field_widgets,
+                    'value'        => [],
+                ],
+
+                'single_listings_contents' => [
+                    'type'         => 'form-builder',
+                    'enable_group' => false,
+                    'widgets'      => $form_field_widgets,
+                    'value'        => [],
+                ],
+
+                'single_listings_quick_info' => [
+                    'type'         => 'form-builder',
+                    'enable_group' => false,
+                    'widgets'      => $form_field_widgets,
+                    'value'        => [],
+                ],
+
+                'single_listings_similar_listings' => [
+                    'type'         => 'form-builder',
+                    'enable_group' => false,
+                    'widgets'      => $form_field_widgets,
+                    'value'        => [],
+                ],
+
                 'search_form_fields' => [
                     'type'    => 'form-builder',
                     'widgets' => $search_form_widgets,
@@ -3373,7 +3401,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                             'top_left' => [
-                                'maxWidget' => 2,
+                                'maxWidget' => 4,
                                 'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                             'bottom_right' => [
@@ -3397,7 +3425,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ['label' => 'Preset', 'widgets' => ['listing_title']],
                                     ['label' => 'Custom', 'widgets' => ['listing_title']],
                                 ],
-                                'acceptedWidgets' => ["listing_title"],
+                                'acceptedWidgets' => ["listing_title", "open_close_badge", "favorite_badge"],
                             ],
                         ],
 
@@ -3496,29 +3524,29 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         'other' => [
                             'label' => __('Other', 'directorist'),
                             'sections' => [
-                                'labels' => [
-                                    [
-                                        'title'       => __('Default Status', 'directorist'),
-                                        'description' => __('Need help?', 'directorist'),
-                                        'fields'      => [
-                                            'new_listing_status',
-                                            'edit_listing_status',
-                                        ],
+                                'listing_status' => [
+                                    'title' => __('Default Status', 'directorist'),
+                                    'description' => __('Need help?', 'directorist'),
+                                    'fields'      => [
+                                        'new_listing_status',
+                                        'edit_listing_status',
                                     ],
-                                    [
-                                        'title'       => __('Expiration', 'directorist'),
-                                        'description' => __('Default time to expire a listing.', 'directorist'),
-                                        'fields'      => [
-                                            'default_expiration',
-                                        ],
+                                ],
+
+                                'expiration' => [
+                                    'title'       => __('Expiration', 'directorist'),
+                                    'description' => __('Default time to expire a listing.', 'directorist'),
+                                    'fields'      => [
+                                        'default_expiration',
                                     ],
-                                    [
-                                        'title'       => __('Export & Import Config File', 'directorist'),
-                                        'description' => __('Bulk import and export all the form, layout and settings', 'directorist'),
-                                        'fields'      => [
-                                            'export',
-                                            'import',
-                                        ],
+                                ],
+
+                                'export_import' => [
+                                    'title'       => __('Export & Import Config File', 'directorist'),
+                                    'description' => __('Bulk import and export all the form, layout and settings', 'directorist'),
+                                    'fields'      => [
+                                        'export',
+                                        'import',
                                     ],
                                 ],
                             ],
@@ -3529,6 +3557,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'submission_form' => [
                     'label' => 'Submission Form',
                     'icon' => '<span class="uil uil-file-edit-alt"></span>',
+                    'container' => 'full-width',
                     'sections' => [
                         'form_fields' => [
                             'title' => __('Select or create fields for this listing type', 'directorist'),
@@ -3544,10 +3573,62 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'single_page_layout' => [
                     'label' => 'Single Page Layout',
                     'icon' => '<span class="uil uil-credit-card"></span>',
+                    'container' => 'full-width',
+                    'submenu' => [
+                        'quick_actions' => [
+                            'label' => 'Quick Actions',
+                            'sections' => [
+                                'quick_actions' => [
+                                    'title' => 'Add Quick Actions',
+                                    'description' => 'need help?',
+                                    'fields' => [
+                                        'single_listings_quick_actions'
+                                    ],
+                                ]
+                            ]
+                        ],
+                        'contents' => [
+                            'label' => 'Contents',
+                            'sections' => [
+                                'contents' => [
+                                    'title' => 'Contents',
+                                    'description' => 'need help?',
+                                    'fields' => [
+                                        'single_listings_contents'
+                                    ],
+                                ]
+                            ]
+                        ],
+                        'quick_info' => [
+                            'label' => 'Quick info',
+                            'sections' => [
+                                'quick_info' => [
+                                    'title' => 'Quick info',
+                                    'description' => 'need help?',
+                                    'fields' => [
+                                        'single_listings_quick_info'
+                                    ],
+                                ]
+                            ]
+                        ],
+                        'similar_listings' => [
+                            'label' => 'Similar Listings',
+                            'sections' => [
+                                'similar_listings' => [
+                                    'title' => 'Similar Listings',
+                                    'description' => 'need help?',
+                                    'fields' => [
+                                        'single_listings_similar_listings'
+                                    ],
+                                ]
+                            ]
+                        ],
+                    ]
                 ],
                 'listings_card_layout' => [
                     'label' => 'Listings Card Layout',
                     'icon' => '<span class="uil uil-list-ul"></span>',
+                    'container' => 'full-width',
                     'submenu' => [
                         'grid_view' => [
                             'label' => 'Listings Card Grid Layout',
@@ -3592,6 +3673,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'search_forms' => [
                     'label' => 'Search Forms',
                     'icon' => '<span class="uil uil-search"></span>',
+                    'container' => 'full-width',
                     'sections' => [
                         'form_fields' => [
                             'title' => __('Customize the search form for this listing type', 'directorist'),

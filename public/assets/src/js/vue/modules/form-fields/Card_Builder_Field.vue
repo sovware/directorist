@@ -465,6 +465,10 @@ export default {
         return false;
       }
 
+       if ( path.selectedWidgets.includes( this._currentDraggingWidget.key ) ) {
+        return true;
+      }
+
       if ( this.maxWidgetLimitIsReached( path ) ) {
         return false;
       }

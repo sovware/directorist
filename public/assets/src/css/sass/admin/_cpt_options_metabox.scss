@@ -253,7 +253,7 @@ $light-gray: #f4f5f7;
 // ====================
 
 .cptm-title-area {
-  width: 510px;
+  // width: 510px;
   margin: 0 auto 40px;
 }
 .submission-form {
@@ -325,6 +325,13 @@ $light-gray: #f4f5f7;
   flex-grow: 1;
   width: calc(50% - 30px);
   padding: 0 15px;
+}
+
+.cptm-section {
+  margin-bottom: 50px;
+  &:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .cptm-form-builder-preset-fields:not(:last-child) {
@@ -885,8 +892,9 @@ input[type="checkbox"].cptm-checkbox {
   background-color: transparent;
   border: 1px dashed transparent;
   &.dropable {
-    border-color: cornflowerblue;
+    margin: 3px 0;
     height: 10px;
+    border-color: cornflowerblue;
   }
   &.drag-enter {
     background-color: cornflowerblue;
@@ -909,6 +917,7 @@ input[type="checkbox"].cptm-checkbox {
     width: 0;
     height: auto;
     &.dropable {
+      margin: 0 3px;
       width: 10px;
       max-width: 10px;
       // flex: 1;
@@ -940,7 +949,6 @@ input[type="checkbox"].cptm-checkbox {
   padding: 2px;
   position: relative;
   min-height: 54px;
-  text-align: center;
   border: 2px dashed rgba(255, 255, 255, 0.15);
   transition: all ease-in-out 300ms;
   box-sizing: border-box;

@@ -37,7 +37,7 @@ export default {
         swichNav( index ) {
             this.active_nav = index;
             this.$emit('change', index);
-        }
+        },
     },
 
 }

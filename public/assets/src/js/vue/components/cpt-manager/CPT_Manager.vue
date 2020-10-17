@@ -33,7 +33,7 @@
 import { mapState } from 'vuex';
 import { mapGetters } from 'vuex';
 import headerNavigation from './Header_Navigation.vue';
-import tabContents from './tabs/TabContents.vue';
+import tabContents from './TabContents.vue';
 
 const axios = require('axios').default;
 

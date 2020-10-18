@@ -12,6 +12,12 @@
         loc_manual_lng = (isNaN(loc_manual_lng)) ? loc_default_longitude : loc_manual_lng;
 
         function mapLeaflet(lat, lon) {
+
+            // @todo @kowsar / remove later. fix js error
+            if($("#gmap").length == 0) {
+                return;
+            }
+
             const fontAwesomeIcon = L.icon({
                 iconUrl: loc_map_icon,
                 iconSize: [20, 25],

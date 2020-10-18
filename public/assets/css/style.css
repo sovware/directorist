@@ -2216,6 +2216,14 @@ div#listing_notifier span {
   visibility: visible;
 }
 
+.atbd_dropdown.atbd_drop--active .atbd_dropdown-menu #atbdp_sort .atbd_dropdown-item {
+  cursor: pointer;
+}
+
+.atbd_dropdown.atbd_drop--active .atbd_dropdown-menu #atbdp_sort .atbd_dropdown-item:hover {
+  color: #444752;
+}
+
 .atbd_content_active #directorist.atbd_wrapper #my_needs .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title {
   padding: 15px 15px 10px;
 }
@@ -2378,6 +2386,27 @@ input#privacy_policy,
 .atbd_single_listing.atbd_listing_list.atbd_listing_no_image {
   border-left: 1px solid #e3e6ef !important;
   border-right: 1px solid #e3e6ef !important;
+}
+
+.atbd_authors_listing .atbdp_column {
+  width: 33.33%;
+}
+
+@media (max-width: 767px) {
+  .atbd_authors_listing .atbdp_column {
+    width: 50%;
+  }
+}
+
+@media (max-width: 575px) {
+  .atbd_authors_listing .atbdp_column {
+    width: 100%;
+  }
+}
+
+.atbd_author_listings_area .atbd_dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {

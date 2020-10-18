@@ -44,7 +44,7 @@ class ATBDP_Gateway{
         $menus['monetization_menu'] = array(
             'title' => __('Monetization', 'directorist'),
             'name' => 'monetization_menu',
-            'icon' => 'font-awesome:fa-money',
+            'icon' => 'font-awesome:fa-money-bill-alt',
             'menus' => $this->get_monetization_settings_submenus(),
         );
         return $menus;
@@ -179,7 +179,7 @@ class ATBDP_Gateway{
         $submenus['gateway_submenu'] =  array(
             'title' => __('Gateways Settings', 'directorist'),
             'name' => 'gateway_general',
-            'icon' => 'font-awesome:fa-money',
+            'icon' => 'font-awesome:fa-bezier-curve',
             'controls' => apply_filters('atbdp_gateway_settings_controls', array(
                 'gateways' => array(
                     'type' => 'section',

@@ -7,10 +7,10 @@
 /* eslint-disable */
 ;(function ($) {
 
-    $('.test').click( function() {
+    $('.atbdp_sorting_item').click( function() {
         var href = $(this).attr('data');
-        $('#myForm').attr('action', href);
-        $('#myForm').submit();
+        $('#atbdp_sort').attr('action', href);
+        $('#atbdp_sort').submit();
     });
     //sorting toggle
     $('.sorting span').on('click', function () {

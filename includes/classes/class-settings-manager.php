@@ -2521,6 +2521,7 @@ The Administrator of ==SITE_NAME==
         {
             $pages = get_pages();
             $pages_options = array();
+            $pages_options[] = array( 'value' => 'previous_page', 'label' => 'Previous Page' );
             if ($pages) {
                 foreach ($pages as $page) {
                     $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);

@@ -275,10 +275,11 @@ wp_reset_postdata();
         $expiry_date            = atbdp_parse_mysql_date($e_d);
 
         $featured               = get_post_meta($post->ID, '_featured', true);
+        $listing_type           = get_post_meta($post->ID, '_listing_type', true);
         $listing_status         = get_post_meta($post->ID, '_listing_status', true);
         $default_expire_in_days = !empty($default_expire_in_days) ? $default_expire_in_days : '';
         // load the meta fields
-        $data = compact('f_active', 'never_expire', 'expiry_date', 'featured', 'listing_status', 'default_expire_in_days');
+        $data = compact('f_active', 'never_expire', 'expiry_date', 'featured', 'listing_type', 'listing_status', 'default_expire_in_days');
         ATBDP()->load_template('admin-templates/listing-form/expiration-featured-fields', array('data'=> $data));
     }
 
@@ -298,6 +299,7 @@ wp_reset_postdata();
         // if the posted data has info about never_expire, then use it, otherwise, use the data from the settings.
         $metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
         $metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
+        $metas['_listing_type']      = !empty($p['listing_type'])? $p['listing_type'] : '';
         $metas['_price']             = !empty($p['price'])? (float) $p['price'] : '';
         $metas['_price_range']       = !empty($p['price_range'])?  $p['price_range'] : '';
         $metas['_atbd_listing_pricing'] = !empty($p['atbd_listing_pricing'])?  $p['atbd_listing_pricing'] : '';

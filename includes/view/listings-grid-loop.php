@@ -61,11 +61,13 @@ if (!empty($listing_img[0])) {
 
 $default_image = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 $listing_preview_img = !empty($listing_preview_img) ? $listing_preview_img : '';
-$listing_preview_img_class = 'no' == $listing_preview_img || (empty($prv_image_full) && empty($default_image) && empty($gallery_img_full)) ? ' listing_preview_img_none' : ''
-/*Code for Business Hour Extensions*/
+$listing_preview_img = empty(get_directorist_option('display_preview_image', 1)) || ('no' == $display_image) ? 'no' : 'yes';
+$listing_preview_img_class = ('no' == $listing_preview_img) ? ' listing_preview_img_none' : '';
 ?>
 <div class="atbdp_column">
-    <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; ?>">
+    <div class="atbd_single_listing atbd_listing_card <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; 
+    echo esc_html($listing_preview_img_class);
+    ?>">
         <article
                 class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
             <figure class="atbd_listing_thumbnail_area"

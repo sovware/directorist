@@ -441,7 +441,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'type' => 'select',
                             'name' => 'redirection_after_login',
                             'label' => __('Redirection after Login', 'directorist'),
-                            'items' => $this->get_pages_vl_arrays(),
+                            'items' => $this->get_pages_with_prev_page(),
                             'default' => atbdp_get_option('user_dashboard', 'atbdp_general'),
                             'validation' => 'numeric',
                         ),
@@ -2521,7 +2521,6 @@ The Administrator of ==SITE_NAME==
         {
             $pages = get_pages();
             $pages_options = array();
-            $pages_options[] = array( 'value' => 'previous_page', 'label' => 'Previous Page' );
             if ($pages) {
                 foreach ($pages as $page) {
                     $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);

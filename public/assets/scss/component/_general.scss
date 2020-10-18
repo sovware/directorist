@@ -1505,6 +1505,14 @@ div#listing_notifier span {
     .atbd_dropdown-menu{
       opacity: 1;
       visibility: visible;
+      #atbdp_sort{
+        .atbd_dropdown-item{
+          cursor: pointer;
+          &:hover{
+            color: $primary;
+          }
+        }
+      }
     }
   }
 }
@@ -1658,4 +1666,11 @@ input[type="radio"].atbdp_radio_input {
 input#privacy_policy,
 .atbd_term_and_condition_area input{
   outline: none;
+}
+
+.atbd_author_listings_area{
+  .atbd_dropdown-menu{
+    max-height: 300px;
+    overflow-y: auto;
+  }
 }

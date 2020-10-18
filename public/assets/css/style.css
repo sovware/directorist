@@ -2224,6 +2224,14 @@ div#listing_notifier span {
   visibility: visible;
 }
 
+.atbd_dropdown.atbd_drop--active .atbd_dropdown-menu #atbdp_sort .atbd_dropdown-item {
+  cursor: pointer;
+}
+
+.atbd_dropdown.atbd_drop--active .atbd_dropdown-menu #atbdp_sort .atbd_dropdown-item:hover {
+  color: #444752;
+}
+
 .atbd_content_active #directorist.atbd_wrapper #my_needs .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title {
   padding: 15px 15px 10px;
 }
@@ -2369,6 +2377,11 @@ input[type="radio"].atbdp_radio_input:checked + label:before {
 input#privacy_policy,
 .atbd_term_and_condition_area input {
   outline: none;
+}
+
+.atbd_author_listings_area .atbd_dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {

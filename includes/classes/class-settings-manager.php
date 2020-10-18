@@ -80,7 +80,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 'pages' => array(
                     'name' => 'pages',
                     'title' => __('Pages, Links & Views', 'directorist'),
-                    'icon' => 'font-awesome:fa-line-chart',
+                    'icon' => 'font-awesome:fa-chart-line',
                     'controls' => apply_filters('atbdp_pages_settings_controls', array(
                         'page_section' => array(
                             'type' => 'section',
@@ -115,7 +115,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 'general_menu' => array(
                     'title' => __('Currency Settings', 'directorist'),
                     'name' => 'currency_settings',
-                    'icon' => 'font-awesome:fa-money',
+                    'icon' => 'font-awesome:fa-money-bill',
                     'controls' => apply_filters('atbdp_currency_settings_controls', array(
                         'currency_section' => array(
                             'type' => 'section',
@@ -185,7 +185,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('Color', 'directorist'),
                     'name' => 'color_settings',
-                    'icon' => 'font-awesome:fa-home',
+                    'icon' => 'font-awesome:fa-palette',
                     'controls' => apply_filters('atbdp_style_settings_controls', array(
                         'button_type' => array(
                             'type' => 'section',
@@ -328,7 +328,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('Registration Form', 'directorist'),
                     'name' => 'registration_form',
-                    'icon' => 'font-awesome:fa-home',
+                    'icon' => 'font-awesome:fa-wpforms',
                     'controls' => apply_filters('atbdp_registration_settings_controls', array(
                         'reg_username_field' => array(
                             'type' => 'section',
@@ -398,14 +398,14 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'items' => $this->get_pages_with_prev_page(),
                             'default' => atbdp_get_option('user_dashboard', 'atbdp_general'),
                             'validation' => 'numeric',
-                        ), 
+                        ),
                     )),
                 ),
                 /*Submenu : login form settings*/
                 array(
                     'title' => __('Login Form', 'directorist'),
                     'name' => 'login_form',
-                    'icon' => 'font-awesome:fa-home',
+                    'icon' => 'font-awesome:fa-wpforms',
                     'controls' => apply_filters('atbdp_login_form_settings_controls', array(
                         'log_username' => array(
                             'type' => 'section',
@@ -908,7 +908,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('General Settings', 'directorist'),
                     'name' => 'general_listings',
-                    'icon' => 'font-awesome:fa-sliders',
+                    'icon' => 'font-awesome:fa-sliders-h',
                     'controls' => apply_filters('atbdp_general_listings_controls', array(
                         'emails' => array(
                             'type' => 'section',
@@ -1140,7 +1140,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('User Dashboard', 'directorist'),
                     'name' => 'dashboard_setting',
-                    'icon' => 'font-awesome:fa-bar-chart',
+                    'icon' => 'font-awesome:fa-chart-bar',
                     'controls' => apply_filters('atbdp_dashboard_controls', array(
                         'emails' => array(
                             'type' => 'section',
@@ -1625,7 +1625,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('Email General', 'directorist'),
                     'name' => 'emails_general',
-                    'icon' => 'font-awesome:fa-home',
+                    'icon' => 'font-awesome:fa-envelope-open',
                     'controls' => apply_filters('atbdp_email_settings_controls', array(
                         'emails' => array(
                             'type' => 'section',
@@ -1639,7 +1639,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('Email Templates', 'directorist'),
                     'name' => 'emails_templates',
-                    'icon' => 'font-awesome:fa-envelope',
+                    'icon' => 'font-awesome:fa-mail-bulk',
                     'controls' => apply_filters('atbdp_email_templates_settings_controls', array(
                         'general' => array(
                             'type' => 'section',
@@ -2566,7 +2566,7 @@ The Administrator of ==SITE_NAME==
                 'submenu_1' => array(
                     'title' => __('Extensions General', 'directorist'),
                     'name' => 'extensions_switch',
-                    'icon' => 'font-awesome:fa-home',
+                    'icon' => 'font-awesome:fa-swatchbook',
                     'controls' => apply_filters('atbdp_extension_settings_controls', array(
                         'extensions' => array(
                             'type' => 'section',
@@ -6305,7 +6305,7 @@ The Administrator of ==SITE_NAME==
                         'max' => '120',
                         'step' => '1',
                         'default' => '7',
-    
+
                     ),
                     array(
                         'type' => 'toggle',

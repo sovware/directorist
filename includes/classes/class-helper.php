@@ -386,7 +386,7 @@ if (!class_exists('ATBDP_Helper')) :
                 'flickr' => __('Flickr', 'directorist'),
                 'snapchat-ghost' => __('Snapchat', 'directorist'),
                 'reddit' => __('Reddit', 'directorist'),
-                'youtube-play' => __('Youtube', 'directorist'),
+                'youtube' => __('Youtube', 'directorist'),
                 'vimeo' => __('Vimeo', 'directorist'),
                 'vine' => __('Vine', 'directorist'),
                 'github' => __('Github', 'directorist'),
@@ -624,6 +624,29 @@ if (!class_exists('ATBDP_Helper')) :
             <?php return ob_get_clean(); }
 
             return '';
+        }
+
+        // sanitize_tel_attr
+        public static function sanitize_tel_attr( string $tel = '', string $return_type = 'echo' ) {
+            $tel = preg_replace( '/\D/', '', $tel );
+
+            if ( $return_type === 'return' ) {
+                return $tel;
+            }
+
+            echo $tel;   
+        }
+
+        // sanitize_html
+        public static function sanitize_html(string $subject = '', string $return_type = 'echo')
+        {
+            $subject = esc_html(stripslashes($subject));
+            
+            if ('return' === $return_type) {
+                return $subject;
+            }
+
+            echo $subject;
         }
 
         /**

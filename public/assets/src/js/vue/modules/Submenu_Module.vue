@@ -10,7 +10,7 @@
                 v-for="( sub_tab, sub_tab_index ) in subNavigation"
                 :key="sub_tab_index"
             >
-                <sections-module v-bind="sub_tab" :container="container"/>
+                <sections-module v-bind="sub_tab" />
             </div>
         </div>
     </div>
@@ -27,10 +27,6 @@ export default {
     props: {
         submenu: {
             type: Object
-        },
-        container: {
-            type: String,
-            default: '',
         },
     },
 

@@ -303,8 +303,12 @@ $light-gray: #f4f5f7;
   min-height: 100px;
   max-width: 700px;
   box-sizing: border-box;
+  &.tab-wide {
+    max-width: 100%;
+  }
   &.tab-full-width {
     max-width: 100%;
+    padding: 60px 0;
   }
 }
 
@@ -982,16 +986,52 @@ input[type="checkbox"].cptm-checkbox {
   }
 }
 
+.cptm-mb-10 {
+  margin-bottom: 10px;
+}
+
+.cptm-listing-card-body-header {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cptm-listing-card-body-header-left {
+  flex-grow: 1;
+}
+.cptm-listing-card-body-header-right {
+  width: 100px;
+  margin-left: 10px;
+}
+
 .cptm-card-preview-widget {
   max-width: 450px;
   margin: 0 auto;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   background-color: #fff;
+
+  &.cptm-card-list-view {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    .cptm-card-preview-thumbnail {
+      height: 100%;
+    }
+
+    .cptm-listing-card-preview-header {
+      min-width: 320px;
+      min-height: 300px;
+    }
+  }
 }
 
 .cptm-listing-card-preview-header {
   display: block;
+  flex-grow: 1;
+}
+
+.cptm-listing-card-content {
+  flex-grow: 1;
 }
 
 .cptm-card-preview-thumbnail {
@@ -1282,12 +1322,21 @@ input[type="checkbox"].cptm-checkbox {
 
 
 .cptm-card-light {
+  &.cptm-placeholder-blcok {
+    border-color: #c6d0dc;
+    &:hover, &.drag-enter {
+      border-color: #1e1e1e;
+    }
+  }
+
   .cptm-placeholder-label {
     color: $dark;
   }
+
   .cptm-widget-badge {
     background-color: rgba(0,0,0,.8);
   }
+  
 }
 
 

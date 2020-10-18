@@ -40,7 +40,8 @@ export default {
     computed: {
         containerClass() {
             return {
-                'tab-full-width': ( 'full-width' === this.container ) ? true : false
+                'tab-wide': ( 'wide' === this.container ) ? true : false,
+                'tab-full-width': ( 'full-width' === this.container ) ? true : false,
             }
         }
     },

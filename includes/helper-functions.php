@@ -2243,10 +2243,10 @@ function the_atbdp_favourites_link($post_id = 0)
         if (in_array($post_id, $favourites)) {
             return '<span class="' . atbdp_icon_type() . '-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         } else {
-            return '<span class="' . atbdp_icon_type() . '-heart-o"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
+            return '<span class="' . atbdp_icon_type() . '-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         }
     } else {
-        return '<a href="javascript:void(0)" class="atbdp-require-login"><span class="' . atbdp_icon_type() . '-heart-o"></span></a>';
+        return '<a href="javascript:void(0)" class="atbdp-require-login"><span class="' . atbdp_icon_type() . '-heart"></span></a>';
     }
 }
 
@@ -2667,7 +2667,8 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                                  */
                                                                 do_action('atbdp_listings_before_phone');
                                                                 ?>
-                                                                <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
+                                                                <?php if (!empty($phone_number) && !empty($display_phone_field)) { 
+                                                                    ?>
                                                                     <li><p>
                                                                             <span class="<?php atbdp_icon_type(true); ?>-phone"></span>
                                                                             <a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $phone_number ); ?>"><?php ATBDP_Helper::sanitize_html( $phone_number ); ?></a>

@@ -626,6 +626,29 @@ if (!class_exists('ATBDP_Helper')) :
             return '';
         }
 
+        // sanitize_tel_attr
+        public static function sanitize_tel_attr( string $tel = '', string $return_type = 'echo' ) {
+            $tel = preg_replace( '/\D/', '', $tel );
+
+            if ( $return_type === 'return' ) {
+                return $tel;
+            }
+
+            echo $tel;   
+        }
+
+        // sanitize_html
+        public static function sanitize_html(string $subject = '', string $return_type = 'echo')
+        {
+            $subject = esc_html(stripslashes($subject));
+            
+            if ('return' === $return_type) {
+                return $subject;
+            }
+
+            echo $subject;
+        }
+
         /**
          * It outputs all categories and locations related markup for the listing
          * @param array $cats [optional] the array of Listing Category Objects

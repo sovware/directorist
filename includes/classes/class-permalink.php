@@ -55,7 +55,11 @@ class ATBDP_Permalink{
     public static function get_login_redirection_page_link()
     {
         $id = get_directorist_option('redirection_after_login'); // get the page id of the dashboard page.
-        $link = $id ? get_permalink( $id ) : '';
+        if( 'previous_page' == $id ) {
+            $link = wp_get_referer();
+        } else {
+            $link = $id ? get_permalink( $id ) : '';
+        }
         return apply_filters('atbdp_login_redirection_page_url', $link );
     }
 

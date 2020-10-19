@@ -2652,6 +2652,13 @@ The Administrator of ==SITE_NAME==
         {
             $seo_settings = array(
                 array(
+                    'type'        => 'toggle',
+                    'name'        => 'atbdp_enable_seo',
+                    'label'       => __('Enable SEO', 'directorist'),
+                    // 'description' => __('', 'directorist'),
+                    'default'     => 1,
+                ),
+                array(
                     'type' => 'textbox',
                     'name' => 'add_listing_page_meta_title',
                     'label' => __('Add Listing Page Meta Title', 'directorist'),
@@ -2806,15 +2813,19 @@ The Administrator of ==SITE_NAME==
                 ),
 
             );
-            
-            array_unshift( $seo_settings, array(
-                'type' => 'toggle',
-                'name' => 'overwrite_by_yoast',
-                'label' => __('Overwrite Yoast Meta', 'directorist'),
-                'description' => __('Here Yes means Directorist pages will use titles & metas settings from bellow. Otherwise it will use titles & metas settings from Yoast.', 'directorist'),
-                'default' => 0,
-            ));
 
+            
+
+            if ( atbdp_yoast_is_active() ) {
+                array_splice( $seo_settings, 1, 0, [[
+                    'type'        => 'toggle',
+                    'name'        => 'overwrite_by_yoast',
+                    'label'       => __('Overwrite Yoast Meta', 'directorist'),
+                    'description' => __('Here Yes means Directorist pages will use titles & metas settings from bellow. Otherwise it will use titles & metas settings from Yoast.', 'directorist'),
+                    'default'     => 0,
+                ]]);
+            }
+            
             $seo_settings = apply_filters( 'atbdp_seo_settings_fields', $seo_settings );
 
             return $seo_settings;

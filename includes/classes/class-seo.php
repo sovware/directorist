@@ -7,7 +7,9 @@ if (!class_exists('ATBDP_SEO')) :
     class ATBDP_SEO {
         public function __construct()
         {
-            if (atbdp_yoast_is_active()) {
+            if ( empty( get_directorist_option( 'atbdp_enable_seo' ) ) ) { return; }
+
+            if ( atbdp_yoast_is_active() ) {
                 add_filter('wpseo_title', array($this, 'wpseo_title'));
                 add_filter('wpseo_metadesc', array($this, 'wpseo_metadesc'));
                 add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
@@ -520,9 +522,6 @@ if (!class_exists('ATBDP_SEO')) :
         // atbdp_add_og_meta
         public function atbdp_add_og_meta() {
             $seo_meta_data = $this->get_seo_meta_data();
-
-            // var_dump( $seo_meta_data );
-
             $og_metas = [
                 'site_name'   => [
                     'property' => 'og:site_name',

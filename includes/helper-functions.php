@@ -3788,11 +3788,11 @@ function atbdp_yoast_is_active() {
  * @since     5.5.2
  *
  */
-function atbdp_disable_overwrite_yoast()
+function atbdp_can_overwrite_yoast()
 {
     $overwrite = false;
     $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
-    if ( ! empty($overwrite_yoast) || ! atbdp_yoast_is_active() ) {
+    if ( ! empty( $overwrite_yoast ) || ! atbdp_yoast_is_active() ) {
         $overwrite = true;
     }
 

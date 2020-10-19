@@ -741,7 +741,7 @@ if (!class_exists('ATBDP_Shortcode')):
             } else {
                 $options = [];
 
-                if ( $args['orderby'] = 'rand' ) {
+                if ( 'rand' === $args['orderby'] ) {
                     $options['cache'] = false;
                 }
                 
@@ -1310,7 +1310,7 @@ if (!class_exists('ATBDP_Shortcode')):
             } else {
                 $options = [];
 
-                if ( $args['orderby'] = 'rand' ) {
+                if ( 'rand' === $args['orderby'] ) {
                     $options['cache'] = false;
                 }
 
@@ -1866,7 +1866,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 } else {
                     $options = [];
 
-                    if ( $args['orderby'] = 'rand' ) {
+                    if ( 'rand' === $args['orderby'] ) {
                         $options['cache'] = false;
                     }
 
@@ -2360,13 +2360,18 @@ if (!class_exists('ATBDP_Shortcode')):
                         };
                         break;
                 }
-                $meta_queries = apply_filters('atbdp_single_location_meta_queries', $meta_queries);
+                
+
+
+                $meta_queries = apply_filters('atbdp_single_location_meta_querie__', $meta_queries);
                 $count_meta_queries = count($meta_queries);
                 if ($count_meta_queries) {
                     $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
                 }
 
-                $args = apply_filters( 'atbdp_single_location_query_arguments', $args );
+                
+
+                $args = apply_filters( 'atbdp_single_location_query_arguments__', $args );
 
                 if ( defined( 'BDM_VERSION' ) && version_compare( BDM_VERSION, '1.4.0', '<=' ) && 'listings_with_map' == $view  ) {
                     $all_listings = new WP_Query( $args );
@@ -2378,7 +2383,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 } else {
                     $options = [];
 
-                    if ( $args['orderby'] = 'rand' ) {
+                    if ( 'rand' === $args['orderby'] ) {
                         $options['cache'] = false;
                     }
 
@@ -2802,7 +2807,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 } else {
                     $options = [];
 
-                    if ( $args['orderby'] = 'rand' ) {
+                    if ( 'rand' === $args['orderby'] ) {
                         $options['cache'] = false;
                     }
 

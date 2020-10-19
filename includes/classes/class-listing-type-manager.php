@@ -2963,6 +2963,940 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 ],
             ];
 
+            $single_listing_quick_widgets = [
+                'preset' => [
+                    'title' => 'Preset Fields',
+                    'description' => 'Click on a field to use it',
+                    'allow_multiple' => false,
+                    'widgets' => apply_filters( 'atbdp_single_listing_quick_widgets_preset', [
+                        'title' => [
+                            'label' => 'Title',
+                            'icon' => 'fa fa-text-height',
+                            'lock' => true,
+                            'show' => true,
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'text',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'listing_title',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Title',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => true,
+                                ],
+
+                            ],
+                        ],
+
+                        'description' => [
+                            'label' => 'Description',
+                            'icon' => 'fa fa-align-left',
+                            'show' => true,
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'select',
+                                    'label' => 'Type',
+                                    'value' => 'wp_editor',
+                                    'options' => [
+                                        [
+                                            'label' => __('Textarea', 'directorist'),
+                                            'value' => 'textarea',
+                                        ],
+                                        [
+                                            'label' => __('WP Editor', 'directorist'),
+                                            'value' => 'wp_editor',
+                                        ],
+                                    ]
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'listing_content',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Description',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'name'  => 'required',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+
+                            ]
+                        ],
+
+                        'tagline' => [
+                            'label' => 'Tagline',
+                            'icon' => 'uil uil-text-fields',
+                            'show' => true,
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'text',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'tagline',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Tagline',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                            
+                            ],
+                        ],
+
+                        'pricing' => [
+                            'label' => 'Pricing',
+                            'icon' => 'uil uil-bill',
+                            'options' => [
+                                'pricing_type' => [
+                                    'type'  => 'select',
+                                    'label'  => 'Select Pricing Type',
+                                    'value' => 'both',
+                                    'options' => [
+                                        ['value' => '', 'label' => 'Select...'],
+                                        ['value' => 'price_unit', 'label' => 'Price Unit'],
+                                        ['value' => 'price_range', 'label' => 'Price Range'],
+                                        ['value' => 'both', 'label' => 'Both'],
+                                    ],
+                                ],
+                                'pricing_type' => [
+                                    'type'  => 'select',
+                                    'label'  => 'Select Pricing Type',
+                                    'value' => 'both',
+                                    'options' => [
+                                        ['value' => '', 'label' => 'Select...'],
+                                        ['value' => 'price_unit', 'label' => 'Price Unit'],
+                                        ['value' => 'price_range', 'label' => 'Price Range'],
+                                        ['value' => 'both', 'label' => 'Both'],
+                                    ],
+                                ],
+                                'price_range_label' => [
+                                    'type'  => 'text',
+                                    'show_if' => [
+                                        [
+                                            'compare' => 'or',
+                                            'conditions' => [
+                                                ['key' => 'pricing_type', 'value' => 'both'],
+                                                ['key' => 'pricing_type', 'value' => 'price_range'],
+                                            ]
+                                        ],
+
+                                    ],
+                                    'label'  => 'Price range label',
+                                    'value' => 'Price range',
+                                    'options' => [
+                                        ['value' => 'number', 'label' => 'Number',],
+                                        ['value' => 'text', 'label' => 'text',],
+                                    ],
+                                ],
+                                'price_range_options' => [
+                                    'type'  => 'select',
+                                    'show_if'  => [
+                                        [
+                                            'compare' => 'or',
+                                            'conditions' => [
+                                                ['key' => 'pricing_type', 'value' => 'both'],
+                                                ['key' => 'pricing_type', 'value' => 'price_range'],
+                                            ]
+                                        ],
+
+                                    ],
+                                    'label'  => 'Price Type Label',
+                                    'value' => 'cheap',
+                                    'options' => [
+                                        ['value' => 'cheap', 'label' => 'Cheap',],
+                                        ['value' => 'moderate', 'label' => 'Moderate',],
+                                        ['value' => 'expensive', 'label' => 'Expensive',],
+                                        ['value' => 'high', 'label' => 'Ultra High',],
+                                    ],
+                                ],
+                                'price_unit_field_type' => [
+                                    'type'  => 'select',
+                                    'label'  => 'Price Unit field type',
+                                    'show_if'  => [
+                                        [
+                                            'compare' => 'or',
+                                            'conditions' => [
+                                                ['key' => 'pricing_type', 'value' => 'both'],
+                                                ['key' => 'pricing_type', 'value' => 'price_unit'],
+                                            ]
+                                        ],
+
+                                    ],
+                                    'value' => 'number',
+                                    'options' => [
+                                        ['value' => 'number', 'label' => 'Number',],
+                                        ['value' => 'text', 'label' => 'Text',],
+                                    ],
+                                ],
+                                'price_unit_field_label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Price Unit field label',
+                                    'show_if'  => [
+                                        [
+                                            'compare' => 'or',
+                                            'conditions' => [
+                                                ['key' => 'pricing_type', 'value' => 'both'],
+                                                ['key' => 'pricing_type', 'value' => 'price_unit'],
+                                            ]
+                                        ],
+                                    ],
+                                    'value' => 'Price [USD]',
+                                    'options' => [
+                                        ['value' => 'number', 'label' => 'Number',],
+                                        ['value' => 'text', 'label' => 'text',],
+                                    ],
+                                ],
+                            ]
+                        ],
+
+                        'view_count' => [
+                            'label' => 'View Count',
+                            'icon' => 'uil uil-eye',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'number',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'atbdp_post_views_count',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'View Count',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => true,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'excerpt' => [
+                            'label' => 'Excerpt',
+                            'icon' => 'uil uil-subject',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'textarea',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'excerpt',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Excerpt',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'location' => [
+                            'label' => 'Location',
+                            'icon' => 'uil uil-map-marker',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'radio',
+                                    'value' => 'multiple',
+                                    'options' => [
+                                        [
+                                            'label' => __('Single Selection', 'directorist'),
+                                            'value' => 'single',
+                                        ],
+                                        [
+                                            'label' => __('Multi Selection', 'directorist'),
+                                            'value' => 'multiple',
+                                        ]
+                                    ]
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'tax_input[at_biz_dir-location][]',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Location',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'tag' => [
+                            'label' => 'Tag',
+                            'icon' => 'uil uil-tag-alt',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'radio',
+                                    'value' => 'multiple',
+                                    'options' => [
+                                        [
+                                            'label' => __('Single Selection', 'directorist'),
+                                            'value' => 'single',
+                                        ],
+                                        [
+                                            'label' => __('Multi Selection', 'directorist'),
+                                            'value' => 'multiple',
+                                        ],
+                                    ]
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'tax_input[at_biz_dir-tags][]',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Tag',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'allow_new' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Allow New',
+                                    'value' => true,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'category' => [
+                            'label' => 'Category',
+                            'icon' => 'uil uil-folder-open',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'radio',
+                                    'value' => 'multiple',
+                                    'options' => [
+                                        [
+                                            'label' => __('Single Selection', 'directorist'),
+                                            'value' => 'single',
+                                        ],
+                                        [
+                                            'label' => __('Multi Selection', 'directorist'),
+                                            'value' => 'multiple',
+                                        ],
+                                    ]
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'admin_category_select[]',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Category',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'address' => [
+                            'label' => 'Address',
+                            'icon' => 'uil uil-postcard',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'text',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'address',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Address',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'map' => [
+                            'label' => 'Map',
+                            'icon' => 'uil uil-map',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'map',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'map',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Map',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'zip' => [
+                            'label' => 'Zip/Post Code',
+                            'icon' => 'uil uil-map-pin',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'text',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'zip',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Zip/Post Code',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'phone' => [
+                            'label' => 'Phone',
+                            'icon' => 'uil uil-phone',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'tel',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'phone',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Phone',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'phone2' => [
+                            'label' => 'Phone 2',
+                            'icon' => 'uil uil-phone',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'tel',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'phone2',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Phone 2',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'fax' => [
+                            'label' => 'Fax',
+                            'icon' => 'uil uil-print',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'number',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'fax',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Fax',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'email' => [
+                            'label' => 'Email',
+                            'icon' => 'uil uil-envelope',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'email',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'email',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Email',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'website' => [
+                            'label' => 'Website',
+                            'icon' => 'uil uil-globe',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'text',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'website',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Website',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'social_info' => [
+                            'label' => 'Social Info',
+                            'icon' => 'uil uil-user-arrows',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'add_new',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'social',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Social Info',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'image_upload' => [
+                            'label' => 'Images',
+                            'icon' => 'uil uil-image',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'media',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'listing_img',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Select Files',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'max_image_limit' => [
+                                    'type'  => 'number',
+                                    'label' => 'Max Image Limit',
+                                    'value' => '',
+                                ],
+                                'max_per_image_limit' => [
+                                    'type'  => 'number',
+                                    'label' => 'Max Upload Size Per Image in MB',
+                                    'value' => '',
+                                ],
+                                'max_total_image_limit' => [
+                                    'type'  => 'number',
+                                    'label' => 'Total Upload Size in MB',
+                                    'value' => '',
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'video' => [
+                            'label' => 'Video',
+                            'icon' => 'uil uil-video',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'text',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'videourl',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Video',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => '',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                                
+                            
+                            ],
+                        ],
+
+                        'terms_conditions' => [
+                            'label' => 'Terms & Conditions',
+                            'icon' => 'uil uil-file-exclamation-alt',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'checkbox',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 't_c_check',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'I agree with all',
+                                ],
+                                'linking_text' => [
+                                    'type'  => 'text',
+                                    'label' => 'Linking Text',
+                                    'value' => 'Terms & Conditions',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => true,
+                                ],
+                            ],
+                        ],
+
+                        'privacy_policy' => [
+                            'label' => 'Privacy & Policy',
+                            'icon' => 'uil uil-file-exclamation-alt',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'checkbox',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'privacy_policy',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'I agree to the',
+                                ],
+                                'linking_text' => [
+                                    'type'  => 'text',
+                                    'label' => 'Linking Text',
+                                    'value' => 'Privacy & Policy',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => true,
+                                ],
+                            ],
+                        ],
+
+                        'submit_button' => [
+                            'label' => 'Submit Button',
+                            'icon' => 'uil uil-link-h',
+                            'lock' => true,
+                            'show' => true,
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'button',
+                                ],
+                                'field_key' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'submit_button',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Save & Preview',
+                                ],
+                                'preview' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Enable Preview Mode',
+                                    'value' => true,
+                                ]
+
+                            ],
+                        ],
+                    ] ),
+                ],
+            ];
+
             $this->fields = apply_filters( 'atbdp_listing_type_settings_field_list', [
                 'name' => [
                     'label' => 'Name *',
@@ -3388,10 +4322,10 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                           ],
                   
-                          'user_avater' => [
-                            'type' => "avater",
-                            'id' => "user_avater",
-                            'label' => "User Avater",
+                          'user_avatar' => [
+                            'type' => "avatar",
+                            'id' => "user_avatar",
+                            'label' => "User Avatar",
                             'icon' => '<span class="uil uil-text-fields"></span>',
                             'options' => [
                               'title' => "Category Settings",
@@ -3426,9 +4360,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'maxWidget' => 3,
                                 'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
-                            'avater' => [
+                            'avatar' => [
                                 'maxWidget' => 1,
-                                'acceptedWidgets' => ["user_avater"],
+                                'acceptedWidgets' => ["user_avatar"],
                             ],
                         ],
 
@@ -3649,10 +4583,10 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                           ],
                   
-                          'user_avater' => [
-                            'type' => "avater",
-                            'id' => "user_avater",
-                            'label' => "User Avater",
+                          'user_avatar' => [
+                            'type' => "avatar",
+                            'id' => "user_avatar",
+                            'label' => "User Avatar",
                             'icon' => '<span class="uil uil-text-fields"></span>',
                             'options' => [
                               'title' => "Category Settings",
@@ -3710,7 +4644,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         'footer' => [
                             'right' => [
                                 'maxWidget' => 2,
-                                'acceptedWidgets' => ["user_avater", "category", "favorite_badge", "view_count", "compare_badge"],
+                                'acceptedWidgets' => ["user_avatar", "category", "favorite_badge", "view_count", "compare_badge"],
                             ],
 
                             'left' => [
@@ -3843,10 +4777,10 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'single_page_layout' => [
                     'label' => 'Single Page Layout',
                     'icon' => '<span class="uil uil-credit-card"></span>',
-                    'container' => 'wide',
                     'submenu' => [
                         'quick_actions' => [
                             'label' => 'Quick Actions',
+                            'container' => 'wide',
                             'sections' => [
                                 'quick_actions' => [
                                     'title' => 'Add Quick Actions',
@@ -3859,6 +4793,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ],
                         'contents' => [
                             'label' => 'Contents',
+                            'container' => 'wide',
                             'sections' => [
                                 'contents' => [
                                     'title' => 'Contents',
@@ -3871,6 +4806,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ],
                         'quick_info' => [
                             'label' => 'Quick info',
+                            'container' => 'wide',
                             'sections' => [
                                 'quick_info' => [
                                     'title' => 'Quick info',
@@ -3883,6 +4819,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ],
                         'similar_listings' => [
                             'label' => 'Similar Listings',
+                            'container' => 'wide',
                             'sections' => [
                                 'similar_listings' => [
                                     'title' => 'Similar Listings',

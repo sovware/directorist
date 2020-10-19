@@ -1,10 +1,10 @@
 <template>
-    <div class="cptm-widget-card-wrap cptm-widget-card-block-wrap cptm-widget-title-card-wrap">
-        <div class="cptm-widget-card cptm-widget-title-card cptm-has-widget-control cptm-widget-actions-tools-wrap">
-            <div class="cptm-widget-title-block">
-                {{ label }}
-            </div>
-            
+    <div class="cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap">
+        <div class="cptm-widget-card cptm-has-widget-control cptm-widget-actions-tools-wrap">
+            <p class="cptm-placeholder-author-thumb">
+                <img src="https://via.placeholder.com/150" alt="">
+            </p>
+
             <widget-action-tools @drag="dragStart()" @dragend="dragEnd()" @edit="$emit( 'edit' )"  @trash="$emit( 'trash' )" />
         </div>
 
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    name: 'title-card-widget',
+    name: 'avatar-card-widget',
     props: {
         label: {
             type: String,

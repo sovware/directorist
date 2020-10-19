@@ -126,22 +126,22 @@
           <div class="cptm-listing-card-author-avatar">
             <card-widget-placeholder
               containerClass="cptm-listing-card-author-avatar-placeholder cptm-card-dark-light"
-              :label="local_layout.thumbnail.avater.label"
+              :label="local_layout.thumbnail.avatar.label"
               :availableWidgets="available_widgets"
               :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.thumbnail.avater.acceptedWidgets"
-              :selectedWidgets="local_layout.thumbnail.avater.selectedWidgets"
-              :maxWidget="local_layout.thumbnail.avater.maxWidget"
-              :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_avater' )"
-              :widgetDropable="widgetIsDropable( local_layout.thumbnail.avater )"
-              @insert-widget="insertWidget( $event, local_layout.thumbnail.avater )"
-              @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.avater )"
-              @drop-widget="appendWidget( $event, local_layout.thumbnail.avater )"
+              :acceptedWidgets="local_layout.thumbnail.avatar.acceptedWidgets"
+              :selectedWidgets="local_layout.thumbnail.avatar.selectedWidgets"
+              :maxWidget="local_layout.thumbnail.avatar.maxWidget"
+              :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_avatar' )"
+              :widgetDropable="widgetIsDropable( local_layout.thumbnail.avatar )"
+              @insert-widget="insertWidget( $event, local_layout.thumbnail.avatar )"
+              @drag-widget="onDragStartWidget( $event, local_layout.thumbnail.avatar )"
+              @drop-widget="appendWidget( $event, local_layout.thumbnail.avatar )"
               @dragend-widget="onDragEndWidget()"
               @edit-widget="editWidget( $event )"
-              @trash-widget="trashWidget( $event, local_layout.thumbnail.avater )"
-              @placeholder-on-drop="handleDropOnPlaceholder( local_layout.thumbnail.avater )"
-              @open-widgets-picker-window="activeInsertWindow( 'thumbnail_avater' )"
+              @trash-widget="trashWidget( $event, local_layout.thumbnail.avatar )"
+              @placeholder-on-drop="handleDropOnPlaceholder( local_layout.thumbnail.avatar )"
+              @open-widgets-picker-window="activeInsertWindow( 'thumbnail_avatar' )"
               @close-widgets-picker-window="closeInsertWindow()"
             />
           </div>
@@ -364,8 +364,8 @@ export default {
             label: 'Bottom Left',
             selectedWidgets: [],
           },
-          avater: {
-            label: 'Avater',
+          avatar: {
+            label: 'Avatar',
             selectedWidgets: [],
           },
         },
@@ -529,9 +529,14 @@ export default {
     },
 
     appendWidget( dest_key, dest_path ) {
-      const dest_index = dest_path.selectedWidgets.indexOf( dest_key ) + 1;
-      const key        = this.currentDraggingWidget.key;
-      const from       = this.currentDraggingWidget.origin.selectedWidgets;
+      const key         = this.currentDraggingWidget.key;
+      const from        = this.currentDraggingWidget.origin.selectedWidgets;
+      const orign_index = from.indexOf( key );
+      let dest_index    = dest_path.selectedWidgets.indexOf( dest_key ) + 1;
+
+      if ( dest_path.selectedWidgets.includes( key ) && 0 === orign_index ) {
+        dest_index--;
+      }
 
       Vue.delete( from , from.indexOf( key ) );
       dest_path.selectedWidgets.splice( dest_index, 0, this.currentDraggingWidget.key );

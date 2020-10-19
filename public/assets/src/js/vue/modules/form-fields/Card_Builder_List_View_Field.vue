@@ -319,22 +319,6 @@ export default {
             label: 'Top Right',
             selectedWidgets: [],
           },
-          top_left: {
-            label: 'Top Left',
-            selectedWidgets: [],
-          },
-          bottom_right: {
-            label: 'Bottom Right',
-            selectedWidgets: [],
-          },
-          bottom_left: {
-            label: 'Bottom Left',
-            selectedWidgets: [],
-          },
-          avater: {
-            label: 'Avater',
-            selectedWidgets: [],
-          },
         },
 
         body: { 
@@ -506,9 +490,14 @@ export default {
     },
 
     appendWidget( dest_key, dest_path ) {
-      const dest_index = dest_path.selectedWidgets.indexOf( dest_key ) + 1;
-      const key        = this.currentDraggingWidget.key;
-      const from       = this.currentDraggingWidget.origin.selectedWidgets;
+      const key         = this.currentDraggingWidget.key;
+      const from        = this.currentDraggingWidget.origin.selectedWidgets;
+      const orign_index = from.indexOf( key );
+      let dest_index    = dest_path.selectedWidgets.indexOf( dest_key ) + 1;
+      
+      if ( dest_path.selectedWidgets.includes( key ) && 0 === orign_index ) {
+        dest_index--;
+      }
 
       Vue.delete( from , from.indexOf( key ) );
       dest_path.selectedWidgets.splice( dest_index, 0, this.currentDraggingWidget.key );
@@ -589,6 +578,8 @@ export default {
       if ( ! this.isTruthyObject( this.available_widgets[ payload.key ] ) ) {
         return;
       }
+
+      console.log( {payload, where} );
 
       Vue.set( this.active_widgets, payload.key, { ...this.available_widgets[ payload.key ] } );
       Vue.set( where, 'selectedWidgets', payload.selected_widgets );

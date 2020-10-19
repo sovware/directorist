@@ -53,10 +53,6 @@ export default {
     name: 'widgets-window',
 
     props: {
-        test: {
-            type: [ String, Number ],
-            default: '',
-        },
         id: {
             type: [ String, Number ],
             default: '',
@@ -95,7 +91,7 @@ export default {
         },
     },
 
-    mounted() {
+    created() {
         this.init();
     },
 
@@ -187,6 +183,8 @@ export default {
             
             let unique_selecte_widgets = new Set( this.selectedWidgets );
             this.localSelectedWidgets = [ ...unique_selecte_widgets ];
+
+            console.log( this.localSelectedWidgets );
         },
 
         decodeInfoText( data, text ) {

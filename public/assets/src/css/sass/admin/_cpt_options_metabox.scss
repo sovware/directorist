@@ -1120,21 +1120,11 @@ input[type="checkbox"].cptm-checkbox {
   width: calc(100% - 40px);
   transform: translate(-50%, -50%);
   .cptm-placeholder-blcok {
-    border-color: rgba(#c6d0dc, 0.5);
     padding: 0;
-    min-height: auto;
     height: 51px;
-    .cptm-placeholder-author-thumb {
-      margin: 0;
-      img {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-        background: #c6d0dc;
-        border: 4px solid #fff;
-      }
-    }
+    min-height: auto;
+    text-align: center;
+    border-color: rgba(#c6d0dc, 0.5);
   }
   .cptm-widget-insert-area {
     // top: 0;
@@ -1144,6 +1134,18 @@ input[type="checkbox"].cptm-checkbox {
       background: #fff;
       color: #5a5f7d;
     }
+  }
+}
+
+.cptm-placeholder-author-thumb {
+  margin: 0;
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #c6d0dc;
+    border: 4px solid #fff;
   }
 }
 

@@ -13,7 +13,7 @@ if ( !function_exists('get_help') ) {
             $helper = new ATBDP_Helper;
             return $helper;
         }
-        
+
         return null;
     }
 }
@@ -23,7 +23,7 @@ if ( ! function_exists( 'atbdp_polylang_is_active' ) ) :
         if ( class_exists('Polylang') ) {
             $pll_current_language = pll_current_language();
             $pll_default_language = pll_default_language();
-            
+
             if ( $pll_current_language !== $pll_default_language ) {
                 return true;
             }
@@ -60,9 +60,9 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $default = ['id' => '', 'edited' => true];
     $args = array_merge( $default, $args );
 
-    $args['edited'] = ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) ? true : false;  
+    $args['edited'] = ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) ? true : false;
     $listing_id = $args['id'];
-    
+
     $new_l_status   = get_directorist_option('new_listing_status', 'pending');
     $edit_l_status  = get_directorist_option('edit_listing_status');
     $edited         = $args['edited'];
@@ -71,7 +71,7 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $monitization          = get_directorist_option('enable_monetization', 0);
     $featured_enabled      = get_directorist_option('enable_featured_listing');
     $pricing_plans_enabled = is_fee_manager_active();
-    
+
     $post_status =  $listing_status;
 
     // If Pricing Plans are Enabled
@@ -83,7 +83,7 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
 
         $_listing_id    = ( 'pay_per_listng' === $plan_type ) ? $listing_id : false;
         $plan_purchased = subscribed_package_or_PPL_plans(get_current_user_id(), 'completed', $plan_id, $_listing_id);
-        
+
         $post_status = ( ! $plan_purchased ) ? 'pending' : $listing_status;
     }
 
@@ -2397,7 +2397,7 @@ function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price 
                         setup_postdata( $GLOBALS['post'] );
                         view( 'listings-grid-loop' );
                     endforeach;
-    
+
                     $GLOBALS['post'] = $original_post;
                 }
                 wp_reset_postdata();
@@ -2493,8 +2493,8 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                         $listing_preview_img_class = ('no' == $listing_preview_img) ? ' listing_preview_img_none' : '';
                         ?>
                         <div class="related_single_carousel" style="margin: 0 10px;">
-                            <div class="atbd_single_listing atbd_listing_card 
-                            <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; 
+                            <div class="atbd_single_listing atbd_listing_card
+                            <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : '';
                             echo esc_html($listing_preview_img_class);
                             ?>">
                                 <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
@@ -2553,7 +2553,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                          */
                                         ?>
                                         <span class="atbd_lower_badge"><?php echo apply_filters('atbdp_grid_lower_badges', '');?></span>
-                                        
+
                                         <?php
                                         if (!empty($display_mark_as_fav)) {
                                             echo atbdp_listings_mark_as_favourite(get_the_ID());
@@ -2667,7 +2667,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
                                                                  */
                                                                 do_action('atbdp_listings_before_phone');
                                                                 ?>
-                                                                <?php if (!empty($phone_number) && !empty($display_phone_field)) { 
+                                                                <?php if (!empty($phone_number) && !empty($display_phone_field)) {
                                                                     ?>
                                                                     <li><p>
                                                                             <span class="<?php atbdp_icon_type(true); ?>-phone"></span>
@@ -2817,7 +2817,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
 function listing_view_by_list($all_listings, $display_image, $show_pagination, $paged)
 {
     _deprecated_function( __FUNCTION__, '7.0' );
-    
+
     $class_name = 'container-fluid';
     $container = apply_filters('list_view_container', $class_name);
 
@@ -2835,7 +2835,7 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                 foreach ( $all_listings->ids as $listings_id ) :
                     $GLOBALS['post'] = get_post( $listings_id );
                     setup_postdata( $GLOBALS['post'] );
-                    
+
                     $thumbnail_link_attr = " " . apply_filters( 'list_view_thumbnail_link_add_attr', '' );
                     $thumbnail_link_attr = trim( $thumbnail_link_attr );
 
@@ -3788,11 +3788,11 @@ function atbdp_yoast_is_active() {
  * @since     5.5.2
  *
  */
-function atbdp_disable_overwrite_yoast()
+function atbdp_can_overwrite_yoast()
 {
     $overwrite = false;
     $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
-    if ( ! empty($overwrite_yoast) || ! atbdp_yoast_is_active() ) {
+    if ( ! empty( $overwrite_yoast ) || ! atbdp_yoast_is_active() ) {
         $overwrite = true;
     }
 
@@ -4257,7 +4257,7 @@ function atbdp_create_required_pages(){
         'custom_registration' => array(
             'title' => __('Registration', 'directorist'),
             'content' => '[directorist_custom_registration]'
-        ), 
+        ),
         'user_login' => array(
             'title' => __('Login', 'directorist'),
             'content' => '[directorist_user_login]'
@@ -4281,7 +4281,7 @@ function atbdp_create_required_pages(){
         // $op_name is the page option name in the database.
         // if we do not have the page id assigned in the settings with the given page option name, then create an page
         // and update the option.
-        
+
         if (empty($options[$op_name]) || !get_post($options[$op_name])) {
 
             $id = wp_insert_post(
@@ -4392,7 +4392,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
     $image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
     $image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
     $image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
-    
+
     // Extend Default
     if ( isset($args['image']) ) {
         $image_src = esc_html(stripslashes($args['image']));
@@ -4448,7 +4448,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
 
     $blur_bg = ( $blur_background ) ? $back_wrap_html : '';
 
-    // Card Contain 
+    // Card Contain
     $card_contain_wrap = "<div class='atbd-thumbnail-card card-contain' style='$style'>";
     $image_contain_html = $card_contain_wrap . $blur_bg . $front_wrap_html . "</div>";
 
@@ -4487,14 +4487,14 @@ function get_plasma_slider()
 {
     $show_slider       = get_directorist_option( 'dsiplay_slider_single_page', 1 );
     $slider_is_enabled = ( $show_slider === 1 || $show_slider === '1' ) ? true : false;
-    
+
     if ( ! $slider_is_enabled ) { return ''; }
 
     global $post;
     $listing_id    = $post->ID;
     $listing_title = get_the_title( $post->ID );
     $data          = array();
-    
+
     // Check if gallery is allowed or not
     $fm_plan      = get_post_meta($listing_id, '_fm_plans', true);
     $show_gallery = true;
@@ -4507,7 +4507,7 @@ function get_plasma_slider()
     $default_image = get_directorist_option(
         'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'
     );
-    
+
     // Get the preview images
     $preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
     $preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
@@ -4531,7 +4531,7 @@ function get_plasma_slider()
 
     // Get the options
     $background_type  = get_directorist_option('single_slider_background_type', 'custom-color');
-    
+
     // Set the options
     $data['images']             = [];
     $data['alt']                = $listing_title;
@@ -4557,7 +4557,7 @@ function get_plasma_slider()
 
         array_unshift( $data['images'], $preview_img );
     }
-    
+
     if ( count( $data['images'] ) < 1 ) {
         $data['images'][] = [
             'alt' => $listing_title,

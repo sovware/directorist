@@ -2554,6 +2554,16 @@ input#privacy_policy,
   box-shadow: 0 5px 20px rgba(167, 178, 199, 0.3);
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap:before,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap:before {
+  position: absolute;
+  content: '';
+  height: 9px;
+  width: 100%;
+  top: -9px;
+  left: 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li a,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li a {
   padding: 11px 20px;
@@ -2565,14 +2575,9 @@ input#privacy_policy,
   border-top: 1px solid #e3e6ef;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap:before,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap:before {
-  position: absolute;
-  content: '';
-  height: 9px;
-  width: 100%;
-  top: -9px;
-  left: 0;
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap .fa,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap .fa {
+  font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_report a span,

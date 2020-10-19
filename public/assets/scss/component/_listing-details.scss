@@ -104,18 +104,6 @@
             top: calc(100% + 10px);
           }
           .atbd_directory_social_wrap {
-            ul li {
-              a {
-                padding: 11px 20px;
-                display: block;
-                > span {
-                  @extend .atbd_color-primary;
-                }
-              }
-              & + li {
-                border-top: 1px solid $border-color;
-              }
-            }
             position: absolute;
             transition: $transition-base;
             z-index: 2;
@@ -136,6 +124,21 @@
               width: 100%;
               top: -9px;
               left: 0;
+            }
+            ul li {
+              a {
+                padding: 11px 20px;
+                display: block;
+                > span {
+                  @extend .atbd_color-primary;
+                }
+              }
+              & + li {
+                border-top: 1px solid $border-color;
+              }
+            }
+            .fa{
+              font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
             }
           }
         }

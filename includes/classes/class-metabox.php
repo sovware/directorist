@@ -386,10 +386,9 @@ wp_reset_postdata();
 
         }
 
-        // save the meta data to the database
-        //@todo need to adjust the meta for old user
-        /*update_post_meta( $post_id, '_admin_category_select', $admin_category_select );
-        wp_set_object_terms($post_id, $admin_category_select, ATBDP_CATEGORY);*/
+        if( !empty( $metas['_listing_type'] ) ){
+            wp_set_object_terms($post_id, $metas['_listing_type'], 'atbdp_listing_types');
+        }
 
         $metas['_expiry_date']              = $exp_dt;
         $metas = apply_filters('atbdp_listing_meta_admin_submission', $metas);

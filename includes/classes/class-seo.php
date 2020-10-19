@@ -521,6 +521,8 @@ if (!class_exists('ATBDP_SEO')) :
         public function atbdp_add_og_meta() {
             $seo_meta_data = $this->get_seo_meta_data();
 
+            // var_dump( $seo_meta_data );
+
             $og_metas = [
                 'site_name'   => [
                     'property' => 'og:site_name',
@@ -600,7 +602,6 @@ if (!class_exists('ATBDP_SEO')) :
         public function get_seo_meta_data()
         {
             global $wp, $post;
-
             $desc      = esc_html( get_the_excerpt() );
             $meta_desc = ( strlen( $desc ) > 200 ) ? substr( $desc, 0, 200 ) . "..." : $desc;
             

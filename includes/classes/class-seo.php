@@ -519,7 +519,8 @@ if (!class_exists('ATBDP_SEO')) :
 
         // atbdp_add_og_meta
         public function atbdp_add_og_meta() {
-            $seo_meta_data       = $this->get_seo_meta_data();
+            $seo_meta_data = $this->get_seo_meta_data();
+
             $og_metas = [
                 'site_name'   => [
                     'property' => 'og:site_name',
@@ -567,8 +568,8 @@ if (!class_exists('ATBDP_SEO')) :
             }
 
             if ( ! empty( $seo_meta_data['site_name'] ) && ! empty( $og_metas['title'] ) ) {
-                $site_name           = $seo_meta_data['site_name'];
-                $title               = $og_metas['title']['content'];
+                $site_name = $seo_meta_data['site_name'];
+                $title = $og_metas['title']['content'];
 
                 $title_has_site_name = preg_match( '/'. $site_name .'/', $title ) ;
                 $og_metas['title']['content'] = ( $title_has_site_name ) ? $title : $title . ' | ' . $site_name;
@@ -599,10 +600,14 @@ if (!class_exists('ATBDP_SEO')) :
         public function get_seo_meta_data()
         {
             global $wp, $post;
+
+            $desc      = esc_html( get_the_excerpt() );
+            $meta_desc = ( strlen( $desc ) > 200 ) ? substr( $desc, 0, 200 ) . "..." : $desc;
+            
             $seo_meta = [
                 'site_name'    => get_bloginfo('name'),
-                'title'        => '',
-                'description'  => '',
+                'title'        => get_the_title(),
+                'description'  => $meta_desc,
                 'page'         => '',
                 'current_page' => home_url( add_query_arg( array(), $wp->request ) ) . '/',
                 'image'        => '',

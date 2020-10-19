@@ -235,6 +235,24 @@ Apart from purchasing above mentioned individual extensions, you can get all of 
 
 If you face any issues with managing this awesome business directory plugin in person, feel free to reach out! Our dedicated support team is always ready to help you in the best possible ways.
 
+###Here’s What Users Say about Directorist - Business Directory Plugin
+
+>👨 __Simply the BEST directory plugin__
+
+>10 stars – no joke.
+>I tried several plugins, including paid ones on that canyon costing over 60 bucks, they did not satisfy at all. Directorist is super customizable, the devs are really helpful and the prices or their extensions are very reasonable. Would recommend to anyone who is looking for a directory plugin. Even without paid upgrades, it’s a true beast!
+- By @collin43
+
+>💁 __Perfect for our project!__
+
+>This free plugin does what Classifieds premium themes don’t. It is very well thought out and personalized. I needed support and had a service note 10..
+- By @barenco
+
+>👨 __Amazing Plugin and Excellent Support__
+
+>The best ad plugin I have used. The simplicity and fluidity of use allows you to improve the user experience. Excellent support, I had a lot of questions and a lot of problems but the support was always by my side.
+- By @wadi2a
+
 ###Contribute to Directorist - The Best Business Directory Plugin
 
 If you want to contribute to the project, you’re most welcome to make it happen. The full source code is available on [GitHub](https://github.com/aazztech/directorist). If you find anything improbable, feel free to shoot a bug report.

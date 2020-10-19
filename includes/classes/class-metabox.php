@@ -387,7 +387,7 @@ wp_reset_postdata();
         }
 
         if( !empty( $metas['_listing_type'] ) ){
-            wp_set_object_terms($post_id, $metas['_listing_type'], 'atbdp_listing_types');
+            wp_set_object_terms($post_id, (int)$metas['_listing_type'], 'atbdp_listing_types');
         }
 
         $metas['_expiry_date']              = $exp_dt;

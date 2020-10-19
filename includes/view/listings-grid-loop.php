@@ -78,7 +78,7 @@ $listing_preview_img_class = 'no' == $listing_preview_img || (empty($prv_image_f
                     <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>">
                         <?php
                         }
-                        the_thumbnail_card();
+                        atbdp_thumbnail_card();
                         if (empty($disable_single_listing)) {
                             echo '</a>';
                         }

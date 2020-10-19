@@ -119,11 +119,28 @@
         }
 
         // Select2 js code
-        // Location
-        $('#at_biz_dir-location').select2({
-                placeholder: atbdp_add_listing.i18n_text.location_selection,
-                allowClear: true,
-        });
+        const createLoc = atbdp_add_listing.create_new_loc;
+        if (createLoc) {
+          $("#at_biz_dir-location").select2({
+            placeholder: atbdp_add_listing.i18n_text.location_selection,
+            tags: true,
+            maximumSelectionLength: atbdp_add_listing.i18n_text.max_location_creation,
+            language: {
+                maximumSelected: function(){
+                        return atbdp_add_listing.i18n_text.max_location_msg;
+                }
+            },
+            tokenSeparators: [","],
+          });
+        } else {
+          $("#at_biz_dir-location").select2({
+            placeholder: atbdp_add_listing.i18n_text.location_selection,
+            allowClear: true,
+            tags: false,
+            maximumSelectionLength: atbdp_add_listing.i18n_text.max_location_creation,
+            tokenSeparators: [","],
+          });
+        }
 
         // Tags
         const createTag = atbdp_add_listing.create_new_tag;

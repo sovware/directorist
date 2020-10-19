@@ -4754,10 +4754,27 @@ The Administrator of ==SITE_NAME==
                 ),
                 array(
                     'type' => 'toggle',
+                    'name' => 'create_new_loc',
+                    'label' => __('Allow Creating New Location', 'directorist'),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'toggle',
                     'name' => 'multiple_loc_for_user',
                     'label' => __('Multi Location for User', 'directorist'),
                     'default' => 1,
                 ),
+                array(
+                'type' => 'slider',
+                    'name' => 'max_location_creation',
+                    'label' => __('Maximum Number of Location', 'directorist'),
+                    'min' => '0',
+                    'max' => '100',
+                    'step' => '1',
+                    'default' => '5',
+                    'description' => __('Here 0 means unlimited.', 'directorist'),
+                ),
+
             ));
         }
 

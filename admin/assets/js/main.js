@@ -1618,6 +1618,20 @@ jQuery(function ($) {
         lf_opt62.show();
     }
 
+      //Display Maximum Location
+    var lf_opt63 = $("#max_location_creation");
+    lf_opt63.hide();
+    $('input[name="multiple_loc_for_user"]').on("change", function () {
+        if ($(this).is(":checked") === true) {
+        lf_opt63.show();
+        } else {
+        lf_opt63.hide();
+        }
+    });
+    if ($('input[name="multiple_loc_for_user"]').is(":checked") === true) {
+        lf_opt63.show();
+    }
+
     //Display review content
     var enable_reviewer_content_effects = $("#required_reviewer_content");
     enable_reviewer_content_effects.hide();

@@ -391,7 +391,15 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                             foreach ($location as $single_loc) {
                                 $locations = get_term_by('term_id', $single_loc, ATBDP_LOCATION);
-                                wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
+                                if( !$locations ){
+                                    $result = wp_insert_term( $single_loc, ATBDP_LOCATION );
+                                    if( !is_wp_error( $result ) ){
+                                        $term_id = $result['term_id'];
+                                        wp_set_object_terms($post_id, $term_id, ATBDP_LOCATION, $append);
+                                    }
+                                }else{
+                                    wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
+                                }
                             }
                         }else{
                             wp_set_object_terms($post_id, '', ATBDP_LOCATION);
@@ -619,7 +627,15 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 }
                                 foreach ($location as $single_loc) {
                                     $locations = get_term_by('term_id', $single_loc, ATBDP_LOCATION);
-                                    wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
+                                    if(!$locations) {
+                                        $result = wp_insert_term( $single_loc, ATBDP_LOCATION );
+                                        if( !is_wp_error( $result ) ){
+                                            $term_id = $result['term_id'];
+                                            wp_set_object_terms($post_id, $term_id, ATBDP_LOCATION, $append);
+                                        }
+                                    } else {
+                                        wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
+                                    }
                                 }
                             }else{
                                 wp_set_object_terms($post_id, '', ATBDP_LOCATION);

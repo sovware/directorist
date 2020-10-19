@@ -245,7 +245,7 @@ If you face any issues with managing this awesome business directory plugin in p
 
 >💁 __Perfect for our project!__
 
->This free plugin does what Classifieds premium themes don’t. It is very well thought out and personalized. I needed support and had a service note 10..
+>This free plugin does what Classifieds premium themes don’t. It is very well thought out and personalized. I needed support and had a service note 10.
 - By @barenco
 
 >👨 __Amazing Plugin and Excellent Support__
@@ -329,7 +329,10 @@ Directorist is a complete directory solution and in combination with its advance
 
 = 6.5.4 - Oct 19, 2020 =
 
+* Add - Allow listing owners to create location
+* Add - Maximum location creation/selection limit
 * Add - Option to redirect to referrer page after login
+* Add - Option to disable SEO
 * Improve - Polylang support
 * Improve - Validation of map's latitude and longitude
 * Fix - Single listing social media icon issue

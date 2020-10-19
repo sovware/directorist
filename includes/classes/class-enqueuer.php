@@ -374,6 +374,8 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
         wp_enqueue_script( 'atbdp_custom_field_validator' );
 
         $new_tag         = get_directorist_option( 'create_new_tag', 0 );
+        $new_loc         = get_directorist_option( 'create_new_loc', 0 );
+        $max_loc_creation = get_directorist_option( 'max_location_creation', 0 );
         $tag_placeholder = get_directorist_option( 'tag_placeholder', __( 'Select or insert new tags separated by a comma, or space', 'directorist' ) );
         $cat_placeholder = get_directorist_option( 'cat_placeholder', __( 'Select Category', 'directorist' ) );
         $loc_placeholder = get_directorist_option( 'loc_placeholder', __( 'Select Location', 'directorist' ) );
@@ -387,6 +389,8 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             'location_selection'      => esc_attr( $loc_placeholder ),
             'category_selection'      => esc_attr( $cat_placeholder ),
             'tag_selection'           => esc_attr( $tag_placeholder ),
+            'max_location_creation'   => esc_attr( $max_loc_creation ),
+            'max_location_msg'        => sprintf( __('You can only use %s', 'directorist'), $max_loc_creation ),
         );
 
         //get listing is if the screen in edit listing
@@ -408,6 +412,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             'PublicAssetPath' => ATBDP_PUBLIC_ASSETS,
             'i18n_text'       => $i18n_text,
             'create_new_tag'  => $new_tag,
+            'create_new_loc' => $new_loc,
             'cat_placeholder' => $cat_placeholder,
             'image_notice'    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
         );

@@ -4,7 +4,7 @@ Donate link: https://directorist.com/extensions/
 Tags: directory, listings, classifieds, local directory, business directory
 Requires at least: 4.6
 Tested up to:  5.5
-Stable tag: 6.5.3
+Stable tag: 6.5.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,6 +19,10 @@ Want to build an online directory of business listings similar to Yelp, Yellow-P
 👉 [Demos](https://directorist.com/demos/) | [Docs](https://directorist.com/documentation/directorist/) | [Themes](https://directorist.com/product/category/themes/) | [Extensions](https://directorist.com/product/category/extensions/) | [Roadmap](https://directorist.com/roadmap/) | [Support](https://directorist.com/dashboard/) 👈
 
 Meet our powerful **Directorist Business Directory** plugin, highly optimized that can scale to millions of listings ensuring the most dynamic experience of managing online directory business. Using Directorist, you can create lists of directories based on the location, category, and other interests without writing a single line of code. You can also make classified websites like a car selling directory, booking directory, land selling directory, team directory, job portal, directory portal, staff directory, medical directory, doctor directory, address book, and what not!
+
+👉 Join Our FB Community : [Directorist Community](https://www.facebook.com/groups/directorist)
+👉 Official Facebook Page : [Like and Follow on Facebook](https://www.facebook.com/directorist)
+👉 Official Twitter handle : [Follow on Twitter](https://twitter.com/wpdirectorist)
 
 Directorist Business Directory is one of the leading and fast-growing business directory plugins in WordPress. It is fully compatible with popular WordPress themes that allows you to transform your existing website into a personalized business directory with tons of advanced features and functionalities.
 
@@ -121,7 +125,7 @@ Directorist Business Directory allows you to monetize your business directory we
 👉 **Paid Listing*:** Get paid for each listing your users submit! You can create unlimited pricing plans by providing different sets of values to get paid by listing the submissions. To make it happen, it requires a cost-effective premium extension.
 👉 **Claim Listing*:** Make money by allowing business owners to claim their listing and get verified.
 👉 **Pay Per Submit*:** Earn by charging users to create a listing on your site.
-_*Requires Additional Purchase_
+**Requires Additional Purchase**
 
 ####Frontend Listing Submission and Listing Management
 
@@ -304,6 +308,17 @@ Directorist is a complete directory solution and in combination with its advance
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.5.4 - Oct 19, 2020 =
+
+* Add - Option to redirect to referrer page after login
+* Improve - Polylang support
+* Improve - Validation of map's latitude and longitude
+* Fix - Single listing social media icon issue
+* Fix - Orderby rand parameter is not working if cache is enabled
+* Fix - Tag creation issue with settings
+* Fix - Filtering issue with pagination
+* Fix - Style issues
 
 = 6.5.3 - Oct 8, 2020 =
 

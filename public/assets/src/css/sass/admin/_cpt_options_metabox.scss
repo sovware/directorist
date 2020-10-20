@@ -535,6 +535,7 @@ li[ class="cptm-form-builder-field-list-item" ][ draggable="true" ] {
 
 .cptm-form-builder-field-list-icon {
   display: inline-block;
+  margin-right: 10px;
   width: 28px;
   font-size: 18px;
   color: $dark-3;
@@ -930,6 +931,24 @@ input[type="checkbox"].cptm-checkbox {
   }
 }
 
+.cptm-list-item {
+  display: flex;
+  padding: 5px;
+  color: gray;
+  font-weight: 600;
+  font-size: 16px;
+  .cptm-list-item-icon {
+    width: 25px;
+  }
+  .cptm-list-item-label {
+    flex-grow: 1;
+  }
+}
+
+.cptm-list-item-card {
+  display: block;
+}
+
 // Widgets
 .cptm-widget-badge {
   display: inline-block;
@@ -1293,6 +1312,7 @@ input[type="checkbox"].cptm-checkbox {
 
 .cptm-listing-card-preview-body-placeholder {
   display: block;
+  padding: 10px;
   min-height: 206px;
   border-color: #e3e6ef;
   &:hover, &.drag-enter {

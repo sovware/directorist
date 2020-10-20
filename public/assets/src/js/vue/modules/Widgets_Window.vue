@@ -33,7 +33,9 @@
                     :key="widget_key"
                     @click="selectWidget( widget_key )">
                         <pre>{{ widget.in_used }}</pre>
-                        <span class="cptm-form-builder-field-list-icon" v-html="widget.icon"></span>
+                        <span class="cptm-form-builder-field-list-icon">
+                            <span :class="widget.icon"></span>
+                        </span>
                         <span class="cptm-form-builder-field-list-label">
                             {{ widget.label }}
                         </span>

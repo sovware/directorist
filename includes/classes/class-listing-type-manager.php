@@ -4131,7 +4131,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "title",
                             'id' => "listing_title",
                             'label' => "Listing Title",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'options' => [
                               'title' => "Listing Title Settings",
                               'fields' => [
@@ -4144,28 +4144,62 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                           ],
                   
-                        //   'open_close_badge' => [
-                        //     'type' => "badge",
-                        //     'id' => "open_close_badge",
-                        //     'label' => "Open/Close",
-                        //     'icon' => '<span class="uil uil-text-fields"></span>',
-                        //     'options' => [
-                        //       'title' => "Open/Closed Settings",
-                        //       'fields' => [
-                        //         'label' => [
-                        //           'type' => "text",
-                        //           'label' => "Label",
-                        //           'value' => "Open Now",
-                        //         ],
-                        //       ],
-                        //     ],
-                        //   ],
+                          'listings_location' => [
+                            'type' => "list-item",
+                            'id' => "listings_location",
+                            'label' => "Listings Location",
+                            'icon' => 'uil uil-location-point',
+                            'options' => [
+                              'title' => "Listings Location Settings",
+                              'fields' => [
+                                'icon' => [
+                                  'type' => "icon",
+                                  'label' => "Icon",
+                                  'value' => "uil uil-location-point",
+                                ],
+                              ],
+                            ],
+                          ],
+
+                          'listings_phone_number' => [
+                            'type' => "list-item",
+                            'id' => "listings_phone_number",
+                            'label' => "Listings Phone Number",
+                            'icon' => 'uil uil-phone',
+                            'options' => [
+                              'title' => "Listings Phone Number Settings",
+                              'fields' => [
+                                'icon' => [
+                                  'type' => "icon",
+                                  'label' => "Icon",
+                                  'value' => "uil uil-phone",
+                                ],
+                              ],
+                            ],
+                          ],
+
+                          'listings_website' => [
+                            'type' => "list-item",
+                            'id' => "listings_website",
+                            'label' => "Listings Website",
+                            'icon' => 'uil uil-globe',
+                            'options' => [
+                              'title' => "Listings Website Settings",
+                              'fields' => [
+                                'icon' => [
+                                  'type' => "icon",
+                                  'label' => "Icon",
+                                  'value' => "uil uil-globe",
+                                ],
+                              ],
+                            ],
+                          ],
                   
                           'featured_badge' => [
                             'type' => "badge",
                             'id' => "featured_badge",
                             'label' => "Featured",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_featured_badge",
                             'options' => [
                                 'title' => "Featured Badge Settings",
@@ -4184,14 +4218,14 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'id' => "rating",
                             'label' => "Rating",
                             'hook' => "atbdp_listings_rating",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                         ],
 
                         'compare_badge' => [
                             'type' => "badge",
                             'id' => "compare_badge",
                             'label' => "Compare",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_compare_badge",
                             'options' => [
                                 'title' => "Compare Badge Settings",
@@ -4209,7 +4243,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "badge",
                             'id' => "new_badge",
                             'label' => "New",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_new_badge",
                             'options' => [
                                 'title' => "New Badge Settings",
@@ -4232,7 +4266,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "badge",
                             'id' => "popular_badge",
                             'label' => "Popular",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_popular_badge",
                             'options' => [
                                 'title' => "Popular Badge Settings",
@@ -4279,7 +4313,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "badge",
                             'id' => "favorite_badge",
                             'label' => "Favorite",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_favorite_badge",
                             'options' => [
                                 'title' => "Favorite Settings",
@@ -4297,7 +4331,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "view-count",
                             'id' => "view_count",
                             'label' => "View Count",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_view_count",
                             'options' => [
                                 'title' => "View Count Settings",
@@ -4315,7 +4349,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "badge",
                             'id' => "category",
                             'label' => "Category",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_category",
                             'options' => [
                                 'title' => "Category Settings",
@@ -4333,7 +4367,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "avatar",
                             'id' => "user_avatar",
                             'label' => "User Avatar",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_user_avatar",
                             /* 'options' => [
                                 'title' => "Avatar Settings",
@@ -4374,14 +4408,20 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                         ],
 
-                        'middle' => [
-                            'body' => [
-                                'maxWidget' => 2,
+                        'body' => [
+                            'top' => [
+                                'maxWidget' => 0,
+                                'acceptedWidgets' => [
+                                    "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"
+                                ],
+                            ],
+                            'bottom' => [
+                                'maxWidget' => 0,
                                 'widgetGroups' => [
                                     ['label' => 'Preset', 'widgets' => ['listing_title']],
                                     ['label' => 'Custom', 'widgets' => ['listing_title']],
                                 ],
-                                'acceptedWidgets' => ["listing_title", "favorite_badge"],
+                                'acceptedWidgets' => ["listings_location", "listings_phone_number", "listings_website"],
                             ],
                         ],
 
@@ -4408,7 +4448,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "title",
                             'id' => "listing_title",
                             'label' => "Listing Title",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'options' => [
                               'title' => "Listing Title Settings",
                               'fields' => [
@@ -4421,36 +4461,70 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                           ],
                   
-                        //   'open_close_badge' => [
-                        //     'type' => "badge",
-                        //     'id' => "open_close_badge",
-                        //     'label' => "Open/Close",
-                        //     'icon' => '<span class="uil uil-text-fields"></span>',
-                        //     'options' => [
-                        //       'title' => "Open/Closed Settings",
-                        //       'fields' => [
-                        //         'label' => [
-                        //           'type' => "text",
-                        //           'label' => "Label",
-                        //           'value' => "Open Now",
-                        //         ],
-                        //       ],
-                        //     ],
-                        //   ],
+                          'listings_location' => [
+                            'type' => "list-item",
+                            'id' => "listings_location",
+                            'label' => "Listings Location",
+                            'icon' => 'uil uil-location-point',
+                            'options' => [
+                              'title' => "Listings Location Settings",
+                              'fields' => [
+                                'icon' => [
+                                  'type' => "icon",
+                                  'label' => "Icon",
+                                  'value' => "uil uil-location-point",
+                                ],
+                              ],
+                            ],
+                          ],
+
+                          'listings_phone_number' => [
+                            'type' => "list-item",
+                            'id' => "listings_phone_number",
+                            'label' => "Listings Phone Number",
+                            'icon' => 'uil uil-phone',
+                            'options' => [
+                              'title' => "Listings Phone Number Settings",
+                              'fields' => [
+                                'icon' => [
+                                  'type' => "icon",
+                                  'label' => "Icon",
+                                  'value' => "uil uil-phone",
+                                ],
+                              ],
+                            ],
+                          ],
+
+                          'listings_website' => [
+                            'type' => "list-item",
+                            'id' => "listings_website",
+                            'label' => "Listings Website",
+                            'icon' => 'uil uil-globe',
+                            'options' => [
+                              'title' => "Listings Website Settings",
+                              'fields' => [
+                                'icon' => [
+                                  'type' => "icon",
+                                  'label' => "Icon",
+                                  'value' => "uil uil-globe",
+                                ],
+                              ],
+                            ],
+                          ],
 
                         'rating' => [
                             'type' => "rating",
                             'id' => "rating",
                             'label' => "Rating",
                             'hook' => "atbdp_listings_rating",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                         ],
                   
                           'featured_badge' => [
                             'type' => "badge",
                             'id' => "featured_badge",
                             'label' => "Featured",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_featured_badge",
                             'options' => [
                                 'title' => "Featured Badge Settings",
@@ -4468,7 +4542,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "badge",
                             'id' => "compare_badge",
                             'label' => "Compare",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_compare_badge",
                             'options' => [
                                 'title' => "Compare Badge Settings",
@@ -4486,7 +4560,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "badge",
                             'id' => "new_badge",
                             'label' => "New",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_new_badge",
                             'options' => [
                                 'title' => "New Badge Settings",
@@ -4509,7 +4583,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "badge",
                             'id' => "popular_badge",
                             'label' => "Popular",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_popular_badge",
                             'options' => [
                                 'title' => "Popular Badge Settings",
@@ -4556,7 +4630,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "badge",
                             'id' => "favorite_badge",
                             'label' => "Favorite",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_favorite_badge",
                             'options' => [
                                 'title' => "Favorite Settings",
@@ -4574,7 +4648,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "badge",
                             'id' => "view_count",
                             'label' => "View Count",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_view_count",
                             'options' => [
                                 'title' => "View Count Settings",
@@ -4592,7 +4666,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "badge",
                             'id' => "category",
                             'label' => "Category",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_category",
                             'options' => [
                                 'title' => "Category Settings",
@@ -4610,7 +4684,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'type' => "avatar",
                             'id' => "user_avatar",
                             'label' => "User Avatar",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
+                            'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_user_avatar",
                             /* 'options' => [
                                 'title' => "Avatar Settings",
@@ -4661,7 +4735,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ['label' => 'Preset', 'widgets' => ['listing_title']],
                                     ['label' => 'Custom', 'widgets' => ['listing_title']],
                                 ],
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["listings_location", "listings_phone_number", "listings_website"],
                             ],
                         ],
 

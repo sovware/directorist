@@ -46,6 +46,7 @@
             :is="activeWidgets[widget].type + '-card-widget'"
             :key="widget_index"
             :label="activeWidgets[widget].label"
+            :icon="( typeof activeWidgets[widget].icon === 'string' ) ? activeWidgets[widget].icon : ''"
             :options="activeWidgets[widget].options"
             :widgetDropable="widgetDropable"
             :canEdit="widgetHasOptions( activeWidgets[widget] )"

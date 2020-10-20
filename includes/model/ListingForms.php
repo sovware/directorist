@@ -779,6 +779,7 @@ class Directorist_Listing_Forms {
 			}
 		}
 		$field_data['value'] = $value;
+		var_dump( $field_data );
 		switch ( $field_data['widget_name'] ) {
 			case 'text':
 				atbdp_get_shortcode_template( 'forms/fields/text', $field_data );
@@ -800,6 +801,60 @@ class Directorist_Listing_Forms {
 				break;
 			case 'color_picker':
 				atbdp_get_shortcode_template( 'forms/fields/color_picker', $field_data );
+				break;
+			case 'select':
+				atbdp_get_shortcode_template( 'forms/fields/select', $field_data );
+				break;
+			case 'checkbox':
+				atbdp_get_shortcode_template( 'forms/fields/checkbox', $field_data );
+				break;
+			case 'radio':
+				atbdp_get_shortcode_template( 'forms/fields/radio', $field_data );
+				break;
+			case 'file':
+				atbdp_get_shortcode_template( 'forms/fields/file', $field_data );
+				break;
+			case 'description':
+				atbdp_get_shortcode_template( 'forms/fields/description', $field_data );
+				break;
+			case 'tagline':
+				atbdp_get_shortcode_template( 'forms/fields/tagline', $field_data );
+				break;
+			case 'excerpt':
+				atbdp_get_shortcode_template( 'forms/fields/excerpt', $field_data );
+				break;
+			case 'address':
+				atbdp_get_shortcode_template( 'forms/fields/address', $field_data );
+				break;
+			case 'zip':
+				atbdp_get_shortcode_template( 'forms/fields/zip', $field_data );
+				break;
+			case 'phone':
+				atbdp_get_shortcode_template( 'forms/fields/phone', $field_data );
+				break;
+			case 'phone2':
+				atbdp_get_shortcode_template( 'forms/fields/phone2', $field_data );
+				break;
+			case 'fax':
+				atbdp_get_shortcode_template( 'forms/fields/fax', $field_data );
+				break;
+			case 'email':
+				atbdp_get_shortcode_template( 'forms/fields/email', $field_data );
+				break;
+			case 'website':
+				atbdp_get_shortcode_template( 'forms/fields/website', $field_data );
+				break;
+			case 'social_info':
+				atbdp_get_shortcode_template( 'forms/fields/social_info', $field_data );
+				break;
+			case 'image_upload':
+				atbdp_get_shortcode_template( 'forms/fields/image_upload', $field_data );
+				break;
+			case 'video':
+				atbdp_get_shortcode_template( 'forms/fields/video', $field_data );
+				break;
+			case 'submit_button':
+				atbdp_get_shortcode_template( 'forms/fields/submit_button', $field_data );
 				break;
 			default:
 				break;

@@ -62,10 +62,10 @@ class Directorist_Listings {
 	public $view_as;
 	public $sort_by_items;
 	public $views;
-  //
+
 	public $location_placeholder;
 	public $locations_fields;
-  //
+
 	public $c_symbol;
 	public $popular_badge_text;
 	public $feature_badge_text;
@@ -366,8 +366,14 @@ class Directorist_Listings {
 		$u_pro_pic   = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
 		$bdbh        = get_post_meta( $id, '_bdbh', true );
 
+		$listing_type = get_the_terms( $id, 'atbdp_listing_types' );
+		$listing_type = !empty( $listing_type[0]->term_id ) ? $listing_type[0]->term_id : 0;
+		$listing_type = 43; // @todo @kowsar remove later
+		$card_fields  = get_term_meta( $listing_type, 'listings_card_grid_view', true );
+
 		$data = array(
 			'id'                   => $id,
+			'card_fields'          => $card_fields,
 			'permalink'            => get_permalink( $id ),
 			'title'                => get_the_title(),
 			'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),
@@ -1712,6 +1718,115 @@ class Directorist_Listings {
 
 		public function filter_container_class() {
 			echo ( 'overlapping' === $this->filters_display ) ? 'ads_float' : 'ads_slide';
+		}
+
+		public function render_card_field( $field ) {
+			if ( $field['type'] == 'badge' ) {
+				$this->render_badge_template($field);
+			}
+			else {
+				switch ($field['id']) {
+					case 'listing_title':
+					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/title', array('listings' => $this) );
+					break;
+
+					case 'user_avatar':
+					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/avatar', array('listings' => $this) );
+					break;
+
+					case 'rating':
+					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/rating', array('listings' => $this) );
+					break;
+
+					case 'view_count':
+					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/view-count', array('listings' => $this) );
+					break;
+
+					case 'category':
+					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/cats', array('listings' => $this) );
+					break;
+				}
+			}
+		}
+
+		public function render_card_fields( $card_fields, $position, $before = '', $after = '' ) {
+			switch ($position) {
+				case 'cover-top-left':
+				$fields = $card_fields['thumbnail']['top_left'];
+				break;
+
+				case 'cover-top-right':
+				$fields = $card_fields['thumbnail']['top_right'];
+				break;
+
+				case 'cover-bottom-left':
+				$fields = $card_fields['thumbnail']['bottom_left'];
+				break;
+
+				case 'cover-bottom-right':
+				$fields = $card_fields['thumbnail']['bottom_right'];
+				break;
+
+				case 'cover-avatar':
+				$fields = $card_fields['thumbnail']['avatar'];
+				break;
+
+				case 'footer-left':
+				$fields = $card_fields['footer']['left'];
+				break;
+
+				case 'footer-right':
+				$fields = $card_fields['footer']['right'];
+				break;
+
+				case 'body-top':
+				$fields = $card_fields['body']['top'];
+				break;
+
+				case 'body-bottom':
+				$fields = $card_fields['body']['bottom'];
+				break;
+			}
+
+			foreach ( $fields as $field ) {
+				echo $before;$this->render_card_field( $field );echo $after;
+			}
+		}
+
+		public function render_badge_template( $field ) {
+			global $post;
+			$id = get_the_ID();
+			switch ($field['id']) {
+				case 'popular_badge':
+				$field['class'] = 'popular';
+				$popular_listing_id = atbdp_popular_listings( $id );
+				if ( $popular_listing_id === $id ) {
+					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/badge', $field );
+				}
+				break;
+
+				case 'featured_badge':
+				$field['class'] = 'featured';
+				$featured = get_post_meta( $id, '_featured', true );
+				if ( $featured ) {
+					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/badge', $field );
+				}
+				break;
+
+				case 'new_badge':
+				$field['class'] = 'new';
+
+				$new_listing_time = get_directorist_option('new_listing_day');
+				$each_hours = 60 * 60 * 24; // seconds in a day
+				$s_date1 = strtotime(current_time('mysql')); // seconds for date 1
+				$s_date2 = strtotime($post->post_date); // seconds for date 2
+				$s_date_diff = abs($s_date1 - $s_date2); // different of the two dates in seconds
+				$days = round($s_date_diff / $each_hours); // divided the different with second in a day
+				if ($days <= (int)$new_listing_time) {
+					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/badge', $field );
+				}
+				break;
+			}
 		}
 
 		public function listing_wrapper_class() {

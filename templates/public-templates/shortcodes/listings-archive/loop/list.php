@@ -2,10 +2,10 @@
 /**
  * @author  AazzTech
  * @since   6.6
- * @version 6.6
+ * @version 6.7
  */
 
-$featured_class = $listings->loop['featured'] ? 'directorist-featured-listings' : '';
+$card_fields = $listings->loop['card_fields'];
 ?>
 <div class="atbd_single_listing atbd_listing_list">
    <article class="atbd_single_listing_wrapper <?php echo esc_attr( $featured_class ); ?>">

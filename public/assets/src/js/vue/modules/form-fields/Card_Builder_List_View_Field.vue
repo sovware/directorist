@@ -381,9 +381,8 @@ export default {
 
             let widget_data = {};
             for (let root_option in this.active_widgets[widget_name]) {
-              if ("options" === root_option) {
-                continue;
-              }
+              if ("options" === root_option) { continue; }
+              if ( 'icon' === root_option ) { continue; }
 
               widget_data[root_option] = this.active_widgets[widget_name][
                 root_option
@@ -531,13 +530,11 @@ export default {
     importOldData() {
       let value = this.value;
 
-      console.log( 'list', { value } );
-
       if (typeof value === "string" && this.isJSON(value)) {
         value = JSON.parse(value);
       }
 
-      console.log("list", { value });
+      // console.log("list", { value });
 
       if (!this.isTruthyObject(value)) {
         return;

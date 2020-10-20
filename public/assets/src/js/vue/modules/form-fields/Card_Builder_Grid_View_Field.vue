@@ -449,12 +449,27 @@ export default {
       return true;
     },
 
+    isJSON( string ) {
+      try {
+        JSON.parse( string );
+      } catch (e) {
+        return false;
+      }
+
+      return true;
+    },
+
     importOldData() {
       let value = this.value;
 
-      if ( typeof value === 'string' ) {
-        value = JSON.parse( this.value );
+      console.log( 'grid', { value } );
+
+      if ( typeof value === 'string' && this.isJSON( value ) ) {
+        value = JSON.parse( value );
       }
+
+      console.log( 'grid', { value } );
+
       if ( ! this.isTruthyObject( value ) ) { return; }
 
       let selectedWidgets = [];

@@ -537,6 +537,14 @@ export default {
     },
 
     editWidget( key ) {
+      if ( typeof this.active_widgets[ key ] === 'undefined' ) {
+        return;
+      }
+
+      if ( ! this.active_widgets[ key ].options && typeof this.active_widgets[ key ].options !== 'object' ) {
+        return;
+      }
+      
       this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...this.active_widgets[ key ].options };
       this.widgetOptionsWindow.widget = key;
     },

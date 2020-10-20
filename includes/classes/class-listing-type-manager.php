@@ -3984,10 +3984,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'value' => '',
                     'options' => [
                         [
-                            'label' => 'Select...',
-                            'value' => '',
-                        ],
-                        [
                             'label' => __('Pending', 'directorist'),
                             'value' => 'pending',
                         ],
@@ -4003,10 +3999,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'type'  => 'select',
                     'value' => '',
                     'options' => [
-                        [
-                            'label' => 'Select...',
-                            'value' => '',
-                        ],
                         [
                             'label' => __('Pending', 'directorist'),
                             'value' => 'pending',
@@ -4152,22 +4144,22 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                           ],
                   
-                          'open_close_badge' => [
-                            'type' => "badge",
-                            'id' => "open_close_badge",
-                            'label' => "Open/Close",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
-                            'options' => [
-                              'title' => "Open/Closed Settings",
-                              'fields' => [
-                                'label' => [
-                                  'type' => "text",
-                                  'label' => "Label",
-                                  'value' => "Open Now",
-                                ],
-                              ],
-                            ],
-                          ],
+                        //   'open_close_badge' => [
+                        //     'type' => "badge",
+                        //     'id' => "open_close_badge",
+                        //     'label' => "Open/Close",
+                        //     'icon' => '<span class="uil uil-text-fields"></span>',
+                        //     'options' => [
+                        //       'title' => "Open/Closed Settings",
+                        //       'fields' => [
+                        //         'label' => [
+                        //           'type' => "text",
+                        //           'label' => "Label",
+                        //           'value' => "Open Now",
+                        //         ],
+                        //       ],
+                        //     ],
+                        //   ],
                   
                           'featured_badge' => [
                             'type' => "badge",
@@ -4413,22 +4405,22 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                           ],
                   
-                          'open_close_badge' => [
-                            'type' => "badge",
-                            'id' => "open_close_badge",
-                            'label' => "Open/Close",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
-                            'options' => [
-                              'title' => "Open/Closed Settings",
-                              'fields' => [
-                                'label' => [
-                                  'type' => "text",
-                                  'label' => "Label",
-                                  'value' => "Open Now",
-                                ],
-                              ],
-                            ],
-                          ],
+                        //   'open_close_badge' => [
+                        //     'type' => "badge",
+                        //     'id' => "open_close_badge",
+                        //     'label' => "Open/Close",
+                        //     'icon' => '<span class="uil uil-text-fields"></span>',
+                        //     'options' => [
+                        //       'title' => "Open/Closed Settings",
+                        //       'fields' => [
+                        //         'label' => [
+                        //           'type' => "text",
+                        //           'label' => "Label",
+                        //           'value' => "Open Now",
+                        //         ],
+                        //       ],
+                        //     ],
+                        //   ],
                   
                           'featured_badge' => [
                             'type' => "badge",

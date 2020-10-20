@@ -4366,14 +4366,14 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                         ],
 
-                        'middle' => [
-                            'body' => [
-                                'maxWidget' => 2,
-                                'widgetGroups' => [
-                                    ['label' => 'Preset', 'widgets' => ['listing_title']],
-                                    ['label' => 'Custom', 'widgets' => ['listing_title']],
-                                ],
-                                'acceptedWidgets' => ["listing_title", "open_close_badge", "favorite_badge"],
+                        'body' => [
+                            'top' => [
+                                'maxWidget' => 0,
+                                'acceptedWidgets' => ["listing_title", "open_close_badge", "favorite_badge", "compare_badge"],
+                            ],
+                            'bottom' => [
+                                'maxWidget' => 0,
+                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                         ],
 

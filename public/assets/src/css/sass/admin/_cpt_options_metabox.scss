@@ -989,10 +989,17 @@ input[type="checkbox"].cptm-checkbox {
 .cptm-mb-10 {
   margin-bottom: 10px;
 }
+.cptm-mb-20 {
+  margin-bottom: 20px;
+}
 
 .cptm-listing-card-body-header {
   display: flex;
   flex-wrap: wrap;
+}
+
+.cptm-align-left {
+  text-align: left;
 }
 
 .cptm-listing-card-body-header-left {

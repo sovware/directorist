@@ -6,19 +6,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // state
   state: {
-    active_nav_index: 3,
+    active_nav_index: 0,
     fields: {},
     layouts: {},
     config: {},
-
-    submenu: {
-      general: [
-        'General',
-        'Preview Image',
-        'Packages',
-        'Other',
-      ],
-    },
   },
   
   // mutations

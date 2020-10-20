@@ -11,6 +11,7 @@
               <div class="cptm-card-preview-top-left">
                 <!-- cptm-card-preview-top-left -->
                 <card-widget-placeholder
+                  id="thumbnail_top_left"
                   containerClass="cptm-card-preview-top-left-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.top_left.label"
                   :availableWidgets="available_widgets"
@@ -38,6 +39,7 @@
               <!-- cptm-card-preview-top-rignt -->
               <div class="cptm-card-preview-top-rignt">
                 <card-widget-placeholder
+                  id="thumbnail_top_right"
                   containerClass="cptm-card-preview-top-rignt-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.top_right.label"
                   :availableWidgets="available_widgets"
@@ -64,6 +66,7 @@
               <!-- cptm-card-preview-bottom-left -->
               <div class="cptm-card-preview-bottom-left">
                 <card-widget-placeholder
+                  id="thumbnail_bottom_left"
                   containerClass="cptm-card-preview-bottom-left-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.bottom_left.label"
                   :availableWidgets="available_widgets"
@@ -90,6 +93,7 @@
               <!-- cptm-card-preview-bottom-right -->
               <div class="cptm-card-preview-bottom-right">
                 <card-widget-placeholder
+                  id="thumbnail_bottom_right"
                   containerClass="cptm-card-preview-bottom-right-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.bottom_right.label"
                   :availableWidgets="available_widgets"
@@ -125,7 +129,8 @@
           <!-- cptm-listing-card-author-avatar -->
           <div class="cptm-listing-card-author-avatar">
             <card-widget-placeholder
-              containerClass="cptm-listing-card-author-avatar-placeholder cptm-card-dark-light"
+              id="thumbnail_avatar"
+              containerClass="cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20"
               :label="local_layout.thumbnail.avatar.label"
               :availableWidgets="available_widgets"
               :activeWidgets="active_widgets"
@@ -147,23 +152,46 @@
           </div>
 
           <card-widget-placeholder
-            containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
-            :label="local_layout.middle.body.label"
+            id="thumbnail_body_top"
+            containerClass="cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
+            :label="local_layout.body.top.label"
             :availableWidgets="available_widgets"
             :activeWidgets="active_widgets"
-            :acceptedWidgets="local_layout.middle.body.acceptedWidgets"
-            :selectedWidgets="local_layout.middle.body.selectedWidgets"
-            :maxWidget="local_layout.middle.body.maxWidget"
-            :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_body_contents' )"
-            :widgetDropable="widgetIsDropable( local_layout.middle.body )"
-            @insert-widget="insertWidget( $event, local_layout.middle.body )"
-            @drag-widget="onDragStartWidget( $event, local_layout.middle.body )"
-            @drop-widget="appendWidget( $event, local_layout.middle.body )"
+            :acceptedWidgets="local_layout.body.top.acceptedWidgets"
+            :selectedWidgets="local_layout.body.top.selectedWidgets"
+            :maxWidget="local_layout.body.top.maxWidget"
+            :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_body_top' )"
+            :widgetDropable="widgetIsDropable( local_layout.body.top )"
+            @insert-widget="insertWidget( $event, local_layout.body.top )"
+            @drag-widget="onDragStartWidget( $event, local_layout.body.top )"
+            @drop-widget="appendWidget( $event, local_layout.body.top )"
             @dragend-widget="onDragEndWidget()"
             @edit-widget="editWidget( $event )"
-            @trash-widget="trashWidget( $event, local_layout.middle.body )"
-            @placeholder-on-drop="handleDropOnPlaceholder( local_layout.middle.body )"
-            @open-widgets-picker-window="activeInsertWindow( 'thumbnail_body_contents' )"
+            @trash-widget="trashWidget( $event, local_layout.body.top )"
+            @placeholder-on-drop="handleDropOnPlaceholder( local_layout.body.top )"
+            @open-widgets-picker-window="activeInsertWindow( 'thumbnail_body_top' )"
+            @close-widgets-picker-window="closeInsertWindow()"
+          />
+
+          <card-widget-placeholder
+            id="thumbnail_body_bottom"
+            containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
+            :label="local_layout.body.bottom.label"
+            :availableWidgets="available_widgets"
+            :activeWidgets="active_widgets"
+            :acceptedWidgets="local_layout.body.bottom.acceptedWidgets"
+            :selectedWidgets="local_layout.body.bottom.selectedWidgets"
+            :maxWidget="local_layout.body.bottom.maxWidget"
+            :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'thumbnail_body_bottom' )"
+            :widgetDropable="widgetIsDropable( local_layout.body.bottom )"
+            @insert-widget="insertWidget( $event, local_layout.body.bottom )"
+            @drag-widget="onDragStartWidget( $event, local_layout.body.bottom )"
+            @drop-widget="appendWidget( $event, local_layout.body.bottom )"
+            @dragend-widget="onDragEndWidget()"
+            @edit-widget="editWidget( $event )"
+            @trash-widget="trashWidget( $event, local_layout.body.bottom )"
+            @placeholder-on-drop="handleDropOnPlaceholder( local_layout.body.bottom )"
+            @open-widgets-picker-window="activeInsertWindow( 'thumbnail_body_bottom' )"
             @close-widgets-picker-window="closeInsertWindow()"
           />
         </div>
@@ -172,6 +200,7 @@
         <div class="cptm-listing-card-preview-footer">
           <!-- cptm-listing-card-preview-footer-left-placeholder -->
           <card-widget-placeholder
+            id="thumbnail_footer_left"
             containerClass="cptm-listing-card-preview-footer-left-placeholder cptm-card-light"
             :label="local_layout.footer.left.label"
             :availableWidgets="available_widgets"
@@ -194,6 +223,7 @@
 
           <!-- cptm-listing-card-preview-footer-right-placeholder -->
           <card-widget-placeholder
+            id="thumbnail_footer_right"
             containerClass="cptm-listing-card-preview-footer-right-placeholder cptm-card-light"
             :label="local_layout.footer.right.label"
             :availableWidgets="available_widgets"
@@ -377,6 +407,17 @@ export default {
           },
         },
 
+        body: {
+          top: {
+            label: 'Body Top',
+            selectedWidgets: [],
+          },
+          bottom: {
+            label: 'Body Bottom',
+            selectedWidgets: [],
+          },
+        },
+
         footer: {
           right: {
             label: 'Footer Right',
@@ -414,19 +455,20 @@ export default {
       // Get Active Widgets Data
       let active_widgets_data = {};
       for ( let section in this.value ) {
-        if ( ! this.value[ section ] && typeof this.value[ section ] !== 'object' ) { continue }
+        if ( ! this.value[ section ] && typeof this.value[ section ] !== 'object' ) { continue; }
 
         for ( let area in this.value[ section ] ) {
-          if ( ! this.value[ section ][ area ] && typeof this.value[ section ][ area ] !== 'object' ) { continue }
+          if ( ! this.value[ section ][ area ] && typeof this.value[ section ][ area ] !== 'object' ) { continue; }
 
           for ( let widget of this.value[ section ][ area ] ) {
             if ( typeof widget.id === 'undefined' ) { continue }
+            if ( typeof this.available_widgets[ widget.id ] === 'undefined' ) { continue; }
+            if ( typeof this.local_layout[ section ] === 'undefined' ) { continue; }
+            if ( typeof this.local_layout[ section ][ area ] === 'undefined' ) { continue; }
 
             active_widgets_data[ widget.id ] = widget;
             selectedWidgets.push( { section: section, area: area, widget: widget.id } );
           }
-
-          
         }
       }
 
@@ -450,6 +492,8 @@ export default {
         let length = this.local_layout[ item.section ][ item.area ].selectedWidgets.length;
         this.local_layout[ item.section ][ item.area ].selectedWidgets.splice( length, 0, item.widget );
       }
+
+      // console.log( {value: this.value, selectedWidgets} );
     },
 
     importWidgets() {
@@ -579,9 +623,6 @@ export default {
     editWidget( key ) {
       this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...this.active_widgets[ key ].options };
       this.widgetOptionsWindow.widget = key;
-
-      // console.log( this.widgetOptionsWindow );
-      // console.log( key );
     },
 
     updateWidgetOptionsData( data, widget ) {

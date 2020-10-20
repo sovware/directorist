@@ -507,7 +507,6 @@ export default {
     
     
     handleDropOnPlaceholder( dest ) {
-      // return;
       const key  = this.currentDraggingWidget.key;
       const from = this.currentDraggingWidget.origin.selectedWidgets;
       const to   = dest.selectedWidgets;
@@ -578,8 +577,6 @@ export default {
       if ( ! this.isTruthyObject( this.available_widgets[ payload.key ] ) ) {
         return;
       }
-
-      console.log( {payload, where} );
 
       Vue.set( this.active_widgets, payload.key, { ...this.available_widgets[ payload.key ] } );
       Vue.set( where, 'selectedWidgets', payload.selected_widgets );

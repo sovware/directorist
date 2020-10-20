@@ -1817,3 +1817,28 @@ span.atbdp-tick-cross {
     padding-left: 28px;
   }
 }
+
+#atbdp-send-system-info .system_info_success{
+  color: $success;
+}
+
+#atbds_r-viewing {
+  #atbdp-remote-response{
+    padding: 20px 50px 0;
+    color: $success;
+  }
+  .atbds_form-row{
+    .button-secondary{
+      padding: 8px 33px;
+      text-decoration: none;
+      border-color: #3e62f5;
+      color: #3e62f5;
+      background: #fff;
+      transition: 0.3s ease;
+      &:hover{
+        background: #3e62f5;
+        color: #fff;
+      }
+    }
+  }
+}

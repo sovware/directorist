@@ -2143,4 +2143,29 @@ span.atbdp-tick-cross {
   }
 }
 
+#atbdp-send-system-info .system_info_success {
+  color: #32cc6f;
+}
+
+#atbds_r-viewing #atbdp-remote-response {
+  padding: 20px 50px 0;
+  color: #32cc6f;
+}
+
+#atbds_r-viewing .atbds_form-row .button-secondary {
+  padding: 8px 33px;
+  text-decoration: none;
+  border-color: #3e62f5;
+  color: #3e62f5;
+  background: #fff;
+  -webkit-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+#atbds_r-viewing .atbds_form-row .button-secondary:hover {
+  background: #3e62f5;
+  color: #fff;
+}
+
 /*# sourceMappingURL=map/style.css.map */

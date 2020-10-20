@@ -530,13 +530,11 @@ export default {
     importOldData() {
       let value = this.value;
 
-      console.log( 'list', { value } );
-
       if (typeof value === "string" && this.isJSON(value)) {
         value = JSON.parse(value);
       }
 
-      console.log("list", { value });
+      // console.log("list", { value });
 
       if (!this.isTruthyObject(value)) {
         return;

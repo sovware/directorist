@@ -24,16 +24,16 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         // save_post_type_data
         public function save_post_type_data()
         {
-            wp_send_json([
-                'status' => false,
-                'listings_card_grid_view' => $this->maybe_json( $_POST['listings_card_grid_view'] ),
-                'status_log' => [
-                    'name_is_missing' => [
-                        'type' => 'error',
-                        'message' => 'Debugging',
-                    ],
-                ],
-            ], 200 );
+            // wp_send_json([
+            //     'status' => false,
+            //     'listings_card_grid_view' => $this->maybe_json( $_POST['listings_card_grid_view'] ),
+            //     'status_log' => [
+            //         'name_is_missing' => [
+            //             'type' => 'error',
+            //             'message' => 'Debugging',
+            //         ],
+            //     ],
+            // ], 200 );
 
             if (empty($_POST['name'])) {
                 wp_send_json([
@@ -5029,7 +5029,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             // $test = get_term_meta( $listing_type_id, 'submission_form_fields' );
             // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
-            var_dump( $this->fields[ 'listings_card_grid_view' ]['value'] );
+            // var_dump( $this->fields[ 'listings_card_grid_view' ]['value'] );
             // var_dump( json_decode( $test ) );
         }
 

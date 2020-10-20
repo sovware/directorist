@@ -463,13 +463,11 @@ export default {
     importOldData() {
       let value = this.value;
 
-      console.log( 'grid', { value } );
+      // console.log( 'grid', { value } );
 
       if ( typeof value === 'string' && this.isJSON( value ) ) {
         value = JSON.parse( value );
       }
-
-      console.log( 'grid', { value } );
 
       if ( ! this.isTruthyObject( value ) ) { return; }
 

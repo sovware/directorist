@@ -1756,7 +1756,7 @@ function atbdp_listings_count_by_category($term_id)
         ),
     );
 
-    $total_categories = ATBDP_Listings_Data_Store::get_listings( $args );
+    $total_categories = ATBDP_Listings_Model::get_listings( $args );
 
     return count( $total_categories );
 }
@@ -1847,7 +1847,7 @@ function atbdp_listings_count_by_location($term_id)
         )
     );
 
-    $total_location = ATBDP_Listings_Data_Store::get_listings( $args );
+    $total_location = ATBDP_Listings_Model::get_listings( $args );
     return count( $total_location );
 }
 
@@ -2363,7 +2363,7 @@ function atbdp_image_cropping($attachmentId, $width, $height, $crop = true, $qua
 
 function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price = false )
 {
-    _deprecated_function( __FUNCTION__, '7.0' );
+    // _deprecated_function( __FUNCTION__, '7.0' );
     ?>
     <div class="col-lg-12">
         <div class="row" <?php echo (get_directorist_option('grid_view_as', 'normal_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
@@ -2421,7 +2421,7 @@ function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price 
 
 function related_listing_slider($all_listings, $pagenation, $is_disable_price, $templete = 'default')
 {
-    _deprecated_function( __FUNCTION__, '7.0' );
+    // _deprecated_function( __FUNCTION__, '7.0' );
 
     if ('default' != $templete) return;
 
@@ -2816,7 +2816,7 @@ function related_listing_slider($all_listings, $pagenation, $is_disable_price, $
 
 function listing_view_by_list($all_listings, $display_image, $show_pagination, $paged)
 {
-    _deprecated_function( __FUNCTION__, '7.0' );
+    // _deprecated_function( __FUNCTION__, '7.0' );
 
     $class_name = 'container-fluid';
     $container = apply_filters('list_view_container', $class_name);
@@ -4477,7 +4477,7 @@ function atbdp_thumbnail_card($img_src = '', $_args = array())
 }
 
 function the_thumbnail_card($img_src = '', $_args = array()) {
-    _deprecated_function( __FUNCTION__, '7.0', 'atbdp_thumbnail_card()' );
+    // _deprecated_function( __FUNCTION__, '7.0', 'atbdp_thumbnail_card()' );
     return atbdp_thumbnail_card($img_src,$_args);
 }
 

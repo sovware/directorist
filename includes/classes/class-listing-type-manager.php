@@ -3984,10 +3984,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'value' => '',
                     'options' => [
                         [
-                            'label' => 'Select...',
-                            'value' => '',
-                        ],
-                        [
                             'label' => __('Pending', 'directorist'),
                             'value' => 'pending',
                         ],
@@ -4003,10 +3999,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'type'  => 'select',
                     'value' => '',
                     'options' => [
-                        [
-                            'label' => 'Select...',
-                            'value' => '',
-                        ],
                         [
                             'label' => __('Pending', 'directorist'),
                             'value' => 'pending',
@@ -4140,26 +4132,36 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'id' => "listing_title",
                             'label' => "Listing Title",
                             'icon' => '<span class="uil uil-text-fields"></span>',
-                            'hook' => "atbdp_listing_title",
-                        ],
-
-                        'open_close_badge' => [
-                            'type' => "badge",
-                            'id' => "open_close_badge",
-                            'label' => "Open/Close",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
-                            'hook' => "atbdp_open_close_badge",
-                        ],
-
-                        'rating' => [
-                            'type' => "rating",
-                            'id' => "rating",
-                            'label' => "Rating",
-                            'hook' => "atbdp_listings_rating",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
-                        ],
-
-                        'featured_badge' => [
+                            'options' => [
+                              'title' => "Listing Title Settings",
+                              'fields' => [
+                                'label' => [
+                                  'type' => "text",
+                                  'label' => "Label",
+                                  'value' => "text",
+                                ],
+                              ],
+                            ],
+                          ],
+                  
+                        //   'open_close_badge' => [
+                        //     'type' => "badge",
+                        //     'id' => "open_close_badge",
+                        //     'label' => "Open/Close",
+                        //     'icon' => '<span class="uil uil-text-fields"></span>',
+                        //     'options' => [
+                        //       'title' => "Open/Closed Settings",
+                        //       'fields' => [
+                        //         'label' => [
+                        //           'type' => "text",
+                        //           'label' => "Label",
+                        //           'value' => "Open Now",
+                        //         ],
+                        //       ],
+                        //     ],
+                        //   ],
+                  
+                          'featured_badge' => [
                             'type' => "badge",
                             'id' => "featured_badge",
                             'label' => "Featured",
@@ -4175,6 +4177,14 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ],
                                 ],
                             ],
+                        ],
+
+                        'rating' => [
+                            'type' => "rating",
+                            'id' => "rating",
+                            'label' => "Rating",
+                            'hook' => "atbdp_listings_rating",
+                            'icon' => '<span class="uil uil-text-fields"></span>',
                         ],
 
                         'compare_badge' => [
@@ -4344,19 +4354,19 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => 'Top Right',
                                 'maxWidget' => 4,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                             'top_left' => [
                                 'maxWidget' => 4,
-                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                             'bottom_right' => [
                                 'maxWidget' => 2,
-                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                             'bottom_left' => [
                                 'maxWidget' => 3,
-                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                             'avatar' => [
                                 'maxWidget' => 1,
@@ -4364,14 +4374,14 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                         ],
 
-                        'body' => [
-                            'top' => [
-                                'maxWidget' => 0,
-                                'acceptedWidgets' => ["listing_title", "open_close_badge", "favorite_badge", "compare_badge"],
-                            ],
-                            'bottom' => [
-                                'maxWidget' => 0,
-                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                        'middle' => [
+                            'body' => [
+                                'maxWidget' => 2,
+                                'widgetGroups' => [
+                                    ['label' => 'Preset', 'widgets' => ['listing_title']],
+                                    ['label' => 'Custom', 'widgets' => ['listing_title']],
+                                ],
+                                'acceptedWidgets' => ["listing_title", "favorite_badge"],
                             ],
                         ],
 
@@ -4399,16 +4409,34 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'id' => "listing_title",
                             'label' => "Listing Title",
                             'icon' => '<span class="uil uil-text-fields"></span>',
-                            'hook' => "atbdp_listing_title",
-                        ],
-
-                        'open_close_badge' => [
-                            'type' => "badge",
-                            'id' => "open_close_badge",
-                            'label' => "Open/Close",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
-                            'hook' => "atbdp_open_close_badge",
-                        ],
+                            'options' => [
+                              'title' => "Listing Title Settings",
+                              'fields' => [
+                                'label' => [
+                                  'type' => "text",
+                                  'label' => "Label",
+                                  'value' => "text",
+                                ],
+                              ],
+                            ],
+                          ],
+                  
+                        //   'open_close_badge' => [
+                        //     'type' => "badge",
+                        //     'id' => "open_close_badge",
+                        //     'label' => "Open/Close",
+                        //     'icon' => '<span class="uil uil-text-fields"></span>',
+                        //     'options' => [
+                        //       'title' => "Open/Closed Settings",
+                        //       'fields' => [
+                        //         'label' => [
+                        //           'type' => "text",
+                        //           'label' => "Label",
+                        //           'value' => "Open Now",
+                        //         ],
+                        //       ],
+                        //     ],
+                        //   ],
 
                         'rating' => [
                             'type' => "rating",
@@ -4417,8 +4445,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'hook' => "atbdp_listings_rating",
                             'icon' => '<span class="uil uil-text-fields"></span>',
                         ],
-
-                        'featured_badge' => [
+                  
+                          'featured_badge' => [
                             'type' => "badge",
                             'id' => "featured_badge",
                             'label' => "Featured",

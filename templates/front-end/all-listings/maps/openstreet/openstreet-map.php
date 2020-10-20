@@ -43,9 +43,9 @@ $marker_icons = [];
             setup_postdata( $GLOBALS['post'] );
             
             $manual_lat = get_post_meta(get_the_ID(), '_manual_lat', true);
-            $manual_lat = ( ! empty( $manual_lat ) ) ? preg_match('/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/', $manual_lat ) : $default_latitude ;
+            $manual_lat = ( ! empty( $manual_lat ) ) ? $manual_lat : $default_latitude ;
             $manual_lng = get_post_meta(get_the_ID(), '_manual_lng', true);
-            $manual_lng = ( ! empty( $manual_lng ) ) ? preg_match('/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/', $manual_lng) : $default_longitude ;
+            $manual_lng = ( ! empty( $manual_lng ) ) ? $manual_lng : $default_longitude ;
 
             $listing_img           = get_post_meta(get_the_ID(), '_listing_img', true);
             $listing_prv_img       = get_post_meta(get_the_ID(), '_listing_prv_img', true);

@@ -4629,7 +4629,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         'thumbnail' => [
                             'top_right' => [
                                 'label' => 'Top Right',
-                                'maxWidget' => 4,
+                                'maxWidget' => 3,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
@@ -4644,13 +4644,13 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                             'header_right' => [
                                 'label' => 'Header Right',
-                                'maxWidget' => 1,
+                                'maxWidget' => 2,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                             'header_bottom' => [
                                 'label' => 'Header Bottom',
-                                'maxWidget' => 4,
+                                'maxWidget' => 3,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],

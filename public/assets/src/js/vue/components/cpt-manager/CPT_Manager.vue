@@ -125,6 +125,7 @@ export default {
 
             let field_list = [];
             let skipped_fields = [];
+            let log = [];
 
             if ( config.fields_group && typeof config.fields_group === 'object' ) {
                 for ( let group_key in config.fields_group ) {
@@ -160,6 +161,7 @@ export default {
                 let value = this.maybeJSON( fields[ field ].value );
                 form_data.append( field, value );
                 field_list.push( field );
+                log.push( field, value  );
             }
 
             // console.log( field_list, skipped_fields );
@@ -170,6 +172,8 @@ export default {
             this.footer_actions.save.isDisabled = true;
             const self = this;
 
+            // console.log( { log } );
+
             // return;
             axios.post( ajax_data.ajax_url, form_data, {} )
                 .then( response => {
@@ -177,6 +181,8 @@ export default {
                     self.footer_actions.save.isDisabled = false;
 
                     console.log( response.data );
+
+                    // return;
                     
                     if ( response.data.post_id && ! isNaN( response.data.post_id ) ) {
                         self.listing_type_id = response.data.post_id;

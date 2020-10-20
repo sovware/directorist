@@ -48,6 +48,7 @@
             :label="activeWidgets[widget].label"
             :options="activeWidgets[widget].options"
             :widgetDropable="widgetDropable"
+            :canEdit="widgetHasOptions( activeWidgets[widget] )"
             @drag="$emit('drag-widget', widget)"
             @drop="$emit('drop-widget', widget)"
             @dragend="$emit('dragend-widget', widget)"
@@ -127,6 +128,18 @@ export default {
   },
 
   methods: {
+    widgetHasOptions( active_widget ) {
+      if ( ! active_widget.options && typeof active_widget.options !== 'object' ) { 
+        return false;
+      }
+
+      if ( ! active_widget.options.fields && typeof active_widget.options.fields !== 'object' ) {
+        return false;
+      }
+
+      return true;
+    },
+
     placeholderOnDrop() {
       this.placeholderDragEnter = false;
       this.$emit('placeholder-on-drop')

@@ -313,26 +313,36 @@ export default {
           for (let widget in layout[section][section_area].selectedWidgets) {
             const widget_name = layout[section][section_area].selectedWidgets[widget];
 
-            if (typeof this.active_widgets[widget_name] !== "object") {
+            if ( ! this.active_widgets[widget_name] && typeof this.active_widgets[widget_name] !== "object") {
+              continue;
+            }
+            
+            let widget_data = {};
+            for ( let root_option in this.active_widgets[widget_name] ) {
+              if ( 'options' === root_option ) { continue; }
+              if ( 'icon' === root_option ) { continue; }
+
+              widget_data[ root_option ] = this.active_widgets[ widget_name ][ root_option ];
+            }
+
+            if ( typeof this.active_widgets[widget_name].options !== "object" ) {
+              output[section][section_area].push(widget_data);
               continue;
             }
 
-            if (typeof this.active_widgets[widget_name].options !== "object") {
+            if ( typeof this.active_widgets[widget_name].options.fields !== "object" ) {
+              output[section][section_area].push(widget_data);
               continue;
             }
-
+            
+            widget_data.options = {};
             let widget_options = this.active_widgets[widget_name].options.fields;
-            let widget_options_data = { id: widget_name };
-
-            if ( typeof this.active_widgets[widget_name].type !== "undefined" ) {
-              widget_options_data["type"] = this.active_widgets[ widget_name ].type;
-            }
 
             for ( let option in widget_options ) {
-              widget_options_data[option] = widget_options[option].value;
+              widget_data.options[option] = widget_options[ option ].value;
             }
 
-            output[section][section_area].push(widget_options_data);
+            output[section][section_area].push(widget_data);
           }
         }
       }
@@ -400,13 +410,6 @@ export default {
           },
         },
 
-        middle: {
-          body: {
-            label: 'Body',
-            selectedWidgets: [],
-          },
-        },
-
         body: {
           top: {
             label: 'Body Top',
@@ -447,20 +450,38 @@ export default {
       return true;
     },
 
+    isJSON( string ) {
+      try {
+        JSON.parse( string );
+      } catch (e) {
+        return false;
+      }
+
+      return true;
+    },
+
     importOldData() {
-      if ( ! this.isTruthyObject( this.value ) ) { return; }
+      let value = this.value;
+
+      // console.log( 'grid', { value } );
+
+      if ( typeof value === 'string' && this.isJSON( value ) ) {
+        value = JSON.parse( value );
+      }
+
+      if ( ! this.isTruthyObject( value ) ) { return; }
 
       let selectedWidgets = [];
       
       // Get Active Widgets Data
       let active_widgets_data = {};
-      for ( let section in this.value ) {
-        if ( ! this.value[ section ] && typeof this.value[ section ] !== 'object' ) { continue; }
+      for ( let section in value ) {
+        if ( ! value[ section ] && typeof value[ section ] !== 'object' ) { continue; }
 
-        for ( let area in this.value[ section ] ) {
-          if ( ! this.value[ section ][ area ] && typeof this.value[ section ][ area ] !== 'object' ) { continue; }
+        for ( let area in value[ section ] ) {
+          if ( ! value[ section ][ area ] && typeof value[ section ][ area ] !== 'object' ) { continue; }
 
-          for ( let widget of this.value[ section ][ area ] ) {
+          for ( let widget of value[ section ][ area ] ) {
             if ( typeof widget.id === 'undefined' ) { continue }
             if ( typeof this.available_widgets[ widget.id ] === 'undefined' ) { continue; }
             if ( typeof this.local_layout[ section ] === 'undefined' ) { continue; }
@@ -473,18 +494,29 @@ export default {
       }
 
       // Load Active Widgets
-      for ( let widget_key in active_widgets_data ) {
-        if ( typeof this.available_widgets[ widget_key ] === 'undefined' ) { continue; }
-
-        let widgets_template = { ...this.available_widgets[ widget_key ] };
-
-        for ( let option_key in widgets_template.options.fields ) {
-          if ( typeof active_widgets_data[ widget_key ][ option_key ] === 'undefined' ) { continue; }
-
-          widgets_template.options.fields[ option_key ].value = active_widgets_data[ widget_key ][ option_key ];
+      for (let widget_key in active_widgets_data) {
+        if (typeof this.available_widgets[widget_key] === "undefined") {
+          continue;
         }
 
-        Vue.set( this.active_widgets, widget_key, widgets_template );
+        let widgets_template = { ...this.available_widgets[widget_key] };
+
+        let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
+        if ( widget_options ) {
+          widget_options = ( ! widget_options.fields && typeof widget_options.fields !== "object" ) ? false : widget_options.fields;
+        }
+
+        if ( widget_options ) {
+          for (let option_key in widget_options) {
+            if ( typeof active_widgets_data[widget_key].options[option_key] === "undefined" ) {
+              continue;
+            }
+
+            widget_options[ option_key ].value = active_widgets_data[widget_key].options[option_key];
+          }
+        }
+
+        Vue.set(this.active_widgets, widget_key, widgets_template);
       }
 
       // Load Selected Widgets Data
@@ -621,6 +653,15 @@ export default {
     },
 
     editWidget( key ) {
+
+      if ( typeof this.active_widgets[ key ] === 'undefined' ) {
+        return;
+      }
+
+      if ( ! this.active_widgets[ key ].options && typeof this.active_widgets[ key ].options !== 'object' ) {
+        return;
+      }
+
       this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...this.active_widgets[ key ].options };
       this.widgetOptionsWindow.widget = key;
     },

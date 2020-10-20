@@ -2,7 +2,16 @@
     <div class="cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap">
         <div class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap">
             {{ label }}
-            <widget-action-tools @drag="dragStart()" @dragend="dragEnd()" @edit="$emit( 'edit' )"  @trash="$emit( 'trash' )" />
+            
+            <widget-action-tools
+                :canEdit="canEdit"
+                :canMove="canMove"
+                :canTrash="canTrash"
+                @drag="dragStart()" 
+                @dragend="dragEnd()" 
+                @edit="$emit( 'edit' )" 
+                @trash="$emit( 'trash' )"
+            />
         </div>
 
         <span class="cptm-widget-card-drop-append"
@@ -31,7 +40,22 @@ export default {
         widgetDropable: {
             type: Boolean,
             default: false,
-        }
+        },
+
+        canMove: {
+            type: Boolean,
+            default: true,
+        },
+
+        canEdit: {
+            type: Boolean,
+            default: true,
+        },
+
+        canTrash: {
+            type: Boolean,
+            default: true,
+        },
     },
 
     computed: {

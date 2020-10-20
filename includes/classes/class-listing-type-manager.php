@@ -24,20 +24,18 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         // save_post_type_data
         public function save_post_type_data()
         {
-            /* if ( empty( $_POST['name'] ) ) {
-                wp_send_json([
-                    'status' => false,
-                    'status' => $this->maybe_json( $_POST['listings_card_grid_view'] ),
-                    'status_log' => [
-                        'name_is_missing' => [
-                            'type' => 'error',
-                            'message' => 'Debugging',
-                        ],
-                    ],
-                ], 200 );
-            } */
+            // wp_send_json([
+            //     'status' => false,
+            //     'listings_card_grid_view' => $this->maybe_json( $_POST['listings_card_grid_view'] ),
+            //     'status_log' => [
+            //         'name_is_missing' => [
+            //             'type' => 'error',
+            //             'message' => 'Debugging',
+            //         ],
+            //     ],
+            // ], 200 );
 
-            if ( empty( $_POST['name'] ) ) {
+            if (empty($_POST['name'])) {
                 wp_send_json([
                     'status' => false,
                     'status_log' => [
@@ -46,7 +44,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'message' => 'Name is missing',
                         ],
                     ],
-                ], 200 );
+                ], 200);
             }
 
             $term_id = 0;
@@ -149,14 +147,16 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         {
             $string_alt = $string;
 
-            if ( preg_match('/(\\\")/', $string_alt) ) {
-                $string_alt = preg_replace( '/(\\\")/', '"', $string_alt );
-                $string_alt = json_decode( $string_alt, true );
-                $string     = ( ! is_null( $string_alt ) ) ? $string_alt : $string;
+            if (preg_match('/\\\\+/', $string_alt)) {
+                $string_alt = preg_replace('/\\\\+/', '', $string_alt);
+                $string_alt = json_decode($string_alt, true);
+                $string     = (!is_null($string_alt)) ? $string_alt : $string;
             }
             
-            $test_json = json_decode( $string, true );
-            if ( ! is_null($test_json) ) { $string = $test_json; }
+            $test_json = json_decode($string, true);
+            if (!is_null($test_json)) {
+                $string = $test_json;
+            }
 
             return $string;
         }
@@ -751,7 +751,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'title' => 'Preset Fields',
                     'description' => 'Click on a field to use it',
                     'allow_multiple' => false,
-                    'widgets' => apply_filters( 'atbdp_form_preset_widgets', [
+                    'widgets' => apply_filters('atbdp_form_preset_widgets', [
                         'title' => [
                             'label' => 'Title',
                             'icon' => 'fa fa-text-height',
@@ -867,7 +867,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                            
+
                             ],
                         ],
 
@@ -1009,8 +1009,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => true,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1046,8 +1046,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1088,8 +1088,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1135,8 +1135,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1177,8 +1177,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1214,8 +1214,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1246,8 +1246,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1283,8 +1283,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1320,8 +1320,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1357,8 +1357,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1394,8 +1394,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1431,8 +1431,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1468,8 +1468,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1500,8 +1500,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1547,8 +1547,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1584,8 +1584,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -1676,14 +1676,14 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
                             ],
                         ],
-                    ] ),
+                    ]),
                 ],
 
                 'custom' => [
                     'title' => 'Custom Fields',
                     'description' => 'Click on a field type you want to create',
                     'allow_multiple' => true,
-                    'widgets' => apply_filters( 'atbdp_form_custom_widgets', [
+                    'widgets' => apply_filters('atbdp_form_custom_widgets', [
                         'text' => [
                             'label' => 'Text',
                             'icon' => 'uil uil-text',
@@ -1737,8 +1737,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                
-                            
+
+
                             ]
 
                         ],
@@ -1801,8 +1801,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                
-                            
+
+
                             ]
 
                         ],
@@ -1860,8 +1860,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                
-                            
+
+
                             ]
 
                         ],
@@ -1924,8 +1924,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                
-                            
+
+
                             ]
 
                         ],
@@ -1983,8 +1983,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                
-                            
+
+
                             ]
 
                         ],
@@ -2042,8 +2042,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                
-                            
+
+
                             ]
 
                         ],
@@ -2096,8 +2096,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                
-                            
+
+
                             ]
 
                         ],
@@ -2158,8 +2158,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                
-                            
+
+
                             ]
 
                         ],
@@ -2220,8 +2220,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                
-                            
+
+
                             ]
 
                         ],
@@ -2282,8 +2282,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
-                                
-                            
+
+
                             ]
 
                         ],
@@ -2522,12 +2522,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ]
 
                         ],
-                    ] )
+                    ])
 
                 ],
             ];
@@ -2968,7 +2968,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'title' => 'Preset Fields',
                     'description' => 'Click on a field to use it',
                     'allow_multiple' => false,
-                    'widgets' => apply_filters( 'atbdp_single_listing_quick_widgets_preset', [
+                    'widgets' => apply_filters('atbdp_single_listing_quick_widgets_preset', [
                         'title' => [
                             'label' => 'Title',
                             'icon' => 'fa fa-text-height',
@@ -3084,7 +3084,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                            
+
                             ],
                         ],
 
@@ -3226,8 +3226,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => true,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3263,8 +3263,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3305,8 +3305,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3352,8 +3352,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3394,8 +3394,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3431,8 +3431,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3463,8 +3463,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3500,8 +3500,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3537,8 +3537,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3574,8 +3574,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3611,8 +3611,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3648,8 +3648,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3685,8 +3685,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3717,8 +3717,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3764,8 +3764,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3801,8 +3801,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                
-                            
+
+
                             ],
                         ],
 
@@ -3893,11 +3893,11 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
                             ],
                         ],
-                    ] ),
+                    ]),
                 ],
             ];
 
-            $this->fields = apply_filters( 'atbdp_listing_type_settings_field_list', [
+            $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
                 'name' => [
                     'label' => 'Name *',
                     'type'  => 'text',
@@ -3984,10 +3984,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'value' => '',
                     'options' => [
                         [
-                            'label' => 'Select...',
-                            'value' => '',
-                        ],
-                        [
                             'label' => __('Pending', 'directorist'),
                             'value' => 'pending',
                         ],
@@ -4003,10 +3999,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'type'  => 'select',
                     'value' => '',
                     'options' => [
-                        [
-                            'label' => 'Select...',
-                            'value' => '',
-                        ],
                         [
                             'label' => __('Pending', 'directorist'),
                             'value' => 'pending',
@@ -4050,7 +4042,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ['key' => 'tag_with_plan', 'value' => true]
                                 ]
                             ]],
-                            
+
                             'options-source' => [
                                 'where'      => 'package_list.options',
                                 'filter_by'  => 'package_list.value',
@@ -4152,213 +4144,229 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                           ],
                   
-                          'open_close_badge' => [
-                            'type' => "badge",
-                            'id' => "open_close_badge",
-                            'label' => "Open/Close",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
-                            'options' => [
-                              'title' => "Open/Closed Settings",
-                              'fields' => [
-                                'label' => [
-                                  'type' => "text",
-                                  'label' => "Label",
-                                  'value' => "Open Now",
-                                ],
-                              ],
-                            ],
-                          ],
+                        //   'open_close_badge' => [
+                        //     'type' => "badge",
+                        //     'id' => "open_close_badge",
+                        //     'label' => "Open/Close",
+                        //     'icon' => '<span class="uil uil-text-fields"></span>',
+                        //     'options' => [
+                        //       'title' => "Open/Closed Settings",
+                        //       'fields' => [
+                        //         'label' => [
+                        //           'type' => "text",
+                        //           'label' => "Label",
+                        //           'value' => "Open Now",
+                        //         ],
+                        //       ],
+                        //     ],
+                        //   ],
                   
                           'featured_badge' => [
                             'type' => "badge",
                             'id' => "featured_badge",
                             'label' => "Featured",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_featured_badge",
                             'options' => [
-                              'title' => "Featured Badge Settings",
-                              'fields' => [
-                                'label' => [
-                                  'type' => "text",
-                                  'label' => "Label",
-                                  'value' => "Featured",
+                                'title' => "Featured Badge Settings",
+                                'fields' => [
+                                    'label' => [
+                                        'type' => "text",
+                                        'label' => "Label",
+                                        'value' => "Fetured",
+                                    ],
                                 ],
-                              ],
                             ],
-                          ],
+                        ],
 
-                          'compare_badge' => [
+                        'rating' => [
+                            'type' => "rating",
+                            'id' => "rating",
+                            'label' => "Rating",
+                            'hook' => "atbdp_listings_rating",
+                            'icon' => '<span class="uil uil-text-fields"></span>',
+                        ],
+
+                        'compare_badge' => [
                             'type' => "badge",
                             'id' => "compare_badge",
                             'label' => "Compare",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_compare_badge",
                             'options' => [
-                              'title' => "Compare Badge Settings",
-                              'fields' => [
-                                'label' => [
-                                  'type' => "text",
-                                  'label' => "Label",
-                                  'value' => "Compare",
+                                'title' => "Compare Badge Settings",
+                                'fields' => [
+                                    'label' => [
+                                        'type' => "text",
+                                        'label' => "Label",
+                                        'value' => "Compare",
+                                    ],
                                 ],
-                              ],
                             ],
-                          ],
+                        ],
 
-                          'new_badge' => [
+                        'new_badge' => [
                             'type' => "badge",
                             'id' => "new_badge",
                             'label' => "New",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_new_badge",
                             'options' => [
-                              'title' => "New Badge Settings",
-                              'fields' => [
-                                'label' => [
-                                  'type' => "text",
-                                  'label' => "Label",
-                                  'value' => "New",
+                                'title' => "New Badge Settings",
+                                'fields' => [
+                                    'label' => [
+                                        'type' => "text",
+                                        'label' => "Label",
+                                        'value' => "New",
+                                    ],
+                                    'new_badge_duration' => [
+                                        'type' => "number",
+                                        'label' => "New Badge Duration in Days",
+                                        'value' => "3",
+                                    ],
                                 ],
-                                'new_badge_duration' => [
-                                  'type' => "number",
-                                  'label' => "New Badge Duration in Days",
-                                  'value' => "3",
-                                ],
-                              ],
                             ],
-                          ],
+                        ],
 
-                          'popular_badge' => [
+                        'popular_badge' => [
                             'type' => "badge",
                             'id' => "popular_badge",
                             'label' => "Popular",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_popular_badge",
                             'options' => [
-                              'title' => "Popular Badge Settings",
-                              'fields' => [
-                                'label' => [
-                                  'type' => "text",
-                                  'label' => "Label",
-                                  'value' => "Popular",
-                                ],
-                                'listing_popular_by' => [
-                                  'type' => "select",
-                                  'label' => "Popular Based on",
-                                  'value' => "view_count",
-                                  'options' => [
-                                      [ 'value' => 'view_count', 'label' => 'View Count' ],
-                                      [ 'value' => 'average_rating', 'label' => 'Average Rating' ],
-                                  ],
-                                ],
+                                'title' => "Popular Badge Settings",
+                                'fields' => [
+                                    'label' => [
+                                        'type' => "text",
+                                        'label' => "Label",
+                                        'value' => "Popular",
+                                    ],
+                                    'listing_popular_by' => [
+                                        'type' => "select",
+                                        'label' => "Popular Based on",
+                                        'value' => "view_count",
+                                        'options' => [
+                                            ['value' => 'view_count', 'label' => 'View Count'],
+                                            ['value' => 'average_rating', 'label' => 'Average Rating'],
+                                        ],
+                                    ],
 
-                                  'views_for_popular' => [
-                                    'type' => "number",
-                                    'label' => "Threshold in Views Count",
-                                    'value' => "5",
-                                    'show_if' => [
-                                        [
-                                            'condition' => [
-                                                [ 'key' => 'listing_popular_by', 'value' => 'view_count' ],
-                                                [ 'key' => 'listing_popular_by', 'value' => 'both' ],
+                                    'views_for_popular' => [
+                                        'type' => "number",
+                                        'label' => "Threshold in Views Count",
+                                        'value' => "5",
+                                        'show_if' => [
+                                            [
+                                                'condition' => [
+                                                    ['key' => 'listing_popular_by', 'value' => 'view_count'],
+                                                    ['key' => 'listing_popular_by', 'value' => 'both'],
+                                                ]
                                             ]
                                         ]
-                                    ]
-                                  ],
-                                  'count_loggedin_user' => [
-                                    'type' => "toggle",
-                                    'label' => "Count Logged-in User View",
-                                    'value' => "",
-                                  ],
-                                 
+                                    ],
+                                    'count_loggedin_user' => [
+                                        'type' => "toggle",
+                                        'label' => "Count Logged-in User View",
+                                        'value' => "",
+                                    ],
+
                                 ],
-                              ],
                             ],
-                  
-                          'favorite_badge' => [
+                        ],
+
+                        'favorite_badge' => [
                             'type' => "badge",
                             'id' => "favorite_badge",
                             'label' => "Favorite",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_favorite_badge",
                             'options' => [
-                              'title' => "Favorite Settings",
-                              'fields' => [
-                                'icon' => [
-                                  'type' => "icon",
-                                  'label' => "Icon",
-                                  'value' => "fa fa-heart",
+                                'title' => "Favorite Settings",
+                                'fields' => [
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => "Icon",
+                                        'value' => "fa fa-heart",
+                                    ],
                                 ],
-                              ],
                             ],
-                          ],
+                        ],
 
-                          'view_count' => [
-                            'type' => "badge",
+                        'view_count' => [
+                            'type' => "view-count",
                             'id' => "view_count",
                             'label' => "View Count",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_view_count",
                             'options' => [
-                              'title' => "View Count Settings",
-                              'fields' => [
-                                'icon' => [
-                                  'type' => "icon",
-                                  'label' => "Icon",
-                                  'value' => "fa fa-heart",
+                                'title' => "View Count Settings",
+                                'fields' => [
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => "Icon",
+                                        'value' => "fa fa-heart",
+                                    ],
                                 ],
-                              ],
                             ],
-                          ],
-                  
-                          'category' => [
+                        ],
+
+                        'category' => [
                             'type' => "badge",
                             'id' => "category",
                             'label' => "Category",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_category",
                             'options' => [
-                              'title' => "Category Settings",
-                              'fields' => [
-                                'icon' => [
-                                  'type' => "icon",
-                                  'label' => "Icon",
-                                  'value' => "fa fa-folder",
+                                'title' => "Category Settings",
+                                'fields' => [
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => "Icon",
+                                        'value' => "fa fa-folder",
+                                    ],
                                 ],
-                              ],
                             ],
-                          ],
-                  
-                          'user_avatar' => [
+                        ],
+
+                        'user_avatar' => [
                             'type' => "avatar",
                             'id' => "user_avatar",
                             'label' => "User Avatar",
                             'icon' => '<span class="uil uil-text-fields"></span>',
-                            'options' => [
-                              'title' => "Category Settings",
-                              'fields' => [
-                                'align' => [
-                                  'type' => "select",
-                                  'label' => "Align",
-                                  'value' => "center",
+                            'hook' => "atbdp_user_avatar",
+                            /* 'options' => [
+                                'title' => "Avatar Settings",
+                                'fields' => [
+                                    'align' => [
+                                        'type' => "select",
+                                        'label' => "Align",
+                                        'value' => "center",
+                                    ],
                                 ],
-                              ],
-                            ],
-                          ],
+                            ], */
+                        ],
                     ],
-                    
+
                     'layout' => [
                         'thumbnail' => [
                             'top_right' => [
                                 'label' => 'Top Right',
                                 'maxWidget' => 4,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                             'top_left' => [
                                 'maxWidget' => 4,
-                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                             'bottom_right' => [
                                 'maxWidget' => 2,
-                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                             'bottom_left' => [
                                 'maxWidget' => 3,
-                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                             'avatar' => [
                                 'maxWidget' => 1,
@@ -4366,14 +4374,14 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                         ],
 
-                        'body' => [
-                            'top' => [
-                                'maxWidget' => 0,
-                                'acceptedWidgets' => ["listing_title", "open_close_badge", "favorite_badge", "compare_badge"],
-                            ],
-                            'bottom' => [
-                                'maxWidget' => 0,
-                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                        'middle' => [
+                            'body' => [
+                                'maxWidget' => 2,
+                                'widgetGroups' => [
+                                    ['label' => 'Preset', 'widgets' => ['listing_title']],
+                                    ['label' => 'Custom', 'widgets' => ['listing_title']],
+                                ],
+                                'acceptedWidgets' => ["listing_title", "favorite_badge"],
                             ],
                         ],
 
@@ -4413,199 +4421,215 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                           ],
                   
-                          'open_close_badge' => [
-                            'type' => "badge",
-                            'id' => "open_close_badge",
-                            'label' => "Open/Close",
+                        //   'open_close_badge' => [
+                        //     'type' => "badge",
+                        //     'id' => "open_close_badge",
+                        //     'label' => "Open/Close",
+                        //     'icon' => '<span class="uil uil-text-fields"></span>',
+                        //     'options' => [
+                        //       'title' => "Open/Closed Settings",
+                        //       'fields' => [
+                        //         'label' => [
+                        //           'type' => "text",
+                        //           'label' => "Label",
+                        //           'value' => "Open Now",
+                        //         ],
+                        //       ],
+                        //     ],
+                        //   ],
+
+                        'rating' => [
+                            'type' => "rating",
+                            'id' => "rating",
+                            'label' => "Rating",
+                            'hook' => "atbdp_listings_rating",
                             'icon' => '<span class="uil uil-text-fields"></span>',
-                            'options' => [
-                              'title' => "Open/Closed Settings",
-                              'fields' => [
-                                'label' => [
-                                  'type' => "text",
-                                  'label' => "Label",
-                                  'value' => "Open Now",
-                                ],
-                              ],
-                            ],
-                          ],
+                        ],
                   
                           'featured_badge' => [
                             'type' => "badge",
                             'id' => "featured_badge",
                             'label' => "Featured",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_featured_badge",
                             'options' => [
-                              'title' => "Featured Badge Settings",
-                              'fields' => [
-                                'label' => [
-                                  'type' => "text",
-                                  'label' => "Label",
-                                  'value' => "Featured",
+                                'title' => "Featured Badge Settings",
+                                'fields' => [
+                                    'label' => [
+                                        'type' => "text",
+                                        'label' => "Label",
+                                        'value' => "Fetured",
+                                    ],
                                 ],
-                              ],
                             ],
-                          ],
+                        ],
 
-                          'compare_badge' => [
+                        'compare_badge' => [
                             'type' => "badge",
                             'id' => "compare_badge",
                             'label' => "Compare",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_compare_badge",
                             'options' => [
-                              'title' => "Compare Badge Settings",
-                              'fields' => [
-                                'label' => [
-                                  'type' => "text",
-                                  'label' => "Label",
-                                  'value' => "Compare",
+                                'title' => "Compare Badge Settings",
+                                'fields' => [
+                                    'label' => [
+                                        'type' => "text",
+                                        'label' => "Label",
+                                        'value' => "Compare",
+                                    ],
                                 ],
-                              ],
                             ],
-                          ],
+                        ],
 
-                          'new_badge' => [
+                        'new_badge' => [
                             'type' => "badge",
                             'id' => "new_badge",
                             'label' => "New",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_new_badge",
                             'options' => [
-                              'title' => "New Badge Settings",
-                              'fields' => [
-                                'label' => [
-                                  'type' => "text",
-                                  'label' => "Label",
-                                  'value' => "New",
+                                'title' => "New Badge Settings",
+                                'fields' => [
+                                    'label' => [
+                                        'type' => "text",
+                                        'label' => "Label",
+                                        'value' => "New",
+                                    ],
+                                    'new_badge_duration' => [
+                                        'type' => "number",
+                                        'label' => "New Badge Duration in Days",
+                                        'value' => "3",
+                                    ],
                                 ],
-                                'new_badge_duration' => [
-                                  'type' => "number",
-                                  'label' => "New Badge Duration in Days",
-                                  'value' => "3",
-                                ],
-                              ],
                             ],
-                          ],
+                        ],
 
-                          'popular_badge' => [
+                        'popular_badge' => [
                             'type' => "badge",
                             'id' => "popular_badge",
                             'label' => "Popular",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_popular_badge",
                             'options' => [
-                              'title' => "Popular Badge Settings",
-                              'fields' => [
-                                'label' => [
-                                  'type' => "text",
-                                  'label' => "Label",
-                                  'value' => "Popular",
-                                ],
-                                'listing_popular_by' => [
-                                  'type' => "select",
-                                  'label' => "Popular Based on",
-                                  'value' => "view_count",
-                                  'options' => [
-                                      [ 'value' => 'view_count', 'label' => 'View Count' ],
-                                      [ 'value' => 'average_rating', 'label' => 'Average Rating' ],
-                                  ],
-                                ],
+                                'title' => "Popular Badge Settings",
+                                'fields' => [
+                                    'label' => [
+                                        'type' => "text",
+                                        'label' => "Label",
+                                        'value' => "Popular",
+                                    ],
+                                    'listing_popular_by' => [
+                                        'type' => "select",
+                                        'label' => "Popular Based on",
+                                        'value' => "view_count",
+                                        'options' => [
+                                            ['value' => 'view_count', 'label' => 'View Count'],
+                                            ['value' => 'average_rating', 'label' => 'Average Rating'],
+                                        ],
+                                    ],
 
-                                  'views_for_popular' => [
-                                    'type' => "number",
-                                    'label' => "Threshold in Views Count",
-                                    'value' => "5",
-                                    'show_if' => [
-                                        [
-                                            'condition' => [
-                                                [ 'key' => 'listing_popular_by', 'value' => 'view_count' ],
-                                                [ 'key' => 'listing_popular_by', 'value' => 'both' ],
+                                    'views_for_popular' => [
+                                        'type' => "number",
+                                        'label' => "Threshold in Views Count",
+                                        'value' => "5",
+                                        'show_if' => [
+                                            [
+                                                'condition' => [
+                                                    ['key' => 'listing_popular_by', 'value' => 'view_count'],
+                                                    ['key' => 'listing_popular_by', 'value' => 'both'],
+                                                ]
                                             ]
                                         ]
-                                    ]
-                                  ],
-                                  'count_loggedin_user' => [
-                                    'type' => "toggle",
-                                    'label' => "Count Logged-in User View",
-                                    'value' => "",
-                                  ],
-                                 
+                                    ],
+                                    'count_loggedin_user' => [
+                                        'type' => "toggle",
+                                        'label' => "Count Logged-in User View",
+                                        'value' => "",
+                                    ],
+
                                 ],
-                              ],
                             ],
-                  
-                          'favorite_badge' => [
+                        ],
+
+                        'favorite_badge' => [
                             'type' => "badge",
                             'id' => "favorite_badge",
                             'label' => "Favorite",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_favorite_badge",
                             'options' => [
-                              'title' => "Favorite Settings",
-                              'fields' => [
-                                'icon' => [
-                                  'type' => "icon",
-                                  'label' => "Icon",
-                                  'value' => "fa fa-heart",
+                                'title' => "Favorite Settings",
+                                'fields' => [
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => "Icon",
+                                        'value' => "fa fa-heart",
+                                    ],
                                 ],
-                              ],
                             ],
-                          ],
+                        ],
 
-                          'view_count' => [
+                        'view_count' => [
                             'type' => "badge",
                             'id' => "view_count",
                             'label' => "View Count",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_view_count",
                             'options' => [
-                              'title' => "View Count Settings",
-                              'fields' => [
-                                'icon' => [
-                                  'type' => "icon",
-                                  'label' => "Icon",
-                                  'value' => "fa fa-heart",
+                                'title' => "View Count Settings",
+                                'fields' => [
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => "Icon",
+                                        'value' => "fa fa-heart",
+                                    ],
                                 ],
-                              ],
                             ],
-                          ],
-                  
-                          'category' => [
+                        ],
+
+                        'category' => [
                             'type' => "badge",
                             'id' => "category",
                             'label' => "Category",
                             'icon' => '<span class="uil uil-text-fields"></span>',
+                            'hook' => "atbdp_category",
                             'options' => [
-                              'title' => "Category Settings",
-                              'fields' => [
-                                'icon' => [
-                                  'type' => "icon",
-                                  'label' => "Icon",
-                                  'value' => "fa fa-folder",
+                                'title' => "Category Settings",
+                                'fields' => [
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => "Icon",
+                                        'value' => "fa fa-folder",
+                                    ],
                                 ],
-                              ],
                             ],
-                          ],
-                  
-                          'user_avatar' => [
+                        ],
+
+                        'user_avatar' => [
                             'type' => "avatar",
                             'id' => "user_avatar",
                             'label' => "User Avatar",
                             'icon' => '<span class="uil uil-text-fields"></span>',
-                            'options' => [
-                              'title' => "Category Settings",
-                              'fields' => [
-                                'align' => [
-                                  'type' => "select",
-                                  'label' => "Align",
-                                  'value' => "center",
+                            'hook' => "atbdp_user_avatar",
+                            /* 'options' => [
+                                'title' => "Avatar Settings",
+                                'fields' => [
+                                    'align' => [
+                                        'type' => "select",
+                                        'label' => "Align",
+                                        'value' => "center",
+                                    ],
                                 ],
-                              ],
-                            ],
-                          ],
+                            ], */
+                        ],
                     ],
-                    
+
                     'layout' => [
                         'thumbnail' => [
                             'top_right' => [
                                 'label' => 'Top Right',
-                                'maxWidget' => 4,
+                                'maxWidget' => 3,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
@@ -4620,13 +4644,13 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                             'header_right' => [
                                 'label' => 'Header Right',
-                                'maxWidget' => 1,
+                                'maxWidget' => 2,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
                             'header_bottom' => [
                                 'label' => 'Header Bottom',
-                                'maxWidget' => 4,
+                                'maxWidget' => 3,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
                             ],
@@ -4677,12 +4701,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     ],
                 ],
 
-            ] );
+            ]);
 
             $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
             $wc_pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-woocommerce-pricing-plans" target="_blank">WooCommerce Pricing Plans</a>';
             $plan_promo = sprintf(__('Monetize your website by selling listing plans using %s or %s extensions.', 'directorist'), $pricing_plan, $wc_pricing_plan);
-            
+
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
                 'general' => [
                     'label' => 'General',
@@ -5004,7 +5028,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             }
 
             // $test = get_term_meta( $listing_type_id, 'submission_form_fields' );
+            // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
             // var_dump( $this->fields[ 'listings_card_grid_view' ]['value'] );
+            // var_dump( json_decode( $test ) );
         }
 
         // handle_delete_listing_type_request

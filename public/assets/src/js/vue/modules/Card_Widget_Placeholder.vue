@@ -15,9 +15,11 @@
       <div class="cptm-widget-insert-wrap">
         <div class="cptm-widget-insert-modal-container">
           <widgets-window
+            :id="id"
             :availableWidgets="availableWidgets"
             :acceptedWidgets="acceptedWidgets"
             :activeWidgets="activeWidgets"
+            :selectedWidgets="selectedWidgets"
             :active="showWidgetsPickerWindow"
             :maxWidget="maxWidget"
             :maxWidgetInfoText="maxWidgetInfoText"
@@ -63,8 +65,9 @@
 export default {
   name: "card-widget-placeholder",
   props: {
-    test: {
+    id: {
       type: String,
+      default: "",
     },
     containerClass: {
       type: String,
@@ -102,6 +105,10 @@ export default {
       type: String,
       default: "Up to __DATA__ item{s} can be added",
     },
+  },
+
+  created() {
+    
   },
 
   computed: {

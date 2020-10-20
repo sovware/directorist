@@ -183,8 +183,6 @@ export default {
             
             let unique_selecte_widgets = new Set( this.selectedWidgets );
             this.localSelectedWidgets = [ ...unique_selecte_widgets ];
-
-            console.log( this.localSelectedWidgets );
         },
 
         decodeInfoText( data, text ) {
@@ -218,7 +216,6 @@ export default {
             if ( typeof this.activeWidgets[ key ] !== 'undefined' ) { return; }
 
             let current_index = this.localSelectedWidgets.indexOf( key );
-            
             if ( current_index != -1 ) {
                 this.localSelectedWidgets.splice( current_index, 1 );
                 return;

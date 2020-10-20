@@ -8,11 +8,7 @@
         </p>
 
         <div class="cptm-form-builder-active-fields-container">
-          <div
-            class="cptm-form-builder-active-fields-group"
-            v-for="(group, group_key) in groups"
-            :key="group_key"
-          >
+          <div class="cptm-form-builder-active-fields-group" v-for="(group, group_key) in groups" :key="group_key">
             <div class="cptm-form-builder-group-header-section">
               <div class="cptm-form-builder-group-header">
                 <div
@@ -766,8 +762,6 @@ export default {
     },
     activeFieldOnDrop(args) {
       // console.log( 'activeFieldOnDrop', {field_key: args.field_key, field_index: args.field_index, group_key: args.group_key} );
-      
-
       const inserting_from          = this.current_dragging_widget_window.inserting_from;
       const inserting_field_key     = this.current_dragging_widget_window.inserting_field_key;
       const origin_group_index      = this.current_dragging_widget_window.group_key;
@@ -779,7 +773,6 @@ export default {
       this.active_field_drop_area = '';
       this.current_dragging_widget_window = '';
       
-
       /* console.log({
           inserting_from,
           inserting_field_key,

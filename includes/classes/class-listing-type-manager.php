@@ -4143,24 +4143,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                               ],
                             ],
                           ],
-                  
-                        //   'open_close_badge' => [
-                        //     'type' => "badge",
-                        //     'id' => "open_close_badge",
-                        //     'label' => "Open/Close",
-                        //     'icon' => '<span class="uil uil-text-fields"></span>',
-                        //     'options' => [
-                        //       'title' => "Open/Closed Settings",
-                        //       'fields' => [
-                        //         'label' => [
-                        //           'type' => "text",
-                        //           'label' => "Label",
-                        //           'value' => "Open Now",
-                        //         ],
-                        //       ],
-                        //     ],
-                        //   ],
-                  
+                      
                           'featured_badge' => [
                             'type' => "badge",
                             'id' => "featured_badge",
@@ -4187,23 +4170,23 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'icon' => '<span class="uil uil-text-fields"></span>',
                         ],
 
-                        'compare_badge' => [
-                            'type' => "badge",
-                            'id' => "compare_badge",
-                            'label' => "Compare",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
-                            'hook' => "atbdp_compare_badge",
-                            'options' => [
-                                'title' => "Compare Badge Settings",
-                                'fields' => [
-                                    'label' => [
-                                        'type' => "text",
-                                        'label' => "Label",
-                                        'value' => "Compare",
-                                    ],
-                                ],
-                            ],
-                        ],
+                        // 'compare_badge' => [
+                        //     'type' => "badge",
+                        //     'id' => "compare_badge",
+                        //     'label' => "Compare",
+                        //     'icon' => '<span class="uil uil-text-fields"></span>',
+                        //     'hook' => "atbdp_compare_badge",
+                        //     'options' => [
+                        //         'title' => "Compare Badge Settings",
+                        //         'fields' => [
+                        //             'label' => [
+                        //                 'type' => "text",
+                        //                 'label' => "Label",
+                        //                 'value' => "Compare",
+                        //             ],
+                        //         ],
+                        //     ],
+                        // ],
 
                         'new_badge' => [
                             'type' => "badge",
@@ -4354,19 +4337,19 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => 'Top Right',
                                 'maxWidget' => 4,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
                             'top_left' => [
                                 'maxWidget' => 4,
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
                             'bottom_right' => [
                                 'maxWidget' => 2,
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
                             'bottom_left' => [
                                 'maxWidget' => 3,
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
                             'avatar' => [
                                 'maxWidget' => 1,
@@ -4388,12 +4371,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         'footer' => [
                             'right' => [
                                 'maxWidget' => 2,
-                                'acceptedWidgets' => ["category", "favorite_badge", "view_count", "compare_badge"],
+                                'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
                             ],
 
                             'left' => [
                                 'maxWidget' => 1,
-                                'acceptedWidgets' => ["category", "favorite_badge", "view_count", "compare_badge"],
+                                'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
                             ],
                         ],
                     ],
@@ -4420,23 +4403,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                               ],
                             ],
                           ],
-                  
-                        //   'open_close_badge' => [
-                        //     'type' => "badge",
-                        //     'id' => "open_close_badge",
-                        //     'label' => "Open/Close",
-                        //     'icon' => '<span class="uil uil-text-fields"></span>',
-                        //     'options' => [
-                        //       'title' => "Open/Closed Settings",
-                        //       'fields' => [
-                        //         'label' => [
-                        //           'type' => "text",
-                        //           'label' => "Label",
-                        //           'value' => "Open Now",
-                        //         ],
-                        //       ],
-                        //     ],
-                        //   ],
 
                         'rating' => [
                             'type' => "rating",
@@ -4464,23 +4430,23 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                         ],
 
-                        'compare_badge' => [
-                            'type' => "badge",
-                            'id' => "compare_badge",
-                            'label' => "Compare",
-                            'icon' => '<span class="uil uil-text-fields"></span>',
-                            'hook' => "atbdp_compare_badge",
-                            'options' => [
-                                'title' => "Compare Badge Settings",
-                                'fields' => [
-                                    'label' => [
-                                        'type' => "text",
-                                        'label' => "Label",
-                                        'value' => "Compare",
-                                    ],
-                                ],
-                            ],
-                        ],
+                        // 'compare_badge' => [
+                        //     'type' => "badge",
+                        //     'id' => "compare_badge",
+                        //     'label' => "Compare",
+                        //     'icon' => '<span class="uil uil-text-fields"></span>',
+                        //     'hook' => "atbdp_compare_badge",
+                        //     'options' => [
+                        //         'title' => "Compare Badge Settings",
+                        //         'fields' => [
+                        //             'label' => [
+                        //                 'type' => "text",
+                        //                 'label' => "Label",
+                        //                 'value' => "Compare",
+                        //             ],
+                        //         ],
+                        //     ],
+                        // ],
 
                         'new_badge' => [
                             'type' => "badge",
@@ -4631,7 +4597,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => 'Top Right',
                                 'maxWidget' => 3,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["open_close_badge", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
                         ],
 
@@ -4646,13 +4612,13 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => 'Header Right',
                                 'maxWidget' => 2,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
                             'header_bottom' => [
                                 'label' => 'Header Bottom',
                                 'maxWidget' => 3,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
                             'body_contents' => [
                                 'label' => 'Body Contents',
@@ -4661,19 +4627,19 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ['label' => 'Preset', 'widgets' => ['listing_title']],
                                     ['label' => 'Custom', 'widgets' => ['listing_title']],
                                 ],
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "compare_badge"],
+                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
                         ],
 
                         'footer' => [
                             'right' => [
                                 'maxWidget' => 2,
-                                'acceptedWidgets' => ["user_avatar", "category", "favorite_badge", "view_count", "compare_badge"],
+                                'acceptedWidgets' => ["user_avatar", "category", "favorite_badge", "view_count"],
                             ],
 
                             'left' => [
                                 'maxWidget' => 1,
-                                'acceptedWidgets' => ["category", "favorite_badge", "view_count", "compare_badge"],
+                                'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
                             ],
                         ],
                     ],

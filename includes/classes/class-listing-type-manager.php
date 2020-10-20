@@ -4294,7 +4294,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ],
 
                         'view_count' => [
-                            'type' => "badge",
+                            'type' => "view-count",
                             'id' => "view_count",
                             'label' => "View Count",
                             'icon' => '<span class="uil uil-text-fields"></span>',
@@ -4335,7 +4335,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'label' => "User Avatar",
                             'icon' => '<span class="uil uil-text-fields"></span>',
                             'hook' => "atbdp_user_avatar",
-                            'options' => [
+                            /* 'options' => [
                                 'title' => "Avatar Settings",
                                 'fields' => [
                                     'align' => [
@@ -4344,7 +4344,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         'value' => "center",
                                     ],
                                 ],
-                            ],
+                            ], */
                         ],
                     ],
 
@@ -4612,7 +4612,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'label' => "User Avatar",
                             'icon' => '<span class="uil uil-text-fields"></span>',
                             'hook' => "atbdp_user_avatar",
-                            'options' => [
+                            /* 'options' => [
                                 'title' => "Avatar Settings",
                                 'fields' => [
                                     'align' => [
@@ -4621,7 +4621,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         'value' => "center",
                                     ],
                                 ],
-                            ],
+                            ], */
                         ],
                     ],
 

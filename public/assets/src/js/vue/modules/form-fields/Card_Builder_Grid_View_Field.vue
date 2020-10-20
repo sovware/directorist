@@ -494,21 +494,29 @@ export default {
       }
 
       // Load Active Widgets
-      for ( let widget_key in active_widgets_data ) {
-        if ( typeof this.available_widgets[ widget_key ] === 'undefined' ) { continue; }
+      for (let widget_key in active_widgets_data) {
+        if (typeof this.available_widgets[widget_key] === "undefined") {
+          continue;
+        }
 
-        let widgets_template = { ...this.available_widgets[ widget_key ] };
+        let widgets_template = { ...this.available_widgets[widget_key] };
 
-        if ( typeof active_widgets_data[ widget_key ].options !== 'undefined' ) {
-          for ( let option_key in widgets_template.options.fields ) {
-            if ( typeof active_widgets_data[ widget_key ].options[ option_key ] === 'undefined' ) { continue; }
+        let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
+        if ( widget_options ) {
+          widget_options = ( ! widget_options.fields && typeof widget_options.fields !== "object" ) ? false : widget_options.fields;
+        }
 
-            widgets_template.options.fields[ option_key ].value = active_widgets_data[ widget_key ].options[ option_key ];
+        if ( widget_options ) {
+          for (let option_key in widget_options) {
+            if ( typeof active_widgets_data[widget_key].options[option_key] === "undefined" ) {
+              continue;
+            }
+
+            widget_options[ option_key ].value = active_widgets_data[widget_key].options[option_key];
           }
         }
-        
 
-        Vue.set( this.active_widgets, widget_key, widgets_template );
+        Vue.set(this.active_widgets, widget_key, widgets_template);
       }
 
       // Load Selected Widgets Data

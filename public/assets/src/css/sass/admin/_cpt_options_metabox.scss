@@ -911,6 +911,7 @@ input[type="checkbox"].cptm-checkbox {
 
 .cptm-widget-card-inline-wrap {
   display: inline-flex;
+  vertical-align: top;
   .cptm-widget-card {
     display: inline-block;
     flex: 1;

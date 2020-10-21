@@ -11,7 +11,12 @@
 			<?php foreach ( $listing_types as $id => $name ): ?>
 				<div class="col-3">
 					<div class="directorist-each-listing-type">
-						<a href="<?php echo esc_url( add_query_arg('listing_type', $id) ); ?>"><?php echo esc_html( $name );?></a>
+						<a href="<?php echo esc_url( add_query_arg('listing_type', $id) ); ?>">
+							<span class="directorist-listing-type-icon">
+								<i class="fa fa-heart"></i>
+							</span>
+							<?php echo esc_html( $name );?>
+						</a>
 					</div>
 				</div>
 			<?php endforeach; ?>

@@ -247,6 +247,7 @@
           </template>
         </ul>
       </div>
+      
     </div>
   </div>
 </template>
@@ -318,6 +319,48 @@ export default {
       }
 
       return { fields: this.active_fields, groups: this.groups };
+    },
+
+    testComputed() {
+      return this.test * 2;
+    },
+
+    theWidgetGroups() {
+      if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
+      if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
+
+      let test = {};
+
+      if ( this.active_fields['back'] ) {
+        test[ 'back' ] = this.active_fields['back'];
+      }
+
+      return test;
+
+   
+      // Add the widget group & name to all the widget fields
+      let widgets = JSON.parse(JSON.stringify(this.widgets));
+      for (let widget_group in widgets) {
+        for (let widget in widgets[widget_group].widgets) {
+          
+          console.log( widget );
+          if ( typeof this.active_fields[ widget ] !== 'undefined' ) {
+            delete widgets[ widget_group ].widgets[ widget ];
+            continue;
+          }
+
+          widgets[widget_group].widgets[widget].options.widget_group = {
+            type: "hidden",
+            value: widget_group,
+          };
+          widgets[widget_group].widgets[widget].options.widget_name = {
+            type: "hidden",
+            value: widget,
+          };
+        }
+      }
+
+      return widgets;
     },
 
     widget_groups_with_states() {
@@ -438,6 +481,7 @@ export default {
         },
       ],
       active_fields: {},
+      test: 0,
 
       state: {},
       active_fields_ref: {},

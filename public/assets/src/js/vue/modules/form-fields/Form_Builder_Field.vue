@@ -143,9 +143,11 @@
 <script>
 import Vue from 'vue';
 import { mapState } from "vuex";
+import helpers from '../../mixins/helpers';
 
 export default {
   name: "form-builder",
+  mixins: [ helpers ],
   props: {
     widgets: {
       required: false,
@@ -227,10 +229,50 @@ export default {
       // Add the widget group & name to all the widget fields
       let widgets = JSON.parse(JSON.stringify(this.widgets));
       for (let widget_group in widgets) {
+        
+        let filter_field_keys = null;
+        let has_filter_by = ( typeof widgets[ widget_group ].filter_by === 'string' ) ? true : false;
+        has_filter_by = ( has_filter_by && widgets[ widget_group ].filter_by.length ) ? widgets[ widget_group ].filter_by : false;
+
+        if ( has_filter_by ) {
+          let filter_field = this.getTergetFields( has_filter_by );
+
+          if ( this.isObject( filter_field ) ) {
+            filter_field_keys = Object.keys( filter_field );
+          }
+        }
+
         for (let widget in widgets[widget_group].widgets) {
-          
+          // Filter fields if required
+          if ( Array.isArray( filter_field_keys ) && ! filter_field_keys.includes( widget ) ) {
+            delete widgets[ widget_group ].widgets[ widget ];
+            continue;
+          }
+
+          // Check show_if_key_exists
+          let check_show_if_key_exists = false;
+          let show_if_key_exists_field_path = null;
+          let show_if_key_exists_field = null;
+          if ( typeof widgets[widget_group].widgets[widget].show_if_key_exists !== 'undefined' ) {
+            check_show_if_key_exists = true;
+            show_if_key_exists_field_path = widgets[widget_group].widgets[widget].show_if_key_exists;
+          }
+
+          if ( check_show_if_key_exists && ! show_if_key_exists_field_path.length ) {
+            check_show_if_key_exists = false;
+          }
+
+          if ( check_show_if_key_exists ) {
+            show_if_key_exists_field = this.getTergetFields( show_if_key_exists_field_path );
+          }
+
+          if ( check_show_if_key_exists && ! this.isObject( show_if_key_exists_field ) ) {
+            delete widgets[ widget_group ].widgets[ widget ];
+            continue;
+          }
+
+          // Check if allow multiple
           let allow_multiple = ( typeof widgets[ widget_group ].allow_multiple !== 'undefined' && widgets[ widget_group ].allow_multiple ) ? true : false;
-          
           if ( ! allow_multiple && typeof this.active_fields[ widget ] !== 'undefined' ) {
             delete widgets[ widget_group ].widgets[ widget ];
             continue;
@@ -247,6 +289,8 @@ export default {
           };
         }
       }
+
+
 
       // console.log( { widgets, deleted, active_fields: this.active_fields } );
 

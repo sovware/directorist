@@ -5587,6 +5587,7 @@ span.atbd_get_loc_wid {
 
 .directorist-each-listing-type a .directorist-listing-type-icon {
   display: block;
+  margin-bottom: 10px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {

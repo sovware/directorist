@@ -36,11 +36,11 @@
                 />
               </div>
 
-              <!-- cptm-card-preview-top-rignt -->
-              <div class="cptm-card-preview-top-rignt">
+              <!-- cptm-card-preview-top-right -->
+              <div class="cptm-card-preview-top-right">
                 <card-widget-placeholder
                   id="thumbnail_top_right"
-                  containerClass="cptm-card-preview-top-rignt-placeholder cptm-card-dark"
+                  containerClass="cptm-card-preview-top-right-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.top_right.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"

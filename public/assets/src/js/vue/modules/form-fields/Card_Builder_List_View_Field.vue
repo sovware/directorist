@@ -8,55 +8,27 @@
           <div class="cptm-card-preview-thumbnail">
             <div class="cptm-card-preview-thumbnail-overlay">
               <!-- cptm-card-preview-bottom-left -->
-              <div class="cptm-card-preview-bottom-left">
+              <div class="cptm-card-preview-top-right">
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-bottom-left-placeholder cptm-card-dark"
-                  :label="local_layout.thumbnail.bottom_left.label"
+                  :label="local_layout.thumbnail.top_right.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="
-                    local_layout.thumbnail.bottom_left.acceptedWidgets
-                  "
-                  :selectedWidgets="
-                    local_layout.thumbnail.bottom_left.selectedWidgets
-                  "
-                  :maxWidget="local_layout.thumbnail.bottom_left.maxWidget"
-                  :showWidgetsPickerWindow="
-                    getActiveInsertWindowStatus('thumbnail_bottom_left')
-                  "
-                  :widgetDropable="
-                    widgetIsDropable(local_layout.thumbnail.bottom_left)
-                  "
-                  @insert-widget="
-                    insertWidget($event, local_layout.thumbnail.bottom_left)
-                  "
-                  @drag-widget="
-                    onDragStartWidget($event, local_layout.thumbnail.bottom_left)
-                  "
-                  @drop-widget="
-                    appendWidget($event, local_layout.thumbnail.bottom_left)
-                  "
+                  :acceptedWidgets="local_layout.thumbnail.top_right.acceptedWidgets"
+                  :selectedWidgets="local_layout.thumbnail.top_right.selectedWidgets"
+                  :maxWidget="local_layout.thumbnail.top_right.maxWidget"
+                  :showWidgetsPickerWindow="getActiveInsertWindowStatus('thumbnail_top_right')"
+                  :widgetDropable="widgetIsDropable(local_layout.thumbnail.top_right)"
+                  @insert-widget="insertWidget($event, local_layout.thumbnail.top_right)"
+                  @drag-widget="onDragStartWidget($event, local_layout.thumbnail.top_right)"
+                  @drop-widget="appendWidget($event, local_layout.thumbnail.top_right)"
                   @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
-                  @trash-widget="
-                    trashWidget($event, local_layout.thumbnail.bottom_left)
-                  "
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(local_layout.thumbnail.bottom_left)
-                  "
-                  @placeholder-on-dragover="
-                    handleDragOverOnPlaceholder(
-                      local_layout.thumbnail.bottom_left
-                    )
-                  "
-                  @placeholder-on-dragenter="
-                    handleDragEnterOnPlaceholder(
-                      local_layout.thumbnail.bottom_left
-                    )
-                  "
-                  @open-widgets-picker-window="
-                    activeInsertWindow('thumbnail_bottom_left')
-                  "
+                  @trash-widget="trashWidget($event, local_layout.thumbnail.top_right)"
+                  @placeholder-on-drop="handleDropOnPlaceholder(local_layout.thumbnail.top_right)"
+                  @placeholder-on-dragover="handleDragOverOnPlaceholder(local_layout.thumbnail.top_right)"
+                  @placeholder-on-dragenter="handleDragEnterOnPlaceholder(local_layout.thumbnail.top_right)"
+                  @open-widgets-picker-window="activeInsertWindow('thumbnail_top_right')"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
               </div>
@@ -366,7 +338,7 @@ export default {
       // Layout
       local_layout: {
         thumbnail: {
-          bottom_left: {
+          top_right: {
             label: "Bottom Left",
             selectedWidgets: [],
           },

@@ -248,6 +248,8 @@
         </ul>
       </div>
       
+      <pre>{{ active_fields }}</pre>
+      <pre>{{ theWidgetGroups }}</pre>
     </div>
   </div>
 </template>
@@ -326,16 +328,17 @@ export default {
     },
 
     theWidgetGroups() {
-      if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
-      if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
+      // if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
+      // if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
 
-      let test = {};
+      // let test = {};
 
-      if ( this.active_fields['back'] ) {
-        test[ 'back' ] = this.active_fields['back'];
-      }
+      // if ( this.active_fields['back'] ) {
+      //   test[ 'back' ] = this.active_fields['back'];
+      // }
 
-      return test;
+      return this.active_fields;
+      return { test: test, active_fields: this.active_fields };
 
    
       // Add the widget group & name to all the widget fields
@@ -739,9 +742,10 @@ export default {
           continue;
         }
         console.log(field, group_key, this.active_fields[field]);
-        delete this.active_fields[field];
+        Vue.delete( this.active_fields, field );
       }
-      this.groups.splice(group_key, 1);
+      
+      Vue.delete( this.groups, group_key );
     },
     activeFieldOnDragStart(field_key, field_index, group_key) {
       this.current_dragging_widget_window = {

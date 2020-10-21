@@ -247,9 +247,6 @@
           </template>
         </ul>
       </div>
-      
-      <pre>{{ active_fields }}</pre>
-      <pre>{{ theWidgetGroups }}</pre>
     </div>
   </div>
 </template>
@@ -321,49 +318,6 @@ export default {
       }
 
       return { fields: this.active_fields, groups: this.groups };
-    },
-
-    testComputed() {
-      return this.test * 2;
-    },
-
-    theWidgetGroups() {
-      // if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
-      // if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
-
-      // let test = {};
-
-      // if ( this.active_fields['back'] ) {
-      //   test[ 'back' ] = this.active_fields['back'];
-      // }
-
-      return this.active_fields;
-      return { test: test, active_fields: this.active_fields };
-
-   
-      // Add the widget group & name to all the widget fields
-      let widgets = JSON.parse(JSON.stringify(this.widgets));
-      for (let widget_group in widgets) {
-        for (let widget in widgets[widget_group].widgets) {
-          
-          console.log( widget );
-          if ( typeof this.active_fields[ widget ] !== 'undefined' ) {
-            delete widgets[ widget_group ].widgets[ widget ];
-            continue;
-          }
-
-          widgets[widget_group].widgets[widget].options.widget_group = {
-            type: "hidden",
-            value: widget_group,
-          };
-          widgets[widget_group].widgets[widget].options.widget_name = {
-            type: "hidden",
-            value: widget,
-          };
-        }
-      }
-
-      return widgets;
     },
 
     widget_groups_with_states() {
@@ -484,7 +438,6 @@ export default {
         },
       ],
       active_fields: {},
-      test: 0,
 
       state: {},
       active_fields_ref: {},
@@ -742,10 +695,9 @@ export default {
           continue;
         }
         console.log(field, group_key, this.active_fields[field]);
-        Vue.delete( this.active_fields, field );
+        delete this.active_fields[field];
       }
-      
-      Vue.delete( this.groups, group_key );
+      this.groups.splice(group_key, 1);
     },
     activeFieldOnDragStart(field_key, field_index, group_key) {
       this.current_dragging_widget_window = {

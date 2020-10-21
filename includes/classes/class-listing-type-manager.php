@@ -4076,31 +4076,136 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 ],
 
                 'single_listings_quick_actions' => [
-                    'type'         => 'form-builder',
-                    'enable_group' => false,
-                    'widgets'      => $form_field_widgets,
-                    'value'        => [],
+                    'type'      => 'form-builder',
+                    'has_group' => false,
+                    'widgets'   => [
+                        'preset' => [
+                            'title' => 'Available Fields',
+                            'description' => 'Click on a field to use it',
+                            'allow_multiple' => false,
+                            'widgets' => [
+                                'back' => [
+                                    'label' => 'Go Back',
+                                    'icon' => 'fa fa-text-height',
+                                    'options' => [
+                                        'label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Label',
+                                            'value' => 'Go Back',
+                                        ],
+                                        'icon' => [
+                                            'type'  => 'icon',
+                                            'label' => 'Icon',
+                                            'value' => 'fa fa-heart',
+                                        ],
+                                    ],
+                                ],
+                                'bookmark' => [
+                                    'label' => 'Bookmark',
+                                    'icon' => 'fa fa-text-height',
+                                    'options' => [
+                                        'label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Label',
+                                            'value' => 'Bookmark',
+                                        ],
+                                        'icon' => [
+                                            'type'  => 'icon',
+                                            'label' => 'Icon',
+                                            'value' => 'fa fa-heart',
+                                        ],
+                                    ],
+                                ],
+                                'share' => [
+                                    'label' => 'Share',
+                                    'icon' => 'fa fa-text-height',
+                                    'options' => [
+                                        'label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Label',
+                                            'value' => 'Share',
+                                        ],
+                                        'icon' => [
+                                            'type'  => 'icon',
+                                            'label' => 'Icon',
+                                            'value' => 'fa fa-heart',
+                                        ],
+                                    ],
+                                ],
+                                'leave_a_review' => [
+                                    'label' => 'Leave a review',
+                                    'icon' => 'fa fa-text-height',
+                                    'options' => [
+                                        'label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Label',
+                                            'value' => 'Leave a review',
+                                        ],
+                                        'icon' => [
+                                            'type'  => 'icon',
+                                            'label' => 'Icon',
+                                            'value' => 'fa fa-heart',
+                                        ],
+                                    ],
+                                ],
+                                'report' => [
+                                    'label' => 'Report',
+                                    'icon' => 'fa fa-text-height',
+                                    'options' => [
+                                        'label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Label',
+                                            'value' => 'Report',
+                                        ],
+                                        'icon' => [
+                                            'type'  => 'icon',
+                                            'label' => 'Icon',
+                                            'value' => 'fa fa-heart',
+                                        ],
+                                    ],
+                                ],
+                                'compare' => [
+                                    'label' => 'Compare',
+                                    'icon' => 'fa fa-text-height',
+                                    'options' => [
+                                        'label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Label',
+                                            'value' => 'Compare',
+                                        ],
+                                        'icon' => [
+                                            'type'  => 'icon',
+                                            'label' => 'Icon',
+                                            'value' => 'fa fa-heart',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],    
+                    ],
+
+                    'value'     => [],
                 ],
 
                 'single_listings_contents' => [
-                    'type'         => 'form-builder',
-                    'enable_group' => false,
-                    'widgets'      => $form_field_widgets,
-                    'value'        => [],
+                    'type'      => 'form-builder',
+                    'has_group' => false,
+                    'widgets'   => $form_field_widgets,
+                    'value'     => [],
                 ],
 
                 'single_listings_quick_info' => [
-                    'type'         => 'form-builder',
-                    'enable_group' => false,
-                    'widgets'      => $form_field_widgets,
-                    'value'        => [],
+                    'type'      => 'form-builder',
+                    'has_group' => false,
+                    'widgets'   => $form_field_widgets,
+                    'value'     => [],
                 ],
 
                 'single_listings_similar_listings' => [
-                    'type'         => 'form-builder',
-                    'enable_group' => false,
-                    'widgets'      => $form_field_widgets,
-                    'value'        => [],
+                    'type'      => 'form-builder',
+                    'has_group' => false,
+                    'widgets'   => $form_field_widgets,
+                    'value'     => [],
                 ],
 
                 'search_form_fields' => [
@@ -4662,26 +4767,20 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ],
 
                         'body' => [
-                            'header_top' => [
-                                'label' => 'Header Top',
-                                'maxWidget' => 1,
+                            'top' => [
+                                'label' => 'Body Top',
+                                'maxWidget' => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["listing_title"],
+                                'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
-                            'header_right' => [
-                                'label' => 'Header Right',
+                            'right' => [
+                                'label' => 'Body Right',
                                 'maxWidget' => 2,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
                             ],
-                            'header_bottom' => [
-                                'label' => 'Header Bottom',
-                                'maxWidget' => 3,
-                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
-                            'body_contents' => [
-                                'label' => 'Body Contents',
+                            'bottom' => [
+                                'label' => 'Body Bottom',
                                 'maxWidget' => 4,
                                 'widgetGroups' => [
                                     ['label' => 'Preset', 'widgets' => ['listing_title']],

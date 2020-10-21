@@ -76,83 +76,22 @@
               <div class="cptm-listing-card-body-header-left">
                 <card-widget-placeholder
                   containerClass="cptm-listing-card-body-header-title-placeholder cptm-mb-10 cptm-card-light"
-                  :label="local_layout.body.header_top.label"
+                  :label="local_layout.body.top.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="
-                    local_layout.body.header_top.acceptedWidgets
-                  "
-                  :selectedWidgets="
-                    local_layout.body.header_top.selectedWidgets
-                  "
-                  :maxWidget="local_layout.body.header_top.maxWidget"
-                  :showWidgetsPickerWindow="
-                    getActiveInsertWindowStatus('body_header_top')
-                  "
-                  :widgetDropable="
-                    widgetIsDropable(local_layout.body.header_top)
-                  "
-                  @insert-widget="
-                    insertWidget($event, local_layout.body.header_top)
-                  "
-                  @drag-widget="
-                    onDragStartWidget($event, local_layout.body.header_top)
-                  "
-                  @drop-widget="
-                    appendWidget($event, local_layout.body.header_top)
-                  "
+                  :acceptedWidgets="local_layout.body.top.acceptedWidgets"
+                  :selectedWidgets="local_layout.body.top.selectedWidgets"
+                  :maxWidget="local_layout.body.top.maxWidget"
+                  :showWidgetsPickerWindow="getActiveInsertWindowStatus('body_top')"
+                  :widgetDropable="widgetIsDropable(local_layout.body.top)"
+                  @insert-widget="insertWidget($event, local_layout.body.top)"
+                  @drag-widget="onDragStartWidget($event, local_layout.body.top)"
+                  @drop-widget="appendWidget($event, local_layout.body.top)"
                   @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
-                  @trash-widget="
-                    trashWidget($event, local_layout.body.header_top)
-                  "
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(local_layout.body.header_top)
-                  "
-                  @open-widgets-picker-window="
-                    activeInsertWindow('body_header_top')
-                  "
-                  @close-widgets-picker-window="closeInsertWindow()"
-                />
-
-                <card-widget-placeholder
-                  containerClass="cptm-listing-card-body-header-badge-placeholder cptm-mb-10 cptm-card-light"
-                  :label="local_layout.body.header_bottom.label"
-                  :availableWidgets="available_widgets"
-                  :activeWidgets="active_widgets"
-                  :acceptedWidgets="
-                    local_layout.body.header_bottom.acceptedWidgets
-                  "
-                  :selectedWidgets="
-                    local_layout.body.header_bottom.selectedWidgets
-                  "
-                  :maxWidget="local_layout.body.header_bottom.maxWidget"
-                  :showWidgetsPickerWindow="
-                    getActiveInsertWindowStatus('body_header_bottom')
-                  "
-                  :widgetDropable="
-                    widgetIsDropable(local_layout.body.header_bottom)
-                  "
-                  @insert-widget="
-                    insertWidget($event, local_layout.body.header_bottom)
-                  "
-                  @drag-widget="
-                    onDragStartWidget($event, local_layout.body.header_bottom)
-                  "
-                  @drop-widget="
-                    appendWidget($event, local_layout.body.header_bottom)
-                  "
-                  @dragend-widget="onDragEndWidget()"
-                  @edit-widget="editWidget($event)"
-                  @trash-widget="
-                    trashWidget($event, local_layout.body.header_bottom)
-                  "
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(local_layout.body.header_bottom)
-                  "
-                  @open-widgets-picker-window="
-                    activeInsertWindow('body_header_bottom')
-                  "
+                  @trash-widget="trashWidget($event, local_layout.body.top)"
+                  @placeholder-on-drop="handleDropOnPlaceholder(local_layout.body.top)"
+                  @open-widgets-picker-window="activeInsertWindow('body_top')"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
               </div>
@@ -160,42 +99,22 @@
               <div class="cptm-listing-card-body-header-right">
                 <card-widget-placeholder
                   containerClass="cptm-listing-card-body-header-actions-placeholder cptm-card-light"
-                  :label="local_layout.body.header_right.label"
+                  :label="local_layout.body.right.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
-                  :acceptedWidgets="
-                    local_layout.body.header_right.acceptedWidgets
-                  "
-                  :selectedWidgets="
-                    local_layout.body.header_right.selectedWidgets
-                  "
-                  :maxWidget="local_layout.body.header_right.maxWidget"
-                  :showWidgetsPickerWindow="
-                    getActiveInsertWindowStatus('body_header_right')
-                  "
-                  :widgetDropable="
-                    widgetIsDropable(local_layout.body.header_right)
-                  "
-                  @insert-widget="
-                    insertWidget($event, local_layout.body.header_right)
-                  "
-                  @drag-widget="
-                    onDragStartWidget($event, local_layout.body.header_right)
-                  "
-                  @drop-widget="
-                    appendWidget($event, local_layout.body.header_right)
-                  "
+                  :acceptedWidgets="local_layout.body.right.acceptedWidgets"
+                  :selectedWidgets="local_layout.body.right.selectedWidgets"
+                  :maxWidget="local_layout.body.right.maxWidget"
+                  :showWidgetsPickerWindow="getActiveInsertWindowStatus('body_right')"
+                  :widgetDropable="widgetIsDropable(local_layout.body.right)"
+                  @insert-widget="insertWidget($event, local_layout.body.right)"
+                  @drag-widget="onDragStartWidget($event, local_layout.body.right)"
+                  @drop-widget="appendWidget($event, local_layout.body.right)"
                   @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
-                  @trash-widget="
-                    trashWidget($event, local_layout.body.header_right)
-                  "
-                  @placeholder-on-drop="
-                    handleDropOnPlaceholder(local_layout.body.header_right)
-                  "
-                  @open-widgets-picker-window="
-                    activeInsertWindow('body_header_right')
-                  "
+                  @trash-widget="trashWidget($event, local_layout.body.right)"
+                  @placeholder-on-drop="handleDropOnPlaceholder(local_layout.body.right)"
+                  @open-widgets-picker-window="activeInsertWindow('body_right')"
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
               </div>
@@ -203,38 +122,22 @@
 
             <card-widget-placeholder
               containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
-              :label="local_layout.body.body_contents.label"
+              :label="local_layout.body.bottom.label"
               :availableWidgets="available_widgets"
               :activeWidgets="active_widgets"
-              :acceptedWidgets="local_layout.body.body_contents.acceptedWidgets"
-              :selectedWidgets="local_layout.body.body_contents.selectedWidgets"
-              :maxWidget="local_layout.body.body_contents.maxWidget"
-              :showWidgetsPickerWindow="
-                getActiveInsertWindowStatus('thumbnail_body_contents')
-              "
-              :widgetDropable="
-                widgetIsDropable(local_layout.body.body_contents)
-              "
-              @insert-widget="
-                insertWidget($event, local_layout.body.body_contents)
-              "
-              @drag-widget="
-                onDragStartWidget($event, local_layout.body.body_contents)
-              "
-              @drop-widget="
-                appendWidget($event, local_layout.body.body_contents)
-              "
+              :acceptedWidgets="local_layout.body.bottom.acceptedWidgets"
+              :selectedWidgets="local_layout.body.bottom.selectedWidgets"
+              :maxWidget="local_layout.body.bottom.maxWidget"
+              :showWidgetsPickerWindow="getActiveInsertWindowStatus('body_bottom')"
+              :widgetDropable="widgetIsDropable(local_layout.body.bottom)"
+              @insert-widget="insertWidget($event, local_layout.body.bottom)"
+              @drag-widget="onDragStartWidget($event, local_layout.body.bottom)"
+              @drop-widget="appendWidget($event, local_layout.body.bottom)"
               @dragend-widget="onDragEndWidget()"
               @edit-widget="editWidget($event)"
-              @trash-widget="
-                trashWidget($event, local_layout.body.body_contents)
-              "
-              @placeholder-on-drop="
-                handleDropOnPlaceholder(local_layout.body.body_contents)
-              "
-              @open-widgets-picker-window="
-                activeInsertWindow('thumbnail_body_contents')
-              "
+              @trash-widget="trashWidget($event, local_layout.body.bottom)"
+              @placeholder-on-drop="handleDropOnPlaceholder(local_layout.body.bottom)"
+              @open-widgets-picker-window="activeInsertWindow('body_bottom')"
               @close-widgets-picker-window="closeInsertWindow()"
             />
           </div>
@@ -470,20 +373,16 @@ export default {
         },
 
         body: {
-          header_top: {
-            label: "Header Top",
+          top: {
+            label: "Body Top",
             selectedWidgets: [],
           },
-          header_right: {
-            label: "Header Right",
+          right: {
+            label: "Body Right",
             selectedWidgets: [],
           },
-          header_bottom: {
-            label: "Header Bottom",
-            selectedWidgets: [],
-          },
-          body_contents: {
-            label: "Body Contents",
+          bottom: {
+            label: "Body Bottom",
             selectedWidgets: [],
           },
         },

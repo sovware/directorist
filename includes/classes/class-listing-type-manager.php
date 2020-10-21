@@ -3489,8 +3489,31 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
                 'single_listings_contents' => [
                     'type'      => 'form-builder',
-                    'has_group' => false,
-                    'widgets'   => $form_field_widgets,
+                    'widgets'   => $search_form_widgets,
+                    'group-options' => [
+                        'icon' => [
+                            'type'  => 'icon',
+                            'label'  => 'Block/Section Icon',
+                            'value' => '',
+                        ],
+
+                        'label' => [
+                            'type'  => 'text',
+                            'label' => 'Label',
+                            'value' => '',
+                        ],
+                        'custom_block_id' => [
+                            'type'  => 'text',
+                            'label'  => 'Custom block ID',
+                            'value' => '',
+                        ],
+                        'custom_block_classes' => [
+                            'type'  => 'text',
+                            'label'  => 'Custom block Clases',
+                            'value' => '',
+                        ],
+                        
+                    ],
                     'value'     => [],
                 ],
 
@@ -3511,7 +3534,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'search_form_fields' => [
                     'type'    => 'form-builder',
                     'widgets' => $search_form_widgets,
-                    'dependency' => 'submission_form_fields',
                     'allow_add_new_section' => false,
                     'value'   => [
                         'groups' => [

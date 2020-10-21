@@ -4758,8 +4758,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
                     'layout' => [
                         'thumbnail' => [
-                            'bottom_left' => [
-                                'label' => 'Bottom Left',
+                            'top_right' => [
+                                'label' => 'Top Right',
                                 'maxWidget' => 3,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],

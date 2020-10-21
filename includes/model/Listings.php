@@ -1279,10 +1279,6 @@ class Directorist_Listings {
 		}
 	}
 
-	public function card_template() {
-		atbdp_get_shortcode_template( "listings-archive/loop/card", array('listings' => $this) );
-	}
-
 	public function load_openstreet_map() {
 		$script_path = ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/subGroup-markercluster-controlLayers-realworld.388.js';
 		$opt = $this->get_map_options();
@@ -1535,58 +1531,6 @@ class Directorist_Listings {
 			atbdp_get_shortcode_template( 'listings-archive/loop/thumb-card', array('listings' => $this) );
 		}
 
-		public function loop_top_content_template() {
-			atbdp_get_shortcode_template( 'listings-archive/loop/top-content', array('listings' => $this) );
-		}
-
-		public function loop_price_meta_template() {
-			$html = atbdp_return_shortcode_template( 'listings-archive/loop/price-meta', array('listings' => $this) );
-			if ( $this->view == 'grid' ) {
-				echo apply_filters('atbdp_listings_review_price', $html);
-			}
-			elseif ( $this->view == 'list' ) {
-				echo apply_filters('atbdp_listings_list_review_price', $html);
-			}
-			else {
-				echo $html;
-			}
-		}
-
-		public function loop_data_list_template() {
-			atbdp_get_shortcode_template( 'listings-archive/loop/data-list', array('listings' => $this) );
-		}
-
-		public function loop_cats_template() {
-			atbdp_get_shortcode_template( 'listings-archive/loop/cats', array('listings' => $this) );
-		}
-
-		public function loop_author_template() {
-			atbdp_get_shortcode_template( 'listings-archive/loop/author', array('listings' => $this) );
-		}
-
-		public function loop_view_count_template() {
-			atbdp_get_shortcode_template( 'listings-archive/loop/view-count', array('listings' => $this) );
-		}
-
-		public function loop_grid_thumbnail_template() {
-			atbdp_get_shortcode_template( 'listings-archive/loop/grid-thumbnail', array('listings' => $this) );
-		}
-
-		public function loop_grid_bottom_content_template() {
-			$html = atbdp_return_shortcode_template( 'listings-archive/loop/grid-bottom-content', array('listings' => $this) );
-			echo apply_filters('atbdp_listings_grid_cat_view_count', $html);
-		}
-
-		public function loop_list_bottom_content_template() {
-			$html = atbdp_return_shortcode_template( 'listings-archive/loop/list-bottom-content', array('listings' => $this) );
-			echo apply_filters('atbdp_listings_list_cat_view_count_author', $html);
-		}
-
-		public function loop_grid_footer_right_template() {
-			$html = atbdp_return_shortcode_template( 'listings-archive/loop/grid-footer-right-content', array('listings' => $this) );
-			echo apply_filters('atbdp_grid_footer_right_html', $html);
-		}
-
 		public function loop_get_published_date() {
 			$publish_date_format = $this->options['publish_date_format'];
 			if ('time_ago' === $publish_date_format) {
@@ -1729,35 +1673,35 @@ class Directorist_Listings {
 			else {
 				switch ($field['id']) {
 					case 'listing_title':
-					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/title', array('listings' => $this) );
+					atbdp_get_shortcode_template( 'listings-archive/loop/title', array('listings' => $this) );
 					break;
 
 					case 'user_avatar':
-					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/avatar', array('listings' => $this) );
+					atbdp_get_shortcode_template( 'listings-archive/loop/avatar', array('listings' => $this) );
 					break;
 
 					case 'rating':
-					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/rating', array('listings' => $this) );
+					atbdp_get_shortcode_template( 'listings-archive/loop/rating', array('listings' => $this) );
 					break;
 
 					case 'view_count':
-					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/view-count', array('listings' => $this) );
+					atbdp_get_shortcode_template( 'listings-archive/loop/view-count', array('listings' => $this) );
 					break;
 
 					case 'category':
-					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/cats', array('listings' => $this) );
+					atbdp_get_shortcode_template( 'listings-archive/loop/cats', array('listings' => $this) );
 					break;
 
 					case 'listings_location':
-					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/location', array('listings' => $this) );
+					atbdp_get_shortcode_template( 'listings-archive/loop/location', array('listings' => $this) );
 					break;
 
 					case 'listings_phone_number':
-					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/phone', array('listings' => $this) );
+					atbdp_get_shortcode_template( 'listings-archive/loop/phone', array('listings' => $this) );
 					break;
 
 					case 'listings_website':
-					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/website', array('listings' => $this) );
+					atbdp_get_shortcode_template( 'listings-archive/loop/website', array('listings' => $this) );
 					break;
 				}
 			}
@@ -1824,7 +1768,7 @@ class Directorist_Listings {
 				$field['class'] = 'popular';
 				$popular_listing_id = atbdp_popular_listings( $id );
 				if ( $popular_listing_id === $id ) {
-					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/badge', $field );
+					atbdp_get_shortcode_template( 'listings-archive/loop/badge', $field );
 				}
 				break;
 
@@ -1832,7 +1776,7 @@ class Directorist_Listings {
 				$field['class'] = 'featured';
 				$featured = get_post_meta( $id, '_featured', true );
 				if ( $featured ) {
-					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/badge', $field );
+					atbdp_get_shortcode_template( 'listings-archive/loop/badge', $field );
 				}
 				break;
 
@@ -1846,7 +1790,7 @@ class Directorist_Listings {
 				$s_date_diff = abs($s_date1 - $s_date2); // different of the two dates in seconds
 				$days = round($s_date_diff / $each_hours); // divided the different with second in a day
 				if ($days <= (int)$new_listing_time) {
-					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/badge', $field );
+					atbdp_get_shortcode_template( 'listings-archive/loop/badge', $field );
 				}
 				break;
 			}

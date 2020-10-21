@@ -1,8 +1,8 @@
 <?php
 /**
  * @author  AazzTech
- * @since   6.6
- * @version 6.6
+ * @since   6.7
+ * @version 6.7
  */
 ?>
 <div class="atbd_listing_category">

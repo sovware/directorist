@@ -4132,6 +4132,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'id' => "listing_title",
                             'label' => "Listing Title",
                             'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_listing_title",
                             'options' => [
                               'title' => "Listing Title Settings",
                               'fields' => [
@@ -4149,6 +4150,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'id' => "listings_location",
                             'label' => "Listings Location",
                             'icon' => 'uil uil-location-point',
+                            'hook' => "atbdp_listings_location",
                             'options' => [
                               'title' => "Listings Location Settings",
                               'fields' => [
@@ -4166,6 +4168,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'id' => "listings_phone_number",
                             'label' => "Listings Phone Number",
                             'icon' => 'uil uil-phone',
+                            'hook' => "atbdp_listings_phone_number",
                             'options' => [
                               'title' => "Listings Phone Number Settings",
                               'fields' => [
@@ -4183,6 +4186,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'id' => "listings_website",
                             'label' => "Listings Website",
                             'icon' => 'uil uil-globe',
+                            'hook' => "atbdp_listings_website",
                             'options' => [
                               'title' => "Listings Website Settings",
                               'fields' => [
@@ -4220,24 +4224,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'hook' => "atbdp_listings_rating",
                             'icon' => 'uil uil-text-fields',
                         ],
-
-                        // 'compare_badge' => [
-                        //     'type' => "badge",
-                        //     'id' => "compare_badge",
-                        //     'label' => "Compare",
-                        //     'icon' => '<span class="uil uil-text-fields"></span>',
-                        //     'hook' => "atbdp_compare_badge",
-                        //     'options' => [
-                        //         'title' => "Compare Badge Settings",
-                        //         'fields' => [
-                        //             'label' => [
-                        //                 'type' => "text",
-                        //                 'label' => "Label",
-                        //                 'value' => "Compare",
-                        //             ],
-                        //         ],
-                        //     ],
-                        // ],
 
                         'new_badge' => [
                             'type' => "badge",
@@ -4346,7 +4332,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ],
 
                         'category' => [
-                            'type' => "badge",
+                            'type' => "category",
                             'id' => "category",
                             'label' => "Category",
                             'icon' => 'uil uil-text-fields',
@@ -4369,16 +4355,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'label' => "User Avatar",
                             'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_user_avatar",
-                            /* 'options' => [
-                                'title' => "Avatar Settings",
-                                'fields' => [
-                                    'align' => [
-                                        'type' => "select",
-                                        'label' => "Align",
-                                        'value' => "center",
-                                    ],
-                                ],
-                            ], */
                         ],
                     ],
 
@@ -4449,6 +4425,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'id' => "listing_title",
                             'label' => "Listing Title",
                             'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_listing_title",
                             'options' => [
                               'title' => "Listing Title Settings",
                               'fields' => [
@@ -4466,6 +4443,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'id' => "listings_location",
                             'label' => "Listings Location",
                             'icon' => 'uil uil-location-point',
+                            'hook' => "atbdp_listings_location",
                             'options' => [
                               'title' => "Listings Location Settings",
                               'fields' => [
@@ -4483,6 +4461,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'id' => "listings_phone_number",
                             'label' => "Listings Phone Number",
                             'icon' => 'uil uil-phone',
+                            'hook' => "atbdp_listings_phone_number",
                             'options' => [
                               'title' => "Listings Phone Number Settings",
                               'fields' => [
@@ -4500,6 +4479,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'id' => "listings_website",
                             'label' => "Listings Website",
                             'icon' => 'uil uil-globe',
+                            'hook' => "atbdp_listings_website",
                             'options' => [
                               'title' => "Listings Website Settings",
                               'fields' => [
@@ -4511,14 +4491,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                               ],
                             ],
                           ],
-
-                        'rating' => [
-                            'type' => "rating",
-                            'id' => "rating",
-                            'label' => "Rating",
-                            'hook' => "atbdp_listings_rating",
-                            'icon' => 'uil uil-text-fields',
-                        ],
                   
                           'featured_badge' => [
                             'type' => "badge",
@@ -4538,23 +4510,13 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ],
                         ],
 
-                        // 'compare_badge' => [
-                        //     'type' => "badge",
-                        //     'id' => "compare_badge",
-                        //     'label' => "Compare",
-                        //     'icon' => '<span class="uil uil-text-fields"></span>',
-                        //     'hook' => "atbdp_compare_badge",
-                        //     'options' => [
-                        //         'title' => "Compare Badge Settings",
-                        //         'fields' => [
-                        //             'label' => [
-                        //                 'type' => "text",
-                        //                 'label' => "Label",
-                        //                 'value' => "Compare",
-                        //             ],
-                        //         ],
-                        //     ],
-                        // ],
+                        'rating' => [
+                            'type' => "rating",
+                            'id' => "rating",
+                            'label' => "Rating",
+                            'hook' => "atbdp_listings_rating",
+                            'icon' => 'uil uil-text-fields',
+                        ],
 
                         'new_badge' => [
                             'type' => "badge",
@@ -4645,7 +4607,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ],
 
                         'view_count' => [
-                            'type' => "badge",
+                            'type' => "view-count",
                             'id' => "view_count",
                             'label' => "View Count",
                             'icon' => 'uil uil-text-fields',
@@ -4663,7 +4625,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ],
 
                         'category' => [
-                            'type' => "badge",
+                            'type' => "category",
                             'id' => "category",
                             'label' => "Category",
                             'icon' => 'uil uil-text-fields',
@@ -4686,23 +4648,13 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'label' => "User Avatar",
                             'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_user_avatar",
-                            /* 'options' => [
-                                'title' => "Avatar Settings",
-                                'fields' => [
-                                    'align' => [
-                                        'type' => "select",
-                                        'label' => "Align",
-                                        'value' => "center",
-                                    ],
-                                ],
-                            ], */
                         ],
                     ],
 
                     'layout' => [
                         'thumbnail' => [
-                            'top_right' => [
-                                'label' => 'Top Right',
+                            'bottom_left' => [
+                                'label' => 'Bottom Left',
                                 'maxWidget' => 3,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],

@@ -7,55 +7,55 @@
         <div class="cptm-listing-card-preview-header">
           <div class="cptm-card-preview-thumbnail">
             <div class="cptm-card-preview-thumbnail-overlay">
-              <!-- cptm-card-preview-top-rignt -->
-              <div class="cptm-card-preview-top-rignt">
+              <!-- cptm-card-preview-bottom-left -->
+              <div class="cptm-card-preview-bottom-left">
                 <card-widget-placeholder
-                  containerClass="cptm-card-preview-top-rignt-placeholder cptm-card-dark"
-                  :label="local_layout.thumbnail.top_right.label"
+                  containerClass="cptm-card-preview-bottom-left-placeholder cptm-card-dark"
+                  :label="local_layout.thumbnail.bottom_left.label"
                   :availableWidgets="available_widgets"
                   :activeWidgets="active_widgets"
                   :acceptedWidgets="
-                    local_layout.thumbnail.top_right.acceptedWidgets
+                    local_layout.thumbnail.bottom_left.acceptedWidgets
                   "
                   :selectedWidgets="
-                    local_layout.thumbnail.top_right.selectedWidgets
+                    local_layout.thumbnail.bottom_left.selectedWidgets
                   "
-                  :maxWidget="local_layout.thumbnail.top_right.maxWidget"
+                  :maxWidget="local_layout.thumbnail.bottom_left.maxWidget"
                   :showWidgetsPickerWindow="
-                    getActiveInsertWindowStatus('thumbnail_top_right')
+                    getActiveInsertWindowStatus('thumbnail_bottom_left')
                   "
                   :widgetDropable="
-                    widgetIsDropable(local_layout.thumbnail.top_right)
+                    widgetIsDropable(local_layout.thumbnail.bottom_left)
                   "
                   @insert-widget="
-                    insertWidget($event, local_layout.thumbnail.top_right)
+                    insertWidget($event, local_layout.thumbnail.bottom_left)
                   "
                   @drag-widget="
-                    onDragStartWidget($event, local_layout.thumbnail.top_right)
+                    onDragStartWidget($event, local_layout.thumbnail.bottom_left)
                   "
                   @drop-widget="
-                    appendWidget($event, local_layout.thumbnail.top_right)
+                    appendWidget($event, local_layout.thumbnail.bottom_left)
                   "
                   @dragend-widget="onDragEndWidget()"
                   @edit-widget="editWidget($event)"
                   @trash-widget="
-                    trashWidget($event, local_layout.thumbnail.top_right)
+                    trashWidget($event, local_layout.thumbnail.bottom_left)
                   "
                   @placeholder-on-drop="
-                    handleDropOnPlaceholder(local_layout.thumbnail.top_right)
+                    handleDropOnPlaceholder(local_layout.thumbnail.bottom_left)
                   "
                   @placeholder-on-dragover="
                     handleDragOverOnPlaceholder(
-                      local_layout.thumbnail.top_right
+                      local_layout.thumbnail.bottom_left
                     )
                   "
                   @placeholder-on-dragenter="
                     handleDragEnterOnPlaceholder(
-                      local_layout.thumbnail.top_right
+                      local_layout.thumbnail.bottom_left
                     )
                   "
                   @open-widgets-picker-window="
-                    activeInsertWindow('thumbnail_top_right')
+                    activeInsertWindow('thumbnail_bottom_left')
                   "
                   @close-widgets-picker-window="closeInsertWindow()"
                 />
@@ -463,8 +463,8 @@ export default {
       // Layout
       local_layout: {
         thumbnail: {
-          top_right: {
-            label: "Top Right",
+          bottom_left: {
+            label: "Bottom Left",
             selectedWidgets: [],
           },
         },

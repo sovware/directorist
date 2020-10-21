@@ -779,7 +779,7 @@ class Directorist_Listing_Forms {
 			}
 		}
 		$field_data['value'] = $value;
-		var_dump( $field_data );
+		e_var_dump( $field_data );
 		switch ( $field_data['widget_name'] ) {
 			case 'text':
 				atbdp_get_shortcode_template( 'forms/fields/text', $field_data );

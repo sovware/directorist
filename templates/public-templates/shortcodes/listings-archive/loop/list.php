@@ -5,36 +5,31 @@
  * @version 6.7
  */
 
-$card_fields = $listings->loop['card_fields'];
+$loop_fields = $listings->loop['list_fields'];
 ?>
 <div class="atbd_single_listing atbd_listing_list">
-   <article class="atbd_single_listing_wrapper <?php echo esc_attr( $featured_class ); ?>">
+	<article class="atbd_single_listing_wrapper <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
 
-        <?php if ( $listings->display_preview_image ): ?>
+		<?php if ( $listings->display_preview_image ): ?>
+			<figure class="atbd_listing_thumbnail_area">
+				<?php $listings->loop_thumb_card_template(); ?>
+				<div class="atbd-list-cover-top-right"><?php $listings->render_loop_fields($loop_fields, 'list-cover-tr'); ?></div>
+			</figure>
+		<?php endif; ?>
 
-            <figure class="atbd_listing_thumbnail_area">
-                <?php
-                $listings->loop_thumb_card_template();
+		<div class="atbd_listing_info">
 
-                /**
-                 * @since 5.0
-                 *
-                 * @hooked Directorist_Listings::featured_badge_list_view - 10
-                 * @hooked Directorist_Listings::populer_badge_list_view - 15
-                 * @hooked Directorist_Listings::new_badge_list_view - 20
-                 */
-                ?>
-                <span class="atbd_lower_badge"><?php echo apply_filters('atbdp_list_lower_badges', '');?></span>
-            </figure>
+			<div class="atbd_content_upper">
+				<div class="atbd-list-body-top"><?php $listings->render_loop_fields($loop_fields, 'list-b-top'); ?></div>
+				<div class="atbd_listing_data_list"><ul><?php $listings->render_loop_fields($loop_fields, 'list-b-bottom', '<li>', '</li>'); ?></ul></div>
+				<div class="atbd-list-body-right"><?php $listings->render_loop_fields($loop_fields, 'list-b-right'); ?></div>
+			</div>
 
-        <?php endif; ?>
-
-        <div class="atbd_listing_info">
-            <?php 
-            $listings->loop_top_content_template();
-            $listings->loop_list_bottom_content_template();
-            ?>
-        </div>
-        
-    </article>
+			<div class="atbd_listing_bottom_content">
+				<div class="atbd_content_left"><?php $listings->render_loop_fields($loop_fields, 'list-f-left'); ?></div>
+				<div class="atbd_content_right"><?php $listings->render_loop_fields($loop_fields, 'list-f-right'); ?></div>
+			</div>
+		</div>
+		
+	</article>
 </div>

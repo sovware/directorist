@@ -370,10 +370,12 @@ class Directorist_Listings {
 		$listing_type = !empty( $listing_type[0]->term_id ) ? $listing_type[0]->term_id : 0;
 		$listing_type = 43; // @todo @kowsar remove later
 		$card_fields  = get_term_meta( $listing_type, 'listings_card_grid_view', true );
+		$list_fields  = get_term_meta( $listing_type, 'listings_card_list_view', true );
 
 		$data = array(
 			'id'                   => $id,
 			'card_fields'          => $card_fields,
+			'list_fields'          => $list_fields,
 			'permalink'            => get_permalink( $id ),
 			'title'                => get_the_title(),
 			'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),
@@ -1745,46 +1747,67 @@ class Directorist_Listings {
 					case 'category':
 					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/cats', array('listings' => $this) );
 					break;
+
+					case 'listings_location':
+					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/location', array('listings' => $this) );
+					break;
+
+					case 'listings_phone_number':
+					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/phone', array('listings' => $this) );
+					break;
+
+					case 'listings_website':
+					atbdp_get_shortcode_template( 'listings-archive/loop/card-fields/website', array('listings' => $this) );
+					break;
 				}
 			}
 		}
 
-		public function render_card_fields( $card_fields, $position, $before = '', $after = '' ) {
+		public function render_loop_fields( $loop_fields, $position, $before = '', $after = '' ) {
 			switch ($position) {
-				case 'cover-top-left':
-				$fields = $card_fields['thumbnail']['top_left'];
+				case 'card-cover-tl':
+				$fields = $loop_fields['thumbnail']['top_left'];
 				break;
 
-				case 'cover-top-right':
-				$fields = $card_fields['thumbnail']['top_right'];
+				case 'card-cover-tr':
+				case 'list-cover-tr':
+				$fields = $loop_fields['thumbnail']['top_right'];
 				break;
 
-				case 'cover-bottom-left':
-				$fields = $card_fields['thumbnail']['bottom_left'];
+				case 'card-cover-bl':
+				$fields = $loop_fields['thumbnail']['bottom_left'];
 				break;
 
-				case 'cover-bottom-right':
-				$fields = $card_fields['thumbnail']['bottom_right'];
+				case 'card-cover-br':
+				$fields = $loop_fields['thumbnail']['bottom_right'];
 				break;
 
-				case 'cover-avatar':
-				$fields = $card_fields['thumbnail']['avatar'];
+				case 'card-cover-avatar':
+				$fields = $loop_fields['thumbnail']['avatar'];
 				break;
 
-				case 'footer-left':
-				$fields = $card_fields['footer']['left'];
+				case 'card-b-top':
+				case 'list-b-top':
+				$fields = $loop_fields['body']['top'];
 				break;
 
-				case 'footer-right':
-				$fields = $card_fields['footer']['right'];
+				case 'card-b-bottom':
+				case 'list-b-bottom':
+				$fields = $loop_fields['body']['bottom'];
 				break;
 
-				case 'body-top':
-				$fields = $card_fields['body']['top'];
+				case 'card-f-left':
+				case 'list-f-left':
+				$fields = $loop_fields['footer']['left'];
 				break;
 
-				case 'body-bottom':
-				$fields = $card_fields['body']['bottom'];
+				case 'card-f-right':
+				case 'list-f-right':
+				$fields = $loop_fields['footer']['right'];
+				break;
+
+				case 'list-b-right':
+				$fields = $loop_fields['body']['right'];
 				break;
 			}
 

@@ -1194,15 +1194,16 @@ input[type="checkbox"].cptm-checkbox {
       opacity: 1;
     }
 
-    
+
   }
 }
 
 .cptm-widget-actions-tools {
   position: absolute;
-  width: 100%;
+  width: 75px;
   background: #2c99ff;
-  left: -8px;
+  left: 50%;
+  transform: translateX(-50%);
   top: -40px;
   padding: 5px;
   border: 3px solid #2c99ff;
@@ -1215,8 +1216,8 @@ input[type="checkbox"].cptm-checkbox {
   pointer-events: none;
   transition: 0.3s ease;
   a {
-    padding: 0 7px;
-    font-size: 14px;
+    padding: 0 6px;
+    font-size: 12px;
     color: #fff;
   }
 }
@@ -1369,7 +1370,7 @@ input[type="checkbox"].cptm-checkbox {
     color: #969DB8;
     background-color: #EFF0F3;
   }
-  
+
 }
 
 
@@ -1382,7 +1383,7 @@ input[type="checkbox"].cptm-checkbox {
   }
   .cptm-widget-badge {
     background-color: rgba(0,0,0,.8);
-  } 
+  }
 }
 
 

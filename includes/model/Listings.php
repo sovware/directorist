@@ -1707,54 +1707,7 @@ class Directorist_Listings {
 			}
 		}
 
-		public function render_loop_fields( $loop_fields, $position, $before = '', $after = '' ) {
-			switch ($position) {
-				case 'card-cover-tl':
-				$fields = $loop_fields['thumbnail']['top_left'];
-				break;
-
-				case 'card-cover-tr':
-				case 'list-cover-tr':
-				$fields = $loop_fields['thumbnail']['top_right'];
-				break;
-
-				case 'card-cover-bl':
-				$fields = $loop_fields['thumbnail']['bottom_left'];
-				break;
-
-				case 'card-cover-br':
-				$fields = $loop_fields['thumbnail']['bottom_right'];
-				break;
-
-				case 'card-cover-avatar':
-				$fields = $loop_fields['thumbnail']['avatar'];
-				break;
-
-				case 'card-b-top':
-				case 'list-b-top':
-				$fields = $loop_fields['body']['top'];
-				break;
-
-				case 'card-b-bottom':
-				case 'list-b-bottom':
-				$fields = $loop_fields['body']['bottom'];
-				break;
-
-				case 'card-f-left':
-				case 'list-f-left':
-				$fields = $loop_fields['footer']['left'];
-				break;
-
-				case 'card-f-right':
-				case 'list-f-right':
-				$fields = $loop_fields['footer']['right'];
-				break;
-
-				case 'list-b-right':
-				$fields = $loop_fields['body']['right'];
-				break;
-			}
-
+		public function render_loop_fields( $fields, $before = '', $after = '' ) {
 			foreach ( $fields as $field ) {
 				echo $before;$this->render_card_field( $field );echo $after;
 			}

@@ -66,11 +66,4 @@ $all_types     = get_terms(
     )
 );
 ?>
-<select name="listing_type">
-    <option value=""><?php esc_attr_e( 'Select Listing Type', 'directorist' ); ?></option>
-    <?php
-    foreach ( $all_types as $type ) { ?>
-        <option value="<?php echo esc_attr( $type->term_id ); ?>" <?php selected( $type->term_id, $listing_type ); ?> ><?php echo esc_attr( $type->name ); ?></option>
-        <?php } ?>
-</select>
 <input type="hidden" name="listing_status" value="<?php echo !empty( $listing_status ) ? $listing_status : 'post_status'; ?>" />

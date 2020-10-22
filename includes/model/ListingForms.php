@@ -15,7 +15,8 @@ class Directorist_Listing_Forms {
 	public $add_listing_post;
 
 	private function __construct() {
-		add_action( 'wp', array( $this, 'wp_hook' ) );
+		add_action( 'wp', array( $this, 'init' ) );
+		k_var_dump('12');
 	}
 
 	public static function instance() {
@@ -25,7 +26,8 @@ class Directorist_Listing_Forms {
 		return self::$instance;
 	}
 
-	public function wp_hook() {
+	public function init() {
+		k_var_dump('working');
 		$this->add_listing_id   = get_query_var( 'atbdp_listing_id', 0 );
 		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
 	}
@@ -779,7 +781,7 @@ class Directorist_Listing_Forms {
 			}
 		}
 		$field_data['value'] = $value;
-		e_var_dump( $field_data );
+		// var_dump( $field_data );
 		switch ( $field_data['widget_name'] ) {
 			case 'text':
 				atbdp_get_shortcode_template( 'forms/fields/text', $field_data );

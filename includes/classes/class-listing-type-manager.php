@@ -3258,6 +3258,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'target' => '',
                     'icon'  => 'fa fa-download',
                 ],
+
                 'import' => [
                     'label' => __('Import config file', 'directorist'),
                     'type'  => 'button',
@@ -3267,6 +3268,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'target' => '',
                     'icon'  => 'fa fa-upload',
                 ],
+
                 'default_expiration' => [
                     'label' => __('Default expiration in days', 'directorist'),
                     'type'  => 'number',
@@ -3386,7 +3388,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'back' => [
                                     'label' => 'Go Back',
                                     'icon' => 'fa fa-text-height',
-                                    // 'show_if_key_exists' => 'submission_form_fields.value.fields.description',
                                     'options' => [
                                         'label' => [
                                             'type'  => 'text',
@@ -3496,7 +3497,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'label'  => 'Block/Section Icon',
                             'value' => '',
                         ],
-
                         'label' => [
                             'type'  => 'text',
                             'label' => 'Label',
@@ -3514,21 +3514,135 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ],
                         
                     ],
-                    'value'     => [],
+                    'value' => [],
                 ],
 
                 'single_listings_quick_info' => [
                     'type'      => 'form-builder',
                     'has_group' => false,
-                    'widgets'   => $form_field_widgets,
-                    'value'     => [],
+                    'widgets' => [
+                        'preset' => [
+                            'title' => 'Available Fields',
+                            'description' => 'Click on a field to use it',
+                            'widgets' => [
+                                'price' => [
+                                    'label' => 'Price',
+                                    'icon' => 'fa fa-text-height',
+                                    'options' => [
+                                        'label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Label',
+                                            'value' => 'Price',
+                                        ],
+                                        'icon' => [
+                                            'type'  => 'icon',
+                                            'label' => 'Icon',
+                                            'value' => 'fa fa-heart',
+                                        ],
+                                    ],
+                                ],
+                                'reviews' => [
+                                    'label' => 'Reviews',
+                                    'icon' => 'fa fa-text-height',
+                                    'options' => [
+                                        'label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Label',
+                                            'value' => 'Reviews',
+                                        ],
+                                        'icon' => [
+                                            'type'  => 'icon',
+                                            'label' => 'Icon',
+                                            'value' => 'fa fa-heart',
+                                        ],
+                                    ],
+                                ],
+                                'badges' => [
+                                    'label' => 'Badges',
+                                    'icon' => 'fa fa-text-height',
+                                    'options' => [
+                                        'label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Label',
+                                            'value' => 'Badges',
+                                        ],
+                                        'icon' => [
+                                            'type'  => 'icon',
+                                            'label' => 'Icon',
+                                            'value' => 'fa fa-heart',
+                                        ],
+                                    ],
+                                ],
+                                'category' => [
+                                    'label' => 'Category',
+                                    'icon' => 'fa fa-text-height',
+                                    'show_if_key_exists' => 'submission_form_fields.value.fields.category',
+                                    'options' => [
+                                        'label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Label',
+                                            'value' => 'Category',
+                                        ],
+                                        'icon' => [
+                                            'type'  => 'icon',
+                                            'label' => 'Icon',
+                                            'value' => 'fa fa-heart',
+                                        ],
+                                    ],
+                                ],
+                                'location' => [
+                                    'label' => 'Location',
+                                    'icon' => 'fa fa-text-height',
+                                    'show_if_key_exists' => 'submission_form_fields.value.fields.location',
+                                    'options' => [
+                                        'label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Label',
+                                            'value' => 'Location',
+                                        ],
+                                        'icon' => [
+                                            'type'  => 'icon',
+                                            'label' => 'Icon',
+                                            'value' => 'fa fa-heart',
+                                        ],
+                                    ],
+                                ],
+                            ]
+                        ]
+                    ],
+
+                    'value' => [],
                 ],
 
-                'single_listings_similar_listings' => [
-                    'type'      => 'form-builder',
-                    'has_group' => false,
-                    'widgets'   => $form_field_widgets,
-                    'value'     => [],
+                'enable_similar_listings' => [
+                    'type'  => 'toggle',
+                    'label' => 'Enable similar listings',
+                    'value' => true,
+                ],
+
+                'similar_listings_logics' => [
+                    'type'    => 'radio',
+                    'name'    => 'similar_listings_logics',
+                    'label' => 'Similar listings logics',
+                    'options' => [
+                        [ 'id' => 'match_category_nd_location', 'label' => 'Must match category and location', 'value' => 'match_category_nd_location' ],
+                        [ 'id' => 'match_category_or_location', 'label' => 'Must match category or location', 'value' => 'match_category_or_location' ],
+                    ],
+                    'value'   => '',
+                ],
+
+                'similar_listings_number_of_listings_to_show' => [
+                    'type'  => 'range',
+                    'min'   => 0,
+                    'max'   => 10,
+                    'label' => 'Number of listings to show',
+                    'value' => 0,
+                ],
+
+                'similar_listings_auto_hide' => [
+                    'type'  => 'toggle',
+                    'label' => 'Auto hide',
+                    'value' => false,
                 ],
 
                 'search_form_fields' => [
@@ -3829,13 +3943,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ],
                         'similar_listings' => [
                             'label' => 'Similar Listings',
-                            'container' => 'wide',
                             'sections' => [
                                 'similar_listings' => [
-                                    'title' => 'Similar Listings',
+                                    'title' => 'Similar Listings Settings',
                                     'description' => 'need help?',
                                     'fields' => [
-                                        'single_listings_similar_listings'
+                                        'enable_similar_listings',
+                                        'similar_listings_logics',
+                                        'similar_listings_number_of_listings_to_show',
+                                        'similar_listings_auto_hide',
                                     ],
                                 ]
                             ]

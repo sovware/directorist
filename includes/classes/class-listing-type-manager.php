@@ -1648,34 +1648,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 ],
                             ],
                         ],
-
-                        'submit_button' => [
-                            'label' => 'Submit Button',
-                            'icon' => 'uil uil-link-h',
-                            'lock' => true,
-                            'show' => true,
-                            'options' => [
-                                'type' => [
-                                    'type'  => 'hidden',
-                                    'value' => 'button',
-                                ],
-                                'field_key' => [
-                                    'type'  => 'hidden',
-                                    'value' => 'submit_button',
-                                ],
-                                'label' => [
-                                    'type'  => 'text',
-                                    'label' => 'Label',
-                                    'value' => 'Save & Preview',
-                                ],
-                                'preview' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Enable Preview Mode',
-                                    'value' => true,
-                                ]
-
-                            ],
-                        ],
                     ]),
                 ],
 
@@ -3425,7 +3397,17 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'type'  => 'toggle',
                     'value' => '',
                 ],
-
+                'submit_button_label' => [
+                    'label' => __('Submit Button Label', 'directorist'),
+                    'type'  => 'text',
+                    'value' => __('Save & Preview', 'directorist'),
+                ],
+                'preview_mode' => [
+                    'label' => __('Enable Preview', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                
                 'submission_form_fields' => [
                     'type'    => 'form-builder',
                     'widgets' => $form_field_widgets,
@@ -3472,12 +3454,20 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label'       => 'Title',
                                 'placeholder' => '',
                             ],
+                            'submit_button' => [
+                                'widget_group' => 'preset',
+                                'widget_name' => 'submit_button',
+                                'type'        => 'button',
+                                'field_key'   => '',
+                                'label'       => 'Submit Button',
+                                'placeholder' => '',
+                            ],
                         ],
                         'groups' => [
                             [
                                 'label' => 'General Group',
                                 'lock' => true,
-                                'fields' => ['title'],
+                                'fields' => ['title', 'submit_button'],
                                 'plans' => []
                             ],
                         ]
@@ -4001,6 +3991,14 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'description' => 'need help?',
                             'fields' => [
                                 'submission_form_fields'
+                            ],
+                        ],
+                        'general_settings' => [
+                            'title' => __('General Settings', 'directorist'),
+                            'description' => 'need help?',
+                            'fields' => [
+                                'preview_mode',
+                                'submit_button_label',
                             ],
                         ],
                     ],

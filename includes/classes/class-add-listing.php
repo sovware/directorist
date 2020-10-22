@@ -99,7 +99,7 @@ if (!class_exists('ATBDP_Add_Listing')):
 
 
                  // data validation
-                 $listing_type = !empty( $_GET['listing_type'] ) ? sanitize_text_field( $_GET['listing_type'] ) : '';
+                 $listing_type = !empty( $_POST['listing_type'] ) ? sanitize_text_field( $_POST['listing_type'] ) : '';
                  $submission_form_fields = [];
                  $metas = [];
                  if( $listing_type ){
@@ -108,11 +108,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $submission_form_fields = $submission_form['fields'];
                  }
                 // isolate data
-                wp_send_json([
-                    'form_fields' => $submission_form_fields,
-                    'form_data'   => $info,
-                ]);
-                die();
+                // wp_send_json([
+                //     'form_fields' => $submission_form_fields,
+                //     'form_data'   => $info,
+                //     'listing_type'   => $listing_type,
+                // ]);
+                // die();
                 $error = [];
                 foreach( $submission_form_fields as $key => $value ){
                     $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';

@@ -1,61 +1,72 @@
 <template>
     <div class="cptm-form-group">
         <label for="">{{label}}</label>
-        <select @change="update_value( $event.target.value )" :value="local_value" class="cptm-form-control">
-            <template v-for="( option, option_key ) in options">
-                <template v-if="option.group && option.options">
-                    <optgroup :label="option.group" :key="option_key">
-                        <option v-for="( sub_option, sub_option_key ) in option.options" :key="sub_option_key" :value="sub_option.value">
-                            {{ sub_option.label }}
-                        </option>
-                    </optgroup>
-                </template>
+        <div class="cptm-radio-area">
+            <div class="cptm-radio-item" v-for="( option, option_index ) in theOptions" :key="option_index">
+                <input type="radio" class="cptm-radio" 
+                    :id="( typeof option.id !== 'undefined' ) ? option.id : ''"
+                    :name="name"
+                    :value="( typeof option.value !== 'undefined' ) ? option.value : ''"
+                    v-model="local_value"
+                >
+                <label :for="( typeof option.id !== 'undefined' ) ? option.id : ''">
+                    {{ option.label }}
+                </label>
+            </div>
+        </div>
 
-                <template v-else>
-                    <option :key="option_key" :value="option.value">{{ option.label }}</option>
-                </template>
-            </template>
-        </select>
+        <p class="cptm-info-text" v-if="! theOptions.length">{{ infoTextForNoOption }}</p>
     </div>
 </template>
 
 <script>
+import Vue from 'vue';
+import { mapState } from 'vuex';
+import helpers from './../../mixins/helpers';
+import validation from './../../mixins/validation';
+
 export default {
-    name: 'radio-field',
+    name: 'checkbox-field',
+    mixins: [ helpers, validation ],
     model: {
         prop: 'value',
         event: 'input'
     },
     props: {
-        type: {
-            type: String,
-            required: false,
-            default: 'text',
-        },
         label: {
-            type: String,
+            type: [String, Number],
             required: false,
             default: '',
         },
-        value: {
-            type: [ String, Number ],
+        id: {
+            type: [String, Number],
             required: false,
             default: '',
-        },
-        options: {
-            type: Array,
-            required: false,
-            default: null,
         },
         name: {
             type: [String, Number],
             required: false,
             default: '',
         },
+        value: {
+            type: [String, Number],
+            default: '',
+        },
+        options: {
+            required: false,
+        },
+        optionsSource: {
+            required: false,
+        },
         placeholder: {
             type: [String, Number],
             required: false,
             default: '',
+        },
+        infoTextForNoOption: {
+            type: String,
+            required: false,
+            default: 'Nothing available',
         },
         validation: {
             type: Array,
@@ -64,20 +75,104 @@ export default {
     },
 
     created() {
-        this.local_value = this.value;
+        if ( typeof this.value === 'string' || typeof this.value === 'number' ) {
+            this.local_value = this.value;
+        }
+
         this.$emit( 'update', this.local_value );
     },
 
-    computed: {
-        input_type() {
-            const supported_types = ['text', 'number', 'password', 'date'];
+    watch: {
+        local_value() {
+            this.$emit( 'update', this.local_value );
+        },
 
-            if (supported_types.indexOf(this.type)) {
-                return this.type;
+        hasOptionsSource() {
+            let has_deprecated_value = this.hasDeprecatedValue( this.local_value );
+
+            if ( has_deprecated_value ) {
+                this.local_value = this.removeDeprecatedValue( this.local_value, has_deprecated_value );
+            }
+        }
+    },
+
+    computed: {
+        ...mapState({
+            fields: 'fields',
+        }),
+
+        theOptions() {
+            if ( this.hasOptionsSource ) {
+                return this.hasOptionsSource;
             }
 
-            return 'text';
-        }
+            if ( ! this.options || typeof this.options !== 'object' ) {
+                return ( this.defaultOption ) ? [ this.defaultOption ] : [];
+            }
+
+            return this.options;
+        },
+
+        hasOptionsSource() {
+            
+            if ( ! this.optionsSource || typeof this.optionsSource !== 'object' ) {
+                return false;
+            }
+
+            if ( typeof this.optionsSource.where !== 'string' ) {
+                return false;
+            }
+
+            let terget_fields = this.getTergetFields( this.optionsSource.where );
+            const id_prefix = ( typeof this.optionsSource.id_prefix === 'string' ) ? this.optionsSource.id_prefix + '-' : this.name + '-';
+            
+            if ( ! terget_fields || typeof terget_fields !== 'object' ) {
+                return false;
+            }
+
+            let filter_by = null;
+            if ( typeof this.optionsSource.filter_by === 'string' && this.optionsSource.filter_by.length ) {
+                filter_by = this.optionsSource.filter_by;
+            }
+
+            if ( filter_by ) {
+                filter_by = this.getTergetFields( this.optionsSource.filter_by );
+            }
+
+            let has_sourcemap = false;
+
+            if ( this.optionsSource.source_map && typeof this.optionsSource.source_map === 'object'  ) {
+                has_sourcemap = true;
+            }
+
+            if ( ! has_sourcemap && ! filter_by ) {
+                return terget_fields;
+            }
+
+            if ( has_sourcemap ) {
+                terget_fields = this.mapDataByMap( terget_fields, this.optionsSource.source_map );
+            }
+
+            if ( filter_by ) {
+                terget_fields = this.filterDataByValue( terget_fields, filter_by );
+            }
+
+            if ( ! terget_fields && typeof terget_fields !== 'object' ) {
+                return false;
+            }
+            
+            let i = 0;
+            for ( let option of terget_fields ) {
+                let id = ( typeof option.id !== 'undefined' ) ? option.id : '';
+                
+                terget_fields[ i ].id = id_prefix + id;
+                i++;
+            }
+
+            // console.log( {terget_fields} );
+
+            return terget_fields;
+        },
     },
 
     data() {
@@ -87,10 +182,69 @@ export default {
     },
 
     methods: {
-        update_value( value ) {
-            this.local_value = value;
-            this.$emit( 'update', this.local_value );
+        getCheckedStatus( option ) {
+            // console.log( { name: this.name, local_value: this.local_value, value: this.getValue( option ) } );
+            return this.local_value.includes( this.getValue( option ) );
+        },
+
+        getValue( option ) {
+            return ( typeof option.value !== 'undefined' ) ? option.value : '';
+        },
+
+        getTheOptions() {
+            return JSON.parse( JSON.stringify( this.theOptions ) );
+        },
+
+        filtereValue( value ) {
+            if ( ! value && typeof value !== 'object' ) {
+                return [];
+            }
+
+            console.log( value );
+
+            return [];
+
+            let options_values = this.theOptions.map( option => {
+                if ( typeof option.value !== 'undefined' ) { return option.value; }
+            });
+            return value.filter( value_elm => {
+                return options_values.includes( value_elm );
+            });
+        },
+
+        hasDeprecatedValue( values ) {
+            if ( ! values && typeof values !== 'object' ) {
+                return [];
+            }
+
+            let flatten_values = JSON.parse( JSON.stringify( values ) );
+            let options_values = this.theOptions.map( option => {
+                if ( typeof option.value !== 'undefined' ) { return option.value; }
+            });
+
+            let deprecated_value = flatten_values.filter( value_elm => {
+                return ! options_values.includes( value_elm );
+            });
+
+            if ( ! deprecated_value && typeof deprecated_value !== 'object' ) {
+                return false;
+            }
+
+            if ( ! deprecated_value.length ) {
+                return false;
+            }
+
+            return deprecated_value;
+        },
+
+        removeDeprecatedValue( _original_value, _deprecated_value ) {
+            let original_value = JSON.parse( JSON.stringify( _original_value ) );
+
+            return original_value.filter( value_elm => {
+                return ! _deprecated_value.includes( value_elm );
+            });
         }
+
     },
 }
 </script>

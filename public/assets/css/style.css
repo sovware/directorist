@@ -5573,6 +5573,23 @@ span.atbd_get_loc_wid {
   padding-top: 10px;
 }
 
+.directorist-each-listing-type {
+  margin-bottom: 30px;
+}
+
+.directorist-each-listing-type a {
+  display: block;
+  text-align: center;
+  border: 1px solid #e3e6ef !important;
+  padding: 30px 0;
+  border-radius: 4px;
+}
+
+.directorist-each-listing-type a .directorist-listing-type-icon {
+  display: block;
+  margin-bottom: 10px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {
   display: flex;
   justify-content: space-between;

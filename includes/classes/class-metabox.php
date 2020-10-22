@@ -16,8 +16,8 @@ class ATBDP_Metabox {
 	public function __construct() {
 		if ( is_admin() ) {
 			add_action('add_meta_boxes_'.ATBDP_POST_TYPE, array($this, 'listing_metabox'));
+			// add_action('add_meta_boxes_'.ATBDP_POST_TYPE,	array($this, 'listing_info_meta'));
 
-			add_action('add_meta_boxes_'.ATBDP_POST_TYPE,	array($this, 'listing_info_meta'));
 			add_action('transition_post_status',	array($this, 'publish_atbdp_listings'), 10, 3);
 			// edit_post hooks is better than save_post hook for nice checkbox
 			// http://wordpress.stackexchange.com/questions/228322/how-to-set-default-value-for-checkbox-in-wordpress
@@ -33,17 +33,23 @@ class ATBDP_Metabox {
 
 	public function listing_metabox() {
 		add_meta_box('listing_type', __('Listing Type', 'directorist'), array($this, 'listing_type_meta'), ATBDP_POST_TYPE, 'normal', 'high');
-
-		// $type = get_post_meta($post->ID, '_listing_type', true);
+		
+		$listing = Directorist_Listing_Forms::instance();
+		$post_id = $listing->add_listing_id;
+		$type = get_post_meta($post_id, '_listing_type', true);
 		$type = 43; // @kowsar @todo remove later
 		$form_data = $this->build_form_data( $type );
 
-		$listing = Directorist_Listing_Forms::instance();
+		foreach ( $form_data as $section_data ) {
+			$box_id = sanitize_title( $section_data['label'] );
+			add_meta_box($box_id, $section_data['label'], array($this, 'listing_section_meta'), ATBDP_POST_TYPE, 'normal', 'high', $section_data['fields'] );
+		}
+	}
 
-		// foreach ( $form_data as $section ) {
-		// 	Directorist_Listing_Forms::instance()->add_listing_section_template( $section );
-		// }
-
+	public function listing_section_meta( $post, $data ) {
+		foreach ( $data['args'] as $field ){
+			Directorist_Listing_Forms::instance()->add_listing_field_template( $field );
+		}
 	}
 
 	public function listing_type_meta( $post ) {
@@ -79,9 +85,6 @@ class ATBDP_Metabox {
 
 		return $form_data;
 	}
-
-
-
 
 	/**
 	 * @since 5.4.0

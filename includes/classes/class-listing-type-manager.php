@@ -2965,7 +2965,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             ];
 
             $listing_card_widget = [
-                'listing_title' => [
+
+                'title' => [
                     'type' => "title",
                     'id' => "listing_title",
                     'label' => "Listing Title",
@@ -2983,7 +2984,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     ],
                   ],
           
-                  'listings_location' => [
+                  'location' => [
                     'type' => "list-item",
                     'id' => "listings_location",
                     'label' => "Listings Location",
@@ -3001,29 +3002,29 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     ],
                   ],
 
-                  'listings_phone_number' => [
+                  'tag' => [
                     'type' => "list-item",
-                    'id' => "listings_phone_number",
-                    'label' => "Listings Phone Number",
-                    'icon' => 'uil uil-phone',
-                    'hook' => "atbdp_listings_phone_number",
+                    'id' => "listings_tag",
+                    'label' => "Listings Tag",
+                    'icon' => 'la la-tags',
+                    'hook' => "atbdp_listings_location",
                     'options' => [
-                      'title' => "Listings Phone Number Settings",
+                      'title' => "Listings Tag Settings",
                       'fields' => [
                         'icon' => [
                           'type' => "icon",
                           'label' => "Icon",
-                          'value' => "uil uil-phone",
+                          'value' => "la la-tags",
                         ],
                       ],
                     ],
                   ],
 
-                  'listings_website' => [
+                  'website' => [
                     'type' => "list-item",
-                    'id' => "listings_website",
+                    'id' => "_website",
                     'label' => "Listings Website",
-                    'icon' => 'uil uil-globe',
+                    'icon' => 'la la-globe',
                     'hook' => "atbdp_listings_website",
                     'options' => [
                       'title' => "Listings Website Settings",
@@ -3031,12 +3032,120 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         'icon' => [
                           'type' => "icon",
                           'label' => "Icon",
-                          'value' => "uil uil-globe",
+                          'value' => "la la-globe",
+                        ],
+                      ],
+                    ],
+                  ],
+
+                  'zip' => [
+                    'type' => "list-item",
+                    'id' => "_zip",
+                    'label' => "Listings Zip",
+                    'icon' => 'la la-at',
+                    'hook' => "atbdp_listings_zip",
+                    'options' => [
+                      'title' => "Listings Zip Settings",
+                      'fields' => [
+                        'icon' => [
+                          'type' => "icon",
+                          'label' => "Icon",
+                          'value' => "la la-at",
+                        ],
+                      ],
+                    ],
+                  ],
+
+                  'email' => [
+                    'type' => "list-item",
+                    'id' => "_email",
+                    'label' => "Listings Email",
+                    'icon' => 'la la-envelope',
+                    'hook' => "atbdp_listings_email",
+                    'options' => [
+                      'title' => "Listings Email Settings",
+                      'fields' => [
+                        'icon' => [
+                          'type' => "icon",
+                          'label' => "Icon",
+                          'value' => "la la-envelope",
+                        ],
+                      ],
+                    ],
+                  ],
+
+                  'fax' => [
+                    'type' => "list-item",
+                    'id' => "_fax",
+                    'label' => "Listings Fax",
+                    'icon' => 'la la-fax',
+                    'hook' => "atbdp_listings_fax",
+                    'options' => [
+                      'title' => "Listings Fax Settings",
+                      'fields' => [
+                        'icon' => [
+                          'type' => "icon",
+                          'label' => "Icon",
+                          'value' => "la la-fax",
+                        ],
+                      ],
+                    ],
+                  ],
+
+                  'phone' => [
+                    'type' => "list-item",
+                    'id' => "_phone",
+                    'label' => "Listings Phone",
+                    'icon' => 'la la-phone',
+                    'hook' => "atbdp_listings_phone",
+                    'options' => [
+                      'title' => "Listings Phone Settings",
+                      'fields' => [
+                        'icon' => [
+                          'type' => "icon",
+                          'label' => "Icon",
+                          'value' => "la la-phone",
                         ],
                       ],
                     ],
                   ],
           
+                  'phone2' => [
+                    'type' => "list-item",
+                    'id' => "_phone2",
+                    'label' => "Listings Phone 2",
+                    'icon' => 'la la-phone',
+                    'hook' => "atbdp_listings_phone2",
+                    'options' => [
+                      'title' => "Listings Phone 2 Settings",
+                      'fields' => [
+                        'icon' => [
+                          'type' => "icon",
+                          'label' => "Icon",
+                          'value' => "la la-phone",
+                        ],
+                      ],
+                    ],
+                  ],
+
+                  'address' => [
+                    'type' => "list-item",
+                    'id' => "_address",
+                    'label' => "Listings Address",
+                    'icon' => 'la la-map-marker',
+                    'hook' => "atbdp_listings_map_address",
+                    'options' => [
+                      'title' => "Listings Address Settings",
+                      'fields' => [
+                        'icon' => [
+                          'type' => "icon",
+                          'label' => "Icon",
+                          'value' => "la la-map-marker",
+                        ],
+                      ],
+                    ],
+                  ],
+
                   'featured_badge' => [
                     'type' => "badge",
                     'id' => "featured_badge",
@@ -3707,7 +3816,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ['label' => 'Preset', 'widgets' => ['listing_title']],
                                     ['label' => 'Custom', 'widgets' => ['listing_title']],
                                 ],
-                                'acceptedWidgets' => ["listings_location", "listings_phone_number", "listings_website"],
+                                'acceptedWidgets' => ["location", "phone", "phone2", "website", "zip", "fax", "address", "email", "tag"],
                             ],
                         ],
 
@@ -3761,7 +3870,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ['label' => 'Preset', 'widgets' => ['listing_title']],
                                     ['label' => 'Custom', 'widgets' => ['listing_title']],
                                 ],
-                                'acceptedWidgets' => ["listings_location", "listings_phone_number", "listings_website"],
+                                'acceptedWidgets' => ["location", "phone", "phone2", "website", "zip", "fax", "address", "email", "tag"],
                             ],
                         ],
 

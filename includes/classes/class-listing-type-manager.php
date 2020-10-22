@@ -1233,8 +1233,18 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 ],
                                 'label' => [
                                     'type'  => 'text',
-                                    'label' => 'Label',
-                                    'value' => 'Map',
+                                    'label' => 'Address Label',
+                                    'value' => 'Address',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Address Placeholder',
+                                    'value' => 'Listing address eg. New York, USA',
+                                ],
+                                'lat_long' => [
+                                    'type'  => 'text',
+                                    'label' => 'Enter Coordinates Label',
+                                    'value' => 'Or Enter Coordinates (latitude and longitude) Manually',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
@@ -1246,8 +1256,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-
-
                             ],
                         ],
 

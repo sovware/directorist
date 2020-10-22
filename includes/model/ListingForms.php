@@ -862,6 +862,18 @@ class Directorist_Listing_Forms {
 			case 'submit_button':
 				atbdp_get_shortcode_template( 'forms/fields/submit_button', $field_data );
 				break;
+			case 'terms_conditions':
+				atbdp_get_shortcode_template( 'forms/fields/terms_conditions', $field_data );
+				break;
+			case 'privacy_policy':
+				atbdp_get_shortcode_template( 'forms/fields/privacy_policy', $field_data );
+				break;
+			case 'map':
+				atbdp_get_shortcode_template( 'forms/fields/map', $field_data );
+				break;
+			case 'category':
+				atbdp_get_shortcode_template( 'forms/fields/category', $field_data );
+				break;
 			default:
 				break;
 		}

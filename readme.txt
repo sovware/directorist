@@ -1,10 +1,10 @@
 ﻿=== Directorist - Business Directory Plugin ===
 Contributors: AazzTech
 Donate link: https://directorist.com/extensions/
-Tags: directory, listings, classifieds, local directory, business directory
+Tags: directory, listings, classifieds, local directory, business directory, real-estate
 Requires at least: 4.6
 Tested up to:  5.5
-Stable tag: 6.5.4
+Stable tag: 6.5.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -125,7 +125,7 @@ Directorist Business Directory allows you to monetize your business directory we
 👉 **Paid Listing*:** Get paid for each listing your users submit! You can create unlimited pricing plans by providing different sets of values to get paid by listing the submissions. To make it happen, it requires a cost-effective premium extension.
 👉 **Claim Listing*:** Make money by allowing business owners to claim their listing and get verified.
 👉 **Pay Per Submit*:** Earn by charging users to create a listing on your site.
-**Requires Additional Purchase**
+>*Requires Additional Purchase
 
 ####Frontend Listing Submission and Listing Management
 
@@ -326,6 +326,13 @@ Directorist is a complete directory solution and in combination with its advance
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.5.5 - Oct 20, 2020 =
+
+* Fix - Fatal error of all location and category pages
+* Fix - Deprecated notice
+* Fix - Map issue
+* Remove - Hook used in Business Hours extension
 
 = 6.5.4 - Oct 19, 2020 =
 

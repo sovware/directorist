@@ -3969,7 +3969,30 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                       ],
                     ],
                   ],
+
+                  'listings_zip' => [
+                    'type' => "list-item",
+                    'id' => "listings_zip",
+                    'label' => "Listings Zip",
+                    'icon' => 'uil uil-globe',
+                    'hook' => "atbdp_listings_zip",
+                    'options' => [
+                      'title' => "Listings Zip Settings",
+                      'fields' => [
+                        'icon' => [
+                          'type' => "icon",
+                          'label' => "Icon",
+                          'value' => "uil uil-globe",
+                        ],
+                      ],
+                    ],
+                  ],
           
+
+
+
+
+
                   'featured_badge' => [
                     'type' => "badge",
                     'id' => "featured_badge",

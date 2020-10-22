@@ -593,14 +593,16 @@ li[ class="cptm-form-builder-field-list-item" ][ draggable="true" ] {
   }
 }
 
-.cptm-checkbox-area {
+.cptm-checkbox-area, .cptm-options-area {
   display: flex;
+  flex-direction: column;
   margin: 10px 0;
 }
-.cptm-checkbox-item {
+.cptm-checkbox-item, .cptm-radio-item {
   display: flex;
   margin-right: 20px;
 }
+
 input[type="checkbox"].cptm-checkbox {
   display: none;
   &:checked + .cptm-checkbox-ui {
@@ -608,6 +610,26 @@ input[type="checkbox"].cptm-checkbox {
     &::before {
       content: "\f14a";
     }
+  }
+}
+
+input[type="radio"].cptm-radio {
+  margin-top: 1px;
+}
+
+
+.cptm-form-range-wrap {
+  display: inline-flex;
+  flex-wrap: wrap;
+  .cptm-form-range-bar {
+    flex-grow: 1;
+  }
+  .cptm-form-range-output {
+    width: 30px;
+  }
+  .cptm-form-range-output-text {
+    padding: 10px 20px;
+    background-color: #fff;
   }
 }
 

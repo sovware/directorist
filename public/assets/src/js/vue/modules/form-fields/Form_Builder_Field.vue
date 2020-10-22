@@ -113,7 +113,7 @@
 
           <div class="cptm-form-builder-active-fields-footer">
             <button type="button" class="cptm-btn cptm-btn-secondery" v-if="canAddSections" @click="addNewActiveFieldSection()">
-              Add new group
+              Add new section
             </button>
           </div>
         </div>
@@ -149,6 +149,11 @@ export default {
   name: "form-builder",
   mixins: [ helpers ],
   props: {
+    fieldId: {
+        type: [ String, Number ],
+        required: false,
+        default: '',
+    },
     widgets: {
       required: false,
       default: false,
@@ -181,18 +186,7 @@ export default {
     },
   },
   created() {
-    if ( this.isObject( this.value ) ) {
-
-      if ( Array.isArray( this.value.groups ) ) {
-        this.groups = this.value.groups;
-      }
-
-      if ( this.isObject( this.value.fields ) ) {
-        this.active_fields = this.value.fields;
-      }
-
-    }
-
+    this.impportOldData();
     this.$emit("update", this.updated_value);
   },
 
@@ -290,10 +284,7 @@ export default {
         }
       }
 
-
-
       // console.log( { widgets, deleted, active_fields: this.active_fields } );
-
       return widgets;
     },
   },
@@ -329,6 +320,21 @@ export default {
       return the_var;
     },
 
+    impportOldData() {
+      if ( ! this.isObject( this.value ) ) { return; }
+
+      if ( Array.isArray( this.value.fields_order ) && ! this.has_group ) {
+        Vue.set( this.groups[0], 'fields', this.value.fields_order );
+      }
+
+      if ( Array.isArray( this.value.groups ) && this.has_group ) {
+        this.groups = this.value.groups;
+      }
+
+      if ( this.isObject( this.value.fields ) ) {
+        this.active_fields = this.value.fields;
+      }
+    },
 
     getActiveFieldsOption(field_key, data_key) {
       return this.active_fields[field_key][data_key];
@@ -636,7 +642,7 @@ export default {
     },
     
     addNewActiveFieldSection() {
-      this.groups.push({ label: "Group", fields: [] });
+      this.groups.push({ label: "Section", fields: [] });
     },
     
     reorderActiveFieldsItems(payload) {

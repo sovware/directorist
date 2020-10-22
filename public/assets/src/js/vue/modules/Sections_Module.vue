@@ -10,6 +10,7 @@
                 <template v-for="( field, field_key ) in section.fields">
                     <component 
                         :is="getFormFieldName( fields[ field ].type )" 
+                        :field-id="field_key"
                         :key="field_key"
                         v-bind="fields[ field ]"
                         @update="updateFieldValue( field, $event )">

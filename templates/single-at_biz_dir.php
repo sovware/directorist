@@ -630,8 +630,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                                                     echo join(',', $output);
                                                 } else {
                                                     $content = apply_filters('get_the_content', $field_details);
-                                                    echo do_shortcode(wpautop($content));
-                                                    //echo esc_attr($field_details);
+                                                    echo do_shortcode( $content );
                                                 } ?></p>
                                         </div>
                                     </li>

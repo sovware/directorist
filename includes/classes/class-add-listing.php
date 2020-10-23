@@ -120,10 +120,10 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $submitted_data = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
                     $required = !empty( $value['required'] ) ? $value['required'] : '';
                     $label = !empty( $value['label'] ) ? $value['label'] : '';
-                    if( $required && !$submitted_data ){
-                        $msg = $label .__( ' field is required!', 'directorist' );
-                        array_push( $error, $msg );
-                    }
+                    // if( $required && !$submitted_data ){
+                    //     $msg = $label .__( ' field is required!', 'directorist' );
+                    //     array_push( $error, $msg );
+                    // }
                     if( $field_key === 'listing_title' ){
                         $title = sanitize_text_field( $info[ $field_key ] );
                     }

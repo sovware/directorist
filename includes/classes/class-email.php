@@ -24,7 +24,7 @@ if (!class_exists('ATBDP_Email')):
             add_action('atbdp_order_created', array($this, 'notify_admin_order_created'), 10, 2);
             add_action('atbdp_order_created', array($this, 'notify_owner_order_created'), 10, 2);
             /*Offline Payment Made*/
-            add_action('atbdp_offline_payment_created', array($this, 'notify_owner_offline_payment_created'), 10, 2);
+            // add_action('atbdp_offline_payment_created', array($this, 'notify_owner_offline_payment_created'), 10, 2);
             /*Fire up email for Completed Orders*/
             add_action('atbdp_order_completed', array($this, 'notify_owner_order_completed'), 10, 2);
             add_action('atbdp_order_completed', array($this, 'notify_admin_order_completed'), 10, 2);
@@ -400,15 +400,18 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_owner_order_created($order_id, $listing_id, $offline = false)
         {
-            if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('order_created', get_directorist_option('notify_user', array()))) return false;
-            $user = $this->get_owner($listing_id);
-            // Send email according to the type of the payment that user used during checkout. get email template from the db.
-            $offline = (!empty($offline)) ? '_offline' : '';
-            $sub = $this->replace_in_content(get_directorist_option("email_sub{$offline}_new_order"), $order_id, $listing_id, $user);
-            $body = $this->replace_in_content(get_directorist_option("email_tmpl{$offline}_new_order"), $order_id, $listing_id, $user);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            $gateway = get_post_meta( $order_id, '_payment_gateway', true );
+            if( 'bank_transfer' === $gateway ) {
+                if (get_directorist_option('disable_email_notification')) return false;
+                if (!in_array('order_created', get_directorist_option('notify_user', array()))) return false;
+                $user = $this->get_owner($listing_id);
+                // Send email according to the type of the payment that user used during checkout. get email template from the db.
+                $offline = (!empty($offline)) ? '_offline' : '';
+                $sub = $this->replace_in_content(get_directorist_option("email_sub{$offline}_new_order"), $order_id, $listing_id, $user);
+                $body = $this->replace_in_content(get_directorist_option("email_tmpl{$offline}_new_order"), $order_id, $listing_id, $user);
+                $body = atbdp_email_html($sub, $body);
+                return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            }
         }
 
         /**

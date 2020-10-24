@@ -638,6 +638,8 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_admin_order_created($order_id, $listing_id)
         {
+            $gateway = get_post_meta( $order_id, '_payment_gateway', true );
+            if( 'bank_transfer' === $gateway ) {
             /*@todo; think if it is better to assign disabled_email_notification to the class prop*/
             if (get_directorist_option('disable_email_notification')) return false; //vail if email notification is off
             if (!in_array('order_created', get_directorist_option('notify_admin', array()))) return false; // vail if order created notification to admin off
@@ -649,6 +651,7 @@ This email is sent automatically for information purpose only. Please do not res
             $body = $this->replace_in_content($body, $order_id, $listing_id);
             $body = atbdp_email_html($sub, $body);
             return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+            }
 
         }
 

@@ -130,7 +130,7 @@ if (!empty($has_field) && $plan_custom_field) {
 
                                     } else {
                                         $content = apply_filters('get_the_content', $field_details);
-                                        echo do_shortcode(wpautop($content));
+                                        echo do_shortcode( $content );
                                         //echo esc_attr($field_details);
                                     } ?></p>
                             </div>

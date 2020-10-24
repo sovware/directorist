@@ -16,7 +16,7 @@ class Directorist_Listing_Forms {
 
 	private function __construct() {
 		add_action( 'wp', array( $this, 'init' ) );
-		// k_var_dump('12');
+		add_action( 'admin_init', array( $this, 'init' ) );
 	}
 
 	public static function instance() {
@@ -27,8 +27,12 @@ class Directorist_Listing_Forms {
 	}
 
 	public function init() {
-		// k_var_dump('working');
 		$this->add_listing_id   = get_query_var( 'atbdp_listing_id', 0 );
+		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
+	}
+
+	public function admin_init() {
+		$this->add_listing_id   = get_the_ID();
 		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
 	}
 
@@ -857,6 +861,18 @@ class Directorist_Listing_Forms {
 				break;
 			case 'submit_button':
 				atbdp_get_shortcode_template( 'forms/fields/submit_button', $field_data );
+				break;
+			case 'terms_conditions':
+				atbdp_get_shortcode_template( 'forms/fields/terms_conditions', $field_data );
+				break;
+			case 'privacy_policy':
+				atbdp_get_shortcode_template( 'forms/fields/privacy_policy', $field_data );
+				break;
+			case 'map':
+				atbdp_get_shortcode_template( 'forms/fields/map', $field_data );
+				break;
+			case 'category':
+				atbdp_get_shortcode_template( 'forms/fields/category', $field_data );
 				break;
 			default:
 				break;

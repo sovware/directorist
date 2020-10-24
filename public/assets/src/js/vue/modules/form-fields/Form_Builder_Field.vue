@@ -241,7 +241,6 @@ export default {
 
           if ( this.isObject( this.widgets[ widget_group ] ) ) {
             root_widget_group_options = { ...this.widgets[ widget_group ] };
-            delete root_widget_group_options.widgets;
             
             Object.assign( template_field.widgets[ widget_group ], root_widget_group_options );
           }
@@ -280,8 +279,7 @@ export default {
     },
 
     theWidgets() {
-      if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
-      if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
+      if ( ! this.widgets && typeof this.widgets !== 'object' ) { return {} }
 
       // Add the widget group & name to all the widget fields
       let widgets = JSON.parse( JSON.stringify( this.widgets ) );
@@ -320,14 +318,11 @@ export default {
         }
       }
 
+      // if ( 'search_form_fields' === this.fieldId ) { console.log(  this.widgets ); }
       return widgets;
     },
 
     theWidgetGroups() {
-      if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
-      if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
-
-      
       // Add the widget group & name to all the widget fields
       let widgets = JSON.parse( JSON.stringify( this.theWidgets ) );
 
@@ -346,7 +341,6 @@ export default {
         }
 
         // ----------------
-
         for (let widget in widgets[widget_group].widgets) {
           // Filter fields if required
           if ( Array.isArray( filter_field_keys ) && ! filter_field_keys.includes( widget ) ) {
@@ -396,7 +390,6 @@ export default {
         }
       }
 
-      // console.log( { widgets, deleted, active_fields: this.active_fields } );
 
       // console.log( { widgets } );
       return widgets;
@@ -404,7 +397,6 @@ export default {
   },
   data() {
     return {
-      local_widgets: {},
       groups: [
         {
           label: "General",
@@ -461,8 +453,8 @@ export default {
       const widget_group = this.active_fields[field_key].widget_group;
       const widget_name = this.active_fields[field_key].widget_name;
 
-      if ( typeof widget_group === "undefined") { return 'false 1'; }
-      if ( typeof widget_name === "undefined") { return 'false 2'; }
+      if ( typeof widget_group === "undefined") { return false; }
+      if ( typeof widget_name === "undefined") { return false; }
 
       if ( typeof this.theWidgets[widget_group] === "undefined") { return false; }
       if ( typeof this.theWidgets[widget_group].widgets === "undefined" ) { return false; }
@@ -482,12 +474,11 @@ export default {
     },
     
     getActiveFieldsHeaderTitle(field_key) {
-      const settings_label = this.getActiveFieldsSettings(field_key, "label");
+      let settings_label = this.getActiveFieldsSettings(field_key, "label");
+      settings_label = ( settings_label ) ? settings_label : 'Not Available';
       const option_label = this.active_fields[field_key]["label"];
       
-      return option_label && option_label.length
-        ? option_label
-        : settings_label;
+      return option_label && option_label.length ? option_label : settings_label;
     },
     
     toggleActiveFieldCollapseState(field_key) {

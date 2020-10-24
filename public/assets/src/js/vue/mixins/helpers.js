@@ -8,6 +8,15 @@ export default {
     },
 
     methods: {
+        isObject( the_var ) {
+            if ( typeof the_var === 'undefined' ) { return false }
+            if ( the_var === null ) { return false }
+            if ( typeof the_var !== 'object' ) { return false }
+            if ( Array.isArray( the_var ) ) { return false }
+
+            return the_var;
+        },
+
         mapDataByMap( data, map ) {
             const flatten_data = JSON.parse( JSON.stringify( data ) );
             const flatten_map = JSON.parse( JSON.stringify( map ) );

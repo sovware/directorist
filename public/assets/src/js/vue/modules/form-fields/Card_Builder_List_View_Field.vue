@@ -254,7 +254,7 @@ export default {
               continue;
             }
 
-            let widget_data = {};
+            let widget_data = { id: widget_name };
             for (let root_option in this.active_widgets[widget_name]) {
               if ("options" === root_option) { continue; }
               if ( 'icon' === root_option ) { continue; }

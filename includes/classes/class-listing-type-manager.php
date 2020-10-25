@@ -3338,7 +3338,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'value' => true,
                 ],
                 
-                'submission_form_fields' => [
+                'submission_form_fields' => apply_filters( 'atbdp_listing_type_form_fields', [
                     'type'    => 'form-builder',
                     'widgets' => $form_field_widgets,
                     'group-options' => [
@@ -3348,29 +3348,29 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'value' => '',
                         ],
 
-                        'tag_with_plan' => [
-                            'type'  => 'toggle',
-                            'label'  => 'Tag with plan',
-                            'value' => false,
-                        ],
+                        // 'tag_with_plan' => [
+                        //     'type'  => 'toggle',
+                        //     'label'  => 'Tag with plan',
+                        //     'value' => false,
+                        // ],
 
-                        'plans' => [
-                            'type' => 'checkbox',
-                            'label' => 'Chose the plans',
-                            'name' => 'submission_form_fields_group_plans',
-                            'value' => [],
-                            'show_if' => [[
-                                'conditions' => [
-                                    ['key' => 'tag_with_plan', 'value' => true]
-                                ]
-                            ]],
+                        // 'plans' => [
+                        //     'type' => 'checkbox',
+                        //     'label' => 'Chose the plans',
+                        //     'name' => 'submission_form_fields_group_plans',
+                        //     'value' => [],
+                        //     'show_if' => [[
+                        //         'conditions' => [
+                        //             ['key' => 'tag_with_plan', 'value' => true]
+                        //         ]
+                        //     ]],
 
-                            'options-source' => [
-                                'where'      => 'package_list.options',
-                                'filter_by'  => 'package_list.value',
-                                'id_prefix'  => 'form_group',
-                            ],
-                        ]
+                        //     'options-source' => [
+                        //         'where'      => 'package_list.options',
+                        //         'filter_by'  => 'package_list.value',
+                        //         'id_prefix'  => 'form_group',
+                        //     ],
+                        // ]
                     ],
 
                     'value' => [
@@ -3403,7 +3403,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ]
                     ],
 
-                ],
+                ] ),
 
                 'single_listings_quick_actions' => [
                     'type'      => 'form-builder',

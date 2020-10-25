@@ -1796,5 +1796,23 @@ jQuery(function ($) {
     } else if($('select[name="button_type"]').val() === "danger_outline"){
         danger_outline.show();
     }
-    
+    $( 'body' ).on( 'click', '.submitdefault', function( e ) {
+        e.preventDefault();
+        $.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: { 
+                action: 'atbdp_listing_default_type',
+                type_id: $(this).data("type-id"),
+             },
+            beforeSend: function () {
+                //jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(ElementToShowLoadingIconAfter);
+            },
+            success: function ( response ) {
+                $( '.submitdefault' ).after( '<span style="color: green">' + response +'</span>' );
+                location.reload();
+            }
+        });
+    } );
+
 });

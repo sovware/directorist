@@ -4733,6 +4733,16 @@ if(!function_exists('csv_get_data')){
     }
 }
 
+// Polyfill - backword comapbility of php7 function
+if (!function_exists('array_key_first')) {
+    function array_key_first(array $arr) {
+        foreach($arr as $key => $unused) {
+            return $key;
+        }
+        return NULL;
+    }
+}
+
 function directorist_redirect_to_admin_setup_wizard() {
     // Delete the redirect transient
     delete_transient( '_directorist_setup_page_redirect' );

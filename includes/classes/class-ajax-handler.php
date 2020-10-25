@@ -67,6 +67,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             // regenerate pages
             add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
+            // default listing type
+            add_action('wp_ajax_atbdp_listing_default_type', array($this, 'atbdp_listing_default_type'));
             
             // Guset Reception
             add_action('wp_ajax_atbdp_guest_reception', array($this, 'guest_reception'));
@@ -78,6 +80,23 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_atbdp_custom_fields_listings_front_selected',        array($this, 'ajax_callback_custom_fields'), 10, 2);
             add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
 
+        }
+
+        public function atbdp_listing_default_type() {
+            $type_id = sanitize_key( $_POST[ 'type_id' ] );
+            $listing_types = get_terms([
+                'taxonomy'   => 'atbdp_listing_types',
+                'hide_empty' => false,
+                'orderby'    => 'date',
+                'order'      => 'DSCE',
+              ]);
+              foreach ($listing_types as $listing_type) {
+                if( $listing_type->term_id !== (int) $type_id ){
+                    update_term_meta( $listing_type->term_id, '_default', false );
+                }
+              }
+            update_term_meta( $type_id, '_default', true );
+            wp_send_json( 'Updated Successfully!' );
         }
 
         public function ajax_callback_custom_fields($post_id = 0, $term_id = array()) {

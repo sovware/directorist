@@ -35,9 +35,11 @@ if (class_exists('WP_List_Table') && !class_exists('Listing_Types_List_Table')) 
 
       $archive = [];
       foreach ($listing_types as $listing_type) {
+        $default = get_term_meta( $listing_type->term_id, '_default', true );
+        $default_type = $default ? '<span class="page-title-action">Default</span>' : '';
         $archive[] = [
           'ID' => $listing_type->term_id,
-          'name' => $listing_type->name,
+          'name' => $listing_type->name . $default_type,
           'slug' => $listing_type->slug,
         ];
       }
@@ -141,12 +143,16 @@ if (class_exists('WP_List_Table') && !class_exists('Listing_Types_List_Table')) 
       $delete_link = admin_url('admin-post.php' . '?listing_type_id=' . absint($item['ID']) . '&action=delete_listing_type');
       $delete_link = wp_nonce_url($delete_link, 'delete_listing_type');
       $title       = sprintf('<strong><a href="%s">%s</a></strong>', $edit_link, $item['name']);
+      $default = get_term_meta( absint($item['ID']), '_default', true );
 
       $actions = [
         'edit' => sprintf('<a href="%s">Edit</a>', $edit_link),
         'delete' => sprintf('<a href="%s" class="submitdelete" onclick="return confirm(\'Are you sure?\')">Delete</a>', $delete_link),
-        'default' => '<a href="" data-type-id="'. absint($item['ID']) .'" class="submitdefault" onclick="return confirm(\'Are you sure?\')">Make Default</a>',
+        //'default' => '<a href="" data-type-id="'. absint($item['ID']) .'" class="submitdefault">Make Default</a>',
       ];
+      if( !$default ){
+        $actions['default'] = '<a href="" data-type-id="'. absint($item['ID']) .'" class="submitdefault">Make Default</a>';
+      }
 
       return $title . $this->row_actions($actions);
     }

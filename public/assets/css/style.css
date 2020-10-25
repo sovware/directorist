@@ -959,7 +959,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 #directorist.atbd_wrapper .fa {
-  font: normal normal normal 14px/1 FontAwesome;
+  font: normal normal 900 14px/1 "Font Awesome 5 Free";
 }
 
 #directorist.atbd_wrapper .atbd_rated_stars ul li {
@@ -977,7 +977,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper .atbd_rated_stars ul li span:before {
   content: "\f005";
   font-size: 14px;
-  font-family: 'Fontawesome', Sans-serif;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
 }
 
 #directorist.atbd_wrapper .atbd_rating_stars .br-widget .br-current-rating {
@@ -988,7 +989,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper .atbd_rating_stars .br-widget a:before {
   content: "\f005";
   font-size: 14px;
-  font-family: 'Fontawesome', Sans-serif;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
   color: #d4d3f3;
 }
 
@@ -3002,7 +3004,8 @@ input#privacy_policy,
 .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat:before, .atbd_content_active .widget.atbd_widget .atbd_categorized_listings ul li .atbd_right_content .atbd_cat:before {
   position: absolute;
   content: "\f07c";
-  font-family: "FontAwesome";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
   left: 0;
   top: 0;
 }
@@ -6339,7 +6342,8 @@ span.atbd_get_loc_wid {
 
 .ads-advanced .more-less:after, .ads-advanced .more-or-less:after {
   content: '\f107';
-  font-family: "FontAwesome";
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
   padding-left: 5px;
 }
 

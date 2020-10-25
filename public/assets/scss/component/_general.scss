@@ -192,7 +192,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 
   .fa {
-    font: normal normal normal 14px/1 FontAwesome;
+    font: normal normal 900 14px/1 "Font Awesome 5 Free";
   }
 
   .atbd_rated_stars {
@@ -209,7 +209,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
         &:before {
           content: "\f005";
           font-size: 14px;
-          font-family: 'Fontawesome', Sans-serif;
+          font-family: 'Font Awesome 5 Free';
+          font-weight: 900;
         }
 
         &.rate_active {
@@ -230,7 +231,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
         &:before {
           content: "\f005";
           font-size: 14px;
-          font-family: 'Fontawesome', Sans-serif;
+          font-family: 'Font Awesome 5 Free';
+          font-weight: 900;
           color: #d4d3f3;
 
           &.br-selected, &.br-active {

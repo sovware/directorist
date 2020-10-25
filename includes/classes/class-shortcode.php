@@ -1310,7 +1310,7 @@ if (!class_exists('ATBDP_Shortcode')):
             } else {
                 $options = [];
 
-                if ( 'rand' === $args['orderby'] ) {
+                if ( !empty( $args['orderby'] ) && 'rand' === $args['orderby'] ) {
                     $options['cache'] = false;
                 }
 

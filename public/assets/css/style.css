@@ -1443,6 +1443,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 35px;
 }
 
+.atbdp-map div {
+  color: #fff !important;
+}
+
 .atbd_widget .atbdp-map {
   margin-bottom: 0;
 }

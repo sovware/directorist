@@ -145,6 +145,7 @@ if (class_exists('WP_List_Table') && !class_exists('Listing_Types_List_Table')) 
       $actions = [
         'edit' => sprintf('<a href="%s">Edit</a>', $edit_link),
         'delete' => sprintf('<a href="%s" class="submitdelete" onclick="return confirm(\'Are you sure?\')">Delete</a>', $delete_link),
+        'default' => '<a href="" data-type-id="'. absint($item['ID']) .'" class="submitdefault" onclick="return confirm(\'Are you sure?\')">Make Default</a>',
       ];
 
       return $title . $this->row_actions($actions);

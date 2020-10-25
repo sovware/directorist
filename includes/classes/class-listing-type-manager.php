@@ -24,16 +24,16 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         // save_post_type_data
         public function save_post_type_data()
         {
-            // wp_send_json([
-            //     'status' => false,
-            //     'listings_card_grid_view' => $this->maybe_json( $_POST['listings_card_grid_view'] ),
-            //     'status_log' => [
-            //         'name_is_missing' => [
-            //             'type' => 'error',
-            //             'message' => 'Debugging',
-            //         ],
-            //     ],
-            // ], 200 );
+           /*  wp_send_json([
+                'status' => false,
+                'listings_card_grid_view' => $this->maybe_json( $_POST['listings_card_grid_view'] ),
+                'status_log' => [
+                    'name_is_missing' => [
+                        'type' => 'error',
+                        'message' => 'Debugging',
+                    ],
+                ],
+            ], 200 ); */
 
             if (empty($_POST['name'])) {
                 wp_send_json([
@@ -152,7 +152,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 $string_alt = json_decode($string_alt, true);
                 $string     = (!is_null($string_alt)) ? $string_alt : $string;
             }
-            
+
             $test_json = json_decode($string, true);
             if (!is_null($test_json)) {
                 $string = $test_json;
@@ -1703,7 +1703,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => [
                                     'type'  => 'text',
                                     'label' => 'Label',
-                                    'value' => 'Custom Text',
+                                    'value' => 'Text',
                                 ],
                                 'field_key' => [
                                     'type'  => 'text',
@@ -1762,7 +1762,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => [
                                     'type'  => 'text',
                                     'label' => 'Label',
-                                    'value' => 'Custom Field',
+                                    'value' => 'Textarea',
                                 ],
                                 'field_key' => [
                                     'type'  => 'text',
@@ -1826,7 +1826,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => [
                                     'type'  => 'text',
                                     'label' => 'Label',
-                                    'value' => 'Custom Field',
+                                    'value' => 'Number',
                                 ],
                                 'field_key' => [
                                     'type'  => 'text',
@@ -1885,7 +1885,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => [
                                     'type'  => 'text',
                                     'label' => 'Label',
-                                    'value' => 'Custom Field',
+                                    'value' => 'URL',
                                 ],
                                 'field_key' => [
                                     'type'  => 'text',
@@ -1949,7 +1949,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => [
                                     'type'  => 'text',
                                     'label' => 'Label',
-                                    'value' => 'Custom Field',
+                                    'value' => 'Date',
                                 ],
                                 'field_key' => [
                                     'type'  => 'text',
@@ -2008,7 +2008,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => [
                                     'type'  => 'text',
                                     'label' => 'Label',
-                                    'value' => 'Custom Field',
+                                    'value' => 'Time',
                                 ],
                                 'field_key' => [
                                     'type'  => 'text',
@@ -2067,7 +2067,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => [
                                     'type'  => 'text',
                                     'label' => 'Label',
-                                    'value' => 'Custom Field',
+                                    'value' => 'Color',
                                 ],
                                 'field_key' => [
                                     'type'  => 'text',
@@ -2121,7 +2121,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => [
                                     'type'  => 'text',
                                     'label' => 'Label',
-                                    'value' => 'Custom Field',
+                                    'value' => 'Select',
                                 ],
                                 'field_key' => [
                                     'type'  => 'text',
@@ -2183,7 +2183,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => [
                                     'type'  => 'text',
                                     'label' => 'Label',
-                                    'value' => 'Custom Field',
+                                    'value' => 'Checkbox',
                                 ],
                                 'field_key' => [
                                     'type'  => 'text',
@@ -2245,7 +2245,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => [
                                     'type'  => 'text',
                                     'label' => 'Label',
-                                    'value' => 'Custom Field',
+                                    'value' => 'Radio',
                                 ],
                                 'field_key' => [
                                     'type'  => 'text',
@@ -2307,7 +2307,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => [
                                     'type'  => 'text',
                                     'label' => 'Label',
-                                    'value' => 'Custom Field',
+                                    'value' => 'File Upload',
                                 ],
                                 'field_key' => [
                                     'type'  => 'text',
@@ -2539,7 +2539,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
                 ],
             ];
-            
+
             $search_form_widgets = [
                 'available_widgets' => [
                     'title' => 'Preset Fields (Updated)',
@@ -2909,182 +2909,177 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_listing_title",
                     'show_if' => [
-                        [
-                            'where' => "submission_form_fields.value.fields",
-                            'compare' => "and",
-                            'condition' => [
-                                [
-                                    [ 'key' => '_any.widget_name', 'compare' => '=', 'value' => 'title' ]
-                                ]
-                            ],
-                        ]
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'title'],
+                        ],
                     ],
                     'options' => [
-                      'title' => "Listing Title Settings",
-                      'fields' => [
-                        'label' => [
-                          'type' => "text",
-                          'label' => "Label",
-                          'value' => "text",
+                        'title' => "Listing Title Settings",
+                        'fields' => [
+                            'label' => [
+                                'type' => "text",
+                                'label' => "Label",
+                                'value' => "text",
+                            ],
                         ],
-                      ],
                     ],
-                  ],
-          
-                  'listings_location' => [
+                ],
+
+                'listings_location' => [
                     'type' => "list-item",
                     'label' => "Listings Location",
                     'icon' => 'uil uil-location-point',
                     'hook' => "atbdp_listings_location",
                     'options' => [
-                      'title' => "Listings Location Settings",
-                      'fields' => [
-                        'icon' => [
-                          'type' => "icon",
-                          'label' => "Icon",
-                          'value' => "uil uil-location-point",
+                        'title' => "Listings Location Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "uil uil-location-point",
+                            ],
                         ],
-                      ],
                     ],
-                  ],
+                ],
 
-                  'listings_tag' => [
+                'listings_tag' => [
                     'type' => "list-item",
                     'label' => "Listings Tag",
                     'icon' => 'la la-tags',
                     'hook' => "atbdp_listings_location",
                     'options' => [
-                      'title' => "Listings Tag Settings",
-                      'fields' => [
-                        'icon' => [
-                          'type' => "icon",
-                          'label' => "Icon",
-                          'value' => "la la-tags",
+                        'title' => "Listings Tag Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "la la-tags",
+                            ],
                         ],
-                      ],
                     ],
-                  ],
+                ],
 
-                  '_website' => [
+                '_website' => [
                     'type' => "list-item",
                     'label' => "Listings Website",
                     'icon' => 'la la-globe',
                     'hook' => "atbdp_listings_website",
                     'options' => [
-                      'title' => "Listings Website Settings",
-                      'fields' => [
-                        'icon' => [
-                          'type' => "icon",
-                          'label' => "Icon",
-                          'value' => "la la-globe",
+                        'title' => "Listings Website Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "la la-globe",
+                            ],
                         ],
-                      ],
                     ],
-                  ],
+                ],
 
-                  '_zip' => [
+                '_zip' => [
                     'type' => "list-item",
                     'label' => "Listings Zip",
                     'icon' => 'la la-at',
                     'hook' => "atbdp_listings_zip",
                     'options' => [
-                      'title' => "Listings Zip Settings",
-                      'fields' => [
-                        'icon' => [
-                          'type' => "icon",
-                          'label' => "Icon",
-                          'value' => "la la-at",
+                        'title' => "Listings Zip Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "la la-at",
+                            ],
                         ],
-                      ],
                     ],
-                  ],
+                ],
 
-                  '_email' => [
+                '_email' => [
                     'type' => "list-item",
                     'label' => "Listings Email",
                     'icon' => 'la la-envelope',
                     'hook' => "atbdp_listings_email",
                     'options' => [
-                      'title' => "Listings Email Settings",
-                      'fields' => [
-                        'icon' => [
-                          'type' => "icon",
-                          'label' => "Icon",
-                          'value' => "la la-envelope",
+                        'title' => "Listings Email Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "la la-envelope",
+                            ],
                         ],
-                      ],
                     ],
-                  ],
+                ],
 
-                  '_fax' => [
+                '_fax' => [
                     'type' => "list-item",
                     'label' => "Listings Fax",
                     'icon' => 'la la-fax',
                     'hook' => "atbdp_listings_fax",
                     'options' => [
-                      'title' => "Listings Fax Settings",
-                      'fields' => [
-                        'icon' => [
-                          'type' => "icon",
-                          'label' => "Icon",
-                          'value' => "la la-fax",
+                        'title' => "Listings Fax Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "la la-fax",
+                            ],
                         ],
-                      ],
                     ],
-                  ],
+                ],
 
-                  '_phone' => [
+                '_phone' => [
                     'type' => "list-item",
                     'label' => "Listings Phone",
                     'icon' => 'la la-phone',
                     'hook' => "atbdp_listings_phone",
                     'options' => [
-                      'title' => "Listings Phone Settings",
-                      'fields' => [
-                        'icon' => [
-                          'type' => "icon",
-                          'label' => "Icon",
-                          'value' => "la la-phone",
+                        'title' => "Listings Phone Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "la la-phone",
+                            ],
                         ],
-                      ],
                     ],
-                  ],
-          
-                  '_phone2' => [
+                ],
+
+                '_phone2' => [
                     'type' => "list-item",
                     'label' => "Listings Phone 2",
                     'icon' => 'la la-phone',
                     'hook' => "atbdp_listings_phone2",
                     'options' => [
-                      'title' => "Listings Phone 2 Settings",
-                      'fields' => [
-                        'icon' => [
-                          'type' => "icon",
-                          'label' => "Icon",
-                          'value' => "la la-phone",
+                        'title' => "Listings Phone 2 Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "la la-phone",
+                            ],
                         ],
-                      ],
                     ],
-                  ],
+                ],
 
-                  '_address' => [
+                '_address' => [
                     'type' => "list-item",
                     'label' => "Listings Address",
                     'icon' => 'la la-map-marker',
                     'hook' => "atbdp_listings_map_address",
                     'options' => [
-                      'title' => "Listings Address Settings",
-                      'fields' => [
-                        'icon' => [
-                          'type' => "icon",
-                          'label' => "Icon",
-                          'value' => "la la-map-marker",
+                        'title' => "Listings Address Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "la la-map-marker",
+                            ],
                         ],
-                      ],
                     ],
-                  ],
+                ],
 
-                  'featured_badge' => [
+                'featured_badge' => [
                     'type' => "badge",
                     'label' => "Featured",
                     'icon' => 'uil uil-text-fields',
@@ -3232,6 +3227,260 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'label' => "User Avatar",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_user_avatar",
+                ],
+                
+                // Custom Fields
+                'text' => [
+                    'type' => "list-item",
+                    'label' => "Text",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_custom_text",
+                    'show_if' => [
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'text'],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => "Text Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "uil uil-text-fields",
+                            ],
+                        ],
+                    ],
+                ],
+
+                'textarea' => [
+                    'type' => "list-item",
+                    'label' => "Textarea",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_custom_textarea",
+                    'show_if' => [
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'textarea'],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => "Textarea Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "uil uil-text-fields",
+                            ],
+                        ],
+                    ],
+                ],
+                
+                'number' => [
+                    'type' => "list-item",
+                    'label' => "Number",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_custom_number",
+                    'show_if' => [
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'number'],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => "Number Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "uil uil-text-fields",
+                            ],
+                        ],
+                    ],
+                ],
+
+                'url' => [
+                    'type' => "list-item",
+                    'label' => "URL",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_custom_url",
+                    'show_if' => [
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'url'],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => "URL Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "uil uil-text-fields",
+                            ],
+                        ],
+                    ],
+                ],
+
+                'date' => [
+                    'type' => "list-item",
+                    'label' => "Date",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_custom_date",
+                    'show_if' => [
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'date'],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => "Date Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "uil uil-text-fields",
+                            ],
+                        ],
+                    ],
+                ],
+
+                'time' => [
+                    'type' => "list-item",
+                    'label' => "Time",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_custom_time",
+                    'show_if' => [
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'time'],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => "Time Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "uil uil-text-fields",
+                            ],
+                        ],
+                    ],
+                ],
+
+                'color_picker' => [
+                    'type' => "list-item",
+                    'label' => "Color Picker",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_custom_color",
+                    'show_if' => [
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'color'],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => "Color Picker Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "uil uil-text-fields",
+                            ],
+                        ],
+                    ],
+                ],
+
+                'select' => [
+                    'type' => "list-item",
+                    'label' => "Select",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_custom_select",
+                    'show_if' => [
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'select'],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => "Select Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "uil uil-text-fields",
+                            ],
+                        ],
+                    ],
+                ],
+
+                'checkbox' => [
+                    'type' => "list-item",
+                    'label' => "Checkbox",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_custom_checkbox",
+                    'show_if' => [
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'checkbox'],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => "Checkbox Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "uil uil-text-fields",
+                            ],
+                        ],
+                    ],
+                ],
+
+                'radio' => [
+                    'type' => "list-item",
+                    'label' => "Radio",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_custom_radio",
+                    'show_if' => [
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'radio'],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => "Radio Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "uil uil-text-fields",
+                            ],
+                        ],
+                    ],
+                ],
+
+                'file' => [
+                    'type' => "list-item",
+                    'label' => "File",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_custom_file",
+                    'show_if' => [
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'file'],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => "File Settings",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "uil uil-text-fields",
+                            ],
+                        ],
+                    ],
                 ],
             ];
 
@@ -3521,7 +3770,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ],
                                 ],
                             ],
-                        ],    
+                        ],
                     ],
 
                     'value'     => [],
@@ -3551,7 +3800,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'label'  => 'Custom block Clases',
                             'value' => '',
                         ],
-                        
+
                     ],
                     'value' => [],
                 ],
@@ -3664,8 +3913,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'name'    => 'similar_listings_logics',
                     'label' => 'Similar listings logics',
                     'options' => [
-                        [ 'id' => 'match_category_nd_location', 'label' => 'Must match category and location', 'value' => 'match_category_nd_location' ],
-                        [ 'id' => 'match_category_or_location', 'label' => 'Must match category or location', 'value' => 'match_category_or_location' ],
+                        ['id' => 'match_category_nd_location', 'label' => 'Must match category and location', 'value' => 'match_category_nd_location'],
+                        ['id' => 'match_category_or_location', 'label' => 'Must match category or location', 'value' => 'match_category_or_location'],
                     ],
                     'value'   => '',
                 ],
@@ -3738,7 +3987,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'top' => [
                                 'maxWidget' => 0,
                                 'acceptedWidgets' => [
-                                    "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                                    "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge"
+                                ],
                             ],
                             'bottom' => [
                                 'maxWidget' => 0,
@@ -3746,7 +3996,10 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ['label' => 'Preset', 'widgets' => ['listing_title']],
                                     ['label' => 'Custom', 'widgets' => ['listing_title']],
                                 ],
-                                'acceptedWidgets' => ["listings_location", "_phone", "_phone2", "_website", "_zip", "_fax", "_address", "_email", "listings_tag"],
+                                'acceptedWidgets' => [
+                                    "listings_location", "_phone", "_phone2", "_website", "_zip", "_fax", "_address", "_email", "listings_tag", 
+                                    'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file'
+                                ],
                             ],
                         ],
 
@@ -3800,7 +4053,10 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ['label' => 'Preset', 'widgets' => ['listing_title']],
                                     ['label' => 'Custom', 'widgets' => ['listing_title']],
                                 ],
-                                'acceptedWidgets' => ["listings_location", "_phone", "_phone2", "_website", "_zip", "_fax", "_address", "_email", "listings_tag"],
+                                'acceptedWidgets' => [
+                                    "listings_location", "_phone", "_phone2", "_website", "_zip", "_fax", "_address", "_email", "listings_tag", 
+                                    'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file'
+                                ],
                             ],
                         ],
 
@@ -4170,7 +4426,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             // $test = get_term_meta( $listing_type_id, 'submission_form_fields' );
             // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
-            // var_dump( $this->fields[ 'listings_card_grid_view' ]['value'] );
+            // var_dump( $this->fields[ 'listings_card_grid_view' ]['value']['body']['bottom'] );
             // var_dump( json_decode( $test ) );
         }
 

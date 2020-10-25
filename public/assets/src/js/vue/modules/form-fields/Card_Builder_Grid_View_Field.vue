@@ -14,7 +14,7 @@
                   id="thumbnail_top_left"
                   containerClass="cptm-card-preview-top-left-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.top_left.label"
-                  :availableWidgets="available_widgets"
+                  :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
                   :acceptedWidgets="local_layout.thumbnail.top_left.acceptedWidgets"
                   :selectedWidgets="local_layout.thumbnail.top_left.selectedWidgets"
@@ -42,7 +42,7 @@
                   id="thumbnail_top_right"
                   containerClass="cptm-card-preview-top-right-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.top_right.label"
-                  :availableWidgets="available_widgets"
+                  :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
                   :acceptedWidgets="local_layout.thumbnail.top_right.acceptedWidgets"
                   :selectedWidgets="local_layout.thumbnail.top_right.selectedWidgets"
@@ -69,7 +69,7 @@
                   id="thumbnail_bottom_left"
                   containerClass="cptm-card-preview-bottom-left-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.bottom_left.label"
-                  :availableWidgets="available_widgets"
+                  :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
                   :acceptedWidgets="local_layout.thumbnail.bottom_left.acceptedWidgets"
                   :selectedWidgets="local_layout.thumbnail.bottom_left.selectedWidgets"
@@ -96,7 +96,7 @@
                   id="thumbnail_bottom_right"
                   containerClass="cptm-card-preview-bottom-right-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.bottom_right.label"
-                  :availableWidgets="available_widgets"
+                  :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
                   :acceptedWidgets="local_layout.thumbnail.bottom_right.acceptedWidgets"
                   :selectedWidgets="local_layout.thumbnail.bottom_right.selectedWidgets"
@@ -132,7 +132,7 @@
               id="thumbnail_avatar"
               containerClass="cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20"
               :label="local_layout.thumbnail.avatar.label"
-              :availableWidgets="available_widgets"
+              :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
               :acceptedWidgets="local_layout.thumbnail.avatar.acceptedWidgets"
               :selectedWidgets="local_layout.thumbnail.avatar.selectedWidgets"
@@ -155,7 +155,7 @@
             id="thumbnail_body_top"
             containerClass="cptm-listing-card-preview-title-placeholder cptm-card-light cptm-mb-20 cptm-align-left"
             :label="local_layout.body.top.label"
-            :availableWidgets="available_widgets"
+            :availableWidgets="theAvailableWidgets"
             :activeWidgets="active_widgets"
             :acceptedWidgets="local_layout.body.top.acceptedWidgets"
             :selectedWidgets="local_layout.body.top.selectedWidgets"
@@ -177,7 +177,7 @@
             id="thumbnail_body_bottom"
             containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
             :label="local_layout.body.bottom.label"
-            :availableWidgets="available_widgets"
+            :availableWidgets="theAvailableWidgets"
             :activeWidgets="active_widgets"
             :acceptedWidgets="local_layout.body.bottom.acceptedWidgets"
             :selectedWidgets="local_layout.body.bottom.selectedWidgets"
@@ -203,7 +203,7 @@
             id="thumbnail_footer_left"
             containerClass="cptm-listing-card-preview-footer-left-placeholder cptm-card-light"
             :label="local_layout.footer.left.label"
-            :availableWidgets="available_widgets"
+            :availableWidgets="theAvailableWidgets"
             :activeWidgets="active_widgets"
             :acceptedWidgets="local_layout.footer.left.acceptedWidgets"
             :selectedWidgets="local_layout.footer.left.selectedWidgets"
@@ -226,7 +226,7 @@
             id="thumbnail_footer_right"
             containerClass="cptm-listing-card-preview-footer-right-placeholder cptm-card-light"
             :label="local_layout.footer.right.label"
-            :availableWidgets="available_widgets"
+            :availableWidgets="theAvailableWidgets"
             :activeWidgets="active_widgets"
             :acceptedWidgets="local_layout.footer.right.acceptedWidgets"
             :selectedWidgets="local_layout.footer.right.selectedWidgets"
@@ -246,16 +246,6 @@
         </div>
       </div>
     </div>
-
-    <div class="cptm-options-area">
-      <options-window 
-        :active="widgetOptionsWindowActiveStatus" 
-        v-bind="widgetOptionsWindow" 
-        @update="updateWidgetOptionsData( $event, widgetOptionsWindow )"
-        @close="closeWidgetOptionsWindow()"
-      />
-
-      <pre>{{ theAvailableWidgets }}</pre>
     </div>
   </div>
 </template>
@@ -325,10 +315,12 @@ export default {
               continue;
             }
             
-            let widget_data = { id: widget_name };
+            let widget_data = {};
             for ( let root_option in this.active_widgets[widget_name] ) {
               if ( 'options' === root_option ) { continue; }
               if ( 'icon' === root_option ) { continue; }
+              if ( 'show_if' === root_option ) { continue; }
+              if ( 'fields' === root_option ) { continue; }
 
               widget_data[ root_option ] = this.active_widgets[ widget_name ][ root_option ];
             }
@@ -362,22 +354,39 @@ export default {
       let available_widgets = JSON.parse( JSON.stringify( this.available_widgets ) );
 
       for ( let widget in available_widgets ) {
+        available_widgets[ widget ].key = widget;
         available_widgets[ widget ].id = widget;
 
         // Check show if condition
-        let has_show_if_cond = false;
         let show_if_cond_state = null;
 
-        if ( Array.isArray( available_widgets[ widget ].show_if ) ) {
-          has_show_if_cond = true;
+        if ( this.isObject( available_widgets[ widget ].show_if ) ) {
+          show_if_cond_state = this.checkShowIfCondition( available_widgets[ widget ].show_if );
+          let main_widget = available_widgets[ widget ];
+          
+          delete available_widgets[ widget ];
+
+          if ( show_if_cond_state.status ) {
+            let widget_keys = [];
+            for ( let matched_field of show_if_cond_state.matched_data ) {
+              // console.log( {matched_field} );
+              let _main_widget = JSON.parse( JSON.stringify( main_widget ) );
+              let current_key = ( widget_keys.includes( widget ) ) ? widget + '_' + (widget_keys.length + 1) : widget;
+              _main_widget.key = current_key;
+
+              if ( typeof matched_field.label === 'string' && matched_field.label.length ) {
+                _main_widget.label = matched_field.label;
+              }
+ 
+              available_widgets[ current_key ] = _main_widget;
+              widget_keys.push( current_key );
+            }
+          }
         }
       
-        if ( has_show_if_cond ) {
-          show_if_cond_state = this.checkShowIfCondition( available_widgets[ widget ].show_if );
-          console.log( { show_if_cond_state } );
-        }
-        
       }
+
+      // console.log( { available_widgets } );
 
       return available_widgets;
     },
@@ -492,23 +501,13 @@ export default {
       return true;
     },
 
-
-    checkShowIfCondition( conditions ) {
-      
-      return false;
-    },
-
     importOldData() {
       let value = this.value;
-
-      // console.log( 'grid', { value } );
-
       if ( typeof value === 'string' && this.isJSON( value ) ) {
         value = JSON.parse( value );
       }
 
       if ( ! this.isTruthyObject( value ) ) { return; }
-
       let selectedWidgets = [];
       
       // Get Active Widgets Data
@@ -520,37 +519,37 @@ export default {
           if ( ! value[ section ][ area ] && typeof value[ section ][ area ] !== 'object' ) { continue; }
 
           for ( let widget of value[ section ][ area ] ) {
-            if ( typeof widget.id === 'undefined' ) { continue }
+            if ( typeof widget.key === 'undefined' ) { continue }
             if ( typeof this.available_widgets[ widget.id ] === 'undefined' ) { continue; }
             if ( typeof this.local_layout[ section ] === 'undefined' ) { continue; }
             if ( typeof this.local_layout[ section ][ area ] === 'undefined' ) { continue; }
 
-            active_widgets_data[ widget.id ] = widget;
-            selectedWidgets.push( { section: section, area: area, widget: widget.id } );
+            active_widgets_data[ widget.key ] = widget;
+            selectedWidgets.push( { section: section, area: area, widget: widget.key } );
           }
         }
       }
 
       // Load Active Widgets
       for (let widget_key in active_widgets_data) {
-        if (typeof this.available_widgets[widget_key] === "undefined") {
+        if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
           continue;
         }
 
-        let widgets_template = { ...this.available_widgets[widget_key] };
-
+        let widgets_template = { ...this.theAvailableWidgets[widget_key] };
         let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
-        if ( widget_options ) {
-          widget_options = ( ! widget_options.fields && typeof widget_options.fields !== "object" ) ? false : widget_options.fields;
+       
+        let has_widget_options = false;
+        if ( widgets_template.options && widgets_template.options.fields ) {
+          has_widget_options = true;
         }
 
-        if ( widget_options ) {
-          for (let option_key in widget_options) {
+        if ( has_widget_options ) {
+          for ( let option_key in widgets_template.options.fields ) {
             if ( typeof active_widgets_data[widget_key].options[option_key] === "undefined" ) {
               continue;
             }
-
-            widget_options[ option_key ].value = active_widgets_data[widget_key].options[option_key];
+            widgets_template.options.fields[ option_key ].value = active_widgets_data[widget_key].options[option_key];
           }
         }
 
@@ -562,8 +561,6 @@ export default {
         let length = this.local_layout[ item.section ][ item.area ].selectedWidgets.length;
         this.local_layout[ item.section ][ item.area ].selectedWidgets.splice( length, 0, item.widget );
       }
-
-      // console.log( {value: this.value, selectedWidgets} );
     },
 
     importWidgets() {
@@ -611,9 +608,11 @@ export default {
     },
 
     widgetIsAccepted( path,  key ) {
+
       if ( ! path.acceptedWidgets  ) { return true; }
       if ( ! this.isTruthyObject( path.acceptedWidgets )  ) { return true; }
-      if ( path.acceptedWidgets.includes( key ) ) { return true; }
+
+      if ( path.acceptedWidgets.includes( this.theAvailableWidgets[ key ].id ) ) { return true; }
 
       return false;
     },
@@ -711,7 +710,8 @@ export default {
         return;
       }
 
-      this.active_widgets[ widget.widget ].fields = data;
+      // this.active_widgets[ widget.widget ].fields = data;
+      Vue.set( this.active_widgets[ widget.widget ], 'fields', data );
     },
 
     closeWidgetOptionsWindow() {
@@ -738,11 +738,11 @@ export default {
 
     insertWidget( payload, where ) {
 
-      if ( ! this.isTruthyObject( this.available_widgets[ payload.key ] ) ) {
+      if ( ! this.isTruthyObject( this.theAvailableWidgets[ payload.key ] ) ) {
         return;
       }
 
-      Vue.set( this.active_widgets, payload.key, { ...this.available_widgets[ payload.key ] } );
+      Vue.set( this.active_widgets, payload.key, { ...this.theAvailableWidgets[ payload.key ] } );
       Vue.set( where, 'selectedWidgets', payload.selected_widgets );
     },
 

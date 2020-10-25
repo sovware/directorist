@@ -45,7 +45,7 @@
           <component
             :is="activeWidgets[widget].type + '-card-widget'"
             :key="widget_index"
-            :label="activeWidgets[widget].label"
+            :label="( typeof availableWidgets[widget] !== 'undefined' ) ? availableWidgets[widget].label : 'Not Available'"
             :icon="( typeof activeWidgets[widget].icon === 'string' ) ? activeWidgets[widget].icon : ''"
             :options="activeWidgets[widget].options"
             :widgetDropable="widgetDropable"

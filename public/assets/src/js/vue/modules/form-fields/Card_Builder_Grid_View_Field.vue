@@ -254,16 +254,24 @@
         @update="updateWidgetOptionsData( $event, widgetOptionsWindow )"
         @close="closeWidgetOptionsWindow()"
       />
+
+      <pre>{{ theAvailableWidgets }}</pre>
     </div>
   </div>
 </template>
 
 <script>
 import Vue from 'vue';
+import helpers from '../../mixins/helpers';
 
 export default {
   name: "card-builder-grid-view-field",
+  mixins: [ helpers ],
   props: {
+    fieldId: {
+      required: false,
+      default: '',
+    },
     value: {
       required: false,
       default: null,
@@ -310,14 +318,14 @@ export default {
             continue;
           }
 
-          for (let widget in layout[section][section_area].selectedWidgets) {
+          for ( let widget in layout[section][section_area].selectedWidgets ) {
             const widget_name = layout[section][section_area].selectedWidgets[widget];
 
             if ( ! this.active_widgets[widget_name] && typeof this.active_widgets[widget_name] !== "object") {
               continue;
             }
             
-            let widget_data = {};
+            let widget_data = { id: widget_name };
             for ( let root_option in this.active_widgets[widget_name] ) {
               if ( 'options' === root_option ) { continue; }
               if ( 'icon' === root_option ) { continue; }
@@ -348,6 +356,30 @@ export default {
       }
 
       return output;
+    },
+
+    theAvailableWidgets() {
+      let available_widgets = JSON.parse( JSON.stringify( this.available_widgets ) );
+
+      for ( let widget in available_widgets ) {
+        available_widgets[ widget ].id = widget;
+
+        // Check show if condition
+        let has_show_if_cond = false;
+        let show_if_cond_state = null;
+
+        if ( Array.isArray( available_widgets[ widget ].show_if ) ) {
+          has_show_if_cond = true;
+        }
+      
+        if ( has_show_if_cond ) {
+          show_if_cond_state = this.checkShowIfCondition( available_widgets[ widget ].show_if );
+          console.log( { show_if_cond_state } );
+        }
+        
+      }
+
+      return available_widgets;
     },
 
     widgetOptionsWindowActiveStatus() {
@@ -460,6 +492,12 @@ export default {
       return true;
     },
 
+
+    checkShowIfCondition( conditions ) {
+      
+      return false;
+    },
+
     importOldData() {
       let value = this.value;
 
@@ -530,6 +568,7 @@ export default {
 
     importWidgets() {
       if ( ! this.isTruthyObject( this.widgets ) ) { return; }
+
       this.available_widgets = this.widgets;
     },
 

@@ -103,6 +103,8 @@ class Directorist_Listings {
 	public $display_title_map;
 	public $display_address_map;
 	public $display_direction_map;
+	public $listing_types;
+	public $current_listing_type;
 
 	public function __construct( $atts = array(), $type = 'listing', $query_args = false, array $caching_options = [] ) {
 		$this->atts = !empty( $atts ) ? $atts : array();
@@ -352,6 +354,8 @@ class Directorist_Listings {
 		$this->display_title_map          = $this->options['display_title_map'];
 		$this->display_address_map        = $this->options['display_address_map'];
 		$this->display_direction_map      = $this->options['display_direction_map'];
+		$this->listing_types              = $this->get_listing_types();
+		$this->current_listing_type       = $this->get_current_listing_type();
 	}
 
 	public function set_loop_data() {
@@ -366,9 +370,7 @@ class Directorist_Listings {
 		$u_pro_pic   = ! empty( $u_pro_pic ) ? wp_get_attachment_image_src( $u_pro_pic, 'thumbnail' ) : '';
 		$bdbh        = get_post_meta( $id, '_bdbh', true );
 
-		$listing_type = get_the_terms( $id, 'atbdp_listing_types' );
-		$listing_type = !empty( $listing_type[0]->term_id ) ? $listing_type[0]->term_id : 0;
-		$listing_type = 43; // @todo @kowsar remove later
+		$listing_type = $this->current_listing_type;
 		$card_fields  = get_term_meta( $listing_type, 'listings_card_grid_view', true );
 		$list_fields  = get_term_meta( $listing_type, 'listings_card_list_view', true );
 
@@ -714,111 +716,40 @@ class Directorist_Listings {
 
 		$tax_queries = array();
 
-		if ( ! empty( $this->categories ) && ! empty( $this->locations ) && ! empty( $this->tags ) ) {
+		$tax_queries['tax_query'] = array(
+			'relation' => 'AND',
+			array(
+				'taxonomy' => 'atbdp_listing_types',
+				'field'    => 'term_id',
+				'terms'    => $this->current_listing_type,
+				'include_children' => false,
+			),
+		);
 
-			$tax_queries['tax_query'] = array(
-				'relation' => 'AND',
-				array(
-					'taxonomy'         => ATBDP_CATEGORY,
-					'field'            => 'slug',
-					'terms'            => ! empty( $this->categories ) ? $this->categories : array(),
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
-				array(
-					'taxonomy'         => ATBDP_LOCATION,
-					'field'            => 'slug',
-					'terms'            => ! empty( $this->locations ) ? $this->locations : array(),
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
-				array(
-					'taxonomy'         => ATBDP_TAGS,
-					'field'            => 'slug',
-					'terms'            => ! empty( $this->tags ) ? $this->tags : array(),
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
+		if ( ! empty( $this->categories ) ) {
+			$tax_queries['tax_query'][] = array(
+				'taxonomy'         => ATBDP_CATEGORY,
+				'field'            => 'slug',
+				'terms'            => ! empty( $this->categories ) ? $this->categories : array(),
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
 			);
 		}
-		elseif ( ! empty( $this->categories ) && ! empty( $this->tags ) ) {
-			$tax_queries['tax_query'] = array(
-				'relation' => 'AND',
-				array(
-					'taxonomy'         => ATBDP_CATEGORY,
-					'field'            => 'slug',
-					'terms'            => ! empty( $this->categories ) ? $this->categories : array(),
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
-				array(
-					'taxonomy'         => ATBDP_TAGS,
-					'field'            => 'slug',
-					'terms'            => ! empty( $this->tags ) ? $this->tags : array(),
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
-			);
-		}
-		elseif ( ! empty( $this->categories ) && ! empty( $this->locations ) ) {
-			$tax_queries['tax_query'] = array(
-				'relation' => 'AND',
-				array(
-					'taxonomy'         => ATBDP_CATEGORY,
-					'field'            => 'slug',
-					'terms'            => ! empty( $this->categories ) ? $this->categories : array(),
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
-				array(
-					'taxonomy'         => ATBDP_LOCATION,
-					'field'            => 'slug',
-					'terms'            => ! empty( $this->locations ) ? $this->locations : array(),
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
 
+		if ( ! empty( $this->locations ) ) {
+			$tax_queries['tax_query'][] = array(
+				'taxonomy'         => ATBDP_LOCATION,
+				'field'            => 'slug',
+				'terms'            => ! empty( $this->locations ) ? $this->locations : array(),
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
 			);
 		}
-		elseif ( ! empty( $this->tags ) && ! empty( $this->locations ) ) {
-			$tax_queries['tax_query'] = array(
-				'relation' => 'AND',
-				array(
-					'taxonomy'         => ATBDP_TAGS,
-					'field'            => 'slug',
-					'terms'            => ! empty( $tags ) ? $this->tags : array(),
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
-				array(
-					'taxonomy'         => ATBDP_LOCATION,
-					'field'            => 'slug',
-					'terms'            => ! empty( $this->locations ) ? $this->locations : array(),
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
 
-			);
-		}
-		elseif ( ! empty( $this->categories ) ) {
-			$tax_queries['tax_query'] = array(
-				array(
-					'taxonomy'         => ATBDP_CATEGORY,
-					'field'            => 'slug',
-					'terms'            => ! empty( $this->categories ) ? $this->categories : array(),
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
-			);
-		}
-		elseif ( ! empty( $this->tags ) ) {
-			$tax_queries['tax_query'] = array(
-				array(
-					'taxonomy'         => ATBDP_TAGS,
-					'field'            => 'slug',
-					'terms'            => ! empty( $this->tags ) ? $this->tags : array(),
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
-			);
-		}
-		elseif ( ! empty( $this->locations ) ) {
-			$tax_queries['tax_query'] = array(
-				array(
-					'taxonomy'         => ATBDP_LOCATION,
-					'field'            => 'slug',
-					'terms'            => ! empty( $this->locations ) ? $this->locations : array(),
-					'include_children' => true, /*@todo; Add option to include children or exclude it*/
-				),
+		if ( ! empty( $this->tags ) ) {
+			$tax_queries['tax_query'][] = array(
+				'taxonomy'         => ATBDP_TAGS,
+				'field'            => 'slug',
+				'terms'            => ! empty( $this->tags ) ? $this->tags : array(),
+				'include_children' => true, /*@todo; Add option to include children or exclude it*/
 			);
 		}
 
@@ -1234,6 +1165,41 @@ class Directorist_Listings {
 		}
 
 		return $link_list;
+	}
+
+	public function get_listing_types() {
+		$listing_types = array();
+		$all_types     = get_terms(
+			array(
+				'taxonomy'   => 'atbdp_listing_types',
+				'hide_empty' => false,
+			)
+		);
+
+		foreach ( $all_types as $type ) {
+			$listing_types[ $type->term_id ] = $type->name;
+		}
+		return $listing_types;
+	}
+
+	public function get_current_listing_type() {
+		$listing_types      = $this->get_listing_types();
+		$listing_type_count = count( $listing_types );
+
+		if ( $listing_type_count == 1 ) {
+			$type = array_key_first( $listing_types );
+		}
+		else {
+			$type = isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ? $_GET['listing_type'] : '';
+		}
+
+		if ( !$type ) {
+			$type = !empty($listing_types) ? array_key_first( $listing_types ) : '';
+		}
+
+
+
+		return (int) $type;
 	}
 
 	public function search_category_location_args() {
@@ -1776,8 +1742,14 @@ class Directorist_Listings {
 			atbdp_get_shortcode_template( 'listings-archive/advanced-search-form', $args );
 		}
 
-    // Hooks ------------
-		
+    	// Hooks ------------
+		public static function archive_type($listings) {
+			$count = count( $listings->listing_types );
+			if ( $count > 1 ) {
+				atbdp_get_shortcode_template( 'listings-archive/listing-types', array('listings' => $listings) );
+			}
+		}
+
 		public static function archive_header($listings) {
 			if ( !$listings->header ) {
 				return;

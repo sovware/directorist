@@ -1,6 +1,7 @@
 <template>
   <component 
     :is="cardBiulderType"
+    :field-id="fieldId"
     :value="value"
     :widgets="widgets"
     :layout="layout"
@@ -15,6 +16,10 @@ import Vue from 'vue';
 export default {
   name: "card-builder",
   props: {
+    fieldId: {
+      required: false,
+      default: '',
+    },
     value: {
       required: false,
       default: null,

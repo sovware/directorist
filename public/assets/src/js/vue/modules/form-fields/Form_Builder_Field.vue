@@ -35,6 +35,7 @@
                   <template v-for="(option, option_key) in groupOptions">
                     <component 
                       :is="option.type + '-field'" :key="option_key" 
+                      :feild-id="option_key"
                       v-bind="getSanitizedFieldsOptions(option)" 
                       :value="getActiveGroupOptionValue(option_key, group_key)"
                       @update="updateActiveGroupOptionData( option_key, group_key, $event )">
@@ -154,6 +155,10 @@ export default {
         required: false,
         default: '',
     },
+    template: {
+      required: false,
+      default: '',
+    },
     widgets: {
       required: false,
       default: false,
@@ -216,14 +221,113 @@ export default {
       return { fields: this.active_fields, groups: this.groups };
     },
 
-    theWidgetGroups() {
-      if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
-      if ( ! this.widgets && typeof widgets !== 'object' ) { return {} }
+    theWidgetsByTemplate() {
+      let has_template = false;
+      let template_field = false;
+      let widget_template = null;
+      
+      if ( typeof this.template === 'string' && this.template.length ) {
+        template_field = this.getTergetFields( this.template );
+      }
+
+      if ( this.isObject( template_field ) ) {
+        has_template = true;
+        template_field = { ...template_field };
+      }
+
+      if ( has_template ) {
+        for ( let widget_group in template_field.widgets ) {
+          let root_widget_group_options = {};
+
+          if ( this.isObject( this.widgets[ widget_group ] ) ) {
+            root_widget_group_options = { ...this.widgets[ widget_group ] };
+            
+            Object.assign( template_field.widgets[ widget_group ], root_widget_group_options );
+          }
+
+          for ( let widget in template_field.widgets[ widget_group ].widgets ) {
+            if ( ! this.isObject( this.widgets[ widget_group ].widgets[ widget ] ) ) { continue; }
+            let root_widget_options = { ...this.widgets[ widget_group ].widgets[ widget ] };
+
+            let label = root_widget_options.label;
+            let has_custom_label = false;
+
+            if ( this.isObject( template_field.value ) ) {
+              has_custom_label = true;
+            }
+
+            if ( has_custom_label && ! this.isObject( template_field.value.fields ) ) {
+              has_custom_label = false;
+            }
+      
+            if ( has_custom_label && ! template_field.value.fields[ widget ] ) {
+              has_custom_label = false;
+            }
+
+            if ( has_custom_label && template_field.value.fields[ widget ].label ) {
+              root_widget_options.label = template_field.value.fields[ widget ].label;
+            }
+
+            Object.assign( template_field.widgets[ widget_group ].widgets[ widget ], root_widget_options );
+          }
+        }
+
+        return template_field.widgets;
+      }
+
+      return this.widgets;
+    },
+
+    theWidgets() {
+      if ( ! this.widgets && typeof this.widgets !== 'object' ) { return {} }
 
       // Add the widget group & name to all the widget fields
-      let widgets = JSON.parse(JSON.stringify(this.widgets));
-      for (let widget_group in widgets) {
+      let widgets = JSON.parse( JSON.stringify( this.widgets ) );
+
+      for ( let widget_group in widgets ) {
+        // Template
+        // Get widget keys from field list
+        let has_template = ( typeof widgets[ widget_group ].template === 'string' ) ? true : false;
+        has_template = ( has_template && widgets[ widget_group ].template.length ) ? widgets[ widget_group ].template : false;
+
+        let template_field  = ( has_template ) ? this.getTergetFields( has_template ) : null;
+        template_field      = ( this.isObject( template_field ) ) ? JSON.parse( JSON.stringify( template_field ) ) : null;
         
+        let template_fields = ( this.isObject( template_field ) && template_field.value ) ? template_field.value : null;
+        template_fields     = ( this.isObject( template_fields ) ) && template_fields.fields ? template_fields.fields : null;
+
+        if ( has_template && this.isObject( template_fields ) ) {
+          let template_widgets = {};
+
+          for ( let widget_key in template_fields ) {
+            let _widget_name = template_fields[ widget_key ].widget_name;
+            let _widget_group = template_fields[ widget_key ].widget_group;
+            let root_options = template_field.widgets[ _widget_group ].widgets[ _widget_name ];
+            delete root_options.options;
+            delete root_options.lock;
+
+            let widget_label = ( widgets[ widget_group ].widgets[ _widget_name ].label ) ? widgets[ widget_group ].widgets[ _widget_name ].label : '';
+            widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : widget_label;
+            root_options.label = widget_label;
+
+            Object.assign( widgets[ widget_group ].widgets[ _widget_name ], root_options );
+            template_widgets[ widget_key ] = widgets[ widget_group ].widgets[ _widget_name ];
+          }
+
+          widgets[widget_group].widgets = template_widgets;
+        }
+      }
+
+      // if ( 'search_form_fields' === this.fieldId ) { console.log(  this.widgets ); }
+      return widgets;
+    },
+
+    theWidgetGroups() {
+      // Add the widget group & name to all the widget fields
+      let widgets = JSON.parse( JSON.stringify( this.theWidgets ) );
+
+      for ( let widget_group in widgets ) {
+        // Filter fields if required
         let filter_field_keys = null;
         let has_filter_by = ( typeof widgets[ widget_group ].filter_by === 'string' ) ? true : false;
         has_filter_by = ( has_filter_by && widgets[ widget_group ].filter_by.length ) ? widgets[ widget_group ].filter_by : false;
@@ -236,6 +340,7 @@ export default {
           }
         }
 
+        // ----------------
         for (let widget in widgets[widget_group].widgets) {
           // Filter fields if required
           if ( Array.isArray( filter_field_keys ) && ! filter_field_keys.includes( widget ) ) {
@@ -247,6 +352,7 @@ export default {
           let check_show_if_key_exists = false;
           let show_if_key_exists_field_path = null;
           let show_if_key_exists_field = null;
+
           if ( typeof widgets[widget_group].widgets[widget].show_if_key_exists !== 'undefined' ) {
             check_show_if_key_exists = true;
             show_if_key_exists_field_path = widgets[widget_group].widgets[widget].show_if_key_exists;
@@ -284,13 +390,13 @@ export default {
         }
       }
 
-      // console.log( { widgets, deleted, active_fields: this.active_fields } );
+
+      // console.log( { widgets } );
       return widgets;
     },
   },
   data() {
     return {
-      local_widgets: {},
       groups: [
         {
           label: "General",
@@ -312,13 +418,7 @@ export default {
     };
   },
   methods: {
-    isObject( the_var ) {
-      if ( ! the_var ) { return false }
-      if ( typeof the_var !== 'object' ) { return false }
-      if ( Array.isArray( the_var ) ) { return false }
-
-      return the_var;
-    },
+    
 
     impportOldData() {
       if ( ! this.isObject( this.value ) ) { return; }
@@ -347,12 +447,12 @@ export default {
       if ( typeof widget_group === "undefined") { return false; }
       if ( typeof widget_name === "undefined") { return false; }
 
-      if ( typeof this.widgets[widget_group] === "undefined") { return false; }
-      if ( typeof this.widgets[widget_group].widgets === "undefined" ) { return false; }
-      if ( typeof this.widgets[widget_group].widgets[ widget_name ] === "undefined" ) { return false; }
-      if ( typeof this.widgets[widget_group].widgets[ widget_name ][data_key] === "undefined" ) { return false; }
-      
-      return this.widgets[widget_group].widgets[widget_name][data_key];
+      if ( typeof this.theWidgets[widget_group] === "undefined") { return false; }
+      if ( typeof this.theWidgets[widget_group].widgets === "undefined" ) { return false; }
+      if ( typeof this.theWidgets[widget_group].widgets[ widget_name ] === "undefined" ) { return false; }
+      if ( typeof this.theWidgets[widget_group].widgets[ widget_name ][data_key] === "undefined" ) { return false; }
+
+      return JSON.parse( JSON.stringify( this.theWidgets[widget_group].widgets[widget_name][data_key] ) );
     },
     
     getSanitizedFieldsOptions(field_options) {
@@ -365,12 +465,11 @@ export default {
     },
     
     getActiveFieldsHeaderTitle(field_key) {
-      const settings_label = this.getActiveFieldsSettings(field_key, "label");
+      let settings_label = this.getActiveFieldsSettings(field_key, "label");
+      settings_label = ( settings_label ) ? settings_label : 'Not Available';
       const option_label = this.active_fields[field_key]["label"];
       
-      return option_label && option_label.length
-        ? option_label
-        : settings_label;
+      return option_label && option_label.length ? option_label : settings_label;
     },
     
     toggleActiveFieldCollapseState(field_key) {

@@ -38,14 +38,15 @@ class ATBDP_Metabox {
 	}
 
 	public function listing_metabox( $post ) {
-		add_meta_box('listing_type', __('Listing Type', 'directorist'), array($this, 'listing_type_meta'), ATBDP_POST_TYPE, 'normal', 'high');
-		$post_id = $post->ID;
-		$type = get_post_meta($post_id, '_directory_type', true);
-		$form_data = $this->build_form_data( $type );
-		foreach ( $form_data as $section_data ) {
-			$box_id = sanitize_title( $section_data['label'] );
-			add_meta_box($box_id, $section_data['label'], array($this, 'listing_section_meta'), ATBDP_POST_TYPE, 'normal', 'high', $section_data['fields'] );
-		}
+		add_meta_box('listing_info', __('Listing Information', 'directorist'), array($this, 'listing_form_info_meta'), ATBDP_POST_TYPE, 'normal', 'high');
+		// $post_id = $post->ID;
+		// $type = get_post_meta($post_id, '_directory_type', true);
+		// $form_data = $this->build_form_data( $type );
+
+		// foreach ( $form_data as $section_data ) {
+		// 	$box_id = sanitize_title( $section_data['label'] );
+		// 	add_meta_box($box_id, $section_data['label'], array($this, 'listing_section_meta'), ATBDP_POST_TYPE, 'normal', 'high', $section_data['fields'] );
+		// }
 	}
 
 	public function listing_section_meta( $post, $data ) {
@@ -54,23 +55,31 @@ class ATBDP_Metabox {
 		}
 	}
 
-	public function listing_type_meta( $post ) {
+	public function render_listing_meta_fields( $post_id, $type ) {
+		$form_data = $this->build_form_data( $type );
+		foreach ( $form_data as $section ) {
+			Directorist_Listing_Forms::instance()->add_listing_section_template( $section );
+		}
+	}
+
+	public function listing_form_info_meta( $post ) {
 		$all_types     = get_terms(array(
-			'taxonomy'   => 'atbdp_listing_types',
+			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
 		));
-		$listing_type = get_post_meta($post->ID, '_directory_type', true);
+
+		$terms   =  get_the_terms( $post->ID, ATBDP_TYPE );
+		$current = !empty($terms) ? $terms[0]->term_id : '';
 		?>
+		<label><?php _e( 'Listing Type', 'directorist' ); ?></label>
 		<select name="directory_type">
 			<option value=""><?php _e( 'Select Listing Type', 'directorist' ); ?></option>
-			<?php foreach ( $all_types as $type ): 
-				$default = get_term_meta( $type->term_id, '_default', true );
-				$selected = selected( $type->term_id, $listing_type );
-				$selected = !empty( $listing_type ) ? $selected : ( $default ? ' selected="selected"' : '' );
+			<?php foreach ( $all_types as $type ):
 				?>
-				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo $selected ; ?> ><?php echo esc_attr( $type->name ); ?></option>
+				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php selected($type->term_id,$current,true); ?> ><?php echo esc_attr( $type->name ); ?></option>
 			<?php endforeach; ?>
 		</select>
+		<div id="directiost-listing-fields_wrapper"><?php $this->render_listing_meta_fields($post->ID,$current);?></div>
 		<?php
 	}
 
@@ -78,14 +87,15 @@ class ATBDP_Metabox {
 		$form_data              = array();
 		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
 
-		foreach ( $submission_form_fields['groups'] as $group ) {
-			$section           = $group;
-			$section['fields'] = array();
-			foreach ( $group['fields'] as $field ) {
-				$section['fields'][ $field ] = $submission_form_fields['fields'][ $field ];
+		if ( !empty( $submission_form_fields['groups'] ) ) {
+			foreach ( $submission_form_fields['groups'] as $group ) {
+				$section           = $group;
+				$section['fields'] = array();
+				foreach ( $group['fields'] as $field ) {
+					$section['fields'][ $field ] = $submission_form_fields['fields'][ $field ];
+				}
+				$form_data[] = $section;
 			}
-			$form_data[] = $section;
-
 		}
 
 		return $form_data;

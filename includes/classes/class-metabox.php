@@ -36,8 +36,8 @@ class ATBDP_Metabox {
 		
 		$listing = Directorist_Listing_Forms::instance();
 		$post_id = $listing->add_listing_id;
-		$type = get_post_meta($post_id, '_listing_type', true);
-		$type = 55; // @kowsar @todo remove later
+		$type = get_post_meta($post_id, '_directory_type', true);
+		// $type = 55; // @kowsar @todo remove later
 		$form_data = $this->build_form_data( $type );
 
 		foreach ( $form_data as $section_data ) {
@@ -58,9 +58,10 @@ class ATBDP_Metabox {
 			'taxonomy'   => 'atbdp_listing_types',
 			'hide_empty' => false,
 		));
-		$listing_type = get_post_meta($post->ID, '_listing_type', true);
+		$listing_type = get_post_meta($post->ID, '_directory_type', true);
+		var_dump( $listing_type );
 		?>
-		<select name="listing_type">
+		<select name="directory_type">
 			<option value=""><?php _e( 'Select Listing Type', 'directorist' ); ?></option>
 			<?php foreach ( $all_types as $type ): ?>
 				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php selected( $type->term_id, $listing_type ); ?> ><?php echo esc_attr( $type->name ); ?></option>

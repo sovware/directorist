@@ -97,9 +97,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $preview_enable = get_directorist_option('preview_enable', 1);
 
 
-
                  // data validation
-                 $listing_type = !empty( $_POST['listing_type'] ) ? sanitize_text_field( $_POST['listing_type'] ) : '';
+                 $listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
                  $submission_form_fields = [];
                  $metas = [];
                  if( $listing_type ){
@@ -111,19 +110,17 @@ if (!class_exists('ATBDP_Add_Listing')):
                 // wp_send_json([
                 //     'form_fields' => $submission_form_fields,
                 //     'form_data'   => $info,
-                //     'listing_type'   => $listing_type,
                 // ]);
-                // die();
                 $error = [];
                 foreach( $submission_form_fields as $key => $value ){
                     $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
                     $submitted_data = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
                     $required = !empty( $value['required'] ) ? $value['required'] : '';
                     $label = !empty( $value['label'] ) ? $value['label'] : '';
-                    // if( $required && !$submitted_data ){
-                    //     $msg = $label .__( ' field is required!', 'directorist' );
-                    //     array_push( $error, $msg );
-                    // }
+                    if( $required && !$submitted_data ){
+                        $msg = $label .__( ' field is required!', 'directorist' );
+                        array_push( $error, $msg );
+                    }
                     if( $field_key === 'listing_title' ){
                         $title = sanitize_text_field( $info[ $field_key ] );
                     }
@@ -148,11 +145,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $metas[ $key ] = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
                     }                    
                 }
+                $metas['_directory_type'] = $listing_type;
                 if( $error ){
                     $data['error_msg'] = $error;
                     $data['error'] = true;
                 }
-        
+                // wp_send_json( $metas );
                 /**
                  * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
                  * @param array $metas the array of meta keys and meta values

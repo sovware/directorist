@@ -34,7 +34,11 @@ class ATBDP_Metabox {
 	}
 
 	public function atbdp_dynamic_admin_listing_form() {
-		wp_send_json($_POST);
+		$directory_type = sanitize_text_field( $_POST['directory_type'] );
+		ob_start();
+		$this->render_listing_meta_fields( $directory_type );
+		echo ob_get_clean();
+		die();
 	}
 
 	public function listing_metabox( $post ) {
@@ -56,16 +60,20 @@ class ATBDP_Metabox {
 
 		$terms   =  get_the_terms( $post->ID, ATBDP_TYPE );
 		$current_type = !empty($terms) ? $terms[0]->term_id : '';
+		$current_type = get_post_meta($post->ID, '_directory_type', true);
 		?>
 		<label><?php _e( 'Listing Type', 'directorist' ); ?></label>
 		<select name="directory_type">
 			<option value=""><?php _e( 'Select Listing Type', 'directorist' ); ?></option>
 			<?php foreach ( $all_types as $type ):
+			$default = get_term_meta( $type->term_id, '_default', true );
+			$selected = selected( $type->term_id, $current_type );
+			$selected = !empty( $current_type ) ? $selected : ( $default ? ' selected="selected"' : '' );
 				?>
-				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php selected($type->term_id,$current_type,true); ?> ><?php echo esc_attr( $type->name ); ?></option>
+				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo $selected; ?> ><?php echo esc_attr( $type->name ); ?></option>
 			<?php endforeach; ?>
 		</select>
-		<div id="directiost-listing-fields_wrapper"><?php $this->render_listing_meta_fields( $current_type );?></div>
+		<div id="directiost-listing-fields_wrapper"></div>
 		<?php
 	}
 

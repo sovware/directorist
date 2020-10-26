@@ -4750,3 +4750,18 @@ function directorist_redirect_to_admin_setup_wizard() {
     wp_safe_redirect( add_query_arg( array( 'page' => 'directorist-setup' ), admin_url( 'index.php' ) ) );
     exit;
 }
+
+function directorist_default_directory(){
+    $id = '';
+    $all_types     = get_terms(array(
+        'taxonomy'   => ATBDP_TYPE,
+        'hide_empty' => false,
+    ));
+    foreach( $all_types as $type ) {
+        $default = get_term_meta( $type->term_id, '_default', true );
+        if( $default ){
+            $id = $type->term_id;
+        }
+    }
+    return $id;
+}

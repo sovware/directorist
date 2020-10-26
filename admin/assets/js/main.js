@@ -1814,16 +1814,25 @@ jQuery(function ($) {
 
     // load admin add listing form
     let directory_type = $('select[name="directory_type"]').val();
-    $.ajax({
-        type: "post",
-        url: atbdp_admin_data.ajaxurl,
-        data: { 
-            action: 'atbdp_dynamic_admin_listing_form',
-            directory_type: directory_type,
-         },
-        success: function ( response ) {
-            console.log( response );
-        }
+    if( directory_type ) {
+        admin_listing_form( directory_type )
+    }
+    $( 'body' ).on( 'change', 'select[name="directory_type"]', function() {
+        admin_listing_form( $(this).val() );
     });
+
+    function admin_listing_form( directory_type ) {
+        $.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: { 
+                action: 'atbdp_dynamic_admin_listing_form',
+                directory_type: directory_type,
+             },
+            success: function ( response ) {
+                $('#directiost-listing-fields_wrapper').empty().append( response );
+            }
+        });
+    }
 
 });

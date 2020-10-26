@@ -343,6 +343,9 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                         $post_id = wp_update_post($args);
 
+                        if( !empty( $_POST['directory_type'] ) ){
+                            wp_set_object_terms($post_id, (int)$_POST['directory_type'], 'atbdp_listing_types');
+                        }
 
                         if (!empty($location)) {
                             $append = false;
@@ -489,6 +492,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                             do_action('atbdp_before_processing_listing_frontend', $post_id);
                             
                             // set up terms
+                            if( !empty( $_POST['directory_type'] ) ){
+                                wp_set_object_terms($post_id, (int)$_POST['directory_type'], 'atbdp_listing_types');
+                            }
                             // location
                             if (!empty($location)) {
                                 $append = false;

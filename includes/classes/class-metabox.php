@@ -61,6 +61,7 @@ class ATBDP_Metabox {
 		$terms   =  get_the_terms( $post->ID, ATBDP_TYPE );
 		$current_type = !empty($terms) ? $terms[0]->term_id : '';
 		$current_type = get_post_meta($post->ID, '_directory_type', true);
+		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
 		?>
 		<label><?php _e( 'Listing Type', 'directorist' ); ?></label>
 		<select name="directory_type">
@@ -259,7 +260,6 @@ wp_reset_postdata();
 
 
 		// add nonce security token
-		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
 		ATBDP()->load_template('admin-templates/listing-form/add-listing', compact('listing_info') ); // load metabox view and pass data to it.
 	}
 	/**
@@ -361,6 +361,7 @@ wp_reset_postdata();
 	 * @param object    $post       Current post object being saved
 	 */
 	public function save_post_meta( $post_id, $post ) {
+		
 		if ( ! $this->passSecurity($post_id, $post) )  return; // vail if security check fails
 		$metas = array();
 		$expire_in_days = get_directorist_option('listing_expire_in_days');
@@ -372,6 +373,8 @@ wp_reset_postdata();
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
 		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
 		$metas['_directory_type']    = !empty($p['directory_type'])? $p['directory_type'] : '';
+
+
 		$metas['_price']             = !empty($p['price'])? (float) $p['price'] : '';
 		$metas['_price_range']       = !empty($p['price_range'])?  $p['price_range'] : '';
 		$metas['_atbd_listing_pricing'] = !empty($p['atbd_listing_pricing'])?  $p['atbd_listing_pricing'] : '';
@@ -462,6 +465,8 @@ wp_reset_postdata();
 		}
 
 		$metas['_expiry_date']              = $exp_dt;
+		// var_dump( $metas );
+		// die();
 		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas);
 		// save the meta data to the database
 		foreach ($metas as $meta_key => $meta_value) {

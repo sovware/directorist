@@ -97,6 +97,12 @@ export default {
         this.init();
     },
 
+    watch: {
+        selectedWidgets() {
+            this.localSelectedWidgets = this.selectedWidgets;
+        }
+    },
+
     computed: {
         widgetsList() {
             if ( ! this.availableWidgets && typeof this.availableWidgets !== 'object' ) {
@@ -119,7 +125,7 @@ export default {
             }
 
             let widgets_list = Object.keys( availableWidgets )
-                .filter( key => accepted_widgets.includes( key ) )
+                .filter( key => accepted_widgets.includes( availableWidgets[ key ].id ) )
                 .reduce(( obj, key ) => {
                     obj[ key ] = availableWidgets[ key ];
 
@@ -133,7 +139,6 @@ export default {
             const self = this;
 
             if ( ! Object.keys( self.widgetsList ).length ) { return {}; }
-
             // Filter unselected widgets
             let widgets_list = Object.keys( self.widgetsList )
                 .filter( key => ! self.localSelectedWidgets.includes( key ) && typeof self.activeWidgets[ key ] === 'undefined' )

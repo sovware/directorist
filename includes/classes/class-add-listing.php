@@ -99,7 +99,7 @@ if (!class_exists('ATBDP_Add_Listing')):
 
 
                  // data validation
-                 $listing_type = !empty( $_GET['listing_type'] ) ? sanitize_text_field( $_GET['listing_type'] ) : '';
+                 $listing_type = !empty( $_POST['listing_type'] ) ? sanitize_text_field( $_POST['listing_type'] ) : '';
                  $submission_form_fields = [];
                  $metas = [];
                  if( $listing_type ){
@@ -108,21 +108,22 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $submission_form_fields = $submission_form['fields'];
                  }
                 // isolate data
-                wp_send_json([
-                    'form_fields' => $submission_form_fields,
-                    'form_data'   => $info,
-                ]);
-                die();
+                // wp_send_json([
+                //     'form_fields' => $submission_form_fields,
+                //     'form_data'   => $info,
+                //     'listing_type'   => $listing_type,
+                // ]);
+                // die();
                 $error = [];
                 foreach( $submission_form_fields as $key => $value ){
                     $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
                     $submitted_data = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
                     $required = !empty( $value['required'] ) ? $value['required'] : '';
                     $label = !empty( $value['label'] ) ? $value['label'] : '';
-                    if( $required && !$submitted_data ){
-                        $msg = $label .__( ' field is required!', 'directorist' );
-                        array_push( $error, $msg );
-                    }
+                    // if( $required && !$submitted_data ){
+                    //     $msg = $label .__( ' field is required!', 'directorist' );
+                    //     array_push( $error, $msg );
+                    // }
                     if( $field_key === 'listing_title' ){
                         $title = sanitize_text_field( $info[ $field_key ] );
                     }

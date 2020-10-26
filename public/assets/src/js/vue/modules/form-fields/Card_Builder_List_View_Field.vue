@@ -12,7 +12,7 @@
                 <card-widget-placeholder
                   containerClass="cptm-card-preview-bottom-left-placeholder cptm-card-dark"
                   :label="local_layout.thumbnail.top_right.label"
-                  :availableWidgets="available_widgets"
+                  :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
                   :acceptedWidgets="local_layout.thumbnail.top_right.acceptedWidgets"
                   :selectedWidgets="local_layout.thumbnail.top_right.selectedWidgets"
@@ -49,7 +49,7 @@
                 <card-widget-placeholder
                   containerClass="cptm-listing-card-body-header-title-placeholder cptm-mb-10 cptm-card-light"
                   :label="local_layout.body.top.label"
-                  :availableWidgets="available_widgets"
+                  :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
                   :acceptedWidgets="local_layout.body.top.acceptedWidgets"
                   :selectedWidgets="local_layout.body.top.selectedWidgets"
@@ -72,7 +72,7 @@
                 <card-widget-placeholder
                   containerClass="cptm-listing-card-body-header-actions-placeholder cptm-card-light"
                   :label="local_layout.body.right.label"
-                  :availableWidgets="available_widgets"
+                  :availableWidgets="theAvailableWidgets"
                   :activeWidgets="active_widgets"
                   :acceptedWidgets="local_layout.body.right.acceptedWidgets"
                   :selectedWidgets="local_layout.body.right.selectedWidgets"
@@ -95,7 +95,7 @@
             <card-widget-placeholder
               containerClass="cptm-listing-card-preview-body-placeholder cptm-card-light"
               :label="local_layout.body.bottom.label"
-              :availableWidgets="available_widgets"
+              :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
               :acceptedWidgets="local_layout.body.bottom.acceptedWidgets"
               :selectedWidgets="local_layout.body.bottom.selectedWidgets"
@@ -120,7 +120,7 @@
             <card-widget-placeholder
               containerClass="cptm-listing-card-preview-footer-left-placeholder cptm-card-light"
               :label="local_layout.footer.left.label"
-              :availableWidgets="available_widgets"
+              :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
               :acceptedWidgets="local_layout.footer.left.acceptedWidgets"
               :selectedWidgets="local_layout.footer.left.selectedWidgets"
@@ -148,7 +148,7 @@
             <card-widget-placeholder
               containerClass="cptm-listing-card-preview-footer-right-placeholder cptm-card-light"
               :label="local_layout.footer.right.label"
-              :availableWidgets="available_widgets"
+              :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
               :acceptedWidgets="local_layout.footer.right.acceptedWidgets"
               :selectedWidgets="local_layout.footer.right.selectedWidgets"
@@ -191,9 +191,11 @@
 
 <script>
 import Vue from "vue";
+import helpers from '../../mixins/helpers';
 
 export default {
   name: "card-builder-list-view-field",
+  mixins: [ helpers ],
   props: {
     value: {
       required: false,
@@ -224,7 +226,7 @@ export default {
       let output = {};
       let layout = this.local_layout;
 
-      for (let section in layout) {
+      for ( let section in layout ) {
         output[section] = {};
 
         if (typeof layout[section] !== "object") {
@@ -237,52 +239,42 @@ export default {
           if (typeof layout[section][section_area] !== "object") {
             continue;
           }
-          if (
-            typeof layout[section][section_area].selectedWidgets !== "object"
-          ) {
+          if (typeof layout[section][section_area].selectedWidgets !== "object") {
             continue;
           }
 
-          for (let widget in layout[section][section_area].selectedWidgets) {
-            const widget_name =
-              layout[section][section_area].selectedWidgets[widget];
+          for ( let widget in layout[section][section_area].selectedWidgets ) {
+            const widget_name = layout[section][section_area].selectedWidgets[widget];
 
-            if (
-              !this.active_widgets[widget_name] &&
-              typeof this.active_widgets[widget_name] !== "object"
-            ) {
+            if ( ! this.active_widgets[widget_name] && typeof this.active_widgets[widget_name] !== "object") {
               continue;
             }
-
-            let widget_data = { id: widget_name };
-            for (let root_option in this.active_widgets[widget_name]) {
-              if ("options" === root_option) { continue; }
+            
+            let widget_data = {};
+            for ( let root_option in this.active_widgets[widget_name] ) {
+              if ( 'options' === root_option ) { continue; }
               if ( 'icon' === root_option ) { continue; }
+              if ( 'show_if' === root_option ) { continue; }
+              if ( 'fields' === root_option ) { continue; }
 
-              widget_data[root_option] = this.active_widgets[widget_name][
-                root_option
-              ];
+              widget_data[ root_option ] = this.active_widgets[ widget_name ][ root_option ];
             }
 
-            if (typeof this.active_widgets[widget_name].options !== "object") {
+            if ( typeof this.active_widgets[widget_name].options !== "object" ) {
               output[section][section_area].push(widget_data);
               continue;
             }
 
-            if (
-              typeof this.active_widgets[widget_name].options.fields !==
-              "object"
-            ) {
+            if ( typeof this.active_widgets[widget_name].options.fields !== "object" ) {
               output[section][section_area].push(widget_data);
               continue;
             }
-
+            
             widget_data.options = {};
-            let widget_options = this.active_widgets[widget_name].options
-              .fields;
+            let widget_options = this.active_widgets[widget_name].options.fields;
 
-            for (let option in widget_options) {
-              widget_data.options[option] = widget_options[option].value;
+            for ( let option in widget_options ) {
+              widget_data.options[option] = widget_options[ option ].value;
             }
 
             output[section][section_area].push(widget_data);
@@ -291,6 +283,47 @@ export default {
       }
 
       return output;
+    },
+
+    theAvailableWidgets() {
+      let available_widgets = JSON.parse( JSON.stringify( this.available_widgets ) );
+
+      for ( let widget in available_widgets ) {
+        available_widgets[ widget ].key = widget;
+        available_widgets[ widget ].id = widget;
+
+        // Check show if condition
+        let show_if_cond_state = null;
+
+        if ( this.isObject( available_widgets[ widget ].show_if ) ) {
+          show_if_cond_state = this.checkShowIfCondition( available_widgets[ widget ].show_if );
+          let main_widget = available_widgets[ widget ];
+          
+          delete available_widgets[ widget ];
+
+          if ( show_if_cond_state.status ) {
+            let widget_keys = [];
+            for ( let matched_field of show_if_cond_state.matched_data ) {
+              // console.log( {matched_field} );
+              let _main_widget = JSON.parse( JSON.stringify( main_widget ) );
+              let current_key = ( widget_keys.includes( widget ) ) ? widget + '_' + (widget_keys.length + 1) : widget;
+              _main_widget.key = current_key;
+
+              if ( typeof matched_field.label === 'string' && matched_field.label.length ) {
+                _main_widget.label = matched_field.label;
+              }
+ 
+              available_widgets[ current_key ] = _main_widget;
+              widget_keys.push( current_key );
+            }
+          }
+        }
+      
+      }
+
+      // console.log( { available_widgets } );
+
+      return available_widgets;
     },
 
     widgetOptionsWindowActiveStatus() {
@@ -400,75 +433,53 @@ export default {
 
     importOldData() {
       let value = this.value;
-
-      if (typeof value === "string" && this.isJSON(value)) {
-        value = JSON.parse(value);
+      if ( typeof value === 'string' && this.isJSON( value ) ) {
+        value = JSON.parse( value );
       }
 
-      // console.log("list", { value });
-
-      if (!this.isTruthyObject(value)) {
-        return;
-      }
-
+      if ( ! this.isTruthyObject( value ) ) { return; }
       let selectedWidgets = [];
-
+      
       // Get Active Widgets Data
       let active_widgets_data = {};
-      for (let section in value) {
-        if (!value[section] && typeof value[section] !== "object") {
-          continue;
-        }
+      for ( let section in value ) {
+        if ( ! value[ section ] && typeof value[ section ] !== 'object' ) { continue; }
 
-        for ( let area in value[section] ) {
-          if ( ! value[section][area] && typeof value[section][area] !== "object" ) {
-            continue;
-          }
+        for ( let area in value[ section ] ) {
+          if ( ! value[ section ][ area ] && typeof value[ section ][ area ] !== 'object' ) { continue; }
 
-          for (let widget of value[section][area]) {
-            if (typeof widget.id === "undefined") {
-              continue;
-            }
-            if (typeof this.available_widgets[widget.id] === "undefined") {
-              continue;
-            }
-            if (typeof this.local_layout[section] === "undefined") {
-              continue;
-            }
-            if (typeof this.local_layout[section][area] === "undefined") {
-              continue;
-            }
+          for ( let widget of value[ section ][ area ] ) {
+            if ( typeof widget.key === 'undefined' ) { continue }
+            if ( typeof this.available_widgets[ widget.id ] === 'undefined' ) { continue; }
+            if ( typeof this.local_layout[ section ] === 'undefined' ) { continue; }
+            if ( typeof this.local_layout[ section ][ area ] === 'undefined' ) { continue; }
 
-            active_widgets_data[widget.id] = widget;
-            selectedWidgets.push({
-              section: section,
-              area: area,
-              widget: widget.id,
-            });
+            active_widgets_data[ widget.key ] = widget;
+            selectedWidgets.push( { section: section, area: area, widget: widget.key } );
           }
         }
       }
 
       // Load Active Widgets
       for (let widget_key in active_widgets_data) {
-        if (typeof this.available_widgets[widget_key] === "undefined") {
+        if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
           continue;
         }
 
-        let widgets_template = { ...this.available_widgets[widget_key] };
-
+        let widgets_template = { ...this.theAvailableWidgets[widget_key] };
         let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
-        if ( widget_options ) {
-          widget_options = ( ! widget_options.fields && typeof widget_options.fields !== "object" ) ? false : widget_options.fields;
+       
+        let has_widget_options = false;
+        if ( widgets_template.options && widgets_template.options.fields ) {
+          has_widget_options = true;
         }
 
-        if ( widget_options ) {
-          for (let option_key in widget_options) {
+        if ( has_widget_options ) {
+          for ( let option_key in widgets_template.options.fields ) {
             if ( typeof active_widgets_data[widget_key].options[option_key] === "undefined" ) {
               continue;
             }
-
-            widget_options[ option_key ].value = active_widgets_data[widget_key].options[option_key];
+            widgets_template.options.fields[ option_key ].value = active_widgets_data[widget_key].options[option_key];
           }
         }
 
@@ -476,14 +487,9 @@ export default {
       }
 
       // Load Selected Widgets Data
-      for (let item of selectedWidgets) {
-        let length = this.local_layout[item.section][item.area].selectedWidgets
-          .length;
-        this.local_layout[item.section][item.area].selectedWidgets.splice(
-          length,
-          0,
-          item.widget
-        );
+      for ( let item of selectedWidgets ) {
+        let length = this.local_layout[ item.section ][ item.area ].selectedWidgets.length;
+        this.local_layout[ item.section ][ item.area ].selectedWidgets.splice( length, 0, item.widget );
       }
     },
 
@@ -538,16 +544,12 @@ export default {
       return false;
     },
 
-    widgetIsAccepted(path, key) {
-      if (!path.acceptedWidgets) {
-        return true;
-      }
-      if (!this.isTruthyObject(path.acceptedWidgets)) {
-        return true;
-      }
-      if (path.acceptedWidgets.includes(key)) {
-        return true;
-      }
+    widgetIsAccepted( path,  key ) {
+
+      if ( ! path.acceptedWidgets  ) { return true; }
+      if ( ! this.isTruthyObject( path.acceptedWidgets )  ) { return true; }
+
+      if ( path.acceptedWidgets.includes( this.theAvailableWidgets[ key ].id ) ) { return true; }
 
       return false;
     },
@@ -687,15 +689,14 @@ export default {
       this.active_insert_widget_key = current_item_key;
     },
 
-    insertWidget(payload, where) {
-      if (!this.isTruthyObject(this.available_widgets[payload.key])) {
+    insertWidget( payload, where ) {
+
+      if ( ! this.isTruthyObject( this.theAvailableWidgets[ payload.key ] ) ) {
         return;
       }
 
-      Vue.set(this.active_widgets, payload.key, {
-        ...this.available_widgets[payload.key],
-      });
-      Vue.set(where, "selectedWidgets", payload.selected_widgets);
+      Vue.set( this.active_widgets, payload.key, { ...this.theAvailableWidgets[ payload.key ] } );
+      Vue.set( where, 'selectedWidgets', payload.selected_widgets );
     },
 
     closeInsertWindow(widget_insert_window) {

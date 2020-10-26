@@ -78,22 +78,22 @@ export default {
 
         listIcon() {
             if ( ! this.options && typeof this.options !== 'object' ) {
-                console.log( 'no options' );
+                // console.log( 'no options' );
                 return this.icon;
             }
 
             if ( ! this.options.fields && typeof this.options.fields !== 'object' ) {
-                console.log( 'no fields' );
+                // console.log( 'no fields' );
                 return this.icon;
             }
 
             if ( ! this.options.fields.icon && typeof this.options.fields.icon !== 'object' ) {
-                console.log( 'no icon', this.options );
+                // console.log( 'no icon', this.options );
                 return this.icon;
             }
 
             if ( typeof this.options.fields.icon.value !== 'string' && ! this.options.fields.icon.value.length ) {
-                console.log( 'empty icon' );
+                // console.log( 'empty icon' );
                 return this.icon;
             }
 

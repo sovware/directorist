@@ -1805,9 +1805,6 @@ jQuery(function ($) {
                 action: 'atbdp_listing_default_type',
                 type_id: $(this).data("type-id"),
              },
-            beforeSend: function () {
-                //jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(ElementToShowLoadingIconAfter);
-            },
             success: function ( response ) {
                 $( '.submitdefault' ).after( '<span style="color: green">' + response +'</span>' );
                 location.reload();
@@ -1824,9 +1821,6 @@ jQuery(function ($) {
             action: 'atbdp_dynamic_admin_listing_form',
             directory_type: directory_type,
          },
-        beforeSend: function () {
-            //jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(ElementToShowLoadingIconAfter);
-        },
         success: function ( response ) {
             console.log( response );
         }

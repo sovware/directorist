@@ -716,13 +716,18 @@ class Directorist_Listings {
 
 		$tax_queries = array();
 
+
+		// Listings of current listing type and empty listing type
+		$types = $this->listing_types;
+		if ( array_key_exists( $this->current_listing_type, $types ) ) {
+			unset( $types[$this->current_listing_type] );
+		}
 		$tax_queries['tax_query'] = array(
 			'relation' => 'AND',
 			array(
-				'taxonomy' => 'atbdp_listing_types',
-				'field'    => 'term_id',
-				'terms'    => $this->current_listing_type,
-				'include_children' => false,
+				'taxonomy' => ATBDP_TYPE,
+				'terms'    => array_keys( $types ),
+				'operator' => 'NOT IN'
 			),
 		);
 
@@ -1171,7 +1176,7 @@ class Directorist_Listings {
 		$listing_types = array();
 		$all_types     = get_terms(
 			array(
-				'taxonomy'   => 'atbdp_listing_types',
+				'taxonomy'   => ATBDP_TYPE,
 				'hide_empty' => false,
 			)
 		);
@@ -1186,20 +1191,22 @@ class Directorist_Listings {
 		$listing_types      = $this->get_listing_types();
 		$listing_type_count = count( $listing_types );
 
-		if ( $listing_type_count == 1 ) {
-			$type = array_key_first( $listing_types );
+		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
+
+		if ( isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ) {
+			$current = $_GET['listing_type'];
 		}
 		else {
-			$type = isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ? $_GET['listing_type'] : '';
+			foreach ( $listing_types as $id => $type ) {
+				$is_default = get_term_meta( $id, '_default', true );
+				if ( $is_default ) {
+					$current = $id;
+					break;
+				}
+			}
 		}
 
-		if ( !$type ) {
-			$type = !empty($listing_types) ? array_key_first( $listing_types ) : '';
-		}
-
-
-
-		return (int) $type;
+		return (int) $current;
 	}
 
 	public function search_category_location_args() {

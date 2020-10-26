@@ -8,9 +8,7 @@
 ?>
 
 <div class="form-group" id="directorist-radio-field">
-	<?php if ( ! empty( $label ) ) : ?>
-		<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo esc_html( $label ); ?>:<?php echo ! empty( $required ) ? Directorist_Listing_Forms::instance()->add_listing_required_html() : ''; ?></label>
-	<?php endif; ?>
+	<?php $form->add_listing_label_template( $data );?>
 
 	<div class="form-control">
 		<input type="radio" id="radio1" name="radio1" value="Bike">

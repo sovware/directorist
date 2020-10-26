@@ -23,9 +23,7 @@ if ( is_fee_manager_active() ) {
 ?>
 
 <div class="form-group" id="directorist-image_upload-field">
-	<?php if ( ! empty( $label ) ) : ?>
-		<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo esc_html( $label ); ?>:<?php echo ! empty( $required ) ? Directorist_Listing_Forms::instance()->add_listing_required_html() : ''; ?></label>
-	<?php endif; ?>
+	<?php $form->add_listing_label_template( $data );?>
 
 	<div class="atbdb_content_module_contents atbdp_video_field">
 		<?php 

@@ -278,21 +278,6 @@ class Directorist_Listing_Forms {
 		return $plan_slider;
 	}
 
-	public function get_listing_types() {
-		$listing_types = array();
-		$all_types     = get_terms(
-			array(
-				'taxonomy'   => ATBDP_TYPE,
-				'hide_empty' => false,
-			)
-		);
-
-		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = $type->name;
-		}
-		return $listing_types;
-	}
-
 	public function get_add_listing_image_title() {
 		if ( $this->get_plan_video() && $this->get_plan_slider() ) {
 			$title = __( 'Images & Video', 'directorist' );
@@ -769,8 +754,24 @@ class Directorist_Listing_Forms {
 		}
 	}
 
+	public function add_listing_label_template( $data ) {
+		$args = array(
+			'form'  => $this,
+			'data'  => $data,
+		);
+		atbdp_get_shortcode_template( 'forms/add-listing-field-label', $args );
+	}
+
+	public function add_listing_description_template( $data ) {
+		$args = array(
+			'form'  => $this,
+			'data'  => $data,
+		);
+		atbdp_get_shortcode_template( 'forms/add-listing-field-des', $args );
+	}
+
 	public function add_listing_section_template( $section_data ) {
-		atbdp_get_shortcode_template( 'forms/fields/section', array( 'section_data' => $section_data ) );
+		atbdp_get_shortcode_template( 'forms/add-listing-section', array( 'section_data' => $section_data ) );
 	}
 
 	public function add_listing_field_template( $field_data ) {
@@ -785,120 +786,140 @@ class Directorist_Listing_Forms {
 			}
 		}
 		$field_data['value'] = $value;
-		// var_dump( $field_data );
+
+		$args = array(
+			'form'  => $this,
+			'data'  => $field_data,
+		);
+
 		switch ( $field_data['widget_name'] ) {
-			case 'text':
-				atbdp_get_shortcode_template( 'forms/fields/text', $field_data );
-				break;
-			case 'textarea':
-				atbdp_get_shortcode_template( 'forms/fields/textarea', $field_data );
-				break;
-			case 'number':
-				atbdp_get_shortcode_template( 'forms/fields/number', $field_data );
-				break;
-			case 'url':
-				atbdp_get_shortcode_template( 'forms/fields/url', $field_data );
-				break;
-			case 'date':
-				atbdp_get_shortcode_template( 'forms/fields/date', $field_data );
-				break;
-			case 'time':
-				atbdp_get_shortcode_template( 'forms/fields/time', $field_data );
-				break;
-			case 'color_picker':
-				atbdp_get_shortcode_template( 'forms/fields/color_picker', $field_data );
-				break;
-			case 'select':
-				atbdp_get_shortcode_template( 'forms/fields/select', $field_data );
-				break;
-			case 'checkbox':
-				atbdp_get_shortcode_template( 'forms/fields/checkbox', $field_data );
-				break;
-			case 'radio':
-				atbdp_get_shortcode_template( 'forms/fields/radio', $field_data );
-				break;
-			case 'file':
-				atbdp_get_shortcode_template( 'forms/fields/file', $field_data );
-				break;
-			case 'description':
-				atbdp_get_shortcode_template( 'forms/fields/description', $field_data );
-				break;
-			case 'tagline':
-				atbdp_get_shortcode_template( 'forms/fields/tagline', $field_data );
-				break;
-			case 'excerpt':
-				atbdp_get_shortcode_template( 'forms/fields/excerpt', $field_data );
-				break;
-			case 'address':
-				atbdp_get_shortcode_template( 'forms/fields/address', $field_data );
-				break;
-			case 'zip':
-				atbdp_get_shortcode_template( 'forms/fields/zip', $field_data );
-				break;
-			case 'phone':
-				atbdp_get_shortcode_template( 'forms/fields/phone', $field_data );
-				break;
-			case 'phone2':
-				atbdp_get_shortcode_template( 'forms/fields/phone2', $field_data );
-				break;
-			case 'fax':
-				atbdp_get_shortcode_template( 'forms/fields/fax', $field_data );
-				break;
-			case 'email':
-				atbdp_get_shortcode_template( 'forms/fields/email', $field_data );
-				break;
-			case 'website':
-				atbdp_get_shortcode_template( 'forms/fields/website', $field_data );
-				break;
-			case 'social_info':
-				atbdp_get_shortcode_template( 'forms/fields/social_info', $field_data );
-				break;
-			case 'image_upload':
-				atbdp_get_shortcode_template( 'forms/fields/image_upload', $field_data );
-				break;
-			case 'video':
-				atbdp_get_shortcode_template( 'forms/fields/video', $field_data );
-				break;
-			case 'submit_button':
-				atbdp_get_shortcode_template( 'forms/fields/submit_button', $field_data );
-				break;
-			case 'terms_conditions':
-				atbdp_get_shortcode_template( 'forms/fields/terms_conditions', $field_data );
-				break;
-			case 'privacy_policy':
-				atbdp_get_shortcode_template( 'forms/fields/privacy_policy', $field_data );
-				break;
-			case 'map':
-				atbdp_get_shortcode_template( 'forms/fields/map', $field_data );
-				break;
-			case 'category':
-				atbdp_get_shortcode_template( 'forms/fields/category', $field_data );
-				break;
 			default:
-				break;
+			$template = 'forms/fields/' . $field_data['widget_name'];
+			atbdp_get_shortcode_template( $template, $args );
+			break;
 		}
+
+
+		// switch ( $field_data['widget_name'] ) {
+		// 	case 'text':
+		// 		atbdp_get_shortcode_template( 'forms/fields/text', array() $field_data );
+		// 		break;
+		// 	case 'textarea':
+		// 		atbdp_get_shortcode_template( 'forms/fields/textarea', $field_data );
+		// 		break;
+		// 	case 'number':
+		// 		atbdp_get_shortcode_template( 'forms/fields/number', $field_data );
+		// 		break;
+		// 	case 'url':
+		// 		atbdp_get_shortcode_template( 'forms/fields/url', $field_data );
+		// 		break;
+		// 	case 'date':
+		// 		atbdp_get_shortcode_template( 'forms/fields/date', $field_data );
+		// 		break;
+		// 	case 'time':
+		// 		atbdp_get_shortcode_template( 'forms/fields/time', $field_data );
+		// 		break;
+		// 	case 'color_picker':
+		// 		atbdp_get_shortcode_template( 'forms/fields/color_picker', $field_data );
+		// 		break;
+		// 	case 'select':
+		// 		atbdp_get_shortcode_template( 'forms/fields/select', $field_data );
+		// 		break;
+		// 	case 'checkbox':
+		// 		atbdp_get_shortcode_template( 'forms/fields/checkbox', $field_data );
+		// 		break;
+		// 	case 'radio':
+		// 		atbdp_get_shortcode_template( 'forms/fields/radio', $field_data );
+		// 		break;
+		// 	case 'file':
+		// 		atbdp_get_shortcode_template( 'forms/fields/file', $field_data );
+		// 		break;
+		// 	case 'description':
+		// 		atbdp_get_shortcode_template( 'forms/fields/description', $field_data );
+		// 		break;
+		// 	case 'tagline':
+		// 		atbdp_get_shortcode_template( 'forms/fields/tagline', $field_data );
+		// 		break;
+		// 	case 'excerpt':
+		// 		atbdp_get_shortcode_template( 'forms/fields/excerpt', $field_data );
+		// 		break;
+		// 	case 'address':
+		// 		atbdp_get_shortcode_template( 'forms/fields/address', $field_data );
+		// 		break;
+		// 	case 'zip':
+		// 		atbdp_get_shortcode_template( 'forms/fields/zip', $field_data );
+		// 		break;
+		// 	case 'phone':
+		// 		atbdp_get_shortcode_template( 'forms/fields/phone', $field_data );
+		// 		break;
+		// 	case 'phone2':
+		// 		atbdp_get_shortcode_template( 'forms/fields/phone2', $field_data );
+		// 		break;
+		// 	case 'fax':
+		// 		atbdp_get_shortcode_template( 'forms/fields/fax', $field_data );
+		// 		break;
+		// 	case 'email':
+		// 		atbdp_get_shortcode_template( 'forms/fields/email', $field_data );
+		// 		break;
+		// 	case 'website':
+		// 		atbdp_get_shortcode_template( 'forms/fields/website', $field_data );
+		// 		break;
+		// 	case 'social_info':
+		// 		atbdp_get_shortcode_template( 'forms/fields/social_info', $field_data );
+		// 		break;
+		// 	case 'image_upload':
+		// 		atbdp_get_shortcode_template( 'forms/fields/image_upload', $field_data );
+		// 		break;
+		// 	case 'video':
+		// 		atbdp_get_shortcode_template( 'forms/fields/video', $field_data );
+		// 		break;
+		// 	case 'submit_button':
+		// 		atbdp_get_shortcode_template( 'forms/fields/submit_button', $field_data );
+		// 		break;
+		// 	case 'terms_conditions':
+		// 		atbdp_get_shortcode_template( 'forms/fields/terms_conditions', $field_data );
+		// 		break;
+		// 	case 'privacy_policy':
+		// 		atbdp_get_shortcode_template( 'forms/fields/privacy_policy', $field_data );
+		// 		break;
+		// 	case 'map':
+		// 		atbdp_get_shortcode_template( 'forms/fields/map', $field_data );
+		// 		break;
+		// 	case 'category':
+		// 		atbdp_get_shortcode_template( 'forms/fields/category', $field_data );
+		// 		break;
+		// 	default:
+		// 		break;
+		// }
+	}
+
+	public function get_listing_types() {
+		$listing_types = array();
+		$all_types     = get_terms(
+			array(
+				'taxonomy'   => ATBDP_TYPE,
+				'hide_empty' => false,
+			)
+		);
+
+		foreach ( $all_types as $type ) {
+			$listing_types[ $type->term_id ] = $type->name;
+		}
+		return $listing_types;
 	}
 
 	public function get_current_listing_type() {
 		$listing_types      = $this->get_listing_types();
 		$listing_type_count = count( $listing_types );
 
-		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
-
-		if ( isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ) {
-			$current = $_GET['listing_type'];
+		if ( $listing_type_count == 1 ) {
+			$type = array_key_first( $listing_types );
 		}
 		else {
-			foreach ( $listing_types as $id => $type ) {
-				$is_default = get_term_meta( $id, '_default', true );
-				if ( $is_default ) {
-					$current = $id;
-					break;
-				}
-			}
+			$type = isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ? $_GET['listing_type'] : '';
 		}
 
-		return (int) $current;
+		return (int) $type;
 	}
 
 	public function build_form_data( $type ) {

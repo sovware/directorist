@@ -10,7 +10,7 @@
 <div class="form-group" id="directorist-select-field">
 	<?php $form->add_listing_label_template( $data );?>
 
-	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" <?php echo ! empty( $required ) ? 'required="required"' : ''; ?>>
+	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 		<option value="volvo">Volvo</option>
 		<option value="saab">Saab</option>
 		<option value="mercedes">Mercedes</option>

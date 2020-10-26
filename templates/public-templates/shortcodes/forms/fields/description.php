@@ -9,8 +9,8 @@
 <div class="form-group" id="directorist-description-field">
 	<?php $form->add_listing_label_template( $data );?>
 
-	<?php if ( 'textarea' === $type ) { ?>
-		<textarea name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" rows="8" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php echo ! empty( $required ) ? 'required="required"' : ''; ?> ><?php echo esc_attr( $data['value'] ); ?></textarea>
+	<?php if ( 'textarea' === $data['type'] ) { ?>
+		<textarea name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" rows="8" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> ><?php echo esc_attr( $data['value'] ); ?></textarea>
 		<?php
 	} else {
 		wp_editor(
@@ -27,4 +27,6 @@
 		);
 	}
 	?>
+
+	<?php $form->add_listing_description_template( $data ); ?>
 </div>

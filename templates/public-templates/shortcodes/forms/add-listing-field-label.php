@@ -5,8 +5,8 @@
  * @version 6.7
  */
 
-if ( !$data['label'] ) {
+if ( empty( $data['label'] ) ) {
 	return;
 }
 ?>
-<label for="<?php echo esc_attr( $data['field_key'] ); ?>"><?php echo esc_html( $data['label'] ); ?>:<?php echo ! empty( $data['required'] ) ? '<span class="atbdp_make_str_red"> *</span>' : ''; ?></label>
+<label for="<?php echo esc_attr( $data['field_key'] ); ?>"><?php echo esc_html( $data['label'] ); ?>:<?php echo !empty( $data['required'] ) ? '<span class="atbdp_make_str_red"> *</span>' : ''; ?></label>

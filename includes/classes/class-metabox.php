@@ -38,21 +38,7 @@ class ATBDP_Metabox {
 	}
 
 	public function listing_metabox( $post ) {
-		add_meta_box('listing_info', __('Listing Information', 'directorist'), array($this, 'listing_form_info_meta'), ATBDP_POST_TYPE, 'normal', 'high');
-		// $post_id = $post->ID;
-		// $type = get_post_meta($post_id, '_directory_type', true);
-		// $form_data = $this->build_form_data( $type );
-
-		// foreach ( $form_data as $section_data ) {
-		// 	$box_id = sanitize_title( $section_data['label'] );
-		// 	add_meta_box($box_id, $section_data['label'], array($this, 'listing_section_meta'), ATBDP_POST_TYPE, 'normal', 'high', $section_data['fields'] );
-		// }
-	}
-
-	public function listing_section_meta( $post, $data ) {
-		foreach ( $data['args'] as $field ){
-			Directorist_Listing_Forms::instance()->add_listing_field_template( $field );
-		}
+		add_meta_box('listing_form_info', __('Listing Information', 'directorist'), array($this, 'listing_form_info_meta'), ATBDP_POST_TYPE, 'normal', 'high');
 	}
 
 	public function render_listing_meta_fields( $post_id, $type ) {

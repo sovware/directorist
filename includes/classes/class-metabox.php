@@ -34,11 +34,7 @@ class ATBDP_Metabox {
 	}
 
 	public function atbdp_dynamic_admin_listing_form() {
-		wp_send_json($this->Testing($_POST));
-	}
-
-	private function Testing( $data ) {
-		return $data;
+		wp_send_json($_POST);
 	}
 
 	public function listing_metabox( $post ) {
@@ -573,6 +569,4 @@ wp_reset_postdata();
 		return apply_filters('atbdp_get_listing_info', $listing_info);
 
 	}
-
-
 }

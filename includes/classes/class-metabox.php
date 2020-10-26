@@ -27,19 +27,25 @@ class ATBDP_Metabox {
 
 			add_action('wp_ajax_atbdp_custom_fields_listings', array($this, 'ajax_callback_custom_fields'), 10, 2 );
 			add_action('wp_ajax_atbdp_custom_fields_listings_selected', array($this, 'ajax_callback_custom_fields'), 10, 2 );
-
+			
+			// load dynamic fields
+			add_action( 'wp_ajax_atbdp_dynamic_admin_listing_form', array( $this, 'atbdp_dynamic_admin_listing_form' ) );
 		}
 	}
 
-	public function listing_metabox() {
+	public function atbdp_dynamic_admin_listing_form() {
+		wp_send_json($this->Testing($_POST));
+	}
+
+	private function Testing( $data ) {
+		return $data;
+	}
+
+	public function listing_metabox( $post ) {
 		add_meta_box('listing_type', __('Listing Type', 'directorist'), array($this, 'listing_type_meta'), ATBDP_POST_TYPE, 'normal', 'high');
-
-		$listing = Directorist_Listing_Forms::instance();
-		$post_id = $listing->add_listing_id;
+		$post_id = $post->ID;
 		$type = get_post_meta($post_id, '_directory_type', true);
-		// $type = 55; // @kowsar @todo remove later
 		$form_data = $this->build_form_data( $type );
-
 		foreach ( $form_data as $section_data ) {
 			$box_id = sanitize_title( $section_data['label'] );
 			add_meta_box($box_id, $section_data['label'], array($this, 'listing_section_meta'), ATBDP_POST_TYPE, 'normal', 'high', $section_data['fields'] );
@@ -53,18 +59,20 @@ class ATBDP_Metabox {
 	}
 
 	public function listing_type_meta( $post ) {
-		$listing_types = array();
 		$all_types     = get_terms(array(
 			'taxonomy'   => 'atbdp_listing_types',
 			'hide_empty' => false,
 		));
 		$listing_type = get_post_meta($post->ID, '_directory_type', true);
-		var_dump( $listing_type );
 		?>
 		<select name="directory_type">
 			<option value=""><?php _e( 'Select Listing Type', 'directorist' ); ?></option>
-			<?php foreach ( $all_types as $type ): ?>
-				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php selected( $type->term_id, $listing_type ); ?> ><?php echo esc_attr( $type->name ); ?></option>
+			<?php foreach ( $all_types as $type ): 
+				$default = get_term_meta( $type->term_id, '_default', true );
+				$selected = selected( $type->term_id, $listing_type );
+				$selected = !empty( $listing_type ) ? $selected : ( $default ? ' selected="selected"' : '' );
+				?>
+				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo $selected ; ?> ><?php echo esc_attr( $type->name ); ?></option>
 			<?php endforeach; ?>
 		</select>
 		<?php
@@ -363,7 +371,7 @@ wp_reset_postdata();
 		// if the posted data has info about never_expire, then use it, otherwise, use the data from the settings.
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
 		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
-		$metas['_listing_type']      = !empty($p['listing_type'])? $p['listing_type'] : '';
+		$metas['_directory_type']    = !empty($p['directory_type'])? $p['directory_type'] : '';
 		$metas['_price']             = !empty($p['price'])? (float) $p['price'] : '';
 		$metas['_price_range']       = !empty($p['price_range'])?  $p['price_range'] : '';
 		$metas['_atbd_listing_pricing'] = !empty($p['atbd_listing_pricing'])?  $p['atbd_listing_pricing'] : '';
@@ -449,9 +457,8 @@ wp_reset_postdata();
 			}
 
 		}
-
-		if( !empty( $metas['_listing_type'] ) ){
-			wp_set_object_terms($post_id, (int)$metas['_listing_type'], 'atbdp_listing_types');
+		if( !empty( $metas['_directory_type'] ) ){
+			wp_set_object_terms($post_id, (int)$metas['_directory_type'], 'atbdp_listing_types');
 		}
 
 		$metas['_expiry_date']              = $exp_dt;

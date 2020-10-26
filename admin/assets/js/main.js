@@ -1815,4 +1815,21 @@ jQuery(function ($) {
         });
     } );
 
+    // load admin add listing form
+    let directory_type = $('select[name="directory_type"]').val();
+    $.ajax({
+        type: "post",
+        url: atbdp_admin_data.ajaxurl,
+        data: { 
+            action: 'atbdp_dynamic_admin_listing_form',
+            directory_type: directory_type,
+         },
+        beforeSend: function () {
+            //jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(ElementToShowLoadingIconAfter);
+        },
+        success: function ( response ) {
+            console.log( response );
+        }
+    });
+
 });

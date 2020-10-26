@@ -41,8 +41,10 @@ if ( !defined('ATBDP_CUSTOM_FIELD_POST_TYPE') ) { define('ATBDP_CUSTOM_FIELD_POS
 if ( !defined('ATBDP_CATEGORY') ) { define('ATBDP_CATEGORY', ATBDP_POST_TYPE.'-category'); }
 // Plugin Location Taxonomy
 if ( !defined('ATBDP_LOCATION') ) { define('ATBDP_LOCATION', ATBDP_POST_TYPE.'-location'); }
-// Plugin Location Taxonomy
+// Plugin Tag Taxonomy
 if ( !defined('ATBDP_TAGS') ) { define('ATBDP_TAGS', ATBDP_POST_TYPE.'-tags'); }
+// Plugin Type Taxonomy
+if ( !defined('ATBDP_TYPE') ) { define('ATBDP_TYPE', 'atbdp_listing_types'); }
 
 // Plugin Alert Message
 if ( !defined('ATBDP_ALERT_MSG') ) { define('ATBDP_ALERT_MSG', __('You do not have the right to access this file directly', 'directorist')); }

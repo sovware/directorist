@@ -282,7 +282,7 @@ class Directorist_Listing_Forms {
 		$listing_types = array();
 		$all_types     = get_terms(
 			array(
-				'taxonomy'   => 'atbdp_listing_types',
+				'taxonomy'   => ATBDP_TYPE,
 				'hide_empty' => false,
 			)
 		);
@@ -883,12 +883,22 @@ class Directorist_Listing_Forms {
 		$listing_types      = $this->get_listing_types();
 		$listing_type_count = count( $listing_types );
 
-		if ( $listing_type_count == 1 ) {
-			$type = array_key_first( $listing_types );
-		} else {
-			$type = isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ? $_GET['listing_type'] : '';
+		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
+
+		if ( isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ) {
+			$current = $_GET['listing_type'];
 		}
-		return (int) $type;
+		else {
+			foreach ( $listing_types as $id => $type ) {
+				$is_default = get_term_meta( $id, '_default', true );
+				if ( $is_default ) {
+					$current = $id;
+					break;
+				}
+			}
+		}
+
+		return (int) $current;
 	}
 
 	public function build_form_data( $type ) {

@@ -126,12 +126,12 @@ do_action('atbdp_before_listing_section');
              */
             do_action( 'atbdp_single_listing_before_favourite_icon' );
             if ($enable_favourite) { ?>
-                <div class="atbd_action atbd_save atbd_tooltip" id="atbdp-favourites" aria-label="Favorite">
+                <div class="atbd_action atbd_save atbd_tooltip" id="atbdp-favourites" aria-label="<?php _e( 'Favorite', 'directorist' ) ?>">
                     <?php echo the_atbdp_favourites_link(); ?>
                 </div>
             <?php }
             if ($enable_social_share) { ?>
-            <div class="atbd_action atbd_share atbd_tooltip" aria-label="Share">
+            <div class="atbd_action atbd_share atbd_tooltip" aria-label="<?php _e( 'Share', 'directorist' ) ?>">
                 <span class="<?php atbdp_icon_type(true); ?>-share"></span>
                 <div class="atbd_directory_social_wrap">
                     <?php
@@ -157,7 +157,7 @@ do_action('atbdp_before_listing_section');
             if ($enable_report_abuse) {
                 $public_report = apply_filters('atbdp_allow_public_report', false);
                 ?>
-                <div class="atbd_action atbd_report atbd_tooltip" aria-label="Report">
+                <div class="atbd_action atbd_report atbd_tooltip" aria-label="<?php _e( 'Report', 'directorist' ) ?>">
                     <?php
                     if(atbdp_logged_in_user() || $public_report){?>
                         <a href="javascript:void(0)" data-target="atbdp-report-abuse-modal" class="atbdp-report-abuse-modal">

@@ -25,6 +25,15 @@ msgstr ""
 "X-Generator: Poedit 2.4.1\n"
 "X-Poedit-SearchPath-0: .\n"
 
+msgid "Report"
+msgstr ""
+
+msgid "Favorite"
+msgstr ""
+
+msgid "Share"
+msgstr ""
+
 #: config.php:41
 msgid "You do not have the right to access this file directly"
 msgstr ""

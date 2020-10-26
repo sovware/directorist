@@ -1,10 +1,11 @@
 <template>
   <component 
-    :is="cardBiulderType"
+    :is="cardBiulderTemplate"
     :field-id="fieldId"
     :value="value"
     :widgets="widgets"
     :layout="layout"
+    :card-options="cardOptions"
     @update="$emit( 'update', $event )"
   >
   </component>
@@ -32,24 +33,29 @@ export default {
       required: false,
       default: null,
     },
-    view: {
+    cardOptions: {
+      required: false,
+      default: null,
+    },
+    template: {
       required: false,
       default: 'grid-view',
     },
   },
 
   computed: {
-      cardBiulderType() {
-        const card_biulder_types = {
+      cardBiulderTemplate() {
+        const card_biulder_templates = {
           'grid-view': 'card-builder-grid-view-field',
           'list-view': 'card-builder-list-view-field',
+          'listing-header': 'card-builder-listing-header-field',
         };
 
-        if ( typeof card_biulder_types[ this.view ] === 'undefined' ) {
+        if ( typeof card_biulder_templates[ this.template ] === 'undefined' ) {
           return 'card-builder-grid-view-field';
         }
         
-        return card_biulder_types[ this.view ];
+        return card_biulder_templates[ this.template ];
       }
   },
 

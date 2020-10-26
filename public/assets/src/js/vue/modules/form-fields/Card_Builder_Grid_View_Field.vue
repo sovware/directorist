@@ -246,6 +246,16 @@
         </div>
       </div>
     </div>
+
+    <div class="cptm-options-area">
+      <options-window
+        :active="widgetOptionsWindowActiveStatus"
+        v-bind="widgetOptionsWindow"
+        @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
+        @close="closeWidgetOptionsWindow()"
+      />
+
+      <pre>{{ active_widgets }}</pre>
     </div>
   </div>
 </template>
@@ -699,8 +709,10 @@ export default {
       if ( ! this.active_widgets[ key ].options && typeof this.active_widgets[ key ].options !== 'object' ) {
         return;
       }
-
-      this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...this.active_widgets[ key ].options };
+      
+      // let opt = JSON.parse( JSON.stringify( this.active_widgets[ key ].options ) );
+      let opt = this.active_widgets[ key ].options;
+      this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...opt };
       this.widgetOptionsWindow.widget = key;
     },
 
@@ -711,7 +723,8 @@ export default {
       }
 
       // this.active_widgets[ widget.widget ].fields = data;
-      Vue.set( this.active_widgets[ widget.widget ], 'fields', data );
+      console.log( data, widget, this.active_widgets );
+      // Vue.set( this.active_widgets[ widget.widget ], 'fields', data );
     },
 
     closeWidgetOptionsWindow() {

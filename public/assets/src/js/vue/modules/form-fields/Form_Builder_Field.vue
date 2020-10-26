@@ -292,7 +292,7 @@ export default {
 
         let template_field  = ( has_template ) ? this.getTergetFields( has_template ) : null;
         template_field      = ( this.isObject( template_field ) ) ? JSON.parse( JSON.stringify( template_field ) ) : null;
-        
+
         let template_fields = ( this.isObject( template_field ) && template_field.value ) ? template_field.value : null;
         template_fields     = ( this.isObject( template_fields ) ) && template_fields.fields ? template_fields.fields : null;
 
@@ -303,8 +303,11 @@ export default {
             let _widget_name = template_fields[ widget_key ].widget_name;
             let _widget_group = template_fields[ widget_key ].widget_group;
             let root_options = template_field.widgets[ _widget_group ].widgets[ _widget_name ];
-            delete root_options.options;
-            delete root_options.lock;
+
+            if ( ! root_options ) { continue; }
+
+            if ( typeof root_options.options !== 'undefined' ) { delete root_options.options; }
+            if ( typeof root_options.lock !== 'undefined' ) { delete root_options.lock; }
 
             let widget_label = ( widgets[ widget_group ].widgets[ _widget_name ].label ) ? widgets[ widget_group ].widgets[ _widget_name ].label : '';
             widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : widget_label;

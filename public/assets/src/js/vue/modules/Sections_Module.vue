@@ -6,9 +6,10 @@
                 <p v-if="typeof section.description === 'string'" v-html="section.description"></p>
             </div>
             
-            <div class="cptm-form-fields">
+            <div class="cptm-form-fields" v-if="section.fields && Array.isArray( section.fields )">
                 <template v-for="( field, field_key ) in section.fields">
-                    <component 
+                    <component
+                        v-if="fields[ field ]"
                         :is="getFormFieldName( fields[ field ].type )" 
                         :field-id="field"
                         :key="field_key"

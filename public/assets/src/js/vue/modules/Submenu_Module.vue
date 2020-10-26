@@ -48,6 +48,10 @@ export default {
                     continue;
                 }
 
+                if (  Array.isArray( submenu.sections ) ) {
+                    continue;
+                }
+
                 sub_navigation.push( submenu );
             }
 

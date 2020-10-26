@@ -52,6 +52,26 @@ $light-gray: #f4f5f7;
   flex-wrap: wrap;
 }
 
+
+.cptm-title-bar {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+  padding: 15px 10px;
+  background-color: #fff;
+}
+
+.cptm-title-bar-headings {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.cptm-title-bar-actions {
+  min-width: 100px;
+  max-width: 220px;
+  padding: 10px;
+}
+
 .cptm-btn {
   margin: 0 5px;
   border: 1px solid;
@@ -1052,6 +1072,11 @@ input[type="radio"].cptm-radio {
   margin-left: 10px;
 }
 
+.cptm-card-preview-area-wrap {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
 .cptm-card-preview-widget {
   max-width: 450px;
   margin: 0 auto;
@@ -1093,6 +1118,25 @@ input[type="radio"].cptm-radio {
 .cptm-card-preview-thumbnail-overlay {
   position: relative;
   height: 100%;
+  padding: 20px 10px;
+  box-sizing: border-box;
+}
+
+.cptm-card-preview-thumbnail-placeholer {
+  height: 100%;
+}
+
+.cptm-card-preview-thumbnail-placeholder {
+  height: 100%;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.cptm-listing-card-preview-quick-info-placeholder {
+  flex-grow: 1;
 }
 
 .cptm-card-preview-thumbnail-bg {

@@ -875,6 +875,11 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'label' => 'Pricing',
                             'icon' => 'uil uil-bill',
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value'  => 'Pricing',
+                                ],
                                 'pricing_type' => [
                                     'type'  => 'select',
                                     'label'  => 'Select Pricing Type',
@@ -3633,20 +3638,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label'       => 'Title',
                                 'placeholder' => '',
                             ],
-                            'submit_button' => [
-                                'widget_group' => 'preset',
-                                'widget_name' => 'submit_button',
-                                'type'        => 'button',
-                                'field_key'   => '',
-                                'label'       => 'Submit Button',
-                                'placeholder' => '',
-                            ],
                         ],
                         'groups' => [
                             [
                                 'label' => 'General Group',
                                 'lock' => true,
-                                'fields' => ['title', 'submit_button'],
+                                'fields' => ['title'],
                                 'plans' => []
                             ],
                         ]
@@ -3941,9 +3938,229 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     ],
                 ],
 
+                'single_listing_header' => [
+                    'type' => 'card-builder',
+                    'template' => 'listing-header',
+                    'value' => '',
+                    'card-options' => [
+                        'general' => [
+                            'section_title' => [
+                              'type' => "title",
+                              'label' => "Section Title",
+                              'options' => [
+                                  'title' => "Section Title Options",
+                                  'fields' => [
+                                      'label' => [
+                                          'type' => "text",
+                                          'label' => "Label",
+                                          'value' => "Section Title",
+                                      ],
+                                  ],
+                              ],
+                            ],
+                        ]
+                    ],
+                    'widgets' => [
+                        'back' => [
+                            'type' => "badge",
+                            'label' => "Back",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listings_title",
+                            'options' => [
+                                'title' => "Listings Slider Settings",
+                                'fields' => [
+                                    'label' => [
+                                        'type' => "text",
+                                        'label' => "Label",
+                                        'value' => 'Go Back',
+                                    ],
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => "Icon",
+                                        'value' => 'fa fa-home',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'bookmark' => [
+                            'type' => "badge",
+                            'label' => "Bookmark",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listings_title",
+                            'options' => [
+                                'title' => "Bookmark Settings",
+                                'fields' => [
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => "Icon",
+                                        'value' => 'fa fa-home',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'share' => [
+                            'type' => "badge",
+                            'label' => "Share",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listings_title",
+                            'options' => [
+                                'title' => "Share Settings",
+                                'fields' => [
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => "Icon",
+                                        'value' => 'fa fa-home',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'reviews' => [
+                            'type' => "badge",
+                            'label' => "Reviews",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listings_title",
+                            'options' => [
+                                'title' => "Reviews Settings",
+                                'fields' => [
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => "Icon",
+                                        'value' => 'fa fa-home',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'report' => [
+                            'type' => "badge",
+                            'label' => "Report",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listings_title",
+                            'options' => [
+                                'title' => "Report Settings",
+                                'fields' => [
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => "Icon",
+                                        'value' => 'fa fa-home',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'compare' => [
+                            'type' => "badge",
+                            'label' => "Compare",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listings_title",
+                            'options' => [
+                                'title' => "Compare Settings",
+                                'fields' => [
+                                    'icon' => [
+                                        'type' => "icon",
+                                        'label' => "Icon",
+                                        'value' => 'fa fa-home',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        
+                        'listing_slider' => [
+                            'type' => "badge",
+                            'label' => "Listings Slider",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listings_slider",
+                            /* 'show_if' => [
+                                'where' => "submission_form_fields.value.fields",
+                                'conditions' => [
+                                    ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'image'],
+                                ],
+                            ], */
+                            'options' => [
+                                'title' => "Listings Slider Settings",
+                                'fields' => [
+                                    'footer_thumbail' => [
+                                        'type' => "toggle",
+                                        'label' => "Enable Footer Thumbail",
+                                        'value' => true,
+                                    ],
+                                ],
+                            ],
+                        ],
+
+                        'listing_title' => [
+                            'type' => "title",
+                            'label' => "Listing Title",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listings_title",
+                        ],
+                        'price' => [
+                            'type' => "badge",
+                            'label' => "Listings Price",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listings_price",
+                        ],
+                        'reviews' => [
+                            'type' => "badge",
+                            'label' => "Listings Reviews",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listings_reviews",
+                        ],
+                        'badges' => [
+                            'type' => "badge",
+                            'label' => "Listings Reviews",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listings_badges",
+                        ],
+                        'category' => [
+                            'type' => "badge",
+                            'label' => "Listings Category",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listing_category",
+                            'show_if' => [
+                                'where' => "submission_form_fields.value.fields",
+                                'conditions' => [
+                                    ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'category'],
+                                ],
+                            ],
+                        ],
+                        'location' => [
+                            'type' => "badge",
+                            'label' => "Listings Location",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listing_location",
+                            'show_if' => [
+                                'where' => "submission_form_fields.value.fields",
+                                'conditions' => [
+                                    ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'location'],
+                                ],
+                            ],
+                        ],
+                    ],
+ 
+                    'layout' => [
+                        'listings_header' => [
+                            'quick_actions' => [
+                                'label' => 'Top Right',
+                                'maxWidget' => 0,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => [ 'back', 'bookmark', 'share', 'reviews', 'report', 'compare' ],
+                            ],
+                            'thumbnail' => [
+                                'maxWidget' => 1,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => [ 'listing_slider' ],
+                            ],
+                            'quick_info' => [
+                                'maxWidget' => 0,
+                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                                'acceptedWidgets' => [ 'listing_title', 'price', 'reviews', 'badges', 'category', 'location' ],
+                            ],
+                        ],
+                    ],
+                ],
+
                 'listings_card_grid_view' => [
                     'type' => 'card-builder',
-                    'view' => 'grid-view',
+                    'template' => 'grid-view',
                     'value' => '',
                     'widgets' => $listing_card_widget,
 
@@ -4009,10 +4226,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
                 'listings_card_list_view' => [
                     'type' => 'card-builder',
-                    'view' => 'list-view',
+                    'template' => 'list-view',
                     'value' => '',
                     'widgets' => $listing_card_widget,
-
                     'layout' => [
                         'thumbnail' => [
                             'top_right' => [
@@ -4195,7 +4411,20 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'label' => 'Single Page Layout',
                     'icon' => '<span class="uil uil-credit-card"></span>',
                     'submenu' => [
-                        'quick_actions' => [
+                        'listing_header' => [
+                            'label' => 'Listing Header',
+                            'container' => 'wide',
+                            'sections' => [
+                                'listing_header' => [
+                                    'title' => 'Listing Header',
+                                    'description' => 'need help?',
+                                    'fields' => [
+                                        'single_listing_header'
+                                    ],
+                                ]
+                            ]
+                        ],
+                        /* 'quick_actions' => [
                             'label' => 'Quick Actions',
                             'container' => 'wide',
                             'sections' => [
@@ -4207,7 +4436,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ],
                                 ]
                             ]
-                        ],
+                        ], */
                         'contents' => [
                             'label' => 'Contents',
                             'container' => 'wide',
@@ -4221,7 +4450,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 ]
                             ]
                         ],
-                        'quick_info' => [
+                        /* 'quick_info' => [
                             'label' => 'Quick info',
                             'container' => 'wide',
                             'sections' => [
@@ -4233,7 +4462,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     ],
                                 ]
                             ]
-                        ],
+                        ], */
                         'similar_listings' => [
                             'label' => 'Similar Listings',
                             'sections' => [

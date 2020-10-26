@@ -16,7 +16,7 @@ $hide_map           = ! empty( get_post_meta( get_query_var( 'atbdp_listing_id',
 <div class="form-group" id="directorist-terms_conditions-field">
 	<?php $form->add_listing_label_template( $data );?>
 
-	<input type="text" name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" value="<?php echo esc_attr( $data['value'] ); ?>" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php echo ! empty( $required ) ? 'required="required"' : ''; ?> >
+	<input type="text" name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" value="<?php echo esc_attr( $data['value'] ); ?>" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> >
 
 	<div class="map_wrapper">
 

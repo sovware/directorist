@@ -5,7 +5,7 @@
  * @version 6.7
  */
 
-if ( !$data['description'] ) {
+if ( empty( $data['description'] ) ) {
 	return;
 }
 ?>

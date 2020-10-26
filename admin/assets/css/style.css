@@ -1324,4 +1324,88 @@ span.atbdp-tick-cross {
   padding: 4px 0;
 }
 
+/* form builder add listing form */
+.postbox-container .postbox .form-group {
+  margin-bottom: 30px;
+}
+
+.postbox-container .postbox .form-group label {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 15px;
+  color: #202428;
+  margin-bottom: 10px;
+}
+
+.postbox-container .postbox .form-group #privacy_policy + label {
+  margin-bottom: 0;
+}
+
+.postbox-container .postbox .form-group input[type="text"],
+.postbox-container .postbox .form-group input[type="tel"],
+.postbox-container .postbox .form-group input[type="url"],
+.postbox-container .postbox .form-group input[type="email"] {
+  display: block;
+  width: 100%;
+  padding: .375rem .375rem;
+  line-height: 1.5;
+  border: 1px solid #e3e6ef;
+}
+
+.postbox-container .postbox .form-group #excerpt {
+  margin-top: 0;
+}
+
+.postbox-container .postbox .form-group .atbdp_social_field_wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.postbox-container .postbox .form-group .atbdp_social_field_wrapper .col-sm-12 {
+  padding: 0 15px;
+}
+
+.postbox-container .postbox .form-group .atbdp_social_field_wrapper .col-md-3 {
+  width: 30%;
+}
+
+.postbox-container .postbox .form-group .atbdp_social_field_wrapper .col-md-6 {
+  width: 50%;
+}
+
+.postbox-container .postbox .form-group .atbdp_social_field_wrapper .col-md-2 {
+  width: 5%;
+}
+
+.postbox-container .postbox .form-group .atbdp_social_field_wrapper .dashicons {
+  margin-bottom: 30px;
+}
+
+.postbox-container .postbox .form-group .atbdp_social_field_wrapper select, .postbox-container .postbox .form-group .atbdp_social_field_wrapper input {
+  width: 100%;
+  border: 1px solid #e3e6ef;
+  height: 35px;
+}
+
+.postbox-container .postbox .form-group .btn {
+  padding: 7px 15px;
+  cursor: pointer;
+}
+
+.postbox-container .postbox .form-group .btn.btn-primary {
+  background: #444752;
+  border: 0 none;
+  color: #fff;
+}
+
+.postbox-container .postbox #directorist-terms_conditions-field input[type="text"] {
+  margin-bottom: 15px;
+}
+
+.postbox-container .postbox #directorist-terms_conditions-field .map_wrapper .cor-wrap {
+  margin-top: 15px;
+}
+
 /*# sourceMappingURL=map/style.css.map */

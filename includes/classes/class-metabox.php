@@ -33,11 +33,11 @@ class ATBDP_Metabox {
 
 	public function listing_metabox() {
 		add_meta_box('listing_type', __('Listing Type', 'directorist'), array($this, 'listing_type_meta'), ATBDP_POST_TYPE, 'normal', 'high');
-		
+
 		$listing = Directorist_Listing_Forms::instance();
 		$post_id = $listing->add_listing_id;
 		$type = get_post_meta($post_id, '_listing_type', true);
-		$type = 43; // @kowsar @todo remove later
+		$type = 180; // @kowsar @todo remove later
 		$form_data = $this->build_form_data( $type );
 
 		foreach ( $form_data as $section_data ) {

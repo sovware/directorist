@@ -41,7 +41,7 @@ class ATBDP_Metabox {
 		add_meta_box('listing_form_info', __('Listing Information', 'directorist'), array($this, 'listing_form_info_meta'), ATBDP_POST_TYPE, 'normal', 'high');
 	}
 
-	public function render_listing_meta_fields( $post_id, $type ) {
+	public function render_listing_meta_fields( $type ) {
 		$form_data = $this->build_form_data( $type );
 		foreach ( $form_data as $section ) {
 			Directorist_Listing_Forms::instance()->add_listing_section_template( $section );
@@ -55,17 +55,17 @@ class ATBDP_Metabox {
 		));
 
 		$terms   =  get_the_terms( $post->ID, ATBDP_TYPE );
-		$current = !empty($terms) ? $terms[0]->term_id : '';
+		$current_type = !empty($terms) ? $terms[0]->term_id : '';
 		?>
 		<label><?php _e( 'Listing Type', 'directorist' ); ?></label>
 		<select name="directory_type">
 			<option value=""><?php _e( 'Select Listing Type', 'directorist' ); ?></option>
 			<?php foreach ( $all_types as $type ):
 				?>
-				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php selected($type->term_id,$current,true); ?> ><?php echo esc_attr( $type->name ); ?></option>
+				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php selected($type->term_id,$current_type,true); ?> ><?php echo esc_attr( $type->name ); ?></option>
 			<?php endforeach; ?>
 		</select>
-		<div id="directiost-listing-fields_wrapper"><?php $this->render_listing_meta_fields($post->ID,$current);?></div>
+		<div id="directiost-listing-fields_wrapper"><?php $this->render_listing_meta_fields( $current_type );?></div>
 		<?php
 	}
 

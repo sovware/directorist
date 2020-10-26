@@ -1199,3 +1199,81 @@ span.atbdp-tick-cross{
     padding: 4px 0;
   }
 }
+
+/* form builder add listing form */
+.postbox-container{
+  .postbox{
+    .form-group{
+      margin-bottom: 30px;
+      label{
+        display: inline-block;
+        font-weight: 500;
+        font-size: 15px;
+        color: $dark;
+        margin-bottom: 10px;
+      }
+      #privacy_policy + label{
+        margin-bottom: 0;
+      }
+      input[type="text"],
+      input[type="tel"],
+      input[type="url"],
+      input[type="email"]{
+        display: block;
+        width: 100%;
+        padding: .375rem .375rem;
+        line-height: 1.5;
+        border: 1px solid $border-color;
+      }
+      #excerpt{
+        margin-top: 0;
+      }
+      .atbdp_social_field_wrapper{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0 -15px;
+        .col-sm-12{
+          padding: 0 15px;
+        }
+        .col-md-3{
+          width: 30%;
+        }
+        .col-md-6{
+          width: 50%;
+        }
+        .col-md-2{
+          width: 5%;
+        }
+        .dashicons {
+          margin-bottom: 30px;
+        }
+        select, input{
+          width: 100%;
+          border: 1px solid $border-color;
+          height: 35px;
+        }
+      }
+
+      .btn{
+        padding: 7px 15px;
+        cursor: pointer;
+        &.btn-primary{
+          background: $primary;
+          border: 0 none;
+          color: #fff;
+        }
+      }
+    }
+    #directorist-terms_conditions-field{
+      input[type="text"]{
+        margin-bottom: 15px;
+      }
+      .map_wrapper{
+        .cor-wrap{
+          margin-top: 15px;
+        }
+      }
+    }
+  }
+}

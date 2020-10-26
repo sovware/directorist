@@ -33,7 +33,7 @@ class ATBDP_Metabox {
 
 	public function listing_metabox() {
 		add_meta_box('listing_type', __('Listing Type', 'directorist'), array($this, 'listing_type_meta'), ATBDP_POST_TYPE, 'normal', 'high');
-		
+
 		$listing = Directorist_Listing_Forms::instance();
 		$post_id = $listing->add_listing_id;
 		$type = get_post_meta($post_id, '_directory_type', true);

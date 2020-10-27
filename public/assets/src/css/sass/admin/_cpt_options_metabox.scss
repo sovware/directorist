@@ -766,6 +766,7 @@ input[type="radio"].cptm-radio {
   // perspective: 800px;
 }
 
+
 .cptm-option-card {
   display: none;
   margin-bottom: 10px;
@@ -1701,4 +1702,18 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
       color: #5a5f7d;
     }
   }
+}
+
+
+// Utility
+.cptm-text-right {
+  text-align: right !important;
+}
+
+.cptm-text-center {
+  text-align: center !important;
+}
+
+.cptm-text-left {
+  text-align: left !important;
 }

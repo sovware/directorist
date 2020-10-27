@@ -130,7 +130,7 @@
           <div class="cptm-listing-card-author-avatar">
             <card-widget-placeholder
               id="thumbnail_avatar"
-              containerClass="cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20"
+              :containerClass="getAvatarPlaceholderClass"
               :label="local_layout.thumbnail.avatar.label"
               :availableWidgets="theAvailableWidgets"
               :activeWidgets="active_widgets"
@@ -254,7 +254,6 @@
         @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
         @close="closeWidgetOptionsWindow()"
       />
-      
     </div>
   </div>
 </template>
@@ -410,7 +409,52 @@ export default {
 
     _currentDraggingWidget() {
       return this.currentDraggingWidget;
-    }
+    },
+
+    getAvatarPlaceholderClass() {
+      
+      let accepted_align_options = [ 'right', 'center', 'left' ];
+      let align_option = '';
+      let active_widgets = JSON.parse( JSON.stringify( this.active_widgets ) );
+
+      let has_option = false;
+
+      if ( this.isObject( active_widgets ) ) {
+        has_option = true;
+      }
+      if ( has_option && ! active_widgets.user_avatar ) {
+        has_option = false;
+      }
+      if ( has_option && ! active_widgets.user_avatar.options ) {
+        has_option = false;
+      }
+      if ( has_option && ! active_widgets.user_avatar.options.fields ) {
+        has_option = false;
+      }
+      if ( has_option && ! active_widgets.user_avatar.options.fields.align ) {
+        has_option = false;
+        log.push( 'chk_5' );
+      }
+
+      if ( has_option && ! ( typeof active_widgets.user_avatar.options.fields.align.value === 'string' ) ) {
+        has_option = false;
+      }
+
+      if ( has_option ) {
+        align_option = active_widgets.user_avatar.options.fields.align.value;
+      }
+
+      if ( ! accepted_align_options.includes( align_option ) ) {
+        align_option = 'center';
+      }
+
+      return {
+        'cptm-listing-card-author-avatar-placeholder cptm-card-dark-light cptm-mb-20': true,
+        'cptm-text-right': ( 'right' === align_option ) ? true : false,
+        'cptm-text-center': ( 'center' === align_option ) ? true : false,
+        'cptm-text-left': ( 'left' === align_option ) ? true : false,
+      }
+    },
   },
 
   data() {

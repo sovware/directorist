@@ -72,7 +72,7 @@ export default {
       default: "",
     },
     containerClass: {
-      type: String,
+      // type: String,
       default: "",
     },
     label: {
@@ -115,10 +115,24 @@ export default {
 
   computed: {
     getContainerClass() {
-      return {
-        [ this.containerClass ]: true,
-        'drag-enter': this.placeholderDragEnter,
+      if ( typeof this.containerClass === 'string' ) {
+        return {
+          [ this.containerClass ]: true,
+          'drag-enter': this.placeholderDragEnter,
+        }
       }
+
+      if ( this.containerClass && 
+        typeof this.containerClass === 'object' &&
+        this.containerClass !== null &&
+        ! Array.isArray( this.containerClass )
+      ) {
+        return {
+          ...this.containerClass,
+          'drag-enter': this.placeholderDragEnter,
+        }
+      }
+      
     }
   },
 

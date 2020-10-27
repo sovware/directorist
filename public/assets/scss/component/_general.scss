@@ -1659,3 +1659,29 @@ input#privacy_policy,
 .atbd_term_and_condition_area input{
   outline: none;
 }
+
+.directorist-listing-types{
+  .directorist-listing-types-link{
+    display: inline-block;
+    padding: 0 15px 15px;
+    font-weight: 500 !important;
+    color: $dark !important;
+    border-bottom: 2px solid transparent !important;
+    outline: 0;
+    span{
+      display: inline-block;
+      margin-right: 5px;
+    }
+  }
+  ul{
+    margin: 0 0 15px !important;
+    li.list-inline-item{
+      margin-right: 0 !important;
+    }
+    .current{
+      .directorist-listing-types-link{
+        border-bottom-color: $primary !important;
+      }
+    }
+  }
+}

@@ -24,16 +24,6 @@ class Directorist_Template_Hooks {
 		add_action( 'directorist_dashboard_navigation',       array( $dashboard, 'nav_buttons_template' ), 15 );
 		add_action( 'directorist_dashboard_tab_contents',     array( $dashboard, 'tab_contents_html' ) );
 
-    	// Add Listing
-		$forms = Directorist_Listing_Forms::instance();
-		add_action( 'directorist_add_listing_title',            array( $forms, 'add_listing_title_template' ) );
-		add_action( 'directorist_add_listing_contents',         array( $forms, 'add_listing_general_template' ) );
-		add_action( 'directorist_add_listing_contents',         array( $forms, 'add_listing_contact_template' ), 15 );
-		add_action( 'directorist_add_listing_contents',         array( $forms, 'add_listing_map_template' ), 20 );
-		add_action( 'directorist_add_listing_contents',         array( $forms, 'add_listing_image_template' ), 25 );
-		add_action( 'directorist_add_listing_contents',         array( $forms, 'add_listing_submit_template' ), 30 );
-		add_action( 'directorist_add_listing_before_location',  array( $forms, 'add_listing_custom_fields_template' ) );
-
     	// Listing Archive
 		add_action( 'directorist_archive_header',    array( 'Directorist_Listings', 'archive_type' ) );
 		add_action( 'directorist_archive_header',    array( 'Directorist_Listings', 'archive_header' ), 15 );

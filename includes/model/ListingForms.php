@@ -779,11 +779,7 @@ class Directorist_Listing_Forms {
 
 		$value = '';
 		if ( ! empty( $listing_id ) ) {
-			$field_id     = $field_data['field_key'];
-			$meta_options = get_post_meta( $listing_id, 'directorist_options', true );
-			if ( ! empty( $meta_options['add_listing_fields'][ $field_id ] ) ) {
-				$value = $meta_options['add_listing_fields'][ $field_id ];
-			}
+			$value = get_post_meta( $listing_id, $field_data['field_key'], true );
 		}
 		$field_data['value'] = $value;
 

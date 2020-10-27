@@ -1465,4 +1465,10 @@ span.atbdp-tick-cross {
   color: #fff;
 }
 
+.atbd-listing-type-active-status {
+  display: inline-block;
+  color: #32cc6f;
+  margin-left: 10px;
+}
+
 /*# sourceMappingURL=map/style.css.map */

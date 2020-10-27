@@ -1182,7 +1182,10 @@ class Directorist_Listings {
 		);
 
 		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = $type->name;
+			$listing_types[ $type->term_id ] = [
+				'name' => $type->name,
+				'data' => get_term_meta( $type->term_id, 'general_config', true ),
+			];
 		}
 		return $listing_types;
 	}

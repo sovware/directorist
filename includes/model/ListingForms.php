@@ -14,23 +14,25 @@ class Directorist_Listing_Forms {
 	public $add_listing_id;
 	public $add_listing_post;
 
-	private function __construct( $id ) {
-		if ( $id ) {
-			$this->add_listing_id = $id;
-		}
-
+	private function __construct() {
 		add_action( 'wp', array( $this, 'init' ) );
+		add_action( 'admin_init', array( $this, 'init' ) );
 	}
 
-	public static function instance( $id = '' ) {
+	public static function instance() {
 		if ( null == self::$instance ) {
-			self::$instance = new self( $id );
+			self::$instance = new self();
 		}
 		return self::$instance;
 	}
 
 	public function init() {
 		$this->add_listing_id   = get_query_var( 'atbdp_listing_id', 0 );
+		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
+	}
+
+	public function admin_init() {
+		$this->add_listing_id   = get_the_ID();
 		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
 	}
 
@@ -803,7 +805,10 @@ class Directorist_Listing_Forms {
 		);
 
 		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = $type->name;
+			$listing_types[ $type->term_id ] = [
+				'name' => $type->name,
+				'data' => get_term_meta( $type->term_id, 'general_config', true ),
+			];
 		}
 		return $listing_types;
 	}

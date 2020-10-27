@@ -918,23 +918,31 @@ class Directorist_Listing_Forms {
 		$listing_types      = $this->get_listing_types();
 		$listing_type_count = count( $listing_types );
 
-		// if no listing type exists
-		if ( $listing_type_count == 0 ) {
-			return atbdp_return_shortcode_template( 'forms/add-listing-notype', $args );
-		}
-
-		$type = $this->get_current_listing_type();
-
-		if ( $type ) {
+		if ( $p_id ) {
+			$terms =  get_the_terms( $p_id, ATBDP_TYPE );
+			$type  = !empty($terms) ? $terms[0]->term_id : '';
 			$args['form_data'] = $this->build_form_data( $type );
 			return atbdp_return_shortcode_template( 'forms/add-listing', $args );
 		}
+		else {
+			// if no listing type exists
+			if ( $listing_type_count == 0 ) {
+				return atbdp_return_shortcode_template( 'forms/add-listing-notype', $args );
+			}
 
-		$listing_type_args = array(
-			'listing_types' => $listing_types,
-		);
+			$type = $this->get_current_listing_type();
 
-		return atbdp_return_shortcode_template( 'forms/add-listing-type', $listing_type_args );
+			if ( $type ) {
+				$args['form_data'] = $this->build_form_data( $type );
+				return atbdp_return_shortcode_template( 'forms/add-listing', $args );
+			}
+
+			$listing_type_args = array(
+				'listing_types' => $listing_types,
+			);
+
+			return atbdp_return_shortcode_template( 'forms/add-listing-type', $listing_type_args );
+		}
 	}
 
 	public function render_shortcode_user_login() {

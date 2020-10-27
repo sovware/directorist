@@ -213,6 +213,7 @@ export default {
 
   created() {
     this.init();
+    this.$emit( 'update', this.output_data );
   },
 
   watch: {
@@ -656,11 +657,17 @@ export default {
     },
 
     updateWidgetOptionsData(data, widget) {
-      if (typeof this.active_widgets[widget.widget] === "undefined") {
+      return;
+
+      if ( typeof this.active_widgets[ widget.widget ] === 'undefined' ) {
         return;
       }
 
-      this.active_widgets[widget.widget].fields = data;
+      if ( typeof this.active_widgets[ widget.widget ].options === 'undefined' ) {
+        return;
+      }
+
+      Vue.set( this.active_widgets[ widget.widget ].options, 'fields', data );
     },
 
     closeWidgetOptionsWindow() {

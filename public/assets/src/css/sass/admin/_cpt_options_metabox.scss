@@ -768,11 +768,12 @@ input[type="radio"].cptm-radio {
 
 .cptm-option-card {
   display: none;
-  transition: all linear 300ms;
-  transform-origin: center;
+  margin-bottom: 10px;
   opacity: 0;
   border-radius: 5px;
   text-align: left;
+  transform-origin: center;
+  transition: all linear 300ms;
   pointer-events: none;
 
   &.cptm-animation-flip {

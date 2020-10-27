@@ -254,8 +254,7 @@
         @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
         @close="closeWidgetOptionsWindow()"
       />
-
-      <pre>{{ active_widgets }}</pre>
+      
     </div>
   </div>
 </template>
@@ -288,6 +287,7 @@ export default {
 
   created() {
     this.init();
+    this.$emit( 'update', this.output_data );
   },
 
   watch: {
@@ -717,14 +717,17 @@ export default {
     },
 
     updateWidgetOptionsData( data, widget ) {
+      return;
 
       if ( typeof this.active_widgets[ widget.widget ] === 'undefined' ) {
         return;
       }
 
-      // this.active_widgets[ widget.widget ].fields = data;
-      console.log( data, widget, this.active_widgets );
-      // Vue.set( this.active_widgets[ widget.widget ], 'fields', data );
+      if ( typeof this.active_widgets[ widget.widget ].options === 'undefined' ) {
+        return;
+      }
+
+      Vue.set( this.active_widgets[ widget.widget ].options, 'fields', data );
     },
 
     closeWidgetOptionsWindow() {

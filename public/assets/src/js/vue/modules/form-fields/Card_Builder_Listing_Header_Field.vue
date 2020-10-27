@@ -124,14 +124,13 @@
         @close="closeCardWidgetOptionsWindow()"
       />
       
-      <br>
-
       <options-window
         :active="widgetOptionsWindowActiveStatus"
         v-bind="widgetOptionsWindow"
         @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
         @close="closeWidgetOptionsWindow()"
       />
+
     </div>
   </div>
 </template>
@@ -168,6 +167,7 @@ export default {
 
   created() {
     this.init();
+    this.$emit( 'update', this.output_data );
   },
 
   watch: {
@@ -350,6 +350,7 @@ export default {
       // Active Widgets
       active_widgets: {},
 
+      // Card Options
       card_options: {
         general: {}
       },
@@ -647,32 +648,39 @@ export default {
       }
 
       let widget_options = widget_path[ widget_key ].options;
-      let window_default = JSON.parse( JSON.stringify( this.widgetOptionsWindowDefault ) );
+      // let window_default = JSON.parse( JSON.stringify( this.widgetOptionsWindowDefault ) );
+      let window_default = this.widgetOptionsWindowDefault;
 
       this.widgetCardOptionsWindow = { ...window_default, ...widget_options };
       this.widgetCardOptionsWindow.widget = { path: widget_path, widget_key };
     },
 
     updateCardWidgetOptionsData( data, options_window ) {
-
       return;
 
       if ( typeof this.card_option_widgets[ options_window.widget ] === 'undefined' ) {
         return;
       }
-
-      // console.log( {data, options_window} );
+      
+      if ( typeof this.card_option_widgets[ options_window.widget ].options === 'undefined' ) {
+        return;
+      }
 
       Vue.set( this.card_option_widgets[ options_window.widget ].options, 'fields', data );
     },
 
     updateWidgetOptionsData( data, options_window ) {
+      return;
 
-      if ( typeof this.active_widgets[ options_window.widget ] === 'undefined' ) {
+      if ( typeof this.active_widgets[ widget.widget ] === 'undefined' ) {
         return;
       }
 
-      Vue.set( this.active_widgets[ options_window.widget ], 'fields', data );
+      if ( typeof this.active_widgets[ widget.widget ].options === 'undefined' ) {
+        return;
+      }
+
+      Vue.set( this.active_widgets[ widget.widget ].options, 'fields', data );
     },
 
     closeCardWidgetOptionsWindow() {

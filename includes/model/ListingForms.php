@@ -754,10 +754,11 @@ class Directorist_Listing_Forms {
 		}
 	}
 
-	public function add_listing_label_template( $data ) {
+	public function add_listing_label_template( $data, $id = '' ) {
 		$args = array(
 			'form'  => $this,
 			'data'  => $data,
+			'id'    => $id ? $id : $data['field_key'],
 		);
 		atbdp_get_shortcode_template( 'forms/add-listing-field-label', $args );
 	}
@@ -779,7 +780,7 @@ class Directorist_Listing_Forms {
 
 		$value = '';
 		if ( ! empty( $listing_id ) ) {
-			$value = get_post_meta( $listing_id, $field_data['field_key'], true );
+			$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
 		}
 		$field_data['value'] = $value;
 
@@ -790,6 +791,7 @@ class Directorist_Listing_Forms {
 		// e_var_dump($field_data);
 
 		$template = 'forms/fields/' . $field_data['widget_name'];
+		$template = apply_filters( 'directorist_field_template_' . $field_data['widget_name'], $template, $field_data );
 		atbdp_get_shortcode_template( $template, $args );
 	}
 

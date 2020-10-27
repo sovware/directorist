@@ -131,6 +131,8 @@
         @close="closeWidgetOptionsWindow()"
       />
 
+      <pre>{{ output_data }}</pre>
+
     </div>
   </div>
 </template>
@@ -276,7 +278,7 @@ export default {
         let show_if_cond_state = null;
 
         if ( this.isObject( available_widgets[ widget ].show_if ) ) {
-          show_if_cond_state = this.checkShowIfCondition( available_widgets[ widget ].show_if );
+          show_if_cond_state = this.checkShowIfCondition( { condition: available_widgets[ widget ].show_if } );
           let main_widget = available_widgets[ widget ];
           
           delete available_widgets[ widget ];

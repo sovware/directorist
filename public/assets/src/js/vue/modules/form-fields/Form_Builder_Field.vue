@@ -122,6 +122,7 @@
     </div>
 
     <div class="cptm-col-6" v-if="theWidgetGroups">
+    
       <div class="cptm-form-builder-preset-fields" v-for="(widget_group, group_key) in theWidgetGroups" :key="group_key">
         <h3 class="cptm-title-3">{{ widget_group.title }}</h3>
         <p class="cptm-description-text">{{ widget_group.description }}</p>
@@ -227,7 +228,7 @@ export default {
       let widget_template = null;
       
       if ( typeof this.template === 'string' && this.template.length ) {
-        template_field = this.getTergetFields( this.template );
+        template_field = this.getTergetFields( { path: this.template } );
       }
 
       if ( this.isObject( template_field ) ) {
@@ -290,7 +291,7 @@ export default {
         let has_template = ( typeof widgets[ widget_group ].template === 'string' ) ? true : false;
         has_template = ( has_template && widgets[ widget_group ].template.length ) ? widgets[ widget_group ].template : false;
 
-        let template_field  = ( has_template ) ? this.getTergetFields( has_template ) : null;
+        let template_field  = ( has_template ) ? this.getTergetFields( { path: has_template } ) : null;
         template_field      = ( this.isObject( template_field ) ) ? JSON.parse( JSON.stringify( template_field ) ) : null;
 
         let template_fields = ( this.isObject( template_field ) && template_field.value ) ? template_field.value : null;
@@ -336,7 +337,7 @@ export default {
         has_filter_by = ( has_filter_by && widgets[ widget_group ].filter_by.length ) ? widgets[ widget_group ].filter_by : false;
 
         if ( has_filter_by ) {
-          let filter_field = this.getTergetFields( has_filter_by );
+          let filter_field = this.getTergetFields( { path: has_filter_by } );
 
           if ( this.isObject( filter_field ) ) {
             filter_field_keys = Object.keys( filter_field );
@@ -366,7 +367,7 @@ export default {
           }
 
           if ( check_show_if_key_exists ) {
-            show_if_key_exists_field = this.getTergetFields( show_if_key_exists_field_path );
+            show_if_key_exists_field = this.getTergetFields( { path: show_if_key_exists_field_path } );
           }
 
           if ( check_show_if_key_exists && ! this.isObject( show_if_key_exists_field ) ) {
@@ -792,10 +793,7 @@ export default {
 
       let field_data_options = {};
       for (let option_key in field_data.options) {
-        field_data_options[option_key] =
-          typeof field_data.options[option_key].value !== "undefined"
-            ? field_data.options[option_key].value
-            : "";
+        field_data_options[option_key] = typeof field_data.options[option_key].value !== "undefined" ? field_data.options[option_key].value : "";
       }
 
       Vue.set( this.active_fields, inserting_field_key, field_data_options );

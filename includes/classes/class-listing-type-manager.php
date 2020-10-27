@@ -2519,8 +2519,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             $search_form_widgets = [
                 'available_widgets' => [
-                    'title' => 'Preset Fields (Updated)',
-                    'description' => 'Click on a field to use it (Updated)',
+                    'title' => 'Preset Fields',
+                    'description' => 'Click on a field to use it',
                     'allow_multiple' => false,
                     'template' => 'submission_form_fields',
                     'widgets' => [
@@ -3484,6 +3484,24 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             }
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
+                'show_hidden_test_field' => [
+                    'type'  => 'toggle',
+                    'label'  => 'Show Hidden',
+                    'value' => false,
+                ],
+                
+                'hidden_test_field' => [
+                    'type'  => 'Text',
+                    'label'  => 'Hidden Text',
+                    'value' => '',
+                    'show_if' => [
+                        'where' => "show_hidden_test_field",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                
                 'name' => [
                     'label' => 'Name *',
                     'type'  => 'text',
@@ -3673,118 +3691,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
                 ] ),
 
-                'single_listings_quick_actions' => [
-                    'type'      => 'form-builder',
-                    'has_group' => false,
-                    'widgets'   => [
-                        'preset' => [
-                            'title' => 'Available Fields',
-                            'description' => 'Click on a field to use it',
-                            'allow_multiple' => false,
-                            'widgets' => [
-                                'back' => [
-                                    'label' => 'Go Back',
-                                    'icon' => 'fa fa-text-height',
-                                    'options' => [
-                                        'label' => [
-                                            'type'  => 'text',
-                                            'label' => 'Label',
-                                            'value' => 'Go Back',
-                                        ],
-                                        'icon' => [
-                                            'type'  => 'icon',
-                                            'label' => 'Icon',
-                                            'value' => 'fa fa-heart',
-                                        ],
-                                    ],
-                                ],
-                                'bookmark' => [
-                                    'label' => 'Bookmark',
-                                    'icon' => 'fa fa-text-height',
-                                    'options' => [
-                                        'label' => [
-                                            'type'  => 'text',
-                                            'label' => 'Label',
-                                            'value' => 'Bookmark',
-                                        ],
-                                        'icon' => [
-                                            'type'  => 'icon',
-                                            'label' => 'Icon',
-                                            'value' => 'fa fa-heart',
-                                        ],
-                                    ],
-                                ],
-                                'share' => [
-                                    'label' => 'Share',
-                                    'icon' => 'fa fa-text-height',
-                                    'options' => [
-                                        'label' => [
-                                            'type'  => 'text',
-                                            'label' => 'Label',
-                                            'value' => 'Share',
-                                        ],
-                                        'icon' => [
-                                            'type'  => 'icon',
-                                            'label' => 'Icon',
-                                            'value' => 'fa fa-heart',
-                                        ],
-                                    ],
-                                ],
-                                'leave_a_review' => [
-                                    'label' => 'Leave a review',
-                                    'icon' => 'fa fa-text-height',
-                                    'options' => [
-                                        'label' => [
-                                            'type'  => 'text',
-                                            'label' => 'Label',
-                                            'value' => 'Leave a review',
-                                        ],
-                                        'icon' => [
-                                            'type'  => 'icon',
-                                            'label' => 'Icon',
-                                            'value' => 'fa fa-heart',
-                                        ],
-                                    ],
-                                ],
-                                'report' => [
-                                    'label' => 'Report',
-                                    'icon' => 'fa fa-text-height',
-                                    'options' => [
-                                        'label' => [
-                                            'type'  => 'text',
-                                            'label' => 'Label',
-                                            'value' => 'Report',
-                                        ],
-                                        'icon' => [
-                                            'type'  => 'icon',
-                                            'label' => 'Icon',
-                                            'value' => 'fa fa-heart',
-                                        ],
-                                    ],
-                                ],
-                                'compare' => [
-                                    'label' => 'Compare',
-                                    'icon' => 'fa fa-text-height',
-                                    'options' => [
-                                        'label' => [
-                                            'type'  => 'text',
-                                            'label' => 'Label',
-                                            'value' => 'Compare',
-                                        ],
-                                        'icon' => [
-                                            'type'  => 'icon',
-                                            'label' => 'Icon',
-                                            'value' => 'fa fa-heart',
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-
-                    'value'     => [],
-                ],
-
+                
                 'single_listings_contents' => [
                     'type'     => 'form-builder',
                     'widgets'  => $search_form_widgets,
@@ -3813,103 +3720,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     ],
                     'value' => [],
                 ],
-
-                'single_listings_quick_info' => [
-                    'type'      => 'form-builder',
-                    'has_group' => false,
-                    'widgets' => [
-                        'preset' => [
-                            'title' => 'Available Fields',
-                            'description' => 'Click on a field to use it',
-                            'widgets' => [
-                                'price' => [
-                                    'label' => 'Price',
-                                    'icon' => 'fa fa-text-height',
-                                    'options' => [
-                                        'label' => [
-                                            'type'  => 'text',
-                                            'label' => 'Label',
-                                            'value' => 'Price',
-                                        ],
-                                        'icon' => [
-                                            'type'  => 'icon',
-                                            'label' => 'Icon',
-                                            'value' => 'fa fa-heart',
-                                        ],
-                                    ],
-                                ],
-                                'reviews' => [
-                                    'label' => 'Reviews',
-                                    'icon' => 'fa fa-text-height',
-                                    'options' => [
-                                        'label' => [
-                                            'type'  => 'text',
-                                            'label' => 'Label',
-                                            'value' => 'Reviews',
-                                        ],
-                                        'icon' => [
-                                            'type'  => 'icon',
-                                            'label' => 'Icon',
-                                            'value' => 'fa fa-heart',
-                                        ],
-                                    ],
-                                ],
-                                'badges' => [
-                                    'label' => 'Badges',
-                                    'icon' => 'fa fa-text-height',
-                                    'options' => [
-                                        'label' => [
-                                            'type'  => 'text',
-                                            'label' => 'Label',
-                                            'value' => 'Badges',
-                                        ],
-                                        'icon' => [
-                                            'type'  => 'icon',
-                                            'label' => 'Icon',
-                                            'value' => 'fa fa-heart',
-                                        ],
-                                    ],
-                                ],
-                                'category' => [
-                                    'label' => 'Category',
-                                    'icon' => 'fa fa-text-height',
-                                    'show_if_key_exists' => 'submission_form_fields.value.fields.category',
-                                    'options' => [
-                                        'label' => [
-                                            'type'  => 'text',
-                                            'label' => 'Label',
-                                            'value' => 'Category',
-                                        ],
-                                        'icon' => [
-                                            'type'  => 'icon',
-                                            'label' => 'Icon',
-                                            'value' => 'fa fa-heart',
-                                        ],
-                                    ],
-                                ],
-                                'location' => [
-                                    'label' => 'Location',
-                                    'icon' => 'fa fa-text-height',
-                                    'show_if_key_exists' => 'submission_form_fields.value.fields.location',
-                                    'options' => [
-                                        'label' => [
-                                            'type'  => 'text',
-                                            'label' => 'Label',
-                                            'value' => 'Location',
-                                        ],
-                                        'icon' => [
-                                            'type'  => 'icon',
-                                            'label' => 'Icon',
-                                            'value' => 'fa fa-heart',
-                                        ],
-                                    ],
-                                ],
-                            ]
-                        ]
-                    ],
-
-                    'value' => [],
-                ],
+                
 
                 'enable_similar_listings' => [
                     'type'  => 'toggle',
@@ -3966,6 +3777,20 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'value' => '',
                     'card-options' => [
                         'general' => [
+                            'back' => [
+                              'type' => "badge",
+                              'label' => "Back",
+                              'options' => [
+                                  'title' => "Section Title Options",
+                                  'fields' => [
+                                      'label' => [
+                                          'type' => "toggle",
+                                          'label' => "Enable",
+                                          'value' => true,
+                                      ],
+                                  ],
+                              ],
+                            ],
                             'section_title' => [
                               'type' => "title",
                               'label' => "Section Title",
@@ -3983,27 +3808,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ]
                     ],
                     'widgets' => [
-                        'back' => [
-                            'type' => "badge",
-                            'label' => "Back",
-                            'icon' => 'uil uil-text-fields',
-                            'hook' => "atbdp_single_listings_title",
-                            'options' => [
-                                'title' => "Listings Slider Settings",
-                                'fields' => [
-                                    'label' => [
-                                        'type' => "text",
-                                        'label' => "Label",
-                                        'value' => 'Go Back',
-                                    ],
-                                    'icon' => [
-                                        'type' => "icon",
-                                        'label' => "Icon",
-                                        'value' => 'fa fa-home',
-                                    ],
-                                ],
-                            ],
-                        ],
                         'bookmark' => [
                             'type' => "badge",
                             'label' => "Bookmark",
@@ -4090,12 +3894,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'label' => "Listings Slider",
                             'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_single_listings_slider",
-                            /* 'show_if' => [
+                            'show_if' => [
                                 'where' => "submission_form_fields.value.fields",
                                 'conditions' => [
-                                    ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'image'],
+                                    ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'image_upload'],
                                 ],
-                            ], */
+                            ],
                             'options' => [
                                 'title' => "Listings Slider Settings",
                                 'fields' => [
@@ -4164,7 +3968,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => 'Top Right',
                                 'maxWidget' => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => [ 'back', 'bookmark', 'share', 'reviews', 'report', 'compare' ],
+                                'acceptedWidgets' => [ 'bookmark', 'share', 'reviews', 'report', 'compare' ],
                             ],
                             'thumbnail' => [
                                 'maxWidget' => 1,
@@ -4342,7 +4146,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'title'       => __('Labels', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'name',
+                                        'show_hidden_test_field',
+                                        'hidden_test_field',
                                         'icon',
                                         'singular_name',
                                         'plural_name',

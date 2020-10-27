@@ -120,7 +120,7 @@ export default {
                 return false;
             }
 
-            let terget_fields = this.getTergetFields( this.optionsSource.where );
+            let terget_fields = this.getTergetFields( { path: this.optionsSource.where } );
             
             if ( ! terget_fields || typeof terget_fields !== 'object' ) {
                 return false;
@@ -132,7 +132,7 @@ export default {
             }
 
             if ( filter_by ) {
-                filter_by = this.getTergetFields( this.optionsSource.filter_by );
+                filter_by = this.getTergetFields( { path: this.optionsSource.filter_by } );
             }
             
             let has_sourcemap = false;

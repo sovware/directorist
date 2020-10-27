@@ -121,7 +121,7 @@ export default {
                 return false;
             }
 
-            let terget_fields = this.getTergetFields( this.optionsSource.where );
+            let terget_fields = this.getTergetFields( { path: this.optionsSource.where }  );
             const id_prefix = ( typeof this.optionsSource.id_prefix === 'string' ) ? this.optionsSource.id_prefix + '-' : this.name + '-';
             
             if ( ! terget_fields || typeof terget_fields !== 'object' ) {
@@ -134,7 +134,7 @@ export default {
             }
 
             if ( filter_by ) {
-                filter_by = this.getTergetFields( this.optionsSource.filter_by );
+                filter_by = this.getTergetFields( { path: this.optionsSource.filter_by } );
             }
 
             let has_sourcemap = false;

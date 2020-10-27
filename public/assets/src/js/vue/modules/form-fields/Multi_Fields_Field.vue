@@ -8,7 +8,6 @@
                     <component 
                         :is="option.type + '-field'"
                         :key="option_key"
-                        v-if="theFieldIsActive( option_key, option_group_key, option )"
                         v-bind="getSanitizedOption( option )"
                         :validation="getValidation( option_key, option_group_key, option )"
                         :value="option.value"
@@ -32,10 +31,11 @@
 
 <script>
 import { mapState } from 'vuex';
+import helpers from '../../mixins/helpers';
 
 export default {
     'name': 'multi-fields-field',
-    
+    mixins: [ helpers ],
     props: {
         label: {
             type: String,
@@ -99,7 +99,28 @@ export default {
         },
 
         theActiveGroups() {
-            let active_fields_groups = this.active_fields_groups;
+            let active_fields_groups = JSON.parse( JSON.stringify( this.active_fields_groups ) );
+
+            let group_count = 0; 
+            for ( let group of active_fields_groups ) {
+                for ( let field of Object.keys( group ) ) {
+
+                    if ( ! this.isObject( group[ field ].show_if )  ) {
+                        continue;
+                    }
+
+                    let show_if_cond = this.checkShowIfCondition({
+                        root: JSON.parse( JSON.stringify( group ) ),
+                        condition: group[ field ].show_if
+                    });
+                
+                    if ( ! show_if_cond.status ) {
+                        delete group[ field ];
+                    }
+                }
+
+                group_count++;
+            }
 
             return active_fields_groups;
         },
@@ -231,16 +252,7 @@ export default {
             return option;
         },
 
-        theFieldIsActive( option_key, option_group_key, option ) {
-            
-            if ( ! this.checkShowIfCondition( option_key, option, option_group_key )  ) {
-                return false;
-            }
-
-            return true;
-        },
-
-        checkShowIfCondition( option_key, option, option_group_key ) {
+        __checkShowIfCondition( option_key, option, option_group_key ) {
             if ( ! option.show_if ) { return true; }
 
             let accepted_condition_comparations = [ 'or', 'and' ];

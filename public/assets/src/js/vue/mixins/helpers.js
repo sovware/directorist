@@ -60,23 +60,36 @@ export default {
             });
         },
 
-        checkShowIfCondition( condition ) {
-            // console.log( { condition } );
+        checkShowIfCondition( payload ) {
+            let args = { condition: null };
+            Object.assign( args, payload );
+
+            let condition = args.condition;
+
+            let root = this.fields;
+            if ( this.isObject( args.root ) ) {
+                root = args.root;
+            }
+
             
             let failed_cond_count   = 0;
             let success_cond_count  = 0;
-            let accepted_comparison = [ 'and', 'or' ];
+            let accepted_comparison = [ 'and', 'or', ];
+            let compare             = 'and';
             let matched_data        = [];
-        
+
             let state = {
+                status: false,
                 failed_conditions: failed_cond_count,
                 successed_conditions: success_cond_count,
                 matched_data: matched_data,
             };
             
-            let compare      = 'and';
-            let target_field = this.getTergetFields( condition.where );
-        
+           
+            // let target_field = this.getTergetFields( condition.where );
+            let target_field = this.getTergetFields( { root: root, path: condition.where } );
+            
+            
             if ( ! ( condition.conditions && Array.isArray( condition.conditions ) && condition.conditions.length ) ) { return state; }
             if ( ! this.isObject( target_field ) ) { return state; }
         
@@ -85,50 +98,51 @@ export default {
             if ( typeof condition.compare === 'string' && accepted_comparison.indexOf( condition.compare ) ) {
                 compare = condition.compare;
             }
-        
+
             for ( let sub_condition of condition.conditions ) {
         
                 if ( typeof sub_condition.key !== 'string' ) {
-                continue;
+                    continue;
                 }
         
                 let sub_condition_field_path = sub_condition.key.split('.');
                 let sub_condition_field = null;
                 let sub_condition_error = 0;
+                let sub_compare = ( typeof sub_condition.compare === 'string' ) ? sub_condition.compare : '=';
                 
                 if ( ! sub_condition_field_path.length ) {
-                continue;
+                    continue;
                 }
-                
+
                 // ---
                 if ( sub_condition_field_path[0] !== '_any' ) {
-                sub_condition_field = target_field[ sub_condition_field_path[0] ];
-        
-                if ( sub_condition_field_path.length > 1 && ! this.isObject( sub_condition_field ) ) {
-                    sub_condition_error++;
-                }
-        
-                if ( sub_condition_field_path.length > 1 && ! sub_condition_error ) {
-                    sub_condition_field = target_field[ sub_condition_field_path[0] ][ sub_condition_field_path[1] ];
-                }
-        
-                if ( typeof sub_condition_field === 'undefined' ) {
-                    sub_condition_error++;
-                }
-        
-                if ( sub_condition_error ) {
-                    failed_cond_count++;
+                    sub_condition_field = target_field[ sub_condition_field_path[0] ];
+
+                    if ( sub_condition_field_path.length > 1 && ! this.isObject( sub_condition_field ) ) {
+                        sub_condition_error++;
+                    }
+                    
+                    if ( sub_condition_field_path.length > 1 && ! sub_condition_error ) {
+                        sub_condition_field = target_field[ sub_condition_field_path[0] ][ sub_condition_field_path[1] ];
+                    }
+            
+                    if ( typeof sub_condition_field === 'undefined' ) {
+                        sub_condition_error++;
+                    }
+
+                    if ( sub_condition_error ) {
+                        failed_cond_count++;
+                        continue;
+                    }
+
+                    if ( ! this.checkComparison( { data_a: sub_condition_field, data_b: sub_condition.value, compare: sub_compare } ) ) {
+                        failed_cond_count++;
+                        continue;
+                    }
+            
+                    matched_data.push( target_field[ sub_condition_field_path[0] ] );
+                    success_cond_count++;
                     continue;
-                }
-        
-                if ( sub_condition.value !== sub_condition_field ) {
-                    failed_cond_count++;
-                    continue;
-                }
-        
-                matched_data.push( target_field[ sub_condition_field_path[0] ] );
-                success_cond_count++;
-                continue;
                 }
         
                 // Check if has _any condition
@@ -138,31 +152,29 @@ export default {
         
                 for ( let field in target_field ) {
                     let any_cond_error = 0;
+                    
                     sub_condition_field = target_field[ field ];
-                    // console.log( { sub_condition_field, field } );
         
                     if ( sub_condition_field_path.length > 1 && ! this.isObject( sub_condition_field ) ) {
-                    any_cond_error++;
+                        any_cond_error++;
                     }
         
                     if ( sub_condition_field_path.length > 1 && ! any_cond_error ) {
-                    sub_condition_field = sub_condition_field[ sub_condition_field_path[1] ];
+                        sub_condition_field = sub_condition_field[ sub_condition_field_path[1] ];
                     } 
         
                     if ( typeof sub_condition_field === 'undefined' ) {
-                    any_cond_error++;
+                        any_cond_error++;
                     }
-        
-                    // console.log( { sub_condition_field, failed_any_cond_count } );
         
                     if ( any_cond_error ) {
-                    failed_any_cond_count++;
-                    continue;
+                        failed_any_cond_count++;
+                        continue;
                     }
-        
-                    if ( sub_condition.value !== sub_condition_field ) {
-                    failed_any_cond_count++;
-                    continue;
+    
+                    if ( ! this.checkComparison( { data_a: sub_condition_field, data_b: sub_condition.value, compare: sub_compare } ) ) {
+                        failed_any_cond_count++;
+                        continue;
                     }
                     
                     matched_data.push( target_field[ field ] );
@@ -176,6 +188,7 @@ export default {
             }
         
             // Get Status
+            let status = false;
             switch ( compare ) {
                 case 'and':
                 status = ( failed_cond_count ) ? false : true;
@@ -183,8 +196,6 @@ export default {
                 case 'or':
                 status = ( success_cond_count ) ? true : false;
                 break;
-                default:
-                status = false;
             }
         
             state = {
@@ -199,6 +210,39 @@ export default {
             return state;
         },
 
+        checkComparison( payload ) {
+            let args = { data_a: '', data_b: '', compare: '=' };
+            Object.assign( args, payload );
+
+            let status = false;
+
+            switch ( args.compare ) {
+                case '=':
+                    status = ( args.data_a == args.data_b ) ? true : false;
+                    break;
+                case '==':
+                    status = ( args.data_a === args.data_b ) ? true : false;
+                    break;
+                case '!=':
+                    status = ( args.data_a !== args.data_b ) ? true : false;
+                    break;
+                case '>':
+                    status = ( args.data_a > args.data_b ) ? true : false;
+                    break;
+                case '<':
+                    status = ( args.data_a < args.data_b ) ? true : false;
+                    break;
+                case '>=':
+                    status = ( args.data_a >= args.data_b ) ? true : false;
+                    break;
+                case '<=':
+                    status = ( args.data_a <= args.data_b ) ? true : false;
+                    break;
+            }
+
+            return status;
+        },
+
         getFormFieldName( field_type ) {
             return field_type + '-field';
         },
@@ -211,25 +255,37 @@ export default {
             return ( item_index === active_index ) ? 'active' : '';
         },
 
-        getTergetFields( fields ) {
+        getTergetFields( payload ) {
+
+            let args = { root: this.fields, path: '' };
             
-            if ( typeof fields !== 'string' ) { return null; }
+            if ( this.isObject( payload ) ) {
+                Object.assign( args, payload );
+            }
+
+            if ( typeof args.path !== 'string' ) { return null; }
             let terget_field = null;
 
-            let terget_fields = fields.split('.');
+            let terget_fields = args.path.split('.');
             let terget_missmatched = false;
 
             if ( terget_fields && typeof terget_fields === 'object'  ) {
                 terget_field = this.fields;
 
                 for ( let key of terget_fields ) {
+                    if ( ! key.length ) { continue; }
+
+                    if ( 'root' === key ) {
+                        terget_field = args.root;
+                        continue;
+                    }
                     
                     if ( typeof terget_field[ key ] === 'undefined' ) {
                         terget_missmatched = true;
                         break;
                     }
 
-                    terget_field = ( terget_field !== null ) ? terget_field[ key ] : this.fields[ key ];
+                    terget_field = ( terget_field !== null ) ? terget_field[ key ] : args.root[ key ];
                 }
             }
 

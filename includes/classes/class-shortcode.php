@@ -165,7 +165,15 @@ class ATBDP_Shortcode {
 	}
 
 	public function add_listing($atts) {
-		$forms = Directorist_Listing_Forms::instance();
+		$url = $_SERVER['REQUEST_URI'];
+		$pattern = "/edit\/(\d+)/i";
+		$id_found = preg_match($pattern, $url, $matches);
+		if ($id_found) {
+			$id = $matches[1];
+		}
+
+		$id = preg_match($pattern, $url, $matches) ? (int) $matches[1] : '';
+		$forms = Directorist_Listing_Forms::instance($id);
 		return $forms->render_shortcode_add_listing($atts);
 	}
 

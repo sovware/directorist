@@ -645,6 +645,7 @@ css for Custom Field
   margin: 0 auto !important;
   border: 1px dashed #dbdee9;
   padding: 30px;
+  text-align: center;
 }
 
 .plupload-upload-uic .atbdp-dropbox-title {
@@ -1344,12 +1345,25 @@ span.atbdp-tick-cross {
 .postbox-container .postbox .form-group input[type="text"],
 .postbox-container .postbox .form-group input[type="tel"],
 .postbox-container .postbox .form-group input[type="url"],
-.postbox-container .postbox .form-group input[type="email"] {
+.postbox-container .postbox .form-group input[type="number"],
+.postbox-container .postbox .form-group input[type="date"],
+.postbox-container .postbox .form-group input[type="time"],
+.postbox-container .postbox .form-group input[type="email"],
+.postbox-container .postbox .form-group select.form-control {
   display: block;
   width: 100%;
   padding: .375rem .375rem;
   line-height: 1.5;
   border: 1px solid #e3e6ef;
+}
+
+.postbox-container .postbox .form-group textarea {
+  display: block;
+  width: 100%;
+  padding: .375rem .375rem;
+  line-height: 1.5;
+  border: 1px solid #e3e6ef;
+  height: 100px;
 }
 
 .postbox-container .postbox .form-group #excerpt {
@@ -1406,6 +1420,69 @@ span.atbdp-tick-cross {
 
 .postbox-container .postbox #directorist-terms_conditions-field .map_wrapper .cor-wrap {
   margin-top: 15px;
+}
+
+#listing_form_info {
+  background: none;
+  border: 0 none;
+  box-shadow: none;
+}
+
+#listing_form_info #directiost-listing-fields_wrapper {
+  margin-top: 15px !important;
+}
+
+#listing_form_info .atbd_content_module {
+  border: 1px solid #e3e6ef;
+  margin-bottom: 35px;
+  background: #ffffff;
+  text-align: left;
+  border-radius: 3px;
+}
+
+#listing_form_info .atbd_content_module .atbd_content_module_title_area {
+  border-bottom: 1px solid #e3e6ef;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px !important;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#listing_form_info .atbd_content_module .atbd_content_module_title_area h4 {
+  margin: 0;
+}
+
+#listing_form_info .atbd_content_module .atbdb_content_module_contents {
+  padding: 30px;
+}
+
+#listing_form_info .atbd_content_module .atbdb_content_module_contents .form-group:last-child {
+  margin-bottom: 0;
+}
+
+#listing_form_info .atbd_content_module .atbdb_content_module_contents #hide_if_no_manual_cor {
+  margin-top: 15px;
+}
+
+#listing_form_info .atbd_content_module .atbdb_content_module_contents .hide-map-option {
+  margin-top: 15px;
+}
+
+.wp-list-table .page-title-action {
+  background: #222;
+  border: 0 none;
+  border-radius: 3px;
+  font-size: 11px;
+  position: relative;
+  top: 1px;
+  color: #fff;
+}
+
+.atbd-listing-type-active-status {
+  display: inline-block;
+  color: #32cc6f;
+  margin-left: 10px;
 }
 
 /*# sourceMappingURL=map/style.css.map */

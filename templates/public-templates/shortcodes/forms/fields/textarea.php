@@ -6,12 +6,10 @@
  */
 ?>
 
-<div class="form-group" id="directorist-textarea-field">
-	<?php if ( ! empty( $label ) ) : ?>
-		<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo esc_html( $label ); ?>:<?php echo ! empty( $required ) ? Directorist_Listing_Forms::instance()->add_listing_required_html() : ''; ?></label>
-	<?php endif; ?>
+<div class="form-group" class="directorist-textarea-field">
+	<?php $form->add_listing_label_template( $data );?>
 
-	<textarea name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" class="form-control" rows="<?php echo (int) esc_attr( $rows ); ?>" placeholder="<?php echo esc_attr( $placeholder ); ?>" <?php echo ! empty( $required ) ? 'required="required"' : ''; ?> ><?php echo esc_attr( $value ); ?></textarea>
+	<textarea name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" rows="<?php echo (int) $data['rows']; ?>" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> ><?php echo esc_attr( $data['value'] ); ?></textarea>
 
-	<p> <?php echo esc_attr( $description ); ?> </p>
+	<?php $form->add_listing_description_template( $data );?>
 </div>

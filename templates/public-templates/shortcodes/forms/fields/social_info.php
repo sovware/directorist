@@ -7,12 +7,10 @@
 ?>
 
 <div class="form-group" id="directorist-social_info-field">
-	<?php if ( ! empty( $label ) ) : ?>
-		<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo esc_html( $label ); ?>:<?php echo ! empty( $required ) ? Directorist_Listing_Forms::instance()->add_listing_required_html() : ''; ?></label>
-	<?php endif; ?>
+	<?php $form->add_listing_label_template( $data );?>
 
 	<div id="social_info_sortable_container">
-		<input type="hidden" id="<?php echo esc_attr( $field_key ); ?>">
+		<input type="hidden" id="<?php echo esc_attr( $data['field_key'] ); ?>">
 		<?php
 		$social = get_post_meta( get_query_var( 'atbdp_listing_id', 0 ), '_social', true );
 		if ( ! empty( $socials ) ) {

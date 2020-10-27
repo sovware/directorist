@@ -61,7 +61,7 @@ endif;
 $listing_types = array();
 $all_types     = get_terms(
     array(
-        'taxonomy'   => 'atbdp_listing_types',
+        'taxonomy'   => ATBDP_TYPE,
         'hide_empty' => false,
     )
 );

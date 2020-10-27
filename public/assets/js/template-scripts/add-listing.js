@@ -335,7 +335,7 @@ jQuery(function($) {
                 let field_list = [];
                 $('.listing_submit_btn').addClass('atbd_loading');
                 form_data.append('action', 'add_listing_action');
-                form_data.append('listing_type', qs.listing_type);
+                form_data.append('directory_type', qs.listing_type);
                 const fieldValuePairs = $('#add-listing-form').serializeArray();
                 $.each( fieldValuePairs, function( index, fieldValuePair ) {
                         const field = document.getElementsByName( fieldValuePair.name )[0];
@@ -474,8 +474,8 @@ jQuery(function($) {
                         url: atbdp_add_listing.ajaxurl,
                         data: form_data,
                         success(response) {
-                                 console.log( response );
-                                 return;
+                                //  console.log( response );
+                                //  return;
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {

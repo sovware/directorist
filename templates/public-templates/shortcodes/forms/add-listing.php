@@ -22,19 +22,6 @@
 					}
 
 					Directorist_Listing_Forms::instance()->add_listing_submit_template();
-
-                    /**
-                     * @since 6.6
-                     * @hooked Directorist_Listing_Forms > add_listing_general_template - 10
-                     * @hooked Directorist_Listing_Forms > add_listing_contact_template - 15
-                     * @hooked Directorist_Listing_Forms > add_listing_map_template - 20
-                     * @hooked Directorist_Listing_Forms > add_listing_image_template - 25
-                     * @hooked Directorist_Listing_Forms > add_listing_submit_template - 30
-                     */
-                    // do_action( 'directorist_add_listing_contents');
-
-
-
 					?>
 				</div>
 			</fieldset>

@@ -123,7 +123,7 @@ if (!class_exists('ATBDP_Custom_Post')):
                 'label' => __('Directory Listing', 'directorist'),
                 'description' => __('Directory listings', 'directorist'),
                 'labels' => $labels,
-                'supports' => array('title', 'editor', 'author'),
+                'supports' => array('title', 'author'),
                 //'show_in_rest'         => true,
                 'taxonomies' => array(ATBDP_CATEGORY),
                 'hierarchical' => false,

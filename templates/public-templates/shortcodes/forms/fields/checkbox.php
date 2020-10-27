@@ -8,9 +8,7 @@
 ?>
 
 <div class="form-group" id="directorist-checkbox-field">
-	<?php if ( ! empty( $label ) ) : ?>
-		<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo esc_html( $label ); ?>:<?php echo ! empty( $required ) ? Directorist_Listing_Forms::instance()->add_listing_required_html() : ''; ?></label>
-	<?php endif; ?>
+	<?php $form->add_listing_label_template( $data );?>
 
 	<div class="form-control">
 		<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
@@ -21,5 +19,5 @@
 		<label for="vehicle3"> I have a boat</label><br><br>
 	</div>
 
-	<p> <?php echo esc_attr( $description ); ?> </p>
+	<?php $form->add_listing_description_template( $data ); ?>
 </div>

@@ -1805,14 +1805,34 @@ jQuery(function ($) {
                 action: 'atbdp_listing_default_type',
                 type_id: $(this).data("type-id"),
              },
-            beforeSend: function () {
-                //jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(ElementToShowLoadingIconAfter);
-            },
             success: function ( response ) {
                 $( '.submitdefault' ).after( '<span style="color: green">' + response +'</span>' );
                 location.reload();
             }
         });
     } );
+
+    // load admin add listing form
+    let directory_type = $('select[name="directory_type"]').val();
+    if( directory_type ) {
+        admin_listing_form( directory_type )
+    }
+    $( 'body' ).on( 'change', 'select[name="directory_type"]', function() {
+        admin_listing_form( $(this).val() );
+    });
+
+    function admin_listing_form( directory_type ) {
+        $.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: { 
+                action: 'atbdp_dynamic_admin_listing_form',
+                directory_type: directory_type,
+             },
+            success: function ( response ) {
+                $('#directiost-listing-fields_wrapper').empty().append( response );
+            }
+        });
+    }
 
 });

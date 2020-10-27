@@ -27,45 +27,54 @@ class ATBDP_Metabox {
 
 			add_action('wp_ajax_atbdp_custom_fields_listings', array($this, 'ajax_callback_custom_fields'), 10, 2 );
 			add_action('wp_ajax_atbdp_custom_fields_listings_selected', array($this, 'ajax_callback_custom_fields'), 10, 2 );
-
+			
+			// load dynamic fields
+			add_action( 'wp_ajax_atbdp_dynamic_admin_listing_form', array( $this, 'atbdp_dynamic_admin_listing_form' ) );
 		}
 	}
 
-	public function listing_metabox() {
-		add_meta_box('listing_type', __('Listing Type', 'directorist'), array($this, 'listing_type_meta'), ATBDP_POST_TYPE, 'normal', 'high');
-		
-		$listing = Directorist_Listing_Forms::instance();
-		$post_id = $listing->add_listing_id;
-		$type = get_post_meta($post_id, '_listing_type', true);
-		$type = 55; // @kowsar @todo remove later
+	public function atbdp_dynamic_admin_listing_form() {
+		$directory_type = sanitize_text_field( $_POST['directory_type'] );
+		ob_start();
+		$this->render_listing_meta_fields( $directory_type );
+		echo ob_get_clean();
+		die();
+	}
+
+	public function listing_metabox( $post ) {
+		add_meta_box('listing_form_info', __('Listing Information', 'directorist'), array($this, 'listing_form_info_meta'), ATBDP_POST_TYPE, 'normal', 'high');
+	}
+
+	public function render_listing_meta_fields( $type ) {
 		$form_data = $this->build_form_data( $type );
-
-		foreach ( $form_data as $section_data ) {
-			$box_id = sanitize_title( $section_data['label'] );
-			add_meta_box($box_id, $section_data['label'], array($this, 'listing_section_meta'), ATBDP_POST_TYPE, 'normal', 'high', $section_data['fields'] );
+		foreach ( $form_data as $section ) {
+			Directorist_Listing_Forms::instance()->add_listing_section_template( $section );
 		}
 	}
 
-	public function listing_section_meta( $post, $data ) {
-		foreach ( $data['args'] as $field ){
-			Directorist_Listing_Forms::instance()->add_listing_field_template( $field );
-		}
-	}
-
-	public function listing_type_meta( $post ) {
-		$listing_types = array();
+	public function listing_form_info_meta( $post ) {
 		$all_types     = get_terms(array(
-			'taxonomy'   => 'atbdp_listing_types',
+			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
 		));
-		$listing_type = get_post_meta($post->ID, '_listing_type', true);
+
+		$terms   =  get_the_terms( $post->ID, ATBDP_TYPE );
+		$current_type = !empty($terms) ? $terms[0]->term_id : '';
+		$current_type = get_post_meta($post->ID, '_directory_type', true);
+		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
 		?>
-		<select name="listing_type">
+		<label><?php _e( 'Listing Type', 'directorist' ); ?></label>
+		<select name="directory_type">
 			<option value=""><?php _e( 'Select Listing Type', 'directorist' ); ?></option>
-			<?php foreach ( $all_types as $type ): ?>
-				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php selected( $type->term_id, $listing_type ); ?> ><?php echo esc_attr( $type->name ); ?></option>
+			<?php foreach ( $all_types as $type ):
+			$default = get_term_meta( $type->term_id, '_default', true );
+			$selected = selected( $type->term_id, $current_type );
+			$selected = !empty( $current_type ) ? $selected : ( $default ? ' selected="selected"' : '' );
+				?>
+				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo $selected; ?> ><?php echo esc_attr( $type->name ); ?></option>
 			<?php endforeach; ?>
 		</select>
+		<div id="directiost-listing-fields_wrapper"></div>
 		<?php
 	}
 
@@ -73,14 +82,15 @@ class ATBDP_Metabox {
 		$form_data              = array();
 		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
 
-		foreach ( $submission_form_fields['groups'] as $group ) {
-			$section           = $group;
-			$section['fields'] = array();
-			foreach ( $group['fields'] as $field ) {
-				$section['fields'][ $field ] = $submission_form_fields['fields'][ $field ];
+		if ( !empty( $submission_form_fields['groups'] ) ) {
+			foreach ( $submission_form_fields['groups'] as $group ) {
+				$section           = $group;
+				$section['fields'] = array();
+				foreach ( $group['fields'] as $field ) {
+					$section['fields'][ $field ] = $submission_form_fields['fields'][ $field ];
+				}
+				$form_data[] = $section;
 			}
-			$form_data[] = $section;
-
 		}
 
 		return $form_data;
@@ -250,7 +260,6 @@ wp_reset_postdata();
 
 
 		// add nonce security token
-		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
 		ATBDP()->load_template('admin-templates/listing-form/add-listing', compact('listing_info') ); // load metabox view and pass data to it.
 	}
 	/**
@@ -352,6 +361,7 @@ wp_reset_postdata();
 	 * @param object    $post       Current post object being saved
 	 */
 	public function save_post_meta( $post_id, $post ) {
+		
 		if ( ! $this->passSecurity($post_id, $post) )  return; // vail if security check fails
 		$metas = array();
 		$expire_in_days = get_directorist_option('listing_expire_in_days');
@@ -362,7 +372,9 @@ wp_reset_postdata();
 		// if the posted data has info about never_expire, then use it, otherwise, use the data from the settings.
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
 		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
-		$metas['_listing_type']      = !empty($p['listing_type'])? $p['listing_type'] : '';
+		$metas['_directory_type']    = !empty($p['directory_type'])? $p['directory_type'] : '';
+
+
 		$metas['_price']             = !empty($p['price'])? (float) $p['price'] : '';
 		$metas['_price_range']       = !empty($p['price_range'])?  $p['price_range'] : '';
 		$metas['_atbd_listing_pricing'] = !empty($p['atbd_listing_pricing'])?  $p['atbd_listing_pricing'] : '';
@@ -448,12 +460,13 @@ wp_reset_postdata();
 			}
 
 		}
-
-		if( !empty( $metas['_listing_type'] ) ){
-			wp_set_object_terms($post_id, (int)$metas['_listing_type'], 'atbdp_listing_types');
+		if( !empty( $metas['_directory_type'] ) ){
+			wp_set_object_terms($post_id, (int)$metas['_directory_type'], 'atbdp_listing_types');
 		}
 
 		$metas['_expiry_date']              = $exp_dt;
+		// var_dump( $metas );
+		// die();
 		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas);
 		// save the meta data to the database
 		foreach ($metas as $meta_key => $meta_value) {
@@ -565,6 +578,4 @@ wp_reset_postdata();
 		return apply_filters('atbdp_get_listing_info', $listing_info);
 
 	}
-
-
 }

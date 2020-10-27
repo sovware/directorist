@@ -55,8 +55,23 @@ class ATBDP_Permalink{
     public static function get_login_redirection_page_link()
     {
         $id = get_directorist_option('redirection_after_login'); // get the page id of the dashboard page.
-        $link = $id ? get_permalink( $id ) : '';
+        if( 'previous_page' == $id ) {
+            $link = wp_get_referer();
+        } else {
+            $link = $id ? get_permalink( $id ) : '';
+        }
         return apply_filters('atbdp_login_redirection_page_url', $link );
+    }
+
+    public static function get_reg_redirection_page_link( $previous_page )
+    {
+        $id = get_directorist_option( 'redirection_after_reg' ); // get the page id of the dashboard page.
+        if( 'previous_page' == $id ) {
+            $link = $previous_page;
+        } else {
+            $link = $id ? get_permalink( $id ) : '';
+        }
+        return apply_filters('atbdp_reg_redirection_page_url', $link );
     }
 
     /**

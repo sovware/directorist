@@ -192,7 +192,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   }
 
   .fa {
-    font: normal normal normal 14px/1 FontAwesome;
+    font: normal normal 900 14px/1 "Font Awesome 5 Free";
   }
 
   .atbd_rated_stars {
@@ -209,7 +209,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
         &:before {
           content: "\f005";
           font-size: 14px;
-          font-family: 'Fontawesome', Sans-serif;
+          font-family: 'Font Awesome 5 Free';
+          font-weight: 900;
         }
 
         &.rate_active {
@@ -230,7 +231,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
         &:before {
           content: "\f005";
           font-size: 14px;
-          font-family: 'Fontawesome', Sans-serif;
+          font-family: 'Font Awesome 5 Free';
+          font-weight: 900;
           color: #d4d3f3;
 
           &.br-selected, &.br-active {
@@ -716,6 +718,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 .atbdp-map {
   margin-bottom: 35px;
+  div{
+    color: #fff !important;
+  }
 }
 
 .atbd_widget .atbdp-map {
@@ -1505,6 +1510,14 @@ div#listing_notifier span {
     .atbd_dropdown-menu{
       opacity: 1;
       visibility: visible;
+      #atbdp_sort{
+        .atbd_dropdown-item{
+          cursor: pointer;
+          &:hover{
+            color: $primary;
+          }
+        }
+      }
     }
   }
 }
@@ -1658,4 +1671,11 @@ input[type="radio"].atbdp_radio_input {
 input#privacy_policy,
 .atbd_term_and_condition_area input{
   outline: none;
+}
+
+.atbd_author_listings_area{
+  .atbd_dropdown-menu{
+    max-height: 300px;
+    overflow-y: auto;
+  }
 }

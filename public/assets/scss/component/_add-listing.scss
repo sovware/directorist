@@ -455,12 +455,14 @@
   a{
     display: block;
     text-align: center;
-    border: 1px solid $border-color !important;
+    background: $dark !important;
     padding: 30px 0;
     border-radius: 4px;
+    color: #fff !important;
     .directorist-listing-type-icon{
       display: block;
       margin-bottom: 10px;
+      color: #fff;
     }
   }
 }

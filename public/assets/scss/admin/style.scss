@@ -584,6 +584,7 @@ css for Custom Field
   margin: 0 auto !important;
   border: 1px dashed #dbdee9;
   padding: 30px;
+  text-align: center;
   .atbdp-dropbox-title{
     font-weight: 500;
     margin-bottom: 15px;
@@ -1218,12 +1219,24 @@ span.atbdp-tick-cross{
       input[type="text"],
       input[type="tel"],
       input[type="url"],
-      input[type="email"]{
+      input[type="number"],
+      input[type="date"],
+      input[type="time"],
+      input[type="email"],
+      select.form-control{
         display: block;
         width: 100%;
         padding: .375rem .375rem;
         line-height: 1.5;
         border: 1px solid $border-color;
+      }
+      textarea{
+        display: block;
+        width: 100%;
+        padding: .375rem .375rem;
+        line-height: 1.5;
+        border: 1px solid $border-color;
+        height: 100px;
       }
       #excerpt{
         margin-top: 0;
@@ -1323,4 +1336,10 @@ span.atbdp-tick-cross{
   position: relative;
   top: 1px;
   color: #fff;
+}
+
+.atbd-listing-type-active-status{
+  display: inline-block;
+  color: $success;
+  margin-left: 10px;
 }

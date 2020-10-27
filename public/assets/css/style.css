@@ -2371,6 +2371,32 @@ input#privacy_policy,
   outline: none;
 }
 
+.directorist-listing-types .directorist-listing-types-link {
+  display: inline-block;
+  padding: 0 15px 15px;
+  font-weight: 500 !important;
+  color: #202428 !important;
+  border-bottom: 2px solid transparent !important;
+  outline: 0;
+}
+
+.directorist-listing-types .directorist-listing-types-link span {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.directorist-listing-types ul {
+  margin: 0 0 15px !important;
+}
+
+.directorist-listing-types ul li.list-inline-item {
+  margin-right: 0 !important;
+}
+
+.directorist-listing-types ul .current .directorist-listing-types-link {
+  border-bottom-color: #444752 !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;
@@ -5584,6 +5610,7 @@ span.atbd_get_loc_wid {
   padding: 30px 0;
   border-radius: 4px;
   color: #fff !important;
+  font-size: 17px !important;
 }
 
 .directorist-each-listing-type a .directorist-listing-type-icon {

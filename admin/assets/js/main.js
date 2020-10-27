@@ -1828,6 +1828,7 @@ jQuery(function ($) {
             data: { 
                 action: 'atbdp_dynamic_admin_listing_form',
                 directory_type: directory_type,
+                listing_id: $('#directiost-listing-fields_wrapper').data('id'),
              },
             success: function ( response ) {
                 $('#directiost-listing-fields_wrapper').empty().append( response );

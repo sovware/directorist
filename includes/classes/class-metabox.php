@@ -35,8 +35,9 @@ class ATBDP_Metabox {
 
 	public function atbdp_dynamic_admin_listing_form() {
 		$directory_type = sanitize_text_field( $_POST['directory_type'] );
+		$listing_id   = sanitize_text_field( $_POST['listing_id'] );
 		ob_start();
-		$this->render_listing_meta_fields( $directory_type );
+		$this->render_listing_meta_fields( $directory_type, $listing_id );
 		echo ob_get_clean();
 		die();
 	}
@@ -45,10 +46,10 @@ class ATBDP_Metabox {
 		add_meta_box('listing_form_info', __('Listing Information', 'directorist'), array($this, 'listing_form_info_meta'), ATBDP_POST_TYPE, 'normal', 'high');
 	}
 
-	public function render_listing_meta_fields( $type ) {
+	public function render_listing_meta_fields( $type, $id ) {
 		$form_data = $this->build_form_data( $type );
 		foreach ( $form_data as $section ) {
-			Directorist_Listing_Forms::instance()->add_listing_section_template( $section );
+			Directorist_Listing_Forms::instance($id)->add_listing_section_template( $section );
 		}
 	}
 
@@ -74,21 +75,30 @@ class ATBDP_Metabox {
 				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo $selected; ?> ><?php echo esc_attr( $type->name ); ?></option>
 			<?php endforeach; ?>
 		</select>
-		<div id="directiost-listing-fields_wrapper"></div>
+		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>"></div>
 		<?php
 	}
 
 	public function build_form_data( $type ) {
 		$form_data              = array();
 		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
+		$excluded_fields = array( 'title', 'description', 'location', 'category', 'tag', 'image_upload', 'privacy_policy', 'terms_conditions' );
 
 		if ( !empty( $submission_form_fields['groups'] ) ) {
 			foreach ( $submission_form_fields['groups'] as $group ) {
+
 				$section           = $group;
 				$section['fields'] = array();
+
 				foreach ( $group['fields'] as $field ) {
+
+					if ( in_array( $field, $excluded_fields ) ) {
+						continue;
+					}
+
 					$section['fields'][ $field ] = $submission_form_fields['fields'][ $field ];
 				}
+
 				$form_data[] = $section;
 			}
 		}

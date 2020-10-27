@@ -3204,6 +3204,21 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'label' => "User Avatar",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_user_avatar",
+                    'options' => [
+                        'title' => "User Avatar Settings",
+                        'fields' => [
+                            'align' => [
+                                'type' => "radio",
+                                'label' => "Align",
+                                'value' => "center",
+                                'options' => [
+                                    [ 'id' => 'atbdp_user_avatar_align_right', 'label' => 'Right', 'value' => 'right' ],
+                                    [ 'id' => 'atbdp_user_avatar_align_center', 'label' => 'Center', 'value' => 'center' ],
+                                    [ 'id' => 'atbdp_user_avatar_align_left', 'label' => 'Left', 'value' => 'left' ],
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
                 
                 // Custom Fields
@@ -3460,6 +3475,13 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     ],
                 ],
             ];
+
+
+            $listing_card_list_view_widget = $listing_card_widget;
+
+            if ( ! empty( $listing_card_list_view_widget[ 'user_avatar' ] ) && ! empty( $listing_card_list_view_widget[ 'user_avatar' ]['options'] ) ) {
+                unset( $listing_card_list_view_widget[ 'user_avatar' ]['options'] );
+            }
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
                 'name' => [
@@ -4228,7 +4250,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'type' => 'card-builder',
                     'template' => 'list-view',
                     'value' => '',
-                    'widgets' => $listing_card_widget,
+                    'widgets' => $listing_card_list_view_widget,
                     'layout' => [
                         'thumbnail' => [
                             'top_right' => [
@@ -4424,19 +4446,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 ]
                             ]
                         ],
-                        /* 'quick_actions' => [
-                            'label' => 'Quick Actions',
-                            'container' => 'wide',
-                            'sections' => [
-                                'quick_actions' => [
-                                    'title' => 'Add Quick Actions',
-                                    'description' => 'need help?',
-                                    'fields' => [
-                                        'single_listings_quick_actions'
-                                    ],
-                                ]
-                            ]
-                        ], */
                         'contents' => [
                             'label' => 'Contents',
                             'container' => 'wide',
@@ -4450,19 +4459,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 ]
                             ]
                         ],
-                        /* 'quick_info' => [
-                            'label' => 'Quick info',
-                            'container' => 'wide',
-                            'sections' => [
-                                'quick_info' => [
-                                    'title' => 'Quick info',
-                                    'description' => 'need help?',
-                                    'fields' => [
-                                        'single_listings_quick_info'
-                                    ],
-                                ]
-                            ]
-                        ], */
                         'similar_listings' => [
                             'label' => 'Similar Listings',
                             'sections' => [

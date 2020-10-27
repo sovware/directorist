@@ -14,25 +14,23 @@ class Directorist_Listing_Forms {
 	public $add_listing_id;
 	public $add_listing_post;
 
-	private function __construct() {
+	private function __construct( $id ) {
+		if ( $id ) {
+			$this->add_listing_id = $id;
+		}
+
 		add_action( 'wp', array( $this, 'init' ) );
-		add_action( 'admin_init', array( $this, 'init' ) );
 	}
 
-	public static function instance() {
+	public static function instance( $id = '' ) {
 		if ( null == self::$instance ) {
-			self::$instance = new self();
+			self::$instance = new self( $id );
 		}
 		return self::$instance;
 	}
 
 	public function init() {
 		$this->add_listing_id   = get_query_var( 'atbdp_listing_id', 0 );
-		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
-	}
-
-	public function admin_init() {
-		$this->add_listing_id   = get_the_ID();
 		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
 	}
 

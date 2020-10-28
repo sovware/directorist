@@ -70,7 +70,6 @@ export default {
             if ( this.isObject( args.root ) ) {
                 root = args.root;
             }
-
             
             let failed_cond_count   = 0;
             let success_cond_count  = 0;
@@ -88,7 +87,6 @@ export default {
            
             // let target_field = this.getTergetFields( condition.where );
             let target_field = this.getTergetFields( { root: root, path: condition.where } );
-            
             
             if ( ! ( condition.conditions && Array.isArray( condition.conditions ) && condition.conditions.length ) ) { return state; }
             if ( ! this.isObject( target_field ) ) { return state; }
@@ -117,20 +115,31 @@ export default {
                 // ---
                 if ( sub_condition_field_path[0] !== '_any' ) {
                     sub_condition_field = target_field[ sub_condition_field_path[0] ];
+                    let is_hidden = ( typeof target_field.hidden !== 'undefined' ) ? target_field.hidden : false;
 
                     if ( sub_condition_field_path.length > 1 && ! this.isObject( sub_condition_field ) ) {
                         sub_condition_error++;
                     }
-                    
+
                     if ( sub_condition_field_path.length > 1 && ! sub_condition_error ) {
                         sub_condition_field = target_field[ sub_condition_field_path[0] ][ sub_condition_field_path[1] ];
+                        is_hidden = ( typeof target_field[ sub_condition_field_path[0] ].hidden !== 'undefined' ) ? target_field[ sub_condition_field_path[0] ].hidden : false ;
                     }
             
+                    if ( is_hidden ) {
+                        sub_condition_error++;
+                    }
+
                     if ( typeof sub_condition_field === 'undefined' ) {
                         sub_condition_error++;
                     }
 
                     if ( sub_condition_error ) {
+                        failed_cond_count++;
+                        continue;
+                    }
+
+                    if ( ! this.checkComparison( { data_a: sub_condition_field, data_b: sub_condition.value, compare: sub_compare } ) ) {
                         failed_cond_count++;
                         continue;
                     }

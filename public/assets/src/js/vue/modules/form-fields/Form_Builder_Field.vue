@@ -32,7 +32,7 @@
 
               <slide-up-down :active="getActiveGroupCollapseState(group_key)" :duration="500">
                 <div class="cptm-form-builder-group-options">
-                  <template v-for="(option, option_key) in groupOptions">
+                  <template v-for="(option, option_key) in getGroupOptions( group_key )">
                     <component 
                       :is="option.type + '-field'" :key="option_key" 
                       :feild-id="option_key"
@@ -67,7 +67,7 @@
 
                   <slide-up-down :active="getActiveFieldCollapseState(field_key)" :duration="300">
                     <div class="cptm-form-builder-group-field-item-body" v-if="getActiveFieldsSettings(field_key, 'options')">
-                      <template v-for="(option, option_key) in getActiveFieldsSettings( field_key, 'options' )">
+                      <template v-for="(option, option_key) in getWidgetOptions( field_key )">
                         <component
                           :is="option.type + '-field'"
                           :key="option_key"
@@ -321,8 +321,7 @@ export default {
           widgets[widget_group].widgets = template_widgets;
         }
       }
-
-      // if ( 'search_form_fields' === this.fieldId ) { console.log(  this.widgets ); }
+      
       return widgets;
     },
 
@@ -394,21 +393,16 @@ export default {
         }
       }
 
-
-      // console.log( { widgets } );
       return widgets;
     },
   },
   data() {
     return {
       groups: [
-        {
-          label: "General",
-          fields: [],
-        },
+        { label: "General", fields: [] },
       ],
+
       active_fields: {},
-      test: 0,
 
       state: {},
       active_fields_ref: {},
@@ -422,8 +416,6 @@ export default {
     };
   },
   methods: {
-    
-
     impportOldData() {
       if ( ! this.isObject( this.value ) ) { return; }
 
@@ -438,6 +430,72 @@ export default {
       if ( this.isObject( this.value.fields ) ) {
         this.active_fields = this.value.fields;
       }
+    },
+
+    getGroupOptions( group_key ) {
+      let group_options = JSON.parse( JSON.stringify( this.groupOptions ) );
+
+      if ( ! this.isObject( group_options ) ) {
+        return group_options;
+      }
+
+      let groups = JSON.parse( JSON.stringify( this.groups[ group_key ] ) );
+
+      for ( let field in groups ) {
+        if ( typeof group_options[ field ] === 'undefined' ) { continue }
+        group_options[ field ].value = groups[ field ];
+      }
+
+      // console.log( { group_options } );
+
+      for ( let field in group_options ) {
+        if ( typeof group_options[ field ].show_if === 'undefined' ) {
+          continue;
+        }
+
+        let show_if_cond = this.checkShowIfCondition({
+          id: field,
+          root: group_options,
+          condition: group_options[ field ].show_if
+        });
+
+        if ( 'plans' == field ) {
+          // console.log( { field, show_if_cond } );
+        }
+    
+        if ( ! show_if_cond.status ) {
+          delete group_options[ field ];
+        }
+      }
+
+      return group_options;
+    },
+
+    getWidgetOptions( field_key ) {
+      let options = JSON.parse( JSON.stringify( this.getActiveFieldsSettings( field_key, 'options' ) ) );
+      let options_data = JSON.parse( JSON.stringify( this.active_fields[ field_key ] ) );
+
+      for ( let field in options_data ) {
+        if ( typeof options[ field ] === 'undefined' ) { continue; }
+        options[ field ].value = options_data[ field ];
+      }
+
+      for ( let field in options ) {
+        if ( typeof options[ field ].show_if === 'undefined' ) {
+          continue;
+        }
+
+        let show_if_cond = this.checkShowIfCondition({
+          root:  options,
+          condition: options[ field ].show_if
+        });
+    
+        if ( ! show_if_cond.status ) {
+          delete options[ field ];
+        }
+      }
+
+      return options;
     },
 
     getActiveFieldsOption(field_key, data_key) {
@@ -456,7 +514,7 @@ export default {
       if ( typeof this.theWidgets[widget_group].widgets[ widget_name ] === "undefined" ) { return false; }
       if ( typeof this.theWidgets[widget_group].widgets[ widget_name ][data_key] === "undefined" ) { return false; }
 
-      return JSON.parse( JSON.stringify( this.theWidgets[widget_group].widgets[widget_name][data_key] ) );
+      return this.theWidgets[widget_group].widgets[widget_name][data_key];
     },
     
     getSanitizedFieldsOptions(field_options) {
@@ -479,11 +537,7 @@ export default {
     toggleActiveFieldCollapseState(field_key) {
       if (typeof this.ative_field_collapse_states[field_key] === "undefined") {
         this.$set(this.ative_field_collapse_states, field_key, {});
-        this.$set(
-          this.ative_field_collapse_states[field_key],
-          "collapsed",
-          false
-        );
+        this.$set( this.ative_field_collapse_states[field_key], "collapsed", false );
       }
       this.ative_field_collapse_states[field_key].collapsed = !this
         .ative_field_collapse_states[field_key].collapsed;
@@ -537,7 +591,7 @@ export default {
     },
     
     updateActiveGroupOptionData(option_key, group_key, $event) {
-      this.groups[group_key][option_key] = $event;
+      Vue.set( this.groups[group_key], option_key, $event );
       this.$emit("update", this.updated_value);
     },
     
@@ -682,7 +736,7 @@ export default {
         typeof destination_field_index !== "undefined" &&
         origin_group_index === destination_group_index
       ) {
-        console.log("Reorder");
+        // console.log("Reorder");
         this.reorderActiveFieldsItems({
           group_index: destination_group_index,
           origin_field_index,
@@ -697,7 +751,7 @@ export default {
         typeof destination_group_index !== "undefined" &&
         origin_group_index !== destination_group_index
       ) {
-        console.log("Move");
+        // console.log("Move");
         this.moveActiveFieldsItems({
           origin_group_index,
           origin_field_index,
@@ -712,7 +766,7 @@ export default {
         typeof inserting_field_key !== "undefined" &&
         typeof destination_group_index !== "undefined"
       ) {
-        console.log("Insert");
+        // console.log("Insert");
         this.insertActiveFieldsItem({
           inserting_from,
           inserting_field_key,
@@ -739,8 +793,8 @@ export default {
       Vue.delete( this.active_fields, the_field_key );
     },
     
-    updateActiveFieldsOptionData(payload) {
-      this.active_fields[payload.field_key][payload.option_key] = payload.value;
+    updateActiveFieldsOptionData( payload ) {
+      Vue.set( this.active_fields[payload.field_key], payload.option_key, payload.value );
       this.$emit("update", this.updated_value);
     },
     

@@ -3484,24 +3484,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             }
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
-                'show_hidden_test_field' => [
-                    'type'  => 'toggle',
-                    'label'  => 'Show Hidden',
-                    'value' => false,
-                ],
-                
-                'hidden_test_field' => [
-                    'type'  => 'Text',
-                    'label'  => 'Hidden Text',
-                    'value' => '',
-                    'show_if' => [
-                        'where' => "show_hidden_test_field",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                
                 'name' => [
                     'label' => 'Name *',
                     'type'  => 'text',
@@ -3641,30 +3623,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'label' => 'Group Name',
                             'value' => '',
                         ],
-
-                        // 'tag_with_plan' => [
-                        //     'type'  => 'toggle',
-                        //     'label'  => 'Tag with plan',
-                        //     'value' => false,
-                        // ],
-
-                        // 'plans' => [
-                        //     'type' => 'checkbox',
-                        //     'label' => 'Chose the plans',
-                        //     'name' => 'submission_form_fields_group_plans',
-                        //     'value' => [],
-                        //     'show_if' => [[
-                        //         'conditions' => [
-                        //             ['key' => 'tag_with_plan', 'value' => true]
-                        //         ]
-                        //     ]],
-
-                        //     'options-source' => [
-                        //         'where'      => 'package_list.options',
-                        //         'filter_by'  => 'package_list.value',
-                        //         'id_prefix'  => 'form_group',
-                        //     ],
-                        // ]
                     ],
 
                     'value' => [
@@ -4146,8 +4104,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'title'       => __('Labels', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'show_hidden_test_field',
-                                        'hidden_test_field',
+                                        'name',
                                         'icon',
                                         'singular_name',
                                         'plural_name',

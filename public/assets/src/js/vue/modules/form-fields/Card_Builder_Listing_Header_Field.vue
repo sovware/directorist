@@ -130,9 +130,6 @@
         @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
         @close="closeWidgetOptionsWindow()"
       />
-
-      <pre>{{ output_data }}</pre>
-
     </div>
   </div>
 </template>

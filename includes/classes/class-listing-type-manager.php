@@ -3536,24 +3536,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'value'       => '',
                 ],
 
-                'export' => [
-                    'label' => __('Export config file', 'directorist'),
-                    'type'  => 'button',
-                    'link' => '',
-                    'id'    => 'listing-type-export',
-                    'extra_class' => 'cptm-btn cptm-btn-secondery',
-                    'target' => '',
-                    'icon'  => 'fa fa-download',
-                ],
-
-                'import' => [
-                    'label' => __('Import config file', 'directorist'),
-                    'type'  => 'button',
-                    'link' => '',
-                    'id'    => 'listing-type-import',
-                    'extra_class' => 'cptm-btn cptm-btn-primary',
-                    'target' => '',
-                    'icon'  => 'fa fa-upload',
+                'import_export' => [
+                    'type'  => 'import-export',
                 ],
 
                 'default_expiration' => [
@@ -4104,11 +4088,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'title'       => __('Labels', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'name',
-                                        'icon',
-                                        'singular_name',
-                                        'plural_name',
-                                        'permalink',
+                                        'name', 'icon', 'singular_name', 'plural_name', 'permalink',
                                     ],
                                 ],
                             ],
@@ -4158,8 +4138,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'title'       => __('Export & Import Config File', 'directorist'),
                                     'description' => __('Bulk import and export all the form, layout and settings', 'directorist'),
                                     'fields'      => [
-                                        'export',
-                                        'import',
+                                        'import_export',
                                     ],
                                 ],
                             ],

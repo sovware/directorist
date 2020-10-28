@@ -125,7 +125,7 @@ $light-gray: #f4f5f7;
   margin: 20px 0;
 }
 
-.atbdp-cptm-alert {
+.cptm-alert {
   margin: 5px auto;
   max-width: 500px;
   padding: 10px 20px;
@@ -1565,6 +1565,7 @@ input[type="radio"].cptm-radio {
 
 .cptm-form-alert {
   padding: 10px 0;
+  color: #06d6a0;
   transition: all ease-in-out 300ms;
 
   &.cptm-error {
@@ -1716,4 +1717,8 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
 
 .cptm-text-left {
   text-align: left !important;
+}
+
+.cptm-d-none {
+  display: none !important;
 }

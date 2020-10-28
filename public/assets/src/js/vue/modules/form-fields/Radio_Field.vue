@@ -1,15 +1,15 @@
 <template>
     <div class="cptm-form-group">
-        <label for="">{{label}}</label>
+        <label>{{label}}</label>
         <div class="cptm-radio-area">
             <div class="cptm-radio-item" v-for="( option, option_index ) in theOptions" :key="option_index">
                 <input type="radio" class="cptm-radio" 
-                    :id="( typeof option.id !== 'undefined' ) ? option.id : ''"
+                    :id="( typeof option.id !== 'undefined' ) ? feildId + '_' + option.id : ''"
                     :name="name"
                     :value="( typeof option.value !== 'undefined' ) ? option.value : ''"
                     v-model="local_value"
                 >
-                <label :for="( typeof option.id !== 'undefined' ) ? option.id : ''">
+                <label :for="( typeof option.id !== 'undefined' ) ? feildId + '_' + option.id : ''">
                     {{ option.label }}
                 </label>
             </div>
@@ -33,6 +33,11 @@ export default {
         event: 'input'
     },
     props: {
+        feildId: {
+            type: [String, Number],
+            required: false,
+            default: '',
+        },
         label: {
             type: [String, Number],
             required: false,

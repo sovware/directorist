@@ -35,9 +35,9 @@
                   <template v-for="(option, option_key) in getGroupOptions( group_key )">
                     <component 
                       :is="option.type + '-field'" :key="option_key" 
-                      :feild-id="option_key"
+                      :feild-id="group_key + '_' + option_key"
                       v-bind="getSanitizedFieldsOptions(option)" 
-                      :value="getActiveGroupOptionValue(option_key, group_key)"
+                      :value="option.value"
                       @update="updateActiveGroupOptionData( option_key, group_key, $event )">
                     </component>
                   </template>
@@ -122,7 +122,6 @@
     </div>
 
     <div class="cptm-col-6" v-if="theWidgetGroups">
-    
       <div class="cptm-form-builder-preset-fields" v-for="(widget_group, group_key) in theWidgetGroups" :key="group_key">
         <h3 class="cptm-title-3">{{ widget_group.title }}</h3>
         <p class="cptm-description-text">{{ widget_group.description }}</p>
@@ -592,6 +591,7 @@ export default {
     
     updateActiveGroupOptionData(option_key, group_key, $event) {
       Vue.set( this.groups[group_key], option_key, $event );
+      console.log( this.groups );
       this.$emit("update", this.updated_value);
     },
     

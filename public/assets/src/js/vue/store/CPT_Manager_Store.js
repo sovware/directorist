@@ -18,16 +18,16 @@ export default new Vuex.Store({
       state.active_nav_index = index;
     },
 
+    updateFields: ( state, value ) => {
+      state.fields = value;
+    },
+
     updatelayouts: ( state, value ) => {
       state.layouts = value;
     },
 
     updateConfig: ( state, value ) => {
       state.config = value;
-    },
-
-    updateFields: ( state, value ) => {
-      state.fields = value;
     },
 
     updateFormFields: ( state, value ) => {

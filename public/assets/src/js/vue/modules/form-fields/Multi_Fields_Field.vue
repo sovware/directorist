@@ -37,6 +37,10 @@ export default {
     'name': 'multi-fields-field',
     mixins: [ helpers ],
     props: {
+        name: {
+            type: String,
+            default: '',
+        },
         label: {
             type: String,
             default: '',
@@ -62,7 +66,7 @@ export default {
     },
     
 
-    mounted() {
+    created() {
         this.setup();
     },
 
@@ -182,6 +186,19 @@ export default {
 
             this.theActiveGroups.forEach(( item, group_index ) => {
                 if ( group_index === current_group_index ) {
+                    return;
+                }
+                
+                
+
+                if ( typeof item[current_field_key] === 'undefined' ) {
+                    /* console.log( this.name, {
+                        item,
+                        group_index,
+                        current_field_key, 
+                        current_value, 
+                        current_group_index
+                    }); */
                     return;
                 }
 

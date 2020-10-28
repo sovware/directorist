@@ -17,6 +17,15 @@ if ( cpt_manager_el ) {
         store,
         components: {
             'cpt-manager': cpt_manager_component
+        },
+
+        data() {
+            return {
+                id: cptm_data.id,
+                fields: cptm_data.fields,
+                layouts: cptm_data.layouts,
+                config: cptm_data.config,
+            }
         }
     });
 }

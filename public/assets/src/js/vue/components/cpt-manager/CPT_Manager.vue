@@ -57,36 +57,20 @@ export default {
     },
 
     created() {
-
-        if ( this.fields && this.fields.length ) {
-            const fields = JSON.parse( this.fields );
-
-            if ( fields ) {
-                this.$store.commit( 'updateFields', fields );
-            }
+        if ( this.$root.fields ) {
+            this.$store.commit( 'updateFields', this.$root.fields );
         }
 
-        if ( this.layouts && this.layouts.length ) {
-            const layouts = JSON.parse( this.layouts );
-
-            if ( layouts ) {
-                this.$store.commit( 'updatelayouts', layouts );
-            }
+        if ( this.$root.layouts ) {
+            this.$store.commit( 'updatelayouts', this.$root.layouts );
         }
 
-        if ( this.config && this.config.length ) {
-            const config = JSON.parse( this.config );
-
-            if ( config ) {
-                this.$store.commit( 'updateConfig', config );
-            }
+        if ( this.$root.config ) {
+            this.$store.commit( 'updateConfig', this.$root.config );
         }
 
-
-        
-
-        if ( this.id && ! isNaN( this.id ) ) {
-            const id = parseInt( this.id );
+        if ( this.$root.id && ! isNaN( this.$root.id ) ) {
+            const id = parseInt( this.$root.id );
 
             if ( id > 0 ) {
                 this.listing_type_id = id;

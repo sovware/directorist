@@ -4334,7 +4334,17 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'add_new_link'          => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=add_new'),
             ];
 
+            $cptm_data = [
+                'post_types_list_table' => $post_types_list_table,
+                'fields'                => $this->fields,
+                'layouts'               => $this->layouts,
+                'config'                => $this->config,
+                'id'                    => $listing_type_id,
+                'add_new_link'          => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=add_new'),
+            ];
+
             if (!empty($action) && ('edit' === $action || 'add_new' === $action)) {
+                wp_localize_script('atbdp_admin_app', 'cptm_data', $cptm_data);
                 $this->enqueue_scripts();
                 atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
 

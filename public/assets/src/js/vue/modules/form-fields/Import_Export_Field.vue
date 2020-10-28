@@ -55,9 +55,6 @@ export default {
 
     data() {
         return {
-            export_link: '#',
-            export_name: '',
-
             validation_messages: [
                 // { type: 'success', message: 'Test' }
             ]

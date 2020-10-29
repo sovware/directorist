@@ -27,6 +27,11 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? $_POST[ 'directory-name' ] : '';
             $json_file = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? $_FILES[ 'directory-import-file' ] : '';
 
+            /* wp_send_json( [
+                'directory_name' => $directory_name,
+                'json_file' => $json_file,
+            ], 200 ); */
+
             // Validation
             $status = [
                 'success'     => false,
@@ -65,9 +70,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             }
 
             $add_directory = $this->add_directory([ 
-                'name'         => $directory_name,
-                'fields_value' => $file_contents,
-                'is_json'      => true
+                'directory_name' => $directory_name,
+                'fields_value'   => $file_contents,
+                'is_json'        => true
             ]);
 
             wp_send_json( $add_directory, 200 );
@@ -75,7 +80,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
         // add_directory
         public function add_directory( array $args = [] ) {
-            $default = [ 'name' => '', 'fields_value' => [], 'is_json' => false ];
+            $default = [ 'directory_name' => '', 'fields_value' => [], 'is_json' => false ];
             $args    = array_merge( $default, $args );
 
             // Validation

@@ -17,11 +17,15 @@
 					<?php
 					ATBDP()->listing->add_listing->show_nonce_field();
 
-					foreach ( $form_data as $section ) {
-						Directorist_Listing_Forms::instance()->add_listing_section_template( $section );
+					if ( !empty( $is_edit_mode ) ) {
+						$listing_form->add_listing_type_template();
 					}
 
-					Directorist_Listing_Forms::instance()->add_listing_submit_template();
+					foreach ( $form_data as $section ) {
+						$listing_form->add_listing_section_template( $section );
+					}
+
+					$listing_form->add_listing_submit_template();
 					?>
 				</div>
 			</fieldset>

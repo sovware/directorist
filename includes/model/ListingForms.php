@@ -14,25 +14,23 @@ class Directorist_Listing_Forms {
 	public $add_listing_id;
 	public $add_listing_post;
 
-	private function __construct() {
+	private function __construct( $id ) {
+		if ( $id ) {
+			$this->add_listing_id = $id;
+		}
+
 		add_action( 'wp', array( $this, 'init' ) );
-		add_action( 'admin_init', array( $this, 'init' ) );
 	}
 
-	public static function instance() {
+	public static function instance( $id = '' ) {
 		if ( null == self::$instance ) {
-			self::$instance = new self();
+			self::$instance = new self( $id );
 		}
 		return self::$instance;
 	}
 
 	public function init() {
 		$this->add_listing_id   = get_query_var( 'atbdp_listing_id', 0 );
-		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
-	}
-
-	public function admin_init() {
-		$this->add_listing_id   = get_the_ID();
 		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
 	}
 
@@ -754,6 +752,22 @@ class Directorist_Listing_Forms {
 		}
 	}
 
+	public function add_listing_type_template() {
+		$all_types     = get_terms(array(
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
+		));
+		$terms =  get_the_terms( $this->get_add_listing_id(), ATBDP_TYPE );
+		$current_type  = !empty($terms) ? $terms[0]->term_id : '';
+
+		$args = array(
+			'listing_form'  => $this,
+			'listing_types' => $all_types,
+			'current_type'  => $current_type,
+		);
+		atbdp_get_shortcode_template( 'forms/fields/type', $args );
+	}
+
 	public function add_listing_label_template( $data, $id = '' ) {
 		$args = array(
 			'form'  => $this,
@@ -927,6 +941,7 @@ class Directorist_Listing_Forms {
 			$terms =  get_the_terms( $p_id, ATBDP_TYPE );
 			$type  = !empty($terms) ? $terms[0]->term_id : '';
 			$args['form_data'] = $this->build_form_data( $type );
+			$args['is_edit_mode'] = true;
 			return atbdp_return_shortcode_template( 'forms/add-listing', $args );
 		}
 		else {

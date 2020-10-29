@@ -74,13 +74,15 @@ $light-gray: #f4f5f7;
 
 .cptm-btn,
 .cptm-btn.cptm-label-btn {
-  margin: 0 5px;
+  margin: 0 5px 10px;
+  display: inline-block;
+  text-align: center;
   border: 1px solid;
   padding: 10px 20px;
-  color: #fff;
   border-radius: 5px;
   cursor: pointer;
   transition: all ease-in-out 300ms;
+  vertical-align: top;
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
@@ -110,6 +112,18 @@ $light-gray: #f4f5f7;
     color: #fff;
     background-color: $primary;
   }
+}
+
+.cptm-file-input-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  .cptm-btn {
+    flex-grow: 1;
+  }
+}
+
+.cptm-btn-box {
+  display: block;
 }
 
 .cptm-form-builder-group-field-drop-area {
@@ -1057,11 +1071,22 @@ input[type="radio"].cptm-radio {
   }
 }
 
+.cptm-center-content {
+  display: flex;
+  height: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  &.cptm-content-wide * {
+    flex-grow: 1;
+  }
+}
+
 .cptm-mb-10 {
-  margin-bottom: 10px;
+  margin-bottom: 10px !important;
 }
 .cptm-mb-20 {
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
 }
 
 .cptm-listing-card-body-header {
@@ -1713,6 +1738,82 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
 }
 
 
+.cptm-modal-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  z-index: 99999;
+  height: 100vh;
+  
+  &.active {
+    display: block;
+  }
+}
+.cptm-modal-wrap {
+  display: flex;
+  padding: 20px;
+  min-height: calc(100% - 40px);
+  justify-content: center;
+  align-items: center;
+  transition: all ease-in-out 300ms;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.cptm-modal {
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+  width: 100%;
+  max-width: 300px;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.cptm-modal-header {
+  position: relative;
+  padding: 15px 30px 15px 15px;
+  margin: -10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e3e3e3;
+}
+
+.cptm-modal-header-title {
+  text-align: left;
+  margin: 0;
+}
+
+.cptm-modal-actions {
+  display: block;
+  margin: 0 -5px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  text-align: right;
+}
+
+.cptm-modal-action-link {
+  margin: 0 5px;
+  text-decoration: none;
+  height: 25px;
+  display: inline-block;
+  width: 25px;
+  text-align: center;
+  line-height: 25px;
+  border-radius: 50%;
+  color: #2b2b2b;
+  font-size: 18px;
+  @extend .reset-pseudo-link;
+}
+
+
+.cptm-modal-body {
+  // min-height: 200px;
+}
+
+
 // Utility
 .cptm-text-right {
   text-align: right !important;
@@ -1724,6 +1825,10 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
 
 .cptm-text-left {
   text-align: left !important;
+}
+
+.cptm-d-block {
+  display: block !important;
 }
 
 .cptm-d-none {

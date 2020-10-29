@@ -5,11 +5,6 @@
     <br>
 
     <div id="atbdp-cpt-manager">
-        <cpt-manager
-            id="<?php echo $data['id']; ?>"
-            fields='<?php echo $data['fields']; ?>'
-            layouts='<?php echo $data['layouts']; ?>' 
-            config='<?php echo $data['config']; ?>' 
-        />
+        <cpt-manager />
     </div>
 </div>

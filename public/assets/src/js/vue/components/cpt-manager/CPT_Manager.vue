@@ -39,21 +39,10 @@ const axios = require('axios').default;
 
 export default {
     name: 'cpt-manager',
-    props: {
-        id: { required: false },
-        fields: { required: true },
-        layouts: { required: true },
-        config: { required: false },
-    },
+
     components: {
         headerNavigation,
         tabContents,
-    },
-
-    computed: {
-        ...mapState({
-            
-        })
     },
 
     created() {
@@ -194,9 +183,8 @@ export default {
 
         maybeJSON( data ) {
             let value = ( typeof data === 'undefined' ) ? '' : data;
-            let value_type = typeof value;
 
-            if ( 'object' ===  value_type ) {
+            if ( 'object' === typeof value ) {
                 value = JSON.stringify( value );
             }
 

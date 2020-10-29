@@ -44,7 +44,23 @@ export default new Vuex.Store({
   },
 
   getters: {
+    getFieldsValue: state => {
+      const maybeJSON = function ( data ) {
+          let value = ( typeof data === 'undefined' ) ? '' : data;
+          if ( 'object' === typeof value ) {
+              value = JSON.stringify( value );
+          }
 
+          return value;
+      };
+
+      let form_data = {};
+      for ( let field in state.fields ) {
+          form_data[ field ] = maybeJSON( state.fields[ field ].value )
+      }
+
+      return form_data;
+    }
   }
 
 });

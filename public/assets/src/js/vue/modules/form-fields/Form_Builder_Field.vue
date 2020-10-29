@@ -591,7 +591,6 @@ export default {
     
     updateActiveGroupOptionData(option_key, group_key, $event) {
       Vue.set( this.groups[group_key], option_key, $event );
-      console.log( this.groups );
       this.$emit("update", this.updated_value);
     },
     

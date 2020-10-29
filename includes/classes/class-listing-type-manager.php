@@ -13,12 +13,206 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         public function run()
         {
 
-            add_action('admin_enqueue_scripts', [$this, 'register_scripts']);
-            add_action('init', [$this, 'register_terms']);
-            add_action('admin_menu', [$this, 'add_menu_pages']);
-            add_action('admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request']);
+            add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
+            add_action( 'init', [$this, 'register_terms'] );
+            add_action( 'admin_menu', [$this, 'add_menu_pages'] );
+            add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
 
-            add_action('wp_ajax_save_post_type_data', [$this, 'save_post_type_data']);
+            add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
+            add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
+            add_action( 'template_redirect', [ $this, 'directory_json_download_link' ] );
+        }
+
+        public function save_imported_post_type_data() {
+            $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? $_POST[ 'directory-name' ] : '';
+            $json_file = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? $_FILES[ 'directory-import-file' ] : '';
+
+            // Validation
+            $status = [
+                'success'     => false,
+                'status_log'  => [],
+                'error_count' => 0,
+            ];
+
+            // Validate file
+            if ( empty( $json_file ) ) {
+                $status['status_log'][] = [
+                    'file_is_missing' => [
+                        'type' => 'error',
+                        'message' => 'File is missing',
+                    ],
+                ];
+
+                $status['error_count']++;
+            }
+
+            // Validate file data
+            $file_contents = file_get_contents( $json_file['tmp_name'] );
+            if ( empty( $file_contents ) ) {
+                $status['status_log'][] = [
+                    'invalid_data' => [
+                        'type' => 'error',
+                        'message' => 'The data is invalid',
+                    ],
+                ];
+
+                $status['error_count']++;
+            }
+        
+            // Send respone if has error
+            if ( $status['error_count'] ) {
+                wp_send_json( $status , 200 );
+            }
+
+            $add_directory = $this->add_directory([ 
+                'name'         => $directory_name,
+                'fields_value' => $file_contents,
+                'is_json'      => true
+            ]);
+
+            wp_send_json( $add_directory, 200 );
+        }
+
+        // add_directory
+        public function add_directory( array $args = [] ) {
+            $default = [ 'name' => '', 'fields_value' => [], 'is_json' => false ];
+            $args    = array_merge( $default, $args );
+
+            // Validation
+            $status = [
+                'success'     => true,
+                'status_log'  => [],
+                'error_count' => 0,
+            ];
+
+            if ( $args['is_json'] ) {
+                $args['fields_value'] = json_decode( $args['fields_value'], true );
+            }
+
+            // Validate data
+            $has_invalid_data = false;
+
+            if ( is_null( $args['fields_value'] ) ) {
+                $has_invalid_data = true;
+            }
+
+            if ( 'array' !== gettype( $args['fields_value'] ) ) {
+                $has_invalid_data = true;
+            }
+
+            if ( $has_invalid_data ) {
+                $status['status_log'][] = [
+                    'invalid_data' => [
+                        'type' => 'error',
+                        'message' => 'The data is invalid',
+                    ],
+                ];
+    
+                $status['error_count']++;
+            }
+
+            
+            // Validate name
+            if ( empty( $args['directory_name'] ) ) {
+                $status['status_log'][] = [
+                    'name_is_missing' => [
+                        'type'    => 'error',
+                        'message' => 'Name is missing',
+                    ],
+                ];
+
+                $status['error_count']++;
+            }
+
+            // Validate term name
+            if ( ! empty( $args['directory_name'] ) && term_exists( $args['directory_name'], 'atbdp_listing_types' ) ) {
+                $status['status_log'][] = [
+                    'term_exists' => [
+                        'type'    => 'error',
+                        'message' => 'The name already exists',
+                    ],
+                ];
+
+                $status['error_count']++;
+            }
+
+            // Return status
+            if ( $status['error_count'] ) {
+                $status['success'] = false;
+                return $status;
+            }
+
+
+            $term = wp_insert_term( $args['directory_name'], 'atbdp_listing_types');
+            if ( is_wp_error( $term ) ) {
+                $status['status_log'][] = [
+                    'term_exists' => [
+                        'type'    => 'error',
+                        'message' => 'The name already exists',
+                    ],
+                ];
+
+                $status['error_count']++;
+            }
+
+            if ( $status['error_count'] ) {
+                $status['success'] = false;
+                return $status;
+            }
+
+            // $update_directory = $this->update_directory([
+            //     'term_id'      => $term['term_id'],
+            //     'fields_value' => $args['fields_value'],
+            // ]);
+            
+            // return $update_directory;
+
+            return $status;
+        }
+
+        // update_directory
+        public function update_directory( array $args = [] ) {
+            $default = [ 'term_id' => 0, 'fields_value' => [] ];
+            $args = array_merge( $default, $args );
+
+            // Validation
+            $status = [
+                'success'     => true,
+                'status_log'  => [],
+                'error_count' => 0,
+            ];
+
+            // Validate term id
+            if ( empty( $args['term_id'] ) ) {
+                $status['status_log'][] = [
+                    'invalid_term_id' => [
+                        'type'    => 'error',
+                        'message' => 'Invalid term ID',
+                    ],
+                ];
+
+                $status['error_count']++;
+            }
+
+            // Return status
+            if ( $status['error_count'] ) {
+                $status['success'] = false;
+                return $status;
+            }
+
+            // Update the value
+            foreach ( $args['fields_value'] as $key => $value ) {
+                $this->update_validated_term_meta( $args['term_id'], $key, $value );
+            }
+
+            $status['status_log'][] = [
+                'updated' => [
+                    'type'    => 'error',
+                    'message' => 'The directory has been updated successfuly',
+                ],
+            ];
+
+            return $status;
         }
 
         // save_post_type_data
@@ -3537,7 +3731,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 ],
 
                 'import_export' => [
-                    'type'  => 'import-export',
+                    'type'  => 'export',
                 ],
 
                 'default_expiration' => [
@@ -4343,9 +4537,11 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'add_new_link'          => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=add_new'),
             ];
 
+            $this->enqueue_scripts();
+
             if (!empty($action) && ('edit' === $action || 'add_new' === $action)) {
                 wp_localize_script('atbdp_admin_app', 'cptm_data', $cptm_data);
-                $this->enqueue_scripts();
+                
                 atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
 
                 return;
@@ -4462,6 +4658,69 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             $this->get_old_custom_fields();
         }
 
+        public function directory_json_download_link() {
+            $directory_id = ( ! empty( $_REQUEST['id'] ) && is_numeric( $_REQUEST['id'] ) ) ? ( int ) $_REQUEST['id'] : 0;
+            $is_valid_term = get_term_by( 'id', $directory_id, 'atbdp_listing_types' );
+
+            
+            // $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            // var_dump( $_SERVER['REQUEST_URI'] );
+            // var_dump( $_SERVER['REQUEST_URI'] );
+
+            if ( $is_valid_term && preg_match( "/^(/download\/directory\?id=).+$/", $_SERVER['REQUEST_URI'] ) ) {
+
+                header("Content-type: application/x-msdownload",true,200);
+                header("Content-Disposition: attachment; filename=directory.json");
+                header("Pragma: no-cache");
+                header("Expires: 0");
+
+                echo json_encode( $this->fields );
+                exit();
+            }
+        }
+
+        public function directory_csv_download_link() {
+            if ( $_SERVER['REQUEST_URI'] == '/download/directory' ) {
+        
+                $csv = []; $row = [];
+                foreach ( $this->fields as $field => $value ) {
+                    $data_type = gettype( $value );
+                    $row[ $field ] = ( 'array' === $data_type ) ? json_encode( $value ) : $value; 
+                }
+
+                $csv[] = $row;
+
+
+                $this->outputCSV( 'Directory.csv', $csv );
+                exit();
+            }
+        }
+
+        // outputCSV
+        public function outputCSV( $fileName, $assocDataArray ) {
+            ob_clean();
+            header("Content-type: application/x-msdownload",true,200);
+            header("Content-Disposition: attachment; filename=$fileName");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+
+            if( isset( $assocDataArray['0'] ) ){
+                $fp = fopen('php://output', 'w');
+                fputcsv($fp, array_keys($assocDataArray['0']));
+                foreach($assocDataArray AS $values) {
+                    $row = [];
+
+                    foreach ( $values as $key => $value ) {
+                        $row[] = $value;
+                    }
+                    fputcsv($fp, $row);
+
+                }
+                fclose($fp);
+            }
+            ob_flush();
+        }
+
         // enqueue_scripts
         public function enqueue_scripts()
         {
@@ -4479,6 +4738,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         {
             wp_register_style('atbdp-unicons', '//unicons.iconscout.com/release/v3.0.3/css/line.css', false);
             wp_register_style('atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false);
+
+            wp_register_style( 'atbdp_admin_css', ATBDP_PUBLIC_ASSETS . 'css/admin_app.css', [], '1.0' );
+            wp_register_script( 'atbdp_admin_app', ATBDP_PUBLIC_ASSETS . 'js/admin_app.js', ['jquery'], false, true );
         }
     }
 }

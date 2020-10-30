@@ -12,6 +12,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         // run
         public function run()
         {
+            add_filter( 'cptm_fields_before_update', [$this, 'cptm_fields_before_update'], 20, 1 );
 
             add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
             add_action( 'init', [$this, 'register_terms'] );
@@ -24,13 +25,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         }
 
         public function save_imported_post_type_data() {
+            $term_id        = ( ! empty( $_POST[ 'term_id' ] ) ) ? ( int ) $_POST[ 'term_id' ] : 0;
             $directory_name = ( ! empty( $_POST[ 'directory-name' ] ) ) ? $_POST[ 'directory-name' ] : '';
-            $json_file = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? $_FILES[ 'directory-import-file' ] : '';
-
-            /* wp_send_json( [
-                'directory_name' => $directory_name,
-                'json_file' => $json_file,
-            ], 200 ); */
+            $json_file      = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? $_FILES[ 'directory-import-file' ] : '';
 
             // Validation
             $status = [
@@ -70,6 +67,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             }
 
             $add_directory = $this->add_directory([ 
+                'term_id'        => $term_id,
                 'directory_name' => $directory_name,
                 'fields_value'   => $file_contents,
                 'is_json'        => true
@@ -80,16 +78,141 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
         // add_directory
         public function add_directory( array $args = [] ) {
-            $default = [ 'directory_name' => '', 'fields_value' => [], 'is_json' => false ];
+            $default = [ 
+                'term_id'        => 0,
+                'directory_name' => '',
+                'fields_value'   => [],
+                'is_json'        => false
+            ];
+            $args = array_merge( $default, $args );
+
+            $has_term_id = false;
+            if ( ! empty( $args['term_id'] ) ) {
+                $has_term_id = true;
+            }
+
+            if ( $has_term_id && ! is_numeric( $args['term_id'] ) ) {
+                $has_term_id = false;
+            }
+
+            if ( $has_term_id && $args['term_id'] < 1 ) {
+                $has_term_id = false;
+            }
+            
+            $create_directory = [ 'term_id' => 0 ];
+
+            if ( ! $has_term_id ) {
+                $create_directory = $this->create_directory([ 
+                    'directory_name' => $args['directory_name']
+                ]);
+
+                if ( ! $create_directory['status']['success'] ) {
+                    return $create_directory;
+                }
+            }
+            
+            $update_directory = $this->update_directory([
+                'term_id'        => ( ! $has_term_id ) ? $create_directory['term_id'] : $args['term_id'],
+                'directory_name' => $args['directory_name'],
+                'fields_value'   => $args['fields_value'],
+                'is_json'        => $args['is_json'],
+            ]);
+
+            return $update_directory;
+        }
+
+        // create_directory
+        public function create_directory( array $args = [] ) {
+            $default = [ 'directory_name' => '' ];
             $args    = array_merge( $default, $args );
 
-            // Validation
-            $status = [
-                'success'     => true,
-                'status_log'  => [],
-                'error_count' => 0,
+            $response = [
+                'status' => [
+                    'success'     => true,
+                    'status_log'  => [],
+                    'error_count' => 0,
+                ]
             ];
 
+            // Validate name
+            if ( empty( $args['directory_name'] ) ) {
+                $response['status']['status_log'][] = [
+                    'name_is_missing' => [
+                        'type'    => 'error',
+                        'message' => 'Name is missing',
+                    ],
+                ];
+
+                $response['status']['error_count']++;
+            }
+
+            // Validate term name
+            if ( ! empty( $args['directory_name'] ) && term_exists( $args['directory_name'], 'atbdp_listing_types' ) ) {
+                $response['status']['status_log'][] = [
+                    'term_exists' => [
+                        'type'    => 'error',
+                        'message' => 'The name already exists',
+                    ],
+                ];
+
+                $response['status']['error_count']++;
+            }
+
+            // Return status
+            if ( $response['status']['error_count'] ) {
+                $response['status']['success'] = false;
+                return $response;
+            }
+
+            // Create the directory
+            $term = wp_insert_term( $args['directory_name'], 'atbdp_listing_types');
+            
+            if ( is_wp_error( $term ) ) {
+                $response['status']['status_log'][] = [
+                    'term_exists' => [
+                        'type'    => 'error',
+                        'message' => 'The name already exists',
+                    ],
+                ];
+
+                $response['status']['error_count']++;
+            }
+
+            
+            if ( $response['status']['error_count'] ) {
+                $response['status']['success'] = false;
+                return $response;
+            }
+
+            $response['term_id'] = $term['term_id'];
+            $response['status']['status_log'][] = [
+                'term_created' => [
+                    'type'    => 'success',
+                    'message' => 'The directory has been created successfuly',
+                ],
+            ];
+
+            return $response;
+        }
+
+        // update_directory
+        public function update_directory( array $args = [] ) {
+            $default = [ 'directory_name' => '', 'term_id' => 0, 'fields_value' => [], 'is_json' => false ];
+            $args = array_merge( $default, $args );
+
+            // return [ 'status' => true, 'mode' => 'debug' ];
+
+            $response = [
+                'status' => [
+                    'success'     => true,
+                    'status_log'  => [],
+                    'error_count' => 0,
+                ]
+            ];
+
+            $response['term_id'] = $args['term_id'];
+            
+            // Validation
             if ( $args['is_json'] ) {
                 $args['fields_value'] = json_decode( $args['fields_value'], true );
             }
@@ -106,119 +229,131 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             }
 
             if ( $has_invalid_data ) {
-                $status['status_log'][] = [
+                $response['status']['status_log'][] = [
                     'invalid_data' => [
                         'type' => 'error',
                         'message' => 'The data is invalid',
                     ],
                 ];
     
-                $status['error_count']++;
+                $response['status']['error_count']++;
             }
-
-            
-            // Validate name
-            if ( empty( $args['directory_name'] ) ) {
-                $status['status_log'][] = [
-                    'name_is_missing' => [
-                        'type'    => 'error',
-                        'message' => 'Name is missing',
-                    ],
-                ];
-
-                $status['error_count']++;
-            }
-
-            // Validate term name
-            if ( ! empty( $args['directory_name'] ) && term_exists( $args['directory_name'], 'atbdp_listing_types' ) ) {
-                $status['status_log'][] = [
-                    'term_exists' => [
-                        'type'    => 'error',
-                        'message' => 'The name already exists',
-                    ],
-                ];
-
-                $status['error_count']++;
-            }
-
-            // Return status
-            if ( $status['error_count'] ) {
-                $status['success'] = false;
-                return $status;
-            }
-
-
-            $term = wp_insert_term( $args['directory_name'], 'atbdp_listing_types');
-            if ( is_wp_error( $term ) ) {
-                $status['status_log'][] = [
-                    'term_exists' => [
-                        'type'    => 'error',
-                        'message' => 'The name already exists',
-                    ],
-                ];
-
-                $status['error_count']++;
-            }
-
-            if ( $status['error_count'] ) {
-                $status['success'] = false;
-                return $status;
-            }
-
-            // $update_directory = $this->update_directory([
-            //     'term_id'      => $term['term_id'],
-            //     'fields_value' => $args['fields_value'],
-            // ]);
-            
-            // return $update_directory;
-
-            return $status;
-        }
-
-        // update_directory
-        public function update_directory( array $args = [] ) {
-            $default = [ 'term_id' => 0, 'fields_value' => [] ];
-            $args = array_merge( $default, $args );
-
-            // Validation
-            $status = [
-                'success'     => true,
-                'status_log'  => [],
-                'error_count' => 0,
-            ];
 
             // Validate term id
+            $has_invalid_term_id = false;
+
             if ( empty( $args['term_id'] ) ) {
-                $status['status_log'][] = [
+                $has_invalid_term_id = true;
+            }
+
+            if ( ! is_numeric( $args['term_id'] ) ) {
+                $has_invalid_term_id = true;
+            }
+
+            $term_id = $args['term_id'];
+            if ( is_numeric( $term_id ) ) {
+                $args['term_id'] = ( int ) $term_id;
+            }
+
+            // Validate term id
+            if ( ! term_exists( $args['term_id'], 'atbdp_listing_types' ) ) {
+                $has_invalid_term_id = true;
+            }
+
+            if ( $has_invalid_term_id ) {
+                $response['status']['status_log'][] = [
                     'invalid_term_id' => [
                         'type'    => 'error',
                         'message' => 'Invalid term ID',
                     ],
                 ];
 
-                $status['error_count']++;
+                $response['status']['error_count']++;
+            }
+
+            
+            $fields = apply_filters( 'cptm_fields_before_update', $args['fields_value'] );
+            $directory_name = ( ! empty( $fields['name'] ) ) ? $fields['name'] : '';
+            $directory_name = ( ! empty( $args['directory_name'] ) ) ? $args['directory_name'] : $directory_name;
+            
+            $response['fields_value']   = $fields;
+            $response['directory_name'] = $args['directory_name'];
+
+            unset( $fields['name'] );
+
+            $term = get_term( $args['term_id'], 'atbdp_listing_types');
+            $old_name = $term->name;
+
+            if ( $old_name !== $directory_name && term_exists( $directory_name, 'atbdp_listing_types' ) ) {
+                $response['status']['status_log'][] = [
+                    'name_exists' => [
+                        'type'    => 'error',
+                        'name'    => 'error',
+                        'message' => 'The name already exists',
+                    ],
+                ];
+
+                $response['status']['error_count']++;
             }
 
             // Return status
-            if ( $status['error_count'] ) {
-                $status['success'] = false;
-                return $status;
+            if ( $response['status']['error_count'] ) {
+                $response['status']['success'] = false;
+                return $response;
             }
-
+            
+            // Update name if exist
+            if ( ! empty( $directory_name ) ) {
+                wp_update_term( $args['term_id'], 'atbdp_listing_types', ['name' => $directory_name] );
+            }
+            
             // Update the value
-            foreach ( $args['fields_value'] as $key => $value ) {
+            foreach ( $fields as $key => $value ) {
                 $this->update_validated_term_meta( $args['term_id'], $key, $value );
             }
 
-            $status['status_log'][] = [
+            $response['status']['status_log'][] = [
                 'updated' => [
-                    'type'    => 'error',
+                    'type'    => 'success',
                     'message' => 'The directory has been updated successfuly',
                 ],
             ];
 
-            return $status;
+            return $response;
         }
+
+
+        // cptm_fields_before_update
+        public function cptm_fields_before_update( $fields ) {
+            $new_fields     = $fields;
+            $fields_group   = $this->config['fields_group'];
+
+            foreach ( $fields_group as $group_name => $group_fields ) {
+                $grouped_fields_value = [];
+
+                foreach ( $group_fields as $field_index => $field_key ) {
+                    if ('string' === gettype( $field_key ) && array_key_exists($field_key, $this->fields)) {
+                        $grouped_fields_value[ $field_key ] = ( isset( $new_fields[ $field_key ] ) ) ? $new_fields[ $field_key ] : '';
+                        unset( $new_fields[ $field_key ] );
+                    }
+
+                    if ( 'array' === gettype( $field_key ) ) {
+                        $grouped_fields_value[ $field_index ] = [];
+
+                        foreach ( $field_key as $sub_field_key ) {
+                            if ( array_key_exists( $sub_field_key, $this->fields ) ) {
+                                $grouped_fields_value[ $field_index ][ $sub_field_key ] = ( isset( $new_fields[ $sub_field_key ] ) ) ? $new_fields[ $sub_field_key ] : '';
+                                unset( $new_fields[ $sub_field_key ] );
+                            }
+                        }
+                    }
+                }
+
+                $new_fields[ $group_name ] = $grouped_fields_value;
+            }
+
+            return $new_fields;
+        }   
 
         // save_post_type_data
         public function save_post_type_data()
@@ -4526,20 +4661,14 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             $data = [
                 'post_types_list_table' => $post_types_list_table,
-                'fields'                => json_encode($this->fields),
-                'layouts'               => json_encode($this->layouts),
-                'config'                => json_encode($this->config),
-                'id'                    => $listing_type_id,
                 'add_new_link'          => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=add_new'),
             ];
 
             $cptm_data = [
-                'post_types_list_table' => $post_types_list_table,
-                'fields'                => $this->fields,
-                'layouts'               => $this->layouts,
-                'config'                => $this->config,
-                'id'                    => $listing_type_id,
-                'add_new_link'          => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=add_new'),
+                'fields'  => $this->fields,
+                'layouts' => $this->layouts,
+                'config'  => $this->config,
+                'id'      => $listing_type_id,
             ];
 
             $this->enqueue_scripts();

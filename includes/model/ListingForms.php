@@ -802,7 +802,6 @@ class Directorist_Listing_Forms {
 			'form'  => $this,
 			'data'  => $field_data,
 		);
-		// e_var_dump($field_data);
 
 		$template = 'forms/fields/' . $field_data['widget_name'];
 		$template = apply_filters( 'directorist_field_template_' . $field_data['widget_name'], $template, $field_data );

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author AazzTech
  */
@@ -8,29 +7,52 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
-class Directorist_Single_Listing
-{
+class Directorist_Single_Listing {
 
 	protected static $instance = null;
 
 	public $id;
 	public $post;
+	public $title;
 
-	public function __construct($id = '')
-	{
+	public $type;
+	public $header_data;
+	public $content_data;
+
+	// meta
+	public $tagline;
+	public $fm_plan;
+	public $price_range;
+	public $atbd_listing_pricing;
+	public $price;
+
+
+	public function __construct($id = '') {
 		if (!$id) {
 			$id = get_the_ID();
 		}
-		$this->id = (int) $id;
+		$this->id     = (int) $id;
+		$this->post   = get_post( $id );
+		$this->title  = get_the_title( $this->id );
+
+		$this->type          = (int) get_post_meta( $this->id, '_directory_type', true);
+		$this->type = 43; // remove later @kowsar
+		$this->header_data   = get_term_meta( $this->type, 'single_listing_header', true );
+		$this->content_data  = get_term_meta( $this->type, 'single_listings_contents', true );
+
+		$this->prepare_meta();
 	}
 
-	public function get_id()
-	{
-		return $this->id;
+	public function prepare_meta() {
+		$id = $this->id;
+		$this->tagline               = get_post_meta( $id, '_tagline', true );
+		$this->fm_plan               = get_post_meta( $id, '_fm_plans', true );
+		$this->price_range           = get_post_meta( $id, '_price_range', true );
+		$this->atbd_listing_pricing  = get_post_meta( $id, '_atbd_listing_pricing', true );
+		$this->price                 = get_post_meta( $id, '_price', true );
 	}
 
-	public function social_share_data()
-	{
+	public function social_share_data() {
 		$title = get_the_title();
 		$link  = get_the_permalink();
 
@@ -55,97 +77,186 @@ class Directorist_Single_Listing
 		return $result;
 	}
 
-	public function header_actions_template()
-	{
+	public function quick_actions_template() {
 		$args = array(
-			'listing_id'           => $this->get_id(),
-			'enable_favourite'     => get_directorist_option('enable_favourite', 1),
-			'enable_social_share'  => get_directorist_option('enable_social_share', 1),
-			'social_share_data'    => $this->social_share_data(),
-			'enable_report_abuse'  => get_directorist_option('enable_report_abuse', 1),
+			'listing'  => $this,
+			'actions'  => $this->header_data['listings_header']['quick_actions'],
 		);
 
-		$html = atbdp_return_shortcode_template('single-listing/listing-header-actions', $args);
-
-		/**
-		 * @since 5.0
-		 */
-		echo apply_filters('atbdp_header_before_image_slider', $html);
+		atbdp_get_shortcode_template('single-listing/quick-actions', $args );
 	}
 
-	public function the_slider()
-	{
-
-		$id = $this->get_id();
-		$fm_plan              = get_post_meta($id, '_fm_plans', true);
-		$full_image_links     = array();
-		$listing_img          = get_post_meta($id, '_listing_img', true);
-		$display_slider_image = get_directorist_option('dsiplay_slider_single_page', 1);
-		$listing_imgs         = (!empty($listing_img) && !empty($display_slider_image)) ? $listing_img : array();
-
-		foreach ($listing_imgs as $value) {
-			$full_image_links[$value] = atbdp_get_image_source($value, 'large');
-		}
-
-		$display_prv_image = get_post_meta($id, '_listing_prv_img', true);
-		$listing_prv_img = get_post_meta($id, '_listing_prv_img', true);
-		$listing_prv_imgurl = !empty($listing_prv_img) ? atbdp_get_image_source($listing_prv_img, 'large') : '';
-		$plan_slider = true;
-		if (is_fee_manager_active()) {
-			$plan_slider = is_plan_allowed_slider($fm_plan);
-		}
-
+	public function quick_info_template() {
 		$args = array(
-			'image_links'        => $full_image_links,
-			'display_prv_image'  => $display_prv_image,
-			'listing_prv_imgurl' => $listing_prv_imgurl,
-			'plan_slider'        => $plan_slider,
-			'listing_prv_img'    => $listing_prv_img,
-			'p_title'            => get_the_title(),
+			'listing' => $this,
+			'info'    => $this->header_data['listings_header']['quick_info'],
 		);
 
-		$slider = get_plasma_slider($args);
-
-		echo apply_filters('atbdp_single_listing_gallery_section', $slider);
+		atbdp_get_shortcode_template('single-listing/quick-info', $args );
 	}
 
-	public function header_meta_template()
-	{
-		$id = $this->get_id();
-		$fm_plan = get_post_meta($id, '_fm_plans', true);
+	public function slider_template() {
+		$listing_id    = $this->id;
+		$listing_title = get_the_title( $listing_id );
+		
+		// Check if gallery is allowed or not
+		$show_gallery = true;
+
+		if ( is_fee_manager_active() ) {
+			$show_gallery = is_plan_allowed_slider($this->fm_plan);
+		}
+
+		// Get the default image
+		$default_image = get_directorist_option(
+			'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'
+		);
+		
+		// Get the preview images
+		$preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
+		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';
+		$preview_img_alt  = get_post_meta($preview_img_id, '_wp_attachment_image_alt', true);
+		$preview_img_alt  = ( ! empty( $preview_img_alt )  ) ? $preview_img_alt : get_the_title( $preview_img_id );
+
+		// Get the gallery images
+		$listing_img  = get_post_meta( $listing_id, '_listing_img', true );
+		$listing_imgs = ( ! empty( $listing_img ) ) ? $listing_img : array();
+		$image_links  = array(); // define a link placeholder variable
+
+		foreach ( $listing_imgs as $img_id ) {
+			$alt = get_post_meta( $img_id, '_wp_attachment_image_alt', true );
+			$alt = ( ! empty( $alt )  ) ? $alt : get_the_title( $img_id );
+
+			$image_links[] = [
+				'alt' => ( ! empty( $alt )  ) ? $alt : $listing_title,
+				'src' => atbdp_get_image_source( $img_id, 'large' ),
+			];
+		}
+
+		// Get the options
+		$background_type  = get_directorist_option('single_slider_background_type', 'custom-color');
+		
+		// Set the options
+		$data = array(
+			'images'             => [],
+			'alt'                => $listing_title,
+			'background-size'    => get_directorist_option('single_slider_image_size', 'cover'),
+			'blur-background'    => ( 'blur' === $background_type ) ? '1' : '0',
+			'width'              => get_directorist_option('gallery_crop_width', 670),
+			'height'             => get_directorist_option('gallery_crop_height', 750),
+			'background-color'   => get_directorist_option('single_slider_background_color', 'gainsboro'),
+			'thumbnail-bg-color' => '#fff',
+			'show-thumbnails'    => get_directorist_option('dsiplay_thumbnail_img', true) ? '1' : '0',
+			'gallery'            => true,
+			'rtl'                => is_rtl() ? '1' : '0',
+		);
+
+		if ( $show_gallery && ! empty( $image_links ) ) {
+			$data['images'] = $image_links;
+		}
+
+		if ( ! empty( $preview_img_link ) ) {
+			$preview_img = [
+				'alt' => $preview_img_alt,
+				'src' => $preview_img_link,
+			];
+
+			array_unshift( $data['images'], $preview_img );
+		}
+		
+		if ( count( $data['images'] ) < 1 ) {
+			$data['images'][] = [
+				'alt' => $listing_title,
+				'src' => $default_image,
+			];
+		}
+
+		$padding_top         = $data['height'] / $data['width'] * 100;
+		$data['padding-top'] = $padding_top;
+
+		$args = array(
+			'listing'    => $this,
+			'has_slider' => !empty( $this->header_data['listings_header']['thumbnail'] ) ? true : false,
+			'data'       => $data,
+		);
+
+		atbdp_get_shortcode_template('single-listing/slider', $args );
+	}
+
+	public function has_price_range() {
+		$id = $this->id;
+		$plan_average_price = is_fee_manager_active() ? is_plan_allowed_average_price_range($this->fm_plan) : true;
+
+		if (!empty($this->price_range) && ('range' === $this->atbd_listing_pricing) && $plan_average_price) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	public function price_range_html() {
+		$id = $this->id;
+		$currency = get_directorist_option('g_currency', 'USD');
+		$c_symbol = atbdp_currency_symbol($currency);
+		$active   = '<span class="atbd_active">' . $c_symbol . '</span>';
+		$inactive = '<span>' . $c_symbol . '</span>';
+		$output = '';
+
+		switch ($this->price_range) {
+			case 'skimming':
+			$output = $active.$active.$active.$active;
+			break;
+			case 'moderate':
+			$output = $active.$active.$active.$inactive;
+			break;
+			case 'economy':
+			$output = $active.$active.$inactive.$inactive;
+			break;
+			case 'bellow_economy':
+			$output = $active.$inactive.$inactive.$inactive;
+			break;
+		}
+
+		$result = sprintf('<div class="atbd_meta atbd_listing_average_pricing atbd_tooltip" aria-label="%s">%s</div>', ucfirst( $this->price_range ), $output);
+
+		return $result;
+	}
+
+	public function has_price() {
+		$id         = $this->id;
+		$plan_price = is_fee_manager_active() ? is_plan_allowed_price( $this->fm_plan ) : true;
+		
+		return ( $this->price && $plan_price ) ? true : false;
+	}
+
+
+	public function price_html() {
+		$id            = $this->id;
+	    $allow_decimal = get_directorist_option('allow_decimal', 1);
+	    $c_position    = get_directorist_option('g_currency_position');
+	    $currency      = get_directorist_option('g_currency', 'USD');
+	    $symbol        = atbdp_currency_symbol($currency);
+
+	    $before = $after = '';
+	    if ('after' == $c_position) {
+	    	$after = $symbol;
+	    }
+	    else {
+	    	$before = $symbol;
+	    }
+
+	    $price = $before . atbdp_format_amount($this->price, $allow_decimal) . $after;
+	    $price_html = apply_filters('atbdp_listing_price', sprintf("<span class='atbd_meta atbd_listing_price'>%s</span>", $price));
+	    return $price_html;
+	}
+
+	public function review_count_html() {
+		$id = $this->id;
 
 		$reviews_count = ATBDP()->review->db->count(array('post_id' => $id));
 		$reviews = (($reviews_count > 1) || ($reviews_count === 0)) ? __(' Reviews', 'directorist') : __(' Review', 'directorist');
 		$review_count_html = $reviews_count . $reviews;
-
-		$args = array(
-			'listing'                         => $this,
-			'listing_id'                      => $this->get_id(),
-			'plan_price'                      => is_fee_manager_active() ? is_plan_allowed_price($fm_plan) : true,
-			'plan_average_price'              => is_fee_manager_active() ? is_plan_allowed_average_price_range($fm_plan) : true,
-			'enable_review'                   => get_directorist_option('enable_review', 'yes'),
-			'is_disable_price'                => get_directorist_option('disable_list_price'),
-			'review_count_html'               => $review_count_html,
-			'price'                           => get_post_meta($id, '_price', true),
-			'price_range'                     => get_post_meta($id, '_price_range', true),
-			'atbd_listing_pricing'            => get_post_meta($id, '_atbd_listing_pricing', true),
-			'enable_new_listing'              => get_directorist_option('display_new_badge_cart', 1),
-			'display_feature_badge_single'    => get_directorist_option('display_feature_badge_cart', 1),
-			'display_popular_badge_single'    => get_directorist_option('display_popular_badge_cart', 1),
-			'featured'                        => get_post_meta($id, '_featured', true),
-			'feature_badge_text'              => get_directorist_option('feature_badge_text', 'Feature'),
-			'popular_badge_text'              => get_directorist_option('popular_badge_text', 'Popular'),
-			'cat_list'                        => get_the_term_list($id, ATBDP_CATEGORY, '', ', '),
-			'enable_single_location_taxonomy' => get_directorist_option('enable_single_location_taxonomy', 0),
-			'loc_list'                        => get_the_term_list($id, ATBDP_LOCATION, '', ', '),
-		);
-
-		$html = atbdp_return_shortcode_template('single-listing/listing-header-meta', $args);
-
-		/**
-		 * @since 5.0
-		 */
-		echo apply_filters('atbdp_before_listing_title', $html);
+		return $review_count_html;
 	}
 
 	public static function single_content_wrapper($content)
@@ -312,89 +423,101 @@ class Directorist_Single_Listing
 		return $content;
 	}
 
-	public function render_shortcode_top_area()
-	{
+	public function header_template() {
+		$section_title = !empty($this->header_data['options']['general']['section_title']['label']) ? $this->header_data['options']['general']['section_title']['label'] : '';
+		
+		$args = array(
+			'listing'       => $this,
+			'section_title' => $section_title,
+		);
 
+		return atbdp_get_shortcode_template('single-listing/header', $args);
+	}
+
+	public function render_item( $data ) {
+		$template = 'single-listing/items/' . $data['id'];
+		$args = array(
+			'listing' => $this,
+			'data'    => $data,
+		);
+		atbdp_get_shortcode_template( $template, $args );
+	}
+
+	public function render_shortcode_single_listing() {
 		if (!is_singular(ATBDP_POST_TYPE)) {
 			return;
 		}
 
-		$id      = $this->get_id();
-		$fm_plan = get_post_meta($id, '_fm_plans', true);
-		$post    = get_post($id);
-		$content = apply_filters('get_the_content', $post->post_content);
-		$content = do_shortcode(wpautop($content));
-
 		$args = array(
-			'listing'                      => $this,
-			'listing_id'                   => $id,
-			'listing_details_text'         => apply_filters('atbdp_single_listing_details_section_text', get_directorist_option('listing_details_text', __('Listing Details', 'directorist'))),
-			'p_title'                      => get_the_title(),
-			'fm_plan'                      => $fm_plan,
-			'tagline'                      => get_post_meta($id, '_tagline', true),
-			'display_tagline_field'        => get_directorist_option('display_tagline_field', 0),
-			'content'                      => $content,
+			'listing' => $this,
 		);
 
-		return atbdp_return_shortcode_template('single-listing/listing-header', $args);
+		return atbdp_return_shortcode_template('single-listing/single-listing', $args);
+	}
+
+	public function get_contents() {
+		$post    = $this->post;
+		$content = apply_filters('get_the_content', $post->post_content);
+		$content = do_shortcode(wpautop($content));
+		return $content;
 	}
 
 	public function get_custom_field_type_value($field_id, $field_type, $field_details)
 	{
 		switch ($field_type) {
 			case 'color':
-				$result = sprintf('<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details);
-				break;
+			$result = sprintf('<div class="atbd_field_type_color" style="background-color: %s;"></div>', $field_details);
+			break;
 
 			case 'date':
-				$result = date(get_option('date_format'), strtotime($field_details));
-				break;
+			$result = date(get_option('date_format'), strtotime($field_details));
+			break;
 
 			case 'time':
-				$result = date('h:i A', strtotime($field_details));
-				break;
+			$result = date('h:i A', strtotime($field_details));
+			break;
 
 			case 'url':
-				$result = sprintf('<a href="%s" target="_blank">%s</a>', esc_url($field_details), esc_url($field_details));
-				break;
+			$result = sprintf('<a href="%s" target="_blank">%s</a>', esc_url($field_details), esc_url($field_details));
+			break;
 
 			case 'file':
-				$done = str_replace('|||', '', $field_details);
-				$name_arr = explode('/', $done);
-				$filename = end($name_arr);
-				$result = sprintf('<a href="%s" target="_blank" download>%s</a>', esc_url($done), $filename);
-				break;
+			$done = str_replace('|||', '', $field_details);
+			$name_arr = explode('/', $done);
+			$filename = end($name_arr);
+			$result = sprintf('<a href="%s" target="_blank" download>%s</a>', esc_url($done), $filename);
+			break;
 
 			case 'checkbox':
-				$choices = get_post_meta($field_id, 'choices', true);
-				$choices = explode("\n", $choices);
-				$values = explode("\n", $field_details);
-				$values = array_map('trim', $values);
-				$output = array();
-				foreach ($choices as $choice) {
-					if (strpos($choice, ':') !== false) {
-						$_choice = explode(':', $choice);
-						$_choice = array_map('trim', $_choice);
+			$choices = get_post_meta($field_id, 'choices', true);
+			$choices = explode("\n", $choices);
+			$values = explode("\n", $field_details);
+			$values = array_map('trim', $values);
+			$output = array();
+			foreach ($choices as $choice) {
+				if (strpos($choice, ':') !== false) {
+					$_choice = explode(':', $choice);
+					$_choice = array_map('trim', $_choice);
 
-						$_value = $_choice[0];
-						$_label = $_choice[1];
-					} else {
-						$_value = trim($choice);
-						$_label = $_value;
-					}
-					$_checked = '';
-					if (in_array($_value, $values)) {
-						$space = str_repeat(' ', 1);
-						$output[] = "{$space}$_value";
-					}
+					$_value = $_choice[0];
+					$_label = $_choice[1];
+				} else {
+					$_value = trim($choice);
+					$_label = $_value;
 				}
-				$result = join(',', $output);
-				break;
+				$_checked = '';
+				if (in_array($_value, $values)) {
+					$space = str_repeat(' ', 1);
+					$output[] = "{$space}$_value";
+				}
+			}
+			$result = join(',', $output);
+			break;
 
 			default:
-				$content = apply_filters('get_the_content', $field_details);
-				$result = do_shortcode(wpautop($content));
-				break;
+			$content = apply_filters('get_the_content', $field_details);
+			$result = do_shortcode(wpautop($content));
+			break;
 		}
 
 		return $result;
@@ -404,7 +527,7 @@ class Directorist_Single_Listing
 	{
 		$result = array();
 
-		$id = $this->get_id();
+		$id = $this->id;
 
 		$args = array(
 			'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
@@ -473,7 +596,7 @@ class Directorist_Single_Listing
 			return;
 		}
 
-		$id                 = $this->get_id();
+		$id                 = $this->id;
 		$fm_plan            = get_post_meta($id, '_fm_plans', true);
 		$field_data         = $this->get_custom_field_data();
 		$has_custom_fields  = !empty($field_data) ? true : false;
@@ -495,7 +618,7 @@ class Directorist_Single_Listing
 			return;
 		}
 
-		$id      = $this->get_id();
+		$id      = $this->id;
 		$fm_plan = get_post_meta($id, '_fm_plans', true);
 
 		$args = array(
@@ -515,7 +638,7 @@ class Directorist_Single_Listing
 			return;
 		}
 
-		$id      = $this->get_id();
+		$id      = $this->id;
 		$fm_plan = get_post_meta($id, '_fm_plans', true);
 
 		$manual_lat  = get_post_meta($id, '_manual_lat', true);
@@ -604,7 +727,7 @@ class Directorist_Single_Listing
 			return;
 		}
 
-		$id      = $this->get_id();
+		$id      = $this->id;
 		$fm_plan = get_post_meta($id, '_fm_plans', true);
 
 		$address = get_post_meta($id, '_address', true);
@@ -656,7 +779,7 @@ class Directorist_Single_Listing
 			return;
 		}
 
-		$id      = $this->get_id();
+		$id      = $this->id;
 		$fm_plan = get_post_meta($id, '_fm_plans', true);
 
 		$author_id = get_post_field('post_author', $id);
@@ -692,7 +815,7 @@ class Directorist_Single_Listing
 			return;
 		}
 
-		$id      = $this->get_id();
+		$id      = $this->id;
 		$fm_plan = get_post_meta($id, '_fm_plans', true);
 
 		$args = array(
@@ -714,7 +837,7 @@ class Directorist_Single_Listing
 			return;
 		}
 
-		$id = $this->get_id();
+		$id = $this->id;
 
 		$args = array(
 			'listing'            => $this,
@@ -745,7 +868,7 @@ class Directorist_Single_Listing
 			return;
 		}
 
-		$id           = $this->get_id();
+		$id           = $this->id;
 		$fm_plan      = get_post_meta($id, '_fm_plans', true);
 		$review_count = ATBDP()->review->db->count(array('post_id' => $id));
 		$author_id    = get_post_field('post_author', $id);

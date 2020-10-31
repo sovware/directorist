@@ -429,7 +429,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     $this->update_validated_term_meta($term_id, $field_key, $_POST[$field_key]);
                 }
             }
-            $url = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=edit&listing_type_id=' . $term_id);
+            $url = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $term_id);
             wp_send_json([
                 'status' => true,
                 'post_id' => $term_id,
@@ -1849,7 +1849,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => [
                                     'type'  => 'text',
                                     'label' => 'Label',
-                                    'value' => 'Select Files',
+                                    'value' => 'Images',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
@@ -4039,7 +4039,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                               'type' => "badge",
                               'label' => "Back",
                               'options' => [
-                                  'title' => "Section Title Options",
+                                  'title' => "Back Button Settings",
                                   'fields' => [
                                       'label' => [
                                           'type' => "toggle",
@@ -4063,11 +4063,50 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                   ],
                               ],
                             ],
-                        ]
+                        ],
+                        'content_settings' => [
+                            'listing_title' => [
+                              'type' => "title",
+                              'label' => "Listing Title",
+                              'options' => [
+                                  'title' => "Listing Title Settings",
+                                  'fields' => [
+                                      'enable_title' => [
+                                          'type' => "toggle",
+                                          'label' => "Show Title",
+                                          'value' => true,
+                                      ],
+                                      'enable_tagline' => [
+                                          'type' => "toggle",
+                                          'label' => "Show Tagline",
+                                          'value' => true,
+                                      ],
+                                  ],
+                              ],
+                            ],
+                            'listing_description' => [
+                              'type' => "title",
+                              'label' => "Description",
+                              'options' => [
+                                  'title' => "Description Settings",
+                                  'fields' => [
+                                    'enable' => [
+                                        'type' => "toggle",
+                                        'label' => "Show Description",
+                                        'value' => true,
+                                    ],
+                                  ],
+                              ],
+                            ],
+                        ],
+                    ],
+                    'options_layout' => [
+                        'header' => ['back', 'section_title'],
+                        'contents_area' => ['title_and_tagline', 'description'],
                     ],
                     'widgets' => [
                         'bookmark' => [
-                            'type' => "badge",
+                            'type' => "button",
                             'label' => "Bookmark",
                             'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_single_listings_title",
@@ -4089,22 +4128,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'hook' => "atbdp_single_listings_title",
                             'options' => [
                                 'title' => "Share Settings",
-                                'fields' => [
-                                    'icon' => [
-                                        'type' => "icon",
-                                        'label' => "Icon",
-                                        'value' => 'fa fa-home',
-                                    ],
-                                ],
-                            ],
-                        ],
-                        'reviews' => [
-                            'type' => "badge",
-                            'label' => "Reviews",
-                            'icon' => 'uil uil-text-fields',
-                            'hook' => "atbdp_single_listings_title",
-                            'options' => [
-                                'title' => "Reviews Settings",
                                 'fields' => [
                                     'icon' => [
                                         'type' => "icon",
@@ -4148,7 +4171,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ],
                         
                         'listing_slider' => [
-                            'type' => "badge",
+                            'type' => "thumbnail",
                             'label' => "Listings Slider",
                             'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_single_listings_slider",
@@ -4169,30 +4192,50 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 ],
                             ],
                         ],
-
-                        'listing_title' => [
-                            'type' => "title",
-                            'label' => "Listing Title",
-                            'icon' => 'uil uil-text-fields',
-                            'hook' => "atbdp_single_listings_title",
-                        ],
                         'price' => [
                             'type' => "badge",
                             'label' => "Listings Price",
                             'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_single_listings_price",
                         ],
-                        'reviews' => [
+                        'badges' => [
                             'type' => "badge",
+                            'label' => "Badges",
+                            'icon' => 'uil uil-text-fields',
+                            'hook' => "atbdp_single_listings_badges",
+                            'options' => [
+                                'title' => "Badge Settings",
+                                'fields' => [
+                                    'new_badge' => [
+                                        'type' => "toggle",
+                                        'label' => "Display New Badge",
+                                        'value' => true,
+                                    ],
+                                    'popular_badge' => [
+                                        'type' => "toggle",
+                                        'label' => "Display Popular Badge",
+                                        'value' => true,
+                                    ],
+                                    'popular_badge' => [
+                                        'type' => "toggle",
+                                        'label' => "Display Popular Badge",
+                                        'value' => true,
+                                    ],
+                                ],
+                            ],
+                        ],
+                        
+                        'reviews' => [
+                            'type' => "reviews",
                             'label' => "Listings Reviews",
                             'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_single_listings_reviews",
                         ],
-                        'badges' => [
-                            'type' => "badge",
-                            'label' => "Listings Reviews",
+                        'ratings_count' => [
+                            'type' => "ratings-count",
+                            'label' => "Listings Ratings",
                             'icon' => 'uil uil-text-fields',
-                            'hook' => "atbdp_single_listings_badges",
+                            'hook' => "atbdp_single_listings_ratings_count",
                         ],
                         'category' => [
                             'type' => "badge",
@@ -4226,17 +4269,19 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => 'Top Right',
                                 'maxWidget' => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => [ 'bookmark', 'share', 'reviews', 'report', 'compare' ],
+                                'acceptedWidgets' => [ 'bookmark', 'share', 'report', 'compare' ],
                             ],
                             'thumbnail' => [
+                                'label' => 'Thumbnail',
                                 'maxWidget' => 1,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
                                 'acceptedWidgets' => [ 'listing_slider' ],
                             ],
                             'quick_info' => [
+                                'label' => 'Quick info',
                                 'maxWidget' => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => [ 'listing_title', 'price', 'reviews', 'badges', 'category', 'location' ],
+                                'acceptedWidgets' => [ 'badges', 'price', 'reviews', 'ratings_count', 'category', 'location' ],
                             ],
                         ],
                     ],
@@ -4617,17 +4662,17 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         {
             add_submenu_page(
                 'edit.php?post_type=at_biz_dir',
-                'Listing Types',
-                'Listing Types',
+                'Directory Types',
+                'Directory Types',
                 'manage_options',
-                'atbdp-listing-types',
-                [$this, 'menu_page_callback__listing_types'],
+                'atbdp-directory-types',
+                [$this, 'menu_page_callback__directory_types'],
                 5
             );
         }
 
-        // menu_page_callback__listing_types
-        public function menu_page_callback__listing_types()
+        // menu_page_callback__directory_types
+        public function menu_page_callback__directory_types()
         {
             $post_types_list_table = new Listing_Types_List_Table($this);
 
@@ -4643,7 +4688,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             $data = [
                 'post_types_list_table' => $post_types_list_table,
-                'add_new_link'          => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-listing-types&action=add_new'),
+                'add_new_link'          => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=add_new'),
             ];
 
             $cptm_data = [
@@ -4733,7 +4778,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             $this->delete_listing_type($term_id);
 
 
-            wp_redirect(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-listing-types'));
+            wp_redirect(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types'));
             exit;
         }
 
@@ -4771,7 +4816,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             ]);
 
             $this->prepare_settings();
-            $this->get_old_custom_fields();
+            // $this->get_old_custom_fields();
         }
 
         public function directory_json_download_link() {

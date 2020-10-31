@@ -52,7 +52,7 @@ if (class_exists('WP_List_Table') && !class_exists('Listing_Types_List_Table')) 
     {
       $columns = array(
         // 'cb' => '<input type="checkbox" />',
-        'name' => 'Listing Type',
+        'name' => 'Directory Type',
         'slug' => 'Slug',
       );
 
@@ -139,7 +139,7 @@ if (class_exists('WP_List_Table') && !class_exists('Listing_Types_List_Table')) 
     // column_name
     function column_name($item)
     {
-      $edit_link   = admin_url('edit.php' . '?post_type=at_biz_dir&page=atbdp-listing-types&listing_type_id=' . absint($item['ID']) . '&action=edit');
+      $edit_link   = admin_url('edit.php' . '?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . absint($item['ID']) . '&action=edit');
       $delete_link = admin_url('admin-post.php' . '?listing_type_id=' . absint($item['ID']) . '&action=delete_listing_type');
       $delete_link = wp_nonce_url($delete_link, 'delete_listing_type');
       $title       = sprintf('<strong><a href="%s">%s</a></strong>', $edit_link, $item['name']);
@@ -189,7 +189,7 @@ if (class_exists('WP_List_Table') && !class_exists('Listing_Types_List_Table')) 
     // no_items
     function no_items()
     {
-      _e('No listing type found.');
+      _e('No directory type found.', 'directorist');
     }
   }
 

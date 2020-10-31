@@ -1,7 +1,7 @@
 <div class="wrap">
-    <h1 class="wp-heading-inline">Listing Types</h1>
-    <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="page-title-action">Add Listing Type</a>
-    <a href="#" data-target="cptm-import-directory-modal" class="page-title-action cptm-modal-toggle">Import</a>
+    <h1 class="wp-heading-inline"><?php _e( 'Directory Types', 'directorist' ) ?></h1>
+    <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="page-title-action"><?php _e( 'Add new directory', 'directorist' ) ?></a>
+    <a href="#" data-target="cptm-import-directory-modal" class="page-title-action cptm-modal-toggle"><?php _e( 'Import', 'directorist' ) ?></a>
     <?php atbdp_show_flush_alerts( ['page' => 'all-listing-type'] ) ?>
 
     <hr class="wp-header-end">

@@ -221,63 +221,6 @@ export default {
       return { fields: this.active_fields, groups: this.groups };
     },
 
-    theWidgetsByTemplate() {
-      let has_template = false;
-      let template_field = false;
-      let widget_template = null;
-      
-      if ( typeof this.template === 'string' && this.template.length ) {
-        template_field = this.getTergetFields( { path: this.template } );
-      }
-
-      if ( this.isObject( template_field ) ) {
-        has_template = true;
-        template_field = { ...template_field };
-      }
-
-      if ( has_template ) {
-        for ( let widget_group in template_field.widgets ) {
-          let root_widget_group_options = {};
-
-          if ( this.isObject( this.widgets[ widget_group ] ) ) {
-            root_widget_group_options = { ...this.widgets[ widget_group ] };
-            
-            Object.assign( template_field.widgets[ widget_group ], root_widget_group_options );
-          }
-
-          for ( let widget in template_field.widgets[ widget_group ].widgets ) {
-            if ( ! this.isObject( this.widgets[ widget_group ].widgets[ widget ] ) ) { continue; }
-            let root_widget_options = { ...this.widgets[ widget_group ].widgets[ widget ] };
-
-            let label = root_widget_options.label;
-            let has_custom_label = false;
-
-            if ( this.isObject( template_field.value ) ) {
-              has_custom_label = true;
-            }
-
-            if ( has_custom_label && ! this.isObject( template_field.value.fields ) ) {
-              has_custom_label = false;
-            }
-      
-            if ( has_custom_label && ! template_field.value.fields[ widget ] ) {
-              has_custom_label = false;
-            }
-
-            if ( has_custom_label && template_field.value.fields[ widget ].label ) {
-              root_widget_options.label = template_field.value.fields[ widget ].label;
-            }
-
-            Object.assign( template_field.widgets[ widget_group ].widgets[ widget ], root_widget_options );
-          }
-        }
-
-        return template_field.widgets;
-      }
-
-      return this.widgets;
-    },
-
     theWidgets() {
       if ( ! this.widgets && typeof this.widgets !== 'object' ) { return {} }
 

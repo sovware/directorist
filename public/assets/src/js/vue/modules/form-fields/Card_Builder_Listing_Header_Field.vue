@@ -113,6 +113,19 @@
               @close-widgets-picker-window="closeInsertWindow()"
             />
           </div>
+
+          <div class="cptm-card-options-widgets-area" v-if="Object.keys( card_options.content_settings ).length">
+            <template v-for="( widget, widget_key ) in card_options.content_settings">
+              <component
+                :is="widget.type + '-card-widget'"
+                :label="getWidgetLabel( widget )"
+                :key="widget_key"
+                :canMove="false"
+                :canTrash="false"
+                @edit="editOption( card_options.content_settings, widget_key )"
+              />
+            </template>
+          </div>
         </div>
       </div>
     </div>
@@ -351,7 +364,8 @@ export default {
 
       // Card Options
       card_options: {
-        general: {}
+        general: {},
+        content_settings: {},
       },
 
       // Layout

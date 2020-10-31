@@ -1315,6 +1315,7 @@ input[type="radio"].cptm-radio {
   opacity: 0;
   pointer-events: none;
   transition: 0.3s ease;
+  z-index: 9999;
   a {
     padding: 0 6px;
     font-size: 12px;

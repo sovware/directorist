@@ -27,6 +27,8 @@ $( '.cptm-import-directory-form' ).on( 'submit', function( e ) {
     e.preventDefault();
 
     let form_feedback = $( this ).find( '.cptm-form-group-feedback' );
+    let modal_content = $('.cptm-import-directory-modal').find('.cptm-modal-content');
+    let modal_alert   = $('.cptm-import-directory-modal-alert');
     
     let form_data = new FormData();
     form_data.append( 'action', 'save_imported_post_type_data' );
@@ -37,6 +39,8 @@ $( '.cptm-import-directory-form' ).on( 'submit', function( e ) {
 
     let form_fields = $( this ).find( '.cptm-form-field' );
     let general_fields = [ 'text', 'number' ];
+
+    $( this ).find( 'button[type=submit] .cptm-loading-icon' ).removeClass('cptm-d-none');
 
     for ( let field of form_fields ) {
         if ( ! field.name.length ) { continue; }
@@ -58,6 +62,7 @@ $( '.cptm-import-directory-form' ).on( 'submit', function( e ) {
     axios.post( ajax_data.ajax_url, form_data )
         .then( response => {
             // console.log( { response } );
+            $( self ).find( 'button[type=submit] .cptm-loading-icon' ).addClass('cptm-d-none');
 
             // Store term ID if exist
             if ( response.data.term_id && Number.isInteger( response.data.term_id ) && response.data.term_id > 0 ) {
@@ -77,11 +82,16 @@ $( '.cptm-import-directory-form' ).on( 'submit', function( e ) {
             // Reload the page if success
             if ( response.data && response.data.status && response.data.status.success ) {
                 // console.log( 'reloading...' );
+                
+                modal_content.addClass( 'cptm-d-none' );
+                modal_alert.removeClass( 'cptm-d-none' );
+
                 $( self ).trigger("reset");
                 location.reload();
             }
         })
         .catch( error => {
             console.log( { error } );
+            $( self ).find( 'button[type=submit] .cptm-loading-icon' ).addClass('cptm-d-none');
         } );
 });

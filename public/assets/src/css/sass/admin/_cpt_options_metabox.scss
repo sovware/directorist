@@ -1814,6 +1814,38 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
 }
 
 
+.cptm-section-alert-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.cptm-section-alert-content {
+  text-align: center;
+  padding: 10px;
+}
+
+.cptm-section-alert-icon {
+  margin-bottom: 20px;
+  width: 100px;
+  height: 100px;
+  font-size: 3rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  border-radius: 50%;
+  color: darkgray;
+  background-color: #f2f2f2;
+  &.cptm-alert-success {
+    color: #fff;
+    background-color: #14cc60;
+  }
+}
+
+
 // Utility
 .cptm-text-right {
   text-align: right !important;

@@ -37,11 +37,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'error_count' => 0,
                 ]
             ];
-            $status = [
-                'success'     => false,
-                'status_log'  => [],
-                'error_count' => 0,
-            ];
 
             // Validate file
             if ( empty( $json_file ) ) {
@@ -66,6 +61,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         
             // Send respone if has error
             if ( $response['status']['error_count'] ) {
+                $response['status']['success'] = false;
                 wp_send_json( $response , 200 );
             }
 

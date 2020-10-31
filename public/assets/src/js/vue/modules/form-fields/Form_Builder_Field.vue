@@ -245,6 +245,9 @@ export default {
           for ( let widget_key in template_fields ) {
             let _widget_name = template_fields[ widget_key ].widget_name;
             let _widget_group = template_fields[ widget_key ].widget_group;
+
+            if ( ! widgets[ widget_group ].widgets[ _widget_name ] ) { continue; }
+            
             let root_options = template_field.widgets[ _widget_group ].widgets[ _widget_name ];
 
             if ( ! root_options ) { continue; }
@@ -255,8 +258,16 @@ export default {
             let widget_label = ( widgets[ widget_group ].widgets[ _widget_name ].label ) ? widgets[ widget_group ].widgets[ _widget_name ].label : '';
             widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : widget_label;
             root_options.label = widget_label;
-
+    
             Object.assign( widgets[ widget_group ].widgets[ _widget_name ], root_options );
+          
+            if ( ! widgets[ widget_group ].widgets[ _widget_name ].options ) {
+              widgets[ widget_group ].widgets[ _widget_name ].options = {};
+            }
+
+            let ref_option = { type: 'hidden', value: template_fields[ widget_key ] };
+            widgets[ widget_group ].widgets[ _widget_name ].options['reference'] = ref_option;
+
             template_widgets[ widget_key ] = widgets[ widget_group ].widgets[ _widget_name ];
           }
 
@@ -321,6 +332,10 @@ export default {
           if ( ! allow_multiple && typeof this.active_fields[ widget ] !== 'undefined' ) {
             delete widgets[ widget_group ].widgets[ widget ];
             continue;
+          }
+
+          if ( ! widgets[widget_group].widgets[widget].options ) {
+            widgets[widget_group].widgets[widget].options = {};
           }
 
           widgets[widget_group].widgets[widget].options.widget_group = {

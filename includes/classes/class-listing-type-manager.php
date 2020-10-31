@@ -30,6 +30,13 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             $json_file      = ( ! empty( $_FILES[ 'directory-import-file' ] ) ) ? $_FILES[ 'directory-import-file' ] : '';
 
             // Validation
+            $response = [
+                'status' => [
+                    'success'     => true,
+                    'status_log'  => [],
+                    'error_count' => 0,
+                ]
+            ];
             $status = [
                 'success'     => false,
                 'status_log'  => [],
@@ -38,32 +45,28 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             // Validate file
             if ( empty( $json_file ) ) {
-                $status['status_log'][] = [
-                    'file_is_missing' => [
-                        'type' => 'error',
-                        'message' => 'File is missing',
-                    ],
+                $response['status']['status_log']['file_is_missing'] = [
+                    'type' => 'error',
+                    'message' => 'File is missing',
                 ];
 
-                $status['error_count']++;
+                $response['status']['error_count']++;
             }
 
             // Validate file data
             $file_contents = file_get_contents( $json_file['tmp_name'] );
             if ( empty( $file_contents ) ) {
-                $status['status_log'][] = [
-                    'invalid_data' => [
-                        'type' => 'error',
-                        'message' => 'The data is invalid',
-                    ],
+                $response['status']['status_log']['invalid_data'] = [
+                    'type' => 'error',
+                    'message' => 'The data is invalid',
                 ];
 
-                $status['error_count']++;
+                $response['status']['error_count']++;
             }
         
             // Send respone if has error
-            if ( $status['error_count'] ) {
-                wp_send_json( $status , 200 );
+            if ( $response['status']['error_count'] ) {
+                wp_send_json( $response , 200 );
             }
 
             $add_directory = $this->add_directory([ 
@@ -136,11 +139,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             // Validate name
             if ( empty( $args['directory_name'] ) ) {
-                $response['status']['status_log'][] = [
-                    'name_is_missing' => [
-                        'type'    => 'error',
-                        'message' => 'Name is missing',
-                    ],
+                $response['status']['status_log']['name_is_missing'] = [
+                    'type'    => 'error',
+                    'message' => 'Name is missing',
                 ];
 
                 $response['status']['error_count']++;
@@ -148,11 +149,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             // Validate term name
             if ( ! empty( $args['directory_name'] ) && term_exists( $args['directory_name'], 'atbdp_listing_types' ) ) {
-                $response['status']['status_log'][] = [
-                    'term_exists' => [
-                        'type'    => 'error',
-                        'message' => 'The name already exists',
-                    ],
+                $response['status']['status_log']['term_exists'] = [
+                    'type'    => 'error',
+                    'message' => 'The name already exists',
                 ];
 
                 $response['status']['error_count']++;
@@ -168,11 +167,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             $term = wp_insert_term( $args['directory_name'], 'atbdp_listing_types');
             
             if ( is_wp_error( $term ) ) {
-                $response['status']['status_log'][] = [
-                    'term_exists' => [
-                        'type'    => 'error',
-                        'message' => 'The name already exists',
-                    ],
+                $response['status']['status_log']['term_exists'] = [
+                    'type'    => 'error',
+                    'message' => 'The name already exists',
                 ];
 
                 $response['status']['error_count']++;
@@ -185,11 +182,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             }
 
             $response['term_id'] = $term['term_id'];
-            $response['status']['status_log'][] = [
-                'term_created' => [
-                    'type'    => 'success',
-                    'message' => 'The directory has been created successfuly',
-                ],
+            $response['status']['status_log']['term_created'] = [
+                'type'    => 'success',
+                'message' => 'The directory has been created successfuly',
             ];
 
             return $response;
@@ -229,11 +224,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             }
 
             if ( $has_invalid_data ) {
-                $response['status']['status_log'][] = [
-                    'invalid_data' => [
-                        'type' => 'error',
-                        'message' => 'The data is invalid',
-                    ],
+                $response['status']['status_log']['invalid_data'] = [
+                    'type' => 'error',
+                    'message' => 'The data is invalid',
                 ];
     
                 $response['status']['error_count']++;
@@ -261,11 +254,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             }
 
             if ( $has_invalid_term_id ) {
-                $response['status']['status_log'][] = [
-                    'invalid_term_id' => [
-                        'type'    => 'error',
-                        'message' => 'Invalid term ID',
-                    ],
+                $response['status']['status_log']['invalid_term_id'] = [
+                    'type'    => 'error',
+                    'message' => 'Invalid term ID',
                 ];
 
                 $response['status']['error_count']++;
@@ -285,12 +276,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             $old_name = $term->name;
 
             if ( $old_name !== $directory_name && term_exists( $directory_name, 'atbdp_listing_types' ) ) {
-                $response['status']['status_log'][] = [
-                    'name_exists' => [
-                        'type'    => 'error',
-                        'name'    => 'error',
-                        'message' => 'The name already exists',
-                    ],
+                $response['status']['status_log']['name_exists'] = [
+                    'type'    => 'error',
+                    'message' => 'The name already exists',
                 ];
 
                 $response['status']['error_count']++;
@@ -312,11 +300,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 $this->update_validated_term_meta( $args['term_id'], $key, $value );
             }
 
-            $response['status']['status_log'][] = [
-                'updated' => [
-                    'type'    => 'success',
-                    'message' => 'The directory has been updated successfuly',
-                ],
+            $response['status']['status_log']['updated'] = [
+                'type'    => 'success',
+                'message' => 'The directory has been updated successfuly',
             ];
 
             return $response;

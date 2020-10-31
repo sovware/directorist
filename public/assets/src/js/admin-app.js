@@ -15,12 +15,19 @@ $( '.cptm-modal-toggle' ).on( 'click', function( e ) {
     $( '.' + target_class ).toggleClass('active');
 });
 
+// Change label on file select/change
+$('.cptm-file-field').on( 'change', function( e ) {
+    let target_id = $( this ).attr( 'id' );
+    $( 'label[for='+ target_id +']').text( 'Change' );
+});
 
 // cptm-import-directory-form
 let term_id = 0;
 $( '.cptm-import-directory-form' ).on( 'submit', function( e ) {
     e.preventDefault();
 
+    let form_feedback = $( this ).find( '.cptm-form-group-feedback' );
+    
     let form_data = new FormData();
     form_data.append( 'action', 'save_imported_post_type_data' );
 
@@ -45,23 +52,36 @@ $( '.cptm-import-directory-form' ).on( 'submit', function( e ) {
         }
     }
 
+    const self = this;
+    form_feedback.html('');
+
     axios.post( ajax_data.ajax_url, form_data )
         .then( response => {
-            console.log( { response } );
+            // console.log( { response } );
 
+            // Store term ID if exist
             if ( response.data.term_id && Number.isInteger( response.data.term_id ) && response.data.term_id > 0 ) {
                 term_id = response.data.term_id;
                 // console.log( 'Term ID has been updated' );
             }
 
+            // Show status log
+            if ( response.data && response.data.status.status_log ) {
+                let status_log = response.data.status.status_log;
+                for ( let status in status_log ) {
+                    let alert = '<div class="cptm-form-alert cptm-'+ status_log[status].type +'">'+ status_log[status].message +'</div>';
+                    form_feedback.append( alert );
+                }
+            }
+
+            // Reload the page if success
             if ( response.data && response.data.status && response.data.status.success ) {
                 // console.log( 'reloading...' );
+                $( self ).trigger("reset");
                 location.reload();
             }
         })
         .catch( error => {
             console.log( { error } );
         } );
-
-    // console.log( { form_fields } );
 });

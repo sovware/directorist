@@ -28,10 +28,14 @@
                             <input type="text" name="directory-name" class="cptm-form-control cptm-text-center cptm-form-field" placeholder="Directory Name">
                         </div>
 
+                        <div class="cptm-form-group-feedback cptm-text-center cptm-mb-10">
+                            
+                        </div>
+
                         <div class="cptm-file-input-wrap">
                             <label for="directory-import-file" class="cptm-btn cptm-btn-secondery">Select File</label>
                             <button type="submit" class="cptm-btn cptm-btn-primary">Import</button>
-                            <input id="directory-import-file" name="directory-import-file" type="file" accept=".json" class="cptm-d-none cptm-form-field">
+                            <input id="directory-import-file" name="directory-import-file" type="file" accept=".json" class="cptm-d-none cptm-form-field cptm-file-field">
                         </div>
                     </form>
                 </div>

@@ -11,15 +11,17 @@ class Directorist_Single_Listing {
 
 	protected static $instance = null;
 
+	// Basic
 	public $id;
 	public $post;
 	public $title;
 
+	// Type
 	public $type;
 	public $header_data;
 	public $content_data;
 
-	// meta
+	// Meta
 	public $tagline;
 	public $fm_plan;
 	public $price_range;
@@ -31,25 +33,69 @@ class Directorist_Single_Listing {
 		if (!$id) {
 			$id = get_the_ID();
 		}
-		$this->id     = (int) $id;
-		$this->post   = get_post( $id );
-		$this->title  = get_the_title( $this->id );
+		$this->id = (int) $id;
 
-		$this->type          = (int) get_post_meta( $this->id, '_directory_type', true);
-		$this->type = 43; // remove later @kowsar
-		$this->header_data   = get_term_meta( $this->type, 'single_listing_header', true );
-		$this->content_data  = get_term_meta( $this->type, 'single_listings_contents', true );
 
-		$this->prepare_meta();
+		$this->prepare_data();
 	}
 
-	public function prepare_meta() {
+	public function prepare_data() {
 		$id = $this->id;
+
+		$this->post   = get_post( $id );
+		$this->title  = get_the_title( $id );
+
+		$this->type          = (int) get_post_meta( $id, '_directory_type', true);
+		$this->type = 43; // remove later @kowsar
+		$this->header_data   = get_term_meta( $this->type, 'single_listing_header', true );
+		$this->content_data  = $this->build_content_data();
+		
 		$this->tagline               = get_post_meta( $id, '_tagline', true );
 		$this->fm_plan               = get_post_meta( $id, '_fm_plans', true );
 		$this->price_range           = get_post_meta( $id, '_price_range', true );
 		$this->atbd_listing_pricing  = get_post_meta( $id, '_atbd_listing_pricing', true );
 		$this->price                 = get_post_meta( $id, '_price', true );
+	}
+
+	public function build_content_data() {
+		$content_data = array();
+		$data  = get_term_meta( $this->type, 'single_listings_contents', true );
+
+		foreach ( $data['groups'] as $group ) {
+			$section           = $group;
+			$section['fields'] = array();
+			foreach ( $group['fields'] as $field ) {
+				$section['fields'][ $field ] = $data['fields'][ $field ];
+			}
+			$content_data[] = $section;
+
+		}
+
+		return $content_data;
+	}
+
+	public function section_template( $section_data ) {
+		$args = array(
+			'listing'      => $this,
+			'section_data' => $section_data,
+		);
+
+		atbdp_get_shortcode_template( 'single-listing/section', $args );
+	}
+
+	public function field_template( $field_data ) {
+		$value = '';
+		// $value = get_post_meta( $this->id, '_'.$field_data['field_key'], true );
+		$field_data['value'] = $value;
+
+		$args = array(
+			'listing' => $this,
+			'data'    => $field_data,
+		);
+
+		$template = 'single-listing/items/' . $field_data['widget_name'];
+		$template = apply_filters( 'directorist_single_item_template_' . $field_data['widget_name'], $template, $field_data );
+		atbdp_get_shortcode_template( $template, $args );
 	}
 
 	public function social_share_data() {
@@ -232,22 +278,22 @@ class Directorist_Single_Listing {
 
 	public function price_html() {
 		$id            = $this->id;
-	    $allow_decimal = get_directorist_option('allow_decimal', 1);
-	    $c_position    = get_directorist_option('g_currency_position');
-	    $currency      = get_directorist_option('g_currency', 'USD');
-	    $symbol        = atbdp_currency_symbol($currency);
+		$allow_decimal = get_directorist_option('allow_decimal', 1);
+		$c_position    = get_directorist_option('g_currency_position');
+		$currency      = get_directorist_option('g_currency', 'USD');
+		$symbol        = atbdp_currency_symbol($currency);
 
-	    $before = $after = '';
-	    if ('after' == $c_position) {
-	    	$after = $symbol;
-	    }
-	    else {
-	    	$before = $symbol;
-	    }
+		$before = $after = '';
+		if ('after' == $c_position) {
+			$after = $symbol;
+		}
+		else {
+			$before = $symbol;
+		}
 
-	    $price = $before . atbdp_format_amount($this->price, $allow_decimal) . $after;
-	    $price_html = apply_filters('atbdp_listing_price', sprintf("<span class='atbd_meta atbd_listing_price'>%s</span>", $price));
-	    return $price_html;
+		$price = $before . atbdp_format_amount($this->price, $allow_decimal) . $after;
+		$price_html = apply_filters('atbdp_listing_price', sprintf("<span class='atbd_meta atbd_listing_price'>%s</span>", $price));
+		return $price_html;
 	}
 
 	public function review_count_html() {

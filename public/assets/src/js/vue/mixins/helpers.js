@@ -284,7 +284,7 @@ export default {
                 for ( let key of terget_fields ) {
                     if ( ! key.length ) { continue; }
 
-                    if ( 'root' === key ) {
+                    if ( 'self' === key ) {
                         terget_field = args.root;
                         continue;
                     }

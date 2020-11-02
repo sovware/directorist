@@ -249,18 +249,18 @@ export default {
 
             if ( ! widgets[ widget_group ].widgets[ _widget_name ] ) { continue; }
             
-            let root_options = template_field.widgets[ _widget_group ].widgets[ _widget_name ];
+            let template_root_options = template_field.widgets[ _widget_group ].widgets[ _widget_name ];
 
-            if ( ! root_options ) { continue; }
+            if ( ! template_root_options ) { continue; }
 
-            if ( typeof root_options.options !== 'undefined' ) { delete root_options.options; }
-            if ( typeof root_options.lock !== 'undefined' ) { delete root_options.lock; }
+            if ( typeof template_root_options.options !== 'undefined' ) { delete template_root_options.options; }
+            if ( typeof template_root_options.lock !== 'undefined' ) { delete template_root_options.lock; }
 
             let widget_label = ( widgets[ widget_group ].widgets[ _widget_name ].label ) ? widgets[ widget_group ].widgets[ _widget_name ].label : '';
             widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : widget_label;
-            root_options.label = widget_label;
+            template_root_options.label = widget_label;
     
-            Object.assign( widgets[ widget_group ].widgets[ _widget_name ], root_options );
+            Object.assign( widgets[ widget_group ].widgets[ _widget_name ], template_root_options );
           
             if ( ! widgets[ widget_group ].widgets[ _widget_name ].options ) {
               widgets[ widget_group ].widgets[ _widget_name ].options = {};

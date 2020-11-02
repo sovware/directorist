@@ -777,7 +777,7 @@ function prepear_form_data ( form, field_map, data ) {
 
           var status_area = $('.atbdp-widget-elm, .atbdp-contact-message-display');
           //status_area.append('<p style="margin-bottom: 10px">Sending the message, please wait...</p>');
-          
+
           // Post via AJAX
           var data = {
               'action': 'atbdp_public_send_contact_email',
@@ -886,9 +886,9 @@ function prepear_form_data ( form, field_map, data ) {
       e.stopPropagation();
   });
 
-  $(window).on("load", function () {
+  /* $(window).on("load", function () {
       UIkit.grid(".data-uk-masonry");
-  });
+  }); */
 
   $(".atbdp_tab_nav_wrapper > ul > li:first-child > a").one("click", function () {
       (function () {
@@ -991,6 +991,20 @@ function prepear_form_data ( form, field_map, data ) {
       }
   });
 
+  //dashboard sidenav
+  $(".atbd-dashboard-sidenav ul li .atbd-sidenav-dropdown").each(function(i, e){
+    $(e).on("click", function(elm){
+        elm.preventDefault();
+        $(".atbd-dashboard-sidenav ul li ul").slideUp();
+        $(this).siblings("ul").slideToggle();
+    });
+  });
+
+  $(".atbd-dashboard-sidenav-toggle").on("click", function(e){
+    e.preventDefault();
+    $(this).parent(".atbd-dashboard-sidenav").toggleClass("atbd-sidenav-collapsed");
+  });
+
 })(jQuery);
 
 // on load of the page: switch to the currently selected tab
@@ -1049,7 +1063,6 @@ if (atbdSelect !== null) {
                   elm.classList.remove('atbd-active');
               });
               item.classList.add('atbd-active');
-
           });
       });
   });

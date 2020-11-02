@@ -65,6 +65,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 wp_send_json( $response , 200 );
             }
 
+            // 
+            if ( is_numeric( $directory_name ) ) {
+                $term_id = (int) $directory_name;
+                $directory_name = '';
+            }
+
             $add_directory = $this->add_directory([ 
                 'term_id'        => $term_id,
                 'directory_name' => $directory_name,
@@ -188,7 +194,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
         // update_directory
         public function update_directory( array $args = [] ) {
-            $default = [ 'directory_name' => '', 'term_id' => 0, 'fields_value' => [], 'is_json' => false ];
+            $default = [ 
+                'directory_name' => '',
+                'term_id'        => 0,
+                'fields_value'   => [],
+                'is_json'        => false
+            ];
             $args = array_merge( $default, $args );
 
             // return [ 'status' => true, 'mode' => 'debug' ];

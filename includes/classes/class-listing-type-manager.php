@@ -3975,7 +3975,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ],
                         'custom_block_classes' => [
                             'type'  => 'text',
-                            'label'  => 'Custom block Clases',
+                            'label'  => 'Custom block Classes',
                             'value' => '',
                         ],
 
@@ -4004,7 +4004,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'similar_listings_number_of_listings_to_show' => [
                     'type'  => 'range',
                     'min'   => 0,
-                    'max'   => 10,
+                    'max'   => 20,
                     'label' => 'Number of listings to show',
                     'value' => 0,
                 ],
@@ -4157,22 +4157,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 ],
                             ],
                         ],
-                        'compare' => [
-                            'type' => "badge",
-                            'label' => "Compare",
-                            'icon' => 'uil uil-text-fields',
-                            'hook' => "atbdp_single_listings_title",
-                            'options' => [
-                                'title' => "Compare Settings",
-                                'fields' => [
-                                    'icon' => [
-                                        'type' => "icon",
-                                        'label' => "Icon",
-                                        'value' => 'fa fa-home',
-                                    ],
-                                ],
-                            ],
-                        ],
                         
                         'listing_slider' => [
                             'type' => "thumbnail",
@@ -4273,7 +4257,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'label' => 'Top Right',
                                 'maxWidget' => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => [ 'bookmark', 'share', 'report', 'compare' ],
+                                'acceptedWidgets' => [ 'bookmark', 'share', 'report' ],
                             ],
                             'thumbnail' => [
                                 'label' => 'Thumbnail',

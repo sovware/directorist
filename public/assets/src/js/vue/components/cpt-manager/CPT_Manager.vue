@@ -148,7 +148,7 @@ export default {
             // console.log( { log } );
 
             // return;
-            axios.post( ajax_data.ajax_url, form_data, {} )
+            axios.post( ajax_data.ajax_url, form_data )
                 .then( response => {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;

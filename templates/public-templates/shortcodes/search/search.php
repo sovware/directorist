@@ -6,7 +6,6 @@
  */
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_search_area single_area ads-advaced--wrapper" style="background-image: url('<?php echo esc_url($bgimg); ?>')">
-
 	<div class="<?php echo esc_attr( $container_class ); ?>">
 
 		<?php

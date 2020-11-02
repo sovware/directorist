@@ -35,7 +35,7 @@
                   <template v-for="(option, option_key) in getGroupOptions( group_key )">
                     <component 
                       :is="option.type + '-field'" :key="option_key" 
-                      :feild-id="group_key + '_' + option_key"
+                      :feild-id="fieldId + '_' + group_key + '_' + option_key"
                       v-bind="getSanitizedFieldsOptions(option)" 
                       :value="option.value"
                       @update="updateActiveGroupOptionData( option_key, group_key, $event )">
@@ -70,8 +70,9 @@
                       <template v-for="(option, option_key) in getWidgetOptions( field_key )">
                         <component
                           :is="option.type + '-field'"
+                          :test="{ field_key, option_key, value: active_fields[field_key][option_key] }"
                           :key="option_key"
-                          :field-id="option_key"
+                          :field-id="fieldId + '_' + field_key + '_' + option_key"
                           v-bind="getSanitizedFieldsOptions(option)"
                           :value="active_fields[field_key][option_key]"
                           @update="updateActiveFieldsOptionData({ field_key, option_key, value: $event })">

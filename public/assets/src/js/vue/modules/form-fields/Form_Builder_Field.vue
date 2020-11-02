@@ -152,9 +152,9 @@ export default {
   mixins: [ helpers ],
   props: {
     fieldId: {
-        type: [ String, Number ],
-        required: false,
-        default: '',
+      type: [ String, Number ],
+      required: false,
+      default: '',
     },
     template: {
       required: false,
@@ -257,7 +257,8 @@ export default {
             if ( typeof template_root_options.lock !== 'undefined' ) { delete template_root_options.lock; }
 
             let widget_label = ( widgets[ widget_group ].widgets[ _widget_name ].label ) ? widgets[ widget_group ].widgets[ _widget_name ].label : '';
-            widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : widget_label;
+            let template_widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : '';
+            widget_label = ( widget_label ) ? widget_label : template_widget_label;
             template_root_options.label = widget_label;
     
             Object.assign( widgets[ widget_group ].widgets[ _widget_name ], template_root_options );
@@ -265,9 +266,6 @@ export default {
             if ( ! widgets[ widget_group ].widgets[ _widget_name ].options ) {
               widgets[ widget_group ].widgets[ _widget_name ].options = {};
             }
-
-            let ref_option = { type: 'hidden', value: template_fields[ widget_key ] };
-            widgets[ widget_group ].widgets[ _widget_name ].options['reference'] = ref_option;
 
             template_widgets[ widget_key ] = widgets[ widget_group ].widgets[ _widget_name ];
           }
@@ -386,6 +384,9 @@ export default {
       }
 
       if ( this.isObject( this.value.fields ) ) {
+
+        // console.log( this.value.fields );
+
         this.active_fields = this.value.fields;
       }
     },

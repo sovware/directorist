@@ -16,12 +16,54 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
             add_action( 'init', [$this, 'register_terms'] );
+            add_action( 'init', [$this, 'initial_setup'] );
             add_action( 'admin_menu', [$this, 'add_menu_pages'] );
             add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
 
             add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
             add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
             add_action( 'template_redirect', [ $this, 'directory_json_download_link' ] );
+        }
+
+        // initial_setup
+        public function initial_setup() {
+            
+            $has_listings       = false;
+            $has_custom_fields  = false;
+            $migrated           = get_option( 'atbdp_migrated_to_multidirectory', false );
+            $has_multidirectory = get_option( 'atbdp_has_multidirectory', false );
+
+            $get_listings = new WP_Query([
+                'post_type' => ATBDP_POST_TYPE,
+                'posts_per_page' => 1,
+            ]);
+
+            $get_custom_fields = new WP_Query([
+                'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
+                'posts_per_page' => 1,
+            ]);
+
+            $has_listings = $get_listings->post_count;
+            $has_custom_fields = $get_custom_fields->post_count;
+
+            if ( ! $migrated && ( $has_listings || $has_custom_fields ) ) {
+                $this->migrate_to_multidirectory();
+                return;
+            }
+
+            if ( ! $has_multidirectory ) {
+                $this->import_default_directory();
+            }
+        }
+
+        // migrate_to_multidirectory
+        public function migrate_to_multidirectory() {
+            // var_dump( 'migrate_to_multidirectory' );
+        }
+        
+        // import_default_directory
+        public function import_default_directory() {
+            // var_dump( 'migrate_to_multidirectory' );
         }
 
         public function save_imported_post_type_data() {
@@ -65,7 +107,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 wp_send_json( $response , 200 );
             }
 
-            // 
+            // If dierctory name is numeric update the term instead of creating
             if ( is_numeric( $directory_name ) ) {
                 $term_id = (int) $directory_name;
                 $directory_name = '';
@@ -4053,12 +4095,16 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'value' => [
                         'groups' => [
                             [
-                                'label' => 'Basic',
-                                'fields' => [],
+                                'label'     => 'Basic',
+                                'lock'      => true,
+                                'draggable' => false,
+                                'fields'    => [],
                             ],
                             [
-                                'label' => 'Advanced',
-                                'fields' => [],
+                                'label'     => 'Advanced',
+                                'lock'      => true,
+                                'draggable' => false,
+                                'fields'    => [],
                             ],
                         ]
                     ],

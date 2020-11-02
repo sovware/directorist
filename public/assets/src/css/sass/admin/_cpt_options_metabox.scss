@@ -447,10 +447,14 @@ $light-gray: #f4f5f7;
   padding: 15px 20px;
   margin-right: 15px;
   box-sizing: border-box;
-  cursor: move;
+  // cursor: move;
   border-radius: 4px;
   background-color: #444752;
   box-shadow: 0px 1px 5px rgba(#a1a8c6, 0.1);
+}
+
+div[draggable="true"].cptm-form-builder-group-title-area {
+  cursor: move;
 }
 
 .cptm-form-builder-group-title-actions {
@@ -537,12 +541,12 @@ $light-gray: #f4f5f7;
   @extend .reset-pseudo-link;
 }
 
-.action-collapse-up span {
+.action-collapse-up span, .action-collapse-up span::before {
   transition: all ease-in-out 300ms;
   transform: rotate(0);
 }
 
-.action-collapse-down span {
+.action-collapse-down span, .action-collapse-down span::before {
   transition: all ease-in-out 300ms;
   transform: rotate(180deg);
 }

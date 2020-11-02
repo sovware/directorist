@@ -1204,18 +1204,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Select Pricing Type',
                                     'value' => 'both',
                                     'options' => [
-                                        ['value' => '', 'label' => 'Select...'],
-                                        ['value' => 'price_unit', 'label' => 'Price Unit'],
-                                        ['value' => 'price_range', 'label' => 'Price Range'],
-                                        ['value' => 'both', 'label' => 'Both'],
-                                    ],
-                                ],
-                                'pricing_type' => [
-                                    'type'  => 'select',
-                                    'label'  => 'Select Pricing Type',
-                                    'value' => 'both',
-                                    'options' => [
-                                        ['value' => '', 'label' => 'Select...'],
                                         ['value' => 'price_unit', 'label' => 'Price Unit'],
                                         ['value' => 'price_range', 'label' => 'Price Range'],
                                         ['value' => 'both', 'label' => 'Both'],
@@ -1224,33 +1212,23 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'price_range_label' => [
                                     'type'  => 'text',
                                     'show_if' => [
-                                            'compare' => 'or',
-                                            'where' => '',
-                                            'conditions' => [
-                                                ['key' => 'pricing_type', 'value' => 'both'],
-                                                ['key' => 'pricing_type', 'value' => 'price_range'],
-                                            ]
+                                        'where' => "self.pricing_type",
+                                        'compare' => 'or',
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'both'],
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'price_range'],
+                                        ],
                                     ],
-                                    'label'  => 'Price range label',
+                                    'label'  => 'Price Range label',
                                     'value' => 'Price range',
                                     'options' => [
                                         ['value' => 'number', 'label' => 'Number',],
                                         ['value' => 'text', 'label' => 'text',],
                                     ],
                                 ],
-                                'price_range_options' => [
+                                'price_range_type' => [
                                     'type'  => 'select',
-                                    'show_if'  => [
-                                        [
-                                            'compare' => 'or',
-                                            'conditions' => [
-                                                ['key' => 'pricing_type', 'value' => 'both'],
-                                                ['key' => 'pricing_type', 'value' => 'price_range'],
-                                            ]
-                                        ],
-
-                                    ],
-                                    'label'  => 'Price Type Label',
+                                    'label'  => 'Price Range Type',
                                     'value' => 'cheap',
                                     'options' => [
                                         ['value' => 'cheap', 'label' => 'Cheap',],
@@ -1258,19 +1236,51 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ['value' => 'expensive', 'label' => 'Expensive',],
                                         ['value' => 'high', 'label' => 'Ultra High',],
                                     ],
+                                    'show_if' => [
+                                        'where' => "self.pricing_type",
+                                        'compare' => 'or',
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'both'],
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'price_range'],
+                                        ],
+                                    ],
+                                ],
+                                'price_range_min_placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Price Range Min Placeholder',
+                                    'value' => 'Min',
+                                    'show_if' => [
+                                        'where' => "self.pricing_type",
+                                        'compare' => 'or',
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'both'],
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'price_range'],
+                                        ],
+                                    ],
+                                ],
+                                'price_range_max_placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Price Range Max Placeholder',
+                                    'value' => 'Max',
+                                    'show_if' => [
+                                        'where' => "self.pricing_type",
+                                        'compare' => 'or',
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'both'],
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'price_range'],
+                                        ],
+                                    ],
                                 ],
                                 'price_unit_field_type' => [
                                     'type'  => 'select',
-                                    'label'  => 'Price Unit field type',
-                                    'show_if'  => [
-                                        [
-                                            'compare' => 'or',
-                                            'conditions' => [
-                                                ['key' => 'pricing_type', 'value' => 'both'],
-                                                ['key' => 'pricing_type', 'value' => 'price_unit'],
-                                            ]
+                                    'label'  => 'Price Unit Field Type',
+                                    'show_if' => [
+                                        'where' => "self.pricing_type",
+                                        'compare' => 'or',
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'both'],
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'price_unit'],
                                         ],
-
                                     ],
                                     'value' => 'number',
                                     'options' => [
@@ -1280,14 +1290,13 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 ],
                                 'price_unit_field_label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Price Unit field label',
-                                    'show_if'  => [
-                                        [
-                                            'compare' => 'or',
-                                            'conditions' => [
-                                                ['key' => 'pricing_type', 'value' => 'both'],
-                                                ['key' => 'pricing_type', 'value' => 'price_unit'],
-                                            ]
+                                    'label'  => 'Price Unit Field label',
+                                    'show_if' => [
+                                        'where' => "self.pricing_type",
+                                        'compare' => 'or',
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'both'],
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'price_unit'],
                                         ],
                                     ],
                                     'value' => 'Price [USD]',

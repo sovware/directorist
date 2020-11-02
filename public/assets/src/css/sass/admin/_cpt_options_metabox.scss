@@ -185,6 +185,9 @@ $light-gray: #f4f5f7;
   list-style: none;
   text-align: center;
   padding: 0 25px;
+  @media(max-width: 480px){
+    width: 100%;
+  }
 }
 
 .cptm-header-nav__list-item-link {
@@ -197,6 +200,9 @@ $light-gray: #f4f5f7;
   background-color: #f4f5f7;
   position: relative;
   border-bottom: 2px solid transparent;
+  @media(max-width: 480px){
+    padding: 20px 0;
+  }
 
   &.active {
     border-bottom-color: $primary;
@@ -317,6 +323,7 @@ $light-gray: #f4f5f7;
   font-size: 24px;
   font-weight: bold;
   color: $dark;
+  line-height: 1.2;
 }
 
 .atbdp-cptm-tab-contents {
@@ -344,6 +351,10 @@ $light-gray: #f4f5f7;
   min-height: 100px;
   max-width: 700px;
   box-sizing: border-box;
+  @media(max-width: 480px){
+    max-width: 100%;
+    padding: 60px 0;
+  }
   &.tab-wide {
     max-width: 100%;
   }
@@ -370,6 +381,10 @@ $light-gray: #f4f5f7;
   flex-grow: 1;
   width: calc(50% - 30px);
   padding: 0 15px;
+  @media(max-width: 767px){
+    width: calc(100% - 30px);
+    margin-bottom: 30px;
+  }
 }
 
 .cptm-section {
@@ -430,28 +445,31 @@ $light-gray: #f4f5f7;
   display: flex;
   flex-grow: 1;
   padding: 15px 20px;
-  margin-right: 25px;
+  margin-right: 15px;
   box-sizing: border-box;
   cursor: move;
   border-radius: 4px;
-  background-color: #fff;
+  background-color: #444752;
   box-shadow: 0px 1px 5px rgba(#a1a8c6, 0.1);
 }
 
 .cptm-form-builder-group-title-actions {
   display: block;
+  .cptm-form-builder-header-action-link{
+    color: #fff;
+  }
 }
 
 .cptm-form-builder-group-actions {
   display: block;
-  min-width: 25px;
+  min-width: 34px;
 }
 
 .cptm-form-builder-group-title {
   flex-grow: 1;
   margin: 0;
   font-size: 14px;
-  color: $dark-3;
+  color: #fff;
 }
 
 .cptm-form-builder-group-options {
@@ -567,6 +585,9 @@ $light-gray: #f4f5f7;
   }
   &.disabled {
     cursor: not-allowed;
+  }
+  @media(max-width: 400px){
+    width: calc(100% - 10px);
   }
 }
 
@@ -1032,6 +1053,9 @@ input[type="radio"].cptm-radio {
 .cptm-preview-area {
   flex-grow: 1;
   padding: 0 20px;
+  @media(max-width: 400px){
+    padding: 0;
+  }
 }
 
 .cptm-placeholder-blcok {
@@ -1129,6 +1153,9 @@ input[type="radio"].cptm-radio {
     .cptm-listing-card-preview-header {
       min-width: 320px;
       min-height: 300px;
+      @media(max-width: 400px){
+        min-width: 100%;
+      }
     }
   }
 }
@@ -1749,7 +1776,7 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
   overflow: auto;
   z-index: 99999;
   height: 100vh;
-  
+
   &.active {
     display: block;
   }
@@ -1866,4 +1893,16 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
 
 .cptm-d-none {
   display: none !important;
+}
+
+//input radio
+input[type=radio]:checked::before{
+  background-color: #3e62f5;
+}
+
+input[type=checkbox], input[type=radio]{
+  @media (max-width: 767px){
+    width: 15px;
+    height: 15px;
+  }
 }

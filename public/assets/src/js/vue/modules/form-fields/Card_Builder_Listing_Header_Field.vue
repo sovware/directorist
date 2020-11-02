@@ -463,6 +463,10 @@ export default {
 
         if ( has_widget_options ) {
           for ( let option_key in widgets_template.options.fields ) {
+            // console.log( active_widgets_data[widget_key] );
+            if ( typeof active_widgets_data[widget_key].options === "undefined" ) {
+              continue;
+            }
             if ( typeof active_widgets_data[widget_key].options[option_key] === "undefined" ) {
               continue;
             }

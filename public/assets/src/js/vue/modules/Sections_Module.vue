@@ -1,6 +1,5 @@
 <template>
     <div class="cptm-tab-content" :class="containerClass">
-        
         <div class="cptm-section" v-for="( section, section_key ) in theSections" :key="section_key">
             <div class="cptm-title-area">
                 <h3 v-if="typeof section.title === 'string'" class="cptm-title" v-html="section.title"></h3>
@@ -25,6 +24,7 @@
 <script>
 import Vue from 'vue';
 import helpers from './../mixins/helpers';
+import { mapState } from 'vuex';
 
 
 export default {
@@ -42,6 +42,9 @@ export default {
     },
 
     computed: {
+        ...mapState([
+            'metaKeys'
+        ]),
         theSections() {
             let the_sections = JSON.parse( JSON.stringify( this.sections ) );
             

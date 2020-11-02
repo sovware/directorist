@@ -1221,14 +1221,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'price_range_label' => [
                                     'type'  => 'text',
                                     'show_if' => [
-                                        [
                                             'compare' => 'or',
+                                            'where' => '',
                                             'conditions' => [
                                                 ['key' => 'pricing_type', 'value' => 'both'],
                                                 ['key' => 'pricing_type', 'value' => 'price_range'],
                                             ]
-                                        ],
-
                                     ],
                                     'label'  => 'Price range label',
                                     'value' => 'Price range',
@@ -2834,21 +2832,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             ];
 
             $single_listings_contents_widgets = [
-                'available_widgets' => [
+                'preset_widgets' => [
                     'title' => 'Preset Fields',
                     'description' => 'Click on a field to use it',
                     'allow_multiple' => false,
                     'template' => 'submission_form_fields',
                     'widgets' => [
-                        'title'            => [ 'options' => [] ],
-                        'description'      => [ 'options' => [] ],
                         'tagline'          => [ 'options' => [] ],
-                        'pricing'          => [ 'options' => [] ],
-                        'view_count'       => [ 'options' => [] ],
                         'excerpt'          => [ 'options' => [] ],
-                        'location'         => [ 'options' => [] ],
                         'tag'              => [ 'options' => [] ],
-                        'category'         => [ 'options' => [] ],
                         'address'          => [ 'options' => [] ],
                         'map'              => [ 'options' => [] ],
                         'zip'              => [ 'options' => [] ],
@@ -2858,10 +2850,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         'email'            => [ 'options' => [] ],
                         'website'          => [ 'options' => [] ],
                         'social_info'      => [ 'options' => [] ],
-                        // 'image_upload'     => [ 'options' => [] ],
                         'video'            => [ 'options' => [] ],
-                        // 'terms_conditions' => [ 'options' => [] ],
-                        // 'privacy_policy'   => [ 'options' => [] ],
                         'text'             => [ 'options' => [] ],
                         'textarea'         => [ 'options' => [] ],
                         'number'           => [ 'options' => [] ],
@@ -2875,6 +2864,23 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         'file'             => [ 'options' => [] ],
                     ],
                 ],
+                'other_widgets' => [
+                    'title' => 'Other Fields',
+                    'description' => 'Click on a field to use it',
+                    'allow_multiple' => false,
+                    'widgets' => [
+                        'review' => [ 
+                            'label' => 'Review',
+                            'icon' => 'la la-star',
+                            'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'value' => 'Review',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
             ];
 
             $search_form_widgets = [
@@ -2885,16 +2891,22 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'template' => 'submission_form_fields',
                     'widgets' => [
                         'title' => [
+                            'label' => 'Search Bar',
                             'options' => [
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
-                                    'value' => true,
+                                    'value' => false,
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Placeholder',
+                                    'value' => 'What are you looking for?',
                                 ],
                             ],
                         ],
 
-                        'description' => [
+                        'pricing' => [
                             'options' => [
                                 'required' => [
                                     'type'  => 'toggle',
@@ -2904,42 +2916,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             ]
                         ],
 
-                        'tagline' => [
+                        'tag' => [
                             'options' => [
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
-                                    'value' => true,
-                                ],
-                            ]
-                        ],
-
-                        'pricing' => [
-                            'options' => [
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => true,
-                                ],
-                            ]
-                        ],
-
-                        'view_count' => [
-                            'options' => [
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => true,
-                                ],
-                            ]
-                        ],
-
-                        'excerpt' => [
-                            'options' => [
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => true,
+                                    'value' => false,
                                 ],
                             ]
                         ],
@@ -2949,17 +2931,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
-                                    'value' => true,
+                                    'value' => false,
                                 ],
-                            ]
-                        ],
-
-                        'tag' => [
-                            'options' => [
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => true,
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Placeholder',
+                                    'value' => 'Location',
                                 ],
                             ]
                         ],
@@ -2969,7 +2946,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
-                                    'value' => true,
+                                    'value' => false,
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Placeholder',
+                                    'value' => 'Category',
                                 ],
                             ]
                         ],
@@ -2979,17 +2961,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
-                                    'value' => true,
-                                ],
-                            ]
-                        ],
-
-                        'map' => [
-                            'options' => [
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => true,
+                                    'value' => false,
                                 ],
                             ]
                         ],
@@ -2999,7 +2971,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
-                                    'value' => true,
+                                    'value' => false,
                                 ],
                             ]
                         ],
@@ -3009,7 +2981,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
-                                    'value' => true,
+                                    'value' => false,
                                 ],
                             ]
                         ],
@@ -3019,17 +2991,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
-                                    'value' => true,
-                                ],
-                            ]
-                        ],
-
-                        'fax' => [
-                            'options' => [
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => true,
+                                    'value' => false,
                                 ],
                             ]
                         ],
@@ -3039,7 +3001,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
-                                    'value' => true,
+                                    'value' => false,
                                 ],
                             ]
                         ],
@@ -3049,7 +3011,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
-                                    'value' => true,
+                                    'value' => false,
                                 ],
                             ]
                         ],
@@ -3166,6 +3128,35 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         
                     ],
                 ],
+                'other_widgets' => [
+                    'title' => 'Other Fields',
+                    'description' => 'Click on a field to use it',
+                    'allow_multiple' => false,
+                    'widgets' => [
+                        'review' => [
+                            'label' => 'Review',
+                            'icon' => 'fa fa-star',
+                            'options' => [
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                            ],
+                        ],
+                        'radius_search' => [
+                            'label' => 'Radius Search',
+                            'icon' => 'fa fa-map',
+                            'options' => [
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                            ],
+                        ],
+                    ]
+                ]
             ];
 
             $listing_card_widget = [
@@ -3221,6 +3212,32 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'type' => "icon",
                                 'label' => "Icon",
                                 'value' => "la la-tags",
+                            ],
+                        ],
+                    ],
+                ],
+
+                'posted_date' => [
+                    'type' => "list-item",
+                    'label' => "Posted Date",
+                    'icon' => 'la la-clock-o',
+                    'hook' => "atbdp_listings_posted_date",
+                    'options' => [
+                        'title' => "Posted Date",
+                        'fields' => [
+                            'icon' => [
+                                'type' => "icon",
+                                'label' => "Icon",
+                                'value' => "la la-clock-o",
+                            ],
+                            'date_type' => [
+                                'type' => "radio",
+                                'label' => "Date Type",
+                                'options' => [
+                                    [ 'id' => 'atbdp_days_ago', 'label' => 'Days Ago', 'value' => 'days_ago' ],
+                                    [ 'id' => 'atbdp_posted_date', 'label' => 'Posted Date', 'value' => 'post_date' ],
+                                ],
+                                'value' => "post_date",
                             ],
                         ],
                     ],
@@ -3967,7 +3984,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         ['id' => 'match_category_nd_location', 'label' => 'Must match category and location', 'value' => 'match_category_nd_location'],
                         ['id' => 'match_category_or_location', 'label' => 'Must match category or location', 'value' => 'match_category_or_location'],
                     ],
-                    'value'   => '',
+                    'value'   => 'match_category_or_location',
                 ],
 
                 'similar_listings_number_of_listings_to_show' => [
@@ -3976,12 +3993,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'max'   => 20,
                     'label' => 'Number of listings to show',
                     'value' => 0,
-                ],
-
-                'similar_listings_auto_hide' => [
-                    'type'  => 'toggle',
-                    'label' => 'Auto hide',
-                    'value' => false,
                 ],
 
                 'search_form_fields' => [
@@ -4291,7 +4302,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 ],
                                 'acceptedWidgets' => [
                                     "listings_location", "_phone", "_phone2", "_website", "_zip", "_fax", "_address", "_email", "listings_tag", 
-                                    'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file'
+                                    'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                                 ],
                             ],
                         ],
@@ -4347,7 +4358,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 ],
                                 'acceptedWidgets' => [
                                     "listings_location", "_phone", "_phone2", "_website", "_zip", "_fax", "_address", "_email", "listings_tag", 
-                                    'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file'
+                                    'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'
                                 ],
                             ],
                         ],
@@ -4366,27 +4377,27 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     ],
                 ],
 
-                'listings_card_height' => [
-                    'type' => 'number',
-                    'label' => 'Height',
-                    'value' => '250',
-                    'unit' => 'px',
-                    'units' => [
-                        ['label' => 'px', 'value' => 'px'],
-                        ['label' => '%', 'value' => '%'],
-                    ],
-                ],
+                // 'listings_card_height' => [
+                //     'type' => 'number',
+                //     'label' => 'Height',
+                //     'value' => '250',
+                //     'unit' => 'px',
+                //     'units' => [
+                //         ['label' => 'px', 'value' => 'px'],
+                //         ['label' => '%', 'value' => '%'],
+                //     ],
+                // ],
 
-                'listings_card_width' => [
-                    'type' => 'number',
-                    'label' => 'Width',
-                    'value' => '100',
-                    'unit' => '%',
-                    'units' => [
-                        ['label' => 'px', 'value' => 'px'],
-                        ['label' => '%', 'value' => '%'],
-                    ],
-                ],
+                // 'listings_card_width' => [
+                //     'type' => 'number',
+                //     'label' => 'Width',
+                //     'value' => '100',
+                //     'unit' => '%',
+                //     'units' => [
+                //         ['label' => 'px', 'value' => 'px'],
+                //         ['label' => '%', 'value' => '%'],
+                //     ],
+                // ],
 
             ]);
 
@@ -4528,7 +4539,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         'enable_similar_listings',
                                         'similar_listings_logics',
                                         'similar_listings_number_of_listings_to_show',
-                                        'similar_listings_auto_hide',
                                     ],
                                 ]
                             ]
@@ -4565,19 +4575,19 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 ],
                             ],
                         ],
-                        'options' => [
-                            'label' => 'Listings Card Options',
-                            'sections' => [
-                                'listings_card_options' => [
-                                    'title' => __('Customize the options', 'directorist'),
-                                    'description' => 'need help?',
-                                    'fields' => [
-                                        'listings_card_height',
-                                        'listings_card_width'
-                                    ],
-                                ],
-                            ],
-                        ],
+                        // 'options' => [
+                        //     'label' => 'Listings Card Options',
+                        //     'sections' => [
+                        //         'listings_card_options' => [
+                        //             'title' => __('Customize the options', 'directorist'),
+                        //             'description' => 'need help?',
+                        //             'fields' => [
+                        //                 'listings_card_height',
+                        //                 'listings_card_width'
+                        //             ],
+                        //         ],
+                        //     ],
+                        // ],
                     ],
 
                 ],
@@ -4605,10 +4615,10 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         'plural_name',
                         'permalink',
                         'preview_image',
-                        'archive_general' => [
-                            'listings_card_height',
-                            'listings_card_width',
-                        ]
+                        // 'archive_general' => [
+                        //     'listings_card_height',
+                        //     'listings_card_width',
+                        // ]
                     ]
                 ]
             ];

@@ -377,8 +377,6 @@ wp_reset_postdata();
 		$expire_in_days = get_directorist_option('listing_expire_in_days');
 		$p = $_POST; // save some character
 		$exp_dt = !empty($p['exp_date'])?atbdp_sanitize_array($p['exp_date']):array(); // get expiry date from the $_POST and then later sanitize it.
-		$admin_category_select = !empty($p['admin_category_select'])? (int) $p['admin_category_select'] : '';
-		$custom_field = (!empty($p['custom_field'])) ? $p['custom_field'] : array();
 		// if the posted data has info about never_expire, then use it, otherwise, use the data from the settings.
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
 		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
@@ -413,7 +411,6 @@ wp_reset_postdata();
 		$metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
 		$metas['_hide_contact_owner'] = !empty($p['hide_contact_owner'])? sanitize_text_field($p['hide_contact_owner']) : 0;
 
-		//$listing_info = (!empty($p['listing'])) ? aazztech_enc_serialize($p['listing']) : aazztech_enc_serialize(array());
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){
 			$exp_dt = array(
@@ -428,48 +425,6 @@ wp_reset_postdata();
 			$exp_dt = calc_listing_expiry_date(); // get the expiry date in mysql date format using the default expiration date.
 		}
 
-		/*
-		 * send the custom field value to the database
-		 */
-		if( isset( $custom_field ) ) {
-
-			foreach( $custom_field as $key => $value ) {
-
-				$type = get_post_meta( $key, 'type', true );
-
-				switch( $type ) {
-					case 'text' :
-						$value = sanitize_text_field( $value );
-						break;
-					case 'textarea' :
-						$value = esc_textarea( $value );
-						break;
-					case 'select' :
-					case 'radio'  :
-						$value = sanitize_text_field( $value );
-						break;
-					case 'checkbox' :
-						$value = array_map( 'esc_attr', $value );
-						$value = implode( "\n", array_filter( $value ) );
-						break;
-					case 'url' :
-						$value = esc_url_raw( $value );
-						break;
-					default :
-						$value = sanitize_text_field( $value );
-						break;
-					case 'email' :
-						$value = sanitize_text_field( $value );
-						break;
-					case 'date' :
-						$value = sanitize_text_field( $value );
-
-				}
-
-				update_post_meta( $post_id, $key, $value );
-			}
-
-		}
 		if( !empty( $metas['_directory_type'] ) ){
 			wp_set_object_terms($post_id, (int)$metas['_directory_type'], 'atbdp_listing_types');
 		}

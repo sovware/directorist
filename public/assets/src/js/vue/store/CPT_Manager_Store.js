@@ -10,12 +10,22 @@ export default new Vuex.Store({
     fields: {},
     layouts: {},
     config: {},
+    metaKeys: {},
+    deprecatedMetaKeys: [],
   },
   
   // mutations
   mutations: {
     swichNav: ( state, index ) => {
       state.active_nav_index = index;
+    },
+
+    setMetaKey: ( state, payload ) => {
+      Vue.set( state.metaKeys, payload.key, payload.value );
+    },
+
+    removeMetaKey: ( state, payload ) => {
+      Vue.delete( state.metaKeys, payload.key );
     },
 
     updateFields: ( state, value ) => {

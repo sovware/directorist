@@ -15,7 +15,7 @@
             <div class="cptm-modal">
                 <div class="cptm-modal-content">
                     <div class="cptm-modal-header">
-                        <h3 class="cptm-modal-header-title">Import</h3>
+                        <h3 class="cptm-modal-header-title"><?php _e( 'Import', 'directorist' ); ?></h3>
                         <div class="cptm-modal-actions">
                             <a href="#" class="cptm-modal-action-link cptm-modal-toggle" data-target="cptm-import-directory-modal">
                                 <span class="fa fa-times"></span>
@@ -32,12 +32,12 @@
                             <div class="cptm-form-group-feedback cptm-text-center cptm-mb-10"></div>
 
                             <div class="cptm-file-input-wrap">
-                                <label for="directory-import-file" class="cptm-btn cptm-btn-secondery">Select File</label>
+                                <label for="directory-import-file" class="cptm-btn cptm-btn-secondery"><?php _e( 'Select File', 'directorist' ); ?></label>
                                 <button type="submit" class="cptm-btn cptm-btn-primary">
                                     <span class="cptm-loading-icon cptm-d-none">
                                         <span class="fa fa-spin fa fa-spinner"></span>
                                     </span>
-                                    Import
+                                    <?php _e( 'Import', 'directorist' ); ?>
                                 </button>
                                 <input id="directory-import-file" name="directory-import-file" type="file" accept=".json" class="cptm-d-none cptm-form-field cptm-file-field">
                             </div>
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="cptm-section-alert-message">
-                            The directory has been imported successfuly, redirecting...
+                            <?php _e( 'The directory has been imported successfuly, redirecting...', 'directorist' ); ?>
                         </div>
                     </div>
                 </div>

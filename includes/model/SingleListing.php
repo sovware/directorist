@@ -84,8 +84,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function field_template( $field_data ) {
-		$value = '';
-		// $value = get_post_meta( $this->id, '_'.$field_data['field_key'], true );
+		$value = get_post_meta( $this->id, '_'.$field_data['field_key'], true );
 		$field_data['value'] = $value;
 
 		$args = array(

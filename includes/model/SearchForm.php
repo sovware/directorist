@@ -11,7 +11,9 @@ class Directorist_Listing_Search_Form {
 
 	// Search Shortcode
 	public $options = [];
-	public $type = '';
+	public $type;
+	public $listing_type;
+	public $form_data;
 
 	public $atts;
 	public $defaults;
@@ -79,25 +81,31 @@ class Directorist_Listing_Search_Form {
 	public $location_source;
 	public $select_listing_map;
 
-	public function __construct( $type, $atts = array() ) {
-		$this->type = $type;
-		$this->atts = $atts;
+	public function __construct( $type, $listing_type, $atts = array() ) {
+		$this->type         = $type;
+		$this->listing_type = $listing_type;
+		$this->atts         = $atts;
 
 		$this->set_default_options();
 
+		// Search form shortcode
 		if ( $type == 'search_form' ) {
 			$this->update_options_for_search_form();
 			$this->prepare_search_data($atts);
 		}
 
-		if ( $type == 'search' ) {
+		// Search result page
+		if ( $type == 'search_result' ) {
 			$this->update_options_for_search_result_page();
 			$this->prepare_search_data($atts);
 		}
 
+		// Listing Archive page
 		if ( $type == 'listing' ) {
 			$this->prepare_listing_data($atts);
 		}
+
+		$this->form_data          = $this->build_form_data();
 
 		$this->c_symbol           = atbdp_currency_symbol( get_directorist_option( 'g_currency', 'USD' ) );
 		$this->tag_label          = get_directorist_option( 'tag_label', __( 'Tag', 'directorist' ) );
@@ -317,6 +325,38 @@ class Directorist_Listing_Search_Form {
 		$this->location_id             = 'loc-type';
 		$this->location_class          = 'form-control directory_field bdas-category-location';
 		$this->location_source         = ($listing_location_address == 'map_api') ? 'map' : 'address';
+	}
+
+	public function field_template( $field_data) {
+		$key = $field_data['field_key'];
+		$field_data['value'] = isset( $_GET[$key] ) ? $_GET[$key] : '';
+
+		$args = array(
+			'searchform' => $this,
+			'data'       => $field_data,
+		);
+
+		$template = 'search/fields/' . $field_data['widget_name'];
+		$template = apply_filters( 'directorist_search_field_template_' . $field_data['widget_name'], $template, $field_data );
+		atbdp_get_shortcode_template( $template, $args );
+	}
+
+	public function build_form_data() {
+		$form_data          = array();
+		$search_form_fields = get_term_meta( $this->listing_type, 'search_form_fields', true );
+		$search_form_fields = get_term_meta(43, 'search_form_fields', true );
+
+		foreach ( $search_form_fields['groups'] as $group ) {
+			$section           = $group;
+			$section['fields'] = array();
+			foreach ( $group['fields'] as $field ) {
+				$section['fields'][ $field ] = $search_form_fields['fields'][ $field ];
+			}
+			$form_data[] = $section;
+
+		}
+
+		return $form_data;
 	}
 
 	public function price_range_template() {

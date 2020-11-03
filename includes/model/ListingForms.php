@@ -786,7 +786,11 @@ class Directorist_Listing_Forms {
 	}
 
 	public function add_listing_section_template( $section_data ) {
-		atbdp_get_shortcode_template( 'forms/add-listing-section', array( 'section_data' => $section_data ) );
+		$args = array(
+			'form'          => $this,
+			'section_data'  => $section_data,
+		);
+		atbdp_get_shortcode_template( 'forms/add-listing-section', $args );
 	}
 
 	public function add_listing_field_template( $field_data ) {

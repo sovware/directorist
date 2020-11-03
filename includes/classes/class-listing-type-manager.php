@@ -256,38 +256,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     "widget_group" => "preset",
                     "widget_name" => "video"
                 ],
-                "terms_conditions" => [
-                    "type" => "checkbox",
-                    "field_key" => "t_c_check",
-                    "label" => get_directorist_option( 'terms_label', 'I agree with all' ),
-                    "linking_text" => get_directorist_option( 'terms_label_link', 'terms & conditions' ),
-                    "required" => get_directorist_option( 'require_terms_conditions', false ),
-                    "widget_group" => "preset",
-                    "widget_name" => "terms_conditions"
-                ],
-                "privacy_policy" => [
-                    "type" => "checkbox",
-                    "field_key" => "privacy_policy",
-                    "label" => get_directorist_option( 'privacy_label', 'I agree to the' ),
-                    "linking_text" => get_directorist_option( 'privacy_label', 'Privacy & Policy' ),
-                    "required" => get_directorist_option( 'require_privacy', false ),
-                    "widget_group" => "preset",
-                    "widget_name" => "privacy_policy"
-                ]
             ];
 
-            $submission_form_custom_fields = [
-                "privacy_policy" => [
-                    "type" => "checkbox",
-                    "field_key" => "privacy_policy",
-                    "label" => "I agree to the",
-                    "linking_text" => "Privacy & Policy",
-                    "required" => true,
-                    "widget_group" => "preset",
-                    "widget_name" => "privacy_policy"
-                ]
-            ];
-
+            $submission_form_custom_fields = [];
             $submission_form_fields = array_merge( $submission_form_fields, $submission_form_custom_fields );
             $submission_form_groups = [
                 [
@@ -331,8 +302,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     "fields" => [
                         "image_upload",
                         "video",
-                        "terms_conditions",
-                        "privacy_policy"
                     ],
                 ]
             ];
@@ -2372,68 +2341,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
                             ],
                         ],
-
-                        'terms_conditions' => [
-                            'label' => 'Terms & Conditions',
-                            'icon' => 'uil uil-file-exclamation-alt',
-                            'options' => [
-                                'type' => [
-                                    'type'  => 'hidden',
-                                    'value' => 'checkbox',
-                                ],
-                                'field_key' => [
-                                    'type'   => 'meta-key',
-                                    'hidden' => true,
-                                    'value'  => 't_c_check',
-                                ],
-                                'label' => [
-                                    'type'  => 'text',
-                                    'label' => 'Label',
-                                    'value' => 'I agree with all',
-                                ],
-                                'linking_text' => [
-                                    'type'  => 'text',
-                                    'label' => 'Linking Text',
-                                    'value' => 'Terms & Conditions',
-                                ],
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => true,
-                                ],
-                            ],
-                        ],
-
-                        'privacy_policy' => [
-                            'label' => 'Privacy & Policy',
-                            'icon' => 'uil uil-file-exclamation-alt',
-                            'options' => [
-                                'type' => [
-                                    'type'  => 'hidden',
-                                    'value' => 'checkbox',
-                                ],
-                                'field_key' => [
-                                    'type'   => 'meta-key',
-                                    'hidden' => true,
-                                    'value'  => 'privacy_policy',
-                                ],
-                                'label' => [
-                                    'type'  => 'text',
-                                    'label' => 'Label',
-                                    'value' => 'I agree to the',
-                                ],
-                                'linking_text' => [
-                                    'type'  => 'text',
-                                    'label' => 'Linking Text',
-                                    'value' => 'Privacy & Policy',
-                                ],
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => true,
-                                ],
-                            ],
-                        ],
                     ]),
                 ],
 
@@ -4357,15 +4264,61 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'type'  => 'toggle',
                     'value' => '',
                 ],
-                'submit_button_label' => [
-                    'label' => __('Submit Button Label', 'directorist'),
-                    'type'  => 'text',
-                    'value' => __('Save & Preview', 'directorist'),
+
+                // TERMS AND CONDITIONS
+                'listing_terms_condition' => [
+                    'label' => __('Enable', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
                 ],
+                'require_terms_conditions' => [
+                    'label' => __('Required', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'terms_label' => [
+                    'label' => __('Label', 'directorist'),
+                    'type'  => 'text',
+                    'value' => 'I agree with all',
+                ],
+                'terms_label_link' => [
+                    'label' => __('Linking Text', 'directorist'),
+                    'type'  => 'text',
+                    'value' => __('terms & conditions', 'directorist'),
+                ],
+
+                // PRIVACY AND POLICY
+                'listing_privacy' => [
+                    'label' => __('Enable', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'require_privacy' => [
+                    'label' => __('Required', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'privacy_label' => [
+                    'label' => __('Label', 'directorist'),
+                    'type'  => 'text',
+                    'value' => 'I agree to the',
+                ],
+                'privacy_label_link' => [
+                    'label' => __('Linking Text', 'directorist'),
+                    'type'  => 'text',
+                    'value' => __('Privacy & Policy', 'directorist'),
+                ],
+
+                // Submission Settings
                 'preview_mode' => [
                     'label' => __('Enable Preview', 'directorist'),
                     'type'  => 'toggle',
                     'value' => true,
+                ],
+                'submit_button_label' => [
+                    'label' => __('Submit Button Label', 'directorist'),
+                    'type'  => 'text',
+                    'value' => __('Save & Preview', 'directorist'),
                 ],
                 
                 'submission_form_fields' => apply_filters( 'atbdp_listing_type_form_fields', [
@@ -4947,26 +4900,54 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'submission_form' => [
                     'label' => 'Submission Form',
                     'icon' => '<span class="uil uil-file-edit-alt"></span>',
-                    'container' => 'wide',
-                    'sections' => [
+                    'submenu' => [
                         'form_fields' => [
-                            'title' => __('Select or create fields for this listing type', 'directorist'),
-                            'description' => 'need help?',
-                            'fields' => [
-                                'submission_form_fields'
+                            'label' => 'Form Fields',
+                            'container' => 'wide',
+                            'sections' => [
+                                'form_fields' => [
+                                    'title' => __('Select or create fields for this listing type', 'directorist'),
+                                    'description' => 'need help?',
+                                    'fields' => [
+                                        'submission_form_fields'
+                                    ],
+                                ],
                             ],
                         ],
-                        'general_settings' => [
-                            'title' => __('General Settings', 'directorist'),
-                            'description' => 'need help?',
-                            'container' => 'short-width',
-                            'fields' => [
-                                'preview_mode',
-                                'submit_button_label',
+                        'settings' => [
+                            'label' => 'Settings',
+                            'sections' => [
+                                'submittion_settings' => [
+                                    'title' => __('Submittion Settings', 'directorist'),
+                                    'container' => 'short-width',
+                                    'fields' => [
+                                        'preview_mode',
+                                        'submit_button_label',
+                                    ],
+                                ],
+                                'terms_and_conditions' => [
+                                    'title' => __('Terms and Conditions', 'directorist'),
+                                    'container' => 'short-width',
+                                    'fields' => [
+                                        'listing_terms_condition',
+                                        'require_terms_conditions',
+                                        'terms_label',
+                                        'terms_label_link',
+                                    ],
+                                ],
+                                'privacy_and_policy' => [
+                                    'title' => __('Privacy and Policy', 'directorist'),
+                                    'container' => 'short-width',
+                                    'fields' => [
+                                        'listing_privacy',
+                                        'require_privacy',
+                                        'privacy_label',
+                                        'privacy_label_link',
+                                    ],
+                                ],
                             ],
                         ],
                     ],
-
                 ],
 
                 'single_page_layout' => [
@@ -4979,7 +4960,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'sections' => [
                                 'listing_header' => [
                                     'title' => 'Listing Header',
-                                    'description' => 'need help?',
+                                    'title_align' => 'center',
                                     'fields' => [
                                         'single_listing_header'
                                     ],
@@ -5025,6 +5006,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'sections' => [
                                 'listings_card' => [
                                     'title' => __('Create and customize the listing card for grid view', 'directorist'),
+                                    'title_align' => 'center',
                                     'description' => 'need help? Read the documentation or open a ticket in our helpdesk.',
                                     'fields' => [
                                         'listings_card_grid_view'
@@ -5038,6 +5020,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'sections' => [
                                 'listings_card' => [
                                     'title' => __('Create and customize the listing card for listing view', 'directorist'),
+                                    'title_align' => 'center',
                                     'description' => 'need help?',
                                     'fields' => [
                                         'listings_card_list_view'

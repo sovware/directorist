@@ -5955,6 +5955,10 @@ span.atbd_get_loc_wid {
   margin-left: 0;
 }
 
+.atbd_tab-content--fix #user_profile_form .atbd_user_profile_edit {
+  margin-top: 15px;
+}
+
 .atbd_tab-content--fix .atbd-message-sidebar,
 .atbd_tab-content--fix .atbd-message-list {
   flex: 0 0 100%;

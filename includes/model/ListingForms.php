@@ -790,7 +790,7 @@ class Directorist_Listing_Forms {
 			'form'          => $this,
 			'section_data'  => $section_data,
 		);
-		e_var_dump($section_data);
+		// e_var_dump($section_data);
 		atbdp_get_shortcode_template( 'forms/add-listing-section', $args );
 	}
 

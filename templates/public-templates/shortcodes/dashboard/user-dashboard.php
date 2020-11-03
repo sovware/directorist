@@ -24,7 +24,8 @@
         ?>
         
         <div class="atbd_dashboard_wrapper atbd_tab">
-            <div class="atbd-dashboard-sidenav">
+            <div class="atbd_user_dashboard_nav atbd_tab_nav">
+
                 <?php
                 /**
                  * @since 6.6
@@ -33,7 +34,9 @@
                  */
                 do_action( 'directorist_dashboard_navigation');
                 ?>
+
             </div>
+
             <div class="atbd_tab-content">
 
                 <?php

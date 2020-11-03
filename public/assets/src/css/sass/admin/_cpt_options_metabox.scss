@@ -1367,6 +1367,7 @@ input[type="radio"].cptm-radio {
     visibility: hidden;
     opacity: 0;
     transition: 0.3s ease;
+    z-index: 1;
   }
 
   &:hover {

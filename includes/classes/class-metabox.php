@@ -16,18 +16,9 @@ class ATBDP_Metabox {
 	public function __construct() {
 		if ( is_admin() ) {
 			add_action('add_meta_boxes_'.ATBDP_POST_TYPE, array($this, 'listing_metabox'));
-			// add_action('add_meta_boxes_'.ATBDP_POST_TYPE,	array($this, 'listing_info_meta'));
-
 			add_action('transition_post_status',	array($this, 'publish_atbdp_listings'), 10, 3);
-			// edit_post hooks is better than save_post hook for nice checkbox
-			// http://wordpress.stackexchange.com/questions/228322/how-to-set-default-value-for-checkbox-in-wordpress
 			add_action( 'edit_post', array($this, 'save_post_meta'), 10, 2);
 			add_action('post_submitbox_misc_actions', array($this, 'post_submitbox_meta'));
-
-
-			add_action('wp_ajax_atbdp_custom_fields_listings', array($this, 'ajax_callback_custom_fields'), 10, 2 );
-			add_action('wp_ajax_atbdp_custom_fields_listings_selected', array($this, 'ajax_callback_custom_fields'), 10, 2 );
-			
 			// load dynamic fields
 			add_action( 'wp_ajax_atbdp_dynamic_admin_listing_form', array( $this, 'atbdp_dynamic_admin_listing_form' ) );
 		}
@@ -117,229 +108,6 @@ class ATBDP_Metabox {
 	}
 
 	/**
-	 * Display custom fields.
-	 *
-	 * @since	 3.2
-	 * @access   public
-	 * @param	 int    $post_id	Post ID.
-	 * @param	 array    $term_id    Category ID.
-	 */
-	public function ajax_callback_custom_fields( $post_id = 0, $term_id = array() ) {
-		$ajax = false;
-		if( isset( $_POST['term_id'] ) ) {
-			$ajax = true;
-			$post_ID = !empty($_POST['post_id'])?(int)$_POST['post_id']:'' ;
-			$term_id = $_POST['term_id'];
-		}
-		// Get custom fields
-		$custom_field_ids = !empty($term_id) ? $term_id : array();
-		$args = array(
-			'post_type'      => ATBDP_CUSTOM_FIELD_POST_TYPE,
-			'posts_per_page' => -1,
-			'status'        => 'published'
-		);
-		$meta_queries = array();
-		if (!empty($custom_field_ids)){
-			if (count($custom_field_ids)>1){
-				$sub_meta_queries = array();
-				foreach( $custom_field_ids as $value ) {
-					$sub_meta_queries[] = array(
-						'key'		=> 'category_pass',
-						'value'		=> $value,
-						'compare'	=> 'LIKE'
-					);
-				}
-				$meta_queries[] = array_merge( array( 'relation' => 'OR' ), $sub_meta_queries );
-			}else{
-				$meta_queries[] = array(
-					'key'		=> 'category_pass',
-					'value'		=> $custom_field_ids[0],
-					'compare'	=> 'LIKE'
-				);
-			}
-		}
-		$meta_queries[] = array(
-			array(
-				'key'       => 'associate',
-				'value'     => 'categories',
-				'compare'   => 'LIKE',
-			),
-		);
-		$count_meta_queries = count( $meta_queries );
-		if( $count_meta_queries ) {
-			$args['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
-		}
-		$atbdp_query = new WP_Query( $args );
-
-		if ($atbdp_query->have_posts()){
-			// Start the Loop
-			global $post;
-			// Process output
-			ob_start();
-
-			include ATBDP_TEMPLATES_DIR . 'admin-templates/listing-form/add-listing-custom-field.php';
-			wp_reset_postdata(); // Restore global post data stomped by the_post()
-			$output = ob_get_clean();
-
-			print $output;
-
-			if( $ajax ) {
-				wp_die();
-			}
-		}else{
-			echo '<div class="custom_field_empty_area"></div>';
-			if( $ajax ) {
-				wp_die();
-			}
-		}
-	}
-
-
-	/**
-	 * Render Metaboxes for ATBDP_POST_TYPE
-	 * @param Object $post Current Post Object being displayed
-	 */
-	public function listing_info_meta( $post )
-	{
-		$display_prv_field = get_directorist_option('display_prv_field', 1);
-		$display_gallery_field = get_directorist_option('display_gallery_field', 1);
-		$display_video_field = get_directorist_option('display_video_field', 1);
-		add_meta_box('_listing_info',
-			__('General Information', 'directorist'),
-			array($this, 'listing_info'),
-			ATBDP_POST_TYPE,
-			'normal', 'high');
-
-		add_meta_box('_listing_contact_info',
-			__('Contact Information', 'directorist'),
-			array($this, 'listing_contact_info'),
-			ATBDP_POST_TYPE,
-			'normal', 'high');
-		if (!empty($display_prv_field) || !empty($display_gallery_field)) {
-			add_meta_box('_listing_gallery',
-				__('Upload Preview & Slider Images for the Listing', 'directorist'),
-				array($this, 'listing_gallery'),
-				ATBDP_POST_TYPE,
-				'normal', 'high');
-		 }
-		/*
-		 *
-		 * It fires after the video metabox
-		 * @since 1.0.0
-		 */
-		do_action('atbdp_before_video_gallery_backend',$post);
-		if(!empty($display_video_field)) {
-			add_meta_box('_listing_video_gallery',
-				__('Add Video for the Listing', 'directorist'),
-				array($this, 'listing_video_gallery'),
-				ATBDP_POST_TYPE,
-				'normal', 'high');
-		}
-wp_reset_postdata();
-
-		/*
-		 *
-		 * It fires after the video metabox
-		 * @since 4.0.3
-		 */
-		do_action('atbdp_after_video_metabox_backend_add_listing',$post);
-
-	}
-
-	/**
-	 * It displays Listing information meta on Add listing page on the backend
-	 * @param WP_Post $post
-	 */
-	public function listing_info( $post ) {
-
-		//data needed for the custom field
-		$post_meta = get_post_meta( $post->ID );
-		$category = wp_get_object_terms( $post->ID, 'at_biz_dir-category', array( 'fields' => 'ids' ) );
-
-		// get all the meta values from the db, prepare them for use and then send in in a single bar to the add listing view
-		$listing_info['never_expire']           = get_post_meta($post->ID, '_never_expire', true);
-		$listing_info['featured']               = get_post_meta($post->ID, '_featured', true);
-		$listing_info['price']                  = get_post_meta($post->ID, '_price', true);
-		$listing_info['atbd_listing_pricing']   = get_post_meta($post->ID, '_atbd_listing_pricing', true);
-		$listing_info['price_range']            = get_post_meta($post->ID, '_price_range', true);
-		$listing_info['listing_status']         = get_post_meta($post->ID, '_listing_status', true);
-		$listing_info['tagline']                = get_post_meta($post->ID, '_tagline', true);
-		$listing_info['excerpt']                = get_post_meta($post->ID, '_excerpt', true);
-		$listing_info['atbdp_post_views_count']                = get_post_meta($post->ID, '_atbdp_post_views_count', true);
-		$listing_info['expiry_date']            = get_post_meta($post->ID, '_expiry_date', true);
-
-
-		// add nonce security token
-		ATBDP()->load_template('admin-templates/listing-form/add-listing', compact('listing_info') ); // load metabox view and pass data to it.
-	}
-	/**
-	 * It displays meta box for listing contact information from the backend editor of ATBDP_POST_TYPE
-	 * @param WP_Post $post
-	 */
-	public function listing_contact_info($post )
-	{
-		// get all the meta values from the db, prepare them for use and then send in in a single bar to the add listing view
-		$listing_contact_info['address']                = get_post_meta($post->ID, '_address', true);
-		$listing_contact_info['phone']                  = get_post_meta($post->ID, '_phone', true);
-		$listing_contact_info['phone2']                  = get_post_meta($post->ID, '_phone2', true);
-		$listing_contact_info['fax']                  = get_post_meta($post->ID, '_fax', true);
-		$listing_contact_info['email']                 = get_post_meta($post->ID, '_email', true);
-		$listing_contact_info['website']               = get_post_meta($post->ID, '_website', true);
-		$listing_contact_info['zip']                    = get_post_meta($post->ID, '_zip', true);
-		$listing_contact_info['social']                = get_post_meta($post->ID, '_social', true);
-		$listing_contact_info['manual_lat']             = get_post_meta($post->ID, '_manual_lat', true);
-		$listing_contact_info['manual_lng']            = get_post_meta($post->ID, '_manual_lng', true);
-		$listing_contact_info['hide_map']               = get_post_meta($post->ID, '_hide_map', true);
-		$listing_contact_info['bdbh']                  = get_post_meta($post->ID, '_bdbh', true);
-		$listing_contact_info['enable247hour']         = get_post_meta($post->ID, '_enable247hour', true);
-		$listing_contact_info['disable_bz_hour_listing']         = get_post_meta($post->ID, '_disable_bz_hour_listing', true);
-		$listing_contact_info['listing_img']            = get_post_meta($post->ID, '_listing_img', true);
-		$listing_contact_info['hide_contact_info']      = get_post_meta($post->ID, '_hide_contact_info', true);
-		$listing_contact_info['hide_contact_owner']      = get_post_meta($post->ID, '_hide_contact_owner', true);
-		$listing_contact_info['id_itself']              = $post->ID;
-
-		ATBDP()->load_template('admin-templates/listing-form/contact-info', compact('listing_contact_info') );
-	}
-	/**
-	 * It displays meta box for uploading image from the backend editor of ATBDP_POST_TYPE
-	 * @param WP_Post $post
-	 */
-	public function listing_gallery($post )
-	{
-
-		$listing_img= get_post_meta($post->ID, '_listing_img', true);
-		$listing_prv_img= get_post_meta($post->ID, '_listing_prv_img', true);?>
-		<div id="directorist" class="directorist atbd_wrapper"><?php  ATBDP()->load_template('admin-templates/listing-form/media-upload', compact('listing_img', 'listing_prv_img') );?></div>
-
-   <?php }
-
-	/**
-	 * It displays meta box for uploading video from the backend editor of ATBDP_POST_TYPE
-	 * @param WP_Post $post
-	 */
-	public function listing_video_gallery($post )
-	{
-		$id = $post->ID;
-		$post_meta = get_post_meta( $post->ID );
-		$videourl = get_post_meta($post->ID, '_videourl', true);
-		$enable_video_url = get_directorist_option('atbd_video_url',1);
-		$video_placeholder = get_directorist_option('video_placeholder',__('Only YouTube & Vimeo URLs.', 'directorist'));
-		$video_label = get_directorist_option('video_label', __('Video Url', 'directorist'));
-		?>
-		<div id="directorist" class="directorist atbd_wrapper atbdp_video_field">
-			<div class="form-group">
-				<label for="videourl"><?php
-					$video_label = get_directorist_option('video_label', __('Video Url', ATBDP_TEXTDOMAIN));
-					esc_html_e($video_label.':', ATBDP_TEXTDOMAIN); ?></label>
-				<input type="text" id="videourl"  name="videourl" value="<?php echo !empty($videourl) ? esc_url($videourl) : ''; ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($video_placeholder); ?>"/>
-			</div>
-			<?php do_action('atbdp_video_field',$id); ?>
-		</div>
-		<?php
-		//$video_gallery = apply_filters('atbdp_video_field',$video_field,$id);
-	}
-
-	/**
 	 * It outputs expiration date and featured checkbox custom field on the submit box metabox.
 	 * @param WP_Post $post
 	 */
@@ -376,41 +144,28 @@ wp_reset_postdata();
 		$metas = array();
 		$expire_in_days = get_directorist_option('listing_expire_in_days');
 		$p = $_POST; // save some character
-		$exp_dt = !empty($p['exp_date'])?atbdp_sanitize_array($p['exp_date']):array(); // get expiry date from the $_POST and then later sanitize it.
-		// if the posted data has info about never_expire, then use it, otherwise, use the data from the settings.
+		$listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
+		$submission_form_fields = [];
+		$metas = [];
+		if( $listing_type ){
+		$term = get_term_by( 'id', $listing_type, 'atbdp_listing_types' );
+		$submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
+		$submission_form_fields = $submission_form['fields'];
+		}
+		foreach( $submission_form_fields as $key => $value ){
+			$field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
+			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
+				$key = '_'. $field_key;
+				$metas[ $key ] = !empty( $p[ $field_key ] ) ? $p[ $field_key ] : '';
+			}                    
+		}
+		$metas['_directory_type'] = $listing_type;
+		if( !empty( $metas['_directory_type'] ) ){
+			wp_set_object_terms($post_id, (int)$metas['_directory_type'], 'atbdp_listing_types');
+		}
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
 		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
-		$metas['_directory_type']    = !empty($p['directory_type'])? $p['directory_type'] : '';
-
-
-		$metas['_price']             = !empty($p['price'])? (float) $p['price'] : '';
-		$metas['_price_range']       = !empty($p['price_range'])?  $p['price_range'] : '';
-		$metas['_atbd_listing_pricing'] = !empty($p['atbd_listing_pricing'])?  $p['atbd_listing_pricing'] : '';
-		$metas['_videourl']          = !empty($p['videourl']) ?  sanitize_text_field($p['videourl']) : '';
-		$metas['_listing_status']    = !empty($p['listing_status'])? sanitize_text_field($p['listing_status']) : 'post_status';
-		$metas['_tagline']           = !empty($p['tagline'])? sanitize_text_field($p['tagline']) : '';
-		$metas['_excerpt']           = !empty($p['excerpt'])? sanitize_text_field($p['excerpt']) : '';
-		$metas['_atbdp_post_views_count']    = !empty($p['atbdp_post_views_count']) ? (int) $p['atbdp_post_views_count'] : '';
-		$metas['_address']           = !empty($p['address'])? sanitize_text_field($p['address']) : '';
-		$metas['_phone']             = !empty($p['phone'])? sanitize_text_field($p['phone']) : '';
-		$metas['_phone2']             = !empty($p['phone2'])? sanitize_text_field($p['phone2']) : '';
-		$metas['_fax']               = !empty($p['fax'])? sanitize_text_field($p['fax']) : '';
-		$metas['_email']             = !empty($p['email'])? sanitize_text_field($p['email']) : '';
-		$metas['_website']           = !empty($p['website'])? sanitize_text_field($p['website']) : '';
-		$metas['_zip']               = !empty($p['zip'])? sanitize_text_field($p['zip']) : '';
-		$metas['_social']            = !empty($p['social']) ? atbdp_sanitize_array($p['social']) : array(); // we are expecting array value
-		$metas['_faqs']              = !empty($p['faqs']) ? ($p['faqs']) : array(); // we are expecting array value
-		$metas['_enable247hour']     = !empty($p['enable247hour']) ? sanitize_text_field($p['enable247hour']) : ''; // we are expecting array value
-		$metas['_disable_bz_hour_listing']     = !empty($p['disable_bz_hour_listing']) ? sanitize_text_field($p['disable_bz_hour_listing']) : ''; // we are expecting array value
-		$metas['_bdbh']              = !empty($p['bdbh']) ? atbdp_sanitize_array($p['bdbh']) : array(); // we are expecting array value
-		$metas['_manual_lat']        = !empty($p['manual_lat'])? sanitize_text_field($p['manual_lat']) : '';
-		$metas['_manual_lng']        = !empty($p['manual_lng'])? sanitize_text_field($p['manual_lng']) : '';
-		$metas['_hide_map']          = !empty($p['hide_map'])? sanitize_text_field($p['hide_map']) : '';
-		$metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
-		$metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) : '';
-		$metas['_hide_contact_info'] = !empty($p['hide_contact_info'])? sanitize_text_field($p['hide_contact_info']) : 0;
-		$metas['_hide_contact_owner'] = !empty($p['hide_contact_owner'])? sanitize_text_field($p['hide_contact_owner']) : 0;
-
+		$exp_dt = !empty($p['exp_date'])?atbdp_sanitize_array($p['exp_date']):array(); // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){
 			$exp_dt = array(
@@ -424,14 +179,7 @@ wp_reset_postdata();
 		}else{
 			$exp_dt = calc_listing_expiry_date(); // get the expiry date in mysql date format using the default expiration date.
 		}
-
-		if( !empty( $metas['_directory_type'] ) ){
-			wp_set_object_terms($post_id, (int)$metas['_directory_type'], 'atbdp_listing_types');
-		}
-
-		$metas['_expiry_date']              = $exp_dt;
-		// var_dump( $metas );
-		// die();
+		$metas['_expiry_date']  = $exp_dt;
 		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas);
 		// save the meta data to the database
 		foreach ($metas as $meta_key => $meta_value) {
@@ -504,43 +252,5 @@ wp_reset_postdata();
 		return true;
 		}
 		return false;
-	}
-
-
-	/**
-	 * It fetches all the information of the listing
-	 * @param int $id The id of the post whose meta we want to collect
-	 * @return array It returns the listing information of the given listing/post id.
-	 */
-	public function get_listing_info($id=0)
-	{
-		global $post;
-		$id = !empty($id) ? (int) $id : $post->ID;
-		$listing_info['never_expire']           = get_post_meta($id, '_never_expire', true);
-		$listing_info['featured']               = get_post_meta($id, '_featured', true);
-		$listing_info['price']                  = get_post_meta($id, '_price', true);
-		$listing_info['price_range']            = get_post_meta($id, '_price_range', true);
-		$listing_info['videourl']               = get_post_meta($id, '_videourl', true);
-		$listing_info['listing_status']         = get_post_meta($id, '_listing_status', true);
-		$listing_info['tagline']                = get_post_meta($id, '_tagline', true);
-		$listing_info['excerpt']                = get_post_meta($id, '_excerpt', true);
-		$listing_info['atbdp_post_views_count'] = get_post_meta($id, '_atbdp_post_views_count', true);
-		$listing_info['address']                = get_post_meta($id, '_address', true);
-		$listing_info['phone']                  = get_post_meta($id, '_phone', true);
-		$listing_info['phone2']                 = get_post_meta($id, '_phone2', true);
-		$listing_info['fax']                    = get_post_meta($id, '_fax', true);
-		$listing_info['email']                  = get_post_meta($id, '_email', true);
-		$listing_info['website']                = get_post_meta($id, '_website', true);
-		$listing_info['zip']                    = get_post_meta($id, '_zip', true);
-		$listing_info['social']                 = get_post_meta($id, '_social', true);
-		$listing_info['manual_lat']             = get_post_meta($id, '_manual_lat', true);
-		$listing_info['manual_lng']             = get_post_meta($id, '_manual_lng', true);
-		$listing_info['listing_img']            = get_post_meta($id, '_listing_img', true);
-		$listing_info['hide_contact_info']      = get_post_meta($id, '_hide_contact_info', true);
-		$listing_info['hide_contact_owner']     = get_post_meta($id, '_hide_contact_owner', true);
-		$listing_info['expiry_date']            = get_post_meta($id, '_expiry_date', true);
-
-		return apply_filters('atbdp_get_listing_info', $listing_info);
-
 	}
 }

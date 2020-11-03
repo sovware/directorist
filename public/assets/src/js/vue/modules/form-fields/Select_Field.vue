@@ -3,11 +3,10 @@
         <label v-if="label.length">{{label}}</label>
         <select @change="update_value( $event.target.value )" :value="local_value" class="cptm-form-control">
             <option v-if="default_option" :value="default_option.value">{{ default_option.label }}</option>
-            
             <template v-for="( option, option_key ) in theOptions">
-                <template v-if="option.group && option.theOptions">
+                <template v-if="option.group && option.options">
                     <optgroup :label="option.group" :key="option_key">
-                        <option v-for="( sub_option, sub_option_key ) in option.theOptions" :key="sub_option_key" :value="sub_option.value">
+                        <option v-for="( sub_option, sub_option_key ) in option.options" :key="sub_option_key" :value="sub_option.value">
                             {{ sub_option.label }}
                         </option>
                     </optgroup>

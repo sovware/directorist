@@ -2365,7 +2365,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'field_key' => [
                                     'type'  => 'meta-key',
                                     'label' => 'Key',
-                                    'value' => 'custom',
+                                    'value' => 'custom-text',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
@@ -2424,7 +2424,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'field_key' => [
                                     'type'  => 'meta-key',
                                     'label' => 'Key',
-                                    'value' => 'custom',
+                                    'value' => 'custom-textarea',
                                 ],
                                 'rows' => [
                                     'type'  => 'number',
@@ -2488,7 +2488,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'field_key' => [
                                     'type'  => 'meta-key',
                                     'label' => 'Key',
-                                    'value' => 'custom',
+                                    'value' => 'custom-number',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
@@ -2547,7 +2547,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'field_key' => [
                                     'type'  => 'meta-key',
                                     'label' => 'Key',
-                                    'value' => 'custom',
+                                    'value' => 'custom-url',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
@@ -2611,7 +2611,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'field_key' => [
                                     'type'  => 'meta-key',
                                     'label' => 'Key',
-                                    'value' => 'custom',
+                                    'value' => 'custom-date',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
@@ -2670,7 +2670,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'field_key' => [
                                     'type'  => 'meta-key',
                                     'label' => 'Key',
-                                    'value' => 'custom',
+                                    'value' => 'custom-time',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
@@ -2729,7 +2729,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'field_key' => [
                                     'type'  => 'meta-key',
                                     'label' => 'Key',
-                                    'value' => 'custom',
+                                    'value' => 'custom-color-picker',
                                 ],
                                 'description' => [
                                     'type'  => 'text',
@@ -2783,7 +2783,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'field_key' => [
                                     'type'  => 'meta-key',
                                     'label' => 'Key',
-                                    'value' => 'custom',
+                                    'value' => 'custom-select',
                                 ],
                                 'options' => [
                                     'type' => 'textarea',
@@ -2845,7 +2845,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'field_key' => [
                                     'type'  => 'meta-key',
                                     'label' => 'Key',
-                                    'value' => 'custom',
+                                    'value' => 'custom-checkbox',
                                 ],
                                 'options' => [
                                     'type' => 'textarea',
@@ -2907,7 +2907,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'field_key' => [
                                     'type'  => 'meta-key',
                                     'label' => 'Key',
-                                    'value' => 'custom',
+                                    'value' => 'custom-radio',
                                 ],
                                 'options' => [
                                     'type' => 'custom-options',
@@ -2969,7 +2969,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'field_key' => [
                                     'type'  => 'meta-key',
                                     'label' => 'Key',
-                                    'value' => 'custom',
+                                    'value' => 'custom-file',
                                 ],
                                 'file_types' => [
                                     'type'  => 'select',
@@ -3010,7 +3010,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                             ],
                                         ],
                                         [
-                                            'group' => '',
+                                            'group' => 'Video Format',
                                             'options' => [
                                                 [
                                                     'label' => __('asf', 'directorist'),
@@ -3050,9 +3050,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                                 ],
                                             ],
                                         ],
-
                                         [
-                                            'group' => '',
+                                            'group' => 'Audio',
                                             'options' => [
                                                 [
                                                     'label' => __('ogg', 'directorist'),

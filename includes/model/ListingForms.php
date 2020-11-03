@@ -790,7 +790,6 @@ class Directorist_Listing_Forms {
 			'form'          => $this,
 			'section_data'  => $section_data,
 		);
-		// e_var_dump($section_data);
 		atbdp_get_shortcode_template( 'forms/add-listing-section', $args );
 	}
 
@@ -807,6 +806,8 @@ class Directorist_Listing_Forms {
 			'form'  => $this,
 			'data'  => $field_data,
 		);
+
+		// e_var_dump($field_data);
 
 		$template = 'forms/fields/' . $field_data['widget_name'];
 		$template = apply_filters( 'directorist_field_template_' . $field_data['widget_name'], $template, $field_data );

@@ -11,13 +11,13 @@
           <div class="cptm-form-builder-active-fields-group" v-for="(group, group_key) in groups" :key="group_key">
             <div class="cptm-form-builder-group-header-section" v-if="has_group">
               <div class="cptm-form-builder-group-header">
-                <div class="cptm-form-builder-group-title-area" draggable="true" @drag="activeGroupOnDragStart(group_key)" @dragend="activeGroupOnDragEnd()">
+                <div class="cptm-form-builder-group-title-area" :draggable="typeof group.draggable !== 'undefined' ? group.draggable : true" @drag="activeGroupOnDragStart(group_key)" @dragend="activeGroupOnDragEnd()">
                   <h3 class="cptm-form-builder-group-title">
                     {{ group.label }}
                   </h3>
 
                   <div class="cptm-form-builder-group-title-actions">
-                    <a href="#" class="cptm-form-builder-header-action-link" :class="getActiveGroupCollapseClass(group_key)" @click.prevent="toggleActiveGroupCollapseState(group_key)">
+                    <a href="#" class="cptm-form-builder-header-action-link" v-if="getGroupOptions( group_key )" :class="getActiveGroupOptionCollapseClass(group_key)" @click.prevent="toggleActiveGroupCollapseState(group_key)">
                       <span class="fa fa-angle-up" aria-hidden="true"></span>
                     </a>
                   </div>
@@ -31,7 +31,7 @@
               </div>
 
               <slide-up-down :active="getActiveGroupCollapseState(group_key)" :duration="500">
-                <div class="cptm-form-builder-group-options">
+                <div class="cptm-form-builder-group-options" v-if="getGroupOptions( group_key )">
                   <template v-for="(option, option_key) in getGroupOptions( group_key )">
                     <component 
                       :is="option.type + '-field'" :key="option_key" 
@@ -152,9 +152,9 @@ export default {
   mixins: [ helpers ],
   props: {
     fieldId: {
-        type: [ String, Number ],
-        required: false,
-        default: '',
+      type: [ String, Number ],
+      required: false,
+      default: '',
     },
     template: {
       required: false,
@@ -257,7 +257,8 @@ export default {
             if ( typeof template_root_options.lock !== 'undefined' ) { delete template_root_options.lock; }
 
             let widget_label = ( widgets[ widget_group ].widgets[ _widget_name ].label ) ? widgets[ widget_group ].widgets[ _widget_name ].label : '';
-            widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : widget_label;
+            let template_widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : '';
+            widget_label = ( widget_label ) ? widget_label : template_widget_label;
             template_root_options.label = widget_label;
     
             Object.assign( widgets[ widget_group ].widgets[ _widget_name ], template_root_options );
@@ -265,9 +266,6 @@ export default {
             if ( ! widgets[ widget_group ].widgets[ _widget_name ].options ) {
               widgets[ widget_group ].widgets[ _widget_name ].options = {};
             }
-
-            let ref_option = { type: 'hidden', value: template_fields[ widget_key ] };
-            widgets[ widget_group ].widgets[ _widget_name ].options['reference'] = ref_option;
 
             template_widgets[ widget_key ] = widgets[ widget_group ].widgets[ _widget_name ];
           }
@@ -369,8 +367,8 @@ export default {
       active_group_drop_area: "",
       current_drag_enter_group_item: "",
       current_dragging_group: "",
-      ative_field_collapse_states: {},
-      ative_group_collapse_states: {},
+      active_field_collapse_states: {},
+      active_group_option_collapse_states: {},
     };
   },
   methods: {
@@ -394,7 +392,7 @@ export default {
       let group_options = JSON.parse( JSON.stringify( this.groupOptions ) );
 
       if ( ! this.isObject( group_options ) ) {
-        return group_options;
+        return false;
       }
 
       let groups = JSON.parse( JSON.stringify( this.groups[ group_key ] ) );
@@ -417,10 +415,7 @@ export default {
           condition: group_options[ field ].show_if
         });
 
-        if ( 'plans' == field ) {
-          // console.log( { field, show_if_cond } );
-        }
-    
+
         if ( ! show_if_cond.status ) {
           delete group_options[ field ];
         }
@@ -493,52 +488,46 @@ export default {
     },
     
     toggleActiveFieldCollapseState(field_key) {
-      if (typeof this.ative_field_collapse_states[field_key] === "undefined") {
-        this.$set(this.ative_field_collapse_states, field_key, {});
-        this.$set( this.ative_field_collapse_states[field_key], "collapsed", false );
+      if (typeof this.active_field_collapse_states[field_key] === "undefined") {
+        this.$set(this.active_field_collapse_states, field_key, {});
+        this.$set( this.active_field_collapse_states[field_key], "collapsed", false );
       }
-      this.ative_field_collapse_states[field_key].collapsed = !this
-        .ative_field_collapse_states[field_key].collapsed;
+      this.active_field_collapse_states[field_key].collapsed = !this
+        .active_field_collapse_states[field_key].collapsed;
     },
     
     getActiveFieldCollapseClass(field_key) {
-      if (typeof this.ative_field_collapse_states[field_key] === "undefined") {
+      if (typeof this.active_field_collapse_states[field_key] === "undefined") {
         return "action-collapse-down";
       }
-      return this.ative_field_collapse_states[field_key].collapsed
+      return this.active_field_collapse_states[field_key].collapsed
         ? "action-collapse-up"
         : "action-collapse-down";
     },
     
     getActiveFieldCollapseState(field_key) {
-      if (typeof this.ative_field_collapse_states[field_key] === "undefined") {
+      if (typeof this.active_field_collapse_states[field_key] === "undefined") {
         return false;
       }
-      return this.ative_field_collapse_states[field_key].collapsed
+      return this.active_field_collapse_states[field_key].collapsed
         ? true
         : false;
     },
 
     toggleActiveGroupCollapseState(group_key) {
-      if (typeof this.ative_group_collapse_states[group_key] === "undefined") {
-        this.$set(this.ative_group_collapse_states, group_key, {});
-        this.$set(
-          this.ative_group_collapse_states[group_key],
-          "collapsed",
-          false
-        );
+      if ( typeof this.active_group_option_collapse_states[group_key] === "undefined" ) {
+        this.$set(this.active_group_option_collapse_states, group_key, {});
+        this.$set( this.active_group_option_collapse_states[group_key], "collapsed", false );
       }
-      this.ative_group_collapse_states[group_key].collapsed = !this
-        .ative_group_collapse_states[group_key].collapsed;
+
+      this.active_group_option_collapse_states[group_key].collapsed = !this.active_group_option_collapse_states[group_key].collapsed;
     },
     
     getActiveGroupCollapseState(group_key) {
-      if (typeof this.ative_group_collapse_states[group_key] === "undefined") {
+      if (typeof this.active_group_option_collapse_states[group_key] === "undefined") {
         return false;
       }
-      return this.ative_group_collapse_states[group_key].collapsed
-        ? true
-        : false;
+      return this.active_group_option_collapse_states[group_key].collapsed ? true : false;
     },
     
     getActiveGroupOptionValue(option_key, group_key) {
@@ -553,11 +542,11 @@ export default {
       this.$emit("update", this.updated_value);
     },
     
-    getActiveGroupCollapseClass(group_key) {
-      if (typeof this.ative_group_collapse_states[group_key] === "undefined") {
+    getActiveGroupOptionCollapseClass(group_key) {
+      if (typeof this.active_group_option_collapse_states[group_key] === "undefined") {
         return "action-collapse-down";
       }
-      return this.ative_group_collapse_states[group_key].collapsed
+      return this.active_group_option_collapse_states[group_key].collapsed
         ? "action-collapse-up"
         : "action-collapse-down";
     },
@@ -616,7 +605,14 @@ export default {
     },
     //
     
-    activeGroupOnDragStart(group_key) {
+     activeGroupOnDragStart(group_key) {
+
+       if ( typeof this.groups[ group_key ].draggable !== 'undefined' ) {
+         if ( ! this.groups[ group_key ].draggable ) {
+           return;
+         }
+       }
+
       this.current_dragging_group = group_key;
     },
     
@@ -735,8 +731,8 @@ export default {
     },
     
     trashActiveFieldItem(field_key, field_index, group_key) {
-      if (typeof this.ative_field_collapse_states[field_key] !== "undefined") {
-        Vue.delete( this.ative_field_collapse_states, field_key );
+      if (typeof this.active_field_collapse_states[field_key] !== "undefined") {
+        Vue.delete( this.active_field_collapse_states, field_key );
       }
 
       const the_field_key = this.groups[group_key].fields[field_index];

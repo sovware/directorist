@@ -10,8 +10,11 @@ export default {
         event: 'input'
     },
     props: {
+        fieldId: {
+            required: false,
+            default: '',
+        },
         value: {
-            type: [String, Number],
             required: false,
             default: '',
         },

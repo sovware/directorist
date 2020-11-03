@@ -873,6 +873,12 @@ function prepear_form_data ( form, field_map, data ) {
       $(".atbd_user_dashboard_nav").toggleClass("atbd-dashboard-nav-collapsed");
   });
 
+  //dashboard nav dropdown
+  $(".atbdp_tab_nav--has-child .atbd-dash-nav-dropdown").on("click", function(e){
+    e.preventDefault();
+    $(this).siblings("ul").slideToggle();
+  });
+
 })(jQuery);
 
 // on load of the page: switch to the currently selected tab

@@ -256,9 +256,6 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
 .ezmu__thumbnail-list-item {
   margin: 5px;
   width: 100%;
-  max-width: 300px;
-  -ms-flex-preferred-size: 300px;
-  flex-basis: 300px;
   position: relative;
   border-radius: 8px;
   overflow: hidden;
@@ -420,8 +417,8 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
 }
 
 .ezmu__thumbnail-list-item_back {
-  width: 100%;
-  height: 200px;
+  width: 140px;
+  height: 140px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -438,7 +435,7 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
 .ezmu__thumbnail-img {
   display: block;
   width: 100%;
-  height: 100%;
+  height: 100% !important;
   -o-object-fit: contain;
   object-fit: contain;
 }
@@ -465,9 +462,8 @@ input[type="file"].ezmu__file-input + .ezmu__input-label {
 
 
 .ezmu__thumbnail-list-item.ezmu__thumbnail_avater {
-  width: 200px;
-  height: 200px;
-  flex-basis: 200px;
+  width: 140px;
+  height: 140px;
   border-radius: 50%;
 }
 

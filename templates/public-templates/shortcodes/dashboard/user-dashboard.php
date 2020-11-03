@@ -14,7 +14,7 @@
     do_action( 'directorist_dashboard_before_container' );
     ?>
 
-    <div class="<?php echo esc_attr( $container_fluid ); ?> atbd-dashboard-container-wrapper">
+    <div class="<?php echo esc_attr( $container_fluid ); ?>">
         <?php
         /**
          * @since 6.6
@@ -22,7 +22,9 @@
          */
         do_action( 'directorist_dashboard_title_area', $display_title );
         ?>
-        
+        <div class="atbd-dashboard-nav-toggle-icon">
+            <a href="" class="atbd-dashboard-nav-toggler"><i class="la la-bars"></i></a>
+        </div>
         <div class="atbd_dashboard_wrapper atbd_tab">
             <div class="atbd_user_dashboard_nav atbd_tab_nav">
 

@@ -265,6 +265,10 @@
         .atbd_content_right{
           display: flex;
           align-items: center;
+          margin: 0 -5px;
+          div{
+            margin: 0 5px;
+          }
           li+li{
             margin-left: 6px;
           }

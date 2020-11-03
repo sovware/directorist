@@ -112,7 +112,7 @@ class Directorist_Listings {
 
 		$this->set_options();
 
-		if ( 'search' == $this->type ) {
+		if ( 'search_result' == $this->type ) {
 			$this->update_search_options();
 		}
 
@@ -123,7 +123,7 @@ class Directorist_Listings {
 			$this->query_args = $query_args;
 		}
 		else {
-			if ( $this->type == 'search' ) {
+			if ( $this->type == 'search_result' ) {
 				$this->query_args = $this->perse_search_query_args();
 			}
 			else {
@@ -1573,7 +1573,7 @@ class Directorist_Listings {
 		public function item_found_title() {
 			$count = $this->query_results->total;
 
-			if ( $this->type == 'search' ) {
+			if ( $this->type == 'search_result' ) {
 				$title = $this->item_found_title_for_search($count);
 			}
 			else {
@@ -1747,7 +1747,7 @@ class Directorist_Listings {
 		public function advanced_search_form_template() {
 			$args = array(
 				'listings'   => $this,
-				'searchform' => new Directorist_Listing_Search_Form( $this->type ),
+				'searchform' => new Directorist_Listing_Search_Form( $this->type, $this->current_listing_type ),
 			);
 			atbdp_get_shortcode_template( 'listings-archive/advanced-search-form', $args );
 		}

@@ -85,6 +85,7 @@ class Directorist_Listing_Search_Form {
 		$this->type         = $type;
 		$this->listing_type = $listing_type;
 		$this->atts         = $atts;
+		// $this->listing_type = 43; // remove later @kowsar
 
 		$this->set_default_options();
 
@@ -343,8 +344,12 @@ class Directorist_Listing_Search_Form {
 
 	public function build_form_data() {
 		$form_data          = array();
-		$search_form_fields = get_term_meta( $this->listing_type, 'search_form_fields', true );
-		$search_form_fields = get_term_meta(43, 'search_form_fields', true );
+		$search_form_fields     = get_term_meta( $this->listing_type, 'search_form_fields', true );
+		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
+
+		foreach ( $search_form_fields['fields'] as $key => $value) {
+			$search_form_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$key]['field_key'];
+		}
 
 		foreach ( $search_form_fields['groups'] as $group ) {
 			$section           = $group;

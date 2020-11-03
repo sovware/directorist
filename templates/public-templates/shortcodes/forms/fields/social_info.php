@@ -44,9 +44,6 @@
 		?>
 	</div>
 
-	<button type="button" class="btn btn-primary btn-sm" id="addNewSocial">
-		<span class="la la-plus"></span>
-		<?php esc_html_e( 'Add New', 'directorist' ); ?>
-	</button>
+	<button type="button" class="btn btn-primary btn-sm" id="addNewSocial"> <span class="plus-sign">+</span><?php esc_html_e('Add New', 'directorist'); ?></button>
 
 </div>

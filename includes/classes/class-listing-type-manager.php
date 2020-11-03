@@ -395,7 +395,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 update_option( 'atbdp_migrated_to_multidirectory', true );
                 update_term_meta( $add_directory['term_id'], '_default', true );
             }
-
         }
         
         // import_default_directory
@@ -3623,6 +3622,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'type' => "title",
                     'label' => "Listing Title",
                     'icon' => 'uil uil-text-fields',
+                    'can_move' => false,
                     'hook' => "atbdp_listing_title",
                     'show_if' => [
                         'where' => "submission_form_fields.value.fields",
@@ -3894,14 +3894,14 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 'type' => "number",
                                 'label' => "Threshold in Views Count",
                                 'value' => "5",
-                                'show_if' => [
+                                /* 'show_if' => [
                                     [
                                         'condition' => [
                                             ['key' => 'listing_popular_by', 'value' => 'view_count'],
                                             ['key' => 'listing_popular_by', 'value' => 'both'],
                                         ]
                                     ]
-                                ]
+                                ] */
                             ],
                             'count_loggedin_user' => [
                                 'type' => "toggle",
@@ -3969,6 +3969,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'label' => "User Avatar",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_user_avatar",
+                    'can_move' => false,
                     'options' => [
                         'title' => "User Avatar Settings",
                         'fields' => [
@@ -4243,9 +4244,12 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
 
             $listing_card_list_view_widget = $listing_card_widget;
+            if ( ! empty( $listing_card_list_view_widget[ 'user_avatar' ] ) ) {
+                $listing_card_list_view_widget[ 'user_avatar' ][ 'can_move' ] = true;
 
-            if ( ! empty( $listing_card_list_view_widget[ 'user_avatar' ] ) && ! empty( $listing_card_list_view_widget[ 'user_avatar' ]['options'] ) ) {
-                unset( $listing_card_list_view_widget[ 'user_avatar' ]['options'] );
+                if ( ! empty( $listing_card_list_view_widget[ 'user_avatar' ]['options'] ) ) {
+                    unset( $listing_card_list_view_widget[ 'user_avatar' ]['options'] );
+                }
             }
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
@@ -4606,6 +4610,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                             'label' => "Listings Slider",
                             'icon' => 'uil uil-text-fields',
                             'hook' => "atbdp_single_listings_slider",
+                            'can_move' => false,
                             'show_if' => [
                                 'where' => "submission_form_fields.value.fields",
                                 'conditions' => [
@@ -4953,6 +4958,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                         'general_settings' => [
                             'title' => __('General Settings', 'directorist'),
                             'description' => 'need help?',
+                            'container' => 'short-width',
                             'fields' => [
                                 'preview_mode',
                                 'submit_button_label',

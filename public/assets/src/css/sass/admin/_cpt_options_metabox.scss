@@ -364,6 +364,14 @@ $light-gray: #f4f5f7;
   }
 }
 
+
+.cptm-short-wide {
+  max-width: 550px;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .cptm-tab-sub-content-item {
   margin: 0 auto;
   display: none;
@@ -1482,6 +1490,11 @@ input[type="radio"].cptm-radio {
   text-align: right;
   &:hover, &.drag-enter {
     border-color: #1e1e1e;
+  }
+  .cptm-widget-preview-area {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
   }
 }
 

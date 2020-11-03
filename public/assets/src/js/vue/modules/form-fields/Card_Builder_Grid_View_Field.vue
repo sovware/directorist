@@ -1,5 +1,15 @@
 <template>
   <div class="cptm-builder-section">
+    <!-- cptm-options-area -->
+    <div class="cptm-options-area" v-if="widgetOptionsWindowActiveStatus">
+      <options-window
+        :active="widgetOptionsWindowActiveStatus"
+        v-bind="widgetOptionsWindow"
+        @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
+        @close="closeWidgetOptionsWindow()"
+      />
+    </div>
+
     <!-- cptm-preview-area -->
     <div class="cptm-preview-area">
       <div class="cptm-card-preview-widget">
@@ -245,15 +255,6 @@
           />
         </div>
       </div>
-    </div>
-
-    <div class="cptm-options-area">
-      <options-window
-        :active="widgetOptionsWindowActiveStatus"
-        v-bind="widgetOptionsWindow"
-        @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
-        @close="closeWidgetOptionsWindow()"
-      />
     </div>
   </div>
 </template>

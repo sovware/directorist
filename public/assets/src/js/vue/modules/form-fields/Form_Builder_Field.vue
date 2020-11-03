@@ -6,7 +6,6 @@
         <p class="cptm-description-text">
           Click on a field to edit, Drag & Drop to reorder
         </p>
-
         <div class="cptm-form-builder-active-fields-container">
           <div class="cptm-form-builder-active-fields-group" v-for="(group, group_key) in groups" :key="group_key">
             <div class="cptm-form-builder-group-header-section" v-if="has_group">
@@ -17,8 +16,12 @@
                   </h3>
 
                   <div class="cptm-form-builder-group-title-actions">
-                    <a href="#" class="cptm-form-builder-header-action-link" v-if="getGroupOptions( group_key )" :class="getActiveGroupOptionCollapseClass(group_key)" @click.prevent="toggleActiveGroupCollapseState(group_key)">
+                    <a href="#" class="cptm-form-builder-header-action-link" v-if="getGroupOptions( group_key )" :class="getActiveGroupOptionCollapseClass(group_key)" @click.prevent="toggleActiveGroupOptionCollapseState(group_key)">
                       <span class="fa fa-angle-up" aria-hidden="true"></span>
+                    </a>
+
+                    <a href="#" class="cptm-form-builder-header-action-link" :class="getActiveGroupCollapseClass(group_key)" @click.prevent="toggleActiveGroupCollapseState(group_key)">
+                      <span class="uil uil-angle-double-up" aria-hidden="true"></span>
                     </a>
                   </div>
                 </div>
@@ -30,7 +33,7 @@
                 </div>
               </div>
 
-              <slide-up-down :active="getActiveGroupCollapseState(group_key)" :duration="500">
+              <slide-up-down :active="getActiveGroupOptionCollapseState(group_key)" :duration="500">
                 <div class="cptm-form-builder-group-options" v-if="getGroupOptions( group_key )">
                   <template v-for="(option, option_key) in getGroupOptions( group_key )">
                     <component 
@@ -45,7 +48,8 @@
               </slide-up-down>
             </div>
 
-            <slide-up-down :active="'' === current_dragging_group ? true : false" :duration="500">
+            getActiveGroupCollapseState : {{ getActiveGroupCollapseState( group_key ) }}
+            <slide-up-down :active="getActiveGroupCollapseState( group_key )" :duration="500">
               <div class="cptm-form-builder-group-fields">
                 <div class="cptm-form-builder-group-field-item" v-for="(field_key, field_index) in group.fields" :key="field_index">
                   <div class="cptm-form-builder-group-field-item-actions">
@@ -91,7 +95,7 @@
               </div>
             </slide-up-down>
 
-            <slide-up-down :active="'' === current_dragging_group ? true : false" :duration="500">
+            <slide-up-down :active="getActiveGroupCollapseState( group_key )" :duration="500">
               <div class="cptm-form-builder-group-field-drop-area" 
                 :class="group_key === active_group_drop_area ? 'drag-enter' : ''" 
                 v-if="!group.fields.length"
@@ -368,6 +372,7 @@ export default {
       current_drag_enter_group_item: "",
       current_dragging_group: "",
       active_field_collapse_states: {},
+      active_group_collapse_states: {},
       active_group_option_collapse_states: {},
     };
   },
@@ -498,7 +503,7 @@ export default {
     
     getActiveFieldCollapseClass(field_key) {
       if (typeof this.active_field_collapse_states[field_key] === "undefined") {
-        return "action-collapse-down";
+        return "action-collapse-up";
       }
       return this.active_field_collapse_states[field_key].collapsed
         ? "action-collapse-up"
@@ -515,6 +520,32 @@ export default {
     },
 
     toggleActiveGroupCollapseState(group_key) {
+      if ( typeof this.active_group_collapse_states[group_key] === "undefined" ) {
+        Vue.set(this.active_group_collapse_states, group_key, {});
+        Vue.set( this.active_group_collapse_states[group_key], "collapsed", true );
+      }
+
+      this.active_group_collapse_states[group_key].collapsed = !this.active_group_collapse_states[group_key].collapsed;
+    },
+
+    getActiveGroupCollapseState(group_key) {
+      let group_is_collapsed = true;
+    
+      if ( typeof this.active_group_collapse_states[group_key] !== "undefined" ) {
+        group_is_collapsed = this.active_group_collapse_states[group_key].collapsed;
+      }
+
+      let group_is_dragging = ('' !== this.current_dragging_group) ? true : false;
+
+      // console.log( { group_is_collapsed,  group_is_dragging } );
+      if ( group_is_collapsed && ! group_is_dragging ) {
+        return true;
+      }
+
+      return false;
+    },
+
+    toggleActiveGroupOptionCollapseState(group_key) {
       if ( typeof this.active_group_option_collapse_states[group_key] === "undefined" ) {
         this.$set(this.active_group_option_collapse_states, group_key, {});
         this.$set( this.active_group_option_collapse_states[group_key], "collapsed", false );
@@ -523,12 +554,13 @@ export default {
       this.active_group_option_collapse_states[group_key].collapsed = !this.active_group_option_collapse_states[group_key].collapsed;
     },
     
-    getActiveGroupCollapseState(group_key) {
+    getActiveGroupOptionCollapseState(group_key) {
       if (typeof this.active_group_option_collapse_states[group_key] === "undefined") {
         return false;
       }
       return this.active_group_option_collapse_states[group_key].collapsed ? true : false;
     },
+    
     
     getActiveGroupOptionValue(option_key, group_key) {
       if (typeof this.groups[group_key][option_key] === "undefined") {
@@ -542,6 +574,10 @@ export default {
       this.$emit("update", this.updated_value);
     },
     
+    getActiveGroupCollapseClass(group_key) {
+      return this.getActiveGroupCollapseState( group_key ) ? "action-collapse-up" : "action-collapse-down";
+    },
+
     getActiveGroupOptionCollapseClass(group_key) {
       if (typeof this.active_group_option_collapse_states[group_key] === "undefined") {
         return "action-collapse-down";

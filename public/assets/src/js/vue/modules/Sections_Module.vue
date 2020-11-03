@@ -1,6 +1,6 @@
 <template>
     <div class="cptm-tab-content" :class="containerClass">
-        <div class="cptm-section" v-for="( section, section_key ) in theSections" :key="section_key">
+        <div class="cptm-section" :class="sectionClass( section )" v-for="( section, section_key ) in theSections" :key="section_key">
             <div class="cptm-title-area">
                 <h3 v-if="typeof section.title === 'string'" class="cptm-title" v-html="section.title"></h3>
                 <p v-if="typeof section.description === 'string'" v-html="section.description"></p>
@@ -86,7 +86,7 @@ export default {
                 'tab-wide': ( 'wide' === this.container ) ? true : false,
                 'tab-full-width': ( 'full-width' === this.container ) ? true : false,
             }
-        }
+        },
     },
 
     methods: {
@@ -96,6 +96,12 @@ export default {
 
             return section.fields;
         },
+
+        sectionClass( section ) {
+            return {
+                'cptm-short-wide': ( 'short-width' === section.container ) ? true : false,
+            }
+        }
     },
 }
 </script>

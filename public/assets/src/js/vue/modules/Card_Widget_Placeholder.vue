@@ -49,6 +49,7 @@
             :icon="( typeof activeWidgets[widget].icon === 'string' ) ? activeWidgets[widget].icon : ''"
             :options="activeWidgets[widget].options"
             :widgetDropable="widgetDropable"
+            :canMove="typeof activeWidgets[widget].can_move !== undefined ? activeWidgets[widget].can_move : true"
             :canEdit="widgetHasOptions( activeWidgets[widget] )"
             @drag="$emit('drag-widget', widget)"
             @drop="$emit('drop-widget', widget)"

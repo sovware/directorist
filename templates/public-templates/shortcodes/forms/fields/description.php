@@ -6,9 +6,10 @@
  */
 ?>
 
-<div class="form-group" id="directorist-description-field">
+<div class="form-group" class="directorist-description-field">
 	<?php
 	$form->add_listing_label_template( $data );
+	
 	if ( 'textarea' === $data['type'] ) {
 		?>
 		<textarea name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" rows="8" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> ><?php echo esc_attr( $data['value'] ); ?></textarea>

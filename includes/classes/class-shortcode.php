@@ -94,12 +94,12 @@ class ATBDP_Shortcode {
 	}
 
 	public function search_listing($atts) {
-		$searchform = new Directorist_Listing_Search_Form( 'search_form', $atts );
+		$searchform = new Directorist_Listing_Search_Form( 'search_form', '', $atts );
 		return $searchform->render_search_shortcode();
 	}
 
 	public function search_result($atts) {
-		$listings = new Directorist_Listings( $atts, 'search' );
+		$listings = new Directorist_Listings( $atts, 'search_result' );
 		return $listings->render_shortcode();
     	// @todo @kowsar 'Post_Your_Need' template file - atbdp_get_theme_file("/directorist/shortcodes/listings/extension/post-your-need/need-card.php")
 	}

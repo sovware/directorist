@@ -1,12 +1,10 @@
 <template>
     <div class="cptm-widget-card-wrap cptm-widget-card-inline-wrap cptm-widget-badge-card-wrap">
         <div class="cptm-widget-card cptm-widget-badge cptm-has-widget-control cptm-widget-actions-tools-wrap">
-            <div @click="$emit( 'edit' )">
-                <span style="font-size: 16px;">
-                    <i class="uil uil-eye"></i>
-                    0
-                </span>
-            </div>
+            <span style="font-size: 16px;">
+                <i class="uil uil-eye"></i>
+                0
+            </span>
             
             <widget-action-tools
                 :canEdit="canEdit"

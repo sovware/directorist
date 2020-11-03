@@ -768,11 +768,11 @@ class Directorist_Listing_Forms {
 		atbdp_get_shortcode_template( 'forms/fields/type', $args );
 	}
 
-	public function add_listing_label_template( $data, $id = '' ) {
+	public function add_listing_label_template( $data, $label_id = '' ) {
 		$args = array(
-			'form'  => $this,
-			'data'  => $data,
-			'id'    => $id ? $id : $data['field_key'],
+			'form'     => $this,
+			'data'     => $data,
+			'label_id' => $label_id ? $label_id : $data['field_key'],
 		);
 		atbdp_get_shortcode_template( 'forms/add-listing-field-label', $args );
 	}
@@ -786,7 +786,11 @@ class Directorist_Listing_Forms {
 	}
 
 	public function add_listing_section_template( $section_data ) {
-		atbdp_get_shortcode_template( 'forms/add-listing-section', array( 'section_data' => $section_data ) );
+		$args = array(
+			'form'          => $this,
+			'section_data'  => $section_data,
+		);
+		atbdp_get_shortcode_template( 'forms/add-listing-section', $args );
 	}
 
 	public function add_listing_field_template( $field_data ) {

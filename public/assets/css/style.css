@@ -3635,6 +3635,11 @@ input#privacy_policy,
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right {
   display: flex;
   align-items: center;
+  margin: 0 -5px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right div {
+  margin: 0 5px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content .atbd_content_right li + li {
@@ -5852,11 +5857,6 @@ span.atbd_get_loc_wid {
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper {
   display: flex;
-  flex-wrap: wrap;
-}
-
-#directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd-dashboard-nav-toggle-icon {
-  flex: 0 0 100%;
 }
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav {
@@ -5879,6 +5879,17 @@ span.atbd_get_loc_wid {
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav.atbd-dashboard-nav-collapsed ul li a {
   display: block;
   width: 215px;
+}
+
+#directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav.atbd-dashboard-nav-collapsed--fixed {
+  position: fixed;
+  background: #fff;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  padding: 70px 30px 20px;
+  height: 100%;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button {
@@ -5915,13 +5926,36 @@ span.atbd_get_loc_wid {
   display: none;
 }
 
-#directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd-dashboard-nav-toggler {
+#directorist.atbd_wrapper .atbd-dashboard-nav-toggler {
   border: 1px solid #e3e6ef;
   padding: 5px 10px;
   border-radius: 4px;
   display: inline-block;
   margin-bottom: 20px;
   outline: 0;
+}
+
+.atbd_tab-content--fix .atbd_tab_inner .col-lg-4 {
+  max-width: 50% !important;
+  flex: 0 0 50% !important;
+}
+
+@media (max-width: 575px) {
+  .atbd_tab-content--fix .atbd_tab_inner .col-lg-4 {
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
+}
+
+.atbd_tab-content--fix #user_profile_form .col-md-3, .atbd_tab-content--fix #user_profile_form .col-md-9 {
+  max-width: 100% !important;
+  flex: 0 0 100% !important;
+  margin-left: 0;
+}
+
+.atbd_tab-content--fix .atbd-message-sidebar,
+.atbd_tab-content--fix .atbd-message-list {
+  flex: 0 0 100%;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-selection {

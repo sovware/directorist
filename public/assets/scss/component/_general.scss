@@ -1525,26 +1525,6 @@ div#listing_notifier span {
   }
 }
 
-.atbd_tab_slider{
-  overflow: hidden;
-  .slick-list{
-    overflow: visible;
-    z-index: 1;
-  }
-}
-.atbd_tab_slider .tab_nav_slide--fix{
-  .slick-arrow.slick-next{
-    &:before{
-      content: "" !important;
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background: #fff;
-      right: -30px;
-      top: -5px;
-    }
-  }
-}
 
 /* custom dropdown */
 .atbd-dropdown {
@@ -1592,11 +1572,7 @@ div#listing_notifier span {
 .atbd-dropdown-item {
   display: block;
 }
-.nav_button {
-  position: relative;
-  z-index: 1;
-  background: #fff;
-}
+
 
 /* map image radius */
 #map, #gmap{

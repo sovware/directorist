@@ -186,22 +186,18 @@ if (!class_exists('ATBDP_Listing')):
          * @access   public
          *
          */
-        public function post_thumbnail_html($html)
+        public function post_thumbnail_html($html, $post_id)
         {
             $double_thumb = get_directorist_option('fix_listing_double_thumb', 0);
             if (!empty($double_thumb)) {
                 if (is_singular('at_biz_dir')) {
-                    global $post;
-                    if (!isset($post)) return '';
-                    if (ATBDP_POST_TYPE === $post->post_type) {
-
+                    if (!isset($post_id)) return '';
+                    if ( ATBDP_POST_TYPE === get_post_type( $post_id ) ) {
                         $html = '';
                     }
-
                 }
             }
             return $html;
-
         }
 
         public function the_content($content)

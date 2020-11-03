@@ -33,6 +33,11 @@ class Directorist_Listing_Forms {
 		$this->add_listing_id   = get_query_var( 'atbdp_listing_id', 0 );
 		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
 	}
+	
+	public function wp_hook() {
+		$this->add_listing_id   = get_query_var('atbdp_listing_id', 0);
+		$this->add_listing_post = !empty($this->add_listing_id) ? get_post($this->add_listing_id) : '';
+	}
 
 	public function get_add_listing_id() {
 		return $this->add_listing_id;
@@ -443,7 +448,7 @@ class Directorist_Listing_Forms {
 
 	public function add_listing_generate_label( $label, $required ) {
 		$required_html = $this->add_listing_required_html();
-		return sprintf( '%s:%s', $label, $required ? $required_html : '' );
+		return wp_kses( sprintf( '%s:%s', $label, $required ? $required_html : '' ), array( 'span' ) );
 	}
 
 	public function add_listing_has_contact_info( $args ) {

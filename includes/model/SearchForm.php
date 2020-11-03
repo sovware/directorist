@@ -119,7 +119,7 @@ class Directorist_Listing_Search_Form {
 		$this->locations_fields   = search_category_location_filter( $this->search_category_location_args(), ATBDP_LOCATION );
 		$this->select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
 	}
-	
+
 	// set_default_options
 	public function set_default_options() {
 		$this->options['more_filters_fields']     = get_directorist_option( 'listing_filters_fields', array( 'search_text', 'search_category', 'search_location', 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search' ) );
@@ -136,12 +136,12 @@ class Directorist_Listing_Search_Form {
 		$this->options['require_search_location'] = !empty(get_directorist_option('require_search_location')) ? ' required' : '';
 		$this->options['search_placeholder']      = get_directorist_option('listings_search_text_placeholder', __('What are you looking for?', 'directorist'));
 		$this->options['filters_buttons']         = get_directorist_option( 'listings_filters_button', array( 'reset_button', 'apply_button' ) );
-		
+
 		$this->options['more_filters_button']        = get_directorist_option( 'listing_filters_button', 1 );
 		$this->options['display_more_filter_icon']   = get_directorist_option('listing_filters_icon', 1);
 		$this->options['display_search_button_icon'] = get_directorist_option('listing_filters_icon', 1);
 		$this->options['open_filter_fields']         = get_directorist_option('listings_display_filter', 'overlapping');
-		
+
 		$this->options['reset_filters_text']      = get_directorist_option('listings_reset_text', __('Reset Filters', 'directorist'));
 		$this->options['apply_filters_text']      = get_directorist_option( 'listings_apply_text', __( 'Apply Filters', 'directorist' ) );
 		$this->options['search_text_placeholder'] = get_directorist_option( 'listings_search_text_placeholder', __( 'What are you looking for?', 'directorist' ) );
@@ -169,14 +169,14 @@ class Directorist_Listing_Search_Form {
 	public function update_options_for_search_form() {
 		$this->options['more_filters_fields'] = get_directorist_option('search_more_filters_fields', array( 'search_price', 'search_price_range', 'search_rating', 'search_tag', 'search_custom_fields', 'radius_search'));
 		$this->options['location_address']    = get_directorist_option('search_location_address', 'address');
-		
+
 		$this->options['search_filters']             = get_directorist_option('search_filters', array('search_reset_filters', 'search_apply_filters'));
 		$this->options['more_filters_button']        = get_directorist_option( 'search_more_filter', 1 );
 		$this->options['display_more_filter_icon']   = get_directorist_option('search_more_filter_icon', 1);
 		$this->options['display_search_button_icon'] = get_directorist_option('search_button_icon', 1);
 		$this->options['open_filter_fields']         = get_directorist_option('home_display_filter', 'overlapping');
 		$this->options['radius_distance']            = get_directorist_option('search_default_radius_distance', 0);
-		
+
 		$this->options['reset_filters_text']      = get_directorist_option( 'search_reset_text', __('Reset Filters', 'directorist'));
 		$this->options['apply_filters_text']      = get_directorist_option( 'search_apply_filter', __( 'Apply Filters', 'directorist' ) );
 		$this->options['search_text_placeholder'] = get_directorist_option( 'search_placeholder', __( 'What are you looking for?', 'directorist' ) );
@@ -270,13 +270,13 @@ class Directorist_Listing_Search_Form {
 		$this->redirect_page_url    = $this->params['redirect_page_url'];
 
 		$this->default_radius_distance = $this->options['radius_distance'];
-		$this->tag_terms               = get_terms(ATBDP_TAGS);
+		$this->tag_terms               = $this->listing_tag_terms();
 		$this->search_text_placeholder = $this->options['search_text_placeholder'];
 		$this->category_placeholder    = $this->options['category_placeholder'];
 		$this->location_placeholder    = $this->options['location_placeholder'];
 		$this->search_required_text    = $this->options['require_search_text'];
 		$this->cat_required_text       = $this->options['require_search_category'];
-		$this->loc_required_text       = $this->options['require_search_location'];     
+		$this->loc_required_text       = $this->options['require_search_location'];
 		$this->category_id             = 'at_biz_dir-category';
 		$this->category_class          = 'search_fields form-control';
 		$this->location_id             = 'at_biz_dir-location';
@@ -471,7 +471,7 @@ class Directorist_Listing_Search_Form {
 		$html = '';
 
 		if ( $this->has_more_filters_button || $this->has_search_button ) {
-			$more_filters_icon   = $this->options['display_more_filter_icon']; 
+			$more_filters_icon   = $this->options['display_more_filter_icon'];
 			$search_button_icon  = $this->options['display_search_button_icon'];
 			$more_filters_icon   = !empty($more_filters_icon) ? '<span class="' . atbdp_icon_type() . '-filter"></span>' : '';
 			$search_button_icon  = !empty($search_button_icon) ? '<span class="fa fa-search"></span>' : '';
@@ -547,7 +547,7 @@ class Directorist_Listing_Search_Form {
 		if ( $this->logged_in_user_only && ! atbdp_logged_in_user() ) {
 			return ATBDP()->helper->guard( array('type' => 'auth') );
 		}
-		
+
 		if ($this->redirect_page_url) {
 			$redirect = '<script>window.location="' . esc_url($this->redirect_page_url) . '"</script>';
 			return $redirect;
@@ -559,13 +559,13 @@ class Directorist_Listing_Search_Form {
 		else {
 			wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 		}
-		
+
 		wp_enqueue_script( 'atbdp-search-listing' );
 		wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
 			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
 			'ajax_url' => admin_url('admin-ajax.php'),
 		));
-		
+
 		ATBDP()->enquirer->search_listing_scripts_styles();
 
 		$bgimg = get_directorist_option('search_home_bg');
@@ -576,7 +576,7 @@ class Directorist_Listing_Search_Form {
 		$container_class = is_directoria_active() ? 'container' : 'container-fluid';
 		$container_class = apply_filters('atbdp_search_home_container_fluid', $container_class);
 		$search_border = get_directorist_option('search_border', 1);
-		
+
 		$args = array(
 			'searchform'          => $this,
 			'bgimg'               => $bgimg,

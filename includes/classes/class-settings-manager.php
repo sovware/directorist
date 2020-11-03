@@ -80,7 +80,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 'pages' => array(
                     'name' => 'pages',
                     'title' => __('Pages, Links & Views', 'directorist'),
-                    'icon' => 'font-awesome:fa-line-chart',
+                    'icon' => 'font-awesome:fa-chart-line',
                     'controls' => apply_filters('atbdp_pages_settings_controls', array(
                         'page_section' => array(
                             'type' => 'section',
@@ -115,7 +115,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 'general_menu' => array(
                     'title' => __('Currency Settings', 'directorist'),
                     'name' => 'currency_settings',
-                    'icon' => 'font-awesome:fa-money',
+                    'icon' => 'font-awesome:fa-money-bill',
                     'controls' => apply_filters('atbdp_currency_settings_controls', array(
                         'currency_section' => array(
                             'type' => 'section',
@@ -185,7 +185,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('Color', 'directorist'),
                     'name' => 'color_settings',
-                    'icon' => 'font-awesome:fa-home',
+                    'icon' => 'font-awesome:fa-palette',
                     'controls' => apply_filters('atbdp_style_settings_controls', array(
                         'button_type' => array(
                             'type' => 'section',
@@ -214,7 +214,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('Single Template', 'directorist'),
                     'name' => 'single_template',
-                    'icon' => 'font-awesome:fa-home',
+                    'icon' => 'font-awesome:fa-swatchbook',
                     'controls' => apply_filters('atbdp_single_template_controls', array(
                         'maximum_width' => array(
                             'type' => 'section',
@@ -328,7 +328,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('Registration Form', 'directorist'),
                     'name' => 'registration_form',
-                    'icon' => 'font-awesome:fa-home',
+                    'icon' => 'font-awesome:fa-wpforms',
                     'controls' => apply_filters('atbdp_registration_settings_controls', array(
                         'reg_username_field' => array(
                             'type' => 'section',
@@ -385,13 +385,28 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Login Message', 'directorist'),
                             'fields' => $this->get_reg_Login_text(),
                         ),
+                        'auto_login_after_registration' => array(
+                            'type' => 'toggle',
+                            'name' => 'auto_login',
+                            'label' => __('Auto Login after Registration', 'directorist'),
+                            'default' => 0,
+                        ),
+                        'registration_redirection' =>  array(
+                            'type' => 'select',
+                            'name' => 'redirection_after_reg',
+                            'label' => __('Redirection after Registration', 'directorist'),
+                            'items' => $this->get_pages_with_prev_page(),
+                            'default' => atbdp_get_option('user_dashboard', 'atbdp_general'),
+                            'validation' => 'numeric',
+                        ),
+
                     )),
                 ),
                 /*Submenu : login form settings*/
                 array(
                     'title' => __('Login Form', 'directorist'),
                     'name' => 'login_form',
-                    'icon' => 'font-awesome:fa-home',
+                    'icon' => 'font-awesome:fa-wpforms',
                     'controls' => apply_filters('atbdp_login_form_settings_controls', array(
                         'log_username' => array(
                             'type' => 'section',
@@ -427,7 +442,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'type' => 'select',
                             'name' => 'redirection_after_login',
                             'label' => __('Redirection after Login', 'directorist'),
-                            'items' => $this->get_pages_vl_arrays(),
+                            'items' => $this->get_pages_with_prev_page(),
                             'default' => atbdp_get_option('user_dashboard', 'atbdp_general'),
                             'validation' => 'numeric',
                         ),
@@ -894,7 +909,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('General Settings', 'directorist'),
                     'name' => 'general_listings',
-                    'icon' => 'font-awesome:fa-sliders',
+                    'icon' => 'font-awesome:fa-sliders-h',
                     'controls' => apply_filters('atbdp_general_listings_controls', array(
                         'emails' => array(
                             'type' => 'section',
@@ -1126,7 +1141,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('User Dashboard', 'directorist'),
                     'name' => 'dashboard_setting',
-                    'icon' => 'font-awesome:fa-bar-chart',
+                    'icon' => 'font-awesome:fa-chart-bar',
                     'controls' => apply_filters('atbdp_dashboard_controls', array(
                         'emails' => array(
                             'type' => 'section',
@@ -1611,7 +1626,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('Email General', 'directorist'),
                     'name' => 'emails_general',
-                    'icon' => 'font-awesome:fa-home',
+                    'icon' => 'font-awesome:fa-envelope-open',
                     'controls' => apply_filters('atbdp_email_settings_controls', array(
                         'emails' => array(
                             'type' => 'section',
@@ -1625,7 +1640,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 array(
                     'title' => __('Email Templates', 'directorist'),
                     'name' => 'emails_templates',
-                    'icon' => 'font-awesome:fa-envelope',
+                    'icon' => 'font-awesome:fa-mail-bulk',
                     'controls' => apply_filters('atbdp_email_templates_settings_controls', array(
                         'general' => array(
                             'type' => 'section',
@@ -2507,6 +2522,30 @@ The Administrator of ==SITE_NAME==
         {
             $pages = get_pages();
             $pages_options = array();
+            if ($pages) {
+                foreach ($pages as $page) {
+                    $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);
+                }
+            }
+
+            return $pages_options;
+        }
+
+        /**
+         * Get all the pages with previous page in an array where each page is an array of key:value:id and key:label:name
+         *
+         * Example : array(
+         *                  array('value'=> 1, 'label'=> 'page_name'),
+         *                  array('value'=> 50, 'label'=> 'page_name'),
+         *          )
+         * @return array page names with key value pairs in a multi-dimensional array
+         * @since 3.0.0
+         */
+        function get_pages_with_prev_page()
+        {
+            $pages = get_pages();
+            $pages_options = array();
+            $pages_options[] = array( 'value' => 'previous_page', 'label' => 'Previous Page' );
             if ($pages) {
                 foreach ($pages as $page) {
                     $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);
@@ -6267,7 +6306,7 @@ The Administrator of ==SITE_NAME==
                         'max' => '120',
                         'step' => '1',
                         'default' => '7',
-    
+
                     ),
                     array(
                         'type' => 'toggle',

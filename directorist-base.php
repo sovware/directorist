@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
- * Description: Create a professional directory listing website like Yelp by a few clicks only. You can list place, any business etc.  with this plugin very easily.
+ * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
  * Version: 6.6.0
  * Author: AazzTech
  * Author URI: https://aazztech.com
@@ -375,7 +375,8 @@ final class Directorist_Base
             ATBDP_INC_DIR . 'template-functions',
             ATBDP_INC_DIR . 'custom-actions',
             ATBDP_INC_DIR . 'custom-filters',
-            ATBDP_INC_DIR . 'elementor/init'
+            ATBDP_INC_DIR . 'elementor/init',
+            ATBDP_INC_DIR . 'system-status/class-system-status'
         ]);
 
         load_dependencies('all', ATBDP_INC_DIR . 'data-store/');

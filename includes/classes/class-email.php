@@ -24,7 +24,7 @@ if (!class_exists('ATBDP_Email')):
             add_action('atbdp_order_created', array($this, 'notify_admin_order_created'), 10, 2);
             add_action('atbdp_order_created', array($this, 'notify_owner_order_created'), 10, 2);
             /*Offline Payment Made*/
-            add_action('atbdp_offline_payment_created', array($this, 'notify_owner_offline_payment_created'), 10, 2);
+            //add_action('atbdp_offline_payment_created', array($this, 'notify_owner_offline_payment_created'), 10, 2);
             /*Fire up email for Completed Orders*/
             add_action('atbdp_order_completed', array($this, 'notify_owner_order_completed'), 10, 2);
             add_action('atbdp_order_completed', array($this, 'notify_admin_order_completed'), 10, 2);

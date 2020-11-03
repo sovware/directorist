@@ -42,8 +42,8 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
                     margin-bottom: 0px;
                     border-bottom: 1px solid #eee;
                     padding-bottom: 0px;
-                } <?php 
-                
+                } <?php
+
                 return ob_get_clean();
         }
 
@@ -56,11 +56,16 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
                 line-height: 20px !important;
                 position: relative;
             }
-    
+
             .myDivIcon div.atbd_map_shape {
                 position: absolute;
                 top: -38px;
-                left: -15px; 
+                left: -15px;
+            }
+            .leaflet-pane .myDivIcon div.atbd_map_shape {
+                position: absolute;
+                top: 0;
+                left: 0;
             }
             <?php
 
@@ -516,7 +521,7 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
                     color: <?php echo ! empty( $marker_icon_color ) ? $marker_icon_color : '#444752'; ?> !important;
                 }
             <?php
-                
+
             return ob_get_clean();
         }
     }

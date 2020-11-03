@@ -40,8 +40,11 @@
 }
 
 #directorist.atbd_wrapper .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
 }
@@ -71,135 +74,194 @@
 }
 
 #directorist.atbd_wrapper .col {
-  flex-basis: 0;
-  flex-grow: 1;
+  -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   max-width: 100%;
 }
 
 #directorist.atbd_wrapper .col-auto {
-  flex: 0 0 auto;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
   width: auto;
   max-width: none;
 }
 
 #directorist.atbd_wrapper .col-1 {
-  flex: 0 0 8.33333%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 8.33333%;
+          flex: 0 0 8.33333%;
   max-width: 8.33333%;
 }
 
 #directorist.atbd_wrapper .col-2 {
-  flex: 0 0 16.66667%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 16.66667%;
+          flex: 0 0 16.66667%;
   max-width: 16.66667%;
 }
 
 #directorist.atbd_wrapper .col-3 {
-  flex: 0 0 25%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 25%;
+          flex: 0 0 25%;
   max-width: 25%;
 }
 
 #directorist.atbd_wrapper .col-4 {
-  flex: 0 0 33.33333%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 33.33333%;
+          flex: 0 0 33.33333%;
   max-width: 33.33333%;
 }
 
 #directorist.atbd_wrapper .col-5 {
-  flex: 0 0 41.66667%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 41.66667%;
+          flex: 0 0 41.66667%;
   max-width: 41.66667%;
 }
 
 #directorist.atbd_wrapper .col-6 {
-  flex: 0 0 50%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 50%;
+          flex: 0 0 50%;
   max-width: 50%;
 }
 
 #directorist.atbd_wrapper .col-7 {
-  flex: 0 0 58.33333%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 58.33333%;
+          flex: 0 0 58.33333%;
   max-width: 58.33333%;
 }
 
 #directorist.atbd_wrapper .col-8 {
-  flex: 0 0 66.66667%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 66.66667%;
+          flex: 0 0 66.66667%;
   max-width: 66.66667%;
 }
 
 #directorist.atbd_wrapper .col-9 {
-  flex: 0 0 75%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 75%;
+          flex: 0 0 75%;
   max-width: 75%;
 }
 
 #directorist.atbd_wrapper .col-10 {
-  flex: 0 0 83.33333%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 83.33333%;
+          flex: 0 0 83.33333%;
   max-width: 83.33333%;
 }
 
 #directorist.atbd_wrapper .col-11 {
-  flex: 0 0 91.66667%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 91.66667%;
+          flex: 0 0 91.66667%;
   max-width: 91.66667%;
 }
 
 #directorist.atbd_wrapper .col-12 {
-  flex: 0 0 100%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 100%;
+          flex: 0 0 100%;
   max-width: 100%;
 }
 
 #directorist.atbd_wrapper .order-first {
-  order: -1;
+  -webkit-box-ordinal-group: 0;
+      -ms-flex-order: -1;
+          order: -1;
 }
 
 #directorist.atbd_wrapper .order-last {
-  order: 13;
+  -webkit-box-ordinal-group: 14;
+      -ms-flex-order: 13;
+          order: 13;
 }
 
 #directorist.atbd_wrapper .order-0 {
-  order: 0;
+  -webkit-box-ordinal-group: 1;
+      -ms-flex-order: 0;
+          order: 0;
 }
 
 #directorist.atbd_wrapper .order-1 {
-  order: 1;
+  -webkit-box-ordinal-group: 2;
+      -ms-flex-order: 1;
+          order: 1;
 }
 
 #directorist.atbd_wrapper .order-2 {
-  order: 2;
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
 }
 
 #directorist.atbd_wrapper .order-3 {
-  order: 3;
+  -webkit-box-ordinal-group: 4;
+      -ms-flex-order: 3;
+          order: 3;
 }
 
 #directorist.atbd_wrapper .order-4 {
-  order: 4;
+  -webkit-box-ordinal-group: 5;
+      -ms-flex-order: 4;
+          order: 4;
 }
 
 #directorist.atbd_wrapper .order-5 {
-  order: 5;
+  -webkit-box-ordinal-group: 6;
+      -ms-flex-order: 5;
+          order: 5;
 }
 
 #directorist.atbd_wrapper .order-6 {
-  order: 6;
+  -webkit-box-ordinal-group: 7;
+      -ms-flex-order: 6;
+          order: 6;
 }
 
 #directorist.atbd_wrapper .order-7 {
-  order: 7;
+  -webkit-box-ordinal-group: 8;
+      -ms-flex-order: 7;
+          order: 7;
 }
 
 #directorist.atbd_wrapper .order-8 {
-  order: 8;
+  -webkit-box-ordinal-group: 9;
+      -ms-flex-order: 8;
+          order: 8;
 }
 
 #directorist.atbd_wrapper .order-9 {
-  order: 9;
+  -webkit-box-ordinal-group: 10;
+      -ms-flex-order: 9;
+          order: 9;
 }
 
 #directorist.atbd_wrapper .order-10 {
-  order: 10;
+  -webkit-box-ordinal-group: 11;
+      -ms-flex-order: 10;
+          order: 10;
 }
 
 #directorist.atbd_wrapper .order-11 {
-  order: 11;
+  -webkit-box-ordinal-group: 12;
+      -ms-flex-order: 11;
+          order: 11;
 }
 
 #directorist.atbd_wrapper .order-12 {
-  order: 12;
+  -webkit-box-ordinal-group: 13;
+      -ms-flex-order: 12;
+          order: 12;
 }
 
 #directorist.atbd_wrapper .offset-1 {
@@ -248,107 +310,166 @@
 
 @media (min-width: 576px) {
   #directorist.atbd_wrapper .col-sm {
-    flex-basis: 0;
-    flex-grow: 1;
+    -ms-flex-preferred-size: 0;
+        flex-basis: 0;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
     max-width: 100%;
   }
   #directorist.atbd_wrapper .col-sm-auto {
-    flex: 0 0 auto;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
     width: auto;
     max-width: none;
   }
   #directorist.atbd_wrapper .col-sm-1 {
-    flex: 0 0 8.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 8.33333%;
+            flex: 0 0 8.33333%;
     max-width: 8.33333%;
   }
   #directorist.atbd_wrapper .col-sm-2 {
-    flex: 0 0 16.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 16.66667%;
+            flex: 0 0 16.66667%;
     max-width: 16.66667%;
   }
   #directorist.atbd_wrapper .col-sm-3 {
-    flex: 0 0 25%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 25%;
+            flex: 0 0 25%;
     max-width: 25%;
   }
   #directorist.atbd_wrapper .col-sm-4 {
-    flex: 0 0 33.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 33.33333%;
+            flex: 0 0 33.33333%;
     max-width: 33.33333%;
   }
   #directorist.atbd_wrapper .col-sm-5 {
-    flex: 0 0 41.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 41.66667%;
+            flex: 0 0 41.66667%;
     max-width: 41.66667%;
   }
   #directorist.atbd_wrapper .col-sm-6 {
-    flex: 0 0 50%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 50%;
+            flex: 0 0 50%;
     max-width: 50%;
   }
   #directorist.atbd_wrapper .col-sm-7 {
-    flex: 0 0 58.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 58.33333%;
+            flex: 0 0 58.33333%;
     max-width: 58.33333%;
   }
   #directorist.atbd_wrapper .col-sm-8 {
-    flex: 0 0 66.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 66.66667%;
+            flex: 0 0 66.66667%;
     max-width: 66.66667%;
   }
   #directorist.atbd_wrapper .col-sm-9 {
-    flex: 0 0 75%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 75%;
+            flex: 0 0 75%;
     max-width: 75%;
   }
   #directorist.atbd_wrapper .col-sm-10 {
-    flex: 0 0 83.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 83.33333%;
+            flex: 0 0 83.33333%;
     max-width: 83.33333%;
   }
   #directorist.atbd_wrapper .col-sm-11 {
-    flex: 0 0 91.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 91.66667%;
+            flex: 0 0 91.66667%;
     max-width: 91.66667%;
   }
   #directorist.atbd_wrapper .col-sm-12 {
-    flex: 0 0 100%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
     max-width: 100%;
   }
   #directorist.atbd_wrapper .order-sm-first {
-    order: -1;
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
   }
   #directorist.atbd_wrapper .order-sm-last {
-    order: 13;
+    -webkit-box-ordinal-group: 14;
+        -ms-flex-order: 13;
+            order: 13;
   }
   #directorist.atbd_wrapper .order-sm-0 {
-    order: 0;
+    -webkit-box-ordinal-group: 1;
+        -ms-flex-order: 0;
+            order: 0;
   }
   #directorist.atbd_wrapper .order-sm-1 {
-    order: 1;
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
   }
   #directorist.atbd_wrapper .order-sm-2 {
-    order: 2;
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
   }
   #directorist.atbd_wrapper .order-sm-3 {
-    order: 3;
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
   }
   #directorist.atbd_wrapper .order-sm-4 {
-    order: 4;
+    -webkit-box-ordinal-group: 5;
+        -ms-flex-order: 4;
+            order: 4;
   }
   #directorist.atbd_wrapper .order-sm-5 {
-    order: 5;
+    -webkit-box-ordinal-group: 6;
+        -ms-flex-order: 5;
+            order: 5;
   }
   #directorist.atbd_wrapper .order-sm-6 {
-    order: 6;
+    -webkit-box-ordinal-group: 7;
+        -ms-flex-order: 6;
+            order: 6;
   }
   #directorist.atbd_wrapper .order-sm-7 {
-    order: 7;
+    -webkit-box-ordinal-group: 8;
+        -ms-flex-order: 7;
+            order: 7;
   }
   #directorist.atbd_wrapper .order-sm-8 {
-    order: 8;
+    -webkit-box-ordinal-group: 9;
+        -ms-flex-order: 8;
+            order: 8;
   }
   #directorist.atbd_wrapper .order-sm-9 {
-    order: 9;
+    -webkit-box-ordinal-group: 10;
+        -ms-flex-order: 9;
+            order: 9;
   }
   #directorist.atbd_wrapper .order-sm-10 {
-    order: 10;
+    -webkit-box-ordinal-group: 11;
+        -ms-flex-order: 10;
+            order: 10;
   }
   #directorist.atbd_wrapper .order-sm-11 {
-    order: 11;
+    -webkit-box-ordinal-group: 12;
+        -ms-flex-order: 11;
+            order: 11;
   }
   #directorist.atbd_wrapper .order-sm-12 {
-    order: 12;
+    -webkit-box-ordinal-group: 13;
+        -ms-flex-order: 12;
+            order: 12;
   }
   #directorist.atbd_wrapper .offset-sm-0 {
     margin-left: 0;
@@ -390,107 +511,166 @@
 
 @media (min-width: 768px) {
   #directorist.atbd_wrapper .col-md {
-    flex-basis: 0;
-    flex-grow: 1;
+    -ms-flex-preferred-size: 0;
+        flex-basis: 0;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
     max-width: 100%;
   }
   #directorist.atbd_wrapper .col-md-auto {
-    flex: 0 0 auto;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
     width: auto;
     max-width: none;
   }
   #directorist.atbd_wrapper .col-md-1 {
-    flex: 0 0 8.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 8.33333%;
+            flex: 0 0 8.33333%;
     max-width: 8.33333%;
   }
   #directorist.atbd_wrapper .col-md-2 {
-    flex: 0 0 16.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 16.66667%;
+            flex: 0 0 16.66667%;
     max-width: 16.66667%;
   }
   #directorist.atbd_wrapper .col-md-3 {
-    flex: 0 0 25%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 25%;
+            flex: 0 0 25%;
     max-width: 25%;
   }
   #directorist.atbd_wrapper .col-md-4 {
-    flex: 0 0 33.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 33.33333%;
+            flex: 0 0 33.33333%;
     max-width: 33.33333%;
   }
   #directorist.atbd_wrapper .col-md-5 {
-    flex: 0 0 41.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 41.66667%;
+            flex: 0 0 41.66667%;
     max-width: 41.66667%;
   }
   #directorist.atbd_wrapper .col-md-6 {
-    flex: 0 0 50%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 50%;
+            flex: 0 0 50%;
     max-width: 50%;
   }
   #directorist.atbd_wrapper .col-md-7 {
-    flex: 0 0 58.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 58.33333%;
+            flex: 0 0 58.33333%;
     max-width: 58.33333%;
   }
   #directorist.atbd_wrapper .col-md-8 {
-    flex: 0 0 66.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 66.66667%;
+            flex: 0 0 66.66667%;
     max-width: 66.66667%;
   }
   #directorist.atbd_wrapper .col-md-9 {
-    flex: 0 0 75%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 75%;
+            flex: 0 0 75%;
     max-width: 75%;
   }
   #directorist.atbd_wrapper .col-md-10 {
-    flex: 0 0 83.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 83.33333%;
+            flex: 0 0 83.33333%;
     max-width: 83.33333%;
   }
   #directorist.atbd_wrapper .col-md-11 {
-    flex: 0 0 91.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 91.66667%;
+            flex: 0 0 91.66667%;
     max-width: 91.66667%;
   }
   #directorist.atbd_wrapper .col-md-12 {
-    flex: 0 0 100%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
     max-width: 100%;
   }
   #directorist.atbd_wrapper .order-md-first {
-    order: -1;
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
   }
   #directorist.atbd_wrapper .order-md-last {
-    order: 13;
+    -webkit-box-ordinal-group: 14;
+        -ms-flex-order: 13;
+            order: 13;
   }
   #directorist.atbd_wrapper .order-md-0 {
-    order: 0;
+    -webkit-box-ordinal-group: 1;
+        -ms-flex-order: 0;
+            order: 0;
   }
   #directorist.atbd_wrapper .order-md-1 {
-    order: 1;
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
   }
   #directorist.atbd_wrapper .order-md-2 {
-    order: 2;
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
   }
   #directorist.atbd_wrapper .order-md-3 {
-    order: 3;
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
   }
   #directorist.atbd_wrapper .order-md-4 {
-    order: 4;
+    -webkit-box-ordinal-group: 5;
+        -ms-flex-order: 4;
+            order: 4;
   }
   #directorist.atbd_wrapper .order-md-5 {
-    order: 5;
+    -webkit-box-ordinal-group: 6;
+        -ms-flex-order: 5;
+            order: 5;
   }
   #directorist.atbd_wrapper .order-md-6 {
-    order: 6;
+    -webkit-box-ordinal-group: 7;
+        -ms-flex-order: 6;
+            order: 6;
   }
   #directorist.atbd_wrapper .order-md-7 {
-    order: 7;
+    -webkit-box-ordinal-group: 8;
+        -ms-flex-order: 7;
+            order: 7;
   }
   #directorist.atbd_wrapper .order-md-8 {
-    order: 8;
+    -webkit-box-ordinal-group: 9;
+        -ms-flex-order: 8;
+            order: 8;
   }
   #directorist.atbd_wrapper .order-md-9 {
-    order: 9;
+    -webkit-box-ordinal-group: 10;
+        -ms-flex-order: 9;
+            order: 9;
   }
   #directorist.atbd_wrapper .order-md-10 {
-    order: 10;
+    -webkit-box-ordinal-group: 11;
+        -ms-flex-order: 10;
+            order: 10;
   }
   #directorist.atbd_wrapper .order-md-11 {
-    order: 11;
+    -webkit-box-ordinal-group: 12;
+        -ms-flex-order: 11;
+            order: 11;
   }
   #directorist.atbd_wrapper .order-md-12 {
-    order: 12;
+    -webkit-box-ordinal-group: 13;
+        -ms-flex-order: 12;
+            order: 12;
   }
   #directorist.atbd_wrapper .offset-md-0 {
     margin-left: 0;
@@ -532,107 +712,166 @@
 
 @media (min-width: 992px) {
   #directorist.atbd_wrapper .col-lg {
-    flex-basis: 0;
-    flex-grow: 1;
+    -ms-flex-preferred-size: 0;
+        flex-basis: 0;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
     max-width: 100%;
   }
   #directorist.atbd_wrapper .col-lg-auto {
-    flex: 0 0 auto;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
     width: auto;
     max-width: none;
   }
   #directorist.atbd_wrapper .col-lg-1 {
-    flex: 0 0 8.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 8.33333%;
+            flex: 0 0 8.33333%;
     max-width: 8.33333%;
   }
   #directorist.atbd_wrapper .col-lg-2 {
-    flex: 0 0 16.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 16.66667%;
+            flex: 0 0 16.66667%;
     max-width: 16.66667%;
   }
   #directorist.atbd_wrapper .col-lg-3 {
-    flex: 0 0 25%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 25%;
+            flex: 0 0 25%;
     max-width: 25%;
   }
   #directorist.atbd_wrapper .col-lg-4 {
-    flex: 0 0 33.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 33.33333%;
+            flex: 0 0 33.33333%;
     max-width: 33.33333%;
   }
   #directorist.atbd_wrapper .col-lg-5 {
-    flex: 0 0 41.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 41.66667%;
+            flex: 0 0 41.66667%;
     max-width: 41.66667%;
   }
   #directorist.atbd_wrapper .col-lg-6 {
-    flex: 0 0 50%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 50%;
+            flex: 0 0 50%;
     max-width: 50%;
   }
   #directorist.atbd_wrapper .col-lg-7 {
-    flex: 0 0 58.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 58.33333%;
+            flex: 0 0 58.33333%;
     max-width: 58.33333%;
   }
   #directorist.atbd_wrapper .col-lg-8 {
-    flex: 0 0 66.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 66.66667%;
+            flex: 0 0 66.66667%;
     max-width: 66.66667%;
   }
   #directorist.atbd_wrapper .col-lg-9 {
-    flex: 0 0 75%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 75%;
+            flex: 0 0 75%;
     max-width: 75%;
   }
   #directorist.atbd_wrapper .col-lg-10 {
-    flex: 0 0 83.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 83.33333%;
+            flex: 0 0 83.33333%;
     max-width: 83.33333%;
   }
   #directorist.atbd_wrapper .col-lg-11 {
-    flex: 0 0 91.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 91.66667%;
+            flex: 0 0 91.66667%;
     max-width: 91.66667%;
   }
   #directorist.atbd_wrapper .col-lg-12 {
-    flex: 0 0 100%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
     max-width: 100%;
   }
   #directorist.atbd_wrapper .order-lg-first {
-    order: -1;
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
   }
   #directorist.atbd_wrapper .order-lg-last {
-    order: 13;
+    -webkit-box-ordinal-group: 14;
+        -ms-flex-order: 13;
+            order: 13;
   }
   #directorist.atbd_wrapper .order-lg-0 {
-    order: 0;
+    -webkit-box-ordinal-group: 1;
+        -ms-flex-order: 0;
+            order: 0;
   }
   #directorist.atbd_wrapper .order-lg-1 {
-    order: 1;
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
   }
   #directorist.atbd_wrapper .order-lg-2 {
-    order: 2;
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
   }
   #directorist.atbd_wrapper .order-lg-3 {
-    order: 3;
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
   }
   #directorist.atbd_wrapper .order-lg-4 {
-    order: 4;
+    -webkit-box-ordinal-group: 5;
+        -ms-flex-order: 4;
+            order: 4;
   }
   #directorist.atbd_wrapper .order-lg-5 {
-    order: 5;
+    -webkit-box-ordinal-group: 6;
+        -ms-flex-order: 5;
+            order: 5;
   }
   #directorist.atbd_wrapper .order-lg-6 {
-    order: 6;
+    -webkit-box-ordinal-group: 7;
+        -ms-flex-order: 6;
+            order: 6;
   }
   #directorist.atbd_wrapper .order-lg-7 {
-    order: 7;
+    -webkit-box-ordinal-group: 8;
+        -ms-flex-order: 7;
+            order: 7;
   }
   #directorist.atbd_wrapper .order-lg-8 {
-    order: 8;
+    -webkit-box-ordinal-group: 9;
+        -ms-flex-order: 8;
+            order: 8;
   }
   #directorist.atbd_wrapper .order-lg-9 {
-    order: 9;
+    -webkit-box-ordinal-group: 10;
+        -ms-flex-order: 9;
+            order: 9;
   }
   #directorist.atbd_wrapper .order-lg-10 {
-    order: 10;
+    -webkit-box-ordinal-group: 11;
+        -ms-flex-order: 10;
+            order: 10;
   }
   #directorist.atbd_wrapper .order-lg-11 {
-    order: 11;
+    -webkit-box-ordinal-group: 12;
+        -ms-flex-order: 11;
+            order: 11;
   }
   #directorist.atbd_wrapper .order-lg-12 {
-    order: 12;
+    -webkit-box-ordinal-group: 13;
+        -ms-flex-order: 12;
+            order: 12;
   }
   #directorist.atbd_wrapper .offset-lg-0 {
     margin-left: 0;
@@ -674,107 +913,166 @@
 
 @media (min-width: 1200px) {
   #directorist.atbd_wrapper .col-xl {
-    flex-basis: 0;
-    flex-grow: 1;
+    -ms-flex-preferred-size: 0;
+        flex-basis: 0;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
     max-width: 100%;
   }
   #directorist.atbd_wrapper .col-xl-auto {
-    flex: 0 0 auto;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
     width: auto;
     max-width: none;
   }
   #directorist.atbd_wrapper .col-xl-1 {
-    flex: 0 0 8.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 8.33333%;
+            flex: 0 0 8.33333%;
     max-width: 8.33333%;
   }
   #directorist.atbd_wrapper .col-xl-2 {
-    flex: 0 0 16.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 16.66667%;
+            flex: 0 0 16.66667%;
     max-width: 16.66667%;
   }
   #directorist.atbd_wrapper .col-xl-3 {
-    flex: 0 0 25%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 25%;
+            flex: 0 0 25%;
     max-width: 25%;
   }
   #directorist.atbd_wrapper .col-xl-4 {
-    flex: 0 0 33.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 33.33333%;
+            flex: 0 0 33.33333%;
     max-width: 33.33333%;
   }
   #directorist.atbd_wrapper .col-xl-5 {
-    flex: 0 0 41.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 41.66667%;
+            flex: 0 0 41.66667%;
     max-width: 41.66667%;
   }
   #directorist.atbd_wrapper .col-xl-6 {
-    flex: 0 0 50%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 50%;
+            flex: 0 0 50%;
     max-width: 50%;
   }
   #directorist.atbd_wrapper .col-xl-7 {
-    flex: 0 0 58.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 58.33333%;
+            flex: 0 0 58.33333%;
     max-width: 58.33333%;
   }
   #directorist.atbd_wrapper .col-xl-8 {
-    flex: 0 0 66.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 66.66667%;
+            flex: 0 0 66.66667%;
     max-width: 66.66667%;
   }
   #directorist.atbd_wrapper .col-xl-9 {
-    flex: 0 0 75%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 75%;
+            flex: 0 0 75%;
     max-width: 75%;
   }
   #directorist.atbd_wrapper .col-xl-10 {
-    flex: 0 0 83.33333%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 83.33333%;
+            flex: 0 0 83.33333%;
     max-width: 83.33333%;
   }
   #directorist.atbd_wrapper .col-xl-11 {
-    flex: 0 0 91.66667%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 91.66667%;
+            flex: 0 0 91.66667%;
     max-width: 91.66667%;
   }
   #directorist.atbd_wrapper .col-xl-12 {
-    flex: 0 0 100%;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
     max-width: 100%;
   }
   #directorist.atbd_wrapper .order-xl-first {
-    order: -1;
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
   }
   #directorist.atbd_wrapper .order-xl-last {
-    order: 13;
+    -webkit-box-ordinal-group: 14;
+        -ms-flex-order: 13;
+            order: 13;
   }
   #directorist.atbd_wrapper .order-xl-0 {
-    order: 0;
+    -webkit-box-ordinal-group: 1;
+        -ms-flex-order: 0;
+            order: 0;
   }
   #directorist.atbd_wrapper .order-xl-1 {
-    order: 1;
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
   }
   #directorist.atbd_wrapper .order-xl-2 {
-    order: 2;
+    -webkit-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
   }
   #directorist.atbd_wrapper .order-xl-3 {
-    order: 3;
+    -webkit-box-ordinal-group: 4;
+        -ms-flex-order: 3;
+            order: 3;
   }
   #directorist.atbd_wrapper .order-xl-4 {
-    order: 4;
+    -webkit-box-ordinal-group: 5;
+        -ms-flex-order: 4;
+            order: 4;
   }
   #directorist.atbd_wrapper .order-xl-5 {
-    order: 5;
+    -webkit-box-ordinal-group: 6;
+        -ms-flex-order: 5;
+            order: 5;
   }
   #directorist.atbd_wrapper .order-xl-6 {
-    order: 6;
+    -webkit-box-ordinal-group: 7;
+        -ms-flex-order: 6;
+            order: 6;
   }
   #directorist.atbd_wrapper .order-xl-7 {
-    order: 7;
+    -webkit-box-ordinal-group: 8;
+        -ms-flex-order: 7;
+            order: 7;
   }
   #directorist.atbd_wrapper .order-xl-8 {
-    order: 8;
+    -webkit-box-ordinal-group: 9;
+        -ms-flex-order: 8;
+            order: 8;
   }
   #directorist.atbd_wrapper .order-xl-9 {
-    order: 9;
+    -webkit-box-ordinal-group: 10;
+        -ms-flex-order: 9;
+            order: 9;
   }
   #directorist.atbd_wrapper .order-xl-10 {
-    order: 10;
+    -webkit-box-ordinal-group: 11;
+        -ms-flex-order: 10;
+            order: 10;
   }
   #directorist.atbd_wrapper .order-xl-11 {
-    order: 11;
+    -webkit-box-ordinal-group: 12;
+        -ms-flex-order: 11;
+            order: 11;
   }
   #directorist.atbd_wrapper .order-xl-12 {
-    order: 12;
+    -webkit-box-ordinal-group: 13;
+        -ms-flex-order: 12;
+            order: 12;
   }
   #directorist.atbd_wrapper .offset-xl-0 {
     margin-left: 0;
@@ -820,17 +1118,26 @@
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   border: 1px solid transparent;
   padding: 5px 15px;
   font-size: 15px;
   line-height: 27px;
   border-radius: 0.25rem;
+  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -o-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
   #directorist.atbd_wrapper .btn {
+    -webkit-transition: none;
+    -o-transition: none;
     transition: none;
   }
 }
@@ -841,7 +1148,8 @@
 
 #directorist.atbd_wrapper .btn:focus, #directorist.atbd_wrapper .btn.focus {
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
 #directorist.atbd_wrapper .btn.disabled, #directorist.atbd_wrapper .btn:disabled {
@@ -874,7 +1182,8 @@
 }
 
 #directorist.atbd_wrapper .btn-primary:focus, #directorist.atbd_wrapper .btn-primary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-primary.disabled, #directorist.atbd_wrapper .btn-primary:disabled {
@@ -892,7 +1201,8 @@
 
 #directorist.atbd_wrapper .btn-primary:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-primary:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-secondary {
@@ -908,7 +1218,8 @@
 }
 
 #directorist.atbd_wrapper .btn-secondary:focus, #directorist.atbd_wrapper .btn-secondary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(18, 32, 105, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(18, 32, 105, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(18, 32, 105, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-secondary.disabled, #directorist.atbd_wrapper .btn-secondary:disabled {
@@ -926,7 +1237,8 @@
 
 #directorist.atbd_wrapper .btn-secondary:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-secondary:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-secondary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(18, 32, 105, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(18, 32, 105, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(18, 32, 105, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-success {
@@ -942,7 +1254,8 @@
 }
 
 #directorist.atbd_wrapper .btn-success:focus, #directorist.atbd_wrapper .btn-success.focus {
-  box-shadow: 0 0 0 0.2rem rgba(50, 204, 111, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(50, 204, 111, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(50, 204, 111, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-success.disabled, #directorist.atbd_wrapper .btn-success:disabled {
@@ -960,7 +1273,8 @@
 
 #directorist.atbd_wrapper .btn-success:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-success:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-success.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(50, 204, 111, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(50, 204, 111, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(50, 204, 111, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-info {
@@ -976,7 +1290,8 @@
 }
 
 #directorist.atbd_wrapper .btn-info:focus, #directorist.atbd_wrapper .btn-info.focus {
-  box-shadow: 0 0 0 0.2rem rgba(53, 144, 236, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(53, 144, 236, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(53, 144, 236, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-info.disabled, #directorist.atbd_wrapper .btn-info:disabled {
@@ -994,7 +1309,8 @@
 
 #directorist.atbd_wrapper .btn-info:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-info:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-info.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(53, 144, 236, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(53, 144, 236, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(53, 144, 236, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-warning {
@@ -1010,7 +1326,8 @@
 }
 
 #directorist.atbd_wrapper .btn-warning:focus, #directorist.atbd_wrapper .btn-warning.focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 175, 0, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 175, 0, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(255, 175, 0, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-warning.disabled, #directorist.atbd_wrapper .btn-warning:disabled {
@@ -1028,7 +1345,8 @@
 
 #directorist.atbd_wrapper .btn-warning:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-warning:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-warning.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 175, 0, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 175, 0, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(255, 175, 0, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-danger {
@@ -1044,7 +1362,8 @@
 }
 
 #directorist.atbd_wrapper .btn-danger:focus, #directorist.atbd_wrapper .btn-danger.focus {
-  box-shadow: 0 0 0 0.2rem rgba(226, 54, 54, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(226, 54, 54, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(226, 54, 54, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-danger.disabled, #directorist.atbd_wrapper .btn-danger:disabled {
@@ -1062,7 +1381,8 @@
 
 #directorist.atbd_wrapper .btn-danger:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-danger:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-danger.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(226, 54, 54, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(226, 54, 54, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(226, 54, 54, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-light {
@@ -1078,7 +1398,8 @@
 }
 
 #directorist.atbd_wrapper .btn-light:focus, #directorist.atbd_wrapper .btn-light.focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-light.disabled, #directorist.atbd_wrapper .btn-light:disabled {
@@ -1096,7 +1417,8 @@
 
 #directorist.atbd_wrapper .btn-light:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-light:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-light.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-dark {
@@ -1112,7 +1434,8 @@
 }
 
 #directorist.atbd_wrapper .btn-dark:focus, #directorist.atbd_wrapper .btn-dark.focus {
-  box-shadow: 0 0 0 0.2rem rgba(32, 36, 40, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(32, 36, 40, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(32, 36, 40, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-dark.disabled, #directorist.atbd_wrapper .btn-dark:disabled {
@@ -1130,7 +1453,8 @@
 
 #directorist.atbd_wrapper .btn-dark:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-dark:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-dark.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(32, 36, 40, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(32, 36, 40, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(32, 36, 40, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-primary {
@@ -1147,7 +1471,8 @@
 }
 
 #directorist.atbd_wrapper .btn-outline-primary:focus, #directorist.atbd_wrapper .btn-outline-primary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-primary.disabled, #directorist.atbd_wrapper .btn-outline-primary:disabled {
@@ -1164,7 +1489,8 @@
 
 #directorist.atbd_wrapper .btn-outline-primary:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-outline-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(68, 71, 82, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-secondary {
@@ -1181,7 +1507,8 @@
 }
 
 #directorist.atbd_wrapper .btn-outline-secondary:focus, #directorist.atbd_wrapper .btn-outline-secondary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(18, 32, 105, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(18, 32, 105, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(18, 32, 105, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-secondary.disabled, #directorist.atbd_wrapper .btn-outline-secondary:disabled {
@@ -1198,7 +1525,8 @@
 
 #directorist.atbd_wrapper .btn-outline-secondary:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-outline-secondary:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-outline-secondary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(18, 32, 105, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(18, 32, 105, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(18, 32, 105, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-success {
@@ -1215,7 +1543,8 @@
 }
 
 #directorist.atbd_wrapper .btn-outline-success:focus, #directorist.atbd_wrapper .btn-outline-success.focus {
-  box-shadow: 0 0 0 0.2rem rgba(50, 204, 111, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(50, 204, 111, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(50, 204, 111, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-success.disabled, #directorist.atbd_wrapper .btn-outline-success:disabled {
@@ -1232,7 +1561,8 @@
 
 #directorist.atbd_wrapper .btn-outline-success:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-outline-success:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-outline-success.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(50, 204, 111, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(50, 204, 111, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(50, 204, 111, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-info {
@@ -1249,7 +1579,8 @@
 }
 
 #directorist.atbd_wrapper .btn-outline-info:focus, #directorist.atbd_wrapper .btn-outline-info.focus {
-  box-shadow: 0 0 0 0.2rem rgba(53, 144, 236, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(53, 144, 236, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(53, 144, 236, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-info.disabled, #directorist.atbd_wrapper .btn-outline-info:disabled {
@@ -1266,7 +1597,8 @@
 
 #directorist.atbd_wrapper .btn-outline-info:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-outline-info:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-outline-info.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(53, 144, 236, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(53, 144, 236, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(53, 144, 236, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-warning {
@@ -1283,7 +1615,8 @@
 }
 
 #directorist.atbd_wrapper .btn-outline-warning:focus, #directorist.atbd_wrapper .btn-outline-warning.focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 175, 0, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 175, 0, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(255, 175, 0, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-warning.disabled, #directorist.atbd_wrapper .btn-outline-warning:disabled {
@@ -1300,7 +1633,8 @@
 
 #directorist.atbd_wrapper .btn-outline-warning:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-outline-warning:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-outline-warning.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 175, 0, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 175, 0, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(255, 175, 0, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-danger {
@@ -1317,7 +1651,8 @@
 }
 
 #directorist.atbd_wrapper .btn-outline-danger:focus, #directorist.atbd_wrapper .btn-outline-danger.focus {
-  box-shadow: 0 0 0 0.2rem rgba(226, 54, 54, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(226, 54, 54, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(226, 54, 54, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-danger.disabled, #directorist.atbd_wrapper .btn-outline-danger:disabled {
@@ -1334,7 +1669,8 @@
 
 #directorist.atbd_wrapper .btn-outline-danger:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-outline-danger:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-outline-danger.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(226, 54, 54, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(226, 54, 54, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(226, 54, 54, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-light {
@@ -1351,7 +1687,8 @@
 }
 
 #directorist.atbd_wrapper .btn-outline-light:focus, #directorist.atbd_wrapper .btn-outline-light.focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-light.disabled, #directorist.atbd_wrapper .btn-outline-light:disabled {
@@ -1368,7 +1705,8 @@
 
 #directorist.atbd_wrapper .btn-outline-light:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-outline-light:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-outline-light.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-dark {
@@ -1385,7 +1723,8 @@
 }
 
 #directorist.atbd_wrapper .btn-outline-dark:focus, #directorist.atbd_wrapper .btn-outline-dark.focus {
-  box-shadow: 0 0 0 0.2rem rgba(32, 36, 40, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(32, 36, 40, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(32, 36, 40, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-outline-dark.disabled, #directorist.atbd_wrapper .btn-outline-dark:disabled {
@@ -1402,7 +1741,8 @@
 
 #directorist.atbd_wrapper .btn-outline-dark:not(:disabled):not(.disabled):active:focus, #directorist.atbd_wrapper .btn-outline-dark:not(:disabled):not(.disabled).active:focus,
 .show > #directorist.atbd_wrapper .btn-outline-dark.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(32, 36, 40, 0.5);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(32, 36, 40, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(32, 36, 40, 0.5);
 }
 
 #directorist.atbd_wrapper .btn-link {
@@ -1421,7 +1761,8 @@
 #directorist.atbd_wrapper .btn-link:focus, #directorist.atbd_wrapper .btn-link.focus {
   text-decoration: none;
   border-color: transparent;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 #directorist.atbd_wrapper .btn-link:disabled, #directorist.atbd_wrapper .btn-link.disabled {
@@ -1469,11 +1810,17 @@
   background-clip: padding-box;
   border: 1px solid #dbdaf7;
   border-radius: 0.25rem;
+  -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
   #directorist.atbd_wrapper .form-control {
+    -webkit-transition: none;
+    -o-transition: none;
     transition: none;
   }
 }
@@ -1488,7 +1835,28 @@
   background-color: #fff;
   border-color: #80bdff;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+#directorist.atbd_wrapper .form-control::-webkit-input-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+#directorist.atbd_wrapper .form-control::-moz-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+#directorist.atbd_wrapper .form-control:-ms-input-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
+
+#directorist.atbd_wrapper .form-control::-ms-input-placeholder {
+  color: #6c757d;
+  opacity: 1;
 }
 
 #directorist.atbd_wrapper .form-control::placeholder {
@@ -1588,8 +1956,11 @@
 }
 
 #directorist.atbd_wrapper .form-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   margin-right: -5px;
   margin-left: -5px;
 }
@@ -1621,8 +1992,12 @@
 }
 
 #directorist.atbd_wrapper .form-check-inline {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
   display: inline-flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding-left: 0;
   margin-right: 0.75rem;
 }
@@ -1667,7 +2042,8 @@
 #directorist.atbd_wrapper .custom-select:valid:focus,
 #directorist.atbd_wrapper .custom-select.is-valid:focus {
   border-color: #28a745;
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
 }
 
 .was-validated #directorist.atbd_wrapper .form-control:valid ~ .valid-feedback,
@@ -1710,7 +2086,8 @@
 }
 
 .was-validated #directorist.atbd_wrapper .custom-control-input:valid:focus ~ .custom-control-label::before, #directorist.atbd_wrapper .custom-control-input.is-valid:focus ~ .custom-control-label::before {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+          box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
 }
 
 .was-validated #directorist.atbd_wrapper .custom-file-input:valid ~ .custom-file-label, #directorist.atbd_wrapper .custom-file-input.is-valid ~ .custom-file-label {
@@ -1728,7 +2105,8 @@
 }
 
 .was-validated #directorist.atbd_wrapper .custom-file-input:valid:focus ~ .custom-file-label, #directorist.atbd_wrapper .custom-file-input.is-valid:focus ~ .custom-file-label {
-  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
 }
 
 #directorist.atbd_wrapper .invalid-feedback {
@@ -1764,7 +2142,8 @@
 #directorist.atbd_wrapper .custom-select:invalid:focus,
 #directorist.atbd_wrapper .custom-select.is-invalid:focus {
   border-color: #dc3545;
-  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
 .was-validated #directorist.atbd_wrapper .form-control:invalid ~ .invalid-feedback,
@@ -1807,7 +2186,8 @@
 }
 
 .was-validated #directorist.atbd_wrapper .custom-control-input:invalid:focus ~ .custom-control-label::before, #directorist.atbd_wrapper .custom-control-input.is-invalid:focus ~ .custom-control-label::before {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  -webkit-box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+          box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
 .was-validated #directorist.atbd_wrapper .custom-file-input:invalid ~ .custom-file-label, #directorist.atbd_wrapper .custom-file-input.is-invalid ~ .custom-file-label {
@@ -1825,13 +2205,21 @@
 }
 
 .was-validated #directorist.atbd_wrapper .custom-file-input:invalid:focus ~ .custom-file-label, #directorist.atbd_wrapper .custom-file-input.is-invalid:focus ~ .custom-file-label {
-  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
 #directorist.atbd_wrapper .form-inline {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap;
-  align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #directorist.atbd_wrapper .form-inline .form-check {
@@ -1840,16 +2228,31 @@
 
 @media (min-width: 576px) {
   #directorist.atbd_wrapper .form-inline label {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     margin-bottom: 0;
   }
   #directorist.atbd_wrapper .form-inline .form-group {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex: 0 0 auto;
-    flex-flow: row wrap;
-    align-items: center;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     margin-bottom: 0;
   }
   #directorist.atbd_wrapper .form-inline .form-control {
@@ -1865,9 +2268,15 @@
     width: auto;
   }
   #directorist.atbd_wrapper .form-inline .form-check {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     width: auto;
     padding-left: 0;
   }
@@ -1878,8 +2287,12 @@
     margin-left: 0;
   }
   #directorist.atbd_wrapper .form-inline .custom-control {
-    align-items: center;
-    justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   #directorist.atbd_wrapper .form-inline .custom-control-label {
     margin-bottom: 0;
@@ -2231,8 +2644,11 @@
 }
 
 #directorist.atbd_wrapper .nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
@@ -2299,13 +2715,18 @@
 }
 
 #directorist.atbd_wrapper .nav-fill .nav-item {
-  flex: 1 1 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   text-align: center;
 }
 
 #directorist.atbd_wrapper .nav-justified .nav-item {
-  flex-basis: 0;
-  flex-grow: 1;
+  -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   text-align: center;
 }
 
@@ -2615,7 +3036,8 @@
 #directorist.atbd_wrapper *,
 #directorist.atbd_wrapper *::before,
 #directorist.atbd_wrapper *::after {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 #directorist.atbd_wrapper html {
@@ -2651,7 +3073,8 @@
 }
 
 #directorist.atbd_wrapper hr {
-  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
   height: 0;
   overflow: visible;
 }
@@ -2669,7 +3092,8 @@
 #directorist.atbd_wrapper abbr[title],
 #directorist.atbd_wrapper abbr[data-original-title] {
   text-decoration: underline;
-  text-decoration: underline dotted;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
   cursor: help;
   border-bottom: 0;
 }
@@ -2858,7 +3282,8 @@
 
 #directorist.atbd_wrapper input[type="radio"],
 #directorist.atbd_wrapper input[type="checkbox"] {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 0;
 }
 
@@ -2963,30 +3388,49 @@
 }
 
 .modal.fade #directorist.atbd_wrapper .modal-dialog {
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
+  -o-transition: transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
-  transform: translate(0, -25%);
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+  -webkit-transform: translate(0, -25%);
+      -ms-transform: translate(0, -25%);
+          transform: translate(0, -25%);
 }
 
 @media screen and (prefers-reduced-motion: reduce) {
   .modal.fade #directorist.atbd_wrapper .modal-dialog {
+    -webkit-transition: none;
+    -o-transition: none;
     transition: none;
   }
 }
 
 .modal.show #directorist.atbd_wrapper .modal-dialog {
-  transform: translate(0, 0);
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
 }
 
 #directorist.atbd_wrapper .modal-dialog-centered {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   min-height: calc(100% - (0.5rem * 2));
 }
 
 #directorist.atbd_wrapper .modal-content {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   width: 100%;
   pointer-events: auto;
   background-color: #fff;
@@ -3015,9 +3459,15 @@
 }
 
 #directorist.atbd_wrapper .modal-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding: 1rem;
   border-bottom: 1px solid #e9ecef;
   border-top-left-radius: 0.3rem;
@@ -3036,14 +3486,22 @@
 
 #directorist.atbd_wrapper .modal-body {
   position: relative;
-  flex: 1 1 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   padding: 1rem;
 }
 
 #directorist.atbd_wrapper .modal-footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   padding: 1rem;
   border-top: 1px solid #e9ecef;
 }

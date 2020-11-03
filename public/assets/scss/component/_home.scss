@@ -305,7 +305,8 @@
     font-size: 13px !important;
     &:after{
       content: '\f107';
-      font-family: "FontAwesome";
+      font-family: 'Font Awesome 5 Free';
+      font-weight: 900;
       padding-left: 5px;
     }
     &:focus{

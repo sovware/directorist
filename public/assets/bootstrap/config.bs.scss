@@ -27,35 +27,46 @@ $badge-popular: #f51957;
 $border-color: #e3e6ef;
 $rating-color: #fa8b0c;
 
+// System Status Variable
+$ss-gray: #5a5f7d;
+$ss-primary: #3e62f5;
+$ss-success: #00bc5e;
+$ss-dark: #272b41;
+$ss-light: #868eae;
+$ss-border-normal: #f1f2f6;
+$ss-border-light: #e3e6ef;
+$ss-border-gray: #c6d0dc;
+$ss-bg-normal: #fbfbfb;
+$ss-bg-light: #f8f9fb;
+$ss-bg-lighter: #f4f5f7;
 // link
 $link-hover-decoration: none;
 $link-color: $text-color;
 $link-hover-color: $primary;
 
-$box-shadow-sm:               0 5px .8px rgba(#a7b2c7, .1);
-$box-shadow:                  0 5px 20px rgba(#a7b2c7, .30);
-$box-shadow-lg:               0 1rem 3rem rgba($black, .175);
-
+$box-shadow-sm: 0 5px 0.8px rgba(#a7b2c7, 0.1);
+$box-shadow: 0 5px 20px rgba(#a7b2c7, 0.3);
+$box-shadow-lg: 0 1rem 3rem rgba($black, 0.175);
 
 // Button
-$btn-line-height:       27px;
+$btn-line-height: 27px;
 $other-colors: (
-        'badge-feature': $badge-feature,
-        'badge-popular': $badge-popular
+  "badge-feature": $badge-feature,
+  "badge-popular": $badge-popular,
 );
 
-$btn-padding-y:               5px;
-$btn-padding-x:               15px;
+$btn-padding-y: 5px;
+$btn-padding-x: 15px;
 
 // forms
 $input-height: 44px;
 $input-border-color: #dbdaf7;
-$label-margin-bottom : 8px;
+$label-margin-bottom: 8px;
 $input-btn-padding-y: 20px;
 /* typography */
 //$headings-font-family: 'Roboto', sans-serif;
 //$atbd-font-family: 'Roboto', sans-serif;
 $headings-color: #272b41;
-$h2-font-size:                30px;
-$h4-font-size:                18px;
+$h2-font-size: 30px;
+$h4-font-size: 18px;
 @import "scss/variables";

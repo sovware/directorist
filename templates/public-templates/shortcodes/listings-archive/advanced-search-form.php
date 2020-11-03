@@ -22,6 +22,5 @@
 		</div>
 
 		<?php $searchform->buttons_template(); ?>
-		<?php e_var_dump($searchform->form_data);?>
 	</form>
 </div>

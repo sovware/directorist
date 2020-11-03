@@ -572,112 +572,6 @@ function prepear_form_data ( form, field_map, data ) {
           $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
       }
 
-      /* user dashboard nav */
-      var tab_nav = $(".atbd_tab_nav .atbdp_tab_nav--content").width();
-      //var tab_count = document.querySelectorAll(".atbdp_tab_nav--content li");
-
-      if (tab_nav < 600 /*&& tab_count.length >=4*/) {
-          $(".atbd_tab").addClass("atbd_tab_slider");
-          $(".atbdp_tab_nav--content").addClass("tab_nav_slide");
-      }
-      if ($(".atbd_dashboard_wrapper ").width() > 590) {
-          $(".atbdp_tab_nav--content").addClass("tab_nav_slide--fix");
-      }
-
-      var nav_tab_slide = $('.atbdp_tab_nav--content.tab_nav_slide ').slick({
-          dots: false,
-          infinite: false,
-          speed: 300,
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          prevArrow: "<span class='slick-prev'><i class='la la-angle-left'></i></span>",
-          nextArrow: "<span class='slick-next'><i class='la la-angle-right'></i></span>",
-          responsive: [
-              {
-                  breakpoint: 600,
-                  settings: {
-                      slidesToShow: 3,
-                      slidesToScroll: 2
-                  }
-              },
-              {
-                  breakpoint: 480,
-                  settings: {
-                      slidesToShow: 2,
-                      slidesToScroll: 1
-                  }
-              }
-          ]
-      });
-      //Hide the Previous button.
-      $('.slick-prev').hide();
-
-      nav_tab_slide.on('afterChange', function (event, slick, currentSlide) {
-          //If we're on the first slide hide the Previous button and show the Next
-          if (currentSlide === 0) {
-              $('.slick-prev').hide();
-              $('.slick-next').show();
-          } else {
-              $('.slick-prev').show();
-          }
-
-          //If we're on the last slide hide the Next button.
-          if (slick.slideCount === currentSlide + 1) {
-              $('.slick-next').hide();
-          }
-      });
-
-      /* active dropdown if nav items are higher than 5 */
-
-      if (document.querySelector('.atbdp_tab_nav--content') != null) {
-          const navLi = document.querySelectorAll('.atbdp_tab_nav--content .atbdp_tab_nav--content-link');
-          const navLastChild = document.querySelector('.atbdp-tab-nav-last');
-          navLastChild.style.display = 'none';
-          if (tab_nav > 600) {
-              const liArray = [...navLi];
-              const liSliced = liArray.slice(5, -1);
-              const navUl = document.createElement('ul');
-              liSliced.forEach(i => {
-                  if (typeof i === 'object') {
-                      navUl.appendChild(i);
-                  } else {
-                      navUl.innerHTML += ` ${i} `;
-                  }
-              });
-              navLastChild.appendChild(navUl);
-              if (navLi.length > 5) {
-                  navLastChild.style.display = 'block';
-                  navLastChild.classList.add("atbdp-nlc-active");
-              }
-              if (navLi.length === 6) {
-                  navLastChild.style.display = 'none';
-              }
-          }
-
-          navLastChild.querySelector('.atbdp-tab-nav-link').addEventListener('click', function (e) {
-              e.preventDefault();
-              navLastChild.querySelector('ul').classList.toggle('active');
-          });
-          if (document.querySelector('.atbdp_all_booking_nav-link') !== null) {
-              document.querySelector('.atbdp_all_booking_nav-link').addEventListener('click', function (e) {
-                  e.preventDefault();
-                  document.querySelector('.atbdp_all_booking_nav ul').classList.toggle('active');
-              });
-          }
-
-
-          document.body.addEventListener('click', function (e) {
-              if (!e.target.closest(".atbdp-tab-nav-last")) {
-                  document.querySelector('.atbdp-tab-nav-last ul').classList.remove('active');
-              }
-              if (document.querySelector('.atbdp_all_booking_nav-link') !== null) {
-                  if (!e.target.closest(".atbdp_all_booking_nav")) {
-                      document.querySelector('.atbdp_all_booking_nav ul').classList.remove('active');
-                  }
-              }
-          });
-      }
-
 
   });
 
@@ -890,7 +784,7 @@ function prepear_form_data ( form, field_map, data ) {
       UIkit.grid(".data-uk-masonry");
   }); */
 
-  $(".atbdp_tab_nav_wrapper > ul > li:first-child > a").one("click", function () {
+  /* $(".atbdp_tab_nav_wrapper > ul > li:first-child > a").one("click", function () {
       (function () {
           if (window.localStorage) {
               if (!localStorage.getItem('firstLoad')) {
@@ -900,25 +794,7 @@ function prepear_form_data ( form, field_map, data ) {
                   localStorage.removeItem('firstLoad');
           }
       })();
-  });
-
-
-  /*   $('.atbdp_right_nav').on('click', function (event) {
-          event.preventDefault();
-          var currentLocation = window.location;
-          var split_url = currentLocation.href.split('/');
-          var target = split_url[ split_url.length - 2 ];
-
-          if(target === 'new-post-copy') {
-              location.replace(currentLocation.href+2)
-          } else {
-              var url1 = currentLocation.href.split('/')[ split_url.length - 2 ];
-              var change = currentLocation.href.split('/');
-              change[ split_url.length - 2 ] =  parseInt(url1)+1;
-              location.replace(change.join('/'));
-          }
-
-      })*/
+  }); */
 
   // Perform AJAX login on form submit
   $('form#login').on('submit', function (e) {
@@ -991,18 +867,10 @@ function prepear_form_data ( form, field_map, data ) {
       }
   });
 
-  //dashboard sidenav
-  $(".atbd-dashboard-sidenav ul li .atbd-sidenav-dropdown").each(function(i, e){
-    $(e).on("click", function(elm){
-        elm.preventDefault();
-        $(".atbd-dashboard-sidenav ul li ul").slideUp();
-        $(this).siblings("ul").slideToggle();
-    });
-  });
-
-  $(".atbd-dashboard-sidenav-toggle").on("click", function(e){
-    e.preventDefault();
-    $(this).parent(".atbd-dashboard-sidenav").toggleClass("atbd-sidenav-collapsed");
+  //dashboard sidebar nav toggler
+  $(".atbd-dashboard-nav-toggler").on("click", function(e){
+      e.preventDefault();
+      $(".atbd_user_dashboard_nav").toggleClass("atbd-dashboard-nav-collapsed");
   });
 
 })(jQuery);

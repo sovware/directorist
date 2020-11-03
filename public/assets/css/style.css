@@ -5866,7 +5866,7 @@ span.atbd_get_loc_wid {
 }
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav.atbd-dashboard-nav-collapsed {
-  width: 0;
+  width: 0 !important;
   height: 0;
   margin-right: 0;
   visibility: hidden;
@@ -5902,6 +5902,8 @@ span.atbd_get_loc_wid {
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a {
   display: inline-block;
   margin-bottom: 15px;
+  padding: 3px 12px;
+  line-height: 25px;
 }
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_tab-content {
@@ -5935,13 +5937,13 @@ span.atbd_get_loc_wid {
   outline: 0;
 }
 
-.atbd_tab-content--fix .atbd_tab_inner .col-lg-4 {
+.atbd_tab-content--fix .atbd_tab_inner .col-lg-4.col-sm-6 {
   max-width: 50% !important;
   flex: 0 0 50% !important;
 }
 
 @media (max-width: 575px) {
-  .atbd_tab-content--fix .atbd_tab_inner .col-lg-4 {
+  .atbd_tab-content--fix .atbd_tab_inner .col-lg-4.col-sm-6 {
     max-width: 100% !important;
     flex: 0 0 100% !important;
   }
@@ -5953,9 +5955,22 @@ span.atbd_get_loc_wid {
   margin-left: 0;
 }
 
+.atbd_tab-content--fix #user_profile_form .atbd_user_profile_edit {
+  margin-top: 15px;
+}
+
 .atbd_tab-content--fix .atbd-message-sidebar,
 .atbd_tab-content--fix .atbd-message-list {
   flex: 0 0 100%;
+}
+
+#directorist.atbd_wrapper.size-xs .atbd_dashboard_wrapper .atbd_user_dashboard_nav {
+  width: 160px;
+}
+
+#directorist.atbd_wrapper.size-xs .atbd_tab-content--fix .atbd_tab_inner .col-lg-4.col-sm-6 {
+  max-width: 100% !important;
+  flex: 0 0 100% !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-selection {

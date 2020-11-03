@@ -2,11 +2,11 @@
 /**
  * @author  AazzTech
  * @since   6.6
- * @version 6.6
+ * @version 6.7
  */
 ?>
 
-<div class="directorist-contact-fields atbdp_info_module">
+<div class="atbdp_info_module">
 
 	<?php
     /*

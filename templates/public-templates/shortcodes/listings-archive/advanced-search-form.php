@@ -4,9 +4,6 @@
  * @since   6.6
  * @version 6.7
  */
-
-// e_var_dump($searchform->form_data);
-
 ?>
 <div class="ads-advanced">
 	<form action="<?php atbdp_search_result_page_link(); ?>" class="atbd_ads-form">

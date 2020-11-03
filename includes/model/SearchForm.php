@@ -330,7 +330,7 @@ class Directorist_Listing_Search_Form {
 
 	public function field_template( $field_data) {
 		$key = $field_data['field_key'];
-		$field_data['value'] = isset( $_GET[$key] ) ? $_GET[$key] : '';
+		$field_data['value'] = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
 
 		$args = array(
 			'searchform' => $this,
@@ -348,7 +348,7 @@ class Directorist_Listing_Search_Form {
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
 		foreach ( $search_form_fields['fields'] as $key => $value) {
-			$search_form_fields['fields'][$key]['field_key'] = $submission_form_fields['fields'][$key]['field_key'];
+			$search_form_fields['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
 		}
 
 		foreach ( $search_form_fields['groups'] as $group ) {

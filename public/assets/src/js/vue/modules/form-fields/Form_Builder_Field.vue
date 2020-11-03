@@ -48,7 +48,6 @@
               </slide-up-down>
             </div>
 
-            getActiveGroupCollapseState : {{ getActiveGroupCollapseState( group_key ) }}
             <slide-up-down :active="getActiveGroupCollapseState( group_key )" :duration="500">
               <div class="cptm-form-builder-group-fields">
                 <div class="cptm-form-builder-group-field-item" v-for="(field_key, field_index) in group.fields" :key="field_index">

@@ -6465,6 +6465,15 @@ span.atbd_get_loc_wid {
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbdp_tab_nav--content li a {
   outline: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbdp_tab_nav--content li ul {

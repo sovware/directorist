@@ -1,9 +1,9 @@
 <template>
     <div class="cptm-multi-option-group">
         <h3 class="cptm-multi-option-label">{{ label }}</h3>
-
         <template v-for="( option_group, option_group_key ) in theActiveGroups">
             <div class="cptm-multi-option-group-section" :key="option_group_key">
+                <h3># {{ ( option_group_key + 1 ) }}</h3>
                 <template v-for="( option, option_key ) in option_group">
                     <component 
                         :is="option.type + '-field'"

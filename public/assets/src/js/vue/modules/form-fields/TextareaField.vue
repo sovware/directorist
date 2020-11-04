@@ -1,9 +1,7 @@
 <template>
 <div class="cptm-form-group" :class="formGroupClass">
     <label v-if="( 'hidden' !== input_type && label.length )" :for="name">{{ label }}</label>
-    <textarea name="" id="" :cols="cols" :rows="rows" :placeholder="placeholder" class="cptm-form-control" @input="$emit('update', $event.target.value)">
-        {{ value }}
-    </textarea>
+    <textarea name="" id="" :cols="cols" :rows="rows" :placeholder="placeholder" class="cptm-form-control" v-model="local_value"></textarea>
 
     <div class="cptm-form-group-feedback" v-if="validationMessages">
         <div class="cptm-form-alert" :class="'cptm-' + validationMessages.type">
@@ -84,9 +82,19 @@ export default {
         },
     },
 
+    watch: {
+        local_value() {
+            this.$emit( 'update', this.local_value );
+        }
+    },
+
+    created() {
+        this.local_value = this.value;
+    },
+
     data() {
         return {
-
+            local_value: '',
         }
     },
 }

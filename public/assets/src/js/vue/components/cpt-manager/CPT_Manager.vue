@@ -159,7 +159,8 @@ export default {
                     if ( response.data.post_id && ! isNaN( response.data.post_id ) ) {
                         self.listing_type_id = response.data.post_id;
                         self.footer_actions.save.label = 'Update';
-                        window.location = response.data.redirect_url;
+                        self.listing_type_id = response.data.post_id;
+                        // window.location = response.data.redirect_url;
                     }
 
                     if ( response.data.status_log ) {
@@ -169,6 +170,10 @@ export default {
                                 message: response.data.status_log[ status_key ].message
                             });
                         }
+
+                        setTimeout( function() {
+                            self.status_messages = [];
+                        }, 5000 );
                     }
 
                     // console.log( response );

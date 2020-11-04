@@ -2383,21 +2383,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'assign_to' => [
-                                    'type' => 'radio',
-                                    'label' => __('Assign to', 'directorist'),
-                                    'value' => 'form',
-                                    'options' => [
-                                        [
-                                            'label' => __('Form', 'directorist'),
-                                            'value' => 'form',
-                                        ],
-                                        [
-                                            'label' => __('Category', 'directorist'),
-                                            'value' => 'category',
+                                'assign_to' => $this->get_assign_to_field(),
+                                'category' => $this->get_category_select_field([
+                                    'show_if' => [
+                                        'where' => "self.assign_to",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
                                         ],
                                     ],
-                                ],
+                                ]),
 
 
                             ]
@@ -2442,21 +2436,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'assign_to' => [
-                                    'type' => 'radio',
-                                    'label' => __('Assign to', 'directorist'),
-                                    'value' => 'form',
-                                    'options' => [
-                                        [
-                                            'label' => __('Form', 'directorist'),
-                                            'value' => 'form',
-                                        ],
-                                        [
-                                            'label' => __('Category', 'directorist'),
-                                            'value' => 'category',
+                                'assign_to' => $this->get_assign_to_field(),
+                                'category' => $this->get_category_select_field([
+                                    'show_if' => [
+                                        'where' => "self.assign_to",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
                                         ],
                                     ],
-                                ],
+                                ]),
 
 
                             ]
@@ -2506,21 +2494,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'assign_to' => [
-                                    'type' => 'radio',
-                                    'label' => __('Assign to', 'directorist'),
-                                    'value' => 'form',
-                                    'options' => [
-                                        [
-                                            'label' => __('Form', 'directorist'),
-                                            'value' => 'form',
-                                        ],
-                                        [
-                                            'label' => __('Category', 'directorist'),
-                                            'value' => 'category',
+                                'assign_to' => $this->get_assign_to_field(),
+                                'category' => $this->get_category_select_field([
+                                    'show_if' => [
+                                        'where' => "self.assign_to",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
                                         ],
                                     ],
-                                ],
+                                ]),
 
 
                             ]
@@ -2565,21 +2547,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'assign_to' => [
-                                    'type' => 'radio',
-                                    'label' => __('Assign to', 'directorist'),
-                                    'value' => 'form',
-                                    'options' => [
-                                        [
-                                            'label' => __('Form', 'directorist'),
-                                            'value' => 'form',
-                                        ],
-                                        [
-                                            'label' => __('Category', 'directorist'),
-                                            'value' => 'category',
+                                'assign_to' => $this->get_assign_to_field(),
+                                'category' => $this->get_category_select_field([
+                                    'show_if' => [
+                                        'where' => "self.assign_to",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
                                         ],
                                     ],
-                                ],
+                                ]),
 
 
                             ]
@@ -2624,21 +2600,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'assign_to' => [
-                                    'type' => 'radio',
-                                    'label' => __('Assign to', 'directorist'),
-                                    'value' => 'form',
-                                    'options' => [
-                                        [
-                                            'label' => __('Form', 'directorist'),
-                                            'value' => 'form',
-                                        ],
-                                        [
-                                            'label' => __('Category', 'directorist'),
-                                            'value' => 'category',
+                                'assign_to' => $this->get_assign_to_field(),
+                                'category' => $this->get_category_select_field([
+                                    'show_if' => [
+                                        'where' => "self.assign_to",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
                                         ],
                                     ],
-                                ],
+                                ]),
 
 
                             ]
@@ -2678,21 +2648,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'assign_to' => [
-                                    'type' => 'radio',
-                                    'label' => __('Assign to', 'directorist'),
-                                    'value' => 'form',
-                                    'options' => [
-                                        [
-                                            'label' => __('Form', 'directorist'),
-                                            'value' => 'form',
-                                        ],
-                                        [
-                                            'label' => __('Category', 'directorist'),
-                                            'value' => 'category',
+                                'assign_to' => $this->get_assign_to_field(),
+                                'category' => $this->get_category_select_field([
+                                    'show_if' => [
+                                        'where' => "self.assign_to",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
                                         ],
                                     ],
-                                ],
+                                ]),
 
 
                             ]
@@ -2717,14 +2681,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label' => 'Key',
                                     'value' => 'custom-select',
                                 ],
-                                'options' => [
-                                    'type' => 'textarea',
-                                    'label' => __('Options', 'directorist'),
-                                    'description' => __('Each on a new line, for example,
-                                    Male: Male
-                                    Female: Female
-                                    Other: Other', 'directorist'),
-                                ],
+                                'assign_to' => $this->get_assign_to_field(),
+                                'category' => $this->get_category_select_field([
+                                    'show_if' => [
+                                        'where' => "self.assign_to",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
+                                        ],
+                                    ],
+                                ]),
                                 'description' => [
                                     'type'  => 'text',
                                     'label' => 'Description',
@@ -2740,21 +2705,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'assign_to' => [
-                                    'type' => 'radio',
-                                    'label' => __('Assign to', 'directorist'),
-                                    'value' => 'form',
-                                    'options' => [
-                                        [
-                                            'label' => __('Form', 'directorist'),
-                                            'value' => 'form',
-                                        ],
-                                        [
-                                            'label' => __('Category', 'directorist'),
-                                            'value' => 'category',
+                                'assign_to' => $this->get_assign_to_field(),
+                                'category' => $this->get_category_select_field([
+                                    'show_if' => [
+                                        'where' => "self.assign_to",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
                                         ],
                                     ],
-                                ],
+                                ]),
 
 
                             ]
@@ -2780,12 +2739,21 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'value' => 'custom-checkbox',
                                 ],
                                 'options' => [
-                                    'type' => 'textarea',
+                                    'type' => 'multi-fields',
                                     'label' => __('Options', 'directorist'),
-                                    'description' => __('Each on a new line, for example,
-                                    Male: Male
-                                    Female: Female
-                                    Other: Other', 'directorist'),
+                                    'add-new-button-label' => 'Add Option',
+                                    'options' => [
+                                        'option_value' => [
+                                            'type'  => 'text',
+                                            'label' => 'Option Value',
+                                            'value' => '',
+                                        ],
+                                        'option_label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Option Label',
+                                            'value' => '',
+                                        ],
+                                    ]
                                 ],
                                 'description' => [
                                     'type'  => 'text',
@@ -2802,22 +2770,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'assign_to' => [
-                                    'type' => 'radio',
-                                    'label' => __('Assign to', 'directorist'),
-                                    'value' => 'form',
-                                    'options' => [
-                                        [
-                                            'label' => __('Form', 'directorist'),
-                                            'value' => 'form',
-                                        ],
-                                        [
-                                            'label' => __('Category', 'directorist'),
-                                            'value' => 'category',
+                                'assign_to' => $this->get_assign_to_field(),
+                                'category' => $this->get_category_select_field([
+                                    'show_if' => [
+                                        'where' => "self.assign_to",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
                                         ],
                                     ],
-                                ],
-
+                                ]),
 
                             ]
 
@@ -2842,12 +2803,21 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'value' => 'custom-radio',
                                 ],
                                 'options' => [
-                                    'type' => 'custom-options',
+                                    'type' => 'multi-fields',
                                     'label' => __('Options', 'directorist'),
-                                    'description' => __('Each on a new line, for example,
-                                        Male: Male
-                                        Female: Female
-                                        Other: Other', 'directorist'),
+                                    'add-new-button-label' => 'Add Option',
+                                    'options' => [
+                                        'option_value' => [
+                                            'type'  => 'text',
+                                            'label' => 'Option Value',
+                                            'value' => '',
+                                        ],
+                                        'option_label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Option Label',
+                                            'value' => '',
+                                        ],
+                                    ]
                                 ],
                                 'description' => [
                                     'type'  => 'text',
@@ -2864,23 +2834,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'assign_to' => [
-                                    'type' => 'radio',
-                                    'label' => __('Assign to', 'directorist'),
-                                    'value' => 'form',
-                                    'options' => [
-                                        [
-                                            'label' => __('Form', 'directorist'),
-                                            'value' => 'form',
-                                        ],
-                                        [
-                                            'label' => __('Category', 'directorist'),
-                                            'value' => 'category',
+                                'assign_to' => $this->get_assign_to_field(),
+                                'category' => $this->get_category_select_field([
+                                    'show_if' => [
+                                        'where' => "self.assign_to",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
                                         ],
                                     ],
-                                ],
-
-
+                                ]),
                             ]
 
                         ],
@@ -3118,8 +3080,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-
-
+                                'assign_to' => $this->get_assign_to_field(),
+                                'category' => $this->get_category_select_field([
+                                    'show_if' => [
+                                        'where' => "self.assign_to",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
+                                        ],
+                                    ],
+                                ]),
                             ]
 
                         ],
@@ -4151,7 +4120,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'default_expiration' => [
                     'label' => __('Default expiration in days', 'directorist'),
                     'type'  => 'number',
-                    'value' => '',
+                    'value' => 30,
                     'placeholder' => '365',
                     'rules' => [
                         'required' => true,
@@ -4161,7 +4130,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'new_listing_status' => [
                     'label' => __('New Listing Default Status', 'directorist'),
                     'type'  => 'select',
-                    'value' => '',
+                    'value' => 'pending',
                     'options' => [
                         [
                             'label' => __('Pending', 'directorist'),
@@ -4177,7 +4146,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'edit_listing_status' => [
                     'label' => __('Edited Listing Default Status', 'directorist'),
                     'type'  => 'select',
-                    'value' => '',
+                    'value' => 'pending',
                     'options' => [
                         [
                             'label' => __('Pending', 'directorist'),
@@ -4830,8 +4799,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                 ],
 
                                 'export_import' => [
-                                    'title'       => __('Export & Import Config File', 'directorist'),
-                                    'description' => __('Bulk import and export all the form, layout and settings', 'directorist'),
+                                    'title'       => __('Export The Config File', 'directorist'),
+                                    'description' => __('Export all the form, layout and settings', 'directorist'),
                                     'fields'      => [
                                         'import_export',
                                     ],

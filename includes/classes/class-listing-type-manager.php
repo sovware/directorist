@@ -16,7 +16,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
             add_action( 'init', [$this, 'register_terms'] );
-            add_action( 'init', [$this, 'initial_setup'] );
+            // add_action( 'init', [$this, 'initial_setup'] );
             add_action( 'admin_menu', [$this, 'add_menu_pages'] );
             add_action( 'admin_post_delete_listing_type', [$this, 'handle_delete_listing_type_request'] );
 
@@ -77,7 +77,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             $preview_image     = [ 'id' => null, 'url' => $preview_image_url ];
 
             $submission_form_fields = [
-                get_directorist_option( '',  ),
                 "title" => [
                     "widget_group" => "preset",
                     "widget_name"  => "title",

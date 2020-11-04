@@ -260,10 +260,10 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             $submission_form_custom_fields = $this->get_old_custom_fields();
             $submission_form_fields = array_merge( $submission_form_fields, $submission_form_custom_fields );
-            echo '<pre>';
-            var_dump( $submission_form_fields );
-            echo '</pre>';
-            die();
+            // echo '<pre>';
+            // var_dump( $submission_form_fields );
+            // echo '</pre>';
+            // die();
             $submission_form_groups = [
                 [
                     "label" => "General Group",

@@ -719,16 +719,11 @@ class Directorist_Listings {
 
 
 		// Listings of current listing type and empty listing type
-		$types = $this->listing_types;
-		if ( array_key_exists( $this->current_listing_type, $types ) ) {
-			unset( $types[$this->current_listing_type] );
-		}
 		$tax_queries['tax_query'] = array(
 			'relation' => 'AND',
 			array(
 				'taxonomy' => ATBDP_TYPE,
-				'terms'    => array_keys( $types ),
-				'operator' => 'NOT IN'
+				'terms'    => $this->current_listing_type,
 			),
 		);
 

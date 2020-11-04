@@ -4,12 +4,12 @@
         <div class="cptm-radio-area">
             <div class="cptm-radio-item" v-for="( option, option_index ) in theOptions" :key="option_index">
                 <input type="radio" class="cptm-radio" 
-                    :id="( typeof option.id !== 'undefined' ) ? feildId + '_' + option.id : ''"
+                    :id="getOptionID( option, option_index )"
                     :name="name"
                     :value="( typeof option.value !== 'undefined' ) ? option.value : ''"
                     v-model="local_value"
                 >
-                <label :for="( typeof option.id !== 'undefined' ) ? feildId + '_' + option.id : ''">
+                <label :for="getOptionID( option, option_index )">
                     {{ option.label }}
                 </label>
             </div>
@@ -26,14 +26,18 @@ import helpers from './../../mixins/helpers';
 import validation from './../../mixins/validation';
 
 export default {
-    name: 'checkbox-field',
+    name: 'radio-field',
     mixins: [ helpers, validation ],
     model: {
         prop: 'value',
         event: 'input'
     },
     props: {
-        feildId: {
+        test: {
+            required: false,
+            default: '',
+        },
+        fieldId: {
             type: [String, Number],
             required: false,
             default: '',

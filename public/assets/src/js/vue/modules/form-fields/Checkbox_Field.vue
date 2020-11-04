@@ -4,14 +4,14 @@
 
         <div class="cptm-checkbox-area">
             <div class="cptm-checkbox-item" v-for="( option, option_index ) in theOptions" :key="option_index">
-                <input type="checkbox" class="cptm-checkbox" 
-                    :id="( typeof option.id !== 'undefined' ) ? feildId + '_' + option.id : feildId"
+                <input type="checkbox" class="cptm-checkbox"
+                    :id="getOptionID( option, option_index )"
                     :value="( typeof option.value !== 'undefined' ) ? option.value : ''"
                     v-model="local_value"
                 >
 
-                <label :for="( typeof option.id !== 'undefined' ) ? feildId + '_' + option.id : feildId" class="cptm-checkbox-ui"></label>
-                <label :for="( typeof option.id !== 'undefined' ) ? feildId + '_' + option.id : feildId">
+                <label :for="getOptionID( option, option_index )" class="cptm-checkbox-ui"></label>
+                <label :for="getOptionID( option, option_index )">
                     {{ option.label }}
                 </label>
             </div>
@@ -35,7 +35,7 @@ export default {
         event: 'input'
     },
     props: {
-        feildId: {
+        fieldId: {
             type: [String, Number],
             required: false,
             default: '',

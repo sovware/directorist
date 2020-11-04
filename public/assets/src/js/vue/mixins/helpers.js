@@ -17,6 +17,10 @@ export default {
             return the_var;
         },
 
+        getOptionID( option, index ) {
+            return ( typeof option.id !== 'undefined' ) ? this.fieldId + '_' + index + '_' + option.id : this.fieldId + '_' + index;
+        },
+
         mapDataByMap( data, map ) {
             const flatten_data = JSON.parse( JSON.stringify( data ) );
             const flatten_map = JSON.parse( JSON.stringify( map ) );

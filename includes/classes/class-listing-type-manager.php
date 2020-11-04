@@ -3,11 +3,12 @@
 if (!class_exists('ATBDP_Listing_Type_Manager')) {
     class ATBDP_Listing_Type_Manager
     {
-        public $fields = [];
-        public $layouts = [];
-        public $config = [];
-        public $default_form = [];
+        public $fields            = [];
+        public $layouts           = [];
+        public $config            = [];
+        public $default_form      = [];
         public $old_custom_fields = [];
+        public $cetagory_options  = [];
 
         // run
         public function run()
@@ -26,13 +27,67 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             $this->get_old_custom_fields();
         }
 
+        // get_cetagory_options
+        public function get_cetagory_options() {
+            $terms = get_terms( array(
+                'taxonomy'   => ATBDP_CATEGORY,
+                'hide_empty' => false,
+            ));
+
+            $options = [];
+
+            if ( is_wp_error( $terms ) ) { return $options; }
+            if ( ! count( $terms ) ) { return $options; }
+
+            foreach( $terms as $term ) {
+                $options[] = [ 
+                    'id'    => $term->term_id,
+                    'value' => $term->term_id,
+                    'label' => $term->name,
+                ];
+            }
+
+            return $options; 
+        }
+        
+        // get_assign_to_field
+        public function get_assign_to_field( array $args = [] ) {
+            $default = [
+                'type' => 'radio',
+                'label' => __('Assign to', 'directorist'),
+                'value' => 'form',
+                'options' => [
+                    [
+                        'label' => __('Form', 'directorist'),
+                        'value' => 'form',
+                    ],
+                    [
+                        'label' => __('Category', 'directorist'),
+                        'value' => 'category',
+                    ],
+                ],
+            ];
+
+            return array_merge( $default, $args );
+        }
+
+        // get_category_select_field
+        public function get_category_select_field( array $args = [] ) {
+            $default = [
+                'type'    => 'select',
+                'label'   => __('Select Category', 'directorist'),
+                'value'   => '',
+                'options' => $this->cetagory_options,
+            ];
+
+            return array_merge( $default, $args );
+        }
+
         // initial_setup
         public function initial_setup() {
 
             // update_option( 'atbdp_migrated_to_multidirectory', false );
             // update_option( 'atbdp_has_multidirectory', false );
-            
-            
             $has_listings       = false;
             $has_custom_fields  = false;
             $migrated           = get_option( 'atbdp_migrated_to_multidirectory', false );
@@ -1303,6 +1358,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         // prepare_settings
         public function prepare_settings()
         {
+            $this->cetagory_options = $this->get_cetagory_options();
+
             $this->default_form = apply_filters('atbdp_default_listing_form_sections', [
                 'general_information' => [
                     'label' => __('General Information', 'directorist'),
@@ -2268,36 +2325,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label'  => 'Only For Admin Use',
                                     'value' => false,
                                 ],
-                                'assign_to' => [
-                                    'type' => 'radio',
-                                    'label' => __('Assign to', 'directorist'),
-                                    'value' => 'form',
-                                    'options' => [
-                                        [
-                                            'label' => __('Form', 'directorist'),
-                                            'value' => 'form',
-                                        ],
-                                        [
-                                            'label' => __('Category', 'directorist'),
-                                            'value' => 'category',
+                                'assign_to' => $this->get_assign_to_field(),
+                                'category' => $this->get_category_select_field([
+                                    'show_if' => [
+                                        'where' => "self.assign_to",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
                                         ],
                                     ],
-                                ],
-                                /* 'category' => [
-                                    'type' => 'select',
-                                    'label' => __('Assign to', 'directorist'),
-                                    'value' => 'form',
-                                    'options' => [
-                                        [
-                                            'label' => __('Form', 'directorist'),
-                                            'value' => 'form',
-                                        ],
-                                        [
-                                            'label' => __('Category', 'directorist'),
-                                            'value' => 'category',
-                                        ],
-                                    ],
-                                ], */
+                                ]),
 
 
                             ]
@@ -4160,54 +4196,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'value' => '',
                 ],
 
-                // TERMS AND CONDITIONS
-                'listing_terms_condition' => [
-                    'label' => __('Enable', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                ],
-                'require_terms_conditions' => [
-                    'label' => __('Required', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                ],
-                'terms_label' => [
-                    'label'       => __('Label', 'directorist'),
-                    'type'        => 'text',
-                    'description' => 'Place the linking text between two <code>%</code> mark. Ex: %link% ',
-                    'value'       => 'I agree with all %terms & conditions%',
-                ],
-
-                // PRIVACY AND POLICY
-                'listing_privacy' => [
-                    'label' => __('Enable', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                ],
-                'require_privacy' => [
-                    'label' => __('Required', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                ],
-                'privacy_label' => [
-                    'label' => __('Label', 'directorist'),
-                    'type'  => 'text',
-                    'description' => 'Place the linking text between two <code>%</code> mark. Ex: %link% ',
-                    'value' => 'I agree to the %Privacy & Policy%',
-                ],
-
-                // Submission Settings
-                'preview_mode' => [
-                    'label' => __('Enable Preview', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                ],
-                'submit_button_label' => [
-                    'label' => __('Submit Button Label', 'directorist'),
-                    'type'  => 'text',
-                    'value' => __('Save & Preview', 'directorist'),
-                ],
-                
                 'submission_form_fields' => apply_filters( 'atbdp_listing_type_form_fields', [
                     'type'    => 'form-builder',
                     'widgets' => $form_field_widgets,
@@ -4243,6 +4231,75 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
                 ] ),
 
+                // Submission Settings
+                'preview_mode' => [
+                    'label' => __('Enable Preview', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'submit_button_label' => [
+                    'label' => __('Submit Button Label', 'directorist'),
+                    'type'  => 'text',
+                    'value' => __('Save & Preview', 'directorist'),
+                ],
+
+                // Guest Submission
+                'guest_listings' => [
+                    'label' => __('Enable Guest Listing Submission', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'guest_email_label' => [
+                    'label' => __('Guest Email Label', 'directorist'),
+                    'type'  => 'text',
+                    'value' => 'Your Email',
+                ],
+                'guest_email_placeholder' => [
+                    'label' => __('Guest Email Placeholder', 'directorist'),
+                    'type'  => 'text',
+                    'value' => 'example@email.com',
+                ],
+                'submit_button_label' => [
+                    'label' => __('Submit Button Label', 'directorist'),
+                    'type'  => 'text',
+                    'value' => __('Save & Preview', 'directorist'),
+                ],
+
+                // TERMS AND CONDITIONS
+                'listing_terms_condition' => [
+                    'label' => __('Enable', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'require_terms_conditions' => [
+                    'label' => __('Required', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'terms_label' => [
+                    'label'       => __('Label', 'directorist'),
+                    'type'        => 'text',
+                    'description' => 'Place the linking text between two <code>%</code> mark. Ex: %link% ',
+                    'value'       => 'I agree with all %terms & conditions%',
+                ],
+
+                // PRIVACY AND POLICY
+                'listing_privacy' => [
+                    'label' => __('Enable', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'require_privacy' => [
+                    'label' => __('Required', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'privacy_label' => [
+                    'label' => __('Label', 'directorist'),
+                    'type'  => 'text',
+                    'description' => 'Place the linking text between two <code>%</code> mark. Ex: %link% ',
+                    'value' => 'I agree to the %Privacy & Policy%',
+                ],
                 
                 'single_listings_contents' => [
                     'type'     => 'form-builder',
@@ -4812,6 +4869,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         'submit_button_label',
                                     ],
                                 ],
+                                'guest_submission' => [
+                                    'title' => __('Guest Submittion', 'directorist'),
+                                    'container' => 'short-width',
+                                    'fields' => [
+                                        'guest_listings',
+                                        'guest_email_label',
+                                        'guest_email_placeholder',
+                                    ],
+                                ],
                                 'terms_and_conditions' => [
                                     'title' => __('Terms and Conditions', 'directorist'),
                                     'container' => 'short-width',
@@ -5062,7 +5128,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             // $test = get_term_meta( $listing_type_id, 'submission_form_fields' );
             // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
-            // var_dump( $this->fields[ 'listings_card_grid_view' ]['value']['body']['bottom'] );
+            // var_dump( $this->fields[ 'submission_form_fields' ] );
             // var_dump( json_decode( $test ) );
         }
 

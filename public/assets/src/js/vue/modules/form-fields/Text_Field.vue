@@ -1,6 +1,7 @@
 <template>
 <div class="cptm-form-group" :class="formGroupClass">
     <label v-if="( 'hidden' !== input_type && label.length )" :for="name">{{ label }}</label>
+    <p v-html="description" class="cptm-form-group-info"></p>
     <input class="cptm-form-control" v-if="(  typeof value !== 'object'  ) ? true : false" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
     <input class="cptm-form-control" v-if="(  typeof value === 'object'  ) ? true : false" :type="input_type" :value="JSON.stringify( value )" :placeholder="placeholder">
 
@@ -29,6 +30,11 @@ export default {
             default: 'text',
         },
         label: {
+            type: String,
+            required: false,
+            default: '',
+        },
+        description: {
             type: String,
             required: false,
             default: '',

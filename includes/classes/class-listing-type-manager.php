@@ -28,7 +28,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         // initial_setup
         public function initial_setup() {
 
-            update_option( 'atbdp_migrated_to_multidirectory', false );
+            // update_option( 'atbdp_migrated_to_multidirectory', false );
             // update_option( 'atbdp_has_multidirectory', false );
             
             
@@ -40,10 +40,10 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             // update_option( 'atbdp_migrated_to_multidirectory', false );
             // update_option( 'atbdp_has_multidirectory', false );
 
-            $log = [
-                'migrated' => $migrated,
-                'has_multidirectory' => $has_multidirectory,
-            ];
+            // $log = [
+            //     'migrated' => $migrated,
+            //     'has_multidirectory' => $has_multidirectory,
+            // ];
             // var_dump( $log );
 
             $get_listings = new WP_Query([
@@ -65,13 +65,15 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             }
 
             if ( ! $has_multidirectory && ! $migrated ) {
-                // $this->import_default_directory();
+                $this->import_default_directory();
             }
         }
 
         // migrate_to_multidirectory
         public function migrate_to_multidirectory() {
             // var_dump( 'migrate_to_multidirectory' );
+
+            return;
             
             $preview_image_url = get_directorist_option( 'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' );
             $preview_image     = [ 'id' => null, 'url' => $preview_image_url ];
@@ -4220,14 +4222,10 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     'value' => true,
                 ],
                 'terms_label' => [
-                    'label' => __('Label', 'directorist'),
-                    'type'  => 'text',
-                    'value' => 'I agree with all',
-                ],
-                'terms_label_link' => [
-                    'label' => __('Linking Text', 'directorist'),
-                    'type'  => 'text',
-                    'value' => __('terms & conditions', 'directorist'),
+                    'label'       => __('Label', 'directorist'),
+                    'type'        => 'text',
+                    'description' => 'Place the linking text between two <code>%</code> mark. Ex: %link% ',
+                    'value'       => 'I agree with all %terms & conditions%',
                 ],
 
                 // PRIVACY AND POLICY
@@ -4244,12 +4242,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'privacy_label' => [
                     'label' => __('Label', 'directorist'),
                     'type'  => 'text',
-                    'value' => 'I agree to the',
-                ],
-                'privacy_label_link' => [
-                    'label' => __('Linking Text', 'directorist'),
-                    'type'  => 'text',
-                    'value' => __('Privacy & Policy', 'directorist'),
+                    'description' => 'Place the linking text between two <code>%</code> mark. Ex: %link% ',
+                    'value' => 'I agree to the %Privacy & Policy%',
                 ],
 
                 // Submission Settings
@@ -4875,7 +4869,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         'listing_terms_condition',
                                         'require_terms_conditions',
                                         'terms_label',
-                                        'terms_label_link',
                                     ],
                                 ],
                                 'privacy_and_policy' => [
@@ -4885,7 +4878,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         'listing_privacy',
                                         'require_privacy',
                                         'privacy_label',
-                                        'privacy_label_link',
                                     ],
                                 ],
                             ],

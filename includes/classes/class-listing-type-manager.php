@@ -23,6 +23,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
             add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
             add_action( 'template_redirect', [ $this, 'directory_json_download_link' ] );
+            $this->get_old_custom_fields();
         }
 
         // initial_setup
@@ -264,6 +265,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             // echo '<pre>';
             // var_dump( $submission_form_fields );
             // echo '</pre>';
+            // die();
             $submission_form_groups = [
                 [
                     "label" => "General Group",
@@ -887,99 +889,32 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 $associate = get_post_meta($old_field, 'associate', true);
                 $category_pass = get_post_meta($old_field, 'category_pass', true);
                 $choices = get_post_meta($old_field, 'choices', true);
+                // var_dump( $choices );
+                // die();
                 $rows = get_post_meta($old_field, 'rows', true);
                 $target = get_post_meta($old_field, 'target', true);
                 $file_type = get_post_meta($old_field, 'file_type', true);
                 $file_size = get_post_meta($old_field, 'file_size', true);
+                $field_data = [];
+                $accepted_types = [ 'text', 'number', 'date', 'color', 'time', 'radio', 'checkbox', 'select', 'textarea', 'url', 'file' ];
+                if( ! in_array( $field_type, $accepted_types ) ) { continue; }
+                $field_data['type'] = $field_type;
+                $field_data['label'] = get_the_title($old_field);
+                $field_data['field_key'] = $old_field;
+                $field_data['placeholder'] = '';
+                $field_data['description'] = $description;
+                $field_data['required'] = $required == 1 ? true : false;
+                $field_data['widget_group'] = 'custom';
+                $field_data['widget_name'] = $field_type;
+
                 if (('text' === $field_type) || ('number' === $field_type) || ('date' === $field_type) || ('color' === $field_type) || ('time' === $field_type)) {
-                    $fields[ $field_type . '_' . $old_field ] = [
-                        'type' => $field_type,
-                        'label' => get_the_title($old_field),
-                        'field_key' => $old_field,
-                        'placeholder' => '',
-                        'description' => $description,
-                        'required' => $required == 1 ? true : false,
-                        'only_for_admin' => $admin_use == 1 ? true : false,
-                        'assign_to' => $associate,
-                        'widget_group' => 'custom',
-                        'widget_name' => $field_type,
-                    ];
+                    $field_data['only_for_admin'] = $admin_use == 1 ? true : false;
+                    $field_data['assign_to'] = $associate;
                 }
                 if (('radio' === $field_type) || ('checkbox' === $field_type) || ('select' === $field_type)) {
-                    $fields[$field_type] = [
-                        'label' => get_the_title($old_field),
-                        'icon' => 'fa fa-text-width',
-                        'options' => [
-                            'type' => [
-                                'type'  => 'hidden',
-                                'value' => 'select',
-                            ],
-                            'label' => [
-                                'type'  => 'text',
-                                'label' => 'Label',
-                                'value' => get_the_title($old_field),
-                            ],
-                            'field_key' => [
-                                'type'  => 'text',
-                                'label' => 'Key',
-                                'value' => $old_field,
-                            ],
-                            'options' => [
-                                'type' => 'textarea',
-                                'label' => __('Options', 'directorist'),
-                                'value' => $choices,
-                                'description' => __('Each on a new line, for example,
-                                Male: Male
-                                Female: Female
-                                Other: Other', 'directorist'),
-                            ],
-                            'description' => [
-                                'type'  => 'text',
-                                'label' => 'Description',
-                                'value' => $description,
-                            ],
-                            'required' => [
-                                'type'  => 'toggle',
-                                'label'  => 'Required',
-                                'value' => $required == 1 ? true : false,
-                            ],
-                            'only_for_admin' => [
-                                'type'  => 'toggle',
-                                'label'  => 'Only For Admin Use',
-                                'value' =>  $admin_use == 1 ? true : false,
-                            ],
-                            'assign_to' => [
-                                'type' => 'radio',
-                                'label' => __('Assign to', 'directorist'),
-                                'value' => $associate,
-                                'options' => [
-                                    'form'  => [
-                                        'label' => __('Form', 'directorist'),
-                                        'value' => 'form',
-                                    ],
-                                    'category'  => [
-                                        'label' => __('Category', 'directorist'),
-                                        'value' => 'category',
-                                        'sub_options' => [
-                                            'type' => 'select',
-                                            'label' => __('Select Categories', 'directorist'),
-                                            'value' => $category_pass,
-                                            'options' => [
-                                                [
-                                                    'label' => 'Category A',
-                                                    'value' => 'category_a'
-                                                ],
-                                                [
-                                                    'label' => 'Category B',
-                                                    'value' => 'category_b'
-                                                ],
-                                            ]
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ]
-                    ];
+                    $field_data['options'] = $choices;
+                    $field_data['only_for_admin'] = $admin_use == 1 ? true : false;
+                    $field_data['assign_to'] = $associate;
                 }
                 if (('textarea' === $field_type)) {
                     $fields[$field_type] = [

@@ -709,9 +709,30 @@ class Directorist_Listing_Forms {
 		atbdp_get_shortcode_template( 'forms/add-listing-image', $args );
 	}
 
+	public function generate_linktext( $text, $link ) {
+		$text = 'I agree to the %Privacy & Policy%';
+		$pattern = '%\%(.+)\%%';
+		preg_match( $pattern, $text, $matches );
+
+		if ( !empty( $matches ) ) {
+			$changed = sprintf( '<a target="_blank" href="%s">%s<a/>', $link, $matches[1] );
+			$result = str_replace( $matches[0], $changed, $text );
+			return $result;
+		}
+
+		return $text;
+	}
+
 	public function add_listing_submit_template() {
 		$p_id              = $this->get_add_listing_id();
 		$guest_email_label = get_directorist_option( 'guest_email', __( 'Your Email', 'directorist' ) );
+		$type = $this->get_current_listing_type();
+
+		$privacy_link =  ATBDP_Permalink::get_privacy_policy_page_url();
+		$terms_link   =  ATBDP_Permalink::get_terms_and_conditions_page_url();
+
+		$privacy_label = get_directorist_type_option( $type, 'privacy_label', __( 'I agree to the %Privacy & Policy%', 'directorist' ) );
+		$terms_label   = get_directorist_type_option( $type, 'terms_label', __( 'I agree with all %terms & conditions%', 'directorist' ) );
 
 		$args = array(
 			'form'                    => $this,
@@ -719,19 +740,18 @@ class Directorist_Listing_Forms {
 			'display_guest_listings'  => get_directorist_option( 'guest_listings', 0 ),
 			'guest_email_label_html'  => $this->add_listing_generate_label( $guest_email_label, true ),
 			'guest_email_placeholder' => get_directorist_option( 'guest_email_placeholder', __( 'example@gmail.com', 'directorist' ) ),
-			'display_privacy'         => get_directorist_option( 'listing_privacy', 1 ),
-			'privacy_is_required'     => get_directorist_option( 'require_privacy' ),
+
+			'display_privacy'         => get_directorist_type_option( $type, 'listing_privacy', 1 ),
+			'privacy_is_required'     => get_directorist_type_option( $type, 'require_privacy', 1 ),
 			'privacy_checked'         => (bool) get_post_meta( $p_id, '_privacy_policy', true ),
-			'privacy_label'           => get_directorist_option( 'privacy_label', __( 'I agree to the', 'directorist' ) ),
-			'privacy_link'            => ATBDP_Permalink::get_privacy_policy_page_url(),
-			'privacy_link_text'       => get_directorist_option( 'privacy_label_link', __( 'Privacy & Policy', 'directorist' ) ),
-			'display_terms'           => get_directorist_option( 'listing_terms_condition', 1 ),
-			'terms_is_required'       => get_directorist_option( 'require_terms_conditions' ),
+			'privacy_text'            => $this->generate_linktext( $privacy_label, $privacy_link ),
+
+			'display_terms'           => get_directorist_type_option( $type, 'listing_terms_condition', 1 ),
+			'terms_is_required'       => get_directorist_type_option( $type, 'require_terms_conditions', 1 ),
 			'terms_checked'           => (bool) get_post_meta( $p_id, '_t_c_check', true ),
-			'terms_label'             => get_directorist_option( 'terms_label', __( 'I agree with all', 'directorist' ) ),
-			'terms_link'              => ATBDP_Permalink::get_terms_and_conditions_page_url(),
-			'terms_link_text'         => get_directorist_option( 'terms_label_link', __( 'terms & conditions', 'directorist' ) ),
-			'submit_label'            => get_directorist_option( 'submit_label', __( 'Save & Preview', 'directorist' ) ),
+			'terms_text'              => $this->generate_linktext( $terms_label, $terms_link ),
+
+			'submit_label'            => get_directorist_type_option( $type, 'submit_button_label', __( 'Save & Preview', 'directorist' ) ),
 		);
 
 		atbdp_get_shortcode_template( 'forms/add-listing-submit', $args );

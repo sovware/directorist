@@ -4,6 +4,11 @@
  * @since   6.6
  * @version 6.7
  */
+
+
+
+
+
 ?>
 
 <div class="atbdp_info_module">
@@ -35,7 +40,7 @@
     		}
     		?>
     		<input id="privacy_policy" type="checkbox" name="privacy_policy"<?php checked( $privacy_checked ); ?>>
-    		<label for="privacy_policy"><?php echo esc_html($privacy_label); ?> <a style="color: red" target="_blank" href="<?php echo esc_url($privacy_link) ?>"><?php echo esc_html($privacy_link_text); ?></a></label>
+    		<label for="privacy_policy"><?php echo wp_kses_post( $privacy_text ); ?></label>
     	</div>
     	<?php
     }
@@ -48,8 +53,7 @@
     		}
     		?>
     		<input id="listing_t" type="checkbox" name="t_c_check"<?php checked( $terms_checked ); ?>>
-    		<label for="listing_t"><?php echo esc_html($terms_label); ?> <a style="color: red" target="_blank" href="<?php echo esc_url($terms_link) ?>"><?php echo esc_html($terms_link_text); ?></a>
-    		</label>
+    		<label for="listing_t"><?php echo wp_kses_post( $terms_text ); ?></label>
     	</div>
     	<?php
     }

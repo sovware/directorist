@@ -375,9 +375,9 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         
         // import_default_directory
         public function import_default_directory() {
-            var_dump( 'import_default_directory' );
+            // var_dump( 'import_default_directory' );
 
-            return;
+            // return;
             $file = trailingslashit( dirname( ATBDP_FILE ) )  . 'admin/assets/simple-data/directory/directory.json';
             if ( ! file_exists( $file ) ) { return; }
 
@@ -2283,6 +2283,21 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                 ],
+                                /* 'category' => [
+                                    'type' => 'select',
+                                    'label' => __('Assign to', 'directorist'),
+                                    'value' => 'form',
+                                    'options' => [
+                                        [
+                                            'label' => __('Form', 'directorist'),
+                                            'value' => 'form',
+                                        ],
+                                        [
+                                            'label' => __('Category', 'directorist'),
+                                            'value' => 'category',
+                                        ],
+                                    ],
+                                ], */
 
 
                             ]
@@ -5114,9 +5129,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             $is_valid_term = get_term_by( 'id', $directory_id, 'atbdp_listing_types' );
 
             
-            // $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-            // var_dump( $_SERVER['REQUEST_URI'] );
-            // var_dump( $_SERVER['REQUEST_URI'] );
 
             if ( $is_valid_term && preg_match( "/^(/download\/directory\?id=).+$/", $_SERVER['REQUEST_URI'] ) ) {
 
@@ -5178,6 +5190,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             wp_enqueue_media();
             wp_enqueue_style('atbdp-unicons');
             wp_enqueue_style('atbdp-font-awesome');
+            wp_enqueue_style('atbdp-select2-style');
+            wp_enqueue_style('atbdp-select2-bootstrap-style');
             wp_enqueue_style('atbdp_admin_css');
 
             wp_localize_script('atbdp_admin_app', 'ajax_data', ['ajax_url' => admin_url('admin-ajax.php')]);
@@ -5188,6 +5202,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         public function register_scripts()
         {
             wp_register_style('atbdp-unicons', '//unicons.iconscout.com/release/v3.0.3/css/line.css', false);
+            wp_register_style('atbdp-select2-style', '//cdn.bootcss.com/select2/4.0.0/css/select2.css', false);
+            wp_register_style('atbdp-select2-bootstrap-style', '//select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css', false);
             wp_register_style('atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false);
 
             wp_register_style( 'atbdp_admin_css', ATBDP_PUBLIC_ASSETS . 'css/admin_app.css', [], '1.0' );

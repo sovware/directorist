@@ -111,12 +111,23 @@ if (!class_exists('ATBDP_Add_Listing')):
                 //     'form_fields' => $submission_form_fields,
                 //     'form_data'   => $info,
                 // ]);
+                // die();
                 $error = [];
+                $tag = [];
+                $data = [];
+                $location = [];
+                $admin_category_select = [];
+                $error = [];
+                
                 foreach( $submission_form_fields as $key => $value ){
+                    
                     $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
                     $submitted_data = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
                     $required = !empty( $value['required'] ) ? $value['required'] : '';
                     $label = !empty( $value['label'] ) ? $value['label'] : '';
+                    array_push( $data, [
+                        'field_key' => $info,
+                        ] );
                     if( $required && !$submitted_data ){
                         $msg = $label .__( ' field is required!', 'directorist' );
                         array_push( $error, $msg );
@@ -127,16 +138,19 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if( $field_key === 'listing_content' ){
                         $content =  wp_kses(  $info[ $field_key ], wp_kses_allowed_html('post') );
                     }
+
+
+
                     if( $field_key == 'tax_input' ){
                         foreach(  $info[ $field_key ] as $tax_key => $tax_value ){
                             if( $tax_key === 'at_biz_dir-tags' ){
-                                $tag = $tax_value;
+                                array_push( $tag, $tax_value );
                             }
                             if( $tax_key === 'at_biz_dir-location' ){
-                                $location = $tax_value;
+                                array_push( $location, $tax_value );
                             }
                             if( $tax_key === 'at_biz_dir-category' ){
-                                $admin_category_select = $tax_value;
+                                array_push( $admin_category_select, $tax_value );
                             }
                         }
                     }
@@ -150,6 +164,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $data['error_msg'] = $error;
                     $data['error'] = true;
                 }
+                // wp_send_json($info);
+                // die();
                 // wp_send_json( $metas );
                 /**
                  * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end

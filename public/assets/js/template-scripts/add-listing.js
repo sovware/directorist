@@ -262,12 +262,12 @@ jQuery(function($) {
 
         function setup_form_data( form_data, type, field ){
                  //normal input
-                 if( ( type === 'hidden' ) || ( type === 'text' ) || ( type === 'number' ) || ( type === 'tel' ) || ( type === 'email' ) || ( type === 'date' ) || ( type === 'time' ) ){
+                 if( ( type === 'hidden' ) || ( type === 'text' ) || ( type === 'number' ) || ( type === 'tel' ) || ( type === 'email' ) || ( type === 'date' ) || ( type === 'time' ) || ( type === 'url' ) ){
                         form_data.append( field.name, field.value );   
                 }
                 //textarea
                 if( 'textarea' === type ){
-                        const value = field.name.length ? tinymce.get('listing_content').getContent() : atbdp_element_value( 'textarea[name="'+ field.name +'"]' );
+                        const value = field.name.length ? ( tinymce.get('listing_content').getContent() ? tinymce.get('listing_content').getContent() : atbdp_element_value( 'textarea[name="'+ field.name +'"]' ) ) : atbdp_element_value( 'textarea[name="'+ field.name +'"]' );
                         form_data.append( field.name, value );     
                 }
                 //checkbox, radio
@@ -333,6 +333,7 @@ jQuery(function($) {
 
                 let form_data = new FormData();
                 let field_list = [];
+                let field_list2 = [];
                 $('.listing_submit_btn').addClass('atbd_loading');
                 form_data.append('action', 'add_listing_action');
                 form_data.append('directory_type', qs.listing_type);
@@ -380,15 +381,18 @@ jQuery(function($) {
                                         } else {
                                                 const name = ele.attr('name');
                                                 const value = ele.val();
+                                               
                                                 form_data.append( name, value );
                                         } 
                                 }       
                         }else{
+                                //  field_list2.push({ nam: name, val: value, })
                                 setup_form_data( form_data, type, field );
                         }        
                 });
 
-                //console.log( field_list );
+                // console.log( field_list2 );
+                // return;
                 // images
                 if( mediaUploaders.length ){
                         for ( var uploader of mediaUploaders ) {

@@ -5,30 +5,28 @@
  * @version 6.7
  */
 
-// e_var_dump($data);
-
-$price_label             = get_directorist_option( 'price_label', __( 'Price', 'directorist' ) );
-$price_range_label       = get_directorist_option( 'price_range_label', __( 'Price Range', 'directorist' ) );
+$p_id                    = $form->get_add_listing_id();
+$price                   = get_post_meta( $p_id, '_price', true );
+$price_range             = get_post_meta( $p_id, '_price_range', true );
+$atbd_listing_pricing    = get_post_meta( $p_id, '_atbd_listing_pricing', true );
 $price_placeholder       = get_directorist_option( 'price_placeholder', __( 'Price of this listing. Eg. 100', 'directorist' ) );
 $price_range_placeholder = get_directorist_option( 'price_range_placeholder', __( 'Price Range', 'directorist' ) );
 $allow_decimal           = get_directorist_option( 'allow_decimal', 1 );
-
-return;
+$currency                = get_directorist_option( 'g_currency', 'USD' );
+$c_symbol                = atbdp_currency_symbol( $currency );
 ?>
 
 <div class="form-group" class="directorist-pricing-field">
 	<?php $form->add_listing_label_template( $data ); ?>
 
-	<input type="hidden" id="atbd_listing_pricing" value="<?php echo esc_attr( $data['value'] ); ?>">
+	<input type="hidden" id="atbd_listing_pricing" value="<?php echo esc_attr( $atbd_listing_pricing ); ?>">
 
 	<div class="atbd_pricing_options">
 		<?php
 		if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_unit' ) {
 			$checked =  ( $atbd_listing_pricing == 'price' || empty($p_id) ) ? ' checked' : '';
 			?>
-			<label for="price_selected" data-option="price">
-				<input type="checkbox" id="price_selected" value="price" name="atbd_listing_pricing"<?php echo $checked; ?>> <?php echo wp_kses_post( $price_label_html );?>
-			</label>
+			<label for="price_selected" data-option="price"><input type="checkbox" id="price_selected" value="price" name="atbd_listing_pricing"<?php echo $checked; ?>> <?php echo esc_html( $data['price_unit_field_label'] );?></label>
 			<?php
 		}
 
@@ -36,7 +34,7 @@ return;
 			?>
 			<span><?php esc_html_e('Or', 'directorist'); ?></span>
 
-			<label for="price_range_selected" data-option="price_range"><input type="checkbox" id="price_range_selected" value="range" name="atbd_listing_pricing"<?php checked( $atbd_listing_pricing, 'range' ); ?>> <?php echo wp_kses_post( $price_range_label_html );?></label>
+			<label for="price_range_selected" data-option="price_range"><input type="checkbox" id="price_range_selected" value="range" name="atbd_listing_pricing"<?php checked( $atbd_listing_pricing, 'range' ); ?>> <?php echo esc_html( $data['price_range_label'] );?></label>
 			<?php
 		}
 		?>
@@ -44,44 +42,8 @@ return;
 		<small><?php esc_html_e('(Optional - Uncheck to hide pricing for this listing)', 'directorist') ?></small>
 	</div>
 
-
-	<?php $form->add_listing_description_template( $data ); ?>
-</div>
-
-
-<div class="form-group" id="atbd_pricing">
-	
-
-	<label><?php echo esc_html($pricing_label); ?>:</label>
-
-	<div class="atbd_pricing_options">
-		<?php
-		if ($plan_price && $display_price) {
-			$checked =  ( $atbd_listing_pricing == 'price' || empty($p_id) ) ? ' checked' : '';
-			?>
-			<label for="price_selected" data-option="price">
-				<input type="checkbox" id="price_selected" value="price" name="atbd_listing_pricing"<?php echo $checked; ?>> <?php echo wp_kses_post( $price_label_html );?>
-			</label>
-			<?php
-		}
-
-		if ($plan_average_price && $display_price_range) {
-			if ($plan_price && $display_price) {
-				?>
-				<span><?php esc_html_e('Or', 'directorist'); ?></span>
-				<?php
-			}
-			?>
-
-			<label for="price_range_selected" data-option="price_range"><input type="checkbox" id="price_range_selected" value="range" name="atbd_listing_pricing"<?php checked( $atbd_listing_pricing, 'range' ); ?>> <?php echo wp_kses_post( $price_range_label_html );?></label>
-			<?php
-		}
-		?>
-
-		<small><?php esc_html_e('(Optional - Uncheck to hide pricing for this listing)', 'directorist') ?></small>
-	</div>
-
-	<?php if ($plan_price && $display_price) {
+	<?php
+	if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_unit' ) {
 
 		/**
 		 * @since 6.2.1
@@ -95,7 +57,7 @@ return;
 		<?php
 	}
 
-	if ($plan_average_price && $display_price_range) { ?>
+	if ( $data['pricing_type'] == 'both' || $data['pricing_type'] == 'price_range' ) { ?>
 		<select class="form-control directory_field" id="price_range" name="price_range">
 			<option value=""><?php echo esc_html($price_range_placeholder); ?></option>
 
@@ -115,4 +77,5 @@ return;
 	 */
 	do_action('atbdp_add_listing_after_price_field', $p_id);
 	?>
+
 </div>

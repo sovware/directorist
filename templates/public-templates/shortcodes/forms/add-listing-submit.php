@@ -4,11 +4,6 @@
  * @since   6.6
  * @version 6.7
  */
-
-
-
-
-
 ?>
 
 <div class="atbdp_info_module">

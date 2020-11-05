@@ -794,10 +794,11 @@ class Directorist_Listing_Forms {
 	}
 
 	public function add_listing_label_template( $data, $label_id = '' ) {
+		$key = !empty( $data['field_key'] ) ? $data['field_key'] : 'random-'.rand();
 		$args = array(
 			'form'     => $this,
 			'data'     => $data,
-			'label_id' => $label_id ? $label_id : $data['field_key'],
+			'label_id' => $label_id ? $label_id : $key,
 		);
 		atbdp_get_shortcode_template( 'forms/add-listing-field-label', $args );
 	}
@@ -822,7 +823,7 @@ class Directorist_Listing_Forms {
 		$listing_id = $this->get_add_listing_id();
 
 		$value = '';
-		if ( ! empty( $listing_id ) ) {
+		if ( ! empty( $listing_id ) && !empty( $field_data['field_key'] ) ) {
 			$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
 		}
 		$field_data['value'] = $value;

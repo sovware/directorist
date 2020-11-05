@@ -46,7 +46,6 @@ class Directorist_Single_Listing {
 		$this->title  = get_the_title( $id );
 
 		$this->type          = (int) get_post_meta( $id, '_directory_type', true);
-		$this->type = 43; // remove later @kowsar
 		$this->header_data   = get_term_meta( $this->type, 'single_listing_header', true );
 		$this->content_data  = $this->build_content_data();
 		
@@ -60,6 +59,11 @@ class Directorist_Single_Listing {
 	public function build_content_data() {
 		$content_data = array();
 		$data  = get_term_meta( $this->type, 'single_listings_contents', true );
+		$submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
+
+		foreach ( $data['fields'] as $key => $value) {
+			$data['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
+		}
 
 		foreach ( $data['groups'] as $group ) {
 			$section           = $group;
@@ -68,7 +72,6 @@ class Directorist_Single_Listing {
 				$section['fields'][ $field ] = $data['fields'][ $field ];
 			}
 			$content_data[] = $section;
-
 		}
 
 		return $content_data;

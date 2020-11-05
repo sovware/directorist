@@ -6,6 +6,7 @@
  */
 
 $tags = get_the_terms( $listing->id, ATBDP_TAGS );
+$tags = !empty( $tags ) ? $tags : array();
 ?>
 <ul>
 	<?php

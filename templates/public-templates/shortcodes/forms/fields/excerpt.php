@@ -6,9 +6,11 @@
  */
 ?>
 
-<div class="form-group" id="directorist-excerpt-field">
+<div class="form-group" class="directorist-excerpt-field">
 	<?php $form->add_listing_label_template( $data );?>
 
-	<input type="text" name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" value="<?php echo esc_attr( $data['value'] ); ?>" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> >
+	<textarea name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" cols="30" rows="5" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>"><?php echo esc_textarea( $data['value'] ); ?></textarea>
+	<input type="hidden" id="has_excerpt" value="<?php echo esc_attr( $excerpt ); ?>">
 
+	<?php $form->add_listing_description_template( $data ); ?>
 </div>

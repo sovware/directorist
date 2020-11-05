@@ -86,6 +86,10 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         // initial_setup
         public function initial_setup() {
 
+            $this->migrate_to_multidirectory();
+
+            return;
+
             // update_option( 'atbdp_migrated_to_multidirectory', false );
             // update_option( 'atbdp_has_multidirectory', false );
             $has_listings       = false;
@@ -1546,11 +1550,20 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                     'label'  => 'Price Range label',
-                                    'value' => 'Price range',
-                                    'options' => [
-                                        ['value' => 'number', 'label' => 'Number',],
-                                        ['value' => 'text', 'label' => 'text',],
+                                    'value' => 'Price Range',
+                                ],
+                                'price_range_placeholder' => [
+                                    'type'  => 'text',
+                                    'show_if' => [
+                                        'where' => "self.pricing_type",
+                                        'compare' => 'or',
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'both'],
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'price_range'],
+                                        ],
                                     ],
+                                    'label'  => 'Price Range Placeholder',
+                                    'value' => 'Select Price Range',
                                 ],
                                 'price_range_type' => [
                                     'type'  => 'select',
@@ -1626,10 +1639,24 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                         ],
                                     ],
                                     'value' => 'Price [USD]',
-                                    'options' => [
-                                        ['value' => 'number', 'label' => 'Number',],
-                                        ['value' => 'text', 'label' => 'text',],
+                                ],
+                                'price_unit_field_placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Price Unit Field Placeholder',
+                                    'show_if' => [
+                                        'where' => "self.pricing_type",
+                                        'compare' => 'or',
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'both'],
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'price_unit'],
+                                        ],
                                     ],
+                                    'value' => 'Price of this listing. Eg. 100',
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
                                 ],
                             ]
                         ],
@@ -2681,15 +2708,23 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                                     'label' => 'Key',
                                     'value' => 'custom-select',
                                 ],
-                                'assign_to' => $this->get_assign_to_field(),
-                                'category' => $this->get_category_select_field([
-                                    'show_if' => [
-                                        'where' => "self.assign_to",
-                                        'conditions' => [
-                                            ['key' => 'value', 'compare' => '=', 'value' => 'category'],
+                                'options' => [
+                                    'type' => 'multi-fields',
+                                    'label' => __('Options', 'directorist'),
+                                    'add-new-button-label' => 'Add Option',
+                                    'options' => [
+                                        'option_value' => [
+                                            'type'  => 'text',
+                                            'label' => 'Option Value',
+                                            'value' => '',
                                         ],
-                                    ],
-                                ]),
+                                        'option_label' => [
+                                            'type'  => 'text',
+                                            'label' => 'Option Label',
+                                            'value' => '',
+                                        ],
+                                    ]
+                                ],
                                 'description' => [
                                     'type'  => 'text',
                                     'label' => 'Description',

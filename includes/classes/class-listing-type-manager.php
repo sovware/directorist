@@ -24,6 +24,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
             add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
             add_action( 'template_redirect', [ $this, 'directory_json_download_link' ] );
+
             $this->get_old_custom_fields();
         }
 
@@ -85,26 +86,14 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
         // initial_setup
         public function initial_setup() {
+            // return;
 
             $this->migrate_to_multidirectory();
 
-            return;
-
-            // update_option( 'atbdp_migrated_to_multidirectory', false );
-            // update_option( 'atbdp_has_multidirectory', false );
             $has_listings       = false;
             $has_custom_fields  = false;
             $migrated           = get_option( 'atbdp_migrated_to_multidirectory', false );
             $has_multidirectory = get_option( 'atbdp_has_multidirectory', false );
-
-            // update_option( 'atbdp_migrated_to_multidirectory', false );
-            // update_option( 'atbdp_has_multidirectory', false );
-
-            // $log = [
-            //     'migrated' => $migrated,
-            //     'has_multidirectory' => $has_multidirectory,
-            // ];
-            // var_dump( $log );
 
             $get_listings = new WP_Query([
                 'post_type' => ATBDP_POST_TYPE,
@@ -141,7 +130,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
 
             // Submission Form Fields
-            $submission_form_fields = [
+            $submission_form_preset_fields = [
                 "title" => [
                     "widget_group" => "preset",
                     "widget_name"  => "title",
@@ -323,7 +312,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             ];
 
             $submission_form_custom_fields = $this->get_old_custom_fields();
-            $submission_form_fields = array_merge( $submission_form_fields, $submission_form_custom_fields );
+            $submission_form_fields = array_merge( $submission_form_preset_fields, $submission_form_custom_fields );
             $submission_form_groups = [
                 [
                     "label" => "General Group",
@@ -377,67 +366,84 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
             
 
             // Single Listing Contents
-            $single_listings_contents = [
-                "fields" => [
-                    "address" => [
-                        "widget_group" => "preset_widgets",
-                        "widget_name" => "address"
-                    ],
-                    "phone" => [
-                        "widget_group" => "preset_widgets",
-                        "widget_name" => "phone"
-                    ],
-                    "phone2" => [
-                        "widget_group" => "preset_widgets",
-                        "widget_name" => "phone2"
-                    ],
-                    "zip" => [
-                        "widget_group" => "preset_widgets",
-                        "widget_name" => "zip"
-                    ],
-                    "email" => [
-                        "widget_group" => "preset_widgets",
-                        "widget_name" => "email"
-                    ],
-                    "website" => [
-                        "widget_group" => "preset_widgets",
-                        "widget_name" => "website"
-                    ],
-                    "fax" => [
-                        "widget_group" => "preset_widgets",
-                        "widget_name" => "fax"
-                    ],
-                    "social_info" => [
-                        "widget_group" => "preset_widgets",
-                        "widget_name" => "social_info"
-                    ],
-                    "map" => [
-                        "widget_group" => "preset_widgets",
-                        "widget_name" => "map"
-                    ],
-                    "video" => [
-                        "widget_group" => "preset_widgets",
-                        "widget_name" => "video"
-                    ],
-                    "review" => [
-                        "label" => "Review",
-                        "widget_group" => "other_widgets",
-                        "widget_name" => "review"
-                    ]
+            $single_listings_preset_fields = [
+                "address" => [
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "address"
                 ],
+                "phone" => [
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "phone"
+                ],
+                "phone2" => [
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "phone2"
+                ],
+                "zip" => [
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "zip"
+                ],
+                "email" => [
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "email"
+                ],
+                "website" => [
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "website"
+                ],
+                "fax" => [
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "fax"
+                ],
+                "social_info" => [
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "social_info"
+                ],
+                "map" => [
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "map"
+                ],
+                "video" => [
+                    "widget_group" => "preset_widgets",
+                    "widget_name" => "video"
+                ],
+                "review" => [
+                    "label" => "Review",
+                    "widget_group" => "other_widgets",
+                    "widget_name" => "review"
+                ]
+            ];
+
+            $single_listings_custom_fields = [];
+            foreach ( $submission_form_custom_fields as $field_key => $args ) {
+                $single_listings_custom_fields[ $field_key ] = [
+                    "label"        => $args['label'],
+                    "widget_group" => "preset_widgets",
+                    "widget_name"  => $args['widget_name']
+                ];
+            }
+
+            $single_listings_fields = array_merge( $single_listings_preset_fields, $single_listings_custom_fields );
+            
+            $single_listings_contents = [
+                "fields" => $single_listings_fields,
                 "groups" => [
                     [
-                        "label" => "Contact Info",
+                        "label" => get_directorist_option( 'custom_section_lable', __( 'Features', 'directorist' ) ),
+                        "fields" => array_keys( $single_listings_custom_fields )
+                    ],
+                    [
+                        "label" => get_directorist_option( 'listing_location_text', __( 'Location', 'directorist' ) ),
+                        "fields" => [ "map" ]
+                    ],
+                    [
+                        "label" => get_directorist_option( 'contact_info_text', __( 'Contact Info', 'directorist' ) ),
                         "fields" => [
                             "address", "phone", "phone2", "zip", "email", "fax", "website", "social_info"
                         ]
                     ],
                     [
-                        "label" => "Location",
-                        "fields" => [ "map" ]
-                    ],
-                    [
-                        "label" => "Video",
+                        "label" => get_directorist_option( 'atbd_video_title', __( 'Video', 'directorist' ) ),
                         "fields" => [ "video" ]
                     ],
                     [
@@ -446,6 +452,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                     ]
                 ]
             ];
+ 
 
             // Search Form
             $search_fields_map = [
@@ -453,7 +460,7 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'search_text'     => [
                     'field_key' => 'title',
                     'options' => [
-                        "required"     => false,
+                        "required"     => get_directorist_option( 'require_search_text', false ),
                         "placeholder"  => get_directorist_option( 'listings_search_text_placeholder', "What are you looking for?" ),
                         "widget_group" => "available_widgets",
                         "widget_name"  => "title"
@@ -462,19 +469,19 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 'search_category' => [
                     'field_key' => 'category',
                     'options' => [
-                        "required"     => false,
+                        "required"     => get_directorist_option( 'require_search_category', false ),
                         "widget_group" => "available_widgets",
                         "widget_name"  => "category",
-                        "placeholder"  => "Category"
+                        "placeholder"  => get_directorist_option( 'search_category_placeholder', "Select a category" ),
                     ],
                 ],
                 'search_location' => [
                     'field_key' => 'location',
                     "options" => [
-                        "required"     => false,
+                        "required"     => get_directorist_option( 'require_search_location', false ),
                         "widget_group" => "available_widgets",
                         "widget_name"  => "location",
-                        "placeholder"  => "Location"
+                        "placeholder"  => get_directorist_option( 'search_location_placeholder', "Select a category" ),
                     ],
                 ],
 
@@ -553,8 +560,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 ],
             ];
             
-            
-
             // Get Basic Search Fields
             $old_basic_search_fields = get_directorist_option( 'search_tsc_fields', [] );
             $search_form_fields_basic_items = [];
@@ -597,7 +602,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 ];
             }
 
-            
             $search_form_all_fields = array_merge( $search_form_fields_basic_items, $search_form_fields_advanced_items );
             $search_form_fields = [
                 "fields" => $search_form_all_fields,
@@ -617,16 +621,322 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 ]
             ];
             
+
+            // Single Listing
+            // Quick Actions Items
+            $quick_actions = [];
+            if ( '1' == get_directorist_option( 'enable_favourite', true ) ) {
+                $quick_actions[] = [
+                    "type" => "button",
+                    "label" => "Bookmark",
+                    "hook" => "atbdp_single_listings_title",
+                    "key" => "bookmark",
+                    "id" => "bookmark",
+                    "options" => [
+                        "icon" => "fa fa-home"
+                    ]
+                ];
+            } 
+            if ( '1' == get_directorist_option( 'enable_report_abuse', true ) ) {
+                $quick_actions[] = [
+                    "type" => "badge",
+                    "label" => "Share",
+                    "hook" => "atbdp_single_listings_title",
+                    "key" => "share",
+                    "id" => "share",
+                    "options" => [
+                        "icon" => "fa fa-home"
+                    ]
+                ];
+            }
+            if ( '1' == get_directorist_option( 'enable_social_share', true ) ) {
+                $quick_actions[] = [
+                    "type" => "badge",
+                    "label" => "Report",
+                    "hook" => "atbdp_single_listings_title",
+                    "key" => "report",
+                    "id" => "report",
+                    "options" => [
+                        "icon" => "fa fa-home"
+                    ]
+                ];
+            } 
+
+
+            // Thumbnail Items
+            $thumbnail = [];
+            if ( '1' == get_directorist_option( 'dsiplay_slider_single_page', true ) ) {
+                $thumbnail[] = [
+                    "type" => "thumbnail",
+                    "label" => "Select Files",
+                    "hook" => "atbdp_single_listings_slider",
+                    "key" => "listing_slider",
+                    "id" => "listing_slider",
+                    "options" => [
+                        "footer_thumbail" => get_directorist_option( 'dsiplay_thumbnail_img', true )
+                    ]
+                ];
+            }
+
+            // Quick Info Items
+            $quick_info = [];
+            if ( '0' == get_directorist_option( 'disable_list_price', true ) ) {
+                $quick_info[] = [
+                    "type" => "badge",
+                    "label" => "Listings Price",
+                    "hook" => "atbdp_single_listings_price",
+                    "key" => "price",
+                    "id" => "price"
+                ];
+            }
+            
+            $quick_info[] = [
+                "type" => "ratings-count",
+                "label" => "Listings Ratings",
+                "hook" => "atbdp_single_listings_ratings_count",
+                "key" => "ratings_count",
+                "id" => "ratings_count"
+            ];
+
+            $quick_info[] = [
+                "type" => "reviews",
+                "label" => "Listings Reviews",
+                "hook" => "atbdp_single_listings_reviews",
+                "key" => "reviews",
+                "id" => "reviews"
+            ];
+
+            $quick_info[] = [
+                "type" => "badge",
+                "label" => "Badges",
+                "hook" => "atbdp_single_listings_badges",
+                "key" => "badges",
+                "id" => "badges",
+                "options" => [
+                    "new_badge" => get_directorist_option( 'display_new_badge_cart', true ),
+                    "popular_badge" => get_directorist_option( 'display_popular_badge_cart', true )
+                ]
+            ];
+            
+            $quick_info[] = [
+                "type" => "badge",
+                "label" => "Category",
+                "hook" => "atbdp_single_listing_category",
+                "key" => "category",
+                "id" => "category"
+            ];
+
+            /* $quick_info[] = [
+                "type" => "badge",
+                "label" => "Location",
+                "hook" => "atbdp_single_listing_location",
+                "key" => "location",
+                "id" => "location"
+            ]; */
+            
+            
+            $single_listing_header    = [
+                "listings_header" => [
+                    "quick_actions" => $quick_actions,
+                    "thumbnail"     => $thumbnail,
+                    "quick_info"    => $quick_info
+                ],
+
+                "options" => [
+                    "general" => [
+                        "back" => [
+                            "label" => get_directorist_option( 'display_back_link', true )
+                        ],
+                        "section_title" => [
+                            "label" => get_directorist_option( 'listing_details_text', 'Listing Details' )
+                        ]
+                    ],
+                    "content_settings" => [
+                        "listing_title" => [
+                            "enable_title" => true,
+                            "enable_tagline" => true
+                        ],
+                        "listing_description" => [
+                            "enable" => true
+                        ]
+                    ]
+                ]
+            ];
+
+            // Listings Card Grid View
+            // Listings Card Grid View - thumbnail_top_right
+            $listings_card_grid_view_thumbnail_top_right = [];
+            if ( get_directorist_option( 'display_mark_as_fav', true ) ) {
+                $listings_card_grid_view_thumbnail_top_right[] = [
+                    "type"    => "badge",
+                    "label"   => "Favorite",
+                    "hook"    => "atbdp_favorite_badge",
+                    "key"     => "favorite_badge",
+                    "id"      => "favorite_badge",
+                    "options" => [
+                        "icon" => "fa fa-heart"
+                    ]
+                ];
+            }
+
+            // Listings Card Grid View - thumbnail_top_left
+            $listings_card_grid_view_thumbnail_top_left = [];
+            if ( get_directorist_option( 'display_feature_badge_cart', true ) ) {
+                $listings_card_grid_view_thumbnail_top_left[] = [
+                    "type"    => "badge",
+                    "label"   => get_directorist_option( 'feature_badge_text', __('Fetured', 'directorist') ),
+                    "hook"    => "atbdp_featured_badge",
+                    "key"     => "featured_badge",
+                    "id"      => "featured_badge",
+                    "options" => [
+                        "label" => get_directorist_option( 'feature_badge_text', __('Fetured', 'directorist') )
+                    ]
+                ];
+            }
+
+            // Listings Card Grid View - thumbnail_bottom_left
+            $listings_card_grid_view_thumbnail_bottom_left = [];
+            if ( get_directorist_option( 'display_new_badge_cart', true ) ) {
+                $listings_card_grid_view_thumbnail_bottom_left[] = [
+                    "type"    => "badge",
+                    "label"   => get_directorist_option( 'new_badge_text', __('New', 'directorist') ),
+                    "hook"    => "atbdp_new_badge",
+                    "key"     => "new_badge",
+                    "id"      => "new_badge",
+                    "options" => [
+                        "label"              => get_directorist_option( 'new_badge_text', __('New', 'directorist') ),
+                        "new_badge_duration" => get_directorist_option( 'new_listing_day', __('New', 'directorist') )
+                    ]
+                ];
+            }
+
+            if ( get_directorist_option( 'display_popular_badge_cart', true ) ) {
+                $listings_card_grid_view_thumbnail_bottom_left[] = [
+                    "type"    => "badge",
+                    "label"   => get_directorist_option( 'popular_badge_text', __('Popular', 'directorist') ),
+                    "hook"    => "atbdp_popular_badge",
+                    "key"     => "popular_badge",
+                    "id"      => "popular_badge",
+                    "options" => [
+                        "label"               => get_directorist_option( 'popular_badge_text', __('Popular', 'directorist') ),
+                        "listing_popular_by"  => get_directorist_option( 'listing_popular_by', 'view_count' ),
+                        "views_for_popular"   => get_directorist_option( 'views_for_popular', 5 ),
+                        "count_loggedin_user" => get_directorist_option( 'count_loggedin_user', false )
+                    ]
+                ];
+            }
+
+            // listings_card_grid_view_thumbnail_avatar
+            $listings_card_grid_view_thumbnail_avatar = [];
+            if ( get_directorist_option( 'display_author_image', true ) ) {
+                $listings_card_grid_view_thumbnail_avatar[] = [
+                    "type"    => "avatar",
+                    "label"   => "User Avatar",
+                    "hook"    => "atbdp_user_avatar",
+                    "key"     => "user_avatar",
+                    "id"      => "user_avatar",
+                    "options" => [
+                        "align"=> "right"
+                    ]
+                ];
+            }
+            
+            // listings_card_grid_view_body_top
+            $listings_card_grid_view_body_top = [];
+            if ( get_directorist_option( 'display_title', true ) ) {
+                $listings_card_grid_view_body_top[] = [
+                    "type"  => "title",
+                    "label" => "Title",
+                    "hook"  => "atbdp_listing_title",
+                    "key"   => "listing_title",
+                    "id"    => "listing_title",
+                ];
+            }
+
+            // listings_card_grid_view_body_bottom
+            $listings_card_grid_view_body_bottom = [];
+            if ( get_directorist_option( 'display_contact_info', true ) ) {
+                $listings_card_grid_view_body_bottom[] = [
+                    "type"    => "list-item",
+                    "label"   => "Listings Location",
+                    "hook"    => "atbdp_listings_location",
+                    "key"     => "listings_location",
+                    "id"      => "listings_location",
+                    "options" => [
+                        "icon"=> "uil uil-location-point"
+                    ]
+                ];
+            }
+
+            if ( get_directorist_option( 'display_publish_date', true ) ) {
+                $listings_card_grid_view_body_bottom[] = [
+                    "type"    => "list-item",
+                    "label"   => "Posted Date",
+                    "hook"    => "atbdp_listings_posted_date",
+                    "key"     => "posted_date",
+                    "id"      => "posted_date",
+                    "options" => [
+                        "icon"      => "la la-clock-o",
+                        "date_type" => "post_date"
+                    ]
+                ];
+            }
+
+
+            // listings_card_grid_view_footer_right
+            $listings_card_grid_view_footer_right = [];
+            if ( get_directorist_option( 'display_view_count', true ) ) {
+                $listings_card_grid_view_footer_right[] = [
+                    "type"    => "view-count",
+                    "label"   => "View Count",
+                    "hook"    => "atbdp_view_count",
+                    "key"     => "view_count",
+                    "id"      => "view_count",
+                    "options" => [
+                        "icon"=> "fa fa-heart"
+                    ]
+                ];
+            }
+
+            // listings_card_grid_view_footer_left
+            $listings_card_grid_view_footer_left = [];
+            if ( get_directorist_option( 'display_category', true ) ) {
+                $listings_card_grid_view_footer_left[] = [
+                    "type"    => "category",
+                    "label"   => "Category",
+                    "hook"    => "atbdp_category",
+                    "key"     => "category",
+                    "id"      => "category",
+                    "options" => [
+                        "icon" => "fa fa-folder"
+                    ]
+                ];
+            }
+
+            $listings_card_grid_view  = [
+                "thumbnail"=> [ 
+                    "top_right"    => $listings_card_grid_view_thumbnail_top_right,
+                    "top_left"     => $listings_card_grid_view_thumbnail_top_left,
+                    "bottom_right" => [],
+                    "bottom_left"  => $listings_card_grid_view_thumbnail_bottom_left,
+                    "avatar"       => $listings_card_grid_view_thumbnail_avatar,
+                    "body" => [
+                        "top"    => $listings_card_grid_view_body_top,
+                        "bottom" => $listings_card_grid_view_body_bottom
+                    ] 
+                ],
+                "footer"=> [
+                    "right" => $listings_card_grid_view_footer_right,
+                    "left"  => $listings_card_grid_view_footer_left
+                ]
+            ];
+            
             echo '<pre>';
-            print_r( $search_form_fields );
+            print_r( $listings_card_grid_view );
             echo '</pre>';
             die;
 
-            
-            $search_form_fields       = json_decode( "{\"fields\":{\"title\":{\"required\":false,\"placeholder\":\"What are you looking for?\",\"reference\":{\"widget_group\":\"preset\",\"widget_name\":\"title\",\"type\":\"text\",\"field_key\":\"listing_title\",\"required\":true,\"label\":\"Title\",\"placeholder\":\"\",\"tag_with_plan\":true,\"plans\":[{\"plan_id\":\"159\"},{\"plan_id\":\"57\"}]},\"widget_group\":\"available_widgets\",\"widget_name\":\"title\"},\"category\":{\"required\":false,\"reference\":{\"type\":\"multiple\",\"field_key\":\"admin_category_select[]\",\"label\":\"Category\",\"required\":false,\"only_for_admin\":false,\"widget_group\":\"preset\",\"widget_name\":\"category\"},\"widget_group\":\"available_widgets\",\"widget_name\":\"category\",\"placeholder\":\"Category\"},\"location\":{\"required\":false,\"reference\":{\"type\":\"multiple\",\"field_key\":\"tax_input[at_biz_dir-location][]\",\"label\":\"Location\",\"required\":false,\"only_for_admin\":false,\"widget_group\":\"preset\",\"widget_name\":\"location\"},\"widget_group\":\"available_widgets\",\"widget_name\":\"location\",\"placeholder\":\"Location\"},\"pricing\":{\"required\":false,\"reference\":{\"pricing_type\":\"both\",\"price_range_label\":\"Price range\",\"price_range_options\":\"cheap\",\"price_unit_field_type\":\"number\",\"price_unit_field_label\":\"Price [USD]\",\"widget_group\":\"preset\",\"widget_name\":\"pricing\",\"tag_with_plan\":false,\"label\":\"Pricing\"},\"widget_group\":\"available_widgets\",\"widget_name\":\"pricing\"},\"tag\":{\"required\":false,\"reference\":{\"type\":\"multiple\",\"field_key\":\"tax_input[at_biz_dir-tags][]\",\"label\":\"Tag\",\"required\":false,\"allow_new\":true,\"only_for_admin\":false,\"tag_with_plan\":false,\"plans\":[{\"plan_id\":\"57\"}],\"widget_group\":\"preset\",\"widget_name\":\"tag\"},\"widget_group\":\"available_widgets\",\"widget_name\":\"tag\"},\"review\":{\"required\":false,\"widget_group\":\"other_widgets\",\"widget_name\":\"review\"},\"radius_search\":{\"required\":false,\"widget_group\":\"other_widgets\",\"widget_name\":\"radius_search\"}},\"groups\":[{\"label\":\"Basic\",\"lock\":true,\"draggable\":false,\"fields\":[\"title\",\"category\",\"location\"]},{\"label\":\"Advanced\",\"lock\":true,\"draggable\":false,\"fields\":[\"pricing\",\"radius_search\",\"review\",\"tag\"]}]}" );
-            $single_listing_header    = json_decode( "{\"listings_header\":{\"quick_actions\":[{\"type\":\"button\",\"label\":\"Bookmark\",\"hook\":\"atbdp_single_listings_title\",\"key\":\"bookmark\",\"id\":\"bookmark\",\"options\":{\"icon\":\"fa fa-home\"}},{\"type\":\"badge\",\"label\":\"Share\",\"hook\":\"atbdp_single_listings_title\",\"key\":\"share\",\"id\":\"share\",\"options\":{\"icon\":\"fa fa-home\"}},{\"type\":\"badge\",\"label\":\"Report\",\"hook\":\"atbdp_single_listings_title\",\"key\":\"report\",\"id\":\"report\",\"options\":{\"icon\":\"fa fa-home\"}}],\"thumbnail\":[{\"type\":\"thumbnail\",\"label\":\"Select Files\",\"hook\":\"atbdp_single_listings_slider\",\"key\":\"listing_slider\",\"id\":\"listing_slider\",\"options\":{\"footer_thumbail\":true}}],\"quick_info\":[{\"type\":\"badge\",\"label\":\"Listings Price\",\"hook\":\"atbdp_single_listings_price\",\"key\":\"price\",\"id\":\"price\"},{\"type\":\"badge\",\"label\":\"Badges\",\"hook\":\"atbdp_single_listings_badges\",\"key\":\"badges\",\"id\":\"badges\",\"options\":{\"new_badge\":true,\"popular_badge\":true}},{\"type\":\"reviews\",\"label\":\"Listings Reviews\",\"hook\":\"atbdp_single_listings_reviews\",\"key\":\"reviews\",\"id\":\"reviews\"},{\"type\":\"ratings-count\",\"label\":\"Listings Ratings\",\"hook\":\"atbdp_single_listings_ratings_count\",\"key\":\"ratings_count\",\"id\":\"ratings_count\"},{\"type\":\"badge\",\"label\":\"Category\",\"hook\":\"atbdp_single_listing_category\",\"key\":\"category\",\"id\":\"category\"}]},\"options\":{\"general\":{\"back\":{\"label\":true},\"section_title\":{\"label\":\"Details\"}},\"content_settings\":{\"listing_title\":{\"enable_title\":true,\"enable_tagline\":true},\"listing_description\":{\"enable\":true}}}}" );
-            $listings_card_grid_view  = json_decode( "{\"thumbnail\":{\"top_right\":[{\"type\":\"badge\",\"label\":\"Favorite\",\"hook\":\"atbdp_favorite_badge\",\"key\":\"favorite_badge\",\"id\":\"favorite_badge\",\"options\":{\"icon\":\"fa fa-heart\"}}],\"top_left\":[{\"type\":\"badge\",\"label\":\"Featured\",\"hook\":\"atbdp_featured_badge\",\"key\":\"featured_badge\",\"id\":\"featured_badge\",\"options\":{\"label\":\"Fetured\"}}],\"bottom_right\":[],\"bottom_left\":[{\"type\":\"badge\",\"label\":\"New\",\"hook\":\"atbdp_new_badge\",\"key\":\"new_badge\",\"id\":\"new_badge\",\"options\":{\"label\":\"New\",\"new_badge_duration\":\"3\"}},{\"type\":\"badge\",\"label\":\"Popular\",\"hook\":\"atbdp_popular_badge\",\"key\":\"popular_badge\",\"id\":\"popular_badge\",\"options\":{\"label\":\"Popular\",\"listing_popular_by\":\"view_count\",\"views_for_popular\":\"5\",\"count_loggedin_user\":\"\"}}],\"avatar\":[{\"type\":\"avatar\",\"label\":\"User Avatar\",\"hook\":\"atbdp_user_avatar\",\"key\":\"user_avatar\",\"id\":\"user_avatar\",\"options\":{\"align\":\"right\"}}]},\"body\":{\"top\":[{\"type\":\"title\",\"label\":\"Title\",\"hook\":\"atbdp_listing_title\",\"key\":\"listing_title\",\"id\":\"listing_title\",\"options\":{\"label\":\"text\"}}],\"bottom\":[{\"type\":\"list-item\",\"label\":\"Listings Location\",\"hook\":\"atbdp_listings_location\",\"key\":\"listings_location\",\"id\":\"listings_location\",\"options\":{\"icon\":\"uil uil-location-point\"}},{\"type\":\"list-item\",\"label\":\"Posted Date\",\"hook\":\"atbdp_listings_posted_date\",\"key\":\"posted_date\",\"id\":\"posted_date\",\"options\":{\"icon\":\"la la-clock-o\",\"date_type\":\"post_date\"}},{\"type\":\"list-item\",\"label\":\"Listings Phone\",\"hook\":\"atbdp_listings_phone\",\"key\":\"_phone\",\"id\":\"_phone\",\"options\":{\"icon\":\"la la-phone\"}}]},\"footer\":{\"right\":[{\"type\":\"view-count\",\"label\":\"View Count\",\"hook\":\"atbdp_view_count\",\"key\":\"view_count\",\"id\":\"view_count\",\"options\":{\"icon\":\"fa fa-heart\"}}],\"left\":[{\"type\":\"category\",\"label\":\"Category\",\"hook\":\"atbdp_category\",\"key\":\"category\",\"id\":\"category\",\"options\":{\"icon\":\"fa fa-folder\"}}]}}" );
-            $listings_card_list_view  = json_decode( "{\"thumbnail\":{\"top_right\":[{\"type\":\"badge\",\"label\":\"Featured\",\"hook\":\"atbdp_featured_badge\",\"key\":\"featured_badge\",\"id\":\"featured_badge\",\"options\":{\"label\":\"Fetured\"}},{\"type\":\"badge\",\"label\":\"Popular\",\"hook\":\"atbdp_popular_badge\",\"key\":\"popular_badge\",\"id\":\"popular_badge\",\"options\":{\"label\":\"Popular\",\"listing_popular_by\":\"view_count\",\"views_for_popular\":\"5\",\"count_loggedin_user\":\"\"}}]},\"body\":{\"top\":[{\"type\":\"title\",\"label\":\"Title\",\"hook\":\"atbdp_listing_title\",\"key\":\"listing_title\",\"id\":\"listing_title\",\"options\":{\"label\":\"text\"}},{\"type\":\"badge\",\"label\":\"New\",\"hook\":\"atbdp_new_badge\",\"key\":\"new_badge\",\"id\":\"new_badge\",\"options\":{\"label\":\"New\",\"new_badge_duration\":\"3\"}}],\"right\":[{\"type\":\"badge\",\"label\":\"Favorite\",\"hook\":\"atbdp_favorite_badge\",\"key\":\"favorite_badge\",\"id\":\"favorite_badge\",\"options\":{\"icon\":\"fa fa-heart\"}}],\"bottom\":[{\"type\":\"list-item\",\"label\":\"Listings Address\",\"hook\":\"atbdp_listings_map_address\",\"key\":\"_address\",\"id\":\"_address\",\"options\":{\"icon\":\"la la-map-marker\"}},{\"type\":\"list-item\",\"label\":\"Posted Date\",\"hook\":\"atbdp_listings_posted_date\",\"key\":\"posted_date\",\"id\":\"posted_date\",\"options\":{\"icon\":\"la la-clock-o\",\"date_type\":\"post_date\"}},{\"type\":\"list-item\",\"label\":\"Listings Phone\",\"hook\":\"atbdp_listings_phone\",\"key\":\"_phone\",\"id\":\"_phone\",\"options\":{\"icon\":\"la la-phone\"}}]},\"footer\":{\"right\":[{\"type\":\"view-count\",\"label\":\"View Count\",\"hook\":\"atbdp_view_count\",\"key\":\"view_count\",\"id\":\"view_count\",\"options\":{\"icon\":\"fa fa-heart\"}},{\"type\":\"avatar\",\"label\":\"User Avatar\",\"hook\":\"atbdp_user_avatar\",\"key\":\"user_avatar\",\"id\":\"user_avatar\"}],\"left\":[{\"type\":\"category\",\"label\":\"Category\",\"hook\":\"atbdp_category\",\"key\":\"category\",\"id\":\"category\",\"options\":{\"icon\":\"fa fa-folder\"}}]}}" );
+            $listings_card_list_view = json_decode( "{\"thumbnail\":{\"top_right\":[{\"type\":\"badge\",\"label\":\"Featured\",\"hook\":\"atbdp_featured_badge\",\"key\":\"featured_badge\",\"id\":\"featured_badge\",\"options\":{\"label\":\"Fetured\"}},{\"type\":\"badge\",\"label\":\"Popular\",\"hook\":\"atbdp_popular_badge\",\"key\":\"popular_badge\",\"id\":\"popular_badge\",\"options\":{\"label\":\"Popular\",\"listing_popular_by\":\"view_count\",\"views_for_popular\":\"5\",\"count_loggedin_user\":\"\"}}]},\"body\":{\"top\":[{\"type\":\"title\",\"label\":\"Title\",\"hook\":\"atbdp_listing_title\",\"key\":\"listing_title\",\"id\":\"listing_title\",\"options\":{\"label\":\"text\"}},{\"type\":\"badge\",\"label\":\"New\",\"hook\":\"atbdp_new_badge\",\"key\":\"new_badge\",\"id\":\"new_badge\",\"options\":{\"label\":\"New\",\"new_badge_duration\":\"3\"}}],\"right\":[{\"type\":\"badge\",\"label\":\"Favorite\",\"hook\":\"atbdp_favorite_badge\",\"key\":\"favorite_badge\",\"id\":\"favorite_badge\",\"options\":{\"icon\":\"fa fa-heart\"}}],\"bottom\":[{\"type\":\"list-item\",\"label\":\"Listings Address\",\"hook\":\"atbdp_listings_map_address\",\"key\":\"_address\",\"id\":\"_address\",\"options\":{\"icon\":\"la la-map-marker\"}},{\"type\":\"list-item\",\"label\":\"Posted Date\",\"hook\":\"atbdp_listings_posted_date\",\"key\":\"posted_date\",\"id\":\"posted_date\",\"options\":{\"icon\":\"la la-clock-o\",\"date_type\":\"post_date\"}},{\"type\":\"list-item\",\"label\":\"Listings Phone\",\"hook\":\"atbdp_listings_phone\",\"key\":\"_phone\",\"id\":\"_phone\",\"options\":{\"icon\":\"la la-phone\"}}]},\"footer\":{\"right\":[{\"type\":\"view-count\",\"label\":\"View Count\",\"hook\":\"atbdp_view_count\",\"key\":\"view_count\",\"id\":\"view_count\",\"options\":{\"icon\":\"fa fa-heart\"}},{\"type\":\"avatar\",\"label\":\"User Avatar\",\"hook\":\"atbdp_user_avatar\",\"key\":\"user_avatar\",\"id\":\"user_avatar\"}],\"left\":[{\"type\":\"category\",\"label\":\"Category\",\"hook\":\"atbdp_category\",\"key\":\"category\",\"id\":\"category\",\"options\":{\"icon\":\"fa fa-folder\"}}]}}" );
 
             $fields = apply_filters( 'atbdp_multidirectory_migration_fields', [
                 "name"                     => "General",
@@ -635,7 +945,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
                 "plural_name"              => "listings",
                 "permalink"                => "listing",
                 "preview_image"            => $preview_image,
-                "import_export"            => "",
                 "default_expiration"       => get_directorist_option( 'listing_expire_in_days', 365 ),
                 "new_listing_status"       => get_directorist_option( 'new_listing_status', 'pending' ),
                 "edit_listing_status"      => get_directorist_option( 'edit_listing_status', 'pending' ),
@@ -680,9 +989,6 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
         
         // import_default_directory
         public function import_default_directory() {
-            // var_dump( 'import_default_directory' );
-
-            // return;
             $file = trailingslashit( dirname( ATBDP_FILE ) )  . 'admin/assets/simple-data/directory/directory.json';
             if ( ! file_exists( $file ) ) { return; }
 
@@ -4991,9 +5297,8 @@ if (!class_exists('ATBDP_Listing_Type_Manager')) {
 
             $this->enqueue_scripts();
 
-            if (!empty($action) && ('edit' === $action || 'add_new' === $action)) {
+            if ( ! empty( $action ) && ('edit' === $action || 'add_new' === $action) ) {
                 wp_localize_script('atbdp_admin_app', 'cptm_data', $cptm_data);
-                
                 atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
 
                 return;

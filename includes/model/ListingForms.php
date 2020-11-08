@@ -281,20 +281,6 @@ class Directorist_Listing_Forms {
 		return $plan_slider;
 	}
 
-	public function get_add_listing_image_title() {
-		if ( $this->get_plan_video() && $this->get_plan_slider() ) {
-			$title = __( 'Images & Video', 'directorist' );
-		} elseif ( $this->get_plan_slider() ) {
-			$title = __( 'Images', 'directorist' );
-		} elseif ( $this->get_plan_video() ) {
-			$title = __( 'Video', 'directorist' );
-		} else {
-			$title = '';
-		}
-
-		return $title;
-	}
-
 	public function get_map_info_content() {
 		$p_id = $this->get_add_listing_id();
 
@@ -449,12 +435,11 @@ class Directorist_Listing_Forms {
 	}
 
 	public function generate_linktext( $text, $link ) {
-		$text = 'I agree to the %Privacy & Policy%';
-		$pattern = '%\%(.+)\%%';
+		$pattern = '%\%(.+)\%%'; // extract 'text' from 'some %text%'
 		preg_match( $pattern, $text, $matches );
 
 		if ( !empty( $matches ) ) {
-			$changed = sprintf( '<a target="_blank" href="%s">%s<a/>', $link, $matches[1] );
+			$changed = sprintf( '<a target="_blank" href="%s">%s</a>', $link, $matches[1] );
 			$result = str_replace( $matches[0], $changed, $text );
 			return $result;
 		}

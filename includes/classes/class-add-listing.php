@@ -106,6 +106,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                  }
                 //isolate data
                 $error = [];
+                wp_send_json( [
+                    'info' => $info,
+                    'submission_form_fields' => $submission_form_fields,
+                ] );
+                die;
                 foreach( $submission_form_fields as $key => $value ){
                     $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
                     $submitted_data = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
@@ -121,7 +126,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                     if( $field_key === 'listing_content' ){
                         $content =  wp_kses(  $info[ $field_key ], wp_kses_allowed_html('post') );
                     }
-
+                    if( 'pricing' === $key ) {
+                        $metas[ '_atbd_listing_pricing' ] = $info['atbd_listing_pricing'] ? $info['atbd_listing_pricing'] : '';
+                        $metas[ '_price' ] = $info['price'] ? $info['price'] : '';
+                        $metas[ '_price_range' ] = $info['price_range'] ? $info['price_range'] : '';
+                    }
                     if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
                         $key = '_'. $field_key;
                         $metas[ $key ] = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';

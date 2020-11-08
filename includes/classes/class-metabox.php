@@ -153,6 +153,11 @@ class ATBDP_Metabox {
 		$submission_form_fields = $submission_form['fields'];
 		}
 		foreach( $submission_form_fields as $key => $value ){
+			if( 'pricing' === $key ) {
+				$metas[ '_atbd_listing_pricing' ] = $p['atbd_listing_pricing'] ? $p['atbd_listing_pricing'] : '';
+				$metas[ '_price' ] = $p['price'] ? $p['price'] : '';
+				$metas[ '_price_range' ] = $p['price_range'] ? $p['price_range'] : '';
+			}
 			$field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
 			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
 				$key = '_'. $field_key;

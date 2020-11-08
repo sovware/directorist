@@ -314,7 +314,7 @@ jQuery(function($) {
                         i++;
                 }
         }
-
+        
         const formID = $('#add-listing-form');
         let on_processing = false;
         let has_media = true;
@@ -323,9 +323,9 @@ jQuery(function($) {
                 e.preventDefault();
                 let error_count = 0;
                 const err_log = {};
-                if ($('#atbdp_front_media_wrap:visible').length == 0) {
-                        has_media = false;
-                }
+                // if ($('#atbdp_front_media_wrap:visible').length == 0) {
+                //         has_media = false;
+                // }
                 if (on_processing) {
                         $('.listing_submit_btn').attr('disabled', true);
                         return;
@@ -394,6 +394,7 @@ jQuery(function($) {
                 // console.log( field_list2 );
                 // return;
                 // images
+                
                 if( mediaUploaders.length ){
                         for ( var uploader of mediaUploaders ) {
                         if (uploader.media_uploader && has_media) {
@@ -478,8 +479,8 @@ jQuery(function($) {
                         url: atbdp_add_listing.ajaxurl,
                         data: form_data,
                         success(response) {
-                                //  console.log( response );
-                                //  return;
+                                 console.log( response );
+                                 return;
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {

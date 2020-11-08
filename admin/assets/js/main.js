@@ -48,10 +48,10 @@
       });
     }
   }
-
   // SOCIAL SECTION
   // Rearrange the IDS and Add new social field
   $('body').on('click', '#addNewSocial', function () {
+    let social_wrap = $('#social_info_sortable_container'); // cache it
     const currentItems = $('.atbdp_social_field_wrapper').length;
     const ID = `id=${currentItems}`; // eg. 'id=3'
     const iconBindingElement = jQuery('#addNewSocial');
@@ -65,7 +65,7 @@
     });
     // now add the new elements. we could do it here without using ajax but it would require more markup here.
     atbdp_do_ajax(iconBindingElement, 'atbdp_social_info_handler', ID, function (data) {
-      $s_wrap.append(data);
+      social_wrap.append(data);
     });
   });
 

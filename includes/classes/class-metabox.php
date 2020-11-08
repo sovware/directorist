@@ -49,7 +49,6 @@ class ATBDP_Metabox {
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
 		));
-
 		$terms   =  get_the_terms( $post->ID, ATBDP_TYPE );
 		$current_type = !empty($terms) ? $terms[0]->term_id : '';
 		$current_type = get_post_meta($post->ID, '_directory_type', true);

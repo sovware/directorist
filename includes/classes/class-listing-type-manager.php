@@ -3477,28 +3477,204 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'widgets' => [
                         'tagline'          => [ 'options' => [] ],
                         'excerpt'          => [ 'options' => [] ],
-                        'tag'              => [ 'options' => [] ],
-                        'address'          => [ 'options' => [] ],
-                        'map'              => [ 'options' => [] ],
-                        'zip'              => [ 'options' => [] ],
-                        'phone'            => [ 'options' => [] ],
-                        'phone2'           => [ 'options' => [] ],
-                        'fax'              => [ 'options' => [] ],
-                        'email'            => [ 'options' => [] ],
-                        'website'          => [ 'options' => [] ],
-                        'social_info'      => [ 'options' => [] ],
-                        'video'            => [ 'options' => [] ],
-                        'text'             => [ 'options' => [] ],
-                        'textarea'         => [ 'options' => [] ],
-                        'number'           => [ 'options' => [] ],
-                        'url'              => [ 'options' => [] ],
-                        'date'             => [ 'options' => [] ],
-                        'time'             => [ 'options' => [] ],
-                        'color_picker'     => [ 'options' => [] ],
-                        'select'           => [ 'options' => [] ],
-                        'checkbox'         => [ 'options' => [] ],
-                        'radio'            => [ 'options' => [] ],
-                        'file'             => [ 'options' => [] ],
+                        'tag' => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'address'          => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'map'              => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'zip'              => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'phone'            => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'phone2'           => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'fax'              => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'email'            => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'website'          => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'social_info'      => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'video'            => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'text'             => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'textarea'         => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'number'           => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'url'              => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'date'             => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'time'             => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'color_picker'     => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'select'           => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'checkbox'         => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'radio'            => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
+                        'file'             => [
+                            'options' => [
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => '',
+                                ],
+                            ]
+                        ],
                     ],
                 ],
                 'other_widgets' => [

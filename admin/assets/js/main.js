@@ -196,6 +196,7 @@
         action: "send_system_info", //calls wp_ajax_nopriv_ajaxlogin
         _nonce: $("#atbdp_email_nonce").val(),
         email: $("#atbdp-email-address").val(),
+        sender_email: $("#atbdp-sender-address").val(),
         subject: $("#atbdp-email-subject").val(),
         message: $("#atbdp-email-message").val(),
         system_info: system_info,

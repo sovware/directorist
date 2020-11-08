@@ -15,7 +15,8 @@ class ATBDP_Send_Mail
             die ( 'huh!');
         }
 		$user = wp_get_current_user();
-		$email = isset( $_POST['email'] ) ? $_POST['email'] : '';
+        $email = isset( $_POST['email'] ) ? $_POST['email'] : '';
+        $sender_email = isset( $_POST['sender_email'] ) ? $_POST['sender_email'] : '';
 		$subject = isset( $_POST['subject'] ) ? sanitize_text_field( $_POST['subject'] ) : '';
 		$system_info = isset( $_POST['system_info'] ) ?  $_POST['system_info']  : '';
 		$to = ! empty( $email ) ? sanitize_email( $email ) : '';
@@ -24,8 +25,8 @@ class ATBDP_Send_Mail
 			$message .=   $this->system_info();
 		}
 		$message  = atbdp_email_html( $subject, $message );
-		$headers = "From: {$user->display_name} <{$user->user_email}>\r\n";
-		$headers .= "Reply-To: {$user->user_email}\r\n";
+		$headers = "From: {$user->display_name} <{$sender_email}>\r\n";
+		$headers .= "Reply-To: {$sender_email}\r\n";
 
 		// return true or false, based on the result
 		$send_email =  ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
@@ -48,6 +49,7 @@ class ATBDP_Send_Mail
         if ( ! current_user_can( 'manage_options' ) ) {
                 return;
         }
+        $user = wp_get_current_user();
 		?>
         <div class="card atbds_card">
             <div class="card-head">
@@ -58,8 +60,12 @@ class ATBDP_Send_Mail
                     <div class="atbds_supportForm">
                          <form id="atbdp-send-system-info" method="post" enctype="multipart/form-data" action="<?php echo esc_url( self_admin_url( 'admin-ajax.php' ) ); ?>">
                             <div class="atbds_form-row">
-                                <label><?php _e( 'Email Address', 'directorist' ); ?></label>
-                                <input type="email" name="email" id="atbdp-email-address" placeholder="<?php _e( 'user@email.com', 'directorist'); ?>">
+                                <label><?php _e( 'Sender Email Address', 'directorist' ); ?></label>
+                                <input type="email" name="sender_email" id="atbdp-sender-address" placeholder="<?php _e( 'user@email.com', 'directorist'); ?>" value="<?php echo $user->user_email; ?>">
+                            </div>
+                            <div class="atbds_form-row">
+                                <label><?php _e( 'Receiver Email Address', 'directorist' ); ?></label>
+                                <input type="email" name="email" id="atbdp-email-address" placeholder="<?php _e( 'user@email.com', 'directorist'); ?>" value="support@aazztech.com">
                             </div>
                             <div class="atbds_form-row">
                                 <label><?php _e( 'Subject', 'directorist' ); ?></label>

@@ -49,7 +49,6 @@ class ATBDP_Metabox {
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
 		));
-
 		$terms   =  get_the_terms( $post->ID, ATBDP_TYPE );
 		$current_type = !empty($terms) ? $terms[0]->term_id : '';
 		$current_type = get_post_meta($post->ID, '_directory_type', true);
@@ -153,6 +152,11 @@ class ATBDP_Metabox {
 		$submission_form_fields = $submission_form['fields'];
 		}
 		foreach( $submission_form_fields as $key => $value ){
+			if( 'pricing' === $key ) {
+				$metas[ '_atbd_listing_pricing' ] = $p['atbd_listing_pricing'] ? $p['atbd_listing_pricing'] : '';
+				$metas[ '_price' ] = $p['price'] ? $p['price'] : '';
+				$metas[ '_price_range' ] = $p['price_range'] ? $p['price_range'] : '';
+			}
 			$field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
 			if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
 				$key = '_'. $field_key;

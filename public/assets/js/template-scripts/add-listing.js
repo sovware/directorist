@@ -262,12 +262,12 @@ jQuery(function($) {
 
         function setup_form_data( form_data, type, field ){
                  //normal input
-                 if( ( type === 'hidden' ) || ( type === 'text' ) || ( type === 'number' ) || ( type === 'tel' ) || ( type === 'email' ) || ( type === 'date' ) || ( type === 'time' ) ){
+                 if( ( type === 'hidden' ) || ( type === 'text' ) || ( type === 'number' ) || ( type === 'tel' ) || ( type === 'email' ) || ( type === 'date' ) || ( type === 'time' ) || ( type === 'url' ) ){
                         form_data.append( field.name, field.value );   
                 }
                 //textarea
                 if( 'textarea' === type ){
-                        const value = field.name.length ? tinymce.get('listing_content').getContent() : atbdp_element_value( 'textarea[name="'+ field.name +'"]' );
+                        const value = field.name.length ? ( tinymce.get('listing_content').getContent() ? tinymce.get('listing_content').getContent() : atbdp_element_value( 'textarea[name="'+ field.name +'"]' ) ) : atbdp_element_value( 'textarea[name="'+ field.name +'"]' );
                         form_data.append( field.name, value );     
                 }
                 //checkbox, radio
@@ -314,7 +314,7 @@ jQuery(function($) {
                         i++;
                 }
         }
-
+        
         const formID = $('#add-listing-form');
         let on_processing = false;
         let has_media = true;
@@ -323,9 +323,9 @@ jQuery(function($) {
                 e.preventDefault();
                 let error_count = 0;
                 const err_log = {};
-                if ($('#atbdp_front_media_wrap:visible').length == 0) {
-                        has_media = false;
-                }
+                // if ($('#atbdp_front_media_wrap:visible').length == 0) {
+                //         has_media = false;
+                // }
                 if (on_processing) {
                         $('.listing_submit_btn').attr('disabled', true);
                         return;
@@ -333,6 +333,7 @@ jQuery(function($) {
 
                 let form_data = new FormData();
                 let field_list = [];
+                let field_list2 = [];
                 $('.listing_submit_btn').addClass('atbd_loading');
                 form_data.append('action', 'add_listing_action');
                 form_data.append('directory_type', qs.listing_type);
@@ -380,16 +381,20 @@ jQuery(function($) {
                                         } else {
                                                 const name = ele.attr('name');
                                                 const value = ele.val();
+                                               
                                                 form_data.append( name, value );
                                         } 
                                 }       
                         }else{
+                                //  field_list2.push({ nam: name, val: value, })
                                 setup_form_data( form_data, type, field );
                         }        
                 });
 
-                //console.log( field_list );
+                // console.log( field_list2 );
+                // return;
                 // images
+                
                 if( mediaUploaders.length ){
                         for ( var uploader of mediaUploaders ) {
                         if (uploader.media_uploader && has_media) {
@@ -474,8 +479,6 @@ jQuery(function($) {
                         url: atbdp_add_listing.ajaxurl,
                         data: form_data,
                         success(response) {
-                                //  console.log( response );
-                                //  return;
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {

@@ -17,9 +17,11 @@ class Directorist_Listing_Forms {
 	private function __construct( $id ) {
 		if ( $id ) {
 			$this->add_listing_id = $id;
+			$this->add_listing_post = get_post( $id );
 		}
-
-		add_action( 'wp', array( $this, 'init' ) );
+		else {
+			add_action( 'wp', array( $this, 'init' ) );
+		}
 	}
 
 	public static function instance( $id = '' ) {
@@ -34,11 +36,6 @@ class Directorist_Listing_Forms {
 		$this->add_listing_post = ! empty( $this->add_listing_id ) ? get_post( $this->add_listing_id ) : '';
 	}
 	
-	public function wp_hook() {
-		$this->add_listing_id   = get_query_var('atbdp_listing_id', 0);
-		$this->add_listing_post = !empty($this->add_listing_id) ? get_post($this->add_listing_id) : '';
-	}
-
 	public function get_add_listing_id() {
 		return $this->add_listing_id;
 	}
@@ -281,20 +278,6 @@ class Directorist_Listing_Forms {
 		return $plan_slider;
 	}
 
-	public function get_add_listing_image_title() {
-		if ( $this->get_plan_video() && $this->get_plan_slider() ) {
-			$title = __( 'Images & Video', 'directorist' );
-		} elseif ( $this->get_plan_slider() ) {
-			$title = __( 'Images', 'directorist' );
-		} elseif ( $this->get_plan_video() ) {
-			$title = __( 'Video', 'directorist' );
-		} else {
-			$title = '';
-		}
-
-		return $title;
-	}
-
 	public function get_map_info_content() {
 		$p_id = $this->get_add_listing_id();
 
@@ -449,12 +432,11 @@ class Directorist_Listing_Forms {
 	}
 
 	public function generate_linktext( $text, $link ) {
-		$text = 'I agree to the %Privacy & Policy%';
-		$pattern = '%\%(.+)\%%';
+		$pattern = '%\%(.+)\%%'; // extract 'text' from 'some %text%'
 		preg_match( $pattern, $text, $matches );
 
 		if ( !empty( $matches ) ) {
-			$changed = sprintf( '<a target="_blank" href="%s">%s<a/>', $link, $matches[1] );
+			$changed = sprintf( '<a target="_blank" href="%s">%s</a>', $link, $matches[1] );
 			$result = str_replace( $matches[0], $changed, $text );
 			return $result;
 		}
@@ -562,9 +544,19 @@ class Directorist_Listing_Forms {
 		$listing_id = $this->get_add_listing_id();
 
 		$value = '';
-		if ( ! empty( $listing_id ) && !empty( $field_data['field_key'] ) ) {
-			$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
+
+		if ( ! empty( $listing_id ) ) {
+			if ( $field_data['widget_name'] == 'title' ) {
+				$value = $this->add_listing_post->post_title;
+			}
+			elseif ( $field_data['widget_name'] == 'description' ) {
+				$value = $this->add_listing_post->post_content;
+			}
+			elseif ( !empty( $field_data['field_key'] ) ) {
+				$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
+			}
 		}
+
 		$field_data['value'] = $value;
 
 		$args = array(

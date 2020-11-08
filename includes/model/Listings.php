@@ -1684,6 +1684,7 @@ class Directorist_Listings {
 
 		public function render_loop_fields( $fields, $before = '', $after = '' ) {
 			foreach ( $fields as $field ) {
+				// e_var_dump($field);
 				echo $before;$this->render_card_field( $field );echo $after;
 			}
 		}

@@ -1927,3 +1927,32 @@ input[type=checkbox], input[type=radio]{
     height: 15px;
   }
 }
+
+
+
+.atbdp-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -30px;
+}
+
+.atbdp-col {
+  padding: 0 15px;
+  flex-grow: 1;
+  box-sizing: border-box;
+}
+
+.atbdp-col-3 {
+  flex-basis: calc( 100% / (12 / 3) );
+  width: calc( 100% / (12 / 3) );
+}
+
+.atbdp-col-4 {
+  flex-basis: calc( 100% / (12 / 4) );
+  width: calc( 100% / (12 / 4) );
+}
+
+.atbdp-col-8 {
+  flex-basis: calc( 100% / (12 / 8) );
+  width: calc( 100% / (12 / 8) );
+}

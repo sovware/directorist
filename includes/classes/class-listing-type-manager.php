@@ -5528,6 +5528,10 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
             ]);
 
             $this->config = [
+                'submission' => [
+                    'url' => admin_url('admin-ajax.php'),
+                    'with' => [ 'action' => 'save_post_type_data' ],
+                ],
                 'fields_group' => [
                     'general_config' => [
                         'icon',

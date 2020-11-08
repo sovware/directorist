@@ -91,17 +91,28 @@ export default {
         updateData() {
             let fields = this.getFieldsValue();
 
+            let submission_url = this.$store.state.config.submission.url;
+            let submission_with = this.$store.state.config.submission.with;
+
             let form_data = new FormData();
-            form_data.append( 'action', 'save_post_type_data' );
+
+            if ( submission_with && typeof submission_with === 'object' ) {
+                for ( let data_key in submission_with ) {
+                    form_data.append( data_key, submission_with[ data_key ] );
+                }
+            }
             
             if ( this.listing_type_id ) {
                 form_data.append( 'listing_type_id', this.listing_type_id );
                 this.footer_actions.save.label = 'Update';
             }
 
+            for ( let field_key in fields ) {
+                let value = this.maybeJSON( fields[ data_key ] );
+                form_data.append( data_key,  value );
+            }
 
-
-            console.log( { fields } );
+            console.log( { submission_url, submission_with } );
         },
 
         saveData() {

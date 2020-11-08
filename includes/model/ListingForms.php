@@ -547,7 +547,7 @@ class Directorist_Listing_Forms {
 
 		if ( ! empty( $listing_id ) ) {
 			if ( $field_data['widget_name'] == 'title' ) {
-				$value = get_the_title( $listing_id );
+				$value = $this->add_listing_post->post_title;
 			}
 			elseif ( $field_data['widget_name'] == 'description' ) {
 				$value = $this->add_listing_post->post_content;

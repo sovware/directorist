@@ -40,7 +40,7 @@ export default {
         ]),
 
         exportJSON() {
-            console.log( this.getFieldsValue() );
+            // console.log( this.getFieldsValue() );
             let dataStr = JSON.stringify( this.getFieldsValue() );
             let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
 

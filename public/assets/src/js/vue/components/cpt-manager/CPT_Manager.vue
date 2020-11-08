@@ -84,6 +84,26 @@ export default {
     },
 
     methods: {
+        ...mapGetters([
+            'getFieldsValue'
+        ]),
+
+        updateData() {
+            let fields = this.getFieldsValue();
+
+            let form_data = new FormData();
+            form_data.append( 'action', 'save_post_type_data' );
+            
+            if ( this.listing_type_id ) {
+                form_data.append( 'listing_type_id', this.listing_type_id );
+                this.footer_actions.save.label = 'Update';
+            }
+
+
+
+            console.log( { fields } );
+        },
+
         saveData() {
             let fields = this.$store.state.fields;
             let config = this.$store.state.config;

@@ -798,9 +798,6 @@ export default {
 
     insertWidget( payload, where ) {
 
-      console.log( { payload } );
-      console.log( this.theAvailableWidgets[ payload.key ] );
-
       if ( ! this.isTruthyObject( this.theAvailableWidgets[ payload.key ] ) ) {
         return;
       }

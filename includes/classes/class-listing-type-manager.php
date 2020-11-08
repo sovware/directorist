@@ -4177,7 +4177,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                 ],
 
                 'featured_badge' => [
-                    'type' => "icon",
+                    'type' => "badge",
                     'label' => "Featured",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_featured_badge",
@@ -4269,7 +4269,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                 ],
 
                 'favorite_badge' => [
-                    'type' => "badge",
+                    'type' => "icon",
                     'label' => "Favorite",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_favorite_badge",

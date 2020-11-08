@@ -125,7 +125,7 @@ export default {
             }
 
             let widgets_list = Object.keys( availableWidgets )
-                .filter( key => accepted_widgets.includes( availableWidgets[ key ].id ) )
+                .filter( key => accepted_widgets.includes( availableWidgets[ key ].widget_name ) )
                 .reduce(( obj, key ) => {
                     obj[ key ] = availableWidgets[ key ];
 

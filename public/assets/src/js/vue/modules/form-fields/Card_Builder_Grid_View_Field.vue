@@ -364,8 +364,8 @@ export default {
       let available_widgets = JSON.parse( JSON.stringify( this.available_widgets ) );
 
       for ( let widget in available_widgets ) {
-        available_widgets[ widget ].key = widget;
-        available_widgets[ widget ].id = widget;
+        available_widgets[ widget ].widget_name = widget;
+        available_widgets[ widget ].widget_key = widget;
 
         // Check show if condition
         let show_if_cond_state = null;
@@ -382,12 +382,12 @@ export default {
               // console.log( {matched_field} );
               let _main_widget = JSON.parse( JSON.stringify( main_widget ) );
               let current_key = ( widget_keys.includes( widget ) ) ? widget + '_' + (widget_keys.length + 1) : widget;
-              _main_widget.key = current_key;
+              _main_widget.widget_key = current_key;
 
               if ( typeof matched_field.label === 'string' && matched_field.label.length ) {
                 _main_widget.label = matched_field.label;
               }
- 
+
               available_widgets[ current_key ] = _main_widget;
               widget_keys.push( current_key );
             }
@@ -397,7 +397,6 @@ export default {
       }
 
       // console.log( { available_widgets } );
-
       return available_widgets;
     },
 
@@ -434,7 +433,6 @@ export default {
       }
       if ( has_option && ! active_widgets.user_avatar.options.fields.align ) {
         has_option = false;
-        log.push( 'chk_5' );
       }
 
       if ( has_option && ! ( typeof active_widgets.user_avatar.options.fields.align.value === 'string' ) ) {
@@ -574,13 +572,14 @@ export default {
           if ( ! value[ section ][ area ] && typeof value[ section ][ area ] !== 'object' ) { continue; }
 
           for ( let widget of value[ section ][ area ] ) {
-            if ( typeof widget.key === 'undefined' ) { continue }
-            if ( typeof this.available_widgets[ widget.id ] === 'undefined' ) { continue; }
+            if ( typeof widget.widget_name === 'undefined' ) { continue }
+            if ( typeof widget.widget_key === 'undefined' ) { continue }
+            if ( typeof this.available_widgets[ widget.widget_name ] === 'undefined' ) { continue; }
             if ( typeof this.local_layout[ section ] === 'undefined' ) { continue; }
             if ( typeof this.local_layout[ section ][ area ] === 'undefined' ) { continue; }
 
-            active_widgets_data[ widget.key ] = widget;
-            selectedWidgets.push( { section: section, area: area, widget: widget.key } );
+            active_widgets_data[ widget.widget_key ] = widget;
+            selectedWidgets.push( { section: section, area: area, widget: widget.widget_name } );
           }
         }
       }
@@ -667,7 +666,7 @@ export default {
       if ( ! path.acceptedWidgets  ) { return true; }
       if ( ! this.isTruthyObject( path.acceptedWidgets )  ) { return true; }
 
-      if ( path.acceptedWidgets.includes( this.theAvailableWidgets[ key ].id ) ) { return true; }
+      if ( path.acceptedWidgets.includes( this.theAvailableWidgets[ key ].widget_name ) ) { return true; }
 
       return false;
     },
@@ -798,6 +797,9 @@ export default {
     },
 
     insertWidget( payload, where ) {
+
+      console.log( { payload } );
+      console.log( this.theAvailableWidgets[ payload.key ] );
 
       if ( ! this.isTruthyObject( this.theAvailableWidgets[ payload.key ] ) ) {
         return;

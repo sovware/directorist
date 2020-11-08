@@ -374,6 +374,7 @@ class Directorist_Listings {
 		$listing_type = $this->current_listing_type;
 		$card_fields  = get_term_meta( $listing_type, 'listings_card_grid_view', true );
 		$list_fields  = get_term_meta( $listing_type, 'listings_card_list_view', true );
+		// e_var_dump($card_fields);
 
 		$data = array(
 			'id'                   => $id,
@@ -1646,45 +1647,17 @@ class Directorist_Listings {
 				$this->render_badge_template($field);
 			}
 			else {
-				switch ($field['id']) {
-					case 'listing_title':
-					atbdp_get_shortcode_template( 'listings-archive/loop/title', array('listings' => $this) );
-					break;
-
-					case 'user_avatar':
-					atbdp_get_shortcode_template( 'listings-archive/loop/avatar', array('listings' => $this) );
-					break;
-
-					case 'rating':
-					atbdp_get_shortcode_template( 'listings-archive/loop/rating', array('listings' => $this) );
-					break;
-
-					case 'view_count':
-					atbdp_get_shortcode_template( 'listings-archive/loop/view-count', array('listings' => $this) );
-					break;
-
-					case 'category':
-					atbdp_get_shortcode_template( 'listings-archive/loop/cats', array('listings' => $this) );
-					break;
-
-					case 'listings_location':
-					atbdp_get_shortcode_template( 'listings-archive/loop/location', array('listings' => $this) );
-					break;
-
-					case 'listings_phone_number':
-					atbdp_get_shortcode_template( 'listings-archive/loop/phone', array('listings' => $this) );
-					break;
-
-					case 'listings_website':
-					atbdp_get_shortcode_template( 'listings-archive/loop/website', array('listings' => $this) );
-					break;
-				}
+				$args = array(
+					'listings' => $this,
+					'data'     => $field,
+				);
+				$template = 'listings-archive/loop/' . $field['widget_name'];
+				atbdp_get_shortcode_template( $template, $args );
 			}
 		}
 
 		public function render_loop_fields( $fields, $before = '', $after = '' ) {
 			foreach ( $fields as $field ) {
-				// e_var_dump($field);
 				echo $before;$this->render_card_field( $field );echo $after;
 			}
 		}
@@ -1692,7 +1665,7 @@ class Directorist_Listings {
 		public function render_badge_template( $field ) {
 			global $post;
 			$id = get_the_ID();
-			switch ($field['id']) {
+			switch ($field['widget_key']) {
 				case 'popular_badge':
 				$field['class'] = 'popular';
 				$popular_listing_id = atbdp_popular_listings( $id );

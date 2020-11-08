@@ -564,8 +564,6 @@ class Directorist_Listing_Forms {
 			'data'  => $field_data,
 		);
 
-		// e_var_dump($field_data);
-
 		$template = 'forms/fields/' . $field_data['widget_name'];
 		$template = apply_filters( 'directorist_field_template_' . $field_data['widget_name'], $template, $field_data );
 		atbdp_get_shortcode_template( $template, $args );
@@ -606,6 +604,7 @@ class Directorist_Listing_Forms {
 	public function build_form_data( $type ) {
 		$form_data              = array();
 		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
+		// e_var_dump($submission_form_fields);
 
 		foreach ( $submission_form_fields['groups'] as $group ) {
 			$section           = $group;

@@ -2,9 +2,7 @@
     <div class="atbdp-cpt-manager">
         <div class="atbdp-row">
             <div class="atbdp-col atbdp-col-3">
-                <div class="atbdp-sidebar-nav-area">
-                    Sidebar Nav
-                </div>
+                <sidebar-navigation />
             </div>
 
             <div class="atbdp-col atbdp-col-8">
@@ -27,7 +25,6 @@
 <script>
 import { mapState } from 'vuex';
 import { mapGetters } from 'vuex';
-import headerNavigation from './Header_Navigation.vue';
 import tabContents from './TabContents.vue';
 
 const axios = require('axios').default;
@@ -36,7 +33,6 @@ export default {
     name: 'settings-manager',
 
     components: {
-        headerNavigation,
         tabContents,
     },
 

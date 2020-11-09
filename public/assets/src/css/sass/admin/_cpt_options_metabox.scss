@@ -28,7 +28,6 @@ $light-gray: #f4f5f7;
   display: block;
   color: $dark;
   background: #fff;
-  padding: 30px;
 }
 
 .atbdp-cptm-header {
@@ -1929,11 +1928,120 @@ input[type=checkbox], input[type=radio]{
 }
 
 
+// Sidebar
+.atbdp-sidebar-nav-area {
+  display: block;
+}
 
+.atbdp-sidebar-nav {
+  display: block;
+  margin: 0;
+  background-color: #f6f6f6;
+}
+
+.atbdp-nav-link {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: #2b2b2b;
+  @extend .reset-pseudo-link;
+}
+
+.atbdp-nav-icon {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.atbdp-nav-label {
+  display: inline-block;
+}
+
+.atbdp-sidebar-nav-item {
+  display: block;
+  margin: 0;
+
+  .atbdp-nav-link {
+    display: block;
+  }
+
+  .atbdp-nav-icon {
+    display: inline-block;
+  }
+
+  .atbdp-nav-label {
+    display: inline-block;
+  }
+
+  &.active {
+    display: block;
+    background-color: #fff;
+
+    .atbdp-sidebar-subnav {
+      display: block;
+    }
+
+    .atbdp-nav-link {
+      display: block;
+    }
+
+    .atbdp-nav-icon {
+      display: inline-block;
+    }
+  
+    .atbdp-nav-label {
+      display: inline-block;
+    }
+  }
+}
+
+.atbdp-sidebar-subnav {
+  display: block;
+  margin: 0;
+  margin-left: 28px;
+  display: none;
+}
+
+.atbdp-sidebar-subnav-item {
+  display: block;
+  margin: 0;
+
+  .atbdp-nav-link {
+    color: #686d88;
+  }
+
+  .atbdp-nav-icon {
+    display: inline-block;
+  }
+
+  .atbdp-nav-label {
+    display: inline-block;
+  }
+
+  &.active {
+    display: block;
+    margin: 0;
+
+    .atbdp-nav-link {
+      display: block;
+    }
+
+    .atbdp-nav-icon {
+      display: inline-block;
+    }
+
+    .atbdp-nav-label {
+      display: inline-block;
+    }
+  }
+}
+
+
+
+// ATBDP Grid
 .atbdp-row {
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -30px;
+  margin: 0 -15px;
 }
 
 .atbdp-col {

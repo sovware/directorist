@@ -63,7 +63,7 @@ input[type="checkbox"] {
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 span, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action a:hover,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action:hover,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li a > span,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li a > span, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title span, .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .review_content a, .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span, .atbd_content_active #directorist.atbd_wrapper .atbd_upload_btn span {
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li a > span, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title span, .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .review_content a, .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span, .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p i, .atbd_content_active #directorist.atbd_wrapper .atbd_upload_btn span {
   color: #444752;
 }
 
@@ -3670,7 +3670,7 @@ input#privacy_policy,
   font-weight: 500;
   display: inline-block;
   line-height: 22px;
-  margin-right: 6px;
+  margin: 0 3px !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_badge + .atbd_badge {
@@ -3875,10 +3875,40 @@ input#privacy_policy,
   left: 15px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbdp_add_to_fav_listings {
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd-card-cover-top-left,
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd-card-cover-top-right,
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd-card-cover-bottom-left,
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd-card-cover-bottom-right {
   position: absolute;
-  right: 15px;
-  top: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 -3px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd-card-cover-top-left {
+  left: 20px;
+  top: 20px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd-card-cover-top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd-card-cover-bottom-left {
+  left: 20px;
+  bottom: 30px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_thumbnail_area .atbd-card-cover-bottom-right {
+  right: 20px;
+  bottom: 30px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info {
@@ -3933,28 +3963,23 @@ input#privacy_policy,
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span {
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span, .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p i {
   font-size: 15px;
   margin-right: 8px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span.la {
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span.la, .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p i.la {
   font-size: 17px;
-  position: relative;
-  top: 3px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p a {
   font-size: 14px;
   word-break: break-all;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbdp_add_to_fav_listings {
-  position: absolute;
-  right: 20px;
-  top: 20px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_listing_bottom_content {
@@ -4044,7 +4069,6 @@ input#privacy_policy,
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image .atbd_author {
   position: absolute;
-  right: 15px;
   bottom: 0;
   -webkit-transform: translateY(50%);
       -ms-transform: translateY(50%);
@@ -4067,6 +4091,21 @@ input#privacy_policy,
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image .atbd_author .tooltip {
   min-width: 100px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image .atbd_author.alignment-left {
+  left: 20px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image .atbd_author.alignment-center {
+  left: 50%;
+  -webkit-transform: translate(-50%, 50%);
+      -ms-transform: translate(-50%, 50%);
+          transform: translate(-50%, 50%);
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_image .atbd_author.alignment-right {
+  right: 20px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-selection__clear {
@@ -4132,6 +4171,10 @@ span.atbd_get_loc_wid {
      text-overflow: ellipsis;
 }
 
+#directorist.atbd_wrapper .atbdp_add_to_fav_listings {
+  margin: 0 3px;
+}
+
 #directorist.atbd_wrapper .atbdp_mark_as_fav {
   background: rgba(0, 0, 0, 0.2);
   width: 26px;
@@ -4152,15 +4195,13 @@ span.atbd_get_loc_wid {
   background: rgba(0, 0, 0, 0.5);
 }
 
-#directorist.atbd_wrapper .atbdp_mark_as_fav .atbd_fav_icon::after {
-  font-family: "LineAwesome";
-  content: '\f234';
-  color: #fff;
-  font-size: 15px;
+#directorist.atbd_wrapper .atbdp_mark_as_fav.atbdp_fav_isActive .directorist-icon {
+  color: red;
 }
 
-#directorist.atbd_wrapper .atbdp_mark_as_fav.atbdp_fav_isActive .atbd_fav_icon::after {
-  content: '\f233';
+#directorist.atbd_wrapper .atbdp_mark_as_fav .directorist-icon {
+  color: #fff;
+  font-size: 13px !important;
 }
 
 #directorist.atbd_wrapper .atbdp_mark_as_fav .atbd_fav_tooltip span {

@@ -703,3 +703,36 @@ span.atbd_get_loc_wid {
     border-right: 0;
   }
 }
+
+.atbd-list-cover-top-right{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .atbdp_add_to_fav_listings{
+    .atbdp_mark_as_fav {
+      display: flex !important;
+    }
+  }
+}
+.atbd_listing_list{
+  .atbd_content_upper{
+    display: flex;
+    flex-wrap: wrap;
+    .atbd-list-body-top{
+      order: 0;
+      flex: 1;
+    }
+    .atbd_listing_data_list{
+      order: 2;
+      flex: 0 0 100%;
+    }
+    .atbd-list-body-right{
+      order: 1;
+      display: flex;
+      align-items: flex-start;
+    }
+  }
+}

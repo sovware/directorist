@@ -16,6 +16,9 @@ class Directorist_Listings {
 	public $type;
 	public $params;
 
+	public $listing_types;
+	public $current_listing_type;
+
     // shortcode properties
 	public $view;
 	public $_featured;
@@ -81,7 +84,6 @@ class Directorist_Listings {
 	public $display_email;
 	public $display_web_link;
 	public $display_category;
-	public $display_view_count;
 	public $display_mark_as_fav;
 	public $display_publish_date;
 	public $display_contact_info;
@@ -103,8 +105,6 @@ class Directorist_Listings {
 	public $display_title_map;
 	public $display_address_map;
 	public $display_direction_map;
-	public $listing_types;
-	public $current_listing_type;
 
 	public function __construct( $atts = array(), $type = 'listing', $query_args = false, array $caching_options = [] ) {
 		$this->atts = !empty( $atts ) ? $atts : array();
@@ -292,6 +292,9 @@ class Directorist_Listings {
 	}
 
 	public function prepare_data() {
+		$this->listing_types              = $this->get_listing_types();
+		$this->current_listing_type       = $this->get_current_listing_type();
+
 		$this->has_featured                = $this->options['enable_featured_listing'];
 		$this->has_featured                = $this->has_featured || is_fee_manager_active() ? $this->_featured : $this->has_featured;
 		$this->popular_by                  = $this->options['listing_popular_by'];
@@ -333,7 +336,6 @@ class Directorist_Listings {
 		$this->display_email              = $this->options['display_email'];
 		$this->display_web_link           = $this->options['display_web_link'];
 		$this->display_category           = $this->options['display_category'];
-		$this->display_view_count         = $this->options['display_view_count'];
 		$this->display_mark_as_fav        = $this->options['display_mark_as_fav'];
 		$this->display_publish_date       = $this->options['display_publish_date'];
 		$this->display_contact_info       = $this->options['display_contact_info'];
@@ -355,8 +357,6 @@ class Directorist_Listings {
 		$this->display_title_map          = $this->options['display_title_map'];
 		$this->display_address_map        = $this->options['display_address_map'];
 		$this->display_direction_map      = $this->options['display_direction_map'];
-		$this->listing_types              = $this->get_listing_types();
-		$this->current_listing_type       = $this->get_current_listing_type();
 	}
 
 	public function set_loop_data() {
@@ -398,7 +398,7 @@ class Directorist_Listings {
 			'phone_number'         => get_post_meta( $id, '_phone', true ),
 			'category'             => get_post_meta( $id, '_admin_category_select', true ),
 			'post_view'            => get_post_meta( $id, '_atbdp_post_views_count', true ),
-			'hide_contact_info'    => get_post_meta( $id, '_hide_contact_info', true ),
+
 			'business_hours'       => ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array(),
 			'enable247hour'        => get_post_meta( $id, '_enable247hour', true ),
 			'disable_bz_hour_listing' => get_post_meta( $id, '_disable_bz_hour_listing', true ),
@@ -1647,9 +1647,13 @@ class Directorist_Listings {
 				$this->render_badge_template($field);
 			}
 			else {
+				$value = !empty( $field_data['field_key'] ) ? get_post_meta( $this->id, '_'.$field_data['field_key'], true ) : '';
+
 				$args = array(
 					'listings' => $this,
 					'data'     => $field,
+					'value'    => $value,
+					'icon'     => !empty( $field['options']['icon'] ) ? $field['options']['icon'] : '',
 				);
 				$template = 'listings-archive/loop/' . $field['widget_name'];
 				atbdp_get_shortcode_template( $template, $args );

@@ -1426,6 +1426,21 @@ if (!function_exists('atbdp_icon_type')) {
     }
 }
 
+function directorist_icon( $icon, $echo = true ) {
+    if ( !$icon ) {
+        return;
+    }
+
+    $html = sprintf('<i class="directorist-icon %s"></i>', $icon );
+
+    if ($echo) {
+        echo $html;
+    }
+    else {
+        return $html;
+    }
+}
+
 
 if (!function_exists('atbdp_sanitize_array')) {
     /**

@@ -374,7 +374,7 @@ class Directorist_Listings {
 		$listing_type = $this->current_listing_type;
 		$card_fields  = get_term_meta( $listing_type, 'listings_card_grid_view', true );
 		$list_fields  = get_term_meta( $listing_type, 'listings_card_list_view', true );
-		// dvar_dump($card_fields);
+		dvar_dump($card_fields);
 
 		$data = array(
 			'id'                   => $id,
@@ -1583,9 +1583,12 @@ class Directorist_Listings {
 			return ($this->view_as !== 'masonry_grid') ? '' : ' data-uk-grid';
 		}
 
-		public function loop_get_address_from_locaton() {
+		public function get_the_locaton() {
+			$id = get_the_ID();
+			$locs = get_the_terms( $id, ATBDP_LOCATION );
+
 			$local_names = array();
-			foreach ($this->loop['locs'] as $term) {
+			foreach ($locs as $term) {
 				$local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
 				ksort($local_names);
 				$locals = array_reverse($local_names);

@@ -74,7 +74,7 @@ class ATBDP_Metabox {
 	public function build_form_data( $type ) {
 		$form_data              = array();
 		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
-		$excluded_fields = array( 'title', 'description', 'location', 'category', 'tag', 'image_upload', 'privacy_policy', 'terms_conditions' );
+		$excluded_fields = array( 'title', 'description', 'location', 'category', 'tag', 'privacy_policy', 'terms_conditions' );
 
 		if ( !empty( $submission_form_fields['groups'] ) ) {
 			foreach ( $submission_form_fields['groups'] as $group ) {

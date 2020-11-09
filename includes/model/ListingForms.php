@@ -565,7 +565,18 @@ class Directorist_Listing_Forms {
 		);
 
 		$template = 'forms/fields/' . $field_data['widget_name'];
-		$template = apply_filters( 'directorist_field_template_' . $field_data['widget_name'], $template, $field_data );
+		$template = apply_filters( 'directorist_field_template', $template, $field_data );
+
+		if ( is_admin() ) {
+			$admin_template = 'listing-form/' . $field_data['widget_name'];
+			$admin_template = apply_filters( 'directorist_field_admin_template', $admin_template, $field_data );
+
+			if ( atbdp_has_admin_template( $admin_template ) ) {
+				atbdp_get_admin_template( $admin_template, $args );
+				return;
+			}
+		}
+
 		atbdp_get_shortcode_template( $template, $args );
 	}
 

@@ -4785,3 +4785,12 @@ function directorist_default_directory(){
     }
     return $id;
 }
+
+
+// remove later @for dev use only @kowsar
+function dvar_dump($data){
+    return '';
+    echo "<pre>";
+    var_dump($data);
+    echo "</pre>";
+}

@@ -5,5 +5,5 @@
  * @version 6.7
  */
 ?>
-<p><span class="<?php atbdp_icon_type(true); ?>-globe"></span><a target="_blank" href="<?php echo esc_url($listings->loop['web']); ?>"><?php echo esc_html($listings->loop['web']); ?></a>
+<p><?php directorist_icon( $icon );?><a target="_blank" href="<?php echo esc_url( $value ); ?>"><?php echo esc_html( $value ); ?></a>
 </p>

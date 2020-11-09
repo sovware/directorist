@@ -208,7 +208,7 @@ class Directorist_Listings {
 		$this->options['map_view_zoom_level']             = get_directorist_option('map_view_zoom_level', 16);
 		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 		$this->options['font_type']                       = get_directorist_option('font_type','line');
-		$this->options['display_publish_date']           = get_directorist_option('display_publish_date', 1) ? true : false;
+		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
 		$this->options['display_feature_badge_cart']      = get_directorist_option( 'display_feature_badge_cart', 1 ) ? true : false;
 	}
@@ -374,7 +374,7 @@ class Directorist_Listings {
 		$listing_type = $this->current_listing_type;
 		$card_fields  = get_term_meta( $listing_type, 'listings_card_grid_view', true );
 		$list_fields  = get_term_meta( $listing_type, 'listings_card_list_view', true );
-		// e_var_dump($card_fields);
+		// dvar_dump($card_fields);
 
 		$data = array(
 			'id'                   => $id,
@@ -392,10 +392,7 @@ class Directorist_Listings {
 			'listing_prv_img'      => get_post_meta( $id, '_listing_prv_img', true ),
 			'excerpt'              => get_post_meta( $id, '_excerpt', true ),
 			'tagline'              => get_post_meta( $id, '_tagline', true ),
-			'address'              => get_post_meta( $id, '_address', true ),
 			'email'                => get_post_meta( $id, '_email', true ),
-			'web'                  => get_post_meta( $id, '_website', true ),
-			'phone_number'         => get_post_meta( $id, '_phone', true ),
 			'category'             => get_post_meta( $id, '_admin_category_select', true ),
 			'post_view'            => get_post_meta( $id, '_atbdp_post_views_count', true ),
 
@@ -1647,10 +1644,12 @@ class Directorist_Listings {
 				$this->render_badge_template($field);
 			}
 			else {
-				$value = !empty( $field_data['field_key'] ) ? get_post_meta( $this->id, '_'.$field_data['field_key'], true ) : '';
+				$id = get_the_id();
+				$value = !empty( $field['widget_key'] ) ? get_post_meta( $id, '_'.$field['widget_key'], true ) : '';
 
 				$args = array(
 					'listings' => $this,
+					'post_id'  => $id,
 					'data'     => $field,
 					'value'    => $value,
 					'icon'     => !empty( $field['options']['icon'] ) ? $field['options']['icon'] : '',

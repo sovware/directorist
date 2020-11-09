@@ -3472,14 +3472,12 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'allow_multiple' => false,
                     'template' => 'submission_form_fields',
                     'widgets' => [
-                        'tagline'          => [ 'options' => [] ],
-                        'excerpt'          => [ 'options' => [] ],
                         'tag' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-tag',
                                 ],
                             ]
                         ],
@@ -3488,7 +3486,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-address-card',
                                 ],
                             ]
                         ],
@@ -3497,7 +3495,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-map',
                                 ],
                             ]
                         ],
@@ -3506,7 +3504,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-street-view',
                                 ],
                             ]
                         ],
@@ -3515,7 +3513,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-phone',
                                 ],
                             ]
                         ],
@@ -3524,7 +3522,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-phone',
                                 ],
                             ]
                         ],
@@ -3533,7 +3531,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-fax',
                                 ],
                             ]
                         ],
@@ -3542,7 +3540,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-envelope',
                                 ],
                             ]
                         ],
@@ -3551,7 +3549,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-globe',
                                 ],
                             ]
                         ],
@@ -3560,7 +3558,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-share-alt',
                                 ],
                             ]
                         ],
@@ -3569,7 +3567,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-video',
                                 ],
                             ]
                         ],
@@ -3578,7 +3576,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-text-height',
                                 ],
                             ]
                         ],
@@ -3587,7 +3585,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-align-center',
                                 ],
                             ]
                         ],
@@ -3596,7 +3594,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-list-ol',
                                 ],
                             ]
                         ],
@@ -3605,7 +3603,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-link',
                                 ],
                             ]
                         ],
@@ -3614,7 +3612,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-calendar',
                                 ],
                             ]
                         ],
@@ -3623,7 +3621,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-clock',
                                 ],
                             ]
                         ],
@@ -3632,7 +3630,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-palette',
                                 ],
                             ]
                         ],
@@ -3641,7 +3639,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-clipboard-check',
                                 ],
                             ]
                         ],
@@ -3650,7 +3648,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-check-square',
                                 ],
                             ]
                         ],
@@ -3659,7 +3657,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-circle',
                                 ],
                             ]
                         ],
@@ -3668,7 +3666,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => '',
+                                    'value' => 'la la-file-alt',
                                 ],
                             ]
                         ],
@@ -3682,13 +3680,18 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                         'review' => [ 
                             'label' => 'Review',
                             'icon' => 'la la-star',
-                            'options' => [
-                                'label' => [
-                                    'type'  => 'text',
-                                    'label' => 'Label',
-                                    'value' => 'Review',
-                                ],
-                            ],
+                        ],
+                        'author_info' => [ 
+                            'label' => 'Author Info',
+                            'icon' => 'la la-user',
+                        ],
+                        'contact_listings_owner' => [ 
+                            'label' => 'Contact Listings Owner Form',
+                            'icon' => 'la la-phone',
+                        ],
+                        'related_listings' => [ 
+                            'label' => 'Related Listings',
+                            'icon' => 'la la-copy',
                         ],
                     ],
                 ],
@@ -5058,7 +5061,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                         'bookmark' => [
                             'type' => "button",
                             'label' => "Bookmark",
-                            'icon' => 'uil uil-text-fields',
+                            'icon' => 'la la-bookmark',
                             'hook' => "atbdp_single_listings_title",
                             'options' => [
                                 'title' => "Bookmark Settings",
@@ -5066,7 +5069,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'icon' => [
                                         'type' => "icon",
                                         'label' => "Icon",
-                                        'value' => 'fa fa-home',
+                                        'value' => 'la la-bookmark',
                                     ],
                                 ],
                             ],
@@ -5074,7 +5077,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                         'share' => [
                             'type' => "badge",
                             'label' => "Share",
-                            'icon' => 'uil uil-text-fields',
+                            'icon' => 'la la-share',
                             'hook' => "atbdp_single_listings_title",
                             'options' => [
                                 'title' => "Share Settings",
@@ -5082,7 +5085,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'icon' => [
                                         'type' => "icon",
                                         'label' => "Icon",
-                                        'value' => 'fa fa-home',
+                                        'value' => 'la la-share',
                                     ],
                                 ],
                             ],
@@ -5090,7 +5093,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                         'report' => [
                             'type' => "badge",
                             'label' => "Report",
-                            'icon' => 'uil uil-text-fields',
+                            'icon' => 'la la-flag',
                             'hook' => "atbdp_single_listings_title",
                             'options' => [
                                 'title' => "Report Settings",
@@ -5098,7 +5101,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'icon' => [
                                         'type' => "icon",
                                         'label' => "Icon",
-                                        'value' => 'fa fa-home',
+                                        'value' => 'la la-flag',
                                     ],
                                 ],
                             ],
@@ -5151,9 +5154,9 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                         'label' => "Display Popular Badge",
                                         'value' => true,
                                     ],
-                                    'popular_badge' => [
+                                    'featured_badge' => [
                                         'type' => "toggle",
-                                        'label' => "Display Popular Badge",
+                                        'label' => "Display Featured Badge",
                                         'value' => true,
                                     ],
                                 ],

@@ -1426,6 +1426,21 @@ if (!function_exists('atbdp_icon_type')) {
     }
 }
 
+function directorist_icon( $icon, $echo = true ) {
+    if ( !$icon ) {
+        return;
+    }
+
+    $html = sprintf('<i class="directorist-icon %s"></i>', $icon );
+
+    if ($echo) {
+        echo $html;
+    }
+    else {
+        return $html;
+    }
+}
+
 
 if (!function_exists('atbdp_sanitize_array')) {
     /**
@@ -4769,4 +4784,13 @@ function directorist_default_directory(){
         }
     }
     return $id;
+}
+
+
+// remove later @for dev use only @kowsar
+function dvar_dump($data){
+    return '';
+    echo "<pre>";
+    var_dump($data);
+    echo "</pre>";
 }

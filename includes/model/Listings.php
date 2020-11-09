@@ -16,6 +16,9 @@ class Directorist_Listings {
 	public $type;
 	public $params;
 
+	public $listing_types;
+	public $current_listing_type;
+
     // shortcode properties
 	public $view;
 	public $_featured;
@@ -81,7 +84,6 @@ class Directorist_Listings {
 	public $display_email;
 	public $display_web_link;
 	public $display_category;
-	public $display_view_count;
 	public $display_mark_as_fav;
 	public $display_publish_date;
 	public $display_contact_info;
@@ -103,8 +105,6 @@ class Directorist_Listings {
 	public $display_title_map;
 	public $display_address_map;
 	public $display_direction_map;
-	public $listing_types;
-	public $current_listing_type;
 
 	public function __construct( $atts = array(), $type = 'listing', $query_args = false, array $caching_options = [] ) {
 		$this->atts = !empty( $atts ) ? $atts : array();
@@ -208,7 +208,7 @@ class Directorist_Listings {
 		$this->options['map_view_zoom_level']             = get_directorist_option('map_view_zoom_level', 16);
 		$this->options['default_preview_image']           = get_directorist_option('default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg');
 		$this->options['font_type']                       = get_directorist_option('font_type','line');
-		$this->options['display_publish_date']           = get_directorist_option('display_publish_date', 1) ? true : false;
+		$this->options['display_publish_date']            = get_directorist_option('display_publish_date', 1) ? true : false;
 		$this->options['publish_date_format']             = get_directorist_option('publish_date_format', 'time_ago');
 		$this->options['display_feature_badge_cart']      = get_directorist_option( 'display_feature_badge_cart', 1 ) ? true : false;
 	}
@@ -292,6 +292,9 @@ class Directorist_Listings {
 	}
 
 	public function prepare_data() {
+		$this->listing_types              = $this->get_listing_types();
+		$this->current_listing_type       = $this->get_current_listing_type();
+
 		$this->has_featured                = $this->options['enable_featured_listing'];
 		$this->has_featured                = $this->has_featured || is_fee_manager_active() ? $this->_featured : $this->has_featured;
 		$this->popular_by                  = $this->options['listing_popular_by'];
@@ -333,7 +336,6 @@ class Directorist_Listings {
 		$this->display_email              = $this->options['display_email'];
 		$this->display_web_link           = $this->options['display_web_link'];
 		$this->display_category           = $this->options['display_category'];
-		$this->display_view_count         = $this->options['display_view_count'];
 		$this->display_mark_as_fav        = $this->options['display_mark_as_fav'];
 		$this->display_publish_date       = $this->options['display_publish_date'];
 		$this->display_contact_info       = $this->options['display_contact_info'];
@@ -355,8 +357,6 @@ class Directorist_Listings {
 		$this->display_title_map          = $this->options['display_title_map'];
 		$this->display_address_map        = $this->options['display_address_map'];
 		$this->display_direction_map      = $this->options['display_direction_map'];
-		$this->listing_types              = $this->get_listing_types();
-		$this->current_listing_type       = $this->get_current_listing_type();
 	}
 
 	public function set_loop_data() {
@@ -374,6 +374,7 @@ class Directorist_Listings {
 		$listing_type = $this->current_listing_type;
 		$card_fields  = get_term_meta( $listing_type, 'listings_card_grid_view', true );
 		$list_fields  = get_term_meta( $listing_type, 'listings_card_list_view', true );
+		dvar_dump($card_fields);
 
 		$data = array(
 			'id'                   => $id,
@@ -391,13 +392,10 @@ class Directorist_Listings {
 			'listing_prv_img'      => get_post_meta( $id, '_listing_prv_img', true ),
 			'excerpt'              => get_post_meta( $id, '_excerpt', true ),
 			'tagline'              => get_post_meta( $id, '_tagline', true ),
-			'address'              => get_post_meta( $id, '_address', true ),
 			'email'                => get_post_meta( $id, '_email', true ),
-			'web'                  => get_post_meta( $id, '_website', true ),
-			'phone_number'         => get_post_meta( $id, '_phone', true ),
 			'category'             => get_post_meta( $id, '_admin_category_select', true ),
 			'post_view'            => get_post_meta( $id, '_atbdp_post_views_count', true ),
-			'hide_contact_info'    => get_post_meta( $id, '_hide_contact_info', true ),
+
 			'business_hours'       => ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array(),
 			'enable247hour'        => get_post_meta( $id, '_enable247hour', true ),
 			'disable_bz_hour_listing' => get_post_meta( $id, '_disable_bz_hour_listing', true ),
@@ -1585,9 +1583,12 @@ class Directorist_Listings {
 			return ($this->view_as !== 'masonry_grid') ? '' : ' data-uk-grid';
 		}
 
-		public function loop_get_address_from_locaton() {
+		public function get_the_locaton() {
+			$id = get_the_ID();
+			$locs = get_the_terms( $id, ATBDP_LOCATION );
+
 			$local_names = array();
-			foreach ($this->loop['locs'] as $term) {
+			foreach ($locs as $term) {
 				$local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
 				ksort($local_names);
 				$locals = array_reverse($local_names);
@@ -1646,45 +1647,23 @@ class Directorist_Listings {
 				$this->render_badge_template($field);
 			}
 			else {
-				switch ($field['id']) {
-					case 'listing_title':
-					atbdp_get_shortcode_template( 'listings-archive/loop/title', array('listings' => $this) );
-					break;
+				$id = get_the_id();
+				$value = !empty( $field['widget_key'] ) ? get_post_meta( $id, '_'.$field['widget_key'], true ) : '';
 
-					case 'user_avatar':
-					atbdp_get_shortcode_template( 'listings-archive/loop/avatar', array('listings' => $this) );
-					break;
-
-					case 'rating':
-					atbdp_get_shortcode_template( 'listings-archive/loop/rating', array('listings' => $this) );
-					break;
-
-					case 'view_count':
-					atbdp_get_shortcode_template( 'listings-archive/loop/view-count', array('listings' => $this) );
-					break;
-
-					case 'category':
-					atbdp_get_shortcode_template( 'listings-archive/loop/cats', array('listings' => $this) );
-					break;
-
-					case 'listings_location':
-					atbdp_get_shortcode_template( 'listings-archive/loop/location', array('listings' => $this) );
-					break;
-
-					case 'listings_phone_number':
-					atbdp_get_shortcode_template( 'listings-archive/loop/phone', array('listings' => $this) );
-					break;
-
-					case 'listings_website':
-					atbdp_get_shortcode_template( 'listings-archive/loop/website', array('listings' => $this) );
-					break;
-				}
+				$args = array(
+					'listings' => $this,
+					'post_id'  => $id,
+					'data'     => $field,
+					'value'    => $value,
+					'icon'     => !empty( $field['options']['icon'] ) ? $field['options']['icon'] : '',
+				);
+				$template = 'listings-archive/loop/' . $field['widget_name'];
+				atbdp_get_shortcode_template( $template, $args );
 			}
 		}
 
 		public function render_loop_fields( $fields, $before = '', $after = '' ) {
 			foreach ( $fields as $field ) {
-				// e_var_dump($field);
 				echo $before;$this->render_card_field( $field );echo $after;
 			}
 		}
@@ -1692,7 +1671,7 @@ class Directorist_Listings {
 		public function render_badge_template( $field ) {
 			global $post;
 			$id = get_the_ID();
-			switch ($field['id']) {
+			switch ($field['widget_key']) {
 				case 'popular_badge':
 				$field['class'] = 'popular';
 				$popular_listing_id = atbdp_popular_listings( $id );

@@ -85,6 +85,26 @@ function atbdp_get_extension_template( string $base_path = '', string $file_path
     }
 }
 
+function atbdp_has_admin_template( $template ) {
+    $file = ATBDP_TEMPLATES_DIR . 'admin-templates/' . $template . '.php';
+
+    return file_exists( $file ) ? true : false;
+}
+
+function atbdp_get_admin_template( $template, $args = array() ) {
+    if ( !atbdp_has_admin_template( $template ) ) {
+       return;
+    }
+
+    if ( is_array( $args ) ) {
+        extract( $args );
+    }
+
+    $file = ATBDP_TEMPLATES_DIR . 'admin-templates/' . $template . '.php';
+
+    include $file;
+}
+
 
 // atbdp_get_shortcode_template
 function atbdp_get_shortcode_template( $template, $args = array(), string $shortcode_key = '' ) {

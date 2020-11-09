@@ -261,6 +261,11 @@
         justify-content: space-between;
         .atbd_content_left{
           margin-right: 12px;
+          .atbd_count{
+            span{
+                margin-right: 5px;
+            }
+          }
         }
         .atbd_content_right{
           display: flex;

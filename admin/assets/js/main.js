@@ -3946,28 +3946,49 @@ templateResult: selecWithIcon,
 
   // load admin add listing form
   const directory_type = $('select[name="directory_type"]').val();
-  if (directory_type) {
+  if (directory_type) {  
           admin_listing_form(directory_type);
   }
   $('body').on('change', 'select[name="directory_type"]', function() {
           admin_listing_form($(this).val());
+          
   });
 
   function admin_listing_form(directory_type) {
           $.ajax({
-                  type: 'post',
-                  url: atbdp_admin_data.ajaxurl,
-                  data: {
-                          action: 'atbdp_dynamic_admin_listing_form',
-                          directory_type,
-                          listing_id: $('#directiost-listing-fields_wrapper').data('id'),
-                  },
-                  success(response) {
-                          $('#directiost-listing-fields_wrapper')
-                                  .empty()
-                                  .append(response);
-                  },
+            type: 'post',
+            url: atbdp_admin_data.ajaxurl,
+            data: {
+              action: 'atbdp_dynamic_admin_listing_form',
+              directory_type,
+              listing_id: $('#directiost-listing-fields_wrapper').data('id'),
+            },
+            success(response) {
+              $('#directiost-listing-fields_wrapper')
+                .empty()
+                .append(response);
+                assetsNeedToWorkInVirtualDom();
+            },
           });
   }
+
+function assetsNeedToWorkInVirtualDom() {
+  // price range
+  $('#price_range').hide();
+  const pricing = $('#atbd_listing_pricing').val();
+  if (pricing === 'range') {
+          $('#price').hide();
+          $('#price_range').show();
+  }
+  $('.atbd_pricing_options label').on('click', function() {
+          const $this = $(this);
+          $this.children('input[type=checkbox]').prop('checked') == true
+                  ? $(`#${$this.data('option')}`).show()
+                  : $(`#${$this.data('option')}`).hide();
+          const $sibling = $this.siblings('label');
+          $sibling.children('input[type=checkbox]').prop('checked', false);
+          $(`#${$sibling.data('option')}`).hide();
+  });
+}
 
 })(jQuery);

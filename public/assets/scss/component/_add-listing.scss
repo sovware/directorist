@@ -467,3 +467,15 @@
     }
   }
 }
+
+//add listing image upload
+.atbd_add_listing_wrapper{
+  .ezmu__thumbnail-list-item{
+    max-width: 300px;
+    flex-basis: 300px;
+  }
+  .ezmu__thumbnail-list-item_back{
+    height: 200px;
+    width: 100%;
+  }
+}

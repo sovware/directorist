@@ -1,28 +1,21 @@
 <template>
     <div class="atbdp-cpt-manager">
-        <!-- atbdp-cptm-header -->
-        <div class="atbdp-cptm-header">
-            <headerNavigation />
-        </div>
-
-        <!-- atbdp-cptm-body -->
-        <div class="atbdp-cptm-body">
-            <tabContents />
-
-            <div class="atbdp-cptm-status-feedback" v-if="status_messages.length">
-                <div class="cptm-alert" :class="'cptm-alert-' + status.type " v-for="(status, index) in status_messages" :key="index">
-                    {{ status.message }}
-                </div>
+        <div class="atbdp-row">
+            <div class="atbdp-col atbdp-col-3">
+                <sidebar-navigation />
             </div>
-        </div>
 
-        <div class="atbdp-cptm-footer">
-            <div class="atbdp-cptm-progress-bar"></div>
-            <div class="atbdp-cptm-footer-actions">
-                <button type="button" :disabled="footer_actions.save.isDisabled" class="cptm-btn cptm-btn-primary" @click="saveData()">
-                    <span v-if="footer_actions.save.showLoading" class="fa fa-spinner fa-spin"></span>
-                    {{ footer_actions.save.label }}
-                </button>
+            <div class="atbdp-col atbdp-col-8">
+                <!-- atbdp-cptm-body -->
+                <div class="atbdp-cptm-body">
+                    <tabContents />
+
+                    <div class="atbdp-cptm-status-feedback" v-if="status_messages.length">
+                        <div class="cptm-alert" :class="'cptm-alert-' + status.type " v-for="(status, index) in status_messages" :key="index">
+                            {{ status.message }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -32,16 +25,14 @@
 <script>
 import { mapState } from 'vuex';
 import { mapGetters } from 'vuex';
-import headerNavigation from './Header_Navigation.vue';
 import tabContents from './TabContents.vue';
 
 const axios = require('axios').default;
 
 export default {
-    name: 'cpt-manager',
+    name: 'settings-manager',
 
     components: {
-        headerNavigation,
         tabContents,
     },
 
@@ -84,6 +75,41 @@ export default {
     },
 
     methods: {
+        ...mapGetters([
+            'getFieldsValue'
+        ]),
+
+        updateData() {
+
+            console.log( 'updateData' );
+
+            return;
+            let fields = this.getFieldsValue();
+
+            let submission_url = this.$store.state.config.submission.url;
+            let submission_with = this.$store.state.config.submission.with;
+
+            let form_data = new FormData();
+
+            if ( submission_with && typeof submission_with === 'object' ) {
+                for ( let data_key in submission_with ) {
+                    form_data.append( data_key, submission_with[ data_key ] );
+                }
+            }
+            
+            if ( this.listing_type_id ) {
+                form_data.append( 'listing_type_id', this.listing_type_id );
+                this.footer_actions.save.label = 'Update';
+            }
+
+            for ( let field_key in fields ) {
+                let value = this.maybeJSON( fields[ data_key ] );
+                form_data.append( data_key,  value );
+            }
+
+            console.log( { submission_url, submission_with } );
+        },
+
         saveData() {
             let fields = this.$store.state.fields;
             let config = this.$store.state.config;

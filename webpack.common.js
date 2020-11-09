@@ -5,6 +5,7 @@ const VueLoaderPlugin      = require('vue-loader/lib/plugin');
 module.exports = {
   entry: {
     admin_app: "./public/assets/src/js/admin-index.js",
+    settings_manager: "./public/assets/src/js/settings-manager.js",
   },
   output: {
     filename: "[name].js",

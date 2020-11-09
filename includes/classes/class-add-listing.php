@@ -106,11 +106,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                  }
                 //isolate data
                 $error = [];
-                wp_send_json( [
-                    'info' => $info,
-                    'submission_form_fields' => $submission_form_fields,
-                ] );
-                die;
+                // wp_send_json( [
+                //     'info' => $info,
+                //     'submission_form_fields' => $submission_form_fields,
+                // ] );
+                // die;
                 foreach( $submission_form_fields as $key => $value ){
                     $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
                     $submitted_data = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';

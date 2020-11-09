@@ -45,6 +45,8 @@ class ATBDP_Metabox {
 	}
 
 	public function listing_form_info_meta( $post ) {
+		wp_enqueue_script( 'atbdp-google-map-front' );
+        wp_enqueue_script( 'atbdp-markerclusterer' );
 		$all_types     = get_terms(array(
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
@@ -65,7 +67,7 @@ class ATBDP_Metabox {
 				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo $selected; ?> ><?php echo esc_attr( $type->name ); ?></option>
 			<?php endforeach; ?>
 		</select>
-		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>"></div>
+		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>"><?php //$this->render_listing_meta_fields( $current_type, $post->ID ); ?></div>
 		<?php
 	}
 

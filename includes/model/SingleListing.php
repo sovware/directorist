@@ -47,7 +47,7 @@ class Directorist_Single_Listing {
 		$this->type          = (int) get_post_meta( $id, '_directory_type', true);
 		$this->header_data   = get_term_meta( $this->type, 'single_listing_header', true );
 		$this->content_data  = $this->build_content_data();
-		e_var_dump($this->content_data);
+		// e_var_dump($this->content_data);
 		
 		$this->tagline               = get_post_meta( $id, '_tagline', true );
 		$this->fm_plan               = get_post_meta( $id, '_fm_plans', true );

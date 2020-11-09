@@ -7,7 +7,6 @@
 ?>
 <div class="atbd_data_info atbd_listing_meta">
 	<?php
-	// e_var_dump($info);
 	foreach ( $info as $item ):
 		$listing->render_item( $item );
 	endforeach;

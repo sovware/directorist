@@ -23,9 +23,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
             add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
             add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
-            add_action( 'template_redirect', [ $this, 'directory_json_download_link' ] );
-
-            $this->get_old_custom_fields();
         }
 
         // get_cetagory_options
@@ -3977,7 +3974,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'type' => "title",
                     'label' => "Listing Title",
                     'icon' => 'uil uil-text-fields',
-                    'can_move' => false,
                     'hook' => "atbdp_listing_title",
                     'show_if' => [
                         'where' => "submission_form_fields.value.fields",
@@ -3988,10 +3984,45 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'options' => [
                         'title' => "Listing Title Settings",
                         'fields' => [
-                            'label' => [
+                            'show_tagline' => [
+                                'type' => "toggle",
+                                'label' => "Show Tagline",
+                                'value' => false,
+                            ],
+                        ],
+                    ],
+                ],
+
+                'excerpt' => [
+                    'type' => "excerpt",
+                    'label' => "Excerpt",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_listing_title",
+                    'show_if' => [
+                        'where' => "submission_form_fields.value.fields",
+                        'conditions' => [
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => "Excerpt Settings",
+                        'fields' => [
+                            'words_limit' => [
+                                'type' => "range",
+                                'label' => "Words Limit",
+                                'min' => 5,
+                                'max' => 200,
+                                'value' => 20,
+                            ],
+                            'show_readmore' => [
+                                'type' => "toggle",
+                                'label' => "Show Readmore",
+                                'value' => true,
+                            ],
+                            'show_readmore_text' => [
                                 'type' => "text",
-                                'label' => "Label",
-                                'value' => "text",
+                                'label' => "Read More Text",
+                                'value' => 'Read More',
                             ],
                         ],
                     ],
@@ -4293,14 +4324,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'type' => "number",
                                 'label' => "Threshold in Views Count",
                                 'value' => "5",
-                                /* 'show_if' => [
-                                    [
-                                        'condition' => [
-                                            ['key' => 'listing_popular_by', 'value' => 'view_count'],
-                                            ['key' => 'listing_popular_by', 'value' => 'both'],
-                                        ]
-                                    ]
-                                ] */
                             ],
                             'count_loggedin_user' => [
                                 'type' => "toggle",
@@ -5239,6 +5262,10 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date',
                                 ],
                             ],
+                            'excerpt' => [
+                                'maxWidget' => 1,
+                                'acceptedWidgets' => [ "excerpt" ],
+                            ],
                         ],
 
                         'footer' => [
@@ -5290,6 +5317,10 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
                                     'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'
                                 ],
+                            ],
+                            'excerpt' => [
+                                'maxWidget' => 1,
+                                'acceptedWidgets' => [ "excerpt" ],
                             ],
                         ],
 

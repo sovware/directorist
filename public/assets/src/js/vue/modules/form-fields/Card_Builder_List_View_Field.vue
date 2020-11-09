@@ -121,6 +121,29 @@
               @open-widgets-picker-window="activeInsertWindow('body_bottom')"
               @close-widgets-picker-window="closeInsertWindow()"
             />
+            
+            <br>
+
+            <card-widget-placeholder
+              containerClass="cptm-listing-card-preview-excerpt-placeholder cptm-card-light"
+              :label="local_layout.body.excerpt.label"
+              :availableWidgets="theAvailableWidgets"
+              :activeWidgets="active_widgets"
+              :acceptedWidgets="local_layout.body.excerpt.acceptedWidgets"
+              :selectedWidgets="local_layout.body.excerpt.selectedWidgets"
+              :maxWidget="local_layout.body.excerpt.maxWidget"
+              :showWidgetsPickerWindow="getActiveInsertWindowStatus('body_excerpt')"
+              :widgetDropable="widgetIsDropable(local_layout.body.excerpt)"
+              @insert-widget="insertWidget($event, local_layout.body.excerpt)"
+              @drag-widget="onDragStartWidget($event, local_layout.body.excerpt)"
+              @drop-widget="appendWidget($event, local_layout.body.excerpt)"
+              @dragend-widget="onDragEndWidget()"
+              @edit-widget="editWidget($event)"
+              @trash-widget="trashWidget($event, local_layout.body.excerpt)"
+              @placeholder-on-drop="handleDropOnPlaceholder(local_layout.body.excerpt)"
+              @open-widgets-picker-window="activeInsertWindow('body_excerpt')"
+              @close-widgets-picker-window="closeInsertWindow()"
+            />
           </div>
 
           <!-- cptm-listing-card-preview-footer -->
@@ -389,6 +412,10 @@ export default {
           },
           bottom: {
             label: "Body Bottom",
+            selectedWidgets: [],
+          },
+          excerpt: {
+            label: 'Excerpt',
             selectedWidgets: [],
           },
         },

@@ -711,9 +711,13 @@ input[type="radio"].cptm-radio {
   margin-right: 5px;
   min-width: 16px;
   &::before {
-    content: "\f096";
+    content: "\f0c8";
     display: inline-block;
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
     font-size: 18px;
   }
 }

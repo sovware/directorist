@@ -45,6 +45,8 @@ class ATBDP_Metabox {
 	}
 
 	public function listing_form_info_meta( $post ) {
+		wp_enqueue_script( 'atbdp-google-map-admin' );
+        wp_enqueue_script( 'atbdp-markerclusterer' );
 		$all_types     = get_terms(array(
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,

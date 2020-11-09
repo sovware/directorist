@@ -11,7 +11,7 @@
     font-weight: 500;
     display: inline-block;
     line-height: 22px;
-    margin-right: 6px;
+    margin: 0 3px !important;
     & + .atbd_badge {
       margin-left: 0;
     }
@@ -182,10 +182,31 @@
         bottom: 15px;
         left: 15px;
       }
-      .atbdp_add_to_fav_listings{
+      .atbd-card-cover-top-left,
+      .atbd-card-cover-top-right,
+      .atbd-card-cover-bottom-left,
+      .atbd-card-cover-bottom-right{
         position: absolute;
-        right: 15px;
-        top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 0 -3px;
+      }
+      .atbd-card-cover-top-left{
+        left: 20px;
+        top: 20px;
+      }
+      .atbd-card-cover-top-right{
+        top: 20px;
+        right: 20px;
+      }
+      .atbd-card-cover-bottom-left{
+        left: 20px;
+        bottom: 30px;
+      }
+      .atbd-card-cover-bottom-right{
+        right: 20px;
+        bottom: 30px;
       }
     }
     .atbd_listing_info {
@@ -229,14 +250,13 @@
               margin-bottom: 2px;
               font-size: 14px;
               display: flex;
-              span {
+              align-items: center;
+              span, i {
                 @extend .atbd_color-primary;
                 font-size: 15px;
                 margin-right: 8px;
                 &.la{
                   font-size: 17px;
-                  position: relative;
-                  top: 3px;
                 }
               }
               a{
@@ -245,11 +265,6 @@
               }
             }
           }
-        }
-        .atbdp_add_to_fav_listings{
-          position: absolute;
-          right: 20px;
-          top: 20px;
         }
       }
 
@@ -326,7 +341,6 @@
         }
         .atbd_author{
           position: absolute;
-          right: 15px;
           bottom:0;
           transform: translateY(50%);
           width: 46px;
@@ -345,6 +359,16 @@
           }
           .tooltip{
             min-width: 100px;
+          }
+          &.alignment-left{
+            left: 20px;
+          }
+          &.alignment-center{
+            left: 50%;
+            transform: translate(-50%, 50%);
+          }
+          &.alignment-right{
+            right: 20px;
           }
         }
       }
@@ -407,48 +431,49 @@ span.atbd_get_loc_wid {
   }
 }
 
-#directorist.atbd_wrapper .atbdp_mark_as_fav{
-  background: rgba(0,0,0,0.2);
-  width: 26px;
-  height: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  &.atbdp_fav_isActive{
-    background: rgba(0,0,0,0.5);
+#directorist.atbd_wrapper{
+  .atbdp_add_to_fav_listings{
+    margin: 0 3px;
   }
-  .atbd_fav_icon::after{
-    font-family: "LineAwesome";
-    content: '\f234';
-    color: #fff;
-    font-size: 15px;
-  }
-  &.atbdp_fav_isActive{
-    .atbd_fav_icon::after{
-      content: '\f233';
+  .atbdp_mark_as_fav{
+    background: rgba(0,0,0,0.2);
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    &.atbdp_fav_isActive{
+      background: rgba(0,0,0,0.5);
+      .directorist-icon{
+        color: red;
+      }
     }
-  }
-  .atbd_fav_tooltip {
-    span{
-      position: absolute;
-      min-width: 120px;
-      right: 0;
-      top: 35px;
-      background: #000;
+    .directorist-icon{
       color: #fff;
-      font-size: 13px;
-      border-radius: 3px;
-      text-align: center;
-      padding: 2px 5px;
-      &::before{
-        content: '';
+      font-size: 13px !important;
+    }
+    .atbd_fav_tooltip {
+      span{
         position: absolute;
-        border-bottom: 8px solid #000;
-        border-right: 6px solid transparent;
-        border-left: 6px solid transparent;
-        right: 8px;
-        top: -7px;
+        min-width: 120px;
+        right: 0;
+        top: 35px;
+        background: #000;
+        color: #fff;
+        font-size: 13px;
+        border-radius: 3px;
+        text-align: center;
+        padding: 2px 5px;
+        &::before{
+          content: '';
+          position: absolute;
+          border-bottom: 8px solid #000;
+          border-right: 6px solid transparent;
+          border-left: 6px solid transparent;
+          right: 8px;
+          top: -7px;
+        }
       }
     }
   }

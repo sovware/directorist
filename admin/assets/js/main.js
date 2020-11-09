@@ -3951,6 +3951,7 @@ templateResult: selecWithIcon,
   }
   $('body').on('change', 'select[name="directory_type"]', function() {
           admin_listing_form($(this).val());
+          
   });
 
   function admin_listing_form(directory_type) {
@@ -3966,8 +3967,28 @@ templateResult: selecWithIcon,
                           $('#directiost-listing-fields_wrapper')
                                   .empty()
                                   .append(response);
+                                  assetsNeedToWorkInVirtualDom();
                   },
           });
   }
+
+function assetsNeedToWorkInVirtualDom() {
+  // price range
+  $('#price_range').hide();
+  const pricing = $('#atbd_listing_pricing').val();
+  if (pricing === 'range') {
+          $('#price').hide();
+          $('#price_range').show();
+  }
+  $('.atbd_pricing_options label').on('click', function() {
+          const $this = $(this);
+          $this.children('input[type=checkbox]').prop('checked') == true
+                  ? $(`#${$this.data('option')}`).show()
+                  : $(`#${$this.data('option')}`).hide();
+          const $sibling = $this.siblings('label');
+          $sibling.children('input[type=checkbox]').prop('checked', false);
+          $(`#${$sibling.data('option')}`).hide();
+  });
+}
 
 })(jQuery);

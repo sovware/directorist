@@ -3685,6 +3685,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
+                                    'label' => 'Label',
                                     'value' => 'Review',
                                 ],
                             ],
@@ -5003,6 +5004,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                           'type' => "text",
                                           'label' => "Label",
                                           'value' => "Section Title",
+                                      ],
+                                      'icon' => [
+                                          'type' => "icon",
+                                          'label' => "Icon",
+                                          'value' => "",
                                       ],
                                   ],
                               ],

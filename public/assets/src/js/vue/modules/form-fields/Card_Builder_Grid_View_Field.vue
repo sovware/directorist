@@ -820,6 +820,11 @@ export default {
     },
 
     activeInsertWindow( current_item_key ) {
+      if ( this.active_insert_widget_key === current_item_key ) {
+        this.active_insert_widget_key = '';
+        return;
+      }
+
       this.active_insert_widget_key = current_item_key;
     },
 

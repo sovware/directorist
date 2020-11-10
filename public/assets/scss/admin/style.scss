@@ -1988,3 +1988,50 @@ span.atbdp-tick-cross {
 .vp-wrap .vp-menus ul.vp-menu-level-2>li a i.fa, .fa{
   font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
 }
+
+// Listing Gallery
+.atbdb_content_module_contents{
+  #_listing_gallery{
+    text-align: center;
+  }
+}
+
+.add_listing_form_wrapper{
+  .upload-header,
+  #listing_image_btn,
+  #delete-custom-img{
+    font-size: 15px;
+    padding: 0 15.8px !important;
+    display: inline-flex;
+    align-items: center;
+    line-height: 38px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fff;
+  }
+  .listing-img-container{
+    margin: 40px 0 20px;
+    img{
+      max-width: 100px;
+    }
+    p{
+      font-size: 14px;
+    }
+  }
+  .hide-if-no-js{
+    display: flex;
+    justify-content: center;
+  }
+  #listing_image_btn{
+    .dashicons-format-image{
+      margin-right: 6px;
+    }
+  }
+  #delete-custom-img{
+    margin-left: 5px;
+    background-color: $danger;
+    &.hidden{
+      display: none;
+    }
+  }
+}

@@ -187,129 +187,7 @@
 // Custom Image uploader for listing image
 (function ($) {
   // Set all variables to be used in scope
-  let frame;
-  let selection;
-  const multiple_image = true;
-  const metaBox = $('#_listing_gallery'); // meta box id here
-  const addImgLink = metaBox.find('#listing_image_btn');
-  const delImgLink = metaBox.find('#delete-custom-img');
-  const imgContainer = metaBox.find('.listing-img-container');
-
-  // ADD IMAGE LINK
-  addImgLink.on('click', function (event) {
-    event.preventDefault();
-
-    // If the media frame already exists, reopen it.
-    if (frame) {
-      frame.open();
-      return;
-    }
-
-    // Create a new media frame
-    frame = wp.media({
-      title: atbdp_admin_data.i18n_text.upload_image,
-      button: {
-        text: atbdp_admin_data.i18n_text.choose_image,
-      },
-      library: { type: 'image' }, // only allow image upload only
-      multiple: multiple_image, // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
-    });
-
-    // When an image is selected in the media frame...
-    frame.on('select', function () {
-      /* get the image collection array if the MI extension is active */
-      /* One little hints: a constant can not be defined inside the if block */
-      if (multiple_image) {
-        selection = frame
-          .state()
-          .get('selection')
-          .toJSON();
-      } else {
-        selection = frame
-          .state()
-          .get('selection')
-          .first()
-          .toJSON();
-      }
-      let data = ''; // create a placeholder to save all our image from the selection of media uploader
-
-      // if no image exist then remove the place holder image before appending new image
-      if ($('.single_attachment').length === 0) {
-        imgContainer.html('');
-      }
-
-      // handle multiple image uploading.......
-      if (multiple_image) {
-        $(selection).each(function () {
-          // here el === this
-          // append the selected element if it is an image
-          if (this.type === 'image') {
-            // we have got an image attachment so lets proceed.
-            // target the input field and then assign the current id of the attachment to an array.
-            data += '<div class="single_attachment">';
-            data += `<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="${this.id
-              }">`;
-            data += `<img style="width: 100%; height: 100%;" src="${this.url
-              }" alt="Listing Image" /> <span class="remove_image fa fa-times" title="Remove it"></span></div>`;
-          }
-        });
-      } else {
-        // Handle single image uploading
-
-        // add the id to the input field of the image uploader and then save the ids in the database as a post meta
-        // so check if the attachment is really an image and reject other types
-        if (selection.type === 'image') {
-          // we have got an image attachment so lets proceed.
-          // target the input field and then assign the current id of the attachment to an array.
-          data += '<div class="single_attachment">';
-          data += `<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="${selection.id
-            }">`;
-          data += `<img style="width: 100%; height: 100%;" src="${selection.url
-            }" alt="Listing Image" /> <span class="remove_image  fa fa-times" title="Remove it"></span></div>`;
-        }
-      }
-
-      // If MI extension is active then append images to the listing, else only add one image replacing previous upload
-      if (multiple_image) {
-        imgContainer.append(data);
-      } else {
-        imgContainer.html(data);
-      }
-
-      // Un-hide the remove image link
-      delImgLink.removeClass('hidden');
-    });
-    // Finally, open the modal on click
-    frame.open();
-  });
-
-  // DELETE ALL IMAGES LINK
-  delImgLink.on('click', function (event) {
-    event.preventDefault();
-    // Clear out the preview image and set no image as placeholder
-    imgContainer.html(
-      `<img src="${atbdp_admin_data.AdminAssetPath}images/no-image.png" alt="Listing Image" />`
-    );
-    // Hide the delete image link
-    delImgLink.addClass('hidden');
-  });
-
-  /* REMOVE SINGLE IMAGE */
-  $(document).on('click', '.remove_image', function (e) {
-    e.preventDefault();
-    $(this)
-      .parent()
-      .remove();
-    // if no image exist then add placeholder and hide remove image button
-    if ($('.single_attachment').length === 0) {
-      imgContainer.html(
-        `<img src="${atbdp_admin_data.AdminAssetPath
-        }images/no-image.png" alt="Listing Image" /><p>No images</p> ` +
-        `<small>(allowed formats jpeg. png. gif)</small>`
-      );
-      delImgLink.addClass('hidden');
-    }
-  });
+ 
 
   const has_tagline = $('#has_tagline').val();
   const has_excerpt = $('#has_excerpt').val();
@@ -324,53 +202,6 @@
       ? $('.atbd_tagline_moto_field').fadeIn()
       : $('.atbd_tagline_moto_field').fadeOut();
   });
-
-  let imageUpload;
-  if (imageUpload) {
-    imageUpload.open();
-    return;
-  }
-
-  $('.upload-header').on('click', function (element) {
-    element.preventDefault();
-
-    imageUpload = wp.media.frames.file_frame = wp.media({
-      title: atbdp_admin_data.i18n_text.select_prv_img,
-      button: {
-        text: atbdp_admin_data.i18n_text.insert_prv_img,
-      },
-    });
-    imageUpload.open();
-
-    imageUpload.on('select', function () {
-      prv_image = imageUpload
-        .state()
-        .get('selection')
-        .first()
-        .toJSON();
-      prv_url = prv_image.id;
-      prv_img_url = prv_image.url;
-
-      $('.listing_prv_img').val(prv_url);
-      $('.change_listing_prv_img').attr('src', prv_img_url);
-      $('.upload-header').html('Change Preview Image');
-      $('.remove_prev_img').show();
-    });
-
-    imageUpload.open();
-  });
-
-  $('.remove_prev_img').on('click', function (e) {
-    $(this).hide();
-    $('.listing_prv_img').attr('value', '');
-    $('.change_listing_prv_img').attr('src', '');
-    e.preventDefault();
-  });
-  if ($('.change_listing_prv_img').attr('src') === '') {
-    $('.remove_prev_img').hide();
-  } else if ($('.change_listing_prv_img').attr('src') !== '') {
-    $('.remove_prev_img').show();
-  }
 
   // price range
   $('#price_range').hide();
@@ -3972,6 +3803,25 @@ templateResult: selecWithIcon,
           });
   }
 
+  //default directory type
+  $('body').on('click', '.submitdefault', function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'post',
+      url: atbdp_admin_data.ajaxurl,
+      data: {
+        action: 'atbdp_listing_default_type',
+        type_id: $(this).data('type-id'),
+      },
+      success(response) {
+        $('.submitdefault').after(
+          `<span class="atbd-listing-type-active-status">${response}</span>`
+        );
+        location.reload();
+      },
+    });
+  });
+
 function assetsNeedToWorkInVirtualDom() {
   // price range
   $('#price_range').hide();
@@ -3989,6 +3839,178 @@ function assetsNeedToWorkInVirtualDom() {
           $sibling.children('input[type=checkbox]').prop('checked', false);
           $(`#${$sibling.data('option')}`).hide();
   });
+
+  let frame;
+  let selection;
+  const multiple_image = true;
+  const metaBox = $('#_listing_gallery'); // meta box id here
+  const addImgLink = metaBox.find('#listing_image_btn');
+  const delImgLink = metaBox.find('#delete-custom-img');
+  const imgContainer = metaBox.find('.listing-img-container');
+
+  // ADD IMAGE LINK
+  addImgLink.on('click', function (event) {
+    event.preventDefault();
+
+    // If the media frame already exists, reopen it.
+    if (frame) {
+      frame.open();
+      return;
+    }
+
+    // Create a new media frame
+    frame = wp.media({
+      title: atbdp_admin_data.i18n_text.upload_image,
+      button: {
+        text: atbdp_admin_data.i18n_text.choose_image,
+      },
+      library: { type: 'image' }, // only allow image upload only
+      multiple: multiple_image, // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
+    });
+
+    // When an image is selected in the media frame...
+    frame.on('select', function () {
+      /* get the image collection array if the MI extension is active */
+      /* One little hints: a constant can not be defined inside the if block */
+      if (multiple_image) {
+        selection = frame
+          .state()
+          .get('selection')
+          .toJSON();
+      } else {
+        selection = frame
+          .state()
+          .get('selection')
+          .first()
+          .toJSON();
+      }
+      let data = ''; // create a placeholder to save all our image from the selection of media uploader
+
+      // if no image exist then remove the place holder image before appending new image
+      if ($('.single_attachment').length === 0) {
+        imgContainer.html('');
+      }
+
+      // handle multiple image uploading.......
+      if (multiple_image) {
+        $(selection).each(function () {
+          // here el === this
+          // append the selected element if it is an image
+          if (this.type === 'image') {
+            // we have got an image attachment so lets proceed.
+            // target the input field and then assign the current id of the attachment to an array.
+            data += '<div class="single_attachment">';
+            data += `<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="${this.id
+              }">`;
+            data += `<img style="width: 100%; height: 100%;" src="${this.url
+              }" alt="Listing Image" /> <span class="remove_image fa fa-times" title="Remove it"></span></div>`;
+          }
+        });
+      } else {
+        // Handle single image uploading
+
+        // add the id to the input field of the image uploader and then save the ids in the database as a post meta
+        // so check if the attachment is really an image and reject other types
+        if (selection.type === 'image') {
+          // we have got an image attachment so lets proceed.
+          // target the input field and then assign the current id of the attachment to an array.
+          data += '<div class="single_attachment">';
+          data += `<input class="listing_image_attachment" name="listing_img[]" type="hidden" value="${selection.id
+            }">`;
+          data += `<img style="width: 100%; height: 100%;" src="${selection.url
+            }" alt="Listing Image" /> <span class="remove_image  fa fa-times" title="Remove it"></span></div>`;
+        }
+      }
+
+      // If MI extension is active then append images to the listing, else only add one image replacing previous upload
+      if (multiple_image) {
+        imgContainer.append(data);
+      } else {
+        imgContainer.html(data);
+      }
+
+      // Un-hide the remove image link
+      delImgLink.removeClass('hidden');
+    });
+    // Finally, open the modal on click
+    frame.open();
+  });
+
+  // DELETE ALL IMAGES LINK
+  delImgLink.on('click', function (event) {
+    event.preventDefault();
+    // Clear out the preview image and set no image as placeholder
+    imgContainer.html(
+      `<img src="${atbdp_admin_data.AdminAssetPath}images/no-image.png" alt="Listing Image" />`
+    );
+    // Hide the delete image link
+    delImgLink.addClass('hidden');
+  });
+
+  /* REMOVE SINGLE IMAGE */
+  $(document).on('click', '.remove_image', function (e) {
+    e.preventDefault();
+    $(this)
+      .parent()
+      .remove();
+    // if no image exist then add placeholder and hide remove image button
+    if ($('.single_attachment').length === 0) {
+      imgContainer.html(
+        `<img src="${atbdp_admin_data.AdminAssetPath
+        }images/no-image.png" alt="Listing Image" /><p>No images</p> ` +
+        `<small>(allowed formats jpeg. png. gif)</small>`
+      );
+      delImgLink.addClass('hidden');
+    }
+  });
+
+  let imageUpload;
+  if (imageUpload) {
+    imageUpload.open();
+    return;
+  }
+
+  $('.upload-header').on('click', function (element) {
+    element.preventDefault();
+
+    imageUpload = wp.media.frames.file_frame = wp.media({
+      title: atbdp_admin_data.i18n_text.select_prv_img,
+      button: {
+        text: atbdp_admin_data.i18n_text.insert_prv_img,
+      },
+    });
+    imageUpload.open();
+
+    imageUpload.on('select', function () {
+      prv_image = imageUpload
+        .state()
+        .get('selection')
+        .first()
+        .toJSON();
+      prv_url = prv_image.id;
+      prv_img_url = prv_image.url;
+
+      $('.listing_prv_img').val(prv_url);
+      $('.change_listing_prv_img').attr('src', prv_img_url);
+      $('.upload-header').html('Change Preview Image');
+      $('.remove_prev_img').show();
+    });
+
+    imageUpload.open();
+  });
+
+  $('.remove_prev_img').on('click', function (e) {
+    $(this).hide();
+    $('.listing_prv_img').attr('value', '');
+    $('.change_listing_prv_img').attr('src', '');
+    e.preventDefault();
+  });
+  if ($('.change_listing_prv_img').attr('src') === '') {
+    $('.remove_prev_img').hide();
+  } else if ($('.change_listing_prv_img').attr('src') !== '') {
+    $('.remove_prev_img').show();
+  }
+
 }
 
 })(jQuery);

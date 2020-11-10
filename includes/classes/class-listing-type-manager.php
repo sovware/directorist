@@ -1702,34 +1702,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
         {
             $this->cetagory_options = $this->get_cetagory_options();
 
-            $this->default_form = apply_filters('atbdp_default_listing_form_sections', [
-                'general_information' => [
-                    'label' => __('General Information', 'directorist'),
-                    'fields' => apply_filters('atbdp_general_info_section_fields', ['title', 'description', 'pricing', $this->get_old_custom_fields(), 'location', 'tag', 'category', $this->get_old_custom_fields('category')]),
-                ],
-
-                'contact_information' => [
-                    'label' => __('Contact Information', 'directorist'),
-                    'fields' => apply_filters('atbdp_contact_info_section_fields', ['zip', 'phone', 'phone2', 'fax', 'email', 'website', 'social_info']),
-                ],
-
-                'map' => [
-                    'label' => __('Map', 'directorist'),
-                    'fields' => apply_filters('atbdp_map_section_fields', ['address', 'map']),
-                ],
-
-                'media' => [
-                    'label' => __('Images & Video', 'directorist'),
-                    'fields' => apply_filters('atbdp_media_section_fields', ['image_upload', 'video']),
-                ],
-
-                'submit_area' => [
-                    'fields' => apply_filters('atbdp_submit_area_fields', ['terms_conditions', 'privacy_policy', 'submit_button']),
-                ],
-
-            ]);
-
-
             $form_field_widgets = [
                 'preset' => [
                     'title' => 'Preset Fields',
@@ -2270,7 +2242,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'hidden' => true,
                                     'value'  => 'map',
                                 ],
-                                'label' => [
+                                'address_label' => [
                                     'type'  => 'text',
                                     'label' => 'Address Label',
                                     'value' => 'Address',
@@ -2582,20 +2554,26 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label'  => 'Required',
                                     'value' => false,
                                 ],
+                                'select_files_label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Select Files Label',
+                                    'value' => 'Select Files',
+                                ],
                                 'max_image_limit' => [
                                     'type'  => 'number',
                                     'label' => 'Max Image Limit',
-                                    'value' => '',
+                                    'value' => 5,
                                 ],
                                 'max_per_image_limit' => [
                                     'type'  => 'number',
-                                    'label' => 'Max Upload Size Per Image in MB',
-                                    'value' => '',
+                                    'label' => __( 'Max Upload Size Per Image in MB', 'directorist' ),
+                                    'description' => __( 'Here 0 means unlimited.', 'directorist' ) ,
+                                    'value' => 0,
                                 ],
                                 'max_total_image_limit' => [
                                     'type'  => 'number',
                                     'label' => 'Total Upload Size in MB',
-                                    'value' => '',
+                                    'value' => 2,
                                 ],
                                 'only_for_admin' => [
                                     'type'  => 'toggle',
@@ -2628,7 +2606,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'placeholder' => [
                                     'type'  => 'text',
                                     'label' => 'Placeholder',
-                                    'value' => '',
+                                    'value' => 'Only YouTube & Vimeo URLs.',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
@@ -3493,6 +3471,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label' => 'Icon',
                                     'value' => 'la la-address-card',
                                 ],
+                                'address_link_with_map' => [
+                                    'type'  => 'toggle',
+                                    'label' => 'Address Linked with Map',
+                                    'value' => false,
+                                ],
                             ]
                         ],
                         'map'              => [
@@ -3555,6 +3538,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'icon',
                                     'label' => 'Icon',
                                     'value' => 'la la-globe',
+                                ],
+                                'use_nofollow' => [
+                                    'type'  => 'toggle',
+                                    'label' => 'Use rel="nofollow" in Website Link',
+                                    'value' => false,
                                 ],
                             ]
                         ],
@@ -4929,6 +4917,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'label'  => 'Custom block Classes',
                             'value' => '',
                         ],
+                        'hide_contact_owner' => [
+                            'type'  => 'toggle',
+                            'label'  => 'Hide Contact Owner',
+                            'value' => false,
+                        ],
 
                     ],
                     'value' => [],
@@ -4940,7 +4933,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => 'Enable similar listings',
                     'value' => true,
                 ],
-
+                'similar_listings_title' => [
+                    'type'  => 'text',
+                    'label' => 'Section Title',
+                    'value' => 'Similar Listings',
+                ],
                 'similar_listings_logics' => [
                     'type'    => 'radio',
                     'name'    => 'similar_listings_logics',
@@ -4951,13 +4948,24 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     ],
                     'value'   => 'OR',
                 ],
-
                 'similar_listings_number_of_listings_to_show' => [
                     'type'  => 'range',
                     'min'   => 0,
                     'max'   => 20,
                     'label' => 'Number of listings to show',
                     'value' => 0,
+                ],
+                'similar_listings_number_of_columns' => [
+                    'type'  => 'range',
+                    'min'   => 1,
+                    'max'   => 10,
+                    'label' => 'Number of columns',
+                    'value' => 3,
+                ],
+                'similar_listings_fix_repeated_thumbnail' => [
+                    'type'  => 'toggle',
+                    'label' => 'Fix Repeated Thumbnail',
+                    'value' => true,
                 ],
 
                 'search_form_fields' => [
@@ -5541,15 +5549,17 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             ]
                         ],
                         'similar_listings' => [
-                            'label' => 'Similar Listings',
+                            'label' => 'Other Settings',
                             'sections' => [
-                                'similar_listings' => [
-                                    'title' => 'Similar Listings Settings',
-                                    'description' => 'need help?',
+                                'other' => [
+                                    'title' => 'Similar Listings',
                                     'fields' => [
                                         'enable_similar_listings',
+                                        'similar_listings_title',
                                         'similar_listings_logics',
                                         'similar_listings_number_of_listings_to_show',
+                                        'similar_listings_number_of_columns',
+                                        'similar_listings_fix_repeated_thumbnail',
                                     ],
                                 ]
                             ]

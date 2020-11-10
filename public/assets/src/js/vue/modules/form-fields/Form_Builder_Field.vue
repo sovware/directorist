@@ -269,12 +269,15 @@ export default {
               widgets[ widget_group ].widgets[ _widget_name ].options = {};
             }
 
-            widgets[ widget_group ].widgets[ _widget_name ].options.label = {
-              type: 'text',
-              label: 'Label',
-              value: widget_label,
+            let prepend_options = {
+              label: {
+                type: 'text',
+                label: 'Label',
+                value: widget_label,
+              }
             };
 
+            widgets[ widget_group ].widgets[ _widget_name ].options = { ...prepend_options, ...widgets[ widget_group ].widgets[ _widget_name ].options };
             template_widgets[ widget_key ] = widgets[ widget_group ].widgets[ _widget_name ];
           }
 

@@ -2346,4 +2346,59 @@ span.atbdp-tick-cross {
   font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
 }
 
+.atbdb_content_module_contents #_listing_gallery {
+  text-align: center;
+}
+
+.add_listing_form_wrapper .upload-header,
+.add_listing_form_wrapper #listing_image_btn,
+.add_listing_form_wrapper #delete-custom-img {
+  font-size: 15px;
+  padding: 0 15.8px !important;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  line-height: 38px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.add_listing_form_wrapper .listing-img-container {
+  margin: 40px 0 20px;
+}
+
+.add_listing_form_wrapper .listing-img-container img {
+  max-width: 100px;
+}
+
+.add_listing_form_wrapper .listing-img-container p {
+  font-size: 14px;
+}
+
+.add_listing_form_wrapper .hide-if-no-js {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.add_listing_form_wrapper #listing_image_btn .dashicons-format-image {
+  margin-right: 6px;
+}
+
+.add_listing_form_wrapper #delete-custom-img {
+  margin-left: 5px;
+  background-color: #e23636;
+}
+
+.add_listing_form_wrapper #delete-custom-img.hidden {
+  display: none;
+}
+
 /*# sourceMappingURL=map/style.css.map */

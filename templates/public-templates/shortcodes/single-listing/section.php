@@ -8,7 +8,7 @@
 <div class="atbd_content_module">
 	<div class="atbd_content_module_title_area">
 		<div class="atbd_area_title">
-			<h4><span class="<?php atbdp_icon_type(true);?>-<?php echo esc_attr( $section_data['icon'] );?>"></span><?php echo esc_html( $section_data['label'] );?></h4>
+			<h4><?php directorist_icon( $icon );?><?php echo esc_html( $section_data['label'] );?></h4>
 		</div>
 	</div>
 	<div class="atbdb_content_module_contents">

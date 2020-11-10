@@ -13,5 +13,8 @@
 	foreach ( $listing->content_data as $section ) {
 		$listing->section_template( $section );
 	}
+
+	$listing->review_template();
+	$listing->related_listings_template();
 	?>
 </div>

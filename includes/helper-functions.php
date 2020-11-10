@@ -2,6 +2,15 @@
 // Prohibit direct script loading.
 defined('ABSPATH') || die('No direct script access allowed!');
 
+
+if ( ! function_exists( 'e_var_dump' ) ) {
+    function e_var_dump( $the_var = '' ) {
+        echo '<pre>';
+        print_r( $the_var );
+        echo '</pre>';
+    }
+}
+
 function atbdp_add_flush_alert( array $args = [] ) {
     $default = [
         'id'          => '',

@@ -1117,10 +1117,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                 $success = true;
             }
 
-            if ( ! $add_directory['status']['success'] && ! empty( $add_directory['status']['status_log']['term_exists'] ) ) {
-                $success = true;
-            }
-
             if ( $success ) {
                 update_option( 'atbdp_has_multidirectory', true );
                 update_term_meta( $add_directory['term_id'], '_default', true );

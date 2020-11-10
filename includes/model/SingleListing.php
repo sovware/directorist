@@ -90,18 +90,19 @@ class Directorist_Single_Listing {
 		atbdp_get_shortcode_template( 'single-listing/section', $args );
 	}
 
-	public function field_template( $field_data ) {
-		// dvar_dump($field_data);
-		$value = get_post_meta( $this->id, '_'.$field_data['field_key'], true );
-		$field_data['value'] = $value;
+	public function field_template( $data ) {
+		// dvar_dump($data);
+		$value =  !empty( $data['field_key'] ) ? get_post_meta( $this->id, '_'.$data['field_key'], true ) : '';
 
 		$args = array(
 			'listing' => $this,
-			'data'    => $field_data,
+			'data'    => $data,
+			'value'   => $value,
+			'icon'    => !empty( $data['icon'] ) ? $data['icon'] : '',
 		);
 
-		$template = 'single-listing/items/' . $field_data['widget_name'];
-		$template = apply_filters( 'directorist_single_item_template_' . $field_data['widget_name'], $template, $field_data );
+		$template = 'single-listing/items/' . $data['widget_name'];
+		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 		atbdp_get_shortcode_template( $template, $args );
 	}
 
@@ -485,16 +486,6 @@ class Directorist_Single_Listing {
 		);
 
 		return atbdp_get_shortcode_template('single-listing/header', $args);
-	}
-
-	public function render_item( $data ) {
-		// dvar_dump($data);
-		$template = 'single-listing/items/' . $data['widget_name'];
-		$args = array(
-			'listing' => $this,
-			'data'    => $data,
-		);
-		atbdp_get_shortcode_template( $template, $args );
 	}
 
 	public function render_shortcode_single_listing() {

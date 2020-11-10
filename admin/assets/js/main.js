@@ -3972,6 +3972,25 @@ templateResult: selecWithIcon,
           });
   }
 
+  //default directory type
+  $('body').on('click', '.submitdefault', function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'post',
+      url: atbdp_admin_data.ajaxurl,
+      data: {
+        action: 'atbdp_listing_default_type',
+        type_id: $(this).data('type-id'),
+      },
+      success(response) {
+        $('.submitdefault').after(
+          `<span class="atbd-listing-type-active-status">${response}</span>`
+        );
+        location.reload();
+      },
+    });
+  });
+
 function assetsNeedToWorkInVirtualDom() {
   // price range
   $('#price_range').hide();

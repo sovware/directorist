@@ -33,10 +33,6 @@ export default {
         event: 'input'
     },
     props: {
-        test: {
-            required: false,
-            default: '',
-        },
         fieldId: {
             type: [String, Number],
             required: false,

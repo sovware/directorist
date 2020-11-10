@@ -4242,23 +4242,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     ],
                 ],
 
-                'featured_badge' => [
-                    'type' => "badge",
-                    'label' => "Featured",
-                    'icon' => 'uil uil-text-fields',
-                    'hook' => "atbdp_featured_badge",
-                    'options' => [
-                        'title' => "Featured Badge Settings",
-                        'fields' => [
-                            'label' => [
-                                'type' => "text",
-                                'label' => "Label",
-                                'value' => "Fetured",
-                            ],
-                        ],
-                    ],
-                ],
-
                 'price' => [
                     'type' => "price",
                     'label' => "Listings Price",
@@ -4277,6 +4260,23 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => "Rating",
                     'hook' => "atbdp_listings_rating",
                     'icon' => 'uil uil-text-fields',
+                ],
+
+                'featured_badge' => [
+                    'type' => "badge",
+                    'label' => "Featured",
+                    'icon' => 'uil uil-text-fields',
+                    'hook' => "atbdp_featured_badge",
+                    'options' => [
+                        'title' => "Featured Badge Settings",
+                        'fields' => [
+                            'label' => [
+                                'type' => "text",
+                                'label' => "Label",
+                                'value' => "Fetured",
+                            ],
+                        ],
+                    ],
                 ],
 
                 'new_badge' => [
@@ -5407,7 +5407,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                         'packages' => [
                             'label' => 'Packages',
                             'sections' => [
-                                'labels' => [
+                                'packages' => [
                                     'title'       => 'Paid listing packages',
                                     'description' => $plan_promo,
                                 ],

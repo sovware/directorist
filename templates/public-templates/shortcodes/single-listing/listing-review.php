@@ -2,10 +2,10 @@
 /**
  * @author  AazzTech
  * @since   6.6
- * @version 6.6
+ * @version 6.7
  */
 
-if ($enable_review && $plan_review && $allow_review) { ?>
+if ($enable_review && $allow_review) { ?>
 
 	<div class="atbd_content_module atbd_review_module" id="atbd_reviews_block">
 		<div class="atbd_content_module_title_area">

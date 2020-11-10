@@ -898,14 +898,8 @@ class Directorist_Single_Listing {
 		return $user_img;
 	}
 
-	public function render_shortcode_listing_review()
-	{
-		if (!is_singular(ATBDP_POST_TYPE)) {
-			return;
-		}
-
+	public function review_template() {
 		$id           = $this->id;
-		$fm_plan      = get_post_meta($id, '_fm_plans', true);
 		$review_count = ATBDP()->review->db->count(array('post_id' => $id));
 		$author_id    = get_post_field('post_author', $id);
 
@@ -914,7 +908,6 @@ class Directorist_Single_Listing {
 			'author_id'                => get_post_field('post_author', $id),
 			'enable_review'            => get_directorist_option('enable_review', 1),
 			'enable_owner_review'      => get_directorist_option('enable_owner_review'),
-			'plan_review'              => is_fee_manager_active() ? is_plan_allowed_listing_review($fm_plan) : true,
 			'allow_review'             => apply_filters('atbdp_single_listing_before_review_block', true),
 			'review_count'             => $review_count,
 			'review_count_text'        => _nx('Review', 'Reviews', $review_count, 'Number of reviews', 'directorist'),
@@ -930,7 +923,7 @@ class Directorist_Single_Listing {
 			'register_link'            => apply_filters('atbdp_review_signup_link', "<a href='" . ATBDP_Permalink::get_registration_page_link() . "'> " . __('Sign Up', 'directorist') . "</a>"),
 		);
 
-		return atbdp_return_shortcode_template('single-listing/listing-review', $args);
+		atbdp_get_shortcode_template('single-listing/listing-review', $args);
 	}
 
 	public function related_listings_query()
@@ -990,11 +983,7 @@ class Directorist_Single_Listing {
 		return apply_filters('atbdp_related_listing_args', $args);
 	}
 
-	public function render_shortcode_related_listings()
-	{
-		if (!is_singular(ATBDP_POST_TYPE)) {
-			return;
-		}
+	public function related_listings_template() {
 
 		$enabled = get_directorist_option('enable_rel_listing', 1);
 		if (empty($enabled)) {
@@ -1021,6 +1010,6 @@ class Directorist_Single_Listing {
 			'title'    => get_directorist_option('rel_listing_title', __('Related Listings', 'directorist')),
 		);
 
-		return atbdp_return_shortcode_template('single-listing/related-listings', $args);
+		atbdp_get_shortcode_template('single-listing/related-listings', $args);
 	}
 }

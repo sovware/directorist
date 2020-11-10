@@ -59,8 +59,9 @@ class Directorist_Single_Listing {
 	public function build_content_data() {
 		$content_data = array();
 		$data  = get_term_meta( $this->type, 'single_listings_contents', true );
-		// e_var_dump($data);
 		$submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
+
+
 
 		foreach ( $data['fields'] as $key => $value) {
 			$data['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
@@ -75,6 +76,8 @@ class Directorist_Single_Listing {
 			$content_data[] = $section;
 		}
 
+		// dvar_dump($content_data);
+
 		return $content_data;
 	}
 
@@ -88,6 +91,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function field_template( $field_data ) {
+		// dvar_dump($field_data);
 		$value = get_post_meta( $this->id, '_'.$field_data['field_key'], true );
 		$field_data['value'] = $value;
 
@@ -484,7 +488,8 @@ class Directorist_Single_Listing {
 	}
 
 	public function render_item( $data ) {
-		$template = 'single-listing/items/' . $data['id'];
+		// dvar_dump($data);
+		$template = 'single-listing/items/' . $data['widget_name'];
 		$args = array(
 			'listing' => $this,
 			'data'    => $data,

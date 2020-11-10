@@ -374,7 +374,7 @@ class Directorist_Listings {
 		$listing_type = $this->current_listing_type;
 		$card_fields  = get_term_meta( $listing_type, 'listings_card_grid_view', true );
 		$list_fields  = get_term_meta( $listing_type, 'listings_card_list_view', true );
-		dvar_dump($card_fields);
+		// dvar_dump($card_fields);
 
 		$data = array(
 			'id'                   => $id,
@@ -385,9 +385,6 @@ class Directorist_Listings {
 			'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),
 			'locs'                 => get_the_terms( $id, ATBDP_LOCATION ),
 			'featured'             => get_post_meta( $id, '_featured', true ),
-			'price'                => get_post_meta( $id, '_price', true ),
-			'price_range'          => get_post_meta( $id, '_price_range', true ),
-			'atbd_listing_pricing' => get_post_meta( $id, '_atbd_listing_pricing', true ),
 			'listing_img'          => get_post_meta( $id, '_listing_img', true ),
 			'listing_prv_img'      => get_post_meta( $id, '_listing_prv_img', true ),
 			'excerpt'              => get_post_meta( $id, '_excerpt', true ),

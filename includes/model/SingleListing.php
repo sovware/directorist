@@ -47,7 +47,7 @@ class Directorist_Single_Listing {
 		$this->type          = (int) get_post_meta( $id, '_directory_type', true);
 		$this->header_data   = get_term_meta( $this->type, 'single_listing_header', true );
 		$this->content_data  = $this->build_content_data();
-		// e_var_dump($this->content_data);
+		// dvar_dump($this->content_data);
 		
 		$this->tagline               = get_post_meta( $id, '_tagline', true );
 		$this->fm_plan               = get_post_meta( $id, '_fm_plans', true );
@@ -85,6 +85,7 @@ class Directorist_Single_Listing {
 		$args = array(
 			'listing'      => $this,
 			'section_data' => $section_data,
+			'icon'         => !empty( $section_data['icon'] ) ? $section_data['icon'] : '',
 		);
 
 		atbdp_get_shortcode_template( 'single-listing/section', $args );
@@ -479,10 +480,13 @@ class Directorist_Single_Listing {
 
 	public function header_template() {
 		$section_title = !empty($this->header_data['options']['general']['section_title']['label']) ? $this->header_data['options']['general']['section_title']['label'] : '';
+		$section_icon = !empty($this->header_data['options']['general']['section_title']['icon']) ? $this->header_data['options']['general']['section_title']['icon'] : '';
 		
 		$args = array(
-			'listing'       => $this,
-			'section_title' => $section_title,
+			'listing'           => $this,
+			'section_title'     => $section_title,
+			'section_icon'      => $section_icon,
+			'data'              => $this->header_data,
 		);
 
 		return atbdp_get_shortcode_template('single-listing/header', $args);
@@ -677,14 +681,8 @@ class Directorist_Single_Listing {
 		return atbdp_return_shortcode_template('single-listing/listing-video', $args);
 	}
 
-	public function render_shortcode_map()
-	{
-		if (!is_singular(ATBDP_POST_TYPE)) {
-			return;
-		}
-
+	public function load_map_resources() {
 		$id      = $this->id;
-		$fm_plan = get_post_meta($id, '_fm_plans', true);
 
 		$manual_lat  = get_post_meta($id, '_manual_lat', true);
 		$manual_lng  = get_post_meta($id, '_manual_lng', true);
@@ -736,13 +734,10 @@ class Directorist_Single_Listing {
 
 		$args = array(
 			'listing'               => $this,
-			'disable_map'           => get_directorist_option('disable_map', 0),
-			'hide_map'              => get_post_meta($id, '_hide_map', true),
 			'default_latitude'      => get_directorist_option('default_latitude', '40.7127753'),
 			'default_longitude'     => get_directorist_option('default_longitude', '-74.0059728'),
 			'manual_lat'            => $manual_lat,
 			'manual_lng'            => $manual_lng,
-			'display_map_field'     => apply_filters('atbdp_show_single_listing_map', get_directorist_option('display_map_field', 1)),
 			'listing_location_text' => apply_filters('atbdp_single_listing_map_section_text', get_directorist_option('listing_location_text', __('Location', 'directorist'))),
 			'select_listing_map'    => get_directorist_option('select_listing_map', 'google'),
 			'info_content'          => $info_content,
@@ -751,19 +746,15 @@ class Directorist_Single_Listing {
 			'cat_icon'              => $cat_icon,
 		);
 
-		$args['show_map'] = (!$args['disable_map'] && (empty($args['hide_map'])) && !empty($args['manual_lng'] || $args['manual_lat']) && !empty($args['display_map_field'])) ? true : false;
-
-		if ($args['show_map'] && 'openstreet' === $args['select_listing_map']) {
+		if ('openstreet' === $args['select_listing_map']) {
 			wp_localize_script('atbdp-single-listing-osm', 'localized_data', $args);
 			wp_enqueue_script('atbdp-single-listing-osm');
 		}
 
-		if ($args['show_map'] && 'google' === $args['select_listing_map']) {
+		if ('google' === $args['select_listing_map']) {
 			wp_localize_script('atbdp-single-listing-gmap', 'localized_data', $args);
 			wp_enqueue_script('atbdp-single-listing-gmap');
 		}
-
-		return atbdp_return_shortcode_template('single-listing/listing-map', $args);
 	}
 
 	public function render_shortcode_contact_information()

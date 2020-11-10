@@ -11,7 +11,7 @@
 
 		<?php if ( $section_title ) : ?>
 			<div class="atbd_area_title">
-				<h4><span class="<?php atbdp_icon_type(true); ?>-file-text atbd_area_icon"></span><?php echo esc_html( $section_title ); ?></h4>
+				<h4><?php directorist_icon( $section_icon );?><?php echo esc_html( $section_title ); ?></h4>
 			</div>
 		<?php endif; ?>
 

@@ -204,6 +204,29 @@
             @open-widgets-picker-window="activeInsertWindow( 'thumbnail_body_bottom' )"
             @close-widgets-picker-window="closeInsertWindow()"
           />
+
+          <br>
+          <card-widget-placeholder
+            id="body_excerpt"
+            containerClass="cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light"
+            :label="local_layout.body.excerpt.label"
+            :availableWidgets="theAvailableWidgets"
+            :activeWidgets="active_widgets"
+            :acceptedWidgets="local_layout.body.excerpt.acceptedWidgets"
+            :selectedWidgets="local_layout.body.excerpt.selectedWidgets"
+            :maxWidget="local_layout.body.excerpt.maxWidget"
+            :showWidgetsPickerWindow="getActiveInsertWindowStatus( 'body_excerpr' )"
+            :widgetDropable="widgetIsDropable( local_layout.body.excerpt )"
+            @insert-widget="insertWidget( $event, local_layout.body.excerpt )"
+            @drag-widget="onDragStartWidget( $event, local_layout.body.excerpt )"
+            @drop-widget="appendWidget( $event, local_layout.body.excerpt )"
+            @dragend-widget="onDragEndWidget()"
+            @edit-widget="editWidget( $event )"
+            @trash-widget="trashWidget( $event, local_layout.body.excerpt )"
+            @placeholder-on-drop="handleDropOnPlaceholder( local_layout.body.excerpt )"
+            @open-widgets-picker-window="activeInsertWindow( 'body_excerpr' )"
+            @close-widgets-picker-window="closeInsertWindow()"
+          />
         </div>
 
         <!-- cptm-listing-card-preview-footer -->
@@ -513,6 +536,10 @@ export default {
             label: 'Body Bottom',
             selectedWidgets: [],
           },
+          excerpt: {
+            label: 'Excerpt',
+            selectedWidgets: [],
+          },
         },
 
         footer: {
@@ -793,6 +820,11 @@ export default {
     },
 
     activeInsertWindow( current_item_key ) {
+      if ( this.active_insert_widget_key === current_item_key ) {
+        this.active_insert_widget_key = '';
+        return;
+      }
+
       this.active_insert_widget_key = current_item_key;
     },
 

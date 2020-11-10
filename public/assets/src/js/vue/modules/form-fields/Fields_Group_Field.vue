@@ -1,31 +1,15 @@
 <template>
     <div class="cptm-multi-option-group">
-        <h3 class="cptm-multi-option-label">{{ label }}</h3>
-        <template v-for="( option_group, option_group_key ) in theActiveGroups">
-            <div class="cptm-multi-option-group-section" :key="option_group_key">
-                <h3># {{ ( option_group_key + 1 ) }}</h3>
-                <template v-for="( option, option_key ) in option_group">
-                    <component 
-                        :is="option.type + '-field'"
-                        :key="option_key"
-                        v-bind="getSanitizedOption( option )"
-                        :validation="getValidation( option_key, option_group_key, option )"
-                        :value="option.value"
-                        @update="updateValue( option_group_key, option_key, $event )">
-                    </component>
-                </template>
-
-                <p style="text-align: right">
-                    <button type="button" class="cptm-btn cptm-btn-secondery" @click="removeOptionGroup( option_group_key )">
-                        {{ removeButtonLabel }}
-                    </button>
-                </p>
-            </div>
+        <h3 class="cptm-multi-option-label" v-if="label.length">{{ label }}</h3>
+        <template v-for="( field, field_key ) in fields">
+            <component 
+                :is="field.type + '-field'"
+                :key="field_key"
+                v-bind="getSanitizedOption( field )"
+                :value="field.value"
+                @update="updateValue( field_key, $event )">
+            </component>
         </template>
-        
-        <button type="button" class="cptm-btn cptm-btn-primary" @click="addNewOptionGroup()">
-            {{ addNewButtonLabel }}
-        </button>
     </div>
 </template>
 
@@ -34,7 +18,7 @@ import { mapState } from 'vuex';
 import helpers from '../../mixins/helpers';
 
 export default {
-    'name': 'multi-fields-field',
+    'name': 'fields-group-field',
     mixins: [ helpers ],
     props: {
         fieldId: {
@@ -53,16 +37,8 @@ export default {
         value: {
             default: '',
         },
-        options: {
+        fields: {
             type: Object,
-        },
-        addNewButtonLabel: {
-            type: String,
-            default: 'Add new',
-        },
-        removeButtonLabel: {
-            type: String,
-            default: 'Remove',
         },
         validation: {
             type: Array,
@@ -273,104 +249,6 @@ export default {
 
             return option;
         },
-
-        __checkShowIfCondition( option_key, option, option_group_key ) {
-            if ( ! option.show_if ) { return true; }
-
-            let accepted_condition_comparations = [ 'or', 'and' ];
-            let accepted_value_comparations = [ '=', 'not' ];
-
-            let success_conditions = 0;
-            let faild_conditions = 0;
-
-            for ( let condition of option.show_if ) {
-                let terget_fields = 'self';
-                let condition_compare_type = 'or';
-                let condition_status = null;
-
-                if ( condition.where && condition.where.length ) {
-                    terget_fields = condition.where;
-                }
-
-                if ( condition.compare && accepted_condition_comparations.indexOf( condition.compare ) ) {
-                    condition_compare_type = condition.compare;
-                }
-
-                terget_fields = terget_fields.split( '.' );
-                
-                let base_field = this.finalValue[ option_group_key ];
-                let base_terget_missmatched = false;
-
-                if ( 'self' !== terget_fields[0] ) {
-                    base_field = this.fields;
-                }
-
-                for ( let field of terget_fields ) {
-                    if ( 'self' === field || 'root' === field ) { continue; }
-
-                    if ( typeof base_field[ field ] === 'undefined' ) {
-                        base_terget_missmatched = true;
-                        break;
-                    }
-
-                    base_field = base_field[ field ];
-                }
-
-                if ( base_terget_missmatched ) {
-                    return true;
-                }
-
-                let success_subconditions = 0;
-                let faild_subconditions = 0;
-
-                for ( let sub_condition of condition.conditions ) {
-                    let terget_value = base_field[ sub_condition.key ];
-                    let compare_value = sub_condition.value;
-                    let compare_type = ( sub_condition.compare ) ? sub_condition.compare : '=';
-
-                    if ( '=' === compare_type ) {
-                        if ( terget_value === compare_value ) {
-                            success_subconditions++;
-                        } else {
-                            faild_subconditions++;
-                        }
-                    }
-
-                    if ( 'not' === compare_type ) {
-                        if ( terget_value !== compare_value ) {
-                            success_subconditions++;
-                        } else {
-                            faild_subconditions++;
-                        }
-                    }
-                }
-
-                let status = false;
-
-                if ( 'or' === condition_compare_type && success_subconditions ) {
-                    status = true;
-                }
-
-                if ( 'and' === condition_compare_type && ! faild_subconditions ) {
-                    status = true;
-                }
-
-                if ( ! status ) {
-                    faild_conditions++;
-                }
-
-                // console.log( {option_key, condition_compare_type, faild_conditions, success_conditions, status} );
-                // console.log( {option_key, option, terget_fields, base_field, option_group_key, base_terget_missmatched} );
-            }
-
-            // console.log( { option_key, faild_conditions } );
-
-            if ( faild_conditions ) {
-                return false;
-            }
-
-            return true;
-        }
     }
 }
 </script>

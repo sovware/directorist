@@ -5,7 +5,7 @@
  * @version 6.7
  */
 
-$alignment = $data['options']['align'];
+$alignment =  !empty( $data['options']['align'] ) ? $data['options']['align'] : '' ;
 ?>
 <div class="atbd_author alignment-<?php echo esc_attr( $alignment ) ?>">
 	<a href="<?php echo esc_url( $listings->loop['author_link'] ); ?>" aria-label="<?php echo esc_attr( $listings->loop['author_full_name'] ); ?>" class="<?php echo esc_attr( $listings->loop['author_link_class'] ); ?>">

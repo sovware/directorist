@@ -253,7 +253,6 @@ export default {
             if ( ! widgets[ widget_group ].widgets[ _widget_name ] ) { continue; }
             
             let template_root_options = template_field.widgets[ _widget_group ].widgets[ _widget_name ];
-
             if ( ! template_root_options ) { continue; }
 
             if ( typeof template_root_options.options !== 'undefined' ) { delete template_root_options.options; }
@@ -269,6 +268,12 @@ export default {
             if ( ! widgets[ widget_group ].widgets[ _widget_name ].options ) {
               widgets[ widget_group ].widgets[ _widget_name ].options = {};
             }
+
+            widgets[ widget_group ].widgets[ _widget_name ].options.label = {
+              type: 'text',
+              label: 'Label',
+              value: widget_label,
+            };
 
             template_widgets[ widget_key ] = widgets[ widget_group ].widgets[ _widget_name ];
           }

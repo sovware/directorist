@@ -385,9 +385,6 @@ class Directorist_Listings {
 			'cats'                 => get_the_terms( $id, ATBDP_CATEGORY ),
 			'locs'                 => get_the_terms( $id, ATBDP_LOCATION ),
 			'featured'             => get_post_meta( $id, '_featured', true ),
-			'price'                => get_post_meta( $id, '_price', true ),
-			'price_range'          => get_post_meta( $id, '_price_range', true ),
-			'atbd_listing_pricing' => get_post_meta( $id, '_atbd_listing_pricing', true ),
 			'listing_img'          => get_post_meta( $id, '_listing_img', true ),
 			'listing_prv_img'      => get_post_meta( $id, '_listing_prv_img', true ),
 			'excerpt'              => get_post_meta( $id, '_excerpt', true ),
@@ -1583,9 +1580,12 @@ class Directorist_Listings {
 			return ($this->view_as !== 'masonry_grid') ? '' : ' data-uk-grid';
 		}
 
-		public function loop_get_address_from_locaton() {
+		public function get_the_locaton() {
+			$id = get_the_ID();
+			$locs = get_the_terms( $id, ATBDP_LOCATION );
+
 			$local_names = array();
-			foreach ($this->loop['locs'] as $term) {
+			foreach ($locs as $term) {
 				$local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
 				ksort($local_names);
 				$locals = array_reverse($local_names);

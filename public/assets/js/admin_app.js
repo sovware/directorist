@@ -8081,22 +8081,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/helpers */ "./public/assets/src/js/vue/mixins/helpers.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/helpers */ "./public/assets/src/js/vue/mixins/helpers.js");
 //
 //
 //
@@ -8111,12 +8096,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   'name': 'fields-group-field',
-  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_0__["default"]],
   props: {
     fieldId: {
       type: [String, Number],
@@ -8147,210 +8130,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      active_fields_groups: []
+      local_fields: {}
     };
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
-    fields: 'fields'
-  })), {}, {
+  computed: {
     finalValue: function finalValue() {
       return this.syncedValue;
     },
-    valuesByFieldKey: function valuesByFieldKey() {
-      var values = {};
-
-      var _iterator = _createForOfIteratorHelper(this.active_fields_groups),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var group = _step.value;
-
-          for (var field_key in group) {
-            if (typeof values[field_key] === 'undefined') {
-              values[field_key] = [];
-            }
-
-            values[field_key].push(group[field_key].value);
-          }
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-
-      return values;
-    },
-    theActiveGroups: function theActiveGroups() {
-      var active_fields_groups = JSON.parse(JSON.stringify(this.active_fields_groups));
-      var group_count = 0;
-
-      var _iterator2 = _createForOfIteratorHelper(active_fields_groups),
-          _step2;
-
-      try {
-        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-          var group = _step2.value;
-
-          for (var _i = 0, _Object$keys = Object.keys(group); _i < _Object$keys.length; _i++) {
-            var field = _Object$keys[_i];
-
-            if (!this.isObject(group[field].show_if)) {
-              continue;
-            }
-
-            var show_if_cond = this.checkShowIfCondition({
-              root: JSON.parse(JSON.stringify(group)),
-              condition: group[field].show_if
-            });
-
-            if (!show_if_cond.status) {
-              delete group[field];
-            }
-          }
-
-          group_count++;
-        }
-      } catch (err) {
-        _iterator2.e(err);
-      } finally {
-        _iterator2.f();
-      }
-
-      return active_fields_groups;
-    },
     syncedValue: function syncedValue() {
-      var updated_value = [];
-      this.theActiveGroups.forEach(function (field_group_item) {
-        var option_group_item = {};
+      var updated_value = {};
 
-        for (var key in field_group_item) {
-          option_group_item[key] = field_group_item[key].value;
-        }
+      for (var field in this.local_fields) {
+        updated_value[field] = this.local_fields.value;
+      }
 
-        updated_value.push(option_group_item);
-      });
       return updated_value;
     }
-  }),
+  },
   methods: {
     setup: function setup() {
-      this.loadOldData();
-      /* if ( ! this.loadOldData() && this.options && typeof this.options === 'object' ) {
-          this.active_fields_groups.push( JSON.parse( JSON.stringify( this.options ) ) );
-      } */
-    },
-    hasDuplicateKey: function hasDuplicateKey(array) {
-      if (!array || _typeof(array) !== 'object') {
-        return null;
-      }
-
-      return new Set(array).size !== array.length;
-    },
-    getValidation: function getValidation(option_key, option_group_key, option) {
-      var validation = [];
-      var unique = option.unique;
-      var value_length = option.value.length;
-      var hasDuplicateFeildValue = this.hasDuplicateFeildValue(option_key, option.value, option_group_key);
-
-      if (option.unique && hasDuplicateFeildValue) {
-        validation.push({
-          error_key: 'duplicate_value'
-        });
-      }
-
-      return validation;
-    },
-    hasDuplicateFeildValue: function hasDuplicateFeildValue(current_field_key, current_value, current_group_index) {
-      if (current_value === '') {
-        return false;
-      }
-
-      var matched_fields = [];
-      var has_duplicate = false;
-      this.theActiveGroups.forEach(function (item, group_index) {
-        if (group_index === current_group_index) {
-          return;
-        }
-
-        if (typeof item[current_field_key] === 'undefined') {
-          /* console.log( this.name, {
-              item,
-              group_index,
-              current_field_key, 
-              current_value, 
-              current_group_index
-          }); */
-          return;
-        }
-
-        var terget_value = item[current_field_key].value;
-
-        if (terget_value === current_value) {
-          if ('the_plan_id' === current_field_key) {
-            console.log('terget_value_matched');
-            console.log({
-              current_field_key: current_field_key,
-              terget_value: terget_value,
-              group_index: group_index,
-              current_value: current_value
-            });
-          }
-
-          has_duplicate = true;
-          return;
-        }
-      });
-      return has_duplicate;
-    },
-    loadOldData: function loadOldData() {
-      if (_typeof(this.value) !== 'object') {
-        return false;
-      }
-
-      if (!this.value.length) {
-        return false;
-      }
-
-      var fields_groups = [];
-
-      var _iterator3 = _createForOfIteratorHelper(this.value),
-          _step3;
-
-      try {
-        for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
-          var option_group_item = _step3.value;
-          var fields = JSON.parse(JSON.stringify(this.options));
-
-          for (var value_key in option_group_item) {
-            if (typeof fields[value_key] !== 'undefined') {
-              fields[value_key].value = option_group_item[value_key];
-            }
-          }
-
-          fields_groups.push(fields);
-        }
-      } catch (err) {
-        _iterator3.e(err);
-      } finally {
-        _iterator3.f();
-      }
-
-      this.active_fields_groups = fields_groups;
-      return true;
-    },
-    updateValue: function updateValue(group_key, field_key, value) {
-      this.active_fields_groups[group_key][field_key].value = value; // console.log( { field_key, value } );
-
+      this.local_fields = this.fields;
       this.$emit('update', this.finalValue);
     },
-    addNewOptionGroup: function addNewOptionGroup() {
-      this.active_fields_groups.push(JSON.parse(JSON.stringify(this.options)));
-      this.$emit('update', this.finalValue);
-    },
-    removeOptionGroup: function removeOptionGroup(option_group_key) {
-      this.active_fields_groups.splice(option_group_key, 1);
+    updateValue: function updateValue(field_key, value) {
+      this.local_fields[field_key].value = value;
       this.$emit('update', this.finalValue);
     },
     getSanitizedOption: function getSanitizedOption(option) {
@@ -8684,8 +8487,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               type: 'text',
               label: 'Label',
               value: widget_label
-            }; // console.log( widgets[ widget_group ].widgets[ _widget_name ].options );
-
+            };
             template_widgets[widget_key] = widgets[widget_group].widgets[_widget_name];
           }
 
@@ -17547,7 +17349,7 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm._l(_vm.fields, function(field, field_key) {
+      _vm._l(_vm.local_fields, function(field, field_key) {
         return [
           _c(
             field.type + "-field",
@@ -17555,7 +17357,6 @@ var render = function() {
               {
                 key: field_key,
                 tag: "component",
-                attrs: { value: field.value },
                 on: {
                   update: function($event) {
                     return _vm.updateValue(field_key, $event)
@@ -17563,7 +17364,7 @@ var render = function() {
                 }
               },
               "component",
-              _vm.getSanitizedOption(field),
+              field,
               false
             )
           )

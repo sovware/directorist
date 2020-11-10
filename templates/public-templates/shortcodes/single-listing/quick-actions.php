@@ -8,7 +8,7 @@
 <div class="atbd_listing_action_area">
 	<?php
 	foreach ( $actions as $action ):
-		$listing->render_item( $action );
+		$listing->field_template( $action );
 	endforeach;
 	?>
 </div>

@@ -1652,15 +1652,15 @@ if (!function_exists('calc_listing_expiry_date')) {
      * @since    3.1.0
      *
      */
-    function calc_listing_expiry_date($start_date = NULL)
+    function calc_listing_expiry_date($start_date = NULL, $expire = NULL)
     {
-
         $exp_days = get_directorist_option('listing_expire_in_days', 999, 999);
+        $expired_date = !empty($expire) ? $expire : $exp_days;
         // Current time
         $start_date = !empty($start_date) ? $start_date : current_time('mysql');
         // Calculate new date
         $date = new DateTime($start_date);
-        $date->add(new DateInterval("P{$exp_days}D")); // set the interval in days
+        $date->add(new DateInterval("P{$expired_date}D")); // set the interval in days
         return $date->format('Y-m-d H:i:s');
 
     }

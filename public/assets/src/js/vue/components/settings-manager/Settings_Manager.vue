@@ -2,7 +2,7 @@
     <div class="atbdp-cpt-manager">
         <div class="atbdp-row">
             <div class="atbdp-col atbdp-col-3">
-                <sidebar-nav />
+                <sidebar-navigation />
             </div>
 
             <div class="atbdp-col atbdp-col-8">

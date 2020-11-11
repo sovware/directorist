@@ -186,6 +186,19 @@ class SetupWizard
                    $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($preview_url, $post_id);
                    update_post_meta($post_id, '_listing_prv_img', $attachment_id);
                 }
+                
+                //directory type
+                $listing_types = get_terms([
+                    'taxonomy'   => 'atbdp_listing_types',
+                    'hide_empty' => false,
+                    'showposts' => 1,
+                ]);
+                $term_id = !empty( $listing_types[0] ) ? $listing_types[0]->term_id : '';
+                if( !empty( $term_id ) ){
+                    update_post_meta($post_id, '_directory_type', $term_id);
+                    wp_set_object_terms($post_id, (int)$term_id, 'atbdp_listing_types');
+                }
+                
                 $count++;
         }
         $data['next_position'] = (int) $position + (int) $count;

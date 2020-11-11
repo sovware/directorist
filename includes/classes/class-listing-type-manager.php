@@ -5075,7 +5075,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'type' => "button",
                             'label' => "Bookmark",
                             'icon' => 'la la-bookmark',
-                            'hook' => "atbdp_single_listings_title",
                             'options' => [
                                 'title' => "Bookmark Settings",
                                 'fields' => [
@@ -5091,7 +5090,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'type' => "badge",
                             'label' => "Share",
                             'icon' => 'la la-share',
-                            'hook' => "atbdp_single_listings_title",
                             'options' => [
                                 'title' => "Share Settings",
                                 'fields' => [
@@ -5107,7 +5105,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'type' => "badge",
                             'label' => "Report",
                             'icon' => 'la la-flag',
-                            'hook' => "atbdp_single_listings_title",
                             'options' => [
                                 'title' => "Report Settings",
                                 'fields' => [
@@ -5124,7 +5121,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'type' => "thumbnail",
                             'label' => "Listings Slider",
                             'icon' => 'uil uil-text-fields',
-                            'hook' => "atbdp_single_listings_slider",
                             'can_move' => false,
                             'show_if' => [
                                 'where' => "submission_form_fields.value.fields",
@@ -5147,13 +5143,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'type' => "badge",
                             'label' => "Listings Price",
                             'icon' => 'uil uil-text-fields',
-                            'hook' => "atbdp_single_listings_price",
                         ],
                         'badges' => [
                             'type' => "badge",
                             'label' => "Badges",
                             'icon' => 'uil uil-text-fields',
-                            'hook' => "atbdp_single_listings_badges",
                             'options' => [
                                 'title' => "Badge Settings",
                                 'fields' => [
@@ -5180,19 +5174,16 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'type' => "reviews",
                             'label' => "Listings Reviews",
                             'icon' => 'uil uil-text-fields',
-                            'hook' => "atbdp_single_listings_reviews",
                         ],
                         'ratings_count' => [
                             'type' => "ratings-count",
                             'label' => "Listings Ratings",
                             'icon' => 'uil uil-text-fields',
-                            'hook' => "atbdp_single_listings_ratings_count",
                         ],
                         'category' => [
                             'type' => "badge",
                             'label' => "Listings Category",
                             'icon' => 'uil uil-text-fields',
-                            'hook' => "atbdp_single_listing_category",
                             'show_if' => [
                                 'where' => "submission_form_fields.value.fields",
                                 'conditions' => [
@@ -5204,7 +5195,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'type' => "badge",
                             'label' => "Listings Location",
                             'icon' => 'uil uil-text-fields',
-                            'hook' => "atbdp_single_listing_location",
                             'show_if' => [
                                 'where' => "submission_form_fields.value.fields",
                                 'conditions' => [

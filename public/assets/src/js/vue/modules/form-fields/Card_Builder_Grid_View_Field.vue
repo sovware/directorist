@@ -8,6 +8,7 @@
         @update="updateWidgetOptionsData($event, widgetOptionsWindow)"
         @close="closeWidgetOptionsWindow()"
       />
+
     </div>
 
     <!-- cptm-preview-area -->
@@ -368,11 +369,11 @@ export default {
               continue;
             }
             
-            widget_data.options = {};
+            // widget_data.options = {};
             let widget_options = this.active_widgets[widget_name].options.fields;
 
             for ( let option in widget_options ) {
-              widget_data.options[option] = widget_options[ option ].value;
+              widget_data[option] = widget_options[ option ].value;
             }
 
             output[section][section_area].push(widget_data);
@@ -582,10 +583,7 @@ export default {
     },
 
     importOldData() {
-      let value = this.value;
-      if ( typeof value === 'string' && this.isJSON( value ) ) {
-        value = JSON.parse( value );
-      }
+      let value = JSON.parse( JSON.stringify( this.value ) );
 
       if ( ! this.isTruthyObject( value ) ) { return; }
       let selectedWidgets = [];
@@ -619,7 +617,14 @@ export default {
 
         let widgets_template = { ...this.theAvailableWidgets[widget_key] };
         let widget_options = ( ! active_widgets_data[widget_key].options && typeof active_widgets_data[widget_key].options !== "object" ) ? false : active_widgets_data[widget_key].options;
-       
+      
+        for ( let root_option in widgets_template ) {
+          if ( 'options' === root_option ) { continue; }
+          if ( active_widgets_data[widget_key][root_option] === "undefined" ) { continue; }
+
+          widgets_template[ root_option ] = active_widgets_data[widget_key][root_option];
+        }
+
         let has_widget_options = false;
         if ( widgets_template.options && widgets_template.options.fields ) {
           has_widget_options = true;
@@ -627,10 +632,10 @@ export default {
 
         if ( has_widget_options ) {
           for ( let option_key in widgets_template.options.fields ) {
-            if ( typeof active_widgets_data[widget_key].options[option_key] === "undefined" ) {
+            if ( typeof active_widgets_data[widget_key][option_key] === "undefined" ) {
               continue;
             }
-            widgets_template.options.fields[ option_key ].value = active_widgets_data[widget_key].options[option_key];
+            widgets_template.options.fields[ option_key ].value = active_widgets_data[widget_key][option_key];
           }
         }
 

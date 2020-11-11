@@ -1875,51 +1875,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label'  => 'Price Range Placeholder',
                                     'value' => 'Select Price Range',
                                 ],
-                                'price_range_type' => [
-                                    'type'  => 'select',
-                                    'label'  => 'Price Range Type',
-                                    'value' => 'cheap',
-                                    'options' => [
-                                        ['value' => 'cheap', 'label' => 'Cheap',],
-                                        ['value' => 'moderate', 'label' => 'Moderate',],
-                                        ['value' => 'expensive', 'label' => 'Expensive',],
-                                        ['value' => 'high', 'label' => 'Ultra High',],
-                                    ],
-                                    'show_if' => [
-                                        'where' => "self.pricing_type",
-                                        'compare' => 'or',
-                                        'conditions' => [
-                                            ['key' => 'value', 'compare' => '=', 'value' => 'both'],
-                                            ['key' => 'value', 'compare' => '=', 'value' => 'price_range'],
-                                        ],
-                                    ],
-                                ],
-                                'price_range_min_placeholder' => [
-                                    'type'  => 'text',
-                                    'label'  => 'Price Range Min Placeholder',
-                                    'value' => 'Min',
-                                    'show_if' => [
-                                        'where' => "self.pricing_type",
-                                        'compare' => 'or',
-                                        'conditions' => [
-                                            ['key' => 'value', 'compare' => '=', 'value' => 'both'],
-                                            ['key' => 'value', 'compare' => '=', 'value' => 'price_range'],
-                                        ],
-                                    ],
-                                ],
-                                'price_range_max_placeholder' => [
-                                    'type'  => 'text',
-                                    'label'  => 'Price Range Max Placeholder',
-                                    'value' => 'Max',
-                                    'show_if' => [
-                                        'where' => "self.pricing_type",
-                                        'compare' => 'or',
-                                        'conditions' => [
-                                            ['key' => 'value', 'compare' => '=', 'value' => 'both'],
-                                            ['key' => 'value', 'compare' => '=', 'value' => 'price_range'],
-                                        ],
-                                    ],
-                                ],
                                 'price_unit_field_type' => [
                                     'type'  => 'select',
                                     'label'  => 'Price Unit Field Type',
@@ -2620,6 +2575,27 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
 
 
+                            ],
+                        ],
+
+                        'hide_contact_owner' => [
+                            'label' => 'Hiding Contact Owner Form',
+                            'icon' => 'uil uil-video',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'text',
+                                ],
+                                'field_key' => [
+                                    'type'   => 'meta-key',
+                                    'hidden' => true,
+                                    'value'  => 'hide_contact_owner',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Hide contact owner form for single listing page',
+                                ],
                             ],
                         ],
                     ]),
@@ -3715,11 +3691,16 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'pricing' => [
                             'options' => [
-                                /* 'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => false,
-                                ], */
+                                'price_range_min_placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Price Range Min Placeholder',
+                                    'value' => 'Min',
+                                ],
+                                'price_range_max_placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Price Range Max Placeholder',
+                                    'value' => 'Max',
+                                ],
                             ]
                         ],
 

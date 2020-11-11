@@ -64,7 +64,8 @@
       display: flex;
       align-items: center;
       padding: 0;
-      span {
+      span,
+      i {
         margin-right: 10px;
         display: inline-block;
         @extend .atbd_color-primary;
@@ -849,5 +850,68 @@
     // &+a{
     //   margin-left: 5px;
     // }
+  }
+}
+
+.atbd_content_active{
+  #directorist.atbd_wrapper {
+    .atbd_listing_detail{
+      padding-top: 0;
+    }
+  }
+}
+
+// Directorist Contact
+.atbdb_content_module_contents{
+  .directorist-single-info{
+    display: flex;
+    &:not(:last-child){
+      margin-bottom: 10px;
+    }
+    .directorist-single-info-label{
+      flex: 0 0 25%;
+      .directorist-icon {
+        line-height: 35px;
+        width: 35px;
+        margin-right: 10px;
+        border-radius: 50%;
+        color: #444752;
+        background: #f1f3f8;
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+    .directorist-single-info-value{
+      flex: 0 0 75%;
+    }
+  }
+}
+
+// Directorist Author
+.directorist-single-author-info{
+  .atbd_avatar_wrapper{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    .atbd_review_avatar{
+      margin-right: 10px;
+    }
+    .atbd_name_time{
+      h4{
+        margin-bottom: 5px !important;
+      }
+    }
+  }
+  .atbd_widget_contact_info{
+    margin-bottom: 22px;
+    ul{
+      li{
+        display: flex;
+        align-items: center;
+        .atbd_info{
+          margin-left: 12px;
+        }
+      }
+    }
   }
 }

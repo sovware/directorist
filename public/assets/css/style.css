@@ -60,7 +60,9 @@ input[type="checkbox"] {
 /* typography */
 .atbd_color-primary, .atbd_content_active #directorist.atbd_wrapper h1 a:hover, .atbd_content_active #directorist.atbd_wrapper h2 a:hover, .atbd_content_active #directorist.atbd_wrapper h3 a:hover, .atbd_content_active #directorist.atbd_wrapper h4 a:hover, .atbd_content_active #directorist.atbd_wrapper h5 a:hover, .atbd_content_active #directorist.atbd_wrapper h6 a:hover,
 .atbd_content_active #directorist.atbd_wrapper .h1 a:hover, .atbd_content_active #directorist.atbd_wrapper .h2 a:hover, .atbd_content_active #directorist.atbd_wrapper .h3 a:hover, .atbd_content_active #directorist.atbd_wrapper .h4 a:hover, .atbd_content_active #directorist.atbd_wrapper .h5 a:hover, .atbd_content_active #directorist.atbd_wrapper .h6 a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area h4 span,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 span, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action a:hover,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area h4 i,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 span,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 i, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action a:hover,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action:hover,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li a > span,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_share .atbd_directory_social_wrap ul li a > span, .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title span, .atbd_content_active #directorist.atbd_wrapper #client_review_list .atbd_single_review .review_content a, .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p span, .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_data_list ul li p i, .atbd_content_active #directorist.atbd_wrapper .atbd_upload_btn span {
@@ -2682,7 +2684,9 @@ input#privacy_policy,
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area h4 span,
-.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 span {
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area h4 i,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 span,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 i {
   margin-right: 10px;
   display: inline-block;
 }
@@ -3655,6 +3659,161 @@ input#privacy_policy,
 .atbd_director_social_wrap a span.fa {
   line-height: inherit;
   font-size: 16px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail {
+  padding-top: 0;
+}
+
+.atbd_listing_meta .directory_cats {
+  -ms-flex-wrap: nowrap !important;
+      flex-wrap: nowrap !important;
+}
+
+.atbd_listing_meta .directory_cats li {
+  -webkit-box-flex: 1 !important;
+      -ms-flex: auto !important;
+          flex: auto !important;
+}
+
+.atbdb_content_module_contents .directorist-single-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.atbdb_content_module_contents .directorist-single-info:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.atbdb_content_module_contents .directorist-single-info .directorist-single-info-label {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 25%;
+          flex: 0 0 25%;
+}
+
+.atbdb_content_module_contents .directorist-single-info .directorist-single-info-label .directorist-icon {
+  line-height: 35px;
+  width: 35px;
+  margin-right: 10px;
+  border-radius: 50%;
+  color: #444752;
+  background: #f1f3f8;
+  font-size: 14px;
+  text-align: center;
+}
+
+.atbdb_content_module_contents .directorist-single-info .directorist-single-info-value {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 75%;
+          flex: 0 0 75%;
+}
+
+.directorist-single-author-info .atbd_avatar_wrapper,
+.atbd_author_info_widget .atbd_avatar_wrapper {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px;
+}
+
+.directorist-single-author-info .atbd_avatar_wrapper .atbd_review_avatar,
+.atbd_author_info_widget .atbd_avatar_wrapper .atbd_review_avatar {
+  margin-right: 10px;
+}
+
+.directorist-single-author-info .atbd_avatar_wrapper .atbd_review_avatar img,
+.atbd_author_info_widget .atbd_avatar_wrapper .atbd_review_avatar img {
+  max-width: 50px;
+  border-radius: 50%;
+}
+
+.directorist-single-author-info .atbd_avatar_wrapper .atbd_name_time h4,
+.atbd_author_info_widget .atbd_avatar_wrapper .atbd_name_time h4 {
+  margin-bottom: 5px !important;
+}
+
+.directorist-single-author-info .atbd_widget_contact_info,
+.atbd_author_info_widget .atbd_widget_contact_info {
+  padding-top: 4px !important;
+  margin-bottom: 22px;
+}
+
+.directorist-single-author-info .atbd_widget_contact_info ul,
+.atbd_author_info_widget .atbd_widget_contact_info ul {
+  display: block !important;
+}
+
+.directorist-single-author-info .atbd_widget_contact_info ul li,
+.atbd_author_info_widget .atbd_widget_contact_info ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.directorist-single-author-info .atbd_widget_contact_info ul li .atbd_info,
+.atbd_author_info_widget .atbd_widget_contact_info ul li .atbd_info {
+  margin-left: 12px;
+}
+
+.directorist-single-author-info .atbd_social_wrap,
+.atbd_author_info_widget .atbd_social_wrap {
+  margin-bottom: 12px;
+}
+
+.directorist-single-author-info .atbd_social_wrap p,
+.atbd_author_info_widget .atbd_social_wrap p {
+  display: inline-block;
+  margin: -5px;
+}
+
+.directorist-single-author-info .atbd_social_wrap p a,
+.atbd_author_info_widget .atbd_social_wrap p a {
+  margin: 5px;
+  display: block;
+  line-height: 35px;
+  width: 35px;
+  text-align: center;
+  background-color: #444752 !important;
+  border-radius: 4px;
+  color: #ffffff !important;
+  overflow: hidden;
+  -webkit-transition: all ease-in-out 300ms !important;
+  -o-transition: all ease-in-out 300ms !important;
+  transition: all ease-in-out 300ms !important;
+}
+
+.atbd_sidebar .atbd_author_info_widget .atbd_social_wrap {
+  margin-bottom: 0;
+}
+
+.atbd_sidebar .atbd_author_info_widget .btn {
+  margin-top: 10px !important;
+}
+
+.directorist-single-wrapper .atbdb_content_module_contents ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.directorist-single-wrapper .atbdb_content_module_contents ul li {
+  -webkit-box-flex: 33.333%;
+      -ms-flex: 33.333%;
+          flex: 33.333%;
+}
+
+.contact-listing-owner-form textarea {
+  padding: 10px 15px !important;
+  min-height: 120px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper p {

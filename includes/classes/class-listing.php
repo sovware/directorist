@@ -91,7 +91,7 @@ if (!class_exists('ATBDP_Listing')):
             //only add filter to post type you want
             if ('at_biz_dir' == $type) { ?>
                 <select name="directory_type">
-                    <option value=""><?php _e('Filter By Directory ', 'directorist-post-your-need'); ?></option>
+                    <option value=""><?php _e('Filter by directory ', 'directorist-post-your-need'); ?></option>
                     <?php
                     $current_v = isset($_GET['directory_type']) ? $_GET['directory_type'] : '';
                     $listing_types = get_terms([

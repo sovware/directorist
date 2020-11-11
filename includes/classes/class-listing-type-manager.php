@@ -3715,20 +3715,30 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'pricing' => [
                             'options' => [
-                                'required' => [
+                                /* 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
                                     'value' => false,
-                                ],
+                                ], */
                             ]
                         ],
 
                         'tag' => [
                             'options' => [
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => false,
+                                'tags_filter_source' => [
+                                    'type'  => 'select',
+                                    'label' => 'Tags Filter Source',
+                                    'options' => [
+                                        [
+                                            'label' => __('All Tags', 'directorist'),
+                                            'value' => 'all_tags',
+                                        ],
+                                        [
+                                            'label' => __('Category Based Tags', 'directorist'),
+                                            'value' => 'category_based_tags',
+                                        ],
+                                    ],
+                                    'value' => 'all_tags',
                                 ],
                             ]
                         ],
@@ -3959,10 +3969,10 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'label' => 'Review',
                             'icon' => 'fa fa-star',
                             'options' => [
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => false,
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Review',
                                 ],
                             ],
                         ],
@@ -3970,10 +3980,17 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'label' => 'Radius Search',
                             'icon' => 'fa fa-map',
                             'options' => [
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => false,
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Radius Search',
+                                ],
+                                'default_radius_distance' => [
+                                    'type'  => 'range',
+                                    'label' => 'Default Radius Distance',
+                                    'min'   => 0,
+                                    'max'   => 750,
+                                    'value' => 0,
                                 ],
                             ],
                         ],

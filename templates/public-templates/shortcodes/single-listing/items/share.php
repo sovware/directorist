@@ -6,7 +6,7 @@
  */
 ?>
 <div class="atbd_action atbd_share atbd_tooltip" aria-label="<?php esc_html_e('Share', 'directorist'); ?>">
-	<span class="<?php echo atbdp_icon_type(); ?>-share"></span>
+	<?php directorist_icon( $icon );?>
 	<div class="atbd_directory_social_wrap">
 		<ul>
 			<?php foreach ( $listing->social_share_data() as $social ): ?>

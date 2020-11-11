@@ -3765,6 +3765,7 @@ input#privacy_policy,
 .directorist-single-author-info .atbd_social_wrap,
 .atbd_author_info_widget .atbd_social_wrap {
   margin-bottom: 12px;
+  margin: -5px -5px 12px -5px;
 }
 
 .directorist-single-author-info .atbd_social_wrap p,
@@ -3809,6 +3810,19 @@ input#privacy_policy,
   -webkit-box-flex: 33.333%;
       -ms-flex: 33.333%;
           flex: 33.333%;
+}
+
+.directorist-single-wrapper .atbdb_content_module_contents ul li a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.directorist-single-wrapper .atbdb_content_module_contents ul li a span {
+  margin-right: 5px;
 }
 
 .contact-listing-owner-form textarea {

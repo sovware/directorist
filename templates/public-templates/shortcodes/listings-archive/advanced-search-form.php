@@ -17,7 +17,7 @@
 
 		<div class="atbdp-adv-search-fields">
 			<?php foreach ( $searchform->form_data[1]['fields'] as $field ){ ?>
-				<div class="form-group atbdp-adv-search-fields-each"><?php $searchform->field_template( $field ); ?></div>
+				<div class="form-group atbdp-search-field-<?php echo esc_attr( $field_data['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>
 			<?php } ?>
 		</div>
 

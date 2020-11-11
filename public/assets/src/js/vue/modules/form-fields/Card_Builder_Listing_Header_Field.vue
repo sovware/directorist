@@ -237,12 +237,11 @@ export default {
               output[section][section_area].push(widget_data);
               continue;
             }
-            
-            widget_data.options = {};
+
             let widget_options = this.active_widgets[widget_name].options.fields;
 
             for ( let option in widget_options ) {
-              widget_data.options[option] = widget_options[ option ].value;
+              widget_data[option] = widget_options[ option ].value;
             }
 
             output[section][section_area].push(widget_data);
@@ -415,11 +414,7 @@ export default {
     },
 
     importOldData() {
-      let value = this.value;
-      if ( typeof value === 'string' && this.isJSON( value ) ) {
-        value = JSON.parse( value );
-      }
-
+      let value = JSON.parse( JSON.stringify( this.value ) );
       if ( ! this.isTruthyObject( value ) ) { return; }
 
       // Import Layout
@@ -448,6 +443,7 @@ export default {
         }
       }
 
+
       // Load Active Widgets
       for (let widget_key in active_widgets_data) {
         if (typeof this.theAvailableWidgets[widget_key] === "undefined") {
@@ -462,16 +458,19 @@ export default {
           has_widget_options = true;
         }
 
+        for ( let root_option in widgets_template ) {
+          if ( 'options' === root_option ) { continue; }
+          if ( active_widgets_data[widget_key][root_option] === "undefined" ) { continue; }
+
+          widgets_template[ root_option ] = active_widgets_data[widget_key][root_option];
+        }
+
         if ( has_widget_options ) {
           for ( let option_key in widgets_template.options.fields ) {
-            // console.log( active_widgets_data[widget_key] );
-            if ( typeof active_widgets_data[widget_key].options === "undefined" ) {
+            if ( typeof active_widgets_data[widget_key][option_key] === "undefined" ) {
               continue;
             }
-            if ( typeof active_widgets_data[widget_key].options[option_key] === "undefined" ) {
-              continue;
-            }
-            widgets_template.options.fields[ option_key ].value = active_widgets_data[widget_key].options[option_key];
+            widgets_template.options.fields[ option_key ].value = active_widgets_data[widget_key][option_key];
           }
         }
 

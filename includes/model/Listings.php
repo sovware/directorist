@@ -1584,6 +1584,10 @@ class Directorist_Listings {
 			$id = get_the_ID();
 			$locs = get_the_terms( $id, ATBDP_LOCATION );
 
+			if ( empty( $locs ) ) {
+				return;
+			}
+
 			$local_names = array();
 			foreach ($locs as $term) {
 				$local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;

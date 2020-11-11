@@ -85,7 +85,6 @@ class Directorist_Listing_Search_Form {
 		$this->type         = $type;
 		$this->listing_type = $listing_type;
 		$this->atts         = $atts;
-		// $this->listing_type = 43; // remove later @kowsar
 
 		$this->set_default_options();
 
@@ -328,20 +327,6 @@ class Directorist_Listing_Search_Form {
 		$this->location_source         = ($listing_location_address == 'map_api') ? 'map' : 'address';
 	}
 
-	public function field_template( $field_data) {
-		$key = $field_data['field_key'];
-		$field_data['value'] = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
-
-		$args = array(
-			'searchform' => $this,
-			'data'       => $field_data,
-		);
-
-		$template = 'search/fields/' . $field_data['widget_name'];
-		$template = apply_filters( 'directorist_search_field_template_' . $field_data['widget_name'], $template, $field_data );
-		atbdp_get_shortcode_template( $template, $args );
-	}
-
 	public function build_form_data() {
 		$form_data          = array();
 		$search_form_fields     = get_term_meta( $this->listing_type, 'search_form_fields', true );
@@ -430,6 +415,11 @@ class Directorist_Listing_Search_Form {
 		}
 	}
 
+	public function load_map_scripts() {
+		wp_localize_script( 'atbdp-geolocation', 'adbdp_geolocation', array( 'select_listing_map' => $this->select_listing_map ) );
+		wp_enqueue_script( 'atbdp-geolocation' );		
+	}
+
 	public function location_map_template() {
 		if ($this->has_location_field) {
 
@@ -445,6 +435,31 @@ class Directorist_Listing_Search_Form {
 
 			atbdp_get_shortcode_template( 'search/location-geo', $args );
 		}
+	}
+
+	public function field_template( $field_data) {
+		$key = $field_data['field_key'];
+		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
+
+		$args = array(
+			'searchform' => $this,
+			'data'       => $field_data,
+			'value'      => $value,
+		);
+
+		// dvar_dump($field_data);
+
+		$template = 'search/fields/' . $field_data['widget_name'];
+		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );
+		atbdp_get_shortcode_template( $template, $args );
+	}
+
+	public function basic_fields_template() {
+		$args = array(
+			'searchform' => $this,
+			'fields'     => $this->form_data[0]['fields'],
+		);
+		atbdp_get_shortcode_template( 'search/basic-fields', $args );
 	}
 
 	public function form_top_fields() {

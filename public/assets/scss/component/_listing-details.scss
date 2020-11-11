@@ -932,6 +932,7 @@
   }
   .atbd_social_wrap{
     margin-bottom: 12px;
+    margin: -5px -5px 12px -5px;
     p{
       display: inline-block;
       margin: -5px;
@@ -970,6 +971,13 @@
       flex-wrap: wrap;
       li{
         flex: 33.333%;
+        a{
+          display: flex;
+          align-items: center;
+          span{
+            margin-right: 5px;
+          }
+        }
       }
     }
   }

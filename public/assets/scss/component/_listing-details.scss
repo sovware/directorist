@@ -861,6 +861,15 @@
   }
 }
 
+.atbd_listing_meta{
+  .directory_cats{
+    flex-wrap: nowrap !important;
+    li{
+      flex: auto !important;
+    }
+  }
+}
+
 // Directorist Contact
 .atbdb_content_module_contents{
   .directorist-single-info{
@@ -888,13 +897,18 @@
 }
 
 // Directorist Author
-.directorist-single-author-info{
+.directorist-single-author-info,
+.atbd_author_info_widget{
   .atbd_avatar_wrapper{
-    display: flex;
+    display: flex !important;
     align-items: center;
     margin-bottom: 10px;
     .atbd_review_avatar{
       margin-right: 10px;
+      img{
+        max-width: 50px;
+        border-radius: 50%;
+      }
     }
     .atbd_name_time{
       h4{
@@ -903,8 +917,10 @@
     }
   }
   .atbd_widget_contact_info{
+    padding-top: 4px !important;
     margin-bottom: 22px;
     ul{
+      display: block !important;
       li{
         display: flex;
         align-items: center;
@@ -913,5 +929,56 @@
         }
       }
     }
+  }
+  .atbd_social_wrap{
+    margin-bottom: 12px;
+    p{
+      display: inline-block;
+      margin: -5px;
+      a{
+        margin: 5px;
+        display: block;
+        line-height: 35px;
+        width: 35px;
+        text-align: center;
+        background-color: #444752 !important;
+        border-radius: 4px;
+        color: #ffffff !important;
+        overflow: hidden;
+        transition: all ease-in-out 300ms !important;
+      }
+    }
+  }
+}
+
+.atbd_sidebar{
+  .atbd_author_info_widget{
+    .atbd_social_wrap{
+      margin-bottom: 0;
+    }
+    .btn{
+      margin-top: 10px !important;
+    }
+  }
+}
+
+// Listing Tags
+.directorist-single-wrapper{
+  .atbdb_content_module_contents{
+    ul{
+      display: flex;
+      flex-wrap: wrap;
+      li{
+        flex: 33.333%;
+      }
+    }
+  }
+}
+
+// Contact Listing Owner Form
+.contact-listing-owner-form{
+  textarea{
+    padding: 10px 15px !important;
+    min-height: 120px;
   }
 }

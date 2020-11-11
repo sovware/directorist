@@ -174,7 +174,7 @@ if (!class_exists('ATBDP_Custom_Post')):
             $columns['title'] = __('Listing Name', 'directorist');
             $columns['atbdp_location'] = __('Location', 'directorist');
             $columns['atbdp_category'] = __('Categories', 'directorist');
-            $columns['listing_type'] = __('Listing Type', 'directorist');
+            $columns['listing_type'] = __('Directory Type', 'directorist');
             $columns['atbdp_author'] = __('Author', 'directorist');
             $columns['atbdp_status'] = __('Status', 'directorist');
             if ($featured_active || is_fee_manager_active()) {

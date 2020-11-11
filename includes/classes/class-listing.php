@@ -70,8 +70,8 @@ if (!class_exists('ATBDP_Listing')):
             if (isset($_GET['post_type'])) {
                 $type = $_GET['post_type'];
             }
-            if ('at_biz_dir' == $type && is_admin() && $pagenow == 'edit.php' && isset($_GET['atbdp_custom_filter'])) {
-                $value = isset($_GET['atbdp_custom_filter']) ? sanitize_text_field($_GET['atbdp_custom_filter']) : '';
+            if ('at_biz_dir' == $type && is_admin() && $pagenow == 'edit.php' && isset($_GET['directory_type'])) {
+                $value = isset($_GET['directory_type']) ? sanitize_text_field($_GET['directory_type']) : '';
                 $tax_query = array(
                     'relation' => 'AND',
                     array(
@@ -90,10 +90,10 @@ if (!class_exists('ATBDP_Listing')):
             }
             //only add filter to post type you want
             if ('at_biz_dir' == $type) { ?>
-                <select name="atbdp_custom_filter">
-                    <option value=""><?php _e('Filter By Type ', 'directorist-post-your-need'); ?></option>
+                <select name="directory_type">
+                    <option value=""><?php _e('Filter By Directory ', 'directorist-post-your-need'); ?></option>
                     <?php
-                    $current_v = isset($_GET['atbdp_custom_filter']) ? $_GET['atbdp_custom_filter'] : '';
+                    $current_v = isset($_GET['directory_type']) ? $_GET['directory_type'] : '';
                     $listing_types = get_terms([
                         'taxonomy'   => 'atbdp_listing_types',
                         'hide_empty' => false,

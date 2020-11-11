@@ -3745,6 +3745,21 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label'  => 'Placeholder',
                                     'value' => 'Location',
                                 ],
+                                'location_source' => [
+                                    'type'  => 'select',
+                                    'label'  => 'Location Source',
+                                    'options' => [
+                                        [
+                                            'label' => __('Display from Listing Location', 'directorist'),
+                                            'value' => 'from_listing_location',
+                                        ],
+                                        [
+                                            'label' => __('Display from Map API', 'directorist'),
+                                            'value' => 'from_map_api',
+                                        ],
+                                    ],
+                                    'value' => 'from_listing_location',
+                                ],
                             ]
                         ],
 

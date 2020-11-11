@@ -58,10 +58,53 @@ if (!class_exists('ATBDP_Listing')):
             add_filter('post_thumbnail_html', array($this, 'post_thumbnail_html'), 10, 3);
             add_action('wp_head', array($this, 'og_metatags'));
             add_action('template_redirect', array($this, 'atbdp_listing_status_controller'));
-
+            // listing filter
+            add_action('restrict_manage_posts', array($this, 'atbdp_listings_filter'));
+            add_filter('parse_query', array($this, 'listing_type_search_query'));
         }
 
+        public function listing_type_search_query( $query )
+        {
+            global $pagenow;
+            $type = 'post';
+            if (isset($_GET['post_type'])) {
+                $type = $_GET['post_type'];
+            }
+            if ('at_biz_dir' == $type && is_admin() && $pagenow == 'edit.php' && isset($_GET['atbdp_custom_filter'])) {
+                $value = isset($_GET['atbdp_custom_filter']) ? sanitize_text_field($_GET['atbdp_custom_filter']) : '';
+                $tax_query = array(
+                    'relation' => 'AND',
+                    array(
+                        'taxonomy' => ATBDP_TYPE,
+                        'terms'    => $value,
+                    ),
+                );
+                $query->set( 'tax_query', $tax_query );
+            }
+        }
         
+        public function atbdp_listings_filter(  ) {
+            $type = 'post';
+            if (isset($_GET['post_type'])) {
+                $type = $_GET['post_type'];
+            }
+            //only add filter to post type you want
+            if ('at_biz_dir' == $type) { ?>
+                <select name="atbdp_custom_filter">
+                    <option value=""><?php _e('Filter By ', 'directorist-post-your-need'); ?></option>
+                    <?php
+                    $current_v = isset($_GET['atbdp_custom_filter']) ? $_GET['atbdp_custom_filter'] : '';
+                    $listing_types = get_terms([
+                        'taxonomy'   => 'atbdp_listing_types',
+                        'hide_empty' => false,
+                      ]);
+                      foreach ($listing_types as $listing_type) { ?>
+                        <option value="<?php echo esc_attr( $listing_type->term_id ); ?>" <?php echo $listing_type->term_id == $current_v ? ' selected="selected"' : ''; ?>><?php echo esc_attr( $listing_type->name ); ?></option>
+                        <?php } ?>
+                </select>
+            <?php
+            }
+        }
 
         /**
          * @since 6.3.5

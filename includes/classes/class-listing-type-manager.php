@@ -1569,7 +1569,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                 return;
             }
 
-            if ( 'toggle' === $this->fields[$field_key]['type'] ) {
+            if ( ! empty( $this->fields[$field_key]['type'] ) && 'toggle' === $this->fields[$field_key]['type'] ) {
                 $value = ('true' === $value || true === $value || '1' === $value || 1 === $value) ? true : 0;
             }
 

@@ -53,6 +53,7 @@ class ATBDP_Enqueuer {
     }
 
     public function admin_enqueue_scripts( $page ) {
+        $select_listing_map = get_directorist_option( 'select_listing_map', 'openstreet' );
         // Admin Assets
         if ( is_admin() ) {
             wp_register_script( 'extension-update', ATBDP_ADMIN_ASSETS . 'js/extension-update.js', array( 'jquery' ), ATBDP_VERSION, true );
@@ -90,7 +91,10 @@ class ATBDP_Enqueuer {
 
             wp_register_style( 'leaflet-css', ATBDP_PUBLIC_ASSETS . 'css/openstreet-map/leaflet.css');
             wp_register_script( 'openstreet_layer', ATBDP_PUBLIC_ASSETS . 'js/openstreet-map/openstreetlayers.js', array('jquery'), ATBDP_VERSION, true);
-
+            if ('openstreet' == $select_listing_map) {
+                wp_enqueue_script( 'openstreet_layer' );
+                wp_enqueue_style('leaflet-css');
+            }
             // Register all styles for the admin pages
             /*Public Common Asset: */
             wp_register_style( 'atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false, ATBDP_VERSION );

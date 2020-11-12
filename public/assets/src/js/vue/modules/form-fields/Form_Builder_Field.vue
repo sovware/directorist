@@ -341,26 +341,13 @@ export default {
           }
 
           // Check show_if_key_exists
-          let check_show_if_key_exists = false;
-          let show_if_key_exists_field_path = null;
-          let show_if_key_exists_field = null;
-
-          if ( typeof widgets[widget_group].widgets[widget].show_if_key_exists !== 'undefined' ) {
-            check_show_if_key_exists = true;
-            show_if_key_exists_field_path = widgets[widget_group].widgets[widget].show_if_key_exists;
-          }
-
-          if ( check_show_if_key_exists && ! show_if_key_exists_field_path.length ) {
-            check_show_if_key_exists = false;
-          }
-
-          if ( check_show_if_key_exists ) {
-            show_if_key_exists_field = this.getTergetFields( { path: show_if_key_exists_field_path } );
-          }
-
-          if ( check_show_if_key_exists && ! this.isObject( show_if_key_exists_field ) ) {
-            delete widgets[ widget_group ].widgets[ widget ];
-            continue;
+          if ( typeof widgets[widget_group].widgets[widget].show_if !== 'undefined' ) {
+            let show_if_cond = this.checkShowIfCondition({ condition: widgets[widget_group].widgets[widget].show_if });
+         
+            if ( ! show_if_cond.status ) {
+              delete widgets[ widget_group ].widgets[ widget ];
+              continue;
+            }
           }
 
           // Check if allow multiple

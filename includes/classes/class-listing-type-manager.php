@@ -1776,6 +1776,12 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'text',
                                     'label' => 'Placeholder',
                                     'value' => '',
+                                    'show_if' => [
+                                        'where' => "self.type",
+                                        'conditions' => [
+                                            ['key' => 'value', 'compare' => '=', 'value' => 'textarea'],
+                                        ],
+                                    ],
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
@@ -2145,45 +2151,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
 
                             ],
-                        ],
-
-                        'address' => [
-                            'label' => 'Address',
-                            'icon' => 'uil uil-postcard',
-                            'options' => [
-                                'type' => [
-                                    'type'  => 'hidden',
-                                    'value' => 'text',
-                                ],
-                                'field_key' => [
-                                    'type'   => 'meta-key',
-                                    'hidden' => true,
-                                    'value'  => 'address',
-                                ],
-                                'label' => [
-                                    'type'  => 'text',
-                                    'label' => 'Label',
-                                    'value' => 'Address',
-                                ],
-                                'placeholder' => [
-                                    'type'  => 'text',
-                                    'label' => 'Placeholder',
-                                    'value' => '',
-                                ],
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => false,
-                                ],
-                                'only_for_admin' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Only For Admin Use',
-                                    'value' => false,
-                                ],
-
-
-                            ],
-                        ],
+                        ],   
 
                         'map' => [
                             'label' => 'Map',
@@ -3647,6 +3615,28 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'description' => 'Click on a field to use it',
                     'allow_multiple' => false,
                     'widgets' => [
+                        'address' => [
+                            'label' => 'Address',
+                            'icon' => 'uil uil-postcard',
+                            'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Address',
+                                ],
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => 'la la-address-card',
+                                ],
+                            ],
+                            'show_if' => [
+                                'where' => "submission_form_fields.value.fields",
+                                'conditions' => [
+                                    ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'map'],
+                                ],
+                            ],
+                        ],
                         'review' => [ 
                             'type' => 'section',
                             'label' => 'Review',
@@ -4992,11 +4982,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => 'Number of columns',
                     'value' => 3,
                 ],
-                'similar_listings_fix_repeated_thumbnail' => [
-                    'type'  => 'toggle',
-                    'label' => 'Fix Repeated Thumbnail',
-                    'value' => true,
-                ],
 
                 'search_form_fields' => [
                     'type'     => 'form-builder',
@@ -5579,7 +5564,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                         'similar_listings_logics',
                                         'similar_listings_number_of_listings_to_show',
                                         'similar_listings_number_of_columns',
-                                        'similar_listings_fix_repeated_thumbnail',
                                     ],
                                 ]
                             ]

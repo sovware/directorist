@@ -485,9 +485,18 @@ export default {
 
     hasGroupOptions( group_key ) {
       let group_options = JSON.parse( JSON.stringify( this.groups[ group_key ].options ) );
-      if ( ! this.isObject( group_options ) ) { return false; }
 
-      return true;
+      if ( ! group_options ) { return false; }
+
+      let has_visible_field = false;
+      for ( let field in group_options ) {
+        if ( group_options[ field ].type !== 'hidden' ) {
+          has_visible_field = true;
+          break;
+        }
+      }
+      
+      return has_visible_field;
     },
 
     getWidgetOptions( field_key ) {

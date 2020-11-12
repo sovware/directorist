@@ -3641,13 +3641,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'type' => 'section',
                             'label' => 'Review',
                             'icon' => 'la la-star',
-                            'options' => [
-                                'label' => [
-                                    'type'  => 'text',
-                                    'label' => 'Label',
-                                    'value' => 'Review',
-                                ],
-                            ]
                         ],
                         'author_info' => [
                             'type' => 'section',
@@ -3670,6 +3663,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'text',
                                     'label' => 'Label',
                                     'value' => 'Contact Listings Owner Form',
+                                ],
+                                'icon' => [
+                                    'type'  => 'icon',
+                                    'label' => 'Icon',
+                                    'value' => 'la la-phone',
                                 ],
                             ]
                         ],
@@ -4303,21 +4301,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => "New",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_new_badge",
-                    /* 'options' => [
-                        'title' => "New Badge Settings",
-                        'fields' => [
-                            'label' => [
-                                'type' => "text",
-                                'label' => "Label",
-                                'value' => "New",
-                            ],
-                            'new_badge_duration' => [
-                                'type' => "number",
-                                'label' => "New Badge Duration in Days",
-                                'value' => "3",
-                            ],
-                        ],
-                    ], */
                 ],
 
                 'popular_badge' => [
@@ -4325,37 +4308,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => "Popular",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_popular_badge",
-                    /* 'options' => [
-                        'title' => "Popular Badge Settings",
-                        'fields' => [
-                            'label' => [
-                                'type' => "text",
-                                'label' => "Label",
-                                'value' => "Popular",
-                            ],
-                            'listing_popular_by' => [
-                                'type' => "select",
-                                'label' => "Popular Based on",
-                                'value' => "view_count",
-                                'options' => [
-                                    ['value' => 'view_count', 'label' => 'View Count'],
-                                    ['value' => 'average_rating', 'label' => 'Average Rating'],
-                                ],
-                            ],
-
-                            'views_for_popular' => [
-                                'type' => "number",
-                                'label' => "Threshold in Views Count",
-                                'value' => "5",
-                            ],
-                            'count_loggedin_user' => [
-                                'type' => "toggle",
-                                'label' => "Count Logged-in User View",
-                                'value' => "",
-                            ],
-
-                        ],
-                    ], */
                 ],
 
                 'favorite_badge' => [
@@ -4363,16 +4315,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => "Favorite",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_favorite_badge",
-                    /* 'options' => [
-                        'title' => "Favorite Settings",
-                        'fields' => [
-                            'icon' => [
-                                'type' => "icon",
-                                'label' => "Icon",
-                                'value' => "fa fa-heart",
-                            ],
-                        ],
-                    ], */
                 ],
 
                 'view_count' => [
@@ -5090,16 +5032,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'type' => "button",
                             'label' => "Bookmark",
                             'icon' => 'la la-bookmark',
-                            'options' => [
-                                'title' => "Bookmark Settings",
-                                'fields' => [
-                                    'icon' => [
-                                        'type' => "icon",
-                                        'label' => "Icon",
-                                        'value' => 'la la-bookmark',
-                                    ],
-                                ],
-                            ],
                         ],
                         'share' => [
                             'type' => "badge",

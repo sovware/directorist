@@ -142,8 +142,6 @@
           </template>
         </ul>
       </div>
-
-      <pre>{{ updated_value }}</pre>
     </div>
   </div>
 </template>
@@ -452,16 +450,23 @@ export default {
         let groups = this.default_groups;
         if ( ! groups.length ) { return groups; }
 
+
         groups = JSON.parse( JSON.stringify( groups ) );
 
         let group_fields = {};
         let fixed_options = [ 'lock', 'fields', 'type' ];
+
+         /* if ( 'single_listings_contents' === this.fieldId ) {
+              console.log( {groups} );
+            } */
 
         let group_index = 0;
         for ( let group of groups ) {
           if ( typeof group.type === 'undefined' || group.type === 'general' ) {
 
             let group_options = JSON.parse( JSON.stringify( this.groupOptions ) );
+
+           
 
             for ( let option_key in group ) {
               if ( fixed_options.includes( option_key ) ) { continue; }
@@ -476,6 +481,9 @@ export default {
 
           group_index++;
         }
+
+        
+
 
         return groups;
     },

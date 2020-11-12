@@ -15,17 +15,7 @@
     templateResult: selecWithIcon,
   });
 
-  /* Show and hide manual coordinate input field */
-  if (!$('input#manual_coordinate').is(':checked')) {
-    $('#hide_if_no_manual_cor').hide();
-  }
-  $('#manual_coordinate').on('click', function (e) {
-    if ($('input#manual_coordinate').is(':checked')) {
-      $('#hide_if_no_manual_cor').show();
-    } else {
-      $('#hide_if_no_manual_cor').hide();
-    }
-  });
+
 
   $("[data-toggle='tooltip']").tooltip();
 
@@ -4010,6 +4000,18 @@ function assetsNeedToWorkInVirtualDom() {
   } else if ($('.change_listing_prv_img').attr('src') !== '') {
     $('.remove_prev_img').show();
   }
+
+    /* Show and hide manual coordinate input field */
+    if (!$('input#manual_coordinate').is(':checked')) {
+      $('#hide_if_no_manual_cor').hide();
+    }
+    $('#manual_coordinate').on('click', function (e) {
+      if ($('input#manual_coordinate').is(':checked')) {
+        $('#hide_if_no_manual_cor').show();
+      } else {
+        $('#hide_if_no_manual_cor').hide();
+      }
+    });
 
 }
 

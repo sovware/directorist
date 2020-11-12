@@ -437,6 +437,12 @@ class Directorist_Listing_Search_Form {
 		}
 	}
 
+	public function get_pricing_type() {
+		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
+		$ptype = !empty( $submission_form_fields['fields']['pricing']['pricing_type'] ) ? $submission_form_fields['fields']['pricing']['pricing_type'] : 'both';
+		return $ptype;
+	}
+
 	public function field_template( $field_data) {
 		$key = $field_data['field_key'];
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
@@ -670,8 +676,7 @@ class Directorist_Listing_Search_Form {
 		return $rating_options;
 	}
 
-	public function listing_tag_terms() {
-		$listing_tags_field = get_directorist_option( 'listing_tags_field', 'all_tags' );
+	public function listing_tag_terms($tag_source='all_tags') {
 		$category_slug      = get_query_var( 'atbdp_category' );
 		$category           = get_term_by( 'slug', $category_slug, ATBDP_CATEGORY );
 		$category_id        = ! empty( $category->term_id ) ? $category->term_id : '';
@@ -694,7 +699,7 @@ class Directorist_Listing_Search_Form {
 		$tag_id = ! empty( $tag_id ) ? $tag_id : '';
 		$terms  = wp_get_object_terms( $tag_id, ATBDP_TAGS );
 
-		if ( 'all_tags' == $listing_tags_field || empty( $category_select ) ) {
+		if ( 'all_tags' == $tag_source || empty( $category_select ) ) {
 			$terms = get_terms( ATBDP_TAGS );
 		}
 

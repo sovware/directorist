@@ -2,7 +2,7 @@
     <div class="cptm-form-group" :class="formGroupClass">
         <label v-if="label.length">{{label}}</label>
         <select @change="update_value( $event.target.value )" :value="local_value" class="cptm-form-control">
-            <option v-if="default_option" :value="default_option.value">{{ default_option.label }}</option>
+            <option v-if="showDefaultOption && default_option" :value="default_option.value">{{ default_option.label }}</option>
             <template v-for="( option, option_key ) in theOptions">
                 <template v-if="option.group && option.options">
                     <optgroup :label="option.group" :key="option_key">
@@ -52,6 +52,10 @@ export default {
         options: {
             type: Array,
             required: false,
+        },
+        showDefaultOption: {
+            type: Boolean,
+            default: false,
         },
         defaultOption: {
             type: Object,

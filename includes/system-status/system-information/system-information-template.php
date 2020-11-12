@@ -49,9 +49,6 @@ $atbdp_option       = get_option('atbdp_option');
                         <li class="nav-item">
                             <a href="#atbds_theme" class="nav-link" id="atbds_theme-tab" data-tabArea="atbds_system-info-tab"><?php _e('Theme', 'directorist'); ?></a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#atbds_template" class="nav-link" id="atbds_template-tab" data-tabArea="atbds_system-info-tab"><?php _e('Templates', 'directorist'); ?></a>
-                        </li>
                     </ul>
                 </div><!-- ends: .atbds_c-t-menu -->
                 <div class="atbds_c-t__details">
@@ -155,6 +152,16 @@ $atbdp_option       = get_option('atbdp_option');
                                                     <mark class="no">&ndash;</mark>
                                                 <?php endif; ?>
                                             </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="atbds_table-title"><?php _e('New User Default Role', 'directorist'); ?>:</td>
+                                            <td class="atbds_table-pointer">
+                                                <span class="atbd_tooltip" aria-label="<?php _e('The default role of new user.', 'directorist'); ?>">
+                                                    <i class="fa fa-question-circle"></i>
+                                                    <span class="atbd_tooltip__text"></span>
+                                                </span>
+                                            </td>
+                                            <td><?php echo esc_html( $environment['default_role'] ) ?></td>
                                         </tr>
                                         <tr>
                                             <td class="atbds_table-title"><?php _e('Language', 'directorist'); ?>:</td>
@@ -733,75 +740,6 @@ $atbdp_option       = get_option('atbdp_option');
                                                 <td><?php echo esc_html($theme['parent_author_url']) ?></td>
                                             </tr>
                                         <?php endif ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div><!-- ends: .tab-pane -->
-                        <div class="tab-pane" id="atbds_template">
-                            <div class="atbds_system-table-wrap">
-                                <table class="atbds_system-table table-responsive">
-                                    <tbody>
-                                        <?php
-                                        if (!empty($theme['overrides'])) { ?>
-                                            <tr>
-                                                <td class="atbds_table-title"><?php _e('Overrides', 'directorist'); ?>:</td>
-                                                <td class="atbds_table-pointer">
-                                                    <span class="atbd_tooltip">
-                                                        <span class="atbd_tooltip__text"></span>
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    $total_overrides = count($theme['overrides']);
-                                                    for ($i = 0; $i < $total_overrides; $i++) {
-                                                        $override = $theme['overrides'][$i];
-                                                        if ($override['core_version'] && (empty($override['version']) || version_compare($override['version'], $override['core_version'], '<'))) {
-                                                            $current_version = $override['version'] ? $override['version'] : '-';
-                                                            printf(
-                                                                __('%1$s version %2$s is out of date. The core version is %3$s', 'directorist'),
-                                                                '<code>' . $override['file'] . '</code>',
-                                                                '<strong style="color:red">' . $current_version . '</strong>',
-                                                                $override['core_version']
-                                                            );
-                                                        } else {
-                                                            echo esc_html($override['file']);
-                                                        }
-                                                        if ((count($theme['overrides']) - 1) !== $i) {
-                                                            echo ', ';
-                                                        }
-                                                        echo '<br />';
-                                                    }
-                                                    ?>
-                                                </td>
-                                            </tr>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <tr>
-                                                <td class="atbds_table-title"><?php _e('Overrides', 'directorist'); ?>:</td>
-                                                <td class="atbds_table-pointer">
-                                                    <span class="atbd_tooltip">
-                                                        <span class="atbd_tooltip__text"></span>
-                                                    </span>
-                                                </td>
-                                                <td>&ndash;</td>
-                                            </tr>
-                                        <?php
-                                        }
-                                        if (true === $theme['has_outdated_templates']) {
-                                        ?>
-                                            <tr>
-                                                <td class="atbds_table-title"><?php _e('Outdated templates', 'directorist'); ?>:</td>
-                                                <td class="atbds_table-pointer">
-                                                    <span class="atbd_tooltip">
-                                                        <span class="atbd_tooltip__text"></span>
-                                                    </span>
-                                                </td>
-                                                <td><mark class="error"><span class="dashicons dashicons-warning"></span></mark></td>
-                                            </tr>
-                                        <?php
-                                        }
-                                        ?>
                                     </tbody>
                                 </table>
                             </div>

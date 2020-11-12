@@ -324,6 +324,16 @@ if ('openstreet' == $select_listing_map) {
             autocomplete.addListener('place_changed', fillInAddress);
         }
 
+        /**
+         * It deletes all the map markers
+         * */
+        function deleteMarker() {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            markers = [];
+        }
+
         function fillInAddress() {
             // Get the place details from the autocomplete object.
             var place = autocomplete.getPlace();
@@ -341,6 +351,7 @@ if ('openstreet' == $select_listing_map) {
             // });
 
             // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
+            deleteMarker();
             markers.push(marker);
         }
 
@@ -456,15 +467,7 @@ if ('openstreet' == $select_listing_map) {
             deleteMarker();// delete all markers
 
         });
-        /**
-         * It deletes all the map markers
-         * */
-        function deleteMarker() {
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(null);
-            }
-            markers = [];
-        }
+
         <?php }elseif('openstreet' == $select_listing_map) { ?>
         function mapLeaflet (lat, lon)	 {
             const fontAwesomeIcon = L.icon({

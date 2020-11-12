@@ -1843,10 +1843,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'select',
                                     'label'  => 'Select Pricing Type',
                                     'value' => 'both',
+                                    // 'show-default-option' => true,
                                     'options' => [
+                                        ['value' => 'both', 'label' => 'Both'],
                                         ['value' => 'price_unit', 'label' => 'Price Unit'],
                                         ['value' => 'price_range', 'label' => 'Price Range'],
-                                        ['value' => 'both', 'label' => 'Both'],
                                     ],
                                 ],
                                 'price_range_label' => [
@@ -2580,7 +2581,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'hide_contact_owner' => [
                             'label' => 'Hiding Contact Owner Form',
-                            'icon' => 'uil uil-video',
+                            'icon' => 'uil uil-postcard',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -3647,20 +3648,52 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'allow_multiple' => false,
                     'widgets' => [
                         'review' => [ 
+                            'type' => 'section',
                             'label' => 'Review',
                             'icon' => 'la la-star',
+                            'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Review',
+                                ],
+                            ]
                         ],
-                        'author_info' => [ 
+                        'author_info' => [
+                            'type' => 'section',
                             'label' => 'Author Info',
                             'icon' => 'la la-user',
+                            'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Author Info',
+                                ],
+                            ]
                         ],
-                        'contact_listings_owner' => [ 
+                        'contact_listings_owner' => [
+                            'type' => 'section',
                             'label' => 'Contact Listings Owner Form',
                             'icon' => 'la la-phone',
+                            'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Contact Listings Owner Form',
+                                ],
+                            ]
                         ],
-                        'related_listings' => [ 
+                        'related_listings' => [
+                            'type' => 'section',
                             'label' => 'Related Listings',
                             'icon' => 'la la-copy',
+                            'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Related Listings',
+                                ],
+                            ]
                         ],
                     ],
                 ],
@@ -3678,12 +3711,12 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'options' => [
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label' => 'Required',
                                     'value' => false,
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label'  => 'Placeholder',
+                                    'label' => 'Placeholder',
                                     'value' => 'What are you looking for?',
                                 ],
                             ],
@@ -4248,7 +4281,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     ],
                 ],
 
-                'price' => [
+                'pricing' => [
                     'type' => "price",
                     'label' => "Listings Price",
                     'icon' => 'uil uil-text-fields',
@@ -4256,7 +4289,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'show_if' => [
                         'where' => "submission_form_fields.value.fields",
                         'conditions' => [
-                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'price'],
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'pricing'],
                         ],
                     ],
                 ],
@@ -4273,16 +4306,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => "Featured",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_featured_badge",
-                    'options' => [
-                        'title' => "Featured Badge Settings",
-                        'fields' => [
-                            'label' => [
-                                'type' => "text",
-                                'label' => "Label",
-                                'value' => "Fetured",
-                            ],
-                        ],
-                    ],
                 ],
 
                 'new_badge' => [
@@ -4290,7 +4313,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => "New",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_new_badge",
-                    'options' => [
+                    /* 'options' => [
                         'title' => "New Badge Settings",
                         'fields' => [
                             'label' => [
@@ -4304,7 +4327,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'value' => "3",
                             ],
                         ],
-                    ],
+                    ], */
                 ],
 
                 'popular_badge' => [
@@ -4312,7 +4335,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => "Popular",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_popular_badge",
-                    'options' => [
+                    /* 'options' => [
                         'title' => "Popular Badge Settings",
                         'fields' => [
                             'label' => [
@@ -4342,7 +4365,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             ],
 
                         ],
-                    ],
+                    ], */
                 ],
 
                 'favorite_badge' => [
@@ -4350,7 +4373,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => "Favorite",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_favorite_badge",
-                    'options' => [
+                    /* 'options' => [
                         'title' => "Favorite Settings",
                         'fields' => [
                             'icon' => [
@@ -4359,7 +4382,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'value' => "fa fa-heart",
                             ],
                         ],
-                    ],
+                    ], */
                 ],
 
                 'view_count' => [
@@ -4808,7 +4831,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                         'label' => [
                             'type'  => 'text',
                             'label' => 'Group Name',
-                            'value' => '',
+                            'value' => 'Section',
                         ],
                     ],
 
@@ -4826,7 +4849,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                         ],
                         'groups' => [
                             [
-                                'label' => 'General Group',
+                                'label' => 'General Section',
                                 'lock' => true,
                                 'fields' => ['title'],
                                 'plans' => []
@@ -4918,7 +4941,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                         'label' => [
                             'type'  => 'text',
                             'label' => 'Label',
-                            'value' => '',
+                            'value' => 'Section',
                         ],
                         'custom_block_id' => [
                             'type'  => 'text',
@@ -4930,12 +4953,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'label'  => 'Custom block Classes',
                             'value' => '',
                         ],
-                        'hide_contact_owner' => [
-                            'type'  => 'toggle',
-                            'label'  => 'Hide Contact Owner',
-                            'value' => false,
-                        ],
-
                     ],
                     'value' => [],
                 ],
@@ -5277,7 +5294,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'top' => [
                                 'maxWidget' => 0,
                                 'acceptedWidgets' => [
-                                    "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "price",
+                                    "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing",
                                 ],
                             ],
                             'bottom' => [
@@ -5327,7 +5344,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'label' => 'Body Top',
                                 'maxWidget' => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "price",],
+                                'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
                             ],
                             'right' => [
                                 'label' => 'Body Right',
@@ -5337,7 +5354,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             ],
                             'bottom' => [
                                 'label' => 'Body Bottom',
-                                'maxWidget' => 4,
+                                'maxWidget' => 0,
                                 'acceptedWidgets' => [
                                     "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
                                     'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'

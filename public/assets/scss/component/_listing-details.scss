@@ -984,6 +984,12 @@
 }
 
 // Contact Listing Owner Form
+.atbd_ads-form{
+  .atbd_seach_fields_wrapper{
+    border: 0 none !important;
+    border-bottom: 1px solid $border-color !important;
+  }
+}
 .contact-listing-owner-form{
   textarea{
     padding: 10px 15px !important;

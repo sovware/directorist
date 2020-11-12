@@ -926,10 +926,9 @@ class Directorist_Single_Listing {
 		atbdp_get_shortcode_template('single-listing/listing-review', $args);
 	}
 
-	public function related_listings_query()
+	public function related_listings_query( $number, $relationship )
 	{
 		$id = get_the_ID();
-		$rel_listing_num = get_directorist_option('rel_listing_num', 2);
 		$atbd_cats = get_the_terms($id, ATBDP_CATEGORY);
 		$atbd_tags = get_the_terms($id, ATBDP_TAGS);
 		$atbd_cats_ids = array();
@@ -945,7 +944,6 @@ class Directorist_Single_Listing {
 				$atbd_tags_ids[] = $atbd_tag->term_id;
 			}
 		}
-		$relationship = get_directorist_option('rel_listings_logic', 'OR');
 		$args = array(
 			'post_type' => ATBDP_POST_TYPE,
 			'tax_query' => array(
@@ -961,7 +959,7 @@ class Directorist_Single_Listing {
 					'terms' => $atbd_tags_ids,
 				),
 			),
-			'posts_per_page' => (int)$rel_listing_num,
+			'posts_per_page' => (int)$number,
 			'post__not_in' => array($id),
 		);
 
@@ -984,14 +982,19 @@ class Directorist_Single_Listing {
 	}
 
 	public function related_listings_template() {
+		$enabled = get_directorist_type_option( $this->type, 'enable_similar_listings', 1 );
+		$title   = get_directorist_type_option( $this->type, 'similar_listings_title' );
+		$logic   = get_directorist_type_option( $this->type, 'similar_listings_logics', 'OR' );
+		$number  = get_directorist_type_option( $this->type, 'similar_listings_number_of_listings_to_show', 2 );
+		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
 
-		$enabled = get_directorist_option('enable_rel_listing', 1);
+		$relationship = ( $logic == 'AND' ) ? 'AND' : 'OR';
+
 		if (empty($enabled)) {
 			return;
 		}
 
 		$is_rtl = is_rtl() ? 'true' : '';
-		$columns = get_directorist_option('rel_listing_column', 3);
 
 		$localized_data = array(
 			'is_rtl' => $is_rtl,
@@ -1001,13 +1004,13 @@ class Directorist_Single_Listing {
 		wp_enqueue_script('atbdp-related-listings-slider');
 		wp_localize_script('atbdp-related-listings-slider', 'data', $localized_data);
 
-		$query = $this->related_listings_query();
+		$query = $this->related_listings_query( $number, $relationship );
 
-		$listings = new Directorist_Listings(array(), 'related', $query, ['cache' => false]);
+		$related_listings = new Directorist_Listings(array(), 'related', $query, ['cache' => false]);
 		$args = array(
-			'listings' => $listings,
-			'class'    => is_directoria_active() ? 'containere' : 'containess-fluid',
-			'title'    => get_directorist_option('rel_listing_title', __('Related Listings', 'directorist')),
+			'listing'          => $this,
+			'related_listings' => $related_listings,
+			'title'            => $title,
 		);
 
 		atbdp_get_shortcode_template('single-listing/related-listings', $args);

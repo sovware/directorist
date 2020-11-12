@@ -5,6 +5,8 @@
  * @version 6.7
  */
 
+$tag_source = ( $data['tags_filter_source'] == 'category_based_tags' ) ? 'cat_based' : 'all_tags';
+
 if ( !empty($data['label']) ): ?>
 	<label><?php echo esc_html( $data['label'] ); ?></label>
 <?php endif; ?>
@@ -12,7 +14,7 @@ if ( !empty($data['label']) ): ?>
 <div class="bads-tags">
 	<?php
 	$rand = rand();
-	foreach ($searchform->tag_terms as $term) {
+	foreach ($searchform->listing_tag_terms($tag_source) as $term) {
 		$id = $rand . $term->term_id;
 		?>
 		<div class="custom-control custom-checkbox checkbox-outline checkbox-outline-primary">

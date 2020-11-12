@@ -2585,6 +2585,25 @@ input#privacy_policy,
   overflow-y: auto;
 }
 
+/* Search Home */
+.atbdp-basic-search-fields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.atbdp-basic-search-fields .atbdp-basic-search-fields-each {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 33.33%;
+          flex: 0 0 33.33%;
+  width: 33.33%;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3823,6 +3842,11 @@ input#privacy_policy,
 
 .directorist-single-wrapper .atbdb_content_module_contents ul li a span {
   margin-right: 5px;
+}
+
+.atbd_ads-form .atbd_seach_fields_wrapper {
+  border: 0 none !important;
+  border-bottom: 1px solid #e3e6ef !important;
 }
 
 .contact-listing-owner-form textarea {

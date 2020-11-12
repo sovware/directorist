@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="form-group" class="directorist-phone-field">
+<div class="form-group directorist-phone-field">
 	<?php $form->add_listing_label_template( $data );?>
 
 	<input type="tel" name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" value="<?php echo esc_attr( $data['value'] ); ?>" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> >

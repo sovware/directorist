@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="form-group" class="directorist-email-field">
+<div class="form-group directorist-email-field">
 	<?php $form->add_listing_label_template( $data );?>
 
 	<input type="email" name="<?php echo esc_attr( $data['field_key'] ); ?>" id="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" value="<?php echo esc_attr( $data['value'] ); ?>" placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?> >

@@ -445,13 +445,18 @@ span.atbd_get_loc_wid {
     border-radius: 50%;
     &.atbdp_fav_isActive{
       background: rgba(0,0,0,0.5);
-      .directorist-icon{
-        color: red;
+      .atbd_fav_icon{
+        &:before{
+          content: '\f233';
+        }
       }
     }
-    .directorist-icon{
-      color: #fff;
-      font-size: 13px !important;
+    .atbd_fav_icon{
+      &:before{
+        content: "\f234";
+        font-family: 'LineAwesome';
+        color:#fff;
+      }
     }
     .atbd_fav_tooltip {
       span{

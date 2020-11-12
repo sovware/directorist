@@ -4368,13 +4368,14 @@ span.atbd_get_loc_wid {
   background: rgba(0, 0, 0, 0.5);
 }
 
-#directorist.atbd_wrapper .atbdp_mark_as_fav.atbdp_fav_isActive .directorist-icon {
-  color: red;
+#directorist.atbd_wrapper .atbdp_mark_as_fav.atbdp_fav_isActive .atbd_fav_icon:before {
+  content: '\f233';
 }
 
-#directorist.atbd_wrapper .atbdp_mark_as_fav .directorist-icon {
+#directorist.atbd_wrapper .atbdp_mark_as_fav .atbd_fav_icon:before {
+  content: "\f234";
+  font-family: 'LineAwesome';
   color: #fff;
-  font-size: 13px !important;
 }
 
 #directorist.atbd_wrapper .atbdp_mark_as_fav .atbd_fav_tooltip span {

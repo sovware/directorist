@@ -2580,7 +2580,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'hide_contact_owner' => [
                             'label' => 'Hiding Contact Owner Form',
-                            'icon' => 'uil uil-video',
+                            'icon' => 'uil uil-postcard',
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
@@ -3647,20 +3647,52 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'allow_multiple' => false,
                     'widgets' => [
                         'review' => [ 
+                            'type' => 'section',
                             'label' => 'Review',
                             'icon' => 'la la-star',
+                            'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Review',
+                                ],
+                            ]
                         ],
-                        'author_info' => [ 
+                        'author_info' => [
+                            'type' => 'section',
                             'label' => 'Author Info',
                             'icon' => 'la la-user',
+                            'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Author Info',
+                                ],
+                            ]
                         ],
-                        'contact_listings_owner' => [ 
+                        'contact_listings_owner' => [
+                            'type' => 'section',
                             'label' => 'Contact Listings Owner Form',
                             'icon' => 'la la-phone',
+                            'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Contact Listings Owner Form',
+                                ],
+                            ]
                         ],
-                        'related_listings' => [ 
+                        'related_listings' => [
+                            'type' => 'section',
                             'label' => 'Related Listings',
                             'icon' => 'la la-copy',
+                            'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Related Listings',
+                                ],
+                            ]
                         ],
                     ],
                 ],
@@ -3678,12 +3710,12 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'options' => [
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label' => 'Required',
                                     'value' => false,
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
-                                    'label'  => 'Placeholder',
+                                    'label' => 'Placeholder',
                                     'value' => 'What are you looking for?',
                                 ],
                             ],
@@ -4248,7 +4280,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     ],
                 ],
 
-                'price' => [
+                'pricing' => [
                     'type' => "price",
                     'label' => "Listings Price",
                     'icon' => 'uil uil-text-fields',
@@ -4256,7 +4288,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'show_if' => [
                         'where' => "submission_form_fields.value.fields",
                         'conditions' => [
-                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'price'],
+                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'pricing'],
                         ],
                     ],
                 ],
@@ -4808,7 +4840,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                         'label' => [
                             'type'  => 'text',
                             'label' => 'Group Name',
-                            'value' => '',
+                            'value' => 'Section',
                         ],
                     ],
 
@@ -4826,7 +4858,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                         ],
                         'groups' => [
                             [
-                                'label' => 'General Group',
+                                'label' => 'General Section',
                                 'lock' => true,
                                 'fields' => ['title'],
                                 'plans' => []
@@ -4918,7 +4950,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                         'label' => [
                             'type'  => 'text',
                             'label' => 'Label',
-                            'value' => '',
+                            'value' => 'Section',
                         ],
                         'custom_block_id' => [
                             'type'  => 'text',
@@ -4930,12 +4962,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'label'  => 'Custom block Classes',
                             'value' => '',
                         ],
-                        'hide_contact_owner' => [
-                            'type'  => 'toggle',
-                            'label'  => 'Hide Contact Owner',
-                            'value' => false,
-                        ],
-
                     ],
                     'value' => [],
                 ],
@@ -5277,7 +5303,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'top' => [
                                 'maxWidget' => 0,
                                 'acceptedWidgets' => [
-                                    "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "price",
+                                    "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing",
                                 ],
                             ],
                             'bottom' => [
@@ -5327,7 +5353,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'label' => 'Body Top',
                                 'maxWidget' => 0,
                                 'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "price",],
+                                'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
                             ],
                             'right' => [
                                 'label' => 'Body Right',

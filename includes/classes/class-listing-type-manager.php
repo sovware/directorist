@@ -1459,9 +1459,9 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
         // save_post_type_data
         public function save_post_type_data()
         {
-           /*  wp_send_json([
+            /* wp_send_json([
                 'status' => false,
-                'listings_card_grid_view' => $this->maybe_json( $_POST['listings_card_grid_view'] ),
+                'single_listings_contents' => $this->maybe_json( $_POST['single_listings_contents'] ),
                 'status_log' => [
                     'name_is_missing' => [
                         'type' => 'error',
@@ -2165,6 +2165,10 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'   => 'meta-key',
                                     'hidden' => true,
                                     'value'  => 'map',
+                                ],
+                                'label' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'Map',
                                 ],
                                 'address_label' => [
                                     'type'  => 'text',
@@ -3423,7 +3427,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'map'              => [
+                        'map' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3432,7 +3436,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'zip'              => [
+                        'zip' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3441,7 +3445,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'phone'            => [
+                        'phone' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3450,7 +3454,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'phone2'           => [
+                        'phone2' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3459,7 +3463,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'fax'              => [
+                        'fax' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3468,7 +3472,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'email'            => [
+                        'email' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3477,7 +3481,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'website'          => [
+                        'website' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3491,7 +3495,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'social_info'      => [
+                        'social_info' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3500,7 +3504,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'video'            => [
+                        'video' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3509,7 +3513,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'text'             => [
+                        'text' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3518,7 +3522,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'textarea'         => [
+                        'textarea' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3527,7 +3531,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'number'           => [
+                        'number' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3536,7 +3540,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'url'              => [
+                        'url' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3545,7 +3549,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'date'             => [
+                        'date' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3554,7 +3558,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'time'             => [
+                        'time' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3563,7 +3567,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'color_picker'     => [
+                        'color_picker' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3572,7 +3576,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'select'           => [
+                        'select' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3581,7 +3585,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'checkbox'         => [
+                        'checkbox' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3590,7 +3594,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'radio'            => [
+                        'radio' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -3599,7 +3603,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                        'file'             => [
+                        'file' => [
                             'options' => [
                                 'icon' => [
                                     'type'  => 'icon',
@@ -5684,9 +5688,12 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                 }
             }
 
-            // $test = get_term_meta( $listing_type_id, 'submission_form_fields' );
+            // $test = get_term_meta( $listing_type_id, 'single_listings_contents' )[0];
             // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
-            // var_dump( $this->fields[ 'submission_form_fields' ] );
+            // e_var_dump( $test );
+            // var_dump( $test['fields']['video'] );
+            // e_var_dump( $test );
+            // e_var_dump( $this->fields[ 'single_listings_contents' ] );
             // var_dump( json_decode( $test ) );
         }
 

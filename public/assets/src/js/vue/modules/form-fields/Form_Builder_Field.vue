@@ -6,7 +6,7 @@
         <p class="cptm-description-text">
           Click on a field to edit, Drag & Drop to reorder
         </p>
-        
+
         <div class="cptm-form-builder-active-fields-container">
           <div class="cptm-form-builder-active-fields-group" v-for="(group, group_key) in groups" :key="group_key">
             <div class="cptm-form-builder-group-header-section" v-if="has_group">
@@ -142,6 +142,8 @@
           </template>
         </ul>
       </div>
+
+      <pre>{{ updated_value }}</pre>
     </div>
   </div>
 </template>
@@ -247,8 +249,21 @@ export default {
       if ( ! this.has_group ) {
         return { fields: this.active_fields, fields_order: this.groups[0].fields };
       }
+      
+      let groups = this.groups;
+      if ( groups.length ) {
+        groups = JSON.parse( JSON.stringify( this.groups ) );
 
-      return { fields: this.active_fields, groups: this.groups };
+        let group_index = 0;
+        for ( let group of groups ) {
+          if ( typeof group.options === 'undefined' ) { continue; }
+
+          delete groups[ group_index ].options;
+          group_index++;
+        } 
+      }
+    
+      return { fields: this.active_fields, groups: groups };
     },
 
     theWidgets() {
@@ -285,9 +300,11 @@ export default {
             if ( typeof template_root_options.lock !== 'undefined' ) { delete template_root_options.lock; }
 
             let widget_label = ( widgets[ widget_group ].widgets[ _widget_name ].label ) ? widgets[ widget_group ].widgets[ _widget_name ].label : '';
-            let template_widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : '';
+            let template_widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : widget_label;
             widget_label = ( widget_label ) ? widget_label : template_widget_label;
             template_root_options.label = widget_label;
+
+            
     
             Object.assign( widgets[ widget_group ].widgets[ _widget_name ], template_root_options );
           
@@ -356,6 +373,7 @@ export default {
             delete widgets[ widget_group ].widgets[ widget ];
             continue;
           }
+          
 
           if ( ! allow_multiple && this.active_widget_groups.includes( widget ) ) {
             delete widgets[ widget_group ].widgets[ widget ];
@@ -410,17 +428,18 @@ export default {
         Vue.set( this.default_groups[0], 'fields', this.value.fields_order );
       }
 
+
       if ( Array.isArray( this.value.groups ) && this.has_group ) {
         this.default_groups = this.value.groups;
       }
-
+      
       // 
       if ( this.default_groups.length ) {
         for ( let group of this.default_groups ) {
           if ( 'widget_group' !==  group.type ) { continue; }
-          if ( typeof group.widget_key === 'undefined' ) { continue; }
+          if ( typeof group.widget_name === 'undefined' ) { continue; }
 
-          this.active_widget_groups.push( group.widget_key );
+          this.active_widget_groups.push( group.widget_name );
         }
       }
 
@@ -430,7 +449,10 @@ export default {
     },
 
     parseGroups() {
-        let groups = JSON.parse( JSON.stringify( this.default_groups ) );
+        let groups = this.default_groups;
+        if ( ! groups.length ) { return groups; }
+
+        groups = JSON.parse( JSON.stringify( groups ) );
 
         let group_fields = {};
         let fixed_options = [ 'lock', 'fields', 'type' ];
@@ -459,32 +481,31 @@ export default {
     },
 
     getGroupOptions( group_key ) {
-        // let group_options = JSON.parse( JSON.stringify( this.groupOptions ) );
-        let group_options = JSON.parse( JSON.stringify( this.groups[ group_key ].options ) );
-        if ( ! this.isObject( group_options ) ) { return false; }
+      if ( ! this.isObject( this.groups[ group_key ].options ) ) { return false; }
+      let group_options = JSON.parse( JSON.stringify( this.groups[ group_key ].options ) );
 
-        // console.log( { group_options } );
-        for ( let field in group_options ) {
-            if ( typeof group_options[ field ].show_if === 'undefined' ) {
-                continue;
-            }
+      for ( let field in group_options ) {
+          if ( typeof group_options[ field ].show_if === 'undefined' ) {
+              continue;
+          }
 
-            let show_if_cond = this.checkShowIfCondition({
-                id: field,
-                root: group_options,
-                condition: group_options[ field ].show_if
-            });
+          let show_if_cond = this.checkShowIfCondition({
+              id: field,
+              root: group_options,
+              condition: group_options[ field ].show_if
+          });
 
-            if ( ! show_if_cond.status ) {
-                delete group_options[ field ];
-            }
-        }
+          if ( ! show_if_cond.status ) {
+              delete group_options[ field ];
+          }
+      }
 
-        return group_options;
+      return group_options;
     },
 
     hasGroupOptions( group_key ) {
-      let group_options = JSON.parse( JSON.stringify( this.groups[ group_key ].options ) );
+      // let group_options = JSON.parse( JSON.stringify( this.groups[ group_key ].options ) );
+      let group_options = { ...this.groups[ group_key ].options };
 
       if ( ! group_options ) { return false; }
 
@@ -556,7 +577,7 @@ export default {
     
     getActiveFieldsHeaderTitle(field_key) {
       let settings_label = this.getActiveFieldsSettings(field_key, "label");
-      settings_label = ( settings_label ) ? settings_label : 'Not Available';
+      settings_label = ( settings_label ) ? settings_label : '';
       const option_label = this.active_fields[field_key]["label"];
       
       return option_label && option_label.length ? option_label : settings_label;
@@ -659,7 +680,7 @@ export default {
     
     trashActiveGroupItem(group_key) {
       if ( this.groups[group_key].type === 'widget_group' ) {
-        let index = this.active_widget_groups.indexOf( this.groups[group_key].widget_key );
+        let index = this.active_widget_groups.indexOf( this.groups[group_key].widget_name );
         Vue.delete( this.active_widget_groups, index );
       }
 
@@ -747,7 +768,7 @@ export default {
             let group = {
                 label: this.current_dragging_widget_group.field.label, fields: [],
                 type: 'widget_group',
-                widget_key: this.current_dragging_widget_group.inserting_field_key,
+                widget_name: this.current_dragging_widget_group.inserting_field_key,
                 options: this.current_dragging_widget_group.field.options
             };
 
@@ -755,7 +776,7 @@ export default {
             this.groups.splice(des_ind, 0, JSON.parse( JSON.stringify( group ) ));
 
             // Trace Widget Group
-            this.active_widget_groups.push( group.widget_key );
+            this.active_widget_groups.push( group.widget_name );
 
             this.current_dragging_widget_group = '';
             this.current_dragging_group        = '';

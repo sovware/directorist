@@ -18,11 +18,13 @@ class ATBDP_Send_Mail
         $email = isset( $_POST['email'] ) ? $_POST['email'] : '';
         $sender_email = isset( $_POST['sender_email'] ) ? $_POST['sender_email'] : '';
 		$subject = isset( $_POST['subject'] ) ? sanitize_text_field( $_POST['subject'] ) : '';
-		$system_info = isset( $_POST['system_info'] ) ?  $_POST['system_info']  : '';
+		$system_info_url = isset( $_POST['system_info_url'] ) ?  $_POST['system_info_url']  : '';
 		$to = ! empty( $email ) ? sanitize_email( $email ) : '';
 		$message = isset( $_POST['message'] ) ? sanitize_textarea_field( $_POST['message'] ) : '';
-		if( ! empty( $system_info ) ) {
-			$message .=   $this->system_info();
+		if( ! empty( $system_info_url ) ) {
+            $message .= '<div><a href="'.$system_info_url.'">';
+            $message .=   $system_info_url;
+            $message .= '</a></div>';
 		}
 		$message  = atbdp_email_html( $subject, $message );
 		$headers = "From: {$user->display_name} <{$sender_email}>\r\n";
@@ -49,6 +51,8 @@ class ATBDP_Send_Mail
         if ( ! current_user_can( 'manage_options' ) ) {
                 return;
         }
+        $token = get_transient( 'system_info_remote_token' );
+		$url   = $token ? home_url() . '/?atbdp-system-info=' . $token : '';
         $user = wp_get_current_user();
 		?>
         <div class="card atbds_card">
@@ -76,10 +80,8 @@ class ATBDP_Send_Mail
                                 <textarea name="message" id="atbdp-email-message"></textarea>
                             </div>
                             <div class="atbds_form-row">
-                                <div class="atbds_customCheckbox">
-                                    <input type="checkbox" name='atbdp_system_info' id='atbdp_system_info' checked>
-                                    <label for="atbdp_system_info"><?php _e( 'Attach system information.', 'directorist' ); ?></label>
-                                </div>
+                                <label><?php _e( 'Remote Viewing Url', 'directorist' ); ?></label>
+                                <input type="text" name="system-info" id="atbdp-system-info-url" placeholder="" value="<?php echo ! empty( $url ) ? $url : ''; ?>">
                             </div>
                             <div class="atbds_form-row">
                             <p class='system_info_success'></p>

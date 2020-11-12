@@ -5,9 +5,9 @@
  * @version 6.7
  */
 
-$location_source = get_directorist_option('search_location_address', 'listing_location');
+$location_source = !empty($data['location_source']) && $data['location_source'] == 'from_map_api' ? 'map' : 'listing';
 
-if ( $location_source == 'listing_location' ) { ?>
+if ( $location_source == 'listing' ) { ?>
 	<div class="single_search_field search_location">
 		<select name="in_loc" id="<?php echo esc_attr($searchform->location_id); ?>" class="<?php echo esc_attr($searchform->location_class); ?>" <?php echo ! empty( $data['required'] ) ? 'required="required"' : ''; ?>>
 			<option value=""><?php echo esc_html($data['placeholder']); ?></option>
@@ -17,7 +17,7 @@ if ( $location_source == 'listing_location' ) { ?>
 	<?php
 }
 
-elseif ( $location_source == 'map_api' ) {
+elseif ( $location_source == 'map' ) {
 	$cityLat = isset( $_GET['cityLat'] ) ? $_GET['cityLat'] : '';
 	$cityLng = isset( $_GET['cityLng'] ) ? $_GET['cityLng'] : '';
 	$value   = isset( $_GET['address'] ) ? $_GET['address'] : '';

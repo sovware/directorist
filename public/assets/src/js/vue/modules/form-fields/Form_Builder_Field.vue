@@ -427,6 +427,16 @@ export default {
         this.default_groups = this.value.groups;
       }
 
+      // 
+      if ( this.default_groups.length ) {
+        for ( let group of this.default_groups ) {
+          if ( 'widget_group' !==  group.type ) { continue; }
+          if ( typeof group.widget_key === 'undefined' ) { continue; }
+
+          this.active_widget_groups.push( group.widget_key );
+        }
+      }
+
       if ( this.isObject( this.value.fields ) ) {
         this.active_fields = this.value.fields;
       }
@@ -708,14 +718,14 @@ export default {
     activeGroupOnDragLeave() {
       this.active_group_drop_area = "";
     },
+
     //
-    
-     activeGroupOnDragStart(group_key) {
-       if ( typeof this.groups[ group_key ].draggable !== 'undefined' ) {
-         if ( ! this.groups[ group_key ].draggable ) {
-           return;
-         }
-       }
+    activeGroupOnDragStart(group_key) {
+      if ( typeof this.groups[ group_key ].draggable !== 'undefined' ) {
+        if ( ! this.groups[ group_key ].draggable ) {
+          return;
+        }
+      }
 
       this.current_dragging_group = group_key;
     },

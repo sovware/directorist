@@ -1,7 +1,7 @@
 <?php
 $p_id = $form->add_listing_id;
 $address =  get_post_meta( $p_id, '_address', true );
-$select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
+$select_listing_map = get_directorist_option( 'select_listing_map', 'openstreet' );
 $manual_lat        = get_post_meta( $p_id, '_manual_lat', true );
 $manual_lng        = get_post_meta( $p_id, '_manual_lng', true );
 $default_latitude  = get_directorist_option( 'default_latitude', '40.7127753' );
@@ -14,7 +14,6 @@ $map_zoom_level = get_directorist_option('map_zoom_level', 4);
 $display_address_field = get_directorist_option('display_address_field', 1);
 $address_placeholder   = get_directorist_option('address_placeholder',__('Listing address eg. New York, USA', 'directorist'));
 $display_map_field = get_directorist_option('display_map_field', 1);
-$select_listing_map = get_directorist_option('select_listing_map', 'google');
 $t = '';//later need to configure the marker info window
 //$t = !empty( $t ) ? esc_html($t) : __('No Title ', 'directorist');
 $tg = !empty( $tagline ) ? esc_html($tagline) : '';
@@ -92,12 +91,6 @@ $info_content .= "<p> {$ad}</p></div>";
 <?php
 } ?>
 </div>
-<?php
-if ('openstreet' == $select_listing_map) {
-    wp_enqueue_script( 'openstreet_layer' );
-    wp_enqueue_style('leaflet-css');
-}
-?>
 <script>
 
     // Bias the auto complete object to the user's geographical location,
@@ -126,7 +119,9 @@ if ('openstreet' == $select_listing_map) {
 
 
         address_input = document.getElementById('address');
-        address_input.addEventListener('focus', geolocate);
+        if( address_input ) {
+            address_input.addEventListener('focus', geolocate);
+        }
         // this function will work on sites that uses SSL, it applies to Chrome especially, other browsers may allow location sharing without securing.
         function geolocate() {
             if (navigator.geolocation) {

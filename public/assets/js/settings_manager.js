@@ -11046,6 +11046,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: Array,
       required: false
     },
+    showDefaultOption: {
+      type: Boolean,
+      default: false
+    },
     defaultOption: {
       type: Object,
       required: false
@@ -18951,7 +18955,7 @@ var render = function() {
           }
         },
         [
-          _vm.default_option
+          _vm.showDefaultOption && _vm.default_option
             ? _c("option", { domProps: { value: _vm.default_option.value } }, [
                 _vm._v(_vm._s(_vm.default_option.label))
               ])

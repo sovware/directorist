@@ -1843,10 +1843,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'select',
                                     'label'  => 'Select Pricing Type',
                                     'value' => 'both',
+                                    // 'show-default-option' => true,
                                     'options' => [
+                                        ['value' => 'both', 'label' => 'Both'],
                                         ['value' => 'price_unit', 'label' => 'Price Unit'],
                                         ['value' => 'price_range', 'label' => 'Price Range'],
-                                        ['value' => 'both', 'label' => 'Both'],
                                     ],
                                 ],
                                 'price_range_label' => [
@@ -4305,16 +4306,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => "Featured",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_featured_badge",
-                    'options' => [
-                        'title' => "Featured Badge Settings",
-                        'fields' => [
-                            'label' => [
-                                'type' => "text",
-                                'label' => "Label",
-                                'value' => "Fetured",
-                            ],
-                        ],
-                    ],
                 ],
 
                 'new_badge' => [
@@ -4322,7 +4313,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => "New",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_new_badge",
-                    'options' => [
+                    /* 'options' => [
                         'title' => "New Badge Settings",
                         'fields' => [
                             'label' => [
@@ -4336,7 +4327,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'value' => "3",
                             ],
                         ],
-                    ],
+                    ], */
                 ],
 
                 'popular_badge' => [
@@ -4344,7 +4335,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => "Popular",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_popular_badge",
-                    'options' => [
+                    /* 'options' => [
                         'title' => "Popular Badge Settings",
                         'fields' => [
                             'label' => [
@@ -4374,7 +4365,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             ],
 
                         ],
-                    ],
+                    ], */
                 ],
 
                 'favorite_badge' => [
@@ -4382,7 +4373,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'label' => "Favorite",
                     'icon' => 'uil uil-text-fields',
                     'hook' => "atbdp_favorite_badge",
-                    'options' => [
+                    /* 'options' => [
                         'title' => "Favorite Settings",
                         'fields' => [
                             'icon' => [
@@ -4391,7 +4382,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'value' => "fa fa-heart",
                             ],
                         ],
-                    ],
+                    ], */
                 ],
 
                 'view_count' => [
@@ -5363,7 +5354,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             ],
                             'bottom' => [
                                 'label' => 'Body Bottom',
-                                'maxWidget' => 4,
+                                'maxWidget' => 0,
                                 'acceptedWidgets' => [
                                     "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
                                     'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'

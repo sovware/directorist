@@ -25,8 +25,8 @@ class ATBDP_System_Info
 		}
 		
 		// User agent
-		$user_agent = isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '';
-
+		$user_agent 	= isset( $_SERVER['HTTP_USER_AGENT'] ) ? $_SERVER['HTTP_USER_AGENT'] : '';
+		$default_role   = get_option( 'default_role' );
 		// Test POST requests
 		$post_response = wp_safe_remote_post( 'http://api.wordpress.org/core/browse-happy/1.1/', array(
 			'timeout'     => 10,
@@ -88,7 +88,8 @@ class ATBDP_System_Info
 			'platform'       			=> ! empty( $post_response_body['platform'] ) ? $post_response_body['platform'] : '-',
 			'browser_name'       		=> ! empty( $post_response_body['name'] ) ? $post_response_body['name'] : '-',
 			'browser_version'       	=> ! empty( $post_response_body['version'] ) ? $post_response_body['version'] : '-',
-			'user_agent'       			=> $user_agent
+			'user_agent'       			=> $user_agent,
+			'default_role'       		=> $default_role
 		);
     }
 

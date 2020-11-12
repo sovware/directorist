@@ -470,20 +470,17 @@ templateResult: selecWithIcon,
       alert("The Message field is required");
       return;
     }
-    system_info = "";
-    if ($("#atbdp_system_info").is(":checked")) {
-      var system_info = "yes";
-    }
     $.ajax({
       type: "post",
       url: atbdp_admin_data.ajaxurl,
-      data: {
+      data: { 
         action: "send_system_info", //calls wp_ajax_nopriv_ajaxlogin
         _nonce: $("#atbdp_email_nonce").val(),
         email: $("#atbdp-email-address").val(),
+        sender_email: $("#atbdp-sender-address").val(),
         subject: $("#atbdp-email-subject").val(),
         message: $("#atbdp-email-message").val(),
-        system_info: system_info,
+        system_info_url: $("#atbdp-system-info-url").val(),
       },
       beforeSend: function () {
         $("#atbdp-send-system-info-submit").html("Sending");
@@ -514,7 +511,7 @@ templateResult: selecWithIcon,
       },
       success: function (response) {
         $("#atbdp-remote-response").html(response.data.message);
-        $("#system-info-url").val(response.data.url);
+        $("#system-info-url, #atbdp-system-info-url").val(response.data.url);
         $("#system-info-url-text-link")
           .attr("href", response.data.url)
           .css("display", "inline-block");
@@ -538,7 +535,7 @@ templateResult: selecWithIcon,
       },
       success: function (response) {
         $("#atbdp-remote-response").html(response.data);
-        $("#system-info-url").val("");
+        $("#system-info-url, #atbdp-system-info-url").val("");
         $("#system-info-url-text-link")
           .attr("href", "#")
           .css("display", "none");

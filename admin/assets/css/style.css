@@ -2078,6 +2078,9 @@ span.atbdp-tick-cross {
   border-width: 1px;
   border-style: solid;
   border: 1px solid #c6d0dc;
+  -webkit-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 
 .atbds_customCheckbox input[type="checkbox"] + label:before {
@@ -2085,9 +2088,9 @@ span.atbdp-tick-cross {
   font-size: 12px;
   left: 4px;
   top: 2px;
-  font-weight: 500;
+  font-weight: 900;
   content: "\f00c";
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
   display: block;
   opacity: 0;
   -webkit-transition: all 0.3s ease 0s;

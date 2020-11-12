@@ -15,17 +15,20 @@ class ATBDP_Send_Mail
             die ( 'huh!');
         }
 		$user = wp_get_current_user();
-		$email = isset( $_POST['email'] ) ? $_POST['email'] : '';
+        $email = isset( $_POST['email'] ) ? $_POST['email'] : '';
+        $sender_email = isset( $_POST['sender_email'] ) ? $_POST['sender_email'] : '';
 		$subject = isset( $_POST['subject'] ) ? sanitize_text_field( $_POST['subject'] ) : '';
-		$system_info = isset( $_POST['system_info'] ) ?  $_POST['system_info']  : '';
+		$system_info_url = isset( $_POST['system_info_url'] ) ?  $_POST['system_info_url']  : '';
 		$to = ! empty( $email ) ? sanitize_email( $email ) : '';
 		$message = isset( $_POST['message'] ) ? sanitize_textarea_field( $_POST['message'] ) : '';
-		if( ! empty( $system_info ) ) {
-			$message .=   $this->system_info();
+		if( ! empty( $system_info_url ) ) {
+            $message .= '<div><a href="'.$system_info_url.'">';
+            $message .=   $system_info_url;
+            $message .= '</a></div>';
 		}
 		$message  = atbdp_email_html( $subject, $message );
-		$headers = "From: {$user->display_name} <{$user->user_email}>\r\n";
-		$headers .= "Reply-To: {$user->user_email}\r\n";
+		$headers = "From: {$user->display_name} <{$sender_email}>\r\n";
+		$headers .= "Reply-To: {$sender_email}\r\n";
 
 		// return true or false, based on the result
 		$send_email =  ATBDP()->email->send_mail($to, $subject, $message, $headers) ? true : false;
@@ -48,6 +51,9 @@ class ATBDP_Send_Mail
         if ( ! current_user_can( 'manage_options' ) ) {
                 return;
         }
+        $token = get_transient( 'system_info_remote_token' );
+		$url   = $token ? home_url() . '/?atbdp-system-info=' . $token : '';
+        $user = wp_get_current_user();
 		?>
         <div class="card atbds_card">
             <div class="card-head">
@@ -58,8 +64,12 @@ class ATBDP_Send_Mail
                     <div class="atbds_supportForm">
                          <form id="atbdp-send-system-info" method="post" enctype="multipart/form-data" action="<?php echo esc_url( self_admin_url( 'admin-ajax.php' ) ); ?>">
                             <div class="atbds_form-row">
-                                <label><?php _e( 'Email Address', 'directorist' ); ?></label>
-                                <input type="email" name="email" id="atbdp-email-address" placeholder="<?php _e( 'user@email.com', 'directorist'); ?>">
+                                <label><?php _e( 'Sender Email Address', 'directorist' ); ?></label>
+                                <input type="email" name="sender_email" id="atbdp-sender-address" placeholder="<?php _e( 'user@email.com', 'directorist'); ?>" value="<?php echo $user->user_email; ?>">
+                            </div>
+                            <div class="atbds_form-row">
+                                <label><?php _e( 'Receiver Email Address', 'directorist' ); ?></label>
+                                <input type="email" name="email" id="atbdp-email-address" placeholder="<?php _e( 'user@email.com', 'directorist'); ?>" value="support@aazztech.com">
                             </div>
                             <div class="atbds_form-row">
                                 <label><?php _e( 'Subject', 'directorist' ); ?></label>
@@ -70,10 +80,8 @@ class ATBDP_Send_Mail
                                 <textarea name="message" id="atbdp-email-message"></textarea>
                             </div>
                             <div class="atbds_form-row">
-                                <div class="atbds_customCheckbox">
-                                    <input type="checkbox" name='atbdp_system_info' id='atbdp_system_info' checked>
-                                    <label for="atbdp_system_info"><?php _e( 'Attach system information.', 'directorist' ); ?></label>
-                                </div>
+                                <label><?php _e( 'Remote Viewing Url', 'directorist' ); ?></label>
+                                <input type="text" name="system-info" id="atbdp-system-info-url" placeholder="" value="<?php echo ! empty( $url ) ? $url : ''; ?>">
                             </div>
                             <div class="atbds_form-row">
                             <p class='system_info_success'></p>

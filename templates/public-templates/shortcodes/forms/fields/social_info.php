@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="form-group" class="directorist-social-info-field">
+<div class="form-group directorist-social-info-field">
 	<?php $form->add_listing_label_template( $data );?>
 
 	<div id="social_info_sortable_container">

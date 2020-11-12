@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="form-group" class="directorist-radio-field">
+<div class="form-group directorist-radio-field">
 	<?php $form->add_listing_label_template( $data );?>
 
 	<div class="form-control">

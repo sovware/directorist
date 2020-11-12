@@ -18,7 +18,7 @@ $longitude  = ! empty( $manual_lng ) ? $manual_lng : $default_longitude;
 $hide_map = ! empty( get_post_meta( $p_id, '_hide_map', true ) ) ? true : false;
 ?>
 
-<div class="form-group" class="directorist-map-field">
+<div class="form-group directorist-map-field">
 	<div class="map_wrapper">
 
 		<?php if ('google' == $select_listing_map) { ?>

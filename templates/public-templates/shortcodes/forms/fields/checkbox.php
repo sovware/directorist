@@ -9,7 +9,7 @@
 return;
 ?>
 
-<div class="form-group" class="directorist-checkbox-field">
+<div class="form-group directorist-checkbox-field">
 	<?php $form->add_listing_label_template( $data );?>
 
 	<div class="form-control">

@@ -136,6 +136,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $metas[ $key ] = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
                     }                    
                 }
+                if( !empty( $info['privacy_policy'] ) ) {
+                    $metas[ '_privacy_policy' ] = $info['privacy_policy'] ? $info['privacy_policy'] : '';
+                }
+                if( !empty( $info['t_c_check'] ) ) {
+                    $metas[ '_t_c_check' ] = $info['t_c_check'] ? $info['t_c_check'] : '';
+                }
                 $metas['_directory_type'] = $listing_type;
                 $tag = !empty( $info['tax_input']['at_biz_dir-tags']) ? ( $info['tax_input']['at_biz_dir-tags']) : array();
                 $location = !empty( $info['tax_input']['at_biz_dir-location']) ? ( $info['tax_input']['at_biz_dir-location']) : array();

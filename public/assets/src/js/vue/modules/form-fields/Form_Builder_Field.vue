@@ -13,7 +13,7 @@
               <div class="cptm-form-builder-group-header">
                 <div class="cptm-form-builder-group-title-area" :draggable="typeof group.draggable !== 'undefined' ? group.draggable : true" @dragstart="activeGroupOnDragStart(group_key)" @dragend="activeGroupOnDragEnd()">
                   <h3 class="cptm-form-builder-group-title">
-                    {{ theGroups[ group_key ].label }}
+                    {{ ( group.label ) ? group.label : '' }}
                   </h3>
 
                   <div class="cptm-form-builder-group-title-actions">
@@ -244,23 +244,20 @@ export default {
     },
 
     updated_value() {
-      if ( ! this.has_group ) {
-        return { fields: this.active_fields, fields_order: this.groups[0].fields };
-      }
-      
       let groups = this.groups;
       if ( groups.length ) {
         groups = JSON.parse( JSON.stringify( this.groups ) );
 
-        let group_index = 0;
-        for ( let group of groups ) {
-          if ( typeof group.options === 'undefined' ) { continue; }
-
+        for ( let group_index in groups ) {
+          if ( typeof groups[ group_index ].options === 'undefined' ) { continue; }
           delete groups[ group_index ].options;
-          group_index++;
         } 
       }
-    
+
+      if ( ! this.has_group ) {
+        return { fields: this.active_fields, fields_order: groups[0].fields };
+      }
+      
       return { fields: this.active_fields, groups: groups };
     },
 
@@ -302,8 +299,6 @@ export default {
             widget_label = ( widget_label ) ? widget_label : template_widget_label;
             template_root_options.label = widget_label;
 
-            
-    
             Object.assign( widgets[ widget_group ].widgets[ _widget_name ], template_root_options );
           
             if ( ! widgets[ widget_group ].widgets[ _widget_name ].options ) {
@@ -323,6 +318,22 @@ export default {
           }
 
           widgets[widget_group].widgets = template_widgets;
+        }
+
+        for ( let widget in widgets[ widget_group ].widgets ) {
+          if ( ! widgets[ widget_group ].widgets[ widget ].options ) {
+            widgets[ widget_group ].widgets[ widget ].options = {};
+          }
+
+          widgets[ widget_group ].widgets[ widget ].options.widget_name = {
+            type: 'hidden',
+            value: widget,
+          };
+
+          widgets[ widget_group ].widgets[ widget ].options.widget_group = {
+            type: 'hidden',
+            value: widget_group,
+          };
         }
       }
       
@@ -377,20 +388,6 @@ export default {
             delete widgets[ widget_group ].widgets[ widget ];
             continue;
           }
-
-          if ( ! widgets[widget_group].widgets[widget].options ) {
-            widgets[widget_group].widgets[widget].options = {};
-          }
-
-          widgets[widget_group].widgets[widget].options.widget_group = {
-            type: "hidden",
-            value: widget_group,
-          };
-
-          widgets[widget_group].widgets[widget].options.widget_name = {
-            type: "hidden",
-            value: widget,
-          };
         }
       }
 
@@ -426,17 +423,15 @@ export default {
         Vue.set( this.default_groups[0], 'fields', this.value.fields_order );
       }
 
-
       if ( Array.isArray( this.value.groups ) && this.has_group ) {
         this.default_groups = this.value.groups;
       }
-      
-      // 
+
+      // Trace active_widget_groups
       if ( this.default_groups.length ) {
         for ( let group of this.default_groups ) {
           if ( 'widget_group' !==  group.type ) { continue; }
           if ( typeof group.widget_name === 'undefined' ) { continue; }
-
           this.active_widget_groups.push( group.widget_name );
         }
       }
@@ -450,24 +445,17 @@ export default {
         let groups = this.default_groups;
         if ( ! groups.length ) { return groups; }
 
-
         groups = JSON.parse( JSON.stringify( groups ) );
 
         let group_fields = {};
         let fixed_options = [ 'lock', 'fields', 'type' ];
 
-         /* if ( 'single_listings_contents' === this.fieldId ) {
-              console.log( {groups} );
-            } */
-
         let group_index = 0;
         for ( let group of groups ) {
-          if ( typeof group.type === 'undefined' || group.type === 'general' ) {
+          // general_group
+          if ( typeof group.type === 'undefined' || group.type === 'general_group' ) {
 
             let group_options = JSON.parse( JSON.stringify( this.groupOptions ) );
-
-           
-
             for ( let option_key in group ) {
               if ( fixed_options.includes( option_key ) ) { continue; }
               if ( typeof group_options[ option_key ] === 'undefined' ) { continue } 
@@ -479,11 +467,27 @@ export default {
             groups[ group_index ].options = group_options;
           }
 
+          // widget_group
+          if ( group.type === 'widget_group' && typeof group.widget_group === 'string' && typeof group.widget_name === 'string' ) {
+            if ( typeof this.theWidgets[ group.widget_group ] === 'undefined' ) { continue; }
+            if ( typeof this.theWidgets[ group.widget_group ].widgets === 'undefined' ) { continue; }
+            if ( typeof this.theWidgets[ group.widget_group ].widgets[ group.widget_name ] === 'undefined' ) { continue; }
+            if ( typeof this.theWidgets[ group.widget_group ].widgets[ group.widget_name ].options === 'undefined' ) { continue; }
+
+            let group_options = this.theWidgets[ group.widget_group ].widgets[ group.widget_name ].options;
+
+            for ( let option_key in group ) {
+              if ( fixed_options.includes( option_key ) ) { continue; }
+              if ( typeof group_options[ option_key ] === 'undefined' ) { continue } 
+              
+              group_options[ option_key ].value = group[ option_key ];
+            }
+
+            groups[ group_index ].options = group_options;
+          }
+
           group_index++;
         }
-
-        
-
 
         return groups;
     },
@@ -669,7 +673,13 @@ export default {
     },
     
     updateActiveGroupOptionData(option_key, group_key, $event) {
+      // console.log( 'updateActiveGroupOptionData', option_key, group_key, $event );
       Vue.set( this.groups[group_key].options[option_key], 'value', $event );
+
+      if ( typeof this.groups[group_key][option_key] !== 'undefined' ) {
+        Vue.set( this.groups[group_key], option_key, $event );
+      }
+
       this.$emit("update", this.updated_value);
     },
     
@@ -776,6 +786,7 @@ export default {
             let group = {
                 label: this.current_dragging_widget_group.field.label, fields: [],
                 type: 'widget_group',
+                widget_group: this.current_dragging_widget_group.inserting_from,
                 widget_name: this.current_dragging_widget_group.inserting_field_key,
                 options: this.current_dragging_widget_group.field.options
             };
@@ -922,7 +933,7 @@ export default {
     },
     
     addNewActiveFieldSection() {
-      let group = { label: "Section", fields: [] };
+      let group = { label: "Section", fields: [], type: 'general_group' };
 
       if ( this.groupOptions && typeof this.groupOptions === 'object' ) {
           group.options = this.groupOptions;
@@ -935,14 +946,9 @@ export default {
       const origin_value = this.groups[payload.group_index].fields[
         payload.origin_field_index
       ];
-      this.groups[payload.group_index].fields.splice(
-        payload.origin_field_index,
-        1
-      );
-      const des_ind =
-        payload.origin_field_index === 0
-          ? payload.destination_field_index
-          : payload.destination_field_index + 1;
+
+      this.groups[payload.group_index].fields.splice( payload.origin_field_index, 1 );
+      const des_ind = payload.origin_field_index === 0 ? payload.destination_field_index : payload.destination_field_index + 1;
       this.groups[payload.group_index].fields.splice(des_ind, 0, origin_value);
     },
     

@@ -123,9 +123,8 @@ export default {
         }
       }
 
-      if ( this.containerClass && 
-        typeof this.containerClass === 'object' &&
-        this.containerClass !== null &&
+      if ( this.containerClass &&
+          typeof this.containerClass === 'object' &&
         ! Array.isArray( this.containerClass )
       ) {
         return {

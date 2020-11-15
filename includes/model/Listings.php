@@ -1641,7 +1641,7 @@ class Directorist_Listings {
 					'post_id'  => $id,
 					'data'     => $field,
 					'value'    => $value,
-					'icon'     => !empty( $field['options']['icon'] ) ? $field['options']['icon'] : '',
+					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
 				);
 				$template = 'listings-archive/loop/' . $field['widget_name'];
 				atbdp_get_shortcode_template( $template, $args );

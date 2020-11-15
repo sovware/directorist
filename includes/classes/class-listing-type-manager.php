@@ -3633,6 +3633,16 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label' => 'Icon',
                                     'value' => 'la la-address-card',
                                 ],
+                                'custom_block_id' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Custom block ID',
+                                    'value' => '',
+                                ],
+                                'custom_block_classes' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Custom block Classes',
+                                    'value' => '',
+                                ],
                             ],
                             'show_if' => [
                                 'where' => "submission_form_fields.value.fields",
@@ -3645,6 +3655,18 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'type' => 'section',
                             'label' => 'Review',
                             'icon' => 'la la-star',
+                            'options' => [
+                                'custom_block_id' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Custom block ID',
+                                    'value' => '',
+                                ],
+                                'custom_block_classes' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Custom block Classes',
+                                    'value' => '',
+                                ],
+                            ],
                         ],
                         'author_info' => [
                             'type' => 'section',
@@ -3655,6 +3677,16 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'text',
                                     'label' => 'Label',
                                     'value' => 'Author Info',
+                                ],
+                                'custom_block_id' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Custom block ID',
+                                    'value' => '',
+                                ],
+                                'custom_block_classes' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Custom block Classes',
+                                    'value' => '',
                                 ],
                             ]
                         ],
@@ -3673,6 +3705,16 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label' => 'Icon',
                                     'value' => 'la la-phone',
                                 ],
+                                'custom_block_id' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Custom block ID',
+                                    'value' => '',
+                                ],
+                                'custom_block_classes' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Custom block Classes',
+                                    'value' => '',
+                                ],
                             ]
                         ],
                         'related_listings' => [
@@ -3684,6 +3726,16 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'text',
                                     'label' => 'Label',
                                     'value' => 'Related Listings',
+                                ],
+                                'custom_block_id' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Custom block ID',
+                                    'value' => '',
+                                ],
+                                'custom_block_classes' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Custom block Classes',
+                                    'value' => '',
                                 ],
                             ]
                         ],

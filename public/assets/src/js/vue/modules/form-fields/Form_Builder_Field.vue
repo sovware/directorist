@@ -11,7 +11,13 @@
           <div class="cptm-form-builder-active-fields-group" v-for="(group, group_key) in groups" :key="group_key">
             <div class="cptm-form-builder-group-header-section" v-if="has_group">
               <div class="cptm-form-builder-group-header">
-                <div class="cptm-form-builder-group-title-area" :draggable="typeof group.draggable !== 'undefined' ? group.draggable : true" @dragstart="activeGroupOnDragStart(group_key)" @dragend="activeGroupOnDragEnd()">
+
+                <dragable-element class-name="cptm-form-builder-group-title-area"
+                  :draggable="typeof group.draggable !== 'undefined' ? group.draggable : true"
+                  :dropable="elementIsDragging"
+                  @dragstart="activeGroupOnDragStart(group_key)"
+                  @dragend="activeGroupOnDragEnd()"
+                >
                   <h3 class="cptm-form-builder-group-title">
                     {{ ( group.label ) ? group.label : '' }}
                   </h3>
@@ -25,7 +31,7 @@
                       <span class="uil uil-angle-double-up" aria-hidden="true"></span>
                     </a>
                   </div>
-                </div>
+                </dragable-element>
 
                 <div class="cptm-form-builder-group-actions">
                   <a href="#" class="cptm-form-builder-group-field-item-action-link action-trash" v-if="typeof group.lock !== 'undefined' ? !group.lock : true" @click.prevent="trashActiveGroupItem(group_key)">
@@ -250,6 +256,11 @@ export default {
 
         for ( let group_index in groups ) {
           if ( typeof groups[ group_index ].options === 'undefined' ) { continue; }
+
+          for( let option in groups[ group_index ].options ) {
+            groups[ group_index ][ option ] = groups[ group_index ].options[ option ].value;
+          }
+
           delete groups[ group_index ].options;
         } 
       }
@@ -340,6 +351,13 @@ export default {
       return widgets;
     },
 
+    elementIsDragging() {
+      // console.log( this.current_dragging_widget, this.current_dragging_group );
+      if ( this.current_dragging_widget || this.current_dragging_group  ) { return true }
+
+      return false;
+    },
+
     theWidgetGroups() {
       // Add the widget group & name to all the widget fields
       let widgets = JSON.parse( JSON.stringify( this.theWidgets ) );
@@ -403,11 +421,11 @@ export default {
 
       state: {},
       active_fields_ref: {},
-      current_dragging_widget_window: {},
+      current_dragging_widget: "",
       active_field_drop_area: "",
       active_group_drop_area: "",
       current_drag_enter_group_item: "",
-      current_dragging_group: "",
+      current_dragging_group: "", 
       current_dragging_widget_group: "",
       active_widget_groups: [],
       active_field_collapse_states: {},
@@ -714,7 +732,7 @@ export default {
     },
     
     activeFieldOnDragStart(field_key, field_index, group_key) {
-      this.current_dragging_widget_window = {
+      this.current_dragging_widget = {
         field_key,
         field_index,
         group_key,
@@ -722,7 +740,7 @@ export default {
     },
     
     activeFieldOnDragEnd() {
-      this.current_dragging_widget_window = '';
+      this.current_dragging_widget = '';
     },
     
     activeFieldOnDragEnd(field_key) {
@@ -832,26 +850,26 @@ export default {
             return;
         }
         
-        this.current_dragging_widget_window = data;
+        this.current_dragging_widget = data;
     },
 
     widgetItemOnDragEnd(){
-      this.current_dragging_widget_window = '';
+      this.current_dragging_widget = '';
       this.current_dragging_widget_group = '';
     },
 
     activeFieldOnDrop(args) {
       // console.log( 'activeFieldOnDrop', {field_key: args.field_key, field_index: args.field_index, group_key: args.group_key} );
-      const inserting_from          = this.current_dragging_widget_window.inserting_from;
-      const inserting_field_key     = this.current_dragging_widget_window.inserting_field_key;
-      const origin_group_index      = this.current_dragging_widget_window.group_key;
-      const origin_field_index      = this.current_dragging_widget_window.field_index;
+      const inserting_from          = this.current_dragging_widget.inserting_from;
+      const inserting_field_key     = this.current_dragging_widget.inserting_field_key;
+      const origin_group_index      = this.current_dragging_widget.group_key;
+      const origin_field_index      = this.current_dragging_widget.field_index;
       const destination_group_index = args.group_key;
       const destination_field_index = args.field_index;
 
       this.active_group_drop_area = '';
       this.active_field_drop_area = '';
-      this.current_dragging_widget_window = '';
+      this.current_dragging_widget = '';
       
       /* console.log({
           inserting_from,

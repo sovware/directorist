@@ -732,20 +732,13 @@ span.atbd_get_loc_wid {
 }
 .atbd_listing_list{
   .atbd_content_upper{
-    display: flex;
-    flex-wrap: wrap;
     .atbd-list-body-top{
-      order: 0;
-      flex: 1;
-    }
-    .atbd_listing_data_list{
-      order: 2;
-      flex: 0 0 100%;
+      padding-right: 40px;
     }
     .atbd-list-body-right{
-      order: 1;
-      display: flex;
-      align-items: flex-start;
+      position: absolute;
+      right: 17px;
+      top: 20px;
     }
   }
 }

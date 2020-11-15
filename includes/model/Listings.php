@@ -1061,21 +1061,6 @@ class Directorist_Listings {
 			'please_login' => __('Please login first', 'directorist')
 		));
 
-		$handel = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
-    	wp_enqueue_script($handel);
-
-		if ( 'kilometers' == $this->radius_search_unit ) {
-			$miles = __( ' Kilometers', 'directorist' );
-		}
-		else {
-			$miles = __( ' Miles', 'directorist' );
-		}
-
-		wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
-			'Miles'       => $miles,
-			'default_val' => !empty( $_GET['miles'] ) ? $_GET['miles'] : $this->default_radius_distance
-		));
-
 		ob_start();
 
 		if (!empty($this->redirect_page_url)) {

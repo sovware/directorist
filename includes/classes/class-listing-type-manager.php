@@ -4050,6 +4050,15 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'max'   => 750,
                                     'value' => 0,
                                 ],
+                                'radius_search_unit' => [
+                                    'type'  => 'select',
+                                    'label' => 'Radius Search Unit',
+                                    'value' => 'miles',
+                                    'options' => [
+                                        [ 'value' => 'miles', 'label' => 'Miles' ],
+                                        [ 'value' => 'kilometers', 'label' => 'Kilometers' ],
+                                    ]
+                                ],
                             ],
                         ],
                     ]

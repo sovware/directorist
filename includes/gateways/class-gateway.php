@@ -124,15 +124,6 @@ class ATBDP_Gateway{
                     'description' => __('You can enabled this option to collect payment from your user for making their listing featured.', 'directorist'),
                     'default' => '',
                 ),
-
-                array(
-                    'type' => 'textbox',
-                    'name' => 'featured_listing_title',
-                    'label' => __('Title', 'directorist'),
-                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
-                    'default' => __('Featured', 'directorist'),
-                ),
-
                 array(
                     'type' => 'textarea',
                     'name' => 'featured_listing_desc',

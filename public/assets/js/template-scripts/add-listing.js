@@ -267,7 +267,7 @@ jQuery(function($) {
                 }
                 //textarea
                 if( 'textarea' === type ){
-                        const value = field.name.length ? ( tinymce.get('listing_content').getContent() ? tinymce.get('listing_content').getContent() : atbdp_element_value( 'textarea[name="'+ field.name +'"]' ) ) : atbdp_element_value( 'textarea[name="'+ field.name +'"]' );
+                        const value = $('#'+ field.name + '_ifr').length ? tinymce.get( field.name ).getContent() : atbdp_element_value( 'textarea[name="'+ field.name +'"]' );
                         form_data.append( field.name, value );     
                 }
                 //checkbox, radio
@@ -303,15 +303,17 @@ jQuery(function($) {
         if( uploaders ){
                 let i = 0;
                 for( var uploader of uploaders ){
-                        let media_uploader = new EzMediaUploader({
-                                containerID: uploader['element_id'],
-                        });
-                        mediaUploaders.push( {
-                                media_uploader: media_uploader,
-                                uploaders_data: uploader,
-                        } );
-                        mediaUploaders[i].media_uploader.init();
-                        i++;
+                        if( $('#' + uploader['element_id'] ).length ) {
+                                let media_uploader = new EzMediaUploader({
+                                        containerID: uploader['element_id'],
+                                });
+                                mediaUploaders.push( {
+                                        media_uploader: media_uploader,
+                                        uploaders_data: uploader,
+                                } );
+                                mediaUploaders[i].media_uploader.init();
+                                i++;
+                        } 
                 }
         }
         
@@ -386,7 +388,7 @@ jQuery(function($) {
                                         } 
                                 }       
                         }else{
-                                //  field_list2.push({ nam: name, val: value, })
+                                //  field_list2.push({ nam: name, val: value, field: field, type: type})
                                 setup_form_data( form_data, type, field );
                         }        
                 });
@@ -479,6 +481,8 @@ jQuery(function($) {
                         url: atbdp_add_listing.ajaxurl,
                         data: form_data,
                         success(response) {
+                                // console.log( response );
+                                // return;
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {

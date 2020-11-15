@@ -137,7 +137,7 @@
         <h3 class="cptm-title-3">{{ widget_group.title }}</h3>
         <p class="cptm-description-text">{{ widget_group.description }}</p>
 
-        <ul class="cptm-form-builder-field-list">
+        <ul class="cptm-form-builder-field-list" v-if="widget_group.widgets">
           <template v-for="(field, field_key) in widget_group.widgets">
             <li class="cptm-form-builder-field-list-item" draggable="true" :key="field_key" @dragstart="widgetItemOnDragStart(group_key, field_key, field)" @dragend="widgetItemOnDragEnd()">
               <span class="cptm-form-builder-field-list-icon">
@@ -531,6 +531,15 @@ export default {
       }
 
       return group_options;
+    },
+
+    hasWidgets(  widgets ) {
+      if ( ! widgets ) { return false }
+      if ( ! this.isObject( widgets ) ) { return false }
+      if ( widgets == {} ) { return false }
+
+      return true;
+
     },
 
     hasGroupOptions( group_key ) {

@@ -2013,9 +2013,20 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'label' => 'Location',
                             'icon' => 'uil uil-map-marker',
                             'options' => [
+                                'field_key' => [
+                                    'type'   => 'meta-key',
+                                    'hidden' => true,
+                                    'value'  => 'tax_input[at_biz_dir-location][]',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Location',
+                                ],
                                 'type' => [
                                     'type'  => 'radio',
                                     'value' => 'multiple',
+                                    'label' => 'Selection Type',
                                     'options' => [
                                         [
                                             'label' => __('Single Selection', 'directorist'),
@@ -2026,16 +2037,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                             'value' => 'multiple',
                                         ]
                                     ]
-                                ],
-                                'field_key' => [
-                                    'type'   => 'meta-key',
-                                    'hidden' => true,
-                                    'value'  => 'tax_input[at_biz_dir-location][]',
-                                ],
-                                'label' => [
-                                    'type'  => 'text',
-                                    'label' => 'Label',
-                                    'value' => 'Location',
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
@@ -2061,20 +2062,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'label' => 'Tag',
                             'icon' => 'uil uil-tag-alt',
                             'options' => [
-                                'type' => [
-                                    'type'  => 'radio',
-                                    'value' => 'multiple',
-                                    'options' => [
-                                        [
-                                            'label' => __('Single Selection', 'directorist'),
-                                            'value' => 'single',
-                                        ],
-                                        [
-                                            'label' => __('Multi Selection', 'directorist'),
-                                            'value' => 'multiple',
-                                        ],
-                                    ]
-                                ],
                                 'field_key' => [
                                     'type'   => 'meta-key',
                                     'hidden' => true,
@@ -2084,6 +2071,21 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'text',
                                     'label' => 'Label',
                                     'value' => 'Tag',
+                                ],
+                                'type' => [
+                                    'type'  => 'radio',
+                                    'value' => 'multiple',
+                                    'label' => 'Selection Type',
+                                    'options' => [
+                                        [
+                                            'label' => __('Single Selection', 'directorist'),
+                                            'value' => 'single',
+                                        ],
+                                        [
+                                            'label' => __('Multi Selection', 'directorist'),
+                                            'value' => 'multiple',
+                                        ]
+                                    ]
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
@@ -2109,20 +2111,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'label' => 'Category',
                             'icon' => 'uil uil-folder-open',
                             'options' => [
-                                'type' => [
-                                    'type'  => 'radio',
-                                    'value' => 'multiple',
-                                    'options' => [
-                                        [
-                                            'label' => __('Single Selection', 'directorist'),
-                                            'value' => 'single',
-                                        ],
-                                        [
-                                            'label' => __('Multi Selection', 'directorist'),
-                                            'value' => 'multiple',
-                                        ],
-                                    ]
-                                ],
                                 'field_key' => [
                                     'type'   => 'meta-key',
                                     'hidden' => true,
@@ -2132,6 +2120,21 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'text',
                                     'label' => 'Label',
                                     'value' => 'Category',
+                                ],
+                                'type' => [
+                                    'type'  => 'radio',
+                                    'value' => 'multiple',
+                                    'label' => 'Selection Type',
+                                    'options' => [
+                                        [
+                                            'label' => __('Single Selection', 'directorist'),
+                                            'value' => 'single',
+                                        ],
+                                        [
+                                            'label' => __('Multi Selection', 'directorist'),
+                                            'value' => 'multiple',
+                                        ]
+                                    ]
                                 ],
                                 'placeholder' => [
                                     'type'  => 'text',
@@ -2169,16 +2172,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 'label' => [
                                     'type'  => 'hidden',
                                     'value' => 'Map',
-                                ],
-                                'address_label' => [
-                                    'type'  => 'text',
-                                    'label' => 'Address Label',
-                                    'value' => 'Address',
-                                ],
-                                'placeholder' => [
-                                    'type'  => 'text',
-                                    'label' => 'Address Placeholder',
-                                    'value' => 'Listing address eg. New York, USA',
                                 ],
                                 'lat_long' => [
                                     'type'  => 'text',
@@ -2473,8 +2466,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'value'  => 'listing_img',
                                 ],
                                 'label' => [
-                                    'type'  => 'text',
-                                    'label' => 'Label',
+                                    'type'  => 'hidden',
                                     'value' => 'Images',
                                 ],
                                 'required' => [
@@ -3783,6 +3775,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'tag' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'tags_filter_source' => [
                                     'type'  => 'select',
                                     'label' => 'Tags Filter Source',
@@ -3848,6 +3845,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'address' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3858,6 +3860,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'zip' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3868,6 +3875,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'phone' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3878,6 +3890,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'phone2' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3888,6 +3905,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'email' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3898,6 +3920,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'website' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3908,6 +3935,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                        
                         'text' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3919,6 +3951,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'textarea' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3930,6 +3967,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'number' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3941,6 +3983,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'url' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3952,6 +3999,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'date' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3963,6 +4015,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'time' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3974,6 +4031,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'color_picker' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3985,6 +4047,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'select' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3996,6 +4063,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'checkbox' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -4007,6 +4079,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
                         'radio' => [
                             'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Tag',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -4964,6 +5041,13 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'type'  => 'text',
                     'label' => 'Section Title',
                     'value' => 'Similar Listings',
+                    /* 'show_if' => [
+                        'id' => "enable_similar_listings__title",
+                        'where' => "enable_similar_listings",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ], */
                 ],
                 'similar_listings_logics' => [
                     'type'    => 'radio',

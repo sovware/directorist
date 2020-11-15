@@ -8809,14 +8809,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               widgets[widget_group].widgets[_widget_name].options = {};
             }
 
-            var prepend_options = {
-              label: {
-                type: 'text',
-                label: 'Label',
-                value: widget_label
-              }
-            };
-            widgets[widget_group].widgets[_widget_name].options = _objectSpread(_objectSpread({}, prepend_options), widgets[widget_group].widgets[_widget_name].options);
+            var widgets_options = widgets[widget_group].widgets[_widget_name].options;
+
+            if (typeof widgets_options.label !== 'undefined') {
+              widgets_options.label.value = widget_label;
+            }
+
+            widgets[widget_group].widgets[_widget_name].options = widgets_options;
             template_widgets[widget_key] = widgets[widget_group].widgets[_widget_name];
           }
 
@@ -33412,8 +33411,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         failed_conditions: failed_cond_count,
         successed_conditions: success_cond_count,
         matched_data: matched_data
-      }; // let target_field = this.getTergetFields( condition.where );
-
+      };
       var target_field = this.getTergetFields({
         root: root,
         path: condition.where
@@ -33425,8 +33423,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (!this.isObject(target_field)) {
         return state;
-      } // console.log( { target_field } );
-
+      }
 
       if (typeof condition.compare === 'string' && accepted_comparison.indexOf(condition.compare)) {
         compare = condition.compare;
@@ -33572,7 +33569,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         failed_conditions: failed_cond_count,
         successed_conditions: success_cond_count,
         matched_data: matched_data
-      }; // console.log( { state } );
+      };
+      /* if ( 'enable_similar_listings__logics' === args.condition.id ) {
+          console.log( { state } );
+      } */
 
       return state;
     },
@@ -33595,6 +33595,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           break;
 
         case '!=':
+          status = args.data_a !== args.data_b ? true : false;
+          break;
+
+        case 'not':
           status = args.data_a !== args.data_b ? true : false;
           break;
 

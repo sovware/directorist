@@ -285,14 +285,14 @@ export default {
             if ( ! widgets[ widget_group ].widgets[ _widget_name ].options ) {
               widgets[ widget_group ].widgets[ _widget_name ].options = {};
             }
-            let prepend_options = {
-              label: {
-                type: 'text',
-                label: 'Label',
-                value: widget_label,
-              }
-            };
-            widgets[ widget_group ].widgets[ _widget_name ].options = { ...prepend_options, ...widgets[ widget_group ].widgets[ _widget_name ].options };
+
+            let widgets_options = widgets[ widget_group ].widgets[ _widget_name ].options;
+
+            if ( typeof widgets_options.label !== 'undefined' ) {
+              widgets_options.label.value = widget_label;
+            }
+
+            widgets[ widget_group ].widgets[ _widget_name ].options = widgets_options;
             template_widgets[ widget_key ] = widgets[ widget_group ].widgets[ _widget_name ];
           }
           widgets[widget_group].widgets = template_widgets;

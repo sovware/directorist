@@ -420,6 +420,29 @@ class Directorist_Listing_Search_Form {
 		wp_enqueue_script( 'atbdp-geolocation' );		
 	}
 
+	public function load_radius_search_scripts( $data ) {
+		$sliderjs = is_rtl() ? 'atbdp-range-slider-rtl' : 'atbdp-range-slider';
+		wp_enqueue_script( $sliderjs );
+
+		$radius_search_unit = get_directorist_option( 'radius_search_unit', 'miles' );
+
+		if ( 'kilometers' == $radius_search_unit ) {
+			$miles = __( ' Kilometers', 'directorist' );
+		}
+		else {
+			$miles = __( ' Miles', 'directorist' );
+		}
+
+		$default_distance = $data['default_radius_distance'];
+		$value = !empty( $_GET['miles'] ) ? $_GET['miles'] : $default_distance;
+
+		wp_localize_script( 'atbdp-range-slider', 'atbdp_range_slider', array(
+			'Miles'       => $miles,
+			'default_val' => $value
+		));	
+	}
+
+
 	public function location_map_template() {
 		if ($this->has_location_field) {
 

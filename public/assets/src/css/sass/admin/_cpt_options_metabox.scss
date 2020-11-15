@@ -454,7 +454,6 @@ $light-gray: #f4f5f7;
   padding: 15px 20px;
   margin-right: 15px;
   box-sizing: border-box;
-  // cursor: move;
   border-radius: 4px;
   background-color: #444752;
   box-shadow: 0px 1px 5px rgba(#a1a8c6, 0.1);
@@ -462,6 +461,10 @@ $light-gray: #f4f5f7;
 
 div[draggable="true"].cptm-form-builder-group-title-area {
   cursor: move;
+}
+
+.cptm-dropable-elm-form-builder-group-title-area {
+  flex-grow: 1;
 }
 
 .cptm-form-builder-group-title-actions {
@@ -2069,8 +2072,7 @@ input[type=checkbox], input[type=radio]{
   width: calc( 100% / (12 / 8) );
 }
 
-
-.cptm-dragable-element {
+.cptm-dropable-element {
   position: relative;
 }
 

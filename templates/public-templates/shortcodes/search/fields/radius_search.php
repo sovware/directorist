@@ -8,6 +8,8 @@
 $default_distance = $data['default_radius_distance'];
 $value = !empty( $_GET['miles'] ) ? $_GET['miles'] : $default_distance;
 
+$searchform->load_radius_search_scripts( $data );
+
 if ( !empty($data['label']) ): ?>
 	<label><?php echo esc_html( $data['label'] ); ?></label>
 <?php endif; ?>

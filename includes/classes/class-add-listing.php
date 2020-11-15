@@ -74,19 +74,9 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                 do_action('atbdp_before_processing_submitted_listing_frontend', $info);
 
-                // add listing form has been submitted
-                //if (ATBDP()->helper->verify_nonce($this->nonce, $this->nonce_action, $_REQUEST['data'] ))
-                // guest user
-                if (!atbdp_logged_in_user()) {
-                    $guest = get_directorist_option('guest_listings', 0);
-                    $guest_email = isset($info['guest_user_email']) ? esc_attr($info['guest_user_email']) : '';
-                    if (!empty($guest && $guest_email)) {
-                        atbdp_guest_submission($guest_email);
-                    }
-                }
-                // we have data and passed the security
-                // we not need to sanitize post vars to be saved to the database,
-                // because wp_insert_post() does this inside that like : $postarr = sanitize_post($postarr, 'db');
+
+                    
+                $guest = get_directorist_option('guest_listings', 0);
                 $display_title_for = get_directorist_option('display_title_for', 0);
                 $display_desc_for = get_directorist_option('display_desc_for', 0);
                 $featured_enabled = get_directorist_option('enable_featured_listing');
@@ -102,13 +92,15 @@ if (!class_exists('ATBDP_Add_Listing')):
                  if( $listing_type ){
                     $term = get_term_by( 'id', $listing_type, 'atbdp_listing_types' );
                     $submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
+                    $preview_enable = get_term_meta( $term->term_id, 'preview_mode', true ) == '1' ? true : '';
+                    $guest = get_term_meta( $term->term_id, 'guest_listings', true ) == '1' ? true : '';
                     $submission_form_fields = $submission_form['fields'];
                  }
                 //isolate data
                 $error = [];
                 // wp_send_json( [
                 //     'info' => $info,
-                //     'submission_form_fields' => $submission_form_fields,
+                //     'submission_form_fields' => $preview_mode ? true : false,
                 // ] );
                 // die;
                 foreach( $submission_form_fields as $key => $value ){
@@ -120,12 +112,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $msg = $label .__( ' field is required!', 'directorist' );
                         array_push( $error, $msg );
                     }
-                    if( $field_key === 'listing_title' ){
-                        $title = sanitize_text_field( $info[ $field_key ] );
-                    }
-                    if( $field_key === 'listing_content' ){
-                        $content =  wp_kses(  $info[ $field_key ], wp_kses_allowed_html('post') );
-                    }
+                    
                     if( 'pricing' === $key ) {
                         $metas[ '_atbd_listing_pricing' ] = $info['atbd_listing_pricing'] ? $info['atbd_listing_pricing'] : '';
                         $metas[ '_price' ] = $info['price'] ? $info['price'] : '';
@@ -136,11 +123,20 @@ if (!class_exists('ATBDP_Add_Listing')):
                         $metas[ $key ] = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
                     }                    
                 }
+                $title = !empty( $info['listing_title']) ? sanitize_text_field( $info['listing_title']) : '';
+                $content = !empty( $info['listing_content']) ? wp_kses( $info['listing_content'], wp_kses_allowed_html('post')) : '';
                 if( !empty( $info['privacy_policy'] ) ) {
                     $metas[ '_privacy_policy' ] = $info['privacy_policy'] ? $info['privacy_policy'] : '';
                 }
                 if( !empty( $info['t_c_check'] ) ) {
                     $metas[ '_t_c_check' ] = $info['t_c_check'] ? $info['t_c_check'] : '';
+                }
+                // guest user
+                if (!atbdp_logged_in_user()) {
+                    $guest_email = isset($info['guest_user_email']) ? esc_attr($info['guest_user_email']) : '';
+                    if (!empty($guest && $guest_email)) {
+                        atbdp_guest_submission($guest_email);
+                    }
                 }
                 $metas['_directory_type'] = $listing_type;
                 $tag = !empty( $info['tax_input']['at_biz_dir-tags']) ? ( $info['tax_input']['at_biz_dir-tags']) : array();

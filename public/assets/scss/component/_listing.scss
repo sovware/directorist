@@ -482,6 +482,14 @@ span.atbd_get_loc_wid {
       }
     }
   }
+  .atbd_listing_list{
+    .atbdp_mark_as_fav .atbd_fav_icon:before{
+      color: #9192a3;
+    }
+    .atbdp_mark_as_fav.atbdp_fav_isActive .atbd_fav_icon::before{
+      color: #fff !important;
+    }
+  }
 }
 
 .atbd_google_map{

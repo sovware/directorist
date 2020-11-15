@@ -22,7 +22,7 @@ $related_listings = new Directorist_Listings(array(), 'related', $query, ['cache
 $listing->load_related_listings_script();
 ?>
 
-<div class="containess-fluid">
+<div class="containess-fluid <?php echo esc_attr( $class );?>" <?php echo $id ? 'id="'.$id.'"' : '';?>>
 	<div class="atbdp-related-listing-header">
 		<h4><?php echo esc_html( $title ); ?></h4>
 	</div>

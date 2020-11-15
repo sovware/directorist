@@ -87,6 +87,8 @@ class Directorist_Single_Listing {
 			'section_data' => $section_data,
 			'icon'         => !empty( $section_data['icon'] ) ? $section_data['icon'] : '',
 			'label'        => !empty( $section_data['label'] ) ? $section_data['label'] : '',
+			'id'           => !empty( $section_data['custom_block_id'] ) ? $section_data['custom_block_id'] : '',
+			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
 
 		if ( $section_data['type'] == 'widget_group' ) {

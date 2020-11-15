@@ -5,7 +5,7 @@
  * @version 6.7
  */
 ?>
-<div class="atbd_content_module">
+<div class="atbd_content_module <?php echo esc_attr( $class );?>" <?php echo $id ? 'id="'.$id.'"' : '';?>>
 	<div class="atbd_content_module_title_area">
 		<div class="atbd_area_title">
 			<h4><?php directorist_icon( $icon );?><?php echo esc_html( $label );?></h4>

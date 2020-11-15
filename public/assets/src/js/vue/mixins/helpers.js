@@ -67,6 +67,7 @@ export default {
         checkShowIfCondition( payload ) {
             let args = { condition: null };
             Object.assign( args, payload );
+            
 
             let condition = args.condition;
 
@@ -88,14 +89,12 @@ export default {
                 matched_data: matched_data,
             };
             
-           
-            // let target_field = this.getTergetFields( condition.where );
             let target_field = this.getTergetFields( { root: root, path: condition.where } );
+
             
             if ( ! ( condition.conditions && Array.isArray( condition.conditions ) && condition.conditions.length ) ) { return state; }
             if ( ! this.isObject( target_field ) ) { return state; }
-        
-            // console.log( { target_field } );
+
         
             if ( typeof condition.compare === 'string' && accepted_comparison.indexOf( condition.compare ) ) {
                 compare = condition.compare;
@@ -218,7 +217,9 @@ export default {
                 matched_data: matched_data,
             };
         
-            // console.log( { state } );
+            /* if ( 'enable_similar_listings__logics' === args.condition.id ) {
+                console.log( { state } );
+            } */
         
             return state;
         },
@@ -237,6 +238,9 @@ export default {
                     status = ( args.data_a === args.data_b ) ? true : false;
                     break;
                 case '!=':
+                    status = ( args.data_a !== args.data_b ) ? true : false;
+                    break;
+                case 'not':
                     status = ( args.data_a !== args.data_b ) ? true : false;
                     break;
                 case '>':

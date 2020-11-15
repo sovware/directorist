@@ -4798,7 +4798,7 @@ function directorist_default_directory(){
 
 // @kowsar - remove later @for dev use only
 function dvar_dump($data){
-    // return '';
+    return '';
     echo "<pre>";
     var_dump($data);
     echo "</pre>";

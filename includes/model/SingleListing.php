@@ -86,9 +86,18 @@ class Directorist_Single_Listing {
 			'listing'      => $this,
 			'section_data' => $section_data,
 			'icon'         => !empty( $section_data['icon'] ) ? $section_data['icon'] : '',
+			'label'        => !empty( $section_data['label'] ) ? $section_data['label'] : '',
+			'id'           => !empty( $section_data['custom_block_id'] ) ? $section_data['custom_block_id'] : '',
+			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
 
-		atbdp_get_shortcode_template( 'single-listing/section', $args );
+		if ( $section_data['type'] == 'widget_group' ) {
+			$template = 'single-listing/section-'. $section_data['widget_name'];
+			atbdp_get_shortcode_template( $template, $args );
+		}
+		else {
+			atbdp_get_shortcode_template( 'single-listing/section-general', $args );
+		}
 	}
 
 	public function field_template( $data ) {
@@ -979,6 +988,20 @@ class Directorist_Single_Listing {
 		}
 
 		return apply_filters('atbdp_related_listing_args', $args);
+	}
+
+	public function load_related_listings_script() {
+		$columns = get_directorist_type_option( $this->type, 'similar_listings_number_of_columns', 3 );
+
+		$is_rtl = is_rtl() ? 'true' : '';
+
+		$localized_data = array(
+			'is_rtl' => $is_rtl,
+			'rel_listing_column' => $columns,
+		);
+
+		wp_enqueue_script('atbdp-related-listings-slider');
+		wp_localize_script('atbdp-related-listings-slider', 'data', $localized_data);
 	}
 
 	public function related_listings_template() {

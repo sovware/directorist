@@ -2068,3 +2068,44 @@ input[type=checkbox], input[type=radio]{
   flex-basis: calc( 100% / (12 / 8) );
   width: calc( 100% / (12 / 8) );
 }
+
+
+.cptm-dragable-element {
+  position: relative;
+}
+
+.cptm-dropable-area {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+
+.cptm-dropable-area-right {
+  display: block;
+}
+.cptm-dropable-area-left {
+  display: block;
+}
+.cptm-dropable-area-right,
+.cptm-dropable-area-left {
+  display: block;
+  width: 50%;
+  height: 100%;
+}
+
+.cptm-dropable-area-top {
+  display: block;
+}
+.cptm-dropable-area-bottom {
+  display: block;
+}
+.cptm-dropable-area-top,
+.cptm-dropable-area-bottom {
+  display: block;
+  width: 100%;
+  height: 50%;
+}

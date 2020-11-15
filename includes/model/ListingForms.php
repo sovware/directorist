@@ -504,8 +504,7 @@ class Directorist_Listing_Forms {
 			'hide_empty' => false,
 		));
 		$terms =  get_the_terms( $this->get_add_listing_id(), ATBDP_TYPE );
-		$current_type  = !empty($terms) ? $terms[0]->term_id : '';
-
+		$current_type  = !empty($terms) ? $terms[0]->term_id : ( count( $all_types ) === 1 ? $all_types[0]->term_id : '' );
 		$args = array(
 			'listing_form'  => $this,
 			'listing_types' => $all_types,
@@ -725,9 +724,9 @@ class Directorist_Listing_Forms {
 			}
 
 			$type = $this->get_current_listing_type();
-
 			if ( $type ) {
 				$args['form_data'] = $this->build_form_data( $type );
+				$args['single_directory'] = $type;
 				return atbdp_return_shortcode_template( 'forms/add-listing', $args );
 			}
 

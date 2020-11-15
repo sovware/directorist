@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="form-group" class="directorist-description-field">
+<div class="form-group directorist-description-field">
 	<?php
 	$form->add_listing_label_template( $data );
 	

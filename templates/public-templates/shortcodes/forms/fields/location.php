@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="form-group" class="directorist-location-field">
+<div class="form-group directorist-location-field">
 	<?php $form->add_listing_label_template( $data ); ?>
 
 	<select name="<?php echo esc_attr( $data['field_key'] ); ?>" class="form-control" id="at_biz_dir-location" <?php echo $data['type'] == 'multiple' ? 'multiple="multiple"' : ''; ?>>

@@ -114,7 +114,8 @@
 
 .custom-control .custom-control-input:checked ~ .check--select:before {
     content: '\f00c';
-    font-family: "FontAwesome";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
     color: #fff;
     font-size: 9px;
     position: absolute;

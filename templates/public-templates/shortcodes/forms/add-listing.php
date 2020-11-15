@@ -17,7 +17,7 @@
 					<?php
 					ATBDP()->listing->add_listing->show_nonce_field();
 
-					if ( !empty( $is_edit_mode ) ) {
+					if ( !empty( $is_edit_mode ) || !empty( $single_directory )) {
 						$listing_form->add_listing_type_template();
 					}
 

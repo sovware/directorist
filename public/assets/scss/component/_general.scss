@@ -1680,3 +1680,14 @@ input#privacy_policy,
     overflow-y: auto;
   }
 }
+
+/* Search Home */
+.atbdp-basic-search-fields{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .atbdp-basic-search-fields-each{
+    flex: 0 0 33.33%;
+    width: 33.33%;
+  }
+}

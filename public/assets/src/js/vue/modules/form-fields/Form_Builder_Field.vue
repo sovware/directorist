@@ -6,14 +6,14 @@
         <p class="cptm-description-text">
           Click on a field to edit, Drag & Drop to reorder
         </p>
-        
+
         <div class="cptm-form-builder-active-fields-container">
           <div class="cptm-form-builder-active-fields-group" v-for="(group, group_key) in groups" :key="group_key">
             <div class="cptm-form-builder-group-header-section" v-if="has_group">
               <div class="cptm-form-builder-group-header">
                 <div class="cptm-form-builder-group-title-area" :draggable="typeof group.draggable !== 'undefined' ? group.draggable : true" @dragstart="activeGroupOnDragStart(group_key)" @dragend="activeGroupOnDragEnd()">
                   <h3 class="cptm-form-builder-group-title">
-                    {{ theGroups[ group_key ].label }}
+                    {{ ( group.label ) ? group.label : '' }}
                   </h3>
 
                   <div class="cptm-form-builder-group-title-actions">
@@ -244,11 +244,21 @@ export default {
     },
 
     updated_value() {
-      if ( ! this.has_group ) {
-        return { fields: this.active_fields, fields_order: this.groups[0].fields };
+      let groups = this.groups;
+      if ( groups.length ) {
+        groups = JSON.parse( JSON.stringify( this.groups ) );
+
+        for ( let group_index in groups ) {
+          if ( typeof groups[ group_index ].options === 'undefined' ) { continue; }
+          delete groups[ group_index ].options;
+        } 
       }
 
-      return { fields: this.active_fields, groups: this.groups };
+      if ( ! this.has_group ) {
+        return { fields: this.active_fields, fields_order: groups[0].fields };
+      }
+      
+      return { fields: this.active_fields, groups: groups };
     },
 
     theWidgets() {
@@ -285,10 +295,10 @@ export default {
             if ( typeof template_root_options.lock !== 'undefined' ) { delete template_root_options.lock; }
 
             let widget_label = ( widgets[ widget_group ].widgets[ _widget_name ].label ) ? widgets[ widget_group ].widgets[ _widget_name ].label : '';
-            let template_widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : '';
+            let template_widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : widget_label;
             widget_label = ( widget_label ) ? widget_label : template_widget_label;
             template_root_options.label = widget_label;
-    
+
             Object.assign( widgets[ widget_group ].widgets[ _widget_name ], template_root_options );
           
             if ( ! widgets[ widget_group ].widgets[ _widget_name ].options ) {
@@ -308,6 +318,22 @@ export default {
           }
 
           widgets[widget_group].widgets = template_widgets;
+        }
+
+        for ( let widget in widgets[ widget_group ].widgets ) {
+          if ( ! widgets[ widget_group ].widgets[ widget ].options ) {
+            widgets[ widget_group ].widgets[ widget ].options = {};
+          }
+
+          widgets[ widget_group ].widgets[ widget ].options.widget_name = {
+            type: 'hidden',
+            value: widget,
+          };
+
+          widgets[ widget_group ].widgets[ widget ].options.widget_group = {
+            type: 'hidden',
+            value: widget_group,
+          };
         }
       }
       
@@ -341,26 +367,13 @@ export default {
           }
 
           // Check show_if_key_exists
-          let check_show_if_key_exists = false;
-          let show_if_key_exists_field_path = null;
-          let show_if_key_exists_field = null;
-
-          if ( typeof widgets[widget_group].widgets[widget].show_if_key_exists !== 'undefined' ) {
-            check_show_if_key_exists = true;
-            show_if_key_exists_field_path = widgets[widget_group].widgets[widget].show_if_key_exists;
-          }
-
-          if ( check_show_if_key_exists && ! show_if_key_exists_field_path.length ) {
-            check_show_if_key_exists = false;
-          }
-
-          if ( check_show_if_key_exists ) {
-            show_if_key_exists_field = this.getTergetFields( { path: show_if_key_exists_field_path } );
-          }
-
-          if ( check_show_if_key_exists && ! this.isObject( show_if_key_exists_field ) ) {
-            delete widgets[ widget_group ].widgets[ widget ];
-            continue;
+          if ( typeof widgets[widget_group].widgets[widget].show_if !== 'undefined' ) {
+            let show_if_cond = this.checkShowIfCondition({ condition: widgets[widget_group].widgets[widget].show_if });
+         
+            if ( ! show_if_cond.status ) {
+              delete widgets[ widget_group ].widgets[ widget ];
+              continue;
+            }
           }
 
           // Check if allow multiple
@@ -369,25 +382,12 @@ export default {
             delete widgets[ widget_group ].widgets[ widget ];
             continue;
           }
+          
 
           if ( ! allow_multiple && this.active_widget_groups.includes( widget ) ) {
             delete widgets[ widget_group ].widgets[ widget ];
             continue;
           }
-
-          if ( ! widgets[widget_group].widgets[widget].options ) {
-            widgets[widget_group].widgets[widget].options = {};
-          }
-
-          widgets[widget_group].widgets[widget].options.widget_group = {
-            type: "hidden",
-            value: widget_group,
-          };
-
-          widgets[widget_group].widgets[widget].options.widget_name = {
-            type: "hidden",
-            value: widget,
-          };
         }
       }
 
@@ -427,23 +427,35 @@ export default {
         this.default_groups = this.value.groups;
       }
 
+      // Trace active_widget_groups
+      if ( this.default_groups.length ) {
+        for ( let group of this.default_groups ) {
+          if ( 'widget_group' !==  group.type ) { continue; }
+          if ( typeof group.widget_name === 'undefined' ) { continue; }
+          this.active_widget_groups.push( group.widget_name );
+        }
+      }
+
       if ( this.isObject( this.value.fields ) ) {
         this.active_fields = this.value.fields;
       }
     },
 
     parseGroups() {
-        let groups = JSON.parse( JSON.stringify( this.default_groups ) );
+        let groups = this.default_groups;
+        if ( ! groups.length ) { return groups; }
+
+        groups = JSON.parse( JSON.stringify( groups ) );
 
         let group_fields = {};
         let fixed_options = [ 'lock', 'fields', 'type' ];
 
         let group_index = 0;
         for ( let group of groups ) {
-          if ( typeof group.type === 'undefined' || group.type === 'general' ) {
+          // general_group
+          if ( typeof group.type === 'undefined' || group.type === 'general_group' ) {
 
             let group_options = JSON.parse( JSON.stringify( this.groupOptions ) );
-
             for ( let option_key in group ) {
               if ( fixed_options.includes( option_key ) ) { continue; }
               if ( typeof group_options[ option_key ] === 'undefined' ) { continue } 
@@ -455,6 +467,25 @@ export default {
             groups[ group_index ].options = group_options;
           }
 
+          // widget_group
+          if ( group.type === 'widget_group' && typeof group.widget_group === 'string' && typeof group.widget_name === 'string' ) {
+            if ( typeof this.theWidgets[ group.widget_group ] === 'undefined' ) { continue; }
+            if ( typeof this.theWidgets[ group.widget_group ].widgets === 'undefined' ) { continue; }
+            if ( typeof this.theWidgets[ group.widget_group ].widgets[ group.widget_name ] === 'undefined' ) { continue; }
+            if ( typeof this.theWidgets[ group.widget_group ].widgets[ group.widget_name ].options === 'undefined' ) { continue; }
+
+            let group_options = this.theWidgets[ group.widget_group ].widgets[ group.widget_name ].options;
+
+            for ( let option_key in group ) {
+              if ( fixed_options.includes( option_key ) ) { continue; }
+              if ( typeof group_options[ option_key ] === 'undefined' ) { continue } 
+              
+              group_options[ option_key ].value = group[ option_key ];
+            }
+
+            groups[ group_index ].options = group_options;
+          }
+
           group_index++;
         }
 
@@ -462,35 +493,43 @@ export default {
     },
 
     getGroupOptions( group_key ) {
-        // let group_options = JSON.parse( JSON.stringify( this.groupOptions ) );
-        let group_options = JSON.parse( JSON.stringify( this.groups[ group_key ].options ) );
-        if ( ! this.isObject( group_options ) ) { return false; }
+      if ( ! this.isObject( this.groups[ group_key ].options ) ) { return false; }
+      let group_options = JSON.parse( JSON.stringify( this.groups[ group_key ].options ) );
 
-        // console.log( { group_options } );
-        for ( let field in group_options ) {
-            if ( typeof group_options[ field ].show_if === 'undefined' ) {
-                continue;
-            }
+      for ( let field in group_options ) {
+          if ( typeof group_options[ field ].show_if === 'undefined' ) {
+              continue;
+          }
 
-            let show_if_cond = this.checkShowIfCondition({
-                id: field,
-                root: group_options,
-                condition: group_options[ field ].show_if
-            });
+          let show_if_cond = this.checkShowIfCondition({
+              id: field,
+              root: group_options,
+              condition: group_options[ field ].show_if
+          });
 
-            if ( ! show_if_cond.status ) {
-                delete group_options[ field ];
-            }
-        }
+          if ( ! show_if_cond.status ) {
+              delete group_options[ field ];
+          }
+      }
 
-        return group_options;
+      return group_options;
     },
 
     hasGroupOptions( group_key ) {
-      let group_options = JSON.parse( JSON.stringify( this.groups[ group_key ].options ) );
-      if ( ! this.isObject( group_options ) ) { return false; }
+      // let group_options = JSON.parse( JSON.stringify( this.groups[ group_key ].options ) );
+      let group_options = { ...this.groups[ group_key ].options };
 
-      return true;
+      if ( ! group_options ) { return false; }
+
+      let has_visible_field = false;
+      for ( let field in group_options ) {
+        if ( group_options[ field ].type !== 'hidden' ) {
+          has_visible_field = true;
+          break;
+        }
+      }
+      
+      return has_visible_field;
     },
 
     getWidgetOptions( field_key ) {
@@ -550,7 +589,7 @@ export default {
     
     getActiveFieldsHeaderTitle(field_key) {
       let settings_label = this.getActiveFieldsSettings(field_key, "label");
-      settings_label = ( settings_label ) ? settings_label : 'Not Available';
+      settings_label = ( settings_label ) ? settings_label : '';
       const option_label = this.active_fields[field_key]["label"];
       
       return option_label && option_label.length ? option_label : settings_label;
@@ -634,7 +673,13 @@ export default {
     },
     
     updateActiveGroupOptionData(option_key, group_key, $event) {
+      // console.log( 'updateActiveGroupOptionData', option_key, group_key, $event );
       Vue.set( this.groups[group_key].options[option_key], 'value', $event );
+
+      if ( typeof this.groups[group_key][option_key] !== 'undefined' ) {
+        Vue.set( this.groups[group_key], option_key, $event );
+      }
+
       this.$emit("update", this.updated_value);
     },
     
@@ -653,7 +698,7 @@ export default {
     
     trashActiveGroupItem(group_key) {
       if ( this.groups[group_key].type === 'widget_group' ) {
-        let index = this.active_widget_groups.indexOf( this.groups[group_key].widget_key );
+        let index = this.active_widget_groups.indexOf( this.groups[group_key].widget_name );
         Vue.delete( this.active_widget_groups, index );
       }
 
@@ -708,14 +753,14 @@ export default {
     activeGroupOnDragLeave() {
       this.active_group_drop_area = "";
     },
+
     //
-    
-     activeGroupOnDragStart(group_key) {
-       if ( typeof this.groups[ group_key ].draggable !== 'undefined' ) {
-         if ( ! this.groups[ group_key ].draggable ) {
-           return;
-         }
-       }
+    activeGroupOnDragStart(group_key) {
+      if ( typeof this.groups[ group_key ].draggable !== 'undefined' ) {
+        if ( ! this.groups[ group_key ].draggable ) {
+          return;
+        }
+      }
 
       this.current_dragging_group = group_key;
     },
@@ -741,7 +786,8 @@ export default {
             let group = {
                 label: this.current_dragging_widget_group.field.label, fields: [],
                 type: 'widget_group',
-                widget_key: this.current_dragging_widget_group.inserting_field_key,
+                widget_group: this.current_dragging_widget_group.inserting_from,
+                widget_name: this.current_dragging_widget_group.inserting_field_key,
                 options: this.current_dragging_widget_group.field.options
             };
 
@@ -749,7 +795,7 @@ export default {
             this.groups.splice(des_ind, 0, JSON.parse( JSON.stringify( group ) ));
 
             // Trace Widget Group
-            this.active_widget_groups.push( group.widget_key );
+            this.active_widget_groups.push( group.widget_name );
 
             this.current_dragging_widget_group = '';
             this.current_dragging_group        = '';
@@ -887,7 +933,7 @@ export default {
     },
     
     addNewActiveFieldSection() {
-      let group = { label: "Section", fields: [] };
+      let group = { label: "Section", fields: [], type: 'general_group' };
 
       if ( this.groupOptions && typeof this.groupOptions === 'object' ) {
           group.options = this.groupOptions;
@@ -900,14 +946,9 @@ export default {
       const origin_value = this.groups[payload.group_index].fields[
         payload.origin_field_index
       ];
-      this.groups[payload.group_index].fields.splice(
-        payload.origin_field_index,
-        1
-      );
-      const des_ind =
-        payload.origin_field_index === 0
-          ? payload.destination_field_index
-          : payload.destination_field_index + 1;
+
+      this.groups[payload.group_index].fields.splice( payload.origin_field_index, 1 );
+      const des_ind = payload.origin_field_index === 0 ? payload.destination_field_index : payload.destination_field_index + 1;
       this.groups[payload.group_index].fields.splice(des_ind, 0, origin_value);
     },
     

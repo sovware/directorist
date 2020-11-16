@@ -12,7 +12,12 @@
             <div class="cptm-form-builder-group-header-section" v-if="has_group">
               <div class="cptm-form-builder-group-header">
 
-                <dropable-element :dropable="elementIsDragging" class-name="cptm-dropable-elm-form-builder-group-title-area">
+                <dropable-element 
+                  :dropable="current_dragging_group !== group_key && elementIsDragging"
+                  :drop-inside="(current_dragging_widget !== '') ? true : false"
+                  wrapper-class="cptm-form-builder-group-title-area__dropable-wrapper"
+                  dropable-placeholder-class="cptm-form-builder-group-title-area__dropable-placeholder"
+                >
                   <div class="cptm-form-builder-group-title-area"
                     :draggable="typeof group.draggable !== 'undefined' ? group.draggable : true"
                     @dragstart="activeGroupOnDragStart(group_key)"
@@ -254,6 +259,12 @@ export default {
       
       return { fields: this.active_fields, groups: groups };
     },
+
+    elementIsDragging() {
+      if ( this.current_dragging_widget !== '' || this.current_dragging_group !== ''  ) { return true }
+      return false;
+    },
+
     theWidgets() {
       if ( ! this.widgets && typeof this.widgets !== 'object' ) { return {} }
       // Add the widget group & name to all the widget fields
@@ -316,11 +327,7 @@ export default {
       
       return widgets;
     },
-    elementIsDragging() {
-      // console.log( this.current_dragging_widget, this.current_dragging_group );
-      if ( this.current_dragging_widget || this.current_dragging_group  ) { return true }
-      return false;
-    },
+    
     theWidgetGroups() {
       // Add the widget group & name to all the widget fields
       let widgets = JSON.parse( JSON.stringify( this.theWidgets ) );

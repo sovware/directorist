@@ -1,47 +1,57 @@
 <template>
     <div class="cptm-dropable-element" ref="dropable_element" :class="parentClass">
-        <div class="cptm-dropable-placeholder cptm-dropable-placeholder-before" v-if="dropableBefore">dropableBefore</div>
         
-        <div class="cptm-dropable-base-element">
+        <div class="cptm-dropable-placeholder cptm-dropable-placeholder-before" :class="dropablePlaceholderClass" v-if="dropableBefore"></div>
+        <div class="cptm-dropable-base-element" :class="{ ['cptm-dropable-inside']: drag_enter_dropable_area_inside }">
             <slot></slot>
         </div>
-        
-        <div class="cptm-dropable-placeholder cptm-dropable-placeholder-after" v-if="dropableAfter">dropableAfter</div>
-        
-        <div class="cptm-dropable-area" v-if="dropable">
+
+        <div class="cptm-dropable-placeholder cptm-dropable-placeholder-after" :class="dropablePlaceholderClass" v-if="dropableAfter"></div>
+
+        <div class="cptm-dropable-area" v-if="1 ||dropable">
+            <!-- cptm-dropable-area-inside -->
+            <span class="cptm-dropable-area-inside" v-if="1 || dropInside"
+                @dragover.prevent=""
+                @dragenter="drag_enter_dropable_area_inside = true"
+                @dragleave="drag_enter_dropable_area_inside = false"
+                @drop="handleDroppedInside()"
+            >
+            123
+            </span>
+
             <!-- cptm-dropable-area-left -->
-            <span class="cptm-dropable-area-left" v-if="dropDirection === 'horizontal'"
+            <span class="cptm-dropable-area-left" v-if="! dropInside && dropDirection === 'horizontal'"
                 @dragover.prevent=""
                 @dragenter="drag_enter_dropable_area_left = true"
                 @dragleave="drag_enter_dropable_area_left = false"
-                @drop="$emit('drop', 'dropped-before')"
+                @drop="handleDroppedBefore()"
             >
             </span>
             
             <!-- cptm-dropable-area-right -->
-            <span class="cptm-dropable-area-right" v-if="dropDirection === 'horizontal'"
+            <span class="cptm-dropable-area-right" v-if="! dropInside && dropDirection === 'horizontal'"
                 @dragover.prevent=""
                 @dragenter="drag_enter_dropable_area_right = true"
                 @dragleave="drag_enter_dropable_area_right = false"
-                @drop="$emit('drop', 'dropped-after')"
+                @drop="handleDroppedAfter()"
             >
             </span>
             
             <!-- cptm-dropable-area-top -->
-            <span class="cptm-dropable-area-top" v-if="dropDirection === 'vertical'"
+            <span class="cptm-dropable-area-top" v-if="! dropInside && dropDirection === 'vertical_'"
                 @dragover.prevent=""
                 @dragenter="drag_enter_dropable_area_top = true"
                 @dragleave="drag_enter_dropable_area_top = false"
-                @drop="$emit('drop', 'dropped-before')"
+                @drop="handleDroppedBefore()"
             >
             </span>
 
             <!-- cptm-dropable-area-bottom -->
-            <span class="cptm-dropable-area-bottom" v-if="dropDirection === 'vertical'"
+            <span class="cptm-dropable-area-bottom" v-if="! dropInside && dropDirection === 'vertical_'"
                 @dragover.prevent=""
                 @dragenter="drag_enter_dropable_area_bottom = true"
                 @dragleave="drag_enter_dropable_area_bottom = false"
-                @drop="$emit('drop', 'dropped-after')"
+                @drop="handleDroppedAfter()"
             >
             </span>
         </div>
@@ -56,7 +66,11 @@ export default {
             type: String,
             default: 'block',
         },
-        className: {
+        wrapperClass: {
+            type: String,
+            default: '',
+        },
+        dropablePlaceholderClass: {
             type: String,
             default: '',
         },
@@ -68,31 +82,13 @@ export default {
             type: Boolean,
             default: false,
         },
+        dropInside: {
+            type: Boolean,
+            default: false,
+        },
         dropDirection: {
             type: String,
             default: 'vertical',
-        },
-    },
-
-    watch: {
-        dropableBefore() {
-            if ( ! this.dropableBefore ) { return; }
-            
-            console.log( 'dropableBefore' );
-            let ref = this.$refs.dropable_element;
-            console.log( { ref } );
-        },
-        dropableAfter() {
-            if ( ! this.dropableAfter ) { return; }
-            
-            console.log( 'dropableAfter' );
-
-            let ref = this.$refs.dropable_element;
-            let sp1 = document.createElement("div");
-            sp1.innerHTML = 'test 123';
-
-            ref.insertBefore( sp1 );
-            console.log( { ref } );
         },
     },
 
@@ -108,7 +104,7 @@ export default {
         parentClass() {
             const diplay_class = ( 'block' === this.display ) ? 'cptm-display-block' : 'cptm-display-inline';
             return {
-                [ this.className ]: true,
+                [ this.wrapperClass ]: true,
                 [ diplay_class ]: true,
             }
         },
@@ -119,6 +115,7 @@ export default {
             dropable_before: false,
             dropable_after: false,
 
+            drag_enter_dropable_area_inside: false,
             drag_enter_dropable_area_right: false,
             drag_enter_dropable_area_left: false,
             drag_enter_dropable_area_top: false,
@@ -127,14 +124,20 @@ export default {
     },
 
     methods: {
-        droppedBefore() {
+        handleDroppedBefore() {
             this.drag_enter_dropable_area_top = false;
             this.drag_enter_dropable_area_left = false;
 
             this.$emit('drop', 'dropped-before');
         },
 
-        droppedAfter() {
+        handleDroppedInside() {
+            this.drag_enter_dropable_area_inside = false;
+
+            this.$emit('drop', 'dropped-inside');
+        },
+
+        handleDroppedAfter() {
             this.drag_enter_dropable_area_right = false;
             this.drag_enter_dropable_area_bottom = false;
 

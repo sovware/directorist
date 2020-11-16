@@ -141,7 +141,7 @@
                 });
         }
         $('#at_biz_dir-categories').select2({
-                placeholder: atbdp_add_listing.cat_placeholder,
+                placeholder: atbdp_add_listing.i18n_text.cat_placeholder,
                 allowClear: true,
         });
 })(jQuery);

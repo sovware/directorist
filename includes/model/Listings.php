@@ -387,9 +387,7 @@ class Directorist_Listings {
 			'featured'             => get_post_meta( $id, '_featured', true ),
 			'listing_img'          => get_post_meta( $id, '_listing_img', true ),
 			'listing_prv_img'      => get_post_meta( $id, '_listing_prv_img', true ),
-			'excerpt'              => get_post_meta( $id, '_excerpt', true ),
 			'tagline'              => get_post_meta( $id, '_tagline', true ),
-			'email'                => get_post_meta( $id, '_email', true ),
 			'category'             => get_post_meta( $id, '_admin_category_select', true ),
 			'post_view'            => get_post_meta( $id, '_atbdp_post_views_count', true ),
 

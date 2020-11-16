@@ -2072,6 +2072,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label' => 'Label',
                                     'value' => 'Tag',
                                 ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => 'Tag',
+                                ],
                                 'type' => [
                                     'type'  => 'radio',
                                     'value' => 'multiple',

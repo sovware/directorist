@@ -146,7 +146,6 @@ class Directorist_Single_Listing {
 			'listing'  => $this,
 			'actions'  => $this->header_data['listings_header']['quick_actions'],
 		);
-
 		atbdp_get_shortcode_template('single-listing/quick-actions', $args );
 	}
 
@@ -327,6 +326,7 @@ class Directorist_Single_Listing {
 	{
 		$id = get_the_ID();
 		$single_page_id = get_directorist_option('single_listing_page');
+		$type = get_post_meta( $id, '_directory_type', true );
 
 		if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
 
@@ -468,18 +468,19 @@ class Directorist_Single_Listing {
 					$url = add_query_arg(array('atbdp_listing_id' => $pid, 'reviewed' => 'yes'), $_GET['redirect']);
 				}
 			}
+			$header = get_term_meta( $type, 'single_listing_header', true );
 			$args = array(
 				'author_id'         => get_post_field('post_author', $id),
 				'content'           => $content,
 				'class_col'         => is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12',
 				'class_float'       => $redirect ? 'atbdp_float_active' : 'atbdp_float_none',
-				'display_back_link' => get_directorist_option('display_back_link', 1),
+				'display_back_link' => $header['options']['general']['back']['label'],
 				'edit_link'         => $edit_link,
 				'edit_text'         => apply_filters('atbdp_listing_edit_btn_text', __(' Edit', 'directorist')),
 				'url'               => $url,
 				'submit_text'       => apply_filters('atbdp_listing_preview_btn_text', $submit_text),
+				
 			);
-
 			$html = atbdp_return_shortcode_template('single-listing/content-wrapper', $args);
 			return $html;
 		}
@@ -496,6 +497,9 @@ class Directorist_Single_Listing {
 			'section_title'     => $section_title,
 			'section_icon'      => $section_icon,
 			'data'              => $this->header_data,
+			'enable_title'      => $this->header_data['options']['content_settings']['listing_title']['enable_title'],
+			'enable_tagline'    => $this->header_data['options']['content_settings']['listing_title']['enable_tagline'],
+			'enable_content'    => $this->header_data['options']['content_settings']['listing_description']['enable'],
 		);
 
 		return atbdp_get_shortcode_template('single-listing/header', $args);

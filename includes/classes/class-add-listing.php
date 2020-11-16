@@ -93,7 +93,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $term = get_term_by( 'id', $listing_type, 'atbdp_listing_types' );
                     $submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
                     $preview_enable = get_term_meta( $term->term_id, 'preview_mode', true ) == '1' ? true : '';
-                    $guest = get_term_meta( $term->term_id, 'guest_listings', true ) == '1' ? true : '';
                     $submission_form_fields = $submission_form['fields'];
                  }
                 //isolate data

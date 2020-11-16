@@ -3049,15 +3049,22 @@ input#privacy_policy,
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  margin-left: -8px;
+  margin-right: -8px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd-listing-location,
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listing_price,
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_rating_count,
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_badges,
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listing_category {
+  margin-left: 8px;
+  margin-right: 8px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listing_meta {
   margin-top: 0;
   margin-right: 10px;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_rating_count {
-  margin-right: 20px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_rating_count p {
@@ -3071,18 +3078,19 @@ input#privacy_policy,
   color: #7a82a6;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_badges {
-  margin-right: 15px;
-}
-
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listing_category .directory_cats {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  margin-bottom: 0 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listing_category .directory_cats > li {
   margin-right: 5px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd-listing-location .directory_cats {
+  margin-bottom: 0 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_data_info .atbd_listing_average_pricing {
@@ -3823,6 +3831,7 @@ input#privacy_policy,
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  margin-bottom: 20px !important;
 }
 
 .directorist-single-wrapper .atbdb_content_module_contents ul li {
@@ -3860,6 +3869,7 @@ input#privacy_policy,
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  margin-bottom: 0 !important;
 }
 
 .atbd_listing_category .directory_tag span,
@@ -3924,7 +3934,6 @@ input#privacy_policy,
   color: #ffffff;
   display: inline-block;
   border-radius: 3px;
-  margin-right: 6px;
   margin-top: 3px;
   margin-bottom: 3px;
 }

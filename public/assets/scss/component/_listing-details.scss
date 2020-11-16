@@ -338,12 +338,21 @@
       display: flex;
       align-items: center;
       flex-wrap: wrap;
+      margin-left: -8px;
+      margin-right: -8px;
+      .atbd-listing-location,
+      .atbd_listing_price,
+      .atbd_rating_count,
+      .atbd_badges,
+      .atbd_listing_category{
+        margin-left: 8px;
+        margin-right: 8px;
+      }
       .atbd_listing_meta{
         margin-top:0;
         margin-right: 10px;
       }
       .atbd_rating_count {
-        margin-right: 20px;
         p {
           line-height: 20px;
           span {
@@ -354,15 +363,18 @@
           }
         }
       }
-      .atbd_badges{
-        margin-right: 15px;
-      }
       .atbd_listing_category{
         .directory_cats{
           display: flex;
+          margin-bottom: 0 !important;
           >li{
             margin-right: 5px;
           }
+        }
+      }
+      .atbd-listing-location{
+        .directory_cats{
+          margin-bottom: 0 !important;
         }
       }
       .atbd_listing_average_pricing{
@@ -969,6 +981,7 @@
     ul{
       display: flex;
       flex-wrap: wrap;
+      margin-bottom: 20px !important;
       li{
         flex: 33.333%;
         a{
@@ -1002,6 +1015,7 @@
 .atbd-listing-location{
   .directory_cats{
     align-items: center;
+    margin-bottom: 0 !important;
   }
   .directory_tag{
     span{

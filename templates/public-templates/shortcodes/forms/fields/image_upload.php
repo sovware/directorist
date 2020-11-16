@@ -4,7 +4,7 @@
  * @since   6.7
  * @version 6.7
  */
-var_dump( $data );
+
 $p_id                = $form->get_add_listing_id();
 $fm_plan             = get_post_meta( $p_id, '_fm_plans', true );
 $type                = $form->get_current_listing_type();

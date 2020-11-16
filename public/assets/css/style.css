@@ -3854,6 +3854,28 @@ input#privacy_policy,
   min-height: 120px;
 }
 
+/* listing category & location style */
+.atbd_listing_category .directory_cats,
+.atbd-listing-location .directory_cats {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.atbd_listing_category .directory_tag span,
+.atbd-listing-location .directory_tag span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.atbd_listing_category .directory_tag span a,
+.atbd-listing-location .directory_tag span a {
+  margin-left: 5px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper p {
   margin: 0;
   padding: 0;

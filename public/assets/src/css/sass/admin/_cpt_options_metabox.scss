@@ -175,6 +175,8 @@ $light-gray: #f4f5f7;
 .cptm-dropable-base-element {
   display: block;
   position: relative;
+  padding: 0;
+  transition: ease-in-out all 300ms;
 }
 
 .cptm-dropable-area {
@@ -187,13 +189,18 @@ $light-gray: #f4f5f7;
 }
 
 .cptm-dropable-placeholder {
-  padding: 10px 15px;
-  margin: 10px 0;
-  height: 30px;
+  padding: 0;
+  margin: 0;
+  height: 0;
   border-radius: 4px;
   overflow: hidden;
-  transition: all ease-in-out 300ms;
+  transition: all ease-in-out 200ms;
   background: RGBA(61,98,245,0.45);
+  &.active {
+    padding: 10px 15px;
+    margin: 10px 0;
+    height: 30px;
+  }
 }
 
 .cptm-dropable-inside {
@@ -504,9 +511,9 @@ $light-gray: #f4f5f7;
 
 .cptm-form-builder-active-fields-group {
   position: relative;
-  margin-bottom: 40px;
+  // margin-bottom: 40px;
   padding-bottom: 5px;
-  border-bottom: 1px dashed #b9b9b9;
+  // border-bottom: 1px dashed #b9b9b9;
 }
 
 .cptm-form-builder-group-header-section {
@@ -2144,4 +2151,9 @@ input[type=checkbox], input[type=radio]{
 .atbdp-col-8 {
   flex-basis: calc( 100% / (12 / 8) );
   width: calc( 100% / (12 / 8) );
+}
+
+
+.shrink {
+  max-width: 300px;
 }

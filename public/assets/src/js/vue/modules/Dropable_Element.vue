@@ -1,30 +1,29 @@
 <template>
     <div class="cptm-dropable-element" ref="dropable_element" :class="parentClass">
         
-        <div class="cptm-dropable-placeholder cptm-dropable-placeholder-before" :class="dropablePlaceholderClass" v-if="dropableBefore"></div>
+        <div class="cptm-dropable-placeholder cptm-dropable-placeholder-before" :class="dropablePlaceholderBeforeClass"></div>
         <div class="cptm-dropable-base-element" :class="{ ['cptm-dropable-inside']: drag_enter_dropable_area_inside }">
             <slot></slot>
         </div>
 
-        <div class="cptm-dropable-placeholder cptm-dropable-placeholder-after" :class="dropablePlaceholderClass" v-if="dropableAfter"></div>
+        <div class="cptm-dropable-placeholder cptm-dropable-placeholder-after" :class="dropablePlaceholderAfterClass"></div>
 
-        <div class="cptm-dropable-area" v-if="1 ||dropable">
+        <div class="cptm-dropable-area" v-if="dropable">
             <!-- cptm-dropable-area-inside -->
-            <span class="cptm-dropable-area-inside" v-if="1 || dropInside"
+            <span class="cptm-dropable-area-inside" v-if="dropInside"
                 @dragover.prevent=""
                 @dragenter="drag_enter_dropable_area_inside = true"
                 @dragleave="drag_enter_dropable_area_inside = false"
                 @drop="handleDroppedInside()"
             >
-            123
             </span>
 
             <!-- cptm-dropable-area-left -->
-            <span class="cptm-dropable-area-left" v-if="! dropInside && dropDirection === 'horizontal'"
-                @dragover.prevent=""
-                @dragenter="drag_enter_dropable_area_left = true"
-                @dragleave="drag_enter_dropable_area_left = false"
-                @drop="handleDroppedBefore()"
+            <span class = "cptm-dropable-area-left" v-if = "! dropInside && dropDirection === 'horizontal'"
+                @dragover.prevent = ""
+                @dragenter = "drag_enter_dropable_area_left = true"
+                @dragleave = "drag_enter_dropable_area_left = false"
+                @drop = "handleDroppedBefore()"
             >
             </span>
             
@@ -38,7 +37,7 @@
             </span>
             
             <!-- cptm-dropable-area-top -->
-            <span class="cptm-dropable-area-top" v-if="! dropInside && dropDirection === 'vertical_'"
+            <span class="cptm-dropable-area-top" v-if="! dropInside && dropDirection === 'vertical'"
                 @dragover.prevent=""
                 @dragenter="drag_enter_dropable_area_top = true"
                 @dragleave="drag_enter_dropable_area_top = false"
@@ -47,7 +46,7 @@
             </span>
 
             <!-- cptm-dropable-area-bottom -->
-            <span class="cptm-dropable-area-bottom" v-if="! dropInside && dropDirection === 'vertical_'"
+            <span class="cptm-dropable-area-bottom" v-if="! dropInside && dropDirection === 'vertical'"
                 @dragover.prevent=""
                 @dragenter="drag_enter_dropable_area_bottom = true"
                 @dragleave="drag_enter_dropable_area_bottom = false"
@@ -106,6 +105,19 @@ export default {
             return {
                 [ this.wrapperClass ]: true,
                 [ diplay_class ]: true,
+            }
+        },
+
+        dropablePlaceholderBeforeClass() {
+            return {
+                [ this.dropablePlaceholderClass ]: true,
+                [ 'active' ]: ( this.dropableBefore ) ? true : false,
+            }
+        },
+        dropablePlaceholderAfterClass() {
+            return {
+                [ this.dropablePlaceholderClass ]: true,
+                [ 'active' ]: ( this.dropableAfter ) ? true : false,
             }
         },
     },

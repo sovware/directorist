@@ -996,3 +996,20 @@
     min-height: 120px;
   }
 }
+
+/* listing category & location style */
+.atbd_listing_category,
+.atbd-listing-location{
+  .directory_cats{
+    align-items: center;
+  }
+  .directory_tag{
+    span{
+      display: flex;
+      flex-wrap: wrap;
+      a{
+        margin-left: 5px;
+      }
+    }
+  }
+}

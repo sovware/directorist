@@ -4945,22 +4945,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'value' => __('Save & Preview', 'directorist'),
                 ],
 
-                // Guest Submission
-                'guest_listings' => [
-                    'label' => __('Enable Guest Listing Submission', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                ],
-                'guest_email_label' => [
-                    'label' => __('Guest Email Label', 'directorist'),
-                    'type'  => 'text',
-                    'value' => 'Your Email',
-                ],
-                'guest_email_placeholder' => [
-                    'label' => __('Guest Email Placeholder', 'directorist'),
-                    'type'  => 'text',
-                    'value' => 'example@email.com',
-                ],
+                // Submit Button
                 'submit_button_label' => [
                     'label' => __('Submit Button Label', 'directorist'),
                     'type'  => 'text',
@@ -5473,7 +5458,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
             $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
             $wc_pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-woocommerce-pricing-plans" target="_blank">WooCommerce Pricing Plans</a>';
             $plan_promo = sprintf(__('Monetize your website by selling listing plans using %s or %s extensions.', 'directorist'), $pricing_plan, $wc_pricing_plan);
-
+            
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
                 'general' => [
                     'label' => 'General',
@@ -5572,15 +5557,14 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                         'submit_button_label',
                                     ],
                                 ],
-                                'guest_submission' => [
+                                /* 'guest_submission' => [
                                     'title' => __('Guest Submittion', 'directorist'),
                                     'container' => 'short-width',
                                     'fields' => [
-                                        'guest_listings',
                                         'guest_email_label',
                                         'guest_email_placeholder',
                                     ],
-                                ],
+                                ], */
                                 'terms_and_conditions' => [
                                     'title' => __('Terms and Conditions', 'directorist'),
                                     'container' => 'short-width',
@@ -5714,6 +5698,33 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     ],
                 ],
             ]);
+
+
+            // Conditional Fields
+            // -----------------------------
+            // Guest Submission
+            if ( get_directorist_option( 'guest_listings', 1 ) == '1' ) {
+                $this->fields['guest_email_label'] = [
+                    'label' => __('Guest Email Label', 'directorist'),
+                    'type'  => 'text',
+                    'value' => 'Your Email',
+                ];
+
+                $this->fields['guest_email_placeholder'] = [
+                    'label' => __('Guest Email Placeholder', 'directorist'),
+                    'type'  => 'text',
+                    'value' => 'example@email.com',
+                ];
+
+                $this->layouts['submission_form']['submenu']['settings']['sections']['guest_submission'] = [
+                    'title' => __('Guest Submittion', 'directorist'),
+                    'container' => 'short-width',
+                    'fields' => [
+                        'guest_email_label',
+                        'guest_email_placeholder',
+                    ],
+                ];
+            }
 
             $this->config = [
                 'submission' => [
@@ -5922,6 +5933,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
             wp_register_style('atbdp-select2-bootstrap-style', '//select2.github.io/select2-bootstrap-theme/css/select2-bootstrap.css', false);
             wp_register_style('atbdp-font-awesome', ATBDP_PUBLIC_ASSETS . 'css/font-awesome.min.css', false);
             wp_register_style( 'atbdp-line-awesome', ATBDP_PUBLIC_ASSETS . 'css/line-awesome.min.css', false, ATBDP_VERSION );
+            // wp_register_style( 'atbdp-unicons-line', ATBDP_PUBLIC_ASSETS . 'css/unicons-line-min.css', false, ATBDP_VERSION );
 
             wp_register_style( 'atbdp_admin_css', ATBDP_PUBLIC_ASSETS . 'css/admin_app.css', [], '1.0' );
             wp_register_script( 'atbdp_admin_app', ATBDP_PUBLIC_ASSETS . 'js/admin_app.js', ['jquery'], false, true );

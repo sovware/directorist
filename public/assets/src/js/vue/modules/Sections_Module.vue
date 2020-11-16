@@ -9,6 +9,7 @@
             <div class="cptm-form-fields" v-if="sectionFields( section )">
                 <template v-for="( field, field_key ) in sectionFields( section )">
                     <component
+                        v-if="fields[ field ]"
                         :is="getFormFieldName( fields[ field ].type )" 
                         :field-id="field"
                         :key="field_key"
@@ -54,7 +55,8 @@ export default {
                 for ( let field of the_sections[ section ].fields ) {
 
                     let field_index = the_sections[ section ].fields.indexOf( field );
-
+                    
+                    
                     if ( typeof this.fields[ field ] === 'undefined' ) {
                         the_sections[ section ].fields.splice( field_index, 1 );
                         continue;

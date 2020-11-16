@@ -1486,9 +1486,9 @@ class Directorist_Listings {
 			atbdp_get_shortcode_template( 'listings-archive/loop/thumb-card', array('listings' => $this) );
 		}
 
-		public function loop_get_published_date() {
-			$publish_date_format = $this->options['publish_date_format'];
-			if ('time_ago' === $publish_date_format) {
+		public function loop_get_published_date( $data ) {
+			$publish_date_format = $data['date_type'];
+			if ('days_ago' === $publish_date_format) {
 				$text = sprintf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
 			}
 			else {

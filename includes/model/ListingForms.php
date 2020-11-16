@@ -572,11 +572,16 @@ class Directorist_Listing_Forms {
 
 			if ( atbdp_has_admin_template( $admin_template ) ) {
 				atbdp_get_admin_template( $admin_template, $args );
-				return;
+			}
+			else {
+				atbdp_get_shortcode_template( $template, $args );
 			}
 		}
-
-		atbdp_get_shortcode_template( $template, $args );
+		else {
+			if ( empty( $field_data['only_for_admin'] ) ) {
+				atbdp_get_shortcode_template( $template, $args );
+			}
+		}
 	}
 
 	public function get_listing_types() {

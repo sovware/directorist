@@ -6,4 +6,4 @@
  */
 ?>
 
-<p><?php directorist_icon( $icon );?><?php echo esc_html( $listings->loop_get_published_date() );?></p>
+<p><?php directorist_icon( $icon );?><?php echo esc_html( $listings->loop_get_published_date( $data ) );?></p>

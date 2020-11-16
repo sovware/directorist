@@ -422,7 +422,7 @@ class Directorist_Listing_Forms {
 
 	public function add_listing_generate_label( $label, $required ) {
 		$required_html = $this->add_listing_required_html();
-		return wp_kses( sprintf( '%s:%s', $label, $required ? $required_html : '' ), array( 'span' ) );
+		return sprintf( '%s:%s', $label, $required ? $required_html : '' );
 	}
 
 	public function add_listing_has_contact_info( $args ) {
@@ -446,8 +446,8 @@ class Directorist_Listing_Forms {
 
 	public function add_listing_submit_template() {
 		$p_id              = $this->get_add_listing_id();
-		$guest_email_label = get_directorist_option( 'guest_email', __( 'Your Email', 'directorist' ) );
 		$type = $this->get_current_listing_type();
+		$guest_email_label = get_directorist_type_option( $type, 'guest_email_label', __( 'Your Email', 'directorist' ) );
 
 		$privacy_link =  ATBDP_Permalink::get_privacy_policy_page_url();
 		$terms_link   =  ATBDP_Permalink::get_terms_and_conditions_page_url();
@@ -460,7 +460,7 @@ class Directorist_Listing_Forms {
 			'p_id'                    => $p_id,
 			'display_guest_listings'  => get_directorist_option( 'guest_listings', 0 ),
 			'guest_email_label_html'  => $this->add_listing_generate_label( $guest_email_label, true ),
-			'guest_email_placeholder' => get_directorist_option( 'guest_email_placeholder', __( 'example@gmail.com', 'directorist' ) ),
+			'guest_email_placeholder' => get_directorist_type_option( $type, 'guest_email_placeholder' ),
 
 			'display_privacy'         => (bool) get_directorist_type_option( $type, 'listing_privacy', 1 ),
 			'privacy_is_required'     => get_directorist_type_option( $type, 'require_privacy', 1 ),

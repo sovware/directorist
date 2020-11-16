@@ -9,9 +9,9 @@ $p_id                = $form->get_add_listing_id();
 $fm_plan             = get_post_meta( $p_id, '_fm_plans', true );
 $type                = $form->get_current_listing_type();
 
-$plan_image          = get_directorist_type_option( $type, 'max_image_limit', 5 );
-$max_file_size       = get_directorist_type_option( $type, 'max_per_image_limit', 0 );
-$max_total_file_size = get_directorist_type_option( $type, 'max_total_image_limit', 4 );
+$plan_image          = $data['max_image_limit'];
+$max_file_size       = $data['max_per_image_limit'];
+$max_total_file_size = $data['max_total_image_limit'];
 
 $slider_unl = '';
 if ( is_fee_manager_active() ) {
@@ -58,7 +58,7 @@ $max_total_file_size_kb = (float) $max_total_file_size * 1024;//
 			<span class="ezmu-dictionary-label-featured"><?php esc_html_e('Preview', 'directorist') ?></span>
 			<span class="ezmu-dictionary-label-drag-n-drop"><?php esc_html_e('Drag & Drop', 'directorist') ?></span>
 			<span class="ezmu-dictionary-label-or"><?php esc_html_e('or', 'directorist') ?></span>
-			<span class="ezmu-dictionary-label-select-files"><?php echo esc_html( $data['label'] ); ?></span>
+			<span class="ezmu-dictionary-label-select-files"><?php echo esc_html( $data['select_files_label'] ); ?></span>
 			<span class="ezmu-dictionary-label-add-more"><?php esc_html_e('Add More', 'directorist') ?></span>
 
 			<span class="ezmu-dictionary-alert-max-file-size"><?php esc_html_e('Maximum limit for a file is  __DT__', 'directorist') ?></span>

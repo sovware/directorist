@@ -462,12 +462,12 @@ class Directorist_Listing_Forms {
 			'guest_email_label_html'  => $this->add_listing_generate_label( $guest_email_label, true ),
 			'guest_email_placeholder' => get_directorist_option( 'guest_email_placeholder', __( 'example@gmail.com', 'directorist' ) ),
 
-			'display_privacy'         => get_directorist_type_option( $type, 'listing_privacy', 1 ),
+			'display_privacy'         => (bool) get_directorist_type_option( $type, 'listing_privacy', 1 ),
 			'privacy_is_required'     => get_directorist_type_option( $type, 'require_privacy', 1 ),
 			'privacy_checked'         => (bool) get_post_meta( $p_id, '_privacy_policy', true ),
 			'privacy_text'            => $this->generate_linktext( $privacy_label, $privacy_link ),
 
-			'display_terms'           => get_directorist_type_option( $type, 'listing_terms_condition', 1 ),
+			'display_terms'           => (bool) get_directorist_type_option( $type, 'listing_terms_condition', 1 ),
 			'terms_is_required'       => get_directorist_type_option( $type, 'require_terms_conditions', 1 ),
 			'terms_checked'           => (bool) get_post_meta( $p_id, '_t_c_check', true ),
 			'terms_text'              => $this->generate_linktext( $terms_label, $terms_link ),

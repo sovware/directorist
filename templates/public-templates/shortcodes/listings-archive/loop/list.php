@@ -22,6 +22,7 @@ $loop_fields = $listings->loop['list_fields'];
 			<div class="atbd_content_upper">
 				<div class="atbd-list-body-top"><?php $listings->render_loop_fields($loop_fields['body']['top']); ?></div>
 				<div class="atbd_listing_data_list"><ul><?php $listings->render_loop_fields($loop_fields['body']['bottom'], '<li>', '</li>'); ?></ul></div>
+				<div class="excerpt-area"><?php $listings->render_loop_fields($loop_fields['body']['excerpt']); ?></div>
 				<div class="atbd-list-body-right"><?php $listings->render_loop_fields($loop_fields['body']['right']); ?></div>
 			</div>
 

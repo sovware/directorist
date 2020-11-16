@@ -2072,8 +2072,17 @@ input[type=checkbox], input[type=radio]{
   width: calc( 100% / (12 / 8) );
 }
 
+
+
+
+
+// Dropable Element
 .cptm-dropable-element {
   position: relative;
+}
+
+.cptm-dropable-base-element {
+  display: block;
 }
 
 .cptm-dropable-area {

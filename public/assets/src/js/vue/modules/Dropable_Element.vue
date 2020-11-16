@@ -1,8 +1,8 @@
 <template>
-    <div class="cptm-dropable-element" :class="parentClass">
+    <div class="cptm-dropable-element" ref="dropable_element" :class="parentClass">
         <div class="cptm-dropable-placeholder cptm-dropable-placeholder-before" v-if="dropableBefore">dropableBefore</div>
         
-        <div class="">
+        <div class="cptm-dropable-base-element">
             <slot></slot>
         </div>
         
@@ -74,6 +74,28 @@ export default {
         },
     },
 
+    watch: {
+        dropableBefore() {
+            if ( ! this.dropableBefore ) { return; }
+            
+            console.log( 'dropableBefore' );
+            let ref = this.$refs.dropable_element;
+            console.log( { ref } );
+        },
+        dropableAfter() {
+            if ( ! this.dropableAfter ) { return; }
+            
+            console.log( 'dropableAfter' );
+
+            let ref = this.$refs.dropable_element;
+            let sp1 = document.createElement("div");
+            sp1.innerHTML = 'test 123';
+
+            ref.insertBefore( sp1 );
+            console.log( { ref } );
+        },
+    },
+
     computed: {
         dropableBefore() {
             return ( this.drag_enter_dropable_area_top || this.drag_enter_dropable_area_left ) ? true : false;
@@ -102,6 +124,22 @@ export default {
             drag_enter_dropable_area_top: false,
             drag_enter_dropable_area_bottom: false,
         }
+    },
+
+    methods: {
+        droppedBefore() {
+            this.drag_enter_dropable_area_top = false;
+            this.drag_enter_dropable_area_left = false;
+
+            this.$emit('drop', 'dropped-before');
+        },
+
+        droppedAfter() {
+            this.drag_enter_dropable_area_right = false;
+            this.drag_enter_dropable_area_bottom = false;
+
+            this.$emit('drop', 'dropped-after');
+        },
     }
 }
 </script>

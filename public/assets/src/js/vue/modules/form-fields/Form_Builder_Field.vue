@@ -12,25 +12,27 @@
             <div class="cptm-form-builder-group-header-section" v-if="has_group">
               <div class="cptm-form-builder-group-header">
 
-                <div class="cptm-form-builder-group-title-area"
-                  :draggable="typeof group.draggable !== 'undefined' ? group.draggable : true"
-                  @dragstart="activeGroupOnDragStart(group_key)"
-                  @dragend="activeGroupOnDragEnd()"
-                >
-                  <h3 class="cptm-form-builder-group-title">
-                    {{ ( group.label ) ? group.label : '' }}
-                  </h3>
+                <dropable-element :dropable="elementIsDragging" class-name="cptm-dropable-elm-form-builder-group-title-area">
+                  <div class="cptm-form-builder-group-title-area"
+                    :draggable="typeof group.draggable !== 'undefined' ? group.draggable : true"
+                    @dragstart="activeGroupOnDragStart(group_key)"
+                    @dragend="activeGroupOnDragEnd()"
+                  >
+                    <h3 class="cptm-form-builder-group-title">
+                      {{ ( group.label ) ? group.label : '' }}
+                    </h3>
 
-                  <div class="cptm-form-builder-group-title-actions">
-                    <a href="#" class="cptm-form-builder-header-action-link" v-if="hasGroupOptions( group_key )" :class="getActiveGroupOptionCollapseClass(group_key)" @click.prevent="toggleActiveGroupOptionCollapseState(group_key)">
-                      <span class="fa fa-angle-up" aria-hidden="true"></span>
-                    </a>
+                    <div class="cptm-form-builder-group-title-actions">
+                      <a href="#" class="cptm-form-builder-header-action-link" v-if="hasGroupOptions( group_key )" :class="getActiveGroupOptionCollapseClass(group_key)" @click.prevent="toggleActiveGroupOptionCollapseState(group_key)">
+                        <span class="fa fa-angle-up" aria-hidden="true"></span>
+                      </a>
 
-                    <a href="#" class="cptm-form-builder-header-action-link" v-if="group.type !== 'widget_group'" :class="getActiveGroupCollapseClass(group_key)" @click.prevent="toggleActiveGroupCollapseState(group_key)">
-                      <span class="uil uil-angle-double-up" aria-hidden="true"></span>
-                    </a>
+                      <a href="#" class="cptm-form-builder-header-action-link" v-if="group.type !== 'widget_group'" :class="getActiveGroupCollapseClass(group_key)" @click.prevent="toggleActiveGroupCollapseState(group_key)">
+                        <span class="uil uil-angle-double-up" aria-hidden="true"></span>
+                      </a>
+                    </div>
                   </div>
-                </div>
+                </dropable-element>
 
                 <div class="cptm-form-builder-group-actions">
                   <a href="#" class="cptm-form-builder-group-field-item-action-link action-trash" v-if="typeof group.lock !== 'undefined' ? !group.lock : true" @click.prevent="trashActiveGroupItem(group_key)">

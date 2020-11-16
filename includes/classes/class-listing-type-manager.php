@@ -4945,22 +4945,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'value' => __('Save & Preview', 'directorist'),
                 ],
 
-                // Guest Submission
-                'guest_listings' => [
-                    'label' => __('Enable Guest Listing Submission', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                ],
-                'guest_email_label' => [
-                    'label' => __('Guest Email Label', 'directorist'),
-                    'type'  => 'text',
-                    'value' => 'Your Email',
-                ],
-                'guest_email_placeholder' => [
-                    'label' => __('Guest Email Placeholder', 'directorist'),
-                    'type'  => 'text',
-                    'value' => 'example@email.com',
-                ],
+                // Submit Button
                 'submit_button_label' => [
                     'label' => __('Submit Button Label', 'directorist'),
                     'type'  => 'text',
@@ -5473,7 +5458,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
             $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
             $wc_pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-woocommerce-pricing-plans" target="_blank">WooCommerce Pricing Plans</a>';
             $plan_promo = sprintf(__('Monetize your website by selling listing plans using %s or %s extensions.', 'directorist'), $pricing_plan, $wc_pricing_plan);
-
+            
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
                 'general' => [
                     'label' => 'General',
@@ -5572,15 +5557,14 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                         'submit_button_label',
                                     ],
                                 ],
-                                'guest_submission' => [
+                                /* 'guest_submission' => [
                                     'title' => __('Guest Submittion', 'directorist'),
                                     'container' => 'short-width',
                                     'fields' => [
-                                        'guest_listings',
                                         'guest_email_label',
                                         'guest_email_placeholder',
                                     ],
-                                ],
+                                ], */
                                 'terms_and_conditions' => [
                                     'title' => __('Terms and Conditions', 'directorist'),
                                     'container' => 'short-width',
@@ -5714,6 +5698,33 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     ],
                 ],
             ]);
+
+
+            // Conditional Fields
+            // -----------------------------
+            // Guest Submission
+            if ( get_directorist_option( 'guest_listings', 1 ) == '1' ) {
+                $this->fields['guest_email_label'] = [
+                    'label' => __('Guest Email Label', 'directorist'),
+                    'type'  => 'text',
+                    'value' => 'Your Email',
+                ];
+
+                $this->fields['guest_email_placeholder'] = [
+                    'label' => __('Guest Email Placeholder', 'directorist'),
+                    'type'  => 'text',
+                    'value' => 'example@email.com',
+                ];
+
+                $this->layouts['submission_form']['submenu']['settings']['sections']['guest_submission'] = [
+                    'title' => __('Guest Submittion', 'directorist'),
+                    'container' => 'short-width',
+                    'fields' => [
+                        'guest_email_label',
+                        'guest_email_placeholder',
+                    ],
+                ];
+            }
 
             $this->config = [
                 'submission' => [

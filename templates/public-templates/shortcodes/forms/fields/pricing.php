@@ -49,11 +49,10 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 		 * @since 6.2.1
 		 */
 		do_action('atbdp_add_listing_before_price_field', $p_id);
-
 		$step = $allow_decimal ? ' step="any"' : '';
 		?>
 
-		<input type="number"<?php echo $step; ?> id="price" name="price" value="<?php echo esc_attr($price); ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
+		<input type="<?php echo $data['price_unit_field_type']; ?>"<?php echo $step; ?> id="price" name="price" value="<?php echo esc_attr($price); ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 		<?php
 	}
 

@@ -491,7 +491,7 @@ if (!function_exists('atbdp_get_option')) {
 
 function get_directorist_type_option( $type, $name, $default='' ) {
     $meta = get_term_meta( $type, $name, true );
-    $result = $meta ? $meta : $default;
+    $result = $meta != '' ? $meta : $default;
     return $result;
 }
 

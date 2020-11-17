@@ -93,14 +93,13 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $term = get_term_by( 'id', $listing_type, 'atbdp_listing_types' );
                     $submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
                     $preview_enable = get_term_meta( $term->term_id, 'preview_mode', true ) == '1' ? true : '';
-                    $guest = get_term_meta( $term->term_id, 'guest_listings', true ) == '1' ? true : '';
                     $submission_form_fields = $submission_form['fields'];
                  }
                 //isolate data
                 $error = [];
                 // wp_send_json( [
                 //     'info' => $info,
-                //     'submission_form_fields' => $preview_mode ? true : false,
+                //     // 'submission_form_fields' => $preview_mode ? true : false,
                 // ] );
                 // die;
                 foreach( $submission_form_fields as $key => $value ){
@@ -487,6 +486,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                             do_action('atbdp_before_processing_listing_frontend', $post_id);
                             
                             // set up terms
+                            $data['testing'] = $info['directory_type'];
                             if( !empty( $_POST['directory_type'] ) ){
                                 wp_set_object_terms($post_id, (int)$_POST['directory_type'], 'atbdp_listing_types');
                             }

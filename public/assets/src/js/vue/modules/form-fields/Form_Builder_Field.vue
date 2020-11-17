@@ -287,10 +287,13 @@ export default {
             if ( ! template_root_options ) { continue; }
             if ( typeof template_root_options.options !== 'undefined' ) { delete template_root_options.options; }
             if ( typeof template_root_options.lock !== 'undefined' ) { delete template_root_options.lock; }
+            
             let widget_label = ( widgets[ widget_group ].widgets[ _widget_name ].label ) ? widgets[ widget_group ].widgets[ _widget_name ].label : '';
             let template_widget_label = ( template_fields[ widget_key ].label && template_fields[ widget_key ].label.length ) ? template_fields[ widget_key ].label : widget_label;
+            
             widget_label = ( widget_label ) ? widget_label : template_widget_label;
             template_root_options.label = widget_label;
+            
             Object.assign( widgets[ widget_group ].widgets[ _widget_name ], template_root_options );
           
             if ( ! widgets[ widget_group ].widgets[ _widget_name ].options ) {
@@ -300,7 +303,8 @@ export default {
             let widgets_options = widgets[ widget_group ].widgets[ _widget_name ].options;
 
             if ( typeof widgets_options.label !== 'undefined' ) {
-              widgets_options.label.value = widget_label;
+              let sync = ( typeof widgets_options.label.sync !== 'undefined' ) ? widgets_options.label.sync : true;
+              widgets_options.label.value = ( sync ) ? widget_label : widgets_options.label.value;
             }
 
             widgets[ widget_group ].widgets[ _widget_name ].options = widgets_options;

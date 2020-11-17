@@ -141,7 +141,7 @@
                 });
         }
         $('#at_biz_dir-categories').select2({
-                placeholder: atbdp_add_listing.cat_placeholder,
+                placeholder: atbdp_add_listing.i18n_text.cat_placeholder,
                 allowClear: true,
         });
 })(jQuery);
@@ -338,7 +338,6 @@ jQuery(function($) {
                 let field_list2 = [];
                 $('.listing_submit_btn').addClass('atbd_loading');
                 form_data.append('action', 'add_listing_action');
-                form_data.append('directory_type', qs.listing_type);
                 const fieldValuePairs = $('#add-listing-form').serializeArray();
                 $.each( fieldValuePairs, function( index, fieldValuePair ) {
                         const field = document.getElementsByName( fieldValuePair.name )[0];
@@ -462,7 +461,8 @@ jQuery(function($) {
                 if (typeof categories === 'string') {
                         form_data.append('tax_input[at_biz_dir-category][]', categories);
                 }
-
+                
+                form_data.append('directory_type', qs.listing_type);
                 if (error_count) {
                         on_processing = false;
                         $('.listing_submit_btn').attr('disabled', false);
@@ -473,7 +473,6 @@ jQuery(function($) {
 
                 on_processing = true;
                 $('.listing_submit_btn').attr('disabled', true);
-
                 $.ajax({
                         method: 'POST',
                         processData: false,

@@ -2196,6 +2196,42 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             ],
                         ],
 
+                        'address' => [
+                            'label' => 'Address',
+                            'icon' => 'uil uil-map-pin',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'text',
+                                ],
+                                'field_key' => [
+                                    'type'   => 'meta-key',
+                                    'hidden' => true,
+                                    'value'  => 'address',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Address',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => 'Listing address eg. New York, USA',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                            ],
+                        ],
+
                         'zip' => [
                             'label' => 'Zip/Post Code',
                             'icon' => 'uil uil-map-pin',
@@ -3755,6 +3791,12 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label' => 'Required',
                                     'value' => false,
                                 ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => '',
+                                    'sync' => false,
+                                ],
                                 'placeholder' => [
                                     'type'  => 'text',
                                     'label' => 'Placeholder',
@@ -3763,17 +3805,59 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             ],
                         ],
 
-                        'pricing' => [
+                        'category' => [
                             'options' => [
-                                'price_range_min_placeholder' => [
-                                    'type'  => 'text',
-                                    'label'  => 'Price Range Min Placeholder',
-                                    'value' => 'Min',
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
                                 ],
-                                'price_range_max_placeholder' => [
+                                'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Price Range Max Placeholder',
-                                    'value' => 'Max',
+                                    'label' => 'Label',
+                                    'value' => '',
+                                    'sync' => false,
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Placeholder',
+                                    'value' => 'Category',
+                                ],
+                            ]
+                        ],
+
+                        'location' => [
+                            'options' => [
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => '',
+                                    'sync' => false,
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Placeholder',
+                                    'value' => 'Location',
+                                ],
+                                'location_source' => [
+                                    'type'  => 'select',
+                                    'label'  => 'Location Source',
+                                    'options' => [
+                                        [
+                                            'label' => __('Display from Listing Location', 'directorist'),
+                                            'value' => 'from_listing_location',
+                                        ],
+                                        [
+                                            'label' => __('Display from Map API', 'directorist'),
+                                            'value' => 'from_map_api',
+                                        ],
+                                    ],
+                                    'value' => 'from_listing_location',
                                 ],
                             ]
                         ],
@@ -3803,47 +3887,17 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             ]
                         ],
 
-                        'location' => [
+                        'pricing' => [
                             'options' => [
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => false,
-                                ],
-                                'placeholder' => [
+                                'price_range_min_placeholder' => [
                                     'type'  => 'text',
-                                    'label'  => 'Placeholder',
-                                    'value' => 'Location',
+                                    'label'  => 'Price Range Min Placeholder',
+                                    'value' => 'Min',
                                 ],
-                                'location_source' => [
-                                    'type'  => 'select',
-                                    'label'  => 'Location Source',
-                                    'options' => [
-                                        [
-                                            'label' => __('Display from Listing Location', 'directorist'),
-                                            'value' => 'from_listing_location',
-                                        ],
-                                        [
-                                            'label' => __('Display from Map API', 'directorist'),
-                                            'value' => 'from_map_api',
-                                        ],
-                                    ],
-                                    'value' => 'from_listing_location',
-                                ],
-                            ]
-                        ],
-
-                        'category' => [
-                            'options' => [
-                                'required' => [
-                                    'type'  => 'toggle',
-                                    'label'  => 'Required',
-                                    'value' => false,
-                                ],
-                                'placeholder' => [
+                                'price_range_max_placeholder' => [
                                     'type'  => 'text',
-                                    'label'  => 'Placeholder',
-                                    'value' => 'Category',
+                                    'label'  => 'Price Range Max Placeholder',
+                                    'value' => 'Max',
                                 ],
                             ]
                         ],
@@ -3854,6 +3908,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'text',
                                     'label'  => 'Label',
                                     'value' => 'Tag',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Placeholder',
+                                    'value' => 'Address',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
@@ -3870,6 +3929,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label'  => 'Label',
                                     'value' => 'Tag',
                                 ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Placeholder',
+                                    'value' => 'Zip',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3884,6 +3948,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'text',
                                     'label'  => 'Label',
                                     'value' => 'Tag',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => 'Phone',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
@@ -3900,9 +3969,14 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label'  => 'Label',
                                     'value' => 'Tag',
                                 ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => 'Phone 2',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label' => 'Required',
                                     'value' => false,
                                 ],
                             ]
@@ -3914,6 +3988,31 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'text',
                                     'label'  => 'Label',
                                     'value' => 'Tag',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => 'Email',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                            ]
+                        ],
+
+                        'fax' => [
+                            'options' => [
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Label',
+                                    'value' => 'Fax',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => 'Fax',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
@@ -3930,6 +4029,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label'  => 'Label',
                                     'value' => 'Tag',
                                 ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Placeholder',
+                                    'value' => 'Website',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -3944,6 +4048,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'text',
                                     'label'  => 'Label',
                                     'value' => 'Tag',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => 'Text',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
@@ -3961,9 +4070,14 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label'  => 'Label',
                                     'value' => 'Tag',
                                 ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => 'Textarea',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label' => 'Required',
                                     'value' => false,
                                 ],
                             ]
@@ -3976,6 +4090,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'type'  => 'text',
                                     'label'  => 'Label',
                                     'value' => 'Tag',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => 'Number',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
@@ -3993,6 +4112,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label'  => 'Label',
                                     'value' => 'Tag',
                                 ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Placeholder',
+                                    'value' => 'URL',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -4009,6 +4133,11 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                     'label'  => 'Label',
                                     'value' => 'Tag',
                                 ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label'  => 'Placeholder',
+                                    'value' => 'Date',
+                                ],
                                 'required' => [
                                     'type'  => 'toggle',
                                     'label'  => 'Required',
@@ -4022,12 +4151,17 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
-                                    'label'  => 'Label',
+                                    'label' => 'Label',
                                     'value' => 'Tag',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => 'Time',
                                 ],
                                 'required' => [
                                     'type'  => 'toggle',
-                                    'label'  => 'Required',
+                                    'label' => 'Required',
                                     'value' => false,
                                 ],
                             ]

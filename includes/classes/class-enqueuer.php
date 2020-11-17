@@ -1,5 +1,7 @@
 <?php
 
+use function PHPSTORM_META\type;
+
 if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
 class ATBDP_Enqueuer {
     /**
@@ -12,16 +14,25 @@ class ATBDP_Enqueuer {
      * @access public
      * @var bool
      */
+    public $listing_id;
+    public $type;
     public $enable_multiple_image = 0;
 
     public function __construct() {
+        global $pagenow;
+        $current_url = $current_url="//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+        if (  ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow = 'at_biz_dir' ) ) {
+            $arr = explode('/edit/', $current_url);
+            $important = $arr[1];
+            $this->listing_id = (int) $important;            
+        }
         add_action( 'wp_enqueue_scripts', array( $this, 'custom_color_picker_scripts' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
         // best hook to enqueue scripts for front-end is 'template_redirect'
         // 'Professional WordPress Plugin Development' by Brad Williams
         add_action( 'wp_enqueue_scripts', array( $this, 'front_end_enqueue_scripts' ), -10 );
         add_action( 'wp_enqueue_scripts', array( $this, 'search_listing_scripts_styles' ) );
-
+        
     }
 
     public function custom_color_picker_scripts() {
@@ -501,6 +512,11 @@ class ATBDP_Enqueuer {
         }
     }
 
+    public function current_listing_type() {
+        $type = isset( $_GET['listing_type'] ) ? $_GET['listing_type'] : get_post_meta( $this->listing_id, '_directory_type', true );
+        return $type;
+    }
+
     public function add_listing_scripts_styles() {
         wp_enqueue_script( 'wp-color-picker' );
         $select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
@@ -530,12 +546,14 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp_custom_field_validator', ATBDP_PUBLIC_ASSETS . 'js/custom_field_validator.js', $dependency, ATBDP_VERSION, true );
         wp_enqueue_script( 'atbdp_add_listing_validator' );
         wp_enqueue_script( 'atbdp_custom_field_validator' );
-
-        $new_tag         = get_directorist_option( 'create_new_tag', 0 );
-        $tag_placeholder = get_directorist_option( 'tag_placeholder', __( 'Select or insert new tags separated by a comma, or space', 'directorist' ) );
-        $cat_placeholder = get_directorist_option( 'cat_placeholder', __( 'Select Category', 'directorist' ) );
-        $loc_placeholder = get_directorist_option( 'loc_placeholder', __( 'Select Location', 'directorist' ) );
+        
+        $submission_form = get_term_meta( $this->current_listing_type(), 'submission_form_fields', true );
+        $new_tag         = !empty( $submission_form['fields']['tag']['allow_new'] ) ? $submission_form['fields']['tag']['allow_new'] : '';
+        $tag_placeholder = !empty( $submission_form['fields']['tag']['placeholder'] ) ? $submission_form['fields']['tag']['placeholder'] : '';
+        $loc_placeholder = !empty( $submission_form['fields']['location']['placeholder'] ) ? $submission_form['fields']['location']['placeholder'] : '';
+        $cat_placeholder = !empty( $submission_form['fields']['category']['placeholder'] ) ? $submission_form['fields']['category']['placeholder'] : '';
         // Internationalization text for javascript file especially add-listing.js
+
         $i18n_text = array(
             'confirmation_text'       => __( 'Are you sure', 'directorist' ),
             'ask_conf_sl_lnk_del_txt' => __( 'Do you really want to remove this Social Link!', 'directorist' ),
@@ -543,22 +561,12 @@ class ATBDP_Enqueuer {
             'confirm_delete'          => __( 'Yes, Delete it!', 'directorist' ),
             'deleted'                 => __( 'Deleted!', 'directorist' ),
             'location_selection'      => esc_attr( $loc_placeholder ),
-            'category_selection'      => esc_attr( $cat_placeholder ),
             'tag_selection'           => esc_attr( $tag_placeholder ),
+            'cat_placeholder'         => esc_attr( $cat_placeholder ),
         );
 
         //get listing is if the screen in edit listing
-        global $wp;
-        global $pagenow;
-        $current_url = home_url( add_query_arg( array(), $wp->request ) );
-        $fm_plans    = '';
-        $listing_id  = '';
-        if (  ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow = 'at_biz_dir' ) ) {
-            $listing_id = substr( $current_url, strpos( $current_url, '/edit/' ) + 6 );
-            $fm_plans   = get_post_meta( $listing_id, '_fm_plans', true );
-        }
-
-        $cat_placeholder = get_directorist_option( 'cat_placeholder', __( 'Select Category', 'directorist' ) );
+        $fm_plans   = get_post_meta( $this->listing_id, '_fm_plans', true );
         $data            = array(
             'nonce'           => wp_create_nonce( 'atbdp_nonce_action_js' ),
             'ajaxurl'         => admin_url( 'admin-ajax.php' ),
@@ -574,7 +582,6 @@ class ATBDP_Enqueuer {
             'PublicAssetPath' => ATBDP_PUBLIC_ASSETS,
             'i18n_text'       => $i18n_text,
             'create_new_tag'  => $new_tag,
-            'cat_placeholder' => $cat_placeholder,
             'image_notice'    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
         );
 

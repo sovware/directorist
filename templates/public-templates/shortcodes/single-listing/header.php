@@ -24,22 +24,21 @@
 
 		<div class="atbd_listing_detail">
 
-			<?php $listing->quick_info_template(); ?>
-
-
+			<?php $listing->quick_info_template(); 
+			if( $enable_title ) {
+			?>
 			<div class="<?php echo apply_filters('atbdp_single_listing_title_class', 'atbd_listing_title'); ?>">
 				<?php
 				/**
 				 * @since 5.0.5
 				 */
-				echo apply_filters( 'atbdp_listing_title', sprintf( '<h2>%s</h2>', $listing->title ) );
-
-				do_action( 'atbdp_single_listing_after_title', $listing->id );
+				echo apply_filters( 'atbdp_listing_title', sprintf( '<h2>%s</h2>', $listing->title ) );	
 				?>
 			</div>
-
 			<?php
-			if ( !empty($listing->tagline) ) {
+			}
+			do_action( 'atbdp_single_listing_after_title', $listing->id );
+			if ( !empty($listing->tagline) && $enable_tagline ) {
 				/**
 				 * @since 5.0.5
 				 */
@@ -53,7 +52,9 @@
 			 */
 			do_action('atbdp_after_listing_tagline');
 
-			echo apply_filters('atbdp_listing_content', sprintf( '<div class="about_detail">%s</div>', $listing->get_contents() ));
+			if( $enable_content ) {
+				echo apply_filters('atbdp_listing_content', sprintf( '<div class="about_detail">%s</div>', $listing->get_contents() ));
+			}
 			?>
 		</div>
 	</div>

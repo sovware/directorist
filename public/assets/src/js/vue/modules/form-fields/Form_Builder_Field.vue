@@ -129,7 +129,6 @@
     </div>
 
     <div class="cptm-col-6" v-if="theWidgetGroups">
-      elementIsDragging: <pre>{{ elementIsDragging }}</pre>
       <div class="cptm-form-builder-preset-fields" v-for="(widget_group, group_key) in theWidgetGroups" :key="group_key">
         <h3 class="cptm-title-3">{{ widget_group.title }}</h3>
         <p class="cptm-description-text">{{ widget_group.description }}</p>
@@ -145,8 +144,6 @@
           </template>
         </ul>
       </div>
-
-      <pre>{{ groups }}</pre>
     </div>
   </div>
 </template>

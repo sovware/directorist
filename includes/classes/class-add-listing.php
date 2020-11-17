@@ -149,97 +149,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                  * It applies a filter to the meta values that are going to be saved with the listing submitted from the front end
                  * @param array $metas the array of meta keys and meta values
                  */
-
-                //@todo need to shift FM validation code to extension itself
-                if (is_fee_manager_active()) {
-                    $user_id = get_current_user_id();
-                    $midway_package_id = selected_plan_id();
-                    $sub_plan_id = get_post_meta($info['listing_id'], '_fm_plans', true);
-                    $midway_package_id = !empty($midway_package_id) ? $midway_package_id : $sub_plan_id;
-                    $plan_purchased = subscribed_package_or_PPL_plans($user_id, 'completed', $midway_package_id);
-                    if (!class_exists('DWPP_Pricing_Plans')) {
-                        $plan_purchased = $plan_purchased ? $plan_purchased[0] : '';
-                    }
-                    $subscribed_package_id = $midway_package_id;
-                    $plan_type = package_or_PPL($subscribed_package_id);
-                    $order_id = !empty($plan_purchased) ? (int)$plan_purchased->ID : '';
-                    $user_featured_listing = listings_data_with_plan($user_id, '1', $subscribed_package_id, $order_id);
-                    $user_regular_listing = listings_data_with_plan($user_id, '0', $subscribed_package_id, $order_id);
-                    $num_regular = get_post_meta($subscribed_package_id, 'num_regular', true);
-                    $num_featured = get_post_meta($subscribed_package_id, 'num_featured', true);
-                    $total_regular_listing = $num_regular;
-                    $total_featured_listing = $num_featured;
-                    if ($plan_purchased) {
-                        $listing_id = get_post_meta($plan_purchased->ID, '_listing_id', true);
-                        $featured = get_post_meta($listing_id, '_featured', true);
-                        $total_regular_listing = $num_regular - ('0' === $featured ? $user_regular_listing + 1 : $user_regular_listing);
-                        $total_featured_listing = $num_featured - ('1' === $featured ? $user_featured_listing + 1 : $user_featured_listing);
-                        $total_regular_listing = max($total_regular_listing, 0);
-                        $total_featured_listing = max($total_featured_listing, 0);
-                        $subscribed_date = $plan_purchased->post_date;
-                        $package_length = get_post_meta($subscribed_package_id, 'fm_length', true);
-                        $regular_unl = get_post_meta($subscribed_package_id, 'num_regular_unl', true);
-                        $featured_unl = get_post_meta($subscribed_package_id, 'num_featured_unl', true);
-                        $package_length = $package_length ? $package_length : '1';
-                        // Current time
-                        $start_date = !empty($subscribed_date) ? $subscribed_date : '';
-                        // Calculate new date
-                        $date = new DateTime($start_date);
-                        $date->add(new DateInterval("P{$package_length}D")); // set the interval in days
-                        $expired_date = $date->format('Y-m-d H:i:s');
-                        $current_d = current_time('mysql');
-                        $remaining_days = ($expired_date > $current_d) ? (floor(strtotime($expired_date) / (60 * 60 * 24)) - floor(strtotime($current_d) / (60 * 60 * 24))) : 0; //calculate the number of days remaining in a plan
-                       
-                        if ((((0 >= $total_regular_listing) && empty($regular_unl)) && ((0 >= $total_featured_listing)) && empty($featured_unl)) || ($remaining_days <= 0)) {
-                            //if user exit the plan allowance the change the status of that order to cancelled
-                            $order_id = $plan_purchased->ID;
-                            $msg = '<div class="alert alert-danger"><strong>' . __('You have crossed the limit! Please try again', 'directorist') . '</strong></div>';
-                            if (class_exists('woocommerce') && class_exists('DWPP_Pricing_Plans')) {
-                                if (('pay_per_listng' != $plan_type)) {
-                                    $order = new WC_Order($order_id);
-                                    $order->update_status('cancelled', 'order_note');
-                                    $data['error_msg'] = $msg;
-                                    $data['error'] = true;
-                                }
-                            } else {
-                                if (('pay_per_listng' != $plan_type)) {
-                                    update_post_meta($order_id, '_payment_status', 'cancelled');
-                                    $data['error_msg'] = $msg;
-                                    $data['error'] = true;
-                                }
-                            }
-                        }
-                    }
-
-                    $listing_type = !empty($info['listing_type']) ? sanitize_text_field($info['listing_type']) : '';
-                    //store the plan meta
-                    $plan_meta = get_post_meta($subscribed_package_id);
-
-                    if (('regular' === $listing_type) && ('package' === $plan_type)) {
-                        if ((($plan_meta['num_regular'][0] < $total_regular_listing) || (0 >= $total_regular_listing)) && empty($plan_meta['num_regular_unl'][0])) {
-                            $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for regular listing, please try again.', 'directorist') . '</strong></div>';
-                            $data['error_msg'] = $msg;
-                            $data['error'] = true;
-                        }
-                    }
-                    if (('featured' === $listing_type) && ('package' === $plan_type)) {
-                        if ((($plan_meta['num_featured'][0] < $total_featured_listing) || (0 === $total_featured_listing)) && empty($plan_meta['num_featured_unl'][0])) {
-                            $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for featured listing, please try again', 'directorist') . '</strong></div>';
-                            $data['error_msg'] = $msg;
-                            $data['error'] = true;
-                        }
-                    }
-
-                    if (class_exists('BD_Gallery')) {
-                        $gallery_images = !empty($metas['_gallery_img']) ? $metas['_gallery_img'] : array();
-                        $_gallery_img = count($gallery_images);
-                        if ($plan_meta['num_gallery_image'][0] < $_gallery_img && empty($plan_meta['num_gallery_image_unl'][0])) {
-                            $msg = '<div class="alert alert-danger"><strong>' . __('You can upload a maximum of ' . $plan_meta['num_gallery_image'][0] . ' gallery image(s)', 'directorist') . '</strong></div>';
-                            $data['error_msg'] = $msg;
-                            $data['error'] = true;
-                        }
-                    }
-                }
+             
                 $metas = apply_filters('atbdp_listing_meta_user_submission', $metas);
                 $args = array(
                     'post_content' => $content,
@@ -248,12 +158,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     'tax_input' => !empty($info['tax_input']) ? atbdp_sanitize_array($info['tax_input']) : array(),
                     'meta_input' => $metas,
                 );
-                /**
-                 * @since 4.4.0
-                 *
-                 */
-                do_action('atbdp_after_add_listing_afrer_validation');
-
+          
                 // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags
                 if (!empty($info['listing_id'])) {
                     /**
@@ -486,7 +391,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                             do_action('atbdp_before_processing_listing_frontend', $post_id);
                             
                             // set up terms
-                            $data['testing'] = $info['directory_type'];
                             if( !empty( $_POST['directory_type'] ) ){
                                 wp_set_object_terms($post_id, (int)$_POST['directory_type'], 'atbdp_listing_types');
                             }
@@ -616,97 +520,20 @@ if (!class_exists('ATBDP_Add_Listing')):
                         update_post_meta($post_id, '_listing_img', $new_files_meta);
                     }
 
-                    // Redirect to avoid duplicate form submissions
-                    // if monetization on, redirect to checkout page
-                    // vail if monetization is not active.
-                    if (is_fee_manager_active()) {
-                        if (class_exists('DWPP_Pricing_Plans')) {
-                            $regular_price = get_post_meta($subscribed_package_id, '_regular_price', true);
-                            $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
-                            if ('pay_per_listng' === package_or_PPL($plan = null)) {
-                                if (!empty($regular_price)) {
-                                    global $woocommerce;
-                                    $woocommerce->cart->empty_cart();
-                                    $woocommerce->cart->add_to_cart($subscribed_package_id);
-                                    $data['redirect_url'] = add_query_arg('atbdp_listing_id', $post_id, wc_get_checkout_url());
-                                    $data['need_payment'] = true;
-                                } else {
-                                    update_user_meta(get_current_user_id(), '_used_free_plan', array($subscribed_package_id, $post_id));
-                                    if ('view_listing' == $redirect_page) {
-                                        $data['redirect_url'] = get_permalink($post_id);
-                                        $data['success'] = true;
-                                    } else {
-                                        $data['redirect_url'] = ATBDP_Permalink::get_dashboard_page_link();
-                                        $data['success'] = true;
-                                    }
-                                }
-
-                            } elseif (('package' === package_or_PPL($plan = null)) && !$plan_purchased) {
-                                //lets redirect to woo checkout page
-                                if (!empty($regular_price)) {
-                                    global $woocommerce;
-                                    $woocommerce->cart->empty_cart();
-                                    $woocommerce->cart->add_to_cart($subscribed_package_id);
-                                    $data['redirect_url'] = add_query_arg('atbdp_listing_id', $post_id, wc_get_checkout_url());
-                                    $data['need_payment'] = true;
-                                } else {
-                                    update_user_meta(get_current_user_id(), '_used_free_plan', array($subscribed_package_id, $post_id));
-                                    if ('view_listing' == $redirect_page) {
-                                        $data['redirect_url'] = get_permalink($post_id);
-                                        $data['success'] = true;
-                                    } else {
-                                        $data['redirect_url'] = ATBDP_Permalink::get_dashboard_page_link();
-                                        $data['success'] = true;
-                                    }
-                                }
-                            } else {
-                                //yep! listing is saved to db and redirect user to admin panel or listing itself
-                                if ('view_listing' == $redirect_page) {
-                                    $data['redirect_url'] = get_permalink($post_id);
-                                    $data['success'] = true;
-                                } else {
-                                    $data['redirect_url'] = ATBDP_Permalink::get_dashboard_page_link();
-                                    $data['success'] = true;
-                                }
-                            }
-                        } else {
-                            if ('pay_per_listng' === package_or_PPL($plan = null)) {
-                                $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
-                                $data['need_payment'] = true;
-                            } elseif (('package' === package_or_PPL($plan = null)) && !$plan_purchased) {
-                                //lets redirect to directorist checkout page
-                                $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
-                                $data['need_payment'] = true;
-                            } else {
-                                //yep! listing is saved to db and redirect user to admin panel or listing itself
-                                $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
-                                if ('view_listing' == $redirect_page) {
-                                    $data['redirect_url'] = get_permalink($post_id);
-                                    $data['success'] = true;
-                                } else {
-                                    $data['redirect_url'] = ATBDP_Permalink::get_dashboard_page_link();
-                                    $data['success'] = true;
-                                }
-                            }
-                        }
-
+                    //no pay extension own yet let treat as general user
+                    if (get_directorist_option('enable_monetization') && !$info['listing_id'] && $featured_enabled && (!is_fee_manager_active())) {
+                        $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
+                        $data['need_payment'] = true;
                     } else {
-                        //no pay extension own yet let treat as general user
-                        if (get_directorist_option('enable_monetization') && !$info['listing_id'] && $featured_enabled && (!is_fee_manager_active())) {
-                            $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
-                            $data['need_payment'] = true;
+                        //yep! listing is saved to db and redirect user to admin panel or listing itself
+                        $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
+                        if ('view_listing' == $redirect_page) {
+                            $data['redirect_url'] = get_permalink($post_id);
+                            $data['success'] = true;
                         } else {
-                            //yep! listing is saved to db and redirect user to admin panel or listing itself
-                            $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
-                            if ('view_listing' == $redirect_page) {
-                                $data['redirect_url'] = get_permalink($post_id);
-                                $data['success'] = true;
-                            } else {
-                                $data['redirect_url'] = ATBDP_Permalink::get_dashboard_page_link();
-                                $data['success'] = true;
-                            }
+                            $data['redirect_url'] = ATBDP_Permalink::get_dashboard_page_link();
+                            $data['success'] = true;
                         }
-
                     }
 
                 } else {
@@ -730,7 +557,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if ($info['listing_id']) {
                     $data['edited_listing'] = true;
                 }
-                wp_send_json($data);
+                wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
                 die();
         }
 

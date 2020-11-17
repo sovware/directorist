@@ -463,6 +463,7 @@ jQuery(function($) {
                 }
                 
                 form_data.append('directory_type', qs.listing_type);
+                form_data.append('plan_id', qs.plan);
                 if (error_count) {
                         on_processing = false;
                         $('.listing_submit_btn').attr('disabled', false);
@@ -471,8 +472,8 @@ jQuery(function($) {
                         return;
                 }
 
-                on_processing = true;
-                $('.listing_submit_btn').attr('disabled', true);
+                // on_processing = true;
+                // $('.listing_submit_btn').attr('disabled', true);
                 $.ajax({
                         method: 'POST',
                         processData: false,

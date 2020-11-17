@@ -474,7 +474,7 @@ class Directorist_Single_Listing {
 				'content'           => $content,
 				'class_col'         => is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12',
 				'class_float'       => $redirect ? 'atbdp_float_active' : 'atbdp_float_none',
-				'display_back_link' => $header['options']['general']['back']['label'],
+				'display_back_link' => !empty( $header['options']['general']['back']['label'] ) ? $header['options']['general']['back']['label'] : '',
 				'edit_link'         => $edit_link,
 				'edit_text'         => apply_filters('atbdp_listing_edit_btn_text', __(' Edit', 'directorist')),
 				'url'               => $url,

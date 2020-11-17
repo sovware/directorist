@@ -971,11 +971,11 @@ class Directorist_Listings {
 			);
 		}
 
-		if (!empty($_GET['zip_code'])) {
-			$zip_code = sanitize_text_field( $_GET['zip_code'] );
+		if (!empty($_GET['zip'])) {
+			$zip = sanitize_text_field( $_GET['zip'] );
 			$meta_queries[] = array(
 				'key' => '_zip',
-				'value' => $zip_code,
+				'value' => $zip,
 				'compare' => 'LIKE'
 			);
 		}

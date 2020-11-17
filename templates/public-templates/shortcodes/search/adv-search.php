@@ -9,4 +9,5 @@
 	<?php foreach ( $searchform->form_data[1]['fields'] as $field ){ ?>
 		<div class="form-group atbdp-search-field-<?php echo esc_attr( $field['widget_name'] )?>"><?php $searchform->field_template( $field ); ?></div>
 	<?php } ?>
+	<?php $searchform->buttons_template(); ?>
 </div>

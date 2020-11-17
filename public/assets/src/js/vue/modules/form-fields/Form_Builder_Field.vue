@@ -8,8 +8,8 @@
         </p>
 
         <div class="cptm-form-builder-active-fields-container">
-          <div class="cptm-form-builder-active-fields-group" v-for="(group, group_key) in groups" :key="group_key">
-            <div class="cptm-form-builder-group-header-section" :class="{ ['cptm-d-none']: group.isDragging, [ 'shrink' ]: group.shrink }" v-if="has_group">
+          <div class="cptm-form-builder-active-fields-group" v-for="(group, group_key) in groups" :key="group_key" :class="{ ['cptm-d-none']: group.isDragging, [ 'shrink' ]: group.shrink }">
+            <div class="cptm-form-builder-group-header-section"  v-if="has_group">
               <div class="cptm-form-builder-group-header">
                 <dropable-element :dropable="current_dragging_group !== group_key && elementIsDragging"
                   :drop-inside="(current_dragging_widget !== '') ? true : false"
@@ -62,6 +62,7 @@
 
             <slide-up-down :active="getActiveGroupCollapseState( group_key )" :duration="500">
               <div class="cptm-form-builder-group-fields">
+                <pre>{{ current_dragging_state }}</pre>
                 <div class="cptm-form-builder-group-field-item" v-for="(field_key, field_index) in group.fields" :key="field_index">
                   <dropable-element :dropable="activeGroupItemIsDropable( field_key, field_index, group_key )"
                     @drop="handleDroppedOnActiveField( { field_key, field_index, group_key, drop_direction: $event} )"
@@ -101,13 +102,6 @@
                       </div>
                     </slide-up-down>
                   </dropable-element>
-
-                  <div class="cptm-form-builder-group-field-item-drop-area" :class="field_key === active_field_drop_area ? 'drag-enter' : ''"
-                    @dragenter="activeFieldOnDragEnter(field_key, field_index, group_key)"
-                    @dragover.prevent="activeFieldOnDragOver(field_key, field_index, group_key)"
-                    @dragleave="activeFieldOnDragLeave()"
-                    @drop.prevent="activeFieldOnDrop({ field_key, field_index, group_key })">
-                  </div>
                 </div>
               </div>
             </slide-up-down>
@@ -385,6 +379,12 @@ export default {
       active_fields: {},
 
       current_dragging_element: null,
+
+      current_dragging_state: {
+        group: '',
+        active_widget: { id: '', field_index: '', group_key: '', hide: '' },
+        available_widget: '',
+      },
 
       state: {},
       active_fields_ref: {},
@@ -669,21 +669,50 @@ export default {
         field_index,
         group_key,
       };
+
+      console.log( this.current_dragging_state );
+      //
+
+      this.current_dragging_state.active_widget.id          = field_key;
+      this.current_dragging_state.active_widget.field_index = field_index;
+      this.current_dragging_state.active_widget.group_key   = group_key;
+
+      const self = this;
+      setTimeout(function(){
+        self.current_dragging_state.active_widget.hide = true;
+      }, 0);
+    },
+
+    activeFieldOnDragEnd() {
+      this.current_dragging_widget = '';
+      this.active_field_drop_area  = '';
+
+      this.resetCurrentDraggingState( 'active_widget' );
+    },
+
+    resetCurrentDraggingState( key ) {
+      
+      if ( ! this.current_dragging_state[ key ] ) { return; }
+      console.log( this.current_dragging_state[ key ] );
+      for ( let field_key in this.current_dragging_state[ key ] ) {
+        this.current_dragging_state[ key ][ field_key ] = '';
+        console.log( field_key, this.current_dragging_state[ key ] );
+      }
     },
 
     activeGroupItemIsDropable( field_key, field_index, group_key ) {
-      if ( this.current_dragging_widget.group_key !== group_key ) { return false; }
-      if ( this.current_dragging_widget.field_index !== field_index ) { return false; }
-      if ( this.current_dragging_widget.field_key !== field_key ) { return false; }
+      if ( this.current_dragging_widget === '' ) { return false; }
 
-      console.log( 'activeGroupItemIsDropable', { field_key, field_index, group_key } );
+      if ( 
+        this.current_dragging_widget.field_key === field_key &&
+        this.current_dragging_widget.field_index === field_index &&
+        this.current_dragging_widget.group_key === group_key
+      ) { return false; }
+
+
       return true;
     },
     
-    activeFieldOnDragEnd() {
-      this.current_dragging_widget = '';
-      this.active_field_drop_area = '';
-    },
     
     activeFieldOnDragOver(field_key) {
       this.active_field_drop_area = field_key;

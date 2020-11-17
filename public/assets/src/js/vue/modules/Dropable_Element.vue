@@ -43,7 +43,7 @@
                 @dragleave="drag_enter_dropable_area_top = false"
                 @drop="handleDroppedBefore()"
             >
-            </span>
+            </span> 
 
             <!-- cptm-dropable-area-bottom -->
             <span class="cptm-dropable-area-bottom" v-if="! dropInside && dropDirection === 'vertical'"

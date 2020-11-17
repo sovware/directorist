@@ -52,9 +52,14 @@ class Directorist_Listing_Search_Form {
 
 	public function __construct( $type, $listing_type, $atts = array() ) {
 		$this->type         = $type;
-		$this->listing_type = $listing_type;
-		$this->listing_type = 43;
 		$this->atts         = $atts;
+
+		if ( $listing_type ) {
+			$this->listing_type = (int) $listing_type;
+		}
+		else {
+			$this->listing_type = $this->get_default_listing_type();
+		}
 
 		$this->set_default_options();
 
@@ -201,6 +206,25 @@ class Directorist_Listing_Search_Form {
 		$this->category_class          = 'form-control directory_field bdas-category-search';
 		$this->location_id             = 'loc-type';
 		$this->location_class          = 'form-control directory_field bdas-category-location';
+	}
+
+	public function get_default_listing_type() {
+		$listing_types = get_terms(
+			array(
+				'taxonomy'   => ATBDP_TYPE,
+				'hide_empty' => false,
+			)
+		);
+
+		foreach ( $listing_types as $type ) {
+			$is_default = get_term_meta( $type->term_id, '_default', true );
+			if ( $is_default ) {
+				$current = $type->term_id;
+				break;
+			}
+		}
+
+		return (int) $current;
 	}
 
 	public function build_form_data() {

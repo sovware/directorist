@@ -35,14 +35,17 @@
 				 * @since 5.10.0
 				 */
 				do_action('atbdp_before_search_form');
+				?>
 				
-				if ($searchform->has_search_text_field || $searchform->has_category_field || $searchform->has_location_field) { ?>
-					<div class="row atbdp-search-form">
-						<?php $searchform->form_top_fields();?>
-					</div>
+				<div class="row atbdp-search-form">
 					<?php
-				}
+					foreach ( $searchform->form_data[0]['fields'] as $field ){
+						$searchform->field_template( $field );
+					}
+					?>
+				</div>
 
+				<?php
 				if ( $searchform->more_filters_display == 'always_open' ){
 					$searchform->advanced_search_form_fields_template();
 				}

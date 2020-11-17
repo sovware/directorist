@@ -491,17 +491,20 @@ class Directorist_Single_Listing {
 	public function header_template() {
 		$section_title = !empty($this->header_data['options']['general']['section_title']['label']) ? $this->header_data['options']['general']['section_title']['label'] : '';
 		$section_icon = !empty($this->header_data['options']['general']['section_title']['icon']) ? $this->header_data['options']['general']['section_title']['icon'] : '';
+		$enable_title = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_title'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_title'] : '';
+		$enable_tagline = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] : '';
+		$enable_content = !empty( $this->header_data['options']['content_settings']['listing_description']['enable'] ) ? $this->header_data['options']['content_settings']['listing_description']['enable'] : '';
 		
 		$args = array(
 			'listing'           => $this,
 			'section_title'     => $section_title,
 			'section_icon'      => $section_icon,
 			'data'              => $this->header_data,
-			'enable_title'      => $this->header_data['options']['content_settings']['listing_title']['enable_title'],
-			'enable_tagline'    => $this->header_data['options']['content_settings']['listing_title']['enable_tagline'],
-			'enable_content'    => $this->header_data['options']['content_settings']['listing_description']['enable'],
+			'enable_title'      => $enable_title,
+			'enable_tagline'    => $enable_tagline,
+			'enable_content'    => $enable_content,
 		);
-
+		
 		return atbdp_get_shortcode_template('single-listing/header', $args);
 	}
 

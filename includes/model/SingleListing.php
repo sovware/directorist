@@ -474,7 +474,7 @@ class Directorist_Single_Listing {
 				'content'           => $content,
 				'class_col'         => is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12',
 				'class_float'       => $redirect ? 'atbdp_float_active' : 'atbdp_float_none',
-				'display_back_link' => $header['options']['general']['back']['label'],
+				'display_back_link' => !empty( $header['options']['general']['back']['label'] ) ? $header['options']['general']['back']['label'] : '',
 				'edit_link'         => $edit_link,
 				'edit_text'         => apply_filters('atbdp_listing_edit_btn_text', __(' Edit', 'directorist')),
 				'url'               => $url,
@@ -491,17 +491,20 @@ class Directorist_Single_Listing {
 	public function header_template() {
 		$section_title = !empty($this->header_data['options']['general']['section_title']['label']) ? $this->header_data['options']['general']['section_title']['label'] : '';
 		$section_icon = !empty($this->header_data['options']['general']['section_title']['icon']) ? $this->header_data['options']['general']['section_title']['icon'] : '';
+		$enable_title = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_title'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_title'] : '';
+		$enable_tagline = !empty( $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] ) ? $this->header_data['options']['content_settings']['listing_title']['enable_tagline'] : '';
+		$enable_content = !empty( $this->header_data['options']['content_settings']['listing_description']['enable'] ) ? $this->header_data['options']['content_settings']['listing_description']['enable'] : '';
 		
 		$args = array(
 			'listing'           => $this,
 			'section_title'     => $section_title,
 			'section_icon'      => $section_icon,
 			'data'              => $this->header_data,
-			'enable_title'      => $this->header_data['options']['content_settings']['listing_title']['enable_title'],
-			'enable_tagline'    => $this->header_data['options']['content_settings']['listing_title']['enable_tagline'],
-			'enable_content'    => $this->header_data['options']['content_settings']['listing_description']['enable'],
+			'enable_title'      => $enable_title,
+			'enable_tagline'    => $enable_tagline,
+			'enable_content'    => $enable_content,
 		);
-
+		
 		return atbdp_get_shortcode_template('single-listing/header', $args);
 	}
 

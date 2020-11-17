@@ -8723,6 +8723,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -8869,7 +8871,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         current_dragging_widget: this.current_dragging_widget,
         current_dragging_group: this.current_dragging_group,
       } ); */
-      if (this.current_dragging_widget !== '' || this.current_dragging_group !== '') {
+      if (this.current_dragging_widget !== '' || this.current_dragging_group !== '' || this.current_dragging_widget_group !== '') {
         return true;
       }
 
@@ -9442,8 +9444,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         field_key: field_key,
         field_index: field_index,
         group_key: group_key
-      };
-      console.log(this.current_dragging_state); //
+      }; // console.log( this.current_dragging_state );
+      //
 
       this.current_dragging_state.active_widget.id = field_key;
       this.current_dragging_state.active_widget.field_index = field_index;
@@ -9463,11 +9465,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return;
       }
 
-      console.log(this.current_dragging_state[key]);
-
       for (var field_key in this.current_dragging_state[key]) {
-        this.current_dragging_state[key][field_key] = '';
-        console.log(field_key, this.current_dragging_state[key]);
+        this.current_dragging_state[key][field_key] = ''; // console.log( field_key, this.current_dragging_state[ key ] );
       }
     },
     activeGroupItemIsDropable: function activeGroupItemIsDropable(field_key, field_index, group_key) {
@@ -9542,7 +9541,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       if ('dropped-inside' === args.drop_direction) {
-        console.log('dropped-inside');
+        // console.log( 'dropped-inside' );
         this.activeFieldOnDrop({
           group_key: args.group_key
         });
@@ -9550,22 +9549,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       var group = {};
-      var dest_index = args.group_key;
+      var dropping_elm_key = JSON.parse(JSON.stringify(args.group_key));
+      var dest_index = dropping_elm_key;
 
       if ('dropped-before' === args.drop_direction) {
-        dest_index = args.group_key;
+        // dest_index = group_key;
         console.log('dropped-before', {
-          dest_index: dest_index,
-          group_key: args.group_key
+          dragging_elm_key: this.current_dragging_group,
+          dropping_elm_key: dropping_elm_key,
+          dest_index: dest_index
         });
       }
 
       if ('dropped-after' === args.drop_direction) {
-        dest_index = this.groups.length - 1 === args.group_key ? args.group_key : args.group_key + 1;
-        dest_index = args.group_key;
+        dest_index = dropping_elm_key + 1;
         console.log('dropped-after', {
-          dest_index: dest_index,
-          group_key: args.group_key
+          dragging_elm_key: this.current_dragging_group,
+          dropping_elm_key: dropping_elm_key,
+          dest_index: dest_index
         });
       } // If widget is group dragging   
 
@@ -9594,43 +9595,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.groups.splice(dest_index, 0, JSON.parse(JSON.stringify(group)));
     },
-    activeGroupItemOnDrop: function activeGroupItemOnDrop(dest_group_key) {
-      // If current dragging widget is group
-      if (this.current_dragging_widget_group && 'group' === this.current_dragging_widget_group.widget_type) {
-        // Prepare the widget group
-        var group = {
-          label: this.current_dragging_widget_group.field.label,
-          fields: [],
-          type: 'widget_group',
-          widget_group: this.current_dragging_widget_group.inserting_from,
-          widget_name: this.current_dragging_widget_group.inserting_field_key,
-          options: this.current_dragging_widget_group.field.options
-        }; // Insert the widget group
-
-        var _des_ind = dest_group_key + 1;
-
-        this.groups.splice(_des_ind, 0, JSON.parse(JSON.stringify(group))); // Trace the widget group
-
-        this.active_widget_groups.push(group.widget_name); // Reset
-
-        this.current_dragging_widget_group = '';
-        this.current_drag_enter_group_item = '';
-        return;
-      }
-
-      if (this.current_dragging_group === "") {
-        this.current_drag_enter_group_item = "";
-        return;
-      }
-
-      var origin_value = this.groups[this.current_dragging_group];
-      this.groups.splice(this.current_dragging_group, 1);
-      var des_ind = this.current_dragging_group === 0 ? dest_group_key : dest_group_key + 1;
-      this.groups.splice(des_ind, 0, origin_value); // Reset
-
-      this.current_dragging_group = "";
-      this.current_drag_enter_group_item = "";
-    },
     //
     widgetItemOnDragStart: function widgetItemOnDragStart(group_key, field_key, field) {
       var data = {
@@ -9649,27 +9613,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.current_dragging_widget = data;
     },
     widgetItemOnDragEnd: function widgetItemOnDragEnd() {
-      this.current_dragging_widget = ''; // this.current_dragging_widget_group = '';
-      // console.log( {current_dragging_widget: this.current_dragging_widget} );
+      this.current_dragging_widget = '';
+      this.current_dragging_widget_group = ''; // console.log( {current_dragging_widget: this.current_dragging_widget} );
     },
     handleDroppedOnActiveField: function handleDroppedOnActiveField(args) {
-      var dest_index = args.field_key;
+      var field_index = JSON.parse(JSON.stringify(args.field_index));
+      var dest_index = field_index; // console.log( {args} );
 
-      if ('dropped-before' === args.drop_direction) {
-        dest_index = args.field_key;
-        console.log('dropped-before', {
-          dest_index: dest_index,
-          field_key: args.field_key
-        });
+      if ('dropped-before' === args.drop_direction) {// dest_index = args.field_index;
+        // console.log( 'dropped-before', { dest_index, field_index: field_index } );
       }
 
       if ('dropped-after' === args.drop_direction) {
-        dest_index = this.groups.length - 1 === args.field_key ? args.field_key : args.field_key + 1;
-        dest_index = args.field_key;
-        console.log('dropped-after', {
-          dest_index: dest_index,
-          field_key: args.field_key
-        });
+        // let last_index = this.groups[ args.group_key ].fields.length - 1; 
+        dest_index = dest_index + 1;
+        /* console.log( 'dropped-after', { 
+          field_key: args.field_key,
+          field_index: field_index, 
+          dest_index,
+        }); */
       }
 
       this.activeFieldOnDrop({
@@ -9770,8 +9732,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     reorderActiveFieldsItems: function reorderActiveFieldsItems(payload) {
       var origin_value = this.groups[payload.group_index].fields[payload.origin_field_index];
-      this.groups[payload.group_index].fields.splice(payload.origin_field_index, 1);
-      var des_ind = payload.origin_field_index === 0 ? payload.destination_field_index : payload.destination_field_index + 1;
+      this.groups[payload.group_index].fields.splice(payload.origin_field_index, 1); // const des_ind = payload.origin_field_index === 0 ? payload.destination_field_index : payload.destination_field_index + 1;
+
+      var des_ind = payload.destination_field_index;
       this.groups[payload.group_index].fields.splice(des_ind, 0, origin_value);
     },
     moveActiveFieldsItems: function moveActiveFieldsItems(payload) {
@@ -9779,8 +9742,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.groups[payload.origin_group_index].fields.splice(payload.origin_field_index, 1); // Insert to destination group
       // const des_ind = ( payload.origin_field_index === 0 ) ? payload.destination_field_index : payload.destination_field_index + 1 ;
+      // const des_ind = payload.destination_field_index + 1;
 
-      var des_ind = payload.destination_field_index + 1;
+      var des_ind = payload.destination_field_index;
       this.groups[payload.destination_group_index].fields.splice(des_ind, 0, origin_value);
     },
     insertActiveFieldsItem: function insertActiveFieldsItem(payload) {
@@ -9811,7 +9775,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var terget_index = this.groups[payload.destination_group_index].fields.length;
 
       if (typeof payload.destination_field_index !== "undefined") {
-        terget_index = payload.destination_field_index + 1;
+        terget_index = payload.destination_field_index;
       }
 
       this.groups[payload.destination_group_index].fields.splice(terget_index, 0, inserting_field_key);
@@ -18543,7 +18507,7 @@ var render = function() {
                                                 [
                                                   _c("span", {
                                                     staticClass:
-                                                      "uil uil-angle-double-up",
+                                                      "fa fa-angle-up",
                                                     attrs: {
                                                       "aria-hidden": "true"
                                                     }
@@ -19017,6 +18981,9 @@ var render = function() {
           "div",
           { staticClass: "cptm-col-6" },
           [
+            _vm._v("\n    elementIsDragging: "),
+            _c("pre", [_vm._v(_vm._s(_vm.elementIsDragging))]),
+            _vm._v(" "),
             _vm._l(_vm.theWidgetGroups, function(widget_group, group_key) {
               return _c(
                 "div",

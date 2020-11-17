@@ -53,6 +53,7 @@ class Directorist_Listing_Search_Form {
 	public function __construct( $type, $listing_type, $atts = array() ) {
 		$this->type         = $type;
 		$this->listing_type = $listing_type;
+		$this->listing_type = 43;
 		$this->atts         = $atts;
 
 		$this->set_default_options();

@@ -62,8 +62,7 @@
 
             <slide-up-down :active="getActiveGroupCollapseState( group_key )" :duration="500">
               <div class="cptm-form-builder-group-fields">
-                <pre>{{ current_dragging_state }}</pre>
-                <div class="cptm-form-builder-group-field-item" v-for="(field_key, field_index) in group.fields" :key="field_index">
+                <div class="cptm-form-builder-group-field-item" v-for="(field_key, field_index) in group.fields" :key="field_index" :class="{ ['shrink']: current_dragging_state.active_widget.id === field_key, [ 'cptm-d-none' ]: ( current_dragging_state.active_widget.id === field_key && current_dragging_state.active_widget.hide ) ? true : false }">
                   <dropable-element :dropable="activeGroupItemIsDropable( field_key, field_index, group_key )"
                     @drop="handleDroppedOnActiveField( { field_key, field_index, group_key, drop_direction: $event} )"
                     wrapper-class="cptm-form-builder-group-title-area__dropable-wrapper"

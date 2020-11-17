@@ -637,6 +637,7 @@ class Directorist_Listing_Forms {
 	}
 
 	public function render_shortcode_add_listing( $atts ) {
+		
 		wp_enqueue_script( 'adminmainassets' );
 
 		$guest_submission = get_directorist_option( 'guest_listings', 0 );
@@ -655,30 +656,30 @@ class Directorist_Listing_Forms {
 			}
 		}
 
-		global $wp;
-		global $pagenow;
-		$current_url = home_url( add_query_arg( array(), $wp->request ) );
+		// global $wp;
+		// global $pagenow;
+		// $current_url = home_url( add_query_arg( array(), $wp->request ) );
 
-		$monetization_is_active    = is_fee_manager_active() && ! selected_plan_id();
-		$pricing_plan_is_active    = class_exists( 'ATBDP_Pricing_Plans' );
-		$wc_pricing_plan_is_active = class_exists( 'DWPP_Pricing_Plans' );
-		$in_add_listing_page       = ( ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow === 'at_biz_dir' ) ) ? true : false;
-		$show_packages             = ( $monetization_is_active && ! $in_add_listing_page ) ? true : false;
+		// $monetization_is_active    = is_fee_manager_active() && ! selected_plan_id();
+		// $pricing_plan_is_active    = class_exists( 'ATBDP_Pricing_Plans' );
+		// $wc_pricing_plan_is_active = class_exists( 'DWPP_Pricing_Plans' );
+		// $in_add_listing_page       = ( ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow === 'at_biz_dir' ) ) ? true : false;
+		// $show_packages             = ( $monetization_is_active && ! $in_add_listing_page ) ? true : false;
 
-		// @todo @kowsar - extensions
-		if ( $show_packages && $pricing_plan_is_active ) {
-			ob_start();
-			do_action( 'atbdp_before_pricing_plan_page_load' );
-			ATBDP_Pricing_Plans()->load_template( 'fee-plans', array( 'atts' => $atts ) );
-			return ob_get_clean();
-		}
+		// // @todo @kowsar - extensions
+		// if ( $show_packages && $pricing_plan_is_active ) {
+		// 	ob_start();
+		// 	do_action( 'atbdp_before_pricing_plan_page_load' );
+		// 	ATBDP_Pricing_Plans()->load_template( 'fee-plans', array( 'atts' => $atts ) );
+		// 	return ob_get_clean();
+		// }
 
-		if ( $show_packages && $wc_pricing_plan_is_active ) {
-			ob_start();
-			do_action( 'atbdp_before_pricing_plan_page_load' );
-			DWPP_Pricing_Plans()->load_template( 'fee-plans', array( 'atts' => $atts ) );
-			return ob_get_clean();
-		}
+		// if ( $show_packages && $wc_pricing_plan_is_active ) {
+		// 	ob_start();
+		// 	do_action( 'atbdp_before_pricing_plan_page_load' );
+		// 	DWPP_Pricing_Plans()->load_template( 'fee-plans', array( 'atts' => $atts ) );
+		// 	return ob_get_clean();
+		// }
 
 		$args = array(
 			'p_id'               => $p_id,
@@ -727,22 +728,24 @@ class Directorist_Listing_Forms {
 			if ( $listing_type_count == 0 ) {
 				return atbdp_return_shortcode_template( 'forms/add-listing-notype', $args );
 			}
-
+			// if only one directory
 			$type = $this->get_current_listing_type();
 			if ( $type ) {
 				$args['form_data'] = $this->build_form_data( $type );
 				$args['single_directory'] = $type;
-				return atbdp_return_shortcode_template( 'forms/add-listing', $args );
+				$template = atbdp_return_shortcode_template( 'forms/add-listing', $args );
+				return apply_filters( 'atbdp_add_listing_page_template', $template );
 			}
-
+			
+			// multiple directory available
 			$listing_type_args = array(
 				'listing_types' => $listing_types,
 			);
-
-			return atbdp_return_shortcode_template( 'forms/add-listing-type', $listing_type_args );
+			$template = atbdp_return_shortcode_template( 'forms/add-listing-type', $listing_type_args );
+			return apply_filters( 'atbdp_add_listing_page_template', $template );
 		}
 	}
-
+	
 	public function render_shortcode_user_login() {
 		if ( atbdp_logged_in_user() ) {
 			$error_message = sprintf( __( 'Login page is not for logged-in user. <a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );

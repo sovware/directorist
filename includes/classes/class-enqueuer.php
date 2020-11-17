@@ -546,12 +546,12 @@ class ATBDP_Enqueuer {
         wp_register_script( 'atbdp_custom_field_validator', ATBDP_PUBLIC_ASSETS . 'js/custom_field_validator.js', $dependency, ATBDP_VERSION, true );
         wp_enqueue_script( 'atbdp_add_listing_validator' );
         wp_enqueue_script( 'atbdp_custom_field_validator' );
-
+        
         $submission_form = get_term_meta( $this->current_listing_type(), 'submission_form_fields', true );
-        $new_tag         = $submission_form['fields']['tag']['allow_new'];
-        $tag_placeholder = $submission_form['fields']['tag']['placeholder'];
-        $loc_placeholder = $submission_form['fields']['location']['placeholder'];
-        $cat_placeholder = $submission_form['fields']['category']['placeholder'];
+        $new_tag         = !empty( $submission_form['fields']['tag']['allow_new'] ) ? $submission_form['fields']['tag']['allow_new'] : '';
+        $tag_placeholder = !empty( $submission_form['fields']['tag']['placeholder'] ) ? $submission_form['fields']['tag']['placeholder'] : '';
+        $loc_placeholder = !empty( $submission_form['fields']['location']['placeholder'] ) ? $submission_form['fields']['location']['placeholder'] : '';
+        $cat_placeholder = !empty( $submission_form['fields']['category']['placeholder'] ) ? $submission_form['fields']['category']['placeholder'] : '';
         // Internationalization text for javascript file especially add-listing.js
         
         $i18n_text = array(

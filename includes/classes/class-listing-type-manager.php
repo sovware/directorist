@@ -2196,6 +2196,42 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             ],
                         ],
 
+                        'address' => [
+                            'label' => 'Address',
+                            'icon' => 'uil uil-map-pin',
+                            'options' => [
+                                'type' => [
+                                    'type'  => 'hidden',
+                                    'value' => 'text',
+                                ],
+                                'field_key' => [
+                                    'type'   => 'meta-key',
+                                    'hidden' => true,
+                                    'value'  => 'address',
+                                ],
+                                'label' => [
+                                    'type'  => 'text',
+                                    'label' => 'Label',
+                                    'value' => 'Address',
+                                ],
+                                'placeholder' => [
+                                    'type'  => 'text',
+                                    'label' => 'Placeholder',
+                                    'value' => 'Listing address eg. New York, USA',
+                                ],
+                                'required' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Required',
+                                    'value' => false,
+                                ],
+                                'only_for_admin' => [
+                                    'type'  => 'toggle',
+                                    'label'  => 'Only For Admin Use',
+                                    'value' => false,
+                                ],
+                            ],
+                        ],
+
                         'zip' => [
                             'label' => 'Zip/Post Code',
                             'icon' => 'uil uil-map-pin',

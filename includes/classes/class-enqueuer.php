@@ -553,7 +553,7 @@ class ATBDP_Enqueuer {
         $loc_placeholder = !empty( $submission_form['fields']['location']['placeholder'] ) ? $submission_form['fields']['location']['placeholder'] : '';
         $cat_placeholder = !empty( $submission_form['fields']['category']['placeholder'] ) ? $submission_form['fields']['category']['placeholder'] : '';
         // Internationalization text for javascript file especially add-listing.js
-        
+
         $i18n_text = array(
             'confirmation_text'       => __( 'Are you sure', 'directorist' ),
             'ask_conf_sl_lnk_del_txt' => __( 'Do you really want to remove this Social Link!', 'directorist' ),

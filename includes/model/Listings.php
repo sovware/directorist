@@ -1646,11 +1646,9 @@ class Directorist_Listings {
 					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
 				);
 				
+				$template = 'listings-archive/loop/' . $field['widget_name'];
 				if( $load_template ) {
-					$template = 'listings-archive/loop/' . $field['widget_name'];
 					atbdp_get_shortcode_template( $template, $args );
-				}else{
-					
 				}
 
 			}

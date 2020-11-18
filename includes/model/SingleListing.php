@@ -65,6 +65,9 @@ class Directorist_Single_Listing {
 
 		foreach ( $data['fields'] as $key => $value) {
 			$data['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
+			if( !empty( $submission_form_fields['fields'][$key]['label'] ) )
+			$data['fields'][$key]['label'] = $submission_form_fields['fields'][$key]['label'];
+			$data['fields'][$key]['original_data'] = $submission_form_fields['fields'][$key];
 		}
 
 		foreach ( $data['groups'] as $group ) {
@@ -76,7 +79,7 @@ class Directorist_Single_Listing {
 			$content_data[] = $section;
 		}
 
-		// dvar_dump($content_data);
+		// e_var_dump($content_data);
 
 		return $content_data;
 	}
@@ -101,9 +104,13 @@ class Directorist_Single_Listing {
 	}
 
 	public function field_template( $data ) {
-		// dvar_dump($data);
+		// e_var_dump($data);
 		$value =  !empty( $data['field_key'] ) ? get_post_meta( $this->id, '_'.$data['field_key'], true ) : '';
-
+		$load_template = true;
+		$group = !empty( $data['original_data']['widget_group'] ) ? $data['original_data']['widget_group'] : '';
+		if( ( $group === 'custom' ) && !$value ) {
+			$load_template = false;
+		}
 		$args = array(
 			'listing' => $this,
 			'data'    => $data,
@@ -113,6 +120,7 @@ class Directorist_Single_Listing {
 
 		$template = 'single-listing/items/' . $data['widget_name'];
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
+		if( $load_template )
 		atbdp_get_shortcode_template( $template, $args );
 	}
 

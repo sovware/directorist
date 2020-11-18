@@ -210,6 +210,7 @@
           <card-widget-placeholder
             id="body_excerpt"
             containerClass="cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light"
+            v-if="placeholderIsActive( local_layout.body.excerpt )"
             :label="local_layout.body.excerpt.label"
             :availableWidgets="theAvailableWidgets"
             :activeWidgets="active_widgets"
@@ -854,6 +855,16 @@ export default {
       }
 
       return false;
+    },
+
+    placeholderIsActive( layout ) {
+      
+      if ( ! this.isObject( layout.show_if ) ) {
+        return true;
+      }
+
+      let check_condition = this.checkShowIfCondition( { condition: layout.show_if } );
+      return check_condition.status;
     }
   },
 };

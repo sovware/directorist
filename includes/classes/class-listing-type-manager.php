@@ -4690,29 +4690,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                         ],
                     ],
                 ],
-
-                'textarea' => [
-                    'type' => "list-item",
-                    'label' => "Textarea",
-                    'icon' => 'uil uil-text-fields',
-                    'hook' => "atbdp_custom_textarea",
-                    'show_if' => [
-                        'where' => "submission_form_fields.value.fields",
-                        'conditions' => [
-                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'textarea'],
-                        ],
-                    ],
-                    'options' => [
-                        'title' => "Textarea Settings",
-                        'fields' => [
-                            'icon' => [
-                                'type' => "icon",
-                                'label' => "Icon",
-                                'value' => "uil uil-text-fields",
-                            ],
-                        ],
-                    ],
-                ],
                 
                 'number' => [
                     'type' => "list-item",
@@ -4888,29 +4865,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     ],
                     'options' => [
                         'title' => "Radio Settings",
-                        'fields' => [
-                            'icon' => [
-                                'type' => "icon",
-                                'label' => "Icon",
-                                'value' => "uil uil-text-fields",
-                            ],
-                        ],
-                    ],
-                ],
-
-                'file' => [
-                    'type' => "list-item",
-                    'label' => "File",
-                    'icon' => 'uil uil-text-fields',
-                    'hook' => "atbdp_custom_file",
-                    'show_if' => [
-                        'where' => "submission_form_fields.value.fields",
-                        'conditions' => [
-                            ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'file'],
-                        ],
-                    ],
-                    'options' => [
-                        'title' => "File Settings",
                         'fields' => [
                             'icon' => [
                                 'type' => "icon",
@@ -5497,6 +5451,12 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'excerpt' => [
                                 'maxWidget' => 1,
                                 'acceptedWidgets' => [ "excerpt" ],
+                                'show_if' => [
+                                    'where' => "submission_form_fields.value.fields",
+                                    'conditions' => [
+                                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                                    ],
+                                ],
                             ],
                         ],
 
@@ -5553,6 +5513,12 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                             'excerpt' => [
                                 'maxWidget' => 1,
                                 'acceptedWidgets' => [ "excerpt" ],
+                                'show_if' => [
+                                    'where' => "submission_form_fields.value.fields",
+                                    'conditions' => [
+                                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                                    ],
+                                ],
                             ],
                         ],
 

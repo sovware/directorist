@@ -2,9 +2,7 @@
     <div class="cptm-dropable-element" :class="parentClass">
         <div class="cptm-dropable-placeholder cptm-dropable-placeholder-before" v-if="dropableBefore">dropableBefore</div>
         
-        <div class="">
-            <slot></slot>
-        </div>
+        <div class=""><slot></slot></div>
         
         <div class="cptm-dropable-placeholder cptm-dropable-placeholder-after" v-if="dropableAfter">dropableAfter</div>
         

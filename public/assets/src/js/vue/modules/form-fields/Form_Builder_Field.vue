@@ -64,9 +64,7 @@
                   </div>
 
                   <div class="cptm-form-builder-group-field-item-header" draggable="true" @drag="activeFieldOnDragStart(field_key, field_index, group_key)" @dragend="activeFieldOnDragEnd()">
-                    <h4 class="cptm-title-3">
-                      {{ getActiveFieldsHeaderTitle(field_key) }}
-                    </h4>
+                    <h4 class="cptm-title-3 cptm-wdget-title" v-html="getActiveFieldsHeaderTitle(field_key)"></h4>
                     <div class="cptm-form-builder-group-field-item-header-actions">
                       <a href="#" class="cptm-form-builder-header-action-link action-collapse-up" :class="getActiveFieldCollapseClass(field_key)" @click.prevent="toggleActiveFieldCollapseState(field_key)">
                         <span class="fa fa-angle-up" aria-hidden="true"></span>
@@ -535,9 +533,12 @@ export default {
     getActiveFieldsHeaderTitle(field_key) {
       let settings_label = this.getActiveFieldsSettings(field_key, "label");
       settings_label = ( settings_label ) ? settings_label : '';
-      const option_label = this.active_fields[field_key]["label"];
       
-      return option_label && option_label.length ? option_label : settings_label;
+      let option_label = this.active_fields[field_key]["label"];
+      option_label = ( option_label && option_label.length ) ? option_label : settings_label;
+      option_label = option_label + '<span class="cptm-text-gray cptm-px-5">'+ settings_label +'</span>';
+      
+      return option_label;
     },
     
     toggleActiveFieldCollapseState(field_key) {

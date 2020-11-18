@@ -29,9 +29,7 @@
           />
         </div>
 
-        <a
-          href="#"
-          class="cptm-widget-insert-link"
+        <a href="#" class="cptm-widget-insert-link"
           @click.prevent="$emit('open-widgets-picker-window')"
         >
           <span class="fa fa-plus"></span>
@@ -41,7 +39,9 @@
 
     <div class="cptm-widget-preview-area" v-if="selectedWidgets.length">
       <template v-for="(widget, widget_index) in selectedWidgets">
-        <template v-if="hasValidWidget(widget)">
+        <dropable-element v-if="hasValidWidget(widget)" 
+          :key="widget_index"
+          drop-direction="horizontal">
           <component
             :is="activeWidgets[widget].type + '-card-widget'"
             :key="widget_index"
@@ -58,7 +58,7 @@
             @trash="$emit('trash-widget', widget)"
           >
           </component>
-        </template>
+        </dropable-element>
       </template>
     </div>
   </div>

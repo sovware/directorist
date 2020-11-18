@@ -1,7 +1,7 @@
 <template>
     <div class="cptm-dropable-element" ref="dropable_element" :class="parentClass">
-        
         <div class="cptm-dropable-placeholder cptm-dropable-placeholder-before" :class="dropablePlaceholderBeforeClass"></div>
+        
         <div class="cptm-dropable-base-element" :class="{ ['cptm-dropable-inside']: drag_enter_dropable_area_inside }">
             <slot></slot>
         </div>
@@ -19,11 +19,11 @@
             </span>
 
             <!-- cptm-dropable-area-left -->
-            <span class = "cptm-dropable-area-left" v-if = "! dropInside && dropDirection === 'horizontal'"
+            <span class="cptm-dropable-area-left" v-if="! dropInside && dropDirection === 'horizontal'"
                 @dragover.prevent = ""
-                @dragenter = "drag_enter_dropable_area_left = true"
-                @dragleave = "drag_enter_dropable_area_left = false"
-                @drop = "handleDroppedBefore()"
+                @dragenter="drag_enter_dropable_area_left = true"
+                @dragleave="drag_enter_dropable_area_left = false"
+                @drop="handleDroppedBefore()"
             >
             </span>
             
@@ -61,10 +61,6 @@
 export default {
     name: 'dropable-element',
     props: {
-        display: {
-            type: String,
-            default: 'block',
-        },
         wrapperClass: {
             type: String,
             default: '',
@@ -101,7 +97,7 @@ export default {
         },
 
         parentClass() {
-            const diplay_class = ( 'block' === this.display ) ? 'cptm-display-block' : 'cptm-display-inline';
+            const diplay_class = ( 'vertical' === this.dropDirection ) ? 'cptm-d-block' : 'cptm-d-inline';
             return {
                 [ this.wrapperClass ]: true,
                 [ diplay_class ]: true,
@@ -111,12 +107,14 @@ export default {
         dropablePlaceholderBeforeClass() {
             return {
                 [ this.dropablePlaceholderClass ]: true,
+                [ 'cptm-d-inline' ]: ( 'horizontal' === this.dropDirection ) ? true : false,
                 [ 'active' ]: ( this.dropableBefore ) ? true : false,
             }
         },
         dropablePlaceholderAfterClass() {
             return {
                 [ this.dropablePlaceholderClass ]: true,
+                [ 'cptm-d-inline' ]: ( 'horizontal' === this.dropDirection ) ? true : false,
                 [ 'active' ]: ( this.dropableAfter ) ? true : false,
             }
         },

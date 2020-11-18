@@ -85,6 +85,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $display_gallery_field = get_directorist_option('display_gallery_field', 1);
                 $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
                 $preview_enable = get_directorist_option('preview_enable', 1);
+                $new_l_status = get_directorist_option('new_listing_status', 'pending');
+                $edit_l_status  = get_directorist_option('edit_listing_status');
+
                  // data validation
                  $listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
                  $submission_form_fields = [];
@@ -92,6 +95,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                  if( $listing_type ){
                     $term = get_term_by( 'id', $listing_type, 'atbdp_listing_types' );
                     $submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
+                    $new_l_status = get_term_meta( $term->term_id, 'new_listing_status', true );
+                    $edit_l_status = get_term_meta( $term->term_id, 'edit_listing_status', true );
                     $preview_enable = get_term_meta( $term->term_id, 'preview_mode', true ) == '1' ? true : '';
                     $submission_form_fields = $submission_form['fields'];
                  }
@@ -99,7 +104,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $error = [];
                 // wp_send_json( [
                 //     'info' => $info,
-                //     // 'submission_form_fields' => $preview_mode ? true : false,
+                //     'preview_enable' => $preview_enable,
                 // ] );
                 // die;
                 foreach( $submission_form_fields as $key => $value ){
@@ -130,6 +135,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if( !empty( $info['t_c_check'] ) ) {
                     $metas[ '_t_c_check' ] = $info['t_c_check'] ? $info['t_c_check'] : '';
                 }
+                $metas['_directory_type'] = '2';
+                $tag = !empty( $info['tax_input']['at_biz_dir-tags']) ? ( $info['tax_input']['at_biz_dir-tags']) : array();
+                $location = !empty( $info['tax_input']['at_biz_dir-location']) ? ( $info['tax_input']['at_biz_dir-location']) : array();
+                $admin_category_select = !empty( $info['tax_input']['at_biz_dir-category']) ? ( $info['tax_input']['at_biz_dir-category']) : array();
+
                 // guest user
                 if (!atbdp_logged_in_user()) {
                     $guest_email = isset($info['guest_user_email']) ? esc_attr($info['guest_user_email']) : '';
@@ -137,10 +147,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                         atbdp_guest_submission($guest_email);
                     }
                 }
-                $metas['_directory_type'] = $listing_type;
-                $tag = !empty( $info['tax_input']['at_biz_dir-tags']) ? ( $info['tax_input']['at_biz_dir-tags']) : array();
-                $location = !empty( $info['tax_input']['at_biz_dir-location']) ? ( $info['tax_input']['at_biz_dir-location']) : array();
-                $admin_category_select = !empty( $info['tax_input']['at_biz_dir-category']) ? ( $info['tax_input']['at_biz_dir-category']) : array();
                 if( $error ){
                     $data['error_msg'] = $error;
                     $data['error'] = true;
@@ -167,7 +173,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     do_action('atbdp_before_processing_to_update_listing');
 
                     $listing_id = absint( $info['listing_id'] );
-                    $_args = [ 'id' => $listing_id, 'edited' => true ];
+                    $_args = [ 'id' => $listing_id, 'edited' => true, 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status];
                     $post_status = atbdp_get_listing_status_after_submission( $_args );
                     $args['post_status'] = $post_status;
 
@@ -241,9 +247,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
 
                         $post_id = wp_update_post($args);
-
-                        if( !empty( $_POST['directory_type'] ) ){
-                            wp_set_object_terms($post_id, (int)$_POST['directory_type'], 'atbdp_listing_types');
+                        if( !empty( $listing_type ) ){
+                            wp_set_object_terms($post_id, (int)$listing_type, 'atbdp_listing_types');
                         }
                        
                         if (!empty($location)) {
@@ -300,7 +305,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     
                     // the post is a new post, so insert it as new post.
                     if (current_user_can('publish_at_biz_dirs') && (!isset($data['error']))) {
-                        $new_l_status = get_directorist_option('new_listing_status', 'pending');
+                       
                         $args['post_status'] = $new_l_status;
 
                         if ('pending' === $new_l_status) {
@@ -309,15 +314,16 @@ if (!class_exists('ATBDP_Add_Listing')):
                         
                         $monitization = get_directorist_option('enable_monetization', 0);
                         //if listing under a purchased package
-                        if (is_fee_manager_active()) {
-                            if (('package' === package_or_PPL($plan = null)) && $plan_purchased && ('publish' === $new_l_status)) {
-                                // status for paid users
-                                $args['post_status'] = $new_l_status;
-                            } else {
-                                // status for non paid users
-                                $args['post_status'] = 'pending';
-                            }
-                        } elseif (!empty($featured_enabled && $monitization)) {
+                        // if (is_fee_manager_active()) {
+                        //     if (('package' === package_or_PPL($plan = null)) && $plan_purchased && ('publish' === $new_l_status)) {
+                        //         // status for paid users
+                        //         $args['post_status'] = $new_l_status;
+                        //     } else {
+                        //         // status for non paid users
+                        //         $args['post_status'] = 'pending';
+                        //     }
+                        // } 
+                        if (!empty($featured_enabled && $monitization)) {
                             $args['post_status'] = 'pending';
                         } else {
                             $args['post_status'] = $new_l_status;
@@ -391,8 +397,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                             do_action('atbdp_before_processing_listing_frontend', $post_id);
                             
                             // set up terms
-                            if( !empty( $_POST['directory_type'] ) ){
-                                wp_set_object_terms($post_id, (int)$_POST['directory_type'], 'atbdp_listing_types');
+                            if( !empty( $listing_type ) ){
+                                wp_set_object_terms($post_id, (int)$listing_type, 'atbdp_listing_types');
                             }
                             // location
                             if (!empty($location)) {

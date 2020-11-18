@@ -1633,7 +1633,11 @@ class Directorist_Listings {
 			else {
 				$id = get_the_id();
 				$value = !empty( $field['widget_key'] ) ? get_post_meta( $id, '_'.$field['widget_key'], true ) : '';
-
+				$load_template = true;
+				if( ( $field['type'] === 'list-item' ) && !$value ) {
+					$load_template = false;
+				}
+				
 				$args = array(
 					'listings' => $this,
 					'post_id'  => $id,
@@ -1641,8 +1645,14 @@ class Directorist_Listings {
 					'value'    => $value,
 					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
 				);
-				$template = 'listings-archive/loop/' . $field['widget_name'];
-				atbdp_get_shortcode_template( $template, $args );
+				
+				if( $load_template ) {
+					$template = 'listings-archive/loop/' . $field['widget_name'];
+					atbdp_get_shortcode_template( $template, $args );
+				}else{
+					
+				}
+
 			}
 		}
 

@@ -4,8 +4,8 @@
  * @since   6.7
  * @version 6.7
  */
-
-$tag_source = ( $data['tags_filter_source'] == 'category_based_tags' ) ? 'cat_based' : 'all_tags';
+$source = !empty( $data['tags_filter_source'] ) ? $data['tags_filter_source'] : '';
+$tag_source = ( $source == 'category_based_tags' ) ? 'cat_based' : 'all_tags';
 
 if ( !empty($data['label']) ): ?>
 	<label><?php echo esc_html( $data['label'] ); ?></label>

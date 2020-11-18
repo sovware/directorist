@@ -6,7 +6,8 @@
  */
 
 $ptype = $searchform->get_pricing_type();
-
+$max_placeholder = !empty( $data['price_range_max_placeholder'] ) ? $data['price_range_max_placeholder'] : '';
+$min_placeholder = !empty( $data['price_range_min_placeholder'] ) ? $data['price_range_min_placeholder'] : '';
 if ( !empty($data['label']) ): ?>
 	<label><?php echo esc_html( $data['label'] ); ?></label>
 <?php endif; ?>
@@ -14,9 +15,9 @@ if ( !empty($data['label']) ): ?>
 <div class="price_ranges">
 
 	<?php if ( $ptype == 'both' || $ptype == 'price_unit' ) {?>
-		<div class="range_single"><input type="text" name="price[0]" class="form-control" placeholder="<?php echo esc_attr( $data['price_range_min_placeholder'] ); ?>" value="<?php echo esc_attr( $searchform->price_value('min') ); ?>"></div>
+		<div class="range_single"><input type="text" name="price[0]" class="form-control" placeholder="<?php echo esc_attr( $min_placeholder ); ?>" value="<?php echo esc_attr( $searchform->price_value('min') ); ?>"></div>
 
-		<div class="range_single"><input type="text" name="price[1]" class="form-control" placeholder="<?php echo esc_attr( $data['price_range_max_placeholder'] ); ?>" value="<?php echo esc_attr( $searchform->price_value('max') ); ?>"></div>
+		<div class="range_single"><input type="text" name="price[1]" class="form-control" placeholder="<?php echo esc_attr( $max_placeholder ); ?>" value="<?php echo esc_attr( $searchform->price_value('max') ); ?>"></div>
 		<?php
 	}
 

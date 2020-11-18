@@ -1051,6 +1051,7 @@ class Directorist_Listings {
 
 	public function render_shortcode() {
 		wp_enqueue_script('adminmainassets');
+		wp_enqueue_script('atbdp_search_listing');
 		wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
 		wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
 			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
@@ -1645,6 +1646,8 @@ class Directorist_Listings {
 					'value'    => $value,
 					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
 				);
+
+				// e_var_dump( $field );
 				
 				$template = 'listings-archive/loop/' . $field['widget_name'];
 				if( $load_template ) {

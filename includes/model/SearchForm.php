@@ -292,6 +292,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function field_template( $field_data) {
+		// e_var_dump( $field_data );
 		$key = $field_data['field_key'];
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
 

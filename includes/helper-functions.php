@@ -2832,10 +2832,16 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
         <div class="row">
             <div class="<?php echo apply_filters('atbdp_listing_list_view_html_class', 'col-md-12') ?>">
                 <?php
+                $counter = 0;
                 foreach ( $all_listings->ids as $listings_id ) :
+                    $counter++;
                     $GLOBALS['post'] = get_post( $listings_id );
                     setup_postdata( $GLOBALS['post'] );
-
+                    /**
+                     * @since 6.5.6
+                     * 
+                     */
+                    do_action( 'atbdp_listings_loop', $counter );
                     $thumbnail_link_attr = " " . apply_filters( 'list_view_thumbnail_link_add_attr', '' );
                     $thumbnail_link_attr = trim( $thumbnail_link_attr );
 

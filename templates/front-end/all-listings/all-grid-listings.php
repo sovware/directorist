@@ -51,11 +51,16 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                 }
 
                 $original_post = $GLOBALS['post'];
-
+                $counter = 0;
                 foreach ( $all_listings->ids as $listings_id ) :
+                    $counter++;
                     $GLOBALS['post'] = get_post( $listings_id );
                     setup_postdata( $GLOBALS['post'] );
-                    
+                    /**
+                     * @since 6.5.6
+                     * 
+                     */
+                    do_action( 'atbdp_listings_loop', $counter );
                     $listing_id = get_the_ID();
                     $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
                     $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);

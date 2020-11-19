@@ -2409,6 +2409,10 @@ input#privacy_policy,
   overflow-y: auto;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbdp-map div {
+  color: #fff !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: flex;
   align-items: flex-end;

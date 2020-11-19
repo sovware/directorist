@@ -142,8 +142,8 @@ MarkerLabel.prototype.draw = function() {
 
                 // update map when contact details fields are updated in the custom post type 'acadp_listings'
                 const mcOptions = {
-                        // imagePath: atbdp_map.plugin_url+'public/assets/images/m',
-                        cssClass: 'marker-cluster-shape',
+                        imagePath: `${atbdp_map.plugin_url}public/assets/images/m`,
+                        // cssClass: 'marker-cluster-shape',
                 };
                 if (map.type === 'markerclusterer') {
                         const markerCluster = new MarkerClusterer(map, map.markers, mcOptions);

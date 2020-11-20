@@ -1358,6 +1358,11 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                                     </div>
 
                                     <div class="clearfix"></div>
+                                    <?php 
+                                    /**
+                                     * @since 6.5.7
+                                     */
+                                    do_action( 'atbdp_after_submit_listing_frontend' ); ?>
                                 </div> <!--ends col-md-12 -->
                             </div><!--ends .row-->
 

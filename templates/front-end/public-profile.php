@@ -8,7 +8,11 @@ $container_fluid = 'container-fluid';
     <div class="<?php echo apply_filters('atbdp_public_profile_container_fluid', $container_fluid) ?>">
         <div class="row">
             <div class="col-md-12">
-                <?php
+                <?php 
+                /**
+                 * @since 6.6.6
+                 */
+                do_action( 'atbdp_before_author_profile_section' );
                 $author_id = !empty($author_id) ? $author_id : get_current_user_id();
                 $author_id = rtrim($author_id, '/');
                 $first_name = get_the_author_meta('first_name', $author_id);
@@ -96,6 +100,11 @@ $container_fluid = 'container-fluid';
             </div>
         </div>
 
+        <?php 
+        /**
+         * @since 6.6.6
+         */
+        do_action( 'atbdp_before_author_about_section' ); ?>
         <div class="row">
             <div class="col-md-8">
                 <div class="atbd_author_module">
@@ -203,7 +212,11 @@ $container_fluid = 'container-fluid';
                 </div>
             </div>
         </div>
-
+        <?php 
+        /**
+         * @since 6.6.6
+         */
+        do_action( 'atbdp_author_listing_after_about_section' ); ?>
         <div class="row">
             <div class="col-md-12">
                 <div class="atbd_author_listings_area">
@@ -242,6 +255,11 @@ $container_fluid = 'container-fluid';
                 </div>
             </div>
         </div>
+        <?php 
+        /**
+         * @since 6.6.6
+         */
+        do_action( 'atbdp_author_listings_before_loop' ); ?>
         <div class="row atbd_authors_listing">
             <?php
             $listings = apply_filters('atbdp_author_listings', true);

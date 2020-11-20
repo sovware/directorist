@@ -32,6 +32,10 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
 <div id="directorist" class="directorist atbd_wrapper dashboard_area">
         <?php
+        /**
+         * @since 6.6.6
+         */
+        do_action( 'directorist_dashboard_before_container' );
         if(isset($_GET['renew']) && ('token_expired' === $_GET['renew'])){?>
         <div class="alert alert-danger alert-dismissable fade show" role="alert">
             <span class="fa fa-info-circle"></span>

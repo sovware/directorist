@@ -2390,11 +2390,16 @@ function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price 
                     if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
                         _prime_post_caches( $all_listings->ids );
                     }
-
+                    $counter = 0;
                     $original_post = $GLOBALS['post'];
                     foreach ( $all_listings->ids as $listings_id ) :
                         $GLOBALS['post'] = get_post( $listings_id );
                         setup_postdata( $GLOBALS['post'] );
+                        /**
+                         * @since 6.6.6
+                         * 
+                         */
+                        do_action( 'atbdp_listings_loop', $counter );
                         view( 'listings-grid-loop' );
                     endforeach;
 

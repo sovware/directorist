@@ -420,22 +420,26 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                  */
                                                 do_action('atbdp_listings_after_exerpt');
                                                 if (!empty($display_readmore)) {
-                                                    ?><a
-                                                    href="<?php the_permalink(); ?>"><?php printf(__(' %s', 'directorist'), $readmore_text); ?></a></p>
+                                                    ?><a href="<?php the_permalink(); ?>"><?php printf(__(' %s', 'directorist'), $readmore_text); ?></a></p>
                                                 <?php }
                                             } ?>
                                         </div><!-- end ./atbd_content_upper -->
                                     <?php }
+
                                     $catViewCount = '';
-                                    if (!empty($display_category) || !empty($display_view_count)) {
+                                    if ( ! empty( $display_category ) || ! empty( $display_view_count )) {
                                         $catViewCount .= '<div class="atbd_listing_bottom_content">';
+
                                         if (!empty($display_category)) {
                                             if (!empty($cats)) {
+                                                $term_icon = get_term_meta( $cats[0]->term_id, 'category_icon', true );
+                                                $term_icon = atbdp_get_term_icon( [ 'icon' => $term_icon, 'default' => 'la-folder-open' ] );
+                                        
                                                 $totalTerm = count($cats);
                                                 $catViewCount .= '<div class="atbd_content_left">';
                                                 $catViewCount .= '<div class="atbd_listing_category">';
                                                 $catViewCount .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
-                                                $catViewCount .= '<span class="' . atbdp_icon_type() . '-folder-open"></span>';
+                                                $catViewCount .= $term_icon;
                                                 $catViewCount .= $cats[0]->name;
                                                 $catViewCount .= '</a>';
                                                 if ($totalTerm > 1) {
@@ -445,9 +449,13 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                     $catViewCount .= '<div class="atbd_cat_popup_wrapper">';
                                                     $output = array();
                                                     foreach (array_slice($cats, 1) as $cat) {
+                                                        $term_icon = get_term_meta( $cat->term_id, 'category_icon', true );
+                                                        $term_icon = atbdp_get_term_icon( [ 'icon' => $term_icon ] );
+                                                        $term_label = trim( "{$term_icon} {$cat->name}" );
+                                                        
                                                         $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                                         $space = str_repeat(' ', 1);
-                                                        $output[] = "{$space}<span><a href='{$link}'>{$cat->name}<span>,</span></a></span>";
+                                                        $output[] = "{$space}<span><a href='{$link}'>{$term_label}</a></span>";
                                                     }
                                                     $catViewCount .= '<span>' . join($output) . '</span>';
                                                     $catViewCount .= '</div>';
@@ -466,7 +474,8 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                                 $catViewCount .= '</div>';
                                             }
                                         }
-                                        if (!empty($display_view_count)) {
+
+                                        if ( ! empty( $display_view_count ) ) {
                                             $fotter_right = '<ul class="atbd_content_right">';
                                             $fotter_right .= '<li class="atbd_count">';
                                             $fotter_right .= '<span class="' . atbdp_icon_type() . '-eye"></span>';
@@ -479,6 +488,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                                         $catViewCount .= '</div>'; //end ./atbd_listing_bottom_content
 
                                     }
+
                                     echo apply_filters('atbdp_listings_grid_cat_view_count', $catViewCount);
 
                                     /**

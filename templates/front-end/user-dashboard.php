@@ -117,11 +117,23 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                     <!-- Tab panes -->
                     <div class="atbd_tab-content">
-                        <?php if (!empty($my_listing_tab)) { ?>
+                        <?php 
+                        /**
+                         * @since 6.6
+                         * @hooked Directorist_Listing_Dashboard > tab_contents_html - 10
+                         */
+                        do_action( 'directorist_dashboard_tab_contents');
+                        if (!empty($my_listing_tab)) { ?>
                             <div class="atbd_tab_inner tabContentActive" id="my_listings">
                                 <div class="row data-uk-masonry">
                                     <?php if ($listings->have_posts()) {
+                                        $counter = 0;
                                         foreach ($listings->posts as $post) {
+                                            $counter++;
+                                            /**
+                                             * @since 6.6.6
+                                             */
+                                            do_action( 'atbdp_dashboard_listings_loop', $counter );
                                             // get only one parent or high level term object
                                             $top_category = ATBDP()->taxonomy->get_one_high_level_term($post->ID, ATBDP_CATEGORY);
                                             $price = get_post_meta($post->ID, '_price', true);
@@ -323,7 +335,12 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             echo atbdp_pagination($listings, $paged);
                                             ?>
                                         </div>
-                                    <?php } ?>
+                                    <?php } 
+                                    /**
+                                     * @since 6.6.6
+                                     */
+                                     do_action( 'atbdp_dashboard_after_loop' );
+                                    ?>
                                 </div>
                             </div> <!--ends #my_listings-->
                         <?php } ?>

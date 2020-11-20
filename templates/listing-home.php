@@ -413,6 +413,11 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                 } ?>
             </div>
         </div>
+        <?php 
+        /**
+         * @since 6.6.6
+         */
+        do_action( 'atbdp_search_listing_after_search_bar' ); ?>
     </div><!-- end directory_main_area -->
 </div><!-- end search area container -->
 <!-- end search section -->

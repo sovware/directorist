@@ -1322,7 +1322,7 @@ if (!function_exists('get_cat_icon')) {
  */
 
 if (!function_exists('atbdp_icon_type')) {
-    function atbdp_icon_type($echo = false)
+    function atbdp_icon_type( $echo = false )
     {
         $font_type = get_directorist_option('font_type', 'line');
         $font_type = ('line' === $font_type) ? "la la" : "fa fa";
@@ -1331,6 +1331,22 @@ if (!function_exists('atbdp_icon_type')) {
         } else {
             return $font_type;
         }
+    }
+}
+
+if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
+    function atbdp_get_term_icon( array $args = [] )
+    {  
+        $default = [ 'icon' => '', 'default' => '', 'echo' => false ];
+        $args = array_merge( $default, $args );
+        
+        $icon = ( ! empty($args['icon'] ) ) ? 'la ' . $args['icon'] : $args['default'];
+        $icon = ( ! empty( $icon ) ) ? 'la ' . $icon : '';
+        $icon = ( ! empty( $icon ) ) ? '<span class="'. $icon .'"></span>' : $icon;
+
+        if ( ! $args['echo'] ) { return $icon; } 
+        
+        echo $icon;
     }
 }
 
@@ -3138,11 +3154,14 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                     $catViewCountAuthor .= '<div class="atbd_listing_bottom_content">';
                                     if (!empty($display_category)) {
                                         if (!empty($cats)) {
+                                            $term_icon = get_term_meta( $cats[0]->term_id, 'category_icon', true );
+                                            $term_icon = atbdp_get_term_icon( [ 'icon' => $term_icon, 'default' => 'la-folder-open' ] );
+                                            
                                             $totalTerm = count($cats);
                                             $catViewCountAuthor .= '<div class="atbd_content_left">';
                                             $catViewCountAuthor .= '<div class="atbd_listing_category">';
                                             $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
-                                            $catViewCountAuthor .= '<span class="' . atbdp_icon_type() . '-folder-open"></span>';
+                                            $catViewCountAuthor .= $term_icon;
                                             $catViewCountAuthor .= $cats[0]->name;
                                             $catViewCountAuthor .= '</a>';
                                             if ($totalTerm > 1) {
@@ -3152,9 +3171,13 @@ function listing_view_by_list($all_listings, $display_image, $show_pagination, $
                                                 $catViewCountAuthor .= '<div class="atbd_cat_popup_wrapper">';
                                                 $output = array();
                                                 foreach (array_slice($cats, 1) as $cat) {
+                                                    $term_icon = get_term_meta( $cat->term_id, 'category_icon', true );
+                                                    $term_icon = atbdp_get_term_icon( [ 'icon' => $term_icon ] );
+                                                    $term_label = trim( "{$term_icon} {$cat->name}" );
+                                                    
                                                     $link = ATBDP_Permalink::atbdp_get_category_page($cat);
                                                     $space = str_repeat(' ', 1);
-                                                    $output [] = "{$space}<span><a href='{$link}'>{$cat->name}<span>,</span></a></span>";
+                                                    $output [] = "{$space}<span><a href='{$link}'>{$term_label}</a></span>";
                                                 }
                                                 $catViewCountAuthor .= '<span>' . join($output) . '</span>';
                                                 $catViewCountAuthor .= '</div>';

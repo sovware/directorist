@@ -87,7 +87,7 @@ if (!class_exists('ATBDP_SEO')) :
 
         public function atbdp_title_update($title, $id = null)
         {
-            if ( !is_main_query() ) {
+            if (!in_the_loop() || !is_main_query()) {
                 return $title;
             }
 

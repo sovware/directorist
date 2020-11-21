@@ -133,6 +133,14 @@ $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
 $display_video_for = get_directorist_option('display_video_for', 0);
 $select_listing_map = get_directorist_option('select_listing_map', 'google');
 $display_contact_hide = get_directorist_option('display_contact_hide', 1);
+$c_position = get_directorist_option('payment_currency_position');
+$currency = atbdp_get_payment_currency();
+$symbol = atbdp_currency_symbol($currency);
+$before = 'before' == $c_position ? $symbol : '';
+$after = 'after' == $c_position ? $symbol : '';
+$featured_enable = get_directorist_option('enable_featured_listing');
+$featured_days = get_directorist_option('featured_listing_time', 30);
+$featured_cost = get_directorist_option('featured_listing_price');
 $contact_hide_label = get_directorist_option('contact_hide_label', __('Check it to hide Contact Information for this listing', 'directorist'));
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 $fm_plan = !empty(get_post_meta($p_id, '_fm_plans', true)) ? get_post_meta($p_id, '_fm_plans', true) : '';
@@ -168,13 +176,36 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                     <div class="atbd_add_listing_title">
                         <h3><?php echo !empty($p_id) ? __('Update', 'directorist') : __('Add New', 'directorist'); ?></h3>
                     </div>
+                    
                     <?php
                     /*
                      * if fires after
                      * @since 4.0.4
                      */
-                    do_action('atbdp_listing_form_after_add_listing_title', $listing_info)
-                    ?>
+                    do_action('atbdp_listing_form_after_add_listing_title', $listing_info);
+                    if( !is_fee_manager_active() && $featured_enable ) { ?>
+                        <div class="atbd_listing_type">
+                        <?php $listing_type = !empty($listing_info['listing_type']) ? $listing_info['listing_type'] : ''; ?>
+
+                        <h4 class="atbdp_option_title"><?php _e('Choose Listing Type', 'directorist-pricing-plans') ?><span class="atbdp_make_str_red"> *</span></h4>
+                        <div class="atbdp_input_group --atbdp_inline">
+                            <input id="general" type="radio" class="atbdp_radio_input" <?php echo ($listing_type == 'general') ? 'checked' : ''; ?> name="listing_type" value="general">
+                            <label for="general" class="general_listing_type_select">
+                                <?php _e(' General listing', 'directorist-pricing-plans') ?>
+                            </label>
+                        </div>
+                        <div class="atbdp_input_group --atbdp_inline">
+                            <input id="featured" type="radio" class="atbdp_radio_input" <?php echo ($listing_type == 'featured') ? 'checked' : ''; ?> name="listing_type" value="featured">
+                            <label for="featured" class="featured_listing_type_select">
+                                <?php _e(' Featured listing', 'directorist-pricing-plans') ?>
+                                <small class="atbdp_make_str_green"><?php
+                                $notice = sprintf( __(" (Top of the search result and listings pages for %s %s and it requires a payment of %s)", 'directorist-pricing-plans'), $featured_days, $featured_days > 1 ? 'days' : 'day', $before . $featured_cost . $after );
+                                echo $notice ;?>
+                                </small>
+                            </label>
+                        </div>
+                    </div>
+                    <?php } ?>
                     <!--add nonce field security -->
                     <?php ATBDP()->listing->add_listing->show_nonce_field(); ?>
                     <input type="hidden" name="add_listing_form" value="1">

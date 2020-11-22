@@ -177,7 +177,7 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                     <div class="atbd_add_listing_title">
                         <h3><?php echo !empty($p_id) ? __('Update', 'directorist') : __('Add New', 'directorist'); ?></h3>
                     </div>
-                    
+
                     <?php
                     /*
                      * if fires after
@@ -189,21 +189,23 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                         <?php $listing_type = !empty($listing_info['listing_type']) ? $listing_info['listing_type'] : ''; ?>
 
                         <h4 class="atbdp_option_title"><?php _e('Choose Listing Type', 'directorist-pricing-plans') ?><span class="atbdp_make_str_red"> *</span></h4>
-                        <div class="atbdp_input_group --atbdp_inline">
-                            <input id="general" type="radio" class="atbdp_radio_input" <?php echo ($listing_type == 'general') ? 'checked' : ''; ?> name="listing_type_select" value="general">
-                            <label for="general" class="general_listing_type_select">
-                                <?php _e(' General listing', 'directorist-pricing-plans') ?>
-                            </label>
-                        </div>
-                        <div class="atbdp_input_group --atbdp_inline">
-                            <input id="featured" type="radio" class="atbdp_radio_input" <?php echo ($listing_type == 'featured') ? 'checked' : ''; ?> name="listing_type_select" value="featured">
-                            <label for="featured" class="featured_listing_type_select">
-                                <?php _e(' Featured listing', 'directorist-pricing-plans') ?>
-                                <small class="atbdp_make_str_green"><?php
-                                $notice = sprintf( __(" (Top of the search result and listings pages for %s %s and it requires a payment of %s)", 'directorist-pricing-plans'), $featured_days, $featured_days > 1 ? 'days' : 'day', $before . $featured_cost . $after );
-                                echo $notice ;?>
-                                </small>
-                            </label>
+                        <div class="atbd-listing-type-list">
+                            <div class="atbdp_input_group --atbdp_inline">
+                                <input id="general" type="radio" class="atbdp_radio_input" <?php echo ($listing_type == 'general') ? 'checked' : ''; ?> name="listing_type_select" value="general">
+                                <label for="general" class="general_listing_type_select">
+                                    <?php _e(' General listing', 'directorist-pricing-plans') ?>
+                                </label>
+                            </div>
+                            <div class="atbdp_input_group --atbdp_inline">
+                                <input id="featured" type="radio" class="atbdp_radio_input" <?php echo ($listing_type == 'featured') ? 'checked' : ''; ?> name="listing_type_select" value="featured">
+                                <label for="featured" class="featured_listing_type_select">
+                                    <?php _e(' Featured listing', 'directorist-pricing-plans') ?>
+                                    <small class="atbdp_make_str_green"><?php
+                                    $notice = sprintf( __(" (Top of the search result and listings pages for %s %s and it requires a payment of %s)", 'directorist-pricing-plans'), $featured_days, $featured_days > 1 ? 'days' : 'day', $before . $featured_cost . $after );
+                                    echo $notice ;?>
+                                    </small>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <?php } ?>
@@ -1195,7 +1197,7 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
 
                                                     $max_file_size = get_directorist_option('max_gallery_upload_size_per_file', 0);
                                                     $max_file_size_kb = (float)$max_file_size * 1024;
-                                                    
+
                                                     $max_total_file_size = get_directorist_option('max_gallery_upload_size', 4);
                                                     $max_total_file_size_kb = (float)$max_total_file_size * 1024;
 
@@ -1390,7 +1392,7 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                                     </div>
 
                                     <div class="clearfix"></div>
-                                    <?php 
+                                    <?php
                                     /**
                                      * @since 6.5.7
                                      */
@@ -1568,7 +1570,7 @@ if ('openstreet' == $select_listing_map) {
                     // marker.addListener('click', function () {
                     //     info_window.open(map, marker);
                     // });
-                    
+
                     deleteMarker();
                     // add the marker to the markers array to keep track of it, so that we can show/hide/delete them all later.
                     markers.push(marker);

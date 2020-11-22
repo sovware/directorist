@@ -112,6 +112,7 @@ class ATBDP_Checkout
                 'form_data' => apply_filters('atbdp_checkout_form_final_data', $form_data, $listing_id),
                 'listing_id' => $listing_id,
             );
+
             ATBDP()->load_template('front-end/checkout-form', $data);
         }
         return ob_get_clean();
@@ -234,8 +235,9 @@ class ATBDP_Checkout
      */
     private function process_payment($amount, $gateway, $order_id, $listing_id, $data = array())
     {
-        /*Process paid listing*/
-        if ($amount > 0) {
+        var_dump( $gateway );
+        /* Process paid listing */
+        if ( $amount > 0 ) {
             if ('bank_transfer' == $gateway) {
                 update_post_meta($order_id, '_transaction_id', wp_generate_password(15, false));
                 //hook for developer
@@ -255,6 +257,7 @@ class ATBDP_Checkout
                  * @param int $listing_id The Listing ID
                  * @param array $data The $_POST data basically
                  */
+                
                 do_action('atbdp_process_' . $gateway . '_payment', $order_id, $listing_id, $data);
                 do_action('atbdp_online_order_processed', $order_id, $listing_id);
             }

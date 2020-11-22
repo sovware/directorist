@@ -27,6 +27,15 @@ jQuery(document).ready(function ($) {
                 return false;
             }
         }
+        //type
+        if ($("input[name='listing_type_select']").length > 0) {
+            var type = $("input[name='listing_type_select']").is(':checked');
+            if ( !type ) {
+                $(".atbd_listing_type").append('<span class="atbdp_required"> Listing Type is required! </span>');
+                to_top('.atbd_listing_type');
+                return false;
+            }
+        }
         //description
         if ($("#listing_content_ifr").length > 0) {
             var iframe = $('#listing_content_ifr');

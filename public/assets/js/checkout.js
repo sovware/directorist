@@ -60,9 +60,11 @@
         if ( net_price > 0 ) {
             $( '#directorist_payment_gateways' ).show();
             $( '#atbdp_checkout_submit_btn' ).val( atbdp_checkout.payNow ).show();
+            $( '#atbdp_checkout_submit_btn_label' ).val( atbdp_checkout.payNow );
         } else {
             $( '#directorist_payment_gateways' ).hide();
             $( '#atbdp_checkout_submit_btn' ).val( atbdp_checkout.completeSubmission ).show();
+            $( '#atbdp_checkout_submit_btn_label' ).val( atbdp_checkout.completeSubmission );
         }
 
         console.log( { pricing_state } );

@@ -136,6 +136,7 @@ $symbol     = atbdp_currency_symbol( $currency );
         <div class="pull-right" id="atbdp_pay_notpay_btn">
             <a href="<?php echo esc_url( $url ); ?>" class="btn btn-danger atbdp_not_now_button"><?php _e('Not Now', 'directorist'); ?></a>
             <input type="submit" id="atbdp_checkout_submit_btn" class="btn btn-primary" value="<?php echo $submit_button_label; ?>"/>
+            <input type="hidden" id="atbdp_checkout_submit_btn_label" value="<?php echo $submit_button_label; ?>"/>
         </div> <!--ends pull-right-->
 
         <?php do_action('atbdp_before_checkout_form_end'); ?>

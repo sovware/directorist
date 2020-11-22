@@ -23,7 +23,7 @@ if (!class_exists('ATBDP_Cron')) :
             add_action('wp', array($this, 'atbdp_custom_schedule_cron'));
             add_action('directorist_hourly_scheduled_events', array($this, 'atbdp_schedule_tasks'));
             // schedule task run after every 5 minutes || use bellow line for debug
-            //add_action('init', array($this, 'atbdp_schedule_tasks'));
+            add_action('init', array($this, 'atbdp_schedule_tasks'));
             add_filter('cron_schedules', array($this, 'atbdp_cron_init'));
         }
 
@@ -53,7 +53,9 @@ if (!class_exists('ATBDP_Cron')) :
             $this->update_expired_listing_status();  // we will send expired notification here
             $this->send_renewal_reminders(); // we will send renewal notification after expiration here
             $this->delete_expired_listings(); // we will delete listings here certain days after expiration here.
+            $this->featured_listing_followup(); // we will delete listings here certain days after expiration here.
         }
+
         /**
          * @since 5.0.1
          */
@@ -110,6 +112,80 @@ if (!class_exists('ATBDP_Cron')) :
                     }
                 }
             }
+        }
+
+        /**
+         * Move featured listing to general
+         * @since 6.6.6
+         */
+
+        private function featured_listing_followup() {
+            $monitization = get_directorist_option('enable_monetization');
+            $featured_enable = get_directorist_option('enable_featured_listing');
+            if( $monitization && $featured_enable ) {
+                $featured_days = get_directorist_option('featured_listing_time', 30);
+                // Define the query
+                $args = array(
+                    'post_type'      => ATBDP_POST_TYPE,
+                    'posts_per_page' => -1,
+                    'post_status'    => 'public',
+                    'meta_query'     => array(
+                        'relation' => 'AND',
+                        array(
+                            'key'      => '_listing_status',
+                            'value'      => 'post_status',
+                        ),
+                        array(
+                            'key'      => '_featured',
+                            'value'      => 1,
+                        ),
+                    )
+                );
+
+                $listings  = new WP_Query($args);
+
+                // Start the Loop
+                if ($listings->found_posts) {
+                    foreach ($listings->posts as $listing) {
+                        $order = $this->get_order_by_listing( $listing->ID );
+                        if( $order ) {
+                            $days = round( abs( strtotime( current_time( 'mysql' ) ) - strtotime( $order[0]->post_date ) ) /86400 );
+                            if ( $days > $featured_days ) {
+                                do_action('atbdp_listing_featured_to_general', $listing->ID);
+                                update_post_meta($listing->ID, '_featured', '');
+                            }
+                        }
+                       
+                    }
+                }
+            }
+        }
+
+        private function get_order_by_listing( $listing_id ) {
+            $args = array(
+                'post_type'      => ATBDP_ORDER_POST_TYPE,
+                'posts_per_page' => 1,
+                'post_status'    => 'public',
+                'meta_query'     => array(
+                    'relation' => 'AND',
+                    array(
+                        'key'      => '_listing_id',
+                        'value'      => $listing_id,
+                    ),
+                    array(
+                        'key'      => '_payment_status',
+                        'value'      => 'completed',
+                    ),
+                )
+            );
+
+            $listings  = new WP_Query($args);
+
+            // Start the Loop
+            if ($listings->found_posts) {
+                return $listings->posts;
+            }
+            return '';
         }
 
         /**

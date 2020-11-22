@@ -439,6 +439,7 @@ jQuery(function($) {
                 form_data.append('is_hourly', atbdp_is_checked('is_hourly'));
                 // plans
                 form_data.append('listing_type', atbdp_element_value('input[name="listing_type"]:checked'));
+                form_data.append('listing_type_select', atbdp_element_value('input[name="listing_type_select"]:checked'));
                 form_data.append('plan', qs.plan);
                 // contact info
                 form_data.append('zip', atbdp_element_value('input[name="zip"]'));
@@ -624,6 +625,8 @@ jQuery(function($) {
                         url: atbdp_add_listing.ajaxurl,
                         data: form_data,
                         success(response) {
+                                // console.log( response );
+                                // return;
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {

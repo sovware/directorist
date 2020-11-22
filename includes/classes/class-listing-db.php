@@ -82,7 +82,7 @@ class ATBDP_Listing_DB {
             'posts_per_page' => (int) $listingS_per_page,
             'order'          => 'DESC',
             'orderby'        => 'date',
-            'post_status'    => array('publish', 'pending', 'private'),
+            'post_status'    => array('publish', 'pending', 'private', 'draft'),
         );
         if( ! empty( $pagination) ) {
             $args['paged'] = $paged;

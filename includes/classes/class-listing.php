@@ -237,6 +237,13 @@ if (!class_exists('ATBDP_Listing')):
                     ?>
                     <section id="directorist" class="directorist atbd_wrapper">
                         <div class="row">
+                        <?php
+                        if( isset($_GET['p']) && isset($_GET['reviewed']) && ('no' === $_GET['edited'])){ ?>
+                            <div class="alert alert-success alert-dismissable fade show" role="alert">
+                                <span class="fa fa-info"></span>
+                                <?php echo sprintf( __( 'Congratulations! Your listing %s has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist' ), get_the_title( $listing_id ) ); ?>
+                            </div>
+                            <?php } ?>
                             <div class="<?php echo apply_filters('atbdp_single_listing_sidebar_class', esc_attr($main_col_size)); ?> col-md-12 atbd_col_left">
 
                                 <?php

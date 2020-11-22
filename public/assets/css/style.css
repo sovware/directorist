@@ -5615,6 +5615,21 @@ span.atbd_get_loc_wid {
   padding-top: 10px;
 }
 
+.atbd-listing-type-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: -8px -15px;
+}
+
+.atbd-listing-type-list .atbdp_input_group {
+  margin: 8px 15px;
+}
+
+.atbd-listing-type-list .atbdp_input_group label {
+  margin-bottom: 0 !important;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {
   display: flex;
   justify-content: space-between;

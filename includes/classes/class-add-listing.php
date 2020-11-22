@@ -63,7 +63,7 @@ if (!class_exists('ATBDP_Add_Listing')):
         public function atbdp_submit_listing()
         {
             $p = $_POST;
-
+            // wp_send_json( $p );die;
             $data = array();
             /**
              * @toda later validate add listing nonce with ja nonce
@@ -131,6 +131,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $metas = array();
                 $content = !empty($p['listing_content']) ? wp_kses($p['listing_content'], wp_kses_allowed_html('post')) : '';
                 $title = !empty($p['listing_title']) ? sanitize_text_field($p['listing_title']) : '';
+                $listing_type_select = !empty($p['listing_type_select']) ? sanitize_text_field($p['listing_type_select']) : '';
                 $tag = !empty($p['tax_input']['at_biz_dir-tags']) ? ($p['tax_input']['at_biz_dir-tags']) : array();
                 $location = !empty($p['tax_input']['at_biz_dir-location']) ? ($p['tax_input']['at_biz_dir-location']) : array();
                 $admin_category_select = !empty($p['tax_input']['at_biz_dir-category']) ? ($p['tax_input']['at_biz_dir-category']) : array();
@@ -832,7 +833,7 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                     } else {
                         //no pay extension own yet let treat as general user
-                        if (get_directorist_option('enable_monetization') && !$p['listing_id'] && $featured_enabled && (!is_fee_manager_active())) {
+                        if (get_directorist_option('enable_monetization') && !$p['listing_id'] && $featured_enabled && (!is_fee_manager_active()) && ('featured' === $listing_type_select) ) {
                             $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
                             $data['need_payment'] = true;
                         } else {

@@ -179,6 +179,17 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
         <?php
+        if( isset($_GET['p']) && isset($_GET['reviewed']) && ('no' === $_GET['edited'])){ ?>
+            <div class="col-lg-12">
+                <div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">
+                    <span class="fa fa-info"></span>
+                    <?php echo sprintf( __( 'Congratulations! Your listing %s has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist' ), get_the_title( $listing_id ) ); ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <?php }
         $html_edit_back = '';
         $html_edit_back .= '<div class="' . apply_filters('atbdp_single_listing_sidebar_class', esc_attr($main_col_size)) . ' col-md-12 atbd_col_left">';
         //is current user is logged in and the original author of the listing

@@ -448,3 +448,17 @@
 #directorist.atbd_wrapper.atbd_add_listing_wrapper  textarea#atbdp_excerpt{
   padding-top: 10px;
 }
+
+//listing type list
+.atbd-listing-type-list{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: -8px -15px;
+  .atbdp_input_group{
+    margin: 8px 15px;
+    label{
+      margin-bottom: 0 !important;
+    }
+  }
+}

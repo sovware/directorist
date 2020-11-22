@@ -62,7 +62,7 @@ if (!class_exists('ATBDP_Listing')):
 
         }
 
-        
+
 
         /**
          * @since 6.3.5
@@ -71,11 +71,11 @@ if (!class_exists('ATBDP_Listing')):
             $status   = isset($_GET['listing_status']) ? esc_attr($_GET['listing_status']) : '';
             $preview  = isset($_GET['preview']) ? esc_attr($_GET['preview']) : '';
             $reviewed = isset($_GET['reviewed']) ? esc_attr($_GET['reviewed']) : '';
-            
+
             if ( $preview || $status || $reviewed ) {
                 $listing_id = isset($_GET['atbdp_listing_id']) ? $_GET['atbdp_listing_id'] : '';
                 $listing_id = isset($_GET['post_id']) ? $_GET['post_id'] : $listing_id;
-                
+
                 $id = isset($_GET['listing_id']) ? (int)($_GET['listing_id']) : '';
                 $id = ( ! empty( $id ) ) ? $id : $listing_id;
                 $id = ( ! empty( $id ) ) ? $id : get_the_ID();
@@ -95,7 +95,7 @@ if (!class_exists('ATBDP_Listing')):
                     wp_update_post( apply_filters('atbdp_reviewed_listing_status_controller_argument', $args) );
                 }
             }
-            
+
         }
 
         // manage_listings_status
@@ -108,9 +108,9 @@ if (!class_exists('ATBDP_Listing')):
             $featured_enabled = get_directorist_option('enable_featured_listing');
             $pricing_plan_enabled = is_fee_manager_active();
 
-            if ( $pricing_plan_enabled ) { return; }; 
-            if ( ! $featured_enabled ) { return; }; 
-            
+            if ( $pricing_plan_enabled ) { return; };
+            if ( ! $featured_enabled ) { return; };
+
             $listing_status = get_directorist_option('new_listing_status', 'pending');
             $post_status = $listing_status;
             $order_meta = get_post_meta( $order_id );
@@ -228,7 +228,7 @@ if (!class_exists('ATBDP_Listing')):
                     }
                     else {
                         $content = get_post_field('post_content', $id);
-                        $content = do_shortcode($content);                       
+                        $content = do_shortcode($content);
                     }
 
                     $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
@@ -239,9 +239,14 @@ if (!class_exists('ATBDP_Listing')):
                         <div class="row">
                         <?php
                         if( isset($_GET['p']) && isset($_GET['reviewed']) && ('no' === $_GET['edited'])){ ?>
-                            <div class="alert alert-success alert-dismissable fade show" role="alert">
-                                <span class="fa fa-info"></span>
-                                <?php echo sprintf( __( 'Congratulations! Your listing %s has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist' ), get_the_title( $listing_id ) ); ?>
+                            <div class="col-lg-12">
+                                <div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">
+                                    <span class="fa fa-info"></span>
+                                    <?php echo sprintf( __( 'Congratulations! Your listing %s has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist' ), get_the_title( $listing_id ) ); ?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
                             </div>
                             <?php } ?>
                             <div class="<?php echo apply_filters('atbdp_single_listing_sidebar_class', esc_attr($main_col_size)); ?> col-md-12 atbd_col_left">

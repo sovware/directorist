@@ -208,6 +208,8 @@ if (!class_exists('ATBDP_Listing')):
         public function the_content($content)
         {
             $id = get_directorist_option('single_listing_page');
+            $submission_confirmation = get_directorist_option('submission_confirmation', 1 );
+            $confirmation_msg = get_directorist_option('submission_confirmation_msg', __( 'Congratulations! Your listing has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist' ) );
             if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
                 $include = apply_filters('include_style_settings', true);
                 if ($include) {
@@ -238,11 +240,10 @@ if (!class_exists('ATBDP_Listing')):
                     <section id="directorist" class="directorist atbd_wrapper">
                         <div class="row">
                         <?php
-                        if( isset($_GET['p']) && isset($_GET['reviewed']) && ('no' === $_GET['edited'])){ ?>
+                        if( $submission_confirmation && isset($_GET['p']) && isset($_GET['reviewed']) && ('no' === $_GET['edited'])){ ?>
                             <div class="col-lg-12">
                                 <div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">
-                                    <span class="fa fa-info"></span>
-                                    <?php echo sprintf( __( 'Congratulations! Your listing %s has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist' ), get_the_title( $listing_id ) ); ?>
+                                    <?php echo $confirmation_msg; ?>
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>

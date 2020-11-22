@@ -5931,6 +5931,18 @@ The Administrator of ==SITE_NAME==
                     ),
                 ),
                 array(
+                    'type' => 'toggle',
+                    'name' => 'submission_confirmation',
+                    'label' => __('Show Submission Confirmation', 'directorist'),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'wpeditor',
+                    'name' => 'submission_confirmation_msg',
+                    'label' => __('Submission Confirmation Message', 'directorist'),
+                    'default' => __('Congratulations! Your listing has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist'),
+                ),
+                array(
                     'type' => 'textbox',
                     'name' => 'listing_details_text',
                     'label' => __('Section Title of Listing Details', 'directorist'),

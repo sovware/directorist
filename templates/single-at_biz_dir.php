@@ -172,6 +172,8 @@ $preview_enable = get_directorist_option('preview_enable', 1);
 $display_back_link = get_directorist_option('display_back_link', 1);
 $enable_single_location_taxonomy = get_directorist_option('enable_single_location_taxonomy', 0);
 $enable_single_tag = get_directorist_option('enable_single_tag', 1);
+$submission_confirmation = get_directorist_option('submission_confirmation', 1 );
+$confirmation_msg = get_directorist_option('submission_confirmation_msg', __( 'Congratulations! Your listing has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist' ) );
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 $active_sidebar = is_active_sidebar('right-sidebar-listing') ? true : false;
 $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
@@ -179,11 +181,10 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
         <?php
-        if( isset($_GET['p']) && isset($_GET['reviewed']) && ('no' === $_GET['edited'])){ ?>
+        if( $submission_confirmation && isset($_GET['p']) && isset($_GET['reviewed']) && ('no' === $_GET['edited'])){ ?>
             <div class="col-lg-12">
                 <div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">
-                    <span class="fa fa-info"></span>
-                    <?php echo sprintf( __( 'Congratulations! Your listing %s has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist' ), get_the_title( $listing_id ) ); ?>
+                    <?php echo $confirmation_msg; ?>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

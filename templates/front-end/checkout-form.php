@@ -132,7 +132,7 @@ $symbol     = atbdp_currency_symbol( $currency );
             $url = add_query_arg('listing_status', $new_l_status,  ATBDP_Permalink::get_dashboard_page_link().'?listing_id='.$listing_id );
         }
         ?>
-        <input type="hidden" name="listing_id" value="<?php echo $listing_id; ?>"/>
+        <input type="hidden" id="listing_id" name="listing_id" value="<?php echo $listing_id; ?>"/>
         <div class="pull-right" id="atbdp_pay_notpay_btn">
             <a href="<?php echo esc_url( $url ); ?>" class="btn btn-danger atbdp_not_now_button"><?php _e('Not Now', 'directorist'); ?></a>
             <input type="submit" id="atbdp_checkout_submit_btn" class="btn btn-primary" value="<?php echo $submit_button_label; ?>"/>

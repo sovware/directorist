@@ -85,22 +85,22 @@ class ATBDP_Checkout
                 $desc = get_directorist_option('featured_listing_desc');
                 $price = get_directorist_option('featured_listing_price');
                 $form_data[] = array(
-                    'type' => 'header',
-                    'title' => $title,
-                    'name' => 'feature',
-                    'value' => 1,
+                    'type'     => 'header',
+                    'title'    => $title,
+                    'name'     => 'feature',
+                    'value'    => $price,
                     'selected' => 1,
-                    'desc' => $desc,
-                    'price' => $price,
+                    'desc'     => $desc,
+                    'price'    => $price,
                 );
                 $form_data[] = array(
-                    'type' => 'checkbox',
-                    'name' => 'feature',
-                    'value' => 1,
+                    'type'     => 'checkbox',
+                    'name'     => 'feature',
+                    'value'    => $price,
                     'selected' => 1,
-                    'title' => $title,
-                    'desc' => $desc,
-                    'price' => $price,
+                    'title'    => $title,
+                    'desc'     => $desc,
+                    'price'    => $price,
                 );
             }
             // if data is empty then vail,
@@ -112,7 +112,6 @@ class ATBDP_Checkout
                 'form_data' => apply_filters('atbdp_checkout_form_final_data', $form_data, $listing_id),
                 'listing_id' => $listing_id,
             );
-
             ATBDP()->load_template('front-end/checkout-form', $data);
         }
         return ob_get_clean();
@@ -235,7 +234,6 @@ class ATBDP_Checkout
      */
     private function process_payment($amount, $gateway, $order_id, $listing_id, $data = array())
     {
-        var_dump( $gateway );
         /* Process paid listing */
         if ( $amount > 0 ) {
             if ('bank_transfer' == $gateway) {

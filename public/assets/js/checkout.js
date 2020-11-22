@@ -1,5 +1,5 @@
 (function ( $ ) {
-    // Update Checkout Pricing
+    // Update checkout pricing on product item change
     var checkout_price_item = $( '.atbdp-checkout-price-item' );
     checkout_price_item.on( 'change', function() {
         var checkout_net_price_area        = $( '#atbdp_checkout_total_amount' );
@@ -71,13 +71,13 @@
     // get_currency_format
     function get_currency_format( number ) {
         number = number.toFixed( 2 );
-        number = numberWithCommas( number );
+        number = number_with_commas( number );
 
         return number;
     }
 
-    // numberWithCommas
-    function numberWithCommas( number ) {
+    // number_with_commas
+    function number_with_commas( number ) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 })(jQuery);

@@ -315,9 +315,9 @@ class ATBDP_Order
                     echo '<div>#Order for: ' . $title . '</div>';
                 }
 
-                $featured = get_post_meta($post_id, '_featured', true); // is this listing featured ?
+                $featured = apply_filters( 'atbdp_order_for', get_post_meta( $post_id, '_featured', true), $post_id ); // is this listing featured ?
                 if ($featured) {
-                    $f_title = get_directorist_option('featured_listing_title');
+                    $f_title = apply_filters( 'atbdp_order_for', get_directorist_option('featured_listing_title'), $post_id );
                     echo "<div>({$f_title})</div>";
                 }
                 break;

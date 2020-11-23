@@ -5680,6 +5680,15 @@ The Administrator of ==SITE_NAME==
 
         function get_listings_map_settings_fields()
         {
+            $countries = atbdp_country_code_to_name();
+            $items = array();
+            foreach ($countries as $country => $code) {
+                $items[] = array(
+                    'value' => $country,
+                    'label' => $code,
+                );
+            }
+            
             return apply_filters('atbdp_map_field_setting', array(
                 array(
                     'type' => 'select',
@@ -5706,6 +5715,19 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Google Map API key', 'directorist'),
                     'description' => sprintf(__('Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', 'directorist'), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
 
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'country_restriction',
+                    'label' => __('Country Restriction', 'directorist'),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'multiselect',
+                    'name' => 'restricted_countries',
+                    'label' => __('Select Countries', 'directorist'),
+                    'items' => $items,
+                    'default' => [],
                 ),
                 array(
                     'type' => 'textbox',

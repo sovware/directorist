@@ -839,11 +839,12 @@ if (!class_exists('ATBDP_Add_Listing')):
                         } else {
                             //yep! listing is saved to db and redirect user to admin panel or listing itself
                             $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
+                            $submission_notice = get_directorist_option('submission_confirmation', 1);
                             if ('view_listing' == $redirect_page) {
-                                $data['redirect_url'] = get_permalink($post_id);
+                                $data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, get_permalink($post_id) ) : get_permalink($post_id) ;
                                 $data['success'] = true;
                             } else {
-                                $data['redirect_url'] = ATBDP_Permalink::get_dashboard_page_link();
+                                $data['redirect_url'] = $submission_notice ? add_query_arg( 'notice', true, ATBDP_Permalink::get_dashboard_page_link() ) : ATBDP_Permalink::get_dashboard_page_link();
                                 $data['success'] = true;
                             }
                         }

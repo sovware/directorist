@@ -172,8 +172,15 @@ $preview_enable = get_directorist_option('preview_enable', 1);
 $display_back_link = get_directorist_option('display_back_link', 1);
 $enable_single_location_taxonomy = get_directorist_option('enable_single_location_taxonomy', 0);
 $enable_single_tag = get_directorist_option('enable_single_tag', 1);
-$submission_confirmation = get_directorist_option('submission_confirmation', 1 );
-$confirmation_msg = get_directorist_option('submission_confirmation_msg', __( 'Congratulations! Your listing has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist' ) );
+$pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
+$publish_msg = get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
+$new_listing_status = get_directorist_option('new_listing_status', 'pending' );
+$edit_listing_status = get_directorist_option('edit_listing_status', 'pending' );
+if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
+    $confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
+}else{
+    $confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg; 
+}
 $main_col_size = is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12';
 $active_sidebar = is_active_sidebar('right-sidebar-listing') ? true : false;
 $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
@@ -181,7 +188,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 <section id="directorist" class="directorist atbd_wrapper">
     <div class="row">
         <?php
-        if( $submission_confirmation && isset($_GET['p']) && isset($_GET['reviewed']) && ('no' === $_GET['edited'])){ ?>
+        if( isset( $_GET['notice'] ) ){ ?>
             <div class="col-lg-12">
                 <div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">
                     <?php echo $confirmation_msg; ?>

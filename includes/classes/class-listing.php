@@ -209,7 +209,15 @@ if (!class_exists('ATBDP_Listing')):
         {
             $id = get_directorist_option('single_listing_page');
             $submission_confirmation = get_directorist_option('submission_confirmation', 1 );
-            $confirmation_msg = get_directorist_option('submission_confirmation_msg', __( 'Congratulations! Your listing has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist' ) );
+            $pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
+            $publish_msg = get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
+            $new_listing_status = get_directorist_option('new_listing_status', 'pending' );
+            $edit_listing_status = get_directorist_option('edit_listing_status', 'pending' );
+            if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
+                $confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
+            }else{
+                $confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg; 
+            }
             if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
                 $include = apply_filters('include_style_settings', true);
                 if ($include) {
@@ -240,7 +248,7 @@ if (!class_exists('ATBDP_Listing')):
                     <section id="directorist" class="directorist atbd_wrapper">
                         <div class="row">
                         <?php
-                        if( $submission_confirmation && isset($_GET['p']) && isset($_GET['reviewed']) && ('no' === $_GET['edited'])){ ?>
+                        if( isset( $_GET['notice'] ) ){ ?>
                             <div class="col-lg-12">
                                 <div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">
                                     <?php echo $confirmation_msg; ?>

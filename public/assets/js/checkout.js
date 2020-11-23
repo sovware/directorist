@@ -1,67 +1,83 @@
-(function ($) {
-    /*CHECKOUT RELATED STUFFS*/
-    // When any item changes in the checkout form page, we will update the tottal price.
-    // cash the nonce
-    var nonce = $('#checkout_nonce').val();
-    $( '.atbdp_checkout_item_field' ).on( 'change', function() {
-        var total_amount = 0,
-            item   = 0;
-        //calculate the amount from all the checkbox and the radio inputs that are checked.
-        $( "#directorist-checkout-table input[type='checkbox']:checked, #directorist-checkout-table input[type='radio']:checked" ).each(function() {
-            total_amount += parseFloat( $( this ).data('price') );
-            ++item;
-        });
+(function ( $ ) {
+    // Update checkout pricing on product item change
+    var checkout_price_item = $( '.atbdp-checkout-price-item' );
+    checkout_price_item.on( 'change', function() {
+        var checkout_net_price_area        = $( '#atbdp_checkout_total_amount' );
+        var checkout_net_hidden_price_area = $( '#atbdp_checkout_total_amount_hidden' );
+        var pricing_state                  = get_checkout_pricing_state( checkout_price_item );
+        
+        checkout_net_price_area.html( get_currency_format( pricing_state.net_price ) );
+        checkout_net_hidden_price_area.val( pricing_state.net_price );
 
+        update_payment_methods( pricing_state );
+    });
 
-        $( '#directorist_payment_gateways, #atbdp_checkout_submit_btn' ).show();
+    // get_checkout_pricing_state
+    function get_checkout_pricing_state( price_elm ) {
+        var addition_price      = 0;
+        var substruction_price  = 0;
+        var checkout_price_item = price_elm;
 
-        if( 0 == item ) {
-            $( '#atbdp_checkout_total_amount' ).html( '0.00' );
-            $( '#directorist_payment_gateways, #atbdp_checkout_submit_btn' ).hide();
-            return;
-        };
+        var total_pricing_element = checkout_price_item.length;
+        var selected_pricing_element = 0;
 
-        data = 'amount=' + total_amount;
-        atbdp_do_ajax($( '#atbdp_checkout_total_amount' ), 'atbdp_format_total_amount', data, function(response) {
+        checkout_price_item.each( function( index ) {
+            var price_item = checkout_price_item[ index ];
+            var price_type = $( checkout_price_item[ index ] ).data( 'price-type' );
+            price_type = ( ! price_type ) ? 'addition' : price_type;
 
-         $( '#atbdp_checkout_total_amount').html( response );
+            var price = price_item.value;
+            price = ( isNaN( price_item.value ) ) ? 0 : Number( price );
 
-         var amount = parseFloat( $( '#atbdp_checkout_total_amount' ).html() );
+            if ( $( price_item ).is(':checked') && 'addition' === price_type ) {
+                addition_price = addition_price + price;
+                selected_pricing_element++;
+            }
 
-         if( amount > 0 ) {
-         $( '#directorist_payment_gateways' ).show();
-         $( '#atbdp_checkout_submit_btn' ).val( atbdp_checkout.payNow ).show();
-         } else {
-         $( '#directorist_payment_gateways' ).hide();
-         $( '#atbdp_checkout_submit_btn' ).val( atbdp_checkout.completeSubmission ).show();
-         }
-
-         });
-
-    }).trigger('change');
-
-
-    /*This function handles all ajax request*/
-    function atbdp_do_ajax( ElementToShowLoadingIconAfter, ActionName, arg, CallBackHandler){
-        var data;
-        if(ActionName) data = "action=" + ActionName;
-        if(arg)    data = arg + "&action=" + ActionName;
-        if(arg && !ActionName) data = arg;
-
-        var n = data.search(atbdp_checkout.nonceName);
-        if(n<0){
-            data = data + "&"+atbdp_checkout.nonceName+"=" + atbdp_checkout.nonce;
-        }
-
-        jQuery.ajax({
-            type: "post",
-            url: atbdp_checkout.ajaxurl,
-            data: data,
-            beforeSend: function() { jQuery("<span class='atbdp_ajax_loading'></span>").insertAfter(ElementToShowLoadingIconAfter); },
-            success: function( data ) {
-                jQuery(".atbdp_ajax_loading").remove();
-                CallBackHandler(data);
+            if ( $( price_item ).is(':checked') && 'substruction' === price_type ) {
+                substruction_price = substruction_price + price;
             }
         });
+
+        var net_price = addition_price - substruction_price;
+
+        return {
+            total_pricing_element: total_pricing_element,
+            selected_pricing_element: selected_pricing_element,
+            net_price: net_price,
+        };
+    }
+
+    // update_payment_methods
+    function update_payment_methods( pricing_state ) {
+        let net_price = pricing_state.net_price;
+        
+        if ( ! pricing_state.selected_pricing_element ) {
+            $( '#directorist_payment_gateways, #atbdp_checkout_submit_btn' ).hide();
+            return;
+        }
+
+        if ( net_price > 0 ) {
+            $( '#directorist_payment_gateways' ).show();
+            $( '#atbdp_checkout_submit_btn' ).val( atbdp_checkout.payNow ).show();
+        } else {
+            $( '#directorist_payment_gateways' ).hide();
+            $( '#atbdp_checkout_submit_btn' ).val( atbdp_checkout.completeSubmission ).show();
+        }
+
+        console.log( { pricing_state } );
+    }
+
+    // get_currency_format
+    function get_currency_format( number ) {
+        number = number.toFixed( 2 );
+        number = number_with_commas( number );
+
+        return number;
+    }
+
+    // number_with_commas
+    function number_with_commas( number ) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 })(jQuery);

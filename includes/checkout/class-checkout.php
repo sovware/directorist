@@ -85,22 +85,22 @@ class ATBDP_Checkout
                 $desc = get_directorist_option('featured_listing_desc');
                 $price = get_directorist_option('featured_listing_price');
                 $form_data[] = array(
-                    'type' => 'header',
-                    'title' => $title,
-                    'name' => 'feature',
-                    'value' => 1,
+                    'type'     => 'header',
+                    'title'    => $title,
+                    'name'     => 'feature',
+                    'value'    => $price,
                     'selected' => 1,
-                    'desc' => $desc,
-                    'price' => $price,
+                    'desc'     => $desc,
+                    'price'    => $price,
                 );
                 $form_data[] = array(
-                    'type' => 'checkbox',
-                    'name' => 'feature',
-                    'value' => 1,
+                    'type'     => 'checkbox',
+                    'name'     => 'feature',
+                    'value'    => $price,
                     'selected' => 1,
-                    'title' => $title,
-                    'desc' => $desc,
-                    'price' => $price,
+                    'title'    => $title,
+                    'desc'     => $desc,
+                    'price'    => $price,
                 );
             }
             // if data is empty then vail,
@@ -234,8 +234,8 @@ class ATBDP_Checkout
      */
     private function process_payment($amount, $gateway, $order_id, $listing_id, $data = array())
     {
-        /*Process paid listing*/
-        if ($amount > 0) {
+        /* Process paid listing */
+        if ( $amount > 0 ) {
             if ('bank_transfer' == $gateway) {
                 update_post_meta($order_id, '_transaction_id', wp_generate_password(15, false));
                 //hook for developer
@@ -255,6 +255,7 @@ class ATBDP_Checkout
                  * @param int $listing_id The Listing ID
                  * @param array $data The $_POST data basically
                  */
+                
                 do_action('atbdp_process_' . $gateway . '_payment', $order_id, $listing_id, $data);
                 do_action('atbdp_online_order_processed', $order_id, $listing_id);
             }

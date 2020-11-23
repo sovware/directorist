@@ -26,7 +26,16 @@ $fav_listings_tab_text = get_directorist_option('fav_listings_tab_text', __('Fav
 $submit_listing_button = get_directorist_option('submit_listing_button', 1);
 $show_title = !empty($show_title) ? $show_title : '';
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
-
+$submission_confirmation = get_directorist_option('submission_confirmation', 1 );
+$pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
+$publish_msg = get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
+$new_listing_status = get_directorist_option('new_listing_status', 'pending' );
+$edit_listing_status = get_directorist_option('edit_listing_status', 'pending' );
+if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
+    $confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
+}else{
+    $confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg; 
+}
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
 
@@ -54,6 +63,16 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                 <?php printf(__('Please select a plan for %s to continue.', 'directorist') , get_the_title( sanitize_text_field( $_GET['renew_with_plan'] ) )); ?>
             </div>
             <?php }
+            if( isset( $_GET['notice'] ) ){ ?>
+                <div class="col-lg-12">
+                    <div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">
+                        <?php echo $confirmation_msg; ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <?php }
         ?>
     <div class="<?php echo apply_filters('atbdp_deshboard_container_fluid', $container_fluid) ?>">
         <div class="row">

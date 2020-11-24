@@ -138,7 +138,7 @@ class ATBDP_Gateway{
                     'name' => 'featured_listing_desc',
                     'label' => __('Description', 'directorist'),
                     'description' => __('You can set some description for your user for upgrading to featured listing.', 'directorist'),
-                    'default' => __('You can make your listing featured. A Featured listing will appear on top of other listings.', 'directorist'),
+                    'default' => __('(Top of the search result and listings pages for a number days and it requires an additional payment.)', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',

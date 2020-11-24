@@ -19,6 +19,12 @@ $symbol     = atbdp_currency_symbol( $currency );
                 <span aria-hidden="true">×</span>
             </button>
         </div>
+        <?php 
+        /**
+         * @since 6.5.6
+         */
+        do_action( 'atbdp_before_checkout_table', $form_data );
+        ?>
         <table id="directorist-checkout-table" class="table table-bordered table-responsive-sm">
             <thead class="thead-light">
             <tr>
@@ -42,7 +48,7 @@ $symbol     = atbdp_currency_symbol( $currency );
 
                 <?php } else { /*Display other type of item here*/ ?>
                     <tr>
-                        <td>
+                        <td colspan="2" class="text-right vertical-middle">
                             <?php
                                 /* display proper type of checkbox/radio etc */
                                 $atts = [
@@ -65,9 +71,9 @@ $symbol     = atbdp_currency_symbol( $currency );
                                 echo str_replace('checkbox', $option['type'], $input_field);
                             ?>
                             <?php if ( ! empty( $option['title'] ) ) echo "<label for='{$atts['id']}'><h4>" . esc_html($option['title']) . "</h4></label>"; ?>
-                            <?php if ( ! empty( $option['desc'] ) ) echo esc_html($option['desc']); ?>
+                            <?php if ( ! empty( $option['desc'] ) ) echo '<small> - '. esc_html($option['desc']) . '</small>'; ?>
                         </td>
-                        <td align="right" class="text-right">
+                        <td class="text-right vertical-middle">
                             <?php if (!empty($option['price'])) {
                                 $before = '';
                                 $after = '';
@@ -81,6 +87,12 @@ $symbol     = atbdp_currency_symbol( $currency );
             }
             
             $net_price = $addition_price - $substruction_price;
+            ?>
+             <?php 
+            /**
+             * @since 6.5.6
+             */
+            do_action( 'atbdp_before_checkout_total_tr', $form_data );
             ?>
             <tr>
                 <td colspan="2" class="text-right vertical-middle">

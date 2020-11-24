@@ -6,6 +6,9 @@ $listing_id = ! empty( $args['listing_id'] ) ? $args['listing_id'] : 0;
 $c_position = get_directorist_option('payment_currency_position');
 $currency   = atbdp_get_payment_currency();
 $symbol     = atbdp_currency_symbol( $currency );
+$before = '';
+$after = '';
+('after' == $c_position) ? $after = $symbol : $before = $symbol;
 // displaying data for checkout
 ?>
 <div id="directorist" class="atbd_wrapper directorist directorist-checkout-form">
@@ -42,6 +45,7 @@ $symbol     = atbdp_currency_symbol( $currency );
             $selected_pricing_element = 0;
             $addition_price           = 0;
             $substruction_price       = 0;
+            $subtotal                 = 0;
 
             foreach ( $form_data as $key => $option ) {
                 if ('header' == $option['type']) { ?>
@@ -64,20 +68,18 @@ $symbol     = atbdp_currency_symbol( $currency );
                                 // Store Addtion Price
                                 if ( is_numeric( $atts['value'] ) && $option['selected'] && 'addition' === $atts['data-price-type'] ) {
                                     $price = ( preg_match( '/[.]/', $atts['value'] ) ) ? ( float ) $atts['value'] : ( int ) $atts['value'];
+                                    $subtotal += $price;
                                     $addition_price = $addition_price +  $price;
                                     $selected_pricing_element++;
                                 }
 
-                                echo str_replace('checkbox', $option['type'], $input_field);
+                                //echo str_replace('checkbox', $option['type'], $input_field);
                             ?>
                             <?php if ( ! empty( $option['title'] ) ) echo "<label for='{$atts['id']}'><h4>" . esc_html($option['title']) . "</h4></label>"; ?>
                             <?php if ( ! empty( $option['desc'] ) ) echo '<small> - '. esc_html($option['desc']) . '</small>'; ?>
                         </td>
                         <td class="text-right vertical-middle">
                             <?php if (!empty($option['price'])) {
-                                $before = '';
-                                $after = '';
-                                ('after' == $c_position) ? $after = $symbol : $before = $symbol;
                                 echo $before . esc_html(atbdp_format_payment_amount($option['price'])) . $after;
                                 do_action('atbdp_checkout_after_total_price', $args);
                             } ?>
@@ -86,14 +88,24 @@ $symbol     = atbdp_currency_symbol( $currency );
                 <?php }
             }
             
-            $net_price = $addition_price - $substruction_price;
-            ?>
-             <?php 
+            $net_price = $addition_price - $substruction_price; 
             /**
              * @since 6.5.6
              */
-            do_action( 'atbdp_before_checkout_total_tr', $form_data );
+            do_action( 'atbdp_before_checkout_subtotal_tr', $form_data );
             ?>
+            <tr>
+                <td colspan="2" class="text-right vertical-middle">
+                    <strong><?php echo __( 'Subtotal', 'directorist-coupon' ); ?></strong>
+                </td>
+                <td class="text-right vertical-middle">
+                    <?php echo $before; ?>
+                    <div id="atbdp_checkout_subtotal_amount">
+                        <?php echo esc_html( atbdp_format_payment_amount( $subtotal ) ); ?>
+                    </div><!--total amount will be populated by JS-->
+                    <?php echo $after; ?>
+                </td>
+            </tr>
             <tr>
                 <td colspan="2" class="text-right vertical-middle">
                     <strong><?php printf(__('Total amount [%s]', 'directorist'), $currency); ?></strong>

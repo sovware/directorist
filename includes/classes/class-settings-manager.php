@@ -171,8 +171,103 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'icon' => 'font-awesome:fa-adjust',
                     'menus'=> $this->get_style_settings_submenus(),
                 ),
+                /*lets make the settings for style settngs*/
+                'tools_menu' => array(
+                    'title' => __('Tools', 'directorist'),
+                    'name' => 'tools_settings',
+                    'icon' => 'font-awesome:fa-tools',
+                    'menus'=> $this->get_tools_settings_submenus(),
+                ),
             ));
         }
+
+        // get_tools_settings_submenus
+        public function get_tools_settings_submenus() {
+            return apply_filters('atbdp_tools_settings_submenus', array(
+                /*Submenu : Announcement Settings */
+                array(
+                    'title' => __('Announcement', 'directorist'),
+                    'name' => 'announcement_settings',
+                    'icon' => 'font-awesome:fa-bullhorn',
+                    'controls' => apply_filters('atbdp_announcement_settings_controls', array(
+                        'button_type' => array(
+                            'type' => 'section',
+                            'title' => __('Send Announcement', 'directorist'),
+                            'fields' => $this->get_listings_announcement_fields(),
+                        ),
+                    )),
+                ),
+            ));
+        }
+
+        // get_listings_announcement_fields
+        public function get_listings_announcement_fields()
+        {
+            $users = get_users([ 'role__not_in' => 'Administrator' ]); // Administrator | Subscriber
+            $recepents = [];
+
+            if ( ! empty( $users ) ) {
+                foreach ( $users as $user ) {
+                    $recepents[] = [
+                        'value' => $user->user_email,
+                        'label' => ( ! empty( $user->display_name ) ) ? $user->display_name : $user->user_nicename,
+                    ];
+                }
+            }
+
+            return apply_filters('atbdp_button_type', array(
+                'announcement_to' => array(
+                    'type'    => 'select',
+                    'name'    => 'announcement_to',
+                    'label'   => __('To', 'directorist'),
+                    'default' => 'all_user',
+                    'items'   => array(
+                        array( 'value' => 'all_user', 'label' => __( 'All User', 'directorist' ) ),
+                        array( 'value' => 'selected_user', 'label' => __( 'Selected User', 'directorist' ) ),
+                    ),
+                ),
+                'announcement_recepents' => array(
+                    'type'  => 'multiselect',
+                    'name'  => 'announcement_recepents',
+                    'label' => __('Recepents', 'directorist'),
+                    'items' => $recepents,
+                ),
+                'announcement_subject' => array(
+                    'type'  => 'textbox',
+                    'name'  => 'announcement_subject',
+                    'label' => __('Subject', 'directorist'),
+                ),
+                'announcement_message' => array(
+                    'type'  => 'textarea',
+                    'name'  => 'announcement_message',
+                    'label' => __('Message', 'directorist'),
+                ),
+                'announcement_expiration' => array(
+                    'type'        => 'slider',
+                    'name'        => 'announcement_expiration',
+                    'label'       => __('Expires in Days', 'directorist'),
+                    'description' => __('Set it to 0 to keep it alive forever.', 'directorist'),
+                    'min'         => 0,
+                    'max'         => 365,
+                    'step'        => 1,
+                    'default'     => 3,
+                    'validation'  => 'numeric',
+                ),
+                'announcement_send_to_email' => array(
+                    'type'    => 'toggle',
+                    'name'    => 'announcement_send_to_email',
+                    'label'   => __('Send a copy to email', 'directorist'),
+                    'default' => true,
+                ),
+                'announcement_submit' => array(
+                    'type'    => 'toggle',
+                    'name'    => 'announcement_submit',
+                    'label'   => __('Submit', 'directorist'),
+                    'default' => true,
+                ),
+            ));
+        }
+
         /**
          * Get all the submenus for Style settings menu
          * @return array It returns an array of submenus

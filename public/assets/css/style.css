@@ -5685,58 +5685,6 @@ span.atbd_get_loc_wid {
   background: none;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last {
-  opacity: 0;
-  visibility: hidden;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last.atbdp-nlc-active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp_all_booking_nav {
-  position: relative;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last ul, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp_all_booking_nav ul {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  min-width: 130px;
-  top: 55px;
-  right: 0;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.13) !important;
-  z-index: 1;
-  background: #fff;
-  border-radius: 3px;
-  transition: 0.3s ease;
-  padding-top: 7px;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last ul.active, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp_all_booking_nav ul.active {
-  visibility: visible;
-  opacity: 1;
-  pointer-events: all;
-  top: 45px;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last ul li, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp_all_booking_nav ul li {
-  display: block;
-  width: 100%;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last ul li a, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp_all_booking_nav ul li a {
-  padding-top: 0;
-  border: 0 none;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp-tab-nav-last ul li ul.active, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li.atbdp_all_booking_nav ul li ul.active {
-  top: 0;
-  left: 100%;
-}
-
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav ul.tab_nav_slide {
   margin-right: 30px;
 }

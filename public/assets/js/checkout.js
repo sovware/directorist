@@ -64,4 +64,17 @@
     function number_with_commas( number ) {
         return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
+
+
+
+    // process checkout form
+    let checkout_form = $( '#atbdp-checkout-form' );
+    $( 'body' ).on( 'submit', checkout_form, function(e) {
+        e.preventDefault();
+        const form_data = new FormData();
+        // ajax action
+        form_data.append('action', 'add_listing_action');
+    } );
+
+
 })(jQuery);

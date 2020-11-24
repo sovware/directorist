@@ -5680,6 +5680,15 @@ The Administrator of ==SITE_NAME==
 
         function get_listings_map_settings_fields()
         {
+            $countries = atbdp_country_code_to_name();
+            $items = array();
+            foreach ($countries as $country => $code) {
+                $items[] = array(
+                    'value' => $country,
+                    'label' => $code,
+                );
+            }
+            
             return apply_filters('atbdp_map_field_setting', array(
                 array(
                     'type' => 'select',
@@ -5706,6 +5715,19 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Google Map API key', 'directorist'),
                     'description' => sprintf(__('Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', 'directorist'), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
 
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'country_restriction',
+                    'label' => __('Country Restriction', 'directorist'),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'multiselect',
+                    'name' => 'restricted_countries',
+                    'label' => __('Select Countries', 'directorist'),
+                    'items' => $items,
+                    'default' => [],
                 ),
                 array(
                     'type' => 'textbox',
@@ -5929,6 +5951,24 @@ The Administrator of ==SITE_NAME==
                         'value' => 'view_listing',
                         'label' => __('View Listing', 'directorist'),
                     ),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'submission_confirmation',
+                    'label' => __('Show Submission Confirmation', 'directorist'),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'wpeditor',
+                    'name' => 'pending_confirmation_msg',
+                    'label' => __('Pending Confirmation Message', 'directorist'),
+                    'default' => __('Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist'),
+                ),
+                array(
+                    'type' => 'wpeditor',
+                    'name' => 'publish_confirmation_msg',
+                    'label' => __('Publish Confirmation Message', 'directorist'),
+                    'default' => __('Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',

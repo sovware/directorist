@@ -208,7 +208,7 @@ class ATBDP_Checkout
             /*Lowercase alphanumeric characters, dashes and underscores are allowed.*/
             $gateway = !empty($amount) && !empty($data['payment_gateway']) ? sanitize_key($data['payment_gateway']) : 'free';
             // save required data as order post meta
-
+            $amount = apply_filters( 'atbdp_order_amount', $amount );
             update_post_meta($order_id, '_listing_id', $listing_id);
             update_post_meta($order_id, '_amount', $amount);
             update_post_meta($order_id, '_payment_gateway', $gateway);

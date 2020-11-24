@@ -145,6 +145,8 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
                     'ajaxurl'        => admin_url( 'admin-ajax.php' ),
                     'import_page_link'      => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
                     'nonceName'      => 'atbdp_nonce_js',
+                    'countryRestriction'      => get_directorist_option( 'country_restriction' ),
+                    'restricted_countries'      => get_directorist_option( 'restricted_countries' ),
                     'AdminAssetPath' => ATBDP_ADMIN_ASSETS,
                     'i18n_text'      => $i18n_text,
                 );
@@ -782,6 +784,8 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             'ajax_url'    => admin_url( 'admin-ajax.php' ),
             'Miles'       => $miles,
             'default_val' => $default_radius_distance,
+            'countryRestriction'      => get_directorist_option( 'country_restriction' ),
+            'restricted_countries'      => get_directorist_option( 'restricted_countries' ),
         );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );
         wp_localize_script( $handel, 'atbdp_range_slider', $data );

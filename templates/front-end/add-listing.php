@@ -139,6 +139,7 @@ $symbol = atbdp_currency_symbol($currency);
 $before = 'before' == $c_position ? $symbol : '';
 $after = 'after' == $c_position ? $symbol : '';
 $featured_enable = get_directorist_option('enable_featured_listing');
+$featured_desc = get_directorist_option( 'featured_listing_desc', __( '(Top of the search result and listings pages for a number days and it requires an additional payment.)', 'directorist' ) );
 $monitization = get_directorist_option('enable_monetization');
 $featured_days = get_directorist_option('featured_listing_time', 30);
 $featured_cost = get_directorist_option('featured_listing_price');
@@ -201,7 +202,8 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                                 <label for="featured" class="featured_listing_type_select">
                                     <?php _e(' Featured listing', 'directorist-pricing-plans') ?>
                                     <small class="atbdp_make_str_green"><?php
-                                    $notice = sprintf( __(" (Top of the search result and listings pages for %s %s and it requires a payment of %s)", 'directorist-pricing-plans'), $featured_days, $featured_days > 1 ? 'days' : 'day', $before . $featured_cost . $after );
+                                    // $notice = sprintf( __(" (Top of the search result and listings pages for %s %s and it requires a payment of %s)", 'directorist-pricing-plans'), $featured_days, $featured_days > 1 ? 'days' : 'day', $before . $featured_cost . $after );
+                                    $notice = $featured_desc;
                                     echo $notice ;?>
                                     </small>
                                 </label>

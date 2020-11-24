@@ -95,7 +95,11 @@
             if (atbdp_search_listing.i18n_text.select_listing_map === 'google') {
                 function initialize() {
                     var input = document.getElementById('address_widget');
-                    var autocomplete = new google.maps.places.Autocomplete(input);
+                    var options = atbdp_search_listing.countryRestriction ? {
+                        types: ['geocode'],
+                        componentRestrictions: {country: atbdp_search_listing.restricted_countries}
+                       } : '';
+                    var autocomplete = new google.maps.places.Autocomplete(input, options);
                     google.maps.event.addListener(autocomplete, 'place_changed', function () {
                         var place = autocomplete.getPlace();
                         document.getElementById('cityLat').value = place.geometry.location.lat();

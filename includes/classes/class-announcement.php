@@ -5,6 +5,46 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
         public function __construct()  {
             add_action( 'wp_ajax_atbdp_send_announcement', [ $this, 'send_announcement' ] );
             add_action( 'init', [ $this, 'create_announcement_post_type' ] );
+            add_action( 'atbdp_tab_after_favorite_listings', [ $this, 'add_dashboard_nav_link' ] );
+            add_action( 'atbdp_tab_content_after_favorite', [ $this, 'add_dashboard_nav_content' ] );
+        }
+
+        // add_dashboard_nav_link
+        public function add_dashboard_nav_link() {
+            ob_start(); ?>
+            <li class="atbdp_tab_nav--content-link">
+                <a href="" class="atbd_tn_link" target="announcement"><?php _e('Announcements', 'directorist'); ?></a>
+            </li>
+            <?php
+            echo ob_get_clean();
+        }
+
+        public function add_dashboard_nav_content() {
+            ob_start(); ?>
+            <div class="atbd_tab_inner" id="announcement">
+                <div class="atbd_announcement_wrapper">
+                    Announcement
+                    <!-- <div class="accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-target="#collapseOne">
+                                        Collapsible Group Item #1
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                <div class="card-body">
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+            <?php
+            echo ob_get_clean();
         }
 
         // send_announcement

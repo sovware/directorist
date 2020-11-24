@@ -1,35 +1,24 @@
 .atbd_content_active #directorist.atbd_wrapper {
   .atbd_user_dashboard_nav {
-    display: flex;
-    justify-content: space-between;
     padding-bottom: 30px;
-    flex-wrap: wrap;
 
     .nav.nav-tabs, .nav_button {
       margin: 10px 0;
     }
     .atbdp_tab_nav_wrapper{
       flex: 1;
-      width: 55%;
+      width: 100%;
     }
     .atbdp_tab_nav--content {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      border-bottom: 1px solid $border-color;
       margin: 5px 0;
       li {
         margin: 0;
         a {
           border: 1px solid transparent;
           border-radius: 3px 3px 0 0;
-          padding: 10px 15px;
+          padding: 5px 0;
           background: none;
           display: block;
-          &.tabItemActive {
-            border-color: $border-color;
-            border-bottom-color: transparent;
-          }
 
           &:focus, &:active {
             outline: 0;

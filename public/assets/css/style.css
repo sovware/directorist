@@ -5640,10 +5640,7 @@ span.atbd_get_loc_wid {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav {
-  display: flex;
-  justify-content: space-between;
   padding-bottom: 30px;
-  flex-wrap: wrap;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .nav.nav-tabs, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .nav_button {
@@ -5652,14 +5649,10 @@ span.atbd_get_loc_wid {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav_wrapper {
   flex: 1;
-  width: 55%;
+  width: 100%;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  border-bottom: 1px solid #e3e6ef;
   margin: 5px 0;
 }
 
@@ -5670,14 +5663,9 @@ span.atbd_get_loc_wid {
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li a {
   border: 1px solid transparent;
   border-radius: 3px 3px 0 0;
-  padding: 10px 15px;
+  padding: 5px 0;
   background: none;
   display: block;
-}
-
-.atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li a.tabItemActive {
-  border-color: #e3e6ef;
-  border-bottom-color: transparent;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li a:focus, .atbd_content_active #directorist.atbd_wrapper .atbd_user_dashboard_nav .atbdp_tab_nav--content li a:active {

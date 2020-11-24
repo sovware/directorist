@@ -33,9 +33,8 @@ $symbol     = atbdp_currency_symbol( $currency );
             <?php
             // $args is auto available available through the load_template().
             // var_dump( $form_data );
-            $selected_pricing_element = 0;
-            $addition_price           = 0;
-            $substruction_price       = 0;
+            $selected_product = 0;
+            $total_price      = 0;
 
             foreach ( $form_data as $key => $option ) {
                 if ('header' == $option['type']) { ?>
@@ -58,8 +57,8 @@ $symbol     = atbdp_currency_symbol( $currency );
                                 // Store Addtion Price
                                 if ( is_numeric( $atts['value'] ) && $option['selected'] && 'addition' === $atts['data-price-type'] ) {
                                     $price = ( preg_match( '/[.]/', $atts['value'] ) ) ? ( float ) $atts['value'] : ( int ) $atts['value'];
-                                    $addition_price = $addition_price +  $price;
-                                    $selected_pricing_element++;
+                                    $total_price = $total_price +  $price;
+                                    $selected_product++;
                                 }
 
                                 echo str_replace('checkbox', $option['type'], $input_field);
@@ -80,21 +79,20 @@ $symbol     = atbdp_currency_symbol( $currency );
                 <?php }
             }
             
-            $net_price = $addition_price - $substruction_price;
             ?>
             <tr>
                 <td colspan="2" class="text-right vertical-middle">
                     <strong><?php printf(__('Total amount [%s]', 'directorist'), $currency); ?></strong>
                 </td>
                 <td class="text-right vertical-middle">
-                    <div id="atbdp_checkout_total_amount"><?php echo number_format( $net_price, 2 ) ?></div><!--total amount will be populated by JS-->
-                    <input type="hidden" id="atbdp_checkout_total_amount_hidden" value="<?php echo $net_price ?>">
+                    <div id="atbdp_checkout_total_amount"><?php echo number_format( $total_price, 2 ) ?></div><!--total amount will be populated by JS-->
+                    <input type="hidden" id="atbdp_checkout_total_amount_hidden" value="<?php echo $total_price ?>">
                 </td>
             </tr>
             </tbody>
         </table> <!--ends table-->
         
-        <?php if ( $net_price > 0 ) : ?>
+        <?php if ( $total_price > 0 ) : ?>
         <div class="atbd_content_module" id="directorist_payment_gateways">
             <div class="atbd_content_module_title_area">
                 <div class="atbd_area_title">
@@ -120,7 +118,7 @@ $symbol     = atbdp_currency_symbol( $currency );
         $new_l_status        = get_directorist_option('new_listing_status', 'pending');
         $monitization        = get_directorist_option('enable_monetization',0);
         $featured_enabled    = get_directorist_option('enable_featured_listing',0);
-        $submit_button_label = ( $selected_pricing_element > 0 && $net_price < 1 ) ? __( 'Complete Submission', 'directorist' ) : __( 'Pay Now', 'directorist' );
+        $submit_button_label = ( $selected_product > 0 && $total_price < 1 ) ? __( 'Complete Submission', 'directorist' ) : __( 'Pay Now', 'directorist' );
 
         if ( is_fee_manager_active() ){
             $url = ATBDP_Permalink::get_dashboard_page_link();

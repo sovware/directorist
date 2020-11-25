@@ -59,7 +59,7 @@ $after = '';
                                     'data-price-type' => 'addition',
                                     'checked'         => isset( $option['selected'] ) ? checked( 1, $option['selected'], false ) : '',
                                 ];
-                                $input_field = "<input type='checkbox' id='{$atts['id']}' name='{$atts['name']}' class='{$atts['class']}' value='{$atts['value']}' data-price-type='{$atts['data-price-type']}' {$atts['checked']}/>";
+                                $input_field = "<input type='hidden' id='{$atts['id']}' name='{$atts['name']}' class='{$atts['class']}' value='{$atts['value']}' data-price-type='{$atts['data-price-type']}' {$atts['checked']}/>";
                                 
                                 // Add the price and product
                                 if ( is_numeric( $atts['value'] ) && $option['selected'] && 'addition' === $atts['data-price-type'] ) {
@@ -68,10 +68,11 @@ $after = '';
                                     $selected_product++;
                                 }
 
-                                // echo str_replace('checkbox', $option['type'], $input_field);
+                                //echo str_replace('checkbox', $option['type'], $input_field);
+                                echo $input_field;
                             ?>
                             <?php if ( ! empty( $option['title'] ) ) echo "<label for='{$atts['id']}'><h4>" . esc_html($option['title']) . "</h4></label>"; ?>
-                            <?php if ( ! empty( $option['desc'] ) ) echo '<small> - '. esc_html($option['desc']) . '</small>'; ?>
+                            <?php if ( ! empty( $option['desc'] ) ) echo '<small>'. esc_html($option['desc']) . '</small>'; ?>
                         </td>
                         <td class="text-right vertical-middle">
                             <?php if (!empty($option['price'])) {

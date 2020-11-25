@@ -1,4 +1,10 @@
 <div id="directorist" class="atbd_wrapper">
+		<?php 
+        /**
+         * @since 5.6.6
+         */
+        do_action( 'atbdp_before_all_locations_loop' );
+        ?>
     <div class="atbdp atbdp-categories atbdp-text-list">
         <?php
         $span = 'col-md-' . floor( 12 /  $locations_settings['columns'] );
@@ -42,6 +48,12 @@
 
 		}
 	?>
-    </div>
+	</div>
+	<?php 
+    /**
+     * @since 5.6.6
+     */
+    do_action( 'atbdp_after_all_locations_loop' );
+    ?>
 </div>
 

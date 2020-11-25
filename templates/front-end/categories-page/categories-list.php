@@ -6,6 +6,12 @@
 ?>
 
     <div id="directorist" class="atbd_wrapper atbdp atbdp-categories atbdp-text-list">
+	<?php 
+    /**
+     * @since 5.6.6
+     */
+    do_action( 'atbdp_after_all_categories_loop' );
+    ?>
     <?php
 		$span = 'col-md-' . floor( 12 /  $categories_settings['columns'] );
 		--$categories_settings['depth'];
@@ -47,6 +53,10 @@
 			if( $i % $categories_settings['columns'] == 0 || $i == count( $terms ) ) {
 				echo '</div>';
 			}
-		}
-	?>
+		} 
+    /**
+     * @since 5.6.6
+     */
+    do_action( 'atbdp_after_all_categories_loop' );
+    ?>
 </div>

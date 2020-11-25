@@ -329,8 +329,20 @@ Directorist is a complete directory solution and in combination with its advance
 
 = 6.5.5 - Nov 25, 2020 =
 
-* Tweak - Order email notification
+* Add - A form to send bulk announcement to directory user
+* Add - Featured listing auto fallback to normal
+* Add - Option to show Thank You notification after submitting a listing
+* Add - Country restriction in google map auto suggestion
+* Improve - Featured listing system
+* Improve - Checkout system
+* Improve - User Dashboard Page
+* Improve - Payment Receipt Page
 * Fix - Undefined variable in all listings map view
+* Fix - Translation issue
+* Fix - Google map marker issue in admin add listing form
+* Fix - Title issue in single term pages
+* Tweak - Category icon in all listings page
+* Tweak - Order email notification
 
 = 6.5.5 - Oct 20, 2020 =
 

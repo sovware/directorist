@@ -11,35 +11,101 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
         // add_dashboard_nav_link
         public function add_dashboard_nav_link() {
+            $announcements = new WP_Query([
+                'post_type'      => 'listing-announcement',
+                'posts_per_page' => -1,
+                'meta_query' => [
+                    'relation' => 'AND',
+                    [
+                        'key'     => '_exp_date',
+                        'value'   => date('Y-m-d'),
+                        'compare' => '>'
+                    ],
+                    [
+                        'key'     => '_closed',
+                        'value'   => '1',
+                        'compare' => '!='
+                    ],
+                    [
+                        'key'     => '_seen',
+                        'value'   => '1',
+                        'compare' => '!='
+                    ],
+                ]
+            ]);
+
+            $new_announcements     = count( $announcements->posts );
+            $has_new_announcements = ! empty( $new_announcements ) ? true : false;
+            $nav_label             = ( $has_new_announcements ) ? "Announcements ({$new_announcements})" : 'Announcements';
+            $nav_link_class        = ( $has_new_announcements ) ? " --has-new" : '';
+
             ob_start(); ?>
-            <li class="atbdp_tab_nav--content-link">
-                <a href="" class="atbd_tn_link" target="announcement"><?php _e('Announcements', 'directorist'); ?></a>
+            <li class="atbdp_tab_nav--content-link<?php echo $nav_link_class; ?>">
+                <a href="" class="atbd_tn_link" target="announcement">
+                    <?php _e( $nav_label, 'directorist'); ?>
+                </a>
             </li>
             <?php
             echo ob_get_clean();
         }
 
         public function add_dashboard_nav_content() {
+            $announcements = new WP_Query([
+                'post_type'      => 'listing-announcement',
+                'posts_per_page' => 10,
+                'meta_query' => [
+                    'relation' => 'AND',
+                    [
+                        'key'     => '_exp_date',
+                        'value'   => date('Y-m-d'),
+                        'compare' => '>'
+                    ],
+                    [
+                        'key'     => '_closed',
+                        'value'   => '1',
+                        'compare' => '!='
+                    ]
+                ]
+            ]);
+
+            // _exp_date
             ob_start(); ?>
             <div class="atbd_tab_inner" id="announcement">
                 <div class="atbd_announcement_wrapper">
+                    <?php if ( $announcements->have_posts() ) : ?>
                     <div id="announcement-accordion" class="atbdp-accordion">
+                        <?php while( $announcements->have_posts() ) : $announcements->the_post(); update_post_meta( get_the_ID(), '_seen', true ); ?>
                         <div class="atbdp-card">
-                            <div class="atbdp-card-header" id="headingOne">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link atbdp-toggle-tab" data-target="#collapseOne">
-                                        Collapsible Group Item #1
-                                    </button>
-                                </h5>
-                            </div>
+                            <div class="atbdp-card-header">
+                                <div class="atbdp-card-header-title-area">
+                                    <h5 class="atbdp-card-header-title">
+                                        <?php the_title(); ?>
+                                    </h5>
+                                </div>
 
-                            <div id="collapseOne" class="atbdp-collapse">
-                                <div class="atbdp-card-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                <div class="atbdp-card-header-info-area">
+                                    <div class="atbdp-date-card">
+                                        <span class="atbdp-date-card-part-1"><?php echo get_the_date( 'd M' ) ?></span>
+                                        <span class="atbdp-date-card-part-2"><?php echo get_the_date( 'Y' ) ?></span>
+                                    </div>
                                 </div>
                             </div>
+
+                            <div class="atbdp-card-body">
+                                <?php the_content(); ?>
+                            </div>
+
+                            <div class="atbdp-card-footer">
+                                <button class="button gray reject buttons-to-right__reject">
+                                    <?php _e('Close', 'directorist'); ?>
+                                </button>
+                            </div>
                         </div>
+                        <?php endwhile; ?>
                     </div>
+                    <?php else: ?>
+                        <p><?php _e( 'No announcement found', 'directorist' ) ?></p>
+                    <?php endif; ?>
                 </div>
             </div>
             <?php
@@ -103,7 +169,13 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
             // Update the post meta
             if ( is_numeric( $expiration  ) ) {
-                update_post_meta( $announcement, '_expiration_in_days', $expiration );
+                $today = date("Y-m-d");
+                $exp_date = date('Y-m-d', strtotime( $today. " + {$expiration} days" ) );
+
+                update_post_meta( $announcement, '_exp_in_days', $expiration ); //
+                update_post_meta( $announcement, '_exp_date', $exp_date );
+                update_post_meta( $announcement, '_closed', false );
+                update_post_meta( $announcement, '_seen', false );
             }
             
             // Send email if enabled

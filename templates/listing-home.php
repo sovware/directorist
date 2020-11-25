@@ -394,7 +394,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                     $icon_type = substr($icon, 0, 2);
                                 ?>
                                     <li>
-                                        <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat); ?>">
+                                        <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat); ?>" <?php do_action('search_home_popular_category'); ?> >
                                             <?php if ($icon) { ?>
                                                 <span class="<?php echo ('la' === $icon_type) ? $icon_type . ' ' . $icon : 'fa ' . $icon; ?>" aria-hidden="true"></span>
                                             <?php } ?>

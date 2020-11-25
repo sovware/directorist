@@ -6,7 +6,6 @@
 */
 /* eslint-disable */
 ;(function ($) {
-
     $('.atbdp_sorting_item').click( function() {
         var href = $(this).attr('data');
         $('#atbdp_sort').attr('action', href);
@@ -61,32 +60,32 @@
     });
 
     // 	prepear_form_data
-	function prepear_form_data ( form, field_map, data ) {
-		if ( ! data || typeof data !== 'object' ) {
-			var data = {};
-		}
+  function prepear_form_data ( form, field_map, data ) {
+    if ( ! data || typeof data !== 'object' ) {
+      var data = {};
+    }
 
-		for ( var key in field_map) {
-			var field_item = field_map[ key ];
-			var field_key = field_item.field_key;
-			var field_type = field_item.type;
+    for ( var key in field_map) {
+      var field_item = field_map[ key ];
+      var field_key = field_item.field_key;
+      var field_type = field_item.type;
 
-			if ( 'name' === field_type ) {
-				var field = form.find( '[name="'+ field_key +'"]' );
-			} else {
-				var field = form.find( field_key );
-			}
+      if ( 'name' === field_type ) {
+        var field = form.find( '[name="'+ field_key +'"]' );
+      } else {
+        var field = form.find( field_key );
+      }
 
-			if ( field.length ) {
-				var data_key = ( 'name' === field_type ) ? field_key : field.attr('name') ;
-				var data_value = ( field.val() ) ? field.val() : '';
+      if ( field.length ) {
+        var data_key = ( 'name' === field_type ) ? field_key : field.attr('name') ;
+        var data_value = ( field.val() ) ? field.val() : '';
 
-				data[data_key] = data_value;
-			}
-		}
+        data[data_key] = data_value;
+      }
+    }
 
-		return data;
-	}
+    return data;
+  }
 
     /* Add review to the database using ajax*/
     var submit_count = 1;
@@ -106,17 +105,17 @@
         var $data = $form.serialize();
 
         var field_field_map = [
-			{ type: 'name', field_key: 'post_id' },
-			{ type: 'id', field_key: '#atbdp_review_nonce_form' },
-			{ type: 'id', field_key: '#guest_user_email' },
-			{ type: 'id', field_key: '#reviewer_name' },
-			{ type: 'id', field_key: '#review_content' },
-			{ type: 'id', field_key: '#review_rating' },
-			{ type: 'id', field_key: '#review_duplicate' },
-		];
+      { type: 'name', field_key: 'post_id' },
+      { type: 'id', field_key: '#atbdp_review_nonce_form' },
+      { type: 'id', field_key: '#guest_user_email' },
+      { type: 'id', field_key: '#reviewer_name' },
+      { type: 'id', field_key: '#review_content' },
+      { type: 'id', field_key: '#review_rating' },
+      { type: 'id', field_key: '#review_duplicate' },
+    ];
 
-		var _data = { action: 'save_listing_review' };
-		_data = prepear_form_data( $form, field_field_map, _data );
+    var _data = { action: 'save_listing_review' };
+    _data = prepear_form_data( $form, field_field_map, _data );
 
         // atbdp_do_ajax($form, 'save_listing_review', _data, function (response) {
 
@@ -167,6 +166,7 @@
 
 
             } else if (response.success) {
+                d = atbdp_public_data.currentDate; // build the date string, month is 0 based so add 1 to that to get real month.
                 output +=
                     '<div class="atbd_single_review" id="single_review_' + response.data.id + '">' +
                     '<input type="hidden" value="1" id="has_ajax">' +
@@ -175,7 +175,7 @@
                     '<div class="atbd_review_avatar">' + ava_img + '</div> ' +
                     '<div class="atbd_name_time"> ' +
                     '<p>' + name + '</p>' +
-                    '<span class="review_time">' + response.data.date + '</span> ' + '</div> ' + '</div> ' +
+                    '<span class="review_time">' + d + '</span> ' + '</div> ' + '</div> ' +
                     '<div class="atbd_rated_stars">' + print_static_rating(rating) + '</div> ' +
                     '</div> ';
                 if( atbdp_public_data.enable_reviewer_content ) {
@@ -298,16 +298,16 @@
         var data = 'review_id=' + id;
 
         swal({
-                title: atbdp_public_data.review_sure_msg,
-                text: atbdp_public_data.review_want_to_remove,
-                type: "warning",
-                cancelButtonText: atbdp_public_data.review_cancel_btn_text,
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: atbdp_public_data.review_delete_msg,
-                showLoaderOnConfirm: true,
-                closeOnConfirm: false
-            },
+            title: atbdp_public_data.review_sure_msg,
+            text: atbdp_public_data.review_want_to_remove,
+            type: "warning",
+            cancelButtonText: atbdp_public_data.review_cancel_btn_text,
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: atbdp_public_data.review_delete_msg,
+            showLoaderOnConfirm: true,
+            closeOnConfirm: false
+        },
             function (isConfirm) {
                 if (isConfirm) {
                     // user has confirmed, now remove the review
@@ -346,23 +346,23 @@
     });
 
     /*USER DASHBOARD RELATED SCRIPTS*/
-    $(document).on('click', '#remove_listing', function (e) {
+    $(document).on('click', '.remove_listing', function (e) {
         e.preventDefault();
 
         var $this = $(this);
         var id = $this.data('listing_id');
         var data = 'listing_id=' + id;
         swal({
-                title: atbdp_public_data.listing_remove_title,
-                text: atbdp_public_data.listing_remove_text,
-                type: "warning",
-                cancelButtonText: atbdp_public_data.review_cancel_btn_text,
-                showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: atbdp_public_data.listing_remove_confirm_text,
-                showLoaderOnConfirm: true,
-                closeOnConfirm: false
-            },
+            title: atbdp_public_data.listing_remove_title,
+            text: atbdp_public_data.listing_remove_text,
+            type: "warning",
+            cancelButtonText: atbdp_public_data.review_cancel_btn_text,
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: atbdp_public_data.listing_remove_confirm_text,
+            showLoaderOnConfirm: true,
+            closeOnConfirm: false
+        },
             function (isConfirm) {
                 if (isConfirm) {
                     // user has confirmed, now remove the listing
@@ -402,7 +402,7 @@
 
     // user dashboard image uploader
     var profileMediaUploader = null;
-    if ( $("#user_profile_pic").length ) {
+    if ($("#user_profile_pic").length) {
         profileMediaUploader = new EzMediaUploader({
             containerID: "user_profile_pic",
         });
@@ -419,7 +419,7 @@
         submit_button.attr('disabled', true);
         submit_button.addClass("loading");
 
-        if ( is_processing ) { submit_button.removeAttr('disabled'); return; }
+        if (is_processing) { submit_button.removeAttr('disabled'); return; }
 
         var form_data = new FormData();
         var err_log = {};
@@ -429,7 +429,7 @@
          form_data.append('action', 'update_user_profile');
         if ( profileMediaUploader ) {
             var hasValidFiles = profileMediaUploader.hasValidFiles();
-            if ( hasValidFiles ) {
+            if (hasValidFiles) {
                 //files
                 var files = profileMediaUploader.getTheFiles();
                 var filesMeta = profileMediaUploader.getFilesMeta();
@@ -440,7 +440,7 @@
                     }
                 }
 
-                if ( filesMeta.length ) {
+                if (filesMeta.length) {
                     for (var i = 0; i < filesMeta.length; i++) {
                         var elm = filesMeta[i];
                         for (var key in elm) {
@@ -577,112 +577,6 @@
             $(".atbd_single_listing .db_btn_area").addClass("db_btn_area--sm");
         }
 
-        /* user dashboard nav */
-        var tab_nav = $(".atbd_tab_nav .atbdp_tab_nav--content").width();
-        //var tab_count = document.querySelectorAll(".atbdp_tab_nav--content li");
-
-        if (tab_nav < 600 /*&& tab_count.length >=4*/) {
-            $(".atbd_tab").addClass("atbd_tab_slider");
-            $(".atbdp_tab_nav--content").addClass("tab_nav_slide");
-        }
-        if($(".atbd_dashboard_wrapper ").width() > 590){
-            $(".atbdp_tab_nav--content").addClass("tab_nav_slide--fix");
-        }
-
-        var nav_tab_slide = $('.atbdp_tab_nav--content.tab_nav_slide ').slick({
-            dots: false,
-            infinite: false,
-            speed: 300,
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            prevArrow: "<span class='slick-prev'><i class='la la-angle-left'></i></span>",
-            nextArrow: "<span class='slick-next'><i class='la la-angle-right'></i></span>",
-            responsive: [
-                {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 2
-                    }
-                },
-                {
-                    breakpoint: 480,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 1
-                    }
-                }
-            ]
-        });
-        //Hide the Previous button.
-        $('.slick-prev').hide();
-
-        nav_tab_slide.on('afterChange', function (event, slick, currentSlide) {
-            //If we're on the first slide hide the Previous button and show the Next
-            if (currentSlide === 0) {
-                $('.slick-prev').hide();
-                $('.slick-next').show();
-            } else {
-                $('.slick-prev').show();
-            }
-
-            //If we're on the last slide hide the Next button.
-            if (slick.slideCount === currentSlide + 1) {
-                $('.slick-next').hide();
-            }
-        });
-
-        /* active dropdown if nav items are higher than 5 */
-
-        if (document.querySelector('.atbdp_tab_nav--content') != null) {
-            const navLi = document.querySelectorAll('.atbdp_tab_nav--content .atbdp_tab_nav--content-link');
-            const navLastChild = document.querySelector('.atbdp-tab-nav-last');
-            navLastChild.style.display = 'none';
-            if (tab_nav > 600) {
-                const liArray = [...navLi];
-                const liSliced = liArray.slice(5, -1);
-                const navUl = document.createElement('ul');
-                liSliced.forEach(i => {
-                    if (typeof i === 'object') {
-                        navUl.appendChild(i);
-                    } else {
-                        navUl.innerHTML += ` ${i} `;
-                    }
-                });
-                navLastChild.appendChild(navUl);
-                if (navLi.length > 5) {
-                    navLastChild.style.display = 'block';
-                    navLastChild.classList.add("atbdp-nlc-active");
-                }
-                if (navLi.length === 6) {
-                    navLastChild.style.display = 'none';
-                }
-            }
-
-            navLastChild.querySelector('.atbdp-tab-nav-link').addEventListener('click', function (e) {
-                e.preventDefault();
-                navLastChild.querySelector('ul').classList.toggle('active');
-            });
-            if (document.querySelector('.atbdp_all_booking_nav-link') !== null) {
-                document.querySelector('.atbdp_all_booking_nav-link').addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector('.atbdp_all_booking_nav ul').classList.toggle('active');
-                });
-            }
-
-
-            document.body.addEventListener('click', function (e) {
-                if (!e.target.closest(".atbdp-tab-nav-last")) {
-                    document.querySelector('.atbdp-tab-nav-last ul').classList.remove('active');
-                }
-                if (document.querySelector('.atbdp_all_booking_nav-link') !== null) {
-                    if (!e.target.closest(".atbdp_all_booking_nav")) {
-                        document.querySelector('.atbdp_all_booking_nav ul').classList.remove('active');
-                    }
-                }
-            });
-        }
-
 
     });
 
@@ -762,56 +656,52 @@
                     }
 
 
-                    atbdp_report_abuse_submitted = false; // Re-enable the submit event
+                    atbdp_report_abuse_submitted = false;  // Re-enable the submit event
                 }, 'json');
 
             }
         });
+
+        $('#atbdp-report-abuse-form').removeAttr('novalidate');
 
         // Validate contact form
         var atbdp_contact_submitted = false;
 
         $('#atbdp-contact-form,#atbdp-contact-form-widget').validator({
-            disable: false
+            disable: true
         }).on('submit', function (e) {
+            e.preventDefault();
 
-            if (atbdp_contact_submitted) return false;
+            if ( atbdp_contact_submitted ) return false;
 
-            // Check for errors
-            if (!e.isDefaultPrevented()) {
+            var status_area = $('.atbdp-widget-elm, .atbdp-contact-message-display');
+            //status_area.append('<p style="margin-bottom: 10px">Sending the message, please wait...</p>');
 
-                e.preventDefault();
+            // Post via AJAX
+            var data = {
+                'action': 'atbdp_public_send_contact_email',
+                'post_id': $('#atbdp-post-id').val(),
+                'name': $('#atbdp-contact-name').val(),
+                'email': $('#atbdp-contact-email').val(),
+                'listing_email': $('#atbdp-listing-email').val(),
+                'message': $('#atbdp-contact-message').val(),
+            };
 
-                atbdp_contact_submitted = true;
+            atbdp_contact_submitted = true;
+            $.post(atbdp_public_data.ajaxurl, data, function (response) {
+                if (1 == response.error) {
+                    atbdp_contact_submitted = false;
+                    status_area.addClass('text-danger').html(response.message);
+                } else {
+                    $('#atbdp-contact-message').val('');
+                    status_area.addClass('text-success').html(response.message);
+                }
 
-
-                $('#atbdp-contact-message-display').append('<div class="atbdp-spinner"></div>');
-
-                // Post via AJAX
-                var data = {
-                    'action': 'atbdp_public_send_contact_email',
-                    'post_id': $('#atbdp-post-id').val(),
-                    'name': $('#atbdp-contact-name').val(),
-                    'email': $('#atbdp-contact-email').val(),
-                    'listing_email': $('#atbdp-listing-email').val(),
-                    'message': $('#atbdp-contact-message').val(),
-                };
-
-                $.post(atbdp_public_data.ajaxurl, data, function (response) {
-                    if (1 == response.error) {
-                        $('#atbdp-contact-message-display').addClass('text-danger').html(response.message);
-                    } else {
-                        $('#atbdp-contact-message').val('');
-                        $('#atbdp-contact-message-display').addClass('text-success').html(response.message);
-                    }
-
-                }, 'json');
-
-            } else {
-                atbdp_contact_submitted = false;
-            }
+            }, 'json');
 
         });
+
+        $('#atbdp-contact-form,#atbdp-contact-form-widget').removeAttr('novalidate');
     }
 
     // Report abuse [on modal closed]
@@ -895,11 +785,11 @@
         e.stopPropagation();
     });
 
-    $(window).on("load", function () {
+    /* $(window).on("load", function () {
         UIkit.grid(".data-uk-masonry");
-    });
+    }); */
 
-    $(".atbdp_tab_nav_wrapper > ul > li:first-child > a").one("click", function () {
+    /* $(".atbdp_tab_nav_wrapper > ul > li:first-child > a").one("click", function () {
         (function () {
             if (window.localStorage) {
                 if (!localStorage.getItem('firstLoad')) {
@@ -909,25 +799,7 @@
                     localStorage.removeItem('firstLoad');
             }
         })();
-    });
-
-
-    /*   $('.atbdp_right_nav').on('click', function (event) {
-            event.preventDefault();
-            var currentLocation = window.location;
-            var split_url = currentLocation.href.split('/');
-            var target = split_url[ split_url.length - 2 ];
-
-            if(target === 'new-post-copy') {
-                location.replace(currentLocation.href+2)
-            } else {
-                var url1 = currentLocation.href.split('/')[ split_url.length - 2 ];
-                var change = currentLocation.href.split('/');
-                change[ split_url.length - 2 ] =  parseInt(url1)+1;
-                location.replace(change.join('/'));
-            }
-
-        })*/
+    }); */
 
     // Perform AJAX login on form submit
     $('form#login').on('submit', function (e) {
@@ -1000,24 +872,51 @@
         }
     });
 
-})(jQuery);
+    //dashboard sidebar nav toggler
+    $(".atbd-dashboard-nav-toggler").on("click", function(e){
+        e.preventDefault();
+        $(".atbd_user_dashboard_nav").toggleClass("atbd-dashboard-nav-collapsed");
+    });
+    if($(window).innerWidth() < 767){
+      $(".atbd_user_dashboard_nav").addClass("atbd-dashboard-nav-collapsed");
+      $(".atbd_user_dashboard_nav").addClass("atbd-dashboard-nav-collapsed--fixed");
+      $("body").on("click", function(e){
+            if($(e.target).is(".atbd_user_dashboard_nav, .atbdp_all_booking_nav-link, .atbd-dashboard-nav-toggler, .atbd-dashboard-nav-toggler i, .atbdp_tab_nav--content-link") === false) {
+                $(".atbd_user_dashboard_nav").addClass("atbd-dashboard-nav-collapsed");
+            }
+        });
+    }
 
-// on load of the page: switch to the currently selected tab
-var tab_url = window.location.href.split("/").pop();
-if (tab_url.startsWith("#active_")) {
+    //dashboard nav dropdown
+    $(".atbdp_tab_nav--has-child .atbd-dash-nav-dropdown").on("click", function(e){
+      e.preventDefault();
+      $(this).siblings("ul").slideToggle();
+    });
+
+    //dashboard content responsive fix
+    var tabContentWidth = $(".atbd_dashboard_wrapper .atbd_tab-content").innerWidth();
+    if(tabContentWidth < 650){
+      $(".atbd_dashboard_wrapper .atbd_tab-content").addClass("atbd_tab-content--fix");
+    }
+
+  })(jQuery);
+
+  // on load of the page: switch to the currently selected tab
+  var tab_url = window.location.href.split("/").pop();
+  if (tab_url.startsWith("#active_")) {
     var urlId = tab_url.split("#").pop().split("active_").pop();
     if (urlId !== 'my_listings') {
         document.querySelector(`a[target=${urlId}]`).click();
     }
-}
+  }
 
 
-/* custom dropdown */
-const atbdDropdown = document.querySelectorAll('.atbd-dropdown');
+  /* custom dropdown */
+  const atbdDropdown = document.querySelectorAll('.atbd-dropdown');
 
-// toggle dropdown
-let clickCount = 0;
-if (atbdDropdown !== null) {
+  // toggle dropdown
+  let clickCount = 0;
+  if (atbdDropdown !== null) {
     atbdDropdown.forEach(function (el) {
         el.querySelector('.atbd-dropdown-toggle').addEventListener('click', function (e) {
             e.preventDefault();
@@ -1034,21 +933,21 @@ if (atbdDropdown !== null) {
             }
         });
     });
-}
+  }
 
-// remvoe toggle when click outside
-document.body.addEventListener('click', function (e) {
+  // remvoe toggle when click outside
+  document.body.addEventListener('click', function (e) {
     if (e.target.getAttribute('data-drop-toggle') !== 'atbd-toggle') {
         clickCount = 0;
         document.querySelectorAll('.atbd-dropdown-items').forEach(function (el) {
             el.classList.remove('atbd-show');
         });
     }
-});
+  });
 
-//custom select
-const atbdSelect = document.querySelectorAll('.atbd-drop-select');
-if (atbdSelect !== null) {
+  //custom select
+  const atbdSelect = document.querySelectorAll('.atbd-drop-select');
+  if (atbdSelect !== null) {
     atbdSelect.forEach(function (el) {
         el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
             item.addEventListener('click', function (e) {
@@ -1058,15 +957,14 @@ if (atbdSelect !== null) {
                     elm.classList.remove('atbd-active');
                 });
                 item.classList.add('atbd-active');
-
             });
         });
     });
-}
+  }
 
-// select data-status
-const atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
-atbdSelectData.forEach(function (el) {
+  // select data-status
+  const atbdSelectData = document.querySelectorAll('.atbd-drop-select.with-sort');
+  atbdSelectData.forEach(function (el) {
     el.querySelectorAll('.atbd-dropdown-item').forEach(function (item) {
         let ds = el.querySelector('.atbd-dropdown-toggle');
         let itemds = item.getAttribute('data-status');
@@ -1074,10 +972,10 @@ atbdSelectData.forEach(function (el) {
             ds.setAttribute('data-status', `${itemds}`);
         });
     });
-});
+  });
 
-const flatWrapper = document.querySelector(".flatpickr-calendar");
-const fAvailableTime = document.querySelector(".bdb-available-time-wrapper");
-if (flatWrapper != null && fAvailableTime != null) {
+  const flatWrapper = document.querySelector(".flatpickr-calendar");
+  const fAvailableTime = document.querySelector(".bdb-available-time-wrapper");
+  if (flatWrapper != null && fAvailableTime != null) {
     flatWrapper.insertAdjacentElement("beforeend", fAvailableTime);
-}
+  }

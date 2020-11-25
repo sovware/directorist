@@ -88,7 +88,7 @@ $after = '';
              */
             do_action( 'atbdp_before_checkout_subtotal_tr', $form_data );
             ?>
-            <tr>
+            <tr class="atbdp_ch_subtotal">
                 <td colspan="2" class="text-right vertical-middle">
                     <strong><?php echo __( 'Subtotal', 'directorist-coupon' ); ?></strong>
                 </td>
@@ -101,9 +101,9 @@ $after = '';
                     
                 </td>
             </tr>
-            <tr>
+            <tr class="atbdp_ch_total">
                 <td colspan="2" class="text-right vertical-middle">
-                    <strong><?php printf(__('Total amount [%s]', 'directorist'), $currency); ?></strong>
+                    <strong class="atbdp_ch_total_text"><?php printf(__('Total amount [%s]', 'directorist'), $currency); ?></strong>
                 </td>
                 <td class="text-right vertical-middle">
                     <div id="atbdp_checkout_total_amount"><?php echo number_format( $subtotal, 2 ) ?></div>

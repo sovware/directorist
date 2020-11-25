@@ -34,7 +34,7 @@ $edit_listing_status = get_directorist_option('edit_listing_status', 'pending' )
 if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
     $confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
 }else{
-    $confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg; 
+    $confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg;
 }
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
@@ -86,6 +86,9 @@ if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
                     <?php
                 }
                 ?>
+                <div class="atbd-dashboard-nav-toggle-icon">
+                    <a href="" class="atbd-dashboard-nav-toggler"><i class="la la-bars"></i></a>
+                </div>
                 <div class="atbd_dashboard_wrapper atbd_tab">
                     <div class="atbd_user_dashboard_nav atbd_tab_nav">
                         <!-- Nav tabs -->
@@ -118,9 +121,6 @@ if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
                                 <?php
                                 do_action('atbdp_tab_after_favorite_listings');
                                 ?>
-                                <li class="atbdp_tab_nav--content-link atbdp-tab-nav-last">
-                                    <a href="#" class="atbdp-tab-nav-link"><span class="fa fa-ellipsis-h"></span></a>
-                                </li>
                             </ul>
                         </div>
 
@@ -136,7 +136,7 @@ if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
 
                     <!-- Tab panes -->
                     <div class="atbd_tab-content">
-                        <?php 
+                        <?php
                         /**
                          * @since 6.6
                          * @hooked Directorist_Listing_Dashboard > tab_contents_html - 10
@@ -354,7 +354,7 @@ if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
                                             echo atbdp_pagination($listings, $paged);
                                             ?>
                                         </div>
-                                    <?php } 
+                                    <?php }
                                     /**
                                      * @since 6.6.6
                                      */
@@ -681,7 +681,7 @@ if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
                                                 <img
                                                             src="%s"
                                                             alt="%s">
-                                               
+
                                                 </a>
                                                 <h4><a href="%s">%s</a></h4>
                                                 </div>
@@ -693,7 +693,7 @@ if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
                                              <td class="remove_saved_item">
                                                %s
                                             </td>
-                                            
+
 
                                         </tr>',
                                                     $post_link, $img_src, $title, $post_link, $title, //first td

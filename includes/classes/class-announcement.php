@@ -3,15 +3,21 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
     class ATBDP_Announcement {
 
         public function __construct()  {
-            add_action( 'wp_ajax_atbdp_send_announcement', [ $this, 'send_announcement' ] );
+            // Cteate announcement post type
             add_action( 'init', [ $this, 'create_announcement_post_type' ] );
+
+            // Apply hooks
             add_action( 'atbdp_tab_after_favorite_listings', [ $this, 'add_dashboard_nav_link' ] );
             add_action( 'atbdp_tab_content_after_favorite', [ $this, 'add_dashboard_nav_content' ] );
+
+            // Handle ajax 
+            add_action( 'wp_ajax_atbdp_send_announcement', [ $this, 'send_announcement' ] );
+            add_action( 'wp_ajax_atbdp_close_announcement', [ $this, 'close_announcement' ] );
         }
 
         // add_dashboard_nav_link
         public function add_dashboard_nav_link() {
-            $announcements = new WP_Query([
+            /* $announcements = new WP_Query([
                 'post_type'      => 'listing-announcement',
                 'posts_per_page' => -1,
                 'meta_query' => [
@@ -32,12 +38,15 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                         'compare' => '!='
                     ],
                 ]
-            ]);
+            ]); */
 
-            $new_announcements     = count( $announcements->posts );
-            $has_new_announcements = ! empty( $new_announcements ) ? true : false;
-            $nav_label             = ( $has_new_announcements ) ? "Announcements ({$new_announcements})" : 'Announcements';
-            $nav_link_class        = ( $has_new_announcements ) ? " --has-new" : '';
+            // $new_announcements     = count( $announcements->posts );
+            // $has_new_announcements = ! empty( $new_announcements ) ? true : false;
+            // $nav_label             = ( $has_new_announcements ) ? "Announcements ({$new_announcements})" : 'Announcements';
+            // $nav_link_class        = ( $has_new_announcements ) ? " --has-new" : '';
+            
+            $nav_label      = "Announcements";
+            $nav_link_class = '';
 
             ob_start(); ?>
             <li class="atbdp_tab_nav--content-link<?php echo $nav_link_class; ?>">
@@ -52,7 +61,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
         public function add_dashboard_nav_content() {
             $announcements = new WP_Query([
                 'post_type'      => 'listing-announcement',
-                'posts_per_page' => 10,
+                'posts_per_page' => 20,
                 'meta_query' => [
                     'relation' => 'AND',
                     [
@@ -68,14 +77,13 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 ]
             ]);
 
-            // _exp_date
             ob_start(); ?>
             <div class="atbd_tab_inner" id="announcement">
                 <div class="atbd_announcement_wrapper">
                     <?php if ( $announcements->have_posts() ) : ?>
-                    <div id="announcement-accordion" class="atbdp-accordion">
-                        <?php while( $announcements->have_posts() ) : $announcements->the_post(); update_post_meta( get_the_ID(), '_seen', true ); ?>
-                        <div class="atbdp-card">
+                    <div class="atbdp-accordion">
+                        <?php while( $announcements->have_posts() ) : $announcements->the_post(); ?>
+                        <div class="atbdp-card <?php echo 'update-announcement-status announcement-item announcement-id-' . get_the_ID() ?>" data-post-id="<?php the_id() ?>">
                             <div class="atbdp-card-header">
                                 <div class="atbdp-card-header-title-area">
                                     <h3 class="atbdp-card-header-title">
@@ -96,7 +104,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                             </div>
 
                             <div class="atbdp-card-footer">
-                                <button class="button gray reject buttons-to-right__reject">
+                                <button class="button gray reject buttons-to-right__reject close-announcement" data-post-id="<?php the_id() ?>">
                                     <?php _e('Close', 'directorist'); ?>
                                 </button>
                             </div>
@@ -191,6 +199,26 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
             $status['status']  = true;
             $status['message'] = __( 'The announcement has been sent successfully' );
+
+            wp_send_json( $status );
+        }
+
+        // close_announcement
+        public function close_announcement() {
+            $post_id = ( isset( $_POST['post_id'] ) ) ? $_POST['post_id'] : 0;
+
+            $status = [ 'success' => false ];
+            $status['message'] = __( 'Sorry, something went wrong, please try again' );
+
+            // Validate post id
+            if ( empty( $post_id ) ) {
+                wp_send_json( $status );
+            }
+
+            update_post_meta( $post_id, '_closed', true );
+
+            $status['success'] = true;
+            $status['message'] = __( 'The announcement has been closed successfully' );
 
             wp_send_json( $status );
         }

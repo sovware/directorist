@@ -1774,8 +1774,7 @@ jQuery(function ($) {
         }
 
         announcement_is_sending = true;
-        
-
+    
         jQuery.ajax({
             type: "post",
             url: atbdp_admin_data.ajaxurl,

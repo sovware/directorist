@@ -78,9 +78,9 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                         <div class="atbdp-card">
                             <div class="atbdp-card-header">
                                 <div class="atbdp-card-header-title-area">
-                                    <h5 class="atbdp-card-header-title">
+                                    <h3 class="atbdp-card-header-title">
                                         <?php the_title(); ?>
-                                    </h5>
+                                    </h3>
                                 </div>
 
                                 <div class="atbdp-card-header-info-area">
@@ -151,6 +151,12 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             // Validate Subject
             if ( empty( $subject ) ) {
                 $status['message'] = __( 'The subject cant be empty' );
+                wp_send_json( $status );
+            }
+
+            // Validate Message
+            if ( strlen( $message ) > 400 ) {
+                $status['message'] = __( 'Maximum 400 characters are allowed for the message' );
                 wp_send_json( $status );
             }
 

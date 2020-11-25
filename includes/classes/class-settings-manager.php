@@ -238,9 +238,11 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'label' => __('Subject', 'directorist'),
                 ),
                 'announcement_message' => array(
-                    'type'  => 'textarea',
-                    'name'  => 'announcement_message',
-                    'label' => __('Message', 'directorist'),
+                    'type'        => 'textarea',
+                    'name'        => 'announcement_message',
+                    'description' => 'Maximum 400 characters are allowed',
+                    'max'         => 400,
+                    'label'       => __('Message', 'directorist'),
                 ),
                 'announcement_expiration' => array(
                     'type'        => 'slider',

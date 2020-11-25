@@ -3,7 +3,7 @@
  * Plugin Name: Directorist - Business Directory Plugin
  * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 6.5.5
+ * Version: 6.5.6
  * Author: AazzTech
  * Author URI: https://aazztech.com
  * Text Domain: directorist

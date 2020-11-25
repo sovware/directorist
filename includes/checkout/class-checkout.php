@@ -199,7 +199,7 @@ class ATBDP_Checkout
                 //lets add the settings of featured listing to the order details
                 $order_details[] = atbdp_get_featured_settings_array();
             }
-
+            
             // now lets calculate the total price of all order item's price
             $amount = 0.00;
             foreach ($order_details as $detail) {

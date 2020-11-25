@@ -12,6 +12,7 @@ $before = ''; $after = '';
 $container_fluid = 'container-fluid';
 $order_id = (!empty($order_id)) ? $order_id : '';
 $discount = get_post_meta( $order_id, '_discount', true );
+$amount = get_post_meta( $order_id, '_amount', true );
 ?>
 <div id="directorist" class="atbd_wrapper directorist directory_wrapper single_area">
     <div class="<?php echo apply_filters('atbdp_payment_receipt_container_fluid',$container_fluid) ?>">

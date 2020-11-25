@@ -346,7 +346,7 @@
     });
 
     /*USER DASHBOARD RELATED SCRIPTS*/
-    $(document).on('click', '.remove_listing', function (e) {
+    $(document).on('click', '#remove_listing', function (e) {
         e.preventDefault();
 
         var $this = $(this);

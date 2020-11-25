@@ -107,7 +107,7 @@ $after = '';
                 </td>
                 <td class="text-right vertical-middle">
                     <div id="atbdp_checkout_total_amount"><?php echo number_format( $subtotal, 2 ) ?></div>
-                    <input type="hidden" id="atbdp_checkout_total_amount_hidden" value="<?php echo $subtotal ?>">
+                    <input type="hidden" name="price" id="atbdp_checkout_total_amount_hidden" value="<?php echo $subtotal ?>">
                 </td>
             </tr>
             </tbody>

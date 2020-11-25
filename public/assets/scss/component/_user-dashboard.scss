@@ -1,83 +1,28 @@
 .atbd_content_active #directorist.atbd_wrapper {
   .atbd_user_dashboard_nav {
-    display: flex;
-    justify-content: space-between;
     padding-bottom: 30px;
-    flex-wrap: wrap;
 
     .nav.nav-tabs, .nav_button {
       margin: 10px 0;
     }
     .atbdp_tab_nav_wrapper{
       flex: 1;
-      width: 55%;
+      width: 100%;
     }
     .atbdp_tab_nav--content {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      border-bottom: 1px solid $border-color;
       margin: 5px 0;
       li {
         margin: 0;
         a {
           border: 1px solid transparent;
           border-radius: 3px 3px 0 0;
-          padding: 10px 15px;
+          padding: 5px 0;
           background: none;
           display: block;
-          &.tabItemActive {
-            border-color: $border-color;
-            border-bottom-color: transparent;
-          }
 
           &:focus, &:active {
             outline: 0;
             background: none;
-          }
-        }
-        &.atbdp-tab-nav-last{
-          opacity: 0;
-          visibility: hidden;
-        }
-        &.atbdp-tab-nav-last.atbdp-nlc-active{
-          opacity: 1;
-          visibility: visible;
-        }
-        &.atbdp-tab-nav-last, &.atbdp_all_booking_nav{
-          position: relative;
-          ul{
-            visibility: hidden;
-            opacity: 0;
-            pointer-events: none;
-            position: absolute;
-            min-width: 130px;
-            top: 55px;
-            right: 0;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.13) !important;
-            z-index: 1;
-            background: #fff;
-            border-radius: 3px;
-            transition: 0.3s ease;
-            padding-top: 7px;
-            &.active{
-              visibility: visible;
-              opacity: 1;
-              pointer-events: all;
-              top: 45px;
-            }
-            li{
-              display: block;
-              width: 100%;
-              a{
-                padding-top: 0;
-                border: 0 none;
-              }
-              ul.active{
-                top: 0;
-                left: 100%;
-              }
-            }
           }
         }
       }
@@ -392,4 +337,135 @@
 @keyframes upspin {
   0% {tranform: rotate(0deg);}
   100% {transform: rotate(360deg);}
+}
+
+//Dashboard sidebar nav
+#directorist.atbd_wrapper{
+  .atbd_dashboard_wrapper{
+    display: flex;
+    .atbd_user_dashboard_nav {
+      width: 200px;
+      margin-right: 30px;
+      transition: 0.3s ease;
+      position: relative;
+      left: 0;
+      &.atbd-dashboard-nav-collapsed{
+        width: 0 !important;
+        height: 0;
+        margin-right: 0;
+        left: -200px;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        //overflow: hidden;
+        transition: 0.3s ease;
+        .nav_button,
+        ul li a{
+          display: block;
+          width: 215px;
+        }
+        & + .atbd_tab-content{
+          margin-top: 0;
+        }
+      }
+      &.atbd-dashboard-nav-collapsed--fixed{
+        position: fixed;
+        background: #fff;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        padding: 70px 30px 20px;
+        height: 100%;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      }
+      .nav_button{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        a{
+          display: inline-block;
+          margin-bottom: 15px;
+          padding: 3px 12px;
+          line-height: 25px;
+        }
+      }
+    }
+    .atbd_tab-content{
+      flex: 1;
+      transition: 0.3s ease;
+      margin-top: -57px;
+      @media (max-width: 767px){
+        margin-top: 0;
+      }
+    }
+    .atbdp_tab_nav--content{
+      transition: 0.3s ease;
+      li{
+        margin-bottom: 13px;
+        a{
+          outline: 0;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        ul{
+          margin: 5px 0 0 15px;
+          display: none;
+        }
+      }
+    }
+  }
+}
+#directorist.atbd_wrapper{
+  .atbd-dashboard-nav-toggler{
+    border: 1px solid $border-color;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 20px;
+    outline: 0;
+  }
+}
+
+.atbd_tab-content--fix{
+  .atbd_tab_inner .col-lg-4.col-sm-6 {
+    max-width: 50% !important;
+    flex: 0 0 50% !important;
+    @media(max-width: 575px){
+      max-width: 100% !important;
+      flex: 0 0 100% !important;
+    }
+  }
+  #user_profile_form{
+    .col-md-3, .col-md-9{
+      max-width: 100% !important;
+      flex: 0 0 100% !important;
+      margin-left: 0;
+    }
+    .atbd_user_profile_edit{
+      margin-top: 15px;
+    }
+  }
+  .atbd-message-sidebar,
+  .atbd-message-list{
+    flex: 0 0 100%;
+  }
+}
+
+#directorist.atbd_wrapper.size-xs{
+  .atbd_dashboard_wrapper{
+    .atbd_user_dashboard_nav{
+      width:160px;
+      @media (max-width: 767px){
+        width: 200px;
+      }
+    }
+  }
+  .atbd_tab-content--fix{
+    .atbd_tab_inner .col-lg-4.col-sm-6 {
+      max-width: 100% !important;
+      flex: 0 0 100% !important;
+    }
+  }
 }

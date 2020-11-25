@@ -305,6 +305,15 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
   #directorist-checkout-table {
     margin-bottom: 35px;
+    small{
+      display: block;
+    }
+    label{
+      h4{
+        margin: 0;
+        padding: 0;
+      }
+    }
   }
 }
 

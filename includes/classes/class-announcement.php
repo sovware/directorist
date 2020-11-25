@@ -23,24 +23,23 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             ob_start(); ?>
             <div class="atbd_tab_inner" id="announcement">
                 <div class="atbd_announcement_wrapper">
-                    Announcement
-                    <!-- <div class="accordion">
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
+                    <div id="announcement-accordion" class="atbdp-accordion">
+                        <div class="atbdp-card">
+                            <div class="atbdp-card-header" id="headingOne">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link" data-target="#collapseOne">
+                                    <button class="btn btn-link atbdp-toggle-tab" data-target="#collapseOne">
                                         Collapsible Group Item #1
                                     </button>
                                 </h5>
                             </div>
 
-                            <div id="collapseOne" class="collapse show" data-parent="#accordion">
-                                <div class="card-body">
+                            <div id="collapseOne" class="atbdp-collapse">
+                                <div class="atbdp-card-body">
                                     Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
                                 </div>
                             </div>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
             </div>
             <?php

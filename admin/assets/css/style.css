@@ -1328,4 +1328,33 @@ span.atbdp-tick-cross {
   font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
 }
 
+#announcement_submit .vp-input ~ span {
+  display: flex;
+  background: #007cba;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  border-radius: 3px;
+  color: #fff;
+  background-image: none;
+  width: 80px;
+  cursor: pointer;
+}
+
+#announcement_submit .vp-input ~ span:after{
+  content: 'Send';
+}
+
+#announcement_submit .label {
+  visibility: hidden;
+}
+
+.announcement-feedback {
+  margin: 10px 0;
+}
+
+.form-alert {
+  font-weight: 500;
+}
+
 /*# sourceMappingURL=map/style.css.map */

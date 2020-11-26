@@ -23,7 +23,7 @@ if (!class_exists('ATBDP_Cron')) :
             add_action('wp', array($this, 'atbdp_custom_schedule_cron'));
             add_action('directorist_hourly_scheduled_events', array($this, 'atbdp_schedule_tasks'));
             // schedule task run after every 5 minutes || use bellow line for debug
-            add_action('init', array($this, 'atbdp_schedule_tasks'));
+            // add_action('init', array($this, 'atbdp_schedule_tasks'));
             add_filter('cron_schedules', array($this, 'atbdp_cron_init'));
         }
 
@@ -34,10 +34,10 @@ if (!class_exists('ATBDP_Cron')) :
 
         public function atbdp_cron_init($schedules)
         {
-            $schedules['atbdp_listing_manage'] = array(
+            $schedules['atbdp_listing_manage'] = apply_filters( 'atbdp_cron_setup_args' , array(
                 'interval' => 300,
-                'display' => __('Every 5 minutes')
-            );
+                'display'  => __('Every 5 minutes')
+            ));
             return $schedules;
         }
 
@@ -54,6 +54,11 @@ if (!class_exists('ATBDP_Cron')) :
             $this->send_renewal_reminders(); // we will send renewal notification after expiration here
             $this->delete_expired_listings(); // we will delete listings here certain days after expiration here.
             $this->featured_listing_followup(); // we will delete listings here certain days after expiration here.
+
+             /**
+             * @since 5.5.6
+             */
+            do_action( 'atbdp_schedule_task' );
         }
 
         /**

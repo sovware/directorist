@@ -1,4 +1,7 @@
 <?php
+
+use YoastSEO_Vendor\GuzzleHttp\Psr7\Response;
+
 if ( ! class_exists( 'ATBDP_Announcement' ) ) :
     class ATBDP_Announcement {
 
@@ -14,6 +17,105 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             // Handle ajax
             add_action( 'wp_ajax_atbdp_send_announcement', [ $this, 'send_announcement' ] );
             add_action( 'wp_ajax_atbdp_close_announcement', [ $this, 'close_announcement' ] );
+            add_action( 'wp_ajax_atbdp_get_new_announcement_count', [ $this, 'response_new_announcement_count' ] );
+            add_action( 'wp_ajax_atbdp_clear_seen_announcements', [ $this, 'clear_seen_announcements' ] );
+        }
+
+        // response_new_announcement_count
+        public function response_new_announcement_count() {
+            $new_announcements = $this->get_new_announcement_count();
+            wp_send_json( [ 'success' => true, 'total_new_announcement' => $new_announcements ] );
+        }
+
+        // clear_seen_announcements
+        public function clear_seen_announcements() {
+            $new_announcements = new WP_Query([
+                'post_type'      => 'listing-announcement',
+                'posts_per_page' => -1,
+                'meta_query' => [
+                    [
+                        'key'     => '_exp_date',
+                        'value'   => date('Y-m-d'),
+                        'compare' => '>'
+                    ],
+                    [
+                        'key'     => '_closed',
+                        'value'   => '1',
+                        'compare' => '!='
+                    ],
+                    [
+                        'key'     => '_seen',
+                        'value'   => '1',
+                        'compare' => '!='
+                    ],
+                ]
+            ]);
+
+            $current_user_email = get_the_author_meta( 'user_email', get_current_user_id() );
+
+            if ( $new_announcements->have_posts() ) {
+                while( $new_announcements->have_posts() ) {
+                    $new_announcements->the_post();
+                    // Check recepent restriction
+                    $recepents = get_post_meta( get_the_ID(), '_recepents', true );
+                    if ( ! empty( $recepents ) && is_array( $recepents )  ) {
+                        if ( ! in_array( $current_user_email, $recepents ) ) {
+                            continue;
+                        }
+                    }
+
+                    update_post_meta( get_the_ID(), '_seen', true );
+                }
+            }
+
+            wp_send_json([ 'success' => true ]);
+        }
+
+        // get_new_announcement_count
+        public function get_new_announcement_count() {
+            $new_announcements = new WP_Query([
+                'post_type'      => 'listing-announcement',
+                'posts_per_page' => -1,
+                'meta_query' => [
+                    [
+                        'key'     => '_exp_date',
+                        'value'   => date('Y-m-d'),
+                        'compare' => '>'
+                    ],
+                    [
+                        'key'     => '_closed',
+                        'value'   => '1',
+                        'compare' => '!='
+                    ],
+                    [
+                        'key'     => '_seen',
+                        'value'   => '1',
+                        'compare' => '!='
+                    ],
+                ]
+            ]);
+
+            $total_posts        = count( $new_announcements->posts );
+            $skipped_post_count = 0;
+            $current_user_email = get_the_author_meta( 'user_email', get_current_user_id() );
+
+            if ( $new_announcements->have_posts() ) {
+                while( $new_announcements->have_posts() ) {
+                    $new_announcements->the_post();
+                    // Check recepent restriction
+                    $recepents = get_post_meta( get_the_ID(), '_recepents', true );
+                    if ( ! empty( $recepents ) && is_array( $recepents )  ) {
+                        if ( ! in_array( $current_user_email, $recepents ) ) {
+                            $skipped_post_count++;
+                            continue;
+                        }
+                    }
+                }
+            }
+
+            $new_posts = $total_posts - $skipped_post_count;
+
+            return $new_posts;
         }
 
         // delete_expaired_announcements
@@ -40,6 +142,11 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
         // add_dashboard_nav_link
         public function add_dashboard_nav_link() {
             $nav_label = "Announcements <span class='atbdp-nav-badge new-announcement-count'></span>";
+            $new_announcements = $this->get_new_announcement_count();
+
+            if ( $new_announcements > 0 ) {
+                $nav_label = "Announcements <span class='atbdp-nav-badge new-announcement-count show'>{$new_announcements}</span>";
+            }
 
             ob_start(); ?>
             <li class="atbdp_tab_nav--content-link">

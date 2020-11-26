@@ -7790,6 +7790,24 @@ p.atbd-min {
   }
 }
 
+
+.atbdp-nav-badge {
+  display: none;
+  border-radius: 30px;
+  min-width: 25px;
+  height: 25px;
+  line-height: 25px;
+  color: #fff;
+  text-align: center;
+  margin: 0 10px;
+  vertical-align: middle;
+  background-color: cornflowerblue;
+}
+
+.atbdp-nav-badge.show {
+  display: inline-block;
+}
+
 @media (max-width: 400px) {
   .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title,
   .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {

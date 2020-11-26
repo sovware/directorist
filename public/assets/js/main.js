@@ -900,6 +900,37 @@
     }
 
     // Announcement
+    // --------------------------------------------
+    // Cleare seen announcements
+    var cleared_seen_announcements = false;
+    $( '.atbd_tn_link' ).on( 'click', function() {
+        if ( cleared_seen_announcements ) { return; }
+        var terget = $( this ).attr( 'target' );
+
+        if ( 'announcement' === terget ) {
+            // console.log( terget, 'clear seen announcements' );
+
+            $.ajax({
+                type: "post",
+                url: atbdp_public_data.ajaxurl,
+                data: { action: 'atbdp_clear_seen_announcements' },
+                success: function( response ) {
+                    // console.log( response );
+
+                    if ( response.success ) {
+                        cleared_seen_announcements = true;
+                        $( '.new-announcement-count' ).removeClass( 'show' );
+                        $( '.new-announcement-count' ).html( '' );
+                    } 
+                },
+                error: function( error ) {
+                    console.log( { error } );
+                },
+            })
+        }
+    });
+
+    // Closing the announcement
     var closing_announcement = false;
     $('.close-announcement').on('click', function ( e ) {
         e.preventDefault;

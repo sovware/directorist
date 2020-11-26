@@ -1641,7 +1641,6 @@ div#listing_notifier span {
 .nav_button {
   position: relative;
   z-index: 1;
-  background: #fff;
 }
 
 /* map image radius */
@@ -1812,6 +1811,12 @@ input#privacy_policy,
       border: 0 none;
       outline: 0;
       color: #474868;
+      padding: 0;
+      margin: 0;
+      line-height: normal;
+      &:hover{
+        text-decoration: none;
+      }
     }
     @media (max-width: 575px){
       order:1;

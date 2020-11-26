@@ -2315,7 +2315,6 @@ div#listing_notifier span {
 .nav_button {
   position: relative;
   z-index: 1;
-  background: #fff;
 }
 
 /* map image radius */
@@ -2508,6 +2507,13 @@ input#privacy_policy,
   border: 0 none;
   outline: 0;
   color: #474868;
+  padding: 0;
+  margin: 0;
+  line-height: normal;
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__close button:hover {
+  text-decoration: none;
 }
 
 @media (max-width: 575px) {
@@ -6213,6 +6219,18 @@ span.atbd_get_loc_wid {
 #directorist.atbd_wrapper.size-xs .atbd_tab-content--fix .atbd_tab_inner .col-lg-4.col-sm-6 {
   max-width: 100% !important;
   flex: 0 0 100% !important;
+}
+
+.atbdp__draft {
+  line-height: 24px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0 10px;
+  border-radius: 12px;
+  margin-top: 9px;
+  color: #444752;
+  background: rgba(68, 71, 82, 0.1);
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-selection {

@@ -327,7 +327,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-= 6.5.5 - Nov 25, 2020 =
+= 6.5.6 - Nov 26, 2020 =
 
 * Add - A form to send bulk announcement to directory user
 * Add - Featured listing auto fallback to normal

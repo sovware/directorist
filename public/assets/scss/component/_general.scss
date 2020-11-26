@@ -305,8 +305,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
   #directorist-checkout-table {
     margin-bottom: 35px;
-    small{
+    span{
       display: block;
+      font-size: 13px;
     }
     label{
       h4{
@@ -314,6 +315,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
         padding: 0;
       }
     }
+  }
+}
+
+#directorist.atbd_wrapper{
+  .atbdp_ch_total_text{
+    font-size: 20px;
+    margin-bottom: 0 !important;
   }
 }
 

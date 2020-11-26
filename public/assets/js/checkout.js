@@ -52,18 +52,6 @@
         }
     }
 
-    
-    // Checkout Form Handling
-    // -----------------------------
-    // process checkout form
-    let checkout_form = $( '#atbdp-checkout-form' );
-    $( 'body' ).on( 'submit', checkout_form, function(e) {
-        e.preventDefault();
-        const form_data = new FormData();
-        // ajax action
-        form_data.append('action', 'add_listing_action');
-    } );
-
 
     // Helpers
     // --------------------

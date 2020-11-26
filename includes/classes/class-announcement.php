@@ -72,6 +72,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
             $total_posts = count( $announcements->posts );
             $skipped_post_count = 0;
+            $current_user_email = get_the_author_meta( 'user_email', get_current_user_id() );
 
             ob_start(); ?>
             <div class="atbd_tab_inner" id="announcement">
@@ -84,8 +85,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                             // Check recepent restriction
                             $recepents = get_post_meta( get_the_ID(), '_recepents', true );
                             if ( ! empty( $recepents ) && is_array( $recepents )  ) {
-                                $current_user_id = get_the_author_meta( 'user_email' );
-                                if ( ! in_array( $current_user_id, $recepents ) ) {
+                                if ( ! in_array( $current_user_email, $recepents ) ) {
                                     $skipped_post_count++;
                                     continue;
                                 }

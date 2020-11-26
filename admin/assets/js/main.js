@@ -1782,12 +1782,12 @@ jQuery(function ($) {
             processData: false,
             contentType: false,
             beforeSend: function () {
-                console.log( 'Sending...' );
+                // console.log( 'Sending...' );
                 form_feedback.find( '.announcement-feedback' ).html( '<div class="form-alert">Sending the announcement, please wait..</div>' );
                 
             },
             success: function ( response ) {
-                console.log( {response} );
+                // console.log( {response} );
                 announcement_is_sending = false;
                 
                 if ( response.message ) {

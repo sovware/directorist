@@ -197,6 +197,24 @@ if (!class_exists('ATBDP_Settings_Manager')):
                         ),
                     )),
                 ),
+                array(
+                    'title' => __('Listings Import', 'directorist'),
+                    'name' => 'listings_import',
+                    'icon' => 'font-awesome:fa-upload',
+                    'controls' => apply_filters('atbdp_listings_import_controls', array(
+                        'import_methods' => array(
+                            'type' => 'section',
+                            'title' => __('CSV', 'directorist'),
+                            'fields' => apply_filters('atbdp_csv_import_settings_fields', array(
+                                array(
+                                    'type' => 'toggle',
+                                    'name' => 'csv_import',
+                                    'label' => __('CSV', 'directorist'),
+                                ),
+                            )),
+                        ),
+                    )),
+                ),
             ));
         }
 

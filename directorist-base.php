@@ -567,18 +567,6 @@ final class Directorist_Base
                 ),
             )),
         );
-        $menus['csv_import'] = array(
-            'title' => __('Listings Import', 'directorist'),
-            'name' => 'csv_import',
-            'icon' => 'font-awesome:fa-upload',
-            'controls' => apply_filters('atbdp_csv_import_settings_controls', array(
-                'currency_section' => array(
-                    'type' => 'section',
-                    'title' => __('Listings Import', 'directorist'),
-                    'fields' => get_csv_import_settings_submenus(),
-                ),
-            )),
-        );
         return $menus;
     }
 

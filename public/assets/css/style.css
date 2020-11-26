@@ -7794,14 +7794,14 @@ p.atbd-min {
 .atbdp-nav-badge {
   display: none;
   border-radius: 30px;
-  min-width: 25px;
-  height: 25px;
-  line-height: 25px;
+  min-width: 20px;
+  height: 20px;
+  line-height: 20px;
   color: #fff;
   text-align: center;
   margin: 0 10px;
   vertical-align: middle;
-  background-color: cornflowerblue;
+  background-color: #ff3c3c;
 }
 
 .atbdp-nav-badge.show {

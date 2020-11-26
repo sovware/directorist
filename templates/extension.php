@@ -76,6 +76,52 @@
                     <h3><?php esc_html_e('Extensions', 'directorist'); ?></h3>
                 </div>
                 <?php
+                if (!class_exists('SWBDPCoupon')) {
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--Google reCAPTCHA-->
+                        <div class="single_extension">
+                            <img src="https://directorist.com/wp-content/uploads/2020/11/Coupon.png"
+                                 alt="Coupon">
+
+                            <div class="extension_detail ext_d">
+                                <a href="https://directorist.com/product/directorist-coupon" target="_blank"
+                                   class="ext_title">
+                                    <h4><?php esc_html_e(' Coupon ', 'directorist'); ?></h4></a>
+                                <p><?php esc_html_e('Create & offer unlimited coupon to increase your revenue.', 'directorist'); ?></p>
+
+                                <div class="btn_wrapper">
+                                    <a href="https://directorist.com/product/directorist-coupon" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+                if (!class_exists('SWBDPAdsManager')) {
+                    ?>
+                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                        <!--Google reCAPTCHA-->
+                        <div class="single_extension">
+                            <img src="https://directorist.com/wp-content/uploads/2020/11/Ads-Manager.jpg"
+                                 alt="Ads Manager">
+
+                            <div class="extension_detail ext_d">
+                                <a href="https://directorist.com/product/directorist-ads-manager" target="_blank"
+                                   class="ext_title">
+                                    <h4><?php esc_html_e(' Ads Manager ', 'directorist'); ?></h4></a>
+                                <p><?php esc_html_e('Create & sell unlimited ads to monetize your directory.', 'directorist'); ?></p>
+
+                                <div class="btn_wrapper">
+                                    <a href="https://directorist.com/product/directorist-ads-manager" target="_blank"
+                                       class="btn get btn-success"><?php esc_html_e('Get It Now', 'directorist'); ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
                 if (!class_exists('ATBDP_Pricing_Plans')) {
                     ?>
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">

@@ -912,6 +912,7 @@
             post_id: post_id,
         }
 
+        var button_default_html = $( self ).html();
         closing_announcement = true;
         var self = this;
 
@@ -920,8 +921,7 @@
             url: atbdp_public_data.ajaxurl,
             data: form_data,
             beforeSend() {
-                $( self ).html( 'Closing' );
-                $( self ).prepend( '<span class="fas fa-spinner fa-spin"></span> ' );
+                $( self ).html( '<span class="fas fa-spinner fa-spin"></span> ' );
                 $( self ).addClass( 'disable' );
                 $( self ).attr( 'disable', true );
             },
@@ -945,7 +945,7 @@
             error: function( error ) {
                 console.log( { error } );
 
-                $( self ).html( 'Close' );
+                $( self ).html( button_default_html );
                 $( self ).removeClass( 'disable' );
                 $( self ).attr( 'disable', false );
 

@@ -1035,13 +1035,19 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 35px;
 }
 
-#directorist.atbd_wrapper #directorist-checkout-table small {
+#directorist.atbd_wrapper #directorist-checkout-table span {
   display: block;
+  font-size: 13px;
 }
 
 #directorist.atbd_wrapper #directorist-checkout-table label h4 {
   margin: 0;
   padding: 0;
+}
+
+#directorist.atbd_wrapper .atbdp_ch_total_text {
+  font-size: 20px;
+  margin-bottom: 0 !important;
 }
 
 .atbd_rating_color, #directorist.atbd_wrapper .atbd_rated_stars ul li span.rate_active, #directorist.atbd_wrapper .atbd_rating_stars .br-widget a.br-selected:before, #directorist.atbd_wrapper .atbd_rating_stars .br-widget a.br-active:before {

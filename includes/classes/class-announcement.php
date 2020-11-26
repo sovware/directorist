@@ -109,12 +109,11 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
                             <div class="atbdp-card-body">
                                 <?php the_content(); ?>
-                            </div>
-
-                            <div class="atbdp-card-footer">
-                                <button class="button gray reject buttons-to-right__reject close-announcement" data-post-id="<?php the_id() ?>">
-                                    <?php _e('Close', 'directorist'); ?>
-                                </button>
+                                <div class="atbdp-card-body-action">
+                                    <button class="btn btn-primary btn-lg close-announcement" data-post-id="<?php the_id() ?>">
+                                        <?php _e('Close', 'directorist'); ?>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <?php endwhile; ?>
@@ -199,7 +198,13 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 $today = date("Y-m-d");
                 $exp_date = date('Y-m-d', strtotime( $today. " + {$expiration} days" ) );
 
-                update_post_meta( $announcement, '_recepents', $recepents );
+                if ( 'all_user' !== $to ) {
+                    update_post_meta( $announcement, '_recepents', $recepents );
+                } else {
+                    update_post_meta( $announcement, '_recepents', '' );
+                }
+                
+                update_post_meta( $announcement, '_to', $to );
                 update_post_meta( $announcement, '_exp_in_days', $expiration );
                 update_post_meta( $announcement, '_exp_date', $exp_date );
                 update_post_meta( $announcement, '_closed', false );

@@ -305,8 +305,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
   #directorist-checkout-table {
     margin-bottom: 35px;
-    small{
+    span{
       display: block;
+      font-size: 13px;
     }
     label{
       h4{
@@ -314,6 +315,13 @@ body.atbd_content_active #directorist.atbd_wrapper {
         padding: 0;
       }
     }
+  }
+}
+
+#directorist.atbd_wrapper{
+  .atbdp_ch_total_text{
+    font-size: 20px;
+    margin-bottom: 0 !important;
   }
 }
 
@@ -1641,7 +1649,6 @@ div#listing_notifier span {
 .nav_button {
   position: relative;
   z-index: 1;
-  background: #fff;
 }
 
 /* map image radius */
@@ -1812,6 +1819,12 @@ input#privacy_policy,
       border: 0 none;
       outline: 0;
       color: #474868;
+      padding: 0;
+      margin: 0;
+      line-height: normal;
+      &:hover{
+        text-decoration: none;
+      }
     }
     @media (max-width: 575px){
       order:1;

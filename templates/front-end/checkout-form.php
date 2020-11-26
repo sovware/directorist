@@ -22,7 +22,7 @@ $after = '';
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-        <?php 
+        <?php
         /**
          * @since 6.5.6
          */
@@ -60,7 +60,7 @@ $after = '';
                                     'checked'         => isset( $option['selected'] ) ? checked( 1, $option['selected'], false ) : '',
                                 ];
                                 $input_field = "<input type='hidden' id='{$atts['id']}' name='{$atts['name']}' class='{$atts['class']}' value='{$atts['value']}' data-price-type='{$atts['data-price-type']}' {$atts['checked']}/>";
-                                
+
                                 // Add the price and product
                                 if ( is_numeric( $atts['value'] ) && $option['selected'] && 'addition' === $atts['data-price-type'] ) {
                                     $price = ( preg_match( '/[.]/', $atts['value'] ) ) ? ( float ) $atts['value'] : ( int ) $atts['value'];
@@ -72,18 +72,20 @@ $after = '';
                                 echo $input_field;
                             ?>
                             <?php if ( ! empty( $option['title'] ) ) echo "<label for='{$atts['id']}'><h4>" . esc_html($option['title']) . "</h4></label>"; ?>
-                            <?php if ( ! empty( $option['desc'] ) ) echo '<small>'. esc_html($option['desc']) . '</small>'; ?>
+                            <?php if ( ! empty( $option['desc'] ) ) echo '<span>'. esc_html($option['desc']) . '</span>'; ?>
                         </td>
                         <td class="text-right vertical-middle">
+                            <span class="atbd-plan-price">
                             <?php if (!empty($option['price'])) {
                                 echo $before . esc_html(atbdp_format_payment_amount($option['price'])) . $after;
                                 do_action('atbdp_checkout_after_total_price', $args);
                             } ?>
+                            </span>
                         </td>
                     </tr>
                 <?php }
             }
-            
+
             /**
              * @since 6.5.6
              */
@@ -91,20 +93,20 @@ $after = '';
             ?>
             <tr class="atbdp_ch_subtotal">
                 <td colspan="2" class="text-right vertical-middle">
-                    <strong><?php echo __( 'Subtotal', 'directorist-coupon' ); ?></strong>
+                    <h4><?php echo __( 'Subtotal', 'directorist-coupon' ); ?></h4>
                 </td>
                 <td class="text-right vertical-middle">
-                    <div id="atbdp_checkout_subtotal_amount"><?php 
+                    <div id="atbdp_checkout_subtotal_amount"><?php
                         echo $before;
                         echo esc_html( atbdp_format_payment_amount( $subtotal ) );
                         echo $after;
                     ?></div>
-                    
+
                 </td>
             </tr>
             <tr class="atbdp_ch_total">
                 <td colspan="2" class="text-right vertical-middle">
-                    <strong class="atbdp_ch_total_text"><?php printf(__('Total amount [%s]', 'directorist'), $currency); ?></strong>
+                    <h4 class="atbdp_ch_total_text"><?php printf(__('Total amount [%s]', 'directorist'), $currency); ?></h4>
                 </td>
                 <td class="text-right vertical-middle">
                     <div id="atbdp_checkout_total_amount"><?php echo number_format( $subtotal, 2 ) ?></div>
@@ -113,7 +115,7 @@ $after = '';
             </tr>
             </tbody>
         </table> <!--ends table-->
-        
+
         <?php if ( $subtotal > 0 ) : ?>
         <div class="atbd_content_module" id="directorist_payment_gateways">
             <div class="atbd_content_module_title_area">
@@ -121,7 +123,7 @@ $after = '';
                     <h4><?php esc_html_e('Choose a payment method', 'directorist'); ?></h4>
                 </div>
             </div>
-            
+
             <div class="atbdb_content_module_contents">
                 <?php echo ATBDP_Gateway::gateways_markup(); ?>
             </div>

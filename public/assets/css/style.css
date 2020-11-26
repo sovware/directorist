@@ -1035,13 +1035,19 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 35px;
 }
 
-#directorist.atbd_wrapper #directorist-checkout-table small {
+#directorist.atbd_wrapper #directorist-checkout-table span {
   display: block;
+  font-size: 13px;
 }
 
 #directorist.atbd_wrapper #directorist-checkout-table label h4 {
   margin: 0;
   padding: 0;
+}
+
+#directorist.atbd_wrapper .atbdp_ch_total_text {
+  font-size: 20px;
+  margin-bottom: 0 !important;
 }
 
 .atbd_rating_color, #directorist.atbd_wrapper .atbd_rated_stars ul li span.rate_active, #directorist.atbd_wrapper .atbd_rating_stars .br-widget a.br-selected:before, #directorist.atbd_wrapper .atbd_rating_stars .br-widget a.br-active:before {
@@ -2315,7 +2321,6 @@ div#listing_notifier span {
 .nav_button {
   position: relative;
   z-index: 1;
-  background: #fff;
 }
 
 /* map image radius */
@@ -2508,6 +2513,13 @@ input#privacy_policy,
   border: 0 none;
   outline: 0;
   color: #474868;
+  padding: 0;
+  margin: 0;
+  line-height: normal;
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__close button:hover {
+  text-decoration: none;
 }
 
 @media (max-width: 575px) {
@@ -6213,6 +6225,18 @@ span.atbd_get_loc_wid {
 #directorist.atbd_wrapper.size-xs .atbd_tab-content--fix .atbd_tab_inner .col-lg-4.col-sm-6 {
   max-width: 100% !important;
   flex: 0 0 100% !important;
+}
+
+.atbdp__draft {
+  line-height: 24px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0 10px;
+  border-radius: 12px;
+  margin-top: 9px;
+  color: #444752;
+  background: rgba(68, 71, 82, 0.1);
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-selection {

@@ -469,3 +469,15 @@
     }
   }
 }
+
+.atbdp__draft{
+  line-height: 24px;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 0 10px;
+  border-radius: 12px;
+  margin-top: 9px;
+  color: $primary;
+  background: rgba($primary, 0.1);
+}

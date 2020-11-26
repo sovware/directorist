@@ -10,8 +10,8 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             add_action( 'atbdp_tab_after_favorite_listings', [ $this, 'add_dashboard_nav_link' ] );
             add_action( 'atbdp_tab_content_after_favorite', [ $this, 'add_dashboard_nav_content' ] );
             add_action( 'atbdp_schedule_task', [ $this, 'delete_expaired_announcements' ] );
-            
-            // Handle ajax 
+
+            // Handle ajax
             add_action( 'wp_ajax_atbdp_send_announcement', [ $this, 'send_announcement' ] );
             add_action( 'wp_ajax_atbdp_close_announcement', [ $this, 'close_announcement' ] );
         }
@@ -78,7 +78,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 <div class="atbd_announcement_wrapper">
                     <?php if ( $announcements->have_posts() ) : ?>
                     <div class="atbdp-accordion">
-                        <?php while( $announcements->have_posts() ) : 
+                        <?php while( $announcements->have_posts() ) :
                             $announcements->the_post();
 
                             // Check recepent restriction
@@ -91,37 +91,30 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                                 }
                             }
                         ?>
-                        <div class="atbdp-card <?php echo 'update-announcement-status announcement-item announcement-id-' . get_the_ID() ?>" data-post-id="<?php the_id() ?>">
-                            <div class="atbdp-card-header">
-                                <div class="atbdp-card-header-title-area">
-                                    <h3 class="atbdp-card-header-title">
-                                        <?php the_title(); ?>
-                                    </h3>
-                                </div>
-
-                                <div class="atbdp-card-header-info-area">
-                                    <div class="atbdp-date-card">
-                                        <span class="atbdp-date-card-part-1"><?php echo get_the_date( 'd M' ) ?></span>
-                                        <span class="atbdp-date-card-part-2"><?php echo get_the_date( 'Y' ) ?></span>
-                                    </div>
-                                </div>
+                        <div class="atbdp-announcement <?php echo 'update-announcement-status announcement-item announcement-id-' . get_the_ID() ?>" data-post-id="<?php the_id() ?>">
+                            <div class="atbdp-announcement__date">
+                                <span class="atbdp-date-card-part-1"><?php echo get_the_date( 'd' ) ?></span>
+                                <span class="atbdp-date-card-part-2"><?php echo get_the_date( 'M' ) ?></span>
+                                <span class="atbdp-date-card-part-3"><?php echo get_the_date( 'Y' ) ?></span>
                             </div>
-
-                            <div class="atbdp-card-body">
-                                <?php the_content(); ?>
-                                <div class="atbdp-card-body-action">
-                                    <button class="btn btn-primary btn-lg close-announcement" data-post-id="<?php the_id() ?>">
-                                        <?php _e('Close', 'directorist'); ?>
-                                    </button>
-                                </div>
+                            <div class="atbdp-announcement__content">
+                                <h3 class="atbdp-announcement__title">
+                                    <?php the_title(); ?>
+                                </h3>
+                                <p><?php the_content(); ?></p>
+                            </div>
+                            <div class="atbdp-announcement__close">
+                                <button class="close-announcement" data-post-id="<?php the_id() ?>">
+                                    <?php _e('<i class="la la-times"></i>', 'directorist'); ?>
+                                </button>
                             </div>
                         </div>
                         <?php endwhile; ?>
                     </div>
                     <?php else: ?>
                         <p><?php _e( 'No announcement found', 'directorist' ) ?></p>
-                    <?php endif; 
-                    
+                    <?php endif;
+
                     if ( $skipped_post_count >= $total_posts ) {
                         _e( 'No announcement found', 'directorist' );
                     }
@@ -141,8 +134,8 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             $expiration    = ( isset( $_POST['expiration'] ) ) ? $_POST['expiration'] : '';
             $send_to_email = ( isset( $_POST['send_to_email'] ) ) ? $_POST['send_to_email'] : '';
 
-            $status = [ 
-                'success' => false, 
+            $status = [
+                'success' => false,
                 'message' => __( 'Sorry, something went wrong, please try again' )
             ];
 
@@ -203,14 +196,14 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 } else {
                     update_post_meta( $announcement, '_recepents', '' );
                 }
-                
+
                 update_post_meta( $announcement, '_to', $to );
                 update_post_meta( $announcement, '_exp_in_days', $expiration );
                 update_post_meta( $announcement, '_exp_date', $exp_date );
                 update_post_meta( $announcement, '_closed', false );
                 update_post_meta( $announcement, '_seen', false );
             }
-            
+
             // Send email if enabled
             if ( '1' == $send_to_email ) {
                 wp_mail( $recepents, $subject, $message );

@@ -683,7 +683,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 } elseif ($id = ATBDP()->review->db->add($data)) {
                     $this->atbdp_send_email_review_to_user();
                     $this->atbdp_send_email_review_to_admin();
-                    wp_send_json_success(array('id' => $id));
+                    wp_send_json_success(array( 'id' => $id, 'date' => date(get_option('date_format'))));
                 }
             } else {
                 echo 'Errors: make sure you wrote something about your review.';

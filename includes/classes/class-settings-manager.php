@@ -2656,7 +2656,7 @@ The Administrator of ==SITE_NAME==
                     array(
                         'type' => 'toggle',
                         'name' => 'overwrite_by_yoast',
-                        'label' => __('Disable Overwrite by Yoast', 'directorist'),
+                        'label' => __('Overwrite Yoast Meta', 'directorist'),
                         'description' => __('Here Yes means Directorist pages will use titles & metas settings from bellow. Otherwise it will use titles & metas settings from Yoast.', 'directorist'),
                         'default' => 0,
                     ),

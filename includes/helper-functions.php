@@ -3783,11 +3783,11 @@ function atbdp_yoast_is_active() {
 
 /**arg
  *
- * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
- * @since     5.5.2
+ * @return bool $can_use_yoast "true" if can use Yoast, "false" if not.
+ * @since 5.5.2
  *
  */
-function atbdp_disable_overwrite_yoast()
+function atbdp_can_overwrite_yoast()
 {
     $overwrite = false;
     $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
@@ -3797,6 +3797,10 @@ function atbdp_disable_overwrite_yoast()
 
     return $overwrite;
 
+}
+
+function atbdp_disable_overwrite_yoast() {
+    atbdp_can_overwrite_yoast();
 }
 
 

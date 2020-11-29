@@ -16,7 +16,7 @@ if (!class_exists('ATBDP_SEO')) :
                 //add_filter('wpseo_opengraph_image', array($this, 'wpseo_opengraph_image'));
             }
 
-            if (atbdp_disable_overwrite_yoast()) {
+            if (atbdp_can_overwrite_yoast()) {
                 remove_action('wp_head', 'rel_canonical');
                 if (atbdp_yoast_is_active()) {
                     add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));

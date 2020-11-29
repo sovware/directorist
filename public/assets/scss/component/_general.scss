@@ -1679,3 +1679,19 @@ input#privacy_policy,
     overflow-y: auto;
   }
 }
+
+.atbdp-nav-badge {
+  display: none;
+  border-radius: 30px;
+  min-width: 20px;
+  height: 20px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  margin: 0 10px;
+  vertical-align: middle;
+  background-color: #ff3c3c;
+  &.show {
+    display: inline-block;
+  }
+}

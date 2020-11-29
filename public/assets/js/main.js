@@ -166,7 +166,6 @@
 
 
             } else if (response.success) {
-                d = atbdp_public_data.currentDate; // build the date string, month is 0 based so add 1 to that to get real month.
                 output +=
                     '<div class="atbd_single_review" id="single_review_' + response.data.id + '">' +
                     '<input type="hidden" value="1" id="has_ajax">' +
@@ -175,7 +174,7 @@
                     '<div class="atbd_review_avatar">' + ava_img + '</div> ' +
                     '<div class="atbd_name_time"> ' +
                     '<p>' + name + '</p>' +
-                    '<span class="review_time">' + d + '</span> ' + '</div> ' + '</div> ' +
+                    '<span class="review_time">' + response.data.date + '</span> ' + '</div> ' + '</div> ' +
                     '<div class="atbd_rated_stars">' + print_static_rating(rating) + '</div> ' +
                     '</div> ';
                 if( atbdp_public_data.enable_reviewer_content ) {

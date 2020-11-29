@@ -862,7 +862,7 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
 
                         do_action('atbdp_before_contact_form_submit_button');
                         ?>
-                        <p id="atbdp-contact-message-display" style="margin-bottom: 10px"></p>
+                        <p class="atbdp-contact-message-display" style="margin-bottom: 10px"></p>
 
                         <button type="submit" class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
                     </form>

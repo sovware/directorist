@@ -671,12 +671,11 @@
             disable: true
         }).on('submit', function (e) {
             e.preventDefault();
-
+            
             if (atbdp_contact_submitted) return false;
-
-            var status_area = $('.atbdp-widget-elm, .atbdp-contact-message-display');
-            //status_area.append('<p style="margin-bottom: 10px">Sending the message, please wait...</p>');
-
+            var status_area = $('.atbdp-contact-message-display');
+            status_area.append('Sending the message, please wait... ');
+            
             // Post via AJAX
             var data = {
                 'action': 'atbdp_public_send_contact_email',
@@ -689,6 +688,7 @@
 
             atbdp_contact_submitted = true;
             $.post(atbdp_public_data.ajaxurl, data, function (response) {
+                console.log( response.message, status_area );
                 if (1 == response.error) {
                     atbdp_contact_submitted = false;
                     status_area.addClass('text-danger').html(response.message);

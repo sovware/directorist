@@ -241,6 +241,7 @@ final class Directorist_Base
             // self::$instance->validator = new ATBDP_Validator;
             // self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
             self::$instance->tools = new ATBDP_Tools;
+            self::$instance->announcement = new ATBDP_Announcement;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
             self::$instance->update_database();
             // new settings

@@ -1846,3 +1846,50 @@ span.atbdp-tick-cross {
 .vp-wrap .vp-menus ul.vp-menu-level-2>li a i.fa, .fa{
   font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
 }
+
+
+#announcment_submit .vp-input ~ span {
+  display: flex;
+  background: #007cba;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  border-radius: 3px;
+  color: #fff;
+  background-image: none;
+  width: auto;
+  cursor: pointer;
+  &:after{
+    content: 'Send';
+  }
+}
+
+/* Announcment */
+/* ----------------------------- */
+#announcement_submit {
+  .vp-input ~ span {
+    display: flex;
+    background: #007cba;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    border-radius: 3px;
+    color: #fff;
+    background-image: none;
+    width: 80px;
+    cursor: pointer;
+    &:after{
+      content: 'Send';
+    }
+  }
+
+  .label {
+    visibility: hidden;
+  }
+}
+
+.announcement-feedback {
+  margin-bottom: 15px;
+}
+
+/* --------------[ Announcment End ]--------------- */

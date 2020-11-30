@@ -416,6 +416,8 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             'create_new_tag'  => $new_tag,
             'create_new_loc' => $new_loc,
             'cat_placeholder' => $cat_placeholder,
+            'category_limit' => apply_filters( 'atbdp_category_limit', 900 ),
+            'category_limit_notice'    => __( 'You can select maximum of ', 'directorist' ),
             'image_notice'    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
         );
 

@@ -6,8 +6,13 @@ extract($data);
 $c_position      = get_directorist_option('payment_currency_position');
 $currency        = atbdp_get_payment_currency();
 $symbol          = atbdp_currency_symbol($currency);
+//display price with proper currency symbol place
+$before = ''; $after = '';
+('after' == $c_position) ? $after = $symbol : $before = $symbol;
 $container_fluid = 'container-fluid';
 $order_id = (!empty($order_id)) ? $order_id : '';
+$discount = get_post_meta( $order_id, '_discount', true );
+$amount = get_post_meta( $order_id, '_amount', true );
 ?>
 <div id="directorist" class="atbd_wrapper directorist directory_wrapper single_area">
     <div class="<?php echo apply_filters('atbdp_payment_receipt_container_fluid',$container_fluid) ?>">
@@ -121,23 +126,35 @@ $order_id = (!empty($order_id)) ? $order_id : '';
                                 <?php
                                 if( !empty( $order_item['price'] ) ){
                                     $price = $order_item['price'];
-                                    //display price with proper currency symbol place
-                                     $before = ''; $after = '';
-                                    ('after' == $c_position) ? $after = $symbol : $before = $symbol;
                                     echo $before.atbdp_format_payment_amount($order_item['price']).$after;
                                     do_action('atbdp_payment_receipt_after_total_price', $o_metas);
                                     // increase the total amount
-                                    $total = $order_item['price'];
+                                    $total += $order_item['price'];
                                 }
                                 ?>
                             </td>
                         </tr>
                     <?php }
-                    ?>
+                    if( !empty( $discount ) ) { ?>
                     <tr>
-                        <td class="text-right atbdp-vertical-middle"><strong><?php printf( __( 'Total amount [%s]', 'directorist' ), $currency ); ?></strong></td>
+                        <td class="text-right atbdp-vertical-middle"><strong><?php printf( __( 'Subtotal', 'directorist' ), $currency ); ?></strong></td>
                         <td class="atbd_tottal">
-                            <strong><?php echo atbdp_format_payment_amount($total) ; ?></strong>
+                            <strong><?php echo $before.atbdp_format_payment_amount($total).$after; ?></strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right atbdp-vertical-middle"><strong><?php printf( __( 'Discount', 'directorist' ), $currency ); ?></strong></td>
+                        <td class="">
+                            <?php echo $before . atbdp_format_payment_amount( $discount ) . $after ; ?>
+                        </td>
+                    </tr>
+                <?php } ?>
+                    <tr>
+                        <td class="text-right atbdp-vertical-middle"><strong><?php printf( __( 'Total amount', 'directorist' ), $currency ); ?></strong></td>
+                        <td class="atbd_tottal">
+                            <strong><?php 
+                            $grand_total = !empty( $discount ) ? atbdp_format_payment_amount( $total - $discount ) : atbdp_format_payment_amount( $total );
+                            echo $before . atbdp_format_payment_amount( $grand_total ) . $after ; ?></strong>
                         </td>
                     </tr>
                 </table></div>

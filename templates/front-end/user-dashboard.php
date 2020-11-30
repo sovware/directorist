@@ -26,7 +26,16 @@ $fav_listings_tab_text = get_directorist_option('fav_listings_tab_text', __('Fav
 $submit_listing_button = get_directorist_option('submit_listing_button', 1);
 $show_title = !empty($show_title) ? $show_title : '';
 $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
-
+$submission_confirmation = get_directorist_option('submission_confirmation', 1 );
+$pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
+$publish_msg = get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
+$new_listing_status = get_directorist_option('new_listing_status', 'pending' );
+$edit_listing_status = get_directorist_option('edit_listing_status', 'pending' );
+if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
+    $confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
+}else{
+    $confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg;
+}
 /*@todo; later show featured listing first on the user dashboard maybe??? */
 ?>
 
@@ -54,6 +63,16 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                 <?php printf(__('Please select a plan for %s to continue.', 'directorist') , get_the_title( sanitize_text_field( $_GET['renew_with_plan'] ) )); ?>
             </div>
             <?php }
+            if( isset( $_GET['notice'] ) ){ ?>
+                <div class="col-lg-12">
+                    <div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">
+                        <?php echo $confirmation_msg; ?>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+                <?php }
         ?>
     <div class="<?php echo apply_filters('atbdp_deshboard_container_fluid', $container_fluid) ?>">
         <div class="row">
@@ -67,6 +86,9 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                     <?php
                 }
                 ?>
+                <div class="atbd-dashboard-nav-toggle-icon">
+                    <a href="" class="atbd-dashboard-nav-toggler"><i class="la la-bars"></i></a>
+                </div>
                 <div class="atbd_dashboard_wrapper atbd_tab">
                     <div class="atbd_user_dashboard_nav atbd_tab_nav">
                         <!-- Nav tabs -->
@@ -99,9 +121,6 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                 <?php
                                 do_action('atbdp_tab_after_favorite_listings');
                                 ?>
-                                <li class="atbdp_tab_nav--content-link atbdp-tab-nav-last">
-                                    <a href="#" class="atbdp-tab-nav-link"><span class="fa fa-ellipsis-h"></span></a>
-                                </li>
                             </ul>
                         </div>
 
@@ -117,7 +136,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
 
                     <!-- Tab panes -->
                     <div class="atbd_tab-content">
-                        <?php 
+                        <?php
                         /**
                          * @since 6.6
                          * @hooked Directorist_Listing_Dashboard > tab_contents_html - 10
@@ -335,7 +354,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                             echo atbdp_pagination($listings, $paged);
                                             ?>
                                         </div>
-                                    <?php } 
+                                    <?php }
                                     /**
                                      * @since 6.6.6
                                      */
@@ -662,7 +681,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                                 <img
                                                             src="%s"
                                                             alt="%s">
-                                               
+
                                                 </a>
                                                 <h4><a href="%s">%s</a></h4>
                                                 </div>
@@ -674,7 +693,7 @@ $container_fluid = is_directoria_active() ? 'container' : 'container-fluid';
                                              <td class="remove_saved_item">
                                                %s
                                             </td>
-                                            
+
 
                                         </tr>',
                                                     $post_link, $img_src, $title, $post_link, $title, //first td

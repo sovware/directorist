@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Directorist - Business Directory Plugin
- * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
+ * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 6.5.5
- * Author: AazzTech
- * Author URI: https://aazztech.com
+ * Version: 6.5.6
+ * Author: wpWax
+ * Author URI: https://wpwax.com
  * Text Domain: directorist
  * Domain Path: /languages
  */
@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-Copyright (c) 2020 AazzTech (website: aazztech.com). All rights reserved.
+Copyright (c) 2020 wpWax (website: aazztech.com). All rights reserved.
 */
 // prevent direct access to the file
 defined('ABSPATH') || die('No direct script access allowed!');
@@ -239,6 +239,7 @@ final class Directorist_Base
             self::$instance->email = new ATBDP_Email;
             self::$instance->seo = new ATBDP_SEO;
             self::$instance->tools = new ATBDP_Tools;
+            self::$instance->announcement = new ATBDP_Announcement;
             self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
             self::$instance->update_database();
@@ -563,18 +564,6 @@ final class Directorist_Base
                     'type' => 'section',
                     'title' => __('Uninstall Settings', 'directorist'),
                     'fields' => get_uninstall_settings_submenus(),
-                ),
-            )),
-        );
-        $menus['csv_import'] = array(
-            'title' => __('Listings Import', 'directorist'),
-            'name' => 'csv_import',
-            'icon' => 'font-awesome:fa-upload',
-            'controls' => apply_filters('atbdp_csv_import_settings_controls', array(
-                'currency_section' => array(
-                    'type' => 'section',
-                    'title' => __('Listings Import', 'directorist'),
-                    'fields' => get_csv_import_settings_submenus(),
                 ),
             )),
         );

@@ -145,6 +145,8 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
                     'ajaxurl'        => admin_url( 'admin-ajax.php' ),
                     'import_page_link'      => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
                     'nonceName'      => 'atbdp_nonce_js',
+                    'countryRestriction'      => get_directorist_option( 'country_restriction' ),
+                    'restricted_countries'      => get_directorist_option( 'restricted_countries' ),
                     'AdminAssetPath' => ATBDP_ADMIN_ASSETS,
                     'i18n_text'      => $i18n_text,
                 );
@@ -414,6 +416,8 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             'create_new_tag'  => $new_tag,
             'create_new_loc' => $new_loc,
             'cat_placeholder' => $cat_placeholder,
+            'category_limit' => apply_filters( 'atbdp_category_limit', 900 ),
+            'category_limit_notice'    => __( 'You can select maximum of ', 'directorist' ),
             'image_notice'    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
         );
 
@@ -782,6 +786,8 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             'ajax_url'    => admin_url( 'admin-ajax.php' ),
             'Miles'       => $miles,
             'default_val' => $default_radius_distance,
+            'countryRestriction'      => get_directorist_option( 'country_restriction' ),
+            'restricted_countries'      => get_directorist_option( 'restricted_countries' ),
         );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );
         wp_localize_script( $handel, 'atbdp_range_slider', $data );

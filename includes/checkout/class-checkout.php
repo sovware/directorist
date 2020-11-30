@@ -182,6 +182,7 @@ class ATBDP_Checkout
             'post_type' => 'atbdp_orders',
             'comment_status' => false,
         ));
+        // return $order_id;
         // if order is created successfully then process the order
         apply_filters('atbdp_before_order_recipt', array(), $listing_id);
         if ($order_id) {
@@ -198,6 +199,7 @@ class ATBDP_Checkout
                 //lets add the settings of featured listing to the order details
                 $order_details[] = atbdp_get_featured_settings_array();
             }
+            
             // now lets calculate the total price of all order item's price
             $amount = 0.00;
             foreach ($order_details as $detail) {
@@ -208,7 +210,7 @@ class ATBDP_Checkout
             /*Lowercase alphanumeric characters, dashes and underscores are allowed.*/
             $gateway = !empty($amount) && !empty($data['payment_gateway']) ? sanitize_key($data['payment_gateway']) : 'free';
             // save required data as order post meta
-
+            $amount = apply_filters( 'atbdp_order_amount', $amount, $order_id );
             update_post_meta($order_id, '_listing_id', $listing_id);
             update_post_meta($order_id, '_amount', $amount);
             update_post_meta($order_id, '_payment_gateway', $gateway);
@@ -243,8 +245,8 @@ class ATBDP_Checkout
                 // admin will mark the order completed manually once he get the payment on his bank.
                 // let's redirect the user to the payment receipt page.
                 $redirect_url = apply_filters('atbdp_payment_receipt_page_link', ATBDP_Permalink::get_payment_receipt_page_link($order_id), $order_id);
-                wp_redirect($redirect_url);
-                exit();
+                wp_safe_redirect( $redirect_url );
+                exit;
             } else {
                 /**
                  * fires 'atbdp_process_gateway_name_payment', it helps extensions and other payment plugin to process the payment
@@ -270,7 +272,7 @@ class ATBDP_Checkout
                 )
             );
             $redirect_url = apply_filters('atbdp_payment_receipt_page_link', ATBDP_Permalink::get_payment_receipt_page_link($order_id), $order_id);
-            wp_redirect($redirect_url);
+            wp_safe_redirect( $redirect_url );
             exit;
         }
     }

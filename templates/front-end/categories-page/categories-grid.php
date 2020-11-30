@@ -7,6 +7,12 @@ if (5 == $categories_settings['columns']) {
 $container_fluid = 'container-fluid';
 ?>
 <div id="directorist" class="atbd_wrapper">
+        <?php 
+        /**
+         * @since 5.6.6
+         */
+        do_action( 'atbdp_before_all_categories_loop' );
+        ?>
     <div class="<?php echo apply_filters('atbdp_cat_container_fluid', $container_fluid); ?>">
         <div class="col-md-12">
             <div class="atbd_all_categories  atbdp-no-margin">
@@ -81,4 +87,10 @@ $container_fluid = 'container-fluid';
             </div>
         </div>
     </div>
+    <?php 
+    /**
+     * @since 5.6.6
+     */
+    do_action( 'atbdp_after_all_categories_loop' );
+    ?>
 </div>

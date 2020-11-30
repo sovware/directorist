@@ -160,9 +160,9 @@
         $('#at_biz_dir-categories').select2({
                 placeholder: atbdp_add_listing.cat_placeholder,
                 allowClear: true,
+                maximumSelectionLength: atbdp_add_listing.category_limit,
         });
 })(jQuery);
-
 // Custom Image uploader for listing image (multiple)
 jQuery(function($) {
         // price range

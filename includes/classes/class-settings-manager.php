@@ -171,8 +171,123 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'icon' => 'font-awesome:fa-adjust',
                     'menus'=> $this->get_style_settings_submenus(),
                 ),
+                /*lets make the settings for style settngs*/
+                'tools_menu' => array(
+                    'title' => __('Tools', 'directorist'),
+                    'name' => 'tools_settings',
+                    'icon' => 'font-awesome:fa-tools',
+                    'menus'=> $this->get_tools_settings_submenus(),
+                ),
             ));
         }
+
+        // get_tools_settings_submenus
+        public function get_tools_settings_submenus() {
+            return apply_filters('atbdp_tools_settings_submenus', array(
+                /*Submenu : Announcement Settings */
+                array(
+                    'title' => __('Announcement', 'directorist'),
+                    'name' => 'announcement_settings',
+                    'icon' => 'font-awesome:fa-bullhorn',
+                    'controls' => apply_filters('atbdp_announcement_settings_controls', array(
+                        'button_type' => array(
+                            'type' => 'section',
+                            'title' => __('Send Announcement', 'directorist'),
+                            'fields' => $this->get_listings_announcement_fields(),
+                        ),
+                    )),
+                ),
+                array(
+                    'title' => __('Listings Import', 'directorist'),
+                    'name' => 'listings_import',
+                    'icon' => 'font-awesome:fa-upload',
+                    'controls' => apply_filters('atbdp_listings_import_controls', array(
+                        'import_methods' => array(
+                            'type' => 'section',
+                            'title' => __('CSV', 'directorist'),
+                            'fields' => apply_filters('atbdp_csv_import_settings_fields', array(
+                                array(
+                                    'type' => 'toggle',
+                                    'name' => 'csv_import',
+                                    'label' => __('CSV', 'directorist'),
+                                ),
+                            )),
+                        ),
+                    )),
+                ),
+            ));
+        }
+
+        // get_listings_announcement_fields
+        public function get_listings_announcement_fields()
+        {
+            $users = get_users([ 'role__not_in' => 'Administrator' ]); // Administrator | Subscriber
+            $recepents = [];
+
+            if ( ! empty( $users ) ) {
+                foreach ( $users as $user ) {
+                    $recepents[] = [
+                        'value' => $user->user_email,
+                        'label' => ( ! empty( $user->display_name ) ) ? $user->display_name : $user->user_nicename,
+                    ];
+                }
+            }
+
+            return apply_filters('atbdp_button_type', array(
+                'announcement_to' => array(
+                    'type'    => 'select',
+                    'name'    => 'announcement_to',
+                    'label'   => __('To', 'directorist'),
+                    'default' => 'all_user',
+                    'items'   => array(
+                        array( 'value' => 'all_user', 'label' => __( 'All User', 'directorist' ) ),
+                        array( 'value' => 'selected_user', 'label' => __( 'Selected User', 'directorist' ) ),
+                    ),
+                ),
+                'announcement_recepents' => array(
+                    'type'  => 'multiselect',
+                    'name'  => 'announcement_recepents',
+                    'label' => __('Recepents', 'directorist'),
+                    'items' => $recepents,
+                ),
+                'announcement_subject' => array(
+                    'type'  => 'textbox',
+                    'name'  => 'announcement_subject',
+                    'label' => __('Subject', 'directorist'),
+                ),
+                'announcement_message' => array(
+                    'type'        => 'textarea',
+                    'name'        => 'announcement_message',
+                    'description' => 'Maximum 400 characters are allowed',
+                    'max'         => 400,
+                    'label'       => __('Message', 'directorist'),
+                ),
+                'announcement_expiration' => array(
+                    'type'        => 'slider',
+                    'name'        => 'announcement_expiration',
+                    'label'       => __('Expires in Days', 'directorist'),
+                    'description' => __('Set it to 0 to keep it alive forever.', 'directorist'),
+                    'min'         => 0,
+                    'max'         => 365,
+                    'step'        => 1,
+                    'default'     => 3,
+                    'validation'  => 'numeric',
+                ),
+                'announcement_send_to_email' => array(
+                    'type'    => 'toggle',
+                    'name'    => 'announcement_send_to_email',
+                    'label'   => __('Send a copy to email', 'directorist'),
+                    'default' => true,
+                ),
+                'announcement_submit' => array(
+                    'type'    => 'toggle',
+                    'name'    => 'announcement_submit',
+                    'label'   => __('Submit', 'directorist'),
+                    'default' => true,
+                ),
+            ));
+        }
+
         /**
          * Get all the submenus for Style settings menu
          * @return array It returns an array of submenus
@@ -5680,6 +5795,15 @@ The Administrator of ==SITE_NAME==
 
         function get_listings_map_settings_fields()
         {
+            $countries = atbdp_country_code_to_name();
+            $items = array();
+            foreach ($countries as $country => $code) {
+                $items[] = array(
+                    'value' => $country,
+                    'label' => $code,
+                );
+            }
+            
             return apply_filters('atbdp_map_field_setting', array(
                 array(
                     'type' => 'select',
@@ -5706,6 +5830,19 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Google Map API key', 'directorist'),
                     'description' => sprintf(__('Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', 'directorist'), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
 
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'country_restriction',
+                    'label' => __('Country Restriction', 'directorist'),
+                    'default' => 0,
+                ),
+                array(
+                    'type' => 'multiselect',
+                    'name' => 'restricted_countries',
+                    'label' => __('Select Countries', 'directorist'),
+                    'items' => $items,
+                    'default' => [],
                 ),
                 array(
                     'type' => 'textbox',
@@ -5929,6 +6066,24 @@ The Administrator of ==SITE_NAME==
                         'value' => 'view_listing',
                         'label' => __('View Listing', 'directorist'),
                     ),
+                ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'submission_confirmation',
+                    'label' => __('Show Submission Confirmation', 'directorist'),
+                    'default' => '1',
+                ),
+                array(
+                    'type' => 'wpeditor',
+                    'name' => 'pending_confirmation_msg',
+                    'label' => __('Pending Confirmation Message', 'directorist'),
+                    'default' => __('Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist'),
+                ),
+                array(
+                    'type' => 'wpeditor',
+                    'name' => 'publish_confirmation_msg',
+                    'label' => __('Publish Confirmation Message', 'directorist'),
+                    'default' => __('Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',

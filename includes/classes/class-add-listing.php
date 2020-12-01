@@ -811,10 +811,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 }
                             }
                         } else {
-                            if ('pay_per_listng' === package_or_PPL($plan = null)) {
+                            $price = atpp_total_price( $subscribed_package_id );
+                            if ('pay_per_listng' === package_or_PPL($plan = null) && ( $price > 0 )) {
                                 $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
                                 $data['need_payment'] = true;
-                            } elseif (('package' === package_or_PPL($plan = null)) && !$plan_purchased) {
+                            } elseif (('package' === package_or_PPL($plan = null)) && !$plan_purchased && ( $price > 0 )) {
                                 //lets redirect to directorist checkout page
                                 $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
                                 $data['need_payment'] = true;

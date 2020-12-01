@@ -222,11 +222,11 @@ if (!class_exists('ATBDP_Settings_Manager')):
         public function get_listings_announcement_fields()
         {
             $users = get_users([ 'role__not_in' => 'Administrator' ]); // Administrator | Subscriber
-            $recepents = [];
+            $recipients = [];
 
             if ( ! empty( $users ) ) {
                 foreach ( $users as $user ) {
-                    $recepents[] = [
+                    $recipients[] = [
                         'value' => $user->user_email,
                         'label' => ( ! empty( $user->display_name ) ) ? $user->display_name : $user->user_nicename,
                     ];
@@ -244,11 +244,11 @@ if (!class_exists('ATBDP_Settings_Manager')):
                         array( 'value' => 'selected_user', 'label' => __( 'Selected User', 'directorist' ) ),
                     ),
                 ),
-                'announcement_recepents' => array(
+                'announcement_recipients' => array(
                     'type'  => 'multiselect',
-                    'name'  => 'announcement_recepents',
-                    'label' => __('Recepents', 'directorist'),
-                    'items' => $recepents,
+                    'name'  => 'announcement_recipients',
+                    'label' => __('Recipients', 'directorist'),
+                    'items' => $recipients,
                 ),
                 'announcement_subject' => array(
                     'type'  => 'textbox',

@@ -246,7 +246,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 'message' => __( 'Sorry, something went wrong, please try again' )
             ];
 
-            // Get Recepents
+            // Get Recipients
             if ( 'selected_user' === $to ) {
                 $recepents = ( 'string' === gettype( $recepents ) ) ? explode(',', $recepents ) : null;
             }

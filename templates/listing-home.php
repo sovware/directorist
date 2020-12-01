@@ -389,20 +389,23 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                             <p><?php echo esc_html($popular_cat_title); ?></p>
 
                             <ul class="categories atbdp_listing_top_category">
-                                <?php foreach ($top_categories as $cat) {
+                                <?php 
+                                $counter = 0;
+                                foreach ($top_categories as $cat) {
+                                    apply_filters('atbdp_popular_category_loop', $counter++, $cat);
                                     $icon = get_cat_icon($cat->term_id);
                                     $icon_type = substr($icon, 0, 2);
-                                ?>
+                                    ?>
                                     <li>
-                                        <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat); ?>">
+                                        <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat); ?>" <?php do_action('search_home_popular_category', $counter); ?> >
                                             <?php if ($icon) { ?>
                                                 <span class="<?php echo ('la' === $icon_type) ? $icon_type . ' ' . $icon : 'fa ' . $icon; ?>" aria-hidden="true"></span>
                                             <?php } ?>
                                             <p><?php echo $cat->name; ?></p>
                                         </a>
                                     </li>
-
-                                <?php }
+                                    <?php
+                                }
                                 ?>
                             </ul>
                             <?php

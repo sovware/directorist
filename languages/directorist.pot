@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WordPress Blank Pot v1.0.0\n"
-"POT-Creation-Date: 2020-11-27 00:35+0600\n"
+"POT-Creation-Date: 2020-12-01 11:52+0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Your Name <you@example.com>\n"
 "Language-Team: Your Team <translations@example.com>\n"
@@ -117,13 +117,13 @@ msgstr ""
 
 #: directorist-base.php:1330
 #: includes/classes/class-settings-manager.php:5721
-#: templates/front-end/add-listing.php:1314
+#: templates/front-end/add-listing.php:1322
 msgid "Your Email"
 msgstr ""
 
 #: directorist-base.php:1331
 #: includes/classes/class-settings-manager.php:5727
-#: templates/front-end/add-listing.php:1315
+#: templates/front-end/add-listing.php:1323
 msgid "example@gmail.com"
 msgstr ""
 
@@ -141,17 +141,17 @@ msgstr ""
 #: templates/front-end/add-listing.php:405
 #: templates/front-end/add-listing.php:640
 #: templates/front-end/add-listing.php:680
-#: templates/front-end/add-listing.php:724
-#: templates/front-end/add-listing.php:836
-#: templates/front-end/add-listing.php:851
-#: templates/front-end/add-listing.php:870
-#: templates/front-end/add-listing.php:884
-#: templates/front-end/add-listing.php:899
-#: templates/front-end/add-listing.php:917
-#: templates/front-end/add-listing.php:934
-#: templates/front-end/add-listing.php:1027
-#: templates/front-end/add-listing.php:1295
-#: templates/front-end/add-listing.php:1321
+#: templates/front-end/add-listing.php:731
+#: templates/front-end/add-listing.php:844
+#: templates/front-end/add-listing.php:859
+#: templates/front-end/add-listing.php:878
+#: templates/front-end/add-listing.php:892
+#: templates/front-end/add-listing.php:907
+#: templates/front-end/add-listing.php:925
+#: templates/front-end/add-listing.php:942
+#: templates/front-end/add-listing.php:1035
+#: templates/front-end/add-listing.php:1303
+#: templates/front-end/add-listing.php:1329
 #: templates/meta-partials/social.php:9
 msgid ":"
 msgstr ""
@@ -398,7 +398,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:3300
 #: includes/classes/class-settings-manager.php:4437
 #: includes/helper-functions.php:2199
-#: templates/front-end/add-listing.php:1017
+#: templates/front-end/add-listing.php:1025
 #: templates/widget-templates/all-map.php:5
 msgid "Map"
 msgstr ""
@@ -693,7 +693,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:4299
 #: includes/classes/class-settings-manager.php:5326
 #: includes/classes/class-tools.php:231 templates/contact-info.php:203
-#: templates/front-end/add-listing.php:915
+#: templates/front-end/add-listing.php:923
 #: templates/front-end/all-listings/listings-header.php:4
 #: templates/front-end/all-listings/listings-header.php:384
 #: templates/front-end/single-listing/listing-contact-info.php:31
@@ -1401,8 +1401,8 @@ msgstr ""
 #: includes/classes/class-enqueuer.php:409
 #: includes/classes/class-settings-manager.php:4796
 #: includes/classes/class-settings-manager.php:4808
-#: templates/front-end/add-listing.php:721
-#: templates/front-end/add-listing.php:722
+#: templates/front-end/add-listing.php:728
+#: templates/front-end/add-listing.php:729
 msgid "Select Category"
 msgstr ""
 
@@ -1421,97 +1421,101 @@ msgstr ""
 msgid "You can only use %s"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:419
+#: includes/classes/class-enqueuer.php:420
+msgid "You can select maximum of "
+msgstr ""
+
+#: includes/classes/class-enqueuer.php:421
 msgid "Sorry! You have crossed the maximum image limit"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:431
+#: includes/classes/class-enqueuer.php:433
 msgid "Title field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:437
+#: includes/classes/class-enqueuer.php:439
 msgid "Description field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:441
+#: includes/classes/class-enqueuer.php:443
 msgid "Category field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:448
+#: includes/classes/class-enqueuer.php:450
 msgid "Excerpt field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:460
+#: includes/classes/class-enqueuer.php:462
 msgid "Price field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:472
+#: includes/classes/class-enqueuer.php:474
 msgid "Price range field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:493
+#: includes/classes/class-enqueuer.php:495
 msgid "Tag field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:511
+#: includes/classes/class-enqueuer.php:513
 msgid "Location field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:520
+#: includes/classes/class-enqueuer.php:522
 msgid "Address field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:542
+#: includes/classes/class-enqueuer.php:544
 msgid "Phone field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:545
-#: includes/classes/class-enqueuer.php:548
-#: includes/classes/class-enqueuer.php:721
+#: includes/classes/class-enqueuer.php:547
+#: includes/classes/class-enqueuer.php:550
+#: includes/classes/class-enqueuer.php:723
 msgid "This field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:561
+#: includes/classes/class-enqueuer.php:563
 msgid "Email field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:573
+#: includes/classes/class-enqueuer.php:575
 msgid "Website link field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:583
+#: includes/classes/class-enqueuer.php:585
 msgid "Zip/Post Code field is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:596
+#: includes/classes/class-enqueuer.php:598
 msgid "Social information is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:612
+#: includes/classes/class-enqueuer.php:614
 msgid "Preview image is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:614
+#: includes/classes/class-enqueuer.php:616
 msgid "Gallery image is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:627
+#: includes/classes/class-enqueuer.php:629
 msgid "Video is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:634
+#: includes/classes/class-enqueuer.php:636
 msgid "Agree to Terms & Conditions is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:642
+#: includes/classes/class-enqueuer.php:644
 msgid "Agree to Privacy Policy is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:648
+#: includes/classes/class-enqueuer.php:650
 msgid "Your email is required!"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:765
+#: includes/classes/class-enqueuer.php:767
 #: includes/classes/class-settings-manager.php:3178
 #: includes/classes/class-settings-manager.php:3992
 #: includes/classes/class-settings-manager.php:4401
@@ -1526,7 +1530,7 @@ msgstr ""
 msgid "Select a category"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:766
+#: includes/classes/class-enqueuer.php:768
 #: includes/classes/class-settings-manager.php:4407
 #: includes/classes/class-shortcode.php:764
 #: includes/classes/class-shortcode.php:1328
@@ -1536,7 +1540,7 @@ msgstr ""
 msgid "Select a location"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:771
+#: includes/classes/class-enqueuer.php:773
 #: includes/classes/class-shortcode.php:150
 #: includes/classes/class-shortcode.php:843
 #: includes/classes/class-shortcode.php:1525
@@ -1546,7 +1550,7 @@ msgstr ""
 msgid " Kilometers"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:773
+#: includes/classes/class-enqueuer.php:775
 #: includes/classes/class-shortcode.php:152
 #: includes/classes/class-shortcode.php:845
 #: includes/classes/class-shortcode.php:1527
@@ -1556,14 +1560,14 @@ msgstr ""
 msgid " Miles"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:779
+#: includes/classes/class-enqueuer.php:781
 #: templates/custom-field-search-form.php:106
 #: templates/front-end/all-listings/listings-header.php:361
 #: templates/listing-home-open.php:151 templates/listing-home.php:294
 msgid "Show More"
 msgstr ""
 
-#: includes/classes/class-enqueuer.php:780
+#: includes/classes/class-enqueuer.php:782
 msgid "Show Less"
 msgstr ""
 
@@ -1842,7 +1846,7 @@ msgstr ""
 #: includes/classes/class-metabox.php:131
 #: includes/classes/class-settings-manager.php:3594
 #: includes/classes/class-settings-manager.php:6116
-#: templates/front-end/add-listing.php:794
+#: templates/front-end/add-listing.php:802
 #: templates/front-end/single-listing/listing-contact-info.php:21
 #: templates/single-at_biz_dir.php:152
 msgid "Contact Information"
@@ -1858,14 +1862,14 @@ msgstr ""
 
 #: includes/classes/class-metabox.php:244
 #: includes/classes/class-settings-manager.php:5588
-#: templates/front-end/add-listing.php:1294
+#: templates/front-end/add-listing.php:1302
 msgid "Only YouTube & Vimeo URLs."
 msgstr ""
 
 #: includes/classes/class-metabox.php:245
 #: includes/classes/class-metabox.php:250
 #: includes/classes/class-settings-manager.php:5582
-#: templates/front-end/add-listing.php:1293
+#: templates/front-end/add-listing.php:1301
 msgid "Video Url"
 msgstr ""
 
@@ -2145,7 +2149,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:4295
 #: includes/classes/class-settings-manager.php:5369
 #: includes/classes/class-tools.php:232 templates/contact-info.php:212
-#: templates/front-end/add-listing.php:933
+#: templates/front-end/add-listing.php:941
 #: templates/front-end/all-listings/listings-header.php:5
 #: templates/front-end/all-listings/listings-header.php:376
 #: templates/front-end/single-listing/listing-contact-info.php:33
@@ -2405,28 +2409,28 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:956
 #: includes/classes/class-settings-manager.php:5624
-#: templates/front-end/add-listing.php:1336
+#: templates/front-end/add-listing.php:1344
 #: templates/front-end/user-registration-form.php:29
 msgid "I agree to the"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:962
 #: includes/classes/class-settings-manager.php:5630
-#: templates/front-end/add-listing.php:1337
+#: templates/front-end/add-listing.php:1345
 #: templates/front-end/user-registration-form.php:30
 msgid "Privacy & Policy"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:985
 #: includes/classes/class-settings-manager.php:5659
-#: templates/front-end/add-listing.php:1332
+#: templates/front-end/add-listing.php:1340
 #: templates/front-end/user-registration-form.php:25
 msgid "I agree with all"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:991
 #: includes/classes/class-settings-manager.php:5665
-#: templates/front-end/add-listing.php:1333
+#: templates/front-end/add-listing.php:1341
 #: templates/front-end/user-registration-form.php:26
 msgid "terms & conditions"
 msgstr ""
@@ -2557,7 +2561,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:4311
 #: includes/classes/class-settings-manager.php:5411
 #: includes/classes/class-tools.php:227 templates/contact-info.php:162
-#: templates/front-end/add-listing.php:850
+#: templates/front-end/add-listing.php:858
 #: templates/front-end/all-listings/listings-header.php:408
 #: templates/front-end/single-listing/listing-contact-info.php:35
 #: templates/listing-home-open.php:180 templates/listing-home.php:338
@@ -2568,8 +2572,8 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1174
 #: includes/classes/class-settings-manager.php:5203
 #: templates/contact-info.php:19 templates/contact-info.php:173
-#: templates/front-end/add-listing.php:868
-#: templates/front-end/add-listing.php:869
+#: templates/front-end/add-listing.php:876
+#: templates/front-end/add-listing.php:877
 #: templates/front-end/all-listings/listings-header.php:392
 #: templates/listing-home-open.php:172 templates/listing-home.php:318
 #: templates/search-widget-front.php:150
@@ -2578,8 +2582,8 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:1179
 #: includes/classes/class-settings-manager.php:5246
-#: templates/contact-info.php:20 templates/front-end/add-listing.php:882
-#: templates/front-end/add-listing.php:883
+#: templates/contact-info.php:20 templates/front-end/add-listing.php:890
+#: templates/front-end/add-listing.php:891
 #: templates/front-end/single-listing/listing-contact-info.php:27
 #: templates/single-at_biz_dir.php:160
 msgid "Phone Number 2"
@@ -2591,8 +2595,8 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:4307
 #: includes/classes/class-settings-manager.php:5283
 #: includes/classes/class-tools.php:230 templates/contact-info.php:21
-#: templates/contact-info.php:194 templates/front-end/add-listing.php:897
-#: templates/front-end/add-listing.php:898
+#: templates/contact-info.php:194 templates/front-end/add-listing.php:905
+#: templates/front-end/add-listing.php:906
 #: templates/front-end/all-listings/listings-header.php:3
 #: templates/front-end/all-listings/listings-header.php:400
 #: templates/front-end/single-listing/listing-contact-info.php:29
@@ -2609,7 +2613,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:1209
 #: includes/classes/class-settings-manager.php:6128
 #: includes/classes/class-tools.php:234
-#: templates/front-end/add-listing.php:1179
+#: templates/front-end/add-listing.php:1187
 #: templates/front-end/single-listing/listing-header.php:80
 #: templates/front-end/single-listing/listing-video.php:8
 #: templates/single-at_biz_dir.php:133
@@ -4697,7 +4701,7 @@ msgstr ""
 #: includes/classes/class-settings-manager.php:5133
 #: templates/contact-info.php:32 templates/contact-info.php:65
 #: templates/front-end/add-listing.php:146
-#: templates/front-end/add-listing.php:808
+#: templates/front-end/add-listing.php:816
 msgid "Check it to hide Contact Information for this listing"
 msgstr ""
 
@@ -4715,7 +4719,7 @@ msgid "Enter Fax"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:5332
-#: templates/contact-info.php:23 templates/front-end/add-listing.php:916
+#: templates/contact-info.php:23 templates/front-end/add-listing.php:924
 msgid "Enter Email"
 msgstr ""
 
@@ -4744,8 +4748,8 @@ msgstr ""
 
 #: includes/classes/class-settings-manager.php:5513
 #: templates/file-uploader.php:101
-#: templates/front-end/add-listing.php:1207
-#: templates/front-end/add-listing.php:1249
+#: templates/front-end/add-listing.php:1215
+#: templates/front-end/add-listing.php:1257
 msgid "Select Files"
 msgstr ""
 
@@ -4791,7 +4795,7 @@ msgid "Submit listing label"
 msgstr ""
 
 #: includes/classes/class-settings-manager.php:5697
-#: templates/front-end/add-listing.php:1390
+#: templates/front-end/add-listing.php:1398
 msgid "Save & Preview"
 msgstr ""
 
@@ -5959,17 +5963,17 @@ msgid "Hide Contact Info"
 msgstr ""
 
 #: includes/classes/class-tools.php:224 templates/contact-info.php:115
-#: templates/front-end/add-listing.php:1081
+#: templates/front-end/add-listing.php:1089
 msgid "Latitude"
 msgstr ""
 
 #: includes/classes/class-tools.php:225 templates/contact-info.php:124
-#: templates/front-end/add-listing.php:1092
+#: templates/front-end/add-listing.php:1100
 msgid "Longitude"
 msgstr ""
 
 #: includes/classes/class-tools.php:226 templates/contact-info.php:143
-#: templates/front-end/add-listing.php:1113
+#: templates/front-end/add-listing.php:1121
 msgid "Hide Map"
 msgstr ""
 
@@ -7086,7 +7090,7 @@ msgid "Unauthorized function"
 msgstr ""
 
 #: includes/libs/vafpress/classes/metabox/alchemy.php:515
-#: templates/front-end/add-listing.php:1250
+#: templates/front-end/add-listing.php:1258
 msgid "Add More"
 msgstr ""
 
@@ -7619,16 +7623,16 @@ msgstr ""
 msgid "Check it to hide listing contact owner form"
 msgstr ""
 
-#: templates/contact-info.php:78 templates/front-end/add-listing.php:835
-#: templates/front-end/add-listing.php:1026
+#: templates/contact-info.php:78 templates/front-end/add-listing.php:843
+#: templates/front-end/add-listing.php:1034
 msgid "Google Address"
 msgstr ""
 
-#: templates/contact-info.php:93 templates/front-end/add-listing.php:1052
+#: templates/contact-info.php:93 templates/front-end/add-listing.php:1060
 msgid "Delete Marker"
 msgstr ""
 
-#: templates/contact-info.php:100 templates/front-end/add-listing.php:1061
+#: templates/contact-info.php:100 templates/front-end/add-listing.php:1069
 msgid "You can drag pinpoint to place the correct address manually."
 msgstr ""
 
@@ -7636,15 +7640,15 @@ msgstr ""
 msgid "Or Enter Coordinates (latitude and longitude) Manually."
 msgstr ""
 
-#: templates/contact-info.php:119 templates/front-end/add-listing.php:1086
+#: templates/contact-info.php:119 templates/front-end/add-listing.php:1094
 msgid "Enter Latitude eg. 24.89904"
 msgstr ""
 
-#: templates/contact-info.php:128 templates/front-end/add-listing.php:1097
+#: templates/contact-info.php:128 templates/front-end/add-listing.php:1105
 msgid "Enter Longitude eg. 91.87198"
 msgstr ""
 
-#: templates/contact-info.php:135 templates/front-end/add-listing.php:1104
+#: templates/contact-info.php:135 templates/front-end/add-listing.php:1112
 msgid "Generate on Map"
 msgstr ""
 
@@ -7653,16 +7657,16 @@ msgid "Phone Number Two"
 msgstr ""
 
 #: templates/contact-info.php:250
-msgid "Enter Information about Businss/Opening Hours"
+msgid "Enter Information about Business/Opening Hours"
 msgstr ""
 
 #: templates/contact-info.php:371 templates/contact-info.php:452
-#: templates/front-end/add-listing.php:1516
-#: templates/front-end/add-listing.php:1601
+#: templates/front-end/add-listing.php:1524
+#: templates/front-end/add-listing.php:1609
 msgid "You can drag the marker to your desired place to place a marker"
 msgstr ""
 
-#: templates/contact-info.php:431 templates/front-end/add-listing.php:1580
+#: templates/contact-info.php:431 templates/front-end/add-listing.php:1588
 msgid "Geocode was not successful for the following reason: "
 msgstr ""
 
@@ -7975,85 +7979,85 @@ msgstr ""
 msgid "%s [%s]%s"
 msgstr ""
 
-#: templates/front-end/add-listing.php:820
+#: templates/front-end/add-listing.php:828
 msgid "Check it to hide Contact owner"
 msgstr ""
 
-#: templates/front-end/add-listing.php:984
+#: templates/front-end/add-listing.php:992
 msgid "Opening/Business Hour Information"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1065
+#: templates/front-end/add-listing.php:1073
 msgid "SET 0 to LAT & LONG Field to HIDE MAP FOR THIS LISTING"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1070
+#: templates/front-end/add-listing.php:1078
 msgid "Or Enter Coordinates (latitude and longitude) Manually"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1175
+#: templates/front-end/add-listing.php:1183
 msgid "Images & Video"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1177
+#: templates/front-end/add-listing.php:1185
 msgid "Images"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1245
+#: templates/front-end/add-listing.php:1253
 msgid "Drop Here"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1246
+#: templates/front-end/add-listing.php:1254
 msgid "Preview"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1247
+#: templates/front-end/add-listing.php:1255
 msgid "Drag & Drop"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1248
+#: templates/front-end/add-listing.php:1256
 msgid "or"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1253
+#: templates/front-end/add-listing.php:1261
 msgid "Maximum limit for a file is  __DT__"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1256
+#: templates/front-end/add-listing.php:1264
 msgid "Maximum limit for total file size is __DT__"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1259
-#: templates/front-end/add-listing.php:1273
+#: templates/front-end/add-listing.php:1267
+#: templates/front-end/add-listing.php:1281
 #: templates/front-end/user-dashboard.php:436
 msgid "Minimum __DT__ file is required"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1262
+#: templates/front-end/add-listing.php:1270
 msgid "Maximum limit for total file is __DT__"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1266
+#: templates/front-end/add-listing.php:1274
 msgid "Maximum allowed size per file is __DT__"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1267
+#: templates/front-end/add-listing.php:1275
 msgid "Maximum total allowed file size is __DT__"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1277
+#: templates/front-end/add-listing.php:1285
 msgid "Unlimited images with this plan!"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1277
+#: templates/front-end/add-listing.php:1285
 msgid "Maximum __DT__ files are allowed"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1277
+#: templates/front-end/add-listing.php:1285
 msgid "Maximum __DT__ file is allowed"
 msgstr ""
 
-#: templates/front-end/add-listing.php:1391
+#: templates/front-end/add-listing.php:1399
 msgid "Preview Changes"
 msgstr ""
 

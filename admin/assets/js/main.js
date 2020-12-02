@@ -1804,8 +1804,52 @@ jQuery(function ($) {
         /* for ( var field in fields_elm  ) {
             $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
         } */
+    });
 
-        console.log({ fields_elm });
+    // Tab Content
+    // ----------------------------------------------------------------------------------
+    $('.atbdp-tab-nav-menu__link').on('click', function( e ) {
+        e.preventDefault();
+        
+        var data_target = $( this ).data( 'target' );
+        var current_item = $( this ).parent();
+
+        // Active Nav Item
+        $('.atbdp-tab-nav-menu__item').removeClass( 'active' );
+        current_item.addClass( 'active' );
+
+        // Active Tab Content
+        $('.atbdp-tab-content').removeClass( 'active' );
+        $( data_target ).addClass( 'active' );
+    });
+
+
+    // Section Toggle
+    $('.atbdp-section-toggle').on( 'click', function( e ) {
+        e.preventDefault();
+
+        var data_target = $( this ).data( 'target' );
+        $( data_target ).slideToggle();
+    });
+
+    // Accordion Toggle
+    $('.atbdp-accordion-toggle').on( 'click', function( e ) {
+        e.preventDefault();
+
+        var data_parent = $( this ).data( 'parent' );
+        var data_target = $( this ).data( 'target' );
+
+        if ( $( data_target ).hasClass( 'active' ) ) {
+            $( data_target ).removeClass( 'active' );
+            $( data_target ).slideUp();
+        } else {
+            $( data_parent ).find( '.atbdp-accordion-content' ).removeClass( 'active' );
+            $( data_target ).toggleClass( 'active' );
+
+            $( data_parent ).find( '.atbdp-accordion-content' ).slideUp();
+            $( data_target ).slideToggle();
+        }
+        
     });
 
 

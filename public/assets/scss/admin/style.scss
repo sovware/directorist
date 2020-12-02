@@ -1246,3 +1246,283 @@ span.atbdp-tick-cross{
 .announcement-feedback {
   margin-bottom: 15px;
 }
+
+
+/* Section */
+.atbdp-section {
+  display: block;
+}
+
+.atbdp-section-toggle,
+.atbdp-accordion-toggle {
+  cursor: pointer;
+}
+
+.atbdp-section-header {
+  display: block;
+}
+
+#directorist.atbd_wrapper  h3.atbdp-section-title {
+  margin-bottom: 25px;
+}
+
+.atbdp-section-content {
+  padding: 10px;
+  background-color: #fff;
+}
+
+.atbdp-state-section-content {
+  padding: 25px 30px;
+}
+
+.atbdp-state-vertical {
+  padding: 8px 20px;
+}
+
+.atbdp-themes-extension-license-activation-content {
+  padding: 0;
+  background-color: transparent;
+}
+
+/* Accordion */
+.atbdp-license-accordion {
+  margin: 30px 0;
+}
+
+.atbdp-accordion-content {
+  display: none;
+  padding: 10px;
+  background-color: #fff;
+}
+
+/* Card */
+.atbdp-card-list {
+  display: flex;
+  margin: 0 -15px;
+  flex-wrap: wrap;
+}
+.atbdp-card-list__item {
+  width: 100%;
+  max-width: 300px;
+  padding: 0 15px;
+}
+.atbdp-card {
+  display: block;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  padding: 20px;
+  text-align: center;
+}
+.atbdp-card-header {
+  display: block;
+  margin-bottom: 20px;
+}
+.atbdp-card-body {
+  display: block;
+}
+
+#directorist.atbd_wrapper .atbdp-card-title,
+.atbdp-card-title {
+  font-size: 1.3em;
+}
+.atbdp-card-icon {
+  display: block;
+  font-size: 4rem;
+}
+.atbdp-card-icon {
+  display: block;
+}
+
+
+/* Form */
+.atbdp-centered-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: calc(100vh - 50px);
+}
+
+.atbdp-form-container {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.1);
+  background-color: #fff;
+}
+
+.atbdp-license-form-container {
+  box-shadow: none;
+}
+
+.atbdp-form-header {
+  display: block;
+}
+.atbdp-form-body {
+  display: block;
+}
+.atbdp-form-footer {
+  display: block;
+  text-align: center;
+}
+
+.atbdp-form-group {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.atbdp-form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input.atbdp-form-control {
+  display: block;
+  width: 100%;
+  padding: 5px 10px;
+  border: none;
+  background-color: #f2f2f2;
+}
+
+.atbdp-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 3px;
+}
+.atbdp-btn-primary {
+  color: #fff;
+  background: #6495ed;
+}
+
+/* Utility */
+.atbdp-text-center {
+  text-align: center;
+}
+
+.atbdp-text-success {
+  color: #0FB73B;
+}
+.atbdp-text-danger {
+  color: #c81d1d;
+}
+.atbdp-text-muted {
+  color: gray;
+}
+
+
+/* Tab Contents */
+.atbdp-tab-nav-area {
+  display: block;
+}
+
+.atbdp-tab-nav-menu {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.atbdp-tab-nav-menu__item {
+  display: block;
+  position: relative;
+  margin: 0 5px;
+  font-weight: 600;
+  color: #555;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  
+}
+
+.atbdp-tab-nav-menu__item.active {
+  bottom: -1px;
+}
+
+.atbdp-tab-nav-menu__link {
+  display: block;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: #555;
+  background: #e5e5e5;
+  transition: all ease-in-out 300ms;
+}
+
+.atbdp-tab-nav-menu__item.active .atbdp-tab-nav-menu__link {
+  background: #f1f1f1;
+}
+
+.atbdp-tab-nav-menu__link:hover {
+  color: #555;
+  background: #fff;
+}
+.atbdp-tab-nav-menu__link:active,
+.atbdp-tab-nav-menu__link:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.atbdp-tab-nav-menu__item.active .atbdp-tab-nav-menu__link {
+  display: block;
+}
+
+.atbdp-tab-content-area {
+  display: block;
+}
+.atbdp-tab-content {
+  display: none;
+}
+.atbdp-tab-content.active {
+  display: block;
+}
+
+/* atbdp-counter-list */
+#directorist.atbd_wrapper ul.atbdp-counter-list {
+  padding: 0;
+  margin: 0 -20px;
+  box-sizing: border-box;
+}
+
+.atbdp-counter-list__item {
+  list-style: none;
+  display: inline-block;
+  padding: 0 20px;
+}
+
+.atbdp-counter-list__number {
+  display: block;
+  font-size: 2rem;
+  line-height: normal;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.atbdp-counter-list__label {
+  display: block;
+  font-weight: 500;
+}
+
+.atbdp-counter-list__actions {
+  display: block;
+}
+
+.atbdp-counter-list-vertical {
+  display: block;
+}
+
+.atbdp-counter-list-vertical {
+  .atbdp-counter-list__item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  
+  .atbdp-counter-list__number {
+    margin-right: 10px;
+  }
+
+  .atbdp-counter-list__actions {
+    margin-left: auto;
+  }
+}

@@ -46,14 +46,8 @@ if (!class_exists('ATBDP_Extensions')) {
          */
         public function show_extension_view()
         {
-            ATBDP()->load_template('extension');
+            ATBDP()->load_template('theme-extensions/theme-extension');
         }
-
-
-
-
-
-
     }
 
 

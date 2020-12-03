@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Directorist - Business Directory Plugin
- * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
+ * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
  * Version: 6.5.6
- * Author: AazzTech
- * Author URI: https://aazztech.com
+ * Author: wpWax
+ * Author URI: https://wpwax.com
  * Text Domain: directorist
  * Domain Path: /languages
  */
@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-Copyright (c) 2020 AazzTech (website: aazztech.com). All rights reserved.
+Copyright (c) 2020 wpWax (website: aazztech.com). All rights reserved.
 */
 // prevent direct access to the file
 defined('ABSPATH') || die('No direct script access allowed!');

@@ -1,14 +1,14 @@
 ﻿=== Directorist - Business Directory Plugin ===
 Contributors: AazzTech
 Donate link: https://directorist.com/extensions/
-Tags: directory, listings, classifieds, directory plugin, business directory
+Tags: member directory, listings, classifieds, directory plugin, business directory
 Requires at least: 4.6
 Tested up to:  5.5
 Stable tag: 6.5.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-The most comprehensive directory plugin to create job listings, classified ads, booking directory, member directory, service directory, pets directory
+The most comprehensive directory plugin to create job listings, classified ads, booking directory, local directory, service directory, pets directory
 
 == Description ==
 
@@ -327,13 +327,13 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-= 6.5.6 - Nov 26, 2020 =
+= 6.5.6 - Nov 27, 2020 =
 
 * Add - A form to send bulk announcement to directory user
 * Add - Featured listing auto fallback to normal
 * Add - Option to show Thank You notification after submitting a listing
 * Add - Country restriction in google map auto suggestion
-* Improve - Featured listing system
+* Add - Featured listing auto fallback to general
 * Improve - Checkout system
 * Improve - User Dashboard Page
 * Improve - Payment Receipt Page

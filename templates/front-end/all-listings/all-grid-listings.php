@@ -35,7 +35,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
     $header_output = apply_filters( 'atbdp_listing_header_html', $header_output, compact( 'display_header','header_container_fluid','search_more_filters_fields', 'listing_filters_button', 'header_title','listing_filters_icon','display_viewas_dropdown','display_sortby_dropdown', 'filters', 'view_as_text', 'view_as_items', 'sort_by_text', 'sort_by_items', 'listing_location_address', 'filters_button' ) );   
     echo $header_output;
     ?>
-    <div class="<?php echo !empty($grid_container_fluid) ? $grid_container_fluid : ''; ?>">
+    <div class="<?php echo !empty($grid_container_fluid) ? $grid_container_fluid : 'all_listings_top_wrapper'; ?>">
         <?php
         /**
          * @since 5.0
@@ -47,7 +47,7 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
             do_action('atbdp_before_grid_listings_loop');
         }
         ?>
-        <div class="row" <?php echo ($view_as !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
+        <div class="<?php echo apply_filters('all_listings_wrapper','row'); ?>" <?php echo ($view_as !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
             <?php
             if ( ! empty( $all_listings->ids ) ) :
                 // Prime caches to reduce future queries.
@@ -512,24 +512,26 @@ do_action('atbdp_before_all_listings_grid', $all_listings);
                 else: ?>
                     <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
             <?php endif; ?>
-
         </div>
         <!--end row-->
 
-        <div class="row">
-            <div class="col-lg-12">
-                <?php
-                /**
-                 * @since 5.0
-                 */
-                do_action('atbdp_before_listings_pagination');
-                $show_pagination = !empty($show_pagination) ? $show_pagination : '';
-                if ('yes' == $show_pagination) {
+        <?php
+        /**
+         * @since 5.0
+         */
+        do_action('atbdp_before_listings_pagination');
+        $show_pagination = !empty($show_pagination) ? $show_pagination : '';
+        if ('yes' == $show_pagination) { ?>
+            <div class="row">
+                <div class="col-lg-12">
+                    <?php
                     $paged = !empty($paged) ? $paged : '';
-                    echo atbdp_pagination( $all_listings );
-                } ?>
+                    echo atbdp_pagination( $all_listings ); 
+                    ?>
+                </div>
             </div>
-        </div>
+            <?php
+        } ?>
 
         <?php
         /**

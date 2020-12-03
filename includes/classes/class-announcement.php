@@ -148,13 +148,15 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 $nav_label = "Announcements <span class='atbdp-nav-badge new-announcement-count show'>{$new_announcements}</span>";
             }
 
-            ob_start(); ?>
-            <li class="atbdp_tab_nav--content-link">
-                <a href="" class="atbd_tn_link" target="announcement">
-                    <?php _e( $nav_label, 'directorist'); ?>
-                </a>
-            </li>
-            <?php
+            ob_start(); 
+
+            $html = '<li class="atbdp_tab_nav--content-link">
+                        <a href="" class="atbd_tn_link" target="announcement">
+                            ' . __( $nav_label, 'directorist') . '
+                        </a>
+                    </li>';
+            echo apply_filters('announcement_user_dashboard_tab', $html);
+
             echo ob_get_clean();
         }
 
@@ -182,7 +184,10 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
             $current_user_email = get_the_author_meta( 'user_email', get_current_user_id() );
 
             ob_start(); ?>
-            <div class="atbd_tab_inner" id="announcement">
+            <div <?php echo apply_filters('announcement_dashboard_content_div_attributes', 'class="atbd_tab_inner" id="announcement"'); ?>>
+
+                <?php do_action('announcement_dashboard_before_content'); ?>
+
                 <div class="atbd_announcement_wrapper">
                     <?php if ( $announcements->have_posts() ) : ?>
                     <div class="atbdp-accordion">
@@ -205,9 +210,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                                 <span class="atbdp-date-card-part-3"><?php echo get_the_date( 'Y' ) ?></span>
                             </div>
                             <div class="atbdp-announcement__content">
-                                <h3 class="atbdp-announcement__title">
-                                    <?php the_title(); ?>
-                                </h3>
+                                <h3 class="atbdp-announcement__title"><?php the_title(); ?></h3>
                                 <p><?php the_content(); ?></p>
                             </div>
                             <div class="atbdp-announcement__close">
@@ -227,6 +230,9 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                     }
                     ?>
                 </div>
+
+                <?php do_action('announcement_dashboard_after_content'); ?>
+
             </div>
             <?php
             echo ob_get_clean();

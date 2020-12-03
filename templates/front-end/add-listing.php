@@ -716,6 +716,13 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                                         Run the custom field loop to show all published custom fields asign to Category
                                      **************************************************************************-->
                                     <!--@ Options for select the category.-->
+                                    <?php 
+                                    $plan_category = true;
+                                    if (is_fee_manager_active()) {
+                                        $plan_category = is_plan_allowed_categories($fm_plan);
+                                    }
+                                    if ( $plan_category ) {
+                                    ?>
                                     <div class="form-group" id="atbdp_categories">
                                         <label for="atbdp_select_cat"><?php
                                             $category_label = get_directorist_option('category_label', __('Select Category', 'directorist'));
@@ -755,6 +762,7 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                                         </select>
                                     </div>
                                     <?php
+                                    }
                                     $plan_custom_field = true;
                                     if (is_fee_manager_active()) {
                                         $plan_custom_field = is_plan_allowed_custom_fields($fm_plan);

@@ -2427,6 +2427,23 @@ input#privacy_policy,
   color: #fff !important;
 }
 
+.atbdp-nav-badge {
+  display: none;
+  border-radius: 30px;
+  min-width: 20px;
+  height: 20px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  margin: 0 10px;
+  vertical-align: middle;
+  background-color: #ff3c3c;
+}
+
+.atbdp-nav-badge.show {
+  display: inline-block;
+}
+
 /* Announcement style */
 #directorist.atbd_wrapper .atbdp-announcement {
   display: flex;
@@ -7788,24 +7805,6 @@ p.atbd-min {
   .atbd-listing-tags .atbdb_content_module_contents ul li {
     flex: 0 0 50%;
   }
-}
-
-
-.atbdp-nav-badge {
-  display: none;
-  border-radius: 30px;
-  min-width: 20px;
-  height: 20px;
-  line-height: 20px;
-  color: #fff;
-  text-align: center;
-  margin: 0 10px;
-  vertical-align: middle;
-  background-color: #ff3c3c;
-}
-
-.atbdp-nav-badge.show {
-  display: inline-block;
 }
 
 @media (max-width: 400px) {

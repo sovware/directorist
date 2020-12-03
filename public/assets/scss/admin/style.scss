@@ -1622,6 +1622,21 @@ input.atbdp-form-control {
   margin: 10px 0;
 }
 
+.atbdp-form-actions {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.atbdp-icon {
+  display: inline-block;
+}
+.atbdp-icon-large {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 3rem;
+  text-align: center;
+}
+
 .atbdp-form-alert {
   padding: 8px 15px;
   border-radius: 4px;
@@ -1654,6 +1669,18 @@ input.atbdp-form-control {
 }
 
 /* Utility */
+.adbdp-d-none {
+  display: none;
+}
+
+.atbdp-px-5 {
+  padding: 0 5px !important;
+}
+
+.atbdp-mx-5 {
+  margin: 0 5px !important;
+}
+
 .atbdp-text-center {
   text-align: center;
 }

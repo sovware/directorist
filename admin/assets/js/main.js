@@ -2007,6 +2007,8 @@
 
     
 
+    // License Authentication
+    // ----------------------------------------------------------
     // atbdp_get_license_authentication
     var is_sending = false;
     $('#atbdp-directorist-license-login-form').on('submit', function (e) {
@@ -2039,7 +2041,7 @@
                 submit_button.attr('disabled', false);
                 submit_button.find('.atbdp-loading').remove();
 
-                if (response.status.log) {
+                if ( response.status.log ) {
                     for (var feedback in response.status.log) {
                         console.log(response.status.log[feedback]);
                         var alert_type = ('success' === response.status.log[feedback].type) ? 'atbdp-form-alert-success' : 'atbdp-form-alert-danger';
@@ -2049,7 +2051,57 @@
                         $('.atbdp-form-feedback').append(alert);
                     }
                 }
+
+                if ( response.status.success ) {
+                    form.find('.atbdp-form-page').addClass( 'adbdp-d-none' );
+                    var form_response_page = form.find( '.atbdp-form-response-page' );
+                    form_response_page.removeClass( 'adbdp-d-none' );
+
+                    form_response_page.append( '<div class="atbdp-form-feedback"></div>' );
+
+                    var cart            = response.customers_purchased;
+                    var total_purchased = cart.purchased_extensions.length + cart.purchased_themes.length;
+
+                    var extension_s     = ( cart.purchased_extensions.length > 1 ) ? ' extensions' : ' extension';
+                    var theme_s         = ( cart.purchased_themes.length > 1 ) ? ' themes' : ' theme';
+                    
+                    var message = 'Downloading ';
+                    
+                    if ( total_purchased > 0 ) {
+                        if ( cart.purchased_extensions.length ) {
+                            message += cart.purchased_extensions.length + extension_s;
+                        }
+    
+                        if ( cart.purchased_themes.length ) {
+                            var and = ( cart.purchased_extensions.length ) ? ' and ' : '';
+                            message += and + cart.purchased_themes.length + theme_s;
+                        }
+    
+                        message += ' from your purchase';
+                        var spiner = '<span class="atbdp-icon atbdp-icon-large"><span class="fas fa-circle-notch fa-spin"></span></span>';
+                        var msg = '<h4 class="atbdp-text-center">' + message + '</h4>';
+
+                        form_response_page.find( '.atbdp-form-feedback' ).append( spiner );
+                        form_response_page.find( '.atbdp-form-feedback' ).append( msg );
+                        
+                        download_purchased_items( response.customers_purchased, form_response_page );
+
+                        // var download_status = download_purchased_items( response.customers_purchased, form_response_page );
+                        // form_response_page.html( '<h4 class="atbdp-text-center">'+ download_status.status.message +'</h4>' );
+                        
+                        // console.log( { download_status } );
+
+                    } else {
+                        message = 'There is no downloadable product in your purchase';
+                        var msg = '<h4 class="atbdp-text-center">' + message + '</h4>';
+                        form_response_page.find( '.atbdp-form-feedback' ).html( msg );
+
+                        var continue_button = '<button type="submit" class="button button-primary skip-download">Continue</button>';
+                        form_response_page.find( '.atbdp-form-actions' ).append( continue_button );
+                    }
+                }
             },
+
             error: function (error) {
                 console.log(error);
                 is_sending = false;
@@ -2058,6 +2110,29 @@
             },
         });
     });
+
+    // download_purchased_items
+    function download_purchased_items( customers_purchased, form_response_page ) {
+        var form_data = {
+            action: 'atbdp_download_purchased_items',
+            customers_purchased: customers_purchased,
+        };
+
+        jQuery.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            success: function( response ) {
+                // console.log( response );
+                form_response_page.html( '<h4 class="atbdp-text-center">'+ response.status.message +'</h4>' );
+                location.reload();
+            },
+            error: function( error ) {
+                console.log( error );
+                status = error;
+            },
+        });
+    }
 
 
     //button primary

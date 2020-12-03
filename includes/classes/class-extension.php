@@ -25,7 +25,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         {
             add_action( 'admin_menu', array($this, 'admin_menu'), 100 );
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', array($this, 'authenticate_the_customer') );
-            add_action( 'wp_ajax_atbdp_get_customers_purchased', array($this, 'get_customers_purchased') );
+            add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
         }
 
         // get_license_authentication
@@ -187,29 +187,22 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $license_data = $response_body['license_data'];
             update_user_meta( get_current_user_id(), '_atbdp_customer_id', $username );
 
+            $customers_purchased = $this->get_customers_purchased( $license_data );
+
             $status[ 'success' ] = true;
             $status[ 'log' ]['login_successful'] = [
                 'type'    => 'success',
                 'message' => 'Login is successful',
             ];
 
-            wp_send_json([ 'status' => $status, 'license_data' => $license_data ]);
+            wp_send_json([ 'status' => $status, 'customers_purchased' => $customers_purchased ]);
         }
 
         // get_customers_purchased
-        public function get_customers_purchased() {
-            $status       = [ 'success' => true ];
-            $license_data = ( isset( $_POST['license_data'] ) ) ? $_POST['license_data'] : '';
-
-            // Validate
-            if ( empty( $license_data ) ) {
-                $status[ 'success' ] = false;
-                $status[ 'message' ] = __( 'License data is missing', 'directorist' );
-                wp_send_json( $status );
-            }
-
+        public function get_customers_purchased( $license_data ) {
             // Activate the licenses
-            $activation_base_url = 'https://directorist.com?edd_action=activate_license&url=' . home_url();
+            // $activation_base_url = 'https://directorist.com?edd_action=activate_license&url=' . home_url();
+            $activation_base_url = 'https://directorist.com?edd_action=activate_license';
             
             // Activate the Extensions
             $purchased_extensions = [];
@@ -222,10 +215,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     $query_args     = "&item_id={$item_id}&license={$license}";
                     $activation_url = $activation_base_url . $query_args;
 
-                    $activation_response = wp_remote_get( $activation_url );
+                    $response        = wp_remote_get( $activation_url );
+                    $response_status = json_decode( $response['body'], true );
 
-                    if ( empty( $activation_response['success'] ) ) {
-                        $invalid_purchased_extensions[] = $extension;
+                    if ( empty( $response_status['success'] ) ) {
+                        $invalid_purchased_extensions[] = [ 'extension' => $extension, 'response' => $response_status ];
                         continue;
                     }
 
@@ -244,10 +238,12 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     $query_args     = "&item_id={$item_id}&license={$license}";
                     $activation_url = $activation_base_url . $query_args;
 
-                    $activation_response = wp_remote_get( $activation_url );
+                    $response        = wp_remote_get( $activation_url );
+                    $response_status = json_decode( $response['body'], true );
 
-                    if ( empty( $activation_response['success'] ) ) {
+                    if ( empty( $response_status['success'] ) ) {
                         $invalid_purchased_themes[] = $theme;
+                        $invalid_purchased_themes[] = [ 'extension' => $theme, 'response' => $response_status ];
                         continue;
                     }
 
@@ -261,12 +257,89 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $status['purchased_themes'] = $purchased_themes;
             $status['invalid_purchased_themes'] = $invalid_purchased_themes;
 
-            wp_send_json( $status );
+            return $status;
         }
 
-        // download_the_customers_purchased
-        public function download_the_customers_purchased() {
+        // download_purchased_items
+        public function download_purchased_items() {
+            $status = [ 'success' => true, 'log' => [] ];
 
+            $cart = ( isset( $_POST['customers_purchased'] ) ) ? $_POST['customers_purchased'] : '';
+
+            if ( empty( $cart ) ) {
+                $status['success'] = false;
+                $status['log']['no_purchased_data_found'] = [
+                    'type'    => 'error',
+                    'message' => 'No purchased data found',
+                ];
+                wp_send_json([ 'status' => $status ]);
+            }
+
+            // Download the extensions
+            WP_Filesystem();
+
+            // Download Extenstions
+            if ( ! empty( $cart['purchased_extensions'] ) ) {
+                $plugins_path = ABSPATH . 'wp-content/plugins/test';
+                
+                foreach ( $cart['purchased_extensions'] as $extension ) {
+                    $paths = $extension['links'];
+                    if ( empty( $paths ) ) { continue; }
+
+                    foreach ( $paths as $path ) {
+                        $file_url  = $path;
+                        $file_name = basename( $file_url );
+                        $tmp_file  = download_url( $file_url );
+            
+                        // Sets file final destination.
+                        $filepath = "{$plugins_path}/{$file_name}";
+                        
+                        // Copies the file to the final destination and deletes temporary file.
+                        copy( $tmp_file, $filepath );
+                        @unlink( $tmp_file );
+                        
+                        unzip_file( $filepath, $plugins_path );
+                        @unlink( $filepath );
+                    }
+                }
+            }
+
+            // Download Themes
+            if ( ! empty( $cart['purchased_themes'] ) ) {
+
+                $theme_path = ABSPATH . 'wp-content/themes/test';
+                
+                foreach ( $cart['purchased_themes'] as $theme ) {
+                    $paths = $theme['links'];
+                    if ( empty( $paths ) ) { continue; }
+
+                    foreach ( $paths as $path ) {
+                        $file_url      = $path;
+                        $file_name     = basename( $file_url );
+                        $file_dir_name = preg_replace( '/\.\w+$/', '', $file_name );
+                        $tmp_file      = download_url( $file_url );
+            
+                        // Sets file final destination.
+                        $filepath = "{$theme_path}/{$file_name}";
+                        
+                        // Copies the file to the final destination and deletes temporary file.
+                        copy( $tmp_file, $filepath );
+                        @unlink( $tmp_file );
+                        
+                        unzip_file( $filepath, $theme_path );
+                        @unlink( $filepath );
+
+                        // If is child theme
+                        // $theme_dir_path = "{$theme_path}/$file_dir_name";
+                        // $main_theme_file = "{$theme_dir_path}/";
+                    }
+                }
+            }
+
+            $status['message'] = 'Download has been completed, redirecting...';
+
+            wp_send_json([ 'status' => $status ]);
+            
         }
 
         /**
@@ -314,7 +387,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     $sovware_themes[ $theme_base ] = $theme_data;
                 }
             }
-
 
             ATBDP()->load_template('theme-extensions/theme-extension');
         }

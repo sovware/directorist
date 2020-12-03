@@ -1,5 +1,5 @@
 <div class="atbdp-form-container atbdp-license-form-container">
-    <form method="post" class="atbdp-directorist-license-login-form">
+    <form method="post" id="atbdp-directorist-license-login-form" class="atbdp-directorist-license-login-form">
         <!-- atbdp-form-header -->
         <div class="atbdp-form-header">
             <h3 class="atbdp-form-title atbdp-text-center">
@@ -10,8 +10,8 @@
         <!-- atbdp-form-body -->
         <div class="atbdp-form-body">
             <div class="atbdp-form-group">
-                <label for="email">Email</label>
-                <input type="text" class="atbdp-form-control" name="email" id="email">
+                <label for="username">Username</label>
+                <input type="text" class="atbdp-form-control" name="username" id="username">
             </div>
 
             <div class="atbdp-form-group">
@@ -19,6 +19,8 @@
                 <input type="password" class="atbdp-form-control" name="password" id="password">
             </div>
         </div>
+
+        <div class="atbdp-form-feedback"></div>
 
         <!-- atbdp-form-footer -->
         <div class="atbdp-form-footer">

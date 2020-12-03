@@ -1852,6 +1852,58 @@ jQuery(function ($) {
         
     });
 
+    // atbdp_get_license_authentication
+    var is_sending = false;
+    $('#atbdp-directorist-license-login-form').on( 'submit', function( e ) {
+        e.preventDefault();
+        if ( is_sending ) { return; }
+
+        var form = $( this );
+        var submit_button = form.find( 'button[type="submit"]' );
+
+        var form_data = {
+            action: 'atbdp_authenticate_the_customer',
+            username: form.find( 'input[name="username"]' ).val(),
+            password: form.find( 'input[name="password"]' ).val(),
+        };
+
+        $('.atbdp-form-feedback').html('');
+
+        is_sending = true;
+        jQuery.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            beforeSend: function () {
+                submit_button.prepend( '<span class="atbdp-loading"><span class="fas fa-spinner fa-spin"></span></span> ' );
+                submit_button.attr( 'disabled', true );
+            },
+            success: function ( response ) {
+                console.log( response );
+                is_sending = false;
+                submit_button.attr( 'disabled', false );
+                submit_button.find( '.atbdp-loading' ).remove();
+
+                if ( response.status.log ) {
+                    for ( var feedback in response.status.log  ) {
+                        console.log( response.status.log[ feedback ] );
+                        var alert_type = ( 'success' === response.status.log[ feedback ].type ) ? 'atbdp-form-alert-success' : 'atbdp-form-alert-danger';
+                        var alert_message = response.status.log[ feedback ].message;
+                        var alert = '<div class="atbdp-form-alert '+ alert_type +'">'+ alert_message +'<div>';
+                        
+                        $('.atbdp-form-feedback').append( alert ); 
+                    }
+                }
+            },
+            error: function ( error ) {
+                console.log( error );
+                is_sending = false;
+                submit_button.attr( 'disabled', false );
+                submit_button.find( '.atbdp-loading' ).remove();
+            },
+        });
+    });
+
 
     //button primary
     var primary_button = $("#primary_color, #primary_hover_color, #back_primary_color, #back_primary_hover_color, #border_primary_color, #border_primary_hover_color, #primary_example");

@@ -1389,6 +1389,30 @@ input.atbdp-form-control {
   background-color: #f2f2f2;
 }
 
+.atbdp-form-feedback {
+  margin: 10px 0;
+}
+
+.atbdp-form-alert {
+  padding: 8px 15px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  text-align: center;
+  color: #2b2b2b;
+  background: f2f2f2;
+}
+
+.atbdp-form-alert-success {
+  color: #fff;
+  background-color: #53b732;
+}
+
+.atbdp-form-alert-danger {
+  color: #fff;
+  background-color: #ff4343;
+}
+
+
 .atbdp-btn {
   padding: 8px 20px;
   border: none;

@@ -1394,6 +1394,7 @@ span.atbdp-tick-cross {
 }
 
 .atbdp-state-section-content {
+  margin-bottom: 20px;
   padding: 25px 30px;
 }
 
@@ -1424,6 +1425,7 @@ span.atbdp-tick-cross {
   flex-wrap: wrap;
 }
 .atbdp-card-list__item {
+  margin-bottom: 20px;
   width: 100%;
   max-width: 300px;
   padding: 0 15px;

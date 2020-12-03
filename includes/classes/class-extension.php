@@ -46,6 +46,33 @@ if (!class_exists('ATBDP_Extensions')) {
          */
         public function show_extension_view()
         {
+            // Get Extensions
+            $all_plugins_list = get_plugins();
+            $directorist_extensions = [];
+
+            foreach ( $all_plugins_list as $plugin_base => $plugin_data ) {
+                if ( preg_match( '/^directorist-/', $plugin_base ) ) {
+                    $directorist_extensions[ $plugin_base ] = $plugin_data;
+                }
+            }
+
+            // Get Themes
+            $all_sovware_themes = [
+                'direo',
+                'dlist',
+                'dservice',
+            ];
+
+            $all_themes = wp_get_themes();
+            $sovware_themes = [];
+
+            foreach ( $all_themes as $theme_base => $theme_data ) {
+                if ( in_array( $theme_base, $all_sovware_themes ) ) {
+                    $sovware_themes[ $theme_base ] = $theme_data;
+                }
+            }
+
+
             ATBDP()->load_template('theme-extensions/theme-extension');
         }
     }

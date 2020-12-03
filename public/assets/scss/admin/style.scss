@@ -1272,6 +1272,7 @@ span.atbdp-tick-cross{
 }
 
 .atbdp-state-section-content {
+  margin-bottom: 20px;
   padding: 25px 30px;
 }
 
@@ -1302,6 +1303,7 @@ span.atbdp-tick-cross{
   flex-wrap: wrap;
 }
 .atbdp-card-list__item {
+  margin-bottom: 10px;
   width: 100%;
   max-width: 300px;
   padding: 0 15px;
@@ -1485,8 +1487,8 @@ input.atbdp-form-control {
 }
 
 .atbdp-counter-list__item {
-  list-style: none;
   display: inline-block;
+  list-style: none;
   padding: 0 20px;
 }
 

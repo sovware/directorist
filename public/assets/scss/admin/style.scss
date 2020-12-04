@@ -3,6 +3,11 @@
 #directorist.atbd_wrapper {
   padding: 18px 20px;
 
+  a:focus, a:active {
+    box-shadow: unset;
+    outline: none;
+  }
+
   .atcc_pt_40 {
     padding-top: 40px;
   }
@@ -1816,6 +1821,14 @@ input.atbdp-form-control {
 }
 
 //extension and theme updated styles
+.et-contents__tab-item {
+  display: none;
+}
+
+.et-contents__tab-item.active {
+  display: block;
+}
+
 .et-wrapper {
   background: #fff;
   border-radius: 4px;

@@ -280,7 +280,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             // Download Extenstions
             if ( ! empty( $cart['purchased_extensions'] ) ) {
-                $plugins_path = ABSPATH . 'wp-content/plugins/test';
+                $plugins_path = ABSPATH . 'wp-content/plugins';
                 
                 foreach ( $cart['purchased_extensions'] as $extension ) {
                     $paths = $extension['links'];
@@ -307,7 +307,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             // Download Themes
             if ( ! empty( $cart['purchased_themes'] ) ) {
 
-                $theme_path = ABSPATH . 'wp-content/themes/test';
+                $theme_path = ABSPATH . 'wp-content/themes';
                 
                 foreach ( $cart['purchased_themes'] as $theme ) {
                     $paths = $theme['links'];

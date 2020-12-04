@@ -10,6 +10,12 @@ css for Custom Field
   for shortable field*/
 }
 
+#directorist.atbd_wrapper a:focus,
+#directorist.atbd_wrapper a:active {
+  box-shadow: unset;
+  outline: none;
+}
+
 #directorist.atbd_wrapper .atcc_pt_40 {
   padding-top: 40px;
 }
@@ -1716,6 +1722,15 @@ input.atbdp-form-control {
 .atbdp-counter-list-vertical .atbdp-counter-list__actions {
   margin-left: auto;
 }
+
+.et-contents__tab-item {
+  display: none;
+}
+
+.et-contents__tab-item.active {
+  display: block;
+}
+
 
 .et-wrapper {
   background: #fff;

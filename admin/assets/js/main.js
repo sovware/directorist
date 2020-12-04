@@ -1836,6 +1836,23 @@
 
     // Tab Content
     // ----------------------------------------------------------------------------------
+    // Modular, classes has no styling, so reusable
+    $('.atbdp-tab__nav-link').on('click', function (e) {
+        e.preventDefault();
+
+        const data_target = $(this).data('target');
+        const current_item = $(this).parent();
+
+        // Active Nav Item
+        $('.atbdp-tab__nav-item').removeClass('active');
+        current_item.addClass('active');
+
+        // Active Tab Content
+        $('.atbdp-tab__content').removeClass('active');
+        $(data_target).addClass('active');
+    });
+
+    // Custom
     $('.atbdp-tab-nav-menu__link').on('click', function (e) {
         e.preventDefault();
 

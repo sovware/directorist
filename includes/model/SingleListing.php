@@ -67,7 +67,7 @@ class Directorist_Single_Listing {
 			$data['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
 			if( !empty( $submission_form_fields['fields'][$key]['label'] ) )
 			$data['fields'][$key]['label'] = $submission_form_fields['fields'][$key]['label'];
-			$data['fields'][$key]['original_data'] = $submission_form_fields['fields'][$key];
+			$data['fields'][$key]['original_data'] = !empty( $submission_form_fields['fields'][$key] ) ? $submission_form_fields['fields'][$key] : [];
 		}
 
 		foreach ( $data['groups'] as $group ) {

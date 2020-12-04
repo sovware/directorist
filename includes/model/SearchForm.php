@@ -295,11 +295,13 @@ class Directorist_Listing_Search_Form {
 		// e_var_dump( $field_data );
 		$key = $field_data['field_key'];
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
+		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
 		$args = array(
-			'searchform' => $this,
-			'data'       => $field_data,
-			'value'      => $value,
+			'searchform' 		=> $this,
+			'data'       		=> $field_data,
+			'value'      		=> $value,
+			'original_field'    => $submission_form_fields,
 		);
 
 		// dvar_dump($field_data);

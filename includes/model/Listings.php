@@ -829,6 +829,19 @@ class Directorist_Listings {
 
 		$this->execute_meta_query_args($args, $meta_queries);
 
+
+		foreach( $_GET as $key => $value ) {
+			$value = is_array( $value ) ? $value[0] : $value;
+			if( !empty( $value ) ) {
+				$meta_queries[] = array(
+					'key' => $key,
+					'value' => $value,
+					'compare' => 'LIKE'
+				);
+			}
+		}
+
+
 		if (isset($_GET['custom_field'])) {
 			$cf = array_filter($_GET['custom_field']);
 

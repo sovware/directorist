@@ -280,58 +280,24 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             // Download Extenstions
             if ( ! empty( $cart['purchased_extensions'] ) ) {
-                $plugins_path = ABSPATH . 'wp-content/plugins';
-                
                 foreach ( $cart['purchased_extensions'] as $extension ) {
                     $paths = $extension['links'];
                     if ( empty( $paths ) ) { continue; }
 
                     foreach ( $paths as $path ) {
-                        $file_url  = $path;
-                        $file_name = basename( $file_url );
-                        $tmp_file  = download_url( $file_url );
-            
-                        // Sets file final destination.
-                        $filepath = "{$plugins_path}/{$file_name}";
-                        
-                        // Copies the file to the final destination and deletes temporary file.
-                        copy( $tmp_file, $filepath );
-                        @unlink( $tmp_file );
-                        
-                        unzip_file( $filepath, $plugins_path );
-                        @unlink( $filepath );
+                        $this->download_plugin( [ 'url' => $path ] );
                     }
                 }
             }
 
             // Download Themes
             if ( ! empty( $cart['purchased_themes'] ) ) {
-
-                $theme_path = ABSPATH . 'wp-content/themes';
-                
                 foreach ( $cart['purchased_themes'] as $theme ) {
                     $paths = $theme['links'];
                     if ( empty( $paths ) ) { continue; }
 
                     foreach ( $paths as $path ) {
-                        $file_url      = $path;
-                        $file_name     = basename( $file_url );
-                        $file_dir_name = preg_replace( '/\.\w+$/', '', $file_name );
-                        $tmp_file      = download_url( $file_url );
-            
-                        // Sets file final destination.
-                        $filepath = "{$theme_path}/{$file_name}";
-                        
-                        // Copies the file to the final destination and deletes temporary file.
-                        copy( $tmp_file, $filepath );
-                        @unlink( $tmp_file );
-                        
-                        unzip_file( $filepath, $theme_path );
-                        @unlink( $filepath );
-
-                        // If is child theme
-                        // $theme_dir_path = "{$theme_path}/$file_dir_name";
-                        // $main_theme_file = "{$theme_dir_path}/";
+                        $this->download_theme( [ 'url' => $path ] );
                     }
                 }
             }
@@ -340,6 +306,57 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             wp_send_json([ 'status' => $status ]);
             
+        }
+
+        // download_plugin
+        public function download_plugin( array $args = [] ) {
+            $default = [ 'url' => '' ];
+            $args = array_merge( $default, $args );
+
+            if ( empty( $default ) ) { return; }
+
+            $installation_path = ABSPATH . 'wp-content/plugins';
+            $file_url          = $args['url'];
+            $file_name         = basename( $file_url );
+            $tmp_file          = download_url( $file_url );
+
+            // Sets file final destination.
+            $filepath = "{$installation_path}/{$file_name}";
+            
+            // Copies the file to the final destination and deletes temporary file.
+            copy( $tmp_file, $filepath );
+            @unlink( $tmp_file );
+            
+            unzip_file( $filepath, $installation_path );
+            @unlink( $filepath );
+        }
+        
+        // download_theme
+        public function download_theme( array $args = [] ) {
+            $default = [ 'url' => '' ];
+            $args = array_merge( $default, $args );
+
+            if ( empty( $default ) ) { return; }
+
+            $installation_path = ABSPATH . 'wp-content/themes';
+            $file_url          = $args['url'];
+            $file_name         = basename( $file_url );
+            $file_dir_name     = preg_replace( '/\.\w+$/', '', $file_name );
+            $tmp_file          = download_url( $file_url );
+
+            // Sets file final destination.
+            $filepath = "{$installation_path}/{$file_name}";
+            
+            // Copies the file to the final destination and deletes temporary file.
+            copy( $tmp_file, $filepath );
+            @unlink( $tmp_file );
+            
+            unzip_file( $filepath, $installation_path );
+            @unlink( $filepath );
+
+            // If is child theme
+            // $theme_dir_path = "{$theme_path}/$file_dir_name";
+            // $main_theme_file = "{$theme_dir_path}/";
         }
 
         /**
@@ -362,33 +379,72 @@ if ( ! class_exists('ATBDP_Extensions') ) {
          */
         public function show_extension_view()
         {
-            // Get Extensions
-            $all_plugins_list = get_plugins();
-            $directorist_extensions = [];
-
+            // Get Extensions Details
+            $plugin_updates       = get_site_transient( 'update_plugins' );
+            $outdated_plugins     = $plugin_updates->response;
+            $outdated_plugins_key = array_keys( $outdated_plugins );
+            
+            $all_plugins_list     = get_plugins();
+            $installed_extensions = [];
+            $active_extensions    = 0;
+            $outdated_extensions  = 0;
+            
             foreach ( $all_plugins_list as $plugin_base => $plugin_data ) {
                 if ( preg_match( '/^directorist-/', $plugin_base ) ) {
-                    $directorist_extensions[ $plugin_base ] = $plugin_data;
+                    $installed_extensions[ $plugin_base ] = $plugin_data;
+
+                    if ( is_plugin_active( $plugin_base ) ) {
+                        $active_extensions++;
+                    }
+
+                    if ( in_array( $plugin_base, $outdated_plugins_key ) ) {
+                        $outdated_extensions++;
+                    }
                 }
             }
 
-            // Get Themes
-            $all_sovware_themes = [
+            // Get Themes Informations
+            $sovware_themes = [
                 'direo',
                 'dlist',
                 'dservice',
             ];
 
-            $all_themes = wp_get_themes();
-            $sovware_themes = [];
+            $theme_updates       = get_site_transient( 'update_themes' );
+            $outdated_themes     = $theme_updates->response;
+            $outdated_themes_key = array_keys( $outdated_themes );
+
+            $all_themes         = wp_get_themes();
+            $active_theme_slug  = get_option('stylesheet');
+            $installed_themes   = [];
+            $my_active_themes   = 0;
+            $my_outdated_themes = 0;
 
             foreach ( $all_themes as $theme_base => $theme_data ) {
-                if ( in_array( $theme_base, $all_sovware_themes ) ) {
-                    $sovware_themes[ $theme_base ] = $theme_data;
+                if ( in_array( $theme_base, $sovware_themes ) ) {
+                    $installed_themes[ $theme_base ] = $theme_data;
+
+                    if ( $active_theme_slug === $theme_base ) {
+                        $my_active_themes++;
+                    }
+
+                    if ( in_array( $plugin_base, $outdated_themes_key ) ) {
+                        $my_outdated_themes++;
+                    }
                 }
             }
 
-            ATBDP()->load_template('theme-extensions/theme-extension');
+            $data = [
+                'installed_extensions' => $installed_extensions,
+                'outdated_plugins'     => $outdated_plugins,
+                'active_extensions'    => $active_extensions,
+                'outdated_extensions'  => $outdated_extensions,
+                'installed_themes'     => $installed_themes,
+                'active_themes'        => $my_active_themes,
+                'outdated_themes'      => $my_outdated_themes,
+            ];
+
+            ATBDP()->load_template('theme-extensions/theme-extension', $data );
         }
     }
 

@@ -1899,6 +1899,10 @@
         }
     });
 
+    // Themes & Extensions
+    // ------------------------------------------------
+    // My themes and extensions
+
     // button primary
     const primary_button = $(
         '#primary_color, #primary_hover_color, #back_primary_color, #back_primary_hover_color, #border_primary_color, #border_primary_hover_color, #primary_example'
@@ -2070,9 +2074,9 @@
                 }
 
                 if ( response.status.success ) {
-                    form.find('.atbdp-form-page').addClass( 'adbdp-d-none' );
+                    form.find('.atbdp-form-page').addClass( 'atbdp-d-none' );
                     var form_response_page = form.find( '.atbdp-form-response-page' );
-                    form_response_page.removeClass( 'adbdp-d-none' );
+                    form_response_page.removeClass( 'atbdp-d-none' );
 
                     form_response_page.append( '<div class="atbdp-form-feedback"></div>' );
 

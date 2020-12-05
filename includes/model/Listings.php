@@ -829,22 +829,8 @@ class Directorist_Listings {
 
 		$this->execute_meta_query_args($args, $meta_queries);
 
-
-		foreach( $_GET as $key => $value ) {
-			$value = is_array( $value ) ? $value[0] : $value;
-			if( !empty( $value ) ) {
-				$meta_queries[] = array(
-					'key' => $key,
-					'value' => $value,
-					'compare' => 'LIKE'
-				);
-			}
-		}
-
-
 		if (isset($_GET['custom_field'])) {
 			$cf = array_filter($_GET['custom_field']);
-
 			foreach ($cf as $key => $values) {
 				if (is_array($values)) {
 					if (count($values) > 1) {
@@ -868,13 +854,12 @@ class Directorist_Listings {
 					}
 				}
 				else {
-
-					$field_type = get_post_meta($key, 'type', true);
-					$operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
+					// $field_type = get_post_meta($key, 'type', true);
+					// $operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
 					$meta_queries[] = array(
-						'key' => $key,
+						'key' => '_' . $key,
 						'value' => sanitize_text_field($values),
-						'compare' => $operator
+						'compare' => 'LIKE'
 					);
 
 				}

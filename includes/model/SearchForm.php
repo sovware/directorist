@@ -295,6 +295,13 @@ class Directorist_Listing_Search_Form {
 		// e_var_dump( $field_data );
 		$key = $field_data['field_key'];
 		$value = $key && isset( $_GET[$key] ) ? $_GET[$key] : '';
+		if (isset($_GET['custom_field'])) {
+			foreach( $_GET['custom_field'] as $cf_key => $val ) {
+				if( $key === $cf_key ) {
+					$value = $val;
+				}
+			}
+		}
 		$submission_form_fields = get_term_meta( $this->listing_type, 'submission_form_fields', true );
 
 		$args = array(

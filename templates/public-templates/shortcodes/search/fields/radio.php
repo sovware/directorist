@@ -17,7 +17,7 @@ if ( !empty($data['label']) ):
 		foreach ( $options as $option ):
 			?>
 			<?php $uniqid = $option['option_value'] . '-' .wp_rand();  ?>
-			<input <?php checked( !empty( $_GET[ $data[ 'field_key' ] ]) && ( $_GET[ $data[ 'field_key' ] ] === $option[ 'option_value' ] ) ); ?> type="radio" class="custom-control-input" id="<?php echo esc_attr( $uniqid ); ?>" name="<?php echo esc_attr( $data['field_key'] ); ?>" value="<?php echo esc_attr( $option['option_value'] ); ?>"><label for="<?php echo esc_attr( $uniqid ); ?>"><?php echo esc_html( $option['option_label'] ); ?></label><br>
+			<input <?php checked(  $value === $option[ 'option_value' ] ); ?> type="radio" class="custom-control-input" id="<?php echo esc_attr( $uniqid ); ?>" name="custom_field[<?php echo esc_attr( $data['field_key'] ); ?>]" value="<?php echo esc_attr( $option['option_value'] ); ?>"><label for="<?php echo esc_attr( $uniqid ); ?>"><?php echo esc_html( $option['option_label'] ); ?></label><br>
 		<?php endforeach;
 			}
 		}

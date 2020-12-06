@@ -14,7 +14,9 @@
             url: atbdp_search.ajax_url,
             data: form_data,
             success: function(response) {
-                console.log( response );
+               if( response ) {
+                   $( '.atbdp-search-form' ).empty().html( response );
+               }
             },
             error: function( error ) {
                 console.log( error );

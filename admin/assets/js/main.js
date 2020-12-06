@@ -2041,6 +2041,644 @@
                 if (is_sending) {
                         return;
                 }
+    dsiplay_slider_single_page_inp.on('change', function () {
+        if ($(this).is(':checked') === true) {
+            dsiplay_slider_single_page_dep.show();
+        } else {
+            dsiplay_slider_single_page_dep.hide();
+        }
+    });
+
+    dsiplay_slider_single_page_dep.hide();
+    if (dsiplay_slider_single_page_inp.is(':checked')) {
+        dsiplay_slider_single_page_dep.show();
+    }
+
+    // Announcement
+    // ----------------------------------------------------------------------------------
+    // Display Announcement Recepents
+    const announcement_to = $('select[name="announcement_to"]');
+    const announcement_recepents_section = $('#announcement_recepents');
+    toggle_section('selected_user', announcement_to, announcement_recepents_section);
+    announcement_to.on('change', function () {
+        toggle_section('selected_user', $(this), announcement_recepents_section);
+    });
+
+    const submit_button = $('#announcement_submit .vp-input ~ span');
+    const form_feedback = $('#announcement_submit .field');
+    form_feedback.prepend('<div class="announcement-feedback"></div>');
+
+    let announcement_is_sending = false;
+
+    // Send Announcement
+    submit_button.on('click', function () {
+        if (announcement_is_sending) {
+            console.log('Please wait...');
+            return;
+        }
+
+        const to = $('select[name="announcement_to"]');
+        const recepents = $('select[name="announcement_recepents"]');
+        const subject = $('input[name="announcement_subject"]');
+        const message = $('textarea[name="announcement_message"]');
+        const expiration = $('input[name="announcement_expiration"]');
+        const send_to_email = $('input[name="announcement_send_to_email"]');
+
+        const fields_elm = {
+            to: { elm: to, value: to.val(), default: 'all_user' },
+            recepents: { elm: recepents, value: recepents.val(), default: null },
+            subject: { elm: subject, value: subject.val(), default: '' },
+            message: { elm: message, value: message.val(), default: '' },
+            expiration: { elm: expiration, value: expiration.val(), default: 3 },
+            send_to_email: { elm: send_to_email.val(), value: send_to_email.val(), default: 1 },
+        };
+
+        // Send the form
+        const form_data = new FormData();
+
+        // Fillup the form
+        form_data.append('action', 'atbdp_send_announcement');
+        for (field in fields_elm) {
+            form_data.append(field, fields_elm[field].value);
+        }
+
+        announcement_is_sending = true;
+
+        jQuery.ajax({
+            type: 'post',
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            processData: false,
+            contentType: false,
+            beforeSend() {
+                // console.log( 'Sending...' );
+                form_feedback
+                    .find('.announcement-feedback')
+                    .html('<div class="form-alert">Sending the announcement, please wait..</div>');
+            },
+            success(response) {
+                // console.log( {response} );
+                announcement_is_sending = false;
+
+                if (response.message) {
+                    form_feedback
+                        .find('.announcement-feedback')
+                        .html(`<div class="form-alert">${response.message}</div>`);
+                }
+            },
+            error(error) {
+                console.log({ error });
+                announcement_is_sending = false;
+            },
+        });
+
+    });
+
+    // Tab Content
+    // ----------------------------------------------------------------------------------
+    // Modular, classes has no styling, so reusable
+    $('.atbdp-tab__nav-link').on('click', function (e) {
+        e.preventDefault();
+
+        const data_target = $(this).data('target');
+        const current_item = $(this).parent();
+
+        // Active Nav Item
+        $('.atbdp-tab__nav-item').removeClass('active');
+        current_item.addClass('active');
+
+        // Active Tab Content
+        $('.atbdp-tab__content').removeClass('active');
+        $(data_target).addClass('active');
+    });
+
+    // Custom
+    $('.atbdp-tab-nav-menu__link').on('click', function (e) {
+        e.preventDefault();
+
+        const data_target = $(this).data('target');
+        const current_item = $(this).parent();
+
+        // Active Nav Item
+        $('.atbdp-tab-nav-menu__item').removeClass('active');
+        current_item.addClass('active');
+
+        // Active Tab Content
+        $('.atbdp-tab-content').removeClass('active');
+        $(data_target).addClass('active');
+    });
+
+    // Section Toggle
+    $('.atbdp-section-toggle').on('click', function (e) {
+        e.preventDefault();
+
+        const data_target = $(this).data('target');
+        $(data_target).slideToggle();
+    });
+
+    // Accordion Toggle
+    $('.atbdp-accordion-toggle').on('click', function (e) {
+        e.preventDefault();
+
+        const data_parent = $(this).data('parent');
+        const data_target = $(this).data('target');
+
+        if ($(data_target).hasClass('active')) {
+            $(data_target).removeClass('active');
+            $(data_target).slideUp();
+        } else {
+            $(data_parent)
+                .find('.atbdp-accordion-content')
+                .removeClass('active');
+            $(data_target).toggleClass('active');
+
+            $(data_parent)
+                .find('.atbdp-accordion-content')
+                .slideUp();
+            $(data_target).slideToggle();
+        }
+    });
+
+    // Themes & Extensions
+    // ------------------------------------------------
+    // My themes and extensions
+
+    // button primary
+    const primary_button = $(
+        '#primary_color, #primary_hover_color, #back_primary_color, #back_primary_hover_color, #border_primary_color, #border_primary_hover_color, #primary_example'
+    );
+    const secondary_button = $(
+        '#secondary_color, #secondary_hover_color, #back_secondary_color, #back_secondary_hover_color, #secondary_border_color, #secondary_border_hover_color, #secondary_example'
+    );
+    const danger_button = $(
+        '#danger_color, #danger_hover_color, #back_danger_color, #back_danger_hover_color, #danger_border_color, #danger_border_hover_color, #danger_example'
+    );
+    const success_button = $(
+        '#success_color, #success_hover_color, #back_success_color, #back_success_hover_color, #border_success_color, #border_success_hover_color, #success_example'
+    );
+    const primary_outline = $(
+        '#priout_color, #priout_hover_color, #back_priout_color, #back_priout_hover_color, #border_priout_color, #border_priout_hover_color, #priout_example'
+    );
+    const primary_outline_light = $(
+        '#prioutlight_color, #prioutlight_hover_color, #back_prioutlight_color, #back_prioutlight_hover_color, #border_prioutlight_color, #border_prioutlight_hover_color, #prioutlight_example'
+    );
+    const danger_outline = $(
+        '#danout_color, #danout_hover_color, #back_danout_color, #back_danout_hover_color, #border_danout_color, #border_danout_hover_color, #danout_example'
+    );
+    primary_button.hide();
+    secondary_button.hide();
+    danger_button.hide();
+    success_button.hide();
+    primary_outline.hide();
+    primary_outline_light.hide();
+    danger_outline.hide();
+    $('select[name="button_type"]').on('change', function () {
+        if ($(this).val() === 'solid_primary') {
+            primary_button.show();
+            secondary_button.hide();
+            danger_button.hide();
+            success_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        } else if ($(this).val() === 'solid_secondary') {
+            secondary_button.show();
+            primary_button.hide();
+            danger_button.hide();
+            success_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        } else if ($(this).val() === 'solid_danger') {
+            danger_button.show();
+            primary_button.hide();
+            secondary_button.hide();
+            success_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        } else if ($(this).val() === 'solid_success') {
+            success_button.show();
+            danger_button.hide();
+            primary_button.hide();
+            secondary_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        } else if ($(this).val() === 'primary_outline') {
+            primary_outline.show();
+            success_button.hide();
+            danger_button.hide();
+            primary_button.hide();
+            secondary_button.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        } else if ($(this).val() === 'primary_outline_light') {
+            primary_outline_light.show();
+            success_button.hide();
+            danger_button.hide();
+            primary_button.hide();
+            secondary_button.hide();
+            primary_outline.hide();
+            danger_outline.hide();
+        } else if ($(this).val() === 'danger_outline') {
+            danger_outline.show();
+            success_button.hide();
+            danger_button.hide();
+            primary_button.hide();
+            secondary_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+        } else {
+            primary_button.hide();
+            secondary_button.hide();
+            danger_button.hide();
+            success_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        }
+    });
+    if ($('select[name="button_type"]').val() === 'solid_primary') {
+        primary_button.show();
+    } else if ($('select[name="button_type"]').val() === 'solid_secondary') {
+        secondary_button.show();
+    } else if ($('select[name="button_type"]').val() === 'solid_danger') {
+        danger_button.show();
+    } else if ($('select[name="button_type"]').val() === 'solid_success') {
+        success_button.show();
+    } else if ($('select[name="button_type"]').val() === 'primary_outline') {
+        primary_outline.show();
+    } else if ($('select[name="button_type"]').val() === 'primary_outline_light') {
+        primary_outline_light.show();
+    } else if ($('select[name="button_type"]').val() === 'danger_outline') {
+        danger_outline.show();
+    }
+
+    // Helpers
+    // -----------------------------------
+    // toggle_section
+    function toggle_section(show_if_value, subject_elm, terget_elm) {
+        if (show_if_value === subject_elm.val()) {
+            terget_elm.show();
+        } else {
+            terget_elm.hide();
+        }
+    }
+
+
+
+    // License Authentication
+    // ----------------------------------------------------------
+    // atbdp_get_license_authentication
+    var is_sending = false;
+    $('#atbdp-directorist-license-login-form').on('submit', function (e) {
+        e.preventDefault();
+        if (is_sending) { return; }
+
+        var form = $(this);
+        var submit_button = form.find('button[type="submit"]');
+
+        var form_data = {
+            action: 'atbdp_authenticate_the_customer',
+            username: form.find('input[name="username"]').val(),
+            password: form.find('input[name="password"]').val(),
+        };
+
+        $('.atbdp-form-feedback').html('');
+
+        is_sending = true;
+        jQuery.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            beforeSend: function () {
+                submit_button.prepend('<span class="atbdp-loading"><span class="fas fa-spinner fa-spin"></span></span> ');
+                submit_button.attr('disabled', true);
+            },
+            success: function (response) {
+                console.log(response);
+                is_sending = false;
+                submit_button.attr('disabled', false);
+                submit_button.find('.atbdp-loading').remove();
+
+                if ( response.status.log ) {
+                    for (var feedback in response.status.log) {
+                        console.log(response.status.log[feedback]);
+                        var alert_type = ('success' === response.status.log[feedback].type) ? 'atbdp-form-alert-success' : 'atbdp-form-alert-danger';
+                        var alert_message = response.status.log[feedback].message;
+                        var alert = '<div class="atbdp-form-alert ' + alert_type + '">' + alert_message + '<div>';
+
+                        $('.atbdp-form-feedback').append(alert);
+                    }
+                }
+
+                if ( response.status.success ) {
+                    form.find('.atbdp-form-page').addClass( 'atbdp-d-none' );
+                    var form_response_page = form.find( '.atbdp-form-response-page' );
+                    form_response_page.removeClass( 'atbdp-d-none' );
+
+                    form_response_page.append( '<div class="atbdp-form-feedback"></div>' );
+
+                    var cart            = response.customers_purchased;
+                    var total_purchased = cart.purchased_extensions.length + cart.purchased_themes.length;
+
+                    var extension_s     = ( cart.purchased_extensions.length > 1 ) ? ' extensions' : ' extension';
+                    var theme_s         = ( cart.purchased_themes.length > 1 ) ? ' themes' : ' theme';
+
+                    var message = 'Downloading ';
+
+                    if ( total_purchased > 0 ) {
+                        if ( cart.purchased_extensions.length ) {
+                            message += cart.purchased_extensions.length + extension_s;
+                        }
+
+                        if ( cart.purchased_themes.length ) {
+                            var and = ( cart.purchased_extensions.length ) ? ' and ' : '';
+                            message += and + cart.purchased_themes.length + theme_s;
+                        }
+
+                        message += ' from your purchase';
+                        var spiner = '<span class="atbdp-icon atbdp-icon-large"><span class="fas fa-circle-notch fa-spin"></span></span>';
+                        var msg = '<h4 class="atbdp-text-center">' + message + '</h4>';
+
+                        form_response_page.find( '.atbdp-form-feedback' ).append( spiner );
+                        form_response_page.find( '.atbdp-form-feedback' ).append( msg );
+
+                        download_purchased_items( response.customers_purchased, form_response_page );
+
+                    } else {
+                        message = 'There is no downloadable product in your purchase';
+                        var msg = '<h4 class="atbdp-text-center">' + message + '</h4>';
+                        form_response_page.find( '.atbdp-form-feedback' ).html( msg );
+
+                        var continue_button = '<button type="submit" class="button button-primary skip-download">Continue</button>';
+                        form_response_page.find( '.atbdp-form-actions' ).append( continue_button );
+                    }
+                }
+            },
+
+            error: function (error) {
+                console.log(error);
+                is_sending = false;
+                submit_button.attr('disabled', false);
+                submit_button.find('.atbdp-loading').remove();
+            },
+        });
+    });
+
+    // download_purchased_items
+    function download_purchased_items( customers_purchased, form_response_page ) {
+        var form_data = {
+            action: 'atbdp_download_purchased_items',
+            customers_purchased: customers_purchased,
+        };
+
+        jQuery.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            success: function( response ) {
+                console.log( response );
+                form_response_page.html( '<h4 class="atbdp-text-center">'+ response.status.message +'</h4>' );
+                location.reload();
+            },
+            error: function( error ) {
+                console.log( error );
+            },
+        });
+    }
+
+    // Form Actions
+    // Bulk Actions
+    var is_bulk_processing = false;
+    $( '#atbdp-my-extensions-form' ).on( 'submit', function( e ) {
+        e.preventDefault();
+
+        if ( is_bulk_processing ) { return; }
+
+        var task          = $( this ).find( 'select[name="bulk-actions"]' ).val();
+        var plugins_items = [];
+
+        $( this ).find( '.extension-name-checkbox' ).each( function( i, e ) {
+            var is_checked = $( e ).is( ':checked' );
+            var id = $( e ).attr( 'id' );
+
+            if ( is_checked ) { plugins_items.push( id ) }
+        });
+
+        if ( ! task.length || ! plugins_items.length ) {
+            return;
+        }
+
+        var self = this;
+        is_bulk_processing = true;
+        form_data = {
+            action: 'atbdp_plugins_bulk_action',
+            task: task,
+            plugin_items: plugins_items,
+        };
+
+        jQuery.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            beforeSend: function() {
+                $( self ).find( 'button[type="submit"]' ).prepend( '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ' );
+            },
+            success: function( response ) {
+                // console.log( response );
+                $( self ).find( 'button[type="submit"] .atbdp-icon' ).remove();
+                location.reload();
+            },
+            error: function( error ) {
+                console.log( error );
+                uninstalling = false;
+            },
+        });
+
+        console.log( task, plugins_items );
+    });
+
+
+
+    // Ext Actions | Uninstall
+    var uninstalling = false;
+    $('.ext-action-uninstall').on( 'click', function( e ) {
+        e.preventDefault();
+        if ( uninstalling ) { return; }
+
+        var data_target = $( this ).data( 'target' );
+
+        var form_data = {
+            action: 'atbdp_plugins_bulk_action',
+            task: 'uninstall',
+            plugin_items: [ data_target ],
+        };
+
+        var self = this;
+        uninstalling = true;
+
+        jQuery.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            beforeSend: function() {
+                $( self ).prepend( '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ' );
+            },
+            success: function( response ) {
+                // console.log( response );
+                $( self ).closest( '.ext-action' ).find('.ext-action-drop').removeClass( 'active' );
+                location.reload();
+            },
+            error: function( error ) {
+                console.log( error );
+                uninstalling = false;
+            },
+        });
+    });
+
+
+    // Bulk checkbox toggle
+    $( '#atbdp-my-extensions-form' ).find( 'input[name="select-all"]' ).on( 'change', function( e ) {
+        var is_checked = $( this ).is( ':checked' );
+
+        if ( is_checked ) {
+            $( '#atbdp-my-extensions-form' ).find( '.extension-name-checkbox' ).prop( "checked", true );
+        } else {
+            $( '#atbdp-my-extensions-form' ).find( '.extension-name-checkbox' ).prop( "checked", false );
+        }
+    });
+
+    //
+    $('.ext-action-drop').each(function (i, e) {
+        $(e).on('click', function (elm) {
+            elm.preventDefault();
+
+            if ( $( this ).hasClass('active') ) {
+                $( this ).removeClass('active');
+            } else {
+                $('.ext-action-drop').removeClass( 'active' );
+                $( this ).addClass('active');
+            }
+        });
+    });
+
+    /* $('body').on('click', function (e) {
+        const target = $(e.target);
+        if (!target.is('.ext-action-drop, .ext-action-drop i')) {
+            $('.ext-action-drop').removeClass('active');
+        }
+    }); */
+
+
+    //button primary
+    // primary_button = $("#primary_color, #primary_hover_color, #back_primary_color, #back_primary_hover_color, #border_primary_color, #border_primary_hover_color, #primary_example");
+    // secondary_button = $("#secondary_color, #secondary_hover_color, #back_secondary_color, #back_secondary_hover_color, #secondary_border_color, #secondary_border_hover_color, #secondary_example");
+    // danger_button = $("#danger_color, #danger_hover_color, #back_danger_color, #back_danger_hover_color, #danger_border_color, #danger_border_hover_color, #danger_example");
+    // success_button = $("#success_color, #success_hover_color, #back_success_color, #back_success_hover_color, #border_success_color, #border_success_hover_color, #success_example");
+    // primary_outline = $("#priout_color, #priout_hover_color, #back_priout_color, #back_priout_hover_color, #border_priout_color, #border_priout_hover_color, #priout_example");
+    // primary_outline_light = $("#prioutlight_color, #prioutlight_hover_color, #back_prioutlight_color, #back_prioutlight_hover_color, #border_prioutlight_color, #border_prioutlight_hover_color, #prioutlight_example");
+    // danger_outline = $("#danout_color, #danout_hover_color, #back_danout_color, #back_danout_hover_color, #border_danout_color, #border_danout_hover_color, #danout_example");
+    primary_button.hide();
+    secondary_button.hide();
+    danger_button.hide();
+    success_button.hide();
+    primary_outline.hide();
+    primary_outline_light.hide();
+    danger_outline.hide();
+    $('select[name="button_type"]').on("change", function () {
+        if ($(this).val() === "solid_primary") {
+            primary_button.show();
+            secondary_button.hide();
+            danger_button.hide();
+            success_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        } else if ($(this).val() === "solid_secondary") {
+            secondary_button.show();
+            primary_button.hide();
+            danger_button.hide();
+            success_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        } else if ($(this).val() === "solid_danger") {
+            danger_button.show();
+            primary_button.hide();
+            secondary_button.hide();
+            success_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        } else if ($(this).val() === "solid_success") {
+            success_button.show();
+            danger_button.hide();
+            primary_button.hide();
+            secondary_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        } else if ($(this).val() === "primary_outline") {
+            primary_outline.show();
+            success_button.hide();
+            danger_button.hide();
+            primary_button.hide();
+            secondary_button.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        } else if ($(this).val() === "primary_outline_light") {
+            primary_outline_light.show();
+            success_button.hide();
+            danger_button.hide();
+            primary_button.hide();
+            secondary_button.hide();
+            primary_outline.hide();
+            danger_outline.hide();
+        } else if ($(this).val() === "danger_outline") {
+            danger_outline.show();
+            success_button.hide();
+            danger_button.hide();
+            primary_button.hide();
+            secondary_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+        } else {
+            primary_button.hide();
+            secondary_button.hide();
+            danger_button.hide();
+            success_button.hide();
+            primary_outline.hide();
+            primary_outline_light.hide();
+            danger_outline.hide();
+        }
+    });
+
+    if ($('select[name="button_type"]').val() === "solid_primary") {
+        primary_button.show();
+    } else if ($('select[name="button_type"]').val() === "solid_secondary") {
+        secondary_button.show();
+    } else if ($('select[name="button_type"]').val() === "solid_danger") {
+        danger_button.show();
+    } else if ($('select[name="button_type"]').val() === "solid_success") {
+        success_button.show();
+    } else if ($('select[name="button_type"]').val() === "primary_outline") {
+        primary_outline.show();
+    } else if ($('select[name="button_type"]').val() === "primary_outline_light") {
+        primary_outline_light.show();
+    } else if ($('select[name="button_type"]').val() === "danger_outline") {
+        danger_outline.show();
+    }
+
+
+    // Helpers
+    // -----------------------------------
+    // toggle_section
+    function toggle_section(show_if_value, subject_elm, terget_elm) {
+        if (show_if_value === subject_elm.val()) { terget_elm.show(); }
+        else { terget_elm.hide(); }
+    }
 
                 const form = $(this);
                 const submit_button = form.find('button[type="submit"]');

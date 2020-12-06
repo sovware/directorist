@@ -1965,12 +1965,22 @@ input.atbdp-form-control {
             }
           }
 
-          .ei-action-btn {
+          .ei-action-btn, button.ei-action-btn {
             background: #C6D0DC !important;
             border-radius: 4px;
             color: #fff !important;
             line-height: 30px;
             padding: 0 15px;
+          }
+
+          button.ei-action-btn {
+            padding: 6px 15px;
+            border: none;
+            border-radius: 4px !important;
+            cursor: pointer;
+            &:active, &:focus {
+              outline: none !important;
+            }
           }
         }
 

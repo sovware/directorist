@@ -2150,10 +2150,61 @@
             },
             error: function( error ) {
                 console.log( error );
-                status = error;
             },
         });
     }
+
+    
+
+    // Ext Actions
+    $('.ext-action-uninstall').on( 'click', function( e ) {
+        e.preventDefault();
+        var data_target = $( this ).data( 'target' );
+
+        var form_data = {
+            action: 'atbdp_plugins_actions',
+            task: 'uninstall',
+            plugin_items: [ data_target ],
+        };
+
+        var self = this;
+
+        jQuery.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            success: function( response ) {
+                console.log( response );
+                $( self ).closest( '.ext-action' ).find('.ext-action-drop').removeClass( 'active' );
+                location.reload();
+            },
+            error: function( error ) {
+                console.log( error );
+            },
+        });
+    });
+
+
+    // 
+    $('.ext-action-drop').each(function (i, e) {
+        $(e).on('click', function (elm) {
+            elm.preventDefault();
+
+            if ( $( this ).hasClass('active') ) {
+                $( this ).removeClass('active');
+            } else {
+                $('.ext-action-drop').removeClass( 'active' );
+                $( this ).addClass('active');
+            }
+        });
+    });
+
+    /* $('body').on('click', function (e) {
+        const target = $(e.target);
+        if (!target.is('.ext-action-drop, .ext-action-drop i')) {
+            $('.ext-action-drop').removeClass('active');
+        }
+    }); */
 
 
     //button primary
@@ -2255,19 +2306,6 @@
         danger_outline.show();
     }
 
-    //
-    $('.ext-action-drop').each(function (i, e) {
-        $(e).on('click', function (elm) {
-            elm.preventDefault();
-            $(this).toggleClass('active');
-        });
-    });
-    $('body').on('click', function (e) {
-        const target = $(e.target);
-        if (!target.is('.ext-action-drop, .ext-action-drop i')) {
-            $('.ext-action-drop').removeClass('active');
-        }
-    });
 
     // Helpers
     // -----------------------------------

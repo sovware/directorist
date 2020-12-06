@@ -62,11 +62,11 @@
                                             <?php if ( in_array( $extension_base, $outdated_plugins_key ) ) : ?>
                                             <a href="#" class="ext-update-btn ext-action-btn">Update</a>
                                             <?php endif; ?>
-                                            <a href="#" class="ext-action-btn"><i class="la la-settings"></i> Settings</a>
+                                            <a href="<?php echo $args['settings_url'] ?>" class="ext-action-btn"><i class="la la-settings"></i> Settings</a>
                                             <div>
                                                 <a href="" class="ext-action-drop"><i class="la la-ellipsis-h"></i></a>
                                                 <div class="ext-action-drop__item">
-                                                    <a href="#" class="">Uninstall</a>
+                                                    <a href="#" class="ext-action-link ext-action-uninstall" data-target="<?php echo $extension_base; ?>">Uninstall</a>
                                                 </div>
                                             </div>
                                         </div>

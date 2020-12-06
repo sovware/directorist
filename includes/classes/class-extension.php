@@ -24,8 +24,40 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         public function __construct()
         {
             add_action( 'admin_menu', array($this, 'admin_menu'), 100 );
+            
+            // Ajax
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', array($this, 'authenticate_the_customer') );
             add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
+            add_action( 'wp_ajax_atbdp_plugins_actions', array($this, 'plugins_actions') );
+        }
+
+        // plugins_actions
+        public function plugins_actions() {
+            $status = [ 'success' => true ];
+
+            $task = ( isset( $_POST['task'] ) ) ? $_POST['task'] : '';
+            $plugin_items = ( isset( $_POST['plugin_items'] ) ) ? $_POST['plugin_items'] : '';
+
+            // Validation
+            if ( empty( $task ) ) {
+                $status['success'] = false;
+                $status['message'] = 'No task found';
+            }
+
+            if ( empty( $plugin_items ) ) {
+                $status['success'] = false;
+                $status['message'] = 'No plugin items found';
+            }
+
+            // Uninstall
+            if ( 'uninstall' === $task ) {
+                foreach ( $plugin_items as $plugin ) {
+                    $path = ABSPATH . 'wp-content/plugins' . $plugin;
+                    uninstall_plugin( $path );
+                }
+            }
+
+            wp_send_json([ 'status' => $status ]);
         }
 
         // get_license_authentication
@@ -434,6 +466,8 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 }
             }
 
+            $settings_url = admin_url( 'edit.php?post_type=at_biz_dir&page=aazztech_settings#_extensions_switch' );
+
             $data = [
                 'installed_extensions' => $installed_extensions,
                 'outdated_plugins'     => $outdated_plugins,
@@ -442,6 +476,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'installed_themes'     => $installed_themes,
                 'active_themes'        => $my_active_themes,
                 'outdated_themes'      => $my_outdated_themes,
+                'settings_url'         => $settings_url,
             ];
 
             ATBDP()->load_template('theme-extensions/theme-extension', $data );

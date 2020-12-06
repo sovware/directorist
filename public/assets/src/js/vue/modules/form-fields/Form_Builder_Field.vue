@@ -145,6 +145,10 @@
           </template>
         </ul>
       </div>
+
+      <pre>
+        {{ groups }}
+      </pre>
     </div>
   </div>
 </template>
@@ -389,12 +393,15 @@ export default {
   methods: {
     impportOldData() {
       if ( ! this.isObject( this.value ) ) { return; }
+
       if ( Array.isArray( this.value.fields_order ) && ! this.has_group ) {
         Vue.set( this.default_groups[0], 'fields', this.value.fields_order );
       }
+
       if ( Array.isArray( this.value.groups ) && this.has_group ) {
         this.default_groups = this.value.groups;
       }
+
       // Trace active_widget_groups
       if ( this.default_groups.length ) {
         for ( let group of this.default_groups ) {
@@ -403,17 +410,33 @@ export default {
           this.active_widget_groups.push( group.widget_name );
         }
       }
+      
       if ( this.isObject( this.value.fields ) ) {
         this.active_fields = this.value.fields;
       }
+
+      // active_fields_ref
+      for ( let field in this.active_fields ) {
+        let widget_name = this.active_fields[ field ].widget_name;
+
+        if ( typeof this.active_fields_ref[ widget_name ] === 'undefined' ) {
+          this.active_fields_ref[ widget_name ] = [];
+        }
+        
+        this.active_fields_ref[ widget_name ].push( field );
+      }
+
     },
     parseGroups() {
         let groups = this.default_groups;
         if ( ! groups.length ) { return groups; }
+
         groups = JSON.parse( JSON.stringify( groups ) );
+
         let group_fields = {};
         let fixed_options = [ 'lock', 'fields', 'type' ];
         let group_index = 0;
+
         for ( let group of groups ) {
           // general_group
           if ( typeof group.type === 'undefined' || group.type === 'general_group' ) {
@@ -879,28 +902,38 @@ export default {
     
     insertActiveFieldsItem(payload) {
       let inserting_field_key = payload.inserting_field_key;
+
       if ( typeof this.active_fields_ref[payload.inserting_field_key] === "undefined" ) {
         this.active_fields_ref[payload.inserting_field_key] = [];
       }
+
       if ( ! this.active_fields_ref[payload.inserting_field_key].length ) {
         this.active_fields_ref[payload.inserting_field_key].push( payload.inserting_field_key );
       } else {
         let new_key = payload.inserting_field_key + "_" + (this.active_fields_ref[payload.inserting_field_key].length + 1);
+        
         this.active_fields_ref[inserting_field_key].push(new_key);
         inserting_field_key = new_key;
       }
+
       const field_data = this.theWidgetGroups[payload.inserting_from].widgets[ payload.inserting_field_key ];
       let field_data_options = {};
+      
       for (let option_key in field_data.options) {
         field_data_options[option_key] = typeof field_data.options[option_key].value !== "undefined" ? field_data.options[option_key].value : "";
       }
+
       Vue.set( this.active_fields, inserting_field_key, field_data_options );
+
       const widget_group = this.active_fields[inserting_field_key].widget_group;
       const widget_name = this.active_fields[inserting_field_key].widget_name;
+
       let terget_index = this.groups[ payload.destination_group_index ].fields.length;
+
       if ( typeof payload.destination_field_index !== "undefined" ) {
         terget_index = payload.destination_field_index + 1;
       }
+
       this.groups[ payload.destination_group_index ].fields.splice( terget_index, 0, inserting_field_key );
     },
     

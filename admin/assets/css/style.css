@@ -1864,13 +1864,27 @@ input.atbdp-form-control {
   min-width: 130px;
 }
 
-.et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper .ei-action-btn {
+.et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper .ei-action-btn,
+.et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn {
   background: #C6D0DC !important;
   border-radius: 4px;
   color: #fff !important;
   line-height: 30px;
   padding: 0 15px;
 }
+
+.et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn {
+  padding: 6px 15px;
+  border: none;
+  border-radius: 4px !important;
+  cursor: pointer;
+}
+
+.et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn:active,
+.et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn:focus {
+  outline: none !important;
+}
+
 
 .et-wrapper .et-contents .ext-wrapper table .extension-name {
   display: flex;

@@ -28,11 +28,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             // Ajax
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', array($this, 'authenticate_the_customer') );
             add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
-            add_action( 'wp_ajax_atbdp_plugins_actions', array($this, 'plugins_actions') );
+            add_action( 'wp_ajax_atbdp_plugins_bulk_action', array($this, 'plugins_bulk_action') );
         }
 
-        // plugins_actions
-        public function plugins_actions() {
+        // plugins_bulk_action
+        public function plugins_bulk_action() {
             $status = [ 'success' => true ];
 
             $task = ( isset( $_POST['task'] ) ) ? $_POST['task'] : '';
@@ -42,22 +42,33 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             if ( empty( $task ) ) {
                 $status['success'] = false;
                 $status['message'] = 'No task found';
+                wp_send_json([ 'status' => $status ]);
             }
 
             if ( empty( $plugin_items ) ) {
                 $status['success'] = false;
                 $status['message'] = 'No plugin items found';
+                wp_send_json([ 'status' => $status ]);
+            }
+
+            // Activate
+            if ( 'activate' === $task ) {
+                foreach ( $plugin_items as $plugin ) {
+                    activate_plugin( $plugin );
+                }
+            }
+
+            // Deactivate
+            if ( 'deactivate' === $task ) {
+                deactivate_plugins( $plugin_items );
             }
 
             // Uninstall
             if ( 'uninstall' === $task ) {
-                foreach ( $plugin_items as $plugin ) {
-                    $path = ABSPATH . 'wp-content/plugins' . $plugin;
-                    uninstall_plugin( $path );
-                }
+                delete_plugins( $plugin_items );
             }
 
-            wp_send_json([ 'status' => $status ]);
+            wp_send_json([ 'status' => $status,  ]);
         }
 
         // get_license_authentication

@@ -2107,11 +2107,6 @@
                         
                         download_purchased_items( response.customers_purchased, form_response_page );
 
-                        // var download_status = download_purchased_items( response.customers_purchased, form_response_page );
-                        // form_response_page.html( '<h4 class="atbdp-text-center">'+ download_status.status.message +'</h4>' );
-                        
-                        // console.log( { download_status } );
-
                     } else {
                         message = 'There is no downloadable product in your purchase';
                         var msg = '<h4 class="atbdp-text-center">' + message + '</h4>';
@@ -2144,7 +2139,7 @@
             url: atbdp_admin_data.ajaxurl,
             data: form_data,
             success: function( response ) {
-                // console.log( response );
+                console.log( response );
                 form_response_page.html( '<h4 class="atbdp-text-center">'+ response.status.message +'</h4>' );
                 location.reload();
             },
@@ -2154,36 +2149,106 @@
         });
     }
 
-    
-
-    // Ext Actions
-    $('.ext-action-uninstall').on( 'click', function( e ) {
+    // Form Actions
+    // Bulk Actions
+    var is_bulk_processing = false;
+    $( '#atbdp-my-extensions-form' ).on( 'submit', function( e ) {
         e.preventDefault();
-        var data_target = $( this ).data( 'target' );
 
-        var form_data = {
-            action: 'atbdp_plugins_actions',
-            task: 'uninstall',
-            plugin_items: [ data_target ],
-        };
+        if ( is_bulk_processing ) { return; }
+
+        var task          = $( this ).find( 'select[name="bulk-actions"]' ).val();
+        var plugins_items = [];
+
+        $( this ).find( '.extension-name-checkbox' ).each( function( i, e ) {
+            var is_checked = $( e ).is( ':checked' );
+            var id = $( e ).attr( 'id' );
+
+            if ( is_checked ) { plugins_items.push( id ) }
+        });
+
+        if ( ! task.length || ! plugins_items.length ) {
+            return;
+        }
 
         var self = this;
+        is_bulk_processing = true;
+        form_data = {
+            action: 'atbdp_plugins_bulk_action',
+            task: task,
+            plugin_items: plugins_items,
+        };
 
         jQuery.ajax({
             type: "post",
             url: atbdp_admin_data.ajaxurl,
             data: form_data,
+            beforeSend: function() {
+                $( self ).find( 'button[type="submit"]' ).prepend( '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ' );
+            },
             success: function( response ) {
-                console.log( response );
+                // console.log( response );
+                $( self ).find( 'button[type="submit"] .atbdp-icon' ).remove();
+                location.reload();
+            },
+            error: function( error ) {
+                console.log( error );
+                uninstalling = false;
+            },
+        });
+
+        console.log( task, plugins_items );
+    });
+
+    
+
+    // Ext Actions | Uninstall
+    var uninstalling = false;
+    $('.ext-action-uninstall').on( 'click', function( e ) {
+        e.preventDefault();
+        if ( uninstalling ) { return; }
+
+        var data_target = $( this ).data( 'target' );
+
+        var form_data = {
+            action: 'atbdp_plugins_bulk_action',
+            task: 'uninstall',
+            plugin_items: [ data_target ],
+        };
+
+        var self = this;
+        uninstalling = true;
+
+        jQuery.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            beforeSend: function() {
+                $( self ).prepend( '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ' );
+            },
+            success: function( response ) {
+                // console.log( response );
                 $( self ).closest( '.ext-action' ).find('.ext-action-drop').removeClass( 'active' );
                 location.reload();
             },
             error: function( error ) {
                 console.log( error );
+                uninstalling = false;
             },
         });
     });
 
+
+    // Bulk checkbox toggle
+    $( '#atbdp-my-extensions-form' ).find( 'input[name="select-all"]' ).on( 'change', function( e ) {
+        var is_checked = $( this ).is( ':checked' );
+
+        if ( is_checked ) {
+            $( '#atbdp-my-extensions-form' ).find( '.extension-name-checkbox' ).prop( "checked", true );
+        } else {
+            $( '#atbdp-my-extensions-form' ).find( '.extension-name-checkbox' ).prop( "checked", false );
+        }
+    });
 
     // 
     $('.ext-action-drop').each(function (i, e) {

@@ -19,12 +19,12 @@
                                         <div class="ei-select-all"><input type="checkbox" name="select-all" id=""></div>
                                         <div class="ei-action-dropdown">
                                             <select id="bulk-actions" name="bulk-actions">
-                                                <option value="-1">Bulk Action</option>
+                                                <option value="">Bulk Action</option>
+                                                <option value="activate">Activate</option>
                                                 <option value="deactivate">Deactivate</option>
-                                                <option value="remove">Remove</option>
                                             </select>
                                         </div>
-                                        <a href="#" class="ei-action-btn">Apply</a>
+                                        <button type="submit" class="ei-action-btn">Apply</button>
                                     </div>
                                 </th>
                             </tr>
@@ -34,7 +34,7 @@
                                 <tr>
                                     <td>
                                         <div class="extension-name">
-                                            <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>">
+                                            <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
                                             <label for="<?php echo $extension_base; ?>">
                                                 <img src="https://via.placeholder.com/44" alt="">
                                                 <?php echo $extension['Name'] ?>

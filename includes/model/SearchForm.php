@@ -52,7 +52,9 @@ class Directorist_Listing_Search_Form {
 
 	public function __construct( $type, $listing_type, $atts = array() ) {
 
-		add_action( 'atbdp_before_search_form', [ $this, 'listing_type_template' ] );
+		add_action( 'atbdp_before_search_form', 		array( $this, 'listing_type_template' ) );
+		add_action('wp_ajax_atbdp_listing_types', 		array( $this, 'atbdp_listing_types' ) );
+		add_action('wp_ajax_atbdp_listing_types',		array( $this, 'atbdp_listing_types' ) );
 
 		$this->type         = $type;
 		$this->atts         = $atts;
@@ -338,6 +340,12 @@ class Directorist_Listing_Search_Form {
 		}
 		return $listing_types;
 	}
+
+	public function atbdp_listing_types() {
+		wp_send_json(123);
+		die;
+	}
+
 	
 	public function listing_type_template() {
 		$args = array(
@@ -450,12 +458,13 @@ class Directorist_Listing_Search_Form {
 			wp_enqueue_style('atbdp-search-style', ATBDP_PUBLIC_ASSETS . 'css/search-style.css');
 		}
 
-		wp_enqueue_script( 'atbdp-search-listing' );
-		wp_enqueue_script( 'atbdp_search_listing' );
-		wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
-			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
+		$data = [
+			// 'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
 			'ajax_url' => admin_url('admin-ajax.php'),
-		));
+		];
+
+		wp_enqueue_script( 'atbdp-search-listing' );
+		wp_localize_script('atbdp-search-listing', 'atbdp_search', $data );
 
 		ATBDP()->enquirer->search_listing_scripts_styles();
 

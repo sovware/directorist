@@ -953,8 +953,10 @@ class ATBDP_Enqueuer {
             'Miles'       => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
             'default_val' => $default_radius_distance,
         );
+        wp_enqueue_script( 'atbdp_search_listing' );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );
         wp_localize_script( $handel, 'atbdp_range_slider', $data );
+
     }
 }
 

@@ -132,7 +132,6 @@
     $(".ads-advanced").parents("div").css("overflow", "visible");
 
 
-
     //remove preload after window load
     $(window).load(function () {
         $("body").removeClass("atbdp_preload");

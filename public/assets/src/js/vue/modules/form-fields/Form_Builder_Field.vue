@@ -145,10 +145,6 @@
           </template>
         </ul>
       </div>
-
-      <pre>
-        {{ groups }}
-      </pre>
     </div>
   </div>
 </template>

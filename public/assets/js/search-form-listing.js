@@ -1,4 +1,30 @@
 (function ($) {
+    $( 'body' ).on( 'click', '.search_listing_types', function(event){
+        event.preventDefault();
+        let listing_type = $(this).attr('data-listing_type');
+        let form_data = new FormData();
+
+        form_data.append('action', 'atbdp_listing_types');
+        form_data.append('listing_type', listing_type);
+
+        $.ajax({
+            method: 'POST',
+            processData: false,
+            contentType: false,
+            url: atbdp_search.ajax_url,
+            data: form_data,
+            success: function(response) {
+                console.log( response );
+            },
+            error: function( error ) {
+                console.log( error );
+            }
+        });
+        
+    });
+
+
+
     //Advance search
     // Populate atbdp child terms dropdown
     $('.bdas-terms').on('change', 'select', function (e) {

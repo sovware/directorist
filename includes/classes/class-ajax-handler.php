@@ -80,8 +80,15 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_atbdp_custom_fields_listings_front_selected',        array($this, 'ajax_callback_custom_fields'), 10, 2);
             add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
             add_action('wp_ajax_atbdp_custom_fields_listings',                       array($this, 'ajax_callback_custom_fields'), 10, 2 );
-			add_action('wp_ajax_atbdp_custom_fields_listings_selected',              array($this, 'ajax_callback_custom_fields'), 10, 2 );
+            add_action('wp_ajax_atbdp_custom_fields_listings_selected',              array($this, 'ajax_callback_custom_fields'), 10, 2 );
+            
+            add_action('wp_ajax_atbdp_listing_types', array( $this, 'atbdp_listing_types' ) );
 
+        }
+
+        // atbdp_listing_types
+        public function atbdp_listing_types() {
+            wp_send_json(['test' => 123]);
         }
 
         public function atbdp_listing_default_type() {

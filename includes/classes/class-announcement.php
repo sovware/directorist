@@ -155,7 +155,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                             ' . __( $nav_label, 'directorist') . '
                         </a>
                     </li>';
-            echo apply_filters('announcement_user_dashboard_tab', $html);
+            echo apply_filters('announcement_user_dashboard_tab', $html, $new_announcements);
 
             echo ob_get_clean();
         }

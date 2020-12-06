@@ -12,10 +12,10 @@
             </div><!-- ends: .et-wrapper-head -->
             <div class="et-contents">
                 <ul class="et-contents__tab-nav">
-                    <li class="active"><a href="">Extensions</a></li>
-                    <li><a href="">Themes</a></li>
+                    <li class="active"><a href="" class="et-tab-a et-active-a" data-id="tab1">Extensions</a></li>
+                    <li><a href="" class="et-tab-a" data-id="tab2">Themes</a></li>
                 </ul>
-                <div class="ext-wrapper">
+                <div class="ext-wrapper et-tab et-tab-active" data-id="tab1">
                     <div class="ext-installed">
                         <h4>Installed</h4>
                         <div class="ext-installed-table">
@@ -172,6 +172,9 @@
                         </div>
                     </div><!-- ends: .ext-available -->
                 </div><!-- ends: .ext-wrapper -->
+                <div class="et-tab" data-id="tab2">
+                    jsdkfjkl
+                </div>
             </div><!-- ends: .et-contents -->
         </div><!-- ends: .et-wrapper -->
         <?php ATBDP()->load_template('theme-extensions/all-themes-extensions'); ?>

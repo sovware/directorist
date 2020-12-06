@@ -1834,10 +1834,8 @@ input.atbdp-form-control {
             left: 0;
             transition: 0.3s ease;
           }
-        }
 
-        &.active {
-          a {
+          &.et-active-a {
             color: #3E62F5 !important;
             font-weight: 600;
 
@@ -2074,4 +2072,12 @@ input.atbdp-form-control {
       }
     }
   }
+}
+
+.et-tab {
+  display: none;
+}
+
+.et-tab-active {
+  display: block;
 }

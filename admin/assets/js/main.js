@@ -2022,6 +2022,7 @@ jQuery(function($) {
         $('.ext-action-drop').each(function(i, e) {
                 $(e).on('click', function(elm) {
                         elm.preventDefault();
+                        $('.ext-action-drop').removeClass('active');
                         $(this).toggleClass('active');
                 });
         });
@@ -2030,5 +2031,16 @@ jQuery(function($) {
                 if (!target.is('.ext-action-drop, .ext-action-drop i')) {
                         $('.ext-action-drop').removeClass('active');
                 }
+        });
+        // extension theme tab
+        $('.et-tab-a').click(function(e) {
+                e.preventDefault();
+                $('.et-tab').removeClass('et-tab-active');
+                $(`.et-tab[data-id='${$(this).attr('data-id')}']`).addClass('et-tab-active');
+                $('.et-tab-a').removeClass('et-active-a');
+                $(this)
+                        .parent()
+                        .find('.et-tab-a')
+                        .addClass('et-active-a');
         });
 });

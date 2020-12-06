@@ -2150,6 +2150,47 @@
     }
 
     // Form Actions
+
+    // Single Extension Update
+    var ext_updating = false;
+    $( '.ext-update-btn' ).on( 'click', function( e ) {
+        e.preventDefault();
+        if ( ext_updating ) { return; }
+
+        var data_target = $( this ).data( 'target' );
+        if ( ! data_target.length ) { return; }
+
+        var form_data = {
+            action: 'atbdp_update_plugins',
+            plugin_item: data_target,
+        };
+
+        var self = this;
+        ext_updating = true;
+
+        jQuery.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            beforeSend: function () {
+                $( self ).html('Updating');
+                $( self ).prepend('<span class="atbdp-icon"><span class="fas fa-spinner fa-spin"></span></span> ');
+            },
+            success: function( response ) {
+                console.log( response );
+                ext_updating = false;
+                $( self ).html('Update');
+                // location.reload();
+            },
+            error: function( error ) {
+                console.log( error );
+                ext_updating = false;
+                $( self ).html('Update');
+            },
+        });
+
+    });
+
     // Bulk Actions
     var is_bulk_processing = false;
     $( '#atbdp-my-extensions-form' ).on( 'submit', function( e ) {
@@ -2199,8 +2240,6 @@
 
         console.log( task, plugins_items );
     });
-
-    
 
     // Ext Actions | Uninstall
     var uninstalling = false;

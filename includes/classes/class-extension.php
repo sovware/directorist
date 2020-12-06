@@ -29,6 +29,43 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', array($this, 'authenticate_the_customer') );
             add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
             add_action( 'wp_ajax_atbdp_plugins_bulk_action', array($this, 'plugins_bulk_action') );
+            add_action( 'wp_ajax_atbdp_update_plugins', array($this, 'update_plugins') );
+        }
+
+        // update_plugins
+        public function update_plugins() {
+            $status = [ 'success' => true ];
+            $plugin_item = ( isset( $_POST['plugin_item'] ) ) ? $_POST['plugin_item'] : '';
+
+            $plugin_updates       = get_site_transient( 'update_plugins' );
+            $outdated_plugins     = $plugin_updates->response;
+            $outdated_plugins_key = array_keys( $outdated_plugins );
+
+            if ( empty( $outdated_plugins_key ) ) { 
+                $status['massage'] = __( 'All plugins are up to date', 'directorist' );
+                wp_send_json( [ 'status' => $status ] );
+            }
+
+            if ( ! empty( $plugin_item ) && ! in_array( $plugin_item, $outdated_plugins_key )  ) {
+                $status['massage'] = __( 'The plugin is up to date', 'directorist' );
+                wp_send_json( [ 'status' => $status ] );
+            }
+
+            if ( ! empty( $plugin_item ) ) {
+                $outdated_plugin = $outdated_plugins[ $plugin_item ];
+                $this->download_plugin( [ 'url' => $outdated_plugin->package ] );
+
+                $status['massage'] = __( 'The plugin has been updated successfully', 'directorist' );
+                wp_send_json( [ 'status' => $status ] );
+            }
+
+            // Update all
+            foreach ( $outdated_plugins as $plugin_base => $plugin ) {
+                $this->download_plugin( [ 'url' => $plugin->package ] );
+            }
+
+            $status['massage'] = __( 'All the plugins are updated successfully', 'directorist' );
+            wp_send_json( [ 'status' => $status ] );
         }
 
         // plugins_bulk_action
@@ -319,8 +356,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             // Download the extensions
-            WP_Filesystem();
-
             // Download Extenstions
             if ( ! empty( $cart['purchased_extensions'] ) ) {
                 foreach ( $cart['purchased_extensions'] as $extension ) {
@@ -358,17 +393,24 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             if ( empty( $default ) ) { return; }
 
+            WP_Filesystem();
+
             $installation_path = ABSPATH . 'wp-content/plugins';
             $file_url          = $args['url'];
             $file_name         = basename( $file_url );
+            $file_dir_name     = preg_replace( '/[.].+$/', '', $file_name );
+            $installation_dir  = $installation_path . '/' . $file_dir_name;
             $tmp_file          = download_url( $file_url );
 
             // Sets file final destination.
             $filepath = "{$installation_path}/{$file_name}";
-            
+
             // Copies the file to the final destination and deletes temporary file.
             copy( $tmp_file, $filepath );
             @unlink( $tmp_file );
+
+            global $wp_filesystem;
+            $wp_filesystem->rmdir( $installation_dir, true );
             
             unzip_file( $filepath, $installation_path );
             @unlink( $filepath );
@@ -384,7 +426,8 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $installation_path = ABSPATH . 'wp-content/themes';
             $file_url          = $args['url'];
             $file_name         = basename( $file_url );
-            $file_dir_name     = preg_replace( '/\.\w+$/', '', $file_name );
+            $file_dir_name     = preg_replace( '/[.].+$/', '', $file_name );
+            $installation_dir  = $installation_path . '/' . $file_dir_name;
             $tmp_file          = download_url( $file_url );
 
             // Sets file final destination.
@@ -393,6 +436,9 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             // Copies the file to the final destination and deletes temporary file.
             copy( $tmp_file, $filepath );
             @unlink( $tmp_file );
+
+            global $wp_filesystem;
+            $wp_filesystem->rmdir( $installation_dir, true );
             
             unzip_file( $filepath, $installation_path );
             @unlink( $filepath );

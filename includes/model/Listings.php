@@ -831,7 +831,6 @@ class Directorist_Listings {
 
 		if (isset($_GET['custom_field'])) {
 			$cf = array_filter($_GET['custom_field']);
-
 			foreach ($cf as $key => $values) {
 				if (is_array($values)) {
 					if (count($values) > 1) {
@@ -855,13 +854,12 @@ class Directorist_Listings {
 					}
 				}
 				else {
-
-					$field_type = get_post_meta($key, 'type', true);
-					$operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
+					// $field_type = get_post_meta($key, 'type', true);
+					// $operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
 					$meta_queries[] = array(
-						'key' => $key,
+						'key' => '_' . $key,
 						'value' => sanitize_text_field($values),
-						'compare' => $operator
+						'compare' => 'LIKE'
 					);
 
 				}

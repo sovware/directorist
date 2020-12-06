@@ -231,7 +231,7 @@ if (!class_exists('ATBDP_Custom_Post')):
 
                 case 'listing_type':
                     $term_id = get_post_meta( $post_id, '_directory_type', true );
-                    $term_name = get_term( $term_id )->name; ?>
+                    $term_name = !empty( $term_id  ) ? get_term( $term_id )->name : ''; ?>
                     <span><?php echo esc_attr( $term_name ); ?></span>
                     <?php
                     break;

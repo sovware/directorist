@@ -285,7 +285,8 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $activation_base_url = 'https://directorist.com?edd_action=activate_license';
             
             // Activate the Extensions
-            $purchased_extensions = [];
+            $extensions_meta              = [];
+            $purchased_extensions         = [];
             $invalid_purchased_extensions = [];
 
             if ( ! empty( $license_data[ 'plugins' ] ) ) {
@@ -302,7 +303,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                         $invalid_purchased_extensions[] = [ 'extension' => $extension, 'response' => $response_status ];
                         continue;
                     }
-
+                    
                     $purchased_extensions[] = $extension;
                 }
             }
@@ -410,7 +411,9 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             @unlink( $tmp_file );
 
             global $wp_filesystem;
-            $wp_filesystem->rmdir( $installation_dir, true );
+            if ( $installation_dir !== $installation_path . '/' ) {
+                $wp_filesystem->rmdir( $installation_dir, true );
+            }
             
             unzip_file( $filepath, $installation_path );
             @unlink( $filepath );
@@ -438,7 +441,10 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             @unlink( $tmp_file );
 
             global $wp_filesystem;
-            $wp_filesystem->rmdir( $installation_dir, true );
+            if ( $installation_dir !== $installation_path . '/' ) {
+                $wp_filesystem->rmdir( $installation_dir, true );
+            }
+            
             
             unzip_file( $filepath, $installation_path );
             @unlink( $filepath );

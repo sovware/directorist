@@ -2237,8 +2237,6 @@
                 uninstalling = false;
             },
         });
-
-        console.log( task, plugins_items );
     });
 
     // Ext Actions | Uninstall

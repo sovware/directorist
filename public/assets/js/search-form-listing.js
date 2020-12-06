@@ -1,4 +1,9 @@
 (function ($) {
+
+    $( 'body' ).on( 'click', '.search_listing_types', function(event){
+        //let listing_type = $()
+    });
+
     //Advance search
     // Populate atbdp child terms dropdown
     $('.bdas-terms').on('change', 'select', function (e) {

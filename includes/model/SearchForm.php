@@ -51,6 +51,9 @@ class Directorist_Listing_Search_Form {
 	public $select_listing_map;
 
 	public function __construct( $type, $listing_type, $atts = array() ) {
+
+		add_action( 'atbdp_before_search_form', [ $this, 'listing_type_template' ] );
+
 		$this->type         = $type;
 		$this->atts         = $atts;
 
@@ -318,6 +321,32 @@ class Directorist_Listing_Search_Form {
 		atbdp_get_shortcode_template( $template, $args );
 	}
 
+	public function get_listing_types() {
+		$listing_types = array();
+		$all_types     = get_terms(
+			array(
+				'taxonomy'   => ATBDP_TYPE,
+				'hide_empty' => false,
+			)
+		);
+
+		foreach ( $all_types as $type ) {
+			$listing_types[ $type->term_id ] = [
+				'name' => $type->name,
+				'data' => get_term_meta( $type->term_id, 'general_config', true ),
+			];
+		}
+		return $listing_types;
+	}
+	
+	public function listing_type_template() {
+		$args = array(
+			'searchform' 		=> $this,
+			'listing_types'     => $this->get_listing_types(),
+		);
+		atbdp_get_shortcode_template( 'search/listing-types', $args );
+	}
+
 	public function basic_fields_template() {
 		$args = array(
 			'searchform' => $this,
@@ -325,6 +354,8 @@ class Directorist_Listing_Search_Form {
 		);
 		atbdp_get_shortcode_template( 'search/basic-fields', $args );
 	}
+
+
 
 	public function more_buttons_template() {
 		$html = '';

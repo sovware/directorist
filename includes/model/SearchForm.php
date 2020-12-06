@@ -52,12 +52,10 @@ class Directorist_Listing_Search_Form {
 
 	public function __construct( $type, $listing_type, $atts = array() ) {
 
-		add_action( 'atbdp_before_search_form', 		array( $this, 'listing_type_template' ) );
-		add_action('wp_ajax_atbdp_listing_types', 		array( $this, 'atbdp_listing_types' ) );
-		add_action('wp_ajax_atbdp_listing_types',		array( $this, 'atbdp_listing_types' ) );
-
-		$this->type         = $type;
-		$this->atts         = $atts;
+		add_action( 'atbdp_before_search_form', array( $this, 'listing_type_template' ) );
+		
+		$this->type = $type;
+		$this->atts = $atts;
 
 		if ( $listing_type ) {
 			$this->listing_type = (int) $listing_type;
@@ -342,8 +340,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function atbdp_listing_types() {
-		wp_send_json(123);
-		die;
+		wp_send_json(['test' => 123]);
 	}
 
 	

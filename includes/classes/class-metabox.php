@@ -52,7 +52,6 @@ class ATBDP_Metabox {
 			'hide_empty' => false,
 		));
 		$current_type   =  get_post_meta( $post->ID, '_directory_type', true );
-		var_dump( $current_type );
 		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
 		?>
 		<label><?php _e( 'Listing Type', 'directorist' ); ?></label>

@@ -1879,11 +1879,9 @@ input.atbdp-form-control {
   cursor: pointer;
 }
 
-.et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn:active,
-.et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn:focus {
+.et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn:active, .et-wrapper .et-contents .ext-wrapper table .ei-action-wrapper button.ei-action-btn:focus {
   outline: none !important;
 }
-
 
 .et-wrapper .et-contents .ext-wrapper table .extension-name {
   display: flex;
@@ -2295,6 +2293,95 @@ input.atbdp-form-control {
   font-weight: 500;
   color: #fff;
   cursor: pointer;
+}
+
+/* extension and themes column */
+.extension-theme-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin: -25px;
+}
+
+#directorist.atbd_wrapper .et-column {
+  flex: 0 0 50%;
+  padding: 25px;
+}
+
+#directorist.atbd_wrapper .et-column h2 {
+  font-size: 22px;
+  font-weight: 500;
+  color: #272B41;
+  margin-bottom: 25px;
+}
+
+#directorist.atbd_wrapper .et-card {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 5px 5px rgba(173, 180, 210, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+#directorist.atbd_wrapper .et-card__image, #directorist.atbd_wrapper .et-card__details {
+  padding: 10px;
+}
+
+#directorist.atbd_wrapper .et-card__image img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+#directorist.atbd_wrapper .et-card__details {
+  flex: 1;
+}
+
+#directorist.atbd_wrapper .et-card__details h3 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 500;
+  color: #272B41;
+}
+
+#directorist.atbd_wrapper .et-card__details p {
+  line-height: 1.63;
+  color: #5A5F7D;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+#directorist.atbd_wrapper .et-card__details ul {
+  margin: -5px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+#directorist.atbd_wrapper .et-card__details ul li {
+  padding: 5px;
+}
+
+#directorist.atbd_wrapper .et-card__btn {
+  line-height: 40px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 20px;
+  border-radius: 5px;
+  display: block;
+}
+
+#directorist.atbd_wrapper .et-card__btn--primary {
+  background-color: rgba(62, 98, 245, 0.1);
+  color: #3E62F5;
+}
+
+#directorist.atbd_wrapper .et-card__btn--secondary {
+  background-color: rgba(255, 64, 140, 0.1);
+  color: #FF408C;
 }
 
 /*# sourceMappingURL=map/style.css.map */

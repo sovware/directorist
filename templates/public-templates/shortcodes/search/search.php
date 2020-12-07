@@ -44,6 +44,10 @@
 						foreach ( $searchform->form_data[0]['fields'] as $field ){
 							$searchform->field_template( $field );
 						}
+						if ( $searchform->more_filters_display !== 'always_open' ){
+							$searchform->more_buttons_template();
+						}
+						
 						?>
 					</div>
 
@@ -52,8 +56,7 @@
 						$searchform->advanced_search_form_fields_template();
 					}
 					else {
-						$searchform->more_buttons_template();
-
+					
 						if ($searchform->has_more_filters_button) { ?>
 							<div class="<?php echo ('overlapping' === $searchform->more_filters_display ) ? 'ads_float' : 'ads_slide' ?>">
 								<?php $searchform->advanced_search_form_fields_template();?>

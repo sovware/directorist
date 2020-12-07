@@ -123,7 +123,7 @@
 
     var ad_slide = $(".ads_slide .ads-advanced");
     ad_slide.hide().slideUp();
-    $(".more-filter").on("click", function (e) {
+    $("body").on("click", ".more-filter", function (e) {
         e.preventDefault();
         $(this).closest('.atbd_wrapper').find('.ads_slide').find('.ads-advanced').slideToggle().show();
         $(".ads_slide .ads-advanced").toggleClass("ads_ov");

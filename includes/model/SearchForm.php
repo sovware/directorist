@@ -51,8 +51,6 @@ class Directorist_Listing_Search_Form {
 	public $select_listing_map;
 
 	public function __construct( $type, $listing_type, $atts = array() ) {
-
-		add_action( 'atbdp_before_search_form', array( $this, 'listing_type_template' ) );
 		
 		$this->type = $type;
 		$this->atts = $atts;

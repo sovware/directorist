@@ -2,9 +2,14 @@
     $( 'body' ).on( 'click', '.search_listing_types', function(event){
         event.preventDefault();
         let listing_type = $(this).attr('data-listing_type');
+        let type_current = $('.type_current');
+        if( type_current.length ) {
+            type_current.removeClass('type_current');
+        }
+        $(this).addClass('type_current');
         let form_data = new FormData();
 
-        form_data.append('action', 'atbdp_listing_types');
+        form_data.append('action', 'atbdp_listing_types_form');
         form_data.append('listing_type', listing_type);
 
         $.ajax({
@@ -15,7 +20,7 @@
             data: form_data,
             success: function(response) {
                if( response ) {
-                   $( '.atbdp-search-form' ).empty().html( response );
+                   $( '.atbdp-whole-search-form' ).empty().html( response );
                }
             },
             error: function( error ) {
@@ -24,8 +29,6 @@
         });
         
     });
-
-
 
     //Advance search
     // Populate atbdp child terms dropdown

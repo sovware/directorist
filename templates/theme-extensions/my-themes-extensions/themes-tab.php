@@ -10,7 +10,7 @@
                         <span class="theme-version">v<?php echo $args['active_theme']['version'] ?></span>
                     </div>
                     <div class="theme-action">
-                        <a href="<?php echo $args['active_theme']['customizer_link'] ?>" class="theme-action-btn btn-customize">Customize</a>
+                        <a href="<?php echo $args['active_theme']['customizer_link'] ?>" target="_blank" class="theme-action-btn btn-customize">Customize</a>
                     </div>
                 </figcaption>
             </figure>
@@ -36,7 +36,7 @@
                         <h5><?php echo $purshased_theme['name'] ?></h5>
                         <div class="theme-action">
                             <a href="#" data-target="<?php echo $purshased_theme['stylesheet'] ?>" class="theme-action-btn theme-activate-btn">Activate</a>
-                            <a href="<?php echo $purshased_theme['customizer_link'] ?>" class="theme-action-btn theme-preview-btn">Live Preview</a>
+                            <a href="<?php echo $purshased_theme['customizer_link'] ?>" target="_blank" class="theme-action-btn theme-preview-btn">Live Preview</a>
                         </div>
                     </figcaption>
                 </figure>

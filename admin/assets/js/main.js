@@ -2199,7 +2199,6 @@
 
         console.log( task, plugins_items );
     });
-
     
 
     // Ext Actions | Uninstall
@@ -2262,6 +2261,50 @@
                 $( this ).addClass('active');
             }
         });
+    });
+
+    // Theme Activation
+    var theme_is_activating = false;
+    $( '.theme-activate-btn' ).on( 'click', function( e ) {
+        e.preventDefault();
+
+        if ( theme_is_activating ) { return; }
+
+        var data_target = $( this ).data( 'target' );
+        if ( ! data_target ) { return; }
+        if ( ! data_target.length ) { return; }
+
+        var form_data = {
+            action: 'atbdp_activate_theme',
+            theme_stylesheet: data_target,
+        };
+
+        var self = this;
+        theme_is_activating = true;
+
+        $.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            beforeSend: function() {
+                $( self ).prepend( '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ' );
+                
+            },
+            success: function( response ) {
+                console.log( { response } );
+                $( self ).find( '.atbdp-icon' ).remove();
+
+                if ( response.status && response.status.success ) {
+                    location.reload();
+                }
+            },
+            error: function( error ) {
+                console.log( { error } );
+                theme_is_activating = false;
+                $( self ).find( '.atbdp-icon' ).remove();
+            },
+        });
+        console.log( { data_target } );
     });
 
     /* $('body').on('click', function (e) {

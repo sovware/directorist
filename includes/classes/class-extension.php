@@ -36,6 +36,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
             add_action( 'wp_ajax_atbdp_plugins_bulk_action', array($this, 'plugins_bulk_action') );
             add_action( 'wp_ajax_atbdp_update_plugins', array($this, 'update_plugins') );
+            add_action( 'wp_ajax_atbdp_activate_theme', array($this, 'activate_theme') );
         }
 
         // get_the_products_list
@@ -343,6 +344,25 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             wp_send_json([ 'status' => $status,  ]);
         }
+
+        // activate_theme
+        public function activate_theme() {
+            $status = [ 'success' => true ];
+
+            $theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? $_POST['theme_stylesheet'] : '';
+
+
+            if ( empty( $theme_stylesheet ) ) {
+
+                $status['success'] = false;
+                $status['message'] = 'Theme\'s stylesheet is missing';
+
+                wp_send_json( [ 'status' => $status] );
+            }
+
+            switch_theme( $theme_stylesheet );
+            wp_send_json( [ 'status' => $status] );
+        }   
 
         // get_license_authentication
         public function get_license_authentication() {
@@ -795,11 +815,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             // Get Themes Informations
-            $sovware_themes = [
-                'direo',
-                'dlist',
-                'dservice',
-            ];
+            $sovware_themes = array_keys( $this->themes );
 
             $theme_updates       = get_site_transient( 'update_themes' );
             $outdated_themes     = $theme_updates->response;
@@ -847,8 +863,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             // Purshased Installed Themes Info
             $all_purshased_themes = [];
-            foreach ( $all_themes as $theme_base => $purshased_theme ) {
+            foreach ( $installed_themes as $theme_base => $purshased_theme ) {
                 if ( $active_theme[ 'stylesheet' ] === $theme_base ) { continue; }
+
+                $customizer_link = "customize.php?theme={$purshased_theme->stylesheet}&return=%2Fwp-admin%2Fthemes.php";
+                $customizer_link = admin_url( $customizer_link );
 
                 $all_purshased_themes[ $theme_base ] = [
                     'name'            => $purshased_theme->name,
@@ -859,8 +878,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'stylesheet'      => $purshased_theme->stylesheet,
                 ];
             }
-
-            // var_dump( $all_purshased_themes );
 
             $data = [
                 'has_purchased_products' => $has_purchased_products,

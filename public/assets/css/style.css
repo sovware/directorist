@@ -7032,11 +7032,11 @@ span.atbd_get_loc_wid {
   background-size: cover;
 }
 
-#directorist.atbd_wrapper .atbd_ads-form.atbd_seach_fields_wrapper {
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper {
   border-bottom: 0 none;
 }
 
-#directorist.atbd_wrapper .atbd_ads-form.atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline {
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline {
   background-color: #fff;
   border-radius: 6px;
   padding: 10px 20px;
@@ -7045,31 +7045,31 @@ span.atbd_get_loc_wid {
           align-items: center;
 }
 
-#directorist.atbd_wrapper .atbd_ads-form.atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .atbd_submit_btn_wrapper {
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .atbd_submit_btn_wrapper {
   margin-top: 0;
 }
 
-#directorist.atbd_wrapper .atbd_ads-form.atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .form-control,
-#directorist.atbd_wrapper .atbd_ads-form.atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .single_search_field .select2-selection,
-#directorist.atbd_wrapper .atbd_ads-form.atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .single_search_field {
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .form-control,
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .single_search_field .select2-selection,
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .single_search_field {
   border: 0 none;
 }
 
-#directorist.atbd_wrapper .atbd_ads-form.atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .form-control:focus,
-#directorist.atbd_wrapper .atbd_ads-form.atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .single_search_field .select2-selection:focus,
-#directorist.atbd_wrapper .atbd_ads-form.atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .single_search_field:focus {
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .form-control:focus,
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .single_search_field .select2-selection:focus,
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .single_search_field:focus {
   outline: none;
 }
 
-#directorist.atbd_wrapper .atbd_ads-form.atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .more-filter.btn-outline-primary {
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .more-filter.btn-outline-primary {
   border: 0 none;
 }
 
-#directorist.atbd_wrapper .atbd_ads-form.atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .single_search_field {
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .single_search_field {
   border-right: 1px solid #EFF1F6;
 }
 
-#directorist.atbd_wrapper .atbd_ads-form.atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .btn_search.btn-primary {
+#directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .btn_search.btn-primary {
   font-size: 15px;
   line-height: 1.35;
   font-weight: 600;

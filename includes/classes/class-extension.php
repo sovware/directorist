@@ -21,15 +21,251 @@ if ( ! class_exists('ATBDP_Extensions') ) {
      */
     class ATBDP_Extensions
     {
+        public $extensions = [];
+        public $themes     = [];
+
         public function __construct()
         {
             add_action( 'admin_menu', array($this, 'admin_menu'), 100 );
+            add_action( 'init', array( $this, 'get_the_product_list') );
+            add_filter( 'atbdp_extension_list', array( $this, 'exclude_purchased_extensions'), 20, 1 );
+            add_filter( 'atbdp_theme_list', array( $this, 'exclude_purchased_themes'), 20, 1 );
             
             // Ajax
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', array($this, 'authenticate_the_customer') );
             add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
             add_action( 'wp_ajax_atbdp_plugins_bulk_action', array($this, 'plugins_bulk_action') );
             add_action( 'wp_ajax_atbdp_update_plugins', array($this, 'update_plugins') );
+        }
+
+        // get_the_products_list
+        public function get_the_product_list() {
+            $this->extensions = apply_filters( 'atbdp_extension_list', [
+                'directorist-coupon' => [
+                    'name'        => 'Coupon',
+                    'description' => __( 'It lets you offer discounts to users when purchasing listing plans or paying for featured listings.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-coupon/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/11/19_Coupon.png',
+                    'active'      => true,
+                ],
+                'compare-listings' => [
+                    'name'        => 'Compare Listings',
+                    'description' => __( 'Compare Listings extension allows users to add a set of listings in a list and compare its features by viewing in a comparison table.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/compare-listings/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/2020/07/Compare-Listings.png',
+                    'active'      => true,
+                ],
+                'directorist-rank-featured-listings' => [
+                    'name'        => 'Rank Featured Listings',
+                    'description' => __( 'Rank all your featured listings if it happens on a larger scale on your directory website and earn extra revenue from your users.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-rank-featured-listings/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/Rank-Featured-List.png',
+                    'active'      => true,
+                ],
+                'directorist-post-your-need' => [
+                    'name'        => 'Post Your Need',
+                    'description' => __( 'Post your expected services according to your need and get the respective service provider with no time.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-post-your-need/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/05_Post-Your-Need-1.png',
+                    'active'      => true,
+                ],
+                'directorist-listings-with-map' => [
+                    'name'        => 'Listings With Map',
+                    'description' => __( 'Show your listings with the interactive maps and make your business visible comprehensively. This awesome extension will make your website the brand recognition it deserves.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-listings-with-map/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/06_Listings-With-Map-1.png',
+                    'active'      => true,
+                ],
+                'directorist-pricing-plans' => [
+                    'name'        => 'Pricing Plans',
+                    'description' => __( 'Do you have a growing directory site? Do you want to make money with your site very easily? Start generating a handsome amount of revenue from your directory site with Directorist Pricing Plans today.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-pricing-plans/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/15_Pricing-Plans-1.png',
+                    'active'      => true,
+                ],
+                'directorist-woocommerce-pricing-plans' => [
+                    'name'        => 'WooCommerce Pricing Plans',
+                    'description' => __( 'Do you have a growing directory site? Do you want to make money with your site by integrating your favorite WooCommerce payment gateway? Start generating a handsome amount of revenue from your directory site with Directorist WooCommerce Pricing Plans today.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-woocommerce-pricing-plans/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/16_WooCommerce-Pricing-Plans-1.png',
+                    'active'      => true,
+                ],
+                'directorist-paypal' => [
+                    'name'        => 'PayPal Payment Gateway',
+                    'description' => __( 'Do you want to boost your income on your business directory site? Are you looking for a robust payment gateway with worldwide acceptance? If you are, then Directorist PayPal Payment Gateway is the perfect fit for you.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-paypal/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/14_PayPal-Payment-Gateway-2.png',
+                    'active'      => true,
+                ],
+                'directorist-stripe' => [
+                    'name'        => 'Stripe Payment Gateway',
+                    'description' => __( 'Are you looking for a versatile Directorist payment gateway for your business directory that accepts a great number of currencies? If yes, then Directorist Stripe Payment Gateway is the smartest way to go', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-stripe/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/13_Stripe-Payment-Gateway-3.png',
+                    'active'      => true,
+                ],
+                'directorist-claim-listing' => [
+                    'name'        => 'Stripe Payment Gateway',
+                    'description' => __( 'Let business owners maintain tons of listings by claiming them and monetize your directory listing website with instant revenue.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-claim-listing/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/12_Claim-Listing-2.png',
+                    'active'      => true,
+                ],
+                'directorist-mark-as-sold' => [
+                    'name'        => 'Mark as Sold',
+                    'description' => __( 'Mark as sold is a dynamic extension that provides listing authors the opportunity to show visitors if a particular item is sold or not.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-mark-as-sold/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/03_Mark-As-Sold-1.png',
+                    'active'      => true,
+                ],
+                'directorist-social-login' => [
+                    'name'        => 'Social Login',
+                    'description' => __( 'Use Directorist Social Login to accelerate the registration process by offering a single-click login option using Facebook or Google profile.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-social-login/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/04_Social-Login-1.png',
+                    'active'      => true,
+                ],
+                'google-recaptcha' => [
+                    'name'        => 'Google reCAPTCHA',
+                    'description' => __( 'Use reCAPTCHA service from Google to help your directory site protect from spam and further abuse. This Google reCAPTCHA extension allows you to make it happen by taking care of your site.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-social-login/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/10_Google-ReCAPTCHA-2.png',
+                    'active'      => true,
+                ],
+                'directorist-listing-faqs' => [
+                    'name'        => 'Listing FAQs',
+                    'description' => __( 'Use an organized FAQ page on your directory website and provide quick information to help customers make a potential decision. Here, the idea is to keep the answers short and direct so that people find info quickly.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-listing-faqs/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/08_Listing-FAQs-1.png',
+                    'active'      => true,
+                ],
+                'directorist-business-hours' => [
+                    'name'        => 'Business Hours',
+                    'description' => __( 'Inform your customers about your business hours in the best way possible especially when your businesses are opened and when they are closed', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-business-hours/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/11_Business-Hours.png',
+                    'active'      => true,
+                ],
+                'directorist-listings-slider-carousel' => [
+                    'name'        => 'Listings Slider & Carousel',
+                    'description' => __( 'Increase the beauty of your directory website by displaying numerous listings through attractive sliders or carousels with this highly customizable extension.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-listings-slider-carousel/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/09_Listings-Slider-Carousel-1.png',
+                    'active'      => true,
+                ],
+                'directorist-live-chat' => [
+                    'name'        => 'Live Chat',
+                    'description' => __( 'Live Chat is an extension that allows the visitors to contact business owners immediately and easily. It makes the business more credible as customer satisfaction increases notably.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-live-chat/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/02_Live-Chats-1.png',
+                    'active'      => true,
+                ],
+                'directorist-booking' => [
+                    'name'        => 'Booking (Reservation & Appointment)',
+                    'description' => __( 'This extension comes with all the solutions you need to set up a dynamic booking and reservation system on your directory website.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-booking/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/01_Booking-1.png',
+                    'active'      => true,
+                ],
+                'directorist-image-gallery' => [
+                    'name'        => 'Image Gallery',
+                    'description' => __( 'Use a quality image gallery and increase conversation by reducing your return rate on your directory listing website.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directorist-image-gallery/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/07_Image-Gallery-1.png',
+                    'active'      => true,
+                ],
+            ]);
+
+
+            $this->themes = apply_filters( 'atbdp_theme_list', [
+                'dlist' => [
+                    'name'        => 'DList',
+                    'description' => __( 'DList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dlist/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/dlist-featured.png',
+                    'active'      => true,
+                ],
+                'dservice' => [
+                    'name'        => 'DList',
+                    'description' => __( 'DService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform. This multifunctional WordPress theme provides them the opportunity to interact with one another for business purposes.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/dservice/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/dservice-featured.png',
+                    'active'      => true,
+                ],
+                'directoria' => [
+                    'name'        => 'Directoria',
+                    'description' => __( 'Directoria is an astonishing directory and listing WordPress theme that is designed and developed to provide fastest page loading speed without knowing a single line of code.', 'directorist' ),
+                    'link'        => 'https://directorist.com/product/directoria/',
+                    'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/Directoria-1.png',
+                    'active'      => true,
+                ],
+            ]);
+        }
+
+        // exclude_purchased_extensions
+        public function exclude_purchased_extensions( $extensions ) {
+            $purchased_products = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', true );
+            if ( empty( $purchased_products ) ) { return $extensions; }
+
+            $purchased_extensions = $purchased_products['extensions'];
+            if ( empty( $purchased_extensions ) ) { return $extensions; }
+
+            $extensions_keys = array_keys( $extensions );
+            $excluded_extensions = $extensions;
+
+            foreach ( $excluded_extensions as $extension_key => $extension ) {
+                if ( ! in_array( $extension_key, $extensions_keys ) ) { continue; }
+
+                $excluded_extensions[ $extension_key ]['active'] = false;
+            }
+
+            return $excluded_extensions;
+        }
+
+        // exclude_purchased_themes
+        public function exclude_purchased_themes( $themes ) {
+            $purchased_products = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', true );
+            if ( empty( $purchased_products ) ) { return $themes; }
+
+            $purchased_themes = $purchased_products['themes'];
+            if ( empty( $purchased_themes ) ) { return $themes; }
+
+            $themes_keys = array_keys( $themes );
+            $excluded_themes = $themes;
+
+            foreach ( $excluded_themes as $theme_key => $theme ) {
+                if ( ! in_array( $theme_key, $themes_keys ) ) { continue; }
+
+                $excluded_themes[ $theme_key ]['active'] = false;
+            }
+
+            return $excluded_themes;
+        }
+
+        // get_active_extensions
+        public function get_active_extensions() {
+            $active_extensions = [];
+
+            foreach( $this->extensions as $extension_key => $extension_args ) {
+                if ( empty( $extension_args['active'] ) ) { continue; }
+
+                $active_extensions[ $extension_key ] = $extension_args;
+            }
+
+            return $active_extensions;
+        }
+
+        // get_active_themes
+        public function get_active_themes() {
+            $active_themes = [];
+
+            foreach( $this->themes as $theme_key => $theme_args ) {
+                if ( empty( $theme_args['active'] ) ) { continue; }
+
+                $active_themes[ $theme_key ] = $theme_args;
+            }
+
+            return $active_themes;
         }
 
         // update_plugins
@@ -156,13 +392,13 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             $license_data = $response_body['license_data'];
-            // update_user_meta( get_current_user_id(), '_atbdp_license_data', $license_data );
 
             // Activate the licenses
             $activation_base_url = 'https://directorist.com?edd_action=activate_license&url=' . home_url();
             
             // Activate the Extensions
-            $purchased_extensions = [];
+            $purchased_extensions         = [];
+            $purchased_extensions_meta    = [];
             $invalid_purchased_extensions = [];
 
             if ( ! empty( $license_data[ 'plugins' ] ) ) {
@@ -180,11 +416,22 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     }
 
                     $purchased_extensions[] = $extension;
+
+                    $link    = $extension[ 'permalink' ];
+                    $ext_key = str_replace( 'http://directorist.com/product/', '', $link );
+                    $ext_key = str_replace( 'https://directorist.com/product/', '', $ext_key );
+                    $ext_key = str_replace( '/', '', $ext_key );
+
+                    $purchased_extensions_meta[ $ext_key ] = [
+                        'item_id' => $extension[ 'item_id' ],
+                        'license' => $extension[ 'license' ],
+                    ];
                 }
             }
 
             // Activate the Themes
-            $purchased_themes = [];
+            $purchased_themes         = [];
+            $purchased_themes_meta    = [];
             $invalid_purchased_themes = [];
 
             if ( ! empty( $license_data[ 'themes' ] ) ) {
@@ -202,14 +449,32 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     }
 
                     $purchased_themes[] = $theme;
+
+                    $link      = $extension[ 'permalink' ];
+                    $theme_key = str_replace( 'http://directorist.com/product/', '', $link );
+                    $theme_key = str_replace( 'https://directorist.com/product/', '', $theme_key );
+                    $theme_key = str_replace( '/', '', $theme_key );
+
+                    $purchased_themes_meta[ $theme_key ] = [
+                        'item_id' => $extension[ 'item_id' ],
+                        'license' => $extension[ 'license' ],
+                    ];
                 }
             }
 
+            $customers_purchased = [
+                'extensions' => $purchased_extensions_meta,
+                'themes'     => $purchased_themes_meta,
+            ];
+
+            update_user_meta( get_current_user_id(), '_atbdp_purchased_products', $customers_purchased );
+
             $status[ 'success' ] = true;
             wp_send_json([ 
-                'status'       => $status,
-                'license_data' => $license_data,
-                'response'     => $response_body,
+                'status'              => $status,
+                'license_data'        => $license_data,
+                'response'            => $response_body,
+                'customers_purchased' => $customers_purchased,
             ]);
         }
 
@@ -285,7 +550,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $activation_base_url = 'https://directorist.com?edd_action=activate_license';
             
             // Activate the Extensions
-            $extensions_meta              = [];
+            $purchased_extensions_meta    = [];
             $purchased_extensions         = [];
             $invalid_purchased_extensions = [];
 
@@ -305,11 +570,23 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     }
                     
                     $purchased_extensions[] = $extension;
+
+                    // Store the ref for db
+                    $link    = $extension[ 'permalink' ];
+                    $ext_key = str_replace( 'http://directorist.com/product/', '', $link );
+                    $ext_key = str_replace( 'https://directorist.com/product/', '', $ext_key );
+                    $ext_key = str_replace( '/', '', $ext_key );
+
+                    $purchased_extensions_meta[ $ext_key ] = [
+                        'item_id' => $extension[ 'item_id' ],
+                        'license' => $extension[ 'license' ],
+                    ];
                 }
             }
 
             // Activate the Themes
-            $purchased_themes = [];
+            $purchased_themes_meta    = [];
+            $purchased_themes         = [];
             $invalid_purchased_themes = [];
 
             if ( ! empty( $license_data[ 'themes' ] ) ) {
@@ -329,14 +606,34 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     }
 
                     $purchased_themes[] = $theme;
+                    
+                    // Store the ref for db
+                    $link      = $theme[ 'permalink' ];
+                    $theme_key = str_replace( 'http://directorist.com/product/', '', $link );
+                    $theme_key = str_replace( 'https://directorist.com/product/', '', $theme_key );
+                    $theme_key = str_replace( '/', '', $theme_key );
+
+                    $purchased_themes_meta[ $theme_key ] = [
+                        'item_id' => $extension[ 'item_id' ],
+                        'license' => $extension[ 'license' ],
+                    ];
                 }
             }
+
+            $customers_purchased = [
+                'extensions' => $purchased_extensions_meta,
+                'themes'     => $purchased_themes_meta,
+            ];
+
+            update_user_meta( get_current_user_id(), '_atbdp_purchased_products', $customers_purchased );
 
             $status['purchased_extensions'] = $purchased_extensions;
             $status['invalid_purchased_extensions'] = $invalid_purchased_extensions;
 
             $status['purchased_themes'] = $purchased_themes;
             $status['invalid_purchased_themes'] = $invalid_purchased_themes;
+
+            $status['customers_purchased'] = $customers_purchased;
 
             return $status;
         }
@@ -445,7 +742,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 $wp_filesystem->rmdir( $installation_dir, true );
             }
             
-            
             unzip_file( $filepath, $installation_path );
             @unlink( $filepath );
 
@@ -523,23 +819,63 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                         $my_active_themes++;
                     }
 
-                    if ( in_array( $plugin_base, $outdated_themes_key ) ) {
+                    if ( in_array( $theme_base, $outdated_themes_key ) ) {
                         $my_outdated_themes++;
                     }
                 }
             }
 
-            $settings_url = admin_url( 'edit.php?post_type=at_biz_dir&page=aazztech_settings#_extensions_switch' );
+            // delete_user_meta( get_current_user_id(), '_atbdp_purchased_products' );
+            $purchased_products     = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', true );
+            $has_purchased_products = ( ! empty( $purchased_products )  ) ? true : false;
+            $settings_url           = admin_url( 'edit.php?post_type=at_biz_dir&page=aazztech_settings#_extensions_switch' );
+
+            // Get Active Theme Info
+            $current_theme   = wp_get_theme();
+            $customizer_link = "customize.php?theme={$current_theme->stylesheet}&return=%2Fwp-admin%2Fthemes.php";
+            $customizer_link = admin_url( $customizer_link );
+
+            $active_theme = [
+                'name'            => $current_theme->name,
+                'version'         => $current_theme->version,
+                'thumbnail'       => $current_theme->get_screenshot(),
+                'customizer_link' => $customizer_link,
+                'has_update'      => ( in_array( $current_theme->stylesheet, $outdated_themes_key ) ) ? true : false,
+                'stylesheet'      => $current_theme->stylesheet,
+            ];
+
+
+            // Purshased Installed Themes Info
+            $all_purshased_themes = [];
+            foreach ( $all_themes as $theme_base => $purshased_theme ) {
+                if ( $active_theme[ 'stylesheet' ] === $theme_base ) { continue; }
+
+                $all_purshased_themes[ $theme_base ] = [
+                    'name'            => $purshased_theme->name,
+                    'version'         => $purshased_theme->version,
+                    'thumbnail'       => $purshased_theme->get_screenshot(),
+                    'customizer_link' => $customizer_link,
+                    'has_update'      => ( in_array( $purshased_theme->stylesheet, $outdated_themes_key ) ) ? true : false,
+                    'stylesheet'      => $purshased_theme->stylesheet,
+                ];
+            }
+
+            // var_dump( $all_purshased_themes );
 
             $data = [
-                'installed_extensions' => $installed_extensions,
-                'outdated_plugins'     => $outdated_plugins,
-                'active_extensions'    => $active_extensions,
-                'outdated_extensions'  => $outdated_extensions,
-                'installed_themes'     => $installed_themes,
-                'active_themes'        => $my_active_themes,
-                'outdated_themes'      => $my_outdated_themes,
-                'settings_url'         => $settings_url,
+                'has_purchased_products' => $has_purchased_products,
+                'installed_extensions'   => $installed_extensions,
+                'outdated_plugins'       => $outdated_plugins,
+                'active_extensions'      => $active_extensions,
+                'outdated_extensions'    => $outdated_extensions,
+                'installed_themes'       => $installed_themes,
+                'active_themes'          => $my_active_themes,
+                'active_theme'           => $active_theme,
+                'outdated_themes'        => $my_outdated_themes,
+                'all_active_extensions'  => $this->get_active_extensions(),
+                'all_active_themes'      => $this->get_active_themes(),
+                'all_purshased_themes'   => $all_purshased_themes,
+                'settings_url'           => $settings_url,
             ];
 
             ATBDP()->load_template('theme-extensions/theme-extension', $data );

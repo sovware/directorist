@@ -1592,6 +1592,14 @@ span.atbdp-tick-cross {
   box-shadow: none;
 }
 
+.atbdp-form-page {
+  width: 100%;
+}
+
+.atbdp-form-response-page {
+  width: 100%;
+}
+
 .atbdp-form-header {
   display: block;
 }
@@ -2296,6 +2304,9 @@ input.atbdp-form-control {
     border-radius: 6px;
     padding: 25px;
     margin: 15px;
+    img {
+      width: 100%;
+    }
   }
 
   figure {
@@ -2343,7 +2354,7 @@ input.atbdp-form-control {
   border-radius: 6px;
   box-shadow: 0 5px 20px rgba(#ADB4D2, 0.05);
   width: 670px;
-  margin: 0 auto;
+  margin: 0 auto 30px;
   text-align: center;
 
   h4 {
@@ -2446,6 +2457,8 @@ input.atbdp-form-control {
   &__image,
   &__details {
     padding: 10px;
+    flex-grow: 1;
+    max-width: 50%;
   }
 
   &__image {

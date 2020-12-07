@@ -1965,7 +1965,8 @@ input.atbdp-form-control {
             }
           }
 
-          .ei-action-btn, button.ei-action-btn {
+          .ei-action-btn,
+          button.ei-action-btn {
             background: #C6D0DC !important;
             border-radius: 4px;
             color: #fff !important;
@@ -1978,7 +1979,9 @@ input.atbdp-form-control {
             border: none;
             border-radius: 4px !important;
             cursor: pointer;
-            &:active, &:focus {
+
+            &:active,
+            &:focus {
               outline: none !important;
             }
           }
@@ -2079,26 +2082,6 @@ input.atbdp-form-control {
             }
           }
 
-          .ext-action-btn {
-            display: inline-block;
-            line-height: 34px;
-            background: #F4F5F7 !important;
-            padding: 0 20px;
-            border-radius: 25px;
-            margin: 0 8px;
-            transition: 0.3s ease;
-
-            &:hover {
-              background-color: #3E62F5 !important;
-              color: #fff !important;
-            }
-
-            &.ext-install-btn {
-              background-color: #3E62F5 !important;
-              color: #fff !important;
-            }
-          }
-
           div {
             position: relative;
 
@@ -2154,6 +2137,28 @@ input.atbdp-form-control {
         }
       }
     }
+  }
+}
+
+#directorist.atbd_wrapper .ext-action-btn {
+  display: inline-block;
+  line-height: 34px;
+  background: #F4F5F7 !important;
+  padding: 0 20px;
+  border-radius: 25px;
+  margin: 0 8px;
+  transition: 0.3s ease;
+  font-size: 14px !important;
+  font-weight: 500;
+
+  &:hover {
+    background-color: #3E62F5 !important;
+    color: #fff !important;
+  }
+
+  &.ext-install-btn {
+    background-color: #3E62F5 !important;
+    color: #fff !important;
   }
 }
 
@@ -2404,6 +2409,98 @@ input.atbdp-form-control {
       font-weight: 500;
       color: #fff;
       cursor: pointer;
+    }
+  }
+}
+
+/* extension and themes column */
+.extension-theme-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin: -25px;
+}
+
+#directorist.atbd_wrapper .et-column {
+  flex: 0 0 50%;
+  padding: 25px;
+
+  h2 {
+    font-size: 22px;
+    font-weight: 500;
+    color: #272B41;
+    margin-bottom: 25px;
+  }
+}
+
+#directorist.atbd_wrapper .et-card {
+  background-color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 5px 5px rgba(#ADB4D2, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  margin-bottom: 20px;
+
+  &__image,
+  &__details {
+    padding: 10px;
+  }
+
+  &__image {
+    img {
+      max-width: 100%;
+      border-radius: 6px;
+    }
+  }
+
+  &__details {
+    flex: 1;
+
+    h3 {
+      margin-bottom: 20px;
+      font-size: 20px;
+      font-weight: 500;
+      color: #272B41;
+    }
+
+    p {
+      line-height: 1.63;
+      color: #5A5F7D;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    ul {
+      margin: -5px;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+
+      li {
+        padding: 5px;
+      }
+    }
+  }
+
+  &__btn {
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 0 20px;
+    border-radius: 5px;
+    display: block;
+
+    &--primary {
+      background-color: rgba(#3E62F5, 0.1);
+      color: #3E62F5;
+    }
+
+    &--secondary {
+      background-color: rgba(#FF408C, 0.1);
+      color: #FF408C;
     }
   }
 }

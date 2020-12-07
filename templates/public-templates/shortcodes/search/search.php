@@ -39,7 +39,7 @@
 				$searchform->listing_type_template();
 				?>
 				<div class="atbdp-whole-search-form">
-					<div class="row atbdp-search-form">
+					<div class="row atbdp-search-form atbdp-search-form-inline">
 						<?php
 						foreach ( $searchform->form_data[0]['fields'] as $field ){
 							$searchform->field_template( $field );

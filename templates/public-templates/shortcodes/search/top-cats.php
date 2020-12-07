@@ -5,7 +5,7 @@
  * @version 6.6
  */
 ?>
-<div class="directory_home_category_area">
+<div class="directory_home_category_area atbdp_search-category">
 
 	<?php if ($searchform->show_connector) { ?>
 		<span><?php echo esc_html( $searchform->connectors_title ); ?></span>

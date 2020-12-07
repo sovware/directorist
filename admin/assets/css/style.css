@@ -1977,26 +1977,6 @@ input.atbdp-form-control {
   background-color: #F4F5F7 !important;
 }
 
-.et-wrapper .et-contents .ext-wrapper table .ext-action .ext-action-btn {
-  display: inline-block;
-  line-height: 34px;
-  background: #F4F5F7 !important;
-  padding: 0 20px;
-  border-radius: 25px;
-  margin: 0 8px;
-  transition: 0.3s ease;
-}
-
-.et-wrapper .et-contents .ext-wrapper table .ext-action .ext-action-btn:hover {
-  background-color: #3E62F5 !important;
-  color: #fff !important;
-}
-
-.et-wrapper .et-contents .ext-wrapper table .ext-action .ext-action-btn.ext-install-btn {
-  background-color: #3E62F5 !important;
-  color: #fff !important;
-}
-
 .et-wrapper .et-contents .ext-wrapper table .ext-action div {
   position: relative;
 }
@@ -2048,6 +2028,28 @@ input.atbdp-form-control {
 
 .et-wrapper .et-contents .ext-wrapper .ext-available-table h4 {
   margin-bottom: 20px !important;
+}
+
+#directorist.atbd_wrapper .ext-action-btn {
+  display: inline-block;
+  line-height: 34px;
+  background: #F4F5F7 !important;
+  padding: 0 20px;
+  border-radius: 25px;
+  margin: 0 8px;
+  transition: 0.3s ease;
+  font-size: 14px !important;
+  font-weight: 500;
+}
+
+#directorist.atbd_wrapper .ext-action-btn:hover {
+  background-color: #3E62F5 !important;
+  color: #fff !important;
+}
+
+#directorist.atbd_wrapper .ext-action-btn.ext-install-btn {
+  background-color: #3E62F5 !important;
+  color: #fff !important;
 }
 
 .et-tab {

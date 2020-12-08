@@ -2011,8 +2011,27 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 div#listing_notifier span {
   display: block;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
   text-align: center;
-  margin-bottom: 10px;
+  padding: 8px 30px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 auto 15px;
+}
+
+div#listing_notifier span.atbdp_error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+div#listing_notifier span.atbdp_success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
 }
 
 .atbdp_float_active {
@@ -7045,12 +7064,15 @@ span.atbd_get_loc_wid {
 
 .directory_search_area {
   background-size: cover;
-  position: relative;
   padding: 290px 0 265px;
   z-index: 2;
 }
 
-.directory_search_area:after {
+.directory_search_area.atbdp-bg-overlay {
+  position: relative;
+}
+
+.directory_search_area.atbdp-bg-overlay:after {
   position: absolute;
   left: 0;
   top: 0;
@@ -7067,7 +7089,7 @@ span.atbd_get_loc_wid {
 }
 
 #directorist.atbd_wrapper.directory_search_area .directorist-listing-types {
-  margin-bottom: 15px;
+  margin-bottom: 32px;
 }
 
 #directorist.atbd_wrapper.directory_search_area .directorist-listing-types ul {
@@ -7187,6 +7209,48 @@ span.atbd_get_loc_wid {
 
 #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .atbd_filter_btn {
   margin-left: 15px;
+}
+
+#directorist.atbd_wrapper.directory_search_area.atbdp-bg-white .atbd_search_title_area .title {
+  color: #51526E;
+}
+
+#directorist.atbd_wrapper.directory_search_area.atbdp-bg-white .atbd_search_title_area .sub_title {
+  color: #51526E;
+}
+
+#directorist.atbd_wrapper.directory_search_area.atbdp-bg-white .directorist-listing-types ul li a {
+  color: #8F8E9F;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+#directorist.atbd_wrapper.directory_search_area.atbdp-bg-white .directorist-listing-types ul li a.type_current {
+  color: #0A0B1E;
+}
+
+#directorist.atbd_wrapper.directory_search_area.atbdp-bg-white .directorist-listing-types ul li a:after {
+  background-color: #0A0B1E;
+}
+
+#directorist.atbd_wrapper.directory_search_area.atbdp-bg-white .atbdp_listing_top_category li a i,
+#directorist.atbd_wrapper.directory_search_area.atbdp-bg-white .atbdp_listing_top_category li a span {
+  color: #8F8E9F;
+}
+
+#directorist.atbd_wrapper.directory_search_area.atbdp-bg-white .atbdp_listing_top_category li a p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #51526E;
+}
+
+#directorist.atbd_wrapper.directory_search_area.atbdp-style-meterial .atbdp-search-form {
+  -webkit-box-shadow: 0 10px 20px rgba(160, 158, 185, 0.2);
+          box-shadow: 0 10px 20px rgba(160, 158, 185, 0.2);
+}
+
+#directorist.atbd_wrapper.directory_search_area.atbdp-style-flat .atbdp-search-form {
+  border: 1px solid #E1E4EC;
 }
 
 /*.select2-container{

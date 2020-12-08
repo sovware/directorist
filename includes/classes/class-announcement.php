@@ -141,22 +141,20 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
         // add_dashboard_nav_link
         public function add_dashboard_nav_link() {
-            $nav_label = "Announcements <span class='atbdp-nav-badge new-announcement-count'></span>";
-            $new_announcements = $this->get_new_announcement_count();
-
-            if ( $new_announcements > 0 ) {
-                $nav_label = "Announcements <span class='atbdp-nav-badge new-announcement-count show'>{$new_announcements}</span>";
-            }
+            
+            $new_announcements  = $this->get_new_announcement_count();
+            $badge_active_class = ( $new_announcements > 0 ) ? ' show': '';
+            $new_announcements  = sprintf( __( "%s", 'directorist' ) , $new_announcements);
+            $badge              = "<span class='atbdp-nav-badge new-announcement-count{$badge_active_class}'>{$new_announcements}</span>";
+            $nav_label          = __( 'Announcements ', 'directorist' ) . $badge;
 
             ob_start(); 
-
             $html = '<li class="atbdp_tab_nav--content-link">
                         <a href="" class="atbd_tn_link" target="announcement">
                             ' . __( $nav_label, 'directorist') . '
                         </a>
                     </li>';
             echo apply_filters('announcement_user_dashboard_tab', $html, $new_announcements);
-
             echo ob_get_clean();
         }
 
@@ -249,7 +247,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
             $status = [
                 'success' => false,
-                'message' => __( 'Sorry, something went wrong, please try again' )
+                'message' => __( 'Sorry, something went wrong, please try again', 'directorist' )
             ];
 
             // Get Recipients
@@ -270,19 +268,19 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
 
             // Validate recepents
             if ( empty( $recepents ) ) {
-                $status['message'] = __( 'No recepents found' );
+                $status['message'] = __( 'No recepents found', 'directorist' );
                 wp_send_json( $status );
             }
 
             // Validate Subject
             if ( empty( $subject ) ) {
-                $status['message'] = __( 'The subject cant be empty' );
+                $status['message'] = __( 'The subject cant be empty', 'directorist' );
                 wp_send_json( $status );
             }
 
             // Validate Message
             if ( strlen( $message ) > 400 ) {
-                $status['message'] = __( 'Maximum 400 characters are allowed for the message' );
+                $status['message'] = __( 'Maximum 400 characters are allowed for the message', 'directorist' );
                 wp_send_json( $status );
             }
 

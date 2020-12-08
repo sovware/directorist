@@ -2145,6 +2145,7 @@
             },
             error: function( error ) {
                 console.log( error );
+                form_response_page.html( '<h4 class="atbdp-text-center">Something went wrong, please try agin</h4>' );
             },
         });
     }
@@ -2304,15 +2305,52 @@
                 $( self ).find( '.atbdp-icon' ).remove();
             },
         });
-        console.log( { data_target } );
     });
 
-    /* $('body').on('click', function (e) {
-        const target = $(e.target);
-        if (!target.is('.ext-action-drop, .ext-action-drop i')) {
-            $('.ext-action-drop').removeClass('active');
-        }
-    }); */
+    // Theme Update
+    var theme_is_updating = false;
+    $( '.theme-update-btn' ).on( 'click', function( e ) {
+        e.preventDefault();
+
+        if ( theme_is_updating ) { return; }
+
+        var data_target = $( this ).data( 'target' );
+        if ( ! data_target ) { return; }
+        if ( ! data_target.length ) { return; }
+
+        var form_data = {
+            action: 'atbdp_activate_theme',
+            theme_stylesheet: data_target,
+        };
+
+        var self = this;
+        theme_is_updating = true;
+
+        $.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            beforeSend: function() {
+                $( self ).prepend( '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ' );
+                
+            },
+            success: function( response ) {
+                console.log( { response } );
+                $( self ).find( '.atbdp-icon' ).remove();
+
+                if ( response.status && response.status.success ) {
+                    location.reload();
+                }
+            },
+            error: function( error ) {
+                console.log( { error } );
+                theme_is_updating = false;
+                $( self ).find( '.atbdp-icon' ).remove();
+            },
+        });
+    });
+    
+
 
 
     //button primary

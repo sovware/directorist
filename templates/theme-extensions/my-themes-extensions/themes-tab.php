@@ -3,14 +3,14 @@
     <div class="theme-card-wrapper">
         <div class="theme-card">
             <figure>
-                <img src="<?php echo $args['active_theme']['thumbnail'] ?>" alt="">
+                <img src="<?php echo $args['active_theme']['thumbnail']; ?>" alt="">
                 <figcaption>
                     <div class="theme-title">
-                        <h5><?php echo $args['active_theme']['name'] ?></h5>
-                        <span class="theme-version">v<?php echo $args['active_theme']['version'] ?></span>
+                        <h5><?php echo $args['active_theme']['name']; ?></h5>
+                        <span class="theme-version">v<?php echo $args['active_theme']['version']; ?></span>
                     </div>
                     <div class="theme-action">
-                        <a href="<?php echo $args['active_theme']['customizer_link'] ?>" target="_blank" class="theme-action-btn btn-customize">Customize</a>
+                        <a href="<?php echo $args['active_theme']['customizer_link']; ?>" target="_blank" class="theme-action-btn btn-customize">Customize</a>
                     </div>
                 </figcaption>
             </figure>
@@ -18,7 +18,7 @@
             <?php if ( $args['active_theme']['has_update'] ) : ?>
             <div class="theme-card__footer">
                 <p class="theme-update theme-update--available">Update available <span class="whats-new">What's new?</span></p>
-                <a href="#" class="theme-update-btn" data-target="<?php echo $args['active_theme']['stylesheet'] ?>">Update</a>
+                <a href="#" class="theme-update-btn" data-target="<?php echo $args['active_theme']['stylesheet']; ?>">Update</a>
             </div>
             <?php endif; ?>
         </div>

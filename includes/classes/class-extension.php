@@ -37,6 +37,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             add_action( 'wp_ajax_atbdp_plugins_bulk_action', array($this, 'plugins_bulk_action') );
             add_action( 'wp_ajax_atbdp_update_plugins', array($this, 'update_plugins') );
             add_action( 'wp_ajax_atbdp_activate_theme', array($this, 'activate_theme') );
+            add_action( 'wp_ajax_atbdp_update_theme', array($this, 'handle_theme_update_request') );
         }
 
         // get_the_products_list
@@ -187,7 +188,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'active'      => true,
                 ],
                 'dservice' => [
-                    'name'        => 'DList',
+                    'name'        => 'DService',
                     'description' => __( 'DService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform. This multifunctional WordPress theme provides them the opportunity to interact with one another for business purposes.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/dservice/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/dservice-featured.png',
@@ -348,21 +349,61 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         // activate_theme
         public function activate_theme() {
             $status = [ 'success' => true ];
-
             $theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? $_POST['theme_stylesheet'] : '';
 
-
             if ( empty( $theme_stylesheet ) ) {
-
                 $status['success'] = false;
-                $status['message'] = 'Theme\'s stylesheet is missing';
+                $status['message'] = __('Theme\'s stylesheet is missing', 'directorist');
 
                 wp_send_json( [ 'status' => $status] );
             }
 
             switch_theme( $theme_stylesheet );
             wp_send_json( [ 'status' => $status] );
-        }   
+        }
+
+        // handle_theme_update_request
+        public function handle_theme_update_request() {
+            $status = [ 'success' => true ];
+            $theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? $_POST['theme_stylesheet'] : '';
+
+            if ( empty( $theme_stylesheet ) ) {
+                $status['success'] = false;
+                $status['message'] = __('Theme\'s stylesheet is missing', 'directorist');
+
+                wp_send_json( [ 'status' => $status ] );
+            }
+
+            $update_theme_status = $this->update_the_theme( $theme_stylesheet );
+            wp_send_json( $update_theme_status );
+        }
+
+        // update_the_theme
+        public function update_the_theme( $theme_stylesheet = '' ) {
+            $status = [ 'success' => true ];
+
+            // Check if stylesheet is present
+            if ( empty( $theme_stylesheet ) ) {
+                $status['success'] = false;
+                $status['message'] = __('Theme\'s stylesheet is missing', 'directorist');
+
+                return [ 'status' => $status ];
+            }
+
+            $theme_updates       = get_site_transient( 'update_themes' );
+            $outdated_themes     = $theme_updates->response;
+            $outdated_themes_key = array_keys( $outdated_themes );
+
+            // Check if the the update is available
+            if ( ! in_array( $theme_stylesheet, $outdated_themes_key ) ) {
+                $status['success'] = false;
+                $status['message'] = __('The theme is already upto date', 'directorist');
+
+                return [ 'status' => $status ];
+            }
+
+            $outdated_theme = $outdated_themes['theme_stylesheet'];
+        }
 
         // get_license_authentication
         public function get_license_authentication() {
@@ -674,6 +715,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             // Download the extensions
+            if ( ! function_exists( 'WP_Filesystem' ) ) {
+                include  ABSPATH . 'wp-admin/includes/file.php';
+            }
+            WP_Filesystem();
+
             // Download Extenstions
             if ( ! empty( $cart['purchased_extensions'] ) ) {
                 foreach ( $cart['purchased_extensions'] as $extension ) {
@@ -681,7 +727,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     if ( empty( $paths ) ) { continue; }
 
                     foreach ( $paths as $path ) {
-                        $this->download_plugin( [ 'url' => $path ] );
+                        $this->download_plugin( [ 'url' => $path, 'init_wp_filesystem' => false ] );
                     }
                 }
             }
@@ -693,7 +739,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     if ( empty( $paths ) ) { continue; }
 
                     foreach ( $paths as $path ) {
-                        $this->download_theme( [ 'url' => $path ] );
+                        $this->download_theme( [ 'url' => $path, 'init_wp_filesystem' => false ] );
                     }
                 }
             }
@@ -706,68 +752,159 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         // download_plugin
         public function download_plugin( array $args = [] ) {
-            $default = [ 'url' => '' ];
+            $default = [ 'url' => '', 'init_wp_filesystem' => true ];
             $args = array_merge( $default, $args );
 
             if ( empty( $default ) ) { return; }
 
-            WP_Filesystem();
-
-            $installation_path = ABSPATH . 'wp-content/plugins';
-            $file_url          = $args['url'];
-            $file_name         = basename( $file_url );
-            $file_dir_name     = preg_replace( '/[.].+$/', '', $file_name );
-            $installation_dir  = $installation_path . '/' . $file_dir_name;
-            $tmp_file          = download_url( $file_url );
-
-            // Sets file final destination.
-            $filepath = "{$installation_path}/{$file_name}";
-
-            // Copies the file to the final destination and deletes temporary file.
-            copy( $tmp_file, $filepath );
-            @unlink( $tmp_file );
-
             global $wp_filesystem;
-            if ( $installation_dir !== $installation_path . '/' ) {
-                $wp_filesystem->rmdir( $installation_dir, true );
+
+            if ( $args[ 'init_wp_filesystem' ] ) {
+                if ( ! function_exists( 'WP_Filesystem' ) ) {
+                    include  ABSPATH . 'wp-admin/includes/file.php';
+                }
+                WP_Filesystem();
             }
             
-            unzip_file( $filepath, $installation_path );
-            @unlink( $filepath );
+
+            $plugin_path   = ABSPATH . 'wp-content/plugins';
+            $temp_dest     = "{$plugin_path}/atbdp-temp-dir";
+            $file_url      = $args['url'];
+            $file_name     = basename( $file_url );
+            $tmp_file      = download_url( $file_url );
+
+            // Make Temp Dir
+            if ( $wp_filesystem->exists( $temp_dest ) ) {
+                $wp_filesystem->delete( $temp_dest, true );
+            }
+            $wp_filesystem->mkdir( $temp_dest );
+
+            // Sets file temp destination.
+            $file_path = "{$temp_dest}/{$file_name}";
+
+            // Copies the file to the final destination and deletes temporary file.
+            copy( $tmp_file, $file_path );
+            @unlink( $tmp_file );
+
+            unzip_file( $file_path, $temp_dest );
+            if ( $file_path !== "{$plugin_path}/" || $file_path !== $plugin_path ) {
+                @unlink( $file_path );
+            }
+
+            $extracted_file_dir = glob( "{$temp_dest}/*", GLOB_ONLYDIR );
+            foreach ( $extracted_file_dir as $dir_path ) {
+                $dir_name  = basename( $dir_path );
+                $dest_path = "{$plugin_path}/{$dir_name}";
+
+                // Delete Previous Files if Exists
+                if ( $wp_filesystem->exists( $dest_path ) ) {
+                    $wp_filesystem->delete( $dest_path, true );
+                }
+            }
+
+            copy_dir( $temp_dest, $plugin_path );
+            $wp_filesystem->delete( $temp_dest, true );
         }
-        
+
         // download_theme
         public function download_theme( array $args = [] ) {
-            $default = [ 'url' => '' ];
+            $default = [ 'url' => '', 'init_wp_filesystem' => true ];
             $args = array_merge( $default, $args );
 
             if ( empty( $default ) ) { return; }
 
-            $installation_path = ABSPATH . 'wp-content/themes';
-            $file_url          = $args['url'];
-            $file_name         = basename( $file_url );
-            $file_dir_name     = preg_replace( '/[.].+$/', '', $file_name );
-            $installation_dir  = $installation_path . '/' . $file_dir_name;
-            $tmp_file          = download_url( $file_url );
+            global $wp_filesystem;
 
-            // Sets file final destination.
-            $filepath = "{$installation_path}/{$file_name}";
-            
+            if ( $args[ 'init_wp_filesystem' ] ) {
+                if ( ! function_exists( 'WP_Filesystem' ) ) {
+                    include  ABSPATH . 'wp-admin/includes/file.php';
+                }
+                WP_Filesystem();
+            }
+
+            $theme_path = ABSPATH . 'wp-content/themes';
+            $temp_dest  = "{$theme_path}/atbdp-temp-dir";
+            $file_url   = $args['url'];
+            $file_name  = basename( $file_url );
+            $tmp_file   = download_url( $file_url );
+
+            // Make Temp Dir
+            if ( $wp_filesystem->exists( $temp_dest ) ) {
+                $wp_filesystem->delete( $temp_dest, true );
+            }
+            $wp_filesystem->mkdir( $temp_dest );
+
+            // Sets file temp destination.
+            $file_path = "{$temp_dest}/{$file_name}";
+
             // Copies the file to the final destination and deletes temporary file.
-            copy( $tmp_file, $filepath );
+            copy( $tmp_file, $file_path );
             @unlink( $tmp_file );
 
-            global $wp_filesystem;
-            if ( $installation_dir !== $installation_path . '/' ) {
-                $wp_filesystem->rmdir( $installation_dir, true );
+            unzip_file( $file_path, $temp_dest );
+            if ( $file_path !== "{$theme_path}/" || $file_path !== $theme_path ) {
+                @unlink( $file_path );
             }
-            
-            unzip_file( $filepath, $installation_path );
-            @unlink( $filepath );
 
-            // If is child theme
-            // $theme_dir_path = "{$theme_path}/$file_dir_name";
-            // $main_theme_file = "{$theme_dir_path}/";
+            $extracted_file_dir = glob( "{$temp_dest}/*", GLOB_ONLYDIR );
+            $dir_path = $extracted_file_dir[0];
+
+            $dir_name  = basename( $dir_path );
+            $dest_path = "{$theme_path}/{$dir_name}";
+            $zip_files = glob( "{$dir_path}/*.zip" );
+
+            // If has child theme
+            if ( ! empty( $zip_files ) ) {
+                $new_temp_dest = "{$temp_dest}/_temp_dest";
+                $this->install_themes_from_zip_files( $zip_files, $new_temp_dest, $wp_filesystem );
+
+                copy_dir( $new_temp_dest, $theme_path );
+                $wp_filesystem->delete( $temp_dest, true );
+
+                return;
+            }
+
+            // Delete Previous Files If Exists
+            if ( $wp_filesystem->exists( $dest_path ) ) {
+                $wp_filesystem->delete( $dest_path, true );
+            }
+
+            copy_dir( $temp_dest, $theme_path );
+            $wp_filesystem->delete( $temp_dest, true );
+        }
+
+        // install_theme_from_zip
+        public function install_themes_from_zip_files( $zip_files, $temp_dest, $wp_filesystem ) {
+            $theme_path = ABSPATH . 'wp-content/themes';
+
+            foreach( $zip_files as $zip ) {
+                $file     = basename( $zip );
+                $dir_name = str_replace( '.zip', '', $file );
+
+                if ( preg_match( '/[-]child[.]zip$/', $file ) ) {
+                    $temp_dest_path = "{$temp_dest}/{$dir_name}";
+                    $main_dest_path = "{$theme_path}/{$dir_name}";
+
+                    // Skip if has child
+                    if ( $wp_filesystem->exists( $main_dest_path ) ) {
+                        continue;
+                    }
+
+                    $wp_filesystem->mkdir( $temp_dest_path );
+                    unzip_file( $zip, $temp_dest_path );
+                    @unlink( $zip );
+
+                    continue;
+                }
+
+                $main_dest_path = "{$theme_path}/{$dir_name}";
+                if ( $wp_filesystem->exists( $main_dest_path ) ) {
+                    $wp_filesystem->delete( $main_dest_path, true );
+                }
+
+                unzip_file( $zip, $temp_dest );
+                @unlink( $zip );
+            }
         }
 
         /**
@@ -860,7 +997,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'stylesheet'      => $current_theme->stylesheet,
             ];
 
-
             // Purshased Installed Themes Info
             $all_purshased_themes = [];
             foreach ( $installed_themes as $theme_base => $purshased_theme ) {
@@ -878,6 +1014,9 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'stylesheet'      => $purshased_theme->stylesheet,
                 ];
             }
+
+            // var_dump( $this->get_active_extensions() );
+            // $st = $this->update_the_theme();
 
             $data = [
                 'has_purchased_products' => $has_purchased_products,

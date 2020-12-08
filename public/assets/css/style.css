@@ -7211,6 +7211,10 @@ span.atbd_get_loc_wid {
   margin-left: 15px;
 }
 
+#directorist.atbd_wrapper.directory_search_area.atbdp-no-filter .atbd_filter_btn {
+  display: none;
+}
+
 #directorist.atbd_wrapper.directory_search_area.atbdp-bg-white .atbd_search_title_area .title {
   color: #51526E;
 }

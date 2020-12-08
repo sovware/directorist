@@ -6975,6 +6975,212 @@ span.atbd_get_loc_wid {
           box-shadow: 0 5px 10px rgba(143, 142, 159, 0.05);
 }
 
+.atbdp-userDashboard-tabcontent .atbdp-listing-table table {
+  border: 0 none;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr td,
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr th {
+  font-size: 14px;
+  font-weight: 400;
+  color: #51526E;
+  padding: 22px;
+  border: 0 none;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr th {
+  font-size: 12px;
+  font-weight: 500;
+  color: #8F8E9F;
+  text-transform: uppercase;
+  border-bottom: 1px solid #EFF1F6;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-listing-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-listing-info__img {
+  margin-right: 12px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-listing-info__img img {
+  max-width: 44px;
+  border-radius: 6px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-listing-info__content {
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-listing-info__content .atbdp-title {
+  margin: 0 0 5px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #0A0B1E;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-listing-info__content .atbd-price {
+  font-size: 14px;
+  font-weight: 400;
+  color: #51526E;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-badge {
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 3px 7px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-badge.primary {
+  color: #444752;
+  background-color: rgba(68, 71, 82, 0.15);
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-badge.success {
+  color: #32cc6f;
+  background-color: rgba(50, 204, 111, 0.15);
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-badge.danger {
+  color: #e23636;
+  background-color: rgba(226, 54, 54, 0.15);
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-badge.warning {
+  color: #ffaf00;
+  background-color: rgba(255, 175, 0, 0.15);
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions a {
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions a.atbdp-link-btn {
+  color: #2C99FF;
+  font-weight: 500;
+  margin-right: 20px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions a.atbdp-link-btn i {
+  margin-right: 5px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more:hover {
+  background-color: #F2F2F2;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more:hover i,
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more:hover span,
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more:hover svg {
+  color: #0A0B1E;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more i,
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more span,
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more svg {
+  font-size: 16px;
+  color: #8F8E9F;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown {
+  position: relative;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown .atbdp-dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+  background-color: #fff;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu {
+  min-width: 230px;
+  border: 1px solid #EFF1F6;
+  padding: 0 0 10px 0;
+  border-radius: 6px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu .atbdp-dropdown-menu__list {
+  position: relative;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu .atbdp-dropdown-menu__list:not(:last-child) {
+  padding-bottom: 10px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu .atbdp-dropdown-menu__list:not(:last-child):after {
+  position: absolute;
+  left: 20px;
+  bottom: 0;
+  width: calc(100% - 40px);
+  height: 1px;
+  background-color: #EFF1F6;
+  content: '';
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu .atbdp-dropdown-menu__list a {
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #51526E;
+  display: block;
+  text-decoration: none;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu .atbdp-dropdown-menu__list a:hover {
+  background-color: #F6F7F9;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu .atbdp-dropdown-menu__list a:first-child {
+  margin-top: 10px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu .atbdp-dropdown-menu__list .atbdp-custom-checkbox {
+  padding: 10px 20px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu .atbdp-dropdown-menu__list .atbdp-custom-checkbox label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #51526E;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .select2-selection {
   display: block;
   width: 100%;

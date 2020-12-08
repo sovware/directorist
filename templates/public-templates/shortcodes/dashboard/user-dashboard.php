@@ -114,18 +114,18 @@
                                     <span class="atbdp-ex-plan">March 24, 2020</span>
                                 </td>
                                 <td>
-                                    <span class="atbdp-badge dashboard-badge primary">Publish</span>
+                                    <span class="atbdp-badge dashboard-badge success">Publish</span>
                                 </td>
                                 <td>
                                     <div class="atbdp-actions">
-                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i></a>
-                                        <a href="#" class="atbdp-btn-more" type="button">
-                                            <i class="las la-ellipsis-h"></i>
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
                                             <div class="atbdp-dropdown-menu">
                                                 <div class="atbdp-dropdown-menu__list">
-                                                    <a class="atbdp-dropdown-item" href="#">Change Plan</a>
-                                                    <a class="atbdp-dropdown-item" href="#">Promote Listing</a>
-                                                    <a class="atbdp-dropdown-item" href="#">Pay Now</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
                                                 </div>
                                                 <div class="atbdp-dropdown-menu__list">
                                                     <div class="atbdp-custom-checkbox">
@@ -142,10 +142,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="atbdp-dropdown-menu__list">
-                                                    <a class="atbdp-dropdown-item" href="#">Delete Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -189,14 +189,14 @@
                                 </td>
                                 <td>
                                     <div class="atbdp-actions">
-                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i></a>
-                                        <a href="#" class="atbdp-btn-more" type="button">
-                                            <i class="las la-ellipsis-h"></i>
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
                                             <div class="atbdp-dropdown-menu">
                                                 <div class="atbdp-dropdown-menu__list">
-                                                    <a class="atbdp-dropdown-item" href="#">Change Plan</a>
-                                                    <a class="atbdp-dropdown-item" href="#">Promote Listing</a>
-                                                    <a class="atbdp-dropdown-item" href="#">Pay Now</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
                                                 </div>
                                                 <div class="atbdp-dropdown-menu__list">
                                                     <div class="atbdp-custom-checkbox">
@@ -213,10 +213,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="atbdp-dropdown-menu__list">
-                                                    <a class="atbdp-dropdown-item" href="#">Delete Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -256,18 +256,18 @@
                                     <span class="atbdp-ex-plan">March 24, 2020</span>
                                 </td>
                                 <td>
-                                    <span class="atbdp-badge dashboard-badge primary">Publish</span>
+                                    <span class="atbdp-badge dashboard-badge warning">Pending</span>
                                 </td>
                                 <td>
                                     <div class="atbdp-actions">
-                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i></a>
-                                        <a href="#" class="atbdp-btn-more" type="button">
-                                            <i class="las la-ellipsis-h"></i>
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
                                             <div class="atbdp-dropdown-menu">
                                                 <div class="atbdp-dropdown-menu__list">
-                                                    <a class="atbdp-dropdown-item" href="#">Change Plan</a>
-                                                    <a class="atbdp-dropdown-item" href="#">Promote Listing</a>
-                                                    <a class="atbdp-dropdown-item" href="#">Pay Now</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
                                                 </div>
                                                 <div class="atbdp-dropdown-menu__list">
                                                     <div class="atbdp-custom-checkbox">
@@ -284,10 +284,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="atbdp-dropdown-menu__list">
-                                                    <a class="atbdp-dropdown-item" href="#">Delete Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -327,18 +327,18 @@
                                     <span class="atbdp-ex-plan">March 24, 2020</span>
                                 </td>
                                 <td>
-                                    <span class="atbdp-badge dashboard-badge primary">Publish</span>
+                                    <span class="atbdp-badge dashboard-badge danger">Expired</span>
                                 </td>
                                 <td>
                                     <div class="atbdp-actions">
-                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i></a>
-                                        <a href="#" class="atbdp-btn-more" type="button">
-                                            <i class="las la-ellipsis-h"></i>
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
                                             <div class="atbdp-dropdown-menu">
                                                 <div class="atbdp-dropdown-menu__list">
-                                                    <a class="atbdp-dropdown-item" href="#">Change Plan</a>
-                                                    <a class="atbdp-dropdown-item" href="#">Promote Listing</a>
-                                                    <a class="atbdp-dropdown-item" href="#">Pay Now</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
                                                 </div>
                                                 <div class="atbdp-dropdown-menu__list">
                                                     <div class="atbdp-custom-checkbox">
@@ -355,10 +355,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="atbdp-dropdown-menu__list">
-                                                    <a class="atbdp-dropdown-item" href="#">Delete Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -402,14 +402,14 @@
                                 </td>
                                 <td>
                                     <div class="atbdp-actions">
-                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i></a>
-                                        <a href="#" class="atbdp-btn-more" type="button">
-                                            <i class="las la-ellipsis-h"></i>
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
                                             <div class="atbdp-dropdown-menu">
                                                 <div class="atbdp-dropdown-menu__list">
-                                                    <a class="atbdp-dropdown-item" href="#">Change Plan</a>
-                                                    <a class="atbdp-dropdown-item" href="#">Promote Listing</a>
-                                                    <a class="atbdp-dropdown-item" href="#">Pay Now</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
                                                 </div>
                                                 <div class="atbdp-dropdown-menu__list">
                                                     <div class="atbdp-custom-checkbox">
@@ -426,10 +426,10 @@
                                                     </div>
                                                 </div>
                                                 <div class="atbdp-dropdown-menu__list">
-                                                    <a class="atbdp-dropdown-item" href="#">Delete Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>

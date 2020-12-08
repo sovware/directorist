@@ -111,8 +111,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
                     $submitted_data = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
                     $required = !empty( $value['required'] ) ? $value['required'] : '';
+                    $only_for_admin = !empty( $value['only_for_admin'] ) ? $value['only_for_admin'] : '';
                     $label = !empty( $value['label'] ) ? $value['label'] : '';
-                    if( $required && !$submitted_data ){
+                    if( $required && !$submitted_data && !$only_for_admin ){
                         $msg = $label .__( ' field is required!', 'directorist' );
                         array_push( $error, $msg );
                     }

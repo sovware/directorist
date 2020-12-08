@@ -7,12 +7,6 @@
 ?>
 <div class="directory_home_category_area atbdp_search-category">
 
-	<?php if ($searchform->show_connector) { ?>
-		<span><?php echo esc_html( $searchform->connectors_title ); ?></span>
-	<?php } ?>
-
-	<p><?php echo esc_html($searchform->popular_cat_title); ?></p>
-
 	<ul class="categories atbdp_listing_top_category">
 		<?php foreach ($top_categories as $cat) { ?>
 			<li>

@@ -92,7 +92,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $searchform = new Directorist_Listing_Search_Form( 'search_form', $listing_type, [] );
             ob_start();
             ?>
-            <div class="row atbdp-search-form">
+            <div class="row atbdp-search-form atbdp-search-form-inline">
                     <?php
                     foreach ( $searchform->form_data[0]['fields'] as $field ){
                         $searchform->field_template( $field );

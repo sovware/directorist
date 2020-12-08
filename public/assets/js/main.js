@@ -622,6 +622,7 @@
         };
     })();
     pureScriptTab('.atbd_tab');
+    pureScriptTab('.atbdp-userDashboard-tab');
 
 
     // Validate forms

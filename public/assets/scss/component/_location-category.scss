@@ -148,11 +148,20 @@
     }
   }
   span.expander {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
     margin-left: 5px;
     line-height: 15px;
     border-radius: 5px;
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0A0B1E;
+    color: #fff;
+    margin-left: 18px;
     cursor: pointer;
   }
   .atbd_all_categories {
@@ -318,11 +327,28 @@
 #directorist.atbd_wrapper{
   &.atbdp-categories{
     &.atbdp-text-list{
+      .atbdp-no-margin{
+        margin-bottom: -30px;
+      }
       .atbd_category_wrapper{
+        margin-bottom: 28px;
+        li{
+          margin-bottom: 10px;
+          &:first-child{
+            margin-top: 10px;;
+          }
+        }
         a{
           font-size: 15px;
           font-weight: 500;
           color: #0A0B1E;
+        }
+        .atbdp_child_category{
+          a{
+            font-size: 15px;
+            font-weight: 400;
+            color: #51526E;
+          }
         }
       }
     }

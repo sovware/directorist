@@ -1498,6 +1498,13 @@ span.atbdp-tick-cross {
   box-shadow: none;
 }
 
+.atbdp-form-page {
+  width: 100%;
+}
+.atbdp-form-response-page {
+  width: 100%;
+}
+
 .atbdp-form-header {
   display: block;
 }
@@ -2185,6 +2192,10 @@ input.atbdp-form-control {
   margin: 15px;
 }
 
+.available-themes-wrapper .available-theme-card img {
+  width: 100%;
+}
+
 .available-themes-wrapper figure {
   margin-bottom: 0 !important;
 }
@@ -2229,7 +2240,7 @@ input.atbdp-form-control {
   border-radius: 6px;
   box-shadow: 0 5px 20px rgba(173, 180, 210, 0.05);
   width: 670px;
-  margin: 0 auto;
+  margin: 0 auto 30px;
   text-align: center;
 }
 
@@ -2330,6 +2341,8 @@ input.atbdp-form-control {
 
 #directorist.atbd_wrapper .et-card__image, #directorist.atbd_wrapper .et-card__details {
   padding: 10px;
+  flex-grow: 1;
+  max-width: 50%;
 }
 
 #directorist.atbd_wrapper .et-card__image img {

@@ -184,7 +184,6 @@
         });
     }
 
-
     // Custom Image uploader for listing image
     // Set all variables to be used in scope
     let frame;
@@ -462,24 +461,24 @@
     });
 
     /* // Display the media uploader when "Upload Image" button clicked in the custom taxonomy "atbdp_categories"
-    $( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
-    
-     if (frame) {
-         frame.open();
-         return;
-     }
-    
-     // Create a new media frame
-     frame = wp.media({
-         title: atbdp_admin_data.i18n_text.upload_cat_image,
-         button: {
-             text: atbdp_admin_data.i18n_text.choose_image
-         },
-         library: {type: 'image'}, // only allow image upload only
-         multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
-     });
+$( '#atbdp-categories-upload-image' ).on( 'click', function( e ) {
+
+ if (frame) {
      frame.open();
-    }); */
+     return;
+ }
+
+ // Create a new media frame
+ frame = wp.media({
+     title: atbdp_admin_data.i18n_text.upload_cat_image,
+     button: {
+         text: atbdp_admin_data.i18n_text.choose_image
+     },
+     library: {type: 'image'}, // only allow image upload only
+     multiple: multiple_image  // Set to true to allow multiple files to be selected. it will be set based on the availability of Multiple Image extension
+ });
+ frame.open();
+}); */
     /**
      * Display the media uploader for selecting an image.
      *
@@ -1754,6 +1753,8 @@
         dsiplay_slider_single_page_dep.show();
     }
 
+
+
     // Announcement
     // ----------------------------------------------------------------------------------
     // Display Announcement Recepents
@@ -2026,7 +2027,7 @@
         }
     }
 
-    
+
 
     // License Authentication
     // ----------------------------------------------------------
@@ -2062,7 +2063,7 @@
                 submit_button.attr('disabled', false);
                 submit_button.find('.atbdp-loading').remove();
 
-                if ( response.status.log ) {
+                if (response.status.log) {
                     for (var feedback in response.status.log) {
                         console.log(response.status.log[feedback]);
                         var alert_type = ('success' === response.status.log[feedback].type) ? 'atbdp-form-alert-success' : 'atbdp-form-alert-danger';
@@ -2073,47 +2074,47 @@
                     }
                 }
 
-                if ( response.status.success ) {
-                    form.find('.atbdp-form-page').addClass( 'atbdp-d-none' );
-                    var form_response_page = form.find( '.atbdp-form-response-page' );
-                    form_response_page.removeClass( 'atbdp-d-none' );
+                if (response.status.success) {
+                    form.find('.atbdp-form-page').addClass('atbdp-d-none');
+                    var form_response_page = form.find('.atbdp-form-response-page');
+                    form_response_page.removeClass('atbdp-d-none');
 
-                    form_response_page.append( '<div class="atbdp-form-feedback"></div>' );
+                    form_response_page.append('<div class="atbdp-form-feedback"></div>');
 
-                    var cart            = response.customers_purchased;
+                    var cart = response.customers_purchased;
                     var total_purchased = cart.purchased_extensions.length + cart.purchased_themes.length;
 
-                    var extension_s     = ( cart.purchased_extensions.length > 1 ) ? ' extensions' : ' extension';
-                    var theme_s         = ( cart.purchased_themes.length > 1 ) ? ' themes' : ' theme';
-                    
+                    var extension_s = (cart.purchased_extensions.length > 1) ? ' extensions' : ' extension';
+                    var theme_s = (cart.purchased_themes.length > 1) ? ' themes' : ' theme';
+
                     var message = 'Downloading ';
-                    
-                    if ( total_purchased > 0 ) {
-                        if ( cart.purchased_extensions.length ) {
+
+                    if (total_purchased > 0) {
+                        if (cart.purchased_extensions.length) {
                             message += cart.purchased_extensions.length + extension_s;
                         }
-    
-                        if ( cart.purchased_themes.length ) {
-                            var and = ( cart.purchased_extensions.length ) ? ' and ' : '';
+
+                        if (cart.purchased_themes.length) {
+                            var and = (cart.purchased_extensions.length) ? ' and ' : '';
                             message += and + cart.purchased_themes.length + theme_s;
                         }
-    
+
                         message += ' from your purchase';
                         var spiner = '<span class="atbdp-icon atbdp-icon-large"><span class="fas fa-circle-notch fa-spin"></span></span>';
                         var msg = '<h4 class="atbdp-text-center">' + message + '</h4>';
 
-                        form_response_page.find( '.atbdp-form-feedback' ).append( spiner );
-                        form_response_page.find( '.atbdp-form-feedback' ).append( msg );
-                        
-                        download_purchased_items( response.customers_purchased, form_response_page );
+                        form_response_page.find('.atbdp-form-feedback').append(spiner);
+                        form_response_page.find('.atbdp-form-feedback').append(msg);
+
+                        download_purchased_items(response.customers_purchased, form_response_page);
 
                     } else {
                         message = 'There is no downloadable product in your purchase';
                         var msg = '<h4 class="atbdp-text-center">' + message + '</h4>';
-                        form_response_page.find( '.atbdp-form-feedback' ).html( msg );
+                        form_response_page.find('.atbdp-form-feedback').html(msg);
 
                         var continue_button = '<button type="submit" class="button button-primary skip-download">Continue</button>';
-                        form_response_page.find( '.atbdp-form-actions' ).append( continue_button );
+                        form_response_page.find('.atbdp-form-actions').append(continue_button);
                     }
                 }
             },
@@ -2128,7 +2129,7 @@
     });
 
     // download_purchased_items
-    function download_purchased_items( customers_purchased, form_response_page ) {
+    function download_purchased_items(customers_purchased, form_response_page) {
         var form_data = {
             action: 'atbdp_download_purchased_items',
             customers_purchased: customers_purchased,
@@ -2138,36 +2139,77 @@
             type: "post",
             url: atbdp_admin_data.ajaxurl,
             data: form_data,
-            success: function( response ) {
-                console.log( response );
-                form_response_page.html( '<h4 class="atbdp-text-center">'+ response.status.message +'</h4>' );
+            success: function (response) {
+                console.log(response);
+                form_response_page.html('<h4 class="atbdp-text-center">' + response.status.message + '</h4>');
                 location.reload();
             },
-            error: function( error ) {
-                console.log( error );
+            error: function (error) {
+                console.log(error);
             },
         });
     }
 
     // Form Actions
-    // Bulk Actions
-    var is_bulk_processing = false;
-    $( '#atbdp-my-extensions-form' ).on( 'submit', function( e ) {
+
+    // Single Extension Update
+    var ext_updating = false;
+    $('.ext-update-btn').on('click', function (e) {
         e.preventDefault();
+        if (ext_updating) { return; }
 
-        if ( is_bulk_processing ) { return; }
+        var data_target = $(this).data('target');
+        if (!data_target.length) { return; }
 
-        var task          = $( this ).find( 'select[name="bulk-actions"]' ).val();
-        var plugins_items = [];
+        var form_data = {
+            action: 'atbdp_update_plugins',
+            plugin_item: data_target,
+        };
 
-        $( this ).find( '.extension-name-checkbox' ).each( function( i, e ) {
-            var is_checked = $( e ).is( ':checked' );
-            var id = $( e ).attr( 'id' );
+        var self = this;
+        ext_updating = true;
 
-            if ( is_checked ) { plugins_items.push( id ) }
+        jQuery.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            beforeSend: function () {
+                $(self).html('Updating');
+                $(self).prepend('<span class="atbdp-icon"><span class="fas fa-spinner fa-spin"></span></span> ');
+            },
+            success: function (response) {
+                console.log(response);
+                ext_updating = false;
+                $(self).html('Update');
+                // location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+                ext_updating = false;
+                $(self).html('Update');
+            },
         });
 
-        if ( ! task.length || ! plugins_items.length ) {
+    });
+
+    // Bulk Actions
+    var is_bulk_processing = false;
+    $('#atbdp-my-extensions-form').on('submit', function (e) {
+        e.preventDefault();
+
+        if (is_bulk_processing) { return; }
+
+        var task = $(this).find('select[name="bulk-actions"]').val();
+        var plugins_items = [];
+
+        $(this).find('.extension-name-checkbox').each(function (i, e) {
+            var is_checked = $(e).is(':checked');
+            var id = $(e).attr('id');
+
+            if (is_checked) { plugins_items.push(id) }
+        });
+
+        if (!task.length || !plugins_items.length) {
             return;
         }
 
@@ -2183,36 +2225,33 @@
             type: "post",
             url: atbdp_admin_data.ajaxurl,
             data: form_data,
-            beforeSend: function() {
-                $( self ).find( 'button[type="submit"]' ).prepend( '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ' );
+            beforeSend: function () {
+                $(self).find('button[type="submit"]').prepend('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ');
             },
-            success: function( response ) {
+            success: function (response) {
                 // console.log( response );
-                $( self ).find( 'button[type="submit"] .atbdp-icon' ).remove();
+                $(self).find('button[type="submit"] .atbdp-icon').remove();
                 location.reload();
             },
-            error: function( error ) {
-                console.log( error );
+            error: function (error) {
+                console.log(error);
                 uninstalling = false;
             },
         });
-
-        console.log( task, plugins_items );
     });
-    
 
     // Ext Actions | Uninstall
     var uninstalling = false;
-    $('.ext-action-uninstall').on( 'click', function( e ) {
+    $('.ext-action-uninstall').on('click', function (e) {
         e.preventDefault();
-        if ( uninstalling ) { return; }
+        if (uninstalling) { return; }
 
-        var data_target = $( this ).data( 'target' );
+        var data_target = $(this).data('target');
 
         var form_data = {
             action: 'atbdp_plugins_bulk_action',
             task: 'uninstall',
-            plugin_items: [ data_target ],
+            plugin_items: [data_target],
         };
 
         var self = this;
@@ -2222,16 +2261,16 @@
             type: "post",
             url: atbdp_admin_data.ajaxurl,
             data: form_data,
-            beforeSend: function() {
-                $( self ).prepend( '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ' );
+            beforeSend: function () {
+                $(self).prepend('<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ');
             },
-            success: function( response ) {
+            success: function (response) {
                 // console.log( response );
-                $( self ).closest( '.ext-action' ).find('.ext-action-drop').removeClass( 'active' );
+                $(self).closest('.ext-action').find('.ext-action-drop').removeClass('active');
                 location.reload();
             },
-            error: function( error ) {
-                console.log( error );
+            error: function (error) {
+                console.log(error);
                 uninstalling = false;
             },
         });
@@ -2239,72 +2278,28 @@
 
 
     // Bulk checkbox toggle
-    $( '#atbdp-my-extensions-form' ).find( 'input[name="select-all"]' ).on( 'change', function( e ) {
-        var is_checked = $( this ).is( ':checked' );
+    $('#atbdp-my-extensions-form').find('input[name="select-all"]').on('change', function (e) {
+        var is_checked = $(this).is(':checked');
 
-        if ( is_checked ) {
-            $( '#atbdp-my-extensions-form' ).find( '.extension-name-checkbox' ).prop( "checked", true );
+        if (is_checked) {
+            $('#atbdp-my-extensions-form').find('.extension-name-checkbox').prop("checked", true);
         } else {
-            $( '#atbdp-my-extensions-form' ).find( '.extension-name-checkbox' ).prop( "checked", false );
+            $('#atbdp-my-extensions-form').find('.extension-name-checkbox').prop("checked", false);
         }
     });
 
-    // 
+    //
     $('.ext-action-drop').each(function (i, e) {
         $(e).on('click', function (elm) {
             elm.preventDefault();
 
-            if ( $( this ).hasClass('active') ) {
-                $( this ).removeClass('active');
+            if ($(this).hasClass('active')) {
+                $(this).removeClass('active');
             } else {
-                $('.ext-action-drop').removeClass( 'active' );
-                $( this ).addClass('active');
+                $('.ext-action-drop').removeClass('active');
+                $(this).addClass('active');
             }
         });
-    });
-
-    // Theme Activation
-    var theme_is_activating = false;
-    $( '.theme-activate-btn' ).on( 'click', function( e ) {
-        e.preventDefault();
-
-        if ( theme_is_activating ) { return; }
-
-        var data_target = $( this ).data( 'target' );
-        if ( ! data_target ) { return; }
-        if ( ! data_target.length ) { return; }
-
-        var form_data = {
-            action: 'atbdp_activate_theme',
-            theme_stylesheet: data_target,
-        };
-
-        var self = this;
-        theme_is_activating = true;
-
-        $.ajax({
-            type: "post",
-            url: atbdp_admin_data.ajaxurl,
-            data: form_data,
-            beforeSend: function() {
-                $( self ).prepend( '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ' );
-                
-            },
-            success: function( response ) {
-                console.log( { response } );
-                $( self ).find( '.atbdp-icon' ).remove();
-
-                if ( response.status && response.status.success ) {
-                    location.reload();
-                }
-            },
-            error: function( error ) {
-                console.log( { error } );
-                theme_is_activating = false;
-                $( self ).find( '.atbdp-icon' ).remove();
-            },
-        });
-        console.log( { data_target } );
     });
 
     /* $('body').on('click', function (e) {
@@ -2422,5 +2417,275 @@
         if (show_if_value === subject_elm.val()) { terget_elm.show(); }
         else { terget_elm.hide(); }
     }
+    
+    const form = $(this);
+    const submit_button = form.find('button[type="submit"]');
 
-})(jQuery);
+    const form_data = {
+        action: 'atbdp_authenticate_the_customer',
+        username: form.find('input[name="username"]').val(),
+        password: form.find('input[name="password"]').val(),
+    };
+
+    $('.atbdp-form-feedback').html('');
+
+    is_sending = true;
+    jQuery.ajax({
+        type: 'post',
+        url: atbdp_admin_data.ajaxurl,
+        data: form_data,
+        beforeSend() {
+            submit_button.prepend(
+                '<span class="atbdp-loading"><span class="fas fa-spinner fa-spin"></span></span> '
+            );
+            submit_button.attr('disabled', true);
+        },
+        success(response) {
+            console.log(response);
+            is_sending = false;
+            submit_button.attr('disabled', false);
+            submit_button.find('.atbdp-loading').remove();
+
+            if (response.status.log) {
+                for (const feedback in response.status.log) {
+                    console.log(response.status.log[feedback]);
+                    const alert_type =
+                        response.status.log[feedback].type === 'success'
+                            ? 'atbdp-form-alert-success'
+                            : 'atbdp-form-alert-danger';
+                    const alert_message = response.status.log[feedback].message;
+                    const alert = `<div class="atbdp-form-alert ${alert_type}">${alert_message}<div>`;
+
+                    $('.atbdp-form-feedback').append(alert);
+                }
+            }
+
+            if (response.status.success) {
+                form.find('.atbdp-form-page').addClass('atbdp-d-none');
+                const form_response_page = form.find('.atbdp-form-response-page');
+                form_response_page.removeClass('atbdp-d-none');
+
+                form_response_page.append('<div class="atbdp-form-feedback"></div>');
+
+                const cart = response.customers_purchased;
+                const total_purchased =
+                    cart.purchased_extensions.length + cart.purchased_themes.length;
+
+                const extension_s =
+                    cart.purchased_extensions.length > 1 ? ' extensions' : ' extension';
+                const theme_s = cart.purchased_themes.length > 1 ? ' themes' : ' theme';
+
+                let message = 'Downloading ';
+
+                if (total_purchased > 0) {
+                    if (cart.purchased_extensions.length) {
+                        message += cart.purchased_extensions.length + extension_s;
+                    }
+
+                    if (cart.purchased_themes.length) {
+                        const and = cart.purchased_extensions.length ? ' and ' : '';
+                        message += and + cart.purchased_themes.length + theme_s;
+                    }
+
+                    message += ' from your purchase';
+                    const spiner =
+                        '<span class="atbdp-icon atbdp-icon-large"><span class="fas fa-circle-notch fa-spin"></span></span>';
+                    var msg = `<h4 class="atbdp-text-center">${message}</h4>`;
+
+                    form_response_page.find('.atbdp-form-feedback').append(spiner);
+                    form_response_page.find('.atbdp-form-feedback').append(msg);
+
+                    download_purchased_items(
+                        response.customers_purchased,
+                        form_response_page
+                    );
+
+                    // var download_status = download_purchased_items( response.customers_purchased, form_response_page );
+                    // form_response_page.html( '<h4 class="atbdp-text-center">'+ download_status.status.message +'</h4>' );
+
+                    // console.log( { download_status } );
+                } else {
+                    message = 'There is no downloadable product in your purchase';
+                    var msg = `<h4 class="atbdp-text-center">${message}</h4>`;
+                    form_response_page.find('.atbdp-form-feedback').html(msg);
+
+                    const continue_button =
+                        '<button type="submit" class="button button-primary skip-download">Continue</button>';
+                    form_response_page.find('.atbdp-form-actions').append(continue_button);
+                }
+            }
+        },
+
+        error(error) {
+            console.log(error);
+            is_sending = false;
+            submit_button.attr('disabled', false);
+            submit_button.find('.atbdp-loading').remove();
+        },
+    });
+});
+
+// download_purchased_items
+function download_purchased_items(customers_purchased, form_response_page) {
+    const form_data = {
+        action: 'atbdp_download_purchased_items',
+        customers_purchased,
+    };
+
+    jQuery.ajax({
+        type: 'post',
+        url: atbdp_admin_data.ajaxurl,
+        data: form_data,
+        success(response) {
+            // console.log( response );
+            form_response_page.html(
+                `<h4 class="atbdp-text-center">${response.status.message}</h4>`
+            );
+            location.reload();
+        },
+        error(error) {
+            console.log(error);
+            status = error;
+        },
+    });
+}
+
+// button primary
+// primary_button = $("#primary_color, #primary_hover_color, #back_primary_color, #back_primary_hover_color, #border_primary_color, #border_primary_hover_color, #primary_example");
+// secondary_button = $("#secondary_color, #secondary_hover_color, #back_secondary_color, #back_secondary_hover_color, #secondary_border_color, #secondary_border_hover_color, #secondary_example");
+// danger_button = $("#danger_color, #danger_hover_color, #back_danger_color, #back_danger_hover_color, #danger_border_color, #danger_border_hover_color, #danger_example");
+// success_button = $("#success_color, #success_hover_color, #back_success_color, #back_success_hover_color, #border_success_color, #border_success_hover_color, #success_example");
+// primary_outline = $("#priout_color, #priout_hover_color, #back_priout_color, #back_priout_hover_color, #border_priout_color, #border_priout_hover_color, #priout_example");
+// primary_outline_light = $("#prioutlight_color, #prioutlight_hover_color, #back_prioutlight_color, #back_prioutlight_hover_color, #border_prioutlight_color, #border_prioutlight_hover_color, #prioutlight_example");
+// danger_outline = $("#danout_color, #danout_hover_color, #back_danout_color, #back_danout_hover_color, #border_danout_color, #border_danout_hover_color, #danout_example");
+primary_button.hide();
+secondary_button.hide();
+danger_button.hide();
+success_button.hide();
+primary_outline.hide();
+primary_outline_light.hide();
+danger_outline.hide();
+$('select[name="button_type"]').on('change', function () {
+    if ($(this).val() === 'solid_primary') {
+        primary_button.show();
+        secondary_button.hide();
+        danger_button.hide();
+        success_button.hide();
+        primary_outline.hide();
+        primary_outline_light.hide();
+        danger_outline.hide();
+    } else if ($(this).val() === 'solid_secondary') {
+        secondary_button.show();
+        primary_button.hide();
+        danger_button.hide();
+        success_button.hide();
+        primary_outline.hide();
+        primary_outline_light.hide();
+        danger_outline.hide();
+    } else if ($(this).val() === 'solid_danger') {
+        danger_button.show();
+        primary_button.hide();
+        secondary_button.hide();
+        success_button.hide();
+        primary_outline.hide();
+        primary_outline_light.hide();
+        danger_outline.hide();
+    } else if ($(this).val() === 'solid_success') {
+        success_button.show();
+        danger_button.hide();
+        primary_button.hide();
+        secondary_button.hide();
+        primary_outline.hide();
+        primary_outline_light.hide();
+        danger_outline.hide();
+    } else if ($(this).val() === 'primary_outline') {
+        primary_outline.show();
+        success_button.hide();
+        danger_button.hide();
+        primary_button.hide();
+        secondary_button.hide();
+        primary_outline_light.hide();
+        danger_outline.hide();
+    } else if ($(this).val() === 'primary_outline_light') {
+        primary_outline_light.show();
+        success_button.hide();
+        danger_button.hide();
+        primary_button.hide();
+        secondary_button.hide();
+        primary_outline.hide();
+        danger_outline.hide();
+    } else if ($(this).val() === 'danger_outline') {
+        danger_outline.show();
+        success_button.hide();
+        danger_button.hide();
+        primary_button.hide();
+        secondary_button.hide();
+        primary_outline.hide();
+        primary_outline_light.hide();
+    } else {
+        primary_button.hide();
+        secondary_button.hide();
+        danger_button.hide();
+        success_button.hide();
+        primary_outline.hide();
+        primary_outline_light.hide();
+        danger_outline.hide();
+    }
+});
+
+if ($('select[name="button_type"]').val() === 'solid_primary') {
+    primary_button.show();
+} else if ($('select[name="button_type"]').val() === 'solid_secondary') {
+    secondary_button.show();
+} else if ($('select[name="button_type"]').val() === 'solid_danger') {
+    danger_button.show();
+} else if ($('select[name="button_type"]').val() === 'solid_success') {
+    success_button.show();
+} else if ($('select[name="button_type"]').val() === 'primary_outline') {
+    primary_outline.show();
+} else if ($('select[name="button_type"]').val() === 'primary_outline_light') {
+    primary_outline_light.show();
+} else if ($('select[name="button_type"]').val() === 'danger_outline') {
+    danger_outline.show();
+}
+
+//
+$('.ext-action-drop').each(function (i, e) {
+    $(e).on('click', function (elm) {
+        elm.preventDefault();
+        $(this).toggleClass('active');
+    });
+});
+$('body').on('click', function (e) {
+    const target = $(e.target);
+    if (!target.is('.ext-action-drop, .ext-action-drop i')) {
+        $('.ext-action-drop').removeClass('active');
+    }
+});
+
+// Helpers
+// -----------------------------------
+// toggle_section
+function toggle_section(show_if_value, subject_elm, terget_elm) {
+    if (show_if_value === subject_elm.val()) {
+        terget_elm.show();
+    } else {
+        terget_elm.hide();
+    }
+}
+
+//
+$('.ext-action-drop').each(function (i, e) {
+    $(e).on('click', function (elm) {
+        elm.preventDefault();
+        $('.ext-action-drop').removeClass('active');
+        $(this).toggleClass('active');
+    });
+});
+$('body').on('click', function (e) {
+    const target = $(e.target);
+    if (!target.is('.ext-action-drop, .ext-action-drop i')) {
+        $('.ext-action-drop').removeClass('active');
+    }
+});
+}) (jQuery);

@@ -26,10 +26,14 @@ jQuery(document).ready(function($) {
                         $(extWrapper)
                                 .animate({ height: '100%' }, 'fast')
                                 .removeClass('ext-height-fix');
+                        $(this).html('Click to collapse');
                 } else {
                         $(extWrapper)
                                 .animate({ height: '250px' }, 'fast')
                                 .addClass('ext-height-fix');
+                        setTimeout(() => {
+                                $(this).html('Click to view directorist all modules');
+                        }, 1000);
                 }
         });
 

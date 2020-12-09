@@ -331,7 +331,7 @@ Directorist is a complete directory solution and in combination with its advance
 
 * Add - Membership management page
 * Fix - Confirmation message on contact with listing owner form submission
-* Add - WP 5.6 compatibility
+* Check - WP 5.6 compatibility
 
 = 6.5.6 - Nov 27, 2020 =
 

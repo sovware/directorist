@@ -3,8 +3,8 @@ Contributors: AazzTech
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listings, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to:  5.5
-Stable tag: 6.5.6
+Tested up to:  5.6
+Stable tag: 6.5.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -326,6 +326,12 @@ Directorist is a complete directory solution and in combination with its advance
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.5.7 - Dec 9, 2020 =
+
+* Add - Membership management page
+* Fix - Confirmation message on contact with listing owner form submission
+* Check - WP 5.6 compatibility
 
 = 6.5.6 - Nov 27, 2020 =
 

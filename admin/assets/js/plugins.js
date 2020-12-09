@@ -2,9 +2,10 @@ jQuery(document).ready(function($) {
         $('[data-slug="directorist"]').after('<tr class="directorist-extensions"></tr>');
         $('.directorist-extensions').append(
                 $(
-                        '<td colspan="4"><div class="ext-all-wrapper"><table><tbody class="de-list"></tbody></table></div></td>'
+                        '<td colspan="4"><div class="ext-all-wrapper"><input type="checkbox" class="select_all"> All Extensions<table class="atbdp_extensions"><tbody class="de-list"></tbody></table></div></td>'
                 )
         );
+
         const tbody = $('.directorist-extensions').find('.de-list');
         const extWrapper = $('.directorist-extensions').find('.ext-all-wrapper');
         $(extWrapper).append(
@@ -14,6 +15,11 @@ jQuery(document).ready(function($) {
         $(moreLink).hide();
 
         $(tbody).append($('#the-list tr[data-slug^="directorist-"]'));
+
+        $("body").on( 'click', '.select_all', function(e){
+                var table= $(e.target).closest('table');
+                $('td input:checkbox',table).prop('checked',this.checked);
+        });
 
         if ($(extWrapper).innerHeight() > 250) {
                 $(extWrapper).addClass('ext-height-fix');

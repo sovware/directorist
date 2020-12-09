@@ -2,7 +2,7 @@
     <!-- my-themes-extensions -->
     <div id="my-themes-extensions" class="atbdp-tab-content active">
 
-        <?php 
+        <?php
             if ( ! $args[ 'has_purchased_products' ] ) {
                 ATBDP()->load_template('theme-extensions/auth/license-auth-section', $args );
             } else {

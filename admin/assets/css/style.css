@@ -1501,6 +1501,7 @@ span.atbdp-tick-cross {
 .atbdp-form-page {
   width: 100%;
 }
+
 .atbdp-form-response-page {
   width: 100%;
 }
@@ -2159,7 +2160,7 @@ input.atbdp-form-control {
 
 .theme-card__footer .theme-update .whats-new {
   display: inline-block;
-  color: #2C99FF;
+  color: #2C99FF !important;
   border-bottom: 1px dashed #2C99FF;
   margin-left: 10px;
   cursor: pointer;
@@ -2295,7 +2296,7 @@ input.atbdp-form-control {
 
 #directorist.atbd_wrapper .account-connect__form-btn button {
   display: block;
-  width: 99%;
+  width: 100%;
   border: 0 none;
   background-color: #3E62F5;
   height: 50px;
@@ -2397,6 +2398,260 @@ input.atbdp-form-control {
 #directorist.atbd_wrapper .et-card__btn--secondary {
   background-color: rgba(255, 64, 140, 0.1);
   color: #FF408C;
+}
+
+/* atmodal */
+/* Modal Core Styles */
+.atm-open {
+  overflow: hidden;
+}
+
+.atm-open .at-modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.at-modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  display: none;
+  overflow: hidden;
+  outline: 0;
+}
+
+.at-modal-content {
+  position: relative;
+  width: 500px;
+  margin: 30px auto;
+  transition: 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100% - 5rem);
+  pointer-events: none;
+}
+
+.atm-contents-inner {
+  width: 100%;
+  background: #fff;
+  pointer-events: auto;
+  border-radius: 3px;
+  position: relative;
+}
+
+.at-modal-content.at-modal-lg {
+  width: 800px;
+}
+
+.at-modal-content.at-modal-xl {
+  width: 1140px;
+}
+
+.at-modal-content.at-modal-sm {
+  width: 300px;
+}
+
+.at-modal.atm-fade {
+  transition: .3s ease;
+}
+
+.at-modal.atm-fade:not(.atm-show) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.at-modal.atm-show .at-modal-content {
+  opacity: 1;
+  visibility: visible;
+  transition: 0.3s ease;
+}
+
+.at-modal .atm-contents-inner .at-modal-close {
+  width: 32px;
+  height: 32px;
+  top: 20px;
+  right: 20px;
+  position: absolute;
+  transform: none;
+  background: #444752;
+  color: #fff;
+  border-radius: 300px;
+  opacity: 1;
+  font-weight: 300;
+  z-index: 2;
+  font-size: 16px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.at-modal .atm-contents-inner .close span {
+  display: block;
+  line-height: 0;
+}
+
+#directorist.atbd_wrapper .modal-header {
+  padding: 20px 30px;
+}
+
+#directorist.atbd_wrapper .modal-header .modal-title {
+  font-size: 25px;
+  font-weight: 500;
+  color: #151826;
+}
+
+#directorist.atbd_wrapper .at-modal-close {
+  background-color: #5A5F7D;
+  color: #fff;
+  font-size: 25px;
+}
+
+#directorist.atbd_wrapper .at-modal-close span {
+  position: relative;
+  top: -2px;
+}
+
+#directorist.atbd_wrapper .at-modal-close:hover {
+  color: #fff;
+}
+
+#directorist.atbd_wrapper .modal-body {
+  padding: 25px 40px 30px;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list {
+  margin-bottom: 25px;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list:last-child {
+  margin-bottom: 0;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list .update-badge {
+  line-height: 23px;
+  border-radius: 3px;
+  background-color: #000;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 0 7px;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list .update-badge.update-badge--new {
+  background-color: #00BB45;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list .update-badge.update-badge--fixed {
+  background-color: #0090FD;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list .update-badge.update-badge--improved {
+  background-color: #4353FF;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list .update-badge.update-badge--removed {
+  background-color: #D72323;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list ul,
+#directorist.atbd_wrapper .modal-body .update-list ul li {
+  margin: 0;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list ul li {
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #5C637E;
+  padding-left: 20px;
+  position: relative;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list ul li:last-child {
+  margin-bottom: 0;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list ul li:before {
+  position: absolute;
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #000;
+  left: 0;
+  top: 5px;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list.update-list--new li:before {
+  background-color: #00BB45;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list.update-list--fixed li:before {
+  background-color: #0090FD;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list.update-list--improved li:before {
+  background-color: #4353FF;
+}
+
+#directorist.atbd_wrapper .modal-body .update-list.update-list--removed li:before {
+  background-color: #D72323;
+}
+
+#directorist.atbd_wrapper .modal-footer button {
+  background-color: #3E62F5;
+  border-color: #3E62F5;
+}
+
+/* Responsive CSS */
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .at-modal-content.at-modal-xl,
+  .at-modal-content.at-modal-lg,
+  .at-modal-content.at-modal-md,
+  .at-modal-content.at-modal-sm {
+    width: calc(100% - 60px);
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .at-modal-content.at-modal-xl,
+  .at-modal-content.at-modal-lg,
+  .at-modal-content.at-modal-md,
+  .at-modal-content.at-modal-sm {
+    width: calc(100% - 60px);
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .at-modal-content.at-modal-xl,
+  .at-modal-content.at-modal-lg,
+  .at-modal-content.at-modal-md,
+  .at-modal-content.at-modal-sm {
+    width: calc(100% - 60px);
+  }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+  .at-modal-content.at-modal-xl,
+  .at-modal-content.at-modal-lg,
+  .at-modal-content.at-modal-md,
+  .at-modal-content.at-modal-sm {
+    width: calc(100% - 30px);
+  }
 }
 
 /*# sourceMappingURL=map/style.css.map */

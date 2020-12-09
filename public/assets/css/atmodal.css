@@ -1,12 +1,13 @@
-
 /* Modal Core Styles */
-.atm-open{
+.atm-open {
     overflow: hidden;
 }
-.atm-open .at-modal{
+
+.atm-open .at-modal {
     overflow-x: hidden;
     overflow-y: auto;
 }
+
 .at-modal {
     position: fixed;
     width: 100%;
@@ -34,13 +35,14 @@
     pointer-events: none;
 }
 
-.atm-contents-inner{
+.atm-contents-inner {
     width: 100%;
     background: #fff;
     pointer-events: auto;
     border-radius: 3px;
     position: relative;
 }
+
 .at-modal-content.at-modal-lg {
     width: 800px;
 }
@@ -67,7 +69,8 @@
     visibility: visible;
     transition: 0.3s ease;
 }
-.at-modal .atm-contents-inner .at-modal-close{
+
+.at-modal .atm-contents-inner .at-modal-close {
     width: 32px;
     height: 32px;
     top: 20px;
@@ -88,7 +91,7 @@
     text-decoration: none;
 }
 
-.at-modal .atm-contents-inner .close span{
+.at-modal .atm-contents-inner .close span {
     display: block;
     line-height: 0;
 }
@@ -97,41 +100,44 @@
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) and (max-width: 1199.98px) {
+
     .at-modal-content.at-modal-xl,
     .at-modal-content.at-modal-lg,
     .at-modal-content.at-modal-md,
-    .at-modal-content.at-modal-sm{
+    .at-modal-content.at-modal-sm {
         width: calc(100% - 60px);
     }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
+
     .at-modal-content.at-modal-xl,
     .at-modal-content.at-modal-lg,
     .at-modal-content.at-modal-md,
-    .at-modal-content.at-modal-sm{
+    .at-modal-content.at-modal-sm {
         width: calc(100% - 60px);
     }
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
+
     .at-modal-content.at-modal-xl,
     .at-modal-content.at-modal-lg,
     .at-modal-content.at-modal-md,
-    .at-modal-content.at-modal-sm{
+    .at-modal-content.at-modal-sm {
         width: calc(100% - 60px);
     }
 }
 
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
+
     .at-modal-content.at-modal-xl,
     .at-modal-content.at-modal-lg,
     .at-modal-content.at-modal-md,
-    .at-modal-content.at-modal-sm{
+    .at-modal-content.at-modal-sm {
         width: calc(100% - 30px);
     }
 }
-

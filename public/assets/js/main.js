@@ -673,7 +673,7 @@
             e.preventDefault();
             
             if (atbdp_contact_submitted) return false;
-            var status_area = $('.atbdp-contact-message-display');
+            var status_area = $('#atbdp-contact-message-display');
             status_area.append('Sending the message, please wait... ');
             
             // Post via AJAX
@@ -688,7 +688,6 @@
 
             atbdp_contact_submitted = true;
             $.post(atbdp_public_data.ajaxurl, data, function (response) {
-                console.log( response.message, status_area );
                 if (1 == response.error) {
                     atbdp_contact_submitted = false;
                     status_area.addClass('text-danger').html(response.message);

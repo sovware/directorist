@@ -7006,6 +7006,7 @@ span.atbd_get_loc_wid {
 }
 
 .atbdp-userDashboard-tabcontent .atbdp-listing-table tr th {
+  letter-spacing: 1.1px;
   font-size: 12px;
   font-weight: 500;
   color: #8F8E9F;

@@ -149,8 +149,126 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <div class="atbdp-listing-info">
+                                        <div class="atbdp-listing-info__img">
+                                            <img src="http://directoristpn.local/wp-content/uploads/2020/12/architecture-2586504_1920-300x200-1.jpg" alt="">
+                                        </div>
+                                        <div class="atbdp-listing-info__content">
+                                            <h4 class="atbdp-title">Gravenhurst Cottage</h4>
+                                            <span class="atbd-price">$275.20</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="atbdp-listing-plan">Super Plan</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-ex-plan">March 24, 2020</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-badge dashboard-badge success">Publish</span>
+                                </td>
+                                <td>
+                                    <div class="atbdp-actions">
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+                                            <div class="atbdp-dropdown-menu">
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-navigation" name="mark-navigation">
+                                                        <label for="m-navigation">
+                                                            Mark as Negotiation
+                                                        </label>
+                                                    </div>
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-sold" name="mark-sold">
+                                                        <label for="m-sold">
+                                                            Mark as Sold
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="atbdp-listing-info">
+                                        <div class="atbdp-listing-info__img">
+                                            <img src="http://directoristpn.local/wp-content/uploads/2020/12/architecture-2586504_1920-300x200-1.jpg" alt="">
+                                        </div>
+                                        <div class="atbdp-listing-info__content">
+                                            <h4 class="atbdp-title">Gravenhurst Cottage</h4>
+                                            <span class="atbd-price">$275.20</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="atbdp-listing-plan">Super Plan</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-ex-plan">March 24, 2020</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-badge dashboard-badge success">Publish</span>
+                                </td>
+                                <td>
+                                    <div class="atbdp-actions">
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+                                            <div class="atbdp-dropdown-menu">
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-navigation" name="mark-navigation">
+                                                        <label for="m-navigation">
+                                                            Mark as Negotiation
+                                                        </label>
+                                                    </div>
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-sold" name="mark-sold">
+                                                        <label for="m-sold">
+                                                            Mark as Sold
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
+                    <div class="atbdp-pagination">
+                        <ul>
+                            <li><a href="#" class="prev"><i class="la la-arrow-left"></i></a></li>
+                            <li><a class="active" href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#" class="next"><i class="la la-arrow-right"></i></a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="atbd_tab_inner" id="published">
@@ -166,6 +284,114 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td>
+                                    <div class="atbdp-listing-info">
+                                        <div class="atbdp-listing-info__img">
+                                            <img src="http://directoristpn.local/wp-content/uploads/2020/12/architecture-2586504_1920-300x200-1.jpg" alt="">
+                                        </div>
+                                        <div class="atbdp-listing-info__content">
+                                            <h4 class="atbdp-title">Gravenhurst Cottage</h4>
+                                            <span class="atbd-price">$275.20</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="atbdp-listing-plan">Super Plan</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-ex-plan">March 24, 2020</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-badge dashboard-badge primary">Publish</span>
+                                </td>
+                                <td>
+                                    <div class="atbdp-actions">
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+                                            <div class="atbdp-dropdown-menu">
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-navigation" name="mark-navigation">
+                                                        <label for="m-navigation">
+                                                            Mark as Negotiation
+                                                        </label>
+                                                    </div>
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-sold" name="mark-sold">
+                                                        <label for="m-sold">
+                                                            Mark as Sold
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="atbdp-listing-info">
+                                        <div class="atbdp-listing-info__img">
+                                            <img src="http://directoristpn.local/wp-content/uploads/2020/12/architecture-2586504_1920-300x200-1.jpg" alt="">
+                                        </div>
+                                        <div class="atbdp-listing-info__content">
+                                            <h4 class="atbdp-title">Gravenhurst Cottage</h4>
+                                            <span class="atbd-price">$275.20</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="atbdp-listing-plan">Super Plan</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-ex-plan">March 24, 2020</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-badge dashboard-badge primary">Publish</span>
+                                </td>
+                                <td>
+                                    <div class="atbdp-actions">
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+                                            <div class="atbdp-dropdown-menu">
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-navigation" name="mark-navigation">
+                                                        <label for="m-navigation">
+                                                            Mark as Negotiation
+                                                        </label>
+                                                    </div>
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-sold" name="mark-sold">
+                                                        <label for="m-sold">
+                                                            Mark as Sold
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     <div class="atbdp-listing-info">
@@ -291,6 +517,114 @@
                                     </div>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <div class="atbdp-listing-info">
+                                        <div class="atbdp-listing-info__img">
+                                            <img src="http://directoristpn.local/wp-content/uploads/2020/12/architecture-2586504_1920-300x200-1.jpg" alt="">
+                                        </div>
+                                        <div class="atbdp-listing-info__content">
+                                            <h4 class="atbdp-title">Gravenhurst Cottage</h4>
+                                            <span class="atbd-price">$275.20</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="atbdp-listing-plan">Super Plan</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-ex-plan">March 24, 2020</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-badge dashboard-badge warning">Pending</span>
+                                </td>
+                                <td>
+                                    <div class="atbdp-actions">
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+                                            <div class="atbdp-dropdown-menu">
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-navigation" name="mark-navigation">
+                                                        <label for="m-navigation">
+                                                            Mark as Negotiation
+                                                        </label>
+                                                    </div>
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-sold" name="mark-sold">
+                                                        <label for="m-sold">
+                                                            Mark as Sold
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="atbdp-listing-info">
+                                        <div class="atbdp-listing-info__img">
+                                            <img src="http://directoristpn.local/wp-content/uploads/2020/12/architecture-2586504_1920-300x200-1.jpg" alt="">
+                                        </div>
+                                        <div class="atbdp-listing-info__content">
+                                            <h4 class="atbdp-title">Gravenhurst Cottage</h4>
+                                            <span class="atbd-price">$275.20</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="atbdp-listing-plan">Super Plan</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-ex-plan">March 24, 2020</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-badge dashboard-badge warning">Pending</span>
+                                </td>
+                                <td>
+                                    <div class="atbdp-actions">
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+                                            <div class="atbdp-dropdown-menu">
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-navigation" name="mark-navigation">
+                                                        <label for="m-navigation">
+                                                            Mark as Negotiation
+                                                        </label>
+                                                    </div>
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-sold" name="mark-sold">
+                                                        <label for="m-sold">
+                                                            Mark as Sold
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -308,6 +642,114 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td>
+                                    <div class="atbdp-listing-info">
+                                        <div class="atbdp-listing-info__img">
+                                            <img src="http://directoristpn.local/wp-content/uploads/2020/12/architecture-2586504_1920-300x200-1.jpg" alt="">
+                                        </div>
+                                        <div class="atbdp-listing-info__content">
+                                            <h4 class="atbdp-title">Gravenhurst Cottage</h4>
+                                            <span class="atbd-price">$275.20</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="atbdp-listing-plan">Super Plan</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-ex-plan">March 24, 2020</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-badge dashboard-badge danger">Expired</span>
+                                </td>
+                                <td>
+                                    <div class="atbdp-actions">
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+                                            <div class="atbdp-dropdown-menu">
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-navigation" name="mark-navigation">
+                                                        <label for="m-navigation">
+                                                            Mark as Negotiation
+                                                        </label>
+                                                    </div>
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-sold" name="mark-sold">
+                                                        <label for="m-sold">
+                                                            Mark as Sold
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="atbdp-listing-info">
+                                        <div class="atbdp-listing-info__img">
+                                            <img src="http://directoristpn.local/wp-content/uploads/2020/12/architecture-2586504_1920-300x200-1.jpg" alt="">
+                                        </div>
+                                        <div class="atbdp-listing-info__content">
+                                            <h4 class="atbdp-title">Gravenhurst Cottage</h4>
+                                            <span class="atbd-price">$275.20</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="atbdp-listing-plan">Super Plan</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-ex-plan">March 24, 2020</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-badge dashboard-badge danger">Expired</span>
+                                </td>
+                                <td>
+                                    <div class="atbdp-actions">
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+                                            <div class="atbdp-dropdown-menu">
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-navigation" name="mark-navigation">
+                                                        <label for="m-navigation">
+                                                            Mark as Negotiation
+                                                        </label>
+                                                    </div>
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-sold" name="mark-sold">
+                                                        <label for="m-sold">
+                                                            Mark as Sold
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                             <tr>
                                 <td>
                                     <div class="atbdp-listing-info">
@@ -398,7 +840,115 @@
                                     <span class="atbdp-ex-plan">March 24, 2020</span>
                                 </td>
                                 <td>
-                                    <span class="atbdp-badge dashboard-badge primary">Publish</span>
+                                    <span class="atbdp-badge dashboard-badge success">Publish</span>
+                                </td>
+                                <td>
+                                    <div class="atbdp-actions">
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+                                            <div class="atbdp-dropdown-menu">
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-navigation" name="mark-navigation">
+                                                        <label for="m-navigation">
+                                                            Mark as Negotiation
+                                                        </label>
+                                                    </div>
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-sold" name="mark-sold">
+                                                        <label for="m-sold">
+                                                            Mark as Sold
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="atbdp-listing-info">
+                                        <div class="atbdp-listing-info__img">
+                                            <img src="http://directoristpn.local/wp-content/uploads/2020/12/architecture-2586504_1920-300x200-1.jpg" alt="">
+                                        </div>
+                                        <div class="atbdp-listing-info__content">
+                                            <h4 class="atbdp-title">Gravenhurst Cottage</h4>
+                                            <span class="atbd-price">$275.20</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="atbdp-listing-plan">Super Plan</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-ex-plan">March 24, 2020</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-badge dashboard-badge success">Publish</span>
+                                </td>
+                                <td>
+                                    <div class="atbdp-actions">
+                                        <a href="#" class="atbdp-link-btn"><i class="la la-edit"></i>Edit</a>
+                                        <div class="atbdp-dropdown">
+                                            <a href="#" class="atbdp-btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+                                            <div class="atbdp-dropdown-menu">
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-money-bill-wave"></i>Change Plan</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="lab la-adversal"></i>Promote Listing</a>
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="las la-hand-holding-usd"></i>Pay Now</a>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-navigation" name="mark-navigation">
+                                                        <label for="m-navigation">
+                                                            Mark as Negotiation
+                                                        </label>
+                                                    </div>
+                                                    <div class="atbdp-custom-checkbox">
+                                                        <input type="checkbox" id="m-sold" name="mark-sold">
+                                                        <label for="m-sold">
+                                                            Mark as Sold
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="atbdp-dropdown-menu__list">
+                                                    <a class="atbdp-dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="atbdp-listing-info">
+                                        <div class="atbdp-listing-info__img">
+                                            <img src="http://directoristpn.local/wp-content/uploads/2020/12/architecture-2586504_1920-300x200-1.jpg" alt="">
+                                        </div>
+                                        <div class="atbdp-listing-info__content">
+                                            <h4 class="atbdp-title">Gravenhurst Cottage</h4>
+                                            <span class="atbd-price">$275.20</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="atbdp-listing-plan">Super Plan</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-ex-plan">March 24, 2020</span>
+                                </td>
+                                <td>
+                                    <span class="atbdp-badge dashboard-badge success">Publish</span>
                                 </td>
                                 <td>
                                     <div class="atbdp-actions">

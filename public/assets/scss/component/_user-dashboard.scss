@@ -462,6 +462,9 @@
       color: #8F8E9F;
       padding: 10px 18px 10px 40px;
       background-color: #F6F7F9;
+      &:focus{
+        outline: none;
+      }
     }
   }
 }
@@ -469,9 +472,12 @@
 .atbdp-userDashboard-tabcontent{
   background-color: #fff;
   box-shadow: 0 5px 10px rgba(#8F8E9F,.05);
+  border-radius: 4px;
+  margin-top: -25px;
   .atbdp-listing-table{
     table{
       border: 0 none;
+      margin-bottom: 0;
     }
     tr{
       td,
@@ -630,5 +636,54 @@
         }
       }
     }
+  }
+  .atbdp-pagination{
+    display: flex;
+    justify-content: flex-end;
+    margin: 2px 22px 0 22px;
+    padding: 25px 0 38px;
+    border-top: 1px solid #EFF1F6;
+  }
+}
+
+// Pagination Css
+.atbdp-pagination{
+  ul{
+      margin: -4px;
+      li{
+          display: inline-block;
+          margin: 4px;
+          a{
+              font-size: 14px;
+              display: inline-flex;
+              justify-content: center;
+              align-items: center;
+              line-height: 2.45;
+              padding: 0 13.72px;
+              border-radius: 4px;
+              border: 1px solid #E1E4EC;
+              background-color: #fff;
+              &.prev,
+              &.next{
+                  width: 36px;
+                  height: 36px;
+              }
+              &:hover,
+              &.active{
+                font-weight: 500;
+                  color: #0A0B1E;
+              }
+              &.active{
+                border-width: 2px;
+                border-color: #0A0B1E;
+              }
+              i{
+                  font-size: 14px;
+                  &:before{
+                      margin: 0;
+                  }
+              }
+          }
+      }
   }
 }

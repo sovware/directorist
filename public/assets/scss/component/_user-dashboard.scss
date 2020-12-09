@@ -480,12 +480,24 @@
       margin-bottom: 0;
     }
     tr{
+      &:first-child{
+        td,
+        th{
+          padding-top: 22px;
+        }
+      }
+      &:last-child{
+        td,
+        th{
+          padding-bottom: 22px;
+        }
+      }
       td,
       th{
         font-size: 14px;
         font-weight: 400;
         color: #51526E;
-        padding: 22px;
+        padding: 12.5px 22px;
         border: 0 none;
       }
       
@@ -517,7 +529,7 @@
       }
       .atbd-price{
         font-size: 14px;
-        font-weight: 400;
+        font-weight: 500;
         color: #51526E;
       }
     }

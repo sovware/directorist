@@ -6986,12 +6986,22 @@ span.atbd_get_loc_wid {
   margin-bottom: 0;
 }
 
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr:first-child td,
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr:first-child th {
+  padding-top: 22px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr:last-child td,
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr:last-child th {
+  padding-bottom: 22px;
+}
+
 .atbdp-userDashboard-tabcontent .atbdp-listing-table tr td,
 .atbdp-userDashboard-tabcontent .atbdp-listing-table tr th {
   font-size: 14px;
   font-weight: 400;
   color: #51526E;
-  padding: 22px;
+  padding: 12.5px 22px;
   border: 0 none;
 }
 
@@ -7033,7 +7043,7 @@ span.atbd_get_loc_wid {
 
 .atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-listing-info__content .atbd-price {
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   color: #51526E;
 }
 

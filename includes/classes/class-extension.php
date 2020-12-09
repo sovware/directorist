@@ -33,11 +33,13 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             
             // Ajax
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', array($this, 'authenticate_the_customer') );
-            add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
+            add_action( 'wp_ajax_atbdp_download_file', array($this, 'handle_file_download_request') );
             add_action( 'wp_ajax_atbdp_plugins_bulk_action', array($this, 'plugins_bulk_action') );
             add_action( 'wp_ajax_atbdp_update_plugins', array($this, 'update_plugins') );
             add_action( 'wp_ajax_atbdp_activate_theme', array($this, 'activate_theme') );
             add_action( 'wp_ajax_atbdp_update_theme', array($this, 'handle_theme_update_request') );
+
+            // add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
         }
 
         // get_the_products_list
@@ -405,140 +407,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $outdated_theme = $outdated_themes['theme_stylesheet'];
         }
 
-        // get_license_authentication
-        public function get_license_authentication() {
-            $status = [ 'success' => true, 'log' => [] ];
-            
-            // Get form data
-            $username = ( isset( $_POST['username'] ) ) ? $_POST['username'] : '';
-            $password = ( isset( $_POST['password'] ) ) ? $_POST['password'] : '';
-
-            // Validate username
-            if ( empty( $username ) ) {
-                $status['success'] = false;
-                $status[ 'log' ]['username_missing'] = [
-                    'type'    => 'error',
-                    'message' => 'Username is required',
-                ];
-            }
-
-            // Validate password
-            if ( empty( $password ) ) {
-                $status['success'] = false;
-                $status[ 'log' ]['password_missing'] = [
-                    'type'    => 'error',
-                    'message' => 'Password is required',
-                ];
-            }
-
-            if ( ! $status['success'] ) {
-                wp_send_json( $status );
-            }
-
-            // Get licencing data
-            $url_base = 'https://directorist.com/wp-json/directorist/v1/licencing';
-            $args     = '?user=' . $username;
-            $args    .= '&password=' . $password;
-            $url      = $url_base . $args;
-
-            $response = wp_remote_get( $url);
-            $response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
-
-            // Validate response
-            if ( ! $response_body['success'] ) {
-                $status['success'] = false;
-                $status['massage'] = $response_body['massage'];
-
-                wp_send_json([ 'status' => $status, 'response_body' => $response_body ]);
-            }
-
-            $license_data = $response_body['license_data'];
-
-            // Activate the licenses
-            $activation_base_url = 'https://directorist.com?edd_action=activate_license&url=' . home_url();
-            
-            // Activate the Extensions
-            $purchased_extensions         = [];
-            $purchased_extensions_meta    = [];
-            $invalid_purchased_extensions = [];
-
-            if ( ! empty( $license_data[ 'plugins' ] ) ) {
-                foreach( $license_data[ 'plugins' ] as $extension ) {
-                    $item_id        = $extension['item_id'];
-                    $license        = ( ! empty( $response_body['all_access'] ) ) ? $response_body['active_licenses'][0] : $extension['license'];
-                    $query_args     = "&item_id={$item_id}&license={$license}";
-                    $activation_url = $activation_base_url . $query_args;
-
-                    $activation_response = wp_remote_get( $activation_url );
-
-                    if ( empty( $activation_response['success'] ) ) {
-                        $invalid_purchased_extensions[] = $extension;
-                        continue;
-                    }
-
-                    $purchased_extensions[] = $extension;
-
-                    $link    = $extension[ 'permalink' ];
-                    $ext_key = str_replace( 'http://directorist.com/product/', '', $link );
-                    $ext_key = str_replace( 'https://directorist.com/product/', '', $ext_key );
-                    $ext_key = str_replace( '/', '', $ext_key );
-
-                    $purchased_extensions_meta[ $ext_key ] = [
-                        'item_id' => $extension[ 'item_id' ],
-                        'license' => $extension[ 'license' ],
-                    ];
-                }
-            }
-
-            // Activate the Themes
-            $purchased_themes         = [];
-            $purchased_themes_meta    = [];
-            $invalid_purchased_themes = [];
-
-            if ( ! empty( $license_data[ 'themes' ] ) ) {
-                foreach( $license_data[ 'themes' ] as $theme ) {
-                    $item_id        = $theme['item_id'];
-                    $license        = ( ! empty( $response_body['all_access'] ) ) ? $response_body['active_licenses'][0] : $theme['license'];
-                    $query_args     = "&item_id={$item_id}&license={$license}";
-                    $activation_url = $activation_base_url . $query_args;
-
-                    $activation_response = wp_remote_get( $activation_url );
-
-                    if ( empty( $activation_response['success'] ) ) {
-                        $invalid_purchased_themes[] = $theme;
-                        continue;
-                    }
-
-                    $purchased_themes[] = $theme;
-
-                    $link      = $extension[ 'permalink' ];
-                    $theme_key = str_replace( 'http://directorist.com/product/', '', $link );
-                    $theme_key = str_replace( 'https://directorist.com/product/', '', $theme_key );
-                    $theme_key = str_replace( '/', '', $theme_key );
-
-                    $purchased_themes_meta[ $theme_key ] = [
-                        'item_id' => $extension[ 'item_id' ],
-                        'license' => $extension[ 'license' ],
-                    ];
-                }
-            }
-
-            $customers_purchased = [
-                'extensions' => $purchased_extensions_meta,
-                'themes'     => $purchased_themes_meta,
-            ];
-
-            update_user_meta( get_current_user_id(), '_atbdp_purchased_products', $customers_purchased );
-
-            $status[ 'success' ] = true;
-            wp_send_json([ 
-                'status'              => $status,
-                'license_data'        => $license_data,
-                'response'            => $response_body,
-                'customers_purchased' => $customers_purchased,
-            ]);
-        }
-
         // authenticate_the_customer
         public function authenticate_the_customer() {
             $status = [ 'success' => true, 'log' => [] ];
@@ -591,9 +459,20 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             $license_data = $response_body['license_data'];
-            update_user_meta( get_current_user_id(), '_atbdp_customer_id', $username );
 
-            $customers_purchased = $this->get_customers_purchased( $license_data );
+            // Update All Access License For Extensions
+            if ( ! empty( $response_body['all_access'] ) && ! empty( $response_body['active_licenses'] ) && ! empty( $license_data['plugins'] ) ) {
+                foreach ( $license_data['plugins'] as $plugin_index => $plugin ) {
+                    $license_data[ 'plugins' ][ $plugin_index ]['license'] = $response_body['active_licenses'][0];
+                }
+            }
+
+            // Update All Access License For Themes
+            if ( ! empty( $response_body['all_access'] ) && ! empty( $response_body['active_licenses'] ) && ! empty( $license_data['themes'] ) ) {
+                foreach ( $license_data['plugins'] as $theme_index => $theme ) {
+                    $license_data[ 'themes' ][ $theme_index ]['license'] = $response_body['active_licenses'][0];
+                }
+            }
 
             $status[ 'success' ] = true;
             $status[ 'log' ]['login_successful'] = [
@@ -601,153 +480,129 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'message' => 'Login is successful',
             ];
 
-            wp_send_json([ 'status' => $status, 'customers_purchased' => $customers_purchased ]);
+            wp_send_json([ 'status' => $status, 'license_data' => $license_data ]);
         }
 
-        // get_customers_purchased
-        public function get_customers_purchased( $license_data ) {
-            // Activate the licenses
+        // handle_license_activation_request
+        public function handle_license_activation_request() {
+            $status = [ 'success' => true ];
+            $license_item = ( isset( $_POST['license_item'] ) ) ? $_POST['license_item'] : '';
+            $product_type = ( isset( $_POST['product_type'] ) ) ? $_POST['product_type'] : '';
+
+            if ( empty( $license_item ) ) {
+                $status[ 'success' ] = false;
+                $status[ 'message' ] = 'License item is missing';
+
+                wp_send_json( [ 'status' => $status ] );
+            }
+
+            if ( empty( $product_type ) ) {
+                $status[ 'success' ] = false;
+                $status[ 'message' ] = 'Product type is required';
+
+                wp_send_json( [ 'status' => $status ] );
+            }
+
+            $activation_status = $this->activate_license( $license_item, $product_type );
+            $status[ 'success' ] = $activation_status['success'];
+
+            wp_send_json( [ 'status' => $status, 'activation_status' => $activation_status ] );
+        }
+
+        // activate_license
+        public function activate_license( $license_item , $product_type = '' ) {
+            $status = [ 'success' => true ];
+
             // $activation_base_url = 'https://directorist.com?edd_action=activate_license&url=' . home_url();
             $activation_base_url = 'https://directorist.com?edd_action=activate_license';
-            
-            // Activate the Extensions
-            $purchased_extensions_meta    = [];
-            $purchased_extensions         = [];
-            $invalid_purchased_extensions = [];
 
-            if ( ! empty( $license_data[ 'plugins' ] ) ) {
-                foreach( $license_data[ 'plugins' ] as $extension ) {
-                    $item_id        = $extension['item_id'];
-                    $license        = ( ! empty( $response_body['all_access'] ) ) ? $response_body['active_licenses'][0] : $extension['license'];
-                    $query_args     = "&item_id={$item_id}&license={$license}";
-                    $activation_url = $activation_base_url . $query_args;
+            $item_id        = $license_item['item_id'];
+            $license        = $license_item['license'];
+            $query_args     = "&item_id={$item_id}&license={$license}";
+            $activation_url = $activation_base_url . $query_args;
 
-                    $response        = wp_remote_get( $activation_url );
-                    $response_status = json_decode( $response['body'], true );
+            $response        = wp_remote_get( $activation_url );
+            $response_status = json_decode( $response['body'], true );
 
-                    if ( empty( $response_status['success'] ) ) {
-                        $invalid_purchased_extensions[] = [ 'extension' => $extension, 'response' => $response_status ];
-                        continue;
-                    }
-                    
-                    $purchased_extensions[] = $extension;
-
-                    // Store the ref for db
-                    $link    = $extension[ 'permalink' ];
-                    $ext_key = str_replace( 'http://directorist.com/product/', '', $link );
-                    $ext_key = str_replace( 'https://directorist.com/product/', '', $ext_key );
-                    $ext_key = str_replace( '/', '', $ext_key );
-
-                    $purchased_extensions_meta[ $ext_key ] = [
-                        'item_id' => $extension[ 'item_id' ],
-                        'license' => $extension[ 'license' ],
-                    ];
-                }
+            if ( empty( $response_status['success'] ) ) {
+                $status[ 'success' ] = false;
             }
 
-            // Activate the Themes
-            $purchased_themes_meta    = [];
-            $purchased_themes         = [];
-            $invalid_purchased_themes = [];
+            $status[ 'response' ] = $response_status;
 
-            if ( ! empty( $license_data[ 'themes' ] ) ) {
-                foreach( $license_data[ 'themes' ] as $theme ) {
-                    $item_id        = $theme['item_id'];
-                    $license        = ( ! empty( $response_body['all_access'] ) ) ? $response_body['active_licenses'][0] : $theme['license'];
-                    $query_args     = "&item_id={$item_id}&license={$license}";
-                    $activation_url = $activation_base_url . $query_args;
+            if ( $status[ 'success' ] && ( 'extensions' === $product_type || 'themes' === $product_type )  ) {
+                $user_purchased = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', 0 );
 
-                    $response        = wp_remote_get( $activation_url );
-                    $response_status = json_decode( $response['body'], true );
-
-                    if ( empty( $response_status['success'] ) ) {
-                        $invalid_purchased_themes[] = $theme;
-                        $invalid_purchased_themes[] = [ 'extension' => $theme, 'response' => $response_status ];
-                        continue;
-                    }
-
-                    $purchased_themes[] = $theme;
-                    
-                    // Store the ref for db
-                    $link      = $theme[ 'permalink' ];
-                    $theme_key = str_replace( 'http://directorist.com/product/', '', $link );
-                    $theme_key = str_replace( 'https://directorist.com/product/', '', $theme_key );
-                    $theme_key = str_replace( '/', '', $theme_key );
-
-                    $purchased_themes_meta[ $theme_key ] = [
-                        'item_id' => $extension[ 'item_id' ],
-                        'license' => $extension[ 'license' ],
-                    ];
+                if ( empty( $user_purchased ) ) {
+                    $user_purchased = [];
                 }
+
+                if ( empty( $user_purchased[ $product_type ] ) ) {
+                    $user_purchased[ $product_type ] = [];
+                }
+
+                $purchased_items = $user_purchased[ $product_type ];
+
+                // Append new product
+                $link        = $license_item[ 'permalink' ];
+                $product_key = str_replace( 'http://directorist.com/product/', '', $link );
+                $product_key = str_replace( 'https://directorist.com/product/', '', $product_key );
+                $product_key = str_replace( '/', '', $product_key );
+
+                $purchased_items[ $product_key ] = [
+                    'item_id' => $item_id,
+                    'license' => $license,
+                ];
+
+                $user_purchased[ $product_type ] = $purchased_items;
+                update_user_meta( get_current_user_id(), '_atbdp_purchased_products', $user_purchased );
+
+                $status['purchased_products'] = $user_purchased;
             }
-
-            $customers_purchased = [
-                'extensions' => $purchased_extensions_meta,
-                'themes'     => $purchased_themes_meta,
-            ];
-
-            update_user_meta( get_current_user_id(), '_atbdp_purchased_products', $customers_purchased );
-
-            $status['purchased_extensions'] = $purchased_extensions;
-            $status['invalid_purchased_extensions'] = $invalid_purchased_extensions;
-
-            $status['purchased_themes'] = $purchased_themes;
-            $status['invalid_purchased_themes'] = $invalid_purchased_themes;
-
-            $status['customers_purchased'] = $customers_purchased;
 
             return $status;
         }
 
-        // download_purchased_items
-        public function download_purchased_items() {
-            $status = [ 'success' => true, 'log' => [] ];
+        // handle_plugin_download_request
+        public function handle_file_download_request() {
+            $status = [ 'success' => true ];
+            $links  = ( isset( $_POST['links'] ) ) ? $_POST['links'] : '';
+            $type   = ( isset( $_POST['type'] ) ) ? $_POST['type'] : '';
 
-            $cart = ( isset( $_POST['customers_purchased'] ) ) ? $_POST['customers_purchased'] : '';
+            if ( empty( $links ) ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = 'Links not found';
 
-            if ( empty( $cart ) ) {
-                $status['success'] = false;
-                $status['log']['no_purchased_data_found'] = [
-                    'type'    => 'error',
-                    'message' => 'No purchased data found',
-                ];
-                wp_send_json([ 'status' => $status ]);
+                wp_send_json( [ 'status' => $status ] );
             }
 
-            // Download the extensions
-            if ( ! function_exists( 'WP_Filesystem' ) ) {
-                include  ABSPATH . 'wp-admin/includes/file.php';
+            if ( ! is_array( $links ) ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = 'Links not found';
+
+                wp_send_json( [ 'status' => $status ] );
             }
-            WP_Filesystem();
 
-            // Download Extenstions
-            if ( ! empty( $cart['purchased_extensions'] ) ) {
-                foreach ( $cart['purchased_extensions'] as $extension ) {
-                    $paths = $extension['links'];
-                    if ( empty( $paths ) ) { continue; }
+            if ( 'plugin' !== $type || 'theme' !== $type ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = 'Invalid type';
 
-                    foreach ( $paths as $path ) {
-                        $this->download_plugin( [ 'url' => $path, 'init_wp_filesystem' => false ] );
-                    }
+                wp_send_json( [ 'status' => $status ] );
+            }
+
+            if ( 'plugin' === $type ) {
+                foreach( $links as $link ) {
+                    $this->download_plugin( [ 'url' => $link ] );
                 }
             }
 
-            // Download Themes
-            if ( ! empty( $cart['purchased_themes'] ) ) {
-                foreach ( $cart['purchased_themes'] as $theme ) {
-                    $paths = $theme['links'];
-                    if ( empty( $paths ) ) { continue; }
-
-                    foreach ( $paths as $path ) {
-                        $this->download_theme( [ 'url' => $path, 'init_wp_filesystem' => false ] );
-                    }
+            if ( 'theme' === $type ) {
+                foreach( $links as $link ) {
+                    $this->download_theme( [ 'url' => $link ] );
                 }
             }
-
-            $status['message'] = 'Download has been completed, redirecting...';
-
-            wp_send_json([ 'status' => $status ]);
             
+            wp_send_json( [ 'status' => $status ] );
         }
 
         // download_plugin
@@ -907,6 +762,153 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
         }
 
+        // get_customers_purchased
+        public function get_customers_purchased( $license_data ) {
+            // Activate the licenses
+            // $activation_base_url = 'https://directorist.com?edd_action=activate_license&url=' . home_url();
+            $activation_base_url = 'https://directorist.com?edd_action=activate_license';
+            
+            // Activate the Extensions
+            $purchased_extensions_meta    = [];
+            $purchased_extensions         = [];
+            $invalid_purchased_extensions = [];
+
+            if ( ! empty( $license_data[ 'plugins' ] ) ) {
+                foreach( $license_data[ 'plugins' ] as $extension ) {
+                    $item_id        = $extension['item_id'];
+                    $license        = ( ! empty( $response_body['all_access'] ) ) ? $response_body['active_licenses'][0] : $extension['license'];
+                    $query_args     = "&item_id={$item_id}&license={$license}";
+                    $activation_url = $activation_base_url . $query_args;
+
+                    $response        = wp_remote_get( $activation_url );
+                    $response_status = json_decode( $response['body'], true );
+
+                    if ( empty( $response_status['success'] ) ) {
+                        $invalid_purchased_extensions[] = [ 'extension' => $extension, 'response' => $response_status ];
+                        continue;
+                    }
+                    
+                    $purchased_extensions[] = $extension;
+
+                    // Store the ref for db
+                    $link    = $extension[ 'permalink' ];
+                    $ext_key = str_replace( 'http://directorist.com/product/', '', $link );
+                    $ext_key = str_replace( 'https://directorist.com/product/', '', $ext_key );
+                    $ext_key = str_replace( '/', '', $ext_key );
+
+                    $purchased_extensions_meta[ $ext_key ] = [
+                        'item_id' => $extension[ 'item_id' ],
+                        'license' => $extension[ 'license' ],
+                    ];
+                }
+            }
+
+            // Activate the Themes
+            $purchased_themes_meta    = [];
+            $purchased_themes         = [];
+            $invalid_purchased_themes = [];
+
+            if ( ! empty( $license_data[ 'themes' ] ) ) {
+                foreach( $license_data[ 'themes' ] as $theme ) {
+                    $item_id        = $theme['item_id'];
+                    $license        = ( ! empty( $response_body['all_access'] ) ) ? $response_body['active_licenses'][0] : $theme['license'];
+                    $query_args     = "&item_id={$item_id}&license={$license}";
+                    $activation_url = $activation_base_url . $query_args;
+
+                    $response        = wp_remote_get( $activation_url );
+                    $response_status = json_decode( $response['body'], true );
+
+                    if ( empty( $response_status['success'] ) ) {
+                        $invalid_purchased_themes[] = $theme;
+                        $invalid_purchased_themes[] = [ 'extension' => $theme, 'response' => $response_status ];
+                        continue;
+                    }
+
+                    $purchased_themes[] = $theme;
+                    
+                    // Store the ref for db
+                    $link      = $theme[ 'permalink' ];
+                    $theme_key = str_replace( 'http://directorist.com/product/', '', $link );
+                    $theme_key = str_replace( 'https://directorist.com/product/', '', $theme_key );
+                    $theme_key = str_replace( '/', '', $theme_key );
+
+                    $purchased_themes_meta[ $theme_key ] = [
+                        'item_id' => $extension[ 'item_id' ],
+                        'license' => $extension[ 'license' ],
+                    ];
+                }
+            }
+
+            $customers_purchased = [
+                'extensions' => $purchased_extensions_meta,
+                'themes'     => $purchased_themes_meta,
+            ];
+
+            update_user_meta( get_current_user_id(), '_atbdp_purchased_products', $customers_purchased );
+
+            $status['purchased_extensions'] = $purchased_extensions;
+            $status['invalid_purchased_extensions'] = $invalid_purchased_extensions;
+
+            $status['purchased_themes'] = $purchased_themes;
+            $status['invalid_purchased_themes'] = $invalid_purchased_themes;
+
+            $status['customers_purchased'] = $customers_purchased;
+
+            return $status;
+        }
+
+        // download_purchased_items
+        public function download_purchased_items() {
+            $status = [ 'success' => true, 'log' => [] ];
+
+            $cart = ( isset( $_POST['customers_purchased'] ) ) ? $_POST['customers_purchased'] : '';
+
+            if ( empty( $cart ) ) {
+                $status['success'] = false;
+                $status['log']['no_purchased_data_found'] = [
+                    'type'    => 'error',
+                    'message' => 'No purchased data found',
+                ];
+                wp_send_json([ 'status' => $status ]);
+            }
+
+            // Download the extensions
+            if ( ! function_exists( 'WP_Filesystem' ) ) {
+                include  ABSPATH . 'wp-admin/includes/file.php';
+            }
+            WP_Filesystem();
+
+            // Download Extenstions
+            if ( ! empty( $cart['purchased_extensions'] ) ) {
+                foreach ( $cart['purchased_extensions'] as $extension ) {
+                    $paths = $extension['links'];
+                    if ( empty( $paths ) ) { continue; }
+
+                    foreach ( $paths as $path ) {
+                        $this->download_plugin( [ 'url' => $path, 'init_wp_filesystem' => false ] );
+                    }
+                }
+            }
+
+            // Download Themes
+            if ( ! empty( $cart['purchased_themes'] ) ) {
+                foreach ( $cart['purchased_themes'] as $theme ) {
+                    $paths = $theme['links'];
+                    if ( empty( $paths ) ) { continue; }
+
+                    foreach ( $paths as $path ) {
+                        $this->download_theme( [ 'url' => $path, 'init_wp_filesystem' => false ] );
+                    }
+                }
+            }
+
+            $status['message'] = 'Download has been completed, redirecting...';
+
+            wp_send_json([ 'status' => $status ]);
+            
+        }
+
+
         /**
          * It Adds menu item
          */
@@ -1014,9 +1016,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'stylesheet'      => $purshased_theme->stylesheet,
                 ];
             }
-
-            // var_dump( $this->get_active_extensions() );
-            // $st = $this->update_the_theme();
 
             $data = [
                 'has_purchased_products' => $has_purchased_products,

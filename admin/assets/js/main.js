@@ -2078,7 +2078,67 @@
                     var form_response_page = form.find( '.atbdp-form-response-page' );
                     form_response_page.removeClass( 'atbdp-d-none' );
 
+                    // Append Response
                     form_response_page.append( '<div class="atbdp-form-feedback"></div>' );
+
+                    var plugins = ( response.license_data && response.license_data.plugins  ) ? response.license_data.plugins : [];
+                    var themes = ( response.license_data && response.license_data.themes  ) ? response.license_data.themes : [];
+                    
+                    console.log( { plugins, themes } );
+
+                    if ( ! plugins.length && ! themes.length ) {
+                        var title = 'There is no product in your purchase, redirecting...';
+                        form_response_page.find( '.atbdp-form-feedback' ).append( title );
+                        location.reload();
+
+                        return;
+                    }
+
+                    var title = '<h3 class="h3">Activating your products</h3>';
+                    form_response_page.find( '.atbdp-form-feedback' ).append( title );
+                    
+                    // Show Log - Themes
+                    if ( themes.length ) {
+                        var theme_section = '<div class="atbdp-checklist-section atbdp-themes-list-section"></div>';
+                        form_response_page.find( '.atbdp-form-feedback' ).append( theme_section );
+
+                        var theme_title = '<h4>Themes ('+ themes.length +')</h4>';
+                        var theme_check_lists = '<ul class="atbdp-check-lists atbdp-themes-list"></ul>';
+
+                        form_response_page.find( '.atbdp-themes-list-section' ).append( theme_title );
+                        form_response_page.find( '.atbdp-themes-list-section' ).append( theme_check_lists );
+
+                        var counter = 0;
+                        for ( var theme of themes ) {
+                            console.log( theme );
+                            var li = '<li class="atbdp-check-list-item check-list-item-'+ theme.item_id +'"><span class="atbdp-check-list-icon atbdp-danger"><span class="fas fa-times"></span></span> '+ theme.title +'</li>';
+                            form_response_page.find( '.atbdp-themes-list' ).append( li );
+                            counter++;
+                        }
+                    }
+
+                    // Show Log - Extensions
+                    if ( plugins.length ) {
+                        var plugin_section = '<div class="atbdp-checklist-section atbdp-extensions-list-section"></div>';
+                        form_response_page.find( '.atbdp-form-feedback' ).append( plugin_section );
+
+                        var plugin_title = '<h4>Extensions ('+ plugins.length +')</h4>';
+                        var plugin_check_lists = '<ul class="atbdp-check-lists atbdp-extensions-list"></ul>';
+
+                        form_response_page.find( '.atbdp-extensions-list-section' ).append( plugin_title );
+                        form_response_page.find( '.atbdp-extensions-list-section' ).append( plugin_check_lists );
+
+                        var counter = 0;
+                        for ( var extension of plugins ) {
+                            console.log( extension );
+                            var li = '<li class="atbdp-check-list-item check-list-item-'+ extension.item_id +'"><span class="atbdp-check-list-icon atbdp-danger"><span class="fas fa-times"></span></span> '+ extension.title +'</li>';
+                            form_response_page.find( '.atbdp-extensions-list' ).append( li );
+                            counter++;
+                        }
+                    }
+
+
+                    /* form_response_page.append( '<div class="atbdp-form-feedback"></div>' );
 
                     var cart            = response.customers_purchased;
                     var total_purchased = cart.purchased_extensions.length + cart.purchased_themes.length;
@@ -2114,7 +2174,7 @@
 
                         var continue_button = '<button type="submit" class="button button-primary skip-download">Continue</button>';
                         form_response_page.find( '.atbdp-form-actions' ).append( continue_button );
-                    }
+                    } */
                 }
             },
 

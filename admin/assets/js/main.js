@@ -2074,7 +2074,8 @@
                 }
 
                 if ( response.status.success ) {
-                    form.find('.atbdp-form-page').addClass( 'atbdp-d-none' );
+                    form.attr( 'id', 'atbdp-product-download-form' );
+                    form.find('.atbdp-form-page').remove();
                     var form_response_page = form.find( '.atbdp-form-response-page' );
                     form_response_page.removeClass( 'atbdp-d-none' );
 
@@ -2094,7 +2095,7 @@
                         return;
                     }
 
-                    var title = '<h3 class="h3">Activating your products</h3>';
+                    var title = '<h3 class="h3">Activate your products</h3>';
                     form_response_page.find( '.atbdp-form-feedback' ).append( title );
                     
                     // Show Log - Themes
@@ -2110,8 +2111,11 @@
 
                         var counter = 0;
                         for ( var theme of themes ) {
-                            console.log( theme );
-                            var li = '<li class="atbdp-check-list-item check-list-item-'+ theme.item_id +'"><span class="atbdp-check-list-icon atbdp-danger"><span class="fas fa-times"></span></span> '+ theme.title +'</li>';
+                            // console.log( theme );
+                            var checkbox    = '<input type="checkbox" class="atbdp-checkbox atbdp-theme-checkbox-item-'+ theme.item_id +'" value="'+ theme.item_id +'" id="'+ theme.item_id +'">';
+                            var label       = '<label for="' + theme.item_id + '">'+ theme.title +'</label>';
+                            var list_action = '<span class="atbdp-list-action">'+ checkbox +'<span> ';
+                            var li          = '<li class="atbdp-check-list-item atbdp-theme-checklist-item check-list-item-'+ theme.item_id +'">'+ list_action + label +'</li>';
                             form_response_page.find( '.atbdp-themes-list' ).append( li );
                             counter++;
                         }
@@ -2130,12 +2134,35 @@
 
                         var counter = 0;
                         for ( var extension of plugins ) {
-                            console.log( extension );
-                            var li = '<li class="atbdp-check-list-item check-list-item-'+ extension.item_id +'"><span class="atbdp-check-list-icon atbdp-danger"><span class="fas fa-times"></span></span> '+ extension.title +'</li>';
+                            // console.log( extension );
+                            var checkbox    = '<input type="checkbox" class="atbdp-checkbox atbdp-theme-checkbox-item-'+ extension.item_id +'" value="'+ extension.item_id +'" id="'+ extension.item_id +'">';
+                            var list_action = '<span class="atbdp-list-action">'+ checkbox +'<span> ';
+                            var label       = '<label for="' + extension.item_id + '">'+ extension.title +'</label>';
+                            var li          = '<li class="atbdp-check-list-item check-list-item-'+ extension.item_id +'">' + list_action + label +'</li>';
                             form_response_page.find( '.atbdp-extensions-list' ).append( li );
                             counter++;
                         }
                     }
+
+                    var button = '<div class="account-connect__form-btn"><button type="button" class="account-connect__btn atbdp-download-products-btn">Continue <span class="la la-arrow-right"></span></button></div>';
+                    form_response_page.append( button );
+
+
+                    $('.atbdp-download-products-btn').on( 'click', function( e ){
+                        console.log( 'atbdp-download-products-btn' );
+
+                        // Download Themes
+                        if ( themes.length ) {
+                            for ( var theme of themes ) {
+                                console.log( theme );
+                                var list_item     = $( '.check-list-item-' + theme.item_id );
+                                var list_checkbox = $( '.atbdp-theme-checkbox-item' + theme.item_id );
+                                var is_checked    = list_checkbox.is( ':checked' );
+
+                                console.log( { list_item, list_checkbox, is_checked} );
+                            }
+                        }
+                    });
 
 
                     /* form_response_page.append( '<div class="atbdp-form-feedback"></div>' );

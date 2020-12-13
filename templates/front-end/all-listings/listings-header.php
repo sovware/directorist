@@ -101,14 +101,13 @@ if ($display_header == 'yes') { ?>
                                     $options = atbdp_get_listings_orderby_options($sort_by_items);
                                     $sort_html .= '<form id="atbdp_sort" method="post" action="">';
                                     $current_order = !empty($current_order) ? $current_order : '';
-                                    global $wp;
-                                    $current_url =  home_url( $wp->request ) . '/';
-                                    $pattern = '/page\\/[0-9]+\\//i';
-                                    $actual_link = preg_replace($pattern, '', $current_url);
+                                    $queryString = $_SERVER['QUERY_STRING'];
+                                    parse_str($queryString, $arguments);
+                                    $actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : '';
                                     foreach ($options as $value => $label) {
                                         $active_class = ($value == $current_order) ? ' active' : '';
-                                        
-                                        $sort_html .= sprintf('<a class="atbdp_sorting_item atbd_dropdown-item%s" data="%s">%s</a>', $active_class, add_query_arg( 'sort', $value, $actual_link ), $label);
+                                        $arguments['sort'] = $value;
+                                        $sort_html .= sprintf('<a class="atbdp_sorting_item atbd_dropdown-item%s" data="%s">%s</a>', $active_class, add_query_arg( $arguments, $actual_link ), $label);
                                     }
                                     $sort_html .= '</form>';
                                     $sort_html .= ' </div>';

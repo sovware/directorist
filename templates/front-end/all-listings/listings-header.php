@@ -101,10 +101,6 @@ if ($display_header == 'yes') { ?>
                                     $options = atbdp_get_listings_orderby_options($sort_by_items);
                                     $sort_html .= '<form id="atbdp_sort" method="post" action="">';
                                     $current_order = !empty($current_order) ? $current_order : '';
-                                    // global $wp;
-                                    // $current_url =  home_url( $wp->request ) . '/';
-                                    // $pattern = '/page\\/[0-9]+\\//i';
-                                    // $actual_link = preg_replace($pattern, '', $current_url);
                                     $queryString = $_SERVER['QUERY_STRING'];
                                     parse_str($queryString, $arguments);
                                     $actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : '';

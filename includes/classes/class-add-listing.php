@@ -766,9 +766,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                             $redirect_page = get_directorist_option('edit_listing_redirect', 'view_listing');
                             if ('pay_per_listng' === package_or_PPL($plan = null)) {
                                 if (!empty($regular_price)) {
-                                    global $woocommerce;
-                                    $woocommerce->cart->empty_cart();
-                                    $woocommerce->cart->add_to_cart($subscribed_package_id);
+                                    WC()->cart->empty_cart();
+                                    WC()->session->set('cart', array());
+                                    WC()->cart->add_to_cart($subscribed_package_id);
                                     $data['redirect_url'] = add_query_arg('atbdp_listing_id', $post_id, wc_get_checkout_url());
                                     $data['need_payment'] = true;
                                 } else {
@@ -785,9 +785,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                             } elseif (('package' === package_or_PPL($plan = null)) && !$plan_purchased) {
                                 //lets redirect to woo checkout page
                                 if (!empty($regular_price)) {
-                                    global $woocommerce;
-                                    $woocommerce->cart->empty_cart();
-                                    $woocommerce->cart->add_to_cart($subscribed_package_id);
+                                    WC()->cart->empty_cart();
+                                    WC()->session->set('cart', array());
+                                    WC()->cart->add_to_cart($subscribed_package_id);
                                     $data['redirect_url'] = add_query_arg('atbdp_listing_id', $post_id, wc_get_checkout_url());
                                     $data['need_payment'] = true;
                                 } else {

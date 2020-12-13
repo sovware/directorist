@@ -14,19 +14,3 @@
          ?>
     </div>
 </div>
-
-<!-- <div class="">
-    <h3>Activating your products</h3>
-    
-    <div class="atbdp-checklist-section atbdp-extensions-list">
-        <h4>Extensions</h4>
-        <ul class="atbdp-check-lists">
-            <li class="atbdp-check-list-item">
-                <span class="atbdp-check-list-icon atbdp-danger">
-                    <span class="fas fa-times"></span>
-                </span>
-                Name
-            </li>
-        </ul>
-    </div>
-</div> -->

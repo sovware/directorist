@@ -1506,6 +1506,11 @@ span.atbdp-tick-cross {
   width: 100%;
 }
 
+.atbdp-checklist-section {
+  margin-top: 30px;
+  text-align: left;
+}
+
 .atbdp-form-header {
   display: block;
 }

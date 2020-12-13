@@ -211,7 +211,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $purchased_products = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', true );
             if ( empty( $purchased_products ) ) { return $extensions; }
 
-            $purchased_extensions = $purchased_products['extensions'];
+            $purchased_extensions = ( ! empty( $purchased_products['plugins'] ) ) ? $purchased_products['plugins'] : '';
             if ( empty( $purchased_extensions ) ) { return $extensions; }
 
             $extensions_keys = array_keys( $extensions );
@@ -231,7 +231,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $purchased_products = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', true );
             if ( empty( $purchased_products ) ) { return $themes; }
 
-            $purchased_themes = $purchased_products['themes'];
+            $purchased_themes = ( ! empty( $purchased_themes['themes'] ) ) ? $purchased_themes['themes'] : '';
             if ( empty( $purchased_themes ) ) { return $themes; }
 
             $themes_keys = array_keys( $themes );
@@ -530,7 +530,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             $status[ 'response' ] = $response_status;
 
-            if ( $status[ 'success' ] && ( 'extensions' === $product_type || 'themes' === $product_type )  ) {
+            if ( $status[ 'success' ] && ( 'plugin' === $product_type || 'theme' === $product_type )  ) {
                 $user_purchased = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', 0 );
 
                 if ( empty( $user_purchased ) ) {
@@ -583,7 +583,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 wp_send_json( [ 'status' => $status ] );
             }
 
-            if ( 'plugin' !== $type || 'theme' !== $type ) {
+            if ( 'plugin' !== $type && 'theme' !== $type ) {
                 $status[ 'success'] = false;
                 $status[ 'message'] = 'Invalid type';
 
@@ -592,7 +592,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             $activate_license = $this->activate_license( $download_item, $type );
             if ( ! $activate_license['success'] ) {
-                return $activate_license;
+                $status[ 'success'] = false;
+                $status[ 'message'] = __( 'Activation failed', 'directorist' );
+                $status[ 'ref']     = $activate_license;
+
+                wp_send_json( [ 'status' => $status ] );
             }
 
             if ( empty( $download_item['links'] ) ) {
@@ -626,6 +630,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 }
             }
             
+            $status[ 'message'] = __( 'Donloaded', 'directorist' );
             wp_send_json( [ 'status' => $status ] );
         }
 
@@ -1008,6 +1013,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $purchased_products     = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', true );
             $has_purchased_products = ( ! empty( $purchased_products )  ) ? true : false;
             $settings_url           = admin_url( 'edit.php?post_type=at_biz_dir&page=aazztech_settings#_extensions_switch' );
+
 
             // Get Active Theme Info
             $current_theme   = wp_get_theme();

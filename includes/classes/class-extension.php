@@ -565,20 +565,20 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         // handle_plugin_download_request
         public function handle_file_download_request() {
-            $status = [ 'success' => true ];
-            $links  = ( isset( $_POST['links'] ) ) ? $_POST['links'] : '';
-            $type   = ( isset( $_POST['type'] ) ) ? $_POST['type'] : '';
+            $status         = [ 'success' => true ];
+            $download_item  = ( isset( $_POST['download_item'] ) ) ? $_POST['download_item'] : '';
+            $type           = ( isset( $_POST['type'] ) ) ? $_POST['type'] : '';
 
-            if ( empty( $links ) ) {
+            if ( empty( $download_item ) ) {
                 $status[ 'success'] = false;
-                $status[ 'message'] = 'Links not found';
+                $status[ 'message'] = 'Download item is missing';
 
                 wp_send_json( [ 'status' => $status ] );
             }
 
-            if ( ! is_array( $links ) ) {
+            if ( empty( $type ) ) {
                 $status[ 'success'] = false;
-                $status[ 'message'] = 'Links not found';
+                $status[ 'message'] = 'Type not specified';
 
                 wp_send_json( [ 'status' => $status ] );
             }
@@ -590,14 +590,38 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 wp_send_json( [ 'status' => $status ] );
             }
 
-            if ( 'plugin' === $type ) {
-                foreach( $links as $link ) {
-                    $this->download_plugin( [ 'url' => $link ] );
-                }
+            $activate_license = $this->activate_license( $download_item, $type );
+            if ( ! $activate_license['success'] ) {
+                return $activate_license;
             }
 
-            if ( 'theme' === $type ) {
-                foreach( $links as $link ) {
+            if ( empty( $download_item['links'] ) ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = 'Links not found';
+
+                wp_send_json( [ 'status' => $status ] );
+            }
+
+            if ( empty( $download_item['links'] ) ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = 'Links not found';
+
+                wp_send_json( [ 'status' => $status ] );
+            }
+            
+            if ( ! is_array( $download_item['links'] ) ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = 'Links not found';
+
+                wp_send_json( [ 'status' => $status ] );
+            }
+
+            foreach( $download_item['links'] as $link ) {
+                if ( 'plugin' === $type ) {
+                    $this->download_plugin( [ 'url' => $link ] );
+                }
+
+                if ( 'theme' === $type ) {
                     $this->download_theme( [ 'url' => $link ] );
                 }
             }

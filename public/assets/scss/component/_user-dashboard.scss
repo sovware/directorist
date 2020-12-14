@@ -474,10 +474,16 @@
   box-shadow: 0 5px 10px rgba(#8F8E9F,.05);
   border-radius: 4px;
   margin-top: -25px;
+  margin-bottom: 145px;
   .atbdp-listing-table{
-    table{
+    .atbdp-table{
+      display: table;
       border: 0 none;
+      border-collapse: collapse;
+      border-spacing: 0;
+      empty-cells: show;
       margin-bottom: 0;
+      overflow-y: auto;
     }
     tr{
       &:first-child{
@@ -584,6 +590,14 @@
         width: 40px;
         border-radius: 50%;
         background-color: #fff;
+        &.active{
+          background-color: #F2F2F2;
+          i,
+          span,
+          svg{
+            color: #0A0B1E;
+          }
+        }
         &:hover{
           background-color: #F2F2F2;
           i,
@@ -605,10 +619,15 @@
       .atbdp-dropdown-menu{
         position: absolute;
         right: 0;
-        top: 0;
+        top: 40px;
         opacity: 0;
         visibility: hidden;
         background-color: #fff;
+        &.active{
+          opacity: 1;
+          visibility: visible;
+          z-index: 22;
+        }
       }
     }
     .atbdp-dropdown-menu{
@@ -642,9 +661,15 @@
           &:first-child{
             margin-top: 10px;
           }
+          i{
+            margin-right: 6px;
+          }
         }
         .atbdp-custom-checkbox{
           padding: 10px 20px;
+          &:first-child{
+            margin-top: 10px;
+          }
           label{
             font-size: 14px;
             font-weight: 400;
@@ -661,6 +686,12 @@
     padding: 25px 0 38px;
     border-top: 1px solid #EFF1F6;
   }
+}
+
+.atbdp-table-responsive{
+  display: block;
+  width: 100%;
+  overflow-x: auto;
 }
 
 // Pagination Css

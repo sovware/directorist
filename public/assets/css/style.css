@@ -6979,11 +6979,17 @@ span.atbd_get_loc_wid {
           box-shadow: 0 5px 10px rgba(143, 142, 159, 0.05);
   border-radius: 4px;
   margin-top: -25px;
+  margin-bottom: 145px;
 }
 
-.atbdp-userDashboard-tabcontent .atbdp-listing-table table {
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-table {
+  display: table;
   border: 0 none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  empty-cells: show;
   margin-bottom: 0;
+  overflow-y: auto;
 }
 
 .atbdp-userDashboard-tabcontent .atbdp-listing-table tr:first-child th {
@@ -7121,6 +7127,16 @@ span.atbd_get_loc_wid {
   background-color: #fff;
 }
 
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more.active {
+  background-color: #F2F2F2;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more.active i,
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more.active span,
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more.active svg {
+  color: #0A0B1E;
+}
+
 .atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-actions .atbdp-btn-more:hover {
   background-color: #F2F2F2;
 }
@@ -7145,10 +7161,16 @@ span.atbd_get_loc_wid {
 .atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown .atbdp-dropdown-menu {
   position: absolute;
   right: 0;
-  top: 0;
+  top: 40px;
   opacity: 0;
   visibility: hidden;
   background-color: #fff;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown .atbdp-dropdown-menu.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 22;
 }
 
 .atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu {
@@ -7192,8 +7214,16 @@ span.atbd_get_loc_wid {
   margin-top: 10px;
 }
 
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu .atbdp-dropdown-menu__list a i {
+  margin-right: 6px;
+}
+
 .atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu .atbdp-dropdown-menu__list .atbdp-custom-checkbox {
   padding: 10px 20px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu .atbdp-dropdown-menu__list .atbdp-custom-checkbox:first-child {
+  margin-top: 10px;
 }
 
 .atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-dropdown-menu .atbdp-dropdown-menu__list .atbdp-custom-checkbox label {
@@ -7212,6 +7242,12 @@ span.atbd_get_loc_wid {
   margin: 2px 22px 0 22px;
   padding: 25px 0 38px;
   border-top: 1px solid #EFF1F6;
+}
+
+.atbdp-table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
 }
 
 .atbdp-pagination ul {

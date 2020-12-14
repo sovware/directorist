@@ -772,6 +772,14 @@
     }
     atbdp_tooltip();
 
+    // User Dashboard Table More Button
+
+    $('.atbdp-btn-more').on("click", function(e){
+        e.preventDefault();
+        $(this).toggleClass('active');
+        $(this).next(".atbdp-dropdown-menu").toggleClass("active");
+    })
+
     /* User Dashboard tab */
     $(function () {
         var hash = window.location.hash;

@@ -84,7 +84,7 @@
         <div class="atbdp-userDashboard-tabcontent">
             <div class="atbd_tab_inner tabContentActive" id="all_llistings">
                 <div class="atbdp-listing-table">
-                    <table class="table table-responsive">
+                    <table class="atbdp-table atbdp-table-responsive">
                         <thead>
                             <tr>
                                 <th>Listings</th>
@@ -273,7 +273,7 @@
             </div>
             <div class="atbd_tab_inner" id="published">
             <div class="atbdp-listing-table">
-                    <table class="table table-responsive">
+                    <table class="atbdp-table atbdp-table-responsive">
                         <thead>
                             <tr>
                                 <th>Listings</th>
@@ -462,7 +462,7 @@
             </div>
             <div class="atbd_tab_inner" id="pending">
             <div class="atbdp-listing-table">
-                    <table class="table table-responsive">
+                    <table class="atbdp-table atbdp-table-responsive">
                         <thead>
                             <tr>
                                 <th>Listings</th>
@@ -651,7 +651,7 @@
             </div>
             <div class="atbd_tab_inner" id="unpaid">
             <div class="atbdp-listing-table">
-                    <table class="table table-responsive">
+                    <table class="atbdp-table atbdp-table-responsive">
                         <thead>
                             <tr>
                                 <th>Listings</th>
@@ -840,7 +840,7 @@
             </div>
             <div class="atbd_tab_inner" id="expired">
             <div class="atbdp-listing-table">
-                    <table class="table table-responsive">
+                    <table class="atbdp-table atbdp-table-responsive">
                         <thead>
                             <tr>
                                 <th>Listings</th>

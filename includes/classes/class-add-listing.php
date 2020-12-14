@@ -104,10 +104,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $error = [];
                 // wp_send_json( [
                 //     'info' => $info,
-                //     'preview_enable' => $preview_enable,
+                //     'submission_form_fields' => $submission_form_fields,
                 // ] );
                 // die;
                 foreach( $submission_form_fields as $key => $value ){
+                   if( ( 'category' === $key ) || ( 'location' === $key ) || ( 'tag' === $key ) ) { continue; }
                     $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
                     $submitted_data = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
                     $required = !empty( $value['required'] ) ? $value['required'] : '';
@@ -140,7 +141,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $tag = !empty( $info['tax_input']['at_biz_dir-tags']) ? ( $info['tax_input']['at_biz_dir-tags']) : array();
                 $location = !empty( $info['tax_input']['at_biz_dir-location']) ? ( $info['tax_input']['at_biz_dir-location']) : array();
                 $admin_category_select = !empty( $info['tax_input']['at_biz_dir-category']) ? ( $info['tax_input']['at_biz_dir-category']) : array();
-
                 // guest user
                 if (!atbdp_logged_in_user()) {
                     $guest_email = isset($info['guest_user_email']) ? esc_attr($info['guest_user_email']) : '';

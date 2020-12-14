@@ -17,13 +17,8 @@
 
             <?php if ( $args['active_theme']['has_update'] ) : ?>
             <div class="theme-card__footer">
-<<<<<<< HEAD
-                <p class="theme-update theme-update--available">Update available <span class="whats-new">What's new?</span></p>
-                <a href="#" class="theme-update-btn" data-target="<?php echo $args['active_theme']['stylesheet']; ?>">Update</a>
-=======
                 <p class="theme-update theme-update--available">Update available <a hre="#" class="whats-new" data-target="whats-new-modal">What's new?</a></p>
                 <a href="#" class="theme-update-btn" data-target="<?php echo $args['active_theme']['stylesheet'] ?>">Update</a>
->>>>>>> a6f541bde985f67a3ecb33c99228354f5c493598
             </div>
             <?php endif; ?>
 

@@ -34,6 +34,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             // Ajax
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', array($this, 'authenticate_the_customer') );
             add_action( 'wp_ajax_atbdp_download_file', array($this, 'handle_file_download_request') );
+            add_action( 'wp_ajax_atbdp_install_file_from_subscriptions', array($this, 'handle_file_install_request_from_subscriptions') );
             add_action( 'wp_ajax_atbdp_plugins_bulk_action', array($this, 'plugins_bulk_action') );
             add_action( 'wp_ajax_atbdp_update_plugins', array($this, 'update_plugins') );
             add_action( 'wp_ajax_atbdp_activate_theme', array($this, 'activate_theme') );
@@ -214,15 +215,14 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $purchased_extensions = ( ! empty( $purchased_products['plugins'] ) ) ? $purchased_products['plugins'] : '';
             if ( empty( $purchased_extensions ) ) { return $extensions; }
 
-            $extensions_keys = array_keys( $extensions );
+            $purchased_extensions_keys = array_keys( $purchased_extensions );
             $excluded_extensions = $extensions;
 
             foreach ( $excluded_extensions as $extension_key => $extension ) {
-                if ( ! in_array( $extension_key, $extensions_keys ) ) { continue; }
-
+                if ( ! in_array( $extension_key, $purchased_extensions_keys ) ) { continue; }
                 $excluded_extensions[ $extension_key ]['active'] = false;
             }
-
+            
             return $excluded_extensions;
         }
 
@@ -231,15 +231,14 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $purchased_products = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', true );
             if ( empty( $purchased_products ) ) { return $themes; }
 
-            $purchased_themes = ( ! empty( $purchased_themes['themes'] ) ) ? $purchased_themes['themes'] : '';
+            $purchased_themes = ( ! empty( $purchased_products['themes'] ) ) ? $purchased_products['themes'] : '';
             if ( empty( $purchased_themes ) ) { return $themes; }
 
-            $themes_keys = array_keys( $themes );
+            $purchased_themes_keys = array_keys( $purchased_themes );
             $excluded_themes = $themes;
 
             foreach ( $excluded_themes as $theme_key => $theme ) {
-                if ( ! in_array( $theme_key, $themes_keys ) ) { continue; }
-
+                if ( ! in_array( $theme_key, $purchased_themes_keys ) ) { continue; }
                 $excluded_themes[ $theme_key ]['active'] = false;
             }
 
@@ -474,6 +473,17 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 }
             }
 
+            // Update user meta
+            if ( ! empty( $license_data[ 'themes' ] ) ) {
+                $themes_available_in_subscriptions = $this->prepare_available_in_subscriptions( $license_data[ 'themes' ] );
+                update_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', $themes_available_in_subscriptions );
+            }
+
+            if ( ! empty( $license_data[ 'plugins' ] ) ) {
+                $plugins_available_in_subscriptions = $this->prepare_available_in_subscriptions( $license_data[ 'plugins' ] );
+                update_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', $plugins_available_in_subscriptions );
+            }
+            
             $status[ 'success' ] = true;
             $status[ 'log' ]['login_successful'] = [
                 'type'    => 'success',
@@ -482,6 +492,29 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             wp_send_json([ 'status' => $status, 'license_data' => $license_data ]);
         }
+
+        // prepare_available_in_subscriptions
+        public function prepare_available_in_subscriptions( array $products = [] ) {
+            $available_in_subscriptions = [];
+
+            if ( empty( $products ) ) { return $available_in_subscriptions; }
+
+            foreach ( $products as $product ) {
+                $product_key = $this->get_product_key_from_permalink( $product[ 'permalink' ] );
+                $available_in_subscriptions[ $product_key ] = $product;
+            }
+
+            return $available_in_subscriptions;
+        }
+
+        // get_product_key_from_permalink
+        public function get_product_key_from_permalink( string $permalink = '' ) {
+            $product_key = str_replace( 'http://directorist.com/product/', '', $permalink );
+            $product_key = str_replace( 'https://directorist.com/product/', '', $product_key );
+            $product_key = str_replace( '/', '', $product_key );
+
+            return $product_key;
+        }   
 
         // handle_license_activation_request
         public function handle_license_activation_request() {
@@ -518,6 +551,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             $item_id        = $license_item['item_id'];
             $license        = $license_item['license'];
+            $files          = $license_item['links'];
             $query_args     = "&item_id={$item_id}&license={$license}";
             $activation_url = $activation_base_url . $query_args;
 
@@ -530,8 +564,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             $status[ 'response' ] = $response_status;
 
-            if ( $status[ 'success' ] && ( 'plugin' === $product_type || 'theme' === $product_type )  ) {
-                $user_purchased = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', 0 );
+            $product_type = ( 'plugin' === $product_type ) ? 'plugins' : $product_type;
+            $product_type = ( 'theme' === $product_type ) ? 'themes' : $product_type;
+
+            if ( $status[ 'success' ] && ( 'plugins' === $product_type || 'themes' === $product_type )  ) {
+                $user_purchased = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', true );
 
                 if ( empty( $user_purchased ) ) {
                     $user_purchased = [];
@@ -544,14 +581,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 $purchased_items = $user_purchased[ $product_type ];
 
                 // Append new product
-                $link        = $license_item[ 'permalink' ];
-                $product_key = str_replace( 'http://directorist.com/product/', '', $link );
-                $product_key = str_replace( 'https://directorist.com/product/', '', $product_key );
-                $product_key = str_replace( '/', '', $product_key );
-
+                $product_key = $this->get_product_key_from_permalink( $license_item[ 'permalink' ] );
                 $purchased_items[ $product_key ] = [
                     'item_id' => $item_id,
                     'license' => $license,
+                    'files'   => $files,
                 ];
 
                 $user_purchased[ $product_type ] = $purchased_items;
@@ -561,6 +595,95 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             return $status;
+        }
+
+        // handle_file_install_request_from_subscriptions
+        public function handle_file_install_request_from_subscriptions() {
+            $item_key = ( isset( $_POST['item_key'] ) ) ? $_POST['item_key'] : '';
+            $type     = ( isset( $_POST['type'] ) ) ? $_POST['type'] : '';
+            
+            $installation_status = $this->install_file_from_subscriptions( [ 'item_key' => $item_key, 'type' => $type ] );
+            wp_send_json( $installation_status );
+        }
+
+        // install_file_from_subscriptions
+        public function install_file_from_subscriptions( array $args = [] ) {
+            $default = [ 'item_key' => '', 'type' => '' ];
+            $args = array_merge( $default, $args );
+
+            $item_key = $args[ 'item_key' ];
+            $type     = $args[ 'type' ];
+
+            $status   = [ 'success' => true ];
+
+            if ( empty( $item_key ) ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = __( 'Item key is missing', 'directorist' );
+
+                return [ 'status' => $status ];
+            }
+
+            if ( empty( $type ) ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = __( 'Type not specified', 'directorist' );
+
+                return [ 'status' => $status ];
+            }
+
+            if ( 'plugin' !== $type && 'theme' !== $type ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = __( 'Invalid type', 'directorist' );
+
+                return [ 'status' => $status ];
+            }
+
+            if ( 'theme' === $type ) {
+                $available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+            }
+
+            if ( 'plugin' === $type ) {
+                $available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
+            }
+            
+
+            if ( empty( $available_in_subscriptions ) ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = __( 'Nothing available in subscriptions', 'directorist' );
+
+                return [ 'status' => $status ];
+            }
+
+            if ( empty( $available_in_subscriptions[ $item_key ] ) ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = __( 'The item is not available in your subscriptions', 'directorist' );
+
+                return [ 'status' => $status ];
+            }
+
+            $installing_file = $available_in_subscriptions[ $item_key ];
+            $activatation_status = $this->activate_license( $installing_file, $type ); // success
+
+            if ( ! $activatation_status[ 'success' ] ) {
+                $status[ 'success'] = false;
+                $status[ 'message'] = __( 'The license is not valid', 'directorist' );
+
+                return [ 'status' => $status ];
+            }
+
+            foreach( $installing_file['links'] as $link ) {
+                if ( 'plugin' === $type ) {
+                    $this->download_plugin( [ 'url' => $link ] );
+                }
+
+                if ( 'theme' === $type ) {
+                    $this->download_theme( [ 'url' => $link ] );
+                }
+            }
+            
+            $status[ 'success'] = true;
+            $status[ 'message'] = __( 'Installed Successfully', 'directorist' );
+
+            return [ 'status' => $status ];
         }
 
         // handle_plugin_download_request
@@ -828,6 +951,8 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     $purchased_extensions_meta[ $ext_key ] = [
                         'item_id' => $extension[ 'item_id' ],
                         'license' => $extension[ 'license' ],
+                        'license' => $extension[ 'license' ],
+                        'file'    => $extension[ 'links' ],
                     ];
                 }
             }
@@ -864,6 +989,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     $purchased_themes_meta[ $theme_key ] = [
                         'item_id' => $extension[ 'item_id' ],
                         'license' => $extension[ 'license' ],
+                        'file'    => $extension[ 'links' ],
                     ];
                 }
             }
@@ -1014,7 +1140,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $has_purchased_products = ( ! empty( $purchased_products )  ) ? true : false;
             $settings_url           = admin_url( 'edit.php?post_type=at_biz_dir&page=aazztech_settings#_extensions_switch' );
 
-
             // Get Active Theme Info
             $current_theme   = wp_get_theme();
             $customizer_link = "customize.php?theme={$current_theme->stylesheet}&return=%2Fwp-admin%2Fthemes.php";
@@ -1047,21 +1172,70 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 ];
             }
 
+            // delete_user_meta( get_current_user_id(), '_themes_available_in_subscriptions' );
+            // delete_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions' );
+
+            // Plugins available in subscriptions
+            $installed_extensions_keys = array_keys( $installed_extensions );
+            if ( ! empty( $installed_extensions_keys ) ) {
+                foreach( $installed_extensions_keys as $index => $key) {
+                    $new_key = preg_replace( '/\/.+/', '', $key );
+                    $new_key = preg_replace( '/(directorist-)/', '', $new_key );
+
+                    $installed_extensions_keys[ $index ] = $new_key;
+                }
+            }
+
+            $skipped_plugins = [];
+            $plugins_available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
+            if ( ! empty( $plugins_available_in_subscriptions ) ) {
+                foreach( $plugins_available_in_subscriptions as $base => $args ) {
+                    $plugin_key = preg_replace( '/(directorist-)/', '', $base );
+
+                    if ( in_array( $plugin_key, $installed_extensions_keys ) ) {
+                        $skipped_plugins[] = $base;
+                        unset( $plugins_available_in_subscriptions[ $base ] );
+                    }
+                }
+            }
+
+            // $file = [ 'item_key' => 'compare-listingss', 'type' => 'plugin' ];
+            // $status = $this->install_file_from_subscriptions( $file );
+
+            // var_dump( $status );
+
+            // Themes available in subscriptions
+            $themes_available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+            var_dump([
+                'installed_extensions_keys'          => $installed_extensions_keys,
+                'plugins_available_in_subscriptions' => array_keys( $plugins_available_in_subscriptions ),
+                'skipped_plugins'                    => $skipped_plugins,
+                'extension_list'                     => array_keys( $this->extensions ),
+                // 'themes_available_in_subscriptions'  => $themes_available_in_subscriptions,
+            ]);
+
             $data = [
-                'has_purchased_products' => $has_purchased_products,
-                'installed_extensions'   => $installed_extensions,
-                'outdated_plugins'       => $outdated_plugins,
-                'active_extensions'      => $active_extensions,
-                'outdated_extensions'    => $outdated_extensions,
-                'installed_themes'       => $installed_themes,
-                'active_themes'          => $my_active_themes,
-                'active_theme'           => $active_theme,
-                'outdated_themes'        => $my_outdated_themes,
-                'all_active_extensions'  => $this->get_active_extensions(),
-                'all_active_themes'      => $this->get_active_themes(),
-                'all_purshased_themes'   => $all_purshased_themes,
-                'settings_url'           => $settings_url,
+                'has_purchased_products'             => $has_purchased_products,
+                'installed_extensions'               => $installed_extensions,
+                'extension_list'                     => $this->extensions,
+                'theme_list'                         => $this->themes,
+                'outdated_plugins'                   => $outdated_plugins,
+                'active_extensions'                  => $active_extensions,
+                'outdated_extensions'                => $outdated_extensions,
+                'installed_themes'                   => $installed_themes,
+                'active_themes'                      => $my_active_themes,
+                'active_theme'                       => $active_theme,
+                'outdated_themes'                    => $my_outdated_themes,
+                'all_active_extensions'              => $this->get_active_extensions(),
+                'all_active_themes'                  => $this->get_active_themes(),
+                'all_purshased_themes'               => $all_purshased_themes,
+                'plugins_available_in_subscriptions' => $plugins_available_in_subscriptions,
+                'settings_url'                       => $settings_url,
             ];
+
+            // echo '<pre>';
+            // var_export( $purchased_products );
+            // echo '</pre>';
 
             ATBDP()->load_template('theme-extensions/theme-extension', $data );
         }

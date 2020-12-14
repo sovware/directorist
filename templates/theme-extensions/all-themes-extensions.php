@@ -1,3 +1,4 @@
+<br>
 <!-- Themes and Extensions -->
 <div class="extension-theme-wrapper">
     <?php if ( ! empty( $args['all_active_extensions'] ) ) : ?>

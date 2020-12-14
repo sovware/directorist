@@ -197,24 +197,25 @@ wp_reset_postdata();
     public function listing_contact_info($post )
     {
         // get all the meta values from the db, prepare them for use and then send in in a single bar to the add listing view
-        $listing_contact_info['address']                = get_post_meta($post->ID, '_address', true);
-        $listing_contact_info['phone']                  = get_post_meta($post->ID, '_phone', true);
+        $listing_contact_info['address']                 = get_post_meta($post->ID, '_address', true);
+        $listing_contact_info['phone']                   = get_post_meta($post->ID, '_phone', true);
         $listing_contact_info['phone2']                  = get_post_meta($post->ID, '_phone2', true);
-        $listing_contact_info['fax']                  = get_post_meta($post->ID, '_fax', true);
-        $listing_contact_info['email']                 = get_post_meta($post->ID, '_email', true);
-        $listing_contact_info['website']               = get_post_meta($post->ID, '_website', true);
-        $listing_contact_info['zip']                    = get_post_meta($post->ID, '_zip', true);
-        $listing_contact_info['social']                = get_post_meta($post->ID, '_social', true);
-        $listing_contact_info['manual_lat']             = get_post_meta($post->ID, '_manual_lat', true);
-        $listing_contact_info['manual_lng']            = get_post_meta($post->ID, '_manual_lng', true);
-        $listing_contact_info['hide_map']               = get_post_meta($post->ID, '_hide_map', true);
-        $listing_contact_info['bdbh']                  = get_post_meta($post->ID, '_bdbh', true);
-        $listing_contact_info['enable247hour']         = get_post_meta($post->ID, '_enable247hour', true);
-        $listing_contact_info['disable_bz_hour_listing']         = get_post_meta($post->ID, '_disable_bz_hour_listing', true);
-        $listing_contact_info['listing_img']            = get_post_meta($post->ID, '_listing_img', true);
-        $listing_contact_info['hide_contact_info']      = get_post_meta($post->ID, '_hide_contact_info', true);
+        $listing_contact_info['fax']                     = get_post_meta($post->ID, '_fax', true);
+        $listing_contact_info['email']                   = get_post_meta($post->ID, '_email', true);
+        $listing_contact_info['website']                 = get_post_meta($post->ID, '_website', true);
+        $listing_contact_info['zip']                     = get_post_meta($post->ID, '_zip', true);
+        $listing_contact_info['social']                  = get_post_meta($post->ID, '_social', true);
+        $listing_contact_info['manual_lat']              = get_post_meta($post->ID, '_manual_lat', true);
+        $listing_contact_info['manual_lng']              = get_post_meta($post->ID, '_manual_lng', true);
+        $listing_contact_info['hide_map']                = get_post_meta($post->ID, '_hide_map', true);
+        $listing_contact_info['bdbh']                    = get_post_meta($post->ID, '_bdbh', true);
+        $listing_contact_info['enable247hour']           = get_post_meta($post->ID, '_enable247hour', true);
+        $listing_contact_info['disable_bz_hour_listing'] = get_post_meta($post->ID, '_disable_bz_hour_listing', true);
+        $listing_contact_info['listing_img']             = get_post_meta($post->ID, '_listing_img', true);
+        $listing_contact_info['hide_contact_info']       = get_post_meta($post->ID, '_hide_contact_info', true);
         $listing_contact_info['hide_contact_owner']      = get_post_meta($post->ID, '_hide_contact_owner', true);
-        $listing_contact_info['id_itself']              = $post->ID;
+        $listing_contact_info['id_itself']               = $post->ID;
+
 
         ATBDP()->load_template('contact-info', compact('listing_contact_info') );
     }

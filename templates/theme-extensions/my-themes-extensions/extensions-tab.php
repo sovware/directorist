@@ -82,66 +82,50 @@
             <?php endif; ?>
         </div>
     </div><!-- ends: .ext-installed -->
-    <div class="ext-available atbdp-d-none">
-        <h4>Available in your subscription</h4>
+    
+    <?php if ( ! empty( $args['plugins_available_in_subscriptions'] ) ) : ?>
+    <div class="ext-available">
+        <h4><?php _e( 'Available in your subscription', 'directorist' )  ?></h4>
         <div class="ext-available-table">
             <div class="ext-table-responsive">
                 <table>
-                    <thead>
-                        <tr>
-                            <th colspan="4">
-                                <div class="ei-action-wrapper">
-                                    <div class="ei-select-all"><input type="checkbox" name="select-all" id=""></div>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
                     <tbody>
+                    <?php foreach( $args['plugins_available_in_subscriptions'] as $extension_base => $extension ) : ?>
                         <tr>
                             <td>
                                 <div class="extension-name">
-                                    <input type="checkbox" id="item-1">
-                                    <label for="item-1"><img src="https://via.placeholder.com/44" alt=""> Rank Featured Listings</label>
+                                    <?php
+                                        $img = 'https://via.placeholder.com/44';
+                                        if ( ! empty( $args['extension_list'][ $extension_base ] ) ) {
+                                            $img = $args['extension_list'][ $extension_base ]['thumbnail'];
+                                        }
+                                    ?>
+                                    <label><img src="<?php echo $img; ?>" width="44" height="44" alt=""><?php echo $extension['title'] ?></label>
                                 </div>
                             </td>
-                            <td><span class="ext-info">It is a coupon generating tool that can increase conversions and make your directory site more fascinating.</span></td>
+                            
+                            <td>
+                                <span class="ext-info">
+                                    <?php
+                                        if ( ! empty( $args['extension_list'][ $extension_base ] ) ) {
+                                            _e( $args['extension_list'][ $extension_base ]['description'], 'directorust' );
+                                        }
+                                    ?>
+                                </span>
+                            </td>
                             <td>
                                 <div class="ext-action">
-                                    <a href="" class="ext-install-btn ext-action-btn"><i class="la la-download"></i> Install</a>
+                                    <a href="#" class="ext-install-btn ext-action-btn" data-key="<?php echo $extension_base ?>">
+                                        <i class="la la-download"></i> <?php _e( 'Install', 'directorist' ) ?> 
+                                    </a>
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <div class="extension-name">
-                                    <input type="checkbox" id="item-1">
-                                    <label for="item-1"><img src="https://via.placeholder.com/44" alt=""> Directorist Coupon</label>
-                                </div>
-                            </td>
-                            <td><span class="ext-info">It is a coupon generating tool that can increase conversions and make your directory site more fascinating.</span></td>
-                            <td>
-                                <div class="ext-action">
-                                    <a href="" class="ext-install-btn ext-action-btn"><i class="la la-download"></i> Install</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="extension-name">
-                                    <input type="checkbox" id="item-1">
-                                    <label for="item-1"><img src="https://via.placeholder.com/44" alt=""> Directorist Coupon</label>
-                                </div>
-                            </td>
-                            <td><span class="ext-info">It is a coupon generating tool that can increase conversions and make your directory site more fascinating.</span></td>
-                            <td>
-                                <div class="ext-action">
-                                    <a href="" class="ext-install-btn ext-action-btn"><i class="la la-download"></i> Install</a>
-                                </div>
-                            </td>
-                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
         </div>
     </div><!-- ends: .ext-available -->
+    <?php endif; ?>
 </div><!-- ends: .ext-wrapper -->

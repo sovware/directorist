@@ -2063,7 +2063,7 @@
                 submit_button.find('.atbdp-loading').remove();
 
                 if ( response.status.log ) {
-                    for (var feedback in response.status.log) {
+                    for ( var feedback in response.status.log ) {
                         console.log(response.status.log[feedback]);
                         var alert_type = ('success' === response.status.log[feedback].type) ? 'atbdp-form-alert-success' : 'atbdp-form-alert-danger';
                         var alert_message = response.status.log[feedback].message;
@@ -2152,6 +2152,8 @@
                     form_response_page.append( button );
 
                     $('.atbdp-download-products-btn').on( 'click', function( e ) {
+                        $( this ).prop( 'disabled', true );
+
                         var skiped_themes = 0;
                         $('.atbdp-theme-checklist-item .atbdp-list-action .atbdp-checkbox').each( function( i, e ) {
                             var is_checked = $( e ).is( ':checked' );
@@ -2189,10 +2191,21 @@
                         $('.atbdp-check-list-item .atbdp-list-action .atbdp-checkbox').css( 'display', 'none' );
                         $('.atbdp-check-list-item .atbdp-list-action').prepend( '<span class="atbdp-icon atbdp-text-danger"><span class="fas fa-times"></span></span> ' );
 
-                        // Download Files
-                        var download_files = function( file_list, counter  ) {
-                            if ( counter > ( file_list.length - 1 ) ) { return 'done'; }
+                        
+                        var files_download_states = {
+                            succeeded_plugin_downloads: [],
+                            failed_plugin_downloads: [],
+                            succeeded_theme_downloads: [],
+                            failed_theme_downloads: [],
+                        };
 
+                        // Download Files
+                        var download_files = function( file_list, counter, callback  ) {
+                            if ( counter > ( file_list.length - 1 ) ) {
+                                if ( callback ) { callback(); }
+
+                                return;
+                            }
                             var next_index = counter + 1;
                             var file_item  = file_list[ counter ];
                             var file       = file_item.file;
@@ -2204,12 +2217,11 @@
                             var is_checked    = list_checkbox.is( ':checked' );
 
                             if ( ! is_checked ) {
-                                download_files( file_list, next_index );
+                                download_files( file_list, next_index, callback );
                                 return;
                             }
 
                             var form_data = { action: 'atbdp_download_file', download_item: file, type: file_type };
-
                             jQuery.ajax({
                                 type: "post",
                                 url: atbdp_admin_data.ajaxurl,
@@ -2224,14 +2236,32 @@
                                     if ( response.status.success ) {
                                         icon_elm.addClass( 'atbdp-text-success' );
                                         icon_elm.html( '<span class="fas fa-check"></span>' );
+
+                                        if ( file_type == 'plugin' ) {
+                                            files_download_states.succeeded_plugin_downloads.push( file );
+                                        }
+
+                                        if ( file_type == 'theme' ) {
+                                            files_download_states.succeeded_theme_downloads.push( file );
+                                        }
+                                        
                                     } else {
                                         var msg = '<span class="atbdp-list-feedback atbdp-text-danger">'+ response.status.message +'</span>'; 
                                         list_item.append( msg );
                                         icon_elm.addClass( 'atbdp-text-danger' );
                                         icon_elm.html( '<span class="fas fa-times"></span>' );
+
+                                       
+                                        if ( file_type == 'plugin' ) {
+                                            files_download_states.failed_plugin_downloads.push( file );
+                                        }
+
+                                        if ( file_type == 'theme' ) {
+                                            files_download_states.failed_theme_downloads.push( file );
+                                        }
                                     }
 
-                                    download_files( file_list, next_index );
+                                    download_files( file_list, next_index, callback );
                                 },
                                 error: function( error ) {
                                     console.log( error );
@@ -2272,9 +2302,41 @@
                             }
                         }
 
+                        var self = this;
+                        var after_download_callback = function() {
+                            // Check invalid themes
+                            var all_thmes_are_invalid = false;
+                            var failed_download_themes_count = files_download_states.failed_theme_downloads.length;
+                            if ( new_theme_count && ( failed_download_themes_count === new_theme_count ) ) {
+                                all_thmes_are_invalid = true;
+                            }
+
+                            // Check invalid plugin
+                            var all_plugins_are_invalid = false;
+                            var failed_download_plugins_count = files_download_states.failed_plugin_downloads.length;
+                            if ( new_plugin_count && ( failed_download_plugins_count === new_plugin_count ) ) {
+                                all_plugins_are_invalid = true;
+                            }
+
+                            var all_products_are_invalid = false;
+                            if ( all_thmes_are_invalid && all_plugins_are_invalid ) {
+                                all_products_are_invalid = true;
+                            }
+
+
+
+                            $( form_response_page ).find( '.account-connect__form-btn .account-connect__btn' ).remove();
+                            
+                            var finish_btn_label = ( all_products_are_invalid ) ? 'Close' : 'Finish';
+                            var finish_btn = '<button type="button" class="account-connect__btn reload">'+ finish_btn_label +'</button>';
+                            $( form_response_page ).find( '.account-connect__form-btn' ).append( finish_btn );
+                        };
+
                         if ( downloading_files.length ) {
-                            download_files( downloading_files, 0 );
+                            download_files( downloading_files, 0, after_download_callback );
                         }
+
+                        
                     });
                 }
             },
@@ -2286,6 +2348,68 @@
                 submit_button.find('.atbdp-loading').remove();
             },
         });
+    });
+
+    // Reload Button
+    $( 'body' ).on( 'click', '.reload', function( e ) {
+        e.preventDefault();
+        console.log( 'reloading...' );
+        location.reload();
+    });
+
+    var ext_is_installing = false;
+    $( '.ext-install-btn' ).on( 'click', function( e ) {
+        e.preventDefault();
+
+        if ( ext_is_installing ) { return; }
+
+        var data_key = $( this ).data( 'key' );
+        var form_data = {
+            action: 'atbdp_install_file_from_subscriptions',
+            item_key: data_key,
+            type: 'plugin',
+        };
+
+        // console.log( 'ext_is_installing' );
+
+        ext_is_installing = true;
+        var self = this;
+
+        jQuery.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            beforeSend: function() {
+                $( self ).html( 'Installing' );
+                var icon = '<i class="fas fa-circle-notch fa-spin"></i> ';
+                $( self ).prepend ( icon );
+            },
+            success: function( response ) {
+                // console.log( response );
+                ext_is_installing = false;
+
+                var icon = '<i class="la la-download"></i> ';
+                $( self ).html( 'Install' );
+                $( self ).prepend( icon );
+
+                if ( response.status && ! response.status.success && response.status.message ) {
+                    alert( response.status.message );
+                }
+                
+                location.reload();
+            },
+            error: function( error ) {
+                console.log( error );
+
+                ext_is_installing = false;
+
+                var icon = '<i class="la la-download"></i> ';
+                $( self ).html( 'Install' );
+                $( self ).prepend( icon );
+            },
+        });
+
+        console.log( { data_key } );
     });
 
     // download_purchased_items

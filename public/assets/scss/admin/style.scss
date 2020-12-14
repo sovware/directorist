@@ -2004,7 +2004,7 @@ input.atbdp-form-control {
           display: flex;
           align-items: center;
           padding: 12px 15px;
-
+          min-width: 300px;
           input {
             margin-right: 20px !important;
           }
@@ -2078,6 +2078,7 @@ input.atbdp-form-control {
           justify-content: flex-end;
           flex-wrap: wrap;
           margin: 0 0 0 -8px;
+          min-width: 150px;
 
           .ext-action-drop {
             margin-left: 17px;

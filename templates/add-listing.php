@@ -24,6 +24,7 @@ $display_views_count         = apply_filters('atbdp_listing_form_view_count_fiel
 $price_range_label           = get_directorist_option('price_range_label', __('Price Range', 'directorist'));
 $c_symbol                    = atbdp_currency_symbol($currency);
 $allow_decimal = get_directorist_option('allow_decimal', 1);
+
 ?>
 <div id="directorist" class="directorist atbd_wrapper directory_wrapper">
     <?php

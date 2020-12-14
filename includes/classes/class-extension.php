@@ -1206,13 +1206,13 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             // Themes available in subscriptions
             $themes_available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
-            var_dump([
-                'installed_extensions_keys'          => $installed_extensions_keys,
-                'plugins_available_in_subscriptions' => array_keys( $plugins_available_in_subscriptions ),
-                'skipped_plugins'                    => $skipped_plugins,
-                'extension_list'                     => array_keys( $this->extensions ),
-                // 'themes_available_in_subscriptions'  => $themes_available_in_subscriptions,
-            ]);
+            // var_dump([
+            //     'installed_extensions_keys'          => $installed_extensions_keys,
+            //     'plugins_available_in_subscriptions' => array_keys( $plugins_available_in_subscriptions ),
+            //     'skipped_plugins'                    => $skipped_plugins,
+            //     'extension_list'                     => array_keys( $this->extensions ),
+            //     // 'themes_available_in_subscriptions'  => $themes_available_in_subscriptions,
+            // ]);
 
             $data = [
                 'has_purchased_products'             => $has_purchased_products,

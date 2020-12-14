@@ -481,9 +481,13 @@
     }
     tr{
       &:first-child{
-        td,
         th{
           padding-top: 22px;
+        }
+      }
+      &:first-child{
+        td{
+          padding-top: 28px;
         }
       }
       &:last-child{
@@ -673,7 +677,7 @@
               align-items: center;
               line-height: 2.45;
               padding: 0 13.72px;
-              border-radius: 4px;
+              border-radius: 6px;
               border: 1px solid #E1E4EC;
               background-color: #fff;
               &.prev,

@@ -6986,9 +6986,12 @@ span.atbd_get_loc_wid {
   margin-bottom: 0;
 }
 
-.atbdp-userDashboard-tabcontent .atbdp-listing-table tr:first-child td,
 .atbdp-userDashboard-tabcontent .atbdp-listing-table tr:first-child th {
   padding-top: 22px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr:first-child td {
+  padding-top: 28px;
 }
 
 .atbdp-userDashboard-tabcontent .atbdp-listing-table tr:last-child td,
@@ -7233,7 +7236,7 @@ span.atbd_get_loc_wid {
           align-items: center;
   line-height: 2.45;
   padding: 0 13.72px;
-  border-radius: 4px;
+  border-radius: 6px;
   border: 1px solid #E1E4EC;
   background-color: #fff;
 }

@@ -2357,23 +2357,29 @@
         location.reload();
     });
 
-    var ext_is_installing = false;
+    // Install Button
     $( '.ext-install-btn' ).on( 'click', function( e ) {
         e.preventDefault();
 
-        if ( ext_is_installing ) { return; }
+        if ( $( this ).hasClass( 'in-progress' ) ) { console.log( 'Wait...' ); return; }
 
         var data_key = $( this ).data( 'key' );
+        var data_type = $( this ).data( 'type' );
+
         var form_data = {
             action: 'atbdp_install_file_from_subscriptions',
             item_key: data_key,
-            type: 'plugin',
+            type: data_type,
         };
 
         // console.log( 'ext_is_installing' );
 
+        var btn_default_html = $( this ).html();
+
         ext_is_installing = true;
         var self = this;
+        $( this ).prop( 'disabled', true );
+        $( this ).addClass( 'in-progress' );
 
         jQuery.ajax({
             type: "post",
@@ -2382,15 +2388,12 @@
             beforeSend: function() {
                 $( self ).html( 'Installing' );
                 var icon = '<i class="fas fa-circle-notch fa-spin"></i> ';
+                
                 $( self ).prepend ( icon );
             },
             success: function( response ) {
                 // console.log( response );
-                ext_is_installing = false;
-
-                var icon = '<i class="la la-download"></i> ';
-                $( self ).html( 'Install' );
-                $( self ).prepend( icon );
+                $( self ).html( 'Installed' );
 
                 if ( response.status && ! response.status.success && response.status.message ) {
                     alert( response.status.message );
@@ -2400,16 +2403,12 @@
             },
             error: function( error ) {
                 console.log( error );
+                $( this ).prop( 'disabled', false );
+                $( this ).removeClass( 'in-progress' );
 
-                ext_is_installing = false;
-
-                var icon = '<i class="la la-download"></i> ';
-                $( self ).html( 'Install' );
-                $( self ).prepend( icon );
+                $( self ).html( btn_default_html );
             },
         });
-
-        console.log( { data_key } );
     });
 
     // download_purchased_items

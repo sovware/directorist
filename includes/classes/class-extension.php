@@ -187,6 +187,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'name'        => 'DList',
                     'description' => __( 'DList is a listing directory WordPress theme that provides immense opportunities to build any kind of directory or listing site. You may design pages on the front-end and watch them instantly come to life.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/dlist/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dlist/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/dlist-featured.png',
                     'active'      => true,
                 ],
@@ -194,6 +195,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'name'        => 'DService',
                     'description' => __( 'DService is a kind of listing Directory WordPress theme that brings business owners and customers on the same platform. This multifunctional WordPress theme provides them the opportunity to interact with one another for business purposes.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/dservice/',
+                    'demo_link'   => 'https://demo.directorist.com/theme/dservice/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/dservice-featured.png',
                     'active'      => true,
                 ],
@@ -201,6 +203,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'name'        => 'Directoria',
                     'description' => __( 'Directoria is an astonishing directory and listing WordPress theme that is designed and developed to provide fastest page loading speed without knowing a single line of code.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directoria/',
+                    'demo_link'   => 'https://demo.directorist.com/plugin/demo-one/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/Directoria-1.png',
                     'active'      => true,
                 ],
@@ -1186,26 +1189,64 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 }
             }
 
-            $skipped_plugins = [];
             $plugins_available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
             if ( ! empty( $plugins_available_in_subscriptions ) ) {
                 foreach( $plugins_available_in_subscriptions as $base => $args ) {
                     $plugin_key = preg_replace( '/(directorist-)/', '', $base );
 
                     if ( in_array( $plugin_key, $installed_extensions_keys ) ) {
-                        $skipped_plugins[] = $base;
                         unset( $plugins_available_in_subscriptions[ $base ] );
                     }
                 }
             }
 
-            // $file = [ 'item_key' => 'compare-listingss', 'type' => 'plugin' ];
-            // $status = $this->install_file_from_subscriptions( $file );
+            // Filter all active extensions
+            $all_active_extensions = $this->get_active_extensions();
+            if ( ! empty( $all_active_extensions ) ) {
+                $plugins_available_in_subscriptions_keys = array_keys( $plugins_available_in_subscriptions );
+                foreach ( $all_active_extensions as $_extension_base => $_extension_args ) {
+                    if ( in_array( $_extension_base, $plugins_available_in_subscriptions_keys ) ) {
+                        unset( $all_active_extensions[ $_extension_base ] );
+                    }
+                }
+            }
 
-            // var_dump( $status );
 
             // Themes available in subscriptions
-            $themes_available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+            $all_purshased_themes_keys = array_keys( $all_purshased_themes );
+            $_themes_available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+            if ( ! empty( $_themes_available_in_subscriptions ) ) {
+                $_active_theme_key = $active_theme[ 'stylesheet' ];
+                unset( $_themes_available_in_subscriptions[ $_active_theme_key ] );
+
+                foreach( $_themes_available_in_subscriptions as $base => $args ) {
+                    if ( in_array( $base, $all_purshased_themes_keys ) ) {
+                        unset( $_themes_available_in_subscriptions[ $base ] );
+                    }
+                }
+            }
+
+            $_themes_available_in_subscriptions_keys = array_keys( $_themes_available_in_subscriptions );
+            $themes_available_in_subscriptions = [];
+
+            // Import themes which are installed
+            foreach ( $all_purshased_themes as $_theme_key => $_theme_atgs ) {
+                $item = $all_purshased_themes[ $_theme_key ];
+                $item[ 'is_installed' ] = true;
+
+                $themes_available_in_subscriptions[ $_theme_key ] = $item;
+            }
+
+            // Import themes which are not installed
+            foreach ( $_themes_available_in_subscriptions_keys as $_theme_key ) {
+                if ( empty( $this->themes[ $_theme_key ] ) ) { continue; }
+
+                $item = $this->themes[ $_theme_key ];
+                $item[ 'is_installed' ] = false;
+
+                $themes_available_in_subscriptions[ $_theme_key ] = $item;
+            }
+
             // var_dump([
             //     'installed_extensions_keys'          => $installed_extensions_keys,
             //     'plugins_available_in_subscriptions' => array_keys( $plugins_available_in_subscriptions ),
@@ -1226,10 +1267,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'active_themes'                      => $my_active_themes,
                 'active_theme'                       => $active_theme,
                 'outdated_themes'                    => $my_outdated_themes,
-                'all_active_extensions'              => $this->get_active_extensions(),
+                'all_active_extensions'              => $all_active_extensions,
                 'all_active_themes'                  => $this->get_active_themes(),
                 'all_purshased_themes'               => $all_purshased_themes,
                 'plugins_available_in_subscriptions' => $plugins_available_in_subscriptions,
+                'themes_available_in_subscriptions'  => $themes_available_in_subscriptions,
                 'settings_url'                       => $settings_url,
             ];
 

@@ -115,7 +115,7 @@
                             </td>
                             <td>
                                 <div class="ext-action">
-                                    <a href="#" class="ext-install-btn ext-action-btn" data-key="<?php echo $extension_base ?>">
+                                    <a href="#" class="ext-install-btn ext-action-btn" data-type="plugin" data-key="<?php echo $extension_base ?>">
                                         <i class="la la-download"></i> <?php _e( 'Install', 'directorist' ) ?> 
                                     </a>
                                 </div>

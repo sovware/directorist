@@ -10,15 +10,15 @@
                         <span class="theme-version">v<?php echo $args['active_theme']['version']; ?></span>
                     </div>
                     <div class="theme-action">
-                        <a href="<?php echo $args['active_theme']['customizer_link']; ?>" target="_blank" class="theme-action-btn btn-customize">Customize</a>
+                        <a href="<?php echo $args['active_theme']['customizer_link']; ?>" target="_blank" class="theme-action-btn btn-customize"><?php _e( 'Customize', 'directorist' ) ?></a>
                     </div>
                 </figcaption>
             </figure>
 
             <?php if ( $args['active_theme']['has_update'] ) : ?>
             <div class="theme-card__footer">
-                <p class="theme-update theme-update--available">Update available <a hre="#" class="whats-new" data-target="whats-new-modal">What's new?</a></p>
-                <a href="#" class="theme-update-btn" data-target="<?php echo $args['active_theme']['stylesheet'] ?>">Update</a>
+                <p class="theme-update theme-update--available"><?php _e( 'Update available', 'directorist' ) ?> <a hre="#" class="whats-new" data-target="whats-new-modal">What's new?</a></p>
+                <a href="#" class="theme-update-btn" data-target="<?php echo $args['active_theme']['stylesheet'] ?>"><?php _e( 'Update', 'directorist' ) ?></a>
             </div>
             <?php endif; ?>
 
@@ -68,7 +68,7 @@
                                     </div><!-- ends: .update-list -->
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Update Now</button>
+                                    <button type="submit" class="btn btn-primary"><?php _e( 'Update Now', 'directorist' ) ?></button>
                                 </div>
                             </div>
                         </div>
@@ -79,19 +79,34 @@
         </div>
     </div>
 
-    <?php if ( ! empty( $args['all_purshased_themes'] ) ) : ?>
+    <?php if ( ! empty( $args['themes_available_in_subscriptions'] ) ) : ?>
     <div class="available-themes-wrapper">
         <h4><?php _e( 'Available in your subscription', 'directorist' ) ?></h4>
         <div class="available-themes">
-            <?php foreach( $args['all_purshased_themes'] as $purshased_theme_base => $purshased_theme ) : ?>
+            <?php foreach( $args['themes_available_in_subscriptions'] as $_theme_base => $_theme_args ) : ?>
             <div class="available-theme-card">
                 <figure>
-                    <img src="<?php echo $purshased_theme['thumbnail'] ?>" alt="">
+                    <img src="<?php echo $_theme_args['thumbnail'] ?>" alt="">
                     <figcaption>
-                        <h5><?php echo $purshased_theme['name'] ?></h5>
+                        <h5><?php echo $_theme_args['name'] ?></h5>
                         <div class="theme-action">
-                            <a href="#" data-target="<?php echo $purshased_theme['stylesheet'] ?>" class="theme-action-btn theme-activate-btn">Activate</a>
-                            <a href="<?php echo $purshased_theme['customizer_link'] ?>" target="_blank" class="theme-action-btn theme-preview-btn">Live Preview</a>
+                            <?php if ( $_theme_args['is_installed'] ) : ?>
+                                <?php if ( ! empty( $_theme_args['stylesheet'] ) ) : ?>
+                                    <a href="#" data-target="<?php echo $_theme_args['stylesheet'] ?>" class="theme-action-btn theme-activate-btn"><?php _e( 'Activate', 'directorist' ) ?></a>
+                                <?php endif; ?>
+
+                                <?php if ( ! empty( $_theme_args['customizer_link'] ) ) : ?>
+                                    <a href="<?php echo $_theme_args['customizer_link'] ?>" target="_blank" class="theme-action-btn theme-preview-btn"><?php _e( 'Live Preview', 'directorist' ) ?></a>
+                                <?php endif; ?>
+                            <?php else : ?>
+                                <a href="#" data-type="theme" data-key="<?php echo $_theme_base ?>" class="theme-action-btn ext-install-btn">
+                                    <i class="la la-download"></i> <?php _e( 'Install', 'directorist' ) ?>
+                                </a>
+                                
+                                <?php if ( ! empty( $_theme_args['demo_link'] ) ) : ?>
+                                    <a href="<?php echo $_theme_args['demo_link'] ?>" target="_blank" class="theme-action-btn theme-preview-btn"><?php _e( 'Demo', 'directorist' ) ?></a>
+                                <?php endif; ?>
+                            <?php endif; ?>
                         </div>
                     </figcaption>
                 </figure>

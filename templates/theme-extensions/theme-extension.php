@@ -3,7 +3,7 @@
     <div id="my-themes-extensions" class="atbdp-tab-content active">
 
         <?php
-            if ( ! $args[ 'has_purchased_products' ] ) {
+            if ( ! $args[ 'is_logged_in' ] ) {
                 ATBDP()->load_template('theme-extensions/auth/license-auth-section', $args );
             } else {
                 ATBDP()->load_template('theme-extensions/statistics/statistics', $args);

@@ -1,6 +1,17 @@
 <div class="et-wrapper">
     <div class="et-wrapper-head">
-        <h3>My Themes and Extensions <a href="" class="ext-action-btn"><i class="la la-refresh"></i> Refresh Purchase</a></h3>
+        <h3>
+            My Themes and Extensions 
+
+            <a href="#" class="ext-action-btn purchase-refresh-btn">
+                <i class="la la-refresh"></i> <?php _e( 'Refresh Purchase', 'directorist' ) ?>
+            </a>
+            
+            <a href="#" class="ext-action-btn subscriptions-logout-btn">
+                <i class="fas fa-sign-out-alt"></i> <?php _e( 'Logout', 'directorist' ) ?>
+            </a>
+        </h3>
+
         <div class="et-search">
             <input type="text" placeholder="Search extensions and themes">
             <span class="la la-search"></span>

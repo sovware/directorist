@@ -2056,8 +2056,10 @@
                 submit_button.prepend('<span class="atbdp-loading"><span class="fas fa-spinner fa-spin"></span></span> ');
                 submit_button.attr('disabled', true);
             },
-            success: function (response) {
-                console.log(response);
+            success: function ( response ) {
+                // console.log(response);
+                if ( response.has_previous_subscriptions ) { location.reload(); return; }
+
                 is_sending = false;
                 submit_button.attr('disabled', false);
                 submit_button.find('.atbdp-loading').remove();
@@ -2357,23 +2359,29 @@
         location.reload();
     });
 
-    var ext_is_installing = false;
-    $( '.ext-install-btn' ).on( 'click', function( e ) {
+    // Install Button
+    $( '.file-install-btn' ).on( 'click', function( e ) {
         e.preventDefault();
 
-        if ( ext_is_installing ) { return; }
+        if ( $( this ).hasClass( 'in-progress' ) ) { console.log( 'Wait...' ); return; }
 
         var data_key = $( this ).data( 'key' );
+        var data_type = $( this ).data( 'type' );
+
         var form_data = {
             action: 'atbdp_install_file_from_subscriptions',
             item_key: data_key,
-            type: 'plugin',
+            type: data_type,
         };
 
         // console.log( 'ext_is_installing' );
 
+        var btn_default_html = $( this ).html();
+
         ext_is_installing = true;
         var self = this;
+        $( this ).prop( 'disabled', true );
+        $( this ).addClass( 'in-progress' );
 
         jQuery.ajax({
             type: "post",
@@ -2382,15 +2390,12 @@
             beforeSend: function() {
                 $( self ).html( 'Installing' );
                 var icon = '<i class="fas fa-circle-notch fa-spin"></i> ';
+
                 $( self ).prepend ( icon );
             },
             success: function( response ) {
                 // console.log( response );
-                ext_is_installing = false;
-
-                var icon = '<i class="la la-download"></i> ';
-                $( self ).html( 'Install' );
-                $( self ).prepend( icon );
+                $( self ).html( 'Installed' );
 
                 if ( response.status && ! response.status.success && response.status.message ) {
                     alert( response.status.message );
@@ -2400,40 +2405,47 @@
             },
             error: function( error ) {
                 console.log( error );
+                $( this ).prop( 'disabled', false );
+                $( this ).removeClass( 'in-progress' );
 
-                ext_is_installing = false;
-
-                var icon = '<i class="la la-download"></i> ';
-                $( self ).html( 'Install' );
-                $( self ).prepend( icon );
+                $( self ).html( btn_default_html );
             },
         });
-
-        console.log( { data_key } );
     });
 
-    // download_purchased_items
-    function download_purchased_items( customers_purchased, form_response_page ) {
+    // Logout
+    $('.subscriptions-logout-btn').on( 'click', function( e ) {
+        e.preventDefault();
+
         var form_data = {
-            action: 'atbdp_download_purchased_items',
-            customers_purchased: customers_purchased,
+            action: 'atbdp_close_subscriptions_sassion',
         };
+
+        var self = this;
 
         jQuery.ajax({
             type: "post",
             url: atbdp_admin_data.ajaxurl,
             data: form_data,
+            beforeSend: function() {
+                $( self ).html( '<i class="fas fa-circle-notch fa-spin"></i> Logging out' );
+            },
             success: function( response ) {
-                console.log( response );
-                form_response_page.html( '<h4 class="atbdp-text-center">'+ response.status.message +'</h4>' );
+                // console.log( response );
                 location.reload();
             },
             error: function( error ) {
                 console.log( error );
-                form_response_page.html( '<h4 class="atbdp-text-center">Something went wrong, please try agin</h4>' );
+                $( this ).prop( 'disabled', false );
+                $( this ).removeClass( 'in-progress' );
+
+                $( self ).html( btn_default_html );
             },
         });
-    }
+
+
+        // atbdp_close_subscriptions_sassion
+    });
 
     // Form Actions
     // Bulk Actions

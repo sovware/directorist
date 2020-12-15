@@ -2056,8 +2056,10 @@
                 submit_button.prepend('<span class="atbdp-loading"><span class="fas fa-spinner fa-spin"></span></span> ');
                 submit_button.attr('disabled', true);
             },
-            success: function (response) {
-                console.log(response);
+            success: function ( response ) {
+                // console.log(response);
+                if ( response.has_previous_subscriptions ) { location.reload(); return; }
+
                 is_sending = false;
                 submit_button.attr('disabled', false);
                 submit_button.find('.atbdp-loading').remove();
@@ -2411,28 +2413,39 @@
         });
     });
 
-    // download_purchased_items
-    function download_purchased_items( customers_purchased, form_response_page ) {
+    // Logout
+    $('.subscriptions-logout-btn').on( 'click', function( e ) {
+        e.preventDefault();
+
         var form_data = {
-            action: 'atbdp_download_purchased_items',
-            customers_purchased: customers_purchased,
+            action: 'atbdp_close_subscriptions_sassion',
         };
+
+        var self = this;
 
         jQuery.ajax({
             type: "post",
             url: atbdp_admin_data.ajaxurl,
             data: form_data,
+            beforeSend: function() {
+                $( self ).html( '<i class="fas fa-circle-notch fa-spin"></i> Logging out' );
+            },
             success: function( response ) {
-                console.log( response );
-                form_response_page.html( '<h4 class="atbdp-text-center">'+ response.status.message +'</h4>' );
+                // console.log( response );
                 location.reload();
             },
             error: function( error ) {
                 console.log( error );
-                form_response_page.html( '<h4 class="atbdp-text-center">Something went wrong, please try agin</h4>' );
+                $( this ).prop( 'disabled', false );
+                $( this ).removeClass( 'in-progress' );
+
+                $( self ).html( btn_default_html );
             },
         });
-    }
+
+
+        // atbdp_close_subscriptions_sassion
+    });
 
     // Form Actions
     // Bulk Actions

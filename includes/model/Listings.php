@@ -831,7 +831,6 @@ class Directorist_Listings {
 
 		if (isset($_GET['custom_field'])) {
 			$cf = array_filter($_GET['custom_field']);
-
 			foreach ($cf as $key => $values) {
 				if (is_array($values)) {
 					if (count($values) > 1) {
@@ -855,13 +854,12 @@ class Directorist_Listings {
 					}
 				}
 				else {
-
-					$field_type = get_post_meta($key, 'type', true);
-					$operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
+					// $field_type = get_post_meta($key, 'type', true);
+					// $operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
 					$meta_queries[] = array(
-						'key' => $key,
+						'key' => '_' . $key,
 						'value' => sanitize_text_field($values),
-						'compare' => $operator
+						'compare' => 'LIKE'
 					);
 
 				}
@@ -1632,19 +1630,23 @@ class Directorist_Listings {
 				$this->render_badge_template($field);
 			}
 			else {
+			
+				$submission_form_fields = get_term_meta( $this->current_listing_type, 'submission_form_fields', true );
+				$original_field = !empty( $submission_form_fields['fields'][$field['widget_key']] ) ? $submission_form_fields['fields'][$field['widget_key']] : '';
+
 				$id = get_the_id();
-				$value = !empty( $field['widget_key'] ) ? get_post_meta( $id, '_'.$field['widget_key'], true ) : '';
 				$load_template = true;
+				$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : '';
 				if( ( $field['type'] === 'list-item' ) && !$value ) {
 					$load_template = false;
 				}
-				
 				$args = array(
 					'listings' => $this,
 					'post_id'  => $id,
 					'data'     => $field,
 					'value'    => $value,
 					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
+					'original_field'    => $submission_form_fields,
 				);
 
 				// e_var_dump( $field );

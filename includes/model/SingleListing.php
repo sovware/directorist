@@ -67,7 +67,7 @@ class Directorist_Single_Listing {
 			$data['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
 			if( !empty( $submission_form_fields['fields'][$key]['label'] ) )
 			$data['fields'][$key]['label'] = $submission_form_fields['fields'][$key]['label'];
-			$data['fields'][$key]['original_data'] = $submission_form_fields['fields'][$key];
+			$data['fields'][$key]['original_data'] = !empty( $submission_form_fields['fields'][$key] ) ? $submission_form_fields['fields'][$key] : [];
 		}
 
 		foreach ( $data['groups'] as $group ) {
@@ -104,11 +104,16 @@ class Directorist_Single_Listing {
 	}
 
 	public function field_template( $data ) {
-		// e_var_dump($data);
 		$value =  !empty( $data['field_key'] ) ? get_post_meta( $this->id, '_'.$data['field_key'], true ) : '';
+		if( 'tag' === $data['widget_name'] ) {
+			$tags = get_the_terms( $this->id, ATBDP_TAGS );
+			if( $tags ) {
+				$value = true;
+			}
+		}
 		$load_template = true;
 		$group = !empty( $data['original_data']['widget_group'] ) ? $data['original_data']['widget_group'] : '';
-		if( ( $group === 'custom' ) && !$value ) {
+		if( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && !$value ) {
 			$load_template = false;
 		}
 		$args = array(

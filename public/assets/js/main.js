@@ -622,6 +622,7 @@
         };
     })();
     pureScriptTab('.atbd_tab');
+    pureScriptTab('.atbdp-userDashboard-tab');
 
 
     // Validate forms
@@ -770,6 +771,14 @@
         });
     }
     atbdp_tooltip();
+
+    // User Dashboard Table More Button
+
+    $('.atbdp-btn-more').on("click", function(e){
+        e.preventDefault();
+        $(this).toggleClass('active');
+        $(this).next(".atbdp-dropdown-menu").toggleClass("active");
+    })
 
     /* User Dashboard tab */
     $(function () {

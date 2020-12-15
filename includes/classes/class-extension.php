@@ -39,6 +39,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             add_action( 'wp_ajax_atbdp_update_plugins', array($this, 'update_plugins') );
             add_action( 'wp_ajax_atbdp_activate_theme', array($this, 'activate_theme') );
             add_action( 'wp_ajax_atbdp_update_theme', array($this, 'handle_theme_update_request') );
+            add_action( 'wp_ajax_atbdp_refresh_purchase', array($this, 'handle_refresh_purchase_request') );
             add_action( 'wp_ajax_atbdp_close_subscriptions_sassion', array($this, 'handle_close_subscriptions_sassion_request') );
 
             // add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
@@ -519,6 +520,14 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             ];
 
             wp_send_json([ 'status' => $status, 'license_data' => $license_data ]);
+        }
+
+        // handle_refresh_purchase_request
+        public function handle_refresh_purchase_request() {
+            $status = [ 'success' => true ];
+
+
+            wp_send_json( $status );
         }
 
         // handle_close_subscriptions_sassion_request

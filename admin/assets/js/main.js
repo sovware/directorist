@@ -2358,7 +2358,7 @@
     });
 
     // Install Button
-    $( '.ext-install-btn' ).on( 'click', function( e ) {
+    $( '.file-install-btn' ).on( 'click', function( e ) {
         e.preventDefault();
 
         if ( $( this ).hasClass( 'in-progress' ) ) { console.log( 'Wait...' ); return; }
@@ -2388,7 +2388,7 @@
             beforeSend: function() {
                 $( self ).html( 'Installing' );
                 var icon = '<i class="fas fa-circle-notch fa-spin"></i> ';
-                
+
                 $( self ).prepend ( icon );
             },
             success: function( response ) {

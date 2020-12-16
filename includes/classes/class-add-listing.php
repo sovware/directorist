@@ -270,7 +270,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                         }
                     }
                     if (('featured' === $listing_type) && ('package' === $plan_type)) {
-                        if ((($plan_meta['num_featured'][0] < $total_featured_listing) || (0 === $total_featured_listing)) && empty($plan_meta['num_featured_unl'][0])) {
+                        if ((($plan_meta['num_featured'][0] < $total_featured_listing) || (0 == $total_featured_listing)) && empty($plan_meta['num_featured_unl'][0])) {
                             $msg = '<div class="alert alert-danger"><strong>' . __('You have already crossed your limit for featured listing, please try again', 'directorist') . '</strong></div>';
                             $data['error_msg'] = $msg;
                             $data['error'] = true;

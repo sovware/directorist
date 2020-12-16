@@ -99,7 +99,7 @@
                                     <a href="<?php echo $_theme_args['customizer_link'] ?>" target="_blank" class="theme-action-btn theme-preview-btn"><?php _e( 'Live Preview', 'directorist' ) ?></a>
                                 <?php endif; ?>
                             <?php else : ?>
-                                <a href="#" data-type="theme" data-key="<?php echo $_theme_base ?>" class="theme-action-btn ext-install-btn">
+                                <a href="#" data-type="theme" data-key="<?php echo $_theme_base ?>" class="theme-action-btn file-install-btn">
                                     <i class="la la-download"></i> <?php _e( 'Install', 'directorist' ) ?>
                                 </a>
                                 

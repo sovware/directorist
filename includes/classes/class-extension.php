@@ -39,6 +39,8 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             add_action( 'wp_ajax_atbdp_update_plugins', array($this, 'update_plugins') );
             add_action( 'wp_ajax_atbdp_activate_theme', array($this, 'activate_theme') );
             add_action( 'wp_ajax_atbdp_update_theme', array($this, 'handle_theme_update_request') );
+            add_action( 'wp_ajax_atbdp_refresh_purchase', array($this, 'handle_refresh_purchase_request') );
+            add_action( 'wp_ajax_atbdp_close_subscriptions_sassion', array($this, 'handle_close_subscriptions_sassion_request') );
 
             // add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
         }
@@ -110,7 +112,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     'active'      => true,
                 ],
                 'directorist-claim-listing' => [
-                    'name'        => 'Stripe Payment Gateway',
+                    'name'        => 'Claim Listing',
                     'description' => __( 'Let business owners maintain tons of listings by claiming them and monetize your directory listing website with instant revenue.', 'directorist' ),
                     'link'        => 'https://directorist.com/product/directorist-claim-listing/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/12_Claim-Listing-2.png',
@@ -212,6 +214,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         // exclude_purchased_extensions
         public function exclude_purchased_extensions( $extensions ) {
+            $has_subscriptions_sassion = get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
+            $is_logged_in              = ( ! empty( $has_subscriptions_sassion ) ) ? true : false;
+            
+            if ( ! $is_logged_in ) { return $extensions; }
+
             $purchased_products = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', true );
             if ( empty( $purchased_products ) ) { return $extensions; }
 
@@ -231,6 +238,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         // exclude_purchased_themes
         public function exclude_purchased_themes( $themes ) {
+            $has_subscriptions_sassion = get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
+            $is_logged_in              = ( ! empty( $has_subscriptions_sassion ) ) ? true : false;
+
+            if ( ! $is_logged_in ) { return $themes; }
+
             $purchased_products = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', true );
             if ( empty( $purchased_products ) ) { return $themes; }
 
@@ -412,6 +424,17 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         // authenticate_the_customer
         public function authenticate_the_customer() {
             $status = [ 'success' => true, 'log' => [] ];
+
+
+            $plugins_available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
+            $themes_available_in_subscriptions  = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+            $has_previous_subscriptions         = ( ! empty( $plugins_available_in_subscriptions ) || ! empty( $themes_available_in_subscriptions ) ) ? true : false;
+
+            if ( $has_previous_subscriptions ) {
+                // Enable Sassion
+                update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
+                wp_send_json( [ 'status' => $status, 'has_previous_subscriptions' => true ] );
+            }
             
             // Get form data
             $username = ( isset( $_POST['username'] ) ) ? $_POST['username'] : '';
@@ -460,6 +483,9 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 wp_send_json([ 'status' => $status, 'response_body' => $response_body ]);
             }
 
+            // Enable Sassion
+            update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
+
             $license_data = $response_body['license_data'];
 
             // Update All Access License For Extensions
@@ -494,6 +520,23 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             ];
 
             wp_send_json([ 'status' => $status, 'license_data' => $license_data ]);
+        }
+
+        // handle_refresh_purchase_request
+        public function handle_refresh_purchase_request() {
+            $status = [ 'success' => true ];
+
+
+            wp_send_json( $status );
+        }
+
+        // handle_close_subscriptions_sassion_request
+        public function handle_close_subscriptions_sassion_request() {
+            $status = [ 'success' => true ];
+
+            delete_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion' );
+
+            wp_send_json( $status );
         }
 
         // prepare_available_in_subscriptions
@@ -1087,6 +1130,12 @@ if ( ! class_exists('ATBDP_Extensions') ) {
          */
         public function show_extension_view()
         {
+            // delete_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion' );
+
+            // Check Sassion
+            $has_subscriptions_sassion = get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
+            $is_logged_in = ( ! empty( $has_subscriptions_sassion ) ) ? true : false;
+
             // Get Extensions Details
             $plugin_updates       = get_site_transient( 'update_plugins' );
             $outdated_plugins     = $plugin_updates->response;
@@ -1138,7 +1187,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 }
             }
 
-            // delete_user_meta( get_current_user_id(), '_atbdp_purchased_products' );
             $purchased_products     = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', true );
             $has_purchased_products = ( ! empty( $purchased_products )  ) ? true : false;
             $settings_url           = admin_url( 'edit.php?post_type=at_biz_dir&page=aazztech_settings#_extensions_switch' );
@@ -1175,9 +1223,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 ];
             }
 
-            // delete_user_meta( get_current_user_id(), '_themes_available_in_subscriptions' );
-            // delete_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions' );
-
             // Plugins available in subscriptions
             $installed_extensions_keys = array_keys( $installed_extensions );
             if ( ! empty( $installed_extensions_keys ) ) {
@@ -1202,7 +1247,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             // Filter all active extensions
             $all_active_extensions = $this->get_active_extensions();
-            if ( ! empty( $all_active_extensions ) ) {
+            if ( $is_logged_in && ! empty( $all_active_extensions ) ) {
                 $plugins_available_in_subscriptions_keys = array_keys( $plugins_available_in_subscriptions );
                 foreach ( $all_active_extensions as $_extension_base => $_extension_args ) {
                     if ( in_array( $_extension_base, $plugins_available_in_subscriptions_keys ) ) {
@@ -1247,6 +1292,18 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 $themes_available_in_subscriptions[ $_theme_key ] = $item;
             }
 
+
+            // Filter all active extensions
+            $all_active_themes = $this->get_active_themes();
+            if ( $is_logged_in && ! empty( $all_active_themes ) ) {
+                $themes_available_in_subscriptions_keys = array_keys( $themes_available_in_subscriptions );
+                foreach ( $all_active_themes as $_theme_base => $_extension_args ) {
+                    if ( in_array( $_theme_base, $themes_available_in_subscriptions_keys ) ) {
+                        unset( $all_active_themes[ $_theme_base ] );
+                    }
+                }
+            }
+
             // var_dump([
             //     'installed_extensions_keys'          => $installed_extensions_keys,
             //     'plugins_available_in_subscriptions' => array_keys( $plugins_available_in_subscriptions ),
@@ -1256,7 +1313,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             // ]);
 
             $data = [
-                'has_purchased_products'             => $has_purchased_products,
+                'is_logged_in'                       => $is_logged_in,
                 'installed_extensions'               => $installed_extensions,
                 'extension_list'                     => $this->extensions,
                 'theme_list'                         => $this->themes,
@@ -1268,16 +1325,12 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'active_theme'                       => $active_theme,
                 'outdated_themes'                    => $my_outdated_themes,
                 'all_active_extensions'              => $all_active_extensions,
-                'all_active_themes'                  => $this->get_active_themes(),
+                'all_active_themes'                  => $all_active_themes,
                 'all_purshased_themes'               => $all_purshased_themes,
                 'plugins_available_in_subscriptions' => $plugins_available_in_subscriptions,
                 'themes_available_in_subscriptions'  => $themes_available_in_subscriptions,
                 'settings_url'                       => $settings_url,
             ];
-
-            // echo '<pre>';
-            // var_export( $purchased_products );
-            // echo '</pre>';
 
             ATBDP()->load_template('theme-extensions/theme-extension', $data );
         }

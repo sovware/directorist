@@ -718,7 +718,7 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                                     <!--@ Options for select the category.-->
                                     <?php 
                                     $plan_category = true;
-                                    if (is_fee_manager_active()) {
+                                    if (is_fee_manager_active() && function_exists( 'is_plan_allowed_categories' ) ) {
                                         $plan_category = is_plan_allowed_categories($fm_plan);
                                     }
                                     if ( $plan_category ) {

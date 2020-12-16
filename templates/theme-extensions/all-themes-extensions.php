@@ -3,7 +3,7 @@
 <div class="extension-theme-wrapper">
     <?php if ( ! empty( $args['all_active_extensions'] ) ) : ?>
     <div class="et-column">
-        <h2><?php _e( 'Extensions', 'directorist' ) ?></h2>
+        <h3><?php _e( 'Extensions', 'directorist' ) ?></h3>
 
         <?php foreach( $args['all_active_extensions'] as $extension_key => $extension ) : ?>
         <div class="et-card">

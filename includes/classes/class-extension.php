@@ -39,7 +39,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             add_action( 'wp_ajax_atbdp_update_plugins', array($this, 'update_plugins') );
             add_action( 'wp_ajax_atbdp_activate_theme', array($this, 'activate_theme') );
             add_action( 'wp_ajax_atbdp_update_theme', array($this, 'handle_theme_update_request') );
-            add_action( 'wp_ajax_atbdp_refresh_purchase', array($this, 'handle_refresh_purchase_request') );
+            add_action( 'wp_ajax_atbdp_refresh_purchase_status', array($this, 'handle_refresh_purchase_status_request') );
             add_action( 'wp_ajax_atbdp_close_subscriptions_sassion', array($this, 'handle_close_subscriptions_sassion_request') );
 
             // add_action( 'wp_ajax_atbdp_download_purchased_items', array($this, 'download_purchased_items') );
@@ -424,7 +424,9 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         // authenticate_the_customer
         public function authenticate_the_customer() {
             $status = [ 'success' => true, 'log' => [] ];
-
+            
+            // delete_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions' );
+            // delete_user_meta( get_current_user_id(), '_themes_available_in_subscriptions' );
 
             $plugins_available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
             $themes_available_in_subscriptions  = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
@@ -484,6 +486,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             // Enable Sassion
+            update_user_meta( get_current_user_id(), '_atbdp_subscribed_username', $username );
             update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
 
             $license_data = $response_body['license_data'];
@@ -522,18 +525,96 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             wp_send_json([ 'status' => $status, 'license_data' => $license_data ]);
         }
 
-        // handle_refresh_purchase_request
-        public function handle_refresh_purchase_request() {
-            $status = [ 'success' => true ];
+        // handle_refresh_purchase_status_request
+        public function handle_refresh_purchase_status_request() {
+            $status   = [ 'success' => true ];
+            $password = ( isset( $_POST['password'] ) ) ? $_POST['password'] : '';
 
+            $status = $this->refresh_purchase_status( [ 'password' => $password ] );
 
             wp_send_json( $status );
+        }
+
+        // refresh_purchase_status
+        public function refresh_purchase_status( array $args = [] ) {
+            $status  = [ 'success' => true ];
+            $default = [ 'password' => '' ];
+            $args    = array_merge( $default, $args );
+
+
+            if ( empty( $args['password'] ) ) {
+                $status[ 'success' ] = false;
+                $status[ 'message' ] = __( 'Password is required', 'directorist' );
+
+                return [ 'status' => $status ];
+            }
+
+            $username = get_user_meta( get_current_user_id(), '_atbdp_subscribed_username', true );
+            $password = $args['password'];
+
+            if ( empty( $username ) ) {
+                $status[ 'success' ]  = false;
+                $status[ 'reload' ]   = true;
+                $status[ 'message' ]  = __( 'Sassion is destroyed, please sign-in again', 'directorist' );
+
+                delete_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion' );
+
+                return [ 'status' => $status ];
+            }
+
+            // Get licencing data
+            $url_base = 'https://directorist.com/wp-json/directorist/v1/licencing';
+            $args     = '?user=' . $username;
+            $args    .= '&password=' . $password;
+            $url      = $url_base . $args;
+
+            $response = wp_remote_get( $url);
+            $response_body = ( 'string' === gettype( $response['body'] ) ) ? json_decode( $response['body'], true ) : $response['body'];
+
+            // Validate response
+            if ( ! $response_body['success'] ) {
+                $status['success'] = false;
+                $status['massage'] = $response_body['massage'];
+
+                return [ 'status' => $status, 'response_body' => $response_body ];
+            }
+
+            $license_data = $response_body['license_data'];
+
+            // Update All Access License For Extensions
+            if ( ! empty( $response_body['all_access'] ) && ! empty( $response_body['active_licenses'] ) && ! empty( $license_data['plugins'] ) ) {
+                foreach ( $license_data['plugins'] as $plugin_index => $plugin ) {
+                    $license_data[ 'plugins' ][ $plugin_index ]['license'] = $response_body['active_licenses'][0];
+                }
+            }
+
+            // Update All Access License For Themes
+            if ( ! empty( $response_body['all_access'] ) && ! empty( $response_body['active_licenses'] ) && ! empty( $license_data['themes'] ) ) {
+                foreach ( $license_data['plugins'] as $theme_index => $theme ) {
+                    $license_data[ 'themes' ][ $theme_index ]['license'] = $response_body['active_licenses'][0];
+                }
+            }
+
+            // Update user meta
+            if ( ! empty( $license_data[ 'themes' ] ) ) {
+                $themes_available_in_subscriptions = $this->prepare_available_in_subscriptions( $license_data[ 'themes' ] );
+                update_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', $themes_available_in_subscriptions );
+            }
+
+            if ( ! empty( $license_data[ 'plugins' ] ) ) {
+                $plugins_available_in_subscriptions = $this->prepare_available_in_subscriptions( $license_data[ 'plugins' ] );
+                update_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', $plugins_available_in_subscriptions );
+            }
+
+            $status[ 'success' ] = true;
+            $status[ 'message' ] = __( 'Your purchase has been refreshed successfuly', 'directorist' );
+
+            return [ 'status' => $status ];
         }
 
         // handle_close_subscriptions_sassion_request
         public function handle_close_subscriptions_sassion_request() {
             $status = [ 'success' => true ];
-
             delete_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion' );
 
             wp_send_json( $status );

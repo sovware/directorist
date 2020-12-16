@@ -2078,6 +2078,7 @@
                 if ( response.status.success ) {
                     form.attr( 'id', 'atbdp-product-download-form' );
                     form.find('.atbdp-form-page').remove();
+
                     var form_response_page = form.find( '.atbdp-form-response-page' );
                     form_response_page.removeClass( 'atbdp-d-none' );
 
@@ -2150,8 +2151,11 @@
                         }
                     }
 
-                    var button = '<div class="account-connect__form-btn"><button type="button" class="account-connect__btn atbdp-download-products-btn">Continue <span class="la la-arrow-right"></span></button></div>';
-                    form_response_page.append( button );
+                    var continue_button = '<div class="account-connect__form-btn"><button type="button" class="account-connect__btn atbdp-download-products-btn">Continue <span class="la la-arrow-right"></span></button></div>';
+                    var skip_button = '<a href="#" class="atbdp-link atbdp-link-secondery reload">Skip</a>';
+                    
+                    form_response_page.append( continue_button );
+                    form_response_page.append( skip_button );
 
                     $('.atbdp-download-products-btn').on( 'click', function( e ) {
                         $( this ).prop( 'disabled', true );
@@ -2420,35 +2424,109 @@
         });
     });
 
-    // Purchase refresh
+    // Purchase refresh btn
     $( '.purchase-refresh-btn' ).on( 'click', function( e ) {
         e.preventDefault();
 
+        var purchase_refresh_btn_wrapper = $( this ).parent();
+        var auth_section = $( '.et-auth-section' );
+
+        $( purchase_refresh_btn_wrapper ).animate({
+            width: 0,
+        }, 500);
+
+        $( auth_section ).animate({
+            width: 290,
+        }, 500);
+    });
+
+    // et-close-auth-btn
+    $( '.et-close-auth-btn' ).on( 'click', function( e ) {
+        e.preventDefault();
+
+        var auth_section = $( '.et-auth-section' );
+        var purchase_refresh_btn_wrapper = $( '.purchase-refresh-btn-wrapper' );
+
+        $( purchase_refresh_btn_wrapper ).animate({
+            width: 182,
+        }, 500);
+
+        $( auth_section ).animate({
+            width: 0,
+        }, 500);
+    });
+
+    // purchase-refresh-form
+    $('#purchase-refresh-form').on( 'submit', function( e ) {
+        e.preventDefault();
+        // console.log( 'purchase-refresh-form' );
+        
+        var submit_btn       = $( this ).find( 'button[type="submit"]' );
+        var btn_default_html = submit_btn.html();
+        var close_btn        = $( this ).find( '.et-close-auth-btn' );
+        var form_feedback    = $( this ).find( '.atbdp-form-feedback' );
+
+        $( submit_btn ).prop( 'disabled', true );
+        $( close_btn ).addClass( 'atbdp-d-none' );
+
+        var password = $( this ).find( 'input[name="password"]' ).val();
+
         var form_data = {
-            action: 'atbdp_close_subscriptions_sassion',
+            action: 'atbdp_refresh_purchase_status',
+            password: password,
         };
 
-        var self = this;
+        form_feedback.html( '' );
 
         jQuery.ajax({
             type: "post",
             url: atbdp_admin_data.ajaxurl,
             data: form_data,
             beforeSend: function() {
-                $( self ).html( '<i class="fas fa-circle-notch fa-spin"></i> Logging out' );
+                $( submit_btn ).html( '<i class="fas fa-circle-notch fa-spin"></i>' );
             },
             success: function( response ) {
-                // console.log( response );
-                location.reload();
+                console.log( response );
+                console.log( response.status );
+                // location.reload();
+
+                if ( response.status.message ) {
+                    var feedback_type = ( response.status.success ) ? 'success' : 'danger';
+                    var message = '<span class="atbdp-text-'+ feedback_type +'">'+ response.status.message +'</span>';
+                    
+                    form_feedback.html( message );
+                }
+
+                if ( response.status.massage ) {
+                    var feedback_type = ( response.status.success ) ? 'success' : 'danger';
+                    var message = '<span class="atbdp-text-'+ feedback_type +'">'+ response.status.massage +'</span>';
+                    
+                    form_feedback.html( message );
+                }
+
+                if ( ! response.status.success ) {
+                    $( submit_btn ).html( btn_default_html );
+                    $( submit_btn ).prop( 'disabled', false );
+                    $( close_btn ).removeClass( 'atbdp-d-none' );
+
+                    if ( response.status.reload ) {
+                        location.reload();
+                    }
+                } else {
+                    location.reload();
+                }
+
             },
             error: function( error ) {
                 console.log( error );
-                $( this ).prop( 'disabled', false );
-                $( this ).removeClass( 'in-progress' );
 
-                $( self ).html( btn_default_html );
+                $( submit_btn ).prop( 'disabled', false );
+                $( submit_btn ).html( btn_default_html );
+
+                $( close_btn ).removeClass( 'atbdp-d-none' );
             },
         });
+
 
     });
 
@@ -2534,7 +2612,7 @@
             },
         });
 
-        console.log( task, plugins_items );
+        // console.log( task, plugins_items );
     });
 
 

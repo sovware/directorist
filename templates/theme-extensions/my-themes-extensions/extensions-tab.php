@@ -1,9 +1,4 @@
-<?php
-// var_dump( $args['outdated_plugins'] );
-$outdated_plugins_key = array_keys($args['outdated_plugins']);
-// var_dump( $outdated_plugins_key );
-// var_dump( $outdated_plugins_key );
-?>
+<?php $outdated_plugins_key = array_keys($args['outdated_plugins']); ?>
 <div id="atbdp-extensions-tab" class="ext-wrapper et-contents__tab-item atbdp-tab__content active">
     <div class="ext-installed">
         <h4>Installed</h4>

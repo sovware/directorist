@@ -1,16 +1,49 @@
 <div class="et-wrapper">
     <div class="et-wrapper-head">
-        <h3>
-            My Themes and Extensions 
+        <div class="et-header-title-area">
+            <h3>My Themes and Extensions</h3>
 
-            <a href="#" class="ext-action-btn purchase-refresh-btn">
-                <i class="la la-refresh"></i> <?php _e( 'Refresh Purchase', 'directorist' ) ?>
-            </a>
-            
-            <a href="#" class="ext-action-btn subscriptions-logout-btn">
-                <i class="fas fa-sign-out-alt"></i> <?php _e( 'Logout', 'directorist' ) ?>
-            </a>
-        </h3>
+            <div class="et-header-actions">
+                <div class="et-auth-section atbdp-hide">
+                    <form id="purchase-refresh-form" action="#" method="post">
+                        <div class="et-auth-section-wrap">
+                            <div class="atbdp-input-group atbdp-input-group-append">
+                                <div class="atbdp-input-group-wrap">
+                                    <input type="password" class="atbdp-form-control" placeholder="Confirm Password" id="password" name="password">
+                                    <button type="submit" class="atbdp-btn atbdp-btn-primary">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
+
+                                <div class="atbdp-form-feedback"></div>
+                            </div>
+                            
+
+                            <div class="atbdp-action-group">
+                                <button class="atbdp-btn atbdp-btn-danger atbdp-mx-5 et-close-auth-btn">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="atbdp-action-group">
+                    <div class="atbdp-btn-wrapper purchase-refresh-btn-wrapper">
+                        <a href="#" class="ext-action-btn purchase-refresh-btn atbdp-show">
+                            <i class="la la-refresh"></i> <?php _e('Refresh Purchase', 'directorist') ?>
+                        </a>
+                    </div>
+
+                    <div class="atbdp-btn-wrapper">
+                        <a href="#" class="ext-action-btn subscriptions-logout-btn">
+                            <i class="fas fa-sign-out-alt"></i> <?php _e('Logout', 'directorist') ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="et-search">
             <input type="text" placeholder="Search extensions and themes">

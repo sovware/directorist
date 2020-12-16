@@ -1538,9 +1538,30 @@ span.atbdp-tick-cross {
 input.atbdp-form-control {
   display: block;
   width: 100%;
-  padding: 5px 10px;
   border: none;
-  background-color: #f2f2f2;
+  height: 40px;
+  border-radius: 4px;
+  border: 0 none;
+  padding: 0 15px;
+  background: #f4f5f7;
+}
+
+.atbdp-input-group {
+  /* display: flex; */
+}
+
+.atbdp-input-group-wrap {
+  display: flex;
+}
+
+.atbdp-input-group-append input.atbdp-form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#directorist.atbd_wrapper .atbdp-input-group-append .atbdp-btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 .atbdp-form-feedback {
@@ -1582,10 +1603,25 @@ input.atbdp-form-control {
   background-color: #ff4343;
 }
 
-.atbdp-btn {
+#directorist.atbd_wrapper .atbdp-btn {
+  min-height: 40px;
   padding: 8px 20px;
   border: none;
+  cursor: pointer;
   border-radius: 3px;
+  overflow: hidden;
+  transition: all ease-in-out 300ms;
+}
+
+#directorist.atbd_wrapper .atbdp-btn:active,
+#directorist.atbd_wrapper .atbdp-btn:focus {
+  outline: none;
+}
+
+#directorist.atbd_wrapper .atbdp-btn-wrapper {
+  display: inline-block;
+  overflow: hidden;
+  /* transition: all ease-in-out 300ms; */
 }
 
 .atbdp-btn-primary {
@@ -1594,6 +1630,17 @@ input.atbdp-form-control {
 }
 
 /* Utility */
+
+#directorist.atbd_wrapper .atbdp-hide {
+  width: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#directorist.atbd_wrapper .atbdp-hide * {
+  /* display: none; */
+}
+
 .atbdp-d-none {
   display: none;
 }
@@ -1766,6 +1813,31 @@ input.atbdp-form-control {
   font-size: 16px !important;
   font-weight: 600;
   margin: 0 !important;
+}
+
+.et-header-title-area {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.et-header-actions {
+  margin: 0 10px;
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.et-auth-section {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.et-auth-section-wrap {
+  display: flex;
+  padding: 1px;
+  flex-grow: 1;
+  flex-wrap: nowrap;
+  overflow: hidden;
 }
 
 .et-wrapper .et-wrapper-head .et-search {
@@ -2055,6 +2127,7 @@ input.atbdp-form-control {
   transition: 0.3s ease;
   font-size: 14px !important;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 #directorist.atbd_wrapper .ext-action-btn:hover {

@@ -25,7 +25,7 @@
     
     <?php if ( ! empty( $args['all_active_themes'] ) ) : ?>
     <div class="et-column">
-        <h2><?php _e( 'Themes', 'directorist' ) ?></h2>
+        <h3><?php _e( 'Themes', 'directorist' ) ?></h3>
 
         <?php foreach( $args['all_active_themes'] as $theme_key => $theme ) : ?>
         <div class="et-card">

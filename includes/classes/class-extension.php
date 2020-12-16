@@ -425,19 +425,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         public function authenticate_the_customer() {
             $status = [ 'success' => true, 'log' => [] ];
             
-            // delete_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions' );
-            // delete_user_meta( get_current_user_id(), '_themes_available_in_subscriptions' );
-
-            $plugins_available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
-            $themes_available_in_subscriptions  = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
-            $has_previous_subscriptions         = ( ! empty( $plugins_available_in_subscriptions ) || ! empty( $themes_available_in_subscriptions ) ) ? true : false;
-
-            if ( $has_previous_subscriptions ) {
-                // Enable Sassion
-                update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
-                wp_send_json( [ 'status' => $status, 'has_previous_subscriptions' => true ] );
-            }
-            
             // Get form data
             $username = ( isset( $_POST['username'] ) ) ? $_POST['username'] : '';
             $password = ( isset( $_POST['password'] ) ) ? $_POST['password'] : '';
@@ -485,9 +472,25 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 wp_send_json([ 'status' => $status, 'response_body' => $response_body ]);
             }
 
+            
+
             // Enable Sassion
             update_user_meta( get_current_user_id(), '_atbdp_subscribed_username', $username );
             update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
+
+
+            // delete_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions' );
+            // delete_user_meta( get_current_user_id(), '_themes_available_in_subscriptions' );
+
+            $plugins_available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
+            $themes_available_in_subscriptions  = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+            $has_previous_subscriptions         = ( ! empty( $plugins_available_in_subscriptions ) || ! empty( $themes_available_in_subscriptions ) ) ? true : false;
+
+            if ( $has_previous_subscriptions ) {
+                // Enable Sassion
+                update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
+                wp_send_json( [ 'status' => $status, 'has_previous_subscriptions' => true ] );
+            }
 
             $license_data = $response_body['license_data'];
 
@@ -1306,7 +1309,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             // Plugins available in subscriptions
             $installed_extensions_keys = array_keys( $installed_extensions );
-            if ( ! empty( $installed_extensions_keys ) ) {
+            if ( ! empty( $installed_extensions_keys ) && ! empty( $installed_extensions_keys ) ) {
                 foreach( $installed_extensions_keys as $index => $key) {
                     $new_key = preg_replace( '/\/.+/', '', $key );
                     $new_key = preg_replace( '/(directorist-)/', '', $new_key );
@@ -1341,7 +1344,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             // Themes available in subscriptions
             $all_purshased_themes_keys = array_keys( $all_purshased_themes );
             $_themes_available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
-            if ( ! empty( $_themes_available_in_subscriptions ) ) {
+            if ( ! empty( $_themes_available_in_subscriptions ) && ! empty( $all_purshased_themes_keys ) ) {
                 $_active_theme_key = $active_theme[ 'stylesheet' ];
                 unset( $_themes_available_in_subscriptions[ $_active_theme_key ] );
 

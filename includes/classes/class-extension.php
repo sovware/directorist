@@ -1332,7 +1332,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             // Filter all active extensions
             $all_active_extensions = $this->get_active_extensions();
             if ( $is_logged_in && ! empty( $all_active_extensions ) ) {
-                $plugins_available_in_subscriptions_keys = array_keys( $plugins_available_in_subscriptions );
+                $plugins_available_in_subscriptions_keys = is_array( $plugins_available_in_subscriptions ) ? array_keys( $plugins_available_in_subscriptions ) : [];
                 foreach ( $all_active_extensions as $_extension_base => $_extension_args ) {
                     if ( in_array( $_extension_base, $plugins_available_in_subscriptions_keys ) ) {
                         unset( $all_active_extensions[ $_extension_base ] );
@@ -1354,8 +1354,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     }
                 }
             }
-
-            $_themes_available_in_subscriptions_keys = array_keys( $_themes_available_in_subscriptions );
+            $_themes_available_in_subscriptions_keys = is_array($_themes_available_in_subscriptions) ? array_keys( $_themes_available_in_subscriptions ) : [];
             $themes_available_in_subscriptions = [];
 
             // Import themes which are installed

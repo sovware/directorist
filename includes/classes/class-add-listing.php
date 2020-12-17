@@ -102,6 +102,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                  }
                 //isolate data
                 $error = [];
+                $dummy = [];
                 // wp_send_json( [
                 //     'info' => $info,
                 //     'submission_form_fields' => $submission_form_fields,
@@ -118,24 +119,31 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $required = !empty( $value['required'] ) ? $value['required'] : '';
                     $only_for_admin = !empty( $value['only_for_admin'] ) ? $value['only_for_admin'] : '';
                     $label = !empty( $value['label'] ) ? $value['label'] : '';
+                    $additional_logic = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $value, $info );
+                    // array_push( $dummy, [
+                    //     'label' => $label,
+                    //     'additional_logic' => $additional_logic,
+                    //     ] );
 
-                    // error handling
-                    if( ( 'category' === $key ) && $required && !$only_for_admin && !$admin_category_select) {
-                        $msg = $label .__( ' field is required!', 'directorist' );
-                        array_push( $error, $msg );
-                    }
-                    if( ( 'location' === $key ) && $required && !$only_for_admin && !$location) {
-                        $msg = $label .__( ' field is required!', 'directorist' );
-                        array_push( $error, $msg );
-                    }
-                    if( ( 'tag' === $key ) && $required && !$only_for_admin && !$tag) {
-                        $msg = $label .__( ' field is required!', 'directorist' );
-                        array_push( $error, $msg );
-                    }
-                    if( ( 'category' !== $key ) && ( 'tag' !== $key ) && ( 'location' !== $key ) ) {
-                        if( $required && !$submitted_data && !$only_for_admin ){
+                    if( $additional_logic ) {
+                        // error handling
+                        if( ( 'category' === $key ) && $required && !$only_for_admin && !$admin_category_select) {
                             $msg = $label .__( ' field is required!', 'directorist' );
                             array_push( $error, $msg );
+                        }
+                        if( ( 'location' === $key ) && $required && !$only_for_admin && !$location) {
+                            $msg = $label .__( ' field is required!', 'directorist' );
+                            array_push( $error, $msg );
+                        }
+                        if( ( 'tag' === $key ) && $required && !$only_for_admin && !$tag) {
+                            $msg = $label .__( ' field is required!', 'directorist' );
+                            array_push( $error, $msg );
+                        }
+                        if( ( 'category' !== $key ) && ( 'tag' !== $key ) && ( 'location' !== $key ) ) {
+                            if( $required && !$submitted_data && !$only_for_admin ){
+                                $msg = $label .__( ' field is required!', 'directorist' );
+                                array_push( $error, $msg );
+                            }
                         }
                     }
                     
@@ -169,6 +177,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                     }
                 }
 
+                // wp_send_json($dummy);
+                // die;
                 if( $error ){
                     $data['error_msg'] = $error;
                     $data['error'] = true;

@@ -6711,20 +6711,25 @@ span.atbd_get_loc_wid {
 }
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav {
-  width: 200px;
+  width: 230px;
+  padding: 20px 10px;
   margin-right: 30px;
   -webkit-transition: 0.3s ease;
   -o-transition: 0.3s ease;
   transition: 0.3s ease;
   position: relative;
   left: 0;
+  border-radius: 4px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 5px 10px #8F8E9F05;
+          box-shadow: 0 5px 10px #8F8E9F05;
 }
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav.atbd-dashboard-nav-collapsed {
   width: 0 !important;
   height: 0;
   margin-right: 0;
-  left: -200px;
+  left: -230px;
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
@@ -6778,6 +6783,21 @@ span.atbd_get_loc_wid {
   line-height: 25px;
 }
 
+#directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button {
+  padding: 0 10px;
+  margin-top: 20px;
+}
+
+#directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a {
+  width: 100%;
+  padding: 6.5px 12px;
+  border-radius: 4px;
+}
+
+#directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav .nav_button a.btn-primary {
+  background-color: #0A0B1E !important;
+}
+
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_tab-content {
   -webkit-box-flex: 1;
       -ms-flex: 1;
@@ -6801,10 +6821,13 @@ span.atbd_get_loc_wid {
 }
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbdp_tab_nav--content li {
-  margin-bottom: 13px;
+  margin: 0px;
 }
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbdp_tab_nav--content li a {
+  font-size: 14px;
+  border-radius: 4px;
+  padding: 10px;
   outline: 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -6815,11 +6838,21 @@ span.atbd_get_loc_wid {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  color: #51526E;
+}
+
+#directorist.atbd_wrapper .atbd_dashboard_wrapper .atbdp_tab_nav--content li a.tabItemActive {
+  font-weight: 700;
+  background-color: #E9E9E9;
+  color: #0A0B1E;
 }
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbdp_tab_nav--content li ul {
-  margin: 5px 0 0 15px;
   display: none;
+}
+
+#directorist.atbd_wrapper .atbd_dashboard_wrapper .atbdp_tab_nav--content li ul li a {
+  padding-left: 40px;
 }
 
 #directorist.atbd_wrapper .atbd-dashboard-nav-toggler {
@@ -6978,8 +7011,7 @@ span.atbd_get_loc_wid {
   -webkit-box-shadow: 0 5px 10px rgba(143, 142, 159, 0.05);
           box-shadow: 0 5px 10px rgba(143, 142, 159, 0.05);
   border-radius: 4px;
-  margin-top: -25px;
-  margin-bottom: 145px;
+  margin-top: 15px;
 }
 
 .atbdp-userDashboard-tabcontent .atbdp-listing-table .atbdp-table {
@@ -6989,7 +7021,28 @@ span.atbd_get_loc_wid {
   border-spacing: 0;
   empty-cells: show;
   margin-bottom: 0;
-  overflow-y: auto;
+  margin-top: 0;
+  overflow: visible !important;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr th.atbdp_table-listing {
+  min-width: 320px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr th.atbdp_table-plan {
+  min-width: 180px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr th.atbdp_table-ex-date {
+  min-width: 250px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr th.atbdp_table-status {
+  min-width: 160px;
+}
+
+.atbdp-userDashboard-tabcontent .atbdp-listing-table tr th.atbdp_table-actions {
+  min-width: 200px;
 }
 
 .atbdp-userDashboard-tabcontent .atbdp-listing-table tr:first-child th {
@@ -7245,9 +7298,10 @@ span.atbd_get_loc_wid {
 }
 
 .atbdp-table-responsive {
-  display: block;
+  display: block !important;
   width: 100%;
   overflow-x: auto;
+  overflow-y: visible;
 }
 
 .atbdp-pagination ul {
@@ -7298,6 +7352,19 @@ span.atbd_get_loc_wid {
 
 .atbdp-pagination ul li a i:before {
   margin: 0;
+}
+
+@media (max-width: 767px) {
+  .atbdp-userDashboard-tab .atbd_tab_nav {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-flow: column;
+            flex-flow: column;
+    padding-bottom: 20px;
+  }
+  .atbdp-userDashboard-search {
+    margin-top: 15px;
+  }
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-selection {

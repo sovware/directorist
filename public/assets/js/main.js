@@ -777,8 +777,17 @@
     $('.atbdp-btn-more').on("click", function(e){
         e.preventDefault();
         $(this).toggleClass('active');
+        $(".atbdp-dropdown-menu").removeClass("active");
+        $(this).siblings(".atbdp-dropdown-menu").removeClass("active");
         $(this).next(".atbdp-dropdown-menu").toggleClass("active");
-    })
+        e.stopPropagation();
+    });
+    $(document).on("click", function (e) {
+        if ($(e.target).is(".atbdp-btn-more, .active") === false) {
+            $(".atbdp-dropdown-menu").removeClass("active");
+            $(".atbdp-btn-more").removeClass("active");
+        }
+    });
 
     /* User Dashboard tab */
     $(function () {

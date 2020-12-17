@@ -124,10 +124,10 @@ class Directorist_Listings {
 		}
 		else {
 			if ( $this->type == 'search_result' ) {
-				$this->query_args = $this->perse_search_query_args();
+				$this->query_args = $this->parse_search_query_args();
 			}
 			else {
-				$this->query_args = $this->perse_query_args();
+				$this->query_args = $this->parse_query_args();
 			}
 		}
 
@@ -689,7 +689,7 @@ class Directorist_Listings {
 		return ATBDP_Listings_Data_Store::get_archive_listings_query( $this->query_args, $caching_options );
 	}
 
-	public function perse_query_args() {
+	public function parse_query_args() {
 		$args = array(
 			'post_type'      => ATBDP_POST_TYPE,
 			'post_status'    => 'publish',
@@ -711,7 +711,7 @@ class Directorist_Listings {
 		$tax_queries = array();
 
 
-		// Listings of current listing type and empty listing type
+		// Listings of current listing type
 		$tax_queries['tax_query'] = array(
 			'relation' => 'AND',
 			array(
@@ -762,7 +762,7 @@ class Directorist_Listings {
 		return apply_filters( 'atbdp_all_listings_query_arguments', $args );
 	}
 
-	public function perse_search_query_args() {
+	public function parse_search_query_args() {
 		$args = array(
 			'post_type'      => ATBDP_POST_TYPE,
 			'post_status'    => 'publish',
@@ -793,6 +793,13 @@ class Directorist_Listings {
 		}
 
 		$tax_queries = array();
+
+		// Listings of current listing type
+		$tax_queries[] = array(
+			'taxonomy' => ATBDP_TYPE,
+			'terms'    => $this->current_listing_type,
+		);
+
 		if (isset($_GET['in_cat']) && (int)$_GET['in_cat'] > 0) {
 			$tax_queries[] = array(
 				'taxonomy' => ATBDP_CATEGORY,

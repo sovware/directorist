@@ -83,15 +83,15 @@
         </div>
         <div class="atbdp-userDashboard-tabcontent">
             <div class="atbd_tab_inner tabContentActive" id="all_llistings">
-                <div class="atbdp-listing-table">
-                    <table class="atbdp-table atbdp-table-responsive">
+                <div class="atbdp-listing-table atbdp-table-responsive">
+                    <table class="atbdp-table">
                         <thead>
                             <tr>
-                                <th>Listings</th>
-                                <th>Plan</th>
-                                <th>Expiration Date</th>
-                                <th>Status</th>
-                                <th></th>
+                                <th class="atbdp_table-listing">Listings</th>
+                                <th class="atbdp_table-plan">Plan</th>
+                                <th class="atbdp_table-ex-date">Expiration Date</th>
+                                <th class="atbdp_table-status">Status</th>
+                                <th class="atbdp_table-actions"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -272,15 +272,15 @@
                 </div>
             </div>
             <div class="atbd_tab_inner" id="published">
-            <div class="atbdp-listing-table">
-                    <table class="atbdp-table atbdp-table-responsive">
+                <div class="atbdp-listing-table atbdp-table-responsive">
+                    <table class="atbdp-table">
                         <thead>
                             <tr>
-                                <th>Listings</th>
-                                <th>Plan</th>
-                                <th>Expiration Date</th>
-                                <th>Status</th>
-                                <th></th>
+                                <th class="atbdp_table-listing">Listings</th>
+                                <th class="atbdp_table-plan">Plan</th>
+                                <th class="atbdp_table-ex-date">Expiration Date</th>
+                                <th class="atbdp_table-status">Status</th>
+                                <th class="atbdp_table-actions"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -461,15 +461,15 @@
                 </div>
             </div>
             <div class="atbd_tab_inner" id="pending">
-            <div class="atbdp-listing-table">
-                    <table class="atbdp-table atbdp-table-responsive">
+                <div class="atbdp-listing-table atbdp-table-responsive">
+                    <table class="atbdp-table">
                         <thead>
                             <tr>
-                                <th>Listings</th>
-                                <th>Plan</th>
-                                <th>Expiration Date</th>
-                                <th>Status</th>
-                                <th></th>
+                                <th class="atbdp_table-listing">Listings</th>
+                                <th class="atbdp_table-plan">Plan</th>
+                                <th class="atbdp_table-ex-date">Expiration Date</th>
+                                <th class="atbdp_table-status">Status</th>
+                                <th class="atbdp_table-actions"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -650,15 +650,15 @@
                 </div>
             </div>
             <div class="atbd_tab_inner" id="unpaid">
-            <div class="atbdp-listing-table">
-                    <table class="atbdp-table atbdp-table-responsive">
+            <div class="atbdp-listing-table atbdp-table-responsive">
+                    <table class="atbdp-table">
                         <thead>
                             <tr>
-                                <th>Listings</th>
-                                <th>Plan</th>
-                                <th>Expiration Date</th>
-                                <th>Status</th>
-                                <th></th>
+                                <th class="atbdp_table-listing">Listings</th>
+                                <th class="atbdp_table-plan">Plan</th>
+                                <th class="atbdp_table-ex-date">Expiration Date</th>
+                                <th class="atbdp_table-status">Status</th>
+                                <th class="atbdp_table-actions"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -839,15 +839,15 @@
                 </div>
             </div>
             <div class="atbd_tab_inner" id="expired">
-            <div class="atbdp-listing-table">
-                    <table class="atbdp-table atbdp-table-responsive">
+            <div class="atbdp-listing-table atbdp-table-responsive">
+                    <table class="atbdp-table">
                         <thead>
                             <tr>
-                                <th>Listings</th>
-                                <th>Plan</th>
-                                <th>Expiration Date</th>
-                                <th>Status</th>
-                                <th></th>
+                                <th class="atbdp_table-listing">Listings</th>
+                                <th class="atbdp_table-plan">Plan</th>
+                                <th class="atbdp_table-ex-date">Expiration Date</th>
+                                <th class="atbdp_table-status">Status</th>
+                                <th class="atbdp_table-actions"></th>
                             </tr>
                         </thead>
                         <tbody>

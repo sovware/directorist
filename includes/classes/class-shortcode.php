@@ -3147,6 +3147,9 @@ if (!class_exists('ATBDP_Shortcode')):
             echo '<div id="directorist" class="atbd_wrapper directorist">
             <div class="container-fluid"><div class="row"> <div class="col-md-6 offset-md-3"><div class="atbdp_login_form_shortcode">';
             if (!atbdp_logged_in_user()) {
+                
+                atbdp_get_flush_messages();
+
                 // start recovery stuff
                 $recovery = isset($_GET['user']) ? $_GET['user'] : '';
                 $key = isset($_GET['key']) ? $_GET['key'] : '';

@@ -1,6 +1,7 @@
 <?php
 global $post;
 $listing_id = $post->ID;
+
 /**
  * @since 5.10.0
  * It fires before single listing load

@@ -2,6 +2,68 @@
 // Prohibit direct script loading.
 defined('ABSPATH') || die('No direct script access allowed!');
 
+
+if ( ! function_exists( 'atbdp_redirect_after_login' ) ) {
+    // atbdp_redirect_after_login
+    function atbdp_redirect_after_login( array $args = [] ) {
+        $default = [ 'url' => '' ];
+        $args = array_merge( $default, $args );
+
+        if ( empty( $args['url'] ) ) { return; }
+
+        set_transient( 'atbdp_redirect_after_login', $args['url'] );
+    }
+}
+
+if ( ! function_exists( 'atbdp_add_flush_message' ) ) {
+    // atbdp_add_flush_message
+    function atbdp_add_flush_message( array $args = [] ) {
+        $default = [ 'key' => '', 'type' => 'info', 'message' => '' ];
+        $args = array_merge( $default, $args );
+
+        if ( empty( $args['key'] ) ) { return; }
+        if ( empty( $args['message'] ) ) { return; }
+
+        $get_previous_messages = get_transient( 'atbdp_flush_messages' );
+        $flush_messages = $get_previous_messages;
+
+        if ( empty( $flush_messages ) ) {
+            $flush_messages = [];
+        }
+
+        $key = $args[ 'key' ];
+        $flush_messages[ $key ] = $args;
+
+        set_transient( 'atbdp_flush_messages', $flush_messages );
+    }
+}
+
+if ( ! function_exists( 'atbdp_get_flush_messages' ) ) {
+    // atbdp_get_flush_messages
+    function atbdp_get_flush_messages( array $args = [] ) {
+        $flush_messages = get_transient( 'atbdp_flush_messages' );
+        if ( empty( $flush_messages  ) ) { return; }
+
+        delete_transient( 'atbdp_flush_messages' );
+
+        ob_start();
+
+        echo '<div class="atbdp-flush-message-container">';
+        foreach ( $flush_messages as $message_key => $messages ) { ?>
+            <div class="atbdp-flush-message-item type-<?php echo $messages['type'] ?>">
+                <?php echo $messages['message'] ?>
+            </div>
+        <?php }
+        echo '</div>';
+
+        $contents = apply_filters( 'atbdp_flush_messages_content', ob_get_clean(), $flush_messages );
+        echo $contents;
+    }
+}
+
+
+
+
 if ( !function_exists('get_help') ) {
     function get_help() {
         $path = ATBDP_CLASS_DIR . 'class-helper.php';

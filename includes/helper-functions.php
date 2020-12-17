@@ -85,7 +85,7 @@ if ( ! function_exists( 'atbdp_get_flush_messages' ) ) {
         <?php }
         echo '</div>';
 
-        $contents = apply_filters( 'atbdp_flush_messages_content', ob_get_clean(), $flush_messages );
+        $contents = apply_filters( 'atbdp_flush_message_content', ob_get_clean(), $flush_messages );
         echo $contents;
     }
 }

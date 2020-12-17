@@ -6023,7 +6023,7 @@ The Administrator of ==SITE_NAME==
                 array(
                     'type' => 'toggle',
                     'name' => 'restrict_single_listing_for_logged_in_user',
-                    'label' => __('Restrict Single Listing for Logged in User Only', 'directorist'),
+                    'label' => __('Restrict Single Listings for Logged in User Only', 'directorist'),
                     'default' => 0,
                 ),
                 'single_listing_template' => array(

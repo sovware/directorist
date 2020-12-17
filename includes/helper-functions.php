@@ -8,7 +8,7 @@ if ( ! function_exists( 'atbdp_auth_guard' ) ) {
         $flush_message = [
             'key'     => 'logged_in_user_only',
             'type'    => 'info',
-            'message' => __( 'This page is logged in user only, please login to continue to the page', 'directorist' ),
+            'message' => __( 'You need to be logged in to view the content of this page', 'directorist' ),
         ];
 
         $default = [ 'flush_message' => $flush_message ];

@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="atbdp-btn-wrapper">
-                        <a href="#" class="ext-action-btn subscriptions-logout-btn">
+                        <a href="#" class="ext-action-btn subscriptions-logout-btn" data-hard-logout="<?php echo $args['hard_logout']; ?>">
                             <i class="fas fa-sign-out-alt"></i> <?php _e('Logout', 'directorist') ?>
                         </a>
                     </div>

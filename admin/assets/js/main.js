@@ -2582,8 +2582,11 @@
     $('.subscriptions-logout-btn').on( 'click', function( e ) {
         e.preventDefault();
 
+        var hard_logout = $( this ).data( 'hard-logout' );
+
         var form_data = {
             action: 'atbdp_close_subscriptions_sassion',
+            hard_logout: hard_logout,
         };
 
         var self = this;

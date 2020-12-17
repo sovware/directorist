@@ -756,18 +756,29 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         // handle_close_subscriptions_sassion_request
         public function handle_close_subscriptions_sassion_request() {
+            $hard_logout_state = ( isset( $_POST[ 'hard_logout' ] ) ) ? $_POST[ 'hard_logout' ] : false;
+            $status = $this->close_subscriptions_sassion( [ 'hard_logout' => $hard_logout_state ] );
+            
+            wp_send_json( $status );
+        }
+
+        // close_subscriptions_sassion
+        public function close_subscriptions_sassion( array $args = [] ) {
+            $default = [ 'hard_logout' => false ];
+            $args = array_merge( $default, $args );
+
             $status = [ 'success' => true ];
             delete_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion' );
 
-            $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
+            // $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
 
-            if ( $hard_logout ) {
+            if ( $args[ 'hard_logout' ] ) {
                 delete_user_meta( get_current_user_id(), '_atbdp_subscribed_username' );
                 delete_user_meta( get_current_user_id(), '_themes_available_in_subscriptions' );
                 delete_user_meta( get_current_user_id(), '_themes_available_in_subscriptions' );
             }
 
-            wp_send_json( $status );
+            return $status;
         }
 
         // prepare_available_in_subscriptions
@@ -1570,8 +1581,15 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             //     // 'themes_available_in_subscriptions'  => $themes_available_in_subscriptions,
             // ]);
 
+
+            // $this->close_subscriptions_sassion();
+
+            $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
+            $hard_logout = ( $hard_logout ) ? 1 : 0;
+
             $data = [
                 'is_logged_in'                       => $is_logged_in,
+                'hard_logout'                        => $hard_logout,
                 'installed_extensions'               => $installed_extensions,
                 'extension_list'                     => $this->extensions,
                 'theme_list'                         => $this->themes,

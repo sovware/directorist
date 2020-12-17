@@ -45,10 +45,10 @@
         </div>
 
 
-        <div class="et-search">
+        <!-- <div class="et-search">
             <input type="text" placeholder="Search extensions and themes">
             <span class="la la-search"></span>
-        </div>
+        </div> -->
     </div><!-- ends: .et-wrapper-head -->
     <div class="et-contents">
         <ul class="et-contents__tab-nav">

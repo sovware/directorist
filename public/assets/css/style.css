@@ -7807,6 +7807,34 @@ p.atbd-min {
   }
 }
 
+/* atbdp-flush-message */
+.atbdp-flush-message-container {
+  margin: 20px 0 10px;
+}
+
+.atbdp-flush-message-item {
+  margin-bottom: 10px;
+  padding: 15px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+}
+
+.atbdp-flush-message-item.type-info {
+  color: #fff;
+  background-color: #377dff;
+}
+
+.atbdp-flush-message-item.type-warning {
+  color: #fff;
+  background-color: #f2b01e;
+}
+
+.atbdp-flush-message-item.type-danger {
+  color: #fff;
+  background-color: #e23636;
+}
+
 @media (max-width: 400px) {
   .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title,
   .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info {

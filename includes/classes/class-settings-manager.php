@@ -6020,6 +6020,12 @@ The Administrator of ==SITE_NAME==
                     'label' => __('Disable Single Listing View', 'directorist'),
                     'default' => 0,
                 ),
+                array(
+                    'type' => 'toggle',
+                    'name' => 'restrict_single_listing_for_logged_in_user',
+                    'label' => __('Restrict Single Listing for Logged in User Only', 'directorist'),
+                    'default' => 0,
+                ),
                 'single_listing_template' => array(
                     'type' => 'select',
                     'name' => 'single_listing_template',

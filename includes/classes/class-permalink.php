@@ -61,6 +61,14 @@ class ATBDP_Permalink{
      */
     public static function get_login_redirection_page_link()
     {
+
+        // Check if has temp redirect url
+        $temp_login_redirect = get_transient( 'atbdp_redirect_after_login' );
+        if ( ! empty( $temp_login_redirect ) ) {
+            delete_transient( 'atbdp_redirect_after_login' );
+            return $temp_login_redirect;
+        }
+
         $id = get_directorist_option('redirection_after_login'); // get the page id of the dashboard page.
         if( 'previous_page' == $id ) {
             $link = wp_get_referer();

@@ -1069,11 +1069,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
             
 
-            $plugin_path   = ABSPATH . 'wp-content/plugins';
-            $temp_dest     = "{$plugin_path}/atbdp-temp-dir";
-            $file_url      = $args['url'];
-            $file_name     = basename( $file_url );
-            $tmp_file      = download_url( $file_url );
+            $plugin_path = ABSPATH . 'wp-content/plugins';
+            $temp_dest   = "{$plugin_path}/atbdp-temp-dir";
+            $file_url    = $args['url'];
+            $file_name   = basename( $file_url );
+            $tmp_file    = download_url( $file_url );
 
             // Make Temp Dir
             if ( $wp_filesystem->exists( $temp_dest ) ) {
@@ -1213,7 +1213,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
                     $wp_filesystem->mkdir( $temp_dest_path );
                     unzip_file( $zip, $temp_dest_path );
-                    @unlink( $zip );
+                    // @unlink( $zip );
 
                     continue;
                 }
@@ -1224,7 +1224,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 }
 
                 unzip_file( $zip, $temp_dest );
-                @unlink( $zip );
+                // @unlink( $zip );
             }
         }
 

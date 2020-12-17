@@ -53,18 +53,18 @@ if ( ! defined( 'ABSPATH' ) ) {
                         $form_id = apply_filters('atbdp_contact_listing_owner_widget_form_id', 'atbdp-contact-form-widget');
                         ?>
                         <div class="atbdp directorist atbdp-widget-listing-contact">
-                            <form id="<?php echo $form_id; ?>" class="form-vertical" role="form">
+                            <form id="<?php echo $form_id; ?>" class="form-vertical contact_listing_owner_form" role="form">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="atbdp-contact-name" placeholder="<?php _e( 'Name', 'directorist' ); ?>" required />
+                                    <input type="text" class="form-control" name="atbdp-contact-name" placeholder="<?php _e( 'Name', 'directorist' ); ?>" required />
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="email" class="form-control" id="atbdp-contact-email" placeholder="<?php _e( 'Email', 'directorist' ); ?>" required />
+                                    <input type="email" class="form-control" name="atbdp-contact-email" placeholder="<?php _e( 'Email', 'directorist' ); ?>" required />
                                 </div>
 
                                 <?php
                                 $msg_html = '<div class="form-group">';
-                                $msg_html .= '<textarea class="form-control" id="atbdp-contact-message" rows="3" placeholder="'.__('Message', 'directorist').'..." required ></textarea>';
+                                $msg_html .= '<textarea class="form-control" name="atbdp-contact-message" rows="3" placeholder="'.__('Message', 'directorist').'..." required ></textarea>';
                                 $msg_html .= '</div>';
                                 /**
                                  * @since 5.10.0
@@ -79,13 +79,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
                                 do_action('atbdp_before_contact_form_submit_button');
                                 ?>
-                                <p id="atbdp-contact-message-display"></p>
+                                <p class="atbdp-contact-message-display"></p>
+
+                                <input type="hidden" name="atbdp-post-id" value="<?php echo $post->ID; ?>" />
+                                <input type="hidden" name="atbdp-listing-email" value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>" />
 
                                 <button type="submit" class="btn btn-primary"><?php _e( 'Submit', 'directorist' ); ?></button>
                             </form>
                         </div>
-                        <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>" />
-                        <input type="hidden" id="atbdp-listing-email" value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>" />
                         <?php
                         echo $args['after_widget'];
                     }

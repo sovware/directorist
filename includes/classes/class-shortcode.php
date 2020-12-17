@@ -859,6 +859,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $listings_header_title = get_directorist_option('all_listing_header_title', __('Items Found', 'directorist'));
             $pagination = get_directorist_option('paginate_all_listings');
             $listings_map_height = get_directorist_option('listings_map_height', 350);
+            $zoom_level                = get_directorist_option('map_view_zoom_level', 1);
             $parameters = array(
                 'view' => !empty($listing_view) ? $listing_view : 'grid',
                 '_featured' => 1,
@@ -881,6 +882,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 'action_before_after_loop' => 'yes',
                 'logged_in_user_only' => '',
                 'redirect_page_url' => '',
+                'map_zoom_level' => ! empty( $zoom_level ) ? $zoom_level : 1,
                 'map_height' => !empty($listings_map_height) ? $listings_map_height : 350,
             );
             $params = apply_filters('atbdp_all_listings_params', $parameters);
@@ -902,6 +904,7 @@ if (!class_exists('ATBDP_Shortcode')):
             $map_height = !empty($atts['map_height']) ? $atts['map_height'] : '';
             $listing_type = !empty($atts['listing_type']) ? $atts['listing_type'] : '';
             $view = !empty($atts['view']) ? $atts['view'] : 'grid';
+            $map_zoom_level = !empty($atts['map_zoom_level']) ? $atts['map_zoom_level'] : 1;
             //for pagination
             $paged = atbdp_get_paged_num();
 

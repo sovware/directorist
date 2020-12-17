@@ -1,6 +1,6 @@
 <?php
 wp_enqueue_script('leaflet-subgroup-realworld');
-$zoom = get_directorist_option('map_view_zoom_level', 5);
+$zoom                       = ! empty ( $map_zoom_level )  ? $map_zoom_level : get_directorist_option('map_view_zoom_level', 1);
 $data = array(
     'zoom' => $zoom,
 );

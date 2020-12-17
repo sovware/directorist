@@ -9,7 +9,7 @@ jQuery(document).ready(function($) {
         const tbody = $('.directorist-extensions').find('.de-list');
         const extWrapper = $('.directorist-extensions').find('.ext-all-wrapper');
         $(extWrapper).append(
-                '<div class="ext-more"><a href="" class="ext-more-link">Click to view directorist all modules</a></div>'
+                '<div class="ext-more"><a href="" class="ext-more-link">Click to view directorist all extensions</a></div>'
         );
         const moreLink = $('.directorist-extensions').find('.ext-more-link');
         $(moreLink).hide();
@@ -38,7 +38,7 @@ jQuery(document).ready(function($) {
                                 .animate({ height: '250px' }, 'fast')
                                 .addClass('ext-height-fix');
                         setTimeout(() => {
-                                $(this).html('Click to view directorist all modules');
+                                $(this).html('Click to view directorist all extensions');
                         }, 1000);
                 }
         });

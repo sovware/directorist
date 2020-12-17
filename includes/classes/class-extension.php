@@ -770,8 +770,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $status = [ 'success' => true ];
             delete_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion' );
 
-            // $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
-
             if ( $args[ 'hard_logout' ] ) {
                 delete_user_meta( get_current_user_id(), '_atbdp_subscribed_username' );
                 delete_user_meta( get_current_user_id(), '_themes_available_in_subscriptions' );

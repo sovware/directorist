@@ -773,7 +773,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             if ( $args[ 'hard_logout' ] ) {
                 delete_user_meta( get_current_user_id(), '_atbdp_subscribed_username' );
                 delete_user_meta( get_current_user_id(), '_themes_available_in_subscriptions' );
-                delete_user_meta( get_current_user_id(), '_themes_available_in_subscriptions' );
+                delete_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions' );
             }
 
             return $status;
@@ -1570,17 +1570,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     }
                 }
             }
-
-            // var_dump([
-            //     'installed_extensions_keys'          => $installed_extensions_keys,
-            //     'plugins_available_in_subscriptions' => array_keys( $plugins_available_in_subscriptions ),
-            //     'skipped_plugins'                    => $skipped_plugins,
-            //     'extension_list'                     => array_keys( $this->extensions ),
-            //     // 'themes_available_in_subscriptions'  => $themes_available_in_subscriptions,
-            // ]);
-
-
-            // $this->close_subscriptions_sassion();
 
             $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
             $hard_logout = ( $hard_logout ) ? 1 : 0;

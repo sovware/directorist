@@ -299,25 +299,7 @@ final class Directorist_Base
         $current_user_id = get_current_user_id();
         
         if ( is_singular( ATBDP_POST_TYPE ) && ! empty( $restricted_for_logged_in_user ) && empty( $current_user_id ) ) {
-            
-            global $wp;
-
-            $current_page  = home_url( $wp->request );
-            $login_page_id = get_directorist_option( 'user_login' );
-            $login_page    = ( ! empty( $login_page_id ) ) ? get_page_link( $login_page_id ) : '';
-            $home_page     = home_url();
-            $redirect_link = ( ! empty( $login_page ) ) ? $login_page : $home_page;
-
-            atbdp_add_flush_message([
-                'key'     => 'logged_in_user_only',
-                'type'    => 'info',
-                'message' => __( 'This page is logged in user only, please login to continue to the page', 'directorist' ),
-            ]);
-
-            atbdp_redirect_after_login( [ 'url' => $current_page ] );
-            wp_redirect( $redirect_link );
-
-            die;
+            atbdp_auth_guard();
         }
     }
 

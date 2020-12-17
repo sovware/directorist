@@ -3,6 +3,35 @@
 defined('ABSPATH') || die('No direct script access allowed!');
 
 
+if ( ! function_exists( 'atbdp_auth_guard' ) ) {
+    function atbdp_auth_guard( array $args = [] ) {
+        $flush_message = [
+            'key'     => 'logged_in_user_only',
+            'type'    => 'info',
+            'message' => __( 'This page is logged in user only, please login to continue to the page', 'directorist' ),
+        ];
+
+        $default = [ 'flush_message' => $flush_message ];
+        $args = array_merge( $default, $args );
+
+        global $wp;
+
+        $current_page  = home_url( $wp->request );
+        $login_page_id = get_directorist_option( 'user_login' );
+        $login_page    = ( ! empty( $login_page_id ) ) ? get_page_link( $login_page_id ) : '';
+        $home_page     = home_url();
+        $redirect_link = ( ! empty( $login_page ) ) ? $login_page : $home_page;
+
+        atbdp_add_flush_message( $args['flush_message'] );
+
+        atbdp_redirect_after_login( [ 'url' => $current_page ] );
+        wp_redirect( $redirect_link );
+
+        die;
+    }
+}
+
+
 if ( ! function_exists( 'atbdp_redirect_after_login' ) ) {
     // atbdp_redirect_after_login
     function atbdp_redirect_after_login( array $args = [] ) {

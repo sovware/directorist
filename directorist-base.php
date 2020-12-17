@@ -222,6 +222,7 @@ final class Directorist_Base
             add_action('widgets_init', array(self::$instance, 'register_widgets'));
 
             add_action( 'template_redirect', [ self::$instance, 'check_single_listing_page_restrictions' ] );
+            add_action( 'atbdp_show_flush_messages', [ self::$instance, 'show_flush_messages' ] );
 
             self::$instance->includes();
             self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
@@ -301,6 +302,11 @@ final class Directorist_Base
         if ( is_singular( ATBDP_POST_TYPE ) && ! empty( $restricted_for_logged_in_user ) && empty( $current_user_id ) ) {
             atbdp_auth_guard();
         }
+    }
+
+    // show_flush_messages
+    public function show_flush_messages() {
+        atbdp_get_flush_messages();
     }
 
     // add_polylang_swicher_support

@@ -17,7 +17,7 @@
 
             <?php if ( $args['active_theme']['has_update'] ) : ?>
             <div class="theme-card__footer">
-                <p class="theme-update theme-update--available"><?php _e( 'Update available', 'directorist' ) ?> <a hre="#" class="whats-new" data-target="whats-new-modal">What's new?</a></p>
+                <p class="theme-update theme-update--available"><?php _e( 'Update available', 'directorist' ) ?> <!-- <a hre="#" class="whats-new" data-target="whats-new-modal">What's new?</a> --></p> 
                 <a href="#" class="theme-update-btn" data-target="<?php echo $args['active_theme']['stylesheet'] ?>"><?php _e( 'Update', 'directorist' ) ?></a>
             </div>
             <?php endif; ?>

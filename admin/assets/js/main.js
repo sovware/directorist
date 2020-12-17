@@ -2892,7 +2892,6 @@
             data: form_data,
             beforeSend: function() {
                 $( self ).html( '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> Updating' );
-                
             },
             success: function( response ) {
                 console.log( { response } );
@@ -2904,6 +2903,8 @@
                     $( self ).removeClass( 'in-progress' );
                     $( self ).html( button_default_html );
                     $( self ).prop( 'disabled', false );
+
+                    alert( response.status.message );
                 }
             },
             error: function( error ) {

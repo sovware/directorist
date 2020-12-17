@@ -36,8 +36,8 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             add_action( 'wp_ajax_atbdp_download_file', array($this, 'handle_file_download_request') );
             add_action( 'wp_ajax_atbdp_install_file_from_subscriptions', array($this, 'handle_file_install_request_from_subscriptions') );
             add_action( 'wp_ajax_atbdp_plugins_bulk_action', array($this, 'plugins_bulk_action') );
-            add_action( 'wp_ajax_atbdp_update_plugins', array($this, 'handle_plugins_update_request') );
             add_action( 'wp_ajax_atbdp_activate_theme', array($this, 'activate_theme') );
+            add_action( 'wp_ajax_atbdp_update_plugins', array($this, 'handle_plugins_update_request') );
             add_action( 'wp_ajax_atbdp_update_theme', array($this, 'handle_theme_update_request') );
             add_action( 'wp_ajax_atbdp_refresh_purchase_status', array($this, 'handle_refresh_purchase_status_request') );
             add_action( 'wp_ajax_atbdp_close_subscriptions_sassion', array($this, 'handle_close_subscriptions_sassion_request') );
@@ -371,7 +371,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 }
             }
 
-            $status['updated_plugins'] = $updated_plugins;
+            $status['updated_plugins']       = $updated_plugins;
             $status['update_failed_plugins'] = $update_failed_plugins;
 
             if ( ! empty( $updated_plugins ) && ! empty( $update_failed_plugins ) ) {
@@ -452,12 +452,12 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         public function handle_theme_update_request() {
             $theme_stylesheet = ( isset( $_POST['theme_stylesheet'] ) ) ? $_POST['theme_stylesheet'] : '';
 
-            $update_theme_status = $this->update_the_theme( [ 'theme_stylesheet' => $theme_stylesheet ] );
+            $update_theme_status = $this->update_the_themes( [ 'theme_stylesheet' => $theme_stylesheet ] );
             wp_send_json( $update_theme_status );
         }
 
         // update_the_theme
-        public function update_the_theme( array $args = [] ) {
+        public function update_the_themes( array $args = [] ) {
             $default = [ 'theme_stylesheet' => '' ];
             $args = array_merge( $default, $args ); 
 
@@ -467,6 +467,19 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $theme_updates       = get_site_transient( 'update_themes' );
             $outdated_themes     = $theme_updates->response;
             $outdated_themes_key = ( is_array( $outdated_themes ) ) ? array_keys( $outdated_themes ) : [];
+
+            if ( empty( $outdated_themes_key ) ) { 
+                $status['massage'] = __( 'All themes are up to date', 'directorist' );
+                return [ 'status' => $status ];
+            }
+
+            if ( ! empty( $theme_stylesheet ) && ! in_array( $theme_stylesheet, $outdated_themes_key )  ) {
+                $status['massage'] = __( 'The theme is up to date', 'directorist' );
+                return [ 'status' => $status ];
+            }
+
+            $themes_available_in_subscriptions      = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+            $themes_available_in_subscriptions_keys = ( is_array( $themes_available_in_subscriptions ) ) ? array_keys( $themes_available_in_subscriptions ) : [];
 
             // Check if stylesheet is present
             if ( ! empty( $theme_stylesheet ) ) {
@@ -482,11 +495,67 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 $outdated_theme = $outdated_themes[ $theme_stylesheet ];
                 $url = $outdated_theme[ 'package' ];
 
-                if ( ! empty( $url ) ) {
-                    
+                if ( empty( $url ) ) {
+                    if ( in_array( $theme_stylesheet, $themes_available_in_subscriptions_keys ) ) {
+                        $url = $themes_available_in_subscriptions_keys[ $theme_stylesheet ][ 'links' ][0];
+                    }
                 }
 
-                var_dump( $outdated_theme  );
+                $download_status = $this->download_theme( [ 'url' => $url ] );
+
+                if ( ! $download_status['success'] ) {
+                    $status['success'] = false;
+                    $status['massage'] = __( 'The theme could not update', 'directorist' );
+                    $status['log']     = $download_status['massage'];
+                } else {
+                    $status['success'] = true;
+                    $status['massage'] = __( 'The theme has been updated successfully', 'directorist' );
+                    $status['log']     = $download_status['massage'];
+                };
+
+                return [ 'status' => $status ];
+            }
+
+
+            // Update all
+            $updated_themes       = [];
+            $update_failed_themes = [];
+
+            foreach ( $outdated_themes as $theme_key => $theme ) {
+                $url = $theme->package;
+
+                if ( empty( $url ) ) {
+                    if ( in_array( $theme_key, $themes_available_in_subscriptions_keys ) ) {
+                        $url = $themes_available_in_subscriptions[ $theme_key ][ 'links' ][0];
+                    }
+                }
+
+                $download_status = $this->download_theme( [ 'url' => $url ] );
+
+                if ( ! $download_status['success'] ) {
+                    $update_failed_themes[ $theme_key ] = $theme;
+                    
+                } else {
+                    $updated_themes[ $theme_key ] = $theme;
+                }
+            }
+
+            $status['updated_themes']       = $updated_themes;
+            $status['update_failed_themes'] = $update_failed_themes;
+
+            if ( ! empty( $updated_themes ) && ! empty( $update_failed_themes ) ) {
+                $status['success'] = false;
+                $status['massage']  = __( 'Some of the theme could not update', 'directorist' );
+            }
+
+            if ( empty( $update_failed_themes ) ) {
+                $status['success'] = true;
+                $status['massage']  = __( 'All the themes are updated successfully', 'directorist' );
+            }
+
+            if ( empty( $updated_themes ) ) {
+                $status['success'] = true;
+                $status['massage']  = __( 'No themes could not update', 'directorist' );
             }
 
             return [ 'status' => $status ];
@@ -1030,17 +1099,26 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $wp_filesystem->delete( $temp_dest, true );
 
             $status[ 'success' ] = true;
-            $status[ 'massage' ] = __( 'The file has been downloaded successfully', 'directorist' );
+            $status[ 'massage' ] = __( 'The plugin has been downloaded successfully', 'directorist' );
 
             return $status;
         }
 
         // download_theme
         public function download_theme( array $args = [] ) {
+            $status = [ 'success' => true ];
+
             $default = [ 'url' => '', 'init_wp_filesystem' => true ];
             $args = array_merge( $default, $args );
 
             if ( empty( $default ) ) { return; }
+
+            if ( empty( $args[ 'url' ] ) ) {
+                $status[ 'success' ] = false;
+                $status[ 'massage' ] = __( 'Download link not found', 'directorist' );
+
+                return $status;
+            }
 
             global $wp_filesystem;
 
@@ -1100,6 +1178,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             copy_dir( $temp_dest, $theme_path );
             $wp_filesystem->delete( $temp_dest, true );
+
+            $status[ 'success' ] = true;
+            $status[ 'massage' ] = __( 'The theme has been downloaded successfully', 'directorist' );
+
+            return $status;
         }
 
         // install_theme_from_zip
@@ -1478,11 +1561,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     }
                 }
             }
-
-
-            // $status = $this->update_the_theme( [ 'theme_stylesheet' => 'twentytwenty' ] );
-            // var_dump( $status );
-
 
             // var_dump([
             //     'installed_extensions_keys'          => $installed_extensions_keys,

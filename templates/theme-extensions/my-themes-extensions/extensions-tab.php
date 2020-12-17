@@ -46,7 +46,7 @@
 
                                         <td>
                                             <?php if (in_array($extension_base, $outdated_plugins_key)) : ?>
-                                                <p class="ext-update-info">Update available <span>What's new?</span></p>
+                                                <p class="ext-update-info">Update available <!-- <span>What's new?</span></p> -->
                                             <?php else : ?>
                                                 <p class="atbdp-text-muted atbdp-mb-0">Up to date</p>
                                             <?php endif; ?>

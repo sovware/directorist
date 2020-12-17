@@ -842,17 +842,17 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                             </h4>
                         </div>
                     </div>
-                    <form id="atbdp-contact-form" class="form-vertical contact_listing_owner" role="form">
+                    <form id="atbdp-contact-form" class="form-vertical contact_listing_owner contact_listing_owner_form" role="form">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="atbdp-contact-name" placeholder="<?php _e('Name', 'directorist'); ?>" required />
+                            <input type="text" class="form-control" name="atbdp-contact-name" placeholder="<?php _e('Name', 'directorist'); ?>" required />
                         </div>
 
                         <div class="form-group">
-                            <input type="email" class="form-control" id="atbdp-contact-email" placeholder="<?php _e('Email', 'directorist'); ?>" required />
+                            <input type="email" class="form-control" name="atbdp-contact-email" placeholder="<?php _e('Email', 'directorist'); ?>" required />
                         </div>
 
                         <div class="form-group">
-                            <textarea class="form-control" id="atbdp-contact-message" rows="3" placeholder="<?php _e('Message', 'directorist'); ?>..." required></textarea>
+                            <textarea class="form-control" name="atbdp-contact-message" rows="3" placeholder="<?php _e('Message', 'directorist'); ?>..." required></textarea>
                         </div>
                         <?php
                         /**
@@ -864,11 +864,13 @@ $class = isset($_GET['redirect']) ? 'atbdp_float_active' : 'atbdp_float_none';
                         ?>
                         <p class="atbdp-contact-message-display" style="margin-bottom: 10px"></p>
 
+                        <input type="hidden" name="atbdp-post-id" value="<?php echo $post->ID; ?>" />
+                        <input type="hidden" name="atbdp-listing-email" value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>" />
+
                         <button type="submit" class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
                     </form>
                 </div>
-                <input type="hidden" id="atbdp-post-id" value="<?php echo $post->ID; ?>" />
-                <input type="hidden" id="atbdp-listing-email" value="<?php echo !empty($email) ? sanitize_email($email) : ''; ?>" />
+                
             <?php }
             /**
              * @since 5.0.5

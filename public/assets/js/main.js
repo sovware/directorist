@@ -665,36 +665,49 @@
         $('#atbdp-report-abuse-form').removeAttr('novalidate');
 
         // Validate contact form
-        var atbdp_contact_submitted = false;
-
-        $('#atbdp-contact-form,#atbdp-contact-form-widget').validator({
-            disable: true
-        }).on('submit', function (e) {
+        $('.contact_listing_owner_form').on('submit', function (e) {
             e.preventDefault();
+
+            var submit_button = $( this ).find( 'button[type="submit"]' );
             
-            if (atbdp_contact_submitted) return false;
-            var status_area = $('#atbdp-contact-message-display');
-            status_area.append('Sending the message, please wait... ');
+            var status_area = $( this ).find( '.atbdp-contact-message-display' );
+            status_area.html('Sending the message, please wait... ');
+
+            var post_id       = $( this ).find( 'input[name="atbdp-post-id"]' );
+            var name          = $( this ).find( 'input[name="atbdp-contact-name"]' );
+            var contact_email = $( this ).find( 'input[name="atbdp-contact-email"]' );
+            var listing_email = $( this ).find( 'input[name="atbdp-listing-email"]' );
+            var message       = $( this ).find( 'textarea[name="atbdp-contact-message"]' );
             
             // Post via AJAX
             var data = {
                 'action': 'atbdp_public_send_contact_email',
-                'post_id': $('#atbdp-post-id').val(),
-                'name': $('#atbdp-contact-name').val(),
-                'email': $('#atbdp-contact-email').val(),
-                'listing_email': $('#atbdp-listing-email').val(),
-                'message': $('#atbdp-contact-message').val(),
+                'post_id': post_id.val(),
+                'name': name.val(),
+                'email': contact_email.val(),
+                'listing_email': listing_email.val(),
+                'message': message.val(),
             };
 
-            atbdp_contact_submitted = true;
+            submit_button.prop( 'disabled', true );
+
             $.post(atbdp_public_data.ajaxurl, data, function (response) {
+                submit_button.prop( 'disabled', false );
+
                 if (1 == response.error) {
                     atbdp_contact_submitted = false;
                     status_area.addClass('text-danger').html(response.message);
                 } else {
-                    $('#atbdp-contact-message').val('');
+                    name.val('');
+                    message.val('');
+                    contact_email.val('');
+
                     status_area.addClass('text-success').html(response.message);
                 }
+
+                setTimeout( function() {
+                    status_area.html('');
+                }, 3000 );
 
             }, 'json');
 

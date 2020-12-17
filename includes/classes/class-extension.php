@@ -225,7 +225,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $purchased_extensions = ( ! empty( $purchased_products['plugins'] ) ) ? $purchased_products['plugins'] : '';
             if ( empty( $purchased_extensions ) ) { return $extensions; }
 
-            $purchased_extensions_keys = array_keys( $purchased_extensions );
+            $purchased_extensions_keys = ( is_array( $purchased_extensions ) ) ? array_keys( $purchased_extensions ) : [];
             $excluded_extensions = $extensions;
 
             foreach ( $excluded_extensions as $extension_key => $extension ) {
@@ -249,7 +249,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $purchased_themes = ( ! empty( $purchased_products['themes'] ) ) ? $purchased_products['themes'] : '';
             if ( empty( $purchased_themes ) ) { return $themes; }
 
-            $purchased_themes_keys = array_keys( $purchased_themes );
+            $purchased_themes_keys = is_array( $purchased_themes ) ? array_keys( $purchased_themes ) : [];
             $excluded_themes = $themes;
 
             foreach ( $excluded_themes as $theme_key => $theme ) {
@@ -304,7 +304,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             $plugin_updates       = get_site_transient( 'update_plugins' );
             $outdated_plugins     = $plugin_updates->response;
-            $outdated_plugins_key = array_keys( $outdated_plugins );
+            $outdated_plugins_key = ( is_array( $outdated_plugins ) ) ? array_keys( $outdated_plugins ) : [];
 
             if ( empty( $outdated_plugins_key ) ) { 
                 $status['massage'] = __( 'All plugins are up to date', 'directorist' );
@@ -317,7 +317,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             $plugins_available_in_subscriptions      = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
-            $plugins_available_in_subscriptions_keys = array_keys( $plugins_available_in_subscriptions );
+            $plugins_available_in_subscriptions_keys = ( is_array( $plugins_available_in_subscriptions ) ) ? array_keys( $plugins_available_in_subscriptions ) : [];
 
             if ( ! empty( $plugin_key ) ) {
                 $outdated_plugin = $outdated_plugins[ $plugin_key ];
@@ -466,7 +466,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $theme_stylesheet    = $args[ 'theme_stylesheet' ];
             $theme_updates       = get_site_transient( 'update_themes' );
             $outdated_themes     = $theme_updates->response;
-            $outdated_themes_key = array_keys( $outdated_themes );
+            $outdated_themes_key = ( is_array( $outdated_themes ) ) ? array_keys( $outdated_themes ) : [];
 
             // Check if stylesheet is present
             if ( ! empty( $theme_stylesheet ) ) {
@@ -1315,7 +1315,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             // Get Extensions Details
             $plugin_updates       = get_site_transient( 'update_plugins' );
             $outdated_plugins     = $plugin_updates->response;
-            $outdated_plugins_key = array_keys( $outdated_plugins );
+            $outdated_plugins_key = ( is_array( $outdated_plugins ) ) ? array_keys( $outdated_plugins ) : [];
             
             $all_plugins_list        = get_plugins();
             $installed_extensions    = [];
@@ -1337,11 +1337,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             // Get Themes Informations
-            $sovware_themes = array_keys( $this->themes );
+            $sovware_themes = ( is_array( $this->themes ) ) ? array_keys( $this->themes ) : [];
 
             $theme_updates       = get_site_transient( 'update_themes' );
             $outdated_themes     = $theme_updates->response;
-            $outdated_themes_key = array_keys( $outdated_themes );
+            $outdated_themes_key = ( is_array( $outdated_themes ) ) ? array_keys( $outdated_themes ) : [];
 
             $all_themes         = wp_get_themes();
             $active_theme_slug  = get_option('stylesheet');
@@ -1400,7 +1400,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             }
 
             // Plugins available in subscriptions
-            $installed_extensions_keys = array_keys( $installed_extensions );
+            $installed_extensions_keys = ( is_array( $installed_extensions ) ) ? array_keys( $installed_extensions ) : [];
             if ( ! empty( $installed_extensions_keys ) && ! empty( $installed_extensions_keys ) ) {
                 foreach( $installed_extensions_keys as $index => $key) {
                     $new_key = preg_replace( '/\/.+/', '', $key );
@@ -1434,7 +1434,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
 
             // Themes available in subscriptions
-            $all_purshased_themes_keys = array_keys( $all_purshased_themes );
+            $all_purshased_themes_keys = ( is_array( $all_purshased_themes ) ) ? array_keys( $all_purshased_themes ) : [];
             $_themes_available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
             if ( ! empty( $_themes_available_in_subscriptions ) && ! empty( $all_purshased_themes_keys ) ) {
                 $_active_theme_key = $active_theme[ 'stylesheet' ];
@@ -1471,7 +1471,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             // Filter all active extensions
             $all_active_themes = $this->get_active_themes();
             if ( $is_logged_in && ! empty( $all_active_themes ) ) {
-                $themes_available_in_subscriptions_keys = array_keys( $themes_available_in_subscriptions );
+                $themes_available_in_subscriptions_keys = ( is_array( $themes_available_in_subscriptions ) ) ? array_keys( $themes_available_in_subscriptions ) : [];
                 foreach ( $all_active_themes as $_theme_base => $_extension_args ) {
                     if ( in_array( $_theme_base, $themes_available_in_subscriptions_keys ) ) {
                         unset( $all_active_themes[ $_theme_base ] );

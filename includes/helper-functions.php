@@ -4183,8 +4183,10 @@ function atbdp_guest_submission($guest_email)
     // Check if user exist by email
     if (email_exists($guest_email)) {
         wp_send_json(array(
-                'error' => true,
-                'error_msg' => __('Email already registered. Please login first', 'directorist'),
+                'error'                => true,
+                'quick_login_required' => true,
+                'email'                => $guest_email,
+                'error_msg'            => __('Email already registered. Please login first', 'directorist'),
         ));
         die();
     } else {

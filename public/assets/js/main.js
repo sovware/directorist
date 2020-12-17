@@ -911,6 +911,15 @@
         $(".atbd_dashboard_wrapper .atbd_tab-content").addClass("atbd_tab-content--fix");
     }
 
+    // Modal
+    $( '.atbdp-toggle-modal' ).on( 'click', function( e ) {
+        e.preventDefault();
+
+        var data_target = $( this ).data( 'target' );
+
+        $( data_target ).toggleClass( 'show' );
+    });
+
     // Announcement
     // --------------------------------------------
     // Cleare seen announcements

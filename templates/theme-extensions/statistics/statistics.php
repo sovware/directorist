@@ -48,7 +48,7 @@
                     <span class="atbdp-counter-list__label">Extensions updates Available</span>
                     <span class="atbdp-counter-list__actions">
                         <?php if ( ! empty( $args[ 'outdated_extensions' ] ) ) : ?>
-                            <button class="button button-primary">Update All</button>
+                            <button class="button button-primary ext-update-btn">Update All</button>
                         <?php else: ?>
                             <span class="atbdp-text-muted">All up to date</span>
                         <?php endif ?>

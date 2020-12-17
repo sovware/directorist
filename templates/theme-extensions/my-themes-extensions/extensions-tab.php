@@ -55,7 +55,7 @@
                                         <td>
                                             <div class="ext-action">
                                                 <?php if (in_array($extension_base, $outdated_plugins_key)) : ?>
-                                                    <a href="#" class="ext-update-btn ext-action-btn" data-target="<?php echo $extension_base; ?>">Update</a>
+                                                    <a href="#" class="ext-update-btn ext-action-btn" data-key="<?php echo $extension_base; ?>">Update</a>
                                                 <?php endif; ?>
                                                 <a href="<?php echo $args['settings_url'] ?>" class="ext-action-btn"><i class="la la-settings"></i> Settings</a>
                                                 <div>

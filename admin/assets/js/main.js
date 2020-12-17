@@ -2363,6 +2363,54 @@
         location.reload();
     });
 
+    // Extension Update Button
+    $( '.ext-update-btn' ).on( 'click', function( e ) {
+        e.preventDefault();
+
+        $( this ).prop( 'disabled', true );
+
+        var plugin_key = $( this ).data( 'key' );
+        var button_default_html = $( this ).html();
+
+        var form_data = {
+            action: 'atbdp_update_plugins',
+        };
+
+        if ( plugin_key ) {
+            form_data.plugin_key = plugin_key
+        }
+
+        var self = this;
+
+        jQuery.ajax({
+            type: "post",
+            url: atbdp_admin_data.ajaxurl,
+            data: form_data,
+            beforeSend: function() {
+                var icon = '<i class="fas fa-circle-notch fa-spin"></i> Updating';
+                $( self ).html ( icon );
+            },
+            success: function( response ) {
+                console.log( response );
+
+                if ( response.status.success ) {
+                    $( self ).html ( 'Updated' );
+                    
+                    // location.reload();
+                } else {
+                    $( self ).html ( button_default_html );
+                    alert( response.status.massage );
+                }
+                
+            },
+            error: function( error ) {
+                console.log( error );
+                $( self ).html ( button_default_html );
+                $( this ).prop( 'disabled', false );
+            }
+        });
+    });
+
     // Install Button
     $( '.file-install-btn' ).on( 'click', function( e ) {
         e.preventDefault();
@@ -2821,44 +2869,48 @@
     });
 
     // Theme Update
-    var theme_is_updating = false;
     $( '.theme-update-btn' ).on( 'click', function( e ) {
         e.preventDefault();
 
-        if ( theme_is_updating ) { return; }
+        $( this ).prop( 'disabled', true );
+        if ( $( this ).hasClass( 'in-progress' ) ) { return; }
 
-        var data_target = $( this ).data( 'target' );
-        if ( ! data_target ) { return; }
-        if ( ! data_target.length ) { return; }
+        var theme_stylesheet    = $( this ).data( 'target' );
+        var button_default_html = $( this ).html();
+        var form_data           = { action: 'atbdp_update_theme' };
 
-        var form_data = {
-            action: 'atbdp_activate_theme',
-            theme_stylesheet: data_target,
-        };
+        if ( theme_stylesheet ) {
+            form_data.theme_stylesheet = theme_stylesheet
+        }
 
         var self = this;
-        theme_is_updating = true;
+        $( this ).addClass( 'in-progress' );
 
         $.ajax({
             type: "post",
             url: atbdp_admin_data.ajaxurl,
             data: form_data,
             beforeSend: function() {
-                $( self ).prepend( '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> ' );
+                $( self ).html( '<span class="atbdp-icon"><span class="fas fa-circle-notch fa-spin"></span></span> Updating' );
                 
             },
             success: function( response ) {
                 console.log( { response } );
-                $( self ).find( '.atbdp-icon' ).remove();
 
                 if ( response.status && response.status.success ) {
+                    $( self ).html( 'Updated' );
                     location.reload();
+                } else {
+                    $( self ).removeClass( 'in-progress' );
+                    $( self ).html( button_default_html );
+                    $( self ).prop( 'disabled', false );
                 }
             },
             error: function( error ) {
                 console.log( { error } );
-                theme_is_updating = false;
-                $( self ).find( '.atbdp-icon' ).remove();
+                $( self ).removeClass( 'in-progress' );
+                $( self ).html( button_default_html );
+                $( self ).prop( 'disabled', false );
             },
         });
     });

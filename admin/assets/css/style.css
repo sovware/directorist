@@ -1630,15 +1630,10 @@ input.atbdp-form-control {
 }
 
 /* Utility */
-
 #directorist.atbd_wrapper .atbdp-hide {
   width: 0;
   padding: 0;
   overflow: hidden;
-}
-
-#directorist.atbd_wrapper .atbdp-hide * {
-  /* display: none; */
 }
 
 .atbdp-d-none {

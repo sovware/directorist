@@ -2157,6 +2157,31 @@ input.atbdp-form-control {
   }
 }
 
+.et-header-title-area {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.et-header-actions {
+  margin: 0 10px;
+  display: inline-flex;
+  flex-wrap: wrap;
+}
+
+.et-auth-section {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.et-auth-section-wrap {
+  display: flex;
+  padding: 1px;
+  flex-grow: 1;
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
 #directorist.atbd_wrapper .ext-action-btn {
   display: inline-block;
   line-height: 34px;

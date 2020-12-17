@@ -135,7 +135,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'google-recaptcha' => [
                     'name'        => 'Google reCAPTCHA',
                     'description' => __( 'Use reCAPTCHA service from Google to help your directory site protect from spam and further abuse. This Google reCAPTCHA extension allows you to make it happen by taking care of your site.', 'directorist' ),
-                    'link'        => 'https://directorist.com/product/directorist-social-login/',
+                    'link'        => 'https://directorist.com/product/google-recaptcha/',
                     'thumbnail'   => 'https://directorist.com/wp-content/uploads/edd/2020/08/10_Google-ReCAPTCHA-2.png',
                     'active'      => true,
                 ],

@@ -31,7 +31,16 @@
                                             <div class="extension-name">
                                                 <input type="checkbox" id="<?php echo $extension_base; ?>" name="<?php echo $extension_base; ?>" class="extension-name-checkbox">
                                                 <label for="<?php echo $extension_base; ?>">
-                                                    <img src="https://via.placeholder.com/44" alt="">
+                                                    <?php
+
+                                                        $ext_key = preg_replace( '/\/.+/', '', $extension_base );
+                                                        $img     = 'https://via.placeholder.com/44' ;
+
+                                                        if ( ! empty( $args[ 'extension_list' ][ $ext_key ] ) ) {
+                                                            $img = $args['extension_list'][$ext_key]['thumbnail'];
+                                                        }
+                                                    ?>
+                                                    <img src="<?php echo $img; ?>" alt="" width="44" height="44">
                                                     <?php echo $extension['Name'] ?>
                                                     <span class="ext-version">v<?php echo $extension['Version'] ?></span>
                                                 </label>

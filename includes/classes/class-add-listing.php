@@ -149,9 +149,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                     
                     // process meta
                     if( 'pricing' === $key ) {
-                        $metas[ '_atbd_listing_pricing' ] = $info['atbd_listing_pricing'] ? $info['atbd_listing_pricing'] : '';
-                        $metas[ '_price' ] = $info['price'] ? $info['price'] : '';
-                        $metas[ '_price_range' ] = $info['price_range'] ? $info['price_range'] : '';
+                        $metas[ '_atbd_listing_pricing' ] = !empty( $info['atbd_listing_pricing'] ) ? $info['atbd_listing_pricing'] : '';
+                        $metas[ '_price' ] = !empty( $info['price'] ) ? $info['price'] : '';
+                        $metas[ '_price_range' ] = !empty( $info['price_range'] ) ? $info['price_range'] : '';
                     }
                     if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
                         $key = '_'. $field_key;

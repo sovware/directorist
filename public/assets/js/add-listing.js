@@ -625,15 +625,30 @@ jQuery(function($) {
                         url: atbdp_add_listing.ajaxurl,
                         data: form_data,
                         success(response) {
-                                // console.log( response );
+                                console.log( response );
+                                $('.listing_submit_btn').attr('disabled', false);
                                 // return;
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {
-                                        $('#listing_notifier')
-                                                .show()
-                                                .html(`<span>${response.error_msg}</span>`);
+                                        $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
                                         $('.listing_submit_btn').removeClass('atbd_loading');
+                                        on_processing = false;
+
+                                        if ( response.quick_login_required ) {
+                                                var email = response.email;
+                                                console.log( 'Show login form' );
+
+                                                var modal = $( '#atbdp-quick-login' );
+                                                modal.addClass( 'show' );
+
+                                                modal.find( '.atbdp-email-label' ).html( email );
+
+                                                // Show Alert
+                                                var alert = '<div class="atbdp-alert atbdp-mb-10">'+ response.error_msg +'</div>';
+                                                modal.find( '.atbdp-modal-alerts-area' ).html( alert );
+                                        }
+
                                 } else {
                                         // preview on and no need to redirect to payment
                                         if (response.preview_mode === true && response.need_payment !== true) {

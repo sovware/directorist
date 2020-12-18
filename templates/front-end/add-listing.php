@@ -1418,32 +1418,40 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
 </div>
 
 
-<div id="atbdp-quick-login" class="atbdp-modal-container">
+<div id="atbdp-quick-login-modal" class="atbdp-modal-container">
     <div class="atbdp-modal-wrap">
         <div class="atbdp-modal">
-            <div class="atbdp-modal-header">
-                <div class="atbdp-modal-title-area">
-                    <h3 class="atbdp-modal-title"><?php _e( 'Quick Login', 'directorist' ) ?></h3>
-                </div>
-                
-                <div class="atbdp-modal-actions-area">
-                    <a href="#" class="atbdp-toggle-modal" data-target="#atbdp-quick-login"><span class="fas fa-times"></span></a>
-                </div>
-            </div>
-
-            <div class="atbdp-modal-body">
-                <div class="atbdp-modal-alerts-area"></div>
-
-                <p class="atbdp-form-label atbdp-email-label">user@email.com</p>
-
-                <div class="atbdp-form-group">
-                    <input type="password" name="password" placeholder="<?php echo 'Password'; ?>" class="atbdp-form-control">
+            <form action="#" id="quick-login-from">
+                <div class="atbdp-modal-header">
+                    <div class="atbdp-modal-title-area">
+                        <h3 class="atbdp-modal-title"><?php _e( 'Quick Login', 'directorist' ) ?></h3>
+                    </div>
+                    
+                    <div class="atbdp-modal-actions-area">
+                        <a href="#" class="atbdp-toggle-modal" data-target="#atbdp-quick-login-modal"><span class="fas fa-times"></span></a>
+                    </div>
                 </div>
 
-                <button type="button" name="login" class="atbdp-btn atbdp-btn-primary atbdp-btn-block">
-                    <?php echo 'Login'; ?>
-                </button>
-            </div>
+                <div class="atbdp-modal-body">
+                    <div class="atbdp-modal-alerts-area"></div>
+
+                    <div class="atbdp-form-group">
+                        <input type="text" name="email" placeholder="<?php echo 'Email'; ?>" class="atbdp-form-control">
+                    </div>
+
+                    <div class="atbdp-form-group">
+                        <input type="password" name="password" placeholder="<?php echo 'Password'; ?>" class="atbdp-form-control">
+                    </div>
+
+                    <?php wp_nonce_field('ajax-login-nonce', 'security'); ?>
+
+                    <div class="atbdp-form-feedback"></div>
+
+                    <button type="button" id="quick-login-from-submit-btn" name="login" class="atbdp-btn atbdp-btn-primary atbdp-btn-block">
+                        <?php echo 'Login'; ?>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

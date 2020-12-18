@@ -7929,6 +7929,18 @@ p.atbd-min {
   width: 100%;
 }
 
+.atbdp-form-feedback {
+  margin: 10px 0;
+}
+
+.atbdp-text-success {
+  color: #00b489;
+}
+
+.atbdp-text-danger {
+  color: #bd081c;
+}
+
 .atbdp-my-5 {
   margin-top: 5px;
   margin-bottom: 5px;

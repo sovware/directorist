@@ -317,6 +317,8 @@ jQuery(function($) {
         let on_processing = false;
         let has_media = true;
 
+        var quick_login_modal__success_callback = null;
+
         $('body').on('submit', formID, function(e) {
                 e.preventDefault();
                 let error_count = 0;
@@ -636,17 +638,24 @@ jQuery(function($) {
                                         on_processing = false;
 
                                         if ( response.quick_login_required ) {
+                                                var modal = $( '#atbdp-quick-login-modal' );
                                                 var email = response.email;
-                                                console.log( 'Show login form' );
+                                                
+                                                // Prepare fields
+                                                modal.find( 'input[name="email"]' ).val( email );
+                                                modal.find( 'input[name="email"]' ).prop( 'disabled', true );
 
-                                                var modal = $( '#atbdp-quick-login' );
-                                                modal.addClass( 'show' );
-
-                                                modal.find( '.atbdp-email-label' ).html( email );
-
-                                                // Show Alert
+                                                // Show alert
                                                 var alert = '<div class="atbdp-alert atbdp-mb-10">'+ response.error_msg +'</div>';
                                                 modal.find( '.atbdp-modal-alerts-area' ).html( alert );
+
+                                                // Show the modal
+                                                modal.addClass( 'show' );
+
+                                                quick_login_modal__success_callback = function() {
+                                                    $( '#guest_user_email' ).prop( 'disabled', true );
+                                                    $('#listing_notifier').hide().html('');
+                                                }
                                         }
 
                                 } else {
@@ -706,6 +715,69 @@ jQuery(function($) {
                                 console.log(error);
                         },
                 });
+        });
+        
+        
+        // Quick Login
+        $( '#quick-login-from-submit-btn' ).on( 'click', function( e ) {
+            e.preventDefault();
+
+            var form          = $( '#quick-login-from' );
+            var form_feedback = $( '.atbdp-form-feedback' );
+            var email         = $( form ).find( 'input[name="email"]' );
+            var password      = $( form ).find( 'input[name="password"]' );
+            var security      = $( form ).find( 'input[name="security"]' );
+
+            var form_data = {
+                action: 'atbdp_ajax_quick_login',
+                username: email.val(),
+                password: password.val(),
+                rememberme: false,
+                security: security.val(),
+            };
+
+            var submit_button = $( this );
+            var submit_button_default_html = submit_button.html();
+
+            $.ajax({
+                method: 'POST',
+                url: atbdp_add_listing.ajaxurl,
+                data: form_data,
+                beforeSend: function() {
+                    form_feedback.html( '' );
+                    submit_button.prop( 'disabled', true );
+                    submit_button.prepend( '<i class="fas fa-circle-notch fa-spin"></i> ' );
+                },
+                success: function( response ) {
+                    // console.log( { response } );
+                    submit_button.html( submit_button_default_html );
+
+                    if ( response.loggedin ) {
+                        password.prop( 'disabled', true );
+                        
+                        var message = 'Successfully logged in, please continue to the listing submission';
+                        var msg     = '<span class="atbdp-text-success">'+ message +'</span>';
+                        
+                        form_feedback.html( msg );
+
+                        if ( quick_login_modal__success_callback ) {
+                            quick_login_modal__success_callback();
+                        }
+                    } else {
+                        var msg = '<span class="atbdp-text-danger">'+ response.message +'</span>';
+                        form_feedback.html( msg );
+
+                        submit_button.prop( 'disabled', false );
+                    }
+                    
+                },
+                error: function( error ) {
+                    console.log( { error } );
+
+                    submit_button.prop( 'disabled', false );
+                    submit_button.html( submit_button_default_html );
+                },
+            });
         });
 
         // scrollToEl

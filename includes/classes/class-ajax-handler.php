@@ -61,9 +61,13 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_nopriv_atbdp-favourites-all-listing', array($this, 'atbdp_public_add_remove_favorites_all'));
             add_action('wp_ajax_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
             add_action('wp_ajax_nopriv_atbdp_post_attachment_upload', array($this, 'atbdp_post_attachment_upload'));
+            
             //login
             add_action('wp_ajax_ajaxlogin', array($this, 'atbdp_ajax_login'));
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));
+
+            add_action('wp_ajax_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
+            add_action('wp_ajax_nopriv_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
 
             // regenerate pages
             add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
@@ -200,13 +204,17 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $info['remember'] = $keep_signed_in;
 
             $user_signon = wp_signon($info, false);
+
             if (is_wp_error($user_signon)) {
+                // wp_send_json( [ 'status' => false, 'user_signon' => $user_signon ] );
                 echo json_encode(array(
                     'loggedin' => false,
                     'message' => __('Wrong username or password.', 'directorist')
                 ));
+
             } else {
                 wp_set_current_user($user_signon->ID);
+                // wp_send_json( [ 'status' => true, 'user_signon' => $user_signon ] );
 
                 echo json_encode(array(
                     'loggedin' => true,
@@ -215,6 +223,41 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             }
 
             die();
+        }
+
+        // atbdp_quick_ajax_login
+        public function atbdp_quick_ajax_login()
+        {
+            if ( is_user_logged_in() ) {
+                wp_send_json([
+                    'loggedin' => true,
+                    'message' => __('Your are already loggedin', 'directorist'),
+                ]);
+            }
+
+            $keep_signed_in = ( ! empty( $_POST['rememberme'] ) ) ? true : false;
+
+            $info = [];
+            $info['user_login']    = $_POST['username'];
+            $info['user_password'] = $_POST['password'];
+            $info['remember']      = $keep_signed_in;
+
+            $user_signon = wp_signon( $info, false );
+
+            if ( is_wp_error($user_signon) ) {
+                wp_send_json([
+                    'loggedin' => false,
+                    'message'  => __('Wrong username or password.', 'directorist')
+                ]);
+
+            } else {
+                wp_set_current_user($user_signon->ID);
+
+                wp_send_json([
+                    'loggedin' => true,
+                    'message'  => __('Login successful, redirecting...', 'directorist')
+                ]);
+            }
         }
 
         public function atbdp_post_attachment_upload()

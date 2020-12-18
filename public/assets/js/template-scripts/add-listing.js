@@ -500,6 +500,7 @@ jQuery(function($) {
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {
+                                     
                                         if( response.error_msg.length > 1 ){
                                                 $('#listing_notifier').show();
                                                 for( var error in response.error_msg ){

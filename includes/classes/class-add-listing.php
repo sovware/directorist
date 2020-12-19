@@ -102,31 +102,63 @@ if (!class_exists('ATBDP_Add_Listing')):
                  }
                 //isolate data
                 $error = [];
+                $dummy = [];
                 // wp_send_json( [
                 //     'info' => $info,
-                //     'preview_enable' => $preview_enable,
+                //     'submission_form_fields' => $submission_form_fields,
                 // ] );
                 // die;
+                // tax input
+                $tag = !empty( $info['tax_input']['at_biz_dir-tags']) ? ( $info['tax_input']['at_biz_dir-tags']) : array();
+                $location = !empty( $info['tax_input']['at_biz_dir-location']) ? ( $info['tax_input']['at_biz_dir-location']) : array();
+                $admin_category_select = !empty( $info['tax_input']['at_biz_dir-category']) ? ( $info['tax_input']['at_biz_dir-category']) : array();
+                // meta input
                 foreach( $submission_form_fields as $key => $value ){
                     $field_key = !empty( $value['field_key'] ) ? $value['field_key'] : '';
                     $submitted_data = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
                     $required = !empty( $value['required'] ) ? $value['required'] : '';
+                    $only_for_admin = !empty( $value['only_for_admin'] ) ? $value['only_for_admin'] : '';
                     $label = !empty( $value['label'] ) ? $value['label'] : '';
-                    if( $required && !$submitted_data ){
-                        $msg = $label .__( ' field is required!', 'directorist' );
-                        array_push( $error, $msg );
+                    $additional_logic = apply_filters( 'atbdp_add_listing_form_validation_logic', true, $value, $info );
+                    // array_push( $dummy, [
+                    //     'label' => $label,
+                    //     'additional_logic' => $additional_logic,
+                    //     ] );
+
+                    if( $additional_logic ) {
+                        // error handling
+                        if( ( 'category' === $key ) && $required && !$only_for_admin && !$admin_category_select) {
+                            $msg = $label .__( ' field is required!', 'directorist' );
+                            array_push( $error, $msg );
+                        }
+                        if( ( 'location' === $key ) && $required && !$only_for_admin && !$location) {
+                            $msg = $label .__( ' field is required!', 'directorist' );
+                            array_push( $error, $msg );
+                        }
+                        if( ( 'tag' === $key ) && $required && !$only_for_admin && !$tag) {
+                            $msg = $label .__( ' field is required!', 'directorist' );
+                            array_push( $error, $msg );
+                        }
+                        if( ( 'category' !== $key ) && ( 'tag' !== $key ) && ( 'location' !== $key ) ) {
+                            if( $required && !$submitted_data && !$only_for_admin ){
+                                $msg = $label .__( ' field is required!', 'directorist' );
+                                array_push( $error, $msg );
+                            }
+                        }
                     }
                     
+                    // process meta
                     if( 'pricing' === $key ) {
-                        $metas[ '_atbd_listing_pricing' ] = $info['atbd_listing_pricing'] ? $info['atbd_listing_pricing'] : '';
-                        $metas[ '_price' ] = $info['price'] ? $info['price'] : '';
-                        $metas[ '_price_range' ] = $info['price_range'] ? $info['price_range'] : '';
+                        $metas[ '_atbd_listing_pricing' ] = !empty( $info['atbd_listing_pricing'] ) ? $info['atbd_listing_pricing'] : '';
+                        $metas[ '_price' ] = !empty( $info['price'] ) ? $info['price'] : '';
+                        $metas[ '_price_range' ] = !empty( $info['price_range'] ) ? $info['price_range'] : '';
                     }
                     if( ( $field_key !== 'listing_title' ) && ( $field_key !== 'listing_content' ) && ( $field_key !== 'tax_input' ) ){
                         $key = '_'. $field_key;
                         $metas[ $key ] = !empty( $info[ $field_key ] ) ? $info[ $field_key ] : '';
                     }                    
                 }
+    
                 $title = !empty( $info['listing_title']) ? sanitize_text_field( $info['listing_title']) : '';
                 $content = !empty( $info['listing_content']) ? wp_kses( $info['listing_content'], wp_kses_allowed_html('post')) : '';
                 if( !empty( $info['privacy_policy'] ) ) {
@@ -135,11 +167,8 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if( !empty( $info['t_c_check'] ) ) {
                     $metas[ '_t_c_check' ] = $info['t_c_check'] ? $info['t_c_check'] : '';
                 }
-                $metas['_directory_type'] = '2';
-                $tag = !empty( $info['tax_input']['at_biz_dir-tags']) ? ( $info['tax_input']['at_biz_dir-tags']) : array();
-                $location = !empty( $info['tax_input']['at_biz_dir-location']) ? ( $info['tax_input']['at_biz_dir-location']) : array();
-                $admin_category_select = !empty( $info['tax_input']['at_biz_dir-category']) ? ( $info['tax_input']['at_biz_dir-category']) : array();
-
+                $metas['_directory_type'] = $info['directory_type'];
+            
                 // guest user
                 if (!atbdp_logged_in_user()) {
                     $guest_email = isset($info['guest_user_email']) ? esc_attr($info['guest_user_email']) : '';
@@ -147,6 +176,9 @@ if (!class_exists('ATBDP_Add_Listing')):
                         atbdp_guest_submission($guest_email);
                     }
                 }
+
+                // wp_send_json($dummy);
+                // die;
                 if( $error ){
                     $data['error_msg'] = $error;
                     $data['error'] = true;

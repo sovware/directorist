@@ -51,8 +51,6 @@ class Directorist_Listing_Search_Form {
 	public $select_listing_map;
 
 	public function __construct( $type, $listing_type, $atts = array() ) {
-
-		add_action( 'atbdp_before_search_form', array( $this, 'listing_type_template' ) );
 		
 		$this->type = $type;
 		$this->atts = $atts;
@@ -339,11 +337,7 @@ class Directorist_Listing_Search_Form {
 		return $listing_types;
 	}
 
-	public function atbdp_listing_types() {
-		wp_send_json(['test' => 123]);
-	}
 
-	
 	public function listing_type_template() {
 		$args = array(
 			'searchform' 		=> $this,

@@ -124,10 +124,10 @@ class Directorist_Listings {
 		}
 		else {
 			if ( $this->type == 'search_result' ) {
-				$this->query_args = $this->perse_search_query_args();
+				$this->query_args = $this->parse_search_query_args();
 			}
 			else {
-				$this->query_args = $this->perse_query_args();
+				$this->query_args = $this->parse_query_args();
 			}
 		}
 
@@ -689,7 +689,7 @@ class Directorist_Listings {
 		return ATBDP_Listings_Data_Store::get_archive_listings_query( $this->query_args, $caching_options );
 	}
 
-	public function perse_query_args() {
+	public function parse_query_args() {
 		$args = array(
 			'post_type'      => ATBDP_POST_TYPE,
 			'post_status'    => 'publish',
@@ -711,7 +711,7 @@ class Directorist_Listings {
 		$tax_queries = array();
 
 
-		// Listings of current listing type and empty listing type
+		// Listings of current listing type
 		$tax_queries['tax_query'] = array(
 			'relation' => 'AND',
 			array(
@@ -762,7 +762,7 @@ class Directorist_Listings {
 		return apply_filters( 'atbdp_all_listings_query_arguments', $args );
 	}
 
-	public function perse_search_query_args() {
+	public function parse_search_query_args() {
 		$args = array(
 			'post_type'      => ATBDP_POST_TYPE,
 			'post_status'    => 'publish',
@@ -793,6 +793,13 @@ class Directorist_Listings {
 		}
 
 		$tax_queries = array();
+
+		// Listings of current listing type
+		$tax_queries[] = array(
+			'taxonomy' => ATBDP_TYPE,
+			'terms'    => $this->current_listing_type,
+		);
+
 		if (isset($_GET['in_cat']) && (int)$_GET['in_cat'] > 0) {
 			$tax_queries[] = array(
 				'taxonomy' => ATBDP_CATEGORY,
@@ -1630,19 +1637,23 @@ class Directorist_Listings {
 				$this->render_badge_template($field);
 			}
 			else {
+			
+				$submission_form_fields = get_term_meta( $this->current_listing_type, 'submission_form_fields', true );
+				$original_field = !empty( $submission_form_fields['fields'][$field['widget_key']] ) ? $submission_form_fields['fields'][$field['widget_key']] : '';
+
 				$id = get_the_id();
-				$value = !empty( $field['widget_key'] ) ? get_post_meta( $id, '_'.$field['widget_key'], true ) : '';
 				$load_template = true;
+				$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : '';
 				if( ( $field['type'] === 'list-item' ) && !$value ) {
 					$load_template = false;
 				}
-				
 				$args = array(
 					'listings' => $this,
 					'post_id'  => $id,
 					'data'     => $field,
 					'value'    => $value,
 					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
+					'original_field'    => $submission_form_fields,
 				);
 
 				// e_var_dump( $field );

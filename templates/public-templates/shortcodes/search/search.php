@@ -5,7 +5,7 @@
  * @version 6.6
  */
 ?>
-<div id="directorist" class="directorist atbd_wrapper directory_search_area single_area ads-advaced--wrapper" style="background-image: url('<?php echo esc_url($bgimg); ?>')">
+<div id="directorist" class="directorist atbd_wrapper directory_search_area atbdp-bg-white atbdp-style-meterial single_area ads-advaced--wrapper" style="background-image: url('<?php echo esc_url($bgimg); ?>')">
 	<div class="<?php echo esc_attr( $container_class ); ?>">
 
 		<?php
@@ -35,31 +35,37 @@
 				 * @since 5.10.0
 				 */
 				do_action('atbdp_before_search_form');
+
+				$searchform->listing_type_template();
 				?>
-				
-				<div class="row atbdp-search-form">
+				<div class="atbdp-whole-search-form">
+					<div class="row atbdp-search-form atbdp-search-form-inline">
+						<?php
+						foreach ( $searchform->form_data[0]['fields'] as $field ){
+							$searchform->field_template( $field );
+						}
+						if ( $searchform->more_filters_display !== 'always_open' ){
+							$searchform->more_buttons_template();
+						}
+						
+						?>
+					</div>
+
 					<?php
-					foreach ( $searchform->form_data[0]['fields'] as $field ){
-						$searchform->field_template( $field );
+					if ( $searchform->more_filters_display == 'always_open' ){
+						$searchform->advanced_search_form_fields_template();
+					}
+					else {
+					
+						if ($searchform->has_more_filters_button) { ?>
+							<div class="<?php echo ('overlapping' === $searchform->more_filters_display ) ? 'ads_float' : 'ads_slide' ?>">
+								<?php $searchform->advanced_search_form_fields_template();?>
+							</div>
+							<?php
+						}
 					}
 					?>
 				</div>
-
-				<?php
-				if ( $searchform->more_filters_display == 'always_open' ){
-					$searchform->advanced_search_form_fields_template();
-				}
-				else {
-					$searchform->more_buttons_template();
-
-					if ($searchform->has_more_filters_button) { ?>
-						<div class="<?php echo ('overlapping' === $searchform->more_filters_display ) ? 'ads_float' : 'ads_slide' ?>">
-							<?php $searchform->advanced_search_form_fields_template();?>
-						</div>
-						<?php
-					}
-				}
-				?>
 			</div>
 		</form>
 

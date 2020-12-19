@@ -82,13 +82,41 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_atbdp_custom_fields_listings',                       array($this, 'ajax_callback_custom_fields'), 10, 2 );
             add_action('wp_ajax_atbdp_custom_fields_listings_selected',              array($this, 'ajax_callback_custom_fields'), 10, 2 );
             
-            add_action('wp_ajax_atbdp_listing_types', array( $this, 'atbdp_listing_types' ) );
-
+            add_action('wp_ajax_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
+            add_action('wp_ajax_nopriv_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
         }
 
-        // atbdp_listing_types
-        public function atbdp_listing_types() {
-            wp_send_json(['test' => 123]);
+        // atbdp_listing_types_form
+        public function atbdp_listing_types_form() {
+            $listing_type = !empty( $_POST['listing_type'] ) ? esc_attr( $_POST['listing_type'] ) : '';
+            $searchform = new Directorist_Listing_Search_Form( 'search_form', $listing_type, [] );
+            ob_start();
+            ?>
+            <div class="row atbdp-search-form atbdp-search-form-inline">
+                    <?php
+                    foreach ( $searchform->form_data[0]['fields'] as $field ){
+                        $searchform->field_template( $field );
+                    }
+                    if ( $searchform->more_filters_display !== 'always_open' ){
+                        $searchform->more_buttons_template();
+                    }
+                    ?>
+                </div>
+                <?php
+                if ( $searchform->more_filters_display == 'always_open' ){
+                    $searchform->advanced_search_form_fields_template();
+                }
+                else {
+
+                    if ($searchform->has_more_filters_button) { ?>
+                        <div class="<?php echo ('overlapping' === $searchform->more_filters_display ) ? 'ads_float' : 'ads_slide' ?>">
+                            <?php $searchform->advanced_search_form_fields_template();?>
+                        </div>
+                        <?php
+                    }
+                }
+            print ob_get_clean();
+            die;
         }
 
         public function atbdp_listing_default_type() {

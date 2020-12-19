@@ -500,17 +500,18 @@ jQuery(function($) {
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {
+                                     
                                         if( response.error_msg.length > 1 ){
                                                 $('#listing_notifier').show();
                                                 for( var error in response.error_msg ){
                                                        // console.log( error );
-                                                        $('#listing_notifier').append(`<span>${ response.error_msg[error] }</span>`);
+                                                        $('#listing_notifier').append(`<span class="atbdp_error">${ response.error_msg[error] }</span>`);
                                                 }
                                                 $('.listing_submit_btn').removeClass('atbd_loading');
                                         }else{
                                                 $('#listing_notifier')
                                                 .show()
-                                                .html(`<span>${ response.error_msg }</span>`);
+                                                .html(`<span class="atbdp_error">${ response.error_msg }</span>`);
                                                 $('.listing_submit_btn').removeClass('atbd_loading');
                                         }
                                         
@@ -520,14 +521,14 @@ jQuery(function($) {
                                                 if (response.edited_listing !== true) {
                                                         $('#listing_notifier')
                                                                 .show()
-                                                                .html(`<span>${response.success_msg}</span>`);
+                                                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                                         window.location.href = `${
                                                                 response.preview_url
                                                         }?preview=1&redirect=${response.redirect_url}`;
                                                 } else {
                                                         $('#listing_notifier')
                                                                 .show()
-                                                                .html(`<span>${response.success_msg}</span>`);
+                                                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                                         if (qs.redirect) {
                                                                 var is_pending = '?';
                                                                 window.location.href = `${response.preview_url +
@@ -552,12 +553,12 @@ jQuery(function($) {
                                                 if (response.need_payment === true) {
                                                         $('#listing_notifier')
                                                                 .show()
-                                                                .html(`<span>${response.success_msg}</span>`);
+                                                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                                         window.location.href = response.redirect_url;
                                                 } else {
                                                         $('#listing_notifier')
                                                                 .show()
-                                                                .html(`<span>${response.success_msg}</span>`);
+                                                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                                         window.location.href = response.redirect_url + is_edited;
                                                 }
                                         }

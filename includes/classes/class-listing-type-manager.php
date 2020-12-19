@@ -3662,38 +3662,6 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'description' => 'Click on a field to use it',
                     'allow_multiple' => false,
                     'widgets' => [
-                        'address' => [
-                            'label' => 'Address',
-                            'icon' => 'uil uil-postcard',
-                            'options' => [
-                                'label' => [
-                                    'type'  => 'text',
-                                    'label' => 'Label',
-                                    'value' => 'Address',
-                                ],
-                                'icon' => [
-                                    'type'  => 'icon',
-                                    'label' => 'Icon',
-                                    'value' => 'la la-address-card',
-                                ],
-                                'custom_block_id' => [
-                                    'type'  => 'text',
-                                    'label'  => 'Custom block ID',
-                                    'value' => '',
-                                ],
-                                'custom_block_classes' => [
-                                    'type'  => 'text',
-                                    'label'  => 'Custom block Classes',
-                                    'value' => '',
-                                ],
-                            ],
-                            'show_if' => [
-                                'where' => "submission_form_fields.value.fields",
-                                'conditions' => [
-                                    ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'map'],
-                                ],
-                            ],
-                        ],
                         'review' => [ 
                             'type' => 'section',
                             'label' => 'Review',

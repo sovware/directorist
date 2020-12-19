@@ -8132,6 +8132,10 @@ p.atbd-min {
   margin-bottom: 10px;
 }
 
+.atbd-d-none {
+  display: none !important;
+}
+
 
 @media (max-width: 400px) {
   .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title,

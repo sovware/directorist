@@ -920,10 +920,13 @@
     }
 
     // Modal
-    $( '.atbdp-toggle-modal' ).on( 'click', function( e ) {
+    $( 'body' ).on( 'click', '.atbdp-toggle-modal', function( e ) {
         e.preventDefault();
 
+        // console.log( 'atbdp-toggle-modal' );
+
         var data_target = $( this ).data( 'target' );
+        // console.log( {data_target} );
 
         $( data_target ).toggleClass( 'show' );
     });

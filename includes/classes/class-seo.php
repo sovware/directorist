@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 defined('ABSPATH') || die('Direct access is not allowed.');
 if (!class_exists('ATBDP_SEO')) :
     /**
@@ -32,6 +35,63 @@ if (!class_exists('ATBDP_SEO')) :
                 add_action('wp_head', array($this, 'atbdp_add_og_meta'), 100, 2);
             }
             add_filter('the_title', array($this, 'atbdp_title_update'), 10, 2);
+
+
+            add_action( 'template_redirect', function() {
+                $seo = $this->get_seo_meta_data();
+
+                var_dump( $seo );
+            });
+
+
+            // Rank Math Integration
+            // --------------------------------------------
+            // Meta Title
+            add_filter( 'rank_math/frontend/title', function( $title ) {
+                $seo_data = $this->get_seo_meta_data();
+
+                return $seo_data['title'];
+            });
+
+            // Meta Description
+            add_filter( 'rank_math/frontend/description', function( $description ) {
+                $seo_data = $this->get_seo_meta_data();
+
+                return $seo_data['description'];
+            });
+
+            // Allow shortcodes in the Meta Data.
+            // add_filter( 'rank_math/paper/auto_generated_description/apply_shortcode', '__return_true' );
+
+            // OG Image
+            // add_filter( "rank_math/opengraph/facebook/image", function( $attachment_url ) {
+            //     $seo_data = $this->get_seo_meta_data();
+            //     $image_url = ( ! empty( $seo_data['image'] ) ) ? $seo_data['image'] : $attachment_url;
+
+            //     // var_dump( [ 'type' => 'facebook', 'url' => $image_url ] );
+
+            //     return $image_url;
+            // });
+
+            // add_filter( "rank_math/opengraph/twitter/image", function( $attachment_url ) {
+            //     $seo_data = $this->get_seo_meta_data();
+            //     $image_url = ( ! empty( $seo_data['image'] ) ) ? $seo_data['image'] : $attachment_url;
+
+            //     var_dump( [ 'type' => 'twitter', 'url' => $image_url ] );
+
+            //     return $image_url;
+            // });
+
+            /* add_filter( 'rank_math/opengraph/facebook/add_additional_images', function( $image ) {
+
+                // $custom_image = $image;
+                // $custom_image->images[] = '123';
+                // var_dump( $custom_image );
+
+                return $image;
+            }); */
+
+            
         }
 
         // get_taxonomy_term
@@ -87,14 +147,19 @@ if (!class_exists('ATBDP_SEO')) :
 
         public function atbdp_title_update($title, $id = null)
         {
-            if (!in_the_loop() || !is_main_query()) {
+            // return '$title';
+            if ( ! in_the_loop() ) {
+                return $title;
+            }
+
+            if ( ! in_the_loop() || ! is_main_query()) {
                 return $title;
             }
 
             // global $post;
-            if (!is_admin() && !is_null($id)) {
+            if ( ! is_admin() && ! is_null( $id ) ) {
                 $term = $this->get_taxonomy_term();
-                $title = (!empty($term)) ? $term->name : $title;
+                $title = ( ! empty( $term ) ) ? $term->name : $title;
             }
 
 
@@ -623,21 +688,25 @@ if (!class_exists('ATBDP_SEO')) :
 
             $seo_meta['image'] = $default_thumbnail;
 
-            if (is_singular('at_biz_dir')) {
+            if ( is_singular('at_biz_dir') ) {
+                
                 $desc      = esc_html( get_the_excerpt() );
                 $meta_desc = ( strlen( $desc ) > 200 ) ? substr( $desc, 0, 200 ) . "..." : $desc;
 
-                $seo_meta['title']         = get_the_title();
-                $seo_meta['desc']          = esc_html( get_the_excerpt() );
-                $seo_meta['description']     = $meta_desc;
-                $seo_meta['image'] = get_the_post_thumbnail_url();
-                
+                $seo_meta['title']       = get_the_title();
+                $seo_meta['desc']        = esc_html( get_the_excerpt() );
+                $seo_meta['description'] = $meta_desc;
+                $seo_meta['image']       = get_the_post_thumbnail_url();
+
                 if ( empty( $seo_meta['image'] ) ) {
+                    
                     $listing_img_id = get_post_meta( get_the_ID(), '_listing_prv_img', true);
-                    if ( empty( $listing_img_id ) || ! is_string( $listing_img_id ) || ! is_int( $listing_img_id ) ) {
+                    
+                    if ( empty( $listing_img_id ) || ! is_string( $listing_img_id ) || ! is_numeric( $listing_img_id ) ) {
                         $listing_img_id = get_post_meta( get_the_ID(), '_listing_img', true );
                         $listing_img_id = ( ! empty( $listing_img_id ) ) ? $listing_img_id[0] : null;
                     }
+
                     $seo_meta['image'] = ( ! empty($listing_img_id) || is_string( $listing_img_id ) || is_int( $listing_img_id )) ? wp_get_attachment_url($listing_img_id) : '';
                 }
             }

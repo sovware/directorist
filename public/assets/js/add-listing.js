@@ -652,9 +652,14 @@ jQuery(function($) {
                                                 // Show the modal
                                                 modal.addClass( 'show' );
 
-                                                quick_login_modal__success_callback = function() {
+                                                quick_login_modal__success_callback = function( args ) {
                                                     $( '#guest_user_email' ).prop( 'disabled', true );
                                                     $('#listing_notifier').hide().html('');
+
+                                                    args.elements.submit_button.remove();
+
+                                                    var form_actions = args.elements.form.find( '.atbdp-form-actions' );
+                                                    form_actions.find( '.atbdp-toggle-modal' ).removeClass( 'atbd-d-none' );
                                                 }
                                         }
 
@@ -722,11 +727,16 @@ jQuery(function($) {
         $( '#quick-login-from-submit-btn' ).on( 'click', function( e ) {
             e.preventDefault();
 
-            var form          = $( '#quick-login-from' );
-            var form_feedback = $( '.atbdp-form-feedback' );
-            var email         = $( form ).find( 'input[name="email"]' );
-            var password      = $( form ).find( 'input[name="password"]' );
-            var security      = $( form ).find( 'input[name="security"]' );
+            var form_id  = $( this ).data( 'form' );
+            var modal_id = $( this ).data( 'form' );
+
+            var modal         = $( modal_id );
+            var form          = $( form_id );
+            var form_feedback = form.find( '.atbdp-form-feedback' );
+
+            var email    = $( form ).find( 'input[name="email"]' );
+            var password = $( form ).find( 'input[name="password"]' );
+            var security = $( form ).find( 'input[name="security"]' );
 
             var form_data = {
                 action: 'atbdp_ajax_quick_login',
@@ -761,7 +771,17 @@ jQuery(function($) {
                         form_feedback.html( msg );
 
                         if ( quick_login_modal__success_callback ) {
-                            quick_login_modal__success_callback();
+                            var args = {
+                                elements: { 
+                                    modal_id,
+                                    form,
+                                    email, 
+                                    password, 
+                                    submit_button
+                                }
+                            };
+
+                            quick_login_modal__success_callback( args );
                         }
                     } else {
                         var msg = '<span class="atbdp-text-danger">'+ response.message +'</span>';

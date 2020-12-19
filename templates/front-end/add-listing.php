@@ -1446,10 +1446,17 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                     <?php wp_nonce_field('ajax-login-nonce', 'security'); ?>
 
                     <div class="atbdp-form-feedback"></div>
+                    
+                    <div class="atbdp-form-actions">
+                        <button type="button" id="quick-login-from-submit-btn" data-form="#quick-login-from" data-modal="atbdp-quick-login-modal" name="login" class="atbdp-btn atbdp-btn-primary atbdp-btn-block">
+                            <?php echo 'Login'; ?>
+                        </button>
 
-                    <button type="button" id="quick-login-from-submit-btn" name="login" class="atbdp-btn atbdp-btn-primary atbdp-btn-block">
-                        <?php echo 'Login'; ?>
-                    </button>
+                        <button type="button" data-target="#atbdp-quick-login-modal" class="atbdp-btn atbdp-btn-primary atbdp-btn-block atbdp-toggle-modal atbd-d-none">
+                            <?php echo 'Continue'; ?>
+                        </button>
+                    </div>
+                    
                 </div>
             </form>
         </div>

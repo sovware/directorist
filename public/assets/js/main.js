@@ -669,9 +669,11 @@
             e.preventDefault();
 
             var submit_button = $( this ).find( 'button[type="submit"]' );
-            
             var status_area = $( this ).find( '.atbdp-contact-message-display' );
-            status_area.html('Sending the message, please wait... ');
+
+            // Show loading message
+            var msg = '<div class="atbdp-alert"><i class="fas fa-circle-notch fa-spin"></i> Sending the message, please wait... </div>';
+            status_area.html( msg );
 
             var post_id       = $( this ).find( 'input[name="atbdp-post-id"]' );
             var name          = $( this ).find( 'input[name="atbdp-contact-name"]' );
@@ -696,18 +698,24 @@
 
                 if (1 == response.error) {
                     atbdp_contact_submitted = false;
-                    status_area.addClass('text-danger').html(response.message);
+
+                    // Show error message
+                    var msg = '<div class="atbdp-alert alert-danger-light"><i class="fas fa-exclamation-triangle"></i> '+ response.message +'</div>';
+                    status_area.html( msg );
+
                 } else {
                     name.val('');
                     message.val('');
                     contact_email.val('');
 
-                    status_area.addClass('text-success').html(response.message);
+                    // Show success message
+                    var msg = '<div class="atbdp-alert alert-success-light"><i class="fas fa-check-circle"></i> '+ response.message +'</div>';
+                    status_area.html( msg );
                 }
 
                 setTimeout( function() {
                     status_area.html('');
-                }, 3000 );
+                }, 5000 );
 
             }, 'json');
 

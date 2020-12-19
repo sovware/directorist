@@ -1054,8 +1054,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
   color: #fa8b0c;
 }
 
+.atbd-text-left {
+  text-align: left !important;
+}
 .atbd-text-center {
-  text-align: center;
+  text-align: center !important;
+}
+.atbd-text-right {
+  text-align: right !important;
 }
 
 .atbd_content_active .media-frame-title h1:before {
@@ -7819,10 +7825,22 @@ p.atbd-min {
   border-radius: 5px;
   background-color: #f2f2f2;
 }
+.atbdp-alert {
+  margin-bottom: 10px;
+  padding: 10px 15px;
+  text-align: left;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+}
 
 .atbdp-flush-message-item.type-info, .atbdp-alert.alert-info {
   color: #fff;
   background-color: #377dff;
+}
+
+.atbdp-flush-message-item.type-success, .atbdp-alert.alert-success {
+  color: #fff;
+  background-color: #32cc6f;
 }
 
 .atbdp-flush-message-item.type-warning, .atbdp-alert.alert-warning {
@@ -7833,6 +7851,22 @@ p.atbd-min {
 .atbdp-flush-message-item.type-danger, .atbdp-alert.alert-danger {
   color: #fff;
   background-color: #e23636;
+}
+
+/* Light Version */
+.atbdp-flush-message-item.type-info-light, .atbdp-alert.alert-info-light {
+  color: #377dff;
+}
+.atbdp-flush-message-item.type-success-light, .atbdp-alert.alert-success-light {
+  color: #32cc6f;
+}
+
+.atbdp-flush-message-item.type-warning-light, .atbdp-alert.alert-warning-light {
+  color: #f2b01e;
+}
+
+.atbdp-flush-message-item.type-danger-light, .atbdp-alert.alert-danger-light {
+  color: #e23636;
 }
 
 

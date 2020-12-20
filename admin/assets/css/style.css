@@ -1589,6 +1589,8 @@ input.atbdp-form-control {
   padding: 8px 20px;
   border: none;
   border-radius: 3px;
+  min-height: 40px;
+  cursor: pointer;
 }
 
 .atbdp-btn-primary {
@@ -1597,6 +1599,19 @@ input.atbdp-form-control {
 }
 
 /* Utility */
+.purchase-refresh-btn-wrapper {
+  overflow: hidden;
+}
+
+.atbdp-action-group {
+  display: flex;
+}
+
+.atbdp-hide {
+  width: 0;
+  overflow: hidden;
+}
+
 .atbdp-d-none {
   display: none;
 }
@@ -2073,6 +2088,14 @@ input.atbdp-form-control {
   overflow: hidden;
 }
 
+.atbdp-input-group-wrap {
+  display: flex;
+}
+
+.atbdp-input-group-append {
+  display: flex;
+}
+
 #directorist.atbd_wrapper .ext-action-btn {
   display: inline-block;
   line-height: 34px;
@@ -2083,6 +2106,7 @@ input.atbdp-form-control {
   transition: 0.3s ease;
   font-size: 14px !important;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 #directorist.atbd_wrapper .ext-action-btn:hover {

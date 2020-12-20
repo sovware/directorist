@@ -1965,6 +1965,9 @@ input#privacy_policy,
 
 .atbdp-modal-container {
   display: none;
+  margin: 0 !important;
+  max-width: 100% !important;
+  height: 100vh !important;
   position: fixed;
   top: 0;
   left: 0;
@@ -2039,10 +2042,19 @@ input#privacy_policy,
   margin-bottom: 10px;
 }
 
-.atbdp-form-control {
+.atbdp-form-control, 
+input[type="text"].atbdp-form-control,
+input[type="number"].atbdp-form-control,
+input[type="password"].atbdp-form-control,
+input[type="date"].atbdp-form-control,
+textarea.atbdp-form-control {
   display: block;
   width: 100%;
   border-radius: 4px;
+  border: none;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  padding: 10px 20px;
 }
 
 .atbdp-btn {

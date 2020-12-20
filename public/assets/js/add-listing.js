@@ -646,7 +646,7 @@ jQuery(function($) {
                                                 modal.find( 'input[name="email"]' ).prop( 'disabled', true );
 
                                                 // Show alert
-                                                var alert = '<div class="atbdp-alert atbdp-mb-10">'+ response.error_msg +'</div>';
+                                                var alert = '<div class="atbdp-alert atbd-text-center atbdp-mb-10">'+ response.error_msg +'</div>';
                                                 modal.find( '.atbdp-modal-alerts-area' ).html( alert );
 
                                                 // Show the modal

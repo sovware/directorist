@@ -1433,7 +1433,7 @@ do_action('atbdb_before_add_listing_from_wrapper'); ?>
                 </div>
 
                 <div class="atbdp-modal-body">
-                    <div class="atbdp-modal-alerts-area"></div>
+                    <div class="atbdp-modal-alerts-area atbd-text-center"></div>
 
                     <div class="atbdp-form-group">
                         <input type="text" name="email" placeholder="<?php echo 'Email'; ?>" class="atbdp-form-control">

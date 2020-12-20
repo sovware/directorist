@@ -155,136 +155,157 @@ class ATBDP_Multi_Directory_Migration {
             "widget_name"    => "phone"
         ];
 
-        $submission_form_preset_fields = [
-            "phone2" => [
-                "type"           => "tel",
-                "field_key"      => "phone2",
-                "label"          => get_directorist_option( 'phone_label2', 'Phone 2' ),
-                "placeholder"    => get_directorist_option( 'phone2_placeholder', 'Phone Number' ),
-                "required"       => get_directorist_option( 'require_phone2_number', false ),
-                "only_for_admin" => get_directorist_option( 'display_phone2_for', false ),
-                "widget_group"   => "preset",
-                "widget_name"    => "phone2"
-            ],
-            "email" => [
-                "type"           => "email",
-                "field_key"      => "email",
-                "label"          => get_directorist_option( 'email_label', 'Email' ),
-                "placeholder"    => get_directorist_option( 'email_placeholder', 'Enter Email' ),
-                "required"       => get_directorist_option( 'require_email', false ),
-                "only_for_admin" => get_directorist_option( 'display_email_for', false ),
-                "widget_group"   => "preset",
-                "widget_name"    => "email"
-            ],
-            "tag" => [
-                "type"           => "multiple",
-                "field_key"      => "tax_input[at_biz_dir-tags][]",
-                "label"          => get_directorist_option( 'tag_label', 'Tag' ),
-                "required"       => get_directorist_option( 'require_tags', false ),
-                "allow_new"      => get_directorist_option( 'create_new_tag', true ),
-                "only_for_admin" => get_directorist_option( 'display_tag_for', false ),
-                "widget_group"   => "preset",
-                "widget_name"    => "tag"
-            ],
-            "website" => [
-                "type"           => "text",
-                "field_key"      => "website",
-                "label"          => get_directorist_option( 'website_label', 'Website' ),
-                "placeholder"    => get_directorist_option( 'website_placeholder', 'Listing Website eg. http://example.com' ),
-                "required"       => get_directorist_option( 'require_website', false ),
-                "only_for_admin" => get_directorist_option( 'display_website_for', false ),
-                "plans"          => [],
-                "widget_group"   => "preset",
-                "widget_name"    => "website"
-            ],
-            "social_info" => [
-                "type"           => "add_new",
-                "field_key"      => "social",
-                "label"          => get_directorist_option( 'social_label', 'Social Information' ),
-                "required"       => get_directorist_option( 'require_social_info', false ),
-                "only_for_admin" => get_directorist_option( 'display_social_info_for', false ),
-                "widget_group"   => "preset",
-                "widget_name"    => "social_info"
-            ],
-            "fax" => [
-                "type"           => "number",
-                "field_key"      => "fax",
-                "label"          => get_directorist_option( 'fax_label', 'Fax' ),
-                "placeholder"    => get_directorist_option( 'fax_placeholder', 'Enter Fax' ),
-                "required"       => get_directorist_option( 'require_fax', false ),
-                "only_for_admin" => get_directorist_option( 'display_fax_for', false ),
-                "widget_group"   => "preset",
-                "widget_name"    => "fax"
-            ],
-            "address" => [
-                "type"           => "text",
-                "field_key"      => "address",
-                "label"          => get_directorist_option( 'address_label', 'Address' ),
-                "placeholder"    => get_directorist_option( 'address_placeholder', 'Listing address eg. New York, USA' ),
-                "required"       => get_directorist_option( 'require_address', false ),
-                "only_for_admin" => get_directorist_option( 'display_address_for', false ),
-                "widget_group"   => "preset",
-                "widget_name"    => "address"
-            ],
-            "map" => [
-                "type"           => "map",
-                "field_key"      => "map",
-                "label"          => "Map",
-                "required"       => get_directorist_option( 'display_map_for', false ),
-                "only_for_admin" => false,
-                "widget_group"   => "preset",
-                "widget_name"    => "map"
-            ],
-            "view_count" => [
-                "type"           => "number",
-                "field_key"      => "atbdp_post_views_count",
-                "label"          => get_directorist_option( 'views_count_label', 'Views Count' ),
-                "placeholder"    => "",
-                "required"       => false,
-                "only_for_admin" => true,
-                "widget_group"   => "preset",
-                "widget_name"    => "view_count"
-            ],
-            "location" => [
-                "type"           => "multiple",
-                "field_key"      => "tax_input[at_biz_dir-location][]",
-                "label"          => get_directorist_option( 'location_label', 'Location' ),
-                "required"       => get_directorist_option( 'require_location', false ),
-                "only_for_admin" => get_directorist_option( 'display_loc_for', false ),
-                "widget_group"   => "preset",
-                "widget_name"    => "location"
-            ],
-            "category" => [
-                "type"           => "multiple",
-                "field_key"      => "admin_category_select[]",
-                "label"          => get_directorist_option( 'category_label', 'Select Category' ),
-                "required"       => get_directorist_option( 'require_category', false ),
-                "only_for_admin" => false,
-                "widget_group"   => "preset",
-                "widget_name"    => "category"
-            ],
-            "image_upload" => [
-                "type"                  => "media",
-                "field_key"             => "listing_img",
-                "label"                 => get_directorist_option( 'gallery_label', 'Select Files' ),
-                "required"              => get_directorist_option( 'require_gallery_img', false ),
-                "max_image_limit"       => get_directorist_option( 'require_gallery_img', 5 ),
-                "max_per_image_limit"   => get_directorist_option( 'max_gallery_upload_size_per_file', 0 ),
-                "max_total_image_limit" => get_directorist_option( 'max_gallery_upload_size', 2 ),
-                "only_for_admin"        => get_directorist_option( 'display_glr_img_for', false ),
-                "widget_group"          => "preset",
-                "widget_name"           => "image_upload"
-            ],
-            "video" => [
-                "type"           => "text",
-                "field_key"      => "videourl",
-                "label"          => get_directorist_option( 'video_label', 'Video Url' ),
-                "placeholder"    => get_directorist_option( 'video_placeholder', 'Only YouTube & Vimeo URLs.' ),
-                "required"       => get_directorist_option( 'require_video', false ),
-                "only_for_admin" => get_directorist_option( 'display_video_for', false ),
-                "widget_group"   => "preset",
-                "widget_name"    => "video"
-            ],
+        $submission_form_preset_fields[ "phone2" ] = [
+            "type"           => "tel",
+            "field_key"      => "phone2",
+            "label"          => get_directorist_option( 'phone_label2', 'Phone 2' ),
+            "placeholder"    => get_directorist_option( 'phone2_placeholder', 'Phone Number' ),
+            "required"       => get_directorist_option( 'require_phone2_number', false ),
+            "only_for_admin" => get_directorist_option( 'display_phone2_for', false ),
+            "widget_group"   => "preset",
+            "widget_name"    => "phone2"
+        ];
+
+        $submission_form_preset_fields[ "email" ] = [
+            "type"           => "tel",
+            "field_key"      => "phone2",
+            "label"          => get_directorist_option( 'phone_label2', 'Phone 2' ),
+            "placeholder"    => get_directorist_option( 'phone2_placeholder', 'Phone Number' ),
+            "required"       => get_directorist_option( 'require_phone2_number', false ),
+            "only_for_admin" => get_directorist_option( 'display_phone2_for', false ),
+            "widget_group"   => "preset",
+            "widget_name"    => "phone2"
+        ];
+
+        $submission_form_preset_fields[ "email" ] = [
+            "type"           => "email",
+            "field_key"      => "email",
+            "label"          => get_directorist_option( 'email_label', 'Email' ),
+            "placeholder"    => get_directorist_option( 'email_placeholder', 'Enter Email' ),
+            "required"       => get_directorist_option( 'require_email', false ),
+            "only_for_admin" => get_directorist_option( 'display_email_for', false ),
+            "widget_group"   => "preset",
+            "widget_name"    => "email"
+        ];
+
+        $submission_form_preset_fields[ "tag" ] = [
+            "type"           => "multiple",
+            "field_key"      => "tax_input[at_biz_dir-tags][]",
+            "label"          => get_directorist_option( 'tag_label', 'Tag' ),
+            "required"       => get_directorist_option( 'require_tags', false ),
+            "allow_new"      => get_directorist_option( 'create_new_tag', true ),
+            "only_for_admin" => get_directorist_option( 'display_tag_for', false ),
+            "widget_group"   => "preset",
+            "widget_name"    => "tag"
+        ];
+
+        $submission_form_preset_fields[ "website" ] = [
+            "type"           => "text",
+            "field_key"      => "website",
+            "label"          => get_directorist_option( 'website_label', 'Website' ),
+            "placeholder"    => get_directorist_option( 'website_placeholder', 'Listing Website eg. http://example.com' ),
+            "required"       => get_directorist_option( 'require_website', false ),
+            "only_for_admin" => get_directorist_option( 'display_website_for', false ),
+            "plans"          => [],
+            "widget_group"   => "preset",
+            "widget_name"    => "website"
+        ];
+
+        $submission_form_preset_fields[ "social_info" ] = [
+            "type"           => "add_new",
+            "field_key"      => "social",
+            "label"          => get_directorist_option( 'social_label', 'Social Information' ),
+            "required"       => get_directorist_option( 'require_social_info', false ),
+            "only_for_admin" => get_directorist_option( 'display_social_info_for', false ),
+            "widget_group"   => "preset",
+            "widget_name"    => "social_info"
+        ];
+
+        $submission_form_preset_fields[ "fax" ] = [
+            "type"           => "number",
+            "field_key"      => "fax",
+            "label"          => get_directorist_option( 'fax_label', 'Fax' ),
+            "placeholder"    => get_directorist_option( 'fax_placeholder', 'Enter Fax' ),
+            "required"       => get_directorist_option( 'require_fax', false ),
+            "only_for_admin" => get_directorist_option( 'display_fax_for', false ),
+            "widget_group"   => "preset",
+            "widget_name"    => "fax"
+        ];
+
+        $submission_form_preset_fields[ "address" ] = [
+            "type"           => "text",
+            "field_key"      => "address",
+            "label"          => get_directorist_option( 'address_label', 'Address' ),
+            "placeholder"    => get_directorist_option( 'address_placeholder', 'Listing address eg. New York, USA' ),
+            "required"       => get_directorist_option( 'require_address', false ),
+            "only_for_admin" => get_directorist_option( 'display_address_for', false ),
+            "widget_group"   => "preset",
+            "widget_name"    => "address"
+        ];
+
+        $submission_form_preset_fields[ "map" ] = [
+            "type"           => "map",
+            "field_key"      => "map",
+            "label"          => "Map",
+            "required"       => get_directorist_option( 'display_map_for', false ),
+            "only_for_admin" => false,
+            "widget_group"   => "preset",
+            "widget_name"    => "map"
+        ];
+
+        $submission_form_preset_fields[ "view_count" ] = [
+            "type"           => "number",
+            "field_key"      => "atbdp_post_views_count",
+            "label"          => get_directorist_option( 'views_count_label', 'Views Count' ),
+            "placeholder"    => "",
+            "required"       => false,
+            "only_for_admin" => true,
+            "widget_group"   => "preset",
+            "widget_name"    => "view_count"
+        ];
+
+        $submission_form_preset_fields[ "location" ] = [
+            "type"           => "multiple",
+            "field_key"      => "tax_input[at_biz_dir-location][]",
+            "label"          => get_directorist_option( 'location_label', 'Location' ),
+            "required"       => get_directorist_option( 'require_location', false ),
+            "only_for_admin" => get_directorist_option( 'display_loc_for', false ),
+            "widget_group"   => "preset",
+            "widget_name"    => "location"
+        ];
+
+        $submission_form_preset_fields[ "category" ] = [
+            "type"           => "multiple",
+            "field_key"      => "admin_category_select[]",
+            "label"          => get_directorist_option( 'category_label', 'Select Category' ),
+            "required"       => get_directorist_option( 'require_category', false ),
+            "only_for_admin" => false,
+            "widget_group"   => "preset",
+            "widget_name"    => "category"
+        ];
+
+        $submission_form_preset_fields[ "image_upload" ] = [
+            "type"                  => "media",
+            "field_key"             => "listing_img",
+            "label"                 => get_directorist_option( 'gallery_label', 'Select Files' ),
+            "required"              => get_directorist_option( 'require_gallery_img', false ),
+            "max_image_limit"       => get_directorist_option( 'require_gallery_img', 5 ),
+            "max_per_image_limit"   => get_directorist_option( 'max_gallery_upload_size_per_file', 0 ),
+            "max_total_image_limit" => get_directorist_option( 'max_gallery_upload_size', 2 ),
+            "only_for_admin"        => get_directorist_option( 'display_glr_img_for', false ),
+            "widget_group"          => "preset",
+            "widget_name"           => "image_upload"
+        ];
+
+        $submission_form_preset_fields[ "video" ] = [
+            "type"           => "text",
+            "field_key"      => "videourl",
+            "label"          => get_directorist_option( 'video_label', 'Video Url' ),
+            "placeholder"    => get_directorist_option( 'video_placeholder', 'Only YouTube & Vimeo URLs.' ),
+            "required"       => get_directorist_option( 'require_video', false ),
+            "only_for_admin" => get_directorist_option( 'display_video_for', false ),
+            "widget_group"   => "preset",
+            "widget_name"    => "video"
         ];
 
         $submission_form_custom_fields = $this->get_old_custom_fields();

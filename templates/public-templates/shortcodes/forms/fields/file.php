@@ -13,8 +13,7 @@
 /**
  * Directorist file uploader
  */
-global $post;
-$post_id = $post->ID;
+$post_id = $form->get_add_listing_id();
 wp_enqueue_style( 'atbdp-pluploadcss' );
 wp_enqueue_script( 'atbdp-plupload-min' );
 wp_enqueue_script( 'atbdp-plupload' );

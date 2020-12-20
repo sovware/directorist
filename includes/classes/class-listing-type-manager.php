@@ -23,6 +23,25 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
 
             add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
             add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
+
+            add_action( '_template_redirect', function() {
+                $listings = new WP_Query([
+                    'post_type' => ATBDP_POST_TYPE,
+                    'status' => 'publish',
+                    'per_page' => 10,
+                ]);
+
+                $post_id = 19547;
+                $term_id = 154;
+
+                wp_set_object_terms( $post_id, $term_id, 'atbdp_listing_types' );
+                $listing_meta = get_the_terms( $post_id, 'atbdp_listing_types' );
+
+                var_dump( $listing_meta );
+
+                // $type = get_term_by('id', 153, 'atbdp_listing_types');
+                // var_dump( $type );
+            });
         }
 
         // get_cetagory_options
@@ -1104,6 +1123,21 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                 update_option( 'atbdp_has_multidirectory', true );
                 // update_option( 'atbdp_migrated_to_multidirectory', true );
                 update_term_meta( $add_directory['term_id'], '_default', true );
+            }
+
+            // Add directory type to all listings
+            $listings = new WP_Query([
+                'post_type' => ATBDP_POST_TYPE,
+                'status'    => 'publish',
+                'per_page'  => -1,                
+            ]);
+
+            if ( $listings->have_posts() ) {
+                while ( $listings->have_posts() ) {
+                    $listings->the_post();
+
+                    wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
+                }
             }
         }
         

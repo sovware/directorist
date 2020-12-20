@@ -18,60 +18,144 @@ class ATBDP_Multi_Directory_Migration {
     }
 
     public function migrate() {
-        $preview_image_url = get_directorist_option( 'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' );
-        $preview_image     = [ 'id' => null, 'url' => $preview_image_url ];
+        $fields = $this->get_fields_data();
+        
+        echo '<pre>';
+        print_r( $fields );
+        echo '</pre>';
+        
+        $add_directory = $this->multi_directory_manager->add_directory([
+            'directory_name' => 'General',
+            'fields_value'   => $fields,
+        ]);
+        
+        if ( $add_directory['status']['success'] ) {
+            update_option( 'atbdp_migrated_to_multidirectory', true );
+            update_term_meta( $add_directory['term_id'], '_default', true );
 
+            // Add directory type to all listings
+            $listings = new WP_Query([
+                'post_type' => ATBDP_POST_TYPE,
+                'status'    => 'publish',
+                'per_page'  => -1,                
+            ]);
+
+            if ( $listings->have_posts() ) {
+                while ( $listings->have_posts() ) {
+                    $listings->the_post();
+
+                    wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
+                }
+            }
+        }
+        
+    }
+
+    // get_fields_data
+    public function get_fields_data() {
+
+        $submission_form_fields = $this->get_submission_form_fields_data();
+        $form_fields_common_data = [ 'submission_form_custom_fields' => $submission_form_fields ];
+
+        $listings_card_wedgets = $this->get_listings_card_wedgets_data();
+        $listings_card_common_data = [ 'listings_card_wedgets' => $listings_card_wedgets ];
+
+        $fields = apply_filters( 'atbdp_multidirectory_migration_fields', [
+            "name"          => "General",
+            "icon"          => "fa fa-home",
+            "singular_name" => "listing",
+            "plural_name"   => "listings",
+            "permalink"     => "listing",
+            "preview_image" => $this->get_preview_image(),
+            "preview_mode"  => get_directorist_option( 'preview_enable', true ),
+
+            "default_expiration"       => get_directorist_option( 'listing_expire_in_days', 365 ),
+            "new_listing_status"       => get_directorist_option( 'new_listing_status', 'pending' ),
+            "edit_listing_status"      => get_directorist_option( 'edit_listing_status', 'pending' ),
+            "submit_button_label"      => get_directorist_option( 'submit_label', 'Save & Preview' ),
+            "listing_terms_condition"  => get_directorist_option( 'listing_terms_condition', true ),
+            "require_terms_conditions" => get_directorist_option( 'require_terms_conditions', true ),
+            "terms_label"              => $this->get_terms_label(),
+            "listing_privacy"          => get_directorist_option( 'listing_privacy', true ),
+            "require_privacy"          => get_directorist_option( 'require_privacy', true ),
+            "privacy_label"            => $this->get_privacy_label(),
+            "submission_form_fields"   => $submission_form_fields,
+            "single_listings_contents" => $this->get_single_listings_contents_data( $form_fields_common_data ),
+            "similar_listings_title"   => get_directorist_option( 'rel_listing_title', true ),
+            "enable_similar_listings"  => get_directorist_option( 'enable_rel_listing', true ),
+            "similar_listings_logics"  => get_directorist_option( 'rel_listings_logic', 'OR' ),
+            "search_form_fields"       => $this->get_search_form_fields( $form_fields_common_data ),
+            "single_listing_header"    => $this->get_single_listing_header_data(),
+            "listings_card_grid_view"  => $this->get_listings_card_grid_view_data( $listings_card_common_data ),
+            "listings_card_list_view"  => $this->get_listings_card_list_view_data( $listings_card_common_data ),
+            
+            "similar_listings_number_of_listings_to_show" => get_directorist_option( 'rel_listing_num', 10 ),
+            "similar_listings_number_of_columns"          => get_directorist_option( 'rel_listing_column', 3 ),
+        ]);
+
+        return $fields;
+    }
+
+    // get_submission_form_fields_data
+    public function get_submission_form_fields_data() {
         // Submission Form Fields
+        $submission_form_preset_fields = [];
+
+        $submission_form_preset_fields[ "title" ] = [
+            "type"         => "text",
+            "field_key"    => "listing_title",
+            "required"     => get_directorist_option( 'require_title', true ),
+            "label"        => get_directorist_option( 'title_label', "Title" ),
+            "placeholder"  => get_directorist_option( 'title_placeholder', "Enter a title" ),
+            "widget_group" => "preset",
+            "widget_name"  => "title",
+        ];
+
+        $submission_form_preset_fields[ "description" ] = [
+            "type"           => "wp_editor",
+            "field_key"      => "listing_content",
+            "label"          => get_directorist_option( 'long_details_label', 'Long Details' ),
+            "placeholder"    => "",
+            "required"       => get_directorist_option( 'require_long_details', false ),
+            "only_for_admin" => get_directorist_option( 'display_desc_for', false ),
+            "widget_group"   => "preset",
+            "widget_name"    => "description"
+        ];
+
+        $submission_form_preset_fields[ "pricing" ] = [
+            "pricing_type"           => "both",
+            "label"                  => get_directorist_option( 'pricing_label', 'Pricing' ),
+            "price_range_label"      => get_directorist_option( 'price_range_label', 'Select Price Range' ),
+            "price_range_options"    => "cheap",
+            "price_unit_field_type"  => "number",
+            "price_unit_field_label" => get_directorist_option( 'price_label', 'Price' ),
+            "widget_group"           => "preset",
+            "widget_name"            => "pricing",
+        ];
+
+        $submission_form_preset_fields[ "zip" ] = [
+            "type"           => "text",
+            "field_key"      => "zip",
+            "label"          => get_directorist_option( 'zip_label', 'Zip/Post Code' ),
+            "placeholder"    => get_directorist_option( 'zip_placeholder', 'Enter Zip/Post Code' ),
+            "required"       => get_directorist_option( 'require_zip', false ),
+            "only_for_admin" => get_directorist_option( 'display_zip_for', false ),
+            "widget_group"   => "preset",
+            "widget_name"    => "zip",
+        ];
+
+        $submission_form_preset_fields[ "phone" ] = [
+            "type"           => "tel",
+            "field_key"      => "phone",
+            "label"          => get_directorist_option( 'phone_label', 'Phone' ),
+            "placeholder"    => get_directorist_option( 'phone_placeholder', 'Phone Number' ),
+            "required"       => get_directorist_option( 'require_phone_number', false ),
+            "only_for_admin" => get_directorist_option( 'display_phone_for', false ),
+            "widget_group"   => "preset",
+            "widget_name"    => "phone"
+        ];
+
         $submission_form_preset_fields = [
-            "title" => [
-                "widget_group" => "preset",
-                "widget_name"  => "title",
-                "type"         => "text",
-                "field_key"    => "listing_title",
-                "required"     => get_directorist_option( 'require_title', true ),
-                "label"        => get_directorist_option( 'title_label', "Title" ),
-                "placeholder"  => get_directorist_option( 'title_placeholder', "Enter a title" ),
-            ],
-            "description" => [
-                "type"           => "wp_editor",
-                "field_key"      => "listing_content",
-                "label"          => get_directorist_option( 'long_details_label', 'Long Details' ),
-                "placeholder"    => "",
-                "required"       => get_directorist_option( 'require_long_details', false ),
-                "only_for_admin" => get_directorist_option( 'display_desc_for', false ),
-                "widget_group"   => "preset",
-                "widget_name"    => "description"
-            ],
-            "pricing" => [
-                "pricing_type"           => "both",
-                "price_range_label"      => get_directorist_option( 'price_range_label', 'Select Price Range' ),
-                "price_range_options"    => "cheap",
-                "price_unit_field_type"  => "number",
-                "price_unit_field_label" => get_directorist_option( 'price_label', 'Price' ),
-                "widget_group"           => "preset",
-                "widget_name"            => "pricing",
-                "label"                  => get_directorist_option( 'pricing_label', 'Pricing' ),
-            ],
-            "zip" => [
-                "type"           => "text",
-                "field_key"      => "zip",
-                "label"          => get_directorist_option( 'zip_label', 'Zip/Post Code' ),
-                "placeholder"    => get_directorist_option( 'zip_placeholder', 'Enter Zip/Post Code' ),
-                "required"       => get_directorist_option( 'require_zip', false ),
-                "only_for_admin" => get_directorist_option( 'display_zip_for', false ),
-                "widget_group"   => "preset",
-                "widget_name"    => "zip",
-            ],
-            "phone" => [
-                "type"           => "tel",
-                "field_key"      => "phone",
-                "label"          => get_directorist_option( 'phone_label', 'Phone' ),
-                "placeholder"    => get_directorist_option( 'phone_placeholder', 'Phone Number' ),
-                "required"       => get_directorist_option( 'require_phone_number', false ),
-                "only_for_admin" => get_directorist_option( 'display_phone_for', false ),
-                "widget_group"   => "preset",
-                "widget_name"    => "phone"
-            ],
             "phone2" => [
                 "type"           => "tel",
                 "field_key"      => "phone2",
@@ -205,57 +289,79 @@ class ATBDP_Multi_Directory_Migration {
 
         $submission_form_custom_fields = $this->get_old_custom_fields();
         $submission_form_fields = array_merge( $submission_form_preset_fields, $submission_form_custom_fields );
-        $submission_form_groups = [
-            [
-                "label" => "General Group",
-                "lock" => true,
-                "fields" => [
-                    "title",
-                    "description",
-                    "view_count",
-                    "pricing",
-                    "location",
-                    "tag",
-                    "category"
-                ],
+        
+        $submission_form_groups = [];
+
+        // General Group
+        $submission_form_groups[] = [
+            "label" => "General Group",
+            "lock" => true,
+            "fields" => [
+                "title",
+                "description",
+                "view_count",
+                "pricing",
+                "location",
+                "tag",
+                "category"
             ],
-            [
+        ];
+
+        // Features
+        if ( ! empty( $submission_form_custom_fields ) && is_array( $submission_form_custom_fields ) ) {
+            $submission_form_groups[] = [
                 "label" => "Features",
                 "fields" => array_keys( $submission_form_custom_fields ),
+            ];
+        }
+
+        // Contact Info
+        $submission_form_groups[] = [
+            "label" => "Contact Info",
+            "fields" => [
+                "zip",
+                "phone",
+                "phone2",
+                "email",
+                "fax",
+                "website",
+                "social_info"
             ],
-            [
-                "label" => "Contact Info",
-                "fields" => [
-                    "zip",
-                    "phone",
-                    "phone2",
-                    "email",
-                    "fax",
-                    "website",
-                    "social_info"
-                ],
+        ];
+
+        // Map
+        $submission_form_groups[] = [
+            "label" => "Map",
+            "fields" => [
+                "address",
+                "map"
             ],
-            [
-                "label" => "Map",
-                "fields" => [
-                    "address",
-                    "map"
-                ],
+        ];
+
+        // Gallery
+        $submission_form_groups[] = [
+            "label" => "Gallery",
+            "fields" => [
+                "image_upload",
+                "video",
             ],
-            [
-                "label" => "Gallery",
-                "fields" => [
-                    "image_upload",
-                    "video",
-                ],
-            ]
         ];
 
         $submission_form_fields = [
             "fields" => $submission_form_fields,
             "groups" => $submission_form_groups
         ];
-        
+
+        return $submission_form_fields;
+    }
+
+    // get_single_listings_contents_data
+    public function get_single_listings_contents_data( array $args = [] ) {
+
+        $default = [ 'submission_form_custom_fields' => [] ];
+        $args    = array_merge( $default, $args );
+
+        $submission_form_custom_fields = $args[ 'submission_form_custom_fields' ];
 
         // Single Listing Contents
         $single_listings_preset_fields = [
@@ -345,6 +451,15 @@ class ATBDP_Multi_Directory_Migration {
             ]
         ];
 
+        return $single_listings_contents;
+    }
+
+    // get_search_form_fields
+    public function get_search_form_fields( array $args = [] ) {
+        $default = [ 'submission_form_custom_fields' => [] ];
+        $args    = array_merge( $default, $args );
+
+        $submission_form_custom_fields = $args[ 'submission_form_custom_fields' ];
 
         // Search Form
         $search_fields_map = [
@@ -499,21 +614,25 @@ class ATBDP_Multi_Directory_Migration {
             "fields" => $search_form_all_fields,
             "groups" => [
                 [
-                    "label" => "Basic",
-                    "lock" => true,
+                    "label"     => "Basic",
+                    "lock"      => true,
                     "draggable" => false,
-                    "fields" => array_keys( $search_form_fields_basic_items )
+                    "fields"    => array_keys( $search_form_fields_basic_items )
                 ],
                 [
-                    "label" => "Advanced",
-                    "lock" => true,
+                    "label"     => "Advanced",
+                    "lock"      => true,
                     "draggable" => false,
-                    "fields" => array_keys( $search_form_fields_advanced_items )
+                    "fields"    => array_keys( $search_form_fields_advanced_items )
                 ]
             ]
         ];
-        
 
+        return $search_form_fields;
+    }
+
+    // get_single_listing_header_data
+    public function get_single_listing_header_data() {
         // Single Listing
         // Quick Actions Items
         $quick_actions = [];
@@ -627,7 +746,7 @@ class ATBDP_Multi_Directory_Migration {
         ]; */
         
         
-        $single_listing_header    = [
+        $single_listing_header = [
             "listings_header" => [
                 "quick_actions" => $quick_actions,
                 "thumbnail"     => $thumbnail,
@@ -655,7 +774,188 @@ class ATBDP_Multi_Directory_Migration {
             ]
         ];
 
-        // Listings Card
+        return $single_listing_header;
+    }
+
+    // get_listings_card_grid_view_data
+    public function get_listings_card_grid_view_data( array $args = [] ) {
+        $default = [ 'listings_card_wedgets' => [] ];
+        $args    = array_merge( $default, $args );
+
+        $listings_card_wedgets = $args[ 'listings_card_wedgets' ];
+
+        // Listings Card Grid View - thumbnail_top_right
+        $listings_card_grid_view_thumbnail_top_right = [];
+        if ( get_directorist_option( 'display_mark_as_fav', true ) ) {
+            $listings_card_grid_view_thumbnail_top_right[] = $listings_card_wedgets['favorite_badge'];
+        }
+
+        // Listings Card Grid View - thumbnail_top_left
+        $listings_card_grid_view_thumbnail_top_left = [];
+        if ( get_directorist_option( 'display_feature_badge_cart', true ) ) {
+            $listings_card_grid_view_thumbnail_top_left[] = $listings_card_wedgets['featured_badge'];
+        }
+
+        // Listings Card Grid View - thumbnail_bottom_left
+        $listings_card_grid_view_thumbnail_bottom_left = [];
+        if ( get_directorist_option( 'display_new_badge_cart', true ) ) {
+            $listings_card_grid_view_thumbnail_bottom_left[] = $listings_card_wedgets['new_badge'];
+        }
+
+        if ( get_directorist_option( 'display_popular_badge_cart', true ) ) {
+            $listings_card_grid_view_thumbnail_bottom_left[] = $listings_card_wedgets['popular_badge'];
+        }
+
+        // listings_card_grid_view_thumbnail_avatar
+        $listings_card_grid_view_thumbnail_avatar = [];
+        if ( get_directorist_option( 'display_author_image', true ) ) {
+            $user_avatar = $listings_card_wedgets['user_avatar'];
+            unset( $user_avatar['options'] );
+            $listings_card_grid_view_thumbnail_avatar[] = $user_avatar;
+        }
+        
+        // listings_card_grid_view_body_top
+        $listings_card_grid_view_body_top = [];
+        if ( get_directorist_option( 'display_title', true ) ) {
+            $listings_card_grid_view_body_top[] = $listings_card_wedgets['listing_title'];
+        }
+
+        // listings_card_grid_view_body_bottom
+        $listings_card_grid_view_body_bottom = [];
+        if ( get_directorist_option( 'display_contact_info', true ) ) {
+            $listings_card_grid_view_body_bottom[] = $listings_card_wedgets['listings_location'];
+        }
+
+        if ( get_directorist_option( 'display_publish_date', true ) ) {
+            $listings_card_grid_view_body_bottom[] = $listings_card_wedgets['posted_date'];
+        }
+        
+        if ( get_directorist_option( 'display_contact_info', true ) ) {
+            $listings_card_grid_view_body_bottom[] = $listings_card_wedgets['phone'];
+        }
+
+        if ( get_directorist_option( 'display_web_link', true ) ) {
+            $listings_card_grid_view_body_bottom[] = $listings_card_wedgets['website'];
+        }
+
+        // listings_card_grid_view_footer_right
+        $listings_card_grid_view_footer_right = [];
+        if ( get_directorist_option( 'display_view_count', true ) ) {
+            $listings_card_grid_view_footer_right[] = $listings_card_wedgets['view_count'];
+        }
+
+        // listings_card_grid_view_footer_left
+        $listings_card_grid_view_footer_left = [];
+        if ( get_directorist_option( 'display_category', true ) ) {
+            $listings_card_grid_view_footer_left[] = $listings_card_wedgets['category'];
+        }
+
+        $listings_card_grid_view  = [
+            "thumbnail"=> [ 
+                "top_right"    => $listings_card_grid_view_thumbnail_top_right,
+                "top_left"     => $listings_card_grid_view_thumbnail_top_left,
+                "bottom_right" => [],
+                "bottom_left"  => $listings_card_grid_view_thumbnail_bottom_left,
+                "avatar"       => $listings_card_grid_view_thumbnail_avatar,
+                "body" => [
+                    "top"    => $listings_card_grid_view_body_top,
+                    "bottom" => $listings_card_grid_view_body_bottom
+                ] 
+            ],
+            "footer"=> [
+                "right" => $listings_card_grid_view_footer_right,
+                "left"  => $listings_card_grid_view_footer_left
+            ]
+        ];
+
+        return $listings_card_grid_view;
+    }
+
+    // get_listings_card_list_view_data
+    public function get_listings_card_list_view_data( array $args = [] ) {
+        $default = [ 'listings_card_wedgets' => [] ];
+        $args    = array_merge( $default, $args );
+
+        $listings_card_wedgets = $args[ 'listings_card_wedgets' ];
+
+        // $listings_card_list_view_thumbnail_top_right
+        $listings_card_list_view_thumbnail_top_right = [];
+        if ( get_directorist_option( 'display_feature_badge_cart', true ) ) {
+            $listings_card_list_view_thumbnail_top_right[] = $listings_card_wedgets['featured_badge'];
+        }
+
+        if ( get_directorist_option( 'display_popular_badge_cart', true ) ) {
+            $listings_card_list_view_thumbnail_top_right[] = $listings_card_wedgets['popular_badge'];
+        }
+
+        // $listings_card_list_view_body_top
+        $listings_card_list_view_body_top = [];
+        if ( get_directorist_option( 'display_title', true ) ) {
+            $listings_card_list_view_body_top[] = $listings_card_wedgets['listing_title'];
+        }
+
+        if ( get_directorist_option( 'display_new_badge_cart', true ) ) {
+            $listings_card_list_view_body_top[] = $listings_card_wedgets['new_badge'];
+        }
+
+        $listings_card_list_view_body_right = [];
+        if ( get_directorist_option( 'display_mark_as_fav', true ) ) {
+            $listings_card_list_view_body_right[] = $listings_card_wedgets['favorite_badge'];
+        }
+        
+        // $listings_card_list_view_body_bottom
+        $listings_card_list_view_body_bottom = [];
+        if ( get_directorist_option( 'display_contact_info', true ) ) {
+            $listings_card_list_view_body_bottom[] = $listings_card_wedgets['listings_location'];
+        }
+
+        if ( get_directorist_option( 'display_publish_date', true ) ) {
+            $listings_card_list_view_body_bottom[] = $listings_card_wedgets['posted_date'];
+        }
+
+        if ( get_directorist_option( 'display_contact_info', true ) ) {
+            $listings_card_list_view_body_bottom[] = $listings_card_wedgets['phone'];
+        }
+
+        if ( get_directorist_option( 'display_web_link', true ) ) {
+            $listings_card_list_view_body_bottom[] = $listings_card_wedgets['website'];
+        }
+        
+        // listings_card_list_view_footer_right
+        $listings_card_list_view_footer_right = [];
+        if ( get_directorist_option( 'display_view_count', true ) ) {
+            $listings_card_list_view_footer_right[] = $listings_card_wedgets['view_count'];
+        }
+
+        if ( get_directorist_option( 'display_author_image', true ) ) {
+            $listings_card_list_view_footer_right[] = $listings_card_wedgets['user_avatar'];
+        }
+
+        $listings_card_list_view_footer_left = [];
+        if ( get_directorist_option( 'display_category', true ) ) {
+            $listings_card_list_view_footer_left[] = $listings_card_wedgets['category'];
+        }
+
+        $listings_card_list_view = [
+            "thumbnail"=> [
+                "top_right" => $listings_card_list_view_thumbnail_top_right
+            ],
+            "body"=> [
+                "top"    => $listings_card_list_view_body_top,
+                "right"  => $listings_card_list_view_body_right,
+                "bottom" => $listings_card_list_view_body_bottom
+            ],
+            "footer" => [
+                "right" => $listings_card_list_view_footer_right,
+                "left"  => $listings_card_list_view_footer_left
+            ]
+        ];
+
+        return $listings_card_list_view;
+    }
+
+    // get_listings_card_wedgets_data
+    public function get_listings_card_wedgets_data() {
         $listings_card_wedgets = [
             'favorite_badge' => [
                 "type"    => "badge",
@@ -783,218 +1083,37 @@ class ATBDP_Multi_Directory_Migration {
             ],
 
         ];
-        // Listings Card Grid View
-        // Listings Card Grid View - thumbnail_top_right
-        $listings_card_grid_view_thumbnail_top_right = [];
-        if ( get_directorist_option( 'display_mark_as_fav', true ) ) {
-            $listings_card_grid_view_thumbnail_top_right[] = $listings_card_wedgets['favorite_badge'];
-        }
 
-        // Listings Card Grid View - thumbnail_top_left
-        $listings_card_grid_view_thumbnail_top_left = [];
-        if ( get_directorist_option( 'display_feature_badge_cart', true ) ) {
-            $listings_card_grid_view_thumbnail_top_left[] = $listings_card_wedgets['featured_badge'];
-        }
-
-        // Listings Card Grid View - thumbnail_bottom_left
-        $listings_card_grid_view_thumbnail_bottom_left = [];
-        if ( get_directorist_option( 'display_new_badge_cart', true ) ) {
-            $listings_card_grid_view_thumbnail_bottom_left[] = $listings_card_wedgets['new_badge'];
-        }
-
-        if ( get_directorist_option( 'display_popular_badge_cart', true ) ) {
-            $listings_card_grid_view_thumbnail_bottom_left[] = $listings_card_wedgets['popular_badge'];
-        }
-
-        // listings_card_grid_view_thumbnail_avatar
-        $listings_card_grid_view_thumbnail_avatar = [];
-        if ( get_directorist_option( 'display_author_image', true ) ) {
-            $user_avatar = $listings_card_wedgets['user_avatar'];
-            unset( $user_avatar['options'] );
-            $listings_card_grid_view_thumbnail_avatar[] = $user_avatar;
-        }
-        
-        // listings_card_grid_view_body_top
-        $listings_card_grid_view_body_top = [];
-        if ( get_directorist_option( 'display_title', true ) ) {
-            $listings_card_grid_view_body_top[] = $listings_card_wedgets['listing_title'];
-        }
-
-        // listings_card_grid_view_body_bottom
-        $listings_card_grid_view_body_bottom = [];
-        if ( get_directorist_option( 'display_contact_info', true ) ) {
-            $listings_card_grid_view_body_bottom[] = $listings_card_wedgets['listings_location'];
-        }
-
-        if ( get_directorist_option( 'display_publish_date', true ) ) {
-            $listings_card_grid_view_body_bottom[] = $listings_card_wedgets['posted_date'];
-        }
-        
-        if ( get_directorist_option( 'display_contact_info', true ) ) {
-            $listings_card_grid_view_body_bottom[] = $listings_card_wedgets['phone'];
-        }
-
-        if ( get_directorist_option( 'display_web_link', true ) ) {
-            $listings_card_grid_view_body_bottom[] = $listings_card_wedgets['website'];
-        }
-
-        // listings_card_grid_view_footer_right
-        $listings_card_grid_view_footer_right = [];
-        if ( get_directorist_option( 'display_view_count', true ) ) {
-            $listings_card_grid_view_footer_right[] = $listings_card_wedgets['view_count'];
-        }
-
-        // listings_card_grid_view_footer_left
-        $listings_card_grid_view_footer_left = [];
-        if ( get_directorist_option( 'display_category', true ) ) {
-            $listings_card_grid_view_footer_left[] = $listings_card_wedgets['category'];
-        }
-
-        $listings_card_grid_view  = [
-            "thumbnail"=> [ 
-                "top_right"    => $listings_card_grid_view_thumbnail_top_right,
-                "top_left"     => $listings_card_grid_view_thumbnail_top_left,
-                "bottom_right" => [],
-                "bottom_left"  => $listings_card_grid_view_thumbnail_bottom_left,
-                "avatar"       => $listings_card_grid_view_thumbnail_avatar,
-                "body" => [
-                    "top"    => $listings_card_grid_view_body_top,
-                    "bottom" => $listings_card_grid_view_body_bottom
-                ] 
-            ],
-            "footer"=> [
-                "right" => $listings_card_grid_view_footer_right,
-                "left"  => $listings_card_grid_view_footer_left
-            ]
-        ];
-        
-        // $listings_card_list_view_thumbnail_top_right
-        $listings_card_list_view_thumbnail_top_right = [];
-        if ( get_directorist_option( 'display_feature_badge_cart', true ) ) {
-            $listings_card_list_view_thumbnail_top_right[] = $listings_card_wedgets['featured_badge'];
-        }
-
-        if ( get_directorist_option( 'display_popular_badge_cart', true ) ) {
-            $listings_card_list_view_thumbnail_top_right[] = $listings_card_wedgets['popular_badge'];
-        }
-
-        // $listings_card_list_view_body_top
-        $listings_card_list_view_body_top = [];
-        if ( get_directorist_option( 'display_title', true ) ) {
-            $listings_card_list_view_body_top[] = $listings_card_wedgets['listing_title'];
-        }
-
-        if ( get_directorist_option( 'display_new_badge_cart', true ) ) {
-            $listings_card_list_view_body_top[] = $listings_card_wedgets['new_badge'];
-        }
-
-        $listings_card_list_view_body_right = [];
-        if ( get_directorist_option( 'display_mark_as_fav', true ) ) {
-            $listings_card_list_view_body_right[] = $listings_card_wedgets['favorite_badge'];
-        }
-        
-        // $listings_card_list_view_body_bottom
-        $listings_card_list_view_body_bottom = [];
-        if ( get_directorist_option( 'display_contact_info', true ) ) {
-            $listings_card_list_view_body_bottom[] = $listings_card_wedgets['listings_location'];
-        }
-
-        if ( get_directorist_option( 'display_publish_date', true ) ) {
-            $listings_card_list_view_body_bottom[] = $listings_card_wedgets['posted_date'];
-        }
-
-        if ( get_directorist_option( 'display_contact_info', true ) ) {
-            $listings_card_list_view_body_bottom[] = $listings_card_wedgets['phone'];
-        }
-
-        if ( get_directorist_option( 'display_web_link', true ) ) {
-            $listings_card_list_view_body_bottom[] = $listings_card_wedgets['website'];
-        }
-        
-        // listings_card_list_view_footer_right
-        $listings_card_list_view_footer_right = [];
-        if ( get_directorist_option( 'display_view_count', true ) ) {
-            $listings_card_list_view_footer_right[] = $listings_card_wedgets['view_count'];
-        }
-
-        if ( get_directorist_option( 'display_author_image', true ) ) {
-            $listings_card_list_view_footer_right[] = $listings_card_wedgets['user_avatar'];
-        }
-
-        $listings_card_list_view_footer_left = [];
-        if ( get_directorist_option( 'display_category', true ) ) {
-            $listings_card_list_view_footer_left[] = $listings_card_wedgets['category'];
-        }
-
-        $listings_card_list_view = [
-            "thumbnail"=> [
-                "top_right" => $listings_card_list_view_thumbnail_top_right
-            ],
-            "body"=> [
-                "top"    => $listings_card_list_view_body_top,
-                "right"  => $listings_card_list_view_body_right,
-                "bottom" => $listings_card_list_view_body_bottom
-            ],
-            "footer" => [
-                "right" => $listings_card_list_view_footer_right,
-                "left"  => $listings_card_list_view_footer_left
-            ]
-        ];
-
-        $fields = apply_filters( 'atbdp_multidirectory_migration_fields', [
-            "name"                     => "General",
-            "icon"                     => "fa fa-home",
-            "singular_name"            => "listing",
-            "plural_name"              => "listings",
-            "permalink"                => "listing",
-            "preview_image"            => $preview_image,
-            "default_expiration"       => get_directorist_option( 'listing_expire_in_days', 365 ),
-            "new_listing_status"       => get_directorist_option( 'new_listing_status', 'pending' ),
-            "edit_listing_status"      => get_directorist_option( 'edit_listing_status', 'pending' ),
-            "submit_button_label"      => get_directorist_option( 'submit_label', 'Save & Preview' ),
-            "preview_mode"             => get_directorist_option( 'preview_enable', true ),
-            "submission_form_fields"   => $submission_form_fields,
-            "single_listings_contents" => $single_listings_contents,
-            "enable_similar_listings"  => get_directorist_option( 'enable_rel_listing', true ),
-            "similar_listings_logics"  => get_directorist_option( 'rel_listings_logic', 'OR' ),
-            "search_form_fields"       => $search_form_fields,
-            "single_listing_header"    => $single_listing_header,
-            "listings_card_grid_view"  => $listings_card_grid_view,
-            "listings_card_list_view"  => $listings_card_list_view,
-            "similar_listings_number_of_listings_to_show" => get_directorist_option( 'rel_listing_num', 10 ),
-        ]);
-        
-
-        echo '<pre>';
-        print_r( $fields );
-        echo '</pre>';
-        
-
-        $add_directory = $this->multi_directory_manager->add_directory([
-            'directory_name' => 'General Migration',
-            'fields_value'   => $fields,
-        ]);
-        
-        if ( $add_directory['status']['success'] ) {
-            update_option( 'atbdp_migrated_to_multidirectory', true );
-            update_term_meta( $add_directory['term_id'], '_default', true );
-        }
-
-        // Add directory type to all listings
-        $listings = new WP_Query([
-            'post_type' => ATBDP_POST_TYPE,
-            'status'    => 'publish',
-            'per_page'  => -1,                
-        ]);
-
-        if ( $listings->have_posts() ) {
-            while ( $listings->have_posts() ) {
-                $listings->the_post();
-
-                wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
-            }
-        }
+        return $listings_card_wedgets;
     }
+
+    // get_terms_label
+    public function get_terms_label() {
+        $terms_label_a = get_directorist_option( 'terms_label', true );
+        $terms_label_b = get_directorist_option( 'terms_label_link', true );
+        $terms_label = "{$terms_label_a} %{$terms_label_b}%";
+
+        return $terms_label;
+    }
+
+    // get_privacy_label
+    public function get_privacy_label() {
+        $privacy_label_a = get_directorist_option( 'privacy_label', true );
+        $privacy_label_b = get_directorist_option( 'privacy_label_link', true );
+        $privacy_label   = "{$privacy_label_a} %{$privacy_label_b}%";
+
+        return $privacy_label;
+    }
+    
+    // get_preview_image
+    public function get_preview_image() {
+        $preview_image_url = get_directorist_option( 'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' );
+        $preview_image     = [ 'id' => null, 'url' => $preview_image_url ];
+
+        return $preview_image;
+    }
+
+
 
     // get_old_custom_fields
     public function get_old_custom_fields()

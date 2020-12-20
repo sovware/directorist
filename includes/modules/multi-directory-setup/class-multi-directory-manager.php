@@ -102,10 +102,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
         // initial_setup
         public function initial_setup() {
-            $has_listings       = false;
-            $has_custom_fields  = false;
-            $migrated           = get_option( 'atbdp_migrated_to_multidirectory', false );
-
             $directory_types = get_terms( array(
                 'taxonomy'   => ATBDP_DIRECTORY_TYPE,
                 'hide_empty' => false,
@@ -122,6 +118,10 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
                 'posts_per_page' => 1,
             ]);
+            
+            $migrated           = get_option( 'atbdp_migrated_to_multidirectory', false );
+            $has_listings       = false;
+            $has_custom_fields  = false;
 
             $has_listings        = $get_listings->post_count;
             $has_custom_fields   = $get_custom_fields->post_count;
@@ -138,12 +138,24 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             // ]);
             // echo '</pre>';
             // die;
+            
+            $args = [ 'multi_directory_manager' => $this ];
+            $migration = new ATBDP_Multi_Directory_Migration( $args );
+
+            // $migration->run();
+            $get_fields_data = $migration->get_fields_data();
+
+            echo '<pre>';
+            var_export( $get_fields_data['submission_form_fields'] );
+            echo '</pre>';
+
+            die;
 
             if ( $need_migration ) {
                 $args = [ 'multi_directory_manager' => $this ];
                 $migration = new ATBDP_Multi_Directory_Migration( $args );
 
-                $migration->run();
+                // $migration->run();
                 return;
             }
 

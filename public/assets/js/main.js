@@ -672,7 +672,7 @@
             var status_area = $( this ).find( '.atbdp-contact-message-display' );
 
             // Show loading message
-            var msg = '<div class="atbdp-alert"><i class="fas fa-circle-notch fa-spin"></i> Sending the message, please wait... </div>';
+            var msg = '<div class="atbdp-alert"><i class="fas fa-circle-notch fa-spin"></i> '+ atbdp_public_data.waiting_msg +' </div>';
             status_area.html( msg );
 
             var post_id       = $( this ).find( 'input[name="atbdp-post-id"]' );

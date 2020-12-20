@@ -556,6 +556,8 @@ class Directorist_Listing_Forms {
 			}
 		}
 
+		// e_var_dump( $value );
+
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
 		

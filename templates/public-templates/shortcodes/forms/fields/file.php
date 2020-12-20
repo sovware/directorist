@@ -13,8 +13,7 @@
 /**
  * Directorist file uploader
  */
-global $post;
-$post_id = $post->ID;
+$post_id = $form->get_add_listing_id();
 wp_enqueue_style( 'atbdp-pluploadcss' );
 wp_enqueue_script( 'atbdp-plupload-min' );
 wp_enqueue_script( 'atbdp-plupload' );
@@ -95,7 +94,7 @@ $multiple           = false;
 ?>
 <div class="atbdp-add-files">
 	<div class="atbdp_form_row clearfix atbdp-files-dropbox" id="<?php echo $id; ?>dropbox">
-		<input type="hidden" name="<?php echo $data['field_key']; ?>" id="<?php echo $post_id; ?>" value="<?php echo $value; ?>"
+		<input type="hidden" name="<?php echo $data['field_key']; ?>" id="<?php echo $post_id; ?>" value="<?php echo !empty( $value ) ? $value : '' ; ?>"
 		/>
 		<input type="hidden" name="<?php echo $id; ?>image_limit" id="<?php echo $id; ?>image_limit"
 			   value="<?php echo $image_limit; ?>"/>

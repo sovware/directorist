@@ -327,11 +327,16 @@ Directorist is a complete directory solution and in combination with its advance
 
 == Changelog ==
 
-= 6.5.7 - Dec 9, 2020 =
+= 6.5.7 - Dec 21, 2020 =
 
-* Add - Membership management page
-* Fix - Confirmation message on contact with listing owner form submission
-* Check - WP 5.6 compatibility
+* Add - Rank Math plugin compatibility
+* Add - Guest submission login modal for existing users
+* Add - All listing short code parameter "map_zoom_level"
+* Add - Option to restrict single listings for logged in user only
+* Add - WP 5.6 compatibility
+* Fix - Search result sort by feature
+* Fix - Listing bookmark issue
+* Improve - Contact listing owner confirmation message
 
 = 6.5.6 - Nov 27, 2020 =
 

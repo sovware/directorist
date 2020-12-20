@@ -3436,7 +3436,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                     'description' => 'Click on a field to use it',
                     'allow_multiple' => false,
                     'template' => 'submission_form_fields',
-                    'widgets' => [
+                    'widgets' => apply_filters( 'atbdp_single_listing_content_widgets', [
                         'tag' => [
                             'options' => [
                                 'icon' => [
@@ -3645,7 +3645,7 @@ if ( ! class_exists('ATBDP_Listing_Type_Manager') ) {
                                 ],
                             ]
                         ],
-                    ],
+                    ] ),
                 ],
                 'other_widgets' => [
                     'title' => 'Other Fields',

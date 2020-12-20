@@ -116,6 +116,7 @@ class Directorist_Single_Listing {
 		if( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && !$value ) {
 			$load_template = false;
 		}
+		$data['value'] = $value;
 		$args = array(
 			'listing' => $this,
 			'data'    => $data,

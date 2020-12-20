@@ -332,6 +332,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
             'upload_pro_pic_text'         => __( 'Use this Image', 'directorist' ),
             'payNow'                      => __( 'Pay Now', 'directorist' ),
             'completeSubmission'          => __( 'Complete Submission', 'directorist' ),
+            'waiting_msg'                 => __( 'Sending the message, please wait...', 'directorist' ),
             'plugin_url'                  => ATBDP_URL,
             'currentDate'                 => get_the_date(),
             'enable_reviewer_content'     => $enable_reviewer_content

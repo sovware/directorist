@@ -951,7 +951,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             if ( ! $activatation_status[ 'success' ] ) {
                 $status[ 'success'] = false;
-                $status[ 'message'] = __( 'The license is not valid', 'directorist' );
+                $status[ 'message'] = __( 'The license is not valid, please check you subscription.', 'directorist' );
 
                 return [ 'status' => $status ];
             }

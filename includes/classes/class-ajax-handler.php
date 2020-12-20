@@ -1063,7 +1063,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 $send_to_owner = $this->atbdp_email_listing_owner_listing_contact();
                 if (!$send_to_owner) {
                     $data['error'] = 1;
-                    $data['message'] = __('Sorry! Please try again.', 'directorist');
+                    $data['message'] = __('Sorry! Something went wrong. Please contact admin for support.', 'directorist');
                 }
             }
             // let's check is admin decides to send email to him/her
@@ -1071,7 +1071,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 $send_to_admin = $this->atbdp_email_admin_listing_contact();
                 if (!$send_to_admin) {
                     $data['error'] = 1;
-                    $data['message'] = __('Sorry! Please try again.', 'directorist');
+                    $data['message'] = __('Sorry! Something went wrong. Please contact admin for support.', 'directorist');
                 }
             }
             // no error found so let's show submitter the success message

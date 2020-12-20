@@ -225,8 +225,8 @@ final class Directorist_Base
             self::$instance->enquirer = new ATBDP_Enqueuer;
             
             // ATBDP_Listing_Type_Manager
-            self::$instance->cpt_manager = new ATBDP_Listing_Type_Manager;
-            self::$instance->cpt_manager->run();
+            self::$instance->multi_directory_manager = new ATBDP_Multi_Directory_Manager;
+            self::$instance->multi_directory_manager->run();
 
             // self::$instance->settings_panel = new ATBDP_Settings_Panel;
             // self::$instance->settings_panel->run();
@@ -386,6 +386,8 @@ final class Directorist_Base
         load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
         load_dependencies('all', ATBDP_INC_DIR . 'model/');
         load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
+        load_dependencies('all', ATBDP_INC_DIR . 'modules/');
+        load_dependencies('all', ATBDP_INC_DIR . 'modules/multi-directory-setup/');
 
         load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
         load_dependencies('all', ATBDP_MODEL_DIR); // load all php files from ATBDP_MODEL_DIR

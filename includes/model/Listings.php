@@ -1633,6 +1633,8 @@ class Directorist_Listings {
 		}
 
 		public function render_card_field( $field ) {
+							
+
 			if ( $field['type'] == 'badge' ) {
 				$this->render_badge_template($field);
 			}
@@ -1675,6 +1677,9 @@ class Directorist_Listings {
 		public function render_badge_template( $field ) {
 			global $post;
 			$id = get_the_ID();
+			// for development purpose
+			do_action( 'atbdp_all_listings_badge_template', $field );
+
 			switch ($field['widget_key']) {
 				case 'popular_badge':
 				$field['class'] = 'popular';
@@ -1706,6 +1711,7 @@ class Directorist_Listings {
 				}
 				break;
 			}
+
 		}
 
 		public function listing_wrapper_class() {

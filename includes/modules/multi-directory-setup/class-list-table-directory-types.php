@@ -4,13 +4,13 @@ if (!class_exists('WP_List_Table')) {
   require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 }
 
-if (class_exists('WP_List_Table') && !class_exists('Listing_Types_List_Table')) :
+if (class_exists('WP_List_Table') && !class_exists('Directory_Types_List_Table')) :
 
-  class Listing_Types_List_Table extends WP_List_Table {
+  class Directory_Types_List_Table extends WP_List_Table {
     public $listing_type_manager = null;
 
     
-    public function __construct( ATBDP_Listing_Type_Manager $listing_type_manager )
+    public function __construct( $listing_type_manager )
     {
       parent::__construct([
         'singular' => 'bulk-delete',

@@ -20,10 +20,6 @@ class ATBDP_Multi_Directory_Migration {
     public function migrate() {
         $fields = $this->get_fields_data();
         
-        /* echo '<pre>';
-        print_r( $fields );
-        echo '</pre>'; */
-        
         $add_directory = $this->multi_directory_manager->add_directory([
             'directory_name' => 'General',
             'fields_value'   => $fields,

@@ -2023,6 +2023,7 @@ input.atbdp-form-control {
           align-items: center;
           padding: 12px 15px;
           min-width: 300px;
+
           input {
             margin-right: 20px !important;
           }
@@ -2175,11 +2176,13 @@ input.atbdp-form-control {
 .et-header-title-area {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .et-header-actions {
   margin: 0 10px;
   display: inline-flex;
+  align-items: center;
   flex-wrap: wrap;
 }
 

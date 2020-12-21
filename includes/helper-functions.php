@@ -4803,3 +4803,21 @@ function dvar_dump($data){
     var_dump($data);
     echo "</pre>";
 }
+
+if( ! function_exists( 'atbdp_field_assigned_plan' ) ) {
+    function atbdp_field_assigned_plan( $field_data, $selected_plan = NULL ) {
+        if( ! $field_data ) return false;
+    
+        $quired_plan = ! empty( $_GET['plan'] ) ? sanitize_key( $_GET['plan'] ) : '';
+        $selected_plan = ! empty( $selected_plan ) ? $selected_plan : $quired_plan;
+        $plans = !empty( $field_data['plans'] ) ? $field_data['plans'] : [];
+        
+        if( $plans ) {
+            foreach ( $plans as $plan ) {
+                if( $plan['plan_id'] == $selected_plan ) {
+                    return $plan;
+                }
+            }
+        }
+    }
+}

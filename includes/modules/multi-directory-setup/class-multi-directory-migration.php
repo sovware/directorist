@@ -53,9 +53,8 @@ class ATBDP_Multi_Directory_Migration {
 
     // get_fields_data
     public function get_fields_data() {
-
-        $submission_form_fields = $this->get_submission_form_fields_data();
-        $form_fields_common_data = [ 'submission_form_custom_fields' => $submission_form_fields ];
+        $submission_form_custom_fields = $this->get_old_custom_fields();
+        $form_fields_common_data = [ 'submission_form_custom_fields' => $submission_form_custom_fields ];
 
         $listings_card_wedgets = $this->get_listings_card_wedgets_data();
         $listings_card_common_data = [ 'listings_card_wedgets' => $listings_card_wedgets ];
@@ -79,7 +78,7 @@ class ATBDP_Multi_Directory_Migration {
             "listing_privacy"          => get_directorist_option( 'listing_privacy', true ),
             "require_privacy"          => get_directorist_option( 'require_privacy', true ),
             "privacy_label"            => $this->get_privacy_label(),
-            "submission_form_fields"   => $submission_form_fields,
+            "submission_form_fields"   => $this->get_submission_form_fields_data( $form_fields_common_data ),
             "single_listings_contents" => $this->get_single_listings_contents_data( $form_fields_common_data ),
             "similar_listings_title"   => get_directorist_option( 'rel_listing_title', true ),
             "enable_similar_listings"  => get_directorist_option( 'enable_rel_listing', true ),
@@ -97,7 +96,10 @@ class ATBDP_Multi_Directory_Migration {
     }
 
     // get_submission_form_fields_data
-    public function get_submission_form_fields_data() {
+    public function get_submission_form_fields_data( array $args = [] ) {
+        $default = [ 'submission_form_custom_fields' => [] ];
+        $args    = array_merge( $default, $args );
+
         // Submission Form Fields
         $submission_form_preset_fields = [];
 
@@ -308,7 +310,7 @@ class ATBDP_Multi_Directory_Migration {
             "widget_name"    => "video"
         ];
 
-        $submission_form_custom_fields = $this->get_old_custom_fields();
+        $submission_form_custom_fields = $args[ 'submission_form_custom_fields' ];
         $submission_form_fields = array_merge( $submission_form_preset_fields, $submission_form_custom_fields );
         
         $submission_form_groups = [];
@@ -382,8 +384,6 @@ class ATBDP_Multi_Directory_Migration {
         $default = [ 'submission_form_custom_fields' => [] ];
         $args    = array_merge( $default, $args );
 
-        $submission_form_custom_fields = $args[ 'submission_form_custom_fields' ];
-
         // Single Listing Contents
         $single_listings_preset_fields = [
             "address" => [
@@ -434,6 +434,7 @@ class ATBDP_Multi_Directory_Migration {
         ];
 
         $single_listings_custom_fields = [];
+        $submission_form_custom_fields = $args[ 'submission_form_custom_fields' ];
         foreach ( $submission_form_custom_fields as $field_key => $args ) {
             $single_listings_custom_fields[ $field_key ] = [
                 "label"        => $args['label'],
@@ -479,8 +480,6 @@ class ATBDP_Multi_Directory_Migration {
     public function get_search_form_fields( array $args = [] ) {
         $default = [ 'submission_form_custom_fields' => [] ];
         $args    = array_merge( $default, $args );
-
-        $submission_form_custom_fields = $args[ 'submission_form_custom_fields' ];
 
         // Search Form
         $search_fields_map = [
@@ -621,6 +620,7 @@ class ATBDP_Multi_Directory_Migration {
         }
 
         // Custom Fields
+        $submission_form_custom_fields = $args[ 'submission_form_custom_fields' ];
         foreach ( $submission_form_custom_fields as $field_key => $field_args ) {
             if ( empty( $field_args['searchable'] ) ) { continue; }
             $search_form_fields_advanced_items[ $field_key ] = [

@@ -119,7 +119,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'posts_per_page' => 1,
             ]);
             
-            $migrated           = get_option( 'atbdp_migrated_to_multidirectory', false );
             $has_listings       = false;
             $has_custom_fields  = false;
 
@@ -139,23 +138,23 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             // echo '</pre>';
             // die;
             
-            $args = [ 'multi_directory_manager' => $this ];
-            $migration = new ATBDP_Multi_Directory_Migration( $args );
+            // $args = [ 'multi_directory_manager' => $this ];
+            // $migration = new ATBDP_Multi_Directory_Migration( $args );
 
             // $migration->run();
-            $get_fields_data = $migration->get_fields_data();
+            // $get_fields_data = $migration->get_fields_data();
 
-            echo '<pre>';
-            var_export( $get_fields_data['submission_form_fields'] );
-            echo '</pre>';
+            // echo '<pre>';
+            // var_export( $get_fields_data );
+            // echo '</pre>';
 
-            die;
+            // die;
 
             if ( $need_migration ) {
                 $args = [ 'multi_directory_manager' => $this ];
                 $migration = new ATBDP_Multi_Directory_Migration( $args );
 
-                // $migration->run();
+                $migration->run();
                 return;
             }
 

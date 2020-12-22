@@ -529,8 +529,13 @@ export default {
       return this.active_fields[field_key][data_key];
     },
     getActiveFieldsSettings(field_key, data_key) {
+      if ( ! this.active_fields[field_key] ) { return ''; }
+      if ( ! this.active_fields[field_key].widget_group ) { return ''; }
+      if ( ! this.active_fields[field_key].widget_name ) { return ''; }
+
       const widget_group = this.active_fields[field_key].widget_group;
       const widget_name = this.active_fields[field_key].widget_name;
+
       if ( typeof widget_group === "undefined") { return false; }
       if ( typeof widget_name === "undefined") { return false; }
       if ( typeof this.theWidgets[widget_group] === "undefined") { return false; }
@@ -553,7 +558,7 @@ export default {
       let settings_label = this.getActiveFieldsSettings(field_key, "label");
       settings_label = ( settings_label ) ? settings_label : '';
       
-      let option_label = this.active_fields[field_key]["label"];
+      let option_label = ( this.active_fields[field_key] && this.active_fields[field_key]["label"] ) ? this.active_fields[field_key]["label"] : '';
       option_label = ( option_label && option_label.length ) ? option_label : settings_label;
       option_label = option_label + '<span class="cptm-text-gray cptm-px-5">'+ settings_label +'</span>';
       

@@ -2615,7 +2615,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'title' => 'Other Fields',
                     'description' => 'Click on a field to use it',
                     'allow_multiple' => false,
-                    'widgets' => [
+                    'widgets' => apply_filters( 'atbdp_single_listing_other_fields_widget', [
                         'review' => [ 
                             'type' => 'section',
                             'label' => 'Review',
@@ -2704,7 +2704,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 ],
                             ]
                         ],
-                    ],
+                    ] ),
                 ],
             ];
 

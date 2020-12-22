@@ -96,6 +96,7 @@ class Directorist_Single_Listing {
 
 		if ( $section_data['type'] == 'widget_group' ) {
 			$template = 'single-listing/section-'. $section_data['widget_name'];
+			$template = apply_filters( 'directorist_single_section_template', $template, $section_data );
 			atbdp_get_shortcode_template( $template, $args );
 		}
 		else {

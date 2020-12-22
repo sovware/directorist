@@ -117,6 +117,7 @@ class Directorist_Single_Listing {
 			$load_template = false;
 		}
 		$data['value'] = $value;
+		$data['listing_id'] = $this->id;
 		$args = array(
 			'listing' => $this,
 			'data'    => $data,

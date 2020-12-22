@@ -13,15 +13,12 @@ $plan_image          = $data['max_image_limit'];
 $max_file_size       = $data['max_per_image_limit'];
 $max_total_file_size = $data['max_total_image_limit'];
 
-$slider_unl = '';
-if ( is_fee_manager_active() ) {
-	$selected_plan = selected_plan_id();
-	$planID        = ! empty( $selected_plan ) ? $selected_plan : $fm_plan;
-	$allow_slider  = is_plan_allowed_slider( $planID );
-	$slider_unl    = is_plan_slider_unlimited( $planID );
-	if ( ! empty( $allow_slider ) && empty( $slider_unl ) ) {
-		$plan_image = is_plan_slider_limit( $planID );
-	}
+if ( !empty( $field_data['plans'] ) ) {
+    $plan = atbdp_field_assigned_plan( $field_data );
+    $slider_unl = ( $plan['max'] == 0 ) ? true : false;
+    if (!$slider_unl) {
+        $plan_image = $plan['max'];
+    }
 }
 
 $listing_img            = atbdp_get_listing_attachment_ids( $p_id );

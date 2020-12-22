@@ -194,7 +194,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     'post_title' => $title,
                     'post_type' => ATBDP_POST_TYPE,
                     'tax_input' => !empty($info['tax_input']) ? atbdp_sanitize_array($info['tax_input']) : array(),
-                    'meta_input' => $metas,
+                    'meta_input' => apply_filters( 'atbdp_ultimate_listing_meta_user_submission', $metas, $info ),
                 );
           
                 // is it update post ? @todo; change listing_id to atbdp_listing_id later for consistency with rewrite tags

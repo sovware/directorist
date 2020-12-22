@@ -7,10 +7,16 @@
 ?>
 
 <div class="form-group directorist-color-field">
-	<?php $form->add_listing_label_template( $data );
-	if( !empty( $data['value'] ) ) { ?>
-	<script> jQuery(document).ready(function ($) { $('.my-color-field').wpColorPicker(); }); </script>
-	<?php } else { ?>
+	<?php
+	$form->add_listing_label_template( $data );
+	
+	if( !empty( $data['value'] ) ) {
+		?>
+		<script> jQuery(document).ready(function ($) { $('.my-color-field').wpColorPicker(); }); </script>
+		<?php
+	}
+	else {
+		?>
 		<script> jQuery(document).ready(function ($) { $('.my-color-field').wpColorPicker().empty(); }); </script>
 	<?php } ?>
 	

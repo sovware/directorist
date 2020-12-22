@@ -621,9 +621,13 @@ class Directorist_Listing_Forms {
 	}
 
 	public function build_form_data( $type ) {
-		$form_data              = array();
+		$form_data = [];
+
+		if ( !$type ) {
+			return $form_data;
+		}
+
 		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
-		// e_var_dump($submission_form_fields);
 
 		foreach ( $submission_form_fields['groups'] as $group ) {
 			$section           = $group;
@@ -634,8 +638,6 @@ class Directorist_Listing_Forms {
 			$form_data[] = $section;
 
 		}
-
-		// e_var_dump($form_data);
 
 		return $form_data;
 	}

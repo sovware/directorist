@@ -4585,7 +4585,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         ],
                         'settings' => [
                             'label' => 'Settings',
-                            'sections' => [
+                            'sections' => apply_filters( 'atbdp_submission_form_settings', [
                                 'submittion_settings' => [
                                     'title' => __('Submittion Settings', 'directorist'),
                                     'container' => 'short-width',
@@ -4620,7 +4620,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                         'privacy_label',
                                     ],
                                 ],
-                            ],
+                            ] ),
                         ],
                     ],
                 ],

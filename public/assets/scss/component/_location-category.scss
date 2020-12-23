@@ -148,11 +148,20 @@
     }
   }
   span.expander {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
     margin-left: 5px;
     line-height: 15px;
     border-radius: 5px;
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0A0B1E;
+    color: #fff;
+    margin-left: 18px;
     cursor: pointer;
   }
   .atbd_all_categories {
@@ -182,6 +191,62 @@
         margin-top: 5px;
         color: #fff;
         word-break: break-all;
+      }
+    }
+    .atbd_category_single{
+      &.atbdp-no-image{
+        border: 0 none;
+        box-shadow: 0 5px 25px rgba(#8F8E9F,.15);
+        border-radius: 6px;
+        figure{
+          position: relative;
+        }
+        img{
+          display: none;
+        }
+        .cat-box{
+          .icon{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 70px;
+            width: 70px;
+            padding: 0;
+            border-radius: 50%;
+            background-color: $primary;
+            margin: 0 0 20px;
+            span,
+            i,
+            svg{
+              margin-bottom: 0;
+              color: #fff;
+            }
+          }
+        }
+        .cat-info{
+          flex-direction: column;
+        }
+        .cat-name{
+          font-size: 16px;
+          color: #0A0B1E;
+          font-weight: 500;
+          margin-bottom: 8px;
+        }
+        .cat-count{
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          font-weight: 400;
+          color: #8F8E9F;
+          span{
+            font-size: 16px;
+          }
+        }
+        figcaption{
+          position: relative;
+          background-color: #fff;
+          padding: 35px 0 30px;
+        }
       }
     }
     .col-md-2{
@@ -253,6 +318,37 @@
         }
         img{
           width: 100%;
+        }
+      }
+    }
+  }
+}
+
+#directorist.atbd_wrapper{
+  &.atbdp-categories{
+    &.atbdp-text-list{
+      .atbdp-no-margin{
+        margin-bottom: -30px;
+      }
+      .atbd_category_wrapper{
+        margin-bottom: 28px;
+        li{
+          margin-bottom: 10px;
+          &:first-child{
+            margin-top: 10px;;
+          }
+        }
+        a{
+          font-size: 15px;
+          font-weight: 500;
+          color: #0A0B1E;
+        }
+        .atbdp_child_category{
+          a{
+            font-size: 15px;
+            font-weight: 400;
+            color: #51526E;
+          }
         }
       }
     }

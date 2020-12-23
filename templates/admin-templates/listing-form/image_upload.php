@@ -12,9 +12,12 @@ $listing_prv_img 	 		= !empty($listing_prv_img_id) ? atbdp_get_image_source($lis
 $display_prv_field 	 		= get_directorist_option('display_prv_field', 1);
 $display_gallery_field 		= get_directorist_option('display_gallery_field', 1);
 $image_links = []; // define a link placeholder variable
-foreach ($listing_imgs as $id) {
-    $image_links[$id] = atbdp_get_image_source($id); // store the attachment id and url
+if( !empty( $listing_imgs ) ) {
+    foreach ($listing_imgs as $id) {
+        $image_links[$id] = atbdp_get_image_source($id); // store the attachment id and url
+    }
 }
+
 // is multiple image upload extension is active  ?
 $active_mi_ext = is_multiple_images_active(); // default is no
 ?>

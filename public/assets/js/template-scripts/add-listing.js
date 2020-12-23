@@ -270,9 +270,23 @@ jQuery(function($) {
                         const value = $('#'+ field.name + '_ifr').length ? tinymce.get( field.name ).getContent() : atbdp_element_value( 'textarea[name="'+ field.name +'"]' );
                         form_data.append( field.name, value );     
                 }
-                //checkbox, radio
-                if( ( 'checkbox' === type ) || ( 'radio' === type ) ){
+                //radio
+                if( 'radio' === type ){
                         form_data.append( field.name, atbdp_element_value( 'input[name="'+ field.name +'"]:checked' ) );
+                }
+                // checkbox
+                if( 'checkbox' === type ) {
+                        var values = [];
+                        var new_field = $('input[name^="'+ field.name +'"]:checked');
+                        if (new_field.length > 1) {
+                                new_field.each(function() {
+                                        var value = $(this).val();
+                                        values.push( value );
+                                });
+                                form_data.append( field.name , values);
+                        }else{
+                                form_data.append( field.name, atbdp_element_value( 'input[name="'+ field.name +'"]:checked' ) ); 
+                        }
                 }
                 //select
                 if( 'select-one' === type ){
@@ -461,8 +475,9 @@ jQuery(function($) {
                 if (typeof categories === 'string') {
                         form_data.append('tax_input[at_biz_dir-category][]', categories);
                 }
-                
-                form_data.append('directory_type', qs.listing_type);
+                var directory_type =  qs.listing_type ?  qs.listing_type : $('input[name="directory_type"]').val();
+                form_data.append('directory_type', directory_type );
+                form_data.append('plan_id', qs.plan);
                 if (error_count) {
                         on_processing = false;
                         $('.listing_submit_btn').attr('disabled', false);
@@ -471,8 +486,8 @@ jQuery(function($) {
                         return;
                 }
 
-                on_processing = true;
-                $('.listing_submit_btn').attr('disabled', true);
+                // on_processing = true;
+                // $('.listing_submit_btn').attr('disabled', true);
                 $.ajax({
                         method: 'POST',
                         processData: false,
@@ -485,17 +500,18 @@ jQuery(function($) {
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {
+                                     
                                         if( response.error_msg.length > 1 ){
                                                 $('#listing_notifier').show();
                                                 for( var error in response.error_msg ){
                                                        // console.log( error );
-                                                        $('#listing_notifier').append(`<span>${ response.error_msg[error] }</span>`);
+                                                        $('#listing_notifier').append(`<span class="atbdp_error">${ response.error_msg[error] }</span>`);
                                                 }
                                                 $('.listing_submit_btn').removeClass('atbd_loading');
                                         }else{
                                                 $('#listing_notifier')
                                                 .show()
-                                                .html(`<span>${ response.error_msg }</span>`);
+                                                .html(`<span class="atbdp_error">${ response.error_msg }</span>`);
                                                 $('.listing_submit_btn').removeClass('atbd_loading');
                                         }
                                         
@@ -505,14 +521,14 @@ jQuery(function($) {
                                                 if (response.edited_listing !== true) {
                                                         $('#listing_notifier')
                                                                 .show()
-                                                                .html(`<span>${response.success_msg}</span>`);
+                                                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                                         window.location.href = `${
                                                                 response.preview_url
                                                         }?preview=1&redirect=${response.redirect_url}`;
                                                 } else {
                                                         $('#listing_notifier')
                                                                 .show()
-                                                                .html(`<span>${response.success_msg}</span>`);
+                                                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                                         if (qs.redirect) {
                                                                 var is_pending = '?';
                                                                 window.location.href = `${response.preview_url +
@@ -537,12 +553,12 @@ jQuery(function($) {
                                                 if (response.need_payment === true) {
                                                         $('#listing_notifier')
                                                                 .show()
-                                                                .html(`<span>${response.success_msg}</span>`);
+                                                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                                         window.location.href = response.redirect_url;
                                                 } else {
                                                         $('#listing_notifier')
                                                                 .show()
-                                                                .html(`<span>${response.success_msg}</span>`);
+                                                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                                         window.location.href = response.redirect_url + is_edited;
                                                 }
                                         }

@@ -210,6 +210,7 @@
           <card-widget-placeholder
             id="body_excerpt"
             containerClass="cptm-listing-card-preview-body-excerpt-placeholder cptm-card-light"
+            v-if="placeholderIsActive( local_layout.body.excerpt )"
             :label="local_layout.body.excerpt.label"
             :availableWidgets="theAvailableWidgets"
             :activeWidgets="active_widgets"
@@ -332,7 +333,7 @@ export default {
           continue;
         }
 
-        for (let section_area in layout[section]) {
+        for ( let section_area in layout[section] ) {
           output[section][section_area] = [];
 
           if (typeof layout[section][section_area] !== "object") {
@@ -587,7 +588,7 @@ export default {
 
       if ( ! this.isTruthyObject( value ) ) { return; }
       let selectedWidgets = [];
-      
+
       // Get Active Widgets Data
       let active_widgets_data = {};
       for ( let section in value ) {
@@ -713,7 +714,7 @@ export default {
         return false;
       }
 
-       if ( path.selectedWidgets.includes( this._currentDraggingWidget.key ) ) {
+      if ( path.selectedWidgets.includes( this._currentDraggingWidget.key ) ) {
         return true;
       }
 
@@ -854,6 +855,16 @@ export default {
       }
 
       return false;
+    },
+
+    placeholderIsActive( layout ) {
+      
+      if ( ! this.isObject( layout.show_if ) ) {
+        return true;
+      }
+
+      let check_condition = this.checkShowIfCondition( { condition: layout.show_if } );
+      return check_condition.status;
     }
   },
 };

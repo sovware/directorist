@@ -22,15 +22,15 @@
                     @dragstart="activeGroupOnDragStart(group_key, $event)"
                     @dragend="activeGroupOnDragEnd()"
                   >
+                    <a href="#" class="cptm-form-builder-header-action-link cptm-mr-5 cptm-link-light" v-if="hasGroupOptions( group_key )" :class="getActiveGroupOptionCollapseClass(group_key)" @click.prevent="toggleActiveGroupOptionCollapseState(group_key)">
+                      <span class="fa fa-angle-up" aria-hidden="true"></span>
+                    </a>
+
                     <h3 class="cptm-form-builder-group-title">
                       {{ ( group.label ) ? group.label : '' }}
                     </h3>
 
                     <div class="cptm-form-builder-group-title-actions">
-                      <a href="#" class="cptm-form-builder-header-action-link" v-if="hasGroupOptions( group_key )" :class="getActiveGroupOptionCollapseClass(group_key)" @click.prevent="toggleActiveGroupOptionCollapseState(group_key)">
-                        <span class="fa fa-angle-up" aria-hidden="true"></span>
-                      </a>
-
                       <a href="#" class="cptm-form-builder-header-action-link" v-if="group.type !== 'widget_group'" :class="getActiveGroupCollapseClass(group_key)" @click.prevent="toggleActiveGroupCollapseState(group_key)">
                         <!-- <span class="uil uil-angle-double-up" aria-hidden="true"></span> -->
                         <span class="fa fa-angle-up" aria-hidden="true"></span>
@@ -76,9 +76,7 @@
                     </div>
 
                     <div class="cptm-form-builder-group-field-item-header" draggable="true" @dragstart="activeFieldOnDragStart(field_key, field_index, group_key)" @dragend="activeFieldOnDragEnd()">
-                      <h4 class="cptm-title-3">
-                        {{ getActiveFieldsHeaderTitle(field_key) }}
-                      </h4>
+                      <h4 class="cptm-title-3" v-html="getActiveFieldsHeaderTitle(field_key)"></h4>
                       <div class="cptm-form-builder-group-field-item-header-actions">
                         <a href="#" class="cptm-form-builder-header-action-link action-collapse-up" :class="getActiveFieldCollapseClass(field_key)" @click.prevent="toggleActiveFieldCollapseState(field_key)">
                           <span class="fa fa-angle-up" aria-hidden="true"></span>
@@ -411,12 +409,15 @@ export default {
   methods: {
     impportOldData() {
       if ( ! this.isObject( this.value ) ) { return; }
+
       if ( Array.isArray( this.value.fields_order ) && ! this.has_group ) {
         Vue.set( this.default_groups[0], 'fields', this.value.fields_order );
       }
+
       if ( Array.isArray( this.value.groups ) && this.has_group ) {
         this.default_groups = this.value.groups;
       }
+
       // Trace active_widget_groups
       if ( this.default_groups.length ) {
         for ( let group of this.default_groups ) {
@@ -425,17 +426,33 @@ export default {
           this.active_widget_groups.push( group.widget_name );
         }
       }
+      
       if ( this.isObject( this.value.fields ) ) {
         this.active_fields = this.value.fields;
       }
+
+      // active_fields_ref
+      for ( let field in this.active_fields ) {
+        let widget_name = this.active_fields[ field ].widget_name;
+
+        if ( typeof this.active_fields_ref[ widget_name ] === 'undefined' ) {
+          this.active_fields_ref[ widget_name ] = [];
+        }
+        
+        this.active_fields_ref[ widget_name ].push( field );
+      }
+
     },
     parseGroups() {
         let groups = this.default_groups;
         if ( ! groups.length ) { return groups; }
+
         groups = JSON.parse( JSON.stringify( groups ) );
+
         let group_fields = {};
         let fixed_options = [ 'lock', 'fields', 'type' ];
         let group_index = 0;
+
         for ( let group of groups ) {
           // general_group
           if ( typeof group.type === 'undefined' || group.type === 'general_group' ) {
@@ -532,8 +549,13 @@ export default {
       return this.active_fields[field_key][data_key];
     },
     getActiveFieldsSettings(field_key, data_key) {
+      if ( ! this.active_fields[field_key] ) { return ''; }
+      if ( ! this.active_fields[field_key].widget_group ) { return ''; }
+      if ( ! this.active_fields[field_key].widget_name ) { return ''; }
+
       const widget_group = this.active_fields[field_key].widget_group;
       const widget_name = this.active_fields[field_key].widget_name;
+
       if ( typeof widget_group === "undefined") { return false; }
       if ( typeof widget_name === "undefined") { return false; }
       if ( typeof this.theWidgets[widget_group] === "undefined") { return false; }
@@ -555,9 +577,12 @@ export default {
     getActiveFieldsHeaderTitle(field_key) {
       let settings_label = this.getActiveFieldsSettings(field_key, "label");
       settings_label = ( settings_label ) ? settings_label : '';
-      const option_label = this.active_fields[field_key]["label"];
       
-      return option_label && option_label.length ? option_label : settings_label;
+      let option_label = ( this.active_fields[field_key] && this.active_fields[field_key]["label"] ) ? this.active_fields[field_key]["label"] : '';
+      option_label = ( option_label && option_label.length ) ? option_label : settings_label;
+      option_label = option_label + '<span class="cptm-text-gray cptm-px-5">'+ settings_label +'</span>';
+      
+      return option_label;
     },
     
     toggleActiveFieldCollapseState(field_key) {
@@ -1034,12 +1059,14 @@ export default {
         this.active_fields_ref[payload.inserting_field_key].push( payload.inserting_field_key );
       } else {
         let new_key = payload.inserting_field_key + "_" + (this.active_fields_ref[payload.inserting_field_key].length + 1);
+        
         this.active_fields_ref[inserting_field_key].push(new_key);
         inserting_field_key = new_key;
       }
 
       const field_data = this.theWidgetGroups[payload.inserting_from].widgets[ payload.inserting_field_key ];
       let field_data_options = {};
+      
       for (let option_key in field_data.options) {
         field_data_options[option_key] = typeof field_data.options[option_key].value !== "undefined" ? field_data.options[option_key].value : "";
       }

@@ -124,10 +124,10 @@ class Directorist_Listings {
 		}
 		else {
 			if ( $this->type == 'search_result' ) {
-				$this->query_args = $this->perse_search_query_args();
+				$this->query_args = $this->parse_search_query_args();
 			}
 			else {
-				$this->query_args = $this->perse_query_args();
+				$this->query_args = $this->parse_query_args();
 			}
 		}
 
@@ -689,7 +689,7 @@ class Directorist_Listings {
 		return ATBDP_Listings_Data_Store::get_archive_listings_query( $this->query_args, $caching_options );
 	}
 
-	public function perse_query_args() {
+	public function parse_query_args() {
 		$args = array(
 			'post_type'      => ATBDP_POST_TYPE,
 			'post_status'    => 'publish',
@@ -711,7 +711,7 @@ class Directorist_Listings {
 		$tax_queries = array();
 
 
-		// Listings of current listing type and empty listing type
+		// Listings of current listing type
 		$tax_queries['tax_query'] = array(
 			'relation' => 'AND',
 			array(
@@ -762,7 +762,7 @@ class Directorist_Listings {
 		return apply_filters( 'atbdp_all_listings_query_arguments', $args );
 	}
 
-	public function perse_search_query_args() {
+	public function parse_search_query_args() {
 		$args = array(
 			'post_type'      => ATBDP_POST_TYPE,
 			'post_status'    => 'publish',
@@ -793,6 +793,13 @@ class Directorist_Listings {
 		}
 
 		$tax_queries = array();
+
+		// Listings of current listing type
+		$tax_queries[] = array(
+			'taxonomy' => ATBDP_TYPE,
+			'terms'    => $this->current_listing_type,
+		);
+
 		if (isset($_GET['in_cat']) && (int)$_GET['in_cat'] > 0) {
 			$tax_queries[] = array(
 				'taxonomy' => ATBDP_CATEGORY,
@@ -831,7 +838,6 @@ class Directorist_Listings {
 
 		if (isset($_GET['custom_field'])) {
 			$cf = array_filter($_GET['custom_field']);
-
 			foreach ($cf as $key => $values) {
 				if (is_array($values)) {
 					if (count($values) > 1) {
@@ -855,13 +861,12 @@ class Directorist_Listings {
 					}
 				}
 				else {
-
-					$field_type = get_post_meta($key, 'type', true);
-					$operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
+					// $field_type = get_post_meta($key, 'type', true);
+					// $operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
 					$meta_queries[] = array(
-						'key' => $key,
+						'key' => '_' . $key,
 						'value' => sanitize_text_field($values),
-						'compare' => $operator
+						'compare' => 'LIKE'
 					);
 
 				}
@@ -1051,6 +1056,7 @@ class Directorist_Listings {
 
 	public function render_shortcode() {
 		wp_enqueue_script('adminmainassets');
+		wp_enqueue_script('atbdp_search_listing');
 		wp_enqueue_script('atbdp-search-listing', ATBDP_PUBLIC_ASSETS . 'js/search-form-listing.js');
 		wp_localize_script('atbdp-search-listing', 'atbdp_search', array(
 			'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
@@ -1480,6 +1486,44 @@ class Directorist_Listings {
 			echo "</div>";
 		}
 
+		public function loop_get_the_thumbnail( $class='' ) {
+			$type = $this->current_listing_type;
+			$type_general = get_term_meta( $type, 'general_config', true );
+			$default_image_src = $type_general['preview_image']['url'];
+
+			$id = get_the_ID();
+			$image_quality     = get_directorist_option('preview_image_quality', 'large');
+			$listing_prv_img   = get_post_meta($id, '_listing_prv_img', true);
+			$listing_img       = get_post_meta($id, '_listing_img', true);
+
+			if ( is_array( $listing_img ) && ! empty( $listing_img ) ) {
+				$thumbnail_img = atbdp_get_image_source( $listing_img[0], $image_quality );
+				$thumbnail_id = $listing_img[0];
+			}
+
+			if ( ! empty( $listing_prv_img ) ) {
+				$thumbnail_img = atbdp_get_image_source( $listing_prv_img, $image_quality );
+				$thumbnail_id = $listing_prv_img;
+			}
+
+			if ( ! empty( $img_src ) ) {
+				$thumbnail_img = $img_src;
+				$thumbnail_id = 0;
+			}
+
+			if ( empty( $thumbnail_img ) ) {
+				$thumbnail_img = $default_image_src;
+				$thumbnail_id = 0;
+			}
+
+			$image_src    = is_array($thumbnail_img) ? $thumbnail_img[0] : $thumbnail_img;
+			$image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
+			$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
+			$image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );
+
+			return "<img src='$image_src' alt='$image_alt' class='$class' />";
+		}
+
 		public function loop_thumb_card_template() {
 			atbdp_get_shortcode_template( 'listings-archive/loop/thumb-card', array('listings' => $this) );
 		}
@@ -1627,22 +1671,38 @@ class Directorist_Listings {
 		}
 
 		public function render_card_field( $field ) {
+							
+
 			if ( $field['type'] == 'badge' ) {
 				$this->render_badge_template($field);
 			}
 			else {
-				$id = get_the_id();
-				$value = !empty( $field['widget_key'] ) ? get_post_meta( $id, '_'.$field['widget_key'], true ) : '';
+			
+				$submission_form_fields = get_term_meta( $this->current_listing_type, 'submission_form_fields', true );
+				$original_field = !empty( $submission_form_fields['fields'][$field['widget_key']] ) ? $submission_form_fields['fields'][$field['widget_key']] : '';
 
+				$id = get_the_id();
+				$load_template = true;
+				$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : '';
+				if( ( $field['type'] === 'list-item' ) && !$value ) {
+					$load_template = false;
+				}
 				$args = array(
 					'listings' => $this,
 					'post_id'  => $id,
 					'data'     => $field,
 					'value'    => $value,
 					'icon'     => !empty( $field['icon'] ) ? $field['icon'] : '',
+					'original_field'    => $submission_form_fields,
 				);
+
+				// e_var_dump( $field );
+				
 				$template = 'listings-archive/loop/' . $field['widget_name'];
-				atbdp_get_shortcode_template( $template, $args );
+				if( $load_template ) {
+					atbdp_get_shortcode_template( $template, $args );
+				}
+
 			}
 		}
 
@@ -1655,6 +1715,9 @@ class Directorist_Listings {
 		public function render_badge_template( $field ) {
 			global $post;
 			$id = get_the_ID();
+			// for development purpose
+			do_action( 'atbdp_all_listings_badge_template', $field );
+
 			switch ($field['widget_key']) {
 				case 'popular_badge':
 				$field['class'] = 'popular';
@@ -1686,6 +1749,7 @@ class Directorist_Listings {
 				}
 				break;
 			}
+
 		}
 
 		public function listing_wrapper_class() {

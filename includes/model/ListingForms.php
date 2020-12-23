@@ -475,7 +475,7 @@ class Directorist_Listing_Forms {
 			'submit_label'            => get_directorist_type_option( $type, 'submit_button_label', __( 'Save & Preview', 'directorist' ) ),
 		);
 
-		atbdp_get_shortcode_template( 'forms/add-listing-submit', $args );
+		atbdp_get_shortcode_template( 'forms/add-listing-submit', apply_filters( 'atbdp_add_listing_submission_template_args', $args ) );
 	}
 
 	public function add_listing_custom_fields_template() {
@@ -556,7 +556,11 @@ class Directorist_Listing_Forms {
 			}
 		}
 
+		// e_var_dump( $field_data );
+
 		$field_data['value'] = $value;
+		$field_data['form'] = $this;
+		
 
 		$args = array(
 			'form'  => $this,
@@ -617,9 +621,13 @@ class Directorist_Listing_Forms {
 	}
 
 	public function build_form_data( $type ) {
-		$form_data              = array();
+		$form_data = [];
+
+		if ( !$type ) {
+			return $form_data;
+		}
+
 		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
-		// e_var_dump($submission_form_fields);
 
 		foreach ( $submission_form_fields['groups'] as $group ) {
 			$section           = $group;
@@ -630,8 +638,6 @@ class Directorist_Listing_Forms {
 			$form_data[] = $section;
 
 		}
-
-		// e_var_dump($form_data);
 
 		return $form_data;
 	}

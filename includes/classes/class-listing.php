@@ -122,8 +122,12 @@ if (!class_exists('ATBDP_Listing')):
                 $id = ( ! empty( $id ) ) ? $id : $listing_id;
                 $id = ( ! empty( $id ) ) ? $id : get_the_ID();
 
+                $directory_type = get_post_meta( $id, '_directory_type', true );
+                $new_l_status = get_term_meta( $directory_type, 'new_listing_status', true );
+                $edit_l_status = get_term_meta( $directory_type, 'edit_listing_status', true );
+
                 $edited = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
-                $args = [ 'id' => $id, 'edited' => $edited ];
+                $args = [ 'id' => $id, 'edited' => $edited, 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status ];
                 $post_status = atbdp_get_listing_status_after_submission( $args );
 
                 $args = array(

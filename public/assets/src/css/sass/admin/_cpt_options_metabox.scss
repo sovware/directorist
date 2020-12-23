@@ -392,8 +392,23 @@ $light-gray: #f4f5f7;
   }
 }
 
+.cptm-link-light {
+  color: #fff;
+  @extend .reset-pseudo-link;
+  &:hover, &:focus, &:active {
+    color: #fff;
+  }
+}
+
+.cptm-color-white {
+  color: #fff;
+}
+
 .cptm-mb-60 {
   margin-bottom: 60px;
+}
+.cptm-mr-5 {
+  margin-right: 5px;
 }
 
 .cptm-title {
@@ -1985,6 +2000,19 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
 
 
 // Utility
+.cptm-wdget-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cptm-px-5 {
+  padding: 0 5px;
+}
+
+.cptm-text-gray {
+  color: #c1c1c1;
+}
+
 .cptm-text-right {
   text-align: right !important;
 }

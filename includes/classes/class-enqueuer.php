@@ -918,7 +918,7 @@ class ATBDP_Enqueuer {
     public function search_listing_scripts_styles() {
         $search_dependency = array( 'jquery', 'jquery-ui-slider',
             'select2script' );
-        wp_enqueue_script( 'atbdp_search_listing', ATBDP_PUBLIC_ASSETS . 'js/search-listing.js',
+        wp_register_script( 'atbdp_search_listing', ATBDP_PUBLIC_ASSETS . 'js/search-listing.js',
             /**
              * @since 5.0.1
              * It returns the dependencies for search form js
@@ -953,8 +953,10 @@ class ATBDP_Enqueuer {
             'Miles'       => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
             'default_val' => $default_radius_distance,
         );
+        wp_enqueue_script( 'atbdp_search_listing' );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );
         wp_localize_script( $handel, 'atbdp_range_slider', $data );
+
     }
 }
 

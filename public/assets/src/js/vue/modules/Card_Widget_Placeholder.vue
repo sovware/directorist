@@ -29,7 +29,9 @@
           />
         </div>
 
-        <a href="#" class="cptm-widget-insert-link"
+        <a
+          href="#"
+          class="cptm-widget-insert-link"
           @click.prevent="$emit('open-widgets-picker-window')"
         >
           <span class="fa fa-plus"></span>
@@ -39,9 +41,7 @@
 
     <div class="cptm-widget-preview-area" v-if="selectedWidgets.length">
       <template v-for="(widget, widget_index) in selectedWidgets">
-        <dropable-element v-if="hasValidWidget(widget)" 
-          :key="widget_index"
-          drop-direction="horizontal">
+        <template v-if="hasValidWidget(widget)">
           <component
             :is="activeWidgets[widget].type + '-card-widget'"
             :key="widget_index"
@@ -58,7 +58,7 @@
             @trash="$emit('trash-widget', widget)"
           >
           </component>
-        </dropable-element>
+        </template>
       </template>
     </div>
   </div>
@@ -109,11 +109,9 @@ export default {
       default: "Up to __DATA__ item{s} can be added",
     },
   },
-
   created() {
     
   },
-
   computed: {
     getContainerClass() {
       if ( typeof this.containerClass === 'string' ) {
@@ -122,7 +120,6 @@ export default {
           'drag-enter': this.placeholderDragEnter,
         }
       }
-
       if ( this.containerClass &&
           typeof this.containerClass === 'object' &&
         ! Array.isArray( this.containerClass )
@@ -135,50 +132,40 @@ export default {
       
     }
   },
-
   data() {
     return {
       placeholderDragEnter: false,
     }
   },
-
   methods: {
     widgetHasOptions( active_widget ) {
       if ( ! active_widget.options && typeof active_widget.options !== 'object' ) { 
         return false;
       }
-
       if ( ! active_widget.options.fields && typeof active_widget.options.fields !== 'object' ) {
         return false;
       }
-
       return true;
     },
-
     placeholderOnDrop() {
       this.placeholderDragEnter = false;
       this.$emit('placeholder-on-drop')
     },
-
     placeholderOnDragEnter() {
       this.placeholderDragEnter = true;
       this.$emit('placeholder-on-dragenter');
     },
-
     placeholderOnDragLeave() {
       this.placeholderDragEnter = false;
       this.$emit('placeholder-on-dragleave');
     },
-
     hasValidWidget(widget_key) {
       if ( !this.activeWidgets[widget_key] && typeof this.activeWidgets[widget_key] !== "object" ) {
         return false;
       }
-
       if (typeof this.activeWidgets[widget_key].type !== "string") {
         return false;
       }
-
       return true;
     },
   },

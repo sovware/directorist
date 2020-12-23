@@ -2,12 +2,10 @@
     <div class="cptm-dropable-element" ref="dropable_element" :class="parentClass">
         <div class="cptm-dropable-placeholder cptm-dropable-placeholder-before" :class="dropablePlaceholderBeforeClass"></div>
         
-        <div class="cptm-dropable-base-element" :class="{ ['cptm-dropable-inside']: drag_enter_dropable_area_inside }">
-            <slot></slot>
-        </div>
-
-        <div class="cptm-dropable-placeholder cptm-dropable-placeholder-after" :class="dropablePlaceholderAfterClass"></div>
-
+        <div class=""><slot></slot></div>
+        
+        <div class="cptm-dropable-placeholder cptm-dropable-placeholder-after" v-if="dropableAfter">dropableAfter</div>
+        
         <div class="cptm-dropable-area" v-if="dropable">
             <!-- cptm-dropable-area-inside -->
             <span class="cptm-dropable-area-inside" v-if="dropInside"

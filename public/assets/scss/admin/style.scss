@@ -2111,9 +2111,15 @@ span.atbdp-tick-cross {
       }
 
       .atbdb_content_module_contents {
-        padding: 20px;
+        padding: 0 20px 20px;
       }
     }
+  }
+}
+
+.atbd-booking-information {
+  .atbd_area_title {
+    padding: 0 20px;
   }
 }
 

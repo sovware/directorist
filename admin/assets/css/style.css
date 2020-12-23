@@ -2167,7 +2167,11 @@ span.atbdp-tick-cross {
 }
 
 #listing_form_info .atbd_content_module .atbdb_content_module_contents .atbdb_content_module_contents {
-  padding: 20px;
+  padding: 0 20px 20px;
+}
+
+.atbd-booking-information .atbd_area_title {
+  padding: 0 20px;
 }
 
 .wp-list-table .page-title-action {

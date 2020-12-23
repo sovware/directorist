@@ -539,11 +539,47 @@ class Directorist_Listing_Forms {
 		atbdp_get_shortcode_template( 'forms/add-listing-section', $args );
 	}
 
-	public function add_listing_field_template( $field_data ) {
-		$listing_id = $this->get_add_listing_id();
 
+	public function add_listing_category_custom_field_template( $field_data ) {
 		$value = '';
+		
+		$field_data['value'] = $value;
+		$field_data['form'] = $this;
+		
+		$args = array(
+			'form'  => $this,
+			'data'  => $field_data,
+		);
+		
+		$template = 'forms/fields/' . $field_data['widget_name'];
+		
+		$template = apply_filters( 'directorist_field_template', $template, $field_data );
+		
+		if ( is_admin() && empty( $field_data['request_from_no_admin'] ) ) {
+			$admin_template = 'listing-form/' . $field_data['widget_name'];
+			$admin_template = apply_filters( 'directorist_field_admin_template', $admin_template, $field_data );
 
+			if ( atbdp_has_admin_template( $admin_template ) ) {
+				atbdp_get_admin_template( $admin_template, $args );
+			}
+			else {
+				atbdp_get_shortcode_template( $template, $args );
+			}
+		}
+		else {
+			if ( empty( $field_data['only_for_admin'] ) ) {
+				atbdp_get_shortcode_template( $template, $args );
+			}
+		}
+		
+	}
+
+	public function add_listing_field_template( $field_data ) {
+
+		$listing_id = $this->get_add_listing_id();
+		
+		$value = '';
+		
 		if ( ! empty( $listing_id ) ) {
 			if ( $field_data['widget_name'] == 'title' ) {
 				$value = $this->add_listing_post->post_title;
@@ -555,20 +591,21 @@ class Directorist_Listing_Forms {
 				$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
 			}
 		}
-
-		// e_var_dump( $field_data );
-
+		
+		
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
 		
-
 		$args = array(
 			'form'  => $this,
 			'data'  => $field_data,
 		);
-
+		
 		$template = 'forms/fields/' . $field_data['widget_name'];
+		
 		$template = apply_filters( 'directorist_field_template', $template, $field_data );
+		
+		if( !empty( $field_data['assign_to'] ) ) return;
 
 		if ( is_admin() ) {
 			$admin_template = 'listing-form/' . $field_data['widget_name'];
@@ -586,6 +623,7 @@ class Directorist_Listing_Forms {
 				atbdp_get_shortcode_template( $template, $args );
 			}
 		}
+		
 	}
 
 	public function get_listing_types() {

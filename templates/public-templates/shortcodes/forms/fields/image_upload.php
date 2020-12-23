@@ -13,6 +13,7 @@ $plan_image          = $data['max_image_limit'];
 $max_file_size       = $data['max_per_image_limit'];
 $max_total_file_size = $data['max_total_image_limit'];
 
+$slider_unl = '';
 if ( !empty( $field_data['plans'] ) ) {
     $plan = atbdp_field_assigned_plan( $field_data );
     $slider_unl = ( $plan['max'] == 0 ) ? true : false;

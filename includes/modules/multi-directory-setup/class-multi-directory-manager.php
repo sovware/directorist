@@ -100,36 +100,14 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'posts_per_page' => 1,
             ]);
             
-            $has_listings       = false;
-            $has_custom_fields  = false;
+            $migrated          = get_option( 'atbdp_migrated', false );
+            $has_listings      = false;
+            $has_custom_fields = false;
 
             $has_listings        = $get_listings->post_count;
             $has_custom_fields   = $get_custom_fields->post_count;
-            $need_migration      = ( ! $has_multidirectory && ( $has_listings || $has_custom_fields ) ) ? true : false;
+            $need_migration      = ( empty( $migrated ) && ! $has_multidirectory && ( $has_listings || $has_custom_fields ) ) ? true : false;
             $need_import_default = ( ! $has_multidirectory && ! ( $has_listings || $has_custom_fields ) ) ? true : false;
-
-            // echo '<pre>';
-            // var_dump([
-            //     'has_listings'       => $has_listings,
-            //     'has_custom_fields'  => $has_custom_fields,
-            //     'has_multidirectory' => $has_multidirectory,
-            //     'migrated'           => $migrated,
-            //     'need_migration'     => $need_migration,
-            // ]);
-            // echo '</pre>';
-            // die;
-            
-            // $args = [ 'multi_directory_manager' => $this ];
-            // $migration = new ATBDP_Multi_Directory_Migration( $args );
-
-            // // $migration->run();
-            // $get_fields_data = $migration->get_fields_data();
-
-            // echo '<pre>';
-            // var_dump( $get_fields_data['submission_form_fields'] );
-            // echo '</pre>';
-
-            // die;
 
             if ( $need_migration ) {
                 $args = [ 'multi_directory_manager' => $this ];
@@ -167,6 +145,21 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             if ( $add_directory['status']['success'] ) {
                 update_option( 'atbdp_has_multidirectory', true );
                 update_term_meta( $add_directory['term_id'], '_default', true );
+
+                // Add directory type to all listings
+                $listings = new WP_Query([
+                    'post_type' => ATBDP_POST_TYPE,
+                    'status'    => 'publish',
+                    'per_page'  => -1,                
+                ]);
+
+                if ( $listings->have_posts() ) {
+                    while ( $listings->have_posts() ) {
+                        $listings->the_post();
+
+                        wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
+                    }
+                }
             }
         }
 

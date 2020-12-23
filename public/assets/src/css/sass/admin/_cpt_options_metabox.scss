@@ -164,6 +164,85 @@ $light-gray: #f4f5f7;
   background-color: rgb(197, 22, 22);
 }
 
+
+// ====================
+// Dropable Element
+// ====================
+.cptm-dropable-element {
+  position: relative;
+}
+
+.cptm-dropable-base-element {
+  display: block;
+  position: relative;
+  padding: 0;
+  transition: ease-in-out all 300ms;
+}
+
+.cptm-dropable-area {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+.cptm-dropable-placeholder {
+  padding: 0;
+  margin: 0;
+  height: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all ease-in-out 200ms;
+  background: RGBA(61,98,245,0.45);
+  &.active {
+    padding: 10px 15px;
+    margin: 0;
+    height: 30px;
+    // transition: none;
+  }
+}
+
+.cptm-dropable-inside {
+  padding: 10px;
+}
+
+.cptm-dropable-area-inside {
+  display: block;
+  height: 100%;
+}
+
+.cptm-dropable-area-right {
+  display: block;
+}
+.cptm-dropable-area-left {
+  display: block;
+}
+.cptm-dropable-area-right,
+.cptm-dropable-area-left {
+  display: block;
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+.cptm-dropable-area-top {
+  display: block;
+  // background: rgba(63, 65, 218, 0.5);
+}
+.cptm-dropable-area-bottom {
+  display: block;
+  // background: rgba(22, 196, 45, 0.5);
+}
+.cptm-dropable-area-top,
+.cptm-dropable-area-bottom {
+  display: block;
+  width: 100%;
+  height: 50%;
+}
+
+
 // ====================
 // Header Navigation
 // ====================
@@ -313,8 +392,23 @@ $light-gray: #f4f5f7;
   }
 }
 
+.cptm-link-light {
+  color: #fff;
+  @extend .reset-pseudo-link;
+  &:hover, &:focus, &:active {
+    color: #fff;
+  }
+}
+
+.cptm-color-white {
+  color: #fff;
+}
+
 .cptm-mb-60 {
   margin-bottom: 60px;
+}
+.cptm-mr-5 {
+  margin-right: 5px;
 }
 
 .cptm-title {
@@ -434,9 +528,9 @@ $light-gray: #f4f5f7;
 
 .cptm-form-builder-active-fields-group {
   position: relative;
-  margin-bottom: 40px;
+  // margin-bottom: 40px;
   padding-bottom: 5px;
-  border-bottom: 1px dashed #b9b9b9;
+  // border-bottom: 1px dashed #b9b9b9;
 }
 
 .cptm-form-builder-group-header-section {
@@ -463,8 +557,12 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   cursor: move;
 }
 
-.cptm-dropable-elm-form-builder-group-title-area {
+.cptm-form-builder-group-title-area__dropable-wrapper {
   flex-grow: 1;
+}
+
+.cptm-form-builder-group-title-area__dropable-placeholder {
+  margin-right: 15px;
 }
 
 .cptm-form-builder-group-title-actions {
@@ -1912,7 +2010,7 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
 }
 
 .cptm-text-gray {
-  color: gray;
+  color: #c1c1c1;
 }
 
 .cptm-text-right {
@@ -1929,6 +2027,14 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
 
 .cptm-d-block {
   display: block !important;
+}
+.cptm-d-inline {
+  display: inline-block !important;
+}
+
+.cptm-d-inline-flex {
+  display: inline-flex !important;
+  flex-wrap: wrap;
 }
 
 .cptm-d-none {
@@ -2085,42 +2191,7 @@ input[type=checkbox], input[type=radio]{
   width: calc( 100% / (12 / 8) );
 }
 
-.cptm-dropable-element {
-  position: relative;
-}
 
-.cptm-dropable-area {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 999;
-}
-
-
-.cptm-dropable-area-right {
-  display: block;
-}
-.cptm-dropable-area-left {
-  display: block;
-}
-.cptm-dropable-area-right,
-.cptm-dropable-area-left {
-  display: block;
-  width: 50%;
-  height: 100%;
-}
-
-.cptm-dropable-area-top {
-  display: block;
-}
-.cptm-dropable-area-bottom {
-  display: block;
-}
-.cptm-dropable-area-top,
-.cptm-dropable-area-bottom {
-  display: block;
-  width: 100%;
-  height: 50%;
+.shrink {
+  max-width: 300px;
 }

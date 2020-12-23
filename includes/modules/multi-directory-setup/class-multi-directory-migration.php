@@ -27,6 +27,7 @@ class ATBDP_Multi_Directory_Migration {
         
         if ( $add_directory['status']['success'] ) {
             update_term_meta( $add_directory['term_id'], '_default', true );
+            update_option( 'atbdp_migrated', true );
 
             // Add directory type to all listings
             $listings = new WP_Query([

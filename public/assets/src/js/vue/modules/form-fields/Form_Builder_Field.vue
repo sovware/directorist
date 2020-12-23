@@ -8,29 +8,36 @@
         </p>
 
         <div class="cptm-form-builder-active-fields-container">
-          <div class="cptm-form-builder-active-fields-group" v-for="(group, group_key) in groups" :key="group_key">
-            <div class="cptm-form-builder-group-header-section" v-if="has_group">
+          <div class="cptm-form-builder-active-fields-group" v-for="(group, group_key) in groups" :key="group_key" :class="{ ['cptm-d-none']: group.isDragging, [ 'shrink' ]: group.shrink }">
+            <div class="cptm-form-builder-group-header-section"  v-if="has_group">
               <div class="cptm-form-builder-group-header">
-
-                <div class="cptm-form-builder-group-title-area"
-                  :draggable="typeof group.draggable !== 'undefined' ? group.draggable : true"
-                  @dragstart="activeGroupOnDragStart(group_key)"
-                  @dragend="activeGroupOnDragEnd()"
+                <dropable-element :dropable="current_dragging_group !== group_key && elementIsDragging"
+                  :drop-inside="(current_dragging_widget !== '') ? true : false"
+                  @drop="handleDroppedOnGroup( { group_key, drop_direction: $event} )"
+                  wrapper-class="cptm-form-builder-group-title-area__dropable-wrapper"
+                  dropable-placeholder-class="cptm-form-builder-group-title-area__dropable-placeholder"
                 >
-                  <h3 class="cptm-form-builder-group-title">
-                    {{ ( group.label ) ? group.label : '' }}
-                  </h3>
-
-                  <div class="cptm-form-builder-group-title-actions">
-                    <a href="#" class="cptm-form-builder-header-action-link" v-if="hasGroupOptions( group_key )" :class="getActiveGroupOptionCollapseClass(group_key)" @click.prevent="toggleActiveGroupOptionCollapseState(group_key)">
+                  <div class="cptm-form-builder-group-title-area"
+                    :draggable="typeof group.draggable !== 'undefined' ? group.draggable : true"
+                    @dragstart="activeGroupOnDragStart(group_key, $event)"
+                    @dragend="activeGroupOnDragEnd()"
+                  >
+                    <a href="#" class="cptm-form-builder-header-action-link cptm-mr-5 cptm-link-light" v-if="hasGroupOptions( group_key )" :class="getActiveGroupOptionCollapseClass(group_key)" @click.prevent="toggleActiveGroupOptionCollapseState(group_key)">
                       <span class="fa fa-angle-up" aria-hidden="true"></span>
                     </a>
 
-                    <a href="#" class="cptm-form-builder-header-action-link" v-if="group.type !== 'widget_group'" :class="getActiveGroupCollapseClass(group_key)" @click.prevent="toggleActiveGroupCollapseState(group_key)">
-                      <span class="uil uil-angle-double-up" aria-hidden="true"></span>
-                    </a>
+                    <h3 class="cptm-form-builder-group-title">
+                      {{ ( group.label ) ? group.label : '' }}
+                    </h3>
+
+                    <div class="cptm-form-builder-group-title-actions">
+                      <a href="#" class="cptm-form-builder-header-action-link" v-if="group.type !== 'widget_group'" :class="getActiveGroupCollapseClass(group_key)" @click.prevent="toggleActiveGroupCollapseState(group_key)">
+                        <!-- <span class="uil uil-angle-double-up" aria-hidden="true"></span> -->
+                        <span class="fa fa-angle-up" aria-hidden="true"></span>
+                      </a>
+                    </div>
                   </div>
-                </div>
+                </dropable-element>
 
                 <div class="cptm-form-builder-group-actions">
                   <a href="#" class="cptm-form-builder-group-field-item-action-link action-trash" v-if="typeof group.lock !== 'undefined' ? !group.lock : true" @click.prevent="trashActiveGroupItem(group_key)">
@@ -56,44 +63,43 @@
 
             <slide-up-down :active="getActiveGroupCollapseState( group_key )" :duration="500">
               <div class="cptm-form-builder-group-fields">
-                <div class="cptm-form-builder-group-field-item" v-for="(field_key, field_index) in group.fields" :key="field_index">
-                  <div class="cptm-form-builder-group-field-item-actions">
-                    <a href="#" class="cptm-form-builder-group-field-item-action-link action-trash" v-if="! getActiveFieldsSettings(field_key, 'lock')" @click.prevent="trashActiveFieldItem(field_key, field_index, group_key)">
-                      <span class="uil uil-trash-alt" aria-hidden="true"></span>
-                    </a>
-                  </div>
-
-                  <div class="cptm-form-builder-group-field-item-header" draggable="true" @drag="activeFieldOnDragStart(field_key, field_index, group_key)" @dragend="activeFieldOnDragEnd()">
-                    <h4 class="cptm-title-3 cptm-wdget-title" v-html="getActiveFieldsHeaderTitle(field_key)"></h4>
-                    <div class="cptm-form-builder-group-field-item-header-actions">
-                      <a href="#" class="cptm-form-builder-header-action-link action-collapse-up" :class="getActiveFieldCollapseClass(field_key)" @click.prevent="toggleActiveFieldCollapseState(field_key)">
-                        <span class="fa fa-angle-up" aria-hidden="true"></span>
+                <div class="cptm-form-builder-group-field-item" v-for="(field_key, field_index) in group.fields" :key="field_index" :class="{ ['shrink']: current_dragging_state.active_widget.id === field_key, [ 'cptm-d-none' ]: ( current_dragging_state.active_widget.id === field_key && current_dragging_state.active_widget.hide ) ? true : false }"> 
+                  <dropable-element :dropable="activeGroupItemIsDropable( field_key, field_index, group_key )"
+                    @drop="handleDroppedOnActiveField( { field_key, field_index, group_key, drop_direction: $event} )"
+                    wrapper-class="cptm-form-builder-group-title-area__dropable-wrapper"
+                    dropable-placeholder-class="cptm-form-builder-group-title-area__dropable-placeholder"
+                  >
+                    <div class="cptm-form-builder-group-field-item-actions">
+                      <a href="#" class="cptm-form-builder-group-field-item-action-link action-trash" v-if="! getActiveFieldsSettings(field_key, 'lock')" @click.prevent="trashActiveFieldItem(field_key, field_index, group_key)">
+                        <span class="uil uil-trash-alt" aria-hidden="true"></span>
                       </a>
                     </div>
-                  </div>
 
-                  <slide-up-down :active="getActiveFieldCollapseState(field_key)" :duration="300">
-                    <div class="cptm-form-builder-group-field-item-body" v-if="getActiveFieldsSettings(field_key, 'options')">
-                      <template v-for="(option, option_key) in getWidgetOptions( field_key )">
-                        <component
-                          :is="option.type + '-field'"
-                          :test="{ field_key, option_key, value: active_fields[field_key][option_key] }"
-                          :key="option_key"
-                          :field-id="fieldId + '_' + field_key + '_' + option_key"
-                          v-bind="getSanitizedFieldsOptions(option)"
-                          :value="active_fields[field_key][option_key]"
-                          @update="updateActiveFieldsOptionData({ field_key, option_key, value: $event })">
-                        </component>
-                      </template>
+                    <div class="cptm-form-builder-group-field-item-header" draggable="true" @dragstart="activeFieldOnDragStart(field_key, field_index, group_key)" @dragend="activeFieldOnDragEnd()">
+                      <h4 class="cptm-title-3" v-html="getActiveFieldsHeaderTitle(field_key)"></h4>
+                      <div class="cptm-form-builder-group-field-item-header-actions">
+                        <a href="#" class="cptm-form-builder-header-action-link action-collapse-up" :class="getActiveFieldCollapseClass(field_key)" @click.prevent="toggleActiveFieldCollapseState(field_key)">
+                          <span class="fa fa-angle-up" aria-hidden="true"></span>
+                        </a>
+                      </div>
                     </div>
-                  </slide-up-down>
-                  
-                  <div class="cptm-form-builder-group-field-item-drop-area" :class="field_key === active_field_drop_area ? 'drag-enter' : ''"
-                    @dragenter="activeFieldOnDragEnter(field_key, field_index, group_key)"
-                    @dragover.prevent="activeFieldOnDragOver(field_key, field_index, group_key)"
-                    @dragleave="activeFieldOnDragLeave()"
-                    @drop.prevent="activeFieldOnDrop({ field_key, field_index, group_key })">
-                  </div>
+
+                    <slide-up-down :active="getActiveFieldCollapseState(field_key)" :duration="300">
+                      <div class="cptm-form-builder-group-field-item-body" v-if="getActiveFieldsSettings(field_key, 'options')">
+                        <template v-for="(option, option_key) in getWidgetOptions( field_key )">
+                          <component
+                            :is="option.type + '-field'"
+                            :test="{ field_key, option_key, value: active_fields[field_key][option_key] }"
+                            :key="option_key"
+                            :field-id="fieldId + '_' + field_key + '_' + option_key"
+                            v-bind="getSanitizedFieldsOptions(option)"
+                            :value="active_fields[field_key][option_key]"
+                            @update="updateActiveFieldsOptionData({ field_key, option_key, value: $event })">
+                          </component>
+                        </template>
+                      </div>
+                    </slide-up-down>
+                  </dropable-element>
                 </div>
               </div>
             </slide-up-down>
@@ -109,15 +115,6 @@
                 <p class="cptm-form-builder-group-field-drop-area-label">Drop Here</p>
               </div>
             </slide-up-down>
-
-            <div class="cptm-item-footer-drop-area cptm-group-item-drop-area"
-              v-if="canAddSections"
-              :class="group_key === current_drag_enter_group_item ? 'drag-enter' : ''"
-              @dragenter="activeGroupItemOnDragEnter(group_key)"
-              @dragover.prevent="activeGroupItemOnDragOver(group_key)"
-              @dragleave="activeGroupItemOnDragLeave(group_key)"
-              @drop="activeGroupItemOnDrop(group_key)"
-            ></div>
           </div>
 
           <div class="cptm-form-builder-active-fields-footer">
@@ -153,6 +150,7 @@
 import Vue from 'vue';
 import { mapState } from "vuex";
 import helpers from '../../mixins/helpers';
+
 export default {
   name: "form-builder",
   mixins: [ helpers ],
@@ -250,6 +248,23 @@ export default {
       
       return { fields: this.active_fields, groups: groups };
     },
+
+    elementIsDragging() {
+      /* console.log( {
+        current_dragging_widget: this.current_dragging_widget,
+        current_dragging_group: this.current_dragging_group,
+      } ); */
+
+      if ( 
+        this.current_dragging_widget !== '' || 
+        this.current_dragging_group !== '' || 
+        this.current_dragging_widget_group !== '' ) { 
+          return true
+      }
+
+      return false;
+    },
+
     theWidgets() {
       if ( ! this.widgets && typeof this.widgets !== 'object' ) { return {} }
       // Add the widget group & name to all the widget fields
@@ -316,11 +331,7 @@ export default {
       
       return widgets;
     },
-    elementIsDragging() {
-      // console.log( this.current_dragging_widget, this.current_dragging_group );
-      if ( this.current_dragging_widget || this.current_dragging_group  ) { return true }
-      return false;
-    },
+    
     theWidgetGroups() {
       // Add the widget group & name to all the widget fields
       let widgets = JSON.parse( JSON.stringify( this.theWidgets ) );
@@ -372,6 +383,15 @@ export default {
       default_groups: [ { label: "General", fields: [] } ],
       groups: [],
       active_fields: {},
+
+      current_dragging_element: null,
+
+      current_dragging_state: {
+        group: '',
+        active_widget: { id: '', field_index: '', group_key: '', hide: '' },
+        available_widget: '',
+      },
+
       state: {},
       active_fields_ref: {},
       current_dragging_widget: "",
@@ -599,6 +619,9 @@ export default {
       this.active_group_collapse_states[group_key].collapsed = !this.active_group_collapse_states[group_key].collapsed;
     },
     getActiveGroupCollapseState(group_key) {
+
+      // if ( this.elementIsDragging ) { return false; }
+
       let group_is_collapsed = true;
     
       if ( typeof this.active_group_collapse_states[group_key] !== "undefined" ) {
@@ -620,7 +643,9 @@ export default {
       this.active_group_option_collapse_states[group_key].collapsed = !this.active_group_option_collapse_states[group_key].collapsed;
     },
     
-    getActiveGroupOptionCollapseState(group_key) {
+    getActiveGroupOptionCollapseState( group_key ) {
+      if ( this.elementIsDragging ) { return false; }
+
       if (typeof this.active_group_option_collapse_states[group_key] === "undefined") {
         return false;
       }
@@ -671,21 +696,55 @@ export default {
       Vue.delete( this.groups, group_key );
     },
     
-    activeFieldOnDragStart(field_key, field_index, group_key) {
+    activeFieldOnDragStart( field_key, field_index, group_key ) {
       this.current_dragging_widget = {
         field_key,
         field_index,
         group_key,
       };
+
+      // console.log( this.current_dragging_state );
+      //
+
+      this.current_dragging_state.active_widget.id          = field_key;
+      this.current_dragging_state.active_widget.field_index = field_index;
+      this.current_dragging_state.active_widget.group_key   = group_key;
+
+      const self = this;
+      setTimeout(function(){
+        self.current_dragging_state.active_widget.hide = true;
+      }, 0);
     },
-    
+
     activeFieldOnDragEnd() {
       this.current_dragging_widget = '';
+      this.active_field_drop_area  = '';
+
+      this.resetCurrentDraggingState( 'active_widget' );
+    },
+
+    resetCurrentDraggingState( key ) {
+      if ( ! this.current_dragging_state[ key ] ) { return; }
+      
+      for ( let field_key in this.current_dragging_state[ key ] ) {
+        this.current_dragging_state[ key ][ field_key ] = '';
+        // console.log( field_key, this.current_dragging_state[ key ] );
+      }
+    },
+
+    activeGroupItemIsDropable( field_key, field_index, group_key ) {
+      if ( this.current_dragging_widget === '' ) { return false; }
+
+      if ( 
+        this.current_dragging_widget.field_key === field_key &&
+        this.current_dragging_widget.field_index === field_index &&
+        this.current_dragging_widget.group_key === group_key
+      ) { return false; }
+
+
+      return true;
     },
     
-    activeFieldOnDragEnd(field_key) {
-      this.active_field_drop_area = '';
-    },
     
     activeFieldOnDragOver(field_key) {
       this.active_field_drop_area = field_key;
@@ -712,16 +771,26 @@ export default {
       this.active_group_drop_area = "";
     },
     //
-    activeGroupOnDragStart(group_key) {
+    activeGroupOnDragStart(group_key, event) {
       if ( typeof this.groups[ group_key ].draggable !== 'undefined' ) {
         if ( ! this.groups[ group_key ].draggable ) {
           return;
         }
       }
+
+      Vue.set( this.groups[ group_key ], 'shrink', true );
+
+      let self = this;
+      setTimeout( function() {
+        Vue.set( self.groups[ group_key ], 'isDragging', true );
+      }, 0 );
+
       this.current_dragging_group = group_key;
     },
     
     activeGroupOnDragEnd() {
+      Vue.set( this.groups[ this.current_dragging_group ], 'isDragging', false );
+      Vue.set( this.groups[ this.current_dragging_group ], 'shrink', false );
       this.current_dragging_group = "";
     },
     
@@ -737,34 +806,75 @@ export default {
       this.current_drag_enter_group_item = "";
     },
     
-    activeGroupItemOnDrop(dest_group_key) {
-        if ( this.current_dragging_widget_group && 'group' === this.current_dragging_widget_group.widget_type ) {
-            let group = {
-                label: this.current_dragging_widget_group.field.label, fields: [],
-                type: 'widget_group',
-                widget_group: this.current_dragging_widget_group.inserting_from,
-                widget_name: this.current_dragging_widget_group.inserting_field_key,
-                options: this.current_dragging_widget_group.field.options
-            };
-            const des_ind = dest_group_key + 1;
-            this.groups.splice(des_ind, 0, JSON.parse( JSON.stringify( group ) ));
-            // Trace Widget Group
-            this.active_widget_groups.push( group.widget_name );
-            this.current_dragging_widget_group = '';
-            this.current_dragging_group        = '';
-            this.current_drag_enter_group_item = '';
-            return;
-        }   
-        if ( this.current_dragging_group === "" ) {
-            this.current_drag_enter_group_item = "";
-            return;
+    handleDroppedOnGroup( payload ) {
+      const default_args = { group_key: '', drop_direction: '' };
+      const args = Object.assign( default_args, payload );
+
+      // console.log( args );
+      if ( this.current_dragging_group !== '' ) {
+        Vue.set( this.groups[ this.current_dragging_group ], 'isDragging', false );
+        Vue.set( this.groups[ this.current_dragging_group ], 'shrink', false );
+      }
+      
+      if ( 'dropped-inside' === args.drop_direction ) {
+        this.activeFieldOnDrop( { group_key: args.group_key } );
+        return;
+      }
+
+      let group            = {};
+      let dropping_elm_key = JSON.parse( JSON.stringify( args.group_key ) );
+      let origin_index     = this.current_dragging_group;
+      let dest_index       = dropping_elm_key;
+
+      let drag_flow = 'up';
+      if  ( typeof origin_index === 'number' ) {
+        drag_flow = ( origin_index < dest_index ) ? 'down' : 'up';
+      }
+
+      if ( 'down' === drag_flow ) {
+        if ( 'dropped-before' === args.drop_direction ) {
+          dest_index = ( args.group_key > 0 ) ? args.group_key - 1 : 0;
         }
-        const origin_value = this.groups[this.current_dragging_group];
-        this.groups.splice(this.current_dragging_group, 1);
-        const des_ind = this.current_dragging_group === 0 ? dest_group_key : dest_group_key + 1;
-        this.groups.splice(des_ind, 0, origin_value);
-        this.current_dragging_group = "";
-        this.current_drag_enter_group_item = "";
+      }
+
+      if ( 'up' === drag_flow ) {
+        if ( 'dropped-after' === args.drop_direction ) {
+          dest_index = args.group_key + 1;
+        }
+      }
+
+      // console.log( { drag_flow, dest_index, dropping_elm_key } );
+
+      // If widget is group dragging   
+      if ( this.current_dragging_widget_group && 'group' === this.current_dragging_widget_group.widget_type ) {
+        group = {
+            label: this.current_dragging_widget_group.field.label, fields: [],
+            type: 'widget_group',
+            widget_group: this.current_dragging_widget_group.inserting_from,
+            widget_name: this.current_dragging_widget_group.inserting_field_key,
+            options: this.current_dragging_widget_group.field.options
+        };
+
+        this.groups.splice(dest_index, 0, JSON.parse( JSON.stringify( group ) ));
+
+        // Trace the widget group
+        this.active_widget_groups.push( group.widget_name );
+
+        // Reset
+        this.current_dragging_widget_group = '';
+        this.current_drag_enter_group_item = '';
+
+        return;
+      }
+
+      // console.log( { dropping_elm_key, dest_index }, this.current_dragging_group );
+
+      // Store current dragging group before delete
+      group = this.groups[ this.current_dragging_group ];
+      this.groups.splice(this.current_dragging_group, 1);
+
+      // Insert the group
+      this.groups.splice(dest_index, 0, JSON.parse( JSON.stringify( group ) ));
     },
     //
    
@@ -775,6 +885,7 @@ export default {
             inserting_from: group_key,
             field: field,
         };
+
         if ( typeof field.type !== 'undefined' ) {
             data.widget_type = 'group';
             this.current_dragging_widget_group = data;
@@ -783,11 +894,42 @@ export default {
         
         this.current_dragging_widget = data;
     },
-    widgetItemOnDragEnd(){
+    widgetItemOnDragEnd() {
       this.current_dragging_widget = '';
       this.current_dragging_widget_group = '';
+
+      // console.log( {current_dragging_widget: this.current_dragging_widget} );
     },
-    activeFieldOnDrop(args) {
+    
+    handleDroppedOnActiveField( args ) {
+      let field_index  = JSON.parse( JSON.stringify( args.field_index ) );
+      let dest_index   = field_index;
+      let origin_index = this.current_dragging_widget.field_index
+
+      let drag_flow = 'up';
+
+      if  ( typeof origin_index === 'number' ) {
+        drag_flow = ( origin_index < dest_index ) ? 'down' : 'up';
+      }
+  
+      if ( 'down' === drag_flow ) {
+        if ( 'dropped-before' === args.drop_direction ) {
+          dest_index = ( args.field_index > 0 ) ? args.field_index - 1 : 0;
+        }
+      }
+
+      if ( 'up' === drag_flow ) {
+        if ( 'dropped-after' === args.drop_direction ) {
+          dest_index = args.field_index + 1;
+        }
+      }
+
+      // console.log( { 'dir': args.drop_direction, drag_flow, origin_index, dest_index, field_index} );
+
+      this.activeFieldOnDrop( { group_key: args.group_key, field_index: dest_index } );
+    },
+
+    activeFieldOnDrop( args ) {
       // console.log( 'activeFieldOnDrop', {field_key: args.field_key, field_index: args.field_index, group_key: args.group_key} );
       const inserting_from          = this.current_dragging_widget.inserting_from;
       const inserting_field_key     = this.current_dragging_widget.inserting_field_key;
@@ -795,6 +937,12 @@ export default {
       const origin_field_index      = this.current_dragging_widget.field_index;
       const destination_group_index = args.group_key;
       const destination_field_index = args.field_index;
+
+      if ( this.current_dragging_group !== '' ) {
+        Vue.set( this.groups[ this.current_dragging_group ], 'isDragging', false );
+        Vue.set( this.groups[ this.current_dragging_group ], 'shrink', false );
+      }
+      
       this.active_group_drop_area = '';
       this.active_field_drop_area = '';
       this.current_dragging_widget = '';
@@ -807,6 +955,7 @@ export default {
           destination_group_index,
           destination_field_index,
       }); */
+
       // Reorder
       if (
         typeof origin_group_index !== "undefined" &&
@@ -822,6 +971,7 @@ export default {
           destination_field_index,
         });
       }
+
       // Move
       if (
         typeof origin_group_index !== "undefined" &&
@@ -837,6 +987,7 @@ export default {
           destination_field_index,
         });
       }
+
       // Insert
       if (
         typeof inserting_from !== "undefined" &&
@@ -886,7 +1037,8 @@ export default {
         payload.origin_field_index
       ];
       this.groups[payload.group_index].fields.splice( payload.origin_field_index, 1 );
-      const des_ind = payload.origin_field_index === 0 ? payload.destination_field_index : payload.destination_field_index + 1;
+      // const des_ind = payload.origin_field_index === 0 ? payload.destination_field_index : payload.destination_field_index + 1;
+      const des_ind = payload.destination_field_index;
       this.groups[payload.group_index].fields.splice(des_ind, 0, origin_value);
     },
     
@@ -897,7 +1049,8 @@ export default {
       
       // Insert to destination group
       // const des_ind = ( payload.origin_field_index === 0 ) ? payload.destination_field_index : payload.destination_field_index + 1 ;
-      const des_ind = payload.destination_field_index + 1;
+      // const des_ind = payload.destination_field_index + 1;
+      const des_ind = payload.destination_field_index;
       this.groups[payload.destination_group_index].fields.splice( des_ind, 0, origin_value );
     },
     
@@ -925,14 +1078,14 @@ export default {
       }
 
       Vue.set( this.active_fields, inserting_field_key, field_data_options );
-
+      
       const widget_group = this.active_fields[inserting_field_key].widget_group;
       const widget_name = this.active_fields[inserting_field_key].widget_name;
-
+      
       let terget_index = this.groups[ payload.destination_group_index ].fields.length;
-
+      
       if ( typeof payload.destination_field_index !== "undefined" ) {
-        terget_index = payload.destination_field_index + 1;
+        terget_index = payload.destination_field_index;
       }
 
       this.groups[ payload.destination_group_index ].fields.splice( terget_index, 0, inserting_field_key );

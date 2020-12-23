@@ -576,6 +576,7 @@ class Directorist_Listing_Forms {
 
 	public function add_listing_field_template( $field_data ) {
 
+		if( !empty( $field_data['assign_to'] ) ) return;
 		$listing_id = $this->get_add_listing_id();
 		
 		$value = '';
@@ -604,8 +605,6 @@ class Directorist_Listing_Forms {
 		$template = 'forms/fields/' . $field_data['widget_name'];
 		
 		$template = apply_filters( 'directorist_field_template', $template, $field_data );
-		
-		if( !empty( $field_data['assign_to'] ) ) return;
 
 		if ( is_admin() ) {
 			$admin_template = 'listing-form/' . $field_data['widget_name'];

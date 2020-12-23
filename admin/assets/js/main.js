@@ -226,6 +226,7 @@
       post_id: $('#atbdp-custom-fields-list').data('post_id'),
       term_id: id,
     };
+    console.log(data);
     $.post(ajaxurl, data, function (response) {
       if (response == ' 0') {
         $('#atbdp-custom-fields-list').hide();

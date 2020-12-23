@@ -817,33 +817,33 @@ export default {
       }
       
       if ( 'dropped-inside' === args.drop_direction ) {
-        // console.log( 'dropped-inside' );
         this.activeFieldOnDrop( { group_key: args.group_key } );
         return;
       }
 
-      let group = {};
+      let group            = {};
       let dropping_elm_key = JSON.parse( JSON.stringify( args.group_key ) );
-      let dest_index = dropping_elm_key;
+      let origin_index     = this.current_dragging_group;
+      let dest_index       = dropping_elm_key;
 
-      if ( 'dropped-before' === args.drop_direction ) {
-        // dest_index = group_key;
-        /* console.log( 'dropped-before', { 
-          dragging_elm_key: this.current_dragging_group, 
-          dropping_elm_key: dropping_elm_key, 
-          dest_index
-        }); */
+      let drag_flow = 'up';
+      if  ( typeof origin_index === 'number' ) {
+        drag_flow = ( origin_index < dest_index ) ? 'down' : 'up';
       }
 
-      if ( 'dropped-after' === args.drop_direction ) {
-        dest_index =  dropping_elm_key + 1;
-
-        /* console.log( 'dropped-after', {
-          dragging_elm_key: this.current_dragging_group, 
-          dropping_elm_key: dropping_elm_key, 
-          dest_index
-        }); */
+      if ( 'down' === drag_flow ) {
+        if ( 'dropped-before' === args.drop_direction ) {
+          dest_index = ( args.group_key > 0 ) ? args.group_key - 1 : 0;
+        }
       }
+
+      if ( 'up' === drag_flow ) {
+        if ( 'dropped-after' === args.drop_direction ) {
+          dest_index = args.group_key + 1;
+        }
+      }
+
+      // console.log( { drag_flow, dest_index, dropping_elm_key } );
 
       // If widget is group dragging   
       if ( this.current_dragging_widget_group && 'group' === this.current_dragging_widget_group.widget_type ) {
@@ -866,6 +866,8 @@ export default {
 
         return;
       }
+
+      console.log( { dropping_elm_key, dest_index }, this.current_dragging_group );
 
       // Store current dragging group before delete
       group = this.groups[ this.current_dragging_group ];
@@ -900,25 +902,29 @@ export default {
     },
     
     handleDroppedOnActiveField( args ) {
-      let field_index = JSON.parse( JSON.stringify( args.field_index ) );
-      let dest_index = field_index;
-      // console.log( {args} );
+      let field_index  = JSON.parse( JSON.stringify( args.field_index ) );
+      let dest_index   = field_index;
+      let origin_index = this.current_dragging_widget.field_index
 
-      if ( 'dropped-before' === args.drop_direction ) {
-        // dest_index = args.field_index;
-        // console.log( 'dropped-before', { dest_index, field_index: field_index } );
+      let drag_flow = 'up';
+
+      if  ( typeof origin_index === 'number' ) {
+        drag_flow = ( origin_index < dest_index ) ? 'down' : 'up';
+      }
+  
+      if ( 'down' === drag_flow ) {
+        if ( 'dropped-before' === args.drop_direction ) {
+          dest_index = ( args.field_index > 0 ) ? args.field_index - 1 : 0;
+        }
       }
 
-      if ( 'dropped-after' === args.drop_direction ) {
-        // let last_index = this.groups[ args.group_key ].fields.length - 1; 
-        dest_index = dest_index + 1;
-
-        /* console.log( 'dropped-after', { 
-          field_key: args.field_key,
-          field_index: field_index, 
-          dest_index,
-        }); */
+      if ( 'up' === drag_flow ) {
+        if ( 'dropped-after' === args.drop_direction ) {
+          dest_index = args.field_index + 1;
+        }
       }
+
+      // console.log( { 'dir': args.drop_direction, drag_flow, origin_index, dest_index, field_index} );
 
       this.activeFieldOnDrop( { group_key: args.group_key, field_index: dest_index } );
     },

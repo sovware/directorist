@@ -3,8 +3,8 @@
         <div class="cptm-dropable-placeholder cptm-dropable-placeholder-before" :class="dropablePlaceholderBeforeClass"></div>
         
         <div class=""><slot></slot></div>
-        
-        <div class="cptm-dropable-placeholder cptm-dropable-placeholder-after" v-if="dropableAfter">dropableAfter</div>
+
+        <div class="cptm-dropable-placeholder cptm-dropable-placeholder-after" :class="dropablePlaceholderAfterClass"></div>
         
         <div class="cptm-dropable-area" v-if="dropable">
             <!-- cptm-dropable-area-inside -->
@@ -91,7 +91,10 @@ export default {
         },
 
         dropableAfter() {
-            return ( this.drag_enter_dropable_area_right || this.drag_enter_dropable_area_bottom ) ? true : false;
+            var state = ( this.drag_enter_dropable_area_right || this.drag_enter_dropable_area_bottom ) ? true : false;
+            // console.log( state );
+
+            return state;
         },
 
         parentClass() {

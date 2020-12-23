@@ -23,25 +23,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
             add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
-
-            add_action( '_template_redirect', function() {
-                $listings = new WP_Query([
-                    'post_type' => ATBDP_POST_TYPE,
-                    'status' => 'publish',
-                    'per_page' => 10,
-                ]);
-
-                $post_id = 19547;
-                $term_id = 154;
-
-                wp_set_object_terms( $post_id, $term_id, 'atbdp_listing_types' );
-                $listing_meta = get_the_terms( $post_id, 'atbdp_listing_types' );
-
-                var_dump( $listing_meta );
-
-                // $type = get_term_by('id', 153, 'atbdp_listing_types');
-                // var_dump( $type );
-            });
         }
 
         // get_cetagory_options
@@ -141,11 +122,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             // $args = [ 'multi_directory_manager' => $this ];
             // $migration = new ATBDP_Multi_Directory_Migration( $args );
 
-            // $migration->run();
+            // // $migration->run();
             // $get_fields_data = $migration->get_fields_data();
 
             // echo '<pre>';
-            // var_export( $get_fields_data );
+            // var_dump( $get_fields_data['submission_form_fields'] );
             // echo '</pre>';
 
             // die;
@@ -804,6 +785,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'label' => 'Pricing',
                             'icon' => 'uil uil-bill',
                             'options' => [
+                                'field_key' => [
+                                    'type'   => 'meta-key',
+                                    'hidden' => true,
+                                    'value'  => 'pricing',
+                                ],
                                 'label' => [
                                     'type'  => 'text',
                                     'label'  => 'Label',
@@ -1554,7 +1540,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'options' => [
                                 'type' => [
                                     'type'  => 'hidden',
-                                    'value' => 'text',
+                                    'value' => 'checkbox',
                                 ],
                                 'field_key' => [
                                     'type'   => 'meta-key',
@@ -2615,7 +2601,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'title' => 'Other Fields',
                     'description' => 'Click on a field to use it',
                     'allow_multiple' => false,
-                    'widgets' => [
+                    'widgets' => apply_filters( 'atbdp_single_listing_other_fields_widget', [
                         'review' => [ 
                             'type' => 'section',
                             'label' => 'Review',
@@ -2704,7 +2690,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 ],
                             ]
                         ],
-                    ],
+                    ] ),
                 ],
             ];
 
@@ -2834,7 +2820,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             ]
                         ],
 
-                        'address' => [
+                        /* 'address' => [
                             'options' => [
                                 'label' => [
                                     'type'  => 'text',
@@ -2852,7 +2838,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'value' => false,
                                 ],
                             ]
-                        ],
+                        ], */
 
                         'zip' => [
                             'options' => [
@@ -3241,7 +3227,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'type' => "excerpt",
                     'label' => "Excerpt",
                     'icon' => 'uil uil-text-fields',
-                    'hook' => "atbdp_listing_title",
+                    'hook' => "atbdp_listing_excerpt",
                     'show_if' => [
                         'where' => "submission_form_fields.value.fields",
                         'conditions' => [
@@ -4840,30 +4826,40 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         // update_fields_with_old_data
         public function update_fields_with_old_data()
         {
-            $listing_type_id = absint($_REQUEST['listing_type_id']);
-            $term = get_term($listing_type_id, 'atbdp_listing_types');
+            $test_migration = apply_filters( 'atbdp_test_migration', false );
 
-            if (!$term) {
-                return;
+            if ( ! $test_migration ) {
+                $listing_type_id = absint($_REQUEST['listing_type_id']);
+                $term = get_term($listing_type_id, 'atbdp_listing_types');
+
+                if ( ! $term) { return; }
+
+                $this->fields['name']['value'] = $term->name;
+                $all_term_meta = get_term_meta( $term->term_id );
+
+            } else {
+                $args = [ 'multi_directory_manager' => $this ];
+                $migration = new ATBDP_Multi_Directory_Migration( $args );
+
+                $all_term_meta = $migration->get_fields_data();
             }
 
-            $this->fields['name']['value'] = $term->name;
 
-            $all_term_meta = get_term_meta($term->term_id);
-            if ('array' !== getType($all_term_meta)) {
-                return;
-            }
+            if ( 'array' !== getType( $all_term_meta ) ) { return; }
 
-            foreach ($all_term_meta as $meta_key => $meta_value) {
-                if (isset($this->fields[$meta_key])) {
-                    $value = maybe_unserialize(maybe_unserialize($meta_value[0]));
-                    $this->fields[$meta_key]['value'] = $value;
+            foreach ( $all_term_meta as $meta_key => $meta_value ) {
+                if ( isset( $this->fields[$meta_key] ) ) {
+                    $_meta_value = ( ! $test_migration ) ? $meta_value[0] : $meta_value;
+                    $value = maybe_unserialize( maybe_unserialize( $_meta_value ) );
+
+                    $this->fields[ $meta_key ]['value'] = $value;
                 }
             }
 
             foreach ($this->config['fields_group'] as $group_key => $group_fields) {
                 if (array_key_exists($group_key, $all_term_meta)) {
-                    $group_value = maybe_unserialize(maybe_unserialize($all_term_meta[$group_key][0]));
+                    $_group_meta_value = ( ! $test_migration ) ? $all_term_meta[$group_key][0] : $all_term_meta[$group_key];
+                    $group_value = maybe_unserialize( maybe_unserialize( $_group_meta_value ) );
 
                     foreach ($group_fields as $field_index => $field_key) {
                         if ('string' === gettype($field_key) && array_key_exists($field_key, $this->fields)) {

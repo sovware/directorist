@@ -333,7 +333,7 @@ export default {
           continue;
         }
 
-        for (let section_area in layout[section]) {
+        for ( let section_area in layout[section] ) {
           output[section][section_area] = [];
 
           if (typeof layout[section][section_area] !== "object") {
@@ -588,7 +588,7 @@ export default {
 
       if ( ! this.isTruthyObject( value ) ) { return; }
       let selectedWidgets = [];
-      
+
       // Get Active Widgets Data
       let active_widgets_data = {};
       for ( let section in value ) {
@@ -714,7 +714,7 @@ export default {
         return false;
       }
 
-       if ( path.selectedWidgets.includes( this._currentDraggingWidget.key ) ) {
+      if ( path.selectedWidgets.includes( this._currentDraggingWidget.key ) ) {
         return true;
       }
 

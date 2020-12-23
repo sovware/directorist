@@ -219,6 +219,14 @@ export default {
         hasInvalidChar( value ) {
             let invalid_chars = /\s/g;
 
+            if ( typeof value === 'number' ) {
+                value = value.toString();
+            }
+
+            if ( typeof value !== 'string' ) {
+                return false;
+            }
+
             if ( value.match( invalid_chars ) ) {
                 return true;
             }

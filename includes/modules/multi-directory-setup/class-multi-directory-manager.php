@@ -117,7 +117,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 return;
             }
 
-            if ( $need_import_default ) {
+            if ( apply_filters( 'atbdp_import_default_directory', $need_import_default ) ) {
                 $this->import_default_directory();
             }
             

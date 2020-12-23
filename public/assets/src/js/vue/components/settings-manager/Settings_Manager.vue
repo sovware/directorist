@@ -1,21 +1,17 @@
 <template>
-    <div class="atbdp-cpt-manager">
-        <div class="atbdp-row">
-            <div class="atbdp-col atbdp-col-3">
-                <sidebar-navigation />
+    <div class="settings-wrapper">
+        <div class="setting-top-bar">
+            <div class="setting-top-bar__search-field">
+                <input type="text" class="setting-search-field__input" placeholder="Search settings here...">
             </div>
+            <a href="#" class="settings-save-btn">Save Changes</a>
+        </div>
 
-            <div class="atbdp-col atbdp-col-8">
-                <!-- atbdp-cptm-body -->
-                <div class="atbdp-cptm-body">
-                    <tabContents />
+        <div class="setting-body">
+            <sidebar-navigation :menu="layouts" />
 
-                    <div class="atbdp-cptm-status-feedback" v-if="status_messages.length">
-                        <div class="cptm-alert" :class="'cptm-alert-' + status.type " v-for="(status, index) in status_messages" :key="index">
-                            {{ status.message }}
-                        </div>
-                    </div>
-                </div>
+            <div class="settings-contents">
+                <tabContents />
             </div>
         </div>
     </div>
@@ -34,6 +30,13 @@ export default {
 
     components: {
         tabContents,
+    },
+
+    computed: {
+        ...mapState({
+            fields: 'fields',
+            layouts: 'layouts',
+        })
     },
 
     created() {
@@ -57,6 +60,9 @@ export default {
                 this.footer_actions.save.label = 'Update';
             }
         }
+
+        this.$store.commit( 'prepareNav' );
+        // console.log( this.layouts );
     },
 
     data() {
@@ -79,10 +85,49 @@ export default {
             'getFieldsValue'
         ]),
 
+        getSidebarNav() {
+            let sidebar_nav = {};
+            let layouts = this.layouts;
+
+            console.log( { layouts } );
+            
+            for ( let menu_key in this.layouts ) {
+                let menu_args = { active: false };
+                let menu_item = this.layouts[ menu_key ];
+
+                for ( let menu_opt_key in menu_item ) {
+                    // If has submenu
+                    if ( 'submenu' === menu_opt_key ) {
+                        let submenu = {};
+                        
+                        for ( let submenu_key in menu_item[ menu_opt_key ] ) {
+                            let submenu_item = submenu[ submenu_key ];
+                            let submenu_args = { active: false };
+
+                            for ( let submenu_opt_key in submenu_item ) {
+                                if ( 'sections' === submenu_opt_key ) { continue; }
+                                
+                                submenu_args[ submenu_opt_key ] = submenu_item[ submenu_opt_key ];
+                            }
+
+                            submenu[ submenu_key ] = submenu_args;
+                        }
+
+                        menu_args[ menu_opt_key ] = submenu;
+                        continue;
+                    }
+
+                    menu_args[ menu_opt_key ] = menu_item[ menu_opt_key ];
+                }
+
+                sidebar_nav[ menu_key ] = menu_args;
+            }
+
+            return sidebar_nav;
+        },
+
         updateData() {
-
             console.log( 'updateData' );
-
             return;
             let fields = this.getFieldsValue();
 

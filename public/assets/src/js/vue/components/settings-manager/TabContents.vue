@@ -1,8 +1,20 @@
 <template>
     <div class="atbdp-cptm-tab-contents">
-        <template v-for="( tab, tab_index ) in tabContents">
-            <div class="atbdp-cptm-tab-item" :key="tab_index" :class="getActiveClass(tab_index, active_nav_index)">
-                <component :is="tab.type" v-bind="tab"></component>
+        <template v-for="( menu, menu_key ) in layouts">
+            <div class="atbdp-tab-content-item" :key="menu_key" v-if="menu.active">
+                <h2>{{ menu.label }}</h2>
+
+                <div class="atbdp-tab-sub-contents" v-if="menu.submenu">
+                    <template v-for="( submenu, submenu_key ) in menu.submenu" >
+                        <div class="atbdp-tab-content-item" v-if="submenu.active" :key="submenu_key">
+                            <p>{{ submenu.label }}</p>
+                        </div>
+                    </template>
+                </div>
+
+                <div class="atbdp-tab-content-body" v-else-if="menu.sections">
+                    Has Sections
+                </div>
             </div>
         </template>
     </div>
@@ -16,9 +28,14 @@ export default {
     name: 'tab-area',
     mixins: [ helpers ],
 
+    created() {
+        console.log( this.layouts );
+    },
+
     computed: {
         ...mapState({
             active_nav_index: 'active_nav_index',
+            layouts: 'layouts',
             tabContents: state => {
                 let contents = [];
 

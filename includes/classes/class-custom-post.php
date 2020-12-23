@@ -174,6 +174,7 @@ if (!class_exists('ATBDP_Custom_Post')):
             $columns['title'] = __('Listing Name', 'directorist');
             $columns['atbdp_location'] = __('Location', 'directorist');
             $columns['atbdp_category'] = __('Categories', 'directorist');
+            $columns['listing_type'] = __('Directory Type', 'directorist');
             $columns['atbdp_author'] = __('Author', 'directorist');
             $columns['atbdp_status'] = __('Status', 'directorist');
             if ($featured_active || is_fee_manager_active()) {
@@ -226,6 +227,13 @@ if (!class_exists('ATBDP_Custom_Post')):
 
                     }
 
+                    break;
+
+                case 'listing_type':
+                    $term_id = get_post_meta( $post_id, '_directory_type', true );
+                    $term_name = !empty( $term_id  ) ? get_term( $term_id )->name : ''; ?>
+                    <span><?php echo esc_attr( $term_name ); ?></span>
+                    <?php
                     break;
 
                     //code for multiselect category

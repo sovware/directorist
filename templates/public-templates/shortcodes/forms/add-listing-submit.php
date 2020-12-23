@@ -12,7 +12,7 @@
     /*
      * @since 4.1.0
      */
-    do_action('atbdp_before_terms_and_conditions_font');
+    do_action('atbdp_before_terms_and_conditions_font', $args);
 
     if ( $display_guest_listings && !atbdp_logged_in_user() ) {
     	?>
@@ -34,7 +34,7 @@
     			<?php
     		}
     		?>
-    		<input id="privacy_policy" type="checkbox" name="privacy_policy"<?php checked( $privacy_checked ); ?> <?php echo $privacy_is_required ? 'required="required"' : ''; ?>>
+    		<input id="privacy_policy" type="checkbox" name="privacy_policy" <?php checked( $privacy_checked ); ?> <?php echo $privacy_is_required ? 'required="required"' : ''; ?>>
     		<label for="privacy_policy"><?php echo wp_kses_post( $privacy_text ); ?></label>
     	</div>
     	<?php
@@ -47,7 +47,7 @@
     			<?php
     		}
     		?>
-    		<input id="listing_t" type="checkbox" name="t_c_check"<?php checked( $terms_checked ); ?> <?php echo $terms_is_required ? 'required="required"' : ''; ?>>
+    		<input id="listing_t" type="checkbox" name="t_c_check" <?php checked( $terms_checked ); ?> <?php echo $terms_is_required ? 'required="required"' : ''; ?>>
     		<label for="listing_t"><?php echo wp_kses_post( $terms_text ); ?></label>
     	</div>
     	<?php

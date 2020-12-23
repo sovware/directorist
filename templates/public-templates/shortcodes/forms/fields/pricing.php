@@ -16,7 +16,7 @@ $currency                = get_directorist_option( 'g_currency', 'USD' );
 $c_symbol                = atbdp_currency_symbol( $currency );
 ?>
 
-<div class="form-group" class="directorist-pricing-field">
+<div class="form-group directorist-pricing-field">
 	<?php $form->add_listing_label_template( $data ); ?>
 
 	<input type="hidden" id="atbd_listing_pricing" value="<?php echo esc_attr( $atbd_listing_pricing ); ?>">
@@ -49,11 +49,10 @@ $c_symbol                = atbdp_currency_symbol( $currency );
 		 * @since 6.2.1
 		 */
 		do_action('atbdp_add_listing_before_price_field', $p_id);
-
 		$step = $allow_decimal ? ' step="any"' : '';
 		?>
 
-		<input type="number"<?php echo $step; ?> id="price" name="price" value="<?php echo esc_attr($price); ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
+		<input type="<?php echo $data['price_unit_field_type']; ?>"<?php echo $step; ?> id="price" name="price" value="<?php echo esc_attr($price); ?>" class="form-control directory_field" placeholder="<?php echo esc_attr($price_placeholder); ?>"/>
 		<?php
 	}
 

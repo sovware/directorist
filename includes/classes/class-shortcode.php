@@ -94,7 +94,11 @@ class ATBDP_Shortcode {
 	}
 
 	public function search_listing($atts) {
-		$searchform = new Directorist_Listing_Search_Form( 'search_form', '', $atts );
+		$listing_type = '';
+		if (!empty($atts['listing_type'])) {
+			$listing_type = $atts['listing_type'];
+		}
+		$searchform = new Directorist_Listing_Search_Form( 'search_form', $listing_type, $atts );
 		return $searchform->render_search_shortcode();
 	}
 

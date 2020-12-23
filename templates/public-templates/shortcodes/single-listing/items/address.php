@@ -5,8 +5,12 @@
  * @version 6.7
  */
 
-dvar_dump($data);
-
+if (!empty($data['address_link_with_map'])) {
+	$value = '<a target="google_map" href="https://www.google.de/maps/search/?' . esc_html($value) . '">' . esc_html($value) . '</a>';
+}
 ?>
-<div class="atbd_info_title"><span class="<?php atbdp_icon_type(true);?>-map-marker"></span><?php echo esc_html( $address_label ); ?></div>
-<div class="atbd_info"><?php echo $address_html; ?></div>
+
+<div class="directorist-single-info directorist-single-info-address">
+	<div class="directorist-single-info-label"><?php directorist_icon( $icon );?><?php echo esc_html( $data['label'] ); ?></div>
+	<div class="directorist-single-info-value"><?php echo wp_kses_post( $value ); ?></div>
+</div>

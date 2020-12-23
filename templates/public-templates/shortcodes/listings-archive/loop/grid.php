@@ -30,7 +30,8 @@ $loop_fields = $listings->loop['card_fields'];
 
 				<div class="atbd_content_upper">
 					<div class="atbd-card-body-top"><?php $listings->render_loop_fields($loop_fields['body']['top']); ?></div>
-					<div class="atbd_listing_data_list"><ul><?php $listings->render_loop_fields($loop_fields['body']['bottom'], '<li>', '</li>'); ?></ul></div>				
+					<div class="atbd_listing_data_list"><ul><?php $listings->render_loop_fields($loop_fields['body']['bottom'], '<li>', '</li>'); ?></ul></div>
+					<div class="excerpt-area"><?php $listings->render_loop_fields($loop_fields['body']['excerpt']); ?></div>
 				</div>
 
 				<div class="atbd_listing_bottom_content">

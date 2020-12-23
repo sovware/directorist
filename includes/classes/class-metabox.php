@@ -51,9 +51,7 @@ class ATBDP_Metabox {
 			'taxonomy'   => ATBDP_TYPE,
 			'hide_empty' => false,
 		));
-		$terms   =  get_the_terms( $post->ID, ATBDP_TYPE );
-		$current_type = !empty($terms) ? $terms[0]->term_id : '';
-		$current_type = get_post_meta($post->ID, '_directory_type', true);
+		$current_type   =  get_post_meta( $post->ID, '_directory_type', true );
 		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
 		?>
 		<label><?php _e( 'Listing Type', 'directorist' ); ?></label>
@@ -151,9 +149,15 @@ class ATBDP_Metabox {
 		if( $listing_type ){
 		$term = get_term_by( 'id', $listing_type, 'atbdp_listing_types' );
 		$submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
+		$expiration = get_term_meta( $term->term_id, 'default_expiration', true );
 		$submission_form_fields = $submission_form['fields'];
 		}
 		foreach( $submission_form_fields as $key => $value ){
+
+			if( 'image_upload' === $key ) {
+				$metas['_listing_img']       = !empty($p['listing_img'])? atbdp_sanitize_array($p['listing_img']) : array();
+				$metas['_listing_prv_img']   = !empty($p['listing_prv_img'])? sanitize_text_field($p['listing_prv_img']) : '';
+			}
 			if( 'pricing' === $key ) {
 				$metas[ '_atbd_listing_pricing' ] = $p['atbd_listing_pricing'] ? $p['atbd_listing_pricing'] : '';
 				$metas[ '_price' ] = $p['price'] ? $p['price'] : '';
@@ -164,14 +168,14 @@ class ATBDP_Metabox {
 				$key = '_'. $field_key;
 				$metas[ $key ] = !empty( $p[ $field_key ] ) ? $p[ $field_key ] : '';
 			}                    
-		}
+		}	
 		$metas['_directory_type'] = $listing_type;
 		if( !empty( $metas['_directory_type'] ) ){
 			wp_set_object_terms($post_id, (int)$metas['_directory_type'], 'atbdp_listing_types');
 		}
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
 		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
-		$exp_dt = !empty($p['exp_date'])?atbdp_sanitize_array($p['exp_date']):array(); // get expiry date from the $_POST and then later sanitize it.
+		$exp_dt = !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']):array(); // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){
 			$exp_dt = array(
@@ -183,11 +187,14 @@ class ATBDP_Metabox {
 			);
 			$exp_dt = get_date_in_mysql_format($exp_dt);
 		}else{
-			$exp_dt = calc_listing_expiry_date(); // get the expiry date in mysql date format using the default expiration date.
+			$exp_dt = calc_listing_expiry_date( '', $expiration ); // get the expiry date in mysql date format using the default expiration date.
 		}
+		// var_dump( $metas );die;
 		$metas['_expiry_date']  = $exp_dt;
 		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas);
 		// save the meta data to the database
+		// var_dump( $metas );
+		// die;
 		foreach ($metas as $meta_key => $meta_value) {
 			update_post_meta($post_id, $meta_key, $meta_value); // array value will be serialize automatically by update post meta
 		}

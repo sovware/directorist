@@ -47,7 +47,6 @@
       color: $light;
       display: inline-block;
       border-radius: 3px;
-      margin-right: 6px;
       margin-top: 3px;
       margin-bottom: 3px;
       &:last-child{
@@ -445,13 +444,18 @@ span.atbd_get_loc_wid {
     border-radius: 50%;
     &.atbdp_fav_isActive{
       background: rgba(0,0,0,0.5);
-      .directorist-icon{
-        color: red;
+      .atbd_fav_icon{
+        &:before{
+          content: '\f233';
+        }
       }
     }
-    .directorist-icon{
-      color: #fff;
-      font-size: 13px !important;
+    .atbd_fav_icon{
+      &:before{
+        content: "\f234";
+        font-family: 'LineAwesome';
+        color:#fff;
+      }
     }
     .atbd_fav_tooltip {
       span{
@@ -475,6 +479,14 @@ span.atbd_get_loc_wid {
           top: -7px;
         }
       }
+    }
+  }
+  .atbd_listing_list{
+    .atbdp_mark_as_fav .atbd_fav_icon:before{
+      color: #9192a3;
+    }
+    .atbdp_mark_as_fav.atbdp_fav_isActive .atbd_fav_icon::before{
+      color: #fff !important;
     }
   }
 }
@@ -719,20 +731,13 @@ span.atbd_get_loc_wid {
 }
 .atbd_listing_list{
   .atbd_content_upper{
-    display: flex;
-    flex-wrap: wrap;
     .atbd-list-body-top{
-      order: 0;
-      flex: 1;
-    }
-    .atbd_listing_data_list{
-      order: 2;
-      flex: 0 0 100%;
+      padding-right: 40px;
     }
     .atbd-list-body-right{
-      order: 1;
-      display: flex;
-      align-items: flex-start;
+      position: absolute;
+      right: 17px;
+      top: 20px;
     }
   }
 }

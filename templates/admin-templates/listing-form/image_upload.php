@@ -5,75 +5,85 @@
  * @version 6.7
  */
 
-$p_id                = $form->get_add_listing_id();
-$fm_plan             = get_post_meta( $p_id, '_fm_plans', true );
-$type                = $form->get_current_listing_type();
-
-$plan_image          = get_directorist_type_option( $type, 'max_image_limit', 5 );
-$max_file_size       = get_directorist_type_option( $type, 'max_per_image_limit', 0 );
-$max_total_file_size = get_directorist_type_option( $type, 'max_total_image_limit', 4 );
-
-$slider_unl = '';
-if ( is_fee_manager_active() ) {
-	$selected_plan = selected_plan_id();
-	$planID        = ! empty( $selected_plan ) ? $selected_plan : $fm_plan;
-	$allow_slider  = is_plan_allowed_slider( $planID );
-	$slider_unl    = is_plan_slider_unlimited( $planID );
-	if ( ! empty( $allow_slider ) && empty( $slider_unl ) ) {
-		$plan_image = is_plan_slider_limit( $planID );
-	}
+$p_id                		= $form->get_add_listing_id();
+$listing_imgs		 		= get_post_meta($p_id, '_listing_img', true);
+$listing_prv_img_id	 		= get_post_meta($p_id, '_listing_prv_img', true);
+$listing_prv_img 	 		= !empty($listing_prv_img_id) ? atbdp_get_image_source($listing_prv_img_id) : '';
+$display_prv_field 	 		= get_directorist_option('display_prv_field', 1);
+$display_gallery_field 		= get_directorist_option('display_gallery_field', 1);
+$image_links = []; // define a link placeholder variable
+if( !empty( $listing_imgs ) ) {
+    foreach ($listing_imgs as $id) {
+        $image_links[$id] = atbdp_get_image_source($id); // store the attachment id and url
+    }
 }
 
-$listing_img            = atbdp_get_listing_attachment_ids( $p_id );
-$slider_unl             = $slider_unl;
-$max_file_items         = ! empty( $slider_unl ) ? '999' : $plan_image;
-$min_file_items         = $data['required'] ? '1' : '';
-$max_file_size_kb       = (float) $max_file_size * 1024;//
-$max_total_file_size_kb = (float) $max_total_file_size * 1024;//
+// is multiple image upload extension is active  ?
+$active_mi_ext = is_multiple_images_active(); // default is no
 ?>
-
-<div class="form-group" class="directorist-image-upload-field">
-	<div id="_listing_gallery" class="ez-media-uploader" data-type="jpg, jpeg, png, gif" data-max-file-items="<?php echo esc_attr( $max_file_items ); ?>" data-min-file-items="<?php echo esc_attr( $min_file_items ); ?>" data-max-file-size="<?php echo esc_attr( $max_file_size_kb ); ?>" data-max-total-file-size="<?php echo esc_attr( $max_total_file_size_kb ); ?>" data-show-alerts="0">
-
-		<div class="ezmu__loading-section ezmu--show">
-			<span class="ezmu__loading-icon"><span class="ezmu__loading-icon-img-bg"></span></span>
-		</div>
-
-		<div class="ezmu__old-files">
-			<?php
-			if (!empty($listing_img)) {
-				foreach ($listing_img as $image) {
-					$url = wp_get_attachment_image_url($image, 'full');
-					$size = filesize(get_attached_file($image));
-					?>
-					<span class="ezmu__old-files-meta" data-attachment-id="<?php echo esc_attr($image); ?>" data-url="<?php echo esc_url($url); ?>" data-size="<?php echo esc_attr($size / 1024); ?>" data-type="image"></span>
-					<?php
-				}
-			}
-			?>
-		</div>
-
-		<div class="ezmu-dictionary">
-			<span class="ezmu-dictionary-label-drop-here"><?php esc_html_e('Drop Here', 'directorist') ?></span>
-			<span class="ezmu-dictionary-label-featured"><?php esc_html_e('Preview', 'directorist') ?></span>
-			<span class="ezmu-dictionary-label-drag-n-drop"><?php esc_html_e('Drag & Drop', 'directorist') ?></span>
-			<span class="ezmu-dictionary-label-or"><?php esc_html_e('or', 'directorist') ?></span>
-			<span class="ezmu-dictionary-label-select-files"><?php echo esc_html( $data['label'] ); ?></span>
-			<span class="ezmu-dictionary-label-add-more"><?php esc_html_e('Add More', 'directorist') ?></span>
-
-			<span class="ezmu-dictionary-alert-max-file-size"><?php esc_html_e('Maximum limit for a file is  __DT__', 'directorist') ?></span>
-			<span class="ezmu-dictionary-alert-max-total-file-size"><?php esc_html_e('Maximum limit for total file size is __DT__', 'directorist') ?></span>
-			<span class="ezmu-dictionary-alert-min-file-items"><?php esc_html_e('Minimum __DT__ file is required', 'directorist') ?></span>
-			<span class="ezmu-dictionary-alert-max-file-items"><?php esc_html_e('Maximum limit for total file is __DT__', 'directorist') ?></span>
-
-			<span class="ezmu-dictionary-info-max-file-size"><?php esc_html_e('Maximum allowed size per file is __DT__', 'directorist') ?></span>
-			<span class="ezmu-dictionary-info-max-total-file-size"><?php esc_html_e('Maximum total allowed file size is __DT__', 'directorist') ?></span>
-
-			<span class="ezmu-dictionary-info-type" data-show='0'></span>
-
-			<span class="ezmu-dictionary-info-min-file-items"><?php esc_html_e('Minimum __DT__ file is required', 'directorist') ?></span>
-
-			<span class="ezmu-dictionary-info-max-file-items" data-featured="<?php echo !empty($slider_unl) ? '1' : ''; ?>"><?php echo !empty($slider_unl) ? __('Unlimited images with this plan!', 'directorist') : ( ( $max_file_items > 1 ) ? __('Maximum __DT__ files are allowed', 'directorist') : __('Maximum __DT__ file is allowed', 'directorist') ); ?></span>
-		</div>
-	</div>
+<div id="_listing_gallery">
+    <div class="add_listing_form_wrapper" id="gallery_upload">
+        <?php if (!empty($display_prv_field)) { ?>
+            <div class="form-group">
+                <!-- image container, which can be manipulated with js -->
+                <div class="listing-prv-img-container">
+                    <div class="single_prv_attachment">
+                        <input class="listing_prv_img" name="listing_prv_img" type="hidden"
+                            value="<?php echo $listing_prv_img_id; ?>">
+                        <div>
+                            <img style="max-height: 150px;max-width: 150px" class="change_listing_prv_img"
+                                src="<?php echo $listing_prv_img ? esc_url($listing_prv_img) : ''; ?>">
+                            <a href="" class="remove_prev_img"><span class="fa fa-times" title="Remove it"></span></a>
+                        </div>
+                    </div>
+                    <div class="default_img">
+                    </div>
+                </div>
+                <!--  add & remove image links -->
+                <p class="hide-if-no-js">
+                    <a href="#"
+                    class="upload-header btn btn-primary"><?php $preview_label = get_directorist_option('preview_label', __('Upload Preview Image', 'directorist'));
+                        esc_html_e($preview_label, 'directorist'); ?></a>
+                </p>
+            </div>
+        <?php } ?>
+        <?php if (!empty($display_gallery_field)) { ?>
+            <div class="form-group">
+                <!-- image container, which can be manipulated with js -->
+                <div class="listing-img-container">
+                    <?php if (!empty($image_links)) {
+                        foreach ($image_links as $id => $image_link) { ?>
+                            <div class="single_attachment">
+                                <input class="listing_image_attachment" name="listing_img[]" type="hidden"
+                                    value="<?php echo intval($id); ?>">
+                                <img style="width: 100%; height: 100%;"
+                                    src="<?php echo esc_url($image_link) ?>"
+                                    alt="<?php esc_attr_e('Listing Image', 'directorist'); ?>">
+                                <span class="remove_image  dashicons dashicons-dismiss"
+                                    title="<?php echo __('Remove it', 'directorist'); ?>"></span>
+                            </div>
+                        <?php }  // ends foreach for looping image
+                    } else { ?>
+                        <img src="<?php echo esc_url(ATBDP_ADMIN_ASSETS . 'images/no-image.png'); ?>"
+                            alt="<?php esc_attr_e('No Image Found', 'directorist'); ?>">
+                        <p><?php esc_attr_e('No Images', 'directorist'); ?></p>
+                    <?php } //  ends if statement  ?>
+                </div>
+                <?php
+                /* A hidden input to set and post the chosen image id
+                <input id="listing_image_id" name="listing[listing_img]" type="hidden" value="">*/
+                ?>
+                <!--  add & remove image links -->
+                <p class="hide-if-no-js">
+                    <a href="#" id="listing_image_btn" class="btn btn-primary">
+                        <span class="dashicons dashicons-format-image"></span>
+                        <?php $gallery_label = get_directorist_option('gallery_label', __('Upload Slider Images', 'directorist'));
+                        esc_html_e($gallery_label, 'directorist'); ?>
+                    </a>
+                    <a id="delete-custom-img" class="btn btn-danger <?php echo (!empty($image_links)) ? '' : 'hidden' ?>"
+                    href="#"> <?php echo (1 == $active_mi_ext) ? esc_html__('Remove Images', 'directorist') : esc_html__('Remove Image', 'directorist'); ?></a>
+                </p>
+            </div>
+        <?php } ?>
+    </div> <!--ends add_listing_form_wrapper-->
 </div>

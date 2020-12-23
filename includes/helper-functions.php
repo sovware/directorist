@@ -2,6 +2,15 @@
 // Prohibit direct script loading.
 defined('ABSPATH') || die('No direct script access allowed!');
 
+
+if ( ! function_exists( 'e_var_dump' ) ) {
+    function e_var_dump( $the_var = '' ) {
+        echo '<pre>';
+        print_r( $the_var );
+        echo '</pre>';
+    }
+}
+
 function atbdp_add_flush_alert( array $args = [] ) {
     $default = [
         'id'          => '',
@@ -150,8 +159,8 @@ function atbdp_get_listing_status_after_submission( array $args = [] ) {
     $args['edited'] = ( true === $args['edited'] || '1' === $args['edited'] || 'yes' === $args['edited'] ) ? true : false;  
     $listing_id = $args['id'];
     
-    $new_l_status   = get_directorist_option('new_listing_status', 'pending');
-    $edit_l_status  = get_directorist_option('edit_listing_status');
+    $new_l_status   = $args['new_l_status'];
+    $edit_l_status  = $args['edit_l_status'];
     $edited         = $args['edited'];
     $listing_status = ( true === $edited || 'yes' === $edited || '1' === $edited ) ? $edit_l_status : $new_l_status;
 
@@ -482,7 +491,7 @@ if (!function_exists('atbdp_get_option')) {
 
 function get_directorist_type_option( $type, $name, $default='' ) {
     $meta = get_term_meta( $type, $name, true );
-    $result = $meta ? $meta : $default;
+    $result = $meta != '' ? $meta : $default;
     return $result;
 }
 
@@ -1643,15 +1652,15 @@ if (!function_exists('calc_listing_expiry_date')) {
      * @since    3.1.0
      *
      */
-    function calc_listing_expiry_date($start_date = NULL)
+    function calc_listing_expiry_date($start_date = NULL, $expire = NULL)
     {
-
         $exp_days = get_directorist_option('listing_expire_in_days', 999, 999);
+        $expired_date = !empty($expire) ? $expire : $exp_days;
         // Current time
         $start_date = !empty($start_date) ? $start_date : current_time('mysql');
         // Calculate new date
         $date = new DateTime($start_date);
-        $date->add(new DateInterval("P{$exp_days}D")); // set the interval in days
+        $date->add(new DateInterval("P{$expired_date}D")); // set the interval in days
         return $date->format('Y-m-d H:i:s');
 
     }
@@ -4793,4 +4802,22 @@ function dvar_dump($data){
     echo "<pre>";
     var_dump($data);
     echo "</pre>";
+}
+
+if( ! function_exists( 'atbdp_field_assigned_plan' ) ) {
+    function atbdp_field_assigned_plan( $field_data, $selected_plan = NULL ) {
+        if( ! $field_data ) return false;
+    
+        $quired_plan = ! empty( $_GET['plan'] ) ? sanitize_key( $_GET['plan'] ) : '';
+        $selected_plan = ! empty( $selected_plan ) ? $selected_plan : $quired_plan;
+        $plans = !empty( $field_data['plans'] ) ? $field_data['plans'] : [];
+        
+        if( $plans ) {
+            foreach ( $plans as $plan ) {
+                if( $plan['plan_id'] == $selected_plan ) {
+                    return $plan;
+                }
+            }
+        }
+    }
 }

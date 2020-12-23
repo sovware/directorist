@@ -911,12 +911,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                     'name' => 'general_listings',
                     'icon' => 'font-awesome:fa-sliders-h',
                     'controls' => apply_filters('atbdp_general_listings_controls', array(
-                        'emails' => array(
+                        'general' => array(
                             'type' => 'section',
                             'title' => __('General Settings', 'directorist'),
                             'description' => __('You can Customize general settings here', 'directorist'),
                             'fields' => $this->get_general_listings_settings_fields(),
-                        )
+                        ),
                     )),
                 ),
 
@@ -967,6 +967,12 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Popular Badge', 'directorist'),
                             'description' => __('You can Customize Popular Badge here', 'directorist'),
                             'fields' => $this->get_popular_badge_settings_fields(),
+                        ),
+                        'featured_badge' => array(
+                            'type' => 'section',
+                            'title' => __('Featured Badge', 'directorist'),
+                            'description' => __('You can Customize Featured Badge here', 'directorist'),
+                            'fields' => $this->get_featured_badge_settings_fields(),
                         ),
                     )),
                 ),
@@ -1105,11 +1111,6 @@ if (!class_exists('ATBDP_Settings_Manager')):
                             'title' => __('Privacy and Policy', 'directorist'),
                             'fields' => $this->get_listings_privacy_field_settings(),
                         ),
-                          'guest_field' => array(
-                              'type' => 'section',
-                              'title' => __('Guest Submission', 'directorist'),
-                              'fields' => $this->get_guest_listings_settings(),
-                          ),
                         'submit_field' => array(
                               'type' => 'section',
                               'title' => __('Submit', 'directorist'),
@@ -4520,6 +4521,24 @@ The Administrator of ==SITE_NAME==
         /**
          * Get all the settings fields for the listings settings section
          * @return array
+         * @since 6.7.0
+         */
+        function get_featured_badge_settings_fields()
+        {
+            return apply_filters('atbdp_badge_settings_fields', array( 
+                array(
+                    'type' => 'textbox',
+                    'name' => 'featured_listing_title',
+                    'label' => __('Title', 'directorist'),
+                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
+                    'default' => __('Featured', 'directorist'),
+                ),
+            ));
+        }
+
+        /**
+         * Get all the settings fields for the listings settings section
+         * @return array
          * @since 4.0.0
          */
         function get_popular_badge_settings_fields()
@@ -6393,6 +6412,12 @@ The Administrator of ==SITE_NAME==
                         'name' => 'atbdp_reset_cache',
                         'label' => __('Reset Cache', 'directorist'),
                         'default' => '0',
+                    ),
+                    array(
+                        'type' => 'toggle',
+                        'name' => 'guest_listings',
+                        'label' => __('Guest Listing Submission', 'directorist'),
+                        'default' => 0,
                     ),
                 )
             );

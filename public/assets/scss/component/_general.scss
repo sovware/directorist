@@ -1163,8 +1163,23 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 div#listing_notifier span {
   display: block;
+  width: fit-content;
   text-align: center;
-  margin-bottom: 10px;
+  padding: 8px 30px;
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 auto 15px;
+  &.atbdp_error{
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
+  &.atbdp_success{
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+  }
 }
 
 .atbdp_float_active {
@@ -1678,5 +1693,16 @@ input#privacy_policy,
   .atbd_dropdown-menu{
     max-height: 300px;
     overflow-y: auto;
+  }
+}
+
+/* Search Home */
+.atbdp-basic-search-fields{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .atbdp-basic-search-fields-each{
+    flex: 0 0 33.33%;
+    width: 33.33%;
   }
 }

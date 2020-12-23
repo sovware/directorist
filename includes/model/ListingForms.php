@@ -422,7 +422,7 @@ class Directorist_Listing_Forms {
 
 	public function add_listing_generate_label( $label, $required ) {
 		$required_html = $this->add_listing_required_html();
-		return wp_kses( sprintf( '%s:%s', $label, $required ? $required_html : '' ), array( 'span' ) );
+		return sprintf( '%s:%s', $label, $required ? $required_html : '' );
 	}
 
 	public function add_listing_has_contact_info( $args ) {
@@ -446,8 +446,8 @@ class Directorist_Listing_Forms {
 
 	public function add_listing_submit_template() {
 		$p_id              = $this->get_add_listing_id();
-		$guest_email_label = get_directorist_option( 'guest_email', __( 'Your Email', 'directorist' ) );
 		$type = $this->get_current_listing_type();
+		$guest_email_label = get_directorist_type_option( $type, 'guest_email_label', __( 'Your Email', 'directorist' ) );
 
 		$privacy_link =  ATBDP_Permalink::get_privacy_policy_page_url();
 		$terms_link   =  ATBDP_Permalink::get_terms_and_conditions_page_url();
@@ -460,14 +460,14 @@ class Directorist_Listing_Forms {
 			'p_id'                    => $p_id,
 			'display_guest_listings'  => get_directorist_option( 'guest_listings', 0 ),
 			'guest_email_label_html'  => $this->add_listing_generate_label( $guest_email_label, true ),
-			'guest_email_placeholder' => get_directorist_option( 'guest_email_placeholder', __( 'example@gmail.com', 'directorist' ) ),
+			'guest_email_placeholder' => get_directorist_type_option( $type, 'guest_email_placeholder' ),
 
-			'display_privacy'         => get_directorist_type_option( $type, 'listing_privacy', 1 ),
+			'display_privacy'         => (bool) get_directorist_type_option( $type, 'listing_privacy', 1 ),
 			'privacy_is_required'     => get_directorist_type_option( $type, 'require_privacy', 1 ),
 			'privacy_checked'         => (bool) get_post_meta( $p_id, '_privacy_policy', true ),
 			'privacy_text'            => $this->generate_linktext( $privacy_label, $privacy_link ),
 
-			'display_terms'           => get_directorist_type_option( $type, 'listing_terms_condition', 1 ),
+			'display_terms'           => (bool) get_directorist_type_option( $type, 'listing_terms_condition', 1 ),
 			'terms_is_required'       => get_directorist_type_option( $type, 'require_terms_conditions', 1 ),
 			'terms_checked'           => (bool) get_post_meta( $p_id, '_t_c_check', true ),
 			'terms_text'              => $this->generate_linktext( $terms_label, $terms_link ),
@@ -475,7 +475,7 @@ class Directorist_Listing_Forms {
 			'submit_label'            => get_directorist_type_option( $type, 'submit_button_label', __( 'Save & Preview', 'directorist' ) ),
 		);
 
-		atbdp_get_shortcode_template( 'forms/add-listing-submit', $args );
+		atbdp_get_shortcode_template( 'forms/add-listing-submit', apply_filters( 'atbdp_add_listing_submission_template_args', $args ) );
 	}
 
 	public function add_listing_custom_fields_template() {
@@ -504,8 +504,7 @@ class Directorist_Listing_Forms {
 			'hide_empty' => false,
 		));
 		$terms =  get_the_terms( $this->get_add_listing_id(), ATBDP_TYPE );
-		$current_type  = !empty($terms) ? $terms[0]->term_id : '';
-
+		$current_type  = !empty($terms) ? $terms[0]->term_id : ( count( $all_types ) === 1 ? $all_types[0]->term_id : '' );
 		$args = array(
 			'listing_form'  => $this,
 			'listing_types' => $all_types,
@@ -557,7 +556,11 @@ class Directorist_Listing_Forms {
 			}
 		}
 
+		// e_var_dump( $field_data );
+
 		$field_data['value'] = $value;
+		$field_data['form'] = $this;
+		
 
 		$args = array(
 			'form'  => $this,
@@ -573,11 +576,16 @@ class Directorist_Listing_Forms {
 
 			if ( atbdp_has_admin_template( $admin_template ) ) {
 				atbdp_get_admin_template( $admin_template, $args );
-				return;
+			}
+			else {
+				atbdp_get_shortcode_template( $template, $args );
 			}
 		}
-
-		atbdp_get_shortcode_template( $template, $args );
+		else {
+			if ( empty( $field_data['only_for_admin'] ) ) {
+				atbdp_get_shortcode_template( $template, $args );
+			}
+		}
 	}
 
 	public function get_listing_types() {
@@ -613,9 +621,13 @@ class Directorist_Listing_Forms {
 	}
 
 	public function build_form_data( $type ) {
-		$form_data              = array();
+		$form_data = [];
+
+		if ( !$type ) {
+			return $form_data;
+		}
+
 		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
-		// e_var_dump($submission_form_fields);
 
 		foreach ( $submission_form_fields['groups'] as $group ) {
 			$section           = $group;
@@ -627,12 +639,11 @@ class Directorist_Listing_Forms {
 
 		}
 
-		// e_var_dump($form_data);
-
 		return $form_data;
 	}
 
 	public function render_shortcode_add_listing( $atts ) {
+		
 		wp_enqueue_script( 'adminmainassets' );
 
 		$guest_submission = get_directorist_option( 'guest_listings', 0 );
@@ -651,30 +662,30 @@ class Directorist_Listing_Forms {
 			}
 		}
 
-		global $wp;
-		global $pagenow;
-		$current_url = home_url( add_query_arg( array(), $wp->request ) );
+		// global $wp;
+		// global $pagenow;
+		// $current_url = home_url( add_query_arg( array(), $wp->request ) );
 
-		$monetization_is_active    = is_fee_manager_active() && ! selected_plan_id();
-		$pricing_plan_is_active    = class_exists( 'ATBDP_Pricing_Plans' );
-		$wc_pricing_plan_is_active = class_exists( 'DWPP_Pricing_Plans' );
-		$in_add_listing_page       = ( ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow === 'at_biz_dir' ) ) ? true : false;
-		$show_packages             = ( $monetization_is_active && ! $in_add_listing_page ) ? true : false;
+		// $monetization_is_active    = is_fee_manager_active() && ! selected_plan_id();
+		// $pricing_plan_is_active    = class_exists( 'ATBDP_Pricing_Plans' );
+		// $wc_pricing_plan_is_active = class_exists( 'DWPP_Pricing_Plans' );
+		// $in_add_listing_page       = ( ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow === 'at_biz_dir' ) ) ? true : false;
+		// $show_packages             = ( $monetization_is_active && ! $in_add_listing_page ) ? true : false;
 
-		// @todo @kowsar - extensions
-		if ( $show_packages && $pricing_plan_is_active ) {
-			ob_start();
-			do_action( 'atbdp_before_pricing_plan_page_load' );
-			ATBDP_Pricing_Plans()->load_template( 'fee-plans', array( 'atts' => $atts ) );
-			return ob_get_clean();
-		}
+		// // @todo @kowsar - extensions
+		// if ( $show_packages && $pricing_plan_is_active ) {
+		// 	ob_start();
+		// 	do_action( 'atbdp_before_pricing_plan_page_load' );
+		// 	ATBDP_Pricing_Plans()->load_template( 'fee-plans', array( 'atts' => $atts ) );
+		// 	return ob_get_clean();
+		// }
 
-		if ( $show_packages && $wc_pricing_plan_is_active ) {
-			ob_start();
-			do_action( 'atbdp_before_pricing_plan_page_load' );
-			DWPP_Pricing_Plans()->load_template( 'fee-plans', array( 'atts' => $atts ) );
-			return ob_get_clean();
-		}
+		// if ( $show_packages && $wc_pricing_plan_is_active ) {
+		// 	ob_start();
+		// 	do_action( 'atbdp_before_pricing_plan_page_load' );
+		// 	DWPP_Pricing_Plans()->load_template( 'fee-plans', array( 'atts' => $atts ) );
+		// 	return ob_get_clean();
+		// }
 
 		$args = array(
 			'p_id'               => $p_id,
@@ -723,22 +734,24 @@ class Directorist_Listing_Forms {
 			if ( $listing_type_count == 0 ) {
 				return atbdp_return_shortcode_template( 'forms/add-listing-notype', $args );
 			}
-
+			// if only one directory
 			$type = $this->get_current_listing_type();
-
 			if ( $type ) {
 				$args['form_data'] = $this->build_form_data( $type );
-				return atbdp_return_shortcode_template( 'forms/add-listing', $args );
+				$args['single_directory'] = $type;
+				$template = atbdp_return_shortcode_template( 'forms/add-listing', $args );
+				return apply_filters( 'atbdp_add_listing_page_template', $template );
 			}
-
+			
+			// multiple directory available
 			$listing_type_args = array(
 				'listing_types' => $listing_types,
 			);
-
-			return atbdp_return_shortcode_template( 'forms/add-listing-type', $listing_type_args );
+			$template = atbdp_return_shortcode_template( 'forms/add-listing-type', $listing_type_args );
+			return apply_filters( 'atbdp_add_listing_page_template', $template );
 		}
 	}
-
+	
 	public function render_shortcode_user_login() {
 		if ( atbdp_logged_in_user() ) {
 			$error_message = sprintf( __( 'Login page is not for logged-in user. <a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );

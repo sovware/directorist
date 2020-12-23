@@ -1532,7 +1532,8 @@ span.atbdp-tick-cross {
   margin-bottom: 30px;
 }
 
-.postbox-container .postbox .form-group .atbdp_social_field_wrapper select, .postbox-container .postbox .form-group .atbdp_social_field_wrapper input {
+.postbox-container .postbox .form-group .atbdp_social_field_wrapper select,
+.postbox-container .postbox .form-group .atbdp_social_field_wrapper input {
   width: 100%;
   border: 1px solid #e3e6ef;
   height: 35px;
@@ -2078,6 +2079,9 @@ span.atbdp-tick-cross {
   border-width: 1px;
   border-style: solid;
   border: 1px solid #c6d0dc;
+  -webkit-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
 
 .atbds_customCheckbox input[type="checkbox"] + label:before {
@@ -2085,9 +2089,9 @@ span.atbdp-tick-cross {
   font-size: 12px;
   left: 4px;
   top: 2px;
-  font-weight: 500;
+  font-weight: 900;
   content: "\f00c";
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
   display: block;
   opacity: 0;
   -webkit-transition: all 0.3s ease 0s;
@@ -2160,6 +2164,14 @@ span.atbdp-tick-cross {
 
 #listing_form_info .atbd_content_module .atbdb_content_module_contents .hide-map-option {
   margin-top: 15px;
+}
+
+#listing_form_info .atbd_content_module .atbdb_content_module_contents .atbdb_content_module_contents {
+  padding: 0 20px 20px;
+}
+
+.atbd-booking-information .atbd_area_title {
+  padding: 0 20px;
 }
 
 .wp-list-table .page-title-action {
@@ -2342,8 +2354,64 @@ span.atbdp-tick-cross {
   color: #fff;
 }
 
-.vp-wrap .vp-menus ul.vp-menu-level-2 > li a i.fa, .fa {
+.vp-wrap .vp-menus ul.vp-menu-level-2 > li a i.fa,
+.fa {
   font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
+}
+
+.atbdb_content_module_contents #_listing_gallery {
+  text-align: center;
+}
+
+.add_listing_form_wrapper .upload-header,
+.add_listing_form_wrapper #listing_image_btn,
+.add_listing_form_wrapper #delete-custom-img {
+  font-size: 15px;
+  padding: 0 15.8px !important;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  line-height: 38px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.add_listing_form_wrapper .listing-img-container {
+  margin: 40px 0 20px;
+}
+
+.add_listing_form_wrapper .listing-img-container img {
+  max-width: 100px;
+}
+
+.add_listing_form_wrapper .listing-img-container p {
+  font-size: 14px;
+}
+
+.add_listing_form_wrapper .hide-if-no-js {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.add_listing_form_wrapper #listing_image_btn .dashicons-format-image {
+  margin-right: 6px;
+}
+
+.add_listing_form_wrapper #delete-custom-img {
+  margin-left: 5px;
+  background-color: #e23636;
+}
+
+.add_listing_form_wrapper #delete-custom-img.hidden {
+  display: none;
 }
 
 /*# sourceMappingURL=map/style.css.map */

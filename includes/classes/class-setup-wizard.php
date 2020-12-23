@@ -117,6 +117,12 @@ class SetupWizard
             $data['error'] = __('No data found', 'directorist');
             die();
         }
+        $listing_types = get_terms([
+            'taxonomy'   => 'atbdp_listing_types',
+            'hide_empty' => false,
+            'showposts' => 1,
+        ]);
+        $directory_id = !empty( $listing_types[0] ) ? $listing_types[0]->term_id : '';
         foreach ($posts as $index => $post) {
                 if ($count === $limit ) break;
                 // start importing listings
@@ -186,6 +192,13 @@ class SetupWizard
                    $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($preview_url, $post_id);
                    update_post_meta($post_id, '_listing_prv_img', $attachment_id);
                 }
+                
+                //directory type
+                if( !empty( $directory_id ) ){
+                    update_post_meta($post_id, '_directory_type', $directory_id);
+                    wp_set_object_terms($post_id, (int)$directory_id, 'atbdp_listing_types');
+                }
+
                 $count++;
         }
         $data['next_position'] = (int) $position + (int) $count;

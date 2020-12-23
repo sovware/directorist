@@ -6,7 +6,6 @@
  */
 
 $p_id = $form->add_listing_id;
-
 $address =  get_post_meta( $p_id, '_address', true );
 $select_listing_map = get_directorist_option( 'select_listing_map', 'google' );
 $manual_lat        = get_post_meta( $p_id, '_manual_lat', true );
@@ -18,7 +17,7 @@ $longitude  = ! empty( $manual_lng ) ? $manual_lng : $default_longitude;
 $hide_map = ! empty( get_post_meta( $p_id, '_hide_map', true ) ) ? true : false;
 ?>
 
-<div class="form-group" class="directorist-map-field">
+<div class="form-group directorist-map-field">
 	<div class="map_wrapper">
 
 		<?php if ('google' == $select_listing_map) { ?>
@@ -35,7 +34,7 @@ $hide_map = ! empty( get_post_meta( $p_id, '_hide_map', true ) ) ? true : false;
 
 		<div class="cor-wrap">
 			<input type="checkbox" name="manual_coordinate" value="1" id="manual_coordinate">
-			<label for="manual_coordinate"><?php esc_html_e('Or Enter Coordinates (latitude and longitude) Manually', 'directorist');?></label>
+			<label for="manual_coordinate"><?php echo esc_attr( $data['lat_long'] );?></label>
 		</div>
 
 	</div>

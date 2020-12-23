@@ -65,7 +65,8 @@ class ATBDP_Metabox {
 				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo $selected; ?> ><?php echo esc_attr( $type->name ); ?></option>
 			<?php endforeach; ?>
 		</select>
-		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>"><?php //$this->render_listing_meta_fields( $current_type, $post->ID ); ?></div>
+		<div class="form-group atbdp_category_custom_fields"></div>
+		<div id="directiost-listing-fields_wrapper" data-id="<?php echo esc_attr( $post->ID )?>"></div>
 		<?php
 	}
 
@@ -152,6 +153,7 @@ class ATBDP_Metabox {
 		$expiration = get_term_meta( $term->term_id, 'default_expiration', true );
 		$submission_form_fields = $submission_form['fields'];
 		}
+		
 		foreach( $submission_form_fields as $key => $value ){
 
 			if( 'image_upload' === $key ) {
@@ -169,6 +171,7 @@ class ATBDP_Metabox {
 				$metas[ $key ] = !empty( $p[ $field_key ] ) ? $p[ $field_key ] : '';
 			}                    
 		}	
+		
 		$metas['_directory_type'] = $listing_type;
 		if( !empty( $metas['_directory_type'] ) ){
 			wp_set_object_terms($post_id, (int)$metas['_directory_type'], 'atbdp_listing_types');

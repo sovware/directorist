@@ -211,52 +211,90 @@
   });
 
   // Load custom fields of the selected category in the custom post type "atbdp_listings"
-
-  // ekhane to apni ul e click event add korecen. eita add howa uchit checkbox e!  Ohh !
   $('#at_biz_dir-categorychecklist').on('change', function (event) {
-    $('#atbdp-custom-fields-list').append('<div class="spinner"></div>');
-
     const length = $('#at_biz_dir-categorychecklist input:checked');
     const id = [];
+    var directory_type = $('select[name="directory_type"]').val();
     length.each((el, index) => {
       id.push($(index).val());
     });
     const data = {
-      action: 'atbdp_custom_fields_listings',
-      post_id: $('#atbdp-custom-fields-list').data('post_id'),
-      term_id: id,
+      action        : 'atbdp_custom_fields_listings',
+      post_id       : $('#post_ID').val(),
+      term_id       : id,
+      directory_type: directory_type,
     };
-    console.log(data);
     $.post(ajaxurl, data, function (response) {
-      if (response == ' 0') {
-        $('#atbdp-custom-fields-list').hide();
-      } else {
-        $('#atbdp-custom-fields-list').show();
+            if( response ){
+              var response = `<div class="form-group atbd_content_module">
+                                <div class="atbdb_content_module_contents">
+                                  ` + response + `
+                                </div>
+                              </div>`;
+              $( '.atbdp_category_custom_fields' ).empty().append( response );
+              function atbdp_tooltip(){
+                      var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
+                      atbd_tooltip.forEach(function(el){
+                      if(el.getAttribute('aria-label') !== " "){
+                              document.body.addEventListener('mouseover', function(e) {
+                              for (var target = e.target; target && target != this; target = target.parentNode) {
+                                      if (target.matches('.atbd_tooltip')) {
+                                      el.classList.add('atbd_tooltip_active');
+                                      }
+                              }
+                              }, false);
+                      }
+                      });
+              }
+              atbdp_tooltip();
+      }else {
+              $( '.atbdp_category_custom_fields' ).empty();
       }
-      $('#atbdp-custom-fields-list').html(response);
     });
-    $('#atbdp-custom-fields-list-selected').hide();
   });
 
-  var length = $('#at_biz_dir-categorychecklist input:checked');
-  if (length) {
-    $('#atbdp-custom-fields-list-selected').html('<div class="spinner"></div>');
 
-    var length = $('#at_biz_dir-categorychecklist input:checked');
-    const id = [];
-    length.each((el, index) => {
-      id.push($(index).val());
+    // Load custom fields of the selected category in the custom post type "atbdp_listings"
+    $( document ).ready( function() {
+      const length = $('#at_biz_dir-categorychecklist input:checked');
+      const id = [];
+      var directory_type = $('select[name="directory_type"]').val();
+      length.each((el, index) => {
+        id.push($(index).val());
+      });
+      const data = {
+        action        : 'atbdp_custom_fields_listings',
+        post_id       : $('#post_ID').val(),
+        term_id       : id,
+        directory_type: directory_type,
+      };
+      $.post(ajaxurl, data, function (response) {
+              if( response ){
+                var response = `<div class="form-group atbd_content_module">
+                                  <div class="atbdb_content_module_contents">
+                                    ` + response + `
+                                  </div>
+                                </div>`;
+                $( '.atbdp_category_custom_fields' ).empty().append( response );
+                function atbdp_tooltip(){
+                        var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
+                        atbd_tooltip.forEach(function(el){
+                        if(el.getAttribute('aria-label') !== " "){
+                                document.body.addEventListener('mouseover', function(e) {
+                                for (var target = e.target; target && target != this; target = target.parentNode) {
+                                        if (target.matches('.atbd_tooltip')) {
+                                        el.classList.add('atbd_tooltip_active');
+                                        }
+                                }
+                                }, false);
+                        }
+                        });
+                }
+                atbdp_tooltip();
+        }
+      });
     });
-    const data = {
-      action: 'atbdp_custom_fields_listings_selected',
-      post_id: $('#atbdp-custom-fields-list-selected').data('post_id'),
-      term_id: id,
-    };
 
-    $.post(ajaxurl, data, function (response) {
-      $('#atbdp-custom-fields-list-selected').html(response);
-    });
-  }
 
   const avg_review = $('#average_review_for_popular').hide();
   const logged_count = $('#views_for_popular').hide();

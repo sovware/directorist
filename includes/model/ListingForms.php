@@ -540,9 +540,14 @@ class Directorist_Listing_Forms {
 	}
 
 
-	public function add_listing_category_custom_field_template( $field_data ) {
+	public function add_listing_category_custom_field_template( $field_data, $listing_id = NULL ) {
 		$value = '';
-		
+		if ( ! empty( $listing_id ) ) {
+
+			$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
+	
+		}
+
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
 		

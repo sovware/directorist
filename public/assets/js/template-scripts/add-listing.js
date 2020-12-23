@@ -201,7 +201,7 @@ jQuery(function($) {
                 });
                 const data = {
                         action          : 'atbdp_custom_fields_listings',
-                        post_id         : $('#atbdp-custom-fields-list').data('post_id'),
+                        post_id         : $('input[name="listing_id"]').val(),
                         term_id         : id,
                         directory_type  : directory_type,
                 };
@@ -242,11 +242,10 @@ jQuery(function($) {
                 });
                 const data = {
                         action          : 'atbdp_custom_fields_listings',
-                        post_id         : $('#atbdp-custom-fields-list').data('post_id'),
+                        post_id         : $('input[name="listing_id"]').val(),
                         term_id         : id,
                         directory_type  : directory_type,
                 };
-             
                 $.post(atbdp_add_listing.ajaxurl, data, function(response) {
                        if( response ){
                                 $( '.atbdp_category_custom_fields' ).empty().append( response );
@@ -269,28 +268,6 @@ jQuery(function($) {
                 });
         });
 
-
-
-        var length = $('#at_biz_dir-categories option:selected');
-
-        if (length) {
-                $('#atbdp-custom-fields-list-selected').html('<div class="spinnedsr"></div>');
-
-                var length = $('#at_biz_dir-categories option:selected');
-                const id = [];
-                length.each((el, index) => {
-                        id.push($(index).val());
-                });
-                const data = {
-                        action: 'atbdp_custom_fields_listings_front_selected',
-                        post_id: $('#atbdp-custom-fields-list-selected').data('post_id'),
-                        term_id: id,
-                };
-
-                $.post(atbdp_add_listing.ajaxurl, data, function(response) {
-                        $('#atbdp-custom-fields-list-selected').html(response);
-                });
-        }
 
         function atbdp_is_checked(name) {
                 const is_checked = $(`input[name="${name}"]`).is(':checked');

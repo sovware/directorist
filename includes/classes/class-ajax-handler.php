@@ -138,6 +138,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             $listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
             $categories = !empty( $_POST['term_id'] ) ? atbdp_sanitize_array( $_POST['term_id'] ) : '';
+            $post_id = !empty( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : '';
+            // wp_send_json($post_id);
             $template = '';
             if( $listing_type ){
                 $submission_form = get_term_meta( $listing_type, 'submission_form_fields', true );
@@ -149,7 +151,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 if( $category ) {
                     if( in_array( $category, $categories ) ) {
                         ob_start();
-                        Directorist_Listing_Forms::instance()->add_listing_category_custom_field_template( $value );
+                        Directorist_Listing_Forms::instance()->add_listing_category_custom_field_template( $value, $post_id );
                         $template .= ob_get_clean();
                     }      
                 }

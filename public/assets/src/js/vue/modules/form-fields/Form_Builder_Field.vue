@@ -867,7 +867,7 @@ export default {
         return;
       }
 
-      console.log( { dropping_elm_key, dest_index }, this.current_dragging_group );
+      // console.log( { dropping_elm_key, dest_index }, this.current_dragging_group );
 
       // Store current dragging group before delete
       group = this.groups[ this.current_dragging_group ];

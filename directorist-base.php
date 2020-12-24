@@ -463,6 +463,8 @@ final class Directorist_Base
         require_once ATBDP_INC_DIR . 'custom-filters.php';
         /*Load Elementor Widgets*/
         require_once ATBDP_INC_DIR . 'elementor/init.php';
+        /* Load system info */
+        require_once ATBDP_INC_DIR . 'system-status/class-system-status.php';
 
     }
 

@@ -782,7 +782,7 @@ class Directorist_Listing_Forms {
 				$args['form_data'] = $this->build_form_data( $type );
 				$args['single_directory'] = $type;
 				$template = atbdp_return_shortcode_template( 'forms/add-listing', $args );
-				return apply_filters( 'atbdp_add_listing_page_template', $template );
+				return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 			}
 			
 			// multiple directory available
@@ -790,7 +790,7 @@ class Directorist_Listing_Forms {
 				'listing_types' => $listing_types,
 			);
 			$template = atbdp_return_shortcode_template( 'forms/add-listing-type', $listing_type_args );
-			return apply_filters( 'atbdp_add_listing_page_template', $template );
+			return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 		}
 	}
 	

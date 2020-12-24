@@ -1607,7 +1607,8 @@ class Directorist_Listings {
 			return ($this->view_as !== 'masonry_grid') ? '' : ' data-uk-grid';
 		}
 
-		public function get_the_locaton() {
+		public function get_the_location() {
+			
 			$id = get_the_ID();
 			$locs = get_the_terms( $id, ATBDP_LOCATION );
 
@@ -1684,7 +1685,7 @@ class Directorist_Listings {
 				$id = get_the_id();
 				$load_template = true;
 				$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : '';
-				if( ( $field['type'] === 'list-item' ) && !$value ) {
+				if( ( $field['type'] === 'list-item' ) && !$value  &&  ( 'posted_date' !== $field['widget_name'] ) && ( 'listings_location' !== $field['widget_name'] ) ) {
 					$load_template = false;
 				}
 				$args = array(
@@ -1696,9 +1697,9 @@ class Directorist_Listings {
 					'original_field'    => $submission_form_fields,
 				);
 
-				// e_var_dump( $field );
 				
 				$template = 'listings-archive/loop/' . $field['widget_name'];
+				// e_var_dump( $template );
 				if( $load_template ) {
 					atbdp_get_shortcode_template( $template, $args );
 				}

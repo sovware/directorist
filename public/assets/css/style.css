@@ -2826,6 +2826,27 @@ input#privacy_policy,
   pointer-events: none;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atdlc-mark_compare_wrapper.atdlc_list-btn-position,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atdlc-mark_compare_wrapper.atdlc_list-btn-position {
+  position: relative;
+  left: 0;
+  right: auto;
+  top: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atdlc-mark_compare_wrapper.atdlc_list-btn-position .atdlc-mark_compare_btn,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atdlc-mark_compare_wrapper.atdlc_list-btn-position .atdlc-mark_compare_btn {
+  border: 1px solid #e3e6ef;
+  padding: 5px 10px;
+  color: #7a82a6;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 3px;
+  min-width: 36px;
+  min-height: 36px;
+  background-color: #fff;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbdb_content_module_contents {
   padding: 30px;
 }

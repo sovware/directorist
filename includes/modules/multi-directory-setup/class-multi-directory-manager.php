@@ -3805,6 +3805,77 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 }
             }
 
+
+            // Card Layouts
+            $listing_card_grid_view_with_thumbnail_layout = [
+                'thumbnail' => [
+                    'top_right' => [
+                        'label' => 'Top Right',
+                        'maxWidget' => 3,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                    'top_left' => [
+                        'maxWidget' => 3,
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                    'bottom_right' => [
+                        'maxWidget' => 2,
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                    'bottom_left' => [
+                        'maxWidget' => 3,
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                    'avatar' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => ["user_avatar"],
+                    ],
+                ],
+
+                'body' => [
+                    'top' => [
+                        'maxWidget' => 0,
+                        'acceptedWidgets' => [
+                            "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing",
+                        ],
+                    ],
+                    'bottom' => [
+                        'maxWidget' => 0,
+                        'acceptedWidgets' => [
+                            "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                        ],
+                    ],
+                    'excerpt' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => [ "excerpt" ],
+                        'show_if' => [
+                            'where' => "submission_form_fields.value.fields",
+                            'conditions' => [
+                                ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                            ],
+                        ],
+                    ],
+                ],
+
+                'footer' => [
+                    'right' => [
+                        'maxWidget' => 2,
+                        'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
+                    ],
+
+                    'left' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
+                    ],
+                ],
+            ];
+            $listing_card_list_view_with_thumbnail_layout = [];
+
+            $listing_card_grid_view_without_thumbnail_layout = [];
+            $listing_card_list_view_without_thumbnail_layout = [];
+
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
                 'name' => [
                     'label' => 'Name *',
@@ -4334,74 +4405,25 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'listings_card_grid_view' => [
                     'type' => 'card-builder',
-                    'template' => 'grid-view',
-                    'value' => '',
-                    'widgets' => $listing_card_widget,
-
-                    'layout' => [
-                        'thumbnail' => [
-                            'top_right' => [
-                                'label' => 'Top Right',
-                                'maxWidget' => 3,
-                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
-                            'top_left' => [
-                                'maxWidget' => 3,
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
-                            'bottom_right' => [
-                                'maxWidget' => 2,
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
-                            'bottom_left' => [
-                                'maxWidget' => 3,
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
-                            'avatar' => [
-                                'maxWidget' => 1,
-                                'acceptedWidgets' => ["user_avatar"],
-                            ],
+                    'card_templates' => [
+                        'with_thumbnail' => [
+                            'template' => 'grid-view-with-thumbnail',
+                            'widgets'  => $listing_card_widget,
+                            'layout'   => $listing_card_grid_view_with_thumbnail_layout,
+                            'default'  => '',
                         ],
-
-                        'body' => [
-                            'top' => [
-                                'maxWidget' => 0,
-                                'acceptedWidgets' => [
-                                    "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing",
-                                ],
-                            ],
-                            'bottom' => [
-                                'maxWidget' => 0,
-                                'acceptedWidgets' => [
-                                    "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
-                                    'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date',
-                                ],
-                            ],
-                            'excerpt' => [
-                                'maxWidget' => 1,
-                                'acceptedWidgets' => [ "excerpt" ],
-                                'show_if' => [
-                                    'where' => "submission_form_fields.value.fields",
-                                    'conditions' => [
-                                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
-                                    ],
-                                ],
-                            ],
-                        ],
-
-                        'footer' => [
-                            'right' => [
-                                'maxWidget' => 2,
-                                'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
-                            ],
-
-                            'left' => [
-                                'maxWidget' => 1,
-                                'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
-                            ],
+                        'without_thumbnail' => [
+                            'template' => 'grid-view-without-thumbnail',
+                            'widgets'  => $listing_card_widget,
+                            'layout'   => $listing_card_grid_view_with_thumbnail_layout,
+                            'default'  => '',
                         ],
                     ],
+
+                    'template' => 'grid-view',
+                    'value'    => '',
+                    'widgets'  => $listing_card_widget,
+                    'layout'   => $listing_card_grid_view_with_thumbnail_layout,
                 ],
 
                 'listings_card_list_view' => [

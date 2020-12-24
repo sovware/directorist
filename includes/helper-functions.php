@@ -11,6 +11,17 @@ if ( ! function_exists( 'e_var_dump' ) ) {
     }
 }
 
+if ( ! function_exists( 'atbdp_console_log' ) ) {
+    function atbdp_console_log( array $data = [] ) {
+        $data = json_encode( $data ); ?>
+        <script>
+            var data = JSON.parse( '<?php echo $data ?>' );
+            console.log( data );
+        </script>
+        <?php
+    }
+}
+
 function atbdp_add_flush_alert( array $args = [] ) {
     $default = [
         'id'          => '',

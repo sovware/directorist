@@ -239,6 +239,14 @@ class Directorist_Listings {
 	}
 
 	public function prepare_atts_data() {
+		$current_listing_type = $this->get_current_listing_type();
+		$general_config       = get_term_meta( $current_listing_type, 'general_config' )[0];
+		$enable_preview_image = ( is_null( $general_config['enable_preview_image'] ) ) ? true : $general_config['enable_preview_image'];
+
+		if ( empty( $this->options['display_preview_image'] ) ) {
+			$enable_preview_image = false;
+		}
+
 		$defaults = array(
 			'view'                     => $this->options['listing_view'],
 			'_featured'                => 1,
@@ -257,7 +265,7 @@ class Directorist_Listings {
 			'featured_only'            => '',
 			'popular_only'             => '',
 			'advanced_filter'          => $this->options['listing_filters_button'],
-			'display_preview_image'    => $this->options['display_preview_image'],
+			'display_preview_image'    => $enable_preview_image,
 			'action_before_after_loop' => 'yes',
 			'logged_in_user_only'      => '',
 			'redirect_page_url'        => '',
@@ -1525,6 +1533,11 @@ class Directorist_Listings {
 		}
 
 		public function loop_thumb_card_template() {
+
+			// $enable_globally = get_directorist_option( 'crop_width' );
+			// atbdp_console_log([ 'enable_globally' => $enable_globally ]);
+
+
 			atbdp_get_shortcode_template( 'listings-archive/loop/thumb-card', array('listings' => $this) );
 		}
 

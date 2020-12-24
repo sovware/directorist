@@ -3851,11 +3851,22 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
 
+                'enable_preview_image' => [
+                    'label' => __('Enable Preview Image', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
                 'preview_image' => [
                     'label'       => __('Select', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
                     'value'       => '',
+                    'show_if' => [
+                        'where' => "enable_preview_image",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ]
                 ],
 
                 'import_export' => [
@@ -4455,28 +4466,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
 
-                // 'listings_card_height' => [
-                //     'type' => 'number',
-                //     'label' => 'Height',
-                //     'value' => '250',
-                //     'unit' => 'px',
-                //     'units' => [
-                //         ['label' => 'px', 'value' => 'px'],
-                //         ['label' => '%', 'value' => '%'],
-                //     ],
-                // ],
-
-                // 'listings_card_width' => [
-                //     'type' => 'number',
-                //     'label' => 'Width',
-                //     'value' => '100',
-                //     'unit' => '%',
-                //     'units' => [
-                //         ['label' => 'px', 'value' => 'px'],
-                //         ['label' => '%', 'value' => '%'],
-                //     ],
-                // ],
-
             ]);
 
             $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
@@ -4507,6 +4496,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'title'       => __('Default Preview Image', 'directorist'),
                                     'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
                                     'fields'      => [
+                                        'enable_preview_image',
                                         'preview_image',
                                     ],
                                 ],
@@ -4761,11 +4751,8 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'singular_name',
                         'plural_name',
                         'permalink',
+                        'enable_preview_image',
                         'preview_image',
-                        // 'archive_general' => [
-                        //     'listings_card_height',
-                        //     'listings_card_width',
-                        // ]
                     ]
                 ]
             ];
@@ -4863,7 +4850,10 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     $group_value = maybe_unserialize( maybe_unserialize( $_group_meta_value ) );
 
                     foreach ($group_fields as $field_index => $field_key) {
-                        if ('string' === gettype($field_key) && array_key_exists($field_key, $this->fields)) {
+
+                        if ( ! key_exists( $field_key, $group_value ) ) { continue; }
+
+                        if ( 'string' === gettype($field_key) && array_key_exists($field_key, $this->fields)) {
                             $this->fields[$field_key]['value'] = $group_value[$field_key];
                         }
 

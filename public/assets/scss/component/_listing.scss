@@ -371,6 +371,24 @@
           }
         }
       }
+      .atbd-card-body-top{
+        .atbd_listing_title{
+          margin-bottom: 10px;
+        }
+        .atbd_listing_meta{
+          display: inline-flex;
+          margin: 0;
+          &:last-child{
+            margin-right: 3px;
+          }
+        }
+        .atbd_badge{
+          margin: 0 3px;
+        }
+        .atbdp_add_to_fav_listings{
+          display: inline-flex;
+        }
+      }
     }
   }
 

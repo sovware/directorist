@@ -108,11 +108,21 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $has_custom_fields   = $get_custom_fields->post_count;
             $need_migration      = ( empty( $migrated ) && ! $has_multidirectory && ( $has_listings || $has_custom_fields ) ) ? true : false;
             $need_import_default = ( ! $has_multidirectory && ! ( $has_listings || $has_custom_fields ) ) ? true : false;
+            
+
+            // var_dump([
+            //    'migrated'            => $migrated,
+            //    'has_listings'        => $has_listings,
+            //    'has_custom_fields'   => $has_custom_fields,
+            //    'has_multidirectory'  => $has_multidirectory,
+            //    'need_migration'      => $need_migration,
+            //    'need_import_default' => $need_import_default,
+            // ]);
+
 
             if ( $need_migration ) {
                 $args = [ 'multi_directory_manager' => $this ];
                 $migration = new ATBDP_Multi_Directory_Migration( $args );
-
                 $migration->run();
                 return;
             }
@@ -137,10 +147,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'fields_value'   => $file_contents,
                 'is_json'        => true
             ]);
-        
-            // json_decode( $file_contents );
-            // var_dump( json_decode( $file_contents ) );
-            // die;
 
             if ( $add_directory['status']['success'] ) {
                 update_option( 'atbdp_has_multidirectory', true );
@@ -341,8 +347,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             ];
             $args = array_merge( $default, $args );
 
-            // return [ 'status' => true, 'mode' => 'debug' ];
-
             $response = [
                 'status' => [
                     'success'     => true,
@@ -407,9 +411,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 $response['status']['error_count']++;
             }
-
             
-            $fields = apply_filters( 'cptm_fields_before_update', $args['fields_value'] );
+            $fields = $args['fields_value'];
+            foreach ( $fields as $_field_key => $_field_value ) {
+                $fields[ $_field_key ] = $this->maybe_json( $_field_value );
+            }
+            $fields = apply_filters( 'cptm_fields_before_update', $fields );
+
             $directory_name = ( ! empty( $fields['name'] ) ) ? $fields['name'] : '';
             $directory_name = ( ! empty( $args['directory_name'] ) ) ? $args['directory_name'] : $directory_name;
             
@@ -4870,9 +4878,9 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 }
             }
 
-            // $test = get_term_meta( $listing_type_id, 'single_listings_contents' )[0];
-            // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
+            // $test = get_term_meta( $listing_type_id, 'general_config' )[0];
             // e_var_dump( $test );
+            // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
             // var_dump( $test['fields']['video'] );
             // e_var_dump( $test );
             // e_var_dump( $this->fields[ 'single_listings_contents' ] );

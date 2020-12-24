@@ -4878,8 +4878,8 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 }
             }
 
-            $test = get_term_meta( $listing_type_id, 'general_config' )[0];
-            e_var_dump( $test );
+            // $test = get_term_meta( $listing_type_id, 'general_config' )[0];
+            // e_var_dump( $test );
             // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
             // var_dump( $test['fields']['video'] );
             // e_var_dump( $test );

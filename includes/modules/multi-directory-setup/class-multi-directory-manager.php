@@ -4368,7 +4368,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'top' => [
                                 'maxWidget' => 0,
                                 'acceptedWidgets' => [
-                                    "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing",
+                                    "listing_title", "popular_badge", "featured_badge", "new_badge", "rating", "pricing",
                                 ],
                             ],
                             'bottom' => [
@@ -4392,7 +4392,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                         'footer' => [
                             'right' => [
-                                'maxWidget' => 2,
+                                'maxWidget' => 3,
                                 'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
                             ],
 

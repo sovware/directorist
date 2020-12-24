@@ -3030,4 +3030,49 @@
         else { terget_elm.hide(); }
     }
 
+    // Custom Tab Support Status
+  $(".atbds_wrapper a.nav-link").on("click", function (e) {
+    e.preventDefault();
+
+    console.log($(this).data("tabarea"));
+    const atbds_tabParent = $(this).parent().parent().find("a.nav-link");
+    var $href = $(this).attr("href");
+    $(atbds_tabParent).removeClass("active");
+    $(this).addClass("active");
+    console.log($(".tab-content[data-tabarea='atbds_system-info-tab']"));
+
+    switch ($(this).data("tabarea")) {
+      case "atbds_system-status-tab":
+        $(
+          ".tab-content[data-tabarea='atbds_system-status-tab'] >.tab-pane"
+        ).removeClass("active show");
+        $(
+          ".tab-content[data-tabarea='atbds_system-status-tab'] " + $href
+        ).addClass("active show");
+        break;
+      case "atbds_system-info-tab":
+        $(
+          ".tab-content[data-tabarea='atbds_system-info-tab'] >.tab-pane"
+        ).removeClass("active show");
+        $(
+          ".tab-content[data-tabarea='atbds_system-info-tab'] " + $href
+        ).addClass("active show");
+        break;
+      default:
+        break;
+    }
+  });
+
+  // Custom Tooltip Support Added
+  $(".atbds_tooltip").on("hover", function () {
+    const toolTipLabel = $(this).data("label");
+    console.log(toolTipLabel);
+    $(this).find(".atbds_tooltip__text").text(toolTipLabel);
+    $(this).find(".atbds_tooltip__text").addClass("show");
+  });
+
+  $(".atbds_tooltip").on("mouseleave", function () {
+    $(".atbds_tooltip__text").removeClass("show");
+  });
+
 })(jQuery);

@@ -40,8 +40,6 @@ class ATBDP_Multi_Directory_Migration {
                 while ( $listings->have_posts() ) {
                     $listings->the_post();
 
-                    e_var_dump( get_the_id() );
-
                     wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
                 }
             }

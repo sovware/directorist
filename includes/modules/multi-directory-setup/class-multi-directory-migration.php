@@ -41,6 +41,7 @@ class ATBDP_Multi_Directory_Migration {
                     $listings->the_post();
 
                     wp_set_object_terms( get_the_id(), $add_directory['term_id'], 'atbdp_listing_types' );
+                    update_post_meta( get_the_id(), '_directory_type', $add_directory['term_id'] );
                 }
             }
         }
@@ -59,13 +60,14 @@ class ATBDP_Multi_Directory_Migration {
         $listings_card_common_data = [ 'listings_card_wedgets' => $listings_card_wedgets ];
 
         $fields = apply_filters( 'atbdp_multidirectory_migration_fields', [
-            "name"          => "General",
-            "icon"          => "fa fa-home",
-            "singular_name" => "listing",
-            "plural_name"   => "listings",
-            "permalink"     => "listing",
-            "preview_image" => $this->get_preview_image(),
-            "preview_mode"  => get_directorist_option( 'preview_enable', true ),
+            "name"                 => "General",
+            "icon"                 => "fa fa-home",
+            "singular_name"        => "listing",
+            "plural_name"          => "listings",
+            "permalink"            => "listing",
+            "enable_preview_image" => true,
+            "preview_image"        => $this->get_preview_image(),
+            "preview_mode"         => get_directorist_option( 'preview_enable', true ),
 
             "default_expiration"       => get_directorist_option( 'listing_expire_in_days', 365 ),
             "new_listing_status"       => get_directorist_option( 'new_listing_status', 'pending' ),

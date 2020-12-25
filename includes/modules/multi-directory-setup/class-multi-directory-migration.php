@@ -1451,7 +1451,7 @@ class ATBDP_Multi_Directory_Migration {
             if ( ('file' === $field_type) ) {
                 $file_type = get_post_meta($old_field_id, 'file_type', true);
                 $file_type = ( 'all_types' === $file_type ) ? 'all' : $file_type;
-                $field_data['file_type'] = get_post_meta($old_field_id, 'file_type', true);
+                $field_data['file_type'] = $file_type;
                 $field_data['file_size'] = get_post_meta($old_field_id, 'file_size', true);
             }
 

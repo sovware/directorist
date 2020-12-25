@@ -1076,6 +1076,14 @@ class ATBDP_Multi_Directory_Migration {
             $listings_card_grid_view_body_top[] = $listings_card_wedgets['listing_title'];
         }
 
+        if ( get_directorist_option( 'enable_review', true ) ) {
+            $listings_card_grid_view_body_top[] = $listings_card_wedgets['rating'];
+        }
+
+        if ( get_directorist_option( 'display_pricing_field', true ) && get_directorist_option( 'display_price', true ) ) {
+            $listings_card_grid_view_body_top[] = $listings_card_wedgets['pricing'];
+        }
+
         // listings_card_grid_view_body_bottom
         $listings_card_grid_view_body_bottom = [];
         if ( get_directorist_option( 'display_contact_info', true ) ) {
@@ -1156,13 +1164,21 @@ class ATBDP_Multi_Directory_Migration {
             $listings_card_list_view_body_top[] = $listings_card_wedgets['listing_title'];
         }
 
+        if ( get_directorist_option( 'display_new_badge_cart', true ) ) {
+            $listings_card_list_view_body_top[] = $listings_card_wedgets['new_badge'];
+        }
+
+        if ( get_directorist_option( 'enable_review', true ) ) {
+            $listings_card_list_view_body_top[] = $listings_card_wedgets['rating'];
+        }
+
+        if ( get_directorist_option( 'display_pricing_field', true ) && get_directorist_option( 'display_price', true ) ) {
+            $listings_card_list_view_body_top[] = $listings_card_wedgets['pricing'];
+        }
+
         $listings_card_list_view_body_excerpt = [];
         if ( get_directorist_option( 'enable_excerpt', true ) ) {
             $listings_card_list_view_body_excerpt[] = $listings_card_wedgets['excerpt'];
-        }
-
-        if ( get_directorist_option( 'display_new_badge_cart', true ) ) {
-            $listings_card_list_view_body_top[] = $listings_card_wedgets['new_badge'];
         }
 
         $listings_card_list_view_body_right = [];
@@ -1269,6 +1285,20 @@ class ATBDP_Multi_Directory_Migration {
                 "widget_name"  => "listing_title",
                 "widget_key"   => "listing_title",
                 'show_tagline' => false,
+            ],
+            'rating' => [
+                "type"         => "rating",
+                "label"        => "Rating",
+                "hook"         => "atbdp_listings_rating",
+                "widget_name"  => "rating",
+                "widget_key"   => "rating",
+            ],
+            'pricing' => [
+                "type"         => "price",
+                "label"        => "Pricing",
+                "hook"         => "pricing",
+                "widget_name"  => "pricing",
+                "widget_key"   => "pricing",
             ],
             'excerpt' => [
                 "type"               => "excerpt",

@@ -4406,6 +4406,25 @@ input#privacy_policy,
   display: inline-flex;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_listing_transparent {
+  padding: 0;
+  background-color: #fff !important;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_listing_transparent i,
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_listing_transparent svg {
+  font-size: 13px;
+  margin: 0;
+  color: #ffaf00;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_listing_transparent .atbd_listing_avg {
+  font-size: 15px;
+  font-weight: 600;
+  color: #202428;
+  margin: 0 3px 0 6px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .select2-selection__clear {
   padding-right: 10px;
 }

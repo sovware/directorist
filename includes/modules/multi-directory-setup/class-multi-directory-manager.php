@@ -2157,188 +2157,171 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                             'label' => __('All Types', 'directorist'),
                                             'value' => 'all',
                                         ],
+                                        // Image Format
                                         [
-                                            'group' => __('Image Format', 'directorist'),
-                                            'options' => [
-                                                [
-                                                    'label' => __('jpg', 'directorist'),
-                                                    'value' => 'jpg',
-                                                ],
-                                                [
-                                                    'label' => __('jpeg', 'directorist'),
-                                                    'value' => 'jpeg',
-                                                ],
-                                                [
-                                                    'label' => __('gif', 'directorist'),
-                                                    'value' => 'gif',
-                                                ],
-                                                [
-                                                    'label' => __('png', 'directorist'),
-                                                    'value' => 'png',
-                                                ],
-                                                [
-                                                    'label' => __('bmp', 'directorist'),
-                                                    'value' => 'bmp',
-                                                ],
-                                                [
-                                                    'label' => __('ico', 'directorist'),
-                                                    'value' => 'ico',
-                                                ],
-                                            ],
+                                            'label' => __('jpg', 'directorist'),
+                                            'value' => 'jpg',
                                         ],
                                         [
-                                            'group' => 'Video Format',
-                                            'options' => [
-                                                [
-                                                    'label' => __('asf', 'directorist'),
-                                                    'value' => 'asf',
-                                                ],
-                                                [
-                                                    'label' => __('flv', 'directorist'),
-                                                    'value' => 'flv',
-                                                ],
-                                                [
-                                                    'label' => __('avi', 'directorist'),
-                                                    'value' => 'avi',
-                                                ],
-                                                [
-                                                    'label' => __('mkv', 'directorist'),
-                                                    'value' => 'mkv',
-                                                ],
-                                                [
-                                                    'label' => __('mp4', 'directorist'),
-                                                    'value' => 'mp4',
-                                                ],
-                                                [
-                                                    'label' => __('mpeg', 'directorist'),
-                                                    'value' => 'mpeg',
-                                                ],
-                                                [
-                                                    'label' => __('mpg', 'directorist'),
-                                                    'value' => 'mpg',
-                                                ],
-                                                [
-                                                    'label' => __('wmv', 'directorist'),
-                                                    'value' => 'wmv',
-                                                ],
-                                                [
-                                                    'label' => __('3gp', 'directorist'),
-                                                    'value' => '3gp',
-                                                ],
-                                            ],
+                                            'label' => __('jpeg', 'directorist'),
+                                            'value' => 'jpeg',
                                         ],
                                         [
-                                            'group' => 'Audio',
-                                            'options' => [
-                                                [
-                                                    'label' => __('ogg', 'directorist'),
-                                                    'value' => 'ogg',
-                                                ],
-                                                [
-                                                    'label' => __('mp3', 'directorist'),
-                                                    'value' => 'mp3',
-                                                ],
-                                                [
-                                                    'label' => __('wav', 'directorist'),
-                                                    'value' => 'wav',
-                                                ],
-                                                [
-                                                    'label' => __('wma', 'directorist'),
-                                                    'value' => 'wma',
-                                                ],
-                                            ],
+                                            'label' => __('gif', 'directorist'),
+                                            'value' => 'gif',
                                         ],
                                         [
-                                            'group' => 'Text Format',
-                                            'options' => [
-                                                [
-                                                    'label' => __('css', 'directorist'),
-                                                    'value' => 'css',
-                                                ],
-                                                [
-                                                    'label' => __('csv', 'directorist'),
-                                                    'value' => 'csv',
-                                                ],
-                                                [
-                                                    'label' => __('htm', 'directorist'),
-                                                    'value' => 'htm',
-                                                ],
-                                                [
-                                                    'label' => __('html', 'directorist'),
-                                                    'value' => 'html',
-                                                ],
-                                                [
-                                                    'label' => __('txt', 'directorist'),
-                                                    'value' => 'txt',
-                                                ],
-                                                [
-                                                    'label' => __('rtx', 'directorist'),
-                                                    'value' => 'rtx',
-                                                ],
-                                                [
-                                                    'label' => __('vtt', 'directorist'),
-                                                    'value' => 'vtt',
-                                                ],
-                                            ],
+                                            'label' => __('png', 'directorist'),
+                                            'value' => 'png',
+                                        ],
+                                        [
+                                            'label' => __('bmp', 'directorist'),
+                                            'value' => 'bmp',
+                                        ],
+                                        [
+                                            'label' => __('ico', 'directorist'),
+                                            'value' => 'ico',
+                                        ],
+                                        
+                                        // Video Format
+                                        [
+                                            'label' => __('asf', 'directorist'),
+                                            'value' => 'asf',
+                                        ],
+                                        [
+                                            'label' => __('flv', 'directorist'),
+                                            'value' => 'flv',
+                                        ],
+                                        [
+                                            'label' => __('avi', 'directorist'),
+                                            'value' => 'avi',
+                                        ],
+                                        [
+                                            'label' => __('mkv', 'directorist'),
+                                            'value' => 'mkv',
+                                        ],
+                                        [
+                                            'label' => __('mp4', 'directorist'),
+                                            'value' => 'mp4',
+                                        ],
+                                        [
+                                            'label' => __('mpeg', 'directorist'),
+                                            'value' => 'mpeg',
+                                        ],
+                                        [
+                                            'label' => __('mpg', 'directorist'),
+                                            'value' => 'mpg',
+                                        ],
+                                        [
+                                            'label' => __('wmv', 'directorist'),
+                                            'value' => 'wmv',
+                                        ],
+                                        [
+                                            'label' => __('3gp', 'directorist'),
+                                            'value' => '3gp',
+                                        ],
+                                        
+                                        // Audio Format
+                                        [
+                                            'label' => __('ogg', 'directorist'),
+                                            'value' => 'ogg',
+                                        ],
+                                        [
+                                            'label' => __('mp3', 'directorist'),
+                                            'value' => 'mp3',
+                                        ],
+                                        [
+                                            'label' => __('wav', 'directorist'),
+                                            'value' => 'wav',
+                                        ],
+                                        [
+                                            'label' => __('wma', 'directorist'),
+                                            'value' => 'wma',
+                                        ],
+                                        
+                                        // Text Format
+                                        [
+                                            'label' => __('css', 'directorist'),
+                                            'value' => 'css',
+                                        ],
+                                        [
+                                            'label' => __('csv', 'directorist'),
+                                            'value' => 'csv',
+                                        ],
+                                        [
+                                            'label' => __('htm', 'directorist'),
+                                            'value' => 'htm',
+                                        ],
+                                        [
+                                            'label' => __('html', 'directorist'),
+                                            'value' => 'html',
+                                        ],
+                                        [
+                                            'label' => __('txt', 'directorist'),
+                                            'value' => 'txt',
+                                        ],
+                                        [
+                                            'label' => __('rtx', 'directorist'),
+                                            'value' => 'rtx',
+                                        ],
+                                        [
+                                            'label' => __('vtt', 'directorist'),
+                                            'value' => 'vtt',
+                                        ],
 
+                                        // Application Format
+                                        [
+                                            'label' => __('doc', 'directorist'),
+                                            'value' => 'doc',
                                         ],
                                         [
-                                            'group' => 'Application Format',
-                                            'options' => [
-                                                [
-                                                    'label' => __('doc', 'directorist'),
-                                                    'value' => 'doc',
-                                                ],
-                                                [
-                                                    'label' => __('docx', 'directorist'),
-                                                    'value' => 'docx',
-                                                ],
-                                                [
-                                                    'label' => __('odt', 'directorist'),
-                                                    'value' => 'odt',
-                                                ],
-                                                [
-                                                    'label' => __('pdf', 'directorist'),
-                                                    'value' => 'pdf',
-                                                ],
-                                                [
-                                                    'label' => __('pot', 'directorist'),
-                                                    'value' => 'pot',
-                                                ],
-                                                [
-                                                    'label' => __('ppt', 'directorist'),
-                                                    'value' => 'ppt',
-                                                ],
-                                                [
-                                                    'label' => __('pptx', 'directorist'),
-                                                    'value' => 'pptx',
-                                                ],
-                                                [
-                                                    'label' => __('rar', 'directorist'),
-                                                    'value' => 'rar',
-                                                ],
-                                                [
-                                                    'label' => __('rtf', 'directorist'),
-                                                    'value' => 'rtf',
-                                                ],
-                                                [
-                                                    'label' => __('swf', 'directorist'),
-                                                    'value' => 'swf',
-                                                ],
-                                                [
-                                                    'label' => __('xls', 'directorist'),
-                                                    'value' => 'xls',
-                                                ],
-                                                [
-                                                    'label' => __('xlsx', 'directorist'),
-                                                    'value' => 'xlsx',
-                                                ],
-                                                [
-                                                    'label' => __('gpx', 'directorist'),
-                                                    'value' => 'gpx',
-                                                ],
-                                            ],
-                                        ]
+                                            'label' => __('docx', 'directorist'),
+                                            'value' => 'docx',
+                                        ],
+                                        [
+                                            'label' => __('odt', 'directorist'),
+                                            'value' => 'odt',
+                                        ],
+                                        [
+                                            'label' => __('pdf', 'directorist'),
+                                            'value' => 'pdf',
+                                        ],
+                                        [
+                                            'label' => __('pot', 'directorist'),
+                                            'value' => 'pot',
+                                        ],
+                                        [
+                                            'label' => __('ppt', 'directorist'),
+                                            'value' => 'ppt',
+                                        ],
+                                        [
+                                            'label' => __('pptx', 'directorist'),
+                                            'value' => 'pptx',
+                                        ],
+                                        [
+                                            'label' => __('rar', 'directorist'),
+                                            'value' => 'rar',
+                                        ],
+                                        [
+                                            'label' => __('rtf', 'directorist'),
+                                            'value' => 'rtf',
+                                        ],
+                                        [
+                                            'label' => __('swf', 'directorist'),
+                                            'value' => 'swf',
+                                        ],
+                                        [
+                                            'label' => __('xls', 'directorist'),
+                                            'value' => 'xls',
+                                        ],
+                                        [
+                                            'label' => __('xlsx', 'directorist'),
+                                            'value' => 'xlsx',
+                                        ],
+                                        [
+                                            'label' => __('gpx', 'directorist'),
+                                            'value' => 'gpx',
+                                        ],
 
                                     ],
                                 ],

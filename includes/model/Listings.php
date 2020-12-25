@@ -384,6 +384,9 @@ class Directorist_Listings {
 		$list_fields  = get_term_meta( $listing_type, 'listings_card_list_view', true );
 		// dvar_dump($card_fields);
 
+
+		
+
 		$data = array(
 			'id'                   => $id,
 			'card_fields'          => $card_fields,
@@ -399,19 +402,59 @@ class Directorist_Listings {
 			'category'             => get_post_meta( $id, '_admin_category_select', true ),
 			'post_view'            => get_post_meta( $id, '_atbdp_post_views_count', true ),
 
-			'business_hours'       => ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array(),
-			'enable247hour'        => get_post_meta( $id, '_enable247hour', true ),
+			'business_hours'          => ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array(),
+			'enable247hour'           => get_post_meta( $id, '_enable247hour', true ),
 			'disable_bz_hour_listing' => get_post_meta( $id, '_disable_bz_hour_listing', true ),
-			'author_id'            => $author_id,
-			'author_data'          => $author_data,
-			'author_full_name'     => $author_first_name . ' ' . $author_last_name,
-			'author_link'          => ATBDP_Permalink::get_user_profile_page_link( $author_id ),
-			'author_link_class'    => ! empty( $author_first_name && $author_last_name ) ? 'atbd_tooltip' : '',
-			'u_pro_pic'            => $u_pro_pic,
-			'avatar_img'           => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
+			'author_id'               => $author_id,
+			'author_data'             => $author_data,
+			'author_full_name'        => $author_first_name . ' ' . $author_last_name,
+			'author_link'             => ATBDP_Permalink::get_user_profile_page_link( $author_id ),
+			'author_link_class'       => ! empty( $author_first_name && $author_last_name ) ? 'atbd_tooltip' : '',
+			'u_pro_pic'               => $u_pro_pic,
+			'avatar_img'              => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
+			'review'                  => $this->get_review_data(),
 		);
 
 		$this->loop = $data;
+	}
+
+	public function get_review_data() {
+		// Review
+		$average           = ATBDP()->review->get_average(get_the_ID());
+		$average           = (int) $average;
+		$average_with_zero = number_format( $average, 1 );
+		$reviews_count     = ATBDP()->review->db->count(array('post_id' => get_the_ID()));
+		$review_text       = ( $reviews_count > 1 ) ? 'Reviews' : 'Review';
+	 
+		// Icons
+		$icon_empty_star = '<i class="'. 'far fa-star'.'"></i>';
+		$icon_half_star  = '<i class="'. 'fas fa-star-half-alt'.'"></i>';
+		$icon_full_star  = '<i class="'. 'fas fa-star'.'"></i>';
+	 
+		// Stars
+		$star_1 = ( $average >= 0.5 && $average < 1) ? $icon_half_star : $icon_empty_star;
+		$star_1 = ( $average >= 1) ? $icon_full_star : $star_1;
+	 
+		$star_2 = ( $average >= 1.5 && $average < 2) ? $icon_half_star : $icon_empty_star;
+		$star_2 = ( $average >= 2) ? $icon_full_star : $star_2;
+	 
+		$star_3 = ( $average >= 2.5 && $average < 3) ? $icon_half_star : $icon_empty_star;
+		$star_3 = ( $average >= 3) ? $icon_full_star : $star_3;
+	 
+		$star_4 = ( $average >= 3.5 && $average < 4) ? $icon_half_star : $icon_empty_star;
+		$star_4 = ( $average >= 4) ? $icon_full_star : $star_4;
+	 
+		$star_5 = ( $average >= 4.5 && $average < 5 ) ? $icon_half_star : $icon_empty_star;
+		$star_5 = ( $average >= 5 ) ? $icon_full_star : $star_5;
+
+		$review_stars = "{$star_1}{$star_2}{$star_3}{$star_4}{$star_5}";
+
+		return [
+			'review_stars'    => $review_stars,
+			'review_text'     => $review_text,
+			'average_reviews' => $average_with_zero,
+			'total_reviews'   => $reviews_count,
+		];
 	}
 
 	private function execute_meta_query_args(&$args, &$meta_queries) {

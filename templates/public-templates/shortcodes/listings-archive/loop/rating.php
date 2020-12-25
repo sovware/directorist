@@ -8,11 +8,10 @@
 
 <div class="atbd_listing_meta">
     <span class="atbd_meta atbd_listing_rating atbd_listing_transparent">
-        <i class="<?php atbdp_icon_type(true);?>-star"></i>
-        <i class="<?php atbdp_icon_type(true);?>-star-o"></i>
-        <i class="<?php atbdp_icon_type(true);?>-star-o"></i>
-        <i class="<?php atbdp_icon_type(true);?>-star-o"></i>
-        <i class="<?php atbdp_icon_type(true);?>-star-o"></i>
-        <span class="atbd_listing_avg"><?php echo esc_html( ATBDP()->review->get_average($listings->loop['id']) );?></span>
+        <?php echo $listings->loop['review']['review_stars']; ?>
+        
+        <span class="atbd_listing_avg">
+            <?php echo $listings->loop['review']['average_reviews']; ?>
+        </span>
     </span>
 </div>

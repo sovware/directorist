@@ -1423,9 +1423,12 @@ class ATBDP_Multi_Directory_Migration {
             $field_data['required']     = ( $required == 1 ) ? true : false;
 
             $field_data['only_for_admin'] = ( $admin_use == 1 ) ? true : false;
-            $field_data['assign_to']      = get_post_meta($old_field_id, 'associate', true);
-            $field_data['category']       = ( is_numeric( $category_pass ) ) ? $category_pass : '';
-            $field_data['searchable']     = ( $searchable == 1 ) ? true : false;
+            
+            $assign_to = get_post_meta($old_field_id, 'associate', true);
+            $assign_to = ( 'categories' === $assign_to ) ? 'category' : $assign_to;
+            $field_data['assign_to']   = $assign_to;
+            $field_data['category']    = ( is_numeric( $category_pass ) ) ? ( int ) $category_pass : '';
+            $field_data['searchable']  = ( $searchable == 1 ) ? true : false;
 
             $field_data['widget_group'] = 'custom';
             $field_data['widget_name']  = $field_type;
@@ -1471,15 +1474,16 @@ class ATBDP_Multi_Directory_Migration {
                 
                 if ( empty( $value_match[1] ) && empty( $label_match[1] ) ) {
                     $options[] = [
-                        'value' => $option,
-                        'label' => $option,
+                        'option_value' => $option,
+                        'option_label' => $option,
                     ];
+
                     continue;
                 }
 
                 $options[] = [
-                    'value' => $value_match[1],
-                    'label' => $label_match[1],
+                    'option_value' => trim( $value_match[1] ),
+                    'option_label' => trim( $label_match[1] ),
                 ];
             }
         }

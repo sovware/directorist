@@ -31,9 +31,9 @@ class ATBDP_Multi_Directory_Migration {
 
             // Add directory type to all listings
             $listings = new WP_Query([
-                'post_type' => ATBDP_POST_TYPE,
-                'status'    => 'publish',
-                'per_page'  => -1,                
+                'post_type'      => ATBDP_POST_TYPE,
+                'status'         => 'publish',
+                'posts_per_page' => -1,
             ]);
 
             if ( $listings->have_posts() ) {

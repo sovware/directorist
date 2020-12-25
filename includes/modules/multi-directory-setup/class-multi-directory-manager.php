@@ -88,7 +88,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'hide_empty' => false,
             ));
 
-            $has_multidirectory = ( ! empty( $directory_types ) ) ? true : false;
+            $has_multidirectory = ( ! is_wp_error( $directory_types ) ) ? true : false;
 
             $get_listings = new WP_Query([
                 'post_type' => ATBDP_POST_TYPE,
@@ -119,7 +119,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                'need_import_default' => $need_import_default,
             ]);
 
-         if ( $need_migration ) {
+            if ( $need_migration ) {
                 $args = [ 'multi_directory_manager' => $this ];
                 $migration = new ATBDP_Multi_Directory_Migration( $args );
                 $migration->run();

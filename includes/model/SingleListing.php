@@ -62,21 +62,24 @@ class Directorist_Single_Listing {
 		$submission_form_fields = get_term_meta( $this->type, 'submission_form_fields', true );
 
 
-
-		foreach ( $data['fields'] as $key => $value) {
-			$data['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
-			if( !empty( $submission_form_fields['fields'][$key]['label'] ) )
-			$data['fields'][$key]['label'] = $submission_form_fields['fields'][$key]['label'];
-			$data['fields'][$key]['original_data'] = !empty( $submission_form_fields['fields'][$key] ) ? $submission_form_fields['fields'][$key] : [];
-		}
-
-		foreach ( $data['groups'] as $group ) {
-			$section           = $group;
-			$section['fields'] = array();
-			foreach ( $group['fields'] as $field ) {
-				$section['fields'][ $field ] = $data['fields'][ $field ];
+		if( !empty( $data['fields'] ) ) {
+			foreach ( $data['fields'] as $key => $value) {
+				$data['fields'][$key]['field_key'] = !empty( $submission_form_fields['fields'][$key]['field_key'] ) ? $submission_form_fields['fields'][$key]['field_key'] : '';
+				if( !empty( $submission_form_fields['fields'][$key]['label'] ) )
+				$data['fields'][$key]['label'] = $submission_form_fields['fields'][$key]['label'];
+				$data['fields'][$key]['original_data'] = !empty( $submission_form_fields['fields'][$key] ) ? $submission_form_fields['fields'][$key] : [];
 			}
-			$content_data[] = $section;
+		}
+		
+		if( !empty( $data['groups'] ) ) {
+			foreach ( $data['groups'] as $group ) {
+				$section           = $group;
+				$section['fields'] = array();
+				foreach ( $group['fields'] as $field ) {
+					$section['fields'][ $field ] = $data['fields'][ $field ];
+				}
+				$content_data[] = $section;
+			}
 		}
 
 		// e_var_dump($content_data);
@@ -162,6 +165,7 @@ class Directorist_Single_Listing {
 			'listing'  => $this,
 			'actions'  => $this->header_data['listings_header']['quick_actions'],
 		);
+		if( $this->header_data['listings_header']['quick_actions'] )
 		atbdp_get_shortcode_template('single-listing/quick-actions', $args );
 	}
 
@@ -170,7 +174,7 @@ class Directorist_Single_Listing {
 			'listing' => $this,
 			'info'    => $this->header_data['listings_header']['quick_info'],
 		);
-
+		if( $this->header_data['listings_header']['quick_info'] )
 		atbdp_get_shortcode_template('single-listing/quick-info', $args );
 	}
 

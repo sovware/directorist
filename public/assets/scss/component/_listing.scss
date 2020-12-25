@@ -397,6 +397,22 @@
         .atbdp_add_to_fav_listings{
           display: inline-flex;
         }
+        .atbd_listing_transparent{
+          padding: 0;
+          background-color: #fff !important;
+          i,
+          svg{
+            font-size: 13px;
+            margin: 0;
+            color: $warning;
+          }
+          .atbd_listing_avg{
+            font-size: 15px;
+            font-weight: 600;
+            color: $dark;
+            margin: 0 3px 0 6px;
+          }
+        }
       }
     }
   }

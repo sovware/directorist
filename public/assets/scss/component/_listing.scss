@@ -148,6 +148,55 @@
           }
         }
       }
+      .atbd-list-body-right{
+        display: flex;
+        .atdlc_compare-btn-container{
+          margin: 0 3px;
+          .atdlc-mark_compare_wrapper.atdlc_list-btn-position{
+            position: relative;
+            right: 0;
+            top: 0;
+          }
+          .atdlc-mark_compare_btn{
+            background: rgba(0, 0, 0, 0.07);
+            i{
+              color: #9192a3;
+            }
+          }
+        }
+      }
+      .atbd-list-body-top{
+        .atbd_listing_meta{
+          display: inline-flex;
+          margin: 0;
+          &:last-child{
+            margin-left: 3px;
+          }
+        }
+        .atbd_listing_transparent{
+          padding: 0;
+          background-color: #fff !important;
+          i,
+          svg{
+            font-size: 13px;
+            margin: 0;
+            color: $warning;
+          }
+          .atbd_listing_avg{
+            font-size: 15px;
+            font-weight: 600;
+            color: $dark;
+            margin: 0 3px 0 6px;
+          }
+        }
+        .atbd_listing_price{
+          font-size: 16px;
+          background-color: #fff !important;
+          color: $dark;
+          font-weight: 700;
+          padding: 0;
+        }
+      }
     }
     &.atbd_listing_no_image{
       .atbd_single_listing_wrapper{
@@ -388,7 +437,7 @@
           display: inline-flex;
           margin: 0;
           &:last-child{
-            margin-right: 3px;
+            margin-left: 3px;
           }
         }
         .atbd_badge{
@@ -412,6 +461,14 @@
             color: $dark;
             margin: 0 3px 0 6px;
           }
+        }
+        .atbd_listing_price{
+          font-size: 16px;
+          background-color: #fff !important;
+          color: $dark;
+          font-weight: 700;
+          padding: 0;
+
         }
       }
     }

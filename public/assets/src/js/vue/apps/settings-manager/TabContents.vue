@@ -2,12 +2,12 @@
     <div class="atbdp-cptm-tab-contents">
         <template v-for="( menu, menu_key ) in layouts">
             <div class="atbdp-tab-content-item" :key="menu_key" v-if="menu.active">
-                <h2>{{ menu.label }}</h2>
+                <h2 v-if="! menu.submenu">{{ menu.label }}</h2>
 
                 <div class="atbdp-tab-sub-contents" v-if="menu.submenu">
                     <template v-for="( submenu, submenu_key ) in menu.submenu" >
                         <div class="atbdp-tab-content-item" v-if="submenu.active" :key="submenu_key">
-                            <p>{{ submenu.label }}</p>
+                            <h2>{{ submenu.label }}</h2>
                         </div>
                     </template>
                 </div>

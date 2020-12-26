@@ -242,7 +242,7 @@ final class Directorist_Base
             self::$instance->user = new ATBDP_User;
             self::$instance->roles = new ATBDP_Roles;
             self::$instance->gateway = new ATBDP_Gateway;
-            self::$instance->custom_field = new ATBDP_Custom_Field;
+            // self::$instance->custom_field = new ATBDP_Custom_Field;
             self::$instance->order = new ATBDP_Order;
             self::$instance->shortcode = new ATBDP_Shortcode;
             self::$instance->email = new ATBDP_Email;

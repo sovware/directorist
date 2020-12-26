@@ -239,6 +239,14 @@ class Directorist_Listings {
 	}
 
 	public function prepare_atts_data() {
+		$current_listing_type = $this->get_current_listing_type();
+		$general_config       = get_term_meta( $current_listing_type, 'general_config' )[0];
+		$enable_preview_image = ( is_null( $general_config['enable_preview_image'] ) ) ? true : $general_config['enable_preview_image'];
+
+		if ( empty( $this->options['display_preview_image'] ) ) {
+			$enable_preview_image = false;
+		}
+
 		$defaults = array(
 			'view'                     => $this->options['listing_view'],
 			'_featured'                => 1,
@@ -257,7 +265,7 @@ class Directorist_Listings {
 			'featured_only'            => '',
 			'popular_only'             => '',
 			'advanced_filter'          => $this->options['listing_filters_button'],
-			'display_preview_image'    => $this->options['display_preview_image'],
+			'display_preview_image'    => $enable_preview_image,
 			'action_before_after_loop' => 'yes',
 			'logged_in_user_only'      => '',
 			'redirect_page_url'        => '',
@@ -376,6 +384,9 @@ class Directorist_Listings {
 		$list_fields  = get_term_meta( $listing_type, 'listings_card_list_view', true );
 		// dvar_dump($card_fields);
 
+
+		
+
 		$data = array(
 			'id'                   => $id,
 			'card_fields'          => $card_fields,
@@ -391,19 +402,59 @@ class Directorist_Listings {
 			'category'             => get_post_meta( $id, '_admin_category_select', true ),
 			'post_view'            => get_post_meta( $id, '_atbdp_post_views_count', true ),
 
-			'business_hours'       => ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array(),
-			'enable247hour'        => get_post_meta( $id, '_enable247hour', true ),
+			'business_hours'          => ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array(),
+			'enable247hour'           => get_post_meta( $id, '_enable247hour', true ),
 			'disable_bz_hour_listing' => get_post_meta( $id, '_disable_bz_hour_listing', true ),
-			'author_id'            => $author_id,
-			'author_data'          => $author_data,
-			'author_full_name'     => $author_first_name . ' ' . $author_last_name,
-			'author_link'          => ATBDP_Permalink::get_user_profile_page_link( $author_id ),
-			'author_link_class'    => ! empty( $author_first_name && $author_last_name ) ? 'atbd_tooltip' : '',
-			'u_pro_pic'            => $u_pro_pic,
-			'avatar_img'           => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
+			'author_id'               => $author_id,
+			'author_data'             => $author_data,
+			'author_full_name'        => $author_first_name . ' ' . $author_last_name,
+			'author_link'             => ATBDP_Permalink::get_user_profile_page_link( $author_id ),
+			'author_link_class'       => ! empty( $author_first_name && $author_last_name ) ? 'atbd_tooltip' : '',
+			'u_pro_pic'               => $u_pro_pic,
+			'avatar_img'              => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
+			'review'                  => $this->get_review_data(),
 		);
 
 		$this->loop = $data;
+	}
+
+	public function get_review_data() {
+		// Review
+		$average           = ATBDP()->review->get_average(get_the_ID());
+		$average           = (int) $average;
+		$average_with_zero = number_format( $average, 1 );
+		$reviews_count     = ATBDP()->review->db->count(array('post_id' => get_the_ID()));
+		$review_text       = ( $reviews_count > 1 ) ? 'Reviews' : 'Review';
+	 
+		// Icons
+		$icon_empty_star = '<i class="'. 'far fa-star'.'"></i>';
+		$icon_half_star  = '<i class="'. 'fas fa-star-half-alt'.'"></i>';
+		$icon_full_star  = '<i class="'. 'fas fa-star'.'"></i>';
+	 
+		// Stars
+		$star_1 = ( $average >= 0.5 && $average < 1) ? $icon_half_star : $icon_empty_star;
+		$star_1 = ( $average >= 1) ? $icon_full_star : $star_1;
+	 
+		$star_2 = ( $average >= 1.5 && $average < 2) ? $icon_half_star : $icon_empty_star;
+		$star_2 = ( $average >= 2) ? $icon_full_star : $star_2;
+	 
+		$star_3 = ( $average >= 2.5 && $average < 3) ? $icon_half_star : $icon_empty_star;
+		$star_3 = ( $average >= 3) ? $icon_full_star : $star_3;
+	 
+		$star_4 = ( $average >= 3.5 && $average < 4) ? $icon_half_star : $icon_empty_star;
+		$star_4 = ( $average >= 4) ? $icon_full_star : $star_4;
+	 
+		$star_5 = ( $average >= 4.5 && $average < 5 ) ? $icon_half_star : $icon_empty_star;
+		$star_5 = ( $average >= 5 ) ? $icon_full_star : $star_5;
+
+		$review_stars = "{$star_1}{$star_2}{$star_3}{$star_4}{$star_5}";
+
+		return [
+			'review_stars'    => $review_stars,
+			'review_text'     => $review_text,
+			'average_reviews' => $average_with_zero,
+			'total_reviews'   => $reviews_count,
+		];
 	}
 
 	private function execute_meta_query_args(&$args, &$meta_queries) {
@@ -1487,9 +1538,10 @@ class Directorist_Listings {
 		}
 
 		public function loop_get_the_thumbnail( $class='' ) {
-			$type = $this->current_listing_type;
-			$type_general = get_term_meta( $type, 'general_config', true );
+			$type              = $this->current_listing_type;
+			$type_general      = get_term_meta( $type, 'general_config', true );
 			$default_image_src = $type_general['preview_image']['url'];
+			$default_image_src = ( ! empty( $default_image_src ) ) ? $default_image_src : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' ;
 
 			$id = get_the_ID();
 			$image_quality     = get_directorist_option('preview_image_quality', 'large');
@@ -1607,7 +1659,8 @@ class Directorist_Listings {
 			return ($this->view_as !== 'masonry_grid') ? '' : ' data-uk-grid';
 		}
 
-		public function get_the_locaton() {
+		public function get_the_location() {
+			
 			$id = get_the_ID();
 			$locs = get_the_terms( $id, ATBDP_LOCATION );
 
@@ -1684,7 +1737,7 @@ class Directorist_Listings {
 				$id = get_the_id();
 				$load_template = true;
 				$value = !empty( $original_field['field_key'] ) ? get_post_meta( $id, '_'.$original_field['field_key'], true ) : '';
-				if( ( $field['type'] === 'list-item' ) && !$value ) {
+				if( ( $field['type'] === 'list-item' ) && !$value  &&  ( 'posted_date' !== $field['widget_name'] ) && ( 'listings_location' !== $field['widget_name'] ) ) {
 					$load_template = false;
 				}
 				$args = array(
@@ -1696,9 +1749,9 @@ class Directorist_Listings {
 					'original_field'    => $submission_form_fields,
 				);
 
-				// e_var_dump( $field );
 				
 				$template = 'listings-archive/loop/' . $field['widget_name'];
+				// e_var_dump( $template );
 				if( $load_template ) {
 					atbdp_get_shortcode_template( $template, $args );
 				}

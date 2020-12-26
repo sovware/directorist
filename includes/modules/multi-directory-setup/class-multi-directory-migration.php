@@ -359,6 +359,8 @@ class ATBDP_Multi_Directory_Migration {
                 "field_key"      => "map",
                 "label"          => "Map",
                 "only_for_admin" => get_directorist_option( 'display_map_for', false ),
+                "lat_long"       => "Or Enter Coordinates (latitude and longitude) Manually",
+                "required"       => false,
                 "widget_group"   => "preset",
                 "widget_name"    => "map"
             ];

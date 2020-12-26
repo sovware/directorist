@@ -241,7 +241,8 @@ class Directorist_Listings {
 	public function prepare_atts_data() {
 		$current_listing_type = $this->get_current_listing_type();
 		$general_config       = get_term_meta( $current_listing_type, 'general_config' )[0];
-		$enable_preview_image = ( is_null( $general_config['enable_preview_image'] ) ) ? true : $general_config['enable_preview_image'];
+		$enable_preview_image = ( isset( $general_config['enable_preview_image'] ) ) ? $general_config['enable_preview_image'] : null;
+		$enable_preview_image = ( is_null( $enable_preview_image ) ) ? true : $general_config['enable_preview_image'];
 
 		if ( empty( $this->options['display_preview_image'] ) ) {
 			$enable_preview_image = false;

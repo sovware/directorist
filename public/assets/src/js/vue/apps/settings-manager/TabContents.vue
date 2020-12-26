@@ -2,18 +2,20 @@
     <div class="atbdp-cptm-tab-contents">
         <template v-for="( menu, menu_key ) in layouts">
             <div class="atbdp-tab-content-item" :key="menu_key" v-if="menu.active">
+                <!-- Main Menu Contents -->
                 <h2 v-if="! menu.submenu">{{ menu.label }}</h2>
 
+                <div class="atbdp-tab-content-body" v-if="menu.sections && ! menu.submenu">
+                    Has Sections
+                </div>
+
+                <!-- Submenu Contents -->
                 <div class="atbdp-tab-sub-contents" v-if="menu.submenu">
                     <template v-for="( submenu, submenu_key ) in menu.submenu" >
                         <div class="atbdp-tab-content-item" v-if="submenu.active" :key="submenu_key">
                             <h2>{{ submenu.label }}</h2>
                         </div>
                     </template>
-                </div>
-
-                <div class="atbdp-tab-content-body" v-else-if="menu.sections">
-                    Has Sections
                 </div>
             </div>
         </template>

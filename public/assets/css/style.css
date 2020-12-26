@@ -3486,6 +3486,12 @@ input#privacy_policy,
   margin-left: 5px;
 }
 
+.directorist.atbd_wrapper .directorist-single-wrapper .atbd_rated_stars ul li {
+  -webkit-box-flex: 1;
+      -ms-flex: auto;
+          flex: auto;
+}
+
 #directorist.atbd_wrapper .author_info_module .atbdb_content_module_contents .atbd_avatar_wrapper {
   display: block;
 }
@@ -3730,6 +3736,34 @@ input#privacy_policy,
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail {
   padding-top: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_price {
+  font-size: 16px !important;
+  background-color: #fff !important;
+  color: #202428 !important;
+  font-weight: 700;
+  padding: 0 !important;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_rating {
+  padding: 0 !important;
+  background-color: #fff !important;
+  color: #202428 !important;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_rating i,
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_rating svg {
+  font-size: 13px;
+  margin: 0;
+  color: #ffaf00;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_listing_detail .atbd_listing_rating .atbd_listing_avg {
+  font-size: 15px;
+  font-weight: 600;
+  color: #202428;
+  margin: 0 3px 0 6px;
 }
 
 .atbd_listing_meta .directory_cats {

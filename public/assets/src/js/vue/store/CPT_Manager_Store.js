@@ -9,6 +9,7 @@ export default new Vuex.Store({
     active_nav_index: 0,
     fields: {},
     layouts: {},
+    options: {},
     config: {},
     metaKeys: {},
     deprecatedMetaKeys: [],
@@ -28,12 +29,20 @@ export default new Vuex.Store({
       Vue.delete( state.metaKeys, payload.key );
     },
 
+    updateOptionsField: ( state, payload ) => {
+      state.options[ payload.field ].value = payload.value;
+    },
+
     updateFields: ( state, value ) => {
       state.fields = value;
     },
 
     updatelayouts: ( state, value ) => {
       state.layouts = value;
+    },
+
+    updateOptions: ( state, value ) => {
+      state.options = value;
     },
 
     updateConfig: ( state, value ) => {

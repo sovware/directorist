@@ -1867,6 +1867,49 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
   }
 }
 
+
+select,
+input[type="date"],
+input[type="datetime-local"],
+input[type="datetime"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"], 
+input[type="text"] {
+  &.cptm-form-control {
+    padding: 11px 20px;
+    font-size: 13px;
+    color: #5a5f7d;
+    text-align: left;
+    border: 0 none;
+    border-radius: 4px;
+    box-shadow: none;
+    width: 100%;
+    font-weight: 400;
+    margin: 0;
+    line-height: 18px;
+    height: auto;
+    min-height: 30px;
+    background: #f4f5f7;
+    &:hover {
+      color: #23282d;
+    }
+
+    &.cptm-form-control-light {
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+  }
+  
+}
+
 .tab-general,
 .tab-other {
   .cptm-title-area {
@@ -2041,6 +2084,12 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
 .cptm-d-none {
   display: none !important;
 }
+
+.cptm-p-20 {
+  padding: 20px;
+}
+
+
 
 //input radio
 input[type=radio]:checked::before{

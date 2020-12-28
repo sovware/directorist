@@ -2408,7 +2408,7 @@ span.atbdp-tick-cross {
       font-size: 14px;
       color: #5A5F7D;
       @media only screen and (max-width: 575px){
-        padding: 0;
+        padding: 6px 0;
       }
       i{
         font-size: 16px;
@@ -2459,6 +2459,10 @@ span.atbdp-tick-cross {
     background-color: #fff;
     border-radius: 4px;
     box-shadow: 0 5px 10px #ADB4D210;
+    @media only screen and (max-width: 575px){
+      min-width: 100%;
+      margin: 0;
+    }
     .directorist_link-block{
       text-decoration: none;
       text-align: center;
@@ -2508,8 +2512,10 @@ span.atbdp-tick-cross {
             color: #5A5F7D;
             &:focus{
               outline: none;
+              box-shadow: 0 0;
             }
             .directorist_count{
+              pointer-events: none;
               color: #868EAE;
               font-weight: 400;
               margin-left: 5px;

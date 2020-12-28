@@ -2472,7 +2472,7 @@ span.atbdp-tick-cross {
 
 @media only screen and (max-width: 575px) {
   .directorist_builder-header .directorist_builder-links a {
-    padding: 0;
+    padding: 6px 0;
   }
 }
 
@@ -2539,6 +2539,13 @@ span.atbdp-tick-cross {
   border-radius: 4px;
   -webkit-box-shadow: 0 5px 10px #ADB4D210;
           box-shadow: 0 5px 10px #ADB4D210;
+}
+
+@media only screen and (max-width: 575px) {
+  .directorist_builder__content .directorist_builder__content--left {
+    min-width: 100%;
+    margin: 0;
+  }
 }
 
 .directorist_builder__content .directorist_builder__content--left .directorist_link-block {
@@ -2619,9 +2626,12 @@ span.atbdp-tick-cross {
 
 .directorist_builder__content .directorist_builder__content--right .atbd_tab_nav ul .directorist_builder--tab-item .atbd_tn_link:focus {
   outline: none;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
 }
 
 .directorist_builder__content .directorist_builder__content--right .atbd_tab_nav ul .directorist_builder--tab-item .atbd_tn_link .directorist_count {
+  pointer-events: none;
   color: #868EAE;
   font-weight: 400;
   margin-left: 5px;

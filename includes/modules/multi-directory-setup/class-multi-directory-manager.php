@@ -261,11 +261,18 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             }
             
             $update_directory = $this->update_directory([
-                'term_id'        => ( ! $has_term_id ) ? $create_directory['term_id'] : $args['term_id'],
+                'term_id'        => ( ! $has_term_id ) ? ( int ) $create_directory['term_id'] : ( int ) $args['term_id'],
                 'directory_name' => $args['directory_name'],
                 'fields_value'   => $args['fields_value'],
                 'is_json'        => $args['is_json'],
             ]);
+
+            
+            if ( ! empty( $update_directory['status']['status_log']['term_updated'] ) && ! empty( $create_directory['status']['status_log']['term_created'] ) ) {
+                $update_directory['status']['status_log']['term_created'] = $create_directory['status']['status_log']['term_created'];
+
+                unset( $update_directory['status']['status_log']['term_updated'] );
+            }
 
             return $update_directory;
         }
@@ -327,7 +334,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 return $response;
             }
 
-            $response['term_id'] = $term['term_id'];
+            $response['term_id'] = ( int ) $term['term_id'];
             $response['status']['status_log']['term_created'] = [
                 'type'    => 'success',
                 'message' => 'The directory has been created successfuly',
@@ -453,7 +460,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 $this->update_validated_term_meta( $args['term_id'], $key, $value );
             }
 
-            $response['status']['status_log']['updated'] = [
+            $response['status']['status_log']['term_updated'] = [
                 'type'    => 'success',
                 'message' => 'The directory has been updated successfuly',
             ];
@@ -520,12 +527,41 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ], 200);
             }
 
-            $term_id = 0;
-            $mode    = 'create';
+            $term_id        = ( ! empty( $_POST['listing_type_id'] ) ) ? $_POST['listing_type_id'] : 0;
+            $directory_name = $_POST['name'];
+
+            $fields     = [];
+            $field_list = $this->maybe_json( $_POST['field_list'] );
+
+            foreach ( $field_list as $field_key ) {
+                if ( isset( $_POST[$field_key] ) && 'name' !==  $field_key ) {
+                    $fields[ $field_key ] = $_POST[$field_key];
+                }
+            }
+
+            $add_directory = $this->add_directory([
+                'term_id'        => $term_id,
+                'directory_name' => $directory_name,
+                'fields_value'   => $fields,
+            ]);
+
+            if ( ! $add_directory['status']['success'] ) {
+                wp_send_json( $add_directory );
+            }
+
+            $redirect_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $term_id );
+
+            $add_directory['redirect_url'] = $redirect_url;
+            $add_directory['term_id'] = $add_directory['term_id'];
+
+            wp_send_json( $add_directory );
+
+            $mode              = 'create';
             $listing_type_name = $_POST['name'];
 
+
             if (!empty($_POST['listing_type_id']) && absint($_POST['listing_type_id'])) {
-                $mode = 'edit';
+                $mode  = 'edit';
                 $term_id = absint($_POST['listing_type_id']);
                 wp_update_term($term_id, 'atbdp_listing_types', ['name' => $listing_type_name]);
             } else {
@@ -549,7 +585,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 }
             }
 
-            if (empty($term_id)) {
+            if ( empty( $term_id ) ) {
                 wp_send_json([
                     'status' => false,
                     'status_log' => [
@@ -565,13 +601,9 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             if (empty($_POST['field_list'])) {
                 wp_send_json([
-                    'status' => true,
+                    'status' => false,
                     'post_id' => $term_id,
                     'status_log' => [
-                        'post_created' => [
-                            'type' => 'success',
-                            'message' => 'The Post type has been ' . $created_message . ' successfully',
-                        ],
                         'field_list_not_found' => [
                             'type' => 'error',
                             'message' => 'Field list not found',
@@ -579,14 +611,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ], 200);
             }
-            $url = '';
+            
             $field_list = $this->maybe_json($_POST['field_list']);
             foreach ($field_list as $field_key) {
                 if (isset($_POST[$field_key]) && 'name' !==  $field_key) {
                     $this->update_validated_term_meta($term_id, $field_key, $_POST[$field_key]);
                 }
             }
+
+            $url = '';
             $url = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $term_id);
+            
             wp_send_json([
                 'status' => true,
                 'post_id' => $term_id,
@@ -2157,188 +2192,171 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                             'label' => __('All Types', 'directorist'),
                                             'value' => 'all',
                                         ],
+                                        // Image Format
                                         [
-                                            'group' => __('Image Format', 'directorist'),
-                                            'options' => [
-                                                [
-                                                    'label' => __('jpg', 'directorist'),
-                                                    'value' => 'jpg',
-                                                ],
-                                                [
-                                                    'label' => __('jpeg', 'directorist'),
-                                                    'value' => 'jpeg',
-                                                ],
-                                                [
-                                                    'label' => __('gif', 'directorist'),
-                                                    'value' => 'gif',
-                                                ],
-                                                [
-                                                    'label' => __('png', 'directorist'),
-                                                    'value' => 'png',
-                                                ],
-                                                [
-                                                    'label' => __('bmp', 'directorist'),
-                                                    'value' => 'bmp',
-                                                ],
-                                                [
-                                                    'label' => __('ico', 'directorist'),
-                                                    'value' => 'ico',
-                                                ],
-                                            ],
+                                            'label' => __('jpg', 'directorist'),
+                                            'value' => 'jpg',
                                         ],
                                         [
-                                            'group' => 'Video Format',
-                                            'options' => [
-                                                [
-                                                    'label' => __('asf', 'directorist'),
-                                                    'value' => 'asf',
-                                                ],
-                                                [
-                                                    'label' => __('flv', 'directorist'),
-                                                    'value' => 'flv',
-                                                ],
-                                                [
-                                                    'label' => __('avi', 'directorist'),
-                                                    'value' => 'avi',
-                                                ],
-                                                [
-                                                    'label' => __('mkv', 'directorist'),
-                                                    'value' => 'mkv',
-                                                ],
-                                                [
-                                                    'label' => __('mp4', 'directorist'),
-                                                    'value' => 'mp4',
-                                                ],
-                                                [
-                                                    'label' => __('mpeg', 'directorist'),
-                                                    'value' => 'mpeg',
-                                                ],
-                                                [
-                                                    'label' => __('mpg', 'directorist'),
-                                                    'value' => 'mpg',
-                                                ],
-                                                [
-                                                    'label' => __('wmv', 'directorist'),
-                                                    'value' => 'wmv',
-                                                ],
-                                                [
-                                                    'label' => __('3gp', 'directorist'),
-                                                    'value' => '3gp',
-                                                ],
-                                            ],
+                                            'label' => __('jpeg', 'directorist'),
+                                            'value' => 'jpeg',
                                         ],
                                         [
-                                            'group' => 'Audio',
-                                            'options' => [
-                                                [
-                                                    'label' => __('ogg', 'directorist'),
-                                                    'value' => 'ogg',
-                                                ],
-                                                [
-                                                    'label' => __('mp3', 'directorist'),
-                                                    'value' => 'mp3',
-                                                ],
-                                                [
-                                                    'label' => __('wav', 'directorist'),
-                                                    'value' => 'wav',
-                                                ],
-                                                [
-                                                    'label' => __('wma', 'directorist'),
-                                                    'value' => 'wma',
-                                                ],
-                                            ],
+                                            'label' => __('gif', 'directorist'),
+                                            'value' => 'gif',
                                         ],
                                         [
-                                            'group' => 'Text Format',
-                                            'options' => [
-                                                [
-                                                    'label' => __('css', 'directorist'),
-                                                    'value' => 'css',
-                                                ],
-                                                [
-                                                    'label' => __('csv', 'directorist'),
-                                                    'value' => 'csv',
-                                                ],
-                                                [
-                                                    'label' => __('htm', 'directorist'),
-                                                    'value' => 'htm',
-                                                ],
-                                                [
-                                                    'label' => __('html', 'directorist'),
-                                                    'value' => 'html',
-                                                ],
-                                                [
-                                                    'label' => __('txt', 'directorist'),
-                                                    'value' => 'txt',
-                                                ],
-                                                [
-                                                    'label' => __('rtx', 'directorist'),
-                                                    'value' => 'rtx',
-                                                ],
-                                                [
-                                                    'label' => __('vtt', 'directorist'),
-                                                    'value' => 'vtt',
-                                                ],
-                                            ],
+                                            'label' => __('png', 'directorist'),
+                                            'value' => 'png',
+                                        ],
+                                        [
+                                            'label' => __('bmp', 'directorist'),
+                                            'value' => 'bmp',
+                                        ],
+                                        [
+                                            'label' => __('ico', 'directorist'),
+                                            'value' => 'ico',
+                                        ],
+                                        
+                                        // Video Format
+                                        [
+                                            'label' => __('asf', 'directorist'),
+                                            'value' => 'asf',
+                                        ],
+                                        [
+                                            'label' => __('flv', 'directorist'),
+                                            'value' => 'flv',
+                                        ],
+                                        [
+                                            'label' => __('avi', 'directorist'),
+                                            'value' => 'avi',
+                                        ],
+                                        [
+                                            'label' => __('mkv', 'directorist'),
+                                            'value' => 'mkv',
+                                        ],
+                                        [
+                                            'label' => __('mp4', 'directorist'),
+                                            'value' => 'mp4',
+                                        ],
+                                        [
+                                            'label' => __('mpeg', 'directorist'),
+                                            'value' => 'mpeg',
+                                        ],
+                                        [
+                                            'label' => __('mpg', 'directorist'),
+                                            'value' => 'mpg',
+                                        ],
+                                        [
+                                            'label' => __('wmv', 'directorist'),
+                                            'value' => 'wmv',
+                                        ],
+                                        [
+                                            'label' => __('3gp', 'directorist'),
+                                            'value' => '3gp',
+                                        ],
+                                        
+                                        // Audio Format
+                                        [
+                                            'label' => __('ogg', 'directorist'),
+                                            'value' => 'ogg',
+                                        ],
+                                        [
+                                            'label' => __('mp3', 'directorist'),
+                                            'value' => 'mp3',
+                                        ],
+                                        [
+                                            'label' => __('wav', 'directorist'),
+                                            'value' => 'wav',
+                                        ],
+                                        [
+                                            'label' => __('wma', 'directorist'),
+                                            'value' => 'wma',
+                                        ],
+                                        
+                                        // Text Format
+                                        [
+                                            'label' => __('css', 'directorist'),
+                                            'value' => 'css',
+                                        ],
+                                        [
+                                            'label' => __('csv', 'directorist'),
+                                            'value' => 'csv',
+                                        ],
+                                        [
+                                            'label' => __('htm', 'directorist'),
+                                            'value' => 'htm',
+                                        ],
+                                        [
+                                            'label' => __('html', 'directorist'),
+                                            'value' => 'html',
+                                        ],
+                                        [
+                                            'label' => __('txt', 'directorist'),
+                                            'value' => 'txt',
+                                        ],
+                                        [
+                                            'label' => __('rtx', 'directorist'),
+                                            'value' => 'rtx',
+                                        ],
+                                        [
+                                            'label' => __('vtt', 'directorist'),
+                                            'value' => 'vtt',
+                                        ],
 
+                                        // Application Format
+                                        [
+                                            'label' => __('doc', 'directorist'),
+                                            'value' => 'doc',
                                         ],
                                         [
-                                            'group' => 'Application Format',
-                                            'options' => [
-                                                [
-                                                    'label' => __('doc', 'directorist'),
-                                                    'value' => 'doc',
-                                                ],
-                                                [
-                                                    'label' => __('docx', 'directorist'),
-                                                    'value' => 'docx',
-                                                ],
-                                                [
-                                                    'label' => __('odt', 'directorist'),
-                                                    'value' => 'odt',
-                                                ],
-                                                [
-                                                    'label' => __('pdf', 'directorist'),
-                                                    'value' => 'pdf',
-                                                ],
-                                                [
-                                                    'label' => __('pot', 'directorist'),
-                                                    'value' => 'pot',
-                                                ],
-                                                [
-                                                    'label' => __('ppt', 'directorist'),
-                                                    'value' => 'ppt',
-                                                ],
-                                                [
-                                                    'label' => __('pptx', 'directorist'),
-                                                    'value' => 'pptx',
-                                                ],
-                                                [
-                                                    'label' => __('rar', 'directorist'),
-                                                    'value' => 'rar',
-                                                ],
-                                                [
-                                                    'label' => __('rtf', 'directorist'),
-                                                    'value' => 'rtf',
-                                                ],
-                                                [
-                                                    'label' => __('swf', 'directorist'),
-                                                    'value' => 'swf',
-                                                ],
-                                                [
-                                                    'label' => __('xls', 'directorist'),
-                                                    'value' => 'xls',
-                                                ],
-                                                [
-                                                    'label' => __('xlsx', 'directorist'),
-                                                    'value' => 'xlsx',
-                                                ],
-                                                [
-                                                    'label' => __('gpx', 'directorist'),
-                                                    'value' => 'gpx',
-                                                ],
-                                            ],
-                                        ]
+                                            'label' => __('docx', 'directorist'),
+                                            'value' => 'docx',
+                                        ],
+                                        [
+                                            'label' => __('odt', 'directorist'),
+                                            'value' => 'odt',
+                                        ],
+                                        [
+                                            'label' => __('pdf', 'directorist'),
+                                            'value' => 'pdf',
+                                        ],
+                                        [
+                                            'label' => __('pot', 'directorist'),
+                                            'value' => 'pot',
+                                        ],
+                                        [
+                                            'label' => __('ppt', 'directorist'),
+                                            'value' => 'ppt',
+                                        ],
+                                        [
+                                            'label' => __('pptx', 'directorist'),
+                                            'value' => 'pptx',
+                                        ],
+                                        [
+                                            'label' => __('rar', 'directorist'),
+                                            'value' => 'rar',
+                                        ],
+                                        [
+                                            'label' => __('rtf', 'directorist'),
+                                            'value' => 'rtf',
+                                        ],
+                                        [
+                                            'label' => __('swf', 'directorist'),
+                                            'value' => 'swf',
+                                        ],
+                                        [
+                                            'label' => __('xls', 'directorist'),
+                                            'value' => 'xls',
+                                        ],
+                                        [
+                                            'label' => __('xlsx', 'directorist'),
+                                            'value' => 'xlsx',
+                                        ],
+                                        [
+                                            'label' => __('gpx', 'directorist'),
+                                            'value' => 'gpx',
+                                        ],
 
                                     ],
                                 ],
@@ -3876,14 +3894,14 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $listing_card_list_view_without_thumbnail_layout = [];
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
-                'name' => [
-                    'label' => 'Name *',
-                    'type'  => 'text',
-                    'value' => '',
-                    'rules' => [
-                        'required' => true,
-                    ],
-                ],
+                // 'name' => [
+                //     'label' => 'Name *',
+                //     'type'  => 'text',
+                //     'value' => '',
+                //     'rules' => [
+                //         'required' => true,
+                //     ],
+                // ],
 
                 'icon' => [
                     'label' => 'Icon',
@@ -4761,6 +4779,20 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ];
             }
 
+            $this->options = [
+                'name' => [
+                    'type'  => 'text',
+                    'placeholder'  => 'Name *',
+                    'value' => '',
+                    'rules' => [
+                        'required' => true,
+                    ],
+                    'input_style' => [
+                        'class_names' => 'cptm-form-control-light'
+                    ]
+                ],
+            ];
+
             $this->config = [
                 'submission' => [
                     'url' => admin_url('admin-ajax.php'),
@@ -4817,6 +4849,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'fields'  => $this->fields,
                 'layouts' => $this->layouts,
                 'config'  => $this->config,
+                'options' => $this->options,
                 'id'      => $listing_type_id,
             ];
 
@@ -4843,7 +4876,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 if ( ! $term) { return; }
 
-                $this->fields['name']['value'] = $term->name;
+                $this->options['name']['value'] = $term->name;
                 $all_term_meta = get_term_meta( $term->term_id );
 
             } else {
@@ -4889,8 +4922,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 }
             }
 
-            // $test = get_term_meta( $listing_type_id, 'general_config' )[0];
-            // e_var_dump( $test );
+            // $test = get_term_meta( $listing_type_id, 'submission_form_fields' )[0];
+            // $submission_form_fields = maybe_unserialize( maybe_unserialize( $all_term_meta['submission_form_fields'] ) );
+            // $submission_form_fields = maybe_unserialize( maybe_unserialize( $all_term_meta['submission_form_fields'][0] ) );
+            // e_var_dump( $submission_form_fields['fields']['image_upload'] );
+            // e_var_dump( $all_term_meta['fields']['image_upload'] );
             // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
             // var_dump( $test['fields']['video'] );
             // e_var_dump( $test );

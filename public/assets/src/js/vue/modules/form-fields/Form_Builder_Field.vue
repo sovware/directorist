@@ -82,14 +82,13 @@
                           <span class="fa fa-angle-up" aria-hidden="true"></span>
                         </a>
                       </div>
-                    </div>
+                    </div>  
 
-                    <slide-up-down :active="getActiveFieldCollapseState(field_key)" :duration="300">
+                    <slide-up-down :active="getActiveFieldCollapseState( field_key )" :duration="300">
                       <div class="cptm-form-builder-group-field-item-body" v-if="getActiveFieldsSettings(field_key, 'options')">
                         <template v-for="(option, option_key) in getWidgetOptions( field_key )">
                           <component
                             :is="option.type + '-field'"
-                            :test="{ field_key, option_key, value: active_fields[field_key][option_key] }"
                             :key="option_key"
                             :field-id="fieldId + '_' + field_key + '_' + option_key"
                             v-bind="getSanitizedFieldsOptions(option)"
@@ -437,6 +436,8 @@ export default {
 
         if ( typeof this.active_fields_ref[ widget_name ] === 'undefined' ) {
           this.active_fields_ref[ widget_name ] = [];
+          this.$set(this.active_field_collapse_states, field, {});
+          this.$set( this.active_field_collapse_states[field], "collapsed", false );
         }
         
         this.active_fields_ref[ widget_name ].push( field );
@@ -586,16 +587,23 @@ export default {
     },
     
     toggleActiveFieldCollapseState(field_key) {
+      // console.log( 'toggleActiveFieldCollapseState', { field_key } );
+
       if (typeof this.active_field_collapse_states[field_key] === "undefined") {
         this.$set(this.active_field_collapse_states, field_key, {});
         this.$set( this.active_field_collapse_states[field_key], "collapsed", false );
+        // console.log( 'toggleActiveFieldCollapseState', { field_key }, 'undefined' );
       }
-      this.active_field_collapse_states[field_key].collapsed = !this
-        .active_field_collapse_states[field_key].collapsed;
+
+      this.$set( this.active_field_collapse_states[field_key], "collapsed", ! this.active_field_collapse_states[field_key].collapsed )
+
+      // console.log( 'toggleActiveFieldCollapseState', { field_key }, this.active_field_collapse_states[field_key] );
     },
     
     getActiveFieldCollapseClass(field_key) {
+      // console.log( 'getActiveFieldCollapseClass', field_key );
       if (typeof this.active_field_collapse_states[field_key] === "undefined") {
+        // console.log( 'not found', field_key, this.active_field_collapse_states );
         return "action-collapse-up";
       }
       return this.active_field_collapse_states[field_key].collapsed
@@ -607,17 +615,18 @@ export default {
       if (typeof this.active_field_collapse_states[field_key] === "undefined") {
         return false;
       }
-      return this.active_field_collapse_states[field_key].collapsed
-        ? true
-        : false;
+
+      return this.active_field_collapse_states[field_key].collapsed ? true : false;
     },
     toggleActiveGroupCollapseState(group_key) {
       if ( typeof this.active_group_collapse_states[group_key] === "undefined" ) {
         Vue.set(this.active_group_collapse_states, group_key, {});
         Vue.set( this.active_group_collapse_states[group_key], "collapsed", true );
       }
-      this.active_group_collapse_states[group_key].collapsed = !this.active_group_collapse_states[group_key].collapsed;
+
+      Vue.set( this.active_group_collapse_states[group_key], "collapsed", true );
     },
+
     getActiveGroupCollapseState(group_key) {
 
       // if ( this.elementIsDragging ) { return false; }
@@ -702,9 +711,6 @@ export default {
         field_index,
         group_key,
       };
-
-      // console.log( this.current_dragging_state );
-      //
 
       this.current_dragging_state.active_widget.id          = field_key;
       this.current_dragging_state.active_widget.field_index = field_index;
@@ -1069,6 +1075,9 @@ export default {
         this.active_fields_ref[inserting_field_key].push(new_key);
         inserting_field_key = new_key;
       }
+
+      this.$set(this.active_field_collapse_states, inserting_field_key, {});
+      this.$set( this.active_field_collapse_states[inserting_field_key], "collapsed", false );
 
       const field_data = this.theWidgetGroups[payload.inserting_from].widgets[ payload.inserting_field_key ];
       let field_data_options = {};

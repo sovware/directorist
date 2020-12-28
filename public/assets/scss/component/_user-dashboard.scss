@@ -425,7 +425,8 @@
 }
 
 // userDashboard Table
-.atbdp-userDashboard-tab{
+.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tab{
+  margin-top: 30px;
   .atbd_tab_nav{
     display: flex;
     align-items: center;
@@ -435,12 +436,15 @@
     border-radius: 4px;
   }
   ul{
-    padding: 0;
+    padding: 0 0 0 22px;
     margin: 0;
     list-style: none;
     display: flex;
     align-items: center;
     li{
+      &:not(:last-child){
+        margin-right: 20px;
+      }
       a{
         display: inline-block;
         font-size: 14px;
@@ -470,11 +474,11 @@
       }
     }
   }
-  .atbdp-userDashboard-search{
+  .directorist_userDashboard-search{
     position: relative;
     border-radius: 18px;
     padding-right: 16px;
-    .atbdp-userDashboard-search__icon{
+    .directorist_userDashboard-search__icon{
       position: absolute;
       left: 16px;
       top: 50%;
@@ -499,14 +503,15 @@
   }
 }
 
-.atbdp-userDashboard-tabcontent{
+.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent{
   background-color: #fff;
   box-shadow: 0 5px 10px rgba(#8F8E9F,.05);
   border-radius: 4px;
   margin-top: 15px;
   // margin-bottom: 145px;
-  .atbdp-listing-table{
-    .atbdp-table{
+  .directorist_listing-table{
+    border-radius: 6px;
+    .directorist_table{
       display: table;
       border: 0 none;
       border-collapse: collapse;
@@ -517,20 +522,22 @@
       overflow: visible !important;
     }
     tr{
+      background-color: #fff;
       th{
-        &.atbdp_table-listing{
+        text-align: left;
+        &.directorist_table-listing{
           min-width: 320px;
         }
-        &.atbdp_table-plan{
+        &.directorist_table-plan{
           min-width: 180px;
         }
-        &.atbdp_table-ex-date{
+        &.directorist_table-ex-date{
           min-width: 250px;
         }
-        &.atbdp_table-status{
+        &.directorist_table-status{
           min-width: 160px;
         }
-        &.atbdp_table-actions{
+        &.directorist_table-actions{
           min-width: 200px;
         }
       }
@@ -570,31 +577,31 @@
         border-bottom: 1px solid #EFF1F6;
       }
     }
-    .atbdp-listing-info{
+    .directorist_listing-info{
       display: flex;
     }
-    .atbdp-listing-info__img{
+    .directorist_listing-info__img{
       margin-right: 12px;
       img{
         max-width: 44px;
         border-radius: 6px;
       }
     }
-    .atbdp-listing-info__content{
+    .directorist_listing-info__content{
       flex: auto;
-      .atbdp-title{
+      .directorist_title{
         margin: 0 0 5px;
         font-size: 15px;
         font-weight: 500;
         color: #0A0B1E;
       }
-      .atbd-price{
+      .directorist_price{
         font-size: 14px;
         font-weight: 500;
         color: #51526E;
       }
     }
-    .atbdp-badge {
+    .directorist_badge {
       font-size: 12px;
       font-weight: 700;
       border-radius: 4px;
@@ -616,14 +623,14 @@
         background-color: rgba($warning, .15);
       }
     }
-    .atbdp-actions{
+    .directorist_actions{
       display: flex;
       align-items: center;
       justify-content: flex-end;
       a{
         font-size: 13px;
         text-decoration: none;
-        &.atbdp-link-btn{
+        &.directorist_link-btn{
           color: #2C99FF;
           font-weight: 500;
           margin-right: 20px;
@@ -632,7 +639,7 @@
           }
         }
       }
-      .atbdp-btn-more{
+      .directorist_btn-more{
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -664,15 +671,16 @@
         }
       }
     }
-    .atbdp-dropdown{
+    .directorist_dropdown{
       position: relative;
-      .atbdp-dropdown-menu{
+      .directorist_dropdown-menu{
         position: absolute;
         right: 0;
         top: 40px;
         opacity: 0;
         visibility: hidden;
         background-color: #fff;
+        box-shadow: 0 5px 15px #8F8E9F20;
         &.active{
           opacity: 1;
           visibility: visible;
@@ -680,12 +688,12 @@
         }
       }
     }
-    .atbdp-dropdown-menu{
+    .directorist_dropdown-menu{
       min-width: 230px;
       border: 1px solid #EFF1F6;
       padding: 0 0 10px 0;
       border-radius: 6px;
-      .atbdp-dropdown-menu__list{
+      .directorist_dropdown-menu__list{
         position: relative;
         &:not(:last-child){
           padding-bottom: 10px;
@@ -715,7 +723,7 @@
             margin-right: 6px;
           }
         }
-        .atbdp-custom-checkbox{
+        .directorist_custom-checkbox{
           padding: 10px 20px;
           &:first-child{
             margin-top: 10px;
@@ -729,7 +737,7 @@
       }
     }
   }
-  .atbdp-pagination{
+  .directorist_pagination{
     display: flex;
     justify-content: flex-end;
     margin: 2px 22px 0 22px;
@@ -738,7 +746,7 @@
   }
 }
 
-.atbdp-table-responsive{
+.atbd_content_active #directorist.atbd_wrapper .directorist_table-responsive{
   display: block !important;
   width: 100%;
   overflow-x: auto;
@@ -746,7 +754,7 @@
 }
 
 // Pagination Css
-.atbdp-pagination{
+.atbd_content_active #directorist.atbd_wrapper .directorist_pagination{
   ul{
       margin: -4px;
       li{
@@ -789,11 +797,11 @@
 
 // Responsive Css
 @media (max-width: 767px){
-  .atbdp-userDashboard-tab .atbd_tab_nav{
+  .atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tab .atbd_tab_nav{
     flex-flow: column;
     padding-bottom: 20px;
   }
-  .atbdp-userDashboard-search{
+  .atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-search{
     margin-top: 15px;
   }
 }

@@ -339,6 +339,7 @@ class Directorist_Listing_Search_Form {
 
 
 	public function listing_type_template() {
+		if( count( $this->get_listing_types() ) < 2 ) return;
 		$args = array(
 			'searchform' 		=> $this,
 			'listing_types'     => $this->get_listing_types(),

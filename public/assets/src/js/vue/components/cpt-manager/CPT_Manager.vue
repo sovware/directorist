@@ -1,7 +1,15 @@
 <template>
-    <div class="atbdp-cpt-manager">
+    <div class="atbdp-cpt-manager cptm-p-20">
+
         <!-- atbdp-cptm-header -->
         <div class="atbdp-cptm-header">
+            <component 
+                v-if="options.name && options.name.type" 
+                :is="options.name.type + '-field'" 
+                v-bind="options.name"
+                @update="updateOptionsField( { field: 'name', value: $event } )"
+            />
+
             <headerNavigation />
         </div>
 
@@ -45,6 +53,12 @@ export default {
         tabContents,
     },
 
+    computed: {
+        ...mapState({
+            options: 'options',
+        })
+    },
+
     created() {
         if ( this.$root.fields ) {
             this.$store.commit( 'updateFields', this.$root.fields );
@@ -53,6 +67,12 @@ export default {
         if ( this.$root.layouts ) {
             this.$store.commit( 'updatelayouts', this.$root.layouts );
         }
+
+        if ( this.$root.options ) {
+            this.$store.commit( 'updateOptions', this.$root.options );
+        }
+
+        // console.log( this.options );
 
         if ( this.$root.config ) {
             this.$store.commit( 'updateConfig', this.$root.config );
@@ -88,6 +108,13 @@ export default {
             'getFieldsValue'
         ]),
 
+        updateOptionsField( payload ) {
+            if ( ! payload.field ) { return; }
+            if ( typeof payload.value === 'undefined' ) { return; }
+
+            this.$store.commit( 'updateOptionsField', payload );
+        },      
+
         updateData() {
             let fields = this.getFieldsValue();
 
@@ -116,8 +143,9 @@ export default {
         },
 
         saveData() {
-            let fields = this.$store.state.fields;
-            let config = this.$store.state.config;
+            let options = this.$store.state.options;
+            let fields  = this.$store.state.fields;
+            let config  = this.$store.state.config;
 
             let form_data = new FormData();
             form_data.append( 'action', 'save_post_type_data' );
@@ -127,48 +155,26 @@ export default {
                 this.footer_actions.save.label = 'Update';
             }
 
-            let field_list = [];
-            let skipped_fields = [];
-            let log = [];
+            // Get Options Fields Data
+            let options_field_list = [];
+            for ( let field in options ) {
+                let value = this.maybeJSON( options[ field ].value );
 
-            if ( config.fields_group && typeof config.fields_group === 'object' ) {
-                for ( let group_key in config.fields_group ) {
-                    let group_value = {};
-
-                    for ( let field_key in config.fields_group[ group_key ]  ) {
-                        let field_key_value = config.fields_group[ group_key ][field_key];
-                        let field_key_type  = typeof config.fields_group[ group_key ][field_key];
-                        
-                        if ( 'string' === field_key_type && typeof fields[ field_key_value ] !== 'undefined' ) {
-                            group_value[ field_key_value ] = fields[ field_key_value ].value;
-                            skipped_fields.push( field_key_value );
-                        }
-
-                        if ( 'object' === field_key_type ) {
-                            group_value[ field_key ] = {};
-
-                            for ( let sub_field_key of field_key_value ) {
-                                group_value[ field_key ][ sub_field_key ] = fields[ sub_field_key ].value;
-                                skipped_fields.push( sub_field_key );
-                            }
-                        }
-                    }
-                    
-                    form_data.append( group_key, JSON.stringify( group_value ) );
-                    field_list.push( group_key );
-                }
+                form_data.append( field, value );
+                options_field_list.push( field );
             }
 
-            for ( let field in fields ) {
-                if ( skipped_fields.indexOf( field ) !== -1 ) { continue; }
+            form_data.append( 'field_list', JSON.stringify( field_list ) );
 
+            // Get Form Fields Data
+            let field_list = [];
+            for ( let field in fields ) {
                 let value = this.maybeJSON( fields[ field ].value );
+
                 form_data.append( field, value );
                 field_list.push( field );
-                log.push( field, value  );
             }
 
-            // console.log( field_list, skipped_fields );
             form_data.append( 'field_list', JSON.stringify( field_list ) );
 
             this.status_messages = [];
@@ -176,29 +182,27 @@ export default {
             this.footer_actions.save.isDisabled = true;
             const self = this;
 
-            // console.log( { log } );
-
             // return;
             axios.post( ajax_data.ajax_url, form_data )
                 .then( response => {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;
 
-                    // console.log( response.data );
+                    // console.log( response );
                     // return;
                     
-                    if ( response.data.post_id && ! isNaN( response.data.post_id ) ) {
-                        self.listing_type_id = response.data.post_id;
+                    if ( response.data.term_id && ! isNaN( response.data.term_id ) ) {
+                        self.listing_type_id = response.data.term_id;
                         self.footer_actions.save.label = 'Update';
-                        self.listing_type_id = response.data.post_id;
+                        self.listing_type_id = response.data.term_id;
                         // window.location = response.data.redirect_url;
                     }
 
-                    if ( response.data.status_log ) {
-                        for ( let status_key in response.data.status_log  ) {
+                    if ( response.data.status && response.data.status.status_log ) {
+                        for ( let status_key in response.data.status.status_log  ) {
                             self.status_messages.push({ 
-                                type: response.data.status_log[ status_key ].type, 
-                                message: response.data.status_log[ status_key ].message
+                                type: response.data.status.status_log[ status_key ].type, 
+                                message: response.data.status.status_log[ status_key ].message
                             });
                         }
 

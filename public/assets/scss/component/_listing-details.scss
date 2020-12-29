@@ -148,6 +148,23 @@
           }
         }
       }
+      .atdlc-mark_compare_wrapper.atdlc_list-btn-position{
+        position: relative;
+        left: 0;
+        right: auto;
+        top: 0;
+        .atdlc-mark_compare_btn{
+          border: 1px solid #e3e6ef;
+          padding: 5px 10px;
+          color: #7a82a6;
+          cursor: pointer;
+          border-radius: 4px;
+          margin: 3px;
+          min-width: 36px;
+          min-height: 36px;
+          background-color: #fff;
+        }
+      }
     }
   }
   .atbdb_content_module_contents {
@@ -666,6 +683,18 @@
   }
 }
 
+.directorist.atbd_wrapper{
+  .directorist-single-wrapper{
+    .atbd_rated_stars{
+      ul{
+        li{
+          flex: auto;
+        }
+      }
+    }
+  }
+}
+
 // author info module
 #directorist.atbd_wrapper .author_info_module{
   .atbdb_content_module_contents {
@@ -869,6 +898,30 @@
   #directorist.atbd_wrapper {
     .atbd_listing_detail{
       padding-top: 0;
+      .atbd_listing_price{
+        font-size: 16px !important;
+        background-color: #fff !important;
+        color: #202428 !important;
+        font-weight: 700;
+        padding: 0 !important;
+      }
+      .atbd_listing_rating{
+        padding: 0 !important;
+        background-color: #fff !important;
+        color: $dark !important;
+        i,
+        svg{
+          font-size: 13px;
+          margin: 0;
+          color: $warning;
+        }
+        .atbd_listing_avg{
+          font-size: 15px;
+          font-weight: 600;
+          color: $dark;
+          margin: 0 3px 0 6px;
+        }
+      }
     }
   }
 }

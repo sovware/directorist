@@ -193,64 +193,81 @@ jQuery(function($) {
 
         // Load custom fields of the selected category in the custom post type "atbdp_listings"
         $('#at_biz_dir-categories').on('change', function() {
-                $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
+                var directory_type =  qs.listing_type ?  qs.listing_type : $('input[name="directory_type"]').val();
                 const length = $('#at_biz_dir-categories option:selected');
                 const id = [];
                 length.each((el, index) => {
                         id.push($(index).val());
                 });
                 const data = {
-                        action: 'atbdp_custom_fields_listings_front',
-                        post_id: $('#atbdp-custom-fields-list').data('post_id'),
-                        term_id: id,
+                        action          : 'atbdp_custom_fields_listings',
+                        post_id         : $('input[name="listing_id"]').val(),
+                        term_id         : id,
+                        directory_type  : directory_type,
                 };
+             
                 $.post(atbdp_add_listing.ajaxurl, data, function(response) {
-                        if (response == ' 0') {
-                                $('#atbdp-custom-fields-list').hide();
-                        } else {
-                                $('#atbdp-custom-fields-list').show();
-                        }
-                        $('#atbdp-custom-fields-list').html(response);
-                        function atbdp_tooltip(){
-                                var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
-                                atbd_tooltip.forEach(function(el){
-                                    if(el.getAttribute('aria-label') !== " "){
-                                        document.body.addEventListener('mouseover', function(e) {
-                                            for (var target = e.target; target && target != this; target = target.parentNode) {
-                                                if (target.matches('.atbd_tooltip')) {
-                                                    el.classList.add('atbd_tooltip_active');
+                       
+                       if( response ){
+                                $( '.atbdp_category_custom_fields' ).empty().append( response );
+                                function atbdp_tooltip(){
+                                        var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
+                                        atbd_tooltip.forEach(function(el){
+                                        if(el.getAttribute('aria-label') !== " "){
+                                                document.body.addEventListener('mouseover', function(e) {
+                                                for (var target = e.target; target && target != this; target = target.parentNode) {
+                                                        if (target.matches('.atbd_tooltip')) {
+                                                        el.classList.add('atbd_tooltip_active');
+                                                        }
                                                 }
-                                            }
-                                        }, false);
-                                    }
-                                });
+                                                }, false);
+                                        }
+                                        });
+                                }
+                                atbdp_tooltip();
+                        }else {
+                                $( '.atbdp_category_custom_fields' ).empty();
                         }
-                        atbdp_tooltip();
                 });
-
-                $('#atbdp-custom-fields-list-selected').hide();
         });
 
-        var length = $('#at_biz_dir-categories option:selected');
 
-        if (length) {
-                $('#atbdp-custom-fields-list-selected').html('<div class="spinnedsr"></div>');
-
-                var length = $('#at_biz_dir-categories option:selected');
+        // Load custom fields of the selected category in the custom post type "atbdp_listings"
+        $( document ).ready( function() {
+                var directory_type =  qs.listing_type ?  qs.listing_type : $('input[name="directory_type"]').val();
+                const length = $('#at_biz_dir-categories option:selected');
                 const id = [];
                 length.each((el, index) => {
                         id.push($(index).val());
                 });
                 const data = {
-                        action: 'atbdp_custom_fields_listings_front_selected',
-                        post_id: $('#atbdp-custom-fields-list-selected').data('post_id'),
-                        term_id: id,
+                        action          : 'atbdp_custom_fields_listings',
+                        post_id         : $('input[name="listing_id"]').val(),
+                        term_id         : id,
+                        directory_type  : directory_type,
                 };
-
                 $.post(atbdp_add_listing.ajaxurl, data, function(response) {
-                        $('#atbdp-custom-fields-list-selected').html(response);
+                       if( response ){
+                                $( '.atbdp_category_custom_fields' ).empty().append( response );
+                                function atbdp_tooltip(){
+                                        var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
+                                        atbd_tooltip.forEach(function(el){
+                                        if(el.getAttribute('aria-label') !== " "){
+                                                document.body.addEventListener('mouseover', function(e) {
+                                                for (var target = e.target; target && target != this; target = target.parentNode) {
+                                                        if (target.matches('.atbd_tooltip')) {
+                                                        el.classList.add('atbd_tooltip_active');
+                                                        }
+                                                }
+                                                }, false);
+                                        }
+                                        });
+                                }
+                                atbdp_tooltip();
+                        }
                 });
-        }
+        });
+
 
         function atbdp_is_checked(name) {
                 const is_checked = $(`input[name="${name}"]`).is(':checked');

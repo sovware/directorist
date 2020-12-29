@@ -147,7 +147,7 @@ $listing_preview_img_class = 'no' == $listing_preview_img || (empty($prv_image_f
 
                 $popular_listing_id = atbdp_popular_listings(get_the_ID());
                 $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
-                if ($popular_listing_id === get_the_ID()) {
+                if ($popular_listing_id === get_the_ID() && ! empty( $display_popular_badge_cart ) ) {
                     $l_badge_html .= $badge;
                 }
                 //print the new badge

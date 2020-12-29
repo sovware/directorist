@@ -60,14 +60,11 @@ class ATBDP_Multi_Directory_Migration {
         $listings_card_common_data = [ 'listings_card_wedgets' => $listings_card_wedgets ];
 
         $fields = apply_filters( 'atbdp_multidirectory_migration_fields', [
-            "name"                 => "General",
-            "icon"                 => "fa fa-home",
-            "singular_name"        => "listing",
-            "plural_name"          => "listings",
-            "permalink"            => "listing",
-            "enable_preview_image" => true,
-            "preview_image"        => $this->get_preview_image(),
-            "preview_mode"         => get_directorist_option( 'preview_enable', true ),
+            "icon"          => "fa fa-home",
+            "singular_name" => "listing",
+            "plural_name"   => "listings",
+            "permalink"     => "listing",
+            "preview_mode"  => get_directorist_option( 'preview_enable', true ),
 
             "default_expiration"       => get_directorist_option( 'listing_expire_in_days', 365 ),
             "new_listing_status"       => get_directorist_option( 'new_listing_status', 'pending' ),
@@ -1038,6 +1035,18 @@ class ATBDP_Multi_Directory_Migration {
 
     // get_listings_card_grid_view_data
     public function get_listings_card_grid_view_data( array $args = [] ) {
+        $active_template = ( ! empty( get_directorist_option( 'display_preview_image' ) ) ) ? 'grid_view_with_thumbnail' : 'grid_view_without_thumbnail';
+        $grid_view['active_template'] = $active_template;
+
+        $grid_view['template_data'] = [];
+        $grid_view['template_data']['grid_view_with_thumbnail'] = $this->get_listings_card_grid_view_with_thumbnail_data( $args );
+        $grid_view['template_data']['grid_view_without_thumbnail'] = $this->get_listings_card_grid_view_without_thumbnail_data( $args );
+
+        return $grid_view;
+    }
+
+    // get_listings_card_grid_view_data
+    public function get_listings_card_grid_view_with_thumbnail_data( array $args = [] ) {
         $default = [ 'listings_card_wedgets' => [] ];
         $args    = array_merge( $default, $args );
 
@@ -1121,7 +1130,7 @@ class ATBDP_Multi_Directory_Migration {
             $listings_card_grid_view_footer_left[] = $listings_card_wedgets['category'];
         }
 
-        $listings_card_grid_view  = [
+        $listings_card_grid_view = apply_filters( 'listings_card_grid_view_with_thumbnail', [
             "thumbnail"=> [ 
                 "top_right"    => $listings_card_grid_view_thumbnail_top_right,
                 "top_left"     => $listings_card_grid_view_thumbnail_top_left,
@@ -1138,13 +1147,131 @@ class ATBDP_Multi_Directory_Migration {
                 "right" => $listings_card_grid_view_footer_right,
                 "left"  => $listings_card_grid_view_footer_left,
             ]
-        ];
+        ]);
+
+        return $listings_card_grid_view;
+    }
+    // get_listings_card_grid_view_without_thumbnail_data
+    public function get_listings_card_grid_view_without_thumbnail_data( array $args = [] ) {
+        $default = [ 'listings_card_wedgets' => [] ];
+        $args    = array_merge( $default, $args );
+
+        $listings_card_wedgets = $args[ 'listings_card_wedgets' ];
+        
+        // Listings Card Grid View - thumbnail_top_left
+        $listings_card_grid_view_body_quick_info = [];
+        if ( get_directorist_option( 'enable_review', true ) ) {
+            $listings_card_grid_view_body_quick_info[] = $listings_card_wedgets['rating'];
+        }
+
+        if ( get_directorist_option( 'display_pricing_field', true ) && get_directorist_option( 'display_price', true ) ) {
+            $listings_card_grid_view_body_quick_info[] = $listings_card_wedgets['pricing'];
+        }
+
+        if ( get_directorist_option( 'display_feature_badge_cart', true ) ) {
+            $listings_card_grid_view_body_quick_info[] = $listings_card_wedgets['featured_badge'];
+        }
+
+        if ( get_directorist_option( 'display_popular_badge_cart', true ) ) {
+            $listings_card_grid_view_body_quick_info[] = $listings_card_wedgets['popular_badge'];
+        }
+
+        if ( get_directorist_option( 'display_new_badge_cart', true ) ) {
+            $listings_card_grid_view_body_quick_info[] = $listings_card_wedgets['new_badge'];
+        }
+
+        // listings_card_grid_view_body_avatar
+        $listings_card_grid_view_body_avatar = [];
+        if ( get_directorist_option( 'display_author_image', true ) ) {
+            $user_avatar = $listings_card_wedgets['user_avatar'];
+            $listings_card_grid_view_body_avatar[] = $user_avatar;
+        }
+
+        // listings_card_grid_view_body_title
+        $listings_card_grid_view_body_title = [];
+        if ( get_directorist_option( 'display_title', true ) ) {
+            $listings_card_grid_view_body_title[] = $listings_card_wedgets['listing_title'];
+        }
+
+        // listings_card_grid_view_body_quick_actions
+        $listings_card_grid_view_body_quick_actions = [];
+        if ( get_directorist_option( 'display_mark_as_fav', true ) ) {
+            $listings_card_grid_view_body_quick_actions[] = $listings_card_wedgets['favorite_badge'];
+        }
+
+        // listings_card_grid_view_body_quick_info
+        $listings_card_grid_view_body_quick_info = [];
+        if ( get_directorist_option( 'display_mark_as_fav', true ) ) {
+            $listings_card_grid_view_body_quick_info[] = $listings_card_wedgets['favorite_badge'];
+        }
+
+        // listings_card_grid_view_body_bottom
+        $listings_card_grid_view_body_bottom = [];
+        if ( get_directorist_option( 'display_contact_info', true ) ) {
+            $listings_card_grid_view_body_bottom[] = $listings_card_wedgets['listings_location'];
+        }
+
+        if ( get_directorist_option( 'display_publish_date', true ) ) {
+            $listings_card_grid_view_body_bottom[] = $listings_card_wedgets['posted_date'];
+        }
+        
+        if ( get_directorist_option( 'display_contact_info', true ) ) {
+            $listings_card_grid_view_body_bottom[] = $listings_card_wedgets['phone'];
+        }
+
+        if ( get_directorist_option( 'display_web_link', true ) ) {
+            $listings_card_grid_view_body_bottom[] = $listings_card_wedgets['website'];
+        }
+
+        $listings_card_grid_view_body_excerpt = [];
+        if ( get_directorist_option( 'enable_excerpt', true ) ) {
+            $listings_card_grid_view_body_excerpt[] = $listings_card_wedgets['excerpt'];
+        }
+
+        // listings_card_grid_view_footer_right
+        $listings_card_grid_view_footer_right = [];
+        if ( get_directorist_option( 'display_view_count', true ) ) {
+            $listings_card_grid_view_footer_right[] = $listings_card_wedgets['view_count'];
+        }
+
+        // listings_card_grid_view_footer_left
+        $listings_card_grid_view_footer_left = [];
+        if ( get_directorist_option( 'display_category', true ) ) {
+            $listings_card_grid_view_footer_left[] = $listings_card_wedgets['category'];
+        }
+
+        $listings_card_grid_view = apply_filters( 'listings_card_grid_view_without_thumbnail', [
+            "body" => [
+                "avatar"        => $listings_card_grid_view_body_avatar,
+                "title"         => $listings_card_grid_view_body_title,
+                "quick_actions" => $listings_card_grid_view_body_quick_actions,
+                "quick_info"    => $listings_card_grid_view_body_quick_info,
+                "bottom"        => $listings_card_grid_view_body_bottom,
+                "excerpt"       => $listings_card_grid_view_body_excerpt
+            ],
+            "footer" => [
+                "right" => $listings_card_grid_view_footer_right,
+                "left"  => $listings_card_grid_view_footer_left,
+            ]
+        ]);
 
         return $listings_card_grid_view;
     }
 
     // get_listings_card_list_view_data
     public function get_listings_card_list_view_data( array $args = [] ) {
+        $active_template = ( ! empty( get_directorist_option( 'display_preview_image' ) ) ) ? 'list_view_with_thumbnail' : 'list_view_without_thumbnail';
+        $list_view['active_template'] = $active_template;
+
+        $list_view['template_data'] = [];
+        $list_view['template_data']['list_view_with_thumbnail'] = $this->get_listings_card_list_view_with_thumbnail_data( $args );
+        $list_view['template_data']['list_view_without_thumbnail'] = $this->get_listings_card_list_view_without_thumbnail_data( $args );
+
+        return $list_view;
+    }
+
+    // get_listings_card_list_view_with_thumbnail_data
+    public function get_listings_card_list_view_with_thumbnail_data( array $args = [] ) {
         $default = [ 'listings_card_wedgets' => [] ];
         $args    = array_merge( $default, $args );
 
@@ -1166,8 +1293,93 @@ class ATBDP_Multi_Directory_Migration {
             $listings_card_list_view_body_top[] = $listings_card_wedgets['listing_title'];
         }
 
+        if ( get_directorist_option( 'enable_review', true ) ) {
+            $listings_card_list_view_body_top[] = $listings_card_wedgets['rating'];
+        }
+
+        if ( get_directorist_option( 'display_pricing_field', true ) && get_directorist_option( 'display_price', true ) ) {
+            $listings_card_list_view_body_top[] = $listings_card_wedgets['pricing'];
+        }
+
         if ( get_directorist_option( 'display_new_badge_cart', true ) ) {
             $listings_card_list_view_body_top[] = $listings_card_wedgets['new_badge'];
+        }
+
+        // listings_card_list_view_body_right
+        $listings_card_list_view_body_right = [];
+        if ( get_directorist_option( 'display_mark_as_fav', true ) ) {
+            $listings_card_list_view_body_right[] = $listings_card_wedgets['favorite_badge'];
+        }
+        
+        // $listings_card_list_view_body_bottom
+        $listings_card_list_view_body_bottom = [];
+        if ( get_directorist_option( 'display_contact_info', true ) ) {
+            $listings_card_list_view_body_bottom[] = $listings_card_wedgets['listings_location'];
+        }
+
+        if ( get_directorist_option( 'display_publish_date', true ) ) {
+            $listings_card_list_view_body_bottom[] = $listings_card_wedgets['posted_date'];
+        }
+
+        if ( get_directorist_option( 'display_contact_info', true ) ) {
+            $listings_card_list_view_body_bottom[] = $listings_card_wedgets['phone'];
+        }
+
+        if ( get_directorist_option( 'display_web_link', true ) ) {
+            $listings_card_list_view_body_bottom[] = $listings_card_wedgets['website'];
+        }
+
+        // listings_card_list_view_body_excerpt
+        $listings_card_list_view_body_excerpt = [];
+        if ( get_directorist_option( 'enable_excerpt', true ) ) {
+            $listings_card_list_view_body_excerpt[] = $listings_card_wedgets['excerpt'];
+        }
+
+        // listings_card_list_view_footer_right
+        $listings_card_list_view_footer_right = [];
+        if ( get_directorist_option( 'display_view_count', true ) ) {
+            $listings_card_list_view_footer_right[] = $listings_card_wedgets['view_count'];
+        }
+
+        if ( get_directorist_option( 'display_author_image', true ) ) {
+            $listings_card_list_view_footer_right[] = $listings_card_wedgets['user_avatar'];
+        }
+
+        $listings_card_list_view_footer_left = [];
+        if ( get_directorist_option( 'display_category', true ) ) {
+            $listings_card_list_view_footer_left[] = $listings_card_wedgets['category'];
+        }
+
+        $listings_card_list_view = apply_filters( 'listings_card_list_view_with_thumbnail', [
+            "thumbnail"=> [
+                "top_right" => $listings_card_list_view_thumbnail_top_right
+            ],
+            "body"=> [
+                "top"     => $listings_card_list_view_body_top,
+                "right"   => $listings_card_list_view_body_right,
+                "bottom"  => $listings_card_list_view_body_bottom,
+                "excerpt" => $listings_card_list_view_body_excerpt,
+            ],
+            "footer" => [
+                "right" => $listings_card_list_view_footer_right,
+                "left"  => $listings_card_list_view_footer_left
+            ]
+        ]);
+
+        return $listings_card_list_view;
+    }
+
+    // get_listings_card_list_view_without_thumbnail_data
+    public function get_listings_card_list_view_without_thumbnail_data( array $args = [] ) {
+        $default = [ 'listings_card_wedgets' => [] ];
+        $args    = array_merge( $default, $args );
+
+        $listings_card_wedgets = $args[ 'listings_card_wedgets' ];  
+
+        // $listings_card_list_view_body_top
+        $listings_card_list_view_body_top = [];
+        if ( get_directorist_option( 'display_title', true ) ) {
+            $listings_card_list_view_body_top[] = $listings_card_wedgets['listing_title'];
         }
 
         if ( get_directorist_option( 'enable_review', true ) ) {
@@ -1178,6 +1390,18 @@ class ATBDP_Multi_Directory_Migration {
             $listings_card_list_view_body_top[] = $listings_card_wedgets['pricing'];
         }
 
+        if ( get_directorist_option( 'display_feature_badge_cart', true ) ) {
+            $listings_card_list_view_body_top[] = $listings_card_wedgets['featured_badge'];
+        }
+
+        if ( get_directorist_option( 'display_popular_badge_cart', true ) ) {
+            $listings_card_list_view_body_top[] = $listings_card_wedgets['popular_badge'];
+        }
+
+        if ( get_directorist_option( 'display_new_badge_cart', true ) ) {
+            $listings_card_list_view_body_top[] = $listings_card_wedgets['new_badge'];
+        }
+        
         $listings_card_list_view_body_excerpt = [];
         if ( get_directorist_option( 'enable_excerpt', true ) ) {
             $listings_card_list_view_body_excerpt[] = $listings_card_wedgets['excerpt'];
@@ -1221,11 +1445,8 @@ class ATBDP_Multi_Directory_Migration {
             $listings_card_list_view_footer_left[] = $listings_card_wedgets['category'];
         }
 
-        $listings_card_list_view = [
-            "thumbnail"=> [
-                "top_right" => $listings_card_list_view_thumbnail_top_right
-            ],
-            "body"=> [
+        $listings_card_list_view = apply_filters( 'listings_card_list_view_with_thumbnail', [
+            "body" => [
                 "top"     => $listings_card_list_view_body_top,
                 "right"   => $listings_card_list_view_body_right,
                 "bottom"  => $listings_card_list_view_body_bottom,
@@ -1235,7 +1456,7 @@ class ATBDP_Multi_Directory_Migration {
                 "right" => $listings_card_list_view_footer_right,
                 "left"  => $listings_card_list_view_footer_left
             ]
-        ];
+        ]);
 
         return $listings_card_list_view;
     }

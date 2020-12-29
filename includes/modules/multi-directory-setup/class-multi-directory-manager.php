@@ -3888,10 +3888,160 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
             ];
-            $listing_card_list_view_with_thumbnail_layout = [];
 
-            $listing_card_grid_view_without_thumbnail_layout = [];
-            $listing_card_list_view_without_thumbnail_layout = [];
+            $listing_card_grid_view_without_thumbnail_layout = [
+                'body' => [
+                    'avatar' => [
+                        'label' => 'Avater',
+                        'maxWidget' => 1,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["user_avatar"],
+                    ],
+                    'title' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => ["listing_title"],
+                    ],
+                    'quick_actions' => [
+                        'maxWidget' => 2,
+                        'acceptedWidgets' => ["favorite_badge"],
+                    ],
+                    'quick_info' => [
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing"],
+                    ],
+                    'bottom' => [
+                        'maxWidget' => 0,
+                        'acceptedWidgets' => [
+                            "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                        ],
+                    ],
+                    'excerpt' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => [ "excerpt" ],
+                        'show_if' => [
+                            'where' => "submission_form_fields.value.fields",
+                            'conditions' => [
+                                ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                            ],
+                        ],
+                    ],
+                ],
+
+                'footer' => [
+                    'right' => [
+                        'maxWidget' => 2,
+                        'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
+                    ],
+
+                    'left' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
+                    ],
+                ],
+            ];
+
+            $listing_card_list_view_with_thumbnail_layout = [
+                'thumbnail' => [
+                    'top_right' => [
+                        'label' => 'Top Right',
+                        'maxWidget' => 3,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                ],
+
+                'body' => [
+                    'top' => [
+                        'label' => 'Body Top',
+                        'maxWidget' => 0,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
+                    ],
+                    'right' => [
+                        'label' => 'Body Right',
+                        'maxWidget' => 2,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                    'bottom' => [
+                        'label' => 'Body Bottom',
+                        'maxWidget' => 0,
+                        'acceptedWidgets' => [
+                            "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'
+                        ],
+                    ],
+                    'excerpt' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => [ "excerpt" ],
+                        'show_if' => [
+                            'where' => "submission_form_fields.value.fields",
+                            'conditions' => [
+                                ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                            ],
+                        ],
+                    ],
+                ],
+
+                'footer' => [
+                    'right' => [
+                        'maxWidget' => 2,
+                        'acceptedWidgets' => ["user_avatar", "category", "favorite_badge", "view_count"],
+                    ],
+
+                    'left' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
+                    ],
+                ],
+            ];
+
+            $listing_card_list_view_without_thumbnail_layout = [
+                'body' => [
+                    'top' => [
+                        'label' => 'Body Top',
+                        'maxWidget' => 0,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
+                    ],
+                    'right' => [
+                        'label' => 'Body Right',
+                        'maxWidget' => 2,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                    'bottom' => [
+                        'label' => 'Body Bottom',
+                        'maxWidget' => 0,
+                        'acceptedWidgets' => [
+                            "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'
+                        ],
+                    ],
+                    'excerpt' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => [ "excerpt" ],
+                        'show_if' => [
+                            'where' => "submission_form_fields.value.fields",
+                            'conditions' => [
+                                ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                            ],
+                        ],
+                    ],
+                ],
+
+                'footer' => [
+                    'right' => [
+                        'maxWidget' => 2,
+                        'acceptedWidgets' => ["user_avatar", "category", "favorite_badge", "view_count"],
+                    ],
+
+                    'left' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
+                    ],
+                ],
+            ];
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
                 // 'name' => [
@@ -3939,22 +4089,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
 
-                'enable_preview_image' => [
-                    'label' => __('Enable Preview Image', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                ],
                 'preview_image' => [
                     'label'       => __('Select', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
                     'value'       => '',
-                    'show_if' => [
-                        'where' => "enable_preview_image",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ]
                 ],
 
                 'import_export' => [
@@ -4423,84 +4562,35 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'listings_card_grid_view' => [
                     'type' => 'card-builder',
                     'card_templates' => [
-                        'with_thumbnail' => [
+                        'grid_view_with_thumbnail' => [
+                            'label'    => 'With Preview Image',
                             'template' => 'grid-view-with-thumbnail',
                             'widgets'  => $listing_card_widget,
                             'layout'   => $listing_card_grid_view_with_thumbnail_layout,
-                            'default'  => '',
                         ],
-                        'without_thumbnail' => [
+                        'grid_view_without_thumbnail' => [
+                            'label'    => 'Without Preview Image',
                             'template' => 'grid-view-without-thumbnail',
                             'widgets'  => $listing_card_widget,
-                            'layout'   => $listing_card_grid_view_with_thumbnail_layout,
-                            'default'  => '',
+                            'layout'   => $listing_card_grid_view_without_thumbnail_layout,
                         ],
                     ],
-
-                    'template' => 'grid-view',
-                    'value'    => '',
-                    'widgets'  => $listing_card_widget,
-                    'layout'   => $listing_card_grid_view_with_thumbnail_layout,
                 ],
 
                 'listings_card_list_view' => [
                     'type' => 'card-builder',
-                    'template' => 'list-view',
-                    'value' => '',
-                    'widgets' => $listing_card_list_view_widget,
-                    'layout' => [
-                        'thumbnail' => [
-                            'top_right' => [
-                                'label' => 'Top Right',
-                                'maxWidget' => 3,
-                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
+                    'card_templates' => [
+                        'list_view_with_thumbnail' => [
+                            'label'    => 'With Preview Image',
+                            'template' => 'list-view-with-thumbnail',
+                            'widgets'  => $listing_card_widget,
+                            'layout'   => $listing_card_list_view_with_thumbnail_layout,
                         ],
-
-                        'body' => [
-                            'top' => [
-                                'label' => 'Body Top',
-                                'maxWidget' => 0,
-                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
-                            ],
-                            'right' => [
-                                'label' => 'Body Right',
-                                'maxWidget' => 2,
-                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
-                            'bottom' => [
-                                'label' => 'Body Bottom',
-                                'maxWidget' => 0,
-                                'acceptedWidgets' => [
-                                    "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
-                                    'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'
-                                ],
-                            ],
-                            'excerpt' => [
-                                'maxWidget' => 1,
-                                'acceptedWidgets' => [ "excerpt" ],
-                                'show_if' => [
-                                    'where' => "submission_form_fields.value.fields",
-                                    'conditions' => [
-                                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
-                                    ],
-                                ],
-                            ],
-                        ],
-
-                        'footer' => [
-                            'right' => [
-                                'maxWidget' => 2,
-                                'acceptedWidgets' => ["user_avatar", "category", "favorite_badge", "view_count"],
-                            ],
-
-                            'left' => [
-                                'maxWidget' => 1,
-                                'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
-                            ],
+                        'list_view_without_thumbnail' => [
+                            'label'    => 'Without Preview Image',
+                            'template' => 'list-view-without-thumbnail',
+                            'widgets'  => $listing_card_widget,
+                            'layout'   => $listing_card_list_view_without_thumbnail_layout,
                         ],
                     ],
                 ],
@@ -4524,19 +4614,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'description' => '',
                                     'fields'      => [
                                         'name', 'icon', 'singular_name', 'plural_name', 'permalink',
-                                    ],
-                                ],
-                            ],
-                        ],
-                        'preview_image' => [
-                            'label' => __('Preview Image', 'directorist'),
-                            'sections' => [
-                                'labels' => [
-                                    'title'       => __('Default Preview Image', 'directorist'),
-                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
-                                    'fields'      => [
-                                        'enable_preview_image',
-                                        'preview_image',
                                     ],
                                 ],
                             ],
@@ -4720,19 +4797,18 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 ],
                             ],
                         ],
-                        // 'options' => [
-                        //     'label' => 'Listings Card Options',
-                        //     'sections' => [
-                        //         'listings_card_options' => [
-                        //             'title' => __('Customize the options', 'directorist'),
-                        //             'description' => 'need help?',
-                        //             'fields' => [
-                        //                 'listings_card_height',
-                        //                 'listings_card_width'
-                        //             ],
-                        //         ],
-                        //     ],
-                        // ],
+                        'other' => [
+                            'label' => __('Other', 'directorist'),
+                            'sections' => [
+                                'labels' => [
+                                    'title'       => __('Default Preview Image', 'directorist'),
+                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
+                                    'fields'      => [
+                                        'preview_image',
+                                    ],
+                                ],
+                            ],
+                        ],
                     ],
 
                 ],
@@ -4804,7 +4880,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'singular_name',
                         'plural_name',
                         'permalink',
-                        'enable_preview_image',
                         'preview_image',
                     ]
                 ]

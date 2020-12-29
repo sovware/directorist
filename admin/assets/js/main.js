@@ -4048,7 +4048,50 @@ function assetsNeedToWorkInVirtualDom() {
         $('#hide_if_no_manual_cor').hide();
       }
     });
-
 }
+
+      /*
+          Plugin: PureScriptTab
+          Version: 1.0.0
+          License: MIT
+      */
+    (function () {
+      pureScriptTab = (selector1) => {
+          var selector = document.querySelectorAll(selector1);
+          selector.forEach((el, index) => {
+              a = el.querySelectorAll('.atbd_tn_link');
+
+
+              a.forEach((element, index) => {
+
+                  element.style.cursor = 'pointer';
+                  element.addEventListener('click', (event) => {
+                      event.preventDefault();
+                      event.stopPropagation();
+
+                      var ul = event.target.closest('.atbd_tab_nav'),
+                          main = ul.nextElementSibling,
+                          item_a = ul.querySelectorAll('.atbd_tn_link'),
+                          section = main.querySelectorAll('.atbd_tab_inner');
+
+                      item_a.forEach((ela, ind) => {
+                          ela.classList.remove('tabItemActive');
+                      });
+                      event.target.classList.add('tabItemActive');
+
+
+                      section.forEach((element1, index) => {
+                          //console.log(element1);
+                          element1.classList.remove('tabContentActive');
+                      });
+                      var target = event.target.target;
+                      document.getElementById(target).classList.add('tabContentActive');
+                  });
+              });
+          });
+      };
+  })();
+  
+  pureScriptTab('.directorist_builder--tab');
 
 })(jQuery);

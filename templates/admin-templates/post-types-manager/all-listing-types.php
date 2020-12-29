@@ -59,4 +59,232 @@
             </div>
         </div>
     </div>
+    <div class="directorist_builder-wrap">
+        <div class="directorist_builder-header">
+            <div class="directorist_builder-header__left">
+                <div class="directorist_logo">
+                    <img src="https://demo.jsnorm.com/react/strikingdash/static/media/Logo_Dark.9ef25a33.svg" alt="">
+                </div>
+            </div>
+            <div class="directorist_builder-header__right">
+                <ul class="directorist_builder-links">
+                    <li>
+                        <a href="#">
+                            <i class="la la-file"></i>
+                            <span class="link-text">Documentation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="la la-question-circle"></i>
+                            <span class="link-text">Support</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="la la-star"></i>
+                            <span class="link-text">Feedback</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="directorist_builder-body">
+            <h2 class="directorist_builder__title">All Listing Types</h2>
+            <div class="directorist_builder__content">
+                <div class="directorist_builder__content--left">
+                    <a href="#" class="directorist_link-block">
+                        <span class="directorist_link-icon">
+                            <i class="la la-plus"></i>
+                        </span>
+                        <span class="directorist_link-text">Create New Listing Type</span>
+                    </a>
+                </div>
+                <div class="directorist_builder__content--right">
+                    <div class="directorist_builder--tab">
+                        <div class="atbd_tab_nav">
+                            <ul>
+                                <li class="directorist_builder--tab-item">
+                                    <a href="#" target="all" class="atbd_tn_link tabItemActive">All <span class="directorist_count">(12)</span></a>
+                                </li>
+                                <li class="directorist_builder--tab-item">
+                                    <a href="#" target="published" class="atbd_tn_link">Published<span class="directorist_count">(12)</a>
+                                </li>
+                                <li class="directorist_builder--tab-item">
+                                    <a href="#" target="private" class="atbd_tn_link">Private<span class="directorist_count">(12)</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="directorist_builder--tabContent">
+                            <div class="atbd_tab_inner tabContentActive" id="all">
+                                <div class="directorist_all-listing-table directorist_table-responsive">
+                                    <table class="directorist_table">
+                                        <thead>
+                                            <tr>
+                                                <th class="directorist_listing-title">Title</th>
+                                                <th class="directorist_listing-count">Listings</th>
+                                                <th class="directorist_listing-c-date">Created Date</th>
+                                                <th class="directorist_listing-c-action">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="directorist_title">Place</a>
+                                                </td>
+                                                <td>62</td>
+                                                <td>August 30, 2020</td>
+                                                <td>
+                                                    <div class="directorist_listing-actions">
+                                                        <a href="#" class="btn btn-primary"><i class="la la-edit"></i>Edit</a>
+                                                        <a href="#" class="btn btn-danger"><i class="la la-trash"></i>Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="directorist_title">Place</a>
+                                                </td>
+                                                <td>62</td>
+                                                <td>August 30, 2020</td>
+                                                <td>
+                                                    <div class="directorist_listing-actions">
+                                                        <a href="#" class="btn btn-primary"><i class="la la-edit"></i>Edit</a>
+                                                        <a href="#" class="btn btn-danger"><i class="la la-trash"></i>Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="directorist_title">Place</a>
+                                                </td>
+                                                <td>62</td>
+                                                <td>August 30, 2020</td>
+                                                <td>
+                                                    <div class="directorist_listing-actions">
+                                                        <a href="#" class="btn btn-primary"><i class="la la-edit"></i>Edit</a>
+                                                        <a href="#" class="btn btn-danger"><i class="la la-trash"></i>Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="atbd_tab_inner" id="published">
+                                <div class="directorist_all-listing-table directorist_table-responsive">
+                                    <table class="directorist_table">
+                                        <thead>
+                                            <tr>
+                                                <th class="directorist_listing-title">Title</th>
+                                                <th class="directorist_listing-count">Listings</th>
+                                                <th class="directorist_listing-c-date">Created Date</th>
+                                                <th class="directorist_listing-c-action">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="directorist_title">Place</a>
+                                                </td>
+                                                <td>62</td>
+                                                <td>August 30, 2020</td>
+                                                <td>
+                                                    <div class="directorist_listing-actions">
+                                                        <a href="#" class="btn btn-primary"><i class="la la-edit"></i>Edit</a>
+                                                        <a href="#" class="btn btn-danger"><i class="la la-trash"></i>Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="directorist_title">Place</a>
+                                                </td>
+                                                <td>62</td>
+                                                <td>August 30, 2020</td>
+                                                <td>
+                                                    <div class="directorist_listing-actions">
+                                                        <a href="#" class="btn btn-primary"><i class="la la-edit"></i>Edit</a>
+                                                        <a href="#" class="btn btn-danger"><i class="la la-trash"></i>Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="directorist_title">Place</a>
+                                                </td>
+                                                <td>62</td>
+                                                <td>August 30, 2020</td>
+                                                <td>
+                                                    <div class="directorist_listing-actions">
+                                                        <a href="#" class="btn btn-primary"><i class="la la-edit"></i>Edit</a>
+                                                        <a href="#" class="btn btn-danger"><i class="la la-trash"></i>Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="atbd_tab_inner" id="private">
+                                <div class="directorist_all-listing-table directorist_table-responsive">
+                                    <table class="directorist_table">
+                                        <thead>
+                                            <tr>
+                                                <th class="directorist_listing-title">Title</th>
+                                                <th class="directorist_listing-count">Listings</th>
+                                                <th class="directorist_listing-c-date">Created Date</th>
+                                                <th class="directorist_listing-c-action">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="directorist_title">Place</a>
+                                                </td>
+                                                <td>62</td>
+                                                <td>August 30, 2020</td>
+                                                <td>
+                                                    <div class="directorist_listing-actions">
+                                                        <a href="#" class="btn btn-primary"><i class="la la-edit"></i>Edit</a>
+                                                        <a href="#" class="btn btn-danger"><i class="la la-trash"></i>Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="directorist_title">Place</a>
+                                                </td>
+                                                <td>62</td>
+                                                <td>August 30, 2020</td>
+                                                <td>
+                                                    <div class="directorist_listing-actions">
+                                                        <a href="#" class="btn btn-primary"><i class="la la-edit"></i>Edit</a>
+                                                        <a href="#" class="btn btn-danger"><i class="la la-trash"></i>Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <a href="#" class="directorist_title">Place</a>
+                                                </td>
+                                                <td>62</td>
+                                                <td>August 30, 2020</td>
+                                                <td>
+                                                    <div class="directorist_listing-actions">
+                                                        <a href="#" class="btn btn-primary"><i class="la la-edit"></i>Edit</a>
+                                                        <a href="#" class="btn btn-danger"><i class="la la-trash"></i>Delete</a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

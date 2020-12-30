@@ -8650,31 +8650,31 @@ span.atbd_get_loc_wid {
   overflow: hidden;
   width: 100%;
   display: block;
+  padding: 35px 0 30px;
+  min-height: auto !important;
   margin-bottom: 30px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 5px 25px rgba(143, 142, 159, 0.15);
+          box-shadow: 0 5px 25px rgba(143, 142, 159, 0.15);
+  border-radius: 6px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid img {
-  width: 100%;
-  height: 100%;
+  width: 70px !important;
+  height: 70px;
+  border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
+  margin: 0 auto;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure {
-  position: absolute;
   width: 100%;
   height: 100%;
-  left: 0;
-  top: 0;
   margin-bottom: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8684,23 +8684,24 @@ span.atbd_get_loc_wid {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 15px;
+  width: 100%;
+  height: 100%;
+  min-height: auto !important;
+  background: #fff;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin: 0;
+  margin: 20px 0 0 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption h3, .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption p {
-  color: #fff !important;
-  margin: 0 2px;
+  margin: 0;
   text-align: center;
   font-size: 18px;
   padding: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption p {
-  margin: 0 2px;
+  margin-left: 4px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid.atbd_location_grid-default img {
@@ -8892,7 +8893,7 @@ span.atbd_get_loc_wid {
   padding: 0;
   border-radius: 50%;
   background-color: #444752;
-  margin: 0 0 20px;
+  margin: auto auto 20px auto;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_all_categories .atbd_category_single.atbdp-no-image .cat-box .icon span,

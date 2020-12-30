@@ -505,23 +505,27 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         public function save_post_type_data()
         {
             /* wp_send_json([
-                'status' => false,
                 'single_listings_contents' => $this->maybe_json( $_POST['single_listings_contents'] ),
-                'status_log' => [
-                    'name_is_missing' => [
-                        'type' => 'error',
-                        'message' => 'Debugging',
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'debugging' => [
+                            'type' => 'error',
+                            'message' => 'Name is missing',
+                        ],
                     ],
                 ],
             ], 200 ); */
 
-            if (empty($_POST['name'])) {
+            if ( empty( $_POST['name'] ) ) {
                 wp_send_json([
-                    'status' => false,
-                    'status_log' => [
-                        'name_is_missing' => [
-                            'type' => 'error',
-                            'message' => 'Name is missing',
+                    'status' => [
+                        'success' => false,
+                        'status_log' => [
+                            'name_is_missing' => [
+                                'type' => 'error',
+                                'message' => 'Name is missing',
+                            ],
                         ],
                     ],
                 ], 200);

@@ -145,7 +145,6 @@ export default {
         saveData() {
             let options = this.$store.state.options;
             let fields  = this.$store.state.fields;
-            let config  = this.$store.state.config;
 
             let form_data = new FormData();
             form_data.append( 'action', 'save_post_type_data' );
@@ -188,7 +187,7 @@ export default {
                     self.footer_actions.save.showLoading = false;
                     self.footer_actions.save.isDisabled = false;
 
-                    // console.log( response );
+                    console.log( response );
                     // return;
                     
                     if ( response.data.term_id && ! isNaN( response.data.term_id ) ) {

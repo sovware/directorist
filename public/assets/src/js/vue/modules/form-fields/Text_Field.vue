@@ -1,107 +1,13 @@
 <template>
-    <div class="cptm-form-group" :class="formGroupClass">
-        <label v-if="( 'hidden' !== input_type && label.length )" :for="name">{{ label }}</label>
-        <p v-html="description" class="cptm-form-group-info"></p>
-        <input class="cptm-form-control" :class="formControlClass" v-if="( typeof value !== 'object' ) ? true : false" :type="input_type" :value="value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
-        <input v-if="( typeof value === 'object' ) ? true : false" type="hidden" :value="JSON.stringify( value )">
-
-        <div class="cptm-form-group-feedback" v-if="validationMessages">
-            <div class="cptm-form-alert" :class="'cptm-' + validationMessages.type">
-                {{ validationMessages.message }}
-            </div>
-        </div>
-    </div>
+    <component :is="getTheTheme()" v-bind="$props"></component>
 </template>
 
 <script>
-import validation from './../../mixins/validation';
+import feild_helper from './../../mixins/form-fields/helper';
+import text_feild from './../../mixins/form-fields/text-field';
 
 export default {
     name: 'text-field',
-    mixins: [ validation ],
-    model: {
-        prop: 'value',
-        event: 'input'
-    },
-    props: {
-        type: {
-            type: String,
-            required: false,
-            default: 'text',
-        },
-        label: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        description: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        value: {
-            required: false,
-            default: '',
-        },
-        name: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        placeholder: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        validation: {
-            type: Array,
-            required: false,
-        },
-        input_style: {
-            type: Object,
-            required: false,
-        },
-    },
-
-    computed: {
-        input_type() {
-            const supported_types = {
-                'text-field': 'text', 
-                'number-field': 'number', 
-                'password-field': 'password', 
-                'date-field': 'date',
-                'hidden-field': 'hidden', 
-            };
-
-            if ( typeof supported_types[ this.type ] !== 'undefined' ) {
-                return supported_types[ this.type ];
-            }
-            
-            return 'text';
-        },
-
-        formGroupClass() {
-            return {
-                ...this.validationClass,
-                'cptm-mb-0': ( 'hidden' === this.input_type ) ? true : false,
-            }
-        },
-
-        formControlClass() {
-            let class_names = {};
-
-            if ( this.input_style && this.input_style.class_names  ) {
-                class_names[ this.input_style.class_names ] = true;
-            }
-            
-            return class_names;
-        }
-    },
-
-    data() {
-        return {
-
-        }
-    },
+    mixins: [ feild_helper, text_feild ],
 }
 </script>

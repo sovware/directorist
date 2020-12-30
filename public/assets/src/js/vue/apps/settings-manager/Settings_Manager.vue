@@ -1,5 +1,5 @@
 <template>
-    <div class="settings-wrapper">
+    <div class="settings-wrapper atbdp-settings-panel">
         <div class="setting-top-bar">
             <div class="setting-top-bar__search-field">
                 <input type="text" class="setting-search-field__input" placeholder="Search settings here...">

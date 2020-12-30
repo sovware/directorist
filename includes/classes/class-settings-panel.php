@@ -4355,23 +4355,11 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             ]);
 
             $this->config = [
+                'fields_theme' => 'butterfly',
                 'submission' => [
                     'url' => admin_url('admin-ajax.php'),
                     'with' => [ 'action' => 'save_post_type_data' ],
                 ],
-                'fields_group' => [
-                    'general_config' => [
-                        'icon',
-                        'singular_name',
-                        'plural_name',
-                        'permalink',
-                        'preview_image',
-                        // 'archive_general' => [
-                        //     'listings_card_height',
-                        //     'listings_card_width',
-                        // ]
-                    ]
-                ]
             ];
         }
 

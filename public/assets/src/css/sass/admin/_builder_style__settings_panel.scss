@@ -1,0 +1,27 @@
+$settings-primary-color: #3e62f5;
+
+.atbdp-settings-panel {
+    .cptm-tab-content {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        max-width: unset;
+    }
+
+    .cptm-title {
+        font-size: 18px;
+        line-height: unset;
+    }
+
+    .cptm-menu-title {
+        margin-bottom: 20px;
+    }
+
+    .cptm-section {
+        .cptm-title-area {
+            .cptm-title {
+                color: $settings-primary-color;
+            }   
+        }
+    }
+}

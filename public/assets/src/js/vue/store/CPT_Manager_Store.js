@@ -54,7 +54,7 @@ export default new Vuex.Store({
     },
 
     updateFieldValue: ( state, payload ) => {
-      state.fields[ payload.field_key ].value = payload.value;
+      Vue.set( state.fields[ payload.field_key ], 'value' , payload.value );
     },
 
     updateGeneralSectionData: ( state, payload ) => {

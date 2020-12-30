@@ -175,13 +175,7 @@ export default {
       var old_value = this.value;
 
       // If has no old value
-      if ( ! old_value && this.template_id ) {
-        let data = {};
-        data[ this.template_id ] = value;
-        
-        this.$emit( 'update', { active_template: this.template_id, template_data: data } );
-        return;
-      }
+      if ( ! old_value ) { old_value = {}; }
 
       // Update Active Template ID
       old_value.active_template = this.template_id;

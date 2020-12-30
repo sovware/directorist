@@ -21,10 +21,11 @@ if ( cpt_manager_el ) {
 
         data() {
             return {
-                id: cptm_data.id,
-                fields: cptm_data.fields,
-                layouts: cptm_data.layouts,
-                config: cptm_data.config,
+                id: ( typeof cptm_data.id !== 'undefined' ) ? cptm_data.id : 0,
+                fields: ( typeof cptm_data.fields !== 'undefined' ) ? cptm_data.fields : [],
+                layouts: ( typeof cptm_data.layouts !== 'undefined' ) ? cptm_data.layouts : [],
+                options: ( typeof cptm_data.options !== 'undefined' ) ? cptm_data.options : { test: 'asas' },
+                config: ( typeof cptm_data.config !== 'undefined' ) ? cptm_data.config : {},
             }
         }
     });

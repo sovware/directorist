@@ -127,6 +127,7 @@ $light-gray: #f4f5f7;
 
 .cptm-form-builder-group-field-drop-area {
   display: block;
+  margin-right: 50px;
   padding: 20px;
   text-align: center;
   background-color: #fff;
@@ -559,6 +560,27 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-group-title-area__dropable-wrapper {
   flex-grow: 1;
+}
+
+.cptm-no-wrap {
+  flex-wrap: nowrap;
+}
+
+.cptm-card-top-area {
+  max-width: 450px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.cptm-card-placeholder-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.cptm-card-placeholder-col {
+  flex-grow: 1;
+  padding: 0 10px;
 }
 
 .cptm-form-builder-group-title-area__dropable-placeholder {
@@ -1832,6 +1854,12 @@ input[type="radio"].cptm-radio {
   }
 }
 
+.cptm-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
 .cptm-form-control,
 select.cptm-form-control,
 input[type="date"].cptm-form-control,
@@ -1847,6 +1875,8 @@ input[type="text"].cptm-form-control,
 input[type="time"].cptm-form-control,
 input[type="url"].cptm-form-control,
 input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
+  display: block;
+  width: 100%;
   padding: 11px 20px;
   font-size: 13px;
   color: #5a5f7d;
@@ -1864,6 +1894,49 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
   &:hover {
     color: #23282d;
   }
+}
+
+
+select,
+input[type="date"],
+input[type="datetime-local"],
+input[type="datetime"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="time"],
+input[type="url"],
+input[type="week"], 
+input[type="text"] {
+  &.cptm-form-control {
+    padding: 11px 20px;
+    font-size: 13px;
+    color: #5a5f7d;
+    text-align: left;
+    border: 0 none;
+    border-radius: 4px;
+    box-shadow: none;
+    width: 100%;
+    font-weight: 400;
+    margin: 0;
+    line-height: 18px;
+    height: auto;
+    min-height: 30px;
+    background: #f4f5f7;
+    &:hover {
+      color: #23282d;
+    }
+
+    &.cptm-form-control-light {
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+  }
+  
 }
 
 .tab-general,
@@ -2041,6 +2114,12 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
   display: none !important;
 }
 
+.cptm-p-20 {
+  padding: 20px;
+}
+
+
+
 //input radio
 input[type=radio]:checked::before{
   background-color: #3e62f5;
@@ -2052,6 +2131,9 @@ input[type=checkbox], input[type=radio]{
     height: 15px;
   }
 }
+
+
+
 
 
 // Sidebar

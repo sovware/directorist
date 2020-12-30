@@ -622,7 +622,7 @@
         };
     })();
     pureScriptTab('.atbd_tab');
-    pureScriptTab('.atbdp-userDashboard-tab');
+    pureScriptTab('.directorist_userDashboard-tab');
 
 
     // Validate forms
@@ -773,19 +773,18 @@
     atbdp_tooltip();
 
     // User Dashboard Table More Button
-
-    $('.atbdp-btn-more').on("click", function(e){
+    $('.directorist_btn-more').on("click", function(e){
         e.preventDefault();
         $(this).toggleClass('active');
-        $(".atbdp-dropdown-menu").removeClass("active");
-        $(this).siblings(".atbdp-dropdown-menu").removeClass("active");
-        $(this).next(".atbdp-dropdown-menu").toggleClass("active");
+        $(".directorist_dropdown-menu").removeClass("active");
+        $(this).siblings(".directorist_dropdown-menu").removeClass("active");
+        $(this).next(".directorist_dropdown-menu").toggleClass("active");
         e.stopPropagation();
     });
     $(document).on("click", function (e) {
-        if ($(e.target).is(".atbdp-btn-more, .active") === false) {
-            $(".atbdp-dropdown-menu").removeClass("active");
-            $(".atbdp-btn-more").removeClass("active");
+        if ($(e.target).is(".directorist_btn-more, .active") === false) {
+            $(".directorist_dropdown-menu").removeClass("active");
+            $(".directorist_btn-more").removeClass("active");
         }
     });
 

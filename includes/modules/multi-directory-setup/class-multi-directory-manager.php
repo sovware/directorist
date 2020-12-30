@@ -261,11 +261,18 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             }
             
             $update_directory = $this->update_directory([
-                'term_id'        => ( ! $has_term_id ) ? $create_directory['term_id'] : $args['term_id'],
+                'term_id'        => ( ! $has_term_id ) ? ( int ) $create_directory['term_id'] : ( int ) $args['term_id'],
                 'directory_name' => $args['directory_name'],
                 'fields_value'   => $args['fields_value'],
                 'is_json'        => $args['is_json'],
             ]);
+
+            
+            if ( ! empty( $update_directory['status']['status_log']['term_updated'] ) && ! empty( $create_directory['status']['status_log']['term_created'] ) ) {
+                $update_directory['status']['status_log']['term_created'] = $create_directory['status']['status_log']['term_created'];
+
+                unset( $update_directory['status']['status_log']['term_updated'] );
+            }
 
             return $update_directory;
         }
@@ -327,12 +334,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 return $response;
             }
 
-            $response['term_id'] = $term['term_id'];
+            $response['term_id'] = ( int ) $term['term_id'];
+
             $response['status']['status_log']['term_created'] = [
                 'type'    => 'success',
                 'message' => 'The directory has been created successfuly',
             ];
-
+            update_term_meta( $response['term_id'], '_created_date', time() );
             return $response;
         }
 
@@ -453,7 +461,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 $this->update_validated_term_meta( $args['term_id'], $key, $value );
             }
 
-            $response['status']['status_log']['updated'] = [
+            $response['status']['status_log']['term_updated'] = [
                 'type'    => 'success',
                 'message' => 'The directory has been updated successfuly',
             ];
@@ -498,34 +506,67 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         public function save_post_type_data()
         {
             /* wp_send_json([
-                'status' => false,
                 'single_listings_contents' => $this->maybe_json( $_POST['single_listings_contents'] ),
-                'status_log' => [
-                    'name_is_missing' => [
-                        'type' => 'error',
-                        'message' => 'Debugging',
+                'status' => [
+                    'success' => false,
+                    'status_log' => [
+                        'debugging' => [
+                            'type' => 'error',
+                            'message' => 'Name is missing',
+                        ],
                     ],
                 ],
             ], 200 ); */
 
-            if (empty($_POST['name'])) {
+            if ( empty( $_POST['name'] ) ) {
                 wp_send_json([
-                    'status' => false,
-                    'status_log' => [
-                        'name_is_missing' => [
-                            'type' => 'error',
-                            'message' => 'Name is missing',
+                    'status' => [
+                        'success' => false,
+                        'status_log' => [
+                            'name_is_missing' => [
+                                'type' => 'error',
+                                'message' => 'Name is missing',
+                            ],
                         ],
                     ],
                 ], 200);
             }
 
-            $term_id = 0;
-            $mode    = 'create';
+            $term_id        = ( ! empty( $_POST['listing_type_id'] ) ) ? $_POST['listing_type_id'] : 0;
+            $directory_name = $_POST['name'];
+
+            $fields     = [];
+            $field_list = $this->maybe_json( $_POST['field_list'] );
+
+            foreach ( $field_list as $field_key ) {
+                if ( isset( $_POST[$field_key] ) && 'name' !==  $field_key ) {
+                    $fields[ $field_key ] = $_POST[$field_key];
+                }
+            }
+
+            $add_directory = $this->add_directory([
+                'term_id'        => $term_id,
+                'directory_name' => $directory_name,
+                'fields_value'   => $fields,
+            ]);
+
+            if ( ! $add_directory['status']['success'] ) {
+                wp_send_json( $add_directory );
+            }
+
+            $redirect_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $term_id );
+
+            $add_directory['redirect_url'] = $redirect_url;
+            $add_directory['term_id'] = $add_directory['term_id'];
+
+            wp_send_json( $add_directory );
+
+            $mode              = 'create';
             $listing_type_name = $_POST['name'];
 
+
             if (!empty($_POST['listing_type_id']) && absint($_POST['listing_type_id'])) {
-                $mode = 'edit';
+                $mode  = 'edit';
                 $term_id = absint($_POST['listing_type_id']);
                 wp_update_term($term_id, 'atbdp_listing_types', ['name' => $listing_type_name]);
             } else {
@@ -549,7 +590,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 }
             }
 
-            if (empty($term_id)) {
+            if ( empty( $term_id ) ) {
                 wp_send_json([
                     'status' => false,
                     'status_log' => [
@@ -565,13 +606,9 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             if (empty($_POST['field_list'])) {
                 wp_send_json([
-                    'status' => true,
+                    'status' => false,
                     'post_id' => $term_id,
                     'status_log' => [
-                        'post_created' => [
-                            'type' => 'success',
-                            'message' => 'The Post type has been ' . $created_message . ' successfully',
-                        ],
                         'field_list_not_found' => [
                             'type' => 'error',
                             'message' => 'Field list not found',
@@ -579,14 +616,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ], 200);
             }
-            $url = '';
+            
             $field_list = $this->maybe_json($_POST['field_list']);
             foreach ($field_list as $field_key) {
                 if (isset($_POST[$field_key]) && 'name' !==  $field_key) {
                     $this->update_validated_term_meta($term_id, $field_key, $_POST[$field_key]);
                 }
             }
+
+            $url = '';
             $url = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $term_id);
+            
             wp_send_json([
                 'status' => true,
                 'post_id' => $term_id,
@@ -3787,15 +3827,236 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 }
             }
 
-            $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
-                'name' => [
-                    'label' => 'Name *',
-                    'type'  => 'text',
-                    'value' => '',
-                    'rules' => [
-                        'required' => true,
+
+            // Card Layouts
+            $listing_card_grid_view_with_thumbnail_layout = [
+                'thumbnail' => [
+                    'top_right' => [
+                        'label' => 'Top Right',
+                        'maxWidget' => 3,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                    'top_left' => [
+                        'maxWidget' => 3,
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                    'bottom_right' => [
+                        'maxWidget' => 2,
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                    'bottom_left' => [
+                        'maxWidget' => 3,
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                    'avatar' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => ["user_avatar"],
                     ],
                 ],
+
+                'body' => [
+                    'top' => [
+                        'maxWidget' => 0,
+                        'acceptedWidgets' => [
+                            "listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing",
+                        ],
+                    ],
+                    'bottom' => [
+                        'maxWidget' => 0,
+                        'acceptedWidgets' => [
+                            "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                        ],
+                    ],
+                    'excerpt' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => [ "excerpt" ],
+                        'show_if' => [
+                            'where' => "submission_form_fields.value.fields",
+                            'conditions' => [
+                                ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                            ],
+                        ],
+                    ],
+                ],
+
+                'footer' => [
+                    'right' => [
+                        'maxWidget' => 2,
+                        'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
+                    ],
+
+                    'left' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
+                    ],
+                ],
+            ];
+
+            $listing_card_grid_view_without_thumbnail_layout = [
+                'body' => [
+                    'avatar' => [
+                        'label' => 'Avater',
+                        'maxWidget' => 1,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["user_avatar"],
+                    ],
+                    'title' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => ["listing_title"],
+                    ],
+                    'quick_actions' => [
+                        'maxWidget' => 2,
+                        'acceptedWidgets' => ["favorite_badge"],
+                    ],
+                    'quick_info' => [
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge", "rating", "pricing"],
+                    ],
+                    'bottom' => [
+                        'maxWidget' => 0,
+                        'acceptedWidgets' => [
+                            "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date',
+                        ],
+                    ],
+                    'excerpt' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => [ "excerpt" ],
+                        'show_if' => [
+                            'where' => "submission_form_fields.value.fields",
+                            'conditions' => [
+                                ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                            ],
+                        ],
+                    ],
+                ],
+
+                'footer' => [
+                    'right' => [
+                        'maxWidget' => 2,
+                        'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
+                    ],
+
+                    'left' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
+                    ],
+                ],
+            ];
+
+            $listing_card_list_view_with_thumbnail_layout = [
+                'thumbnail' => [
+                    'top_right' => [
+                        'label' => 'Top Right',
+                        'maxWidget' => 3,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                ],
+
+                'body' => [
+                    'top' => [
+                        'label' => 'Body Top',
+                        'maxWidget' => 0,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
+                    ],
+                    'right' => [
+                        'label' => 'Body Right',
+                        'maxWidget' => 2,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                    'bottom' => [
+                        'label' => 'Body Bottom',
+                        'maxWidget' => 0,
+                        'acceptedWidgets' => [
+                            "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'
+                        ],
+                    ],
+                    'excerpt' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => [ "excerpt" ],
+                        'show_if' => [
+                            'where' => "submission_form_fields.value.fields",
+                            'conditions' => [
+                                ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                            ],
+                        ],
+                    ],
+                ],
+
+                'footer' => [
+                    'right' => [
+                        'maxWidget' => 2,
+                        'acceptedWidgets' => ["user_avatar", "category", "favorite_badge", "view_count"],
+                    ],
+
+                    'left' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
+                    ],
+                ],
+            ];
+
+            $listing_card_list_view_without_thumbnail_layout = [
+                'body' => [
+                    'top' => [
+                        'label' => 'Body Top',
+                        'maxWidget' => 0,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
+                    ],
+                    'right' => [
+                        'label' => 'Body Right',
+                        'maxWidget' => 2,
+                        'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
+                        'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
+                    ],
+                    'bottom' => [
+                        'label' => 'Body Bottom',
+                        'maxWidget' => 0,
+                        'acceptedWidgets' => [
+                            "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
+                            'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'
+                        ],
+                    ],
+                    'excerpt' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => [ "excerpt" ],
+                        'show_if' => [
+                            'where' => "submission_form_fields.value.fields",
+                            'conditions' => [
+                                ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
+                            ],
+                        ],
+                    ],
+                ],
+
+                'footer' => [
+                    'right' => [
+                        'maxWidget' => 2,
+                        'acceptedWidgets' => ["user_avatar", "category", "favorite_badge", "view_count"],
+                    ],
+
+                    'left' => [
+                        'maxWidget' => 1,
+                        'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
+                    ],
+                ],
+            ];
+
+            $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
+                // 'name' => [
+                //     'label' => 'Name *',
+                //     'type'  => 'text',
+                //     'value' => '',
+                //     'rules' => [
+                //         'required' => true,
+                //     ],
+                // ],
 
                 'icon' => [
                     'label' => 'Icon',
@@ -3833,22 +4094,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
 
-                'enable_preview_image' => [
-                    'label' => __('Enable Preview Image', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                ],
                 'preview_image' => [
                     'label'       => __('Select', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
                     'value'       => '',
-                    'show_if' => [
-                        'where' => "enable_preview_image",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ]
                 ],
 
                 'import_export' => [
@@ -4316,134 +4566,36 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'listings_card_grid_view' => [
                     'type' => 'card-builder',
-                    'template' => 'grid-view',
-                    'value' => '',
-                    'widgets' => $listing_card_widget,
-
-                    'layout' => [
-                        'thumbnail' => [
-                            'top_right' => [
-                                'label' => 'Top Right',
-                                'maxWidget' => 3,
-                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
-                            'top_left' => [
-                                'maxWidget' => 3,
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
-                            'bottom_right' => [
-                                'maxWidget' => 2,
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
-                            'bottom_left' => [
-                                'maxWidget' => 3,
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
-                            'avatar' => [
-                                'maxWidget' => 1,
-                                'acceptedWidgets' => ["user_avatar"],
-                            ],
+                    'card_templates' => [
+                        'grid_view_with_thumbnail' => [
+                            'label'    => 'With Preview Image',
+                            'template' => 'grid-view-with-thumbnail',
+                            'widgets'  => $listing_card_widget,
+                            'layout'   => $listing_card_grid_view_with_thumbnail_layout,
                         ],
-
-                        'body' => [
-                            'top' => [
-                                'maxWidget' => 0,
-                                'acceptedWidgets' => [
-                                    "listing_title", "popular_badge", "featured_badge", "new_badge", "rating", "pricing",
-                                ],
-                            ],
-                            'bottom' => [
-                                'maxWidget' => 0,
-                                'acceptedWidgets' => [
-                                    "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
-                                    'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date',
-                                ],
-                            ],
-                            'excerpt' => [
-                                'maxWidget' => 1,
-                                'acceptedWidgets' => [ "excerpt" ],
-                                'show_if' => [
-                                    'where' => "submission_form_fields.value.fields",
-                                    'conditions' => [
-                                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
-                                    ],
-                                ],
-                            ],
-                        ],
-
-                        'footer' => [
-                            'right' => [
-                                'maxWidget' => 3,
-                                'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
-                            ],
-
-                            'left' => [
-                                'maxWidget' => 1,
-                                'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
-                            ],
+                        'grid_view_without_thumbnail' => [
+                            'label'    => 'Without Preview Image',
+                            'template' => 'grid-view-without-thumbnail',
+                            'widgets'  => $listing_card_widget,
+                            'layout'   => $listing_card_grid_view_without_thumbnail_layout,
                         ],
                     ],
                 ],
 
                 'listings_card_list_view' => [
                     'type' => 'card-builder',
-                    'template' => 'list-view',
-                    'value' => '',
-                    'widgets' => $listing_card_list_view_widget,
-                    'layout' => [
-                        'thumbnail' => [
-                            'top_right' => [
-                                'label' => 'Top Right',
-                                'maxWidget' => 3,
-                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
+                    'card_templates' => [
+                        'list_view_with_thumbnail' => [
+                            'label'    => 'With Preview Image',
+                            'template' => 'list-view-with-thumbnail',
+                            'widgets'  => $listing_card_widget,
+                            'layout'   => $listing_card_list_view_with_thumbnail_layout,
                         ],
-
-                        'body' => [
-                            'top' => [
-                                'label' => 'Body Top',
-                                'maxWidget' => 0,
-                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["listing_title", "favorite_badge", "popular_badge", "featured_badge", "new_badge",  "rating", "pricing",],
-                            ],
-                            'right' => [
-                                'label' => 'Body Right',
-                                'maxWidget' => 2,
-                                'maxWidgetInfoText' => "Up to __DATA__ item{s} can be added",
-                                'acceptedWidgets' => ["favorite_badge", "popular_badge", "featured_badge", "new_badge"],
-                            ],
-                            'bottom' => [
-                                'label' => 'Body Bottom',
-                                'maxWidget' => 0,
-                                'acceptedWidgets' => [
-                                    "listings_location", "phone", "phone2", "website", "zip", "fax", "address", "email",
-                                    'text', 'textarea', 'number', 'url', 'date', 'time', 'color_picker', 'select', 'checkbox', 'radio', 'file', 'posted_date'
-                                ],
-                            ],
-                            'excerpt' => [
-                                'maxWidget' => 1,
-                                'acceptedWidgets' => [ "excerpt" ],
-                                'show_if' => [
-                                    'where' => "submission_form_fields.value.fields",
-                                    'conditions' => [
-                                        ['key' => '_any.widget_name', 'compare' => '=', 'value' => 'excerpt'],
-                                    ],
-                                ],
-                            ],
-                        ],
-
-                        'footer' => [
-                            'right' => [
-                                'maxWidget' => 2,
-                                'acceptedWidgets' => ["user_avatar", "category", "favorite_badge", "view_count"],
-                            ],
-
-                            'left' => [
-                                'maxWidget' => 1,
-                                'acceptedWidgets' => ["category", "favorite_badge", "view_count"],
-                            ],
+                        'list_view_without_thumbnail' => [
+                            'label'    => 'Without Preview Image',
+                            'template' => 'list-view-without-thumbnail',
+                            'widgets'  => $listing_card_widget,
+                            'layout'   => $listing_card_list_view_without_thumbnail_layout,
                         ],
                     ],
                 ],
@@ -4467,19 +4619,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'description' => '',
                                     'fields'      => [
                                         'name', 'icon', 'singular_name', 'plural_name', 'permalink',
-                                    ],
-                                ],
-                            ],
-                        ],
-                        'preview_image' => [
-                            'label' => __('Preview Image', 'directorist'),
-                            'sections' => [
-                                'labels' => [
-                                    'title'       => __('Default Preview Image', 'directorist'),
-                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
-                                    'fields'      => [
-                                        'enable_preview_image',
-                                        'preview_image',
                                     ],
                                 ],
                             ],
@@ -4663,19 +4802,18 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 ],
                             ],
                         ],
-                        // 'options' => [
-                        //     'label' => 'Listings Card Options',
-                        //     'sections' => [
-                        //         'listings_card_options' => [
-                        //             'title' => __('Customize the options', 'directorist'),
-                        //             'description' => 'need help?',
-                        //             'fields' => [
-                        //                 'listings_card_height',
-                        //                 'listings_card_width'
-                        //             ],
-                        //         ],
-                        //     ],
-                        // ],
+                        'other' => [
+                            'label' => __('Other', 'directorist'),
+                            'sections' => [
+                                'labels' => [
+                                    'title'       => __('Default Preview Image', 'directorist'),
+                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
+                                    'fields'      => [
+                                        'preview_image',
+                                    ],
+                                ],
+                            ],
+                        ],
                     ],
 
                 ],
@@ -4722,6 +4860,20 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ];
             }
 
+            $this->options = [
+                'name' => [
+                    'type'  => 'text',
+                    'placeholder'  => 'Name *',
+                    'value' => '',
+                    'rules' => [
+                        'required' => true,
+                    ],
+                    'input_style' => [
+                        'class_names' => 'cptm-form-control-light'
+                    ]
+                ],
+            ];
+
             $this->config = [
                 'submission' => [
                     'url' => admin_url('admin-ajax.php'),
@@ -4733,7 +4885,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'singular_name',
                         'plural_name',
                         'permalink',
-                        'enable_preview_image',
                         'preview_image',
                     ]
                 ]
@@ -4757,11 +4908,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         // menu_page_callback__directory_types
         public function menu_page_callback__directory_types()
         {
-            $post_types_list_table = new Directory_Types_List_Table( $this );
-
-            $action = $post_types_list_table->current_action();
-            $post_types_list_table->prepare_items();
-
+            $action = isset( $_GET['action'] ) ? $_GET['action'] : '';
             $listing_type_id = 0;
 
             if ( ! empty( $action ) && ( 'edit' === $action ) && ! empty( $_REQUEST['listing_type_id'] ) ) {
@@ -4770,7 +4917,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             }
 
             $data = [
-                'post_types_list_table' => $post_types_list_table,
                 'add_new_link'          => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=add_new'),
             ];
 
@@ -4778,6 +4924,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'fields'  => $this->fields,
                 'layouts' => $this->layouts,
                 'config'  => $this->config,
+                'options' => $this->options,
                 'id'      => $listing_type_id,
             ];
 
@@ -4804,7 +4951,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 if ( ! $term) { return; }
 
-                $this->fields['name']['value'] = $term->name;
+                $this->options['name']['value'] = $term->name;
                 $all_term_meta = get_term_meta( $term->term_id );
 
             } else {
@@ -4850,8 +4997,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 }
             }
 
-            // $test = get_term_meta( $listing_type_id, 'general_config' )[0];
-            // e_var_dump( $test );
+            // $test = get_term_meta( $listing_type_id, 'submission_form_fields' )[0];
+            // $submission_form_fields = maybe_unserialize( maybe_unserialize( $all_term_meta['submission_form_fields'] ) );
+            // $submission_form_fields = maybe_unserialize( maybe_unserialize( $all_term_meta['submission_form_fields'][0] ) );
+            // e_var_dump( $submission_form_fields['fields']['image_upload'] );
+            // e_var_dump( $all_term_meta['fields']['image_upload'] );
             // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
             // var_dump( $test['fields']['video'] );
             // e_var_dump( $test );

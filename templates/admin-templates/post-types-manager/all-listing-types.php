@@ -1,7 +1,4 @@
 <div class="wrap">
-    <h1 class="wp-heading-inline"><?php _e( 'Directory Types', 'directorist' ) ?></h1>
-    <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="page-title-action"><?php _e( 'Add new directory', 'directorist' ) ?></a>
-    <a href="#" data-target="cptm-import-directory-modal" class="page-title-action cptm-modal-toggle"><?php _e( 'Import', 'directorist' ) ?></a>
     <?php atbdp_show_flush_alerts( ['page' => 'all-listing-type'] ) ?>
 
     <hr class="wp-header-end">
@@ -85,14 +82,14 @@
             </div>
         </div>
         <div class="directorist_builder-body">
-            <h2 class="directorist_builder__title"><?php _e( 'All Listing Types', 'directorist' ); ?></h2>
+            <h2 class="directorist_builder__title"><?php _e( 'All Directory Types', 'directorist' ); ?></h2>
             <div class="directorist_builder__content">
                 <div class="directorist_builder__content--left">
                     <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="directorist_link-block">
                         <span class="directorist_link-icon">
                             <i class="la la-plus"></i>
                         </span>
-                        <span class="directorist_link-text"><?php _e( 'Create New Listing Type', 'directorist' ); ?></span>
+                        <span class="directorist_link-text"><?php _e( 'Create New Directory Type', 'directorist' ); ?></span>
                     </a>
                     <a href="#" class="btn btn-primary btn-import cptm-modal-toggle" data-target="cptm-import-directory-modal"><?php _e( 'Import', 'directorist' ) ?></a>
                 </div>

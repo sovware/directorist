@@ -2414,13 +2414,17 @@ span.atbdp-tick-cross {
   display: none;
 }
 
-/* Announcment */
-/* ----------------------------- */
 #announcment_submit .vp-input ~ span {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   background: #007cba;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding: 0 15px;
   border-radius: 3px;
   color: #fff;
@@ -2433,11 +2437,19 @@ span.atbdp-tick-cross {
   content: 'Send';
 }
 
+/* Announcment */
+/* ----------------------------- */
 #announcement_submit .vp-input ~ span {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   background: #007cba;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding: 0 15px;
   border-radius: 3px;
   color: #fff;

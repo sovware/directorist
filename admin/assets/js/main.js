@@ -4129,24 +4129,26 @@ function assetsNeedToWorkInVirtualDom() {
       }
     });
 }
+
+
+
 })(jQuery);
-});
 
 
-
-// Helpers
-// -----------------------------------
 // toggle_section
 function toggle_section(show_if_value, subject_elm, terget_elm) {
   if (show_if_value === subject_elm.val()) { terget_elm.show(); }
   else { terget_elm.hide(); }
 }
-      /*
-          Plugin: PureScriptTab
-          Version: 1.0.0
-          License: MIT
-      */
-    (function () {
+
+// Helpers
+// -----------------------------------
+/*
+    Plugin: PureScriptTab
+    Version: 1.0.0
+    License: MIT
+*/
+    (function ($) {
       pureScriptTab = (selector1) => {
           var selector = document.querySelectorAll(selector1);
           selector.forEach((el, index) => {
@@ -4181,8 +4183,6 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
               });
           });
       };
-  })();
+  })(jQuery);
   
   pureScriptTab('.directorist_builder--tab');
-
-})(jQuery);

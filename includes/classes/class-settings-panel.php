@@ -3556,7 +3556,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'singular_name' => [
                     'label' => 'Singular name (e.g. Business)',
-                    'type'  => 'text',
+                    'type'  => 'toggle',
                     'value' => '',
                     'rules' => [
                         'required' => false,
@@ -3565,7 +3565,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'plural_name' => [
                     'label' => 'Plural name (e.g. Businesses)',
-                    'type'  => 'text',
+                    'type'  => 'textarea',
                     'value' => '',
                     'rules' => [
                         'required' => false,
@@ -3574,7 +3574,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'permalink' => [
                     'label' => 'Permalink',
-                    'type'  => 'text',
+                    'type'  => 'range',
                     'value' => '',
                     'rules' => [
                         'required' => false,
@@ -3582,10 +3582,11 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 ],
 
                 'preview_image' => [
-                    'label'       => __('Select', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
-                    'value'       => '',
+                    // 'label'               => __('Select', 'directorist'),
+                    'select-button-label' => __('Select', 'directorist'),
+                    'type'                => 'wp-media-picker',
+                    'default-img'         => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
+                    'value'               => '',
                 ],
 
                 'import_export' => [
@@ -3604,7 +3605,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'new_listing_status' => [
                     'label' => __('New Listing Default Status', 'directorist'),
-                    'type'  => 'select',
+                    'type'  => 'radio',
                     'value' => 'pending',
                     'options' => [
                         [

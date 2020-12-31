@@ -8,7 +8,7 @@ export default {
     },
 
     methods: {
-        getTheTheme() {
+        getTheTheme( field ) {
             var the_theme = 'default';
 
             if ( this.config && this.config.fields_theme ) {
@@ -19,7 +19,7 @@ export default {
                 the_theme =  this.theme;
             }
             
-            return 'text-field-theme-' + the_theme;
+            return field +'-theme-' + the_theme;
         }
     },
 }

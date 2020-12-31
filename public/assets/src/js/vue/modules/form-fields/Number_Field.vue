@@ -1,5 +1,5 @@
 <template>
-    <text-field v-bind="the_props" @update="$emit('update', $event)"/>
+    <text-field v-bind="$props" @update="$emit('update', $event)"/>
 </template>
 
 <script>
@@ -33,19 +33,6 @@ export default {
         validation: {
             type: Array,
             required: false,
-        },
-    },
-
-    computed: {
-        the_props() {
-            return {
-                type: 'number-field',
-                label: this.label,
-                value: this.value,
-                name: this.name,
-                placeholder: this.placeholder,
-                validation: this.validation,
-            }
         },
     },
 }

@@ -2958,6 +2958,11 @@ span.atbdp-tick-cross {
   margin: 5px 5px 5px 15px;
 }
 
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .atbd-listing-type-active-status {
+  margin-top: 15px;
+  margin-left: 0;
+}
+
 .directorist_custom-checkbox input {
   display: none;
 }

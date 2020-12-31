@@ -4195,7 +4195,7 @@ input#privacy_policy,
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd-list-body-top .atbd_listing_price {
-  font-size: 16px;
+  font-size: 15px;
   background-color: #fff !important;
   color: #202428;
   font-weight: 700;
@@ -4522,7 +4522,7 @@ input#privacy_policy,
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_listing_price {
-  font-size: 16px;
+  font-size: 15px;
   background-color: #fff !important;
   color: #202428;
   font-weight: 700;
@@ -7549,11 +7549,6 @@ span.atbd_get_loc_wid {
 
 .atbd_content_active #directorist.atbd_wrapper .directorist_pagination ul li a i:before {
   margin: 0;
-}
-
-.atbd_dashboard_wrapper .atbd_single_listing.atbd_listing_card .atbd_listing_info {
-  margin-top: -20px;
-  border-top: 0 none;
 }
 
 @media (max-width: 767px) {

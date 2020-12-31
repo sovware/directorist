@@ -94,6 +94,7 @@
                         </span>
                         <span class="directorist_link-text"><?php _e( 'Create New Listing Type', 'directorist' ); ?></span>
                     </a>
+                    <a href="#" class="btn btn-primary btn-import cptm-modal-toggle" data-target="cptm-import-directory-modal"><?php _e( 'Import', 'directorist' ) ?></a>
                 </div>
                 <?php 
                     $all_items =  wp_count_terms('atbdp_listing_types');
@@ -130,7 +131,7 @@
                                             if( $listing_types ) {
                                                 foreach( $listing_types as $listing_type) {
                                                     $default = get_term_meta( $listing_type->term_id, '_default', true );
-                                                    $default_type = $default ? '<span class="page-title-action">Default</span>' : '';
+                                                    $default_type = $default ? '<span class="page-title-action directorist_badge directorist_badge-primary">Default</span>' : '';
                                                     $edit_link   = admin_url('edit.php' . '?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . absint( $listing_type->term_id ) . '&action=edit');
                                                     $delete_link = admin_url('admin-post.php' . '?listing_type_id=' . absint( $listing_type->term_id ) . '&action=delete_listing_type');
                                                     $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');

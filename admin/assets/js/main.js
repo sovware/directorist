@@ -3880,7 +3880,6 @@ templateResult: selecWithIcon,
   $(".atbds_tooltip").on("mouseleave", function () {
     $(".atbds_tooltip__text").removeClass("show");
   });
-<<<<<<< HEAD
 
   // load admin add listing form
   const directory_type = $('select[name="directory_type"]').val();
@@ -4129,11 +4128,8 @@ function assetsNeedToWorkInVirtualDom() {
         $('#hide_if_no_manual_cor').hide();
       }
     });
-
 }
-
 })(jQuery);
-=======
 });
 
 
@@ -4145,4 +4141,48 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
   if (show_if_value === subject_elm.val()) { terget_elm.show(); }
   else { terget_elm.hide(); }
 }
->>>>>>> 8de686d4950b36a4e17f86c65d3a65fe9939c8c8
+      /*
+          Plugin: PureScriptTab
+          Version: 1.0.0
+          License: MIT
+      */
+    (function () {
+      pureScriptTab = (selector1) => {
+          var selector = document.querySelectorAll(selector1);
+          selector.forEach((el, index) => {
+              a = el.querySelectorAll('.atbd_tn_link');
+
+
+              a.forEach((element, index) => {
+
+                  element.style.cursor = 'pointer';
+                  element.addEventListener('click', (event) => {
+                      event.preventDefault();
+                      event.stopPropagation();
+
+                      var ul = event.target.closest('.atbd_tab_nav'),
+                          main = ul.nextElementSibling,
+                          item_a = ul.querySelectorAll('.atbd_tn_link'),
+                          section = main.querySelectorAll('.atbd_tab_inner');
+
+                      item_a.forEach((ela, ind) => {
+                          ela.classList.remove('tabItemActive');
+                      });
+                      event.target.classList.add('tabItemActive');
+
+
+                      section.forEach((element1, index) => {
+                          //console.log(element1);
+                          element1.classList.remove('tabContentActive');
+                      });
+                      var target = event.target.target;
+                      document.getElementById(target).classList.add('tabContentActive');
+                  });
+              });
+          });
+      };
+  })();
+  
+  pureScriptTab('.directorist_builder--tab');
+
+})(jQuery);

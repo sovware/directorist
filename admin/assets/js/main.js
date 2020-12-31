@@ -3912,6 +3912,7 @@ templateResult: selecWithIcon,
   //default directory type
   $('body').on('click', '.submitdefault', function (e) {
     e.preventDefault();
+    $( '.submitDefaultCheckbox' ).prop('checked', true);
     $.ajax({
       type: 'post',
       url: atbdp_admin_data.ajaxurl,
@@ -3920,10 +3921,13 @@ templateResult: selecWithIcon,
         type_id: $(this).data('type-id'),
       },
       success(response) {
-        $('.submitdefault').after(
+        $('.submitdefault').append(
           `<span class="atbd-listing-type-active-status">${response}</span>`
         );
-        location.reload();
+        setTimeout(function() {
+          location.reload();
+        }, 1500);
+        
       },
     });
   });

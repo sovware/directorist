@@ -728,7 +728,7 @@ class Directorist_Listings {
 			}
 
 		}
-		
+
 		return ATBDP_Listings_Data_Store::get_archive_listings_query( $this->query_args, $caching_options );
 	}
 
@@ -1140,11 +1140,16 @@ class Directorist_Listings {
 			}
 
 			$original_post = $GLOBALS['post'];
-
+			$counter = 0;
 			foreach ( $listings->ids as $listings_id ) :
+				$counter++;
 				$GLOBALS['post'] = get_post( $listings_id );
 				setup_postdata( $GLOBALS['post'] );
-
+				/**
+				 * @since 6.5.6
+				 * 
+				 */
+				do_action( 'atbdp_listings_loop', $counter );
 				$this->set_loop_data();
 				atbdp_get_shortcode_template( "listings-archive/loop/" . $args['template'], array('listings' => $this) );
 			endforeach;

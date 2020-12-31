@@ -1,7 +1,4 @@
 <div class="wrap">
-    <h1 class="wp-heading-inline"><?php _e( 'Directory Types', 'directorist' ) ?></h1>
-    <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="page-title-action"><?php _e( 'Add new directory', 'directorist' ) ?></a>
-    <a href="#" data-target="cptm-import-directory-modal" class="page-title-action cptm-modal-toggle"><?php _e( 'Import', 'directorist' ) ?></a>
     <?php atbdp_show_flush_alerts( ['page' => 'all-listing-type'] ) ?>
 
     <hr class="wp-header-end">
@@ -85,14 +82,22 @@
             </div>
         </div>
         <div class="directorist_builder-body">
-            <h2 class="directorist_builder__title"><?php _e( 'All Listing Types', 'directorist' ); ?></h2>
+            <h2 class="directorist_builder__title"><?php _e( 'All Directory Types', 'directorist' ); ?></h2>
             <div class="directorist_builder__content">
                 <div class="directorist_builder__content--left">
                     <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="directorist_link-block">
                         <span class="directorist_link-icon">
                             <i class="la la-plus"></i>
                         </span>
-                        <span class="directorist_link-text"><?php _e( 'Create New Listing Type', 'directorist' ); ?></span>
+                        <span class="directorist_link-text"><?php _e( 'Create New Directory Type', 'directorist' ); ?></span>
+                    </a>
+                    <a href="#" class="directorist_btn directorist_btn-success directorist_btn-import cptm-modal-toggle" data-target="cptm-import-directory-modal">
+                        <span class="directorist_link-icon">
+                            <i class="la la-download"></i>
+                        </span>
+                        <span class="directorist_link-text">
+                            <?php _e( 'Import', 'directorist' ) ?>
+                        </span>
                     </a>
                 </div>
                 <?php 
@@ -120,7 +125,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="directorist_listing-title"><?php _e( 'Title', 'directorist' ); ?></th>
-                                                <th class="directorist_listing-count"><?php _e( 'Listings', 'directorist' ); ?></th>
+                                                <th class="directorist_listing-count"><span class="directorist_listing-count-title"><?php _e( 'Listings', 'directorist' ); ?></span></th>
                                                 <th class="directorist_listing-c-date"><?php _e( 'Created Date', 'directorist' ); ?></th>
                                                 <th class="directorist_listing-c-action"><?php _e( 'Action', 'directorist' ); ?></th>
                                             </tr>
@@ -130,7 +135,7 @@
                                             if( $listing_types ) {
                                                 foreach( $listing_types as $listing_type) {
                                                     $default = get_term_meta( $listing_type->term_id, '_default', true );
-                                                    $default_type = $default ? '<span class="page-title-action">Default</span>' : '';
+                                                    $default_type = $default ? '<span class="page-title-action directorist_badge directorist_badge-primary">Default</span>' : '';
                                                     $edit_link   = admin_url('edit.php' . '?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . absint( $listing_type->term_id ) . '&action=edit');
                                                     $delete_link = admin_url('admin-post.php' . '?listing_type_id=' . absint( $listing_type->term_id ) . '&action=delete_listing_type');
                                                     $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');
@@ -144,7 +149,7 @@
                                                 <td>
                                                     <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_title"><?php echo ! empty( $listing_type->name ) ? $listing_type->name . $default_type : '-'; ?></a>
                                                 </td>
-                                                <td><?php echo $listing_type->count; ?></td>
+                                                <td><span class="directorist_listing-count"><?php echo $listing_type->count; ?></span></td>
                                                 <td><?php 
                                                 if( $created_time ) {
                                                     echo date( 'F j, Y', $created_time );
@@ -155,10 +160,19 @@
                                                         <?php  
                                                         if( ! $default ) {
                                                         ?>
-                                                        <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" data-type-id="<?php echo absint( $listing_type->term_id ); ?>" class="btn btn-primary submitdefault"><i class="la la-edit"></i><?php _e( 'Mark as Default', 'directorist' ); ?></a>
+                                                        <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" data-type-id="<?php echo absint( $listing_type->term_id ); ?>" class="directorist_btn directorist_btn-primary submitdefault"><i class="la la-edit"></i><?php _e( 'Mark as Default', 'directorist' ); ?></a>
                                                         <?php } ?>
-                                                        <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="btn btn-primary"><i class="la la-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>
-                                                        <a href="<?php echo ! empty( $delete_link ) ? $delete_link : '#'; ?>" class="btn btn-danger"><i class="la la-trash"></i><?php _e( 'Delete', 'directorist' ); ?></a>
+                                                        <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_btn directorist_btn-primary"><i class="la la-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>
+                                                        <a href="<?php echo ! empty( $delete_link ) ? $delete_link : '#'; ?>" class="directorist_btn directorist_btn-danger"><i class="la la-trash"></i><?php _e( 'Delete', 'directorist' ); ?></a>
+                                                        
+                                                        <div class="directorist_listing-type-checkbox directorist_custom-checkbox">
+                                                            <input type="checkbox" name="check-1" id="check-1">
+                                                            <label for="check-1">
+                                                                <span class="checkbox-text">
+                                                                    Make It Default
+                                                                </span>
+                                                            </label>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>

@@ -7,6 +7,12 @@
 ?>
 <div id="directorist" class="atbd_wrapper">
 	<div class="container-fluid">
+		<?php 
+		/**
+		 * @since 5.6.6
+		 */
+		do_action( 'atbdp_before_all_locations_loop' );
+		?>
 		<div class="atbd_location_grid_wrap atbdp-no-margin">
 			<div class="row">
 				<?php
@@ -36,4 +42,10 @@
 			</div>
 		</div>
 	</div>
+	<?php
+	/**
+     * @since 5.6.6
+     */
+    do_action( 'atbdp_after_all_locations_loop' );
+    ?>
 </div>

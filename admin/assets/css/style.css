@@ -2578,6 +2578,10 @@ span.atbdp-tick-cross {
   }
 }
 
+.directorist_builder__content .directorist_btn.directorist_btn-success {
+  background-color: #08BF9C;
+}
+
 .directorist_builder__content .directorist_builder__content--left {
   width: 400px;
   margin-right: 30px;
@@ -2605,7 +2609,7 @@ span.atbdp-tick-cross {
 
 .directorist_builder__content .directorist_builder__content--left .directorist_link-block {
   min-width: 400px;
-  min-height: 160px;
+  min-height: 126px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2680,18 +2684,39 @@ span.atbdp-tick-cross {
   margin-top: 15px;
 }
 
-.directorist_builder__content .directorist_builder__content--left .btn-import {
+.directorist_builder__content .directorist_builder__content--left .directorist_btn-import {
   text-decoration: none;
-  display: block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   text-align: center;
   font-size: 16px;
   width: 100%;
-  line-height: 3;
+  min-height: 126px;
   border-radius: 4px;
   color: #fff;
   padding: 0 20px;
-  background-color: #3E62F5;
-  margin-top: 30px;
+  margin-top: 20px;
+  -webkit-box-shadow: 0 5px 10px #ADB4D210;
+          box-shadow: 0 5px 10px #ADB4D210;
+}
+
+.directorist_builder__content .directorist_builder__content--left .directorist_btn-import .directorist_link-icon {
+  margin-bottom: 10px;
+}
+
+.directorist_builder__content .directorist_builder__content--left .directorist_btn-import .directorist_link-icon i {
+  font-size: 24px;
 }
 
 .directorist_builder__content .directorist_builder__content--right {
@@ -2818,12 +2843,18 @@ span.atbdp-tick-cross {
 
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-count {
   min-width: 150px;
+  text-align: right;
 }
 
 @media only screen and (max-width: 1599px) {
   .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-count {
     min-width: 110px;
   }
+}
+
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-count .directorist_listing-count-title {
+  display: block;
+  margin-right: 40px;
 }
 
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-c-date {
@@ -2842,11 +2873,11 @@ span.atbdp-tick-cross {
   color: #fff;
 }
 
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a.btn-primary {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a.directorist_btn-primary {
   background-color: #3E62F5;
 }
 
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a.btn-danger {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a.directorist_btn-danger {
   background-color: #FF272A;
 }
 
@@ -2882,6 +2913,12 @@ span.atbdp-tick-cross {
   color: #3E62F5;
 }
 
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-count {
+  display: block;
+  text-align: right;
+  margin-right: 40px;
+}
+
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions {
   margin: -5px;
 }
@@ -2913,6 +2950,73 @@ span.atbdp-tick-cross {
 }
 
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions a:hover {
+  color: #fff;
+}
+
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox {
+  display: inline-block;
+  margin: 5px 5px 5px 15px;
+}
+
+.directorist_custom-checkbox input {
+  display: none;
+}
+
+.directorist_custom-checkbox input[type=checkbox] + label {
+  min-width: 18px;
+  min-height: 18px;
+  font-size: 14px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  position: relative;
+  padding-left: 28px;
+  padding-top: 3px;
+  margin-bottom: 0;
+  line-height: 1.2;
+  font-weight: 400;
+  color: #5A5F7D;
+}
+
+.directorist_custom-checkbox input[type=checkbox] + label:before {
+  position: absolute;
+  font-size: 10px;
+  left: 6px;
+  top: 5px;
+  font-weight: 900;
+  font-family: 'Font Awesome 5 Free';
+  content: "\f00c";
+  display: block;
+  opacity: 0;
+  -webkit-transition: all .3s ease 0s;
+  -o-transition: all .3s ease 0s;
+  transition: all .3s ease 0s;
+  z-index: 2;
+}
+
+.directorist_custom-checkbox input[type=checkbox] + label:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  content: "";
+  background-color: #fff;
+  border: 2px solid #C6D0DC;
+}
+
+.directorist_custom-checkbox input[type=checkbox]:checked + label:after {
+  background-color: #00B158;
+  border-color: #00B158;
+}
+
+.directorist_custom-checkbox input[type=checkbox]:checked + label:before {
+  opacity: 1;
   color: #fff;
 }
 

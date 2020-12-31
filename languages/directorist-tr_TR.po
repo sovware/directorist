@@ -6260,7 +6260,7 @@ msgid "Phone Number Two"
 msgstr ""
 
 #: templates/contact-info.php:244
-msgid "Enter Information about Businss/Opening Hours"
+msgid "Enter Information about Business/Opening Hours"
 msgstr ""
 
 #: templates/contact-info.php:359 templates/contact-info.php:440

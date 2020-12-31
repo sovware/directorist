@@ -2621,6 +2621,122 @@ input#privacy_policy,
       -ms-flex: 0 0 33.33%;
           flex: 0 0 33.33%;
   width: 33.33%;
+.atbdp-nav-badge {
+  display: none;
+  border-radius: 30px;
+  min-width: 20px;
+  height: 20px;
+  line-height: 20px;
+  color: #fff;
+  text-align: center;
+  margin: 0 10px;
+  vertical-align: middle;
+  background-color: #ff3c3c;
+}
+
+.atbdp-nav-badge.show {
+  display: inline-block;
+}
+
+/* Announcement style */
+#directorist.atbd_wrapper .atbdp-announcement {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#directorist.atbd_wrapper .atbdp-announcement:not(:last-child) {
+  border-bottom: 1px solid #e3e6ef;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__date {
+  width: 100px;
+  background: #F5F6F8;
+  border-radius: 6px;
+  padding: 10px 15px;
+  text-align: center;
+  margin-right: 15px;
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__date span {
+  display: block;
+  line-height: 22px;
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__date .atbdp-date-card-part-1 {
+  font-weight: 500;
+  color: #171B2E;
+  font-size: 18px;
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__date .atbdp-date-card-part-2 {
+  font-size: 14px;
+  color: #5A5F7D;
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__date .atbdp-date-card-part-3 {
+  font-size: 14px;
+  color: #171B2E;
+  font-weight: 500;
+}
+
+@media (max-width: 575px) {
+  #directorist.atbd_wrapper .atbdp-announcement__date {
+    order: 0;
+  }
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__content {
+  flex: 2;
+  margin-right: 15px;
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__content h3 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #272B41;
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__content p {
+  font-size: 14px;
+  color: #69708E;
+}
+
+@media (max-width: 575px) {
+  #directorist.atbd_wrapper .atbdp-announcement__content {
+    order: 2;
+    flex: 0 0 100%;
+    margin-top: 15px;
+  }
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__close {
+  margin-left: auto;
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__close button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #F5F5F5;
+  border: 0 none;
+  outline: 0;
+  color: #474868;
+  padding: 0;
+  margin: 0;
+  line-height: normal;
+}
+
+#directorist.atbd_wrapper .atbdp-announcement__close button:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 575px) {
+  #directorist.atbd_wrapper .atbdp-announcement__close {
+    order: 1;
+  }
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {

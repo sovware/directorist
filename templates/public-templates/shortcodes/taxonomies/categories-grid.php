@@ -6,6 +6,12 @@
  */
 ?>
 <div id="directorist" class="atbd_wrapper">
+	<?php 
+	/**
+	 * @since 5.6.6
+	 */
+	do_action( 'atbdp_before_all_categories_loop' );
+	?>
 	<div class="<?php echo esc_attr( $grid_container ); ?>">
 		<div class="col-md-12">
 			<div class="atbd_all_categories atbdp-no-margin">
@@ -49,4 +55,11 @@
 			</div>
 		</div>
 	</div>
+
+	<?php 
+    /**
+     * @since 5.6.6
+     */
+    do_action( 'atbdp_after_all_categories_loop' );
+    ?>
 </div>

@@ -6644,7 +6644,7 @@ msgid "Phone Number Two"
 msgstr ""
 
 #: templates/contact-info.php:250
-msgid "Enter Information about Businss/Opening Hours"
+msgid "Enter Information about Business/Opening Hours"
 msgstr ""
 
 #: templates/contact-info.php:361 templates/contact-info.php:442

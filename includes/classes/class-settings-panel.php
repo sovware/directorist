@@ -4218,70 +4218,95 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
                 'general' => [
-                    'label' => 'General',
-                    'icon' => '<i class="uil uil-estate"></i>',
-                    'submenu' => apply_filters('atbdp_listing_type_general_submenu', [
+                    'label' => __( 'Listing Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-list"></i>',
+                    'submenu' => apply_filters('atbdp_listing_settings_submenu', [
                         'general' => [
-                            'label' => __('Sub General', 'directorist'),
-                            'sections' => [
+                            'label' => __('General Settings', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_general_sections', [
                                 'labels' => [
-                                    'title'       => __('Labels', 'directorist'),
+                                    'title'       => __('General Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
                                         'name', 'icon', 'singular_name', 'plural_name', 'permalink',
                                     ],
                                 ],
-                            ],
+                            ] ),
                         ],
-                        'preview_image' => [
-                            'label' => __('Preview Image', 'directorist'),
-                            'sections' => [
+                        'listings_page' => [
+                            'label' => __('Listings Page', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
                                 'labels' => [
-                                    'title'       => __('Default Preview Image', 'directorist'),
-                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
+                                    'title'       => __('Listings Page', 'directorist'),
+                                    'description' => '',
                                     'fields'      => [
                                         'preview_image',
                                     ],
                                 ],
-                            ],
+                            ] ),
                         ],
-                        'packages' => [
-                            'label' => 'Packages',
-                            'sections' => [
+                        'single_listing' => [
+                            'label' => __('Single Listing', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
                                 'labels' => [
-                                    'title'       => 'Paid listing packages',
-                                    'description' => $plan_promo,
+                                    'title'       => __('Single Listing', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'preview_image',
+                                    ],
                                 ],
-                            ],
+                            ] ),
                         ],
-                        'other' => [
-                            'label' => __('Other', 'directorist'),
-                            'sections' => [
-                                'listing_status' => [
-                                    'title' => __('Default Status', 'directorist'),
-                                    'description' => __('Need help?', 'directorist'),
+                        'badge' => [
+                            'label' => __('Badge', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_badge_sections', [
+                                'labels' => [
+                                    'title'       => __('Badge', 'directorist'),
+                                    'description' => '',
                                     'fields'      => [
-                                        'new_listing_status',
-                                        'edit_listing_status',
+                                        'preview_image',
                                     ],
                                 ],
+                            ] ),
+                        ],
 
-                                'expiration' => [
-                                    'title'       => __('Expiration', 'directorist'),
-                                    'description' => __('Default time to expire a listing.', 'directorist'),
+                        'review' => [
+                            'label' => __('Reveiw', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
+                                'labels' => [
+                                    'title'       => __('Reveiw', 'directorist'),
+                                    'description' => '',
                                     'fields'      => [
-                                        'default_expiration',
+                                        'preview_image',
                                     ],
                                 ],
+                            ] ),
+                        ],
 
-                                'export_import' => [
-                                    'title'       => __('Export The Config File', 'directorist'),
-                                    'description' => __('Export all the form, layout and settings', 'directorist'),
+                        'map' => [
+                            'label' => __('Map', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_map_sections', [
+                                'labels' => [
+                                    'title'       => __('Map', 'directorist'),
+                                    'description' => '',
                                     'fields'      => [
-                                        'import_export',
+                                        'preview_image',
                                     ],
                                 ],
-                            ],
+                            ] ),
+                        ],
+
+                        'user_dashboard' => [
+                            'label' => __('User Dashboard', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
+                                'labels' => [
+                                    'title'       => __('User Dashboard', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'preview_image',
+                                    ],
+                                ],
+                            ] ),
                         ],
                     ]),
                 ],

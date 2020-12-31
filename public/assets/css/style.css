@@ -2621,6 +2621,8 @@ input#privacy_policy,
       -ms-flex: 0 0 33.33%;
           flex: 0 0 33.33%;
   width: 33.33%;
+}
+
 .atbdp-nav-badge {
   display: none;
   border-radius: 30px;

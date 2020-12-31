@@ -997,7 +997,6 @@
 
     // -------------------[ Announcement End ]-------------------------
 
-})(jQuery);
 
     //dashboard content responsive fix
     var tabContentWidth = $(".atbd_dashboard_wrapper .atbd_tab-content").innerWidth();
@@ -1005,7 +1004,7 @@
       $(".atbd_dashboard_wrapper .atbd_tab-content").addClass("atbd_tab-content--fix");
     }
 
-  })(jQuery);
+})(jQuery);
 
   // on load of the page: switch to the currently selected tab
   var tab_url = window.location.href.split("/").pop();

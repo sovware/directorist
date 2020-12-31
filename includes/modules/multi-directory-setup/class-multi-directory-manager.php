@@ -2419,7 +2419,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => 'la la-address-card',
+                                    'value' => 'la la-map',
                                 ],
                                 'address_link_with_map' => [
                                     'type'  => 'toggle',

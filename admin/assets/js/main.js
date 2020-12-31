@@ -3642,6 +3642,86 @@ templateResult: selecWithIcon,
     dsiplay_slider_single_page_dep.show();
   }
 
+
+  // Announcement
+  // ----------------------------------------------------------------------------------
+  // Display Announcement Recepents
+  var announcement_to = $('select[name="announcement_to"]');
+  var announcement_recepents_section = $("#announcement_recepents");
+  toggle_section('selected_user', announcement_to, announcement_recepents_section);
+  announcement_to.on("change", function () {
+      toggle_section('selected_user', $(this), announcement_recepents_section);
+  });
+
+  var submit_button = $('#announcement_submit .vp-input ~ span');
+  var form_feedback  = $('#announcement_submit .field');
+  form_feedback.prepend( '<div class="announcement-feedback"></div>' );
+
+  var announcement_is_sending = false;
+
+  // Send Announcement
+  submit_button.on('click', function () {
+      if ( announcement_is_sending ) { console.log( 'Please wait...' ); return; }
+      
+      var to            = $('select[name="announcement_to"]');
+      var recepents     = $('select[name="announcement_recepents"]');
+      var subject       = $('input[name="announcement_subject"]');
+      var message       = $('textarea[name="announcement_message"]');
+      var expiration    = $('input[name="announcement_expiration"]');
+      var send_to_email = $('input[name="announcement_send_to_email"]');
+
+      var fields_elm = {
+          to: { elm: to, value: to.val(), default: 'all_user' },
+          recepents: { elm: recepents, value: recepents.val(), default: null },
+          subject: { elm: subject, value: subject.val(), default: '' },
+          message: { elm: message, value: message.val(), default: '' },
+          expiration: { elm: expiration, value: expiration.val(), default: 3 },
+          send_to_email: { elm: send_to_email.val(), value: send_to_email.val(), default: 1 },
+      };
+
+      // Send the form
+      var form_data = new FormData;
+
+      // Fillup the form
+      form_data.append('action', 'atbdp_send_announcement');
+      for (field in fields_elm) {
+          form_data.append(field, fields_elm[field].value);
+      }
+
+      announcement_is_sending = true;
+      jQuery.ajax({
+          type: "post",
+          url: atbdp_admin_data.ajaxurl,
+          data: form_data,
+          processData: false,
+          contentType: false,
+          beforeSend: function () {
+              // console.log( 'Sending...' );
+              form_feedback.find( '.announcement-feedback' ).html( '<div class="form-alert">Sending the announcement, please wait..</div>' );
+              
+          },
+          success: function ( response ) {
+              // console.log( {response} );
+              announcement_is_sending = false;
+              
+              if ( response.message ) {
+                  form_feedback.find( '.announcement-feedback' ).html( '<div class="form-alert">'+ response.message +'</div>' );
+              }
+          },
+          error: function ( error ) {
+              console.log( {error} );
+              announcement_is_sending = false;
+          },
+      });
+
+      // Reset Form
+      /* for ( var field in fields_elm  ) {
+          $( fields_elm[ field ].elm ).val( fields_elm[ field ].default );
+      } */
+  });
+
+  // ----------------------------------------------------------------------------------
+
   //button primary
   var primary_button = $(
     "#primary_color, #primary_hover_color, #back_primary_color, #back_primary_hover_color, #border_primary_color, #border_primary_hover_color, #primary_example"
@@ -3800,6 +3880,7 @@ templateResult: selecWithIcon,
   $(".atbds_tooltip").on("mouseleave", function () {
     $(".atbds_tooltip__text").removeClass("show");
   });
+<<<<<<< HEAD
 
   // load admin add listing form
   const directory_type = $('select[name="directory_type"]').val();
@@ -4052,3 +4133,16 @@ function assetsNeedToWorkInVirtualDom() {
 }
 
 })(jQuery);
+=======
+});
+
+
+
+// Helpers
+// -----------------------------------
+// toggle_section
+function toggle_section(show_if_value, subject_elm, terget_elm) {
+  if (show_if_value === subject_elm.val()) { terget_elm.show(); }
+  else { terget_elm.hide(); }
+}
+>>>>>>> 8de686d4950b36a4e17f86c65d3a65fe9939c8c8

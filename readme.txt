@@ -1,5 +1,5 @@
 ﻿=== Directorist - Business Directory Plugin ===
-Contributors: AazzTech
+Contributors: wpwax
 Donate link: https://directorist.com/extensions/
 Tags: member directory, listings, classifieds, directory plugin, business directory
 Requires at least: 4.6

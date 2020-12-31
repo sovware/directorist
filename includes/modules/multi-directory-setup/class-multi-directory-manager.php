@@ -335,11 +335,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             }
 
             $response['term_id'] = ( int ) $term['term_id'];
+
             $response['status']['status_log']['term_created'] = [
                 'type'    => 'success',
                 'message' => 'The directory has been created successfuly',
             ];
-
+            update_term_meta( $response['term_id'], '_created_date', time() );
             return $response;
         }
 
@@ -4775,11 +4776,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         // menu_page_callback__directory_types
         public function menu_page_callback__directory_types()
         {
-            $post_types_list_table = new Directory_Types_List_Table( $this );
-
-            $action = $post_types_list_table->current_action();
-            $post_types_list_table->prepare_items();
-
+            $action = isset( $_GET['action'] ) ? $_GET['action'] : '';
             $listing_type_id = 0;
 
             if ( ! empty( $action ) && ( 'edit' === $action ) && ! empty( $_REQUEST['listing_type_id'] ) ) {
@@ -4788,7 +4785,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             }
 
             $data = [
-                'post_types_list_table' => $post_types_list_table,
                 'add_new_link'          => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=add_new'),
             ];
 

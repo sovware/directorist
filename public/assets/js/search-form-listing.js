@@ -6,6 +6,7 @@
         if( type_current.length ) {
             type_current.removeClass('type_current');
         }
+        $( '#listing_type' ).val( listing_type );
         $(this).addClass('type_current');
         let form_data = new FormData();
 

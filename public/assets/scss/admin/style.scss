@@ -2372,6 +2372,51 @@ span.atbdp-tick-cross {
   }
 }
 
+#announcment_submit .vp-input ~ span {
+  display: flex;
+  background: #007cba;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  border-radius: 3px;
+  color: #fff;
+  background-image: none;
+  width: auto;
+  cursor: pointer;
+  &:after{
+    content: 'Send';
+  }
+}
+
+/* Announcment */
+/* ----------------------------- */
+#announcement_submit {
+  .vp-input ~ span {
+    display: flex;
+    background: #007cba;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    border-radius: 3px;
+    color: #fff;
+    background-image: none;
+    width: 80px;
+    cursor: pointer;
+    &:after{
+      content: 'Send';
+    }
+  }
+
+  .label {
+    visibility: hidden;
+  }
+}
+
+.announcement-feedback {
+  margin-bottom: 15px;
+}
+
+/* --------------[ Announcment End ]--------------- */
 // All Listing Type Style
 .directorist_builder-header{
   display: flex;
@@ -2448,22 +2493,48 @@ span.atbdp-tick-cross {
   @media only screen and (max-width: 1199px){
     flex-direction: column;
   }
+  .directorist_btn{
+    &.directorist_btn-success{
+      background-color: #08BF9C;
+    }
+  }
   .directorist_builder__content--left{
-    min-width: 400px;
-    min-height: 160px;
+    width: 400px;
     margin-right: 30px;
-    margin-top: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 5px 10px #ADB4D210;
-    @media only screen and (max-width: 575px){
-      min-width: 100%;
-      margin: 0;
+    margin-top: 38px;
+    @media only screen and (max-width: 1440px){
+      width: 320px;
+      margin-right: 20px;
+    }
+    @media only screen and (max-width: 1399px){
+      width: 280px;
+    }
+    @media only screen and (max-width: 1199px){
+      width: 320px;
     }
     .directorist_link-block{
+      min-width: 400px;
+      min-height: 126px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background-color: #fff;
+      border-radius: 4px;
+      box-shadow: 0 5px 10px #ADB4D210;
+      @media only screen and (max-width: 1440px){
+        min-width: 320px;
+      }
+      @media only screen and (max-width: 1399px){
+        min-width: 280px;
+      }
+      @media only screen and (max-width: 1199px){
+        min-width: 320px;
+      }
+      @media only screen and (max-width: 575px){
+        min-width: 100%;
+        margin: 0;
+      }
       text-decoration: none;
       text-align: center;
       .directorist_link-icon{
@@ -2484,6 +2555,28 @@ span.atbdp-tick-cross {
         font-weight: 500;
         color: #272B41;
         margin-top: 15px;
+      }
+    }
+    .directorist_btn-import{
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 16px;
+      width: 100%;
+      min-height: 126px;
+      border-radius: 4px;
+      color: #fff;
+      padding: 0 20px;
+      margin-top: 20px;
+      box-shadow: 0 5px 10px #ADB4D210;
+      .directorist_link-icon{
+        margin-bottom: 10px;
+        i{
+          font-size: 24px;
+        }
       }
     }
   }
@@ -2535,6 +2628,9 @@ span.atbdp-tick-cross {
       background-color: #fff;
       border-radius: 4px;
       box-shadow: 0 5px 10px #ADB4D210;
+      @media only screen and (max-width: 1399px){
+        padding: 15px;
+      }
       .directorist_table{
         display: table;
         border-collapse: collapse;
@@ -2570,8 +2666,13 @@ span.atbdp-tick-cross {
               }
               &.directorist_listing-count{
                 min-width: 150px;
+                text-align: right;
                 @media only screen and (max-width: 1599px){
                   min-width: 110px;
+                }
+                .directorist_listing-count-title{
+                  display: block;
+                  margin-right: 40px;
                 }
               }
               &.directorist_listing-c-date{
@@ -2591,10 +2692,10 @@ span.atbdp-tick-cross {
                 .directorist_listing-actions{
                   a{
                     color: #fff;
-                    &.btn-primary{
+                    &.directorist_btn-primary{
                       background-color: #3E62F5;
                     }
-                    &.btn-danger{
+                    &.directorist_btn-danger{
                       background-color: #FF272A;
                     }
                   }
@@ -2606,6 +2707,9 @@ span.atbdp-tick-cross {
               font-weight: 400;
               color: #5A5F7D;
               padding: 20px 20px;
+              @media only screen and (max-width: 1399px){
+                padding: 15px 10px;
+              }
               &:first-child{
                 border-radius: 6px 0 0 6px;
               }
@@ -2621,6 +2725,11 @@ span.atbdp-tick-cross {
                   color: #3E62F5;
                 }
               }
+              .directorist_listing-count{
+                display: block;
+                text-align: right;
+                margin-right: 40px;
+              }
               .directorist_listing-actions{
                 margin: -5px;
                 a{
@@ -2633,6 +2742,9 @@ span.atbdp-tick-cross {
                   padding: 0 15.78px;
                   transition: .35s;
                   line-height: 2.75;
+                  @media only screen and (max-width: 1399px){
+                    padding: 0 10px;
+                  }
                   i,
                   svg,
                   img{
@@ -2642,11 +2754,90 @@ span.atbdp-tick-cross {
                     color: #fff;
                   }
                 }
+                .directorist_listing-type-checkbox{
+                  display: inline-block;
+                  margin: 5px 5px 5px 15px;
+                }
               }
             }
           }
         }
       }
+    }
+  }
+}
+
+// Directorist Custom Checkbox
+.directorist_custom-checkbox{
+  input{
+    display: none;
+  }
+  input[type=checkbox]+label{
+    min-width: 18px;
+    min-height: 18px;
+    font-size: 14px;
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    padding-left: 28px;
+    padding-top: 3px;
+    margin-bottom: 0;
+    line-height: 1.2;
+    font-weight: 400;
+    color: #5A5F7D;
+    &:before{
+      position: absolute;
+      font-size: 10px;
+      left: 6px;
+      top: 5px;
+      font-weight: 900;
+      font-family: 'Font Awesome 5 Free';
+      content: "\f00c";
+      display: block;
+      opacity: 0;
+      transition: all .3s ease 0s;
+      z-index: 2;
+    }
+    &:after{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      content: "";
+      background-color: #fff;
+      border: 2px solid #C6D0DC;
+    }
+  }
+  input[type=checkbox]:checked+label{
+    &:after{
+      background-color: #00B158;
+      border-color: #00B158;
+    }
+    &:before{
+      opacity: 1;
+      color: #fff;
+    }
+  }
+}
+
+.directorist_builder__content{
+  .directorist_badge{
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    margin-left: 6px;
+    border: 0 none;
+    &.directorist_badge-primary{
+      color: #fff;
+      background-color: #3E62F5;
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="atbdp-cptm-tab-contents">
         <template v-for="( menu, menu_key ) in layouts">
-            <div class="atbdp-tab-content-item" :key="menu_key" v-if="menu.active">
+            <div :id="'#'+ menu_key" class="atbdp-tab-content-item" :key="menu_key" v-if="menu.active">
                 <!-- Main Menu Contents -->
                 <h2 class="cptm-menu-title" v-if="! menu.submenu">{{ menu.label }}</h2>
 
@@ -12,7 +12,7 @@
                 <!-- Submenu Contents -->
                 <div class="atbdp-tab-sub-contents" v-if="menu.submenu">
                     <template v-for="( submenu, submenu_key ) in menu.submenu" >
-                        <div class="atbdp-tab-content-item" v-if="submenu.active" :key="submenu_key">
+                        <div :id="'#'+ menu_key + '__' + submenu_key" class="atbdp-tab-content-item" v-if="submenu.active" :key="submenu_key">
                             <h2 class="cptm-menu-title cptm-submenu-title">{{ submenu.label }}</h2>
                             
                             <sections-module v-if="submenu.sections" :sections="submenu.sections"></sections-module>

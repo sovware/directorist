@@ -78,6 +78,8 @@ export default {
 
         this.$store.commit( 'prepareNav' );
         this.$store.commit( 'cacheFieldsData', { fields_data: this.getFieldsValue() } );
+
+        this.updateCurrentPage();
     },
 
     data() {
@@ -97,6 +99,38 @@ export default {
         ...mapGetters([
             'getFieldsValue'
         ]),
+
+        updateCurrentPage() {
+            var hash = window.location.hash;
+
+            if ( typeof hash !== 'string' ) { return; }
+
+            hash = hash.replace( /#/g, '' );
+            var pages = hash.split('__');
+
+            if ( ! pages ) { return; }
+            if ( ! Array.isArray( pages ) ) { return; }
+            
+            let menu_keys        = Object.keys( this.layouts );
+            let main_menu_key    = pages[0];
+            let submain_menu_key = ( pages.length > 1 ) ? pages[1] : null;
+
+            let swich_nav_args = { menu_key: '', submenu_key: '' }; 
+
+            if ( menu_keys.includes( main_menu_key ) ) {
+                swich_nav_args.menu_key = main_menu_key;
+            }
+
+            if ( submain_menu_key && this.layouts[ main_menu_key ].submenu ) {
+                let submenu_keys = Object.keys( this.layouts[ main_menu_key ].submenu );
+
+                if ( submenu_keys.includes( submain_menu_key ) ) {
+                    swich_nav_args.submenu_key = submain_menu_key;
+                }
+            }
+
+            this.$store.commit( 'swichToNav', swich_nav_args );
+        },
 
         updateData() {
             if ( this.form_is_processing ) { console.log( 'Please wait...' ); return; }

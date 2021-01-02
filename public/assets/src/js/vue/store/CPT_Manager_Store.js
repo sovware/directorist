@@ -68,6 +68,7 @@ export default new Vuex.Store({
         submenu_key = ( Array.isArray( submenu_keys ) ) ? submenu_keys[0] : null; 
       }
 
+      window.location.hash = '#' + menu_key;
       if ( ! submenu_key ) { return; }
 
       for ( let submenu in state.layouts[ menu_key ].submenu ) {
@@ -75,6 +76,7 @@ export default new Vuex.Store({
       }
 
       Vue.set( state.layouts[ menu_key ].submenu[ submenu_key ], 'active', true );
+      window.location.hash = '#' + menu_key + '__' + submenu_key;
     },
 
     swichNav: ( state, index ) => {

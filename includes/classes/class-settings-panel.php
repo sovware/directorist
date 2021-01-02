@@ -169,7 +169,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
-                'general' => [
+                'listing_settings' => [
                     'label' => __( 'Listing Settings', 'directorist' ),
                     'icon' => '<i class="fa fa-list"></i>',
                     'submenu' => apply_filters('atbdp_listing_settings_submenu', [

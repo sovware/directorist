@@ -2597,7 +2597,7 @@ span.atbdp-tick-cross {
 
 @media only screen and (max-width: 1399px) {
   .directorist_builder__content .directorist_builder__content--left {
-    width: 280px;
+    width: 200px;
   }
 }
 
@@ -2639,7 +2639,7 @@ span.atbdp-tick-cross {
 
 @media only screen and (max-width: 1399px) {
   .directorist_builder__content .directorist_builder__content--left .directorist_link-block {
-    min-width: 280px;
+    min-width: 200px;
   }
 }
 
@@ -2793,7 +2793,7 @@ span.atbdp-tick-cross {
 
 @media only screen and (max-width: 1399px) {
   .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent {
-    padding: 15px;
+    padding: 10px;
   }
 }
 
@@ -2890,7 +2890,7 @@ span.atbdp-tick-cross {
 
 @media only screen and (max-width: 1399px) {
   .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td {
-    padding: 15px 10px;
+    padding: 15px 5px;
   }
 }
 
@@ -2940,6 +2940,7 @@ span.atbdp-tick-cross {
 @media only screen and (max-width: 1399px) {
   .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions a {
     padding: 0 10px;
+    line-height: 2.5;
   }
 }
 
@@ -2956,6 +2957,17 @@ span.atbdp-tick-cross {
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox {
   display: inline-block;
   margin: 5px 5px 5px 15px;
+}
+
+@media only screen and (max-width: 1399px) {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox {
+    margin: 5px;
+  }
+}
+
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .atbd-listing-type-active-status {
+  margin-top: 15px;
+  margin-left: 0;
 }
 
 .directorist_custom-checkbox input {

@@ -175,6 +175,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'submenu' => apply_filters('atbdp_listing_settings_submenu', [
                         'general' => [
                             'label' => __('General Settings', 'directorist'),
+                            'icon' => '<i class="fa fa-sliders-h"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_general_sections', [
                                 'labels' => [
                                     'title'       => __('General Settings', 'directorist'),

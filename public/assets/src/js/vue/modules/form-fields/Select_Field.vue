@@ -1,5 +1,10 @@
 <template>
-    <component :is="getTheTheme( 'select-field' )" v-bind="$props"></component>
+    <component 
+        :is="getTheTheme( 'select-field' )" 
+        v-bind="$props"
+        @update="$emit( 'update', $event )"
+    >
+    </component>
 </template>
 
 <script>

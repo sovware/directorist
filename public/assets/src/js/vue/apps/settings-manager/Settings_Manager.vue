@@ -1,19 +1,42 @@
 <template>
     <div class="settings-wrapper atbdp-settings-panel">
-        <div class="setting-top-bar">
-            <div class="setting-top-bar__search-field">
-                <input type="text" class="setting-search-field__input" placeholder="Search settings here...">
-            </div>
-            <a href="#" class="settings-save-btn">Save Changes</a>
-        </div>
+        <form action="#" @submit.prevent="updateData">
+            <div class="setting-top-bar">
+                <div class="setting-top-bar__search-field">
+                    <input type="text" class="setting-search-field__input" placeholder="Search settings here...">
+                </div>
 
-        <div class="setting-body">
-            <sidebar-navigation :menu="layouts" />
+                <div class="setting-top-bar__search-actions">
+                    <div class="setting-response-feedback">
+                        <div class="" v-if="status_message">
+                            <span class="atbdp-icon atbdp-icon-fill"
+                                :class="getIconClass( status_message.type )"
+                                v-html="getIconHTML( status_message.type )"
+                            >
+                            </span>
 
-            <div class="settings-contents">
-                <tabContents />
+                            {{ status_message.message }}
+                        </div>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        class="settings-save-btn"
+                        :disabled="submit_button.is_disabled"
+                        v-html="submit_button.label">
+                    </button>
+                </div>
+                
             </div>
-        </div>
+
+            <div class="setting-body">
+                <sidebar-navigation :menu="layouts" />
+
+                <div class="settings-contents">
+                    <tabContents />
+                </div>
+            </div>
+        </form>
     </div>
 </template>
 
@@ -52,30 +75,18 @@ export default {
             this.$store.commit( 'updateConfig', this.$root.config );
         }
 
-        if ( this.$root.id && ! isNaN( this.$root.id ) ) {
-            const id = parseInt( this.$root.id );
-
-            if ( id > 0 ) {
-                this.listing_type_id = id;
-                this.footer_actions.save.label = 'Update';
-            }
-        }
-
         this.$store.commit( 'prepareNav' );
-        // console.log( this.layouts );
     },
 
     data() {
         return {
-            listing_type_id: null,
-            status_messages: [],
-            footer_actions: {
-                save: { 
-                    show: true,
-                    label: 'Create',
-                    showLoading: false,
-                    isDisabled: false,
-                },
+            status_message: null,
+            form_is_processing: false,
+            submit_button: {
+                label_default: 'Save Changes',
+                label_on_progress: '<i class="fas fa-circle-notch fa-spin"></i> Savivg...',
+                label: 'Save Changes',
+                is_disabled: false,
             },
         }
     },
@@ -85,54 +96,14 @@ export default {
             'getFieldsValue'
         ]),
 
-        getSidebarNav() {
-            let sidebar_nav = {};
-            let layouts = this.layouts;
-
-            console.log( { layouts } );
-            
-            for ( let menu_key in this.layouts ) {
-                let menu_args = { active: false };
-                let menu_item = this.layouts[ menu_key ];
-
-                for ( let menu_opt_key in menu_item ) {
-                    // If has submenu
-                    if ( 'submenu' === menu_opt_key ) {
-                        let submenu = {};
-                        
-                        for ( let submenu_key in menu_item[ menu_opt_key ] ) {
-                            let submenu_item = submenu[ submenu_key ];
-                            let submenu_args = { active: false };
-
-                            for ( let submenu_opt_key in submenu_item ) {
-                                if ( 'sections' === submenu_opt_key ) { continue; }
-                                
-                                submenu_args[ submenu_opt_key ] = submenu_item[ submenu_opt_key ];
-                            }
-
-                            submenu[ submenu_key ] = submenu_args;
-                        }
-
-                        menu_args[ menu_opt_key ] = submenu;
-                        continue;
-                    }
-
-                    menu_args[ menu_opt_key ] = menu_item[ menu_opt_key ];
-                }
-
-                sidebar_nav[ menu_key ] = menu_args;
-            }
-
-            return sidebar_nav;
-        },
-
         updateData() {
-            console.log( 'updateData' );
-            return;
+            if ( this.form_is_processing ) { console.log( 'Please wait...' ); return; }
+            // console.log( 'updateData' );
+
             let fields = this.getFieldsValue();
 
-            let submission_url = this.$store.state.config.submission.url;
-            let submission_with = this.$store.state.config.submission.with;
+            let submission_url  = ( this.$store.state.config && this.$store.state.config.submission && this.$store.state.config.submission.url ) ? this.$store.state.config.submission.url : '';
+            let submission_with = ( this.$store.state.config && this.$store.state.config.submission && this.$store.state.config.submission.with ) ? this.$store.state.config.submission.with : '';
 
             let form_data = new FormData();
 
@@ -141,119 +112,79 @@ export default {
                     form_data.append( data_key, submission_with[ data_key ] );
                 }
             }
-            
-            if ( this.listing_type_id ) {
-                form_data.append( 'listing_type_id', this.listing_type_id );
-                this.footer_actions.save.label = 'Update';
-            }
-
-            for ( let field_key in fields ) {
-                let value = this.maybeJSON( fields[ data_key ] );
-                form_data.append( data_key,  value );
-            }
-
-            console.log( { submission_url, submission_with } );
-        },
-
-        saveData() {
-            let fields = this.$store.state.fields;
-            let config = this.$store.state.config;
-
-            let form_data = new FormData();
-            form_data.append( 'action', 'save_post_type_data' );
-            
-            if ( this.listing_type_id ) {
-                form_data.append( 'listing_type_id', this.listing_type_id );
-                this.footer_actions.save.label = 'Update';
-            }
 
             let field_list = [];
-            let skipped_fields = [];
-            let log = [];
+            for ( let field_key in fields ) {
+                let value = this.maybeJSON( fields[ field_key ] );
 
-            if ( config.fields_group && typeof config.fields_group === 'object' ) {
-                for ( let group_key in config.fields_group ) {
-                    let group_value = {};
-
-                    for ( let field_key in config.fields_group[ group_key ]  ) {
-                        let field_key_value = config.fields_group[ group_key ][field_key];
-                        let field_key_type  = typeof config.fields_group[ group_key ][field_key];
-                        
-                        if ( 'string' === field_key_type && typeof fields[ field_key_value ] !== 'undefined' ) {
-                            group_value[ field_key_value ] = fields[ field_key_value ].value;
-                            skipped_fields.push( field_key_value );
-                        }
-
-                        if ( 'object' === field_key_type ) {
-                            group_value[ field_key ] = {};
-
-                            for ( let sub_field_key of field_key_value ) {
-                                group_value[ field_key ][ sub_field_key ] = fields[ sub_field_key ].value;
-                                skipped_fields.push( sub_field_key );
-                            }
-                        }
-                    }
-                    
-                    form_data.append( group_key, JSON.stringify( group_value ) );
-                    field_list.push( group_key );
-                }
+                form_data.append( field_key, value );
+                field_list.push( field_key );
             }
 
-            for ( let field in fields ) {
-                if ( skipped_fields.indexOf( field ) !== -1 ) { continue; }
-
-                let value = this.maybeJSON( fields[ field ].value );
-                form_data.append( field, value );
-                field_list.push( field );
-                log.push( field, value  );
-            }
-
-            // console.log( field_list, skipped_fields );
             form_data.append( 'field_list', JSON.stringify( field_list ) );
 
-            this.status_messages = [];
-            this.footer_actions.save.showLoading = true;
-            this.footer_actions.save.isDisabled = true;
+            // Before submit the form
+            this.form_is_processing        = true;
+            this.submit_button.is_disabled = true;
+            this.submit_button.label       = this.submit_button.label_on_progress;
+            this.status_message            = null;
+            
             const self = this;
 
-            // console.log( { log } );
-
-            // return;
-            axios.post( ajax_data.ajax_url, form_data )
+            // Submit the form
+            axios.post( submission_url, form_data )
                 .then( response => {
-                    self.footer_actions.save.showLoading = false;
-                    self.footer_actions.save.isDisabled = false;
+                    // console.log( { response } );
 
-                    // console.log( response.data );
-                    // return;
-                    
-                    if ( response.data.post_id && ! isNaN( response.data.post_id ) ) {
-                        self.listing_type_id = response.data.post_id;
-                        self.footer_actions.save.label = 'Update';
-                        self.listing_type_id = response.data.post_id;
-                        // window.location = response.data.redirect_url;
-                    }
+                    self.form_is_processing        = false;
+                    self.submit_button.is_disabled = false;
+                    self.submit_button.label       = self.submit_button.label_default;
 
-                    if ( response.data.status_log ) {
-                        for ( let status_key in response.data.status_log  ) {
-                            self.status_messages.push({ 
-                                type: response.data.status_log[ status_key ].type, 
-                                message: response.data.status_log[ status_key ].message
-                            });
-                        }
+
+                    if ( response.data.status && response.data.status.status_log ) {
+                        self.status_message = response.data.status.status_log;
 
                         setTimeout( function() {
-                            self.status_messages = [];
-                        }, 5000 );
+                            self.status_message = null;
+                        }, 3000 );
                     }
 
-                    // console.log( response );
                 })
                 .catch( error => {
-                    self.footer_actions.save.showLoading = false;
-                    self.footer_actions.save.isDisabled = false;
-                    console.log( error );
+                    console.log( { error } );
+
+                    self.form_is_processing        = false;
+                    self.submit_button.is_disabled = false;
+                    self.submit_button.label       = self.submit_button.label_default;
+
+                    self.status_message = { type: 'error', message: 'Something went wrong' };
+
+                    setTimeout( function() {
+                        self.status_message = null;
+                    }, 3000 );
                 });
+        },
+
+        getIconClass( icon_type ) {
+            let icon = ( icon_type ) ? icon_type : '';
+            let icon_class_name = { [`icon-${icon}`]: true };
+
+            return icon_class_name;
+        },
+
+        getIconHTML( icon_type ) {
+            let icon = '';
+
+            switch ( icon_type ) {
+                case 'error':
+                    icon = '<i class="fas fa-times"></i>';
+                    break;
+                case 'success':
+                    icon = '<i class="fas fa-check"></i>';
+                    break;
+            }
+
+            return icon;
         },
 
         maybeJSON( data ) {
@@ -265,34 +196,6 @@ export default {
 
             return value;
         },
-
-        insertParam(key, value) {
-            key = encodeURIComponent(key);
-            value = encodeURIComponent(value);
-
-            // kvp looks like ['key1=value1', 'key2=value2', ...]
-            var kvp = document.location.search.substr(1).split('&');
-            let i=0;
-
-            for(; i<kvp.length; i++){
-                if (kvp[i].startsWith(key + '=')) {
-                    let pair = kvp[i].split('=');
-                    pair[1] = value;
-                    kvp[i] = pair.join('=');
-                    break;
-                }
-            }
-
-            if(i >= kvp.length){
-                kvp[kvp.length] = [key,value].join('=');
-            }
-
-            // can return this or...
-            let params = kvp.join('&');
-
-            // reload page with new params
-            document.location.search = params;
-        }
     }
 }
 </script>

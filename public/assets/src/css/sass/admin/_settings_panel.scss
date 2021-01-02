@@ -15,6 +15,18 @@
     justify-content: space-between;
 }
 
+.setting-top-bar__search-actions {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.setting-response-feedback {
+    display: flex;
+    margin: 0 10px;
+    align-items: center;
+    color: #fff;
+}
+
 .setting-body {
     display: flex;
 }
@@ -36,16 +48,27 @@
     max-width: 250px;
     font-size: 14px;
 }
-.settings-save-btn{
-    background: #3E62F5;
+.settings-save-btn {
+    display: inline-block;
+    padding: 0 20px;
     color: #fff;
     font-size: 14px;
+    text-decoration: none;
     font-weight: 500;
     line-height: 40px;
-    padding: 0 20px;
     border-radius: 4px;
-    display: inline-flex;
-    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid #3E62F5;
+    background: #3E62F5;
+    transition: all ease-in-out 300ms;
+    &:hover {
+        border-color: darken( #3E62F5, 5);
+        background: darken( #3E62F5, 5);
+    }
+    &:disabled {
+        opacity: 0.8;
+        cursor: not-allowed;
+    }
 }
 .setting-left-sibebar{
     width: 250px;

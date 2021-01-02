@@ -1,6 +1,6 @@
 import { mapState } from 'vuex';
-import helpers from './../../mixins/helpers';
-import validation from './../../mixins/validation';
+import helpers from './../helpers';
+import validation from './../validation';
 
 export default {
     mixins: [ helpers, validation ],

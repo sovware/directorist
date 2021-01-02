@@ -4,7 +4,7 @@
       <li class="settings-nav__item" :class="{ active: meue_item.active }" v-for="( meue_item, menu_key ) in menu" :key="menu_key">
         
         <a href="#" class="settings-nav__item__link nav-has-dropdwon" @click.prevent="swichToNav({ menu_key })">
-          <span class="settings-nav__item__icon la la-heart-o"></span> 
+          <span class="settings-nav__item__icon" v-html="meue_item.icon"></span> 
           {{ meue_item.label }} <span class="drop-toggle-caret"></span>
         </a>
         

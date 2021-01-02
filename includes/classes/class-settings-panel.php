@@ -168,26 +168,90 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
             ]);
 
-            $this->layouts = apply_filters('atbdp_settings_layout', [
-                'listings_settings' => [
-                    'label' => 'Listing Settings',
-                    'icon' => '<i class="uil uil-estate"></i>',
-                    'submenu' => apply_filters('atbdp_settings_submenu', [
+            $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
+                'general' => [
+                    'label' => __( 'Listing Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-list"></i>',
+                    'submenu' => apply_filters('atbdp_listing_settings_submenu', [
                         'general' => [
                             'label' => __('General Settings', 'directorist'),
-                            'sections' => [
-                                'general_settings' => [
+                            'sections' => apply_filters( 'atbdp_listing_settings_general_sections', [
+                                'labels' => [
                                     'title'       => __('General Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'new_listing_status', 
-                                        'edit_listing_status'
+                                        'new_listing_status',
+                                        'edit_listing_status',
                                     ],
                                 ],
-                            ],
+                            ] ),
+                        ],
+                        'listings_page' => [
+                            'label' => __('Listings Page', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
+                                'labels' => [
+                                    'title'       => __('Listings Page', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                            ] ),
+                        ],
+                        'single_listing' => [
+                            'label' => __('Single Listing', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
+                                'labels' => [
+                                    'title'       => __('Single Listing', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                            ] ),
+                        ],
+                        'badge' => [
+                            'label' => __('Badge', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_badge_sections', [
+                                'labels' => [
+                                    'title'       => __('Badge', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                            ] ),
+                        ],
+
+                        'review' => [
+                            'label' => __('Reveiw', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
+                                'labels' => [
+                                    'title'       => __('Reveiw', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                            ] ),
+                        ],
+
+                        'map' => [
+                            'label' => __('Map', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_map_sections', [
+                                'labels' => [
+                                    'title'       => __('Map', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                            ] ),
+                        ],
+
+                        'user_dashboard' => [
+                            'label' => __('User Dashboard', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
+                                'labels' => [
+                                    'title'       => __('User Dashboard', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                            ] ),
                         ],
                     ]),
                 ],
+
             ]);
 
             $this->config = [

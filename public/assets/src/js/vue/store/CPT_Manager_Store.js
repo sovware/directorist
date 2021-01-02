@@ -11,6 +11,7 @@ export default new Vuex.Store({
     layouts: {},
     options: {},
     config: {},
+    cached_fields: {},
     metaKeys: {},
     deprecatedMetaKeys: [],
     sidebarNavigation: {},
@@ -38,6 +39,14 @@ export default new Vuex.Store({
 
         menu_count++;
       }
+    },
+
+    cacheFieldsData: ( state, payload ) => {
+      state.cached_fields = payload.fields_data;
+    },
+
+    updateCachedFieldData: ( state, payload ) => {
+      state.cached_fields[ payload.key ] = payload.value;
     },
 
     swichToNav( state, payload ) {

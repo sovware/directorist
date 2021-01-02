@@ -49,7 +49,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             if ( empty( $field_list ) || ! is_array( $field_list ) ) {
                 $status['status_log'] = [
                     'type' => 'success',
-                    'message' => __( 'Nothing to save', 'directorist' ),
+                    'message' => __( 'No changes made', 'directorist' ),
                 ];
 
                 wp_send_json( [ 'status' => $status, '$field_list' => $field_list ] );

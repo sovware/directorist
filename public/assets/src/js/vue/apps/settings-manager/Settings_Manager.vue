@@ -58,6 +58,7 @@ export default {
     computed: {
         ...mapState({
             fields: 'fields',
+            cached_fields: 'cached_fields',
             layouts: 'layouts',
         })
     },
@@ -76,6 +77,7 @@ export default {
         }
 
         this.$store.commit( 'prepareNav' );
+        this.$store.commit( 'cacheFieldsData', { fields_data: this.getFieldsValue() } );
     },
 
     data() {
@@ -115,10 +117,18 @@ export default {
 
             let field_list = [];
             for ( let field_key in fields ) {
-                let value = this.maybeJSON( fields[ field_key ] );
+                let new_value    = this.maybeJSON( fields[ field_key ] );
+                let cahced_value = this.maybeJSON( this.cached_fields[ field_key ] );
 
-                form_data.append( field_key, value );
+                if ( cahced_value == new_value ) { continue; }
+
+                form_data.append( field_key, new_value );
                 field_list.push( field_key );
+
+                this.$store.commit( 'updateCachedFieldData', {
+                    key: field_key,
+                    value: new_value,
+                });
             }
 
             form_data.append( 'field_list', JSON.stringify( field_list ) );

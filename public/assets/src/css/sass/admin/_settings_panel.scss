@@ -43,6 +43,34 @@
     color: #fff;
 }
 
+.setting-search-suggestions {
+    position: relative;
+    z-index: 999;
+}
+
+.search-suggestions-list {
+    margin: 5px auto 0;
+    position: absolute;
+    width: 100%;
+    z-index: 9999;
+    box-shadow: 0 0 3px #ccc;
+    background-color: #fff;
+}
+
+.search-suggestions-list--list-item {
+    list-style: none;
+}
+
+.search-suggestions-list--link {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    transition: all ease-in-out 200ms;
+    &:hover {
+        background-color: #f2f2f2;
+    }
+}
+
 .setting-body {
     display: flex;
 }

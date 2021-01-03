@@ -12,6 +12,8 @@
                         v-if="fields[ field ]"
                         :is="getFormFieldName( fields[ field ].type )" 
                         :field-id="field"
+                        :id="menuKey + '__' + section_key + '__' + field"
+                        :ref="field"
                         :key="field_key"
                         v-bind="fields[ field ]"
                         @update="updateFieldValue( field, $event )">
@@ -27,7 +29,6 @@ import Vue from 'vue';
 import helpers from './../mixins/helpers';
 import { mapState } from 'vuex';
 
-
 export default {
     name: 'sections-module',
     mixins: [ helpers ],
@@ -40,6 +41,21 @@ export default {
             type: String,
             default: '',
         },
+        menuKey: {
+            type: String,
+            default: ''
+        },
+    },
+
+    mounted() {
+        // let element = this.$refs['new_listing_status'];
+
+        // var top = element[0].$el.offsetTop;
+        // window.scrollTo(0, 700);
+        
+        // console.log( { element, top } );
+
+        // console.log( { menuKey: this.menuKey } );
     },
 
     computed: {

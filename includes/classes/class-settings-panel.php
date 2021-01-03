@@ -470,7 +470,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                             'label' => __('General Settings', 'directorist'),
                             'icon' => '<i class="fa fa-sliders-h"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_general_sections', [
-                                'labels' => [
+                                'general_settings' => [
                                     'title'       => __('General Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [

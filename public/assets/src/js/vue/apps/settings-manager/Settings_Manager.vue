@@ -3,7 +3,22 @@
         <form action="#" @submit.prevent="updateData">
             <div class="setting-top-bar">
                 <div class="setting-top-bar__search-field">
-                    <input type="text" class="setting-search-field__input" placeholder="Search settings here...">
+                    <input 
+                        type="text" 
+                        class="setting-search-field__input" 
+                        placeholder="Search settings here..."
+                        v-model="search_query"
+                    >
+
+                    <div class="setting-search-suggestions" v-if="searchSuggestions">
+                        <ul class="search-suggestions-list">
+                            <li class="search-suggestions-list--list-item" v-for="( field_key, field_index ) in Object.keys( searchSuggestions )" :key="field_index">
+                                <a href="#" class="search-suggestions-list--link" @click.prevent="jumpToSearchResult( searchSuggestions[ field_key ] )">
+                                    {{ searchSuggestions[ field_key ].label }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="setting-top-bar__search-actions">
@@ -33,7 +48,7 @@
                 <sidebar-navigation :menu="layouts" />
 
                 <div class="settings-contents">
-                    <tabContents />
+                    <tabContents ref="tab_contents" />
                 </div>
             </div>
         </form>
@@ -60,7 +75,35 @@ export default {
             fields: 'fields',
             cached_fields: 'cached_fields',
             layouts: 'layouts',
-        })
+        }),
+
+        searchSuggestions() {
+            if ( ! this.search_query.length ) {
+                return false;
+            }
+
+            let search_suggestions = {};
+            let query = this.search_query.toLowerCase();
+
+            for ( let field in this.fields ) {
+                if ( ! this.fields[ field ].label ) { continue; }
+                
+                let label = this.fields[ field ].label.toLowerCase();
+                let match = label.match( query );
+
+                if ( match ) {
+                    search_suggestions[ field ] = this.fields[ field ];
+                }
+            }
+
+            // console.log( {search_suggestions} );
+
+            if ( ! Object.keys( search_suggestions ) ) {
+                return false;
+            }
+
+            return search_suggestions;
+        }
     },
 
     created() {
@@ -86,6 +129,10 @@ export default {
         return {
             status_message: null,
             form_is_processing: false,
+
+            search_query: '',
+            search_suggestions: false,
+
             submit_button: {
                 label_default: 'Save Changes',
                 label_on_progress: '<i class="fas fa-circle-notch fa-spin"></i> Savivg...',
@@ -99,6 +146,18 @@ export default {
         ...mapGetters([
             'getFieldsValue'
         ]),
+
+        jumpToSearchResult( field ) {
+            if ( ! field.layout_path ) { return; }
+
+            this.$store.commit( 'swichToNav', {
+                menu_key: field.layout_path.menu_key,
+                submenu_key: field.layout_path.submenu_key,
+                hash: field.layout_path.hash,
+            });
+
+            this.search_query = '';
+        },
 
         updateCurrentPage() {
             var hash = window.location.hash;
@@ -130,6 +189,7 @@ export default {
             }
 
             this.$store.commit( 'swichToNav', swich_nav_args );
+
         },
 
         updateData() {

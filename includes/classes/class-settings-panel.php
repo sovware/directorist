@@ -428,7 +428,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
                 'listing_settings' => [
                     'label' => __( 'Listing Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-list"></i>',
+                    'icon' => '<i class="fa fa-list directorist_Blue"></i>',
                     'submenu' => apply_filters('atbdp_listing_settings_submenu', [
                         'general' => [
                             'label' => __('General Settings', 'directorist'),
@@ -514,8 +514,24 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'search_settings' => [
                     'label' => __( 'Search Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-search"></i>',
-                    'submenu' => apply_filters('atbdp_listing_settings_submenu', [
+                    'icon' => '<i class="fa fa-search directorist_warning"></i>',
+                    'submenu' => apply_filters('atbdp_search_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'page_settings' => [
+                    'label' => __( 'Page Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-chart-line directorist_success"></i>',
+                    'submenu' => apply_filters('atbdp_page_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'seo_settings' => [
+                    'label' => __( 'SEO Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-bolt directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_seo_settings_submenu', [
                        
                     ]),
                 ],

@@ -22,10 +22,47 @@ export default new Vuex.Store({
     prepareNav: ( state ) => {
       let menu_count = 0;
 
-      for ( let menu_key in state.layouts ) {
+      let prepare_section_fields = function( args ) {
+        let sections    = args.sections;
+        let menu_key    = args.menu_key;
+        let submenu_key = ( args.submenu_key ) ? args.submenu_key : '';
 
+        for ( let section_key in sections ) {
+          if ( sections[ section_key ].fields ) {
+            for ( let field_key of sections[ section_key ].fields ) {
+              if ( ! state.fields[ field_key ]  ) { continue; }
+
+              let hash = menu_key;
+
+              if ( submenu_key ) {
+                hash = hash + '__' + submenu_key;
+              }
+
+              hash = hash + '__' + section_key + '__' + field_key;
+
+              state.fields[ field_key ].layout_path = {
+                menu_key: menu_key,
+                submenu_key: submenu_key,
+                section_key: section_key,
+                field_key: field_key,
+                hash: hash
+              };
+            }
+          }
+        }
+      };
+
+      
+      for ( let menu_key in state.layouts ) {
         let status = ( 0 === menu_count ) ? true : false;
         Vue.set( state.layouts[ menu_key ], 'active', status );
+
+        if ( state.layouts[ menu_key ].sections ) {
+          prepare_section_fields({ 
+            menu_key: menu_key, 
+            sections: state.layouts[ menu_key ].sections,
+          });
+        }
     
         if ( state.layouts[ menu_key ].submenu ) {
             let submenu_count = 0;
@@ -34,6 +71,14 @@ export default new Vuex.Store({
               let status = ( 0 === menu_count && 0 === submenu_count ) ? true : false;
               Vue.set( state.layouts[ menu_key ].submenu[ submenu_key ], 'active', status );
               submenu_count++;
+
+              if ( state.layouts[ menu_key ].submenu[ submenu_key ].sections ) {
+                prepare_section_fields({ 
+                  menu_key: menu_key, 
+                  submenu_key: submenu_key,
+                  sections: state.layouts[ menu_key ].submenu[ submenu_key ].sections
+                });
+              }
             }
         }
 
@@ -68,7 +113,9 @@ export default new Vuex.Store({
         submenu_key = ( Array.isArray( submenu_keys ) ) ? submenu_keys[0] : null; 
       }
 
-      window.location.hash = '#' + menu_key;
+      let hash = ( payload.hash ) ? '#' + payload.hash : '#' + menu_key;
+      window.location.hash = hash;
+
       if ( ! submenu_key ) { return; }
 
       for ( let submenu in state.layouts[ menu_key ].submenu ) {
@@ -76,7 +123,9 @@ export default new Vuex.Store({
       }
 
       Vue.set( state.layouts[ menu_key ].submenu[ submenu_key ], 'active', true );
-      window.location.hash = '#' + menu_key + '__' + submenu_key;
+      hash = ( payload.hash ) ? '#' + payload.hash : '#' + menu_key + '__' + submenu_key;
+
+      window.location.hash = hash;
     },
 
     swichNav: ( state, index ) => {

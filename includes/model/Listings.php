@@ -42,6 +42,7 @@ class Directorist_Listings {
 	public $logged_in_user_only;
 	public $redirect_page_url;
 	public $listings_map_height;
+	public $map_zoom_level;
 
 	public $query;
 	public $loop;
@@ -271,6 +272,7 @@ class Directorist_Listings {
 			'logged_in_user_only'      => '',
 			'redirect_page_url'        => '',
 			'map_height'               => $this->options['listings_map_height'],
+			'map_zoom_level'		   => $this->options['map_view_zoom_level']  
 		);
 
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
@@ -298,6 +300,7 @@ class Directorist_Listings {
 		$this->logged_in_user_only      = $this->params['logged_in_user_only'] == 'yes' ? true : false;
 		$this->redirect_page_url        = $this->params['redirect_page_url'];
 		$this->listings_map_height      = ( ! empty( $this->params['map_height'] ) ) ? (int) $this->params['map_height'] : $defaults['map_height'];
+		$this->map_zoom_level           = ( ! empty( $this->params['map_zoom_level'] ) ) ? (int) $this->params['map_zoom_level'] : $defaults['map_zoom_level'];
 	}
 
 	public function prepare_data() {
@@ -1374,7 +1377,7 @@ class Directorist_Listings {
 		$opt['display_title_map']     = $this->options['display_title_map'];
 		$opt['display_address_map']   = $this->options['display_address_map'];
 		$opt['display_direction_map'] = $this->options['display_direction_map'];
-		$opt['zoom']                  = $this->options['map_view_zoom_level'];
+		$opt['zoom']                  = $this->map_zoom_level;
 		$opt['default_image']         = $this->options['default_preview_image'];
 
 		$opt['disable_single_listing'] = $this->disable_single_listing;

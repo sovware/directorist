@@ -4,6 +4,8 @@ export default {
     computed: {
         ...mapState({
             fields: 'fields',
+            cached_fields: 'cached_fields',
+            highlighted_field_key: 'highlighted_field_key',
         }),
     },
 
@@ -15,6 +17,10 @@ export default {
             if ( Array.isArray( the_var ) ) { return false }
 
             return the_var;
+        },
+
+        getHighlightState( field_key ) {
+            return this.highlighted_field_key === field_key;
         },
 
         getOptionID( option, index ) {

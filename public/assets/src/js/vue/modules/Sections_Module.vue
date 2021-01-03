@@ -14,6 +14,7 @@
                         :field-id="field"
                         :id="menuKey + '__' + section_key + '__' + field"
                         :ref="field"
+                        :class="{['highlight-field']: getHighlightState( field ) }"
                         :key="field_key"
                         v-bind="fields[ field ]"
                         @update="updateFieldValue( field, $event )">
@@ -45,17 +46,6 @@ export default {
             type: String,
             default: ''
         },
-    },
-
-    mounted() {
-        // let element = this.$refs['new_listing_status'];
-
-        // var top = element[0].$el.offsetTop;
-        // window.scrollTo(0, 700);
-        
-        // console.log( { element, top } );
-
-        // console.log( { menuKey: this.menuKey } );
     },
 
     computed: {

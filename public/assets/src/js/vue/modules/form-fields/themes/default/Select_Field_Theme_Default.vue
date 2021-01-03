@@ -6,8 +6,11 @@
             <template v-for="( option, option_key ) in theOptions">
                 <template v-if="option.group && option.options">
                     <optgroup :label="option.group" :key="option_key">
-                        <option v-for="( sub_option, sub_option_key ) in option.options" :key="sub_option_key" :value="sub_option.value">
-                            {{ sub_option.label }}
+                        <option 
+                            v-for="( sub_option, sub_option_key ) in option.options" 
+                            :key="sub_option_key" 
+                            :value="sub_option.value"
+                            v-html="sub_option.label">
                         </option>
                     </optgroup>
                 </template>

@@ -44,7 +44,7 @@
                 
             </div>
 
-            <div class="setting-body">
+            <div class="setting-body" @click="resetStates()">
                 <sidebar-navigation :menu="layouts" />
 
                 <div class="settings-contents">
@@ -85,18 +85,18 @@ export default {
             let search_suggestions = {};
             let query = this.search_query.toLowerCase();
 
-            for ( let field in this.fields ) {
-                if ( ! this.fields[ field ].label ) { continue; }
+            for ( let field in this.cached_fields ) {
+                if ( ! this.cached_fields[ field ].label ) { continue; }
                 
-                let label = this.fields[ field ].label.toLowerCase();
+                let label = this.cached_fields[ field ].label.toLowerCase();
                 let match = label.match( query );
 
                 if ( match ) {
-                    search_suggestions[ field ] = this.fields[ field ];
+                    search_suggestions[ field ] = this.cached_fields[ field ];
                 }
             }
 
-            // console.log( {search_suggestions} );
+            // console.log( {search_suggestions}, this.cached_fields );
 
             if ( ! Object.keys( search_suggestions ) ) {
                 return false;
@@ -104,6 +104,13 @@ export default {
 
             return search_suggestions;
         }
+    },
+
+    mounted() {
+        // const self = this;
+        // this.$el.addEventListener( 'click', function( e ) {
+        //     // self.$store.commit( 'resetHighlightedFieldKey' );
+        // })
     },
 
     created() {
@@ -119,8 +126,8 @@ export default {
             this.$store.commit( 'updateConfig', this.$root.config );
         }
 
+        this.$store.commit( 'cacheFieldsData' );
         this.$store.commit( 'prepareNav' );
-        this.$store.commit( 'cacheFieldsData', { fields_data: this.getFieldsValue() } );
 
         this.updateCurrentPage();
     },
@@ -146,6 +153,10 @@ export default {
         ...mapGetters([
             'getFieldsValue'
         ]),
+
+        resetStates() {
+            this.$store.commit( 'resetHighlightedFieldKey' );
+        },
 
         jumpToSearchResult( field ) {
             if ( ! field.layout_path ) { return; }
@@ -174,7 +185,7 @@ export default {
             let main_menu_key    = pages[0];
             let submain_menu_key = ( pages.length > 1 ) ? pages[1] : null;
 
-            let swich_nav_args = { menu_key: '', submenu_key: '' }; 
+            let swich_nav_args = { menu_key: '', submenu_key: '', hash: hash }; 
 
             if ( menu_keys.includes( main_menu_key ) ) {
                 swich_nav_args.menu_key = main_menu_key;
@@ -212,7 +223,7 @@ export default {
             let field_list = [];
             for ( let field_key in fields ) {
                 let new_value    = this.maybeJSON( fields[ field_key ] );
-                let cahced_value = this.maybeJSON( this.cached_fields[ field_key ] );
+                let cahced_value = this.maybeJSON( this.cached_fields[ field_key ].value );
 
                 if ( cahced_value == new_value ) { continue; }
 

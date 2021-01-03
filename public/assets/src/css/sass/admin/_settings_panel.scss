@@ -1,7 +1,6 @@
 
 
 /* settings panel css */
-
 .atbdp-settings-manager{
     .directorist_builder-header{
       margin-bottom: 30px;
@@ -229,4 +228,9 @@ span.drop-toggle-caret:before {
 .settings-nav__item.active .settings-nav__item__link span.drop-toggle-caret:before{
     border-top: 0;
     border-bottom: 5px solid #3E62F5;
+}
+
+.highlight-field {
+    padding: 10px;
+    border: 2px solid #3e62f5;
 }

@@ -166,7 +166,6 @@
 
 
             } else if (response.success) {
-                d = atbdp_public_data.currentDate; // build the date string, month is 0 based so add 1 to that to get real month.
                 output +=
                     '<div class="atbd_single_review" id="single_review_' + response.data.id + '">' +
                     '<input type="hidden" value="1" id="has_ajax">' +
@@ -175,7 +174,7 @@
                     '<div class="atbd_review_avatar">' + ava_img + '</div> ' +
                     '<div class="atbd_name_time"> ' +
                     '<p>' + name + '</p>' +
-                    '<span class="review_time">' + d + '</span> ' + '</div> ' + '</div> ' +
+                    '<span class="review_time">' + response.data.date + '</span> ' + '</div> ' + '</div> ' +
                     '<div class="atbd_rated_stars">' + print_static_rating(rating) + '</div> ' +
                     '</div> ';
                 if( atbdp_public_data.enable_reviewer_content ) {
@@ -910,13 +909,102 @@
       $(this).siblings("ul").slideToggle();
     });
 
+    // Announcement
+    // --------------------------------------------
+    // Cleare seen announcements
+    var cleared_seen_announcements = false;
+    $( '.atbd_tn_link' ).on( 'click', function() {
+        if ( cleared_seen_announcements ) { return; }
+        var terget = $( this ).attr( 'target' );
+
+        if ( 'announcement' === terget ) {
+            // console.log( terget, 'clear seen announcements' );
+
+            $.ajax({
+                type: "post",
+                url: atbdp_public_data.ajaxurl,
+                data: { action: 'atbdp_clear_seen_announcements' },
+                success: function( response ) {
+                    // console.log( response );
+
+                    if ( response.success ) {
+                        cleared_seen_announcements = true;
+                        $( '.new-announcement-count' ).removeClass( 'show' );
+                        $( '.new-announcement-count' ).html( '' );
+                    } 
+                },
+                error: function( error ) {
+                    console.log( { error } );
+                },
+            })
+        }
+    });
+
+    // Closing the announcement
+    var closing_announcement = false;
+    $('.close-announcement').on('click', function ( e ) {
+        e.preventDefault;
+
+        if ( closing_announcement ) { console.log( 'Please wait...' ); return; }
+
+        var post_id = $( this ).data( 'post-id' );
+        var form_data = {
+            action: 'atbdp_close_announcement',
+            post_id: post_id,
+        }
+
+        var button_default_html = $( self ).html();
+        closing_announcement = true;
+        var self = this;
+
+        $.ajax({
+            type: "post",
+            url: atbdp_public_data.ajaxurl,
+            data: form_data,
+            beforeSend() {
+                $( self ).html( '<span class="fas fa-spinner fa-spin"></span> ' );
+                $( self ).addClass( 'disable' );
+                $( self ).attr( 'disable', true );
+            },
+            success: function( response ) {
+                // console.log( { response } );
+                closing_announcement = false;
+
+                $( self ).removeClass( 'disable' );
+                $( self ).attr( 'disable', false );
+
+                if ( response.success ) {
+                    $( '.announcement-id-' + post_id ).remove();
+
+                    if ( ! $( '.announcement-item' ).length ) {
+                        location.reload();
+                    }
+                } else {
+                    $( self ).html( 'Close' );
+                }
+            },
+            error: function( error ) {
+                console.log( { error } );
+
+                $( self ).html( button_default_html );
+                $( self ).removeClass( 'disable' );
+                $( self ).attr( 'disable', false );
+
+                closing_announcement = false;
+            },
+        })
+    });
+
+    // -------------------[ Announcement End ]-------------------------
+
+
     //dashboard content responsive fix
     var tabContentWidth = $(".atbd_dashboard_wrapper .atbd_tab-content").innerWidth();
     if(tabContentWidth < 650){
       $(".atbd_dashboard_wrapper .atbd_tab-content").addClass("atbd_tab-content--fix");
     }
 
-  })(jQuery);
+})(jQuery);
 
   // on load of the page: switch to the currently selected tab
   var tab_url = window.location.href.split("/").pop();

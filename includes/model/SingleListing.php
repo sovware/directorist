@@ -600,9 +600,9 @@ class Directorist_Single_Listing {
 			break;
 
 			default:
-			$content = apply_filters('get_the_content', $field_details);
-			$result = do_shortcode(wpautop($content));
-			break;
+				$content = apply_filters('get_the_content', $field_details);
+				$result = do_shortcode( $content );
+				break;
 		}
 
 		return $result;

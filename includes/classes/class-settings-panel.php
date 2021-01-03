@@ -420,6 +420,36 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                     ],
                 ],
+                'listing_location_fields' => [
+                    'label' => __('Location Source for Search', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'map_api',
+                    'options' => [
+                        [
+                            'value' => 'listing_location',
+                            'label' => __('Display from Listing Location', 'directorist'),
+                        ],
+                        [
+                            'value' => 'map_api',
+                            'label' => __('Display From Map API', 'directorist'),
+                        ],
+                    ],
+                ],
+                'listing_tags_field' => [
+                    'label' => __('Tags Filter Source', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'all_tags',
+                    'options' => [
+                        [
+                            'value' => 'category_based_tags',
+                            'label' => __('Category Based Tags', 'directorist'),
+                        ],
+                        [
+                            'value' => 'all_tags',
+                            'label' => __('All Tags', 'directorist'),
+                        ],
+                    ],
+                ],
                 
 
 
@@ -451,7 +481,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('Listings Page', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listings_display_filter', 'listing_filters_fields', 
+                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listings_display_filter', 'listing_filters_fields', 'listing_location_fields', 'listing_tags_field', 
                                     ],
                                 ],
                             ] ),

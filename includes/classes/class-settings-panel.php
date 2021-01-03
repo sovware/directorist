@@ -133,8 +133,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         // prepare_settings
         public function prepare_settings()
         {
-            $business_hours = '(Requires <a style="color: red" href="https://directorist.com/product/directorist-business-hours/" target="_blank">Business Hours</a> extension)';
-            $business_hours_label = sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? $business_hours : '');
+            $business_hours_label = sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? '(Requires Business Hours extension)' : '');
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
                 'new_listing_status' => [
@@ -474,7 +473,264 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                     ],
                 ],
-                
+                'listings_reset_text' => [
+                    'type' => 'text',
+                    'label' => __('Reset Filters Button text', 'directorist'),
+                    'value' => __('Reset Filters', 'directorist'),
+                ],
+                'listings_apply_text' => [
+                    'type' => 'text',
+                    'label' => __('Apply Filters Button text', 'directorist'),
+                    'value' => __('Apply Filters', 'directorist'),
+                ],
+                'listings_search_text_placeholder' => [
+                    'type' => 'text',
+                    'label' => __('Search Bar Placeholder', 'directorist'),
+                    'value' => __('What are you looking for?', 'directorist'),
+                ],
+                'listings_category_placeholder' => [
+                    'type' => 'text',
+                    'label' => __('Category Placeholder', 'directorist'),
+                    'default' => __('Select a category', 'directorist'),
+                ],
+                'listings_location_placeholder' => [
+                    'type' => 'text',
+                    'label' => __('Location Placeholder', 'directorist'),
+                    'value' => __('location', 'directorist'),
+                ],
+                'display_sort_by' => [
+                    'type' => 'toggle',
+                    'label' => __('Display "Sort By" Dropdown', 'directorist'),
+                    'value' => true,
+                ],
+                'listings_sort_by_items' => [
+                    'label' => __('"Sort By" Dropdown', 'directorist'),
+                    'type'  => 'checkbox',
+                    'value' => [
+                        'a_z',
+                        'z_a',
+                        'latest',
+                        'oldest',
+                        'popular',
+                        'price_low_high',
+                        'price_high_low',
+                        'random'
+                        ],
+                    'options' => [
+                        [
+                            'value' => 'a_z',
+                            'label' => __('A to Z (title)', 'directorist'),
+                        ],
+                        [
+                            'value' => 'z_a',
+                            'label' => __('Z to A (title)', 'directorist'),
+                        ],
+                        [
+                            'value' => 'latest',
+                            'label' => __('Latest listings', 'directorist'),
+                        ],
+                        [
+                            'value' => 'oldest',
+                            'label' => __('Oldest listings', 'directorist'),
+                        ],
+                        [
+                            'value' => 'popular',
+                            'label' => __('Popular listings', 'directorist'),
+                        ],
+                        [
+                            'value' => 'price_low_high',
+                            'label' => __('Price (low to high)', 'directorist'),
+                        ],
+                        [
+                            'value' => 'price_high_low',
+                            'label' => __('Price (high to low)', 'directorist'),
+                        ],
+                        [
+                            'value' => 'random',
+                            'label' => __('Random listings', 'directorist'),
+                        ],
+                    ],
+                ],
+                'display_view_as' => [
+                    'type' => 'toggle',
+                    'label' => __('Display "View As" Dropdown', 'directorist'),
+                    'value' => true,
+                ],
+                'view_as_text' => [
+                    'type' => 'text',
+                    'label' => __('"View As" Text', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_view_as",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => __('View As', 'directorist'),
+                ],
+                'listings_view_as_items' => [
+                    'label' => __('"View As" Dropdown', 'directorist'),
+                    'type'  => 'checkbox',
+                    'show_if' => [
+                        'where' => "self.display_view_as",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => [
+                        'listings_grid',
+                        'listings_list',
+                        'listings_map'
+                        ],
+                    'options' => [
+                        [
+                            'value' => 'listings_grid',
+                            'label' => __('Grid', 'directorist'),
+                        ],
+                        [
+                            'value' => 'listings_list',
+                            'label' => __('List', 'directorist'),
+                        ],
+                        [
+                            'value' => 'listings_map',
+                            'label' => __('Map', 'directorist'),
+                        ],
+                    ],
+                ],
+                'default_listing_view' => [
+                    'label' => __('Default View', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'grid',
+                    'options' => [
+                        [
+                            'value' => 'grid',
+                            'label' => __('Grid', 'directorist'),
+                        ],
+                        [
+                            'value' => 'list',
+                            'label' => __('List', 'directorist'),
+                        ],
+                        [
+                            'value' => 'map',
+                            'label' => __('Map', 'directorist'),
+                        ],
+                    ],
+                ],
+                'grid_view_as' => [
+                    'label' => __('Grid View', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'normal_grid',
+                    'options' => [
+                        [
+                            'value' => 'masonry_grid',
+                            'label' => __('Masonry', 'directorist'),
+                        ],
+                        [
+                            'value' => 'normal_grid',
+                            'label' => __('Normal', 'directorist'),
+                        ],
+                    ],
+                ],
+                'all_listing_columns' => [
+                    'label' => __('Number of Columns', 'directorist'),
+                    'type'  => 'number',
+                    'value' => 3,
+                    'placeholder' => '3',
+                ],
+                'order_listing_by' => [
+                    'label' => __('Listings Order By', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'date',
+                    'options' => [
+                       [
+                            'value' => 'title',
+                            'label' => __('Title', 'directorist'),
+                       ],
+                       [
+                            'value' => 'date',
+                            'label' => __('Date', 'directorist'),
+                       ],
+                       [
+                            'value' => 'price',
+                            'label' => __('Price', 'directorist'),
+                       ],
+                       [
+                            'value' => 'rand',
+                            'label' => __('Random', 'directorist'),
+                       ],
+                    ],
+                ],
+                'sort_listing_by' => [
+                    'label' => __('Listings Sort By', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'desc',
+                    'options' => [
+                        [
+                            'value' => 'asc',
+                            'label' => __('Ascending', 'directorist'),
+                        ],
+                        [
+                            'value' => 'desc',
+                            'label' => __('Descending', 'directorist'),
+                        ],
+                    ],
+                ],
+                'display_preview_image' => [
+                    'type' => 'toggle',
+                    'label' => __('Show Preview Image', 'directorist'),
+                    'description' => __('Hide/show preview image from all listing page.', 'directorist'),
+                    'value' => true,
+                ],
+                'preview_image_quality' => [
+                    'label' => __('Image Quality', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'large',
+                    'show_if' => [
+                        'where' => "self.display_preview_image",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'medium',
+                            'label' => __('Medium', 'directorist'),
+                        ],
+                        [
+                            'value' => 'large',
+                            'label' => __('Large', 'directorist'),
+                        ],
+                        [
+                            'value' => 'full',
+                            'label' => __('Full', 'directorist'),
+                        ],
+                    ],
+                ],
+                'way_to_show_preview' => [
+                    'label' => __('Image Size', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'cover',
+                    'show_if' => [
+                        'where' => "self.display_preview_image",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'full',
+                            'label' => __('Original', 'directorist'),
+                        ],
+                        [
+                            'value' => 'cover',
+                            'label' => __('Fill with Container', 'directorist'),
+                        ],
+                        [
+                            'value' => 'contain',
+                            'label' => __('Fit with Container', 'directorist'),
+                        ],
+                    ],
+                ],
+
 
 
             ]);
@@ -505,7 +761,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('Listings Page', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listings_display_filter', 'listing_filters_fields', 'listing_location_fields', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 
+                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listings_display_filter', 'listing_filters_fields', 'listing_location_fields', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'listings_search_text_placeholder', 'listings_category_placeholder', 'listings_location_placeholder', 'display_sort_by', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'display_preview_image', 'preview_image_quality', 'way_to_show_preview', 
                                     ],
                                 ],
                             ] ),
@@ -576,7 +832,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'page_settings' => [
                     'label' => __( 'Page Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-chart-line directorist_success"></i>',
+                    'icon' => '<i class="fa fa-chart-line directorist_wordpress"></i>',
                     'submenu' => apply_filters('atbdp_page_settings_submenu', [
                        
                     ]),
@@ -584,8 +840,16 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'seo_settings' => [
                     'label' => __( 'SEO Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-bolt directorist_danger"></i>',
+                    'icon' => '<i class="fa fa-bolt directorist_green"></i>',
                     'submenu' => apply_filters('atbdp_seo_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'currency_settings' => [
+                    'label' => __( 'Currency Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-money-bill directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_currency_settings_submenu', [
                        
                     ]),
                 ],

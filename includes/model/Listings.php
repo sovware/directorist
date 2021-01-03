@@ -1192,11 +1192,11 @@ class Directorist_Listings {
 		global $wp;
 		$current_url =  home_url( $wp->request ) . '/';
 		$pattern = '/page\\/[0-9]+\\//i';
-		$actual_link = preg_replace($pattern, '', $current_url);
+		//$actual_link = preg_replace($pattern, '', $current_url);
+		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : '';
 		foreach ( $options as $value => $label ) {
 			$active_class = ( $value == $current_order ) ? ' active' : '';
 			$link         = add_query_arg( 'sort', $value, $actual_link );
-
 			$link_item['active_class'] = $active_class;
 			$link_item['link']         = $link;
 			$link_item['label']        = $label;

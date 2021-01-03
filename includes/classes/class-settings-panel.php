@@ -456,6 +456,24 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'value' => 0,
                     'placeholder' => '10',
                 ],
+                'listings_filters_button' => [
+                    'label' => __('Filter Buttons', 'directorist'),
+                    'type'  => 'checkbox',
+                    'value' => [
+                            'reset_button',
+                            'apply_button',
+                        ],
+                    'options' => [
+                        [
+                            'value' => 'reset_button',
+                            'label' => __('Reset', 'directorist'),
+                        ],
+                        [
+                            'value' => 'apply_button',
+                            'label' => __('Apply', 'directorist'),
+                        ],
+                    ],
+                ],
                 
 
 
@@ -487,7 +505,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('Listings Page', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listings_display_filter', 'listing_filters_fields', 'listing_location_fields', 'listing_tags_field', 'listing_default_radius_distance', 
+                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listings_display_filter', 'listing_filters_fields', 'listing_location_fields', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 
                                     ],
                                 ],
                             ] ),

@@ -1,6 +1,9 @@
 $settings-primary-color: #3e62f5;
 
 .atbdp-settings-panel {
+    .cptm-form-group{
+        margin-bottom: 35px;
+    }
     .cptm-tab-content {
         margin: 0;
         padding: 0;
@@ -14,12 +17,20 @@ $settings-primary-color: #3e62f5;
     }
 
     .cptm-menu-title {
-        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: 500;
+        color: $dark;
+        margin-bottom: 50px;
     }
 
     .cptm-section {
         .cptm-title-area {
+            border-bottom: 1px solid #F1F2F6;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
             .cptm-title {
+                font-size: 18px;
+                font-weight: 500;
                 color: $settings-primary-color;
             }   
         }

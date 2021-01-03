@@ -1,9 +1,25 @@
 
 
 /* settings panel css */
+
+.atbdp-settings-manager{
+    .directorist_builder-header{
+      margin-bottom: 30px;
+    }
+    .atbdp-settings-manager__title{
+      font-size: 24px;
+      font-weight: 500;
+      color: $dark;
+      margin-bottom: 40px;
+    }
+}
 .settings-wrapper {
     width: 100%;
     margin: 0 auto;
+}
+.atbdp-settings-panel{
+    max-width: 1200px;
+    margin: 0 !important;
 }
 .setting-top-bar{
     background: #272B41;
@@ -67,14 +83,18 @@
 
 .setting-search-field__input{
     height: 40px;
-    padding: 0 16px;
-    border: 0 none;
-    background: rgba(255,255,255,0.08);
+    padding: 0 16px !important;
+    border: 0 none !important;
+    background-color: #ffffff08 !important;
     border-radius: 4px;
-    color: #fff;
+    color: #ffffff50 !important;
     width: 250px;
     max-width: 250px;
     font-size: 14px;
+    &:focus{
+        outline: none;
+        box-shadow: 0 0 !important;
+    }
 }
 .settings-save-btn {
     display: inline-block;
@@ -102,6 +122,7 @@
     width: 250px;
     background: #F6F6F6;
     border-right: 1px solid #f6f6f6;
+    padding-top: 15px;
 }
 .settings-nav{
     margin: 0;
@@ -144,6 +165,32 @@
 .settings-nav__item__icon{
     display: inline-block;
     margin-right: 17px;
+    i{
+        &.directorist_Blue{
+            color: #3E62F5
+        }
+        &.directorist_success{
+            color: #08BF9C
+        }
+        &.directorist_pink{
+            color: #FF408C
+        }
+        &.directorist_warning{
+            color: #FA8B0C
+        }
+        &.directorist_info{
+            color: #2C99FF
+        }
+        &.directorist_green{
+            color: #00B158
+        }
+        &.directorist_danger{
+            color: #FF272A
+        }
+        &.directorist_wordpress{
+            color: #0073AA
+        }
+    }
 }
 
 .settings-nav__item ul li a{

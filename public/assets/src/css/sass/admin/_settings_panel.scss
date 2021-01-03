@@ -1,6 +1,7 @@
 
 
 /* settings panel css */
+
 .atbdp-settings-manager{
     .directorist_builder-header{
       margin-bottom: 30px;
@@ -15,6 +16,10 @@
 .settings-wrapper {
     width: 100%;
     margin: 0 auto;
+}
+.atbdp-settings-panel{
+    max-width: 1200px;
+    margin: 0 !important;
 }
 .setting-top-bar{
     background: #272B41;

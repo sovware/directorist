@@ -165,6 +165,151 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                     ],
                 ],
+                'fix_js_conflict' => [
+                    'label' => __('Fix Conflict with Bootstrap JS', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                    'description' => __('If you use a theme that uses Bootstrap Framework especially Bootstrap JS, then Check this setting to fix any conflict with theme bootstrap js.', 'directorist'),
+                ],
+                'font_type' => [
+                    'label' => __('Icon Library', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'line',
+                    'options' => [
+                        [
+                            'label' => __('Font Awesome', 'directorist'),
+                            'value' => 'font',
+                        ],
+                        [
+                            'label' => __('Line Awesome', 'directorist'),
+                            'value' => 'line',
+                        ],
+                    ],
+                ],
+                'default_expiration' => [
+                    'label' => __('Default expiration in days', 'directorist'),
+                    'type'  => 'number',
+                    'value' => 30,
+                    'placeholder' => '365',
+                    'rules' => [
+                        'required' => true,
+                    ],
+                ],
+                'can_renew_listing' => [
+                    'label' => __('Can User Renew Listing?', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                    'description' => __('Here YES means users can renew their listings.', 'directorist'),
+                ],
+                'email_to_expire_day' => [
+                    'label' => __('When to send expire notice', 'directorist'),
+                    'type'  => 'number',
+                    'description' => __('Select the days before a listing expires to send an expiration reminder email', 'directorist'),
+                    'value' => 7,
+                    'placeholder' => '10',
+                    'rules' => [
+                        'required' => true,
+                    ],
+                ],
+                'email_renewal_day' => [
+                    'label' => __('When to send renewal reminder', 'directorist'),
+                    'type'  => 'number',
+                    'description' => __('Select the days after a listing expires to send a renewal reminder email', 'directorist'),
+                    'value' => 7,
+                    'placeholder' => '10',
+                    'rules' => [
+                        'required' => true,
+                    ],
+                ],
+                'delete_expired_listing' => [
+                    'label' => __('Delete/Trash Expired Listings', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'delete_expired_listings_after' => [
+                    'label' => __('Delete/Trash Expired Listings After (days) of Expiration', 'directorist'),
+                    'type'  => 'number',
+                    'description' => __('Select the days before a listing expires to send an expiration reminder email', 'directorist'),
+                    'value' => 15,
+                    'placeholder' => '15',
+                    'rules' => [
+                        'required' => true,
+                    ],
+                ],
+                'deletion_mode' => [
+                    'label' => __('Delete or Trash Expired Listings', 'directorist'),
+                    'type'  => 'select',
+                    'description' => __('Choose the Default actions after a listing reaches its deletion threshold.', 'directorist'),
+                    'value' => 'trash',
+                    'options' => [
+                        [
+                            'value' => 'force_delete',
+                            'label' => __('Delete Permanently', 'directorist'),
+                        ],
+                        [
+                            'value' => 'trash',
+                            'label' => __('Move to Trash', 'directorist'),
+                        ],
+                    ],
+                ],
+                'paginate_author_listings' => [
+                    'label' => __('Paginate Author Listings', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'display_author_email' => [
+                    'label' => __('Author Email', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'public',
+                    'options' => [
+                        array(
+                            'value' => 'public',
+                            'label' => __('Display', 'directorist'),
+                        ),
+                        array(
+                            'value' => 'logged_in',
+                            'label' => __('Display only for Logged in Users', 'directorist'),
+                        ),
+
+                        array(
+                            'value' => 'none_to_display',
+                            'label' => __('Hide', 'directorist'),
+                        ),
+                    ],
+                ],
+                'author_cat_filter' => [
+                    'label' => __('Show Category Filter on Author Page', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'atbdp_enable_cache' => [
+                    'label' => __('Enable Cache', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'atbdp_reset_cache' => [
+                    'label' => __('Reset Cache', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => false,
+                ],
+                'guest_listings' => [
+                    'label' => __('Guest Listing Submission', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => false,
+                ],
+
+                // listings page
+                'display_listings_header' => [
+                    'label' => __('Display Header', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
+                ],
+                'all_listing_title' => [
+                    'type' => 'text',
+                    'label' => __('Header Title', 'directorist'),
+                    'value' => __('Items Found', 'directorist'),
+                ],
+
 
             ]);
 
@@ -181,19 +326,21 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('General Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'new_listing_status',
-                                        'edit_listing_status',
+                                        'new_listing_status', 'edit_listing_status', 'fix_js_conflict', 'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
                                     ],
                                 ],
                             ] ),
                         ],
                         'listings_page' => [
                             'label' => __('Listings Page', 'directorist'),
+                            'icon' => '<i class="fa fa-archive"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
                                 'labels' => [
                                     'title'       => __('Listings Page', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [
+                                        'display_listings_header', 'all_listing_title', 
+                                    ],
                                 ],
                             ] ),
                         ],
@@ -250,6 +397,14 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                 ],
                             ] ),
                         ],
+                    ]),
+                ],
+
+                'search_settings' => [
+                    'label' => __( 'Search Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-search"></i>',
+                    'submenu' => apply_filters('atbdp_listing_settings_submenu', [
+                       
                     ]),
                 ],
 

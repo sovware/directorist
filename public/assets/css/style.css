@@ -58,8 +58,18 @@ input[type="checkbox"] {
 }
 
 /* typography */
-.atbd_color-primary, .atbd_content_active #directorist.atbd_wrapper h1 a:hover, .atbd_content_active #directorist.atbd_wrapper h2 a:hover, .atbd_content_active #directorist.atbd_wrapper h3 a:hover, .atbd_content_active #directorist.atbd_wrapper h4 a:hover, .atbd_content_active #directorist.atbd_wrapper h5 a:hover, .atbd_content_active #directorist.atbd_wrapper h6 a:hover,
-.atbd_content_active #directorist.atbd_wrapper .h1 a:hover, .atbd_content_active #directorist.atbd_wrapper .h2 a:hover, .atbd_content_active #directorist.atbd_wrapper .h3 a:hover, .atbd_content_active #directorist.atbd_wrapper .h4 a:hover, .atbd_content_active #directorist.atbd_wrapper .h5 a:hover, .atbd_content_active #directorist.atbd_wrapper .h6 a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area h4 span,
+.atbd_color-primary, .atbd_content_active #directorist.atbd_wrapper h1 a:hover,
+.atbd_content_active #directorist.atbd_wrapper h2 a:hover,
+.atbd_content_active #directorist.atbd_wrapper h3 a:hover,
+.atbd_content_active #directorist.atbd_wrapper h4 a:hover,
+.atbd_content_active #directorist.atbd_wrapper h5 a:hover,
+.atbd_content_active #directorist.atbd_wrapper h6 a:hover,
+.atbd_content_active #directorist.atbd_wrapper .h1 a:hover,
+.atbd_content_active #directorist.atbd_wrapper .h2 a:hover,
+.atbd_content_active #directorist.atbd_wrapper .h3 a:hover,
+.atbd_content_active #directorist.atbd_wrapper .h4 a:hover,
+.atbd_content_active #directorist.atbd_wrapper .h5 a:hover,
+.atbd_content_active #directorist.atbd_wrapper .h6 a:hover, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area h4 span,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area h4 i,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 span,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area h4 i, .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action a:hover,
@@ -802,8 +812,18 @@ body.atbd_content_active #directorist.atbd_wrapper {
   -o-transition: none !important;
 }
 
-.atbd_content_active #directorist.atbd_wrapper h1, .atbd_content_active #directorist.atbd_wrapper h2, .atbd_content_active #directorist.atbd_wrapper h3, .atbd_content_active #directorist.atbd_wrapper h4, .atbd_content_active #directorist.atbd_wrapper h5, .atbd_content_active #directorist.atbd_wrapper h6,
-.atbd_content_active #directorist.atbd_wrapper .h1, .atbd_content_active #directorist.atbd_wrapper .h2, .atbd_content_active #directorist.atbd_wrapper .h3, .atbd_content_active #directorist.atbd_wrapper .h4, .atbd_content_active #directorist.atbd_wrapper .h5, .atbd_content_active #directorist.atbd_wrapper .h6 {
+.atbd_content_active #directorist.atbd_wrapper h1,
+.atbd_content_active #directorist.atbd_wrapper h2,
+.atbd_content_active #directorist.atbd_wrapper h3,
+.atbd_content_active #directorist.atbd_wrapper h4,
+.atbd_content_active #directorist.atbd_wrapper h5,
+.atbd_content_active #directorist.atbd_wrapper h6,
+.atbd_content_active #directorist.atbd_wrapper .h1,
+.atbd_content_active #directorist.atbd_wrapper .h2,
+.atbd_content_active #directorist.atbd_wrapper .h3,
+.atbd_content_active #directorist.atbd_wrapper .h4,
+.atbd_content_active #directorist.atbd_wrapper .h5,
+.atbd_content_active #directorist.atbd_wrapper .h6 {
   margin-bottom: 0.5rem;
   font-weight: 500;
   line-height: 1.2;
@@ -811,8 +831,18 @@ body.atbd_content_active #directorist.atbd_wrapper {
   letter-spacing: normal;
 }
 
-.atbd_content_active #directorist.atbd_wrapper h1 a, .atbd_content_active #directorist.atbd_wrapper h2 a, .atbd_content_active #directorist.atbd_wrapper h3 a, .atbd_content_active #directorist.atbd_wrapper h4 a, .atbd_content_active #directorist.atbd_wrapper h5 a, .atbd_content_active #directorist.atbd_wrapper h6 a,
-.atbd_content_active #directorist.atbd_wrapper .h1 a, .atbd_content_active #directorist.atbd_wrapper .h2 a, .atbd_content_active #directorist.atbd_wrapper .h3 a, .atbd_content_active #directorist.atbd_wrapper .h4 a, .atbd_content_active #directorist.atbd_wrapper .h5 a, .atbd_content_active #directorist.atbd_wrapper .h6 a {
+.atbd_content_active #directorist.atbd_wrapper h1 a,
+.atbd_content_active #directorist.atbd_wrapper h2 a,
+.atbd_content_active #directorist.atbd_wrapper h3 a,
+.atbd_content_active #directorist.atbd_wrapper h4 a,
+.atbd_content_active #directorist.atbd_wrapper h5 a,
+.atbd_content_active #directorist.atbd_wrapper h6 a,
+.atbd_content_active #directorist.atbd_wrapper .h1 a,
+.atbd_content_active #directorist.atbd_wrapper .h2 a,
+.atbd_content_active #directorist.atbd_wrapper .h3 a,
+.atbd_content_active #directorist.atbd_wrapper .h4 a,
+.atbd_content_active #directorist.atbd_wrapper .h5 a,
+.atbd_content_active #directorist.atbd_wrapper .h6 a {
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
@@ -824,51 +854,51 @@ body.atbd_content_active #directorist.atbd_wrapper {
 }
 
 .atbdp_column.atbdp-col-1 {
-  width: calc( 100% / 1);
+  width: calc(100% / 1);
 }
 
 .atbdp_column.atbdp-col-2 {
-  width: calc( 100% / 2);
+  width: calc(100% / 2);
 }
 
 .atbdp_column.atbdp-col-3 {
-  width: calc( 100% / 3);
+  width: calc(100% / 3);
 }
 
 .atbdp_column.atbdp-col-4 {
-  width: calc( 100% / 4);
+  width: calc(100% / 4);
 }
 
 .atbdp_column.atbdp-col-5 {
-  width: calc( 100% / 5);
+  width: calc(100% / 5);
 }
 
 .atbdp_column.atbdp-col-6 {
-  width: calc( 100% / 6);
+  width: calc(100% / 6);
 }
 
 .atbdp_column.atbdp-col-7 {
-  width: calc( 100% / 7);
+  width: calc(100% / 7);
 }
 
 .atbdp_column.atbdp-col-8 {
-  width: calc( 100% / 8);
+  width: calc(100% / 8);
 }
 
 .atbdp_column.atbdp-col-9 {
-  width: calc( 100% / 9);
+  width: calc(100% / 9);
 }
 
 .atbdp_column.atbdp-col-10 {
-  width: calc( 100% / 10);
+  width: calc(100% / 10);
 }
 
 .atbdp_column.atbdp-col-11 {
-  width: calc( 100% / 11);
+  width: calc(100% / 11);
 }
 
 .atbdp_column.atbdp-col-12 {
-  width: calc( 100% / 12);
+  width: calc(100% / 12);
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbdp_column {
@@ -882,7 +912,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
   text-align: initial;
 }
 
-.atbd_content_active #directorist.atbd_wrapper div, .atbd_content_active #directorist.atbd_wrapper p, .atbd_content_active #directorist.atbd_wrapper a, .atbd_content_active #directorist.atbd_wrapper li {
+.atbd_content_active #directorist.atbd_wrapper div,
+.atbd_content_active #directorist.atbd_wrapper p,
+.atbd_content_active #directorist.atbd_wrapper a,
+.atbd_content_active #directorist.atbd_wrapper li {
   font-size: 15px;
 }
 
@@ -980,7 +1013,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-right: 10px;
 }
 
-#directorist.atbd_wrapper .iris-picker, #directorist.atbd_wrapper .iris-picker * {
+#directorist.atbd_wrapper .iris-picker,
+#directorist.atbd_wrapper .iris-picker * {
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
@@ -1072,7 +1106,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-bottom: 20px;
 }
 
-#directorist.atbd_wrapper #atbdp_checkout_total_amount, #directorist.atbd_wrapper .atbd_tottal {
+#directorist.atbd_wrapper #atbdp_checkout_total_amount,
+#directorist.atbd_wrapper .atbd_tottal {
   font-size: 20px;
   font-weight: 500;
 }
@@ -1132,7 +1167,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
       flex-wrap: wrap;
 }
 
-#directorist.atbd_wrapper .pagination .nav-links .current, #directorist.atbd_wrapper .pagination .nav-links .page-numbers {
+#directorist.atbd_wrapper .pagination .nav-links .current,
+#directorist.atbd_wrapper .pagination .nav-links .page-numbers {
   padding: 0;
   line-height: normal;
   height: 35px;
@@ -1161,7 +1197,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   float: none;
 }
 
-#directorist.atbd_wrapper .pagination .nav-links .current:last-child, #directorist.atbd_wrapper .pagination .nav-links .page-numbers:last-child {
+#directorist.atbd_wrapper .pagination .nav-links .current:last-child,
+#directorist.atbd_wrapper .pagination .nav-links .page-numbers:last-child {
   margin-right: 0;
   margin-left: 2px;
 }
@@ -1190,17 +1227,21 @@ body.atbd_content_active #directorist.atbd_wrapper {
   content: none;
 }
 
-#directorist.atbd_wrapper .form-control, .default-ad-search .form-control {
+#directorist.atbd_wrapper .form-control,
+.default-ad-search .form-control {
   padding: 10px 15px;
   height: auto;
   line-height: 1.5 !important;
 }
 
-#directorist.atbd_wrapper .form-control[type="time"], #directorist.atbd_wrapper .form-control[type="date"], .default-ad-search .form-control[type="time"], .default-ad-search .form-control[type="date"] {
+#directorist.atbd_wrapper .form-control[type="time"], #directorist.atbd_wrapper .form-control[type="date"],
+.default-ad-search .form-control[type="time"],
+.default-ad-search .form-control[type="date"] {
   padding: 9px 15px;
 }
 
-#directorist.atbd_wrapper textarea.form-control, .default-ad-search textarea.form-control {
+#directorist.atbd_wrapper textarea.form-control,
+.default-ad-search textarea.form-control {
   padding-top: 0;
 }
 
@@ -1298,7 +1339,9 @@ body.atbd_content_active #directorist.atbd_wrapper {
   font-size: 15px;
 }
 
-.atbdp_login_form_shortcode .login-username label, .atbdp_login_form_shortcode .login-password label, .atbdp_login_form_shortcode .login-remember label {
+.atbdp_login_form_shortcode .login-username label,
+.atbdp_login_form_shortcode .login-password label,
+.atbdp_login_form_shortcode .login-remember label {
   font-size: 15px;
   font-weight: 400;
 }
@@ -2507,7 +2550,8 @@ div#listing_notifier span.atbdp_success {
 }
 
 /* map image radius */
-#map img, #gmap img {
+#map img,
+#gmap img {
   border-radius: 0 !important;
 }
 
@@ -2754,6 +2798,10 @@ input#privacy_policy,
         -ms-flex-order: 1;
             order: 1;
   }
+}
+
+.select2-container--open .select2-dropdown.select2-dropdown--below {
+  top: 30px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {

@@ -22,12 +22,28 @@
 }
 .setting-top-bar{
     background: #272B41;
-    padding: 15px 25px;
+    padding: 15px 20px;
     border-radius: 5px 5px 0 0;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
+    .search-suggestions-list{
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 10px 40px #868EAE30;
+        .search-suggestions-list--link{
+            padding: 8px 10px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+            color: #5A5F7D;
+            &:hover{
+                color: #fff;
+                background-color: #3E62F5;
+            }
+        }
+    }
 }
 
 .setting-top-bar__search-actions {

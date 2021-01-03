@@ -140,10 +140,6 @@
                                                     $delete_link = admin_url('admin-post.php' . '?listing_type_id=' . absint( $listing_type->term_id ) . '&action=delete_listing_type');
                                                     $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');
                                                     $created_time = get_term_meta( $listing_type->term_id, '_created_date', true );             
-                                                    if( ! $default ){
-                                                        $actions['default'] = '<a href="" data-type-id="'. absint( $listing_type->term_id ) .'" class="submitdefault">Make Default</a>';
-                                                      }
-
                                             ?>
                                             <tr>
                                                 <td>
@@ -157,22 +153,19 @@
                                                 ?></td>
                                                 <td>
                                                     <div class="directorist_listing-actions">
-                                                        <?php  
-                                                        if( ! $default ) {
-                                                        ?>
-                                                        <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" data-type-id="<?php echo absint( $listing_type->term_id ); ?>" class="directorist_btn directorist_btn-primary submitdefault"><i class="la la-edit"></i><?php _e( 'Mark as Default', 'directorist' ); ?></a>
-                                                        <?php } ?>
                                                         <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_btn directorist_btn-primary"><i class="la la-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>
                                                         <a href="<?php echo ! empty( $delete_link ) ? $delete_link : '#'; ?>" class="directorist_btn directorist_btn-danger"><i class="la la-trash"></i><?php _e( 'Delete', 'directorist' ); ?></a>
-                                                        
-                                                        <div class="directorist_listing-type-checkbox directorist_custom-checkbox">
-                                                            <input type="checkbox" name="check-1" id="check-1">
-                                                            <label for="check-1">
-                                                                <span class="checkbox-text">
-                                                                    Make It Default
-                                                                </span>
-                                                            </label>
-                                                        </div>
+                                                        <?php  
+                                                        if( ! $default ) {  ?>
+                                                            <div data-type-id="<?php echo absint( $listing_type->term_id ); ?>" class="directorist_listing-type-checkbox directorist_custom-checkbox submitdefault">
+                                                                <input class="submitDefaultCheckbox" type="checkbox" name="check-1" id="check-1">
+                                                                <label for="check-1">
+                                                                    <span class="checkbox-text">
+                                                                    <?php _e( 'Make It Default', 'directorist' ); ?>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                        <?php } ?>
                                                     </div>
                                                 </td>
                                             </tr>

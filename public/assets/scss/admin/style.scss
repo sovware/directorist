@@ -2507,7 +2507,7 @@ span.atbdp-tick-cross {
       margin-right: 20px;
     }
     @media only screen and (max-width: 1399px){
-      width: 280px;
+      width: 200px;
     }
     @media only screen and (max-width: 1199px){
       width: 320px;
@@ -2526,7 +2526,7 @@ span.atbdp-tick-cross {
         min-width: 320px;
       }
       @media only screen and (max-width: 1399px){
-        min-width: 280px;
+        min-width: 200px;
       }
       @media only screen and (max-width: 1199px){
         min-width: 320px;
@@ -2629,7 +2629,7 @@ span.atbdp-tick-cross {
       border-radius: 4px;
       box-shadow: 0 5px 10px #ADB4D210;
       @media only screen and (max-width: 1399px){
-        padding: 15px;
+        padding: 10px;
       }
       .directorist_table{
         display: table;
@@ -2708,7 +2708,7 @@ span.atbdp-tick-cross {
               color: #5A5F7D;
               padding: 20px 20px;
               @media only screen and (max-width: 1399px){
-                padding: 15px 10px;
+                padding: 15px 5px;
               }
               &:first-child{
                 border-radius: 6px 0 0 6px;
@@ -2744,6 +2744,7 @@ span.atbdp-tick-cross {
                   line-height: 2.75;
                   @media only screen and (max-width: 1399px){
                     padding: 0 10px;
+                    line-height: 2.5;
                   }
                   i,
                   svg,
@@ -2757,7 +2758,14 @@ span.atbdp-tick-cross {
                 .directorist_listing-type-checkbox{
                   display: inline-block;
                   margin: 5px 5px 5px 15px;
+                  @media only screen and (max-width: 1399px){
+                    margin: 5px;
+                  }
                 }
+              }
+              .atbd-listing-type-active-status{
+                margin-top: 15px;
+                margin-left: 0;
               }
             }
           }

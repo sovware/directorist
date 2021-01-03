@@ -38,6 +38,7 @@
 
 				$searchform->listing_type_template();
 				?>
+				<input type="hidden" name="listing_type" id="listing_type" value="<?php echo esc_attr( $searchform->listing_type ); ?>">
 				<div class="atbdp-whole-search-form">
 					<div class="row atbdp-search-form atbdp-search-form-inline">
 						<?php

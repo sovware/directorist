@@ -931,7 +931,7 @@
                         cleared_seen_announcements = true;
                         $( '.new-announcement-count' ).removeClass( 'show' );
                         $( '.new-announcement-count' ).html( '' );
-                    } 
+                    }
                 },
                 error: function( error ) {
                     console.log( { error } );
@@ -1004,6 +1004,11 @@
       $(".atbd_dashboard_wrapper .atbd_tab-content").addClass("atbd_tab-content--fix");
     }
 
+
+    $("[data-target='atbdp-report-abuse-modal']").on("click", function(){
+        alert("sdf");
+    })
+    //console.log($("[data-target='atbdp-report-abuse-modal']"));
 })(jQuery);
 
   // on load of the page: switch to the currently selected tab

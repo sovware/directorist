@@ -39,12 +39,17 @@ if ($plan_permission && !$hide_contact_owner && empty($disable_contact_owner)) {
              * @since 4.4.0
              */
 
-            do_action('atbdp_before_contact_form_submit_button');
+            // do_action('atbdp_before_contact_form_submit_button');
             ?>
             <!-- <div class="atbdp-form-alert" style="margin-bottom: 10px"></div> -->
 			<p class="atbdp-contact-message-display" style="margin-bottom: 10px"></p> 
             <button type="submit" class="btn btn-primary"><?php _e('Submit', 'directorist'); ?></button>
         </form>
-    </div>
-    <?php
+	</div>
+	
+	<?php
+	/**
+	 * @since 5.0.5
+	 */
+	do_action('atbdp_after_contact_listing_owner_section', $listing_id);
 }

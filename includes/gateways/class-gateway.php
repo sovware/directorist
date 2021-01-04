@@ -310,28 +310,29 @@ class ATBDP_Gateway{
     {
         $active_gateways = get_directorist_option('active_gateways', array());
         $default_gw = get_directorist_option('default_gateway', 'bank_transfer');
-        if (empty($active_gateways)) return ''; // if the gateways are empty, vail out.
+        if ( empty( $active_gateways ) ) return ''; // if the gateways are empty, vail out.
+        
+        $format = <<<KAMAL
+        <li class="list-group-item">
+            <div class="gateway_list">
+                <label for="##GATEWAY##">
+                    <input type="radio" id="##GATEWAY##" name="payment_gateway" value="##GATEWAY##" ##CHECKED##>##LABEL##
+                </label>
+            </div>
+            ##DESC##
+        </li>
+        KAMAL;
+
         $markup = '<ul>';
         foreach ($active_gateways as $gw_name){
-                $title = get_directorist_option($gw_name.'_title');
-                $desc = get_directorist_option($gw_name.'_description');
-                $desc = !empty($desc) ? "<p class='text-muted'>{$desc}</p>" : '';
-                $checked = ($gw_name == $default_gw) ? ' checked': '';
-
-                $format = <<<KAMAL
-                <li class="list-group-item">
-                    <div class="gateway_list">
-                        <label for="##GATEWAY##">
-                            <input type="radio" id="##GATEWAY##" name="payment_gateway" value="##GATEWAY##" ##CHECKED##>##LABEL##
-                        </label>
-                    </div>
-                    ##DESC##
-                </li>
-KAMAL;
-                $search = array("##GATEWAY##", "##LABEL##", "##DESC##", "##CHECKED##");
-                $replace = array($gw_name, $title, $desc, $checked);
-                $markup  .= str_replace($search, $replace , $format);
-                /*@todo; Add a settings to select a default payment method.*/
+            $title = get_directorist_option($gw_name.'_title');
+            $desc = get_directorist_option($gw_name.'_description');
+            $desc = ! empty( $desc ) ? "<p class='text-muted'>{$desc}</p>" : '';
+            $checked = ( $gw_name == $default_gw ) ? ' checked': '';
+            $search = array("##GATEWAY##", "##LABEL##", "##DESC##", "##CHECKED##");
+            $replace = array($gw_name, $title, $desc, $checked);
+            $markup .= str_replace($search, $replace , $format);
+            /*@todo; Add a settings to select a default payment method.*/
         }
         $markup .= '</ul>';
 
@@ -339,5 +340,3 @@ KAMAL;
     }
 
 }
-
-

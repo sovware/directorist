@@ -682,7 +682,7 @@ class Directorist_Listings {
 			}
 
 		}
-		
+
 		return ATBDP_Listings_Data_Store::get_archive_listings_query( $this->query_args, $caching_options );
 	}
 

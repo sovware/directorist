@@ -394,7 +394,7 @@ class Directorist_Single_Listing
 
 			default:
 				$content = apply_filters('get_the_content', $field_details);
-				$result = do_shortcode(wpautop($content));
+				$result = do_shortcode( $content );
 				break;
 		}
 

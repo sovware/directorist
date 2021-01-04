@@ -376,7 +376,6 @@ body.atbd_content_active #directorist.atbd_wrapper {
       line-height: normal;
       height: 35px;
       width: 35px;
-      min-width: 35px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -1905,13 +1904,15 @@ input#privacy_policy,
   margin: 20px 0 10px;
 }
 
-.atbdp-flush-message-item, .atbdp-alert {
+.atbdp-flush-message-item,
+.atbdp-alert {
   margin-bottom: 10px;
   padding: 15px;
   text-align: center;
   border-radius: 5px;
   background-color: #f2f2f2;
 }
+
 .atbdp-alert {
   margin-bottom: 10px;
   padding: 10px 15px;
@@ -1920,39 +1921,48 @@ input#privacy_policy,
   background-color: #f7f7f7;
 }
 
-.atbdp-flush-message-item.type-info, .atbdp-alert.alert-info {
+.atbdp-flush-message-item.type-info,
+.atbdp-alert.alert-info {
   color: #fff;
   background-color: #377dff;
 }
 
-.atbdp-flush-message-item.type-success, .atbdp-alert.alert-success {
+.atbdp-flush-message-item.type-success,
+.atbdp-alert.alert-success {
   color: #fff;
   background-color: #32cc6f;
 }
 
-.atbdp-flush-message-item.type-warning, .atbdp-alert.alert-warning {
+.atbdp-flush-message-item.type-warning,
+.atbdp-alert.alert-warning {
   color: #fff;
   background-color: #f2b01e;
 }
 
-.atbdp-flush-message-item.type-danger, .atbdp-alert.alert-danger {
+.atbdp-flush-message-item.type-danger,
+.atbdp-alert.alert-danger {
   color: #fff;
   background-color: #e23636;
 }
 
 /* Light Version */
-.atbdp-flush-message-item.type-info-light, .atbdp-alert.alert-info-light {
+.atbdp-flush-message-item.type-info-light,
+.atbdp-alert.alert-info-light {
   color: #377dff;
 }
-.atbdp-flush-message-item.type-success-light, .atbdp-alert.alert-success-light {
+
+.atbdp-flush-message-item.type-success-light,
+.atbdp-alert.alert-success-light {
   color: #32cc6f;
 }
 
-.atbdp-flush-message-item.type-warning-light, .atbdp-alert.alert-warning-light {
+.atbdp-flush-message-item.type-warning-light,
+.atbdp-alert.alert-warning-light {
   color: #f2b01e;
 }
 
-.atbdp-flush-message-item.type-danger-light, .atbdp-alert.alert-danger-light {
+.atbdp-flush-message-item.type-danger-light,
+.atbdp-alert.alert-danger-light {
   color: #e23636;
 }
 
@@ -2042,7 +2052,7 @@ input#privacy_policy,
   margin-bottom: 10px;
 }
 
-.atbdp-form-control, 
+.atbdp-form-control,
 input[type="text"].atbdp-form-control,
 input[type="number"].atbdp-form-control,
 input[type="password"].atbdp-form-control,

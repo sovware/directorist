@@ -149,6 +149,100 @@
         });
     });
 
+     // send system info to admin
+  $("#atbdp-send-system-info-submit").on("click", function (event) {
+    event.preventDefault();
+
+    if (!$("#atbdp-email-subject").val()) {
+      alert("The Subject field is required");
+      return;
+    }
+    if (!$("#atbdp-email-address").val()) {
+      alert("The Email field is required");
+      return;
+    }
+    if (!$("#atbdp-email-message").val()) {
+      alert("The Message field is required");
+      return;
+    }
+    $.ajax({
+      type: "post",
+      url: atbdp_admin_data.ajaxurl,
+      data: { 
+        action: "send_system_info", //calls wp_ajax_nopriv_ajaxlogin
+        _nonce: $("#atbdp_email_nonce").val(),
+        email: $("#atbdp-email-address").val(),
+        sender_email: $("#atbdp-sender-address").val(),
+        subject: $("#atbdp-email-subject").val(),
+        message: $("#atbdp-email-message").val(),
+        system_info_url: $("#atbdp-system-info-url").val(),
+      },
+      beforeSend: function () {
+        $("#atbdp-send-system-info-submit").html("Sending");
+      },
+      success: function (data) {
+        if (data.success) {
+          $("#atbdp-send-system-info-submit").html("Send Email");
+          $(".system_info_success").html("Successfully send");
+        }
+      },
+      error: function (data) {
+        console.log(data);
+      },
+    });
+  });
+
+  /**
+   * Generate new Remote View URL and display it on the admin page
+   */
+  $("#generate-url").on("click", function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "post",
+      url: atbdp_admin_data.ajaxurl,
+      data: {
+        action: "generate_url", //calls wp_ajax_nopriv_ajaxlogin nonce: ()
+        _nonce: $(this).attr('data-nonce')
+      },
+      success: function (response) {
+        $("#atbdp-remote-response").html(response.data.message);
+        $("#system-info-url, #atbdp-system-info-url").val(response.data.url);
+        $("#system-info-url-text-link")
+          .attr("href", response.data.url)
+          .css("display", "inline-block");
+      },
+      error: function (response) {
+        // $('#atbdp-remote-response').val(response.data.error);
+      },
+    });
+
+    return false;
+  });
+
+  $("#revoke-url").on("click", function (e) {
+    e.preventDefault();
+    $.ajax({
+      type: "post",
+      url: atbdp_admin_data.ajaxurl,
+      data: {
+        action: "revoke_url", //calls wp_ajax_nopriv_ajaxlogin
+        _nonce: $(this).attr('data-nonce')
+      },
+      success: function (response) {
+        $("#atbdp-remote-response").html(response.data);
+        $("#system-info-url, #atbdp-system-info-url").val("");
+        $("#system-info-url-text-link")
+          .attr("href", "#")
+          .css("display", "none");
+      },
+      error: function (response) {
+        // $('#atbdp-remote-response').val(response.data.error);
+      },
+    });
+
+    return false;
+  });
+
     // redirect to import import_page_link
     $('#csv_import input[name="csv_import"]').on('change', function (event) {
         event.preventDefault();
@@ -3029,5 +3123,50 @@
         if (show_if_value === subject_elm.val()) { terget_elm.show(); }
         else { terget_elm.hide(); }
     }
+
+    // Custom Tab Support Status
+  $(".atbds_wrapper a.nav-link").on("click", function (e) {
+    e.preventDefault();
+
+    console.log($(this).data("tabarea"));
+    const atbds_tabParent = $(this).parent().parent().find("a.nav-link");
+    var $href = $(this).attr("href");
+    $(atbds_tabParent).removeClass("active");
+    $(this).addClass("active");
+    console.log($(".tab-content[data-tabarea='atbds_system-info-tab']"));
+
+    switch ($(this).data("tabarea")) {
+      case "atbds_system-status-tab":
+        $(
+          ".tab-content[data-tabarea='atbds_system-status-tab'] >.tab-pane"
+        ).removeClass("active show");
+        $(
+          ".tab-content[data-tabarea='atbds_system-status-tab'] " + $href
+        ).addClass("active show");
+        break;
+      case "atbds_system-info-tab":
+        $(
+          ".tab-content[data-tabarea='atbds_system-info-tab'] >.tab-pane"
+        ).removeClass("active show");
+        $(
+          ".tab-content[data-tabarea='atbds_system-info-tab'] " + $href
+        ).addClass("active show");
+        break;
+      default:
+        break;
+    }
+  });
+
+  // Custom Tooltip Support Added
+  $(".atbds_tooltip").on("hover", function () {
+    const toolTipLabel = $(this).data("label");
+    console.log(toolTipLabel);
+    $(this).find(".atbds_tooltip__text").text(toolTipLabel);
+    $(this).find(".atbds_tooltip__text").addClass("show");
+  });
+
+  $(".atbds_tooltip").on("mouseleave", function () {
+    $(".atbds_tooltip__text").removeClass("show");
+  });
 
 })(jQuery);

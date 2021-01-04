@@ -223,7 +223,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                         <p><?php _e( 'No announcement found', 'directorist' ) ?></p>
                     <?php endif;
 
-                    if ( $skipped_post_count >= $total_posts ) {
+                    if ( $total_posts && $skipped_post_count >= $total_posts ) {
                         _e( 'No announcement found', 'directorist' );
                     }
                     ?>

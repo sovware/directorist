@@ -9,6 +9,11 @@ export default {
         event: 'input'
     },
     props: {
+        fieldId: {
+            type: String,
+            required: false,
+            default: '',
+        },
         label: {
             type: String,
             required: false,
@@ -81,6 +86,13 @@ export default {
             fields: 'fields',
         }),
 
+        theCurrentOptionLabel() {
+            if ( ! this.optionsInObject ) { return ''; }
+            if ( typeof this.optionsInObject[ this.value ] === 'undefined' ) { return ''; }
+
+            return this.optionsInObject[ this.value ];
+        },
+
         theOptions() {
             if ( this.hasOptionsSource ) {
                 return this.hasOptionsSource;
@@ -146,6 +158,10 @@ export default {
     data() {
         return {
             local_value: '',
+            local_value_ms: [],
+            optionsInObject: {},
+            show_option_modal: false,
+            clickEvent: null,
         }
     },
 
@@ -158,11 +174,31 @@ export default {
             if ( this.valueIsValid( this.value ) ) {
                 this.local_value = this.value;
             }
+
+            this.optionsInObject = this.convertOptionsToObject();
+
+            const self = this;
+            document.addEventListener( 'click', function() {
+                self.show_option_modal = false;
+            });
             
         },
 
         update_value( value ) {
             this.local_value = ( ! isNaN( Number( value ) ) ) ? Number( value ) : value;
+        },
+
+        updateOption( value ) {
+            this.update_value( value );
+            this.show_option_modal = false;
+        },
+
+        toggleTheOptionModal() {
+            let self = this;
+
+            setTimeout( function() {
+                self.show_option_modal = ! self.show_option_modal;
+            }, 0);
         },
 
         valueIsValid( value ) {
@@ -173,10 +209,23 @@ export default {
             });
 
             return options_values.includes( value );
+        },
+
+        convertOptionsToObject() {
+            if ( ! ( this.theOptions && Array.isArray( this.theOptions ) ) ) { return null; }
+
+            let option_object = {};
+            for ( let option in this.theOptions ) {
+                if ( typeof this.theOptions[ option ].value === 'undefined' ) { continue; }
+
+                let label = ( this.theOptions[ option ].label ) ? this.theOptions[ option ].label : '';
+                option_object[ this.theOptions[ option ].value ] = label;
+            }
+
+            return option_object;
         }
 
         /* syncValidationWithLocalState( validation_log ) {
-
             return validation_log;
         } */
     },

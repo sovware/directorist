@@ -2339,7 +2339,7 @@ input[type=checkbox], input[type=radio]{
       content: '\f107';
     }
   }
-  .directorist_dropdown-option{
+  .directorist_dropdown-option {
     display: none;
     position: absolute;
     width: 100%;
@@ -2349,6 +2349,10 @@ input[type=checkbox], input[type=radio]{
     background-color: #fff;
     box-shadow: 0 10px 40px #868EAE30;
     border-radius: 5px;
+    z-index: 99999;
+    &.--show {
+      display: block;
+    }
     ul{
       margin: 0;
       padding: 0;

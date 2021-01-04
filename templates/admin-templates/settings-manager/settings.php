@@ -29,17 +29,20 @@
                 </ul>
             </div>
         </div>
-        <div class="directorist_dropdown">
+
+        <!-- <div class="directorist_dropdown">
             <a href="#" class="directorist_dropdown-toggle">
                 <span class="directorist_dropdown-toggle__text">Sliding</span>
             </a>
+
             <div class="directorist_dropdown-option">
                 <ul>
                     <li><a href="#">Sliding</a></li>
                     <li><a href="#">Overlaping</a></li>
                 </ul>
             </div>
-        </div>
+        </div> -->
+
         <h4 class="atbdp-settings-manager__title">Settings</h4>
         <settings-manager />
     </div>

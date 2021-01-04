@@ -24,7 +24,8 @@ export default {
         },
 
         getOptionID( option, index ) {
-            return ( typeof option.id !== 'undefined' ) ? this.fieldId + '_' + index + '_' + option.id : this.fieldId + '_' + index;
+            let field_id = ( this.fieldId ) ? this.fieldId : '';
+            return ( typeof option.id !== 'undefined' ) ? field_id + '_' + index + '_' + option.id : field_id + '_' + index;
         },
 
         mapDataByMap( data, map ) {

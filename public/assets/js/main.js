@@ -1003,13 +1003,6 @@
     if(tabContentWidth < 650){
       $(".atbd_dashboard_wrapper .atbd_tab-content").addClass("atbd_tab-content--fix");
     }
-
-
-    /* $("[data-target='atbdp-report-abuse-modal']").on("click", function(){
-        alert("sdf");
-    }) */
-    //console.log($("[data-target='atbdp-report-abuse-modal']"));
-    //alert("sdf");
 })(jQuery);
 
   // on load of the page: switch to the currently selected tab

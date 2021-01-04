@@ -137,7 +137,6 @@
     width: 250px;
     background: #F6F6F6;
     border-right: 1px solid #f6f6f6;
-    padding-top: 15px;
 }
 .settings-nav{
     margin: 0;
@@ -249,4 +248,23 @@ span.drop-toggle-caret:before {
 .highlight-field {
     padding: 10px;
     border: 2px solid #3e62f5;
+}
+
+.settings-footer {
+    display: flex;
+    margin: 0 -20px;
+    padding: 15px 15px 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    border-top: 1px solid #d3d3d3;
+
+    .setting-response-feedback {
+        color: #272b41;
+    }
+}
+
+.settings-footer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    color: #272b41;
 }

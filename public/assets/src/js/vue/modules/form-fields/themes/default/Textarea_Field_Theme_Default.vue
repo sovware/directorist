@@ -1,6 +1,8 @@
 <template>
     <div class="cptm-form-group" :class="formGroupClass">
         <label v-if="( 'hidden' !== input_type && label.length )" :for="name">{{ label }}</label>
+        <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
+        
         <textarea name="" id="" :cols="cols" :rows="rows" :placeholder="placeholder" class="cptm-form-control" v-model="local_value"></textarea>
 
         <div class="cptm-form-group-feedback" v-if="validationMessages">

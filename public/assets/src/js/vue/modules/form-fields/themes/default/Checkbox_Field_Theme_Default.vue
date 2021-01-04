@@ -1,6 +1,7 @@
 <template>
     <div class="cptm-form-group">
         <label>{{label}}</label>
+        <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
 
         <div class="cptm-checkbox-area">
             <div class="cptm-checkbox-item" v-for="( option, option_index ) in theOptions" :key="option_index">

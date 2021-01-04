@@ -14,6 +14,11 @@ export default {
             required: false,
             default: '',
         },
+        description: {
+            type: [ String ],
+            required: false,
+            default: '',
+        },
         value: {
             required: false,
             default: '',
@@ -30,6 +35,10 @@ export default {
             required: false,
             type: String,
             default: 'Change',
+        },
+        validationFeedback: {
+            type: Object,
+            required: false,
         },
         validation: {
             type: Array,

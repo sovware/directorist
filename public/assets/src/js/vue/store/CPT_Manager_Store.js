@@ -192,6 +192,10 @@ export default new Vuex.Store({
       Vue.set( state.fields[ payload.field_key ], 'value' , payload.value );
     },
 
+    updateFieldData: ( state, payload ) => {
+      Vue.set( state.fields[ payload.field_key ], payload.option_key , payload.value );
+    },
+
     updateGeneralSectionData: ( state, payload ) => {
       state.layouts.general.submenu.general.sections[ payload.section_key ].fields[ payload.field_key ].value = payload.value;
     },

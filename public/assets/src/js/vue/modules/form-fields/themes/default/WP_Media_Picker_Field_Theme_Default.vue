@@ -1,5 +1,8 @@
 <template>
     <div class="cptm-form-group">
+        <label v-if="( label.length )" :for="name">{{ label }}</label>
+        <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
+        
         <div class="cptm-thumbnail">
             <div class="cptm-thumbnail-img-wrap" v-if="thumbnailSrc.length">
                 <img :src="thumbnailSrc" class="cptm-thumbnail-img" width="100%" height="auto"/>

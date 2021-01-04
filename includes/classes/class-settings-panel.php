@@ -730,9 +730,257 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                     ],
                 ],
-
-
-
+                'crop_width' => [
+                    'label' => __('Container Width', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '350',
+                    'min' => '1',
+                    'max' => '1200',
+                    'step' => '1',
+                    'show_if' => [
+                        'where' => "self.display_preview_image",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'crop_height' => [
+                    'label' => __('Container Height', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '260',
+                    'min' => '1',
+                    'max' => '1200',
+                    'step' => '1',
+                    'show_if' => [
+                        'where' => "self.display_preview_image",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'prv_container_size_by' => [
+                    'label' => __('Container Size By', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'px',
+                    'show_if' => [
+                        'where' => "self.display_preview_image",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'px',
+                            'label' => __('Pixel', 'directorist'),
+                        ],
+                        [
+                            'value' => 'ratio',
+                            'label' => __('Ratio', 'directorist'),
+                        ],
+                    ],
+                ],
+                'prv_background_type' => [
+                    'label' => __('Background', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'blur',
+                    'show_if' => [
+                        'where' => "self.display_preview_image",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'blur',
+                            'label' => __('Blur', 'directorist'),
+                        ],
+                        [
+                            'value' => 'color',
+                            'label' => __('Custom Color', 'directorist'),
+                        ],
+                    ],
+                ],
+                'prv_background_color' => [
+                    'type' => 'text',
+                    'label' => __('Select Color', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.prv_background_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'color'],
+                        ],
+                    ],
+                    'value' => 'gainsboro',
+                ],
+                'default_preview_image' => [
+                    'label'       => __('Select', 'directorist'),
+                    'type'        => 'wp-media-picker',
+                    'default-img' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
+                    'value'       => '',
+                     'show_if' => [
+                        'where' => "self.display_preview_image",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'info_display_in_single_line' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Each Grid Info on Single Line', 'directorist'),
+                    'description' => __('Here Yes means display all the informations (i.e. title, tagline, excerpt etc.) of grid view on single line', 'directorist'),
+                    'value' => false,
+                ],
+                'display_title' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Title', 'directorist'),
+                    'value' => true,
+                ],
+                'enable_tagline' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Tagline', 'directorist'),
+                    'value' => false,
+                ],
+                'enable_excerpt' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Excerpt', 'directorist'),
+                    'value' => false,
+                ],
+                'excerpt_limit' => [
+                    'label' => __('Excerpt Words Limit', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '20',
+                    'min' => '5',
+                    'max' => '200',
+                    'step' => '1',
+                    'show_if' => [
+                        'where' => "self.enable_excerpt",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_readmore' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Excerpt Readmore', 'directorist'),
+                    'value' => false,
+                    'show_if' => [
+                        'where' => "self.enable_excerpt",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'readmore_text' => [
+                    'type' => 'text',
+                    'label' => __('Read More Text', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_excerpt",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => __('Read More', 'directorist'),
+                ],
+                'display_price' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Price', 'directorist'),
+                    'value' => true,
+                ],
+                'display_email' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Email', 'directorist'),
+                    'value' => false,
+                ],
+                'display_web_link' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Web Link', 'directorist'),
+                    'value' => false,
+                ],
+                'display_contact_info' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Contact Information', 'directorist'),
+                    'value' => true,
+                ],
+                'address_location' => [
+                    'label' => __('Address', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'contact',
+                    'description' => __('Choose which address you want to show on listings page', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_contact_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'location',
+                            'label' => __('Display From Location', 'directorist'),
+                        ],
+                        [
+                            'value' => 'contact',
+                            'label' => __('Display From Contact Information', 'directorist'),
+                        ],
+                    ],
+                ],
+                'display_publish_date' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Publish Date'),
+                    'value' => true,
+                ],
+                'publish_date_format' => [
+                    'label' => __('Publish Date Format', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'time_ago',
+                    'show_if' => [
+                        'where' => "self.display_publish_date",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'time_ago',
+                            'label' => __('Number of Days Ago', 'directorist'),
+                        ],
+                        [
+                            'value' => 'publish_date',
+                            'label' => __('Standard Date Format', 'directorist'),
+                        ],
+                    ],
+                ],
+                'display_category' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Category'),
+                    'value' => true,
+                ],
+                'display_mark_as_fav' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Mark as Favourite'),
+                    'value' => true,
+                ],
+                'display_view_count' => [
+                    'type' => 'toggle',
+                    'label' => __('Display View Count'),
+                    'value' => true,
+                ],
+                'display_author_image' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Author Image'),
+                    'value' => true,
+                ],
+                'paginate_all_listings' => [
+                    'type' => 'toggle',
+                    'label' => __('Paginate Listings'),
+                    'value' => true,
+                ],
+                'all_listing_page_items' => [
+                    'label' => __('Listings Per Page', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '6',
+                    'min' => '1',
+                    'max' => '100',
+                    'step' => '1',
+                ],
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -761,7 +1009,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('Listings Page', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listings_display_filter', 'listing_filters_fields', 'listing_location_fields', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'listings_search_text_placeholder', 'listings_category_placeholder', 'listings_location_placeholder', 'display_sort_by', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'display_preview_image', 'preview_image_quality', 'way_to_show_preview', 
+                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listings_display_filter', 'listing_filters_fields', 'listing_location_fields', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'listings_search_text_placeholder', 'listings_category_placeholder', 'listings_location_placeholder', 'display_sort_by', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'display_preview_image', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'display_title', 'enable_tagline', 'enable_excerpt', 'excerpt_limit', 'display_readmore', 'readmore_text', 'display_price', 'display_email', 'display_web_link', 'display_contact_info', 'address_location', 'display_publish_date', 'publish_date_format', 'display_category', 'display_mark_as_fav', 'display_view_count', 'display_author_image', 'paginate_all_listings', 'all_listing_page_items' 
                                     ],
                                 ],
                             ] ),

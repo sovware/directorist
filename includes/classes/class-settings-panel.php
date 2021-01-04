@@ -1482,6 +1482,52 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                     ],
                 ],
+                'display_new_badge_cart' => [
+                    'type' => 'toggle',
+                    'label' => __('Display New Badge', 'directorist'),
+                    'value' => true,
+                ],
+                'new_badge_text' => [
+                    'type' => 'text',
+                    'label' => __('New Badge Text', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_new_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => __('New', 'directorist'),
+                ],
+                'new_listing_day' => [
+                    'label' => __('New Badge Duration in Days', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '3',
+                    'min' => '1',
+                    'max' => '100',
+                    'step' => '1',
+                    'show_if' => [
+                        'where' => "self.display_new_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_feature_badge_cart' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Featured Badge', 'directorist'),
+                    'value' => true,
+                ],
+                'feature_badge_text' => [
+                    'type' => 'text',
+                    'label' => __('Featured Badge Text', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_feature_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => __('Featured', 'directorist'),
+                ],
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -1531,8 +1577,15 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         'badge' => [
                             'label' => __('Badge', 'directorist'),
                             'sections' => apply_filters( 'atbdp_listing_settings_badge_sections', [
-                                'labels' => [
-                                    'title'       => __('Badge', 'directorist'),
+                                'badge_management' => [
+                                    'title'       => __('Badge Management', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'display_new_badge_cart', 'new_badge_text', 'new_listing_day', 'display_feature_badge_cart', 'feature_badge_text'
+                                    ],
+                                ],
+                                'popular_badge' => [
+                                    'title'       => __('Popular Badge', 'directorist'),
                                     'description' => '',
                                     'fields'      => [],
                                 ],

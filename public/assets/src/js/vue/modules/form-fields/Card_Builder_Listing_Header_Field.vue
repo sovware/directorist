@@ -177,6 +177,13 @@ export default {
     },
   },
 
+  mounted() {
+    const self = this;
+    document.addEventListener('click', function( e ) {
+      self.closeInsertWindow();
+    });
+  },
+
   created() {
     this.init();
     this.$emit( 'update', this.output_data );
@@ -656,6 +663,8 @@ export default {
 
       this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...this.active_widgets[ key ].options };
       this.widgetOptionsWindow.widget = key;
+
+      this.active_insert_widget_key = '';
     },
 
     editOption( widget_path, widget_key ) {
@@ -723,12 +732,16 @@ export default {
     },
 
     activeInsertWindow( current_item_key ) {
-      if ( this.active_insert_widget_key ===  current_item_key ) {
-        this.active_insert_widget_key = '';
-        return;
-      }
-      
-      this.active_insert_widget_key = current_item_key;
+      let self = this;
+
+      setTimeout( function() {
+        if ( self.active_insert_widget_key === current_item_key ) {
+          self.active_insert_widget_key = '';
+          return;
+        }
+
+        self.active_insert_widget_key = current_item_key;
+      }, 0);
     },
 
     insertWidget( payload, where ) {
@@ -739,6 +752,8 @@ export default {
 
       Vue.set( this.active_widgets, payload.key, { ...this.theAvailableWidgets[ payload.key ] } );
       Vue.set( where, 'selectedWidgets', payload.selected_widgets );
+
+      this.editWidget( payload.key );
     },
 
     closeInsertWindow( widget_insert_window ) {

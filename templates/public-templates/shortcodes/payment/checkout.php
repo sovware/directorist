@@ -146,7 +146,7 @@
         ?>
         <input type="hidden" id="listing_id" name="listing_id" value="<?php echo $listing_id; ?>"/>
         <div class="pull-right" id="atbdp_pay_notpay_btn">
-            <a href="<?php echo esc_url( $url ); ?>" class="btn btn-danger atbdp_not_now_button"><?php _e('Not Now', 'directorist'); ?></a>
+            <a href="<?php echo esc_url( apply_filters( 'atbdp_checkout_not_now_link', $url ) ); ?>" class="btn btn-danger atbdp_not_now_button"><?php _e('Not Now', 'directorist'); ?></a>
             <input type="submit" id="atbdp_checkout_submit_btn" class="btn btn-primary" value="<?php echo $submit_button_label; ?>"/>
             <input type="hidden" id="atbdp_checkout_submit_btn_label" value="<?php echo $submit_button_label; ?>"/>
         </div> <!--ends pull-right-->

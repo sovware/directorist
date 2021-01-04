@@ -1,6 +1,8 @@
 <template>
     <div class="cptm-form-group">
         <label>{{label}}</label>
+        <p class="cptm-info-text" v-if="description.length" v-html="description"></p>
+
         <div class="cptm-radio-area">
             <div class="cptm-radio-item" v-for="( option, option_index ) in theOptions" :key="option_index">
                 <input type="radio" class="cptm-radio" 

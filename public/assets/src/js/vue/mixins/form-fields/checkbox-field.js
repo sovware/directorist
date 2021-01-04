@@ -10,12 +10,17 @@ export default {
     },
     props: {
         fieldId: {
-            type: [String, Number],
+            type: [ String, Number ],
             required: false,
             default: '',
         },
         label: {
-            type: [String, Number],
+            type: [ String ],
+            required: false,
+            default: '',
+        },
+        description: {
+            type: [ String ],
             required: false,
             default: '',
         },
@@ -25,7 +30,7 @@ export default {
             default: '',
         },
         name: {
-            type: [String, Number],
+            type: [ String, Number ],
             required: false,
             default: '',
         },
@@ -39,7 +44,7 @@ export default {
             required: false,
         },
         placeholder: {
-            type: [String, Number],
+            type: [ String, Number ],
             required: false,
             default: '',
         },

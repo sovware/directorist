@@ -1,6 +1,8 @@
 <template>
     <div class="cptm-form-group" :class="formGroupClass">
         <label v-if="( 'hidden' !== type && label.length )" :for="name">{{ label }}</label>
+        <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
+
         <div class="cptm-form-range-wrap">
             <div class="cptm-form-range-bar">
                 <input 

@@ -14,6 +14,11 @@ export default {
             required: false,
             default: '',
         },
+        description: {
+            type: [ String ],
+            required: false,
+            default: '',
+        },
         value: {
             type: [ String, Number ],
             required: false,

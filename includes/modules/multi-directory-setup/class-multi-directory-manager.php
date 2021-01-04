@@ -4073,10 +4073,10 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     'value' => true,
                 ],
                 'preview_image' => [
-                    'label'       => __('Select', 'directorist'),
-                    'type'        => 'wp-media-picker',
-                    'default-img' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
-                    'value'       => '',
+                    'button-label' => __('Select', 'directorist'),
+                    'type'         => 'wp-media-picker',
+                    'default-img'  => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
+                    'value'        => '',
                 ],
 
                 'import_export' => [

@@ -170,7 +170,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'color' => [
                     'label' => __('Color', 'directorist'),
                     'type'  => 'color',
-                    'value' => '#fff',
+                    'value' => '#ffffff',
                     'description' => __('Select a color', 'directorist'),
                 ],
                 'fix_js_conflict' => [

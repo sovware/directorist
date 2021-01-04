@@ -7,8 +7,9 @@
             </div>
             
             <div class="atbdp-col atbdp-col-8">
-                <div class="cptm-color-picker" ref="cptm_color_picker"></div>
-                <v-input-colorpicker v-model="local_value"/>
+                <div class="cptm-color-picker">
+                    <v-input-colorpicker v-model="local_value"/>
+                </div>
 
                 <div class="cptm-form-group-feedback" v-if="validationMessages">
                     <div class="cptm-form-alert" :class="'cptm-' + validationMessages.type">

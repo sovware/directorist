@@ -71,6 +71,8 @@ export default {
 
     created() {
         this.local_value = this.value;
+
+        console.log( this.value );
     },
 
     watch: {

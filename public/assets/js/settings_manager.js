@@ -2003,6 +2003,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2195,7 +2218,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
           self.status_message = response.data.status.status_log;
           setTimeout(function () {
             self.status_message = null;
-          }, 3000);
+          }, 5000);
         }
       }).catch(function (error) {
         console.log({
@@ -2210,7 +2233,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
         };
         setTimeout(function () {
           self.status_message = null;
-        }, 3000);
+        }, 5000);
       });
     },
     getIconClass: function getIconClass(icon_type) {
@@ -2767,8 +2790,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _mixins_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../mixins/helpers */ "./public/assets/src/js/vue/mixins/helpers.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _mixins_section_helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../mixins/section-helpers */ "./public/assets/src/js/vue/mixins/section-helpers.js");
+/* harmony import */ var _mixins_general_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../mixins/general-helpers */ "./public/assets/src/js/vue/mixins/general-helpers.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -2811,9 +2835,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'sections-module',
-  mixins: [_mixins_helpers__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_mixins_section_helpers__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_general_helpers__WEBPACK_IMPORTED_MODULE_2__["default"]],
   props: {
     sections: {
       type: Object
@@ -2827,7 +2852,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       default: ''
     }
   },
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])(['metaKeys'])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])(['metaKeys'])), {}, {
     theSections: function theSections() {
       var the_sections = JSON.parse(JSON.stringify(this.sections));
 
@@ -13021,6 +13046,10 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       default: ''
     },
+    validationFeedback: {
+      type: Object,
+      required: false
+    },
     validation: {
       type: Array,
       required: false
@@ -13079,6 +13108,10 @@ __webpack_require__.r(__webpack_exports__);
       type: [String, Number],
       required: false,
       default: ''
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
     },
     validation: {
       type: Array,
@@ -13227,6 +13260,10 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js").de
       type: [String, Number],
       required: false,
       default: ''
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
     },
     validation: {
       type: Array,
@@ -13877,6 +13914,11 @@ __webpack_require__.r(__webpack_exports__);
     event: 'update'
   },
   props: {
+    type: {
+      type: String,
+      required: false,
+      default: 'number'
+    },
     label: {
       type: String,
       required: false,
@@ -13896,6 +13938,14 @@ __webpack_require__.r(__webpack_exports__);
       type: [String, Number],
       required: false,
       default: ''
+    },
+    rules: {
+      type: Object,
+      required: false
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
     },
     validation: {
       type: Array,
@@ -13945,6 +13995,10 @@ __webpack_require__.r(__webpack_exports__);
       type: [String, Number],
       required: false,
       default: ''
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
     },
     validation: {
       type: Array,
@@ -14288,7 +14342,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../mixins/form-fields/helper */ "./public/assets/src/js/vue/mixins/form-fields/helper.js");
-/* harmony import */ var _mixins_form_fields_text_field__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../mixins/form-fields/text-field */ "./public/assets/src/js/vue/mixins/form-fields/text-field.js");
 //
 //
 //
@@ -14298,11 +14351,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'text-field',
-  mixins: [_mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__["default"], _mixins_form_fields_text_field__WEBPACK_IMPORTED_MODULE_1__["default"]]
+  mixins: [_mixins_form_fields_helper__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  props: {
+    theme: {
+      type: String,
+      default: 'default'
+    },
+    type: {
+      type: String,
+      required: false,
+      default: 'text'
+    },
+    label: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    description: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    value: {
+      required: false,
+      default: ''
+    },
+    name: {
+      type: [String, Number],
+      required: false,
+      default: ''
+    },
+    placeholder: {
+      type: [String, Number],
+      required: false,
+      default: ''
+    },
+    rules: {
+      type: Object,
+      required: false
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
+    },
+    validation: {
+      type: Array,
+      required: false
+    },
+    input_style: {
+      type: Object,
+      required: false
+    }
+  },
+  watch: {
+    validationFeedback: function validationFeedback(value) {
+      console.log({
+        value: value
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -14431,6 +14541,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'checkbox-field-theme-butterfly',
@@ -14477,6 +14588,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'radio-field-theme-butterfly',
@@ -14495,6 +14607,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_range_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/range-field */ "./public/assets/src/js/vue/mixins/form-fields/range-field.js");
+//
 //
 //
 //
@@ -14588,6 +14701,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'select-field-theme-butterfly',
@@ -14606,6 +14720,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_text_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/text-field */ "./public/assets/src/js/vue/mixins/form-fields/text-field.js");
+//
 //
 //
 //
@@ -14666,6 +14781,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'textarea-field-theme-butterfly',
@@ -14699,6 +14815,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'toggle-field-theme-butterfly',
@@ -14717,6 +14834,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_wp_media_picker_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/wp-media-picker-field */ "./public/assets/src/js/vue/mixins/form-fields/wp-media-picker-field.js");
+//
 //
 //
 //
@@ -14786,6 +14904,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'checkbox-field-theme-default',
@@ -14825,6 +14944,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'radio-field-theme-default',
@@ -14843,6 +14964,8 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_range_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/range-field */ "./public/assets/src/js/vue/mixins/form-fields/range-field.js");
+//
+//
 //
 //
 //
@@ -14921,6 +15044,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'select-field-theme-default',
@@ -14939,6 +15064,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_text_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/text-field */ "./public/assets/src/js/vue/mixins/form-fields/text-field.js");
+//
 //
 //
 //
@@ -14985,6 +15111,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'textarea-field-theme-default',
@@ -15014,6 +15142,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'toggle-field-theme-default',
@@ -15032,6 +15161,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_wp_media_picker_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/form-fields/wp-media-picker-field */ "./public/assets/src/js/vue/mixins/form-fields/wp-media-picker-field.js");
+//
+//
+//
 //
 //
 //
@@ -16873,7 +17005,43 @@ var render = function() {
             _c(
               "div",
               { staticClass: "settings-contents" },
-              [_c("tabContents", { ref: "tab_contents" })],
+              [
+                _c("tabContents", { ref: "tab_contents" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "settings-footer" }, [
+                  _c("div", { staticClass: "settings-footer-actions" }, [
+                    _c("div", { staticClass: "setting-response-feedback" }, [
+                      _vm.status_message
+                        ? _c("div", {}, [
+                            _c("span", {
+                              staticClass: "atbdp-icon atbdp-icon-fill",
+                              class: _vm.getIconClass(_vm.status_message.type),
+                              domProps: {
+                                innerHTML: _vm._s(
+                                  _vm.getIconHTML(_vm.status_message.type)
+                                )
+                              }
+                            }),
+                            _vm._v(
+                              "\n\n                                " +
+                                _vm._s(_vm.status_message.message) +
+                                "\n                            "
+                            )
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("button", {
+                      staticClass: "settings-save-btn",
+                      attrs: {
+                        type: "submit",
+                        disabled: _vm.submit_button.is_disabled
+                      },
+                      domProps: { innerHTML: _vm._s(_vm.submit_button.label) }
+                    })
+                  ])
+                ])
+              ],
               1
             )
           ],
@@ -25408,10 +25576,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "cptm-form-group" }, [
+  return _c("div", { staticClass: "cptm-form-group cptm-theme-butterfly" }, [
     _c("div", { staticClass: "atbdp-row" }, [
       _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-        _c("label", [_vm._v(_vm._s(_vm.label))])
+        _c("label", [_vm._v(_vm._s(_vm.label))]),
+        _vm._v(" "),
+        _vm.description.length
+          ? _c("p", {
+              staticClass: "cptm-form-group-info",
+              domProps: { innerHTML: _vm._s(_vm.description) }
+            })
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
@@ -25524,7 +25699,14 @@ var render = function() {
   return _c("div", { staticClass: "cptm-form-group" }, [
     _c("div", { staticClass: "atbdp-row" }, [
       _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-        _c("label", [_vm._v(_vm._s(_vm.label))])
+        _c("label", [_vm._v(_vm._s(_vm.label))]),
+        _vm._v(" "),
+        _vm.description.length
+          ? _c("p", {
+              staticClass: "cptm-form-group-info",
+              domProps: { innerHTML: _vm._s(_vm.description) }
+            })
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
@@ -25625,6 +25807,13 @@ var render = function() {
             ? _c("label", { attrs: { for: _vm.name } }, [
                 _vm._v(_vm._s(_vm.label))
               ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.description.length
+            ? _c("p", {
+                staticClass: "cptm-form-group-info",
+                domProps: { innerHTML: _vm._s(_vm.description) }
+              })
             : _vm._e()
         ]),
         _vm._v(" "),
@@ -25715,7 +25904,16 @@ var render = function() {
     [
       _c("div", { staticClass: "atbdp-row" }, [
         _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-          _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e()
+          _vm.label.length
+            ? _c("label", [_vm._v(_vm._s(_vm.label))])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.description.length
+            ? _c("p", {
+                staticClass: "cptm-form-group-info",
+                domProps: { innerHTML: _vm._s(_vm.description) }
+              })
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
@@ -25832,6 +26030,13 @@ var render = function() {
             ? _c("label", { attrs: { for: _vm.name } }, [
                 _vm._v(_vm._s(_vm.label))
               ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.description.length
+            ? _c("p", {
+                staticClass: "cptm-form-group-info",
+                domProps: { innerHTML: _vm._s(_vm.description) }
+              })
             : _vm._e()
         ]),
         _vm._v(" "),
@@ -25921,6 +26126,13 @@ var render = function() {
             ? _c("label", { attrs: { for: _vm.name } }, [
                 _vm._v(_vm._s(_vm.label))
               ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.description.length
+            ? _c("p", {
+                staticClass: "cptm-form-group-info",
+                domProps: { innerHTML: _vm._s(_vm.description) }
+              })
             : _vm._e()
         ]),
         _vm._v(" "),
@@ -26001,7 +26213,14 @@ var render = function() {
   return _c("div", { staticClass: "cptm-form-group" }, [
     _c("div", { staticClass: "atbdp-row" }, [
       _c("div", { staticClass: "atbdp-col atbdp-col-4" }, [
-        _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))])
+        _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))]),
+        _vm._v(" "),
+        _vm.description.length
+          ? _c("p", {
+              staticClass: "cptm-form-group-info",
+              domProps: { innerHTML: _vm._s(_vm.description) }
+            })
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
@@ -26053,6 +26272,13 @@ var render = function() {
           ? _c("label", { attrs: { for: _vm.name } }, [
               _vm._v(_vm._s(_vm.label))
             ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.description.length
+          ? _c("p", {
+              staticClass: "cptm-form-group-info",
+              domProps: { innerHTML: _vm._s(_vm.description) }
+            })
           : _vm._e()
       ]),
       _vm._v(" "),
@@ -26140,6 +26366,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "cptm-form-group" }, [
     _c("label", [_vm._v(_vm._s(_vm.label))]),
+    _vm._v(" "),
+    _vm.description.length
+      ? _c("p", {
+          staticClass: "cptm-form-group-info",
+          domProps: { innerHTML: _vm._s(_vm.description) }
+        })
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "div",
@@ -26243,6 +26476,13 @@ var render = function() {
   return _c("div", { staticClass: "cptm-form-group" }, [
     _c("label", [_vm._v(_vm._s(_vm.label))]),
     _vm._v(" "),
+    _vm.description.length
+      ? _c("p", {
+          staticClass: "cptm-info-text",
+          domProps: { innerHTML: _vm._s(_vm.description) }
+        })
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "cptm-radio-area" },
@@ -26333,6 +26573,13 @@ var render = function() {
         ? _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))])
         : _vm._e(),
       _vm._v(" "),
+      _vm.description.length
+        ? _c("p", {
+            staticClass: "cptm-form-group-info",
+            domProps: { innerHTML: _vm._s(_vm.description) }
+          })
+        : _vm._e(),
+      _vm._v(" "),
       _c("div", { staticClass: "cptm-form-range-wrap" }, [
         _c("div", { staticClass: "cptm-form-range-bar" }, [
           _c("input", {
@@ -26416,6 +26663,13 @@ var render = function() {
     { staticClass: "cptm-form-group", class: _vm.formGroupClass },
     [
       _vm.label.length ? _c("label", [_vm._v(_vm._s(_vm.label))]) : _vm._e(),
+      _vm._v(" "),
+      _vm.description.length
+        ? _c("p", {
+            staticClass: "cptm-form-group-info",
+            domProps: { innerHTML: _vm._s(_vm.description) }
+          })
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "select",
@@ -26521,10 +26775,12 @@ var render = function() {
         ? _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))])
         : _vm._e(),
       _vm._v(" "),
-      _c("p", {
-        staticClass: "cptm-form-group-info",
-        domProps: { innerHTML: _vm._s(_vm.description) }
-      }),
+      _vm.description.length
+        ? _c("p", {
+            staticClass: "cptm-form-group-info",
+            domProps: { innerHTML: _vm._s(_vm.description) }
+          })
+        : _vm._e(),
       _vm._v(" "),
       (typeof _vm.value !== "object"
       ? true
@@ -26602,6 +26858,13 @@ var render = function() {
         ? _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))])
         : _vm._e(),
       _vm._v(" "),
+      _vm.description.length
+        ? _c("p", {
+            staticClass: "cptm-form-group-info",
+            domProps: { innerHTML: _vm._s(_vm.description) }
+          })
+        : _vm._e(),
+      _vm._v(" "),
       _c("textarea", {
         directives: [
           {
@@ -26677,6 +26940,13 @@ var render = function() {
     _c("div", { staticClass: "cptm-input-toggle-wrap" }, [
       _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))]),
       _vm._v(" "),
+      _vm.description.length
+        ? _c("p", {
+            staticClass: "cptm-form-group-info",
+            domProps: { innerHTML: _vm._s(_vm.description) }
+          })
+        : _vm._e(),
+      _vm._v(" "),
       _c("span", {
         staticClass: "cptm-input-toggle",
         class: _vm.toggleClass,
@@ -26718,6 +26988,17 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "cptm-form-group" }, [
+    _vm.label.length
+      ? _c("label", { attrs: { for: _vm.name } }, [_vm._v(_vm._s(_vm.label))])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.description.length
+      ? _c("p", {
+          staticClass: "cptm-form-group-info",
+          domProps: { innerHTML: _vm._s(_vm.description) }
+        })
+      : _vm._e(),
+    _vm._v(" "),
     _c("div", { staticClass: "cptm-thumbnail" }, [
       _vm.thumbnailSrc.length
         ? _c("div", { staticClass: "cptm-thumbnail-img-wrap" }, [
@@ -40465,7 +40746,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       default: ''
     },
     label: {
-      type: [String, Number],
+      type: [String],
+      required: false,
+      default: ''
+    },
+    description: {
+      type: [String],
       required: false,
       default: ''
     },
@@ -40497,6 +40783,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: false,
       default: 'Nothing available'
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
     },
     validation: {
       type: Array,
@@ -40691,9 +40981,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     config: 'config'
-  })),
+  })), {}, {
+    validationAlertMessages: function validationAlertMessages() {
+      if (!this.validationFeedback) {
+        return false;
+      }
+    }
+  }),
   methods: {
     getTheTheme: function getTheTheme(field) {
       var the_theme = 'default';
@@ -40759,6 +41055,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: false,
       default: ''
     },
+    description: {
+      type: [String],
+      required: false,
+      default: ''
+    },
     id: {
       type: [String, Number],
       required: false,
@@ -40788,6 +41089,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: false,
       default: 'Nothing available'
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
     },
     validation: {
       type: Array,
@@ -41019,6 +41324,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: false,
       default: ''
     },
+    description: {
+      type: [String],
+      required: false,
+      default: ''
+    },
     value: {
       type: [String, Number],
       required: false,
@@ -41033,6 +41343,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: [String, Number],
       required: false,
       default: ''
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
     },
     validation: {
       type: Array,
@@ -41098,6 +41412,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: false,
       default: ''
     },
+    description: {
+      type: [String],
+      required: false,
+      default: ''
+    },
     value: {
       type: [String, Number],
       required: false,
@@ -41128,6 +41447,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: [String, Number],
       required: false,
       default: ''
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
     },
     validation: {
       type: Array,
@@ -41260,6 +41583,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _validation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../validation */ "./public/assets/src/js/vue/mixins/validation.js");
+/* harmony import */ var _helper_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper.js */ "./public/assets/src/js/vue/mixins/form-fields/helper.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -41267,8 +41591,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_validation__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  mixins: [_validation__WEBPACK_IMPORTED_MODULE_0__["default"], _helper_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
   model: {
     prop: 'value',
     event: 'input'
@@ -41307,6 +41632,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: false,
       default: ''
     },
+    rules: {
+      type: Object,
+      required: false
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
+    },
     validation: {
       type: Array,
       required: false
@@ -41323,7 +41656,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'number-field': 'number',
         'password-field': 'password',
         'date-field': 'date',
-        'hidden-field': 'hidden'
+        'hidden-field': 'hidden',
+        'text': 'text',
+        'number': 'number',
+        'password': 'password',
+        'date': 'date',
+        'hidden': 'hidden'
       };
 
       if (typeof supported_types[this.type] !== 'undefined') {
@@ -41383,6 +41721,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: false,
       default: ''
     },
+    description: {
+      type: [String],
+      required: false,
+      default: ''
+    },
     value: {
       type: [String, Number],
       required: false,
@@ -41407,6 +41750,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: [String, Number],
       required: false,
       default: '10'
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
     },
     validation: {
       type: Array,
@@ -41475,6 +41822,11 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       default: ''
     },
+    description: {
+      type: [String],
+      required: false,
+      default: ''
+    },
     value: {
       required: false,
       default: false
@@ -41488,6 +41840,10 @@ __webpack_require__.r(__webpack_exports__);
       type: [String, Number],
       required: false,
       default: ''
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
     },
     validation: {
       type: Array,
@@ -41548,6 +41904,11 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       default: ''
     },
+    description: {
+      type: [String],
+      required: false,
+      default: ''
+    },
     value: {
       required: false,
       default: ''
@@ -41564,6 +41925,10 @@ __webpack_require__.r(__webpack_exports__);
       required: false,
       type: String,
       default: 'Change'
+    },
+    validationFeedback: {
+      type: Object,
+      required: false
     },
     validation: {
       type: Array,
@@ -41654,6 +42019,56 @@ __webpack_require__.r(__webpack_exports__);
     deleteThumbnail: function deleteThumbnail() {
       this.thumbnail_id = '';
       this.thumbnail_src = '';
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./public/assets/src/js/vue/mixins/general-helpers.js":
+/*!************************************************************!*\
+  !*** ./public/assets/src/js/vue/mixins/general-helpers.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    fields: 'fields',
+    cached_fields: 'cached_fields',
+    highlighted_field_key: 'highlighted_field_key'
+  })),
+  methods: {
+    isObject: function isObject(the_var) {
+      if (typeof the_var === 'undefined') {
+        return false;
+      }
+
+      if (the_var === null) {
+        return false;
+      }
+
+      if (_typeof(the_var) !== 'object') {
+        return false;
+      }
+
+      if (Array.isArray(the_var)) {
+        return false;
+      }
+
+      return the_var;
     }
   }
 });
@@ -42078,6 +42493,51 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./public/assets/src/js/vue/mixins/section-helpers.js":
+/*!************************************************************!*\
+  !*** ./public/assets/src/js/vue/mixins/section-helpers.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _validator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./validator */ "./public/assets/src/js/vue/mixins/validator.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_validator__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    fields: 'fields',
+    cached_fields: 'cached_fields',
+    highlighted_field_key: 'highlighted_field_key'
+  })),
+  methods: {
+    updateFieldValue: function updateFieldValue(field_key, value) {
+      this.$store.commit('updateFieldValue', {
+        field_key: field_key,
+        value: value
+      });
+      this.validateField(field_key);
+    },
+    getFormFieldName: function getFormFieldName(field_type) {
+      return field_type + '-field';
+    },
+    getHighlightState: function getHighlightState(field_key) {
+      return this.highlighted_field_key === field_key;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./public/assets/src/js/vue/mixins/validation.js":
 /*!*******************************************************!*\
   !*** ./public/assets/src/js/vue/mixins/validation.js ***!
@@ -42258,6 +42718,95 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       }
 
       return !match_found;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./public/assets/src/js/vue/mixins/validator.js":
+/*!******************************************************!*\
+  !*** ./public/assets/src/js/vue/mixins/validator.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    fields: 'fields'
+  })),
+  methods: {
+    validateField: function validateField(field_key) {
+      if (!this.fields[field_key].rules) {
+        return;
+      }
+
+      var value = this.fields[field_key].value;
+      var validation_log = {};
+      var error_count = 0;
+
+      for (var rule in this.fields[field_key].rules) {
+        switch (rule) {
+          case 'required':
+            var status = this.checkRequired(value);
+
+            if (!status.valid) {
+              validation_log['required'] = status.log;
+              error_count++;
+            }
+
+            break;
+        }
+      }
+
+      var validation_status = {
+        hasError: error_count > 0 ? true : false,
+        log: validation_log
+      };
+      this.$store.commit('updateFieldData', {
+        field_key: field_key,
+        option_key: 'validationFeedback',
+        value: validation_status
+      }); // console.log( validation_status, error_count );
+    },
+    // checkRequired
+    checkRequired: function checkRequired(value) {
+      var status = {
+        valid: true
+      };
+      var error_msg = {
+        type: 'error',
+        message: 'The field is required'
+      };
+
+      if (typeof value === 'string' && !value.length) {
+        status.valid = false;
+        status.log = error_msg;
+        return status;
+      }
+
+      if (typeof value === 'number' && !value.toString().length) {
+        status.valid = false;
+        status.log = error_msg;
+        return status;
+      }
+
+      if (!value) {
+        status.valid = false;
+        status.log = error_msg;
+      }
+
+      return status;
     }
   }
 });
@@ -47330,6 +47879,9 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
     },
     updateFieldValue: function updateFieldValue(state, payload) {
       vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.fields[payload.field_key], 'value', payload.value);
+    },
+    updateFieldData: function updateFieldData(state, payload) {
+      vue__WEBPACK_IMPORTED_MODULE_0__["default"].set(state.fields[payload.field_key], payload.option_key, payload.value);
     },
     updateGeneralSectionData: function updateGeneralSectionData(state, payload) {
       state.layouts.general.submenu.general.sections[payload.section_key].fields[payload.field_key].value = payload.value;

@@ -19,6 +19,11 @@ export default {
             required: false,
             default: '',
         },
+        description: {
+            type: [ String ],
+            required: false,
+            default: '',
+        },
         id: {
             type: [String, Number],
             required: false,
@@ -48,6 +53,10 @@ export default {
             type: String,
             required: false,
             default: 'Nothing available',
+        },
+        validationFeedback: {
+            type: Object,
+            required: false,
         },
         validation: {
             type: Array,

@@ -37,6 +37,11 @@ export default {
             required: false,
             default: '',
         },
+        description: {
+            type: [ String ],
+            required: false,
+            default: '',
+        },
         value: {
             type: [String, Number],
             required: false,
@@ -51,6 +56,10 @@ export default {
             type: [String, Number],
             required: false,
             default: '',
+        },
+        validationFeedback: {
+            type: Object,
+            required: false,
         },
         validation: {
             type: Array,

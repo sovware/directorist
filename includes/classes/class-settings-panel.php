@@ -345,6 +345,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'checkbox',
                     'name' => 'package_list',
                     'label' => __('Select Packages', 'directorist'),
+                    'description' => 'dwaskdskdjk',
                     'value' => [
                         'search_text',
                         'search_category',

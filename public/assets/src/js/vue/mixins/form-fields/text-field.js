@@ -1,7 +1,8 @@
 import validation from './../validation';
+import field_helper from './helper.js';
 
 export default {
-    mixins: [ validation ],
+    mixins: [ validation, field_helper ],
     model: {
         prop: 'value',
         event: 'input'
@@ -40,6 +41,14 @@ export default {
             required: false,
             default: '',
         },
+        rules: {
+            type: Object,
+            required: false,
+        },
+        validationFeedback: {
+            type: Object,
+            required: false,
+        },
         validation: {
             type: Array,
             required: false,
@@ -58,6 +67,11 @@ export default {
                 'password-field': 'password', 
                 'date-field': 'date',
                 'hidden-field': 'hidden', 
+                'text': 'text', 
+                'number': 'number', 
+                'password': 'password', 
+                'date': 'date',
+                'hidden': 'hidden', 
             };
 
             if ( typeof supported_types[ this.type ] !== 'undefined' ) {

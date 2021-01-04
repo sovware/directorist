@@ -49,6 +49,29 @@
 
                 <div class="settings-contents">
                     <tabContents ref="tab_contents" />
+
+                    <div class="settings-footer">
+                        <div class="settings-footer-actions">
+                            <div class="setting-response-feedback">
+                                <div class="" v-if="status_message">
+                                    <span class="atbdp-icon atbdp-icon-fill"
+                                        :class="getIconClass( status_message.type )"
+                                        v-html="getIconHTML( status_message.type )"
+                                    >
+                                    </span>
+
+                                    {{ status_message.message }}
+                                </div>
+                            </div>
+
+                            <button 
+                                type="submit" 
+                                class="settings-save-btn"
+                                :disabled="submit_button.is_disabled"
+                                v-html="submit_button.label">
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
@@ -261,7 +284,7 @@ export default {
 
                         setTimeout( function() {
                             self.status_message = null;
-                        }, 3000 );
+                        }, 5000 );
                     }
 
                 })
@@ -276,7 +299,7 @@ export default {
 
                     setTimeout( function() {
                         self.status_message = null;
-                    }, 3000 );
+                    }, 5000 );
                 });
         },
 

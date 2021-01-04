@@ -167,6 +167,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                     ],
                 ],
+                'color' => [
+                    'label' => __('Color', 'directorist'),
+                    'type'  => 'color',
+                    'value' => '#fff',
+                    'description' => __('Select a color', 'directorist'),
+                ],
                 'fix_js_conflict' => [
                     'label' => __('Fix Conflict with Bootstrap JS', 'directorist'),
                     'type'  => 'toggle',
@@ -1543,7 +1549,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('General Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'new_listing_status', 'edit_listing_status', 'fix_js_conflict', 'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
+                                        'new_listing_status', 'edit_listing_status', 'color', 'fix_js_conflict', 'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
                                     ],
                                 ],
                             ] ),

@@ -93,7 +93,7 @@ $after = '';
             ?>
             <tr class="atbdp_ch_subtotal">
                 <td colspan="2" class="text-right vertical-middle">
-                    <h4><?php echo __( 'Subtotal', 'directorist-coupon' ); ?></h4>
+                    <h4><?php echo __( 'Subtotal', 'directorist' ); ?></h4>
                 </td>
                 <td class="text-right vertical-middle">
                     <div id="atbdp_checkout_subtotal_amount"><?php

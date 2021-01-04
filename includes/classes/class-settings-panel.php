@@ -982,6 +982,552 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'max' => '100',
                     'step' => '1',
                 ],
+                'disable_single_listing' => [
+                    'type' => 'toggle',
+                    'label' => __('Disable Single Listing View'),
+                    'value' => false,
+                ],
+                'single_listing_template' => [
+                    'label' => __('Template', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'current_theme_template',
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'current_theme_template',
+                            'label' => __('Current Theme Template (used for posts)', 'directorist'),
+                        ],
+                        [
+                            'value' => 'directorist_template',
+                            'label' => __('Directorist Custom Template', 'directorist'),
+                        ],
+                    ],
+                ],
+                'atbdp_listing_slug' => [
+                    'type' => 'text',
+                    'label' => __('Listing Slug', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                    'value' => 'directory',
+                ],
+                'edit_listing_redirect' => [
+                    'label' => __('Redirect after Editing a Listing', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'view_listing',
+                    'description' => __('Select where user will be redirected after editing a listing on the frontend.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'view_listing',
+                            'label' => __('Frontend of the Listing', 'directorist'),
+                        ],
+                        [
+                            'value' => 'dashboard',
+                            'label' => __('User Dashboard', 'directorist'),
+                        ],
+                    ],
+                ],
+                'listing_details_text' => [
+                    'type' => 'text',
+                    'label' => __('Section Title of Listing Details', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                    'value' => __('Listing Details', 'directorist'),
+                ],
+                'tags_section_lable' => [
+                    'type' => 'text',
+                    'label' => __('Section Title of Tags', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                    'value' => __('Tags', 'directorist'),
+                ],
+                'custom_section_lable' => [
+                    'type' => 'text',
+                    'label' => __('Section Title of Custom Fields', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                    'value' => __('Features', 'directorist'),
+                ],
+                'listing_location_text' => [
+                    'type' => 'text',
+                    'label' => __('Section Title of Location', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                    'value' => __('Location', 'directorist'),
+                ],
+                'contact_info_text' => [
+                    'type' => 'text',
+                    'label' => __('Section Title of Contact Info', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                    'value' => __('Contact Information', 'directorist'),
+                ],
+                'contact_listing_owner' => [
+                    'type' => 'text',
+                    'label' => __('Section Title of Contact Owner', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                    'value' => __('Contact Listing Owner', 'directorist'),
+                ],
+                'atbd_video_title' => [
+                    'type' => 'text',
+                    'label' => __('Section Title of Video', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                    'value' => __('Video', 'directorist'),
+                ],
+                'atbd_author_info_title' => [
+                    'type' => 'text',
+                    'label' => __('Section Title of Author Info', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                    'value' => __('Author Info', 'directorist'),
+                ],
+                'display_back_link' => [
+                    'type' => 'toggle',
+                    'label' => __('Show Back Link', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'dsiplay_slider_single_page' => [
+                    'type' => 'toggle',
+                    'label' => __('Show Slider Image', 'directorist'),
+                    'value' => true,
+                    'description' => __('Hide/show slider image from single listing page.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'single_slider_image_size' => [
+                    'label' => __('Slider Image Size', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'cover',
+                    'show_if' => [
+                        'where' => "self.dsiplay_slider_single_page",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'cover',
+                            'label' => __('Fill with Container', 'directorist'),
+                        ],
+                        [
+                            'value' => 'contain',
+                            'label' => __('Fit with Container', 'directorist'),
+                        ],
+                    ],
+                ],
+                'single_slider_background_type' => [
+                    'label' => __('Slider Background Type', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'custom-color',
+                    'show_if' => [
+                        'where' => "self.single_slider_image_size",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'contain'],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'blur',
+                            'label' => __('Blur', 'directorist'),
+                        ],
+                        [
+                            'value' => 'custom-color',
+                            'label' => __('Custom Color', 'directorist'),
+                        ],
+                    ],
+                ],
+                'single_slider_background_color' => [
+                    'type' => 'text',
+                    'label' => __('Slider Background Color', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.single_slider_background_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'custom-color'],
+                        ],
+                    ],
+                    'value' => '#fff',
+                ],
+                'dsiplay_thumbnail_img' => [
+                    'type' => 'toggle',
+                    'label' => __('Show Slider Thumbnail', 'directorist'),
+                    'value' => true,
+                    'description' => __('Hide/show slider thumbnail from single listing page.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'gallery_crop_width' => [
+                    'label' => __('Image Width', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '740',
+                    'min' => '1',
+                    'max' => '1200',
+                    'step' => '1',
+                    'show_if' => [
+                        'where' => "self.dsiplay_slider_single_page",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'gallery_crop_height' => [
+                    'label' => __('Image Height', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '580',
+                    'min' => '1',
+                    'max' => '1200',
+                    'step' => '1',
+                    'show_if' => [
+                        'where' => "self.dsiplay_slider_single_page",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'enable_social_share' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Social Share Button', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'enable_favourite' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Favourite Button', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'enable_report_abuse' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Report Abuse', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'disable_list_price' => [
+                    'type' => 'toggle',
+                    'label' => __('Disable Listing Price', 'directorist'),
+                    'value' => false,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'enable_single_location_taxonomy' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Location', 'directorist'),
+                    'value' => false,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'enable_single_tag' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Tag', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'disable_contact_info' => [
+                    'type' => 'toggle',
+                    'label' => __('Disable Contact Information', 'directorist'),
+                    'value' => false,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'address_map_link' => [
+                    'type' => 'toggle',
+                    'label' => __('Address Linked with Map', 'directorist'),
+                    'value' => false,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'disable_contact_owner' => [
+                    'type' => 'toggle',
+                    'label' => __('Disable Contact Listing Owner Form', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'user_email' => [
+                    'label' => __('Email Send to', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'author',
+                    'description' => __('Email recipient for receiving email from Contact Listing Owner Form.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.disable_contact_owner",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'author',
+                            'label' => __('Author Email', 'directorist'),
+                        ],
+                        [
+                            'value' => 'listing_email',
+                            'label' => __('Listing\'s Email', 'directorist'),
+                        ],
+                    ],
+                ],
+                'use_nofollow' => [
+                    'type' => 'toggle',
+                    'label' => __('Use rel="nofollow" in Website Link', 'directorist'),
+                    'value' => false,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'disable_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Disable Map', 'directorist'),
+                    'value' => false,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'atbd_video_url' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Listing Video', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'enable_rel_listing' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Related Listings', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'rel_listings_logic' => [
+                    'label' => __('Based on', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'OR',
+                    'description' => __('Display related listings based on category and/or tag.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_rel_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'OR',
+                            'label' => __('Category or Tag', 'directorist'),
+                        ],
+                        [
+                            'value' => 'AND',
+                            'label' => __('Category and Tag', 'directorist'),
+                        ],
+                    ],
+                ],
+                'rel_listing_title' => [
+                    'type' => 'text',
+                    'label' => __('Related Listings Title', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_rel_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => __('Related Listings', 'directorist'),
+                ],
+                'rel_listing_num' => [
+                    'label' => __('Number of Related Listings', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '5',
+                    'min' => '1',
+                    'max' => '10',
+                    'step' => '1',
+                    'show_if' => [
+                        'where' => "self.enable_rel_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'rel_listing_column' => [
+                    'label' => __('Columns of Related Listings', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '2',
+                    'min' => '1',
+                    'max' => '10',
+                    'step' => '1',
+                    'show_if' => [
+                        'where' => "self.enable_rel_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'fix_listing_double_thumb' => [
+                    'type' => 'toggle',
+                    'label' => __('Fix Repeated Thumbnail of Single Listing', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.disable_single_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => false],
+                        ],
+                    ],
+                ],
+                'display_new_badge_cart' => [
+                    'type' => 'toggle',
+                    'label' => __('Display New Badge', 'directorist'),
+                    'value' => true,
+                ],
+                'new_badge_text' => [
+                    'type' => 'text',
+                    'label' => __('New Badge Text', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_new_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => __('New', 'directorist'),
+                ],
+                'new_listing_day' => [
+                    'label' => __('New Badge Duration in Days', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '3',
+                    'min' => '1',
+                    'max' => '100',
+                    'step' => '1',
+                    'show_if' => [
+                        'where' => "self.display_new_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_feature_badge_cart' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Featured Badge', 'directorist'),
+                    'value' => true,
+                ],
+                'feature_badge_text' => [
+                    'type' => 'text',
+                    'label' => __('Featured Badge Text', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_feature_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => __('Featured', 'directorist'),
+                ],
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -1017,19 +1563,29 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                         'single_listing' => [
                             'label' => __('Single Listing', 'directorist'),
+                            'icon' => '<i class="fa fa-info"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
                                 'labels' => [
                                     'title'       => __('Single Listing', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [
+                                        'disable_single_listing', 'single_listing_template', 'atbdp_listing_slug', 'edit_listing_redirect', 'listing_details_text', 'tags_section_lable', 'custom_section_lable', 'listing_location_text', 'contact_info_text', 'contact_listing_owner', 'atbd_video_title', 'atbd_author_info_title', 'display_back_link', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'dsiplay_thumbnail_img', 'gallery_crop_width', 'gallery_crop_height', 'enable_social_share', 'enable_favourite', 'enable_report_abuse', 'disable_list_price', 'enable_single_location_taxonomy', 'enable_single_tag', 'disable_contact_info', 'address_map_link', 'disable_contact_owner', 'user_email', 'use_nofollow', 'disable_map', 'atbd_video_url', 'enable_rel_listing', 'rel_listings_logic', 'rel_listing_title', 'rel_listing_num', 'rel_listing_column', 'fix_listing_double_thumb'
+                                    ],
                                 ],
                             ] ),
                         ],
                         'badge' => [
                             'label' => __('Badge', 'directorist'),
                             'sections' => apply_filters( 'atbdp_listing_settings_badge_sections', [
-                                'labels' => [
-                                    'title'       => __('Badge', 'directorist'),
+                                'badge_management' => [
+                                    'title'       => __('Badge Management', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'display_new_badge_cart', 'new_badge_text', 'new_listing_day', 'display_feature_badge_cart', 'feature_badge_text'
+                                    ],
+                                ],
+                                'popular_badge' => [
+                                    'title'       => __('Popular Badge', 'directorist'),
                                     'description' => '',
                                     'fields'      => [],
                                 ],

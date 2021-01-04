@@ -84,6 +84,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#DD6B55',
                 confirmButtonText: atbdp_admin_data.i18n_text.confirm_delete,
+                cancel: atbdp_add_listing.i18n_text.cancel,
                 closeOnConfirm: false,
             },
             function (isConfirm) {

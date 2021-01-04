@@ -5,13 +5,13 @@
   }
   .atbd_badge {
     color: $light;
-    font-size: 11px;
-    padding: 0 7px;
+    font-size: 10px;
+    padding: 0 3.2px;
     border-radius: 2px;
-    font-weight: 500;
+    font-weight: 700;
     display: inline-block;
-    line-height: 22px;
-    margin: 0 3px !important;
+    line-height: 18px;
+    text-transform: uppercase;
     & + .atbd_badge {
       margin-left: 0;
     }
@@ -42,13 +42,10 @@
     margin-top: 8px;
     .atbd_meta {
       font-size: 14px;
-      line-height: 24px;
-      padding: 0 8px;
+      line-height: 1.4;
       color: $light;
       display: inline-block;
       border-radius: 3px;
-      margin-top: 3px;
-      margin-bottom: 3px;
       &:last-child{
         margin-right: 0;
       }
@@ -66,7 +63,6 @@
       @extend .atbd_bg-primary;
     }
     .atbd_listing_average_pricing , .atbd_close_now{
-      border: 1px solid #e3e6ef;
       > span {
         font-weight: 500;
         color: rgba(#7a82a6, .3);
@@ -178,7 +174,7 @@
           background-color: #fff !important;
           i,
           svg{
-            font-size: 13px;
+            font-size: 12px;
             margin: 0;
             color: $warning;
           }
@@ -186,7 +182,6 @@
             font-size: 15px;
             font-weight: 600;
             color: $dark;
-            margin: 0 3px 0 6px;
           }
         }
         .atbd_listing_price{
@@ -440,25 +435,23 @@
             margin-left: 3px;
           }
         }
-        .atbd_badge{
-          margin: 0 3px;
-        }
         .atbdp_add_to_fav_listings{
           display: inline-flex;
         }
         .atbd_listing_transparent{
           padding: 0;
           background-color: #fff !important;
+          margin: -1.5px;
           i,
           svg{
-            font-size: 13px;
-            margin: 0;
+            font-size: 12px;
+            margin: 1.5px;
             color: $warning;
           }
           .atbd_listing_avg{
-            font-size: 15px;
-            font-weight: 600;
-            color: $dark;
+            font-size: 14px;
+            font-weight: 700;
+            color: #51526E;
             margin: 0 3px 0 6px;
           }
         }
@@ -531,13 +524,10 @@ span.atbd_get_loc_wid {
 }
 
 #directorist.atbd_wrapper{
-  .atbdp_add_to_fav_listings{
-    margin: 0 3px;
-  }
   .atbdp_mark_as_fav{
-    background: rgba(0,0,0,0.2);
-    width: 26px;
-    height: 26px;
+    background-color: #F2F2F2;
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -551,10 +541,11 @@ span.atbd_get_loc_wid {
       }
     }
     .atbd_fav_icon{
+      line-height: 1;
       &:before{
         content: "\f234";
         font-family: 'LineAwesome';
-        color:#fff;
+        color:#51526E;
       }
     }
     .atbd_fav_tooltip {

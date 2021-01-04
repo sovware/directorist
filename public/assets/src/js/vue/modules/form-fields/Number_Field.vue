@@ -10,6 +10,11 @@ export default {
         event: 'update'
     },
     props: {
+        type: {
+            type: String,
+            required: false,
+            default: 'number',
+        },
         label: {
             type: String,
             required: false,
@@ -29,6 +34,14 @@ export default {
             type: [String, Number],
             required: false,
             default: '',
+        },
+        rules: {
+            type: Object,
+            required: false,
+        },
+        validationFeedback: {
+            type: Object,
+            required: false,
         },
         validation: {
             type: Array,

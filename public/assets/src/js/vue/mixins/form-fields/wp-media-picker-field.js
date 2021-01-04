@@ -36,6 +36,10 @@ export default {
             type: String,
             default: 'Change',
         },
+        validationFeedback: {
+            type: Object,
+            required: false,
+        },
         validation: {
             type: Array,
             required: false,

@@ -54,6 +54,10 @@ export default {
             required: false,
             default: 'Nothing available',
         },
+        validationFeedback: {
+            type: Object,
+            required: false,
+        },
         validation: {
             type: Array,
             required: false,

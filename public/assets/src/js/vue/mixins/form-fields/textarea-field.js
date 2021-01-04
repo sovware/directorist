@@ -42,6 +42,10 @@ export default {
             required: false,
             default: '10',
         },
+        validationFeedback: {
+            type: Object,
+            required: false,
+        },
         validation: {
             type: Array,
             required: false,

@@ -50,6 +50,10 @@ export default {
             required: false,
             default: '',
         },
+        validationFeedback: {
+            type: Object,
+            required: false,
+        },
         validation: {
             type: Array,
             required: false,

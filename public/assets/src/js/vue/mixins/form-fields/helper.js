@@ -4,7 +4,13 @@ export default {
     computed: {
         ...mapState({
             config: 'config'
-        })
+        }),
+
+        validationAlertMessages() {
+            if ( ! this.validationFeedback ) {
+                return false;
+            }
+        }
     },
 
     methods: {
@@ -20,6 +26,6 @@ export default {
             }
             
             return field +'-theme-' + the_theme;
-        }
+        },
     },
 }

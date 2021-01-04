@@ -27,12 +27,13 @@
 
 <script>
 import Vue from 'vue';
-import helpers from './../mixins/helpers';
+import section_helpers from './../mixins/section-helpers';
+import general_helpers from './../mixins/general-helpers';
 import { mapState } from 'vuex';
 
 export default {
     name: 'sections-module',
-    mixins: [ helpers ],
+    mixins: [ section_helpers, general_helpers ],
 
     props: {
         sections: {

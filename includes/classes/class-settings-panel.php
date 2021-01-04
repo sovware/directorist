@@ -349,7 +349,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'value' => [
                         'search_text',
                         'search_category',
-                        'search]location',
+                        'search_location',
                         'search_price',
                         'search_price_range',
                         'search_rating',

@@ -1005,10 +1005,11 @@
     }
 
 
-    $("[data-target='atbdp-report-abuse-modal']").on("click", function(){
+    /* $("[data-target='atbdp-report-abuse-modal']").on("click", function(){
         alert("sdf");
-    })
+    }) */
     //console.log($("[data-target='atbdp-report-abuse-modal']"));
+    //alert("sdf");
 })(jQuery);
 
   // on load of the page: switch to the currently selected tab

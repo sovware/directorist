@@ -799,12 +799,29 @@ li[ class="cptm-form-builder-field-list-item" ][ draggable="true" ] {
   margin-right: 20px;
 }
 
+#listing_settings__listings_page{
+  .cptm-checkbox-item{
+    &:not(:last-child){
+      margin-bottom: 10px;
+    }
+  }
+}
+
 input[type="checkbox"].cptm-checkbox {
   display: none;
   &:checked + .cptm-checkbox-ui {
     color: $primary;
     &::before {
-      content: "\f14a";
+      font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
+      font-weight: 900;
+      color: #fff;
+      content: "\f00c";
+      z-index: 22;
+    }
+    &:after{
+      background-color: #00B158;
+      border-color: #00B158;
+      z-index: -1;
     }
   }
 }
@@ -833,15 +850,25 @@ input[type="radio"].cptm-radio {
   display: inline-block;
   margin-right: 5px;
   min-width: 16px;
+  position: relative;
+  z-index: 1;
+  margin-right: 12px;
   &::before {
-    content: "\f0c8";
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 900;
     display: inline-block;
-    font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    font-size: 18px;
+    margin-left: 4px;
+  }
+  &:after{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1px solid #C6D0DC;
+    content: '';
   }
 }
 
@@ -2287,4 +2314,59 @@ input[type=checkbox], input[type=radio]{
 
 .shrink {
   max-width: 300px;
+}
+
+// ====================
+// Dropdowwn
+// ====================
+.directorist_dropdown{
+  position: relative;
+  .directorist_dropdown-toggle{
+    position: relative;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #F4F5F7;
+    color: #5A5F7D;
+    border-radius: 4px;
+    padding: 13px 15px;
+    &:before{
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-size: 18px;
+      float: right;
+      content: '\f107';
+    }
+  }
+  .directorist_dropdown-option{
+    display: none;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 44px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 10px 40px #868EAE30;
+    border-radius: 5px;
+    ul{
+      margin: 0;
+      padding: 0;
+      li{
+        a{
+          font-size: 14px;
+          font-weight: 500;
+          text-decoration: none;
+          display: block;
+          padding: 8px 10px;
+          border-radius: 4px;
+          &:hover{
+            color: #fff;
+            background-color: $primary;
+          }
+        }
+      }
+    }
+  }
 }

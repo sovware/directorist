@@ -3008,6 +3008,11 @@ input#privacy_policy,
   left: 0;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_report a,
+.atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_report a {
+  pointer-events: none;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module_title_area .atbd_listing_action_area .atbd_action.atbd_report a span,
 .atbd_content_active #directorist.atbd_wrapper .atbd_content_module__tittle_area .atbd_listing_action_area .atbd_action.atbd_report a span {
   pointer-events: none;
@@ -4476,8 +4481,8 @@ input#privacy_policy,
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title {
   padding: 0;
   text-transform: none;
-  line-height: 24px;
-  margin-bottom: 0;
+  line-height: 1.2;
+  margin-bottom: 0 !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing .atbd_listing_info .atbd_content_upper .atbd_listing_title a {
@@ -4656,8 +4661,8 @@ input#privacy_policy,
   top: 0;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_listing_title {
-  margin-bottom: 10px;
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top {
+  margin: -4px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_listing_meta {
@@ -4703,6 +4708,39 @@ input#privacy_policy,
   color: #202428;
   font-weight: 700;
   padding: 0;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_badge.atbd_badge_open,
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_badge.atbd_badge_close {
+  position: relative;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+  background-color: #fff !important;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_badge.atbd_badge_close {
+  color: #e23636;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_badge.atbd_badge_open {
+  color: #32cc6f;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbdp_add_to_fav_listings {
+  margin-left: 8px !important;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_listing_average_pricing span {
+  font-weight: 700;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_listing_meta,
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_listing_meta,
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_listing_title,
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbd_badge,
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card .atbd-card-body-top .atbdp_add_to_fav_listings {
+  margin: 4px !important;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .select2-selection__clear {

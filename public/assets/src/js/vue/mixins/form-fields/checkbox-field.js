@@ -1,68 +1,15 @@
 import { mapState } from 'vuex';
 import helpers from './../helpers';
-import validation from './../validation';
+import validator from './../validator';
+import props from './input-field-props.js';
 
 export default {
-    mixins: [ helpers, validation ],
+    mixins: [ props, helpers, validator ],
     model: {
         prop: 'value',
         event: 'input'
     },
-    props: {
-        fieldId: {
-            type: [ String, Number ],
-            required: false,
-            default: '',
-        },
-        label: {
-            type: [ String ],
-            required: false,
-            default: '',
-        },
-        description: {
-            type: [ String ],
-            required: false,
-            default: '',
-        },
-        id: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        name: {
-            type: [ String, Number ],
-            required: false,
-            default: '',
-        },
-        value: {
-            default: [],
-        },
-        options: {
-            required: false,
-        },
-        optionsSource: {
-            required: false,
-        },
-        placeholder: {
-            type: [ String, Number ],
-            required: false,
-            default: '',
-        },
-        infoTextForNoOption: {
-            type: String,
-            required: false,
-            default: 'Nothing available',
-        },
-        validationFeedback: {
-            type: Object,
-            required: false,
-        },
-        validation: {
-            type: Array,
-            required: false,
-        },
-    },
-
+    
     created() {
         this.local_value = this.filtereValue( this.value );
         this.$emit( 'update', this.local_value );

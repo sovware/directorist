@@ -1,72 +1,17 @@
 import InputColorPicker from 'vue-native-color-picker';
 
-import validation from '../validation';
+import validator from './../validator';
 import field_helper from './helper.js';
-
+import props from './input-field-props.js';
 
 export default {
-    mixins: [ validation, field_helper ],
+    mixins: [ props, validator, field_helper ],
     components: {
         "v-input-colorpicker": InputColorPicker
     },
     model: {
         prop: 'value',
         event: 'input'
-    },
-    props: {
-        fieldId: {
-            type: String,
-            default: ''
-        },
-        theme: {
-            type: String,
-            default: 'default'
-        },
-        type: {
-            type: String,
-            required: false,
-            default: 'text',
-        },
-        label: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        description: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        value: {
-            required: false,
-            default: '',
-        },
-        name: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        placeholder: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        rules: {
-            type: Object,
-            required: false,
-        },
-        validationFeedback: {
-            type: Object,
-            required: false,
-        },
-        validation: {
-            type: Array,
-            required: false,
-        },
-        input_style: {
-            type: Object,
-            required: false,
-        },
     },
 
     created() {

@@ -201,6 +201,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'placeholder' => '365',
                     'rules' => [
                         'required' => true,
+                        'min' => 3,
+                        'max' => 200,
                     ],
                 ],
                 'can_renew_listing' => [

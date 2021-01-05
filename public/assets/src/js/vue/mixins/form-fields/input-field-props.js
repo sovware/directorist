@@ -40,6 +40,14 @@ export default {
         optionsSource: {
             required: false,
         },
+        showDefaultOption: {
+            type: Boolean,
+            default: false,
+        },
+        defaultOption: {
+            type: Object,
+            required: false,
+        },
         placeholder: {
             type: [String, Number],
             required: false,
@@ -50,16 +58,36 @@ export default {
             required: false,
             default: 'Nothing available',
         },
+        cols: {
+            type: [String, Number],
+            required: false,
+            default: '30',
+        },
+        rows: {
+            type: [String, Number],
+            required: false,
+            default: '10',
+        },
+        defaultImg: {
+            required: false,
+        },
+        selectButtonLabel: {
+            required: false,
+            type: String,
+            default: 'Select',
+        },
+        changeButtonLabel: {
+            required: false,
+            type: String,
+            default: 'Change',
+        },
         rules: {
-            type: Object,
             required: false,
         },
         validationState: {
-            type: Object,
             required: false,
         },
         validation: {
-            type: Array,
             required: false,
         },
     },

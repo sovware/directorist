@@ -1,5 +1,4 @@
 import validator from './../validator';
-import validation from './../validation';
 import field_helper from './helper.js';
 import props from './input-field-props.js';
 

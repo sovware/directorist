@@ -1,49 +1,12 @@
+import validator from './../validation';
+import props from './input-field-props.js';
+
 export default {
+    mixins: [ props, validator ],
+
     model: {
         prop: 'value',
         event: 'input'
-    },
-    props: {
-        type: {
-            type: String,
-            required: false,
-            default: 'text',
-        },
-        label: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        description: {
-            type: [ String ],
-            required: false,
-            default: '',
-        },
-        value: {
-            required: false,
-            default: '',
-        },
-        defaultImg: {
-            required: false,
-        },
-        selectButtonLabel: {
-            required: false,
-            type: String,
-            default: 'Select',
-        },
-        changeButtonLabel: {
-            required: false,
-            type: String,
-            default: 'Change',
-        },
-        validationFeedback: {
-            type: Object,
-            required: false,
-        },
-        validation: {
-            type: Array,
-            required: false,
-        },
     },
 
     computed: {
@@ -85,7 +48,7 @@ export default {
         }
     },
 
-    mounted() {
+    created() {
         this.setup();
     },
 

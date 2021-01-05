@@ -167,12 +167,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                     ],
                 ],
-                'color' => [
-                    'label' => __('Color', 'directorist'),
-                    'type'  => 'color',
-                    'value' => '#ffffff',
-                    'description' => __('Select a color', 'directorist'),
-                ],
                 'fix_js_conflict' => [
                     'label' => __('Fix Conflict with Bootstrap JS', 'directorist'),
                     'type'  => 'toggle',
@@ -355,7 +349,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'value' => [
                         'search_text',
                         'search_category',
-                        'search_location',
+                        'search]location',
                         'search_price',
                         'search_price_range',
                         'search_rating',
@@ -1534,6 +1528,89 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                     'value' => __('Featured', 'directorist'),
                 ],
+                'display_popular_badge_cart' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Popular Badge', 'directorist'),
+                    'value' => true,
+                ],
+                'popular_badge_text' => [
+                    'type' => 'text',
+                    'label' => __('Popular Badge Text', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_popular_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => __('Popular', 'directorist'),
+                ],
+                'listing_popular_by' => [
+                    'label' => __('Popular Based on', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'view_count',
+                    'show_if' => [
+                        'where' => "self.display_popular_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'view_count',
+                            'label' => __('View Count', 'directorist'),
+                        ],
+                        [
+                            'value' => 'average_rating',
+                            'label' => __('Average Rating', 'directorist'),
+                        ],
+                        [
+                            'value' => 'both_view_rating',
+                            'label' => __('Both', 'directorist'),
+                        ]
+                    ],
+                ],
+                'views_for_popular' => [
+                    'type' => 'text',
+                    'label' => __('Threshold in Views Count', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_popular_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => 5,
+                ],
+                'average_review_for_popular' => [
+                    'label' => __('Threshold in Average Ratings (equal or grater than)', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '4',
+                    'min' => '.5',
+                    'max' => '4.5',
+                    'step' => '.5',
+                    'show_if' => [
+                        'where' => "self.display_popular_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'featured_listing_title' => [
+                    'type' => 'text',
+                    'label' => __('Title', 'directorist'),
+                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
+                    'value' => __('Featured', 'directorist'),
+                ],
+                'enable_review' => [
+                    'type' => 'toggle',
+                    'label' => __('Enable Reviews & Rating', 'directorist'),
+                    'value' => true,
+                ],
+                'enable_owner_review' => [
+                    'type' => 'toggle',
+                    'label' => __('Enable Reviews & Rating', 'directorist'),
+                    'description' => __('Allow a listing owner to post a review on his/her own listing.', 'directorist'),
+                    'value' => true,
+                ],
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -1549,7 +1626,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('General Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'new_listing_status', 'edit_listing_status', 'color', 'fix_js_conflict', 'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
+                                        'new_listing_status', 'edit_listing_status', 'fix_js_conflict', 'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
                                     ],
                                 ],
                             ] ),
@@ -1582,6 +1659,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                         'badge' => [
                             'label' => __('Badge', 'directorist'),
+                            'icon' => '<i class="fa fa-certificate"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_badge_sections', [
                                 'badge_management' => [
                                     'title'       => __('Badge Management', 'directorist'),
@@ -1593,18 +1671,29 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                 'popular_badge' => [
                                     'title'       => __('Popular Badge', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [
+                                        'display_popular_badge_cart', 'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular'
+                                    ],
+                                ],
+                                'featured_badge' => [
+                                    'title'       => __('Featured Badge', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'featured_listing_title'
+                                    ],
                                 ],
                             ] ),
                         ],
 
                         'review' => [
-                            'label' => __('Reveiw', 'directorist'),
+                            'label' => __('Review Setting', 'directorist'),
                             'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
                                 'labels' => [
-                                    'title'       => __('Reveiw', 'directorist'),
+                                    'title'       => __('Review Setting', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [
+                                        'enable_review'
+                                    ],
                                 ],
                             ] ),
                         ],

@@ -1754,6 +1754,106 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ]),
                 ],
 
+                'location_category' => [
+                    'label' => __( 'Location & Category', 'directorist' ),
+                    'icon' => '<i class="fa fa-list-alt directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_location_category_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'extension_settings' => [
+                    'label' => __( 'Extensions Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-magic directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_extension_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'email_settings' => [
+                    'label' => __( 'Email Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-envelope directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_email_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'login_registration_settings' => [
+                    'label' => __( 'Registration & Login', 'directorist' ),
+                    'icon' => '<i class="fa fa-align-right directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_login_registration_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'style_settings' => [
+                    'label' => __( 'Style Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-adjust directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_style_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'tools' => [
+                    'label' => __( 'Tools', 'directorist' ),
+                    'icon' => '<i class="fa fa-tools directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_tools_submenu', [
+                       
+                    ]),
+                ],
+
+                'monetization_settings' => [
+                    'label' => __( 'Monetization', 'directorist' ),
+                    'icon' => '<i class="fa fa-money-bill-alt directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_monetization_settings_submenu', [
+                        'monetization_general' => [
+                            'label' => __('Monetization Settings', 'directorist'),
+                            'icon' => '<i class="fa fa-home"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_monetization_general_sections', [
+                                'general' => [
+                                    'title'       => __('Monetization Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                                'featured' => [
+                                    'title'       => __('Monetize by Featured Listing', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                                'plan_promo' => [
+                                    'title'       => __('Monetize by Listing Plans', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                            ] ),
+                        ],
+                        'gateway' => [
+                            'label' => __('Gateways Settings', 'directorist'),
+                            'icon' => '<i class="fa fa-bezier-curve"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_gateway_sections', [
+                                'gateway_general' => [
+                                    'title'       => __('Gateways General Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                            ] ),
+                        ],
+                        'offline_gateway' => [
+                            'label' => __('Offline Gateways Settings', 'directorist'),
+                            'icon' => '<i class="fa fa-university"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_offline_gateway_sections', [
+                                'offline_gateway_general' => [
+                                    'title'       => __('Gateways General Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        
+                                    ],
+                                ],
+                            ] ),
+                        ],
+                    ]),
+                ],
+
             ]);
 
             $this->config = [
@@ -1763,6 +1863,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'with' => [ 'action' => 'save_settings_data' ],
                 ],
             ];
+           
+        
         }
 
         // add_menu_pages

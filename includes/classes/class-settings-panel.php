@@ -1607,9 +1607,99 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 ],
                 'enable_owner_review' => [
                     'type' => 'toggle',
-                    'label' => __('Enable Reviews & Rating', 'directorist'),
+                    'label' => __('Enable Owner Review', 'directorist'),
                     'description' => __('Allow a listing owner to post a review on his/her own listing.', 'directorist'),
                     'value' => true,
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'approve_immediately' => [
+                    'type' => 'toggle',
+                    'label' => __('Approve Immediately?', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'review_approval_text' => [
+                    'type' => 'textarea',
+                    'label' => __('Approval Notification Text', 'directorist'),
+                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
+                    'value' => __('We have received your review. It requires approval.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'enable_reviewer_img' => [
+                    'type' => 'toggle',
+                    'label' => __('Enable Reviewer Image', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'enable_reviewer_content' => [
+                    'type' => 'toggle',
+                    'label' => __('Enable Reviewer content', 'directorist'),
+                    'value' => true,
+                    'description' => __('Allow to display content of reviewer on single listing page.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'required_reviewer_content' => [
+                    'type' => 'toggle',
+                    'label' => __('Required Reviewer content', 'directorist'),
+                    'value' => true,
+                    'description' => __('Allow to Require the content of reviewer on single listing page.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'review_num' => [
+                    'label' => __('Number of Reviews', 'directorist'),
+                    'description' => __('Enter how many reviews to show on Single listing page.', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '5',
+                    'min' => '1',
+                    'max' => '20',
+                    'step' => '1',
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'guest_review' => [
+                    'type' => 'toggle',
+                    'label' => __('Guest Review Submission', 'directorist'),
+                    'value' => false,
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
             ]);
 
@@ -1687,12 +1777,13 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                         'review' => [
                             'label' => __('Review Setting', 'directorist'),
+                            'icon' => '<i class="fa fa-star"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
                                 'labels' => [
                                     'title'       => __('Review Setting', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'enable_review'
+                                        'enable_review', 'enable_owner_review', 'approve_immediately', 'review_approval_text', 'enable_reviewer_img', 'enable_reviewer_content', 'required_reviewer_content', 'review_num', 'guest_review'
                                     ],
                                 ],
                             ] ),

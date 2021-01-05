@@ -5,9 +5,9 @@
  * @version 6.7
  */
 ?>
-<div class="atbd_action atbd_report atbd_tooltip" aria-label="<?php esc_html_e('Report', 'directorist'); ?>">
+<div class="atbd_action atbd_report atbd_tooltip" data-target="atbdp-report-abuse-modal" aria-label="<?php esc_html_e('Report', 'directorist'); ?>">
 	<?php if (atbdp_logged_in_user() || apply_filters('atbdp_allow_public_report', false)): ?>
-	<a href="#" data-target="atbdp-report-abuse-modal" class="atbdp-report-abuse-modal"><?php directorist_icon( $icon );?></a>
+	<a href="#" class="atbdp-report-abuse-modal"><?php directorist_icon( $icon );?></a>
 	<?php else: ?>
 		<a href="#" class="atbdp-require-login"><?php directorist_icon( $icon );?><?php esc_html_e('Report', 'directorist'); ?></a>
 	<?php endif; ?>

@@ -2826,6 +2826,167 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'value' => '',
                     'options' => $this->get_pages_vl_arrays(),
                 ],
+                // seo settings 
+                'atbdp_enable_seo' => [
+                    'type'  => 'toggle',
+                    'label' => __('Enable SEO', 'directorist'),
+                    'value' => true,
+                ],
+                'add_listing_page_meta_title'    => [
+                    'type'          => 'text',
+                    'label'         => __('Add Listing Page Meta Title', 'directorist'),
+                    'description'   => __('Default the title of the page set as frontpage.', 'directorist'),
+                    'value'         => '',
+                ],
+                'add_listing_page_meta_desc'    => [
+                    'type'          => 'text',
+                    'label'         => __('Add Listing Page Meta Description', 'directorist'),
+                    'value'         => '',
+                ],
+                'all_listing_meta_title'    => [
+                    'type'          => 'text',
+                    'label'         => __('All Listing Page Meta Title', 'directorist'),
+                    'description'   => __('Default the title of the page set as frontpage.', 'directorist'),
+                    'value'         => '',
+                ],
+                'all_listing_meta_desc'    => [
+                    'type'          => 'text',
+                    'label'         => __('All Listing Page Meta Description', 'directorist'),
+                    'value'         => '',
+                ],
+                'dashboard_meta_title'    => [
+                    'type'          => 'text',
+                    'label'         => __('User Dashboard Page Meta Title', 'directorist'),
+                    'description' => __('Default the title of the page set as frontpage.', 'directorist'),
+                    'value'         => '',
+                ],
+                'dashboard_meta_desc'    => [
+                    'type'          => 'text',
+                    'label'         => __('Dashboard Page Meta Description', 'directorist'),
+                    'value'         => '',
+                ],
+                'author_profile_meta_title' => [
+                    'type'          => 'text',
+                    'label'         => __('Author Page Meta Title', 'directorist'),
+                    'description'   => __('Default the title of the page set as frontpage.', 'directorist'),
+                    'value'         => '',
+                ],
+                'author_page_meta_desc'    => [
+                    'type'          => 'text',
+                    'label'         => __('Author Page Meta Description', 'directorist'),
+                    'value'         => '',
+                ],
+                'category_meta_title'    => [
+                    'type'          => 'text',
+                    'label'         => __('Category Page Meta Title', 'directorist'),
+                    'description' => __('Default the title of the page set as frontpage.', 'directorist'),
+                    'value'         => '',
+                ],
+                'category_meta_desc'    => [
+                    'type'          => 'text',
+                    'label'         => __('Category Page Meta Description', 'directorist'),
+                    'value'         => '',
+                ],
+                'single_category_meta_title'    => [
+                    'type'          => 'text',
+                    'label'         => __('Single Category Page Meta Title', 'directorist'),
+                    'description'   => __('Default the title of the category.', 'directorist'),
+                    'value'         => '',
+                ],
+                'single_category_meta_desc'    => [
+                    'type'          => 'text',
+                    'label'         => __('Single Category Page Meta Description', 'directorist'),
+                    'description'   => __('Leave it blank to set category\'s description as meta description of this page', 'directorist'),
+                    'value'         => '',
+                ],
+                'all_locations_meta_title'    => [
+                    'type'          => 'text',
+                    'label'         => __('All Locations Page Meta Title', 'directorist'),
+                    'description'   => __('Default the title of the page set as frontpage.', 'directorist'),
+                    'value'         => '',
+                ],
+                'all_locations_meta_desc'    => [
+                    'type'          => 'text',
+                    'label'         => __('All Locations Page Meta Description', 'directorist'),
+                    'value'         => '',
+                ],
+                'single_locations_meta_title'    => [
+                    'type'          => 'text',
+                    'label'         => __('Single Location Page Meta Title', 'directorist'),
+                    'description'   => __('Default the title of the location.', 'directorist'),
+                    'value'         => '',
+                ],
+                'single_locations_meta_desc'    => [
+                    'type'          => 'text',
+                    'label'         => __('Single Locations Page Meta Description', 'directorist'),
+                    'description'   => __('Leave it blank to set location\'s description as meta description of this page', 'directorist'),
+                    'value'         => '',
+                ],
+                'registration_meta_title'    => [
+                    'type'          => 'text',
+                    'label'         => __('Registration Page Meta Title', 'directorist'),
+                    'description'   => __('Default the title of the page set as frontpage.', 'directorist'),
+                    'value'         => '',
+                ],
+                'registration_meta_desc'    => [
+                    'type'          => 'text',
+                    'label'         => __('Registration Page Meta Description', 'directorist'),
+                    'value'         => '',
+                ],
+                'login_meta_title'    => [
+                    'type'          => 'text',
+                    'label'         => __('Login Page Meta Title', 'directorist'),
+                    'description'   => __('Default the title of the page set as frontpage.', 'directorist'),
+                    'value'         => '',
+                ],
+                'login_meta_desc'    => [
+                    'type'          => 'text',
+                    'label'         => __('Login Page Meta Description', 'directorist'),
+                    'value'         => '',
+                ],
+                'homepage_meta_title'    => [
+                    'type'          => 'text',
+                    'label'         => __('Search Home Page Meta Title', 'directorist'),
+                    'description' => __('Default the title of the page set as frontpage.', 'directorist'),
+                    'value'         => '',
+                ],
+                'homepage_meta_desc'    => [
+                    'type'          => 'text',
+                    'label'         => __('Search Home Page Meta Description', 'directorist'),
+                    'value'         => '',
+                ],
+                'meta_title_for_search_result' => [
+                    'label' => __('Search Result Page Meta Title', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'searched_value',
+                    'options' => [
+                        [
+                            'value' => 'searched_value',
+                            'label' => __('From User Search', 'directorist'),
+                        ],
+                        [
+                            'value' => 'custom',
+                            'label' => __('Custom', 'directorist'),
+                        ],
+                    ],
+                ],
+                'search_result_meta_title'    => [
+                    'type'          => 'text',
+                    'label'         => __('Custom Meta Title', 'directorist'),
+                    'description'   => __('Default the title of the page set as frontpage.', 'directorist'),
+                    'value'         => '',
+                    'show_if' => [
+                        'where' => "self.meta_title_for_search_result",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'custom'],
+                        ],
+                    ],
+                ],
+                'search_result_meta_desc'    => [
+                    'type'          => 'text',
+                    'label'         => __('Search Result Page Meta Description', 'directorist'),
+                    'value'         => '',
+                ],
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -3006,7 +3167,18 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __( 'SEO Settings', 'directorist' ),
                     'icon' => '<i class="fa fa-bolt directorist_green"></i>',
                     'submenu' => apply_filters('atbdp_seo_settings_submenu', [
-                       
+                        'seo_settings' => [
+                            'label' => __('Titles & Metas', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_seo_settings_sections', [
+                                'title_metas' => [
+                                    'title'       => __('Titles & Metas', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'atbdp_enable_seo', 'add_listing_page_meta_title', 'add_listing_page_meta_desc', 'all_listing_meta_title', 'all_listing_meta_desc', 'dashboard_meta_title', 'dashboard_meta_desc', 'author_profile_meta_title', 'author_page_meta_desc', 'category_meta_title', 'category_meta_desc', 'single_category_meta_title', 'single_category_meta_desc', 'all_locations_meta_title', 'all_locations_meta_desc', 'single_locations_meta_title', 'single_locations_meta_desc', 'registration_meta_title', 'registration_meta_desc', 'login_meta_title', 'login_meta_desc', 'homepage_meta_title', 'homepage_meta_desc', 'meta_title_for_search_result', 'search_result_meta_title', 'search_result_meta_desc'
+                                     ],
+                                ],
+                            ] ),
+                        ],
                     ]),
                 ],
 

@@ -235,6 +235,24 @@
         align-items: center;
         margin: 0 -3px;
       }
+      .atbd-card-cover-top-left,
+      .atbd-card-cover-top-right,
+      .atbd-card-cover-bottom-left,
+      .atbd-card-cover-bottom-right{
+        .atbd_badge,
+        .atdlc_compare-btn-container,
+        .atbdp_add_to_fav_listings{
+          margin: 3px;
+        }
+        .atbdp_mark_as_fav {
+          background-color: rgba(0, 0, 0, 0.2);
+          .atbd_fav_icon{
+            &:before{
+              color: #fff;
+            }
+          }
+        }
+      }
       .atbd-card-cover-top-left{
         left: 20px;
         top: 20px;
@@ -415,7 +433,11 @@
           }
         }
       }
-      .atbd-card-cover-top-right{
+      .atbd-card-cover-top-right,
+      .atbd-card-cover-top-left,
+      .atbd-card-cover-bottom-left,
+      .atbd-card-cover-bottom-right,
+      .atbd-card-body-top{
         .atdlc_compare-btn-container{
           .atdlc-mark_compare_wrapper.atdlc_list-btn-position{
             position: relative;
@@ -426,11 +448,37 @@
       }
       .atbd-card-body-top{
         margin: -4px;
+        .atdlc_compare-btn-container{
+          display: inline-flex;
+        }
         .atbd_listing_meta{
           display: inline-flex;
           margin: 0;
           &:last-child{
             margin-left: 3px;
+          }
+        }
+        .atbdp_info_list{
+          position: relative;
+          &:not(:last-child){
+            padding-right: 8px;
+            &:after{
+              position: absolute;
+              right: 0;
+              top: 50%;
+              transform: translateY(-50%);
+              border-radius: 10px;
+              width: 1px;
+              height: 15px;
+              content: '';
+              background-color: #E9E9E9;
+            }
+            &.atbd_badge{
+              margin-right: 8px !important;
+              &:after{
+                right: -8px;
+              }
+            }
           }
         }
         .atbdp_add_to_fav_listings{

@@ -3297,6 +3297,387 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'toggle',
                     'value'         => false,
                 ],
+                // registration settings 
+                'reg_username'    => [
+                    'type'          => 'text',
+                    'label'         => __('Label', 'directorist'),
+                    'value'         => __('Username', 'directorist'),
+                ],
+                'display_password_reg' => [
+                    'label'         => __('Enable', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                ],
+                'reg_password'    => [
+                    'type'          => 'text',
+                    'label'         => __('Label', 'directorist'),
+                    'value'         => __('Password', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_password_reg",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'require_password_reg' => [
+                    'label'         => __('Required', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                    'show_if' => [
+                        'where' => "self.display_password_reg",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'reg_email'    => [
+                    'type'          => 'text',
+                    'label'         => __('Label', 'directorist'),
+                    'value'         => __('Email', 'directorist'),
+                ],
+                'display_website_reg' => [
+                    'label'         => __('Enable', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                ],
+                'reg_website'    => [
+                    'type'          => 'text',
+                    'label'         => __('Label', 'directorist'),
+                    'value'         => __('Website', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_website_reg",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'require_website_reg' => [
+                    'label'         => __('Required', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                    'show_if' => [
+                        'where' => "self.display_website_reg",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_fname_reg' => [
+                    'label'         => __('Enable', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                ],
+                'reg_fname'    => [
+                    'type'          => 'text',
+                    'label'         => __('Label', 'directorist'),
+                    'value'         => __('First Name', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_fname_reg",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'require_fname_reg' => [
+                    'label'         => __('Required', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                    'show_if' => [
+                        'where' => "self.display_fname_reg",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_lname_reg' => [
+                    'label'         => __('Enable', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                ],
+                'reg_lname'    => [
+                    'type'          => 'text',
+                    'label'         => __('Label', 'directorist'),
+                    'value'         => __('Last Name', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_lname_reg",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'require_lname_reg' => [
+                    'label'         => __('Required', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                    'show_if' => [
+                        'where' => "self.display_lname_reg",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_bio_reg' => [
+                    'label'         => __('Enable', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                ],
+                'reg_bio'    => [
+                    'type'          => 'text',
+                    'label'         => __('Label', 'directorist'),
+                    'value'         => __('About/bio', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_bio_reg",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'require_bio_reg' => [
+                    'label'         => __('Required', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                    'show_if' => [
+                        'where' => "self.display_bio_reg",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'registration_privacy' => [
+                    'label'         => __('Enable', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                ],
+                'registration_privacy_label'    => [
+                    'type'          => 'text',
+                    'label'         => __('Label', 'directorist'),
+                    'value'         => __('I agree to the', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.registration_privacy",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'registration_privacy_label_link'    => [
+                    'type'          => 'text',
+                    'label'         => __('Linking Text', 'directorist'),
+                    'value'         => __('Privacy & Policy', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.registration_privacy",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'regi_terms_condition' => [
+                    'label'         => __('Enable', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                ],
+                'regi_terms_label'    => [
+                    'type'          => 'text',
+                    'label'         => __('Label', 'directorist'),
+                    'value'         => __('I agree with all', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.regi_terms_condition",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'regi_terms_label_link'    => [
+                    'type'          => 'text',
+                    'label'         => __('Linking Text', 'directorist'),
+                    'value'         => __('terms & conditions', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.regi_terms_condition",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'reg_signup'    => [
+                    'type'          => 'text',
+                    'label'         => __('Text', 'directorist'),
+                    'value'         => __('Sign Up', 'directorist'),
+                ],
+                'display_login' => [
+                    'label'         => __('Enable', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                ],
+                'login_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('Text', 'directorist'),
+                    'value'         => __('Already have an account? Please login', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_login",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'log_linkingmsg'    => [
+                    'type'          => 'text',
+                    'label'         => __('Linking Text', 'directorist'),
+                    'value'         => __('Here', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_login",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'auto_login' => [
+                    'label'         => __('Auto Login after Registration', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                ],
+                'redirection_after_reg' => [
+                    'label' => __('Redirection after Registration', 'directorist'),
+                    'type'  => 'select',
+                    'value' => atbdp_get_option('user_dashboard', 'atbdp_general'),
+                    'options' => $this->get_pages_with_prev_page(),
+                ],
+
+
+
+
+
+
+
+
+
+
+
+
+                // login settings 
+                'log_username'    => [
+                    'type'          => 'text',
+                    'label'         => __('Label', 'directorist'),
+                    'value'         => __('Username or Email Address', 'directorist'),
+                ],
+                'log_password'    => [
+                    'type'          => 'text',
+                    'label'         => __('Label', 'directorist'),
+                    'value'         => __('Password', 'directorist'),
+                ],
+                'display_rememberme' => [
+                    'label'         => __('Enable', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                ],
+                'log_rememberme'    => [
+                    'type'          => 'text',
+                    'label'         => __('Label', 'directorist'),
+                    'value'         => __('Remember Me', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_rememberme",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'log_button'    => [
+                    'type'          => 'text',
+                    'label'         => __('Text', 'directorist'),
+                    'value'         => __('Log In', 'directorist'),
+                ],
+                'display_signup' => [
+                    'label'         => __('Enable', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                ],
+                'reg_text'    => [
+                    'type'          => 'textarea',
+                    'label'         => __('Text', 'directorist'),
+                    'value'         => __('Don\'t have an account?', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_signup",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'reg_linktxt'    => [
+                    'type'          => 'text',
+                    'label'         => __('Linking Text', 'directorist'),
+                    'value'         => __('Sign Up', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_signup",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_recpass' => [
+                    'label'         => __('Enable', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                ],
+                'recpass_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('Name', 'directorist'),
+                    'value'         => __('Recover Password', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_recpass",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'recpass_desc'    => [
+                    'type'          => 'textarea',
+                    'label'         => __('Description', 'directorist'),
+                    'value'         => __('Lost your password? Please enter your email address. You will receive a link to create a new password via email.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_recpass",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'recpass_username'    => [
+                    'type'          => 'text',
+                    'label'         => __('Email Label', 'directorist'),
+                    'value'         => __('E-mail', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_recpass",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'recpass_placeholder'    => [
+                    'type'          => 'text',
+                    'label'         => __('Username or Email Placeholder', 'directorist'),
+                    'value'         => __('eg. mail@example.com', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_recpass",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'recpass_button'    => [
+                    'type'          => 'text',
+                    'label'         => __('Button Text', 'directorist'),
+                    'value'         => __('Get New Password', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_recpass",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'redirection_after_login' => [
+                    'label' => __('Redirection after Login', 'directorist'),
+                    'type'  => 'select',
+                    'value' => atbdp_get_option('user_dashboard', 'atbdp_general'),
+                    'options' => $this->get_pages_with_prev_page(),
+                ],
+                
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -3557,7 +3938,150 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __( 'Registration & Login', 'directorist' ),
                     'icon' => '<i class="fa fa-align-right directorist_danger"></i>',
                     'submenu' => apply_filters('atbdp_login_registration_settings_submenu', [
-                       
+                        'registration_settings' => [
+                            'label' => __('Registration Form', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_reg_settings_sections', [
+                                'username' => [
+                                    'title'       => __('Username', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'reg_username'
+                                     ],
+                                ],
+                                'password' => [
+                                    'title'       => __('Password', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_password_reg', 'reg_password', 'require_password_reg'
+                                     ],
+                                ],
+                                'email' => [
+                                    'title'       => __('Email', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'reg_email'
+                                     ],
+                                ],
+                                'website' => [
+                                    'title'       => __('Website', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_website_reg', 'reg_website', 'require_website_reg'
+                                     ],
+                                ],
+                                'first_name' => [
+                                    'title'       => __('First Name', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_fname_reg', 'reg_fname', 'require_fname_reg'
+                                     ],
+                                ],
+                                'last_name' => [
+                                    'title'       => __('Last Name', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_lname_reg', 'reg_lname', 'require_lname_reg'
+                                     ],
+                                ],
+                                'about' => [
+                                    'title'       => __('About/Bio', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_bio_reg', 'reg_bio', 'require_bio_reg'
+                                     ],
+                                ],
+                                'privacy_policy' => [
+                                    'title'       => __('Privacy Policy', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'registration_privacy', 'registration_privacy_label', 'registration_privacy_label_link'
+                                     ],
+                                ],
+                                'terms_condition' => [
+                                    'title'       => __('Terms Conditions', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'regi_terms_condition', 'regi_terms_label', 'regi_terms_label_link'
+                                     ],
+                                ],
+                                'signup_button' => [
+                                    'title'       => __('Sign Up Button', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'reg_signup'
+                                     ],
+                                ],
+                                'login_message' => [
+                                    'title'       => __('Login Message', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_login', 'login_text', 'log_linkingmsg'
+                                     ],
+                                ],
+                                'redirection' => [
+                                    'title'       => __('', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'auto_login', 'redirection_after_reg'
+                                     ],
+                                ],
+                            ] ),
+                        ],
+                        'login_settings' => [
+                            'label' => __('Login Form', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_login_settings_sections', [
+                                'username' => [
+                                    'title'       => __('Username', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'log_username'
+                                     ],
+                                ],
+                                'password' => [
+                                    'title'       => __('Password', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'log_password'
+                                     ],
+                                ],
+                                'remember_login_info' => [
+                                    'title'       => __('Remember Login Information', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_rememberme', 'log_rememberme'
+                                     ],
+                                ],
+                                'login_button' => [
+                                    'title'       => __('Login Button', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'log_button'
+                                     ],
+                                ],
+                                'signup_message' => [
+                                    'title'       => __('Sign Up Message', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_signup', 'reg_text', 'reg_linktxt'
+                                     ],
+                                ],
+                                'recover_password' => [
+                                    'title'       => __('Recover Password', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_recpass', 'recpass_text', 'recpass_desc', 'recpass_username', 'recpass_placeholder', 'recpass_button'
+                                     ],
+                                ],
+                                'login_redirect' => [
+                                    'title'       => '',
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'redirection_after_login'
+                                     ],
+                                ],
+                            ] ),
+                        ],
+                        
                     ]),
                 ],
 
@@ -3747,6 +4271,30 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         {
             $pages = get_pages();
             $pages_options = array();
+            if ($pages) {
+                foreach ($pages as $page) {
+                    $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);
+                }
+            }
+
+            return $pages_options;
+        }
+
+        /**
+         * Get all the pages with previous page in an array where each page is an array of key:value:id and key:label:name
+         *
+         * Example : array(
+         *                  array('value'=> 1, 'label'=> 'page_name'),
+         *                  array('value'=> 50, 'label'=> 'page_name'),
+         *          )
+         * @return array page names with key value pairs in a multi-dimensional array
+         * @since 3.0.0
+         */
+        function get_pages_with_prev_page()
+        {
+            $pages = get_pages();
+            $pages_options = array();
+            $pages_options[] = array( 'value' => 'previous_page', 'label' => 'Previous Page' );
             if ($pages) {
                 foreach ($pages as $page) {
                     $pages_options[] = array('value' => $page->ID, 'label' => $page->post_title);

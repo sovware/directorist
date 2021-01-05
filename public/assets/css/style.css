@@ -4820,6 +4820,12 @@ input#privacy_policy,
   top: 2px;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_card.directorist-card-no-thumbnail {
+  border-radius: 5px;
+  -webkit-box-shadow: 0 10px 20px #868EAE30;
+          box-shadow: 0 10px 20px #868EAE30;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .select2-selection__clear {
   padding-right: 10px;
 }

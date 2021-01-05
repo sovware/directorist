@@ -577,6 +577,12 @@
               background-color: #E9E9E9;
             }
 
+            &.atdlc_compare-btn-container,
+            &.atbdp_add_to_fav_listings{
+              &::after{
+                top: 56%;
+              }
+            }
             &.atbd_badge {
               margin-right: 7px !important;
 
@@ -591,8 +597,22 @@
               &.atbd_badge_open,
               &.atbd_badge_close {
                 margin-left: 4px !important;
+                padding-right: 0 !important;
+                padding-left: 4px !important;
               }
             }
+            &.atbd_badge +.atbdp_add_to_fav_listings,
+            &.atbd_badge +.atdlc_compare-btn-container{
+              margin-left: 8px !important;
+            }
+          }
+        }
+        .atbd_badge {
+          
+          &.atbd_badge_open,
+          &.atbd_badge_close {
+            padding-right: 0px !important;
+            padding-left: 0px !important;
           }
         }
 

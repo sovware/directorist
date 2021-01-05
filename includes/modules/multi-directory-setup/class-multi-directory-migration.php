@@ -470,7 +470,7 @@ class ATBDP_Multi_Directory_Migration {
         if ( ! empty( get_directorist_option( 'display_map_field', true ) ) ) {
             $contact_info_group_field_keys[] = 'address';
             $single_listings_preset_fields["address"] = [
-                "icon"                  => "la la-address-card",
+                "icon"                  => "la la-map",
                 'address_link_with_map' => false,
                 "widget_name"           => "address",
                 "widget_group"          => "preset_widgets",

@@ -16,7 +16,7 @@ if (!class_exists('ATBDP_SEO')) :
                 //add_filter('wpseo_opengraph_image', array($this, 'wpseo_opengraph_image'));
             }
 
-            if (atbdp_disable_overwrite_yoast()) {
+            if (atbdp_can_overwrite_yoast()) {
                 remove_action('wp_head', 'rel_canonical');
                 if (atbdp_yoast_is_active()) {
                     add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
@@ -599,10 +599,14 @@ if (!class_exists('ATBDP_SEO')) :
         public function get_seo_meta_data()
         {
             global $wp, $post;
+            
+            $desc      = esc_html( get_the_excerpt() );
+            $meta_desc = ( strlen( $desc ) > 200 ) ? substr( $desc, 0, 200 ) . "..." : $desc;
+
             $seo_meta = [
                 'site_name'    => get_bloginfo('name'),
-                'title'        => '',
-                'description'  => '',
+                'title'        => get_the_title(),
+                'description'  => $meta_desc,
                 'page'         => '',
                 'current_page' => home_url( add_query_arg( array(), $wp->request ) ) . '/',
                 'image'        => '',

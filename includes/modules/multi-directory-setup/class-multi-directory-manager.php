@@ -2424,7 +2424,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 'icon' => [
                                     'type'  => 'icon',
                                     'label' => 'Icon',
-                                    'value' => 'la la-address-card',
+                                    'value' => 'la la-map',
                                 ],
                                 'address_link_with_map' => [
                                     'type'  => 'toggle',
@@ -4067,33 +4067,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                 ],
 
-                'singular_name' => [
-                    'label' => 'Singular name (e.g. Business)',
-                    'type'  => 'text',
-                    'value' => '',
-                    'rules' => [
-                        'required' => false,
-                    ],
+                'enable_preview_image' => [
+                    'label' => __('Enable Preview Image', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => true,
                 ],
-
-                'plural_name' => [
-                    'label' => 'Plural name (e.g. Businesses)',
-                    'type'  => 'text',
-                    'value' => '',
-                    'rules' => [
-                        'required' => false,
-                    ],
-                ],
-
-                'permalink' => [
-                    'label' => 'Permalink',
-                    'type'  => 'text',
-                    'value' => '',
-                    'rules' => [
-                        'required' => false,
-                    ],
-                ],
-
                 'preview_image' => [
                     'label'       => __('Select', 'directorist'),
                     'type'        => 'wp-media-picker',
@@ -4618,23 +4596,10 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'title'       => __('Labels', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'name', 'icon', 'singular_name', 'plural_name', 'permalink',
+                                        'name', 'icon',
                                     ],
                                 ],
-                            ],
-                        ],
-                        'packages' => [
-                            'label' => 'Packages',
-                            'sections' => [
-                                'packages' => [
-                                    'title'       => 'Paid listing packages',
-                                    'description' => $plan_promo,
-                                ],
-                            ],
-                        ],
-                        'other' => [
-                            'label' => __('Other', 'directorist'),
-                            'sections' => [
+
                                 'listing_status' => [
                                     'title' => __('Default Status', 'directorist'),
                                     'description' => __('Need help?', 'directorist'),
@@ -4658,6 +4623,28 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'fields'      => [
                                         'import_export',
                                     ],
+                                ],
+                            ],
+                        ],
+                        'preview_image' => [
+                            'label' => __('Preview Image', 'directorist'),
+                            'sections' => [
+                                'labels' => [
+                                    'title'       => __('Default Preview Image', 'directorist'),
+                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
+                                    'fields'      => [
+                                        'enable_preview_image',
+                                        'preview_image',
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'packages' => [
+                            'label' => 'Packages',
+                            'sections' => [
+                                'packages' => [
+                                    'title'       => 'Paid listing packages',
+                                    'description' => $plan_promo,
                                 ],
                             ],
                         ],

@@ -220,7 +220,7 @@ function atbdp_is_extension_active()
 
 function atbdp_extend_extension_settings_submenus($default)
 {
-    if (atbdp_is_extension_active()) {
+    if ( apply_filters( 'atbdp_extension_license_settings_init', atbdp_is_extension_active() ) ) {
         $array_license = array(
             'title' => __('Activate License', 'directorist'),
             'name' => 'extensions_license',

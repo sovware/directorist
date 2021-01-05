@@ -6,6 +6,12 @@
  */
 ?>
 <div id="directorist" class="atbd_wrapper atbdp atbdp-categories atbdp-text-list">
+	<?php 
+    /**
+     * @since 5.6.6
+     */
+    do_action( 'atbdp_after_all_categories_loop' );
+    ?>
 	<div class="row atbdp-no-margin">
 		<?php
 		foreach ($categories as $category) {
@@ -21,4 +27,10 @@
 		}
 		?>
 	</div>
+	<?php
+	/**
+     * @since 5.6.6
+     */
+    do_action( 'atbdp_after_all_categories_loop' );
+    ?>
 </div>

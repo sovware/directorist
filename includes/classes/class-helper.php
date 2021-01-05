@@ -392,7 +392,7 @@ if (!class_exists('ATBDP_Helper')) :
                 'instagram'      => __('Instagram', 'directorist'),
                 'tumblr'         => __('Tumblr', 'directorist'),
                 'flickr'         => __('Flickr', 'directorist'),
-                'snapchat-ghost' => __('Snapchat', 'directorist'),
+                'snapchat'       => __('Snapchat', 'directorist'),
                 'reddit'         => __('Reddit', 'directorist'),
                 'youtube-play'   => __('Youtube', 'directorist'),
                 'vimeo'          => __('Vimeo', 'directorist'),

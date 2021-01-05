@@ -400,15 +400,18 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_owner_order_created($order_id, $listing_id, $offline = false)
         {
-            if (get_directorist_option('disable_email_notification')) return false;
-            if (!in_array('order_created', get_directorist_option('notify_user', array()))) return false;
-            $user = $this->get_owner($listing_id);
-            // Send email according to the type of the payment that user used during checkout. get email template from the db.
-            $offline = (!empty($offline)) ? '_offline' : '';
-            $sub = $this->replace_in_content(get_directorist_option("email_sub{$offline}_new_order"), $order_id, $listing_id, $user);
-            $body = $this->replace_in_content(get_directorist_option("email_tmpl{$offline}_new_order"), $order_id, $listing_id, $user);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            $gateway = get_post_meta( $order_id, '_payment_gateway', true );
+            if( 'bank_transfer' === $gateway ) {
+                if (get_directorist_option('disable_email_notification')) return false;
+                if (!in_array('order_created', get_directorist_option('notify_user', array()))) return false;
+                $user = $this->get_owner($listing_id);
+                // Send email according to the type of the payment that user used during checkout. get email template from the db.
+                $offline = (!empty($offline)) ? '_offline' : '';
+                $sub = $this->replace_in_content(get_directorist_option("email_sub{$offline}_new_order"), $order_id, $listing_id, $user);
+                $body = $this->replace_in_content(get_directorist_option("email_tmpl{$offline}_new_order"), $order_id, $listing_id, $user);
+                $body = atbdp_email_html($sub, $body);
+                return $this->send_mail($user->user_email, $sub, $body, $this->get_email_headers());
+            }
         }
 
         /**
@@ -635,18 +638,20 @@ This email is sent automatically for information purpose only. Please do not res
          */
         public function notify_admin_order_created($order_id, $listing_id)
         {
-            /*@todo; think if it is better to assign disabled_email_notification to the class prop*/
-            if (get_directorist_option('disable_email_notification')) return false; //vail if email notification is off
-            if (!in_array('order_created', get_directorist_option('notify_admin', array()))) return false; // vail if order created notification to admin off
-            $s = __('[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', 'directorist');
-            $sub = $this->replace_in_content($s, $order_id);
+            $gateway = get_post_meta( $order_id, '_payment_gateway', true );
+            if ( 'bank_transfer' === $gateway ) {
+                /*@todo; think if it is better to assign disabled_email_notification to the class prop*/
+                if (get_directorist_option('disable_email_notification')) return false; //vail if email notification is off
+                if (!in_array('order_created', get_directorist_option('notify_admin', array()))) return false; // vail if order created notification to admin off
+                $s = __('[==SITE_NAME==] You have a new order #==ORDER_ID== on your website', 'directorist');
+                $sub = $this->replace_in_content($s, $order_id);
 
-            $t = $this->get_order_created_admin_tmpl(); // get the email template & replace order_receipt placeholder in it
-            $body = str_replace('==ORDER_RECEIPT_URL==', admin_url("edit.php?post_type=atbdp_orders"), $t); /*@todo; MAYBE ?? it would be good if there is a dedicated page for viewing the payment receipt by the admin regardless the order_receipt shortcode is used or not.*/
-            $body = $this->replace_in_content($body, $order_id, $listing_id);
-            $body = atbdp_email_html($sub, $body);
-            return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
-
+                $t = $this->get_order_created_admin_tmpl(); // get the email template & replace order_receipt placeholder in it
+                $body = str_replace('==ORDER_RECEIPT_URL==', admin_url("edit.php?post_type=atbdp_orders"), $t); /*@todo; MAYBE ?? it would be good if there is a dedicated page for viewing the payment receipt by the admin regardless the order_receipt shortcode is used or not.*/
+                $body = $this->replace_in_content($body, $order_id, $listing_id);
+                $body = atbdp_email_html($sub, $body);
+                return $this->send_mail($this->get_admin_email_list(), $sub, $body, $this->get_email_headers());
+            }
         }
 
 

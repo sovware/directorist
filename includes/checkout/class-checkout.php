@@ -109,11 +109,13 @@ class ATBDP_Checkout
                 'listing_id' => $listing_id,
             );
             // prepare all the variables required by the checkout page.
-            $form_data = !empty($data['form_data']) ? $data['form_data'] : array();
+            $form_data  = !empty($data['form_data']) ? $data['form_data'] : array();
             $listing_id = !empty($data['listing_id']) ? $data['listing_id'] : 0;
             $c_position = get_directorist_option('payment_currency_position');
-            $currency = atbdp_get_payment_currency();
-            $symbol = atbdp_currency_symbol($currency);
+            $currency   = atbdp_get_payment_currency();
+            $symbol     = atbdp_currency_symbol($currency);
+            $before     = '';
+            $after      = '';
             //displaying data for checkout
 
             $template = atbdp_get_shortcode_template_path( 'payment/checkout' );
@@ -232,6 +234,7 @@ class ATBDP_Checkout
             $gateway = !empty($amount) && !empty($data['payment_gateway']) ? sanitize_key($data['payment_gateway']) : 'free';
             // save required data as order post meta
 
+            $amount = apply_filters( 'atbdp_order_amount', $amount, $order_id );
             update_post_meta($order_id, '_listing_id', $listing_id);
             update_post_meta($order_id, '_amount', $amount);
             update_post_meta($order_id, '_payment_gateway', $gateway);

@@ -68,7 +68,7 @@
                             <span class="atbd-plan-price">
                             <?php if (!empty($option['price'])) {
                                 echo $before . esc_html(atbdp_format_payment_amount($option['price'])) . $after;
-                                do_action('atbdp_checkout_after_total_price', $args);
+                                do_action('atbdp_checkout_after_total_price', $form_data);
                             } ?>
                             </span>
                         </td>

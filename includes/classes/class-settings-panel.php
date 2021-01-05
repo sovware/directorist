@@ -136,6 +136,16 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             $business_hours_label = sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? '(Requires Business Hours extension)' : '');
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
+
+                'enable_monetization' => [
+                    'label' => __('Enable Monetization Feature', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => false,
+                    'description' => __('Choose whether you want to monetize your site or not. Monetization features will let you accept payment from your users if they submit listing based on different criteria. Default is NO.', 'directorist'),
+                ],
+
+
+
                 'new_listing_status' => [
                     'label' => __('New Listing Default Status', 'directorist'),
                     'type'  => 'select',
@@ -1904,7 +1914,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                 'general' => [
                                     'title'       => __('Monetization Settings', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [ 'enable_monetization' ],
                                 ],
                                 'featured' => [
                                     'title'       => __('Monetize by Featured Listing', 'directorist'),

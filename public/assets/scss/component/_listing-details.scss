@@ -143,6 +143,9 @@
           }
         }
         &.atbd_report{
+          a{
+            pointer-events: none;
+          }
           a span{
             pointer-events: none;
           }

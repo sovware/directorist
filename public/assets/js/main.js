@@ -931,7 +931,7 @@
                         cleared_seen_announcements = true;
                         $( '.new-announcement-count' ).removeClass( 'show' );
                         $( '.new-announcement-count' ).html( '' );
-                    } 
+                    }
                 },
                 error: function( error ) {
                     console.log( { error } );
@@ -1003,7 +1003,6 @@
     if(tabContentWidth < 650){
       $(".atbd_dashboard_wrapper .atbd_tab-content").addClass("atbd_tab-content--fix");
     }
-
 })(jQuery);
 
   // on load of the page: switch to the currently selected tab

@@ -1711,6 +1711,121 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                     ],
                 ],
+                'select_listing_map' => [
+                    'label' => __('Select Map', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'openstreet',
+                    'options' => [
+                        [
+                            'value' => 'google',
+                            'label' => __('Google Map', 'directorist'),
+                        ],
+                        [
+                            'value' => 'openstreet',
+                            'label' => __('OpenStreetMap', 'directorist'),
+                        ],
+                    ],
+                ],
+                'map_api_key' => [
+                    'type' => 'text',
+                    'label' => __('Google Map API key', 'directorist'),
+                    'description' => sprintf(__('Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', 'directorist'), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'value' => '',
+                    'show_if' => [
+                        'where' => "self.select_listing_map",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'google'],
+                        ],
+                    ],
+                ],
+                'default_latitude'     => [
+                    'type'           => 'text',
+                    'label'          => __('Default Latitude', 'directorist'),
+                    'description'    => sprintf(__('You can find it %s.', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'value'          => '40.7127753',
+                ],
+                'default_longitude'    => [
+                    'type'          => 'text',
+                    'label'         => __('Default Longitude', 'directorist'),
+                    'description'   => sprintf(__('You can find it %s.', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'value'         => '-74.0059728',
+                ],
+                'map_zoom_level'       => [
+                    'label'         => __('Zoom Level for Single Listing', 'directorist'),
+                    'description'   => __('Here 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => '16',
+                    'min'           => '1',
+                    'max'           => '22',
+                    'step'          => '1',
+                ],
+                'map_view_zoom_level' => [
+                    'label'         => __('Zoom Level for Map View', 'directorist'),
+                    'description'   => __('Here 0 means 100% zoom-out. 18 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => '1',
+                    'min'           => '1',
+                    'max'           => '18',
+                    'step'          => '1',
+                ],
+                'listings_map_height' => [
+                    'label'         => __('Map Height', 'directorist'),
+                    'description'   => __('In pixel.', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => '350',
+                    'min'           => '5',
+                    'max'           => '1200',
+                    'step'          => '5',
+                ],
+                'display_map_info' => [
+                    'type' => 'toggle',
+                    'label' => __('Guest Review Submission', 'directorist'),
+                    'value' => true,
+                ],
+                'display_image_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Preview Image', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_title_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Title', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_address_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Address', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_direction_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Get Direction', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -1798,14 +1913,23 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                 ],
                             ] ),
                         ],
-
                         'map' => [
                             'label' => __('Map', 'directorist'),
+                            'icon' => '<i class="fa fa-map-signs"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_map_sections', [
-                                'labels' => [
-                                    'title'       => __('Map', 'directorist'),
+                                'map_settings' => [
+                                    'title'       => __('Map Settings', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [
+                                        'select_listing_map', 'map_api_key', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
+                                    ],
+                                ],
+                                'map_info_window' => [
+                                    'title'       => __('Map Info Window Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'display_map_info', 'display_image_map', 'display_title_map', 'display_address_map', 'display_direction_map'
+                                    ],
                                 ],
                             ] ),
                         ],

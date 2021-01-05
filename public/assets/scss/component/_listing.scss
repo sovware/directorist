@@ -269,8 +269,8 @@
         .atbd_listing_title {
           padding: 0;
           text-transform: none;
-          line-height: 24px;
-          margin-bottom: 0;
+          line-height: 1.2;
+          margin-bottom: 0 !important;
           a{
             font-size: 18px;
           }
@@ -425,9 +425,7 @@
         }
       }
       .atbd-card-body-top{
-        .atbd_listing_title{
-          margin-bottom: 10px;
-        }
+        margin: -4px;
         .atbd_listing_meta{
           display: inline-flex;
           margin: 0;
@@ -463,6 +461,60 @@
           padding: 0;
 
         }
+        .atbd_badge.atbd_badge_open,
+        .atbd_badge.atbd_badge_close{
+          position: relative;
+          font-size: 12px;
+          font-weight: 500;
+          text-transform: capitalize;
+          background-color: #fff !important;
+        }
+        .atbd_badge.atbd_badge_close{
+          color: $danger;
+        }
+        .atbd_badge.atbd_badge_open{
+          color: $success;
+        }
+        // .atbd_badge + .atbd_badge{
+        //   margin-left: -5px !important;
+        // }
+        // .atbd_badge.atbd_badge_close + .atbd_badge,
+        // .atbd_badge.atbd_badge_open + .atbd_badge{
+        //   margin-left: 10px !important;
+        // }
+        .atbdp_add_to_fav_listings{
+          margin-left: 8px !important;
+        }
+        // .atbd_listing_price{
+        //   position: relative;
+        //   padding-left: 8px;
+        //   &:after{
+        //     width: 3px;
+        //     height: 3px;
+        //     position: absolute;
+        //     left: 0;
+        //     top: 50%;
+        //     transform: translateY(-50%);
+        //     content: '';
+        //     background-color: #B2B2B2;
+        //     border-radius: 50%;
+        //   }
+        // }
+        .atbd_listing_average_pricing{
+          span{
+            font-weight: 700;
+          }
+        }
+        .atbd_listing_meta,
+        .atbd_listing_meta,
+        .atbd_listing_title,
+        .atbd_badge,
+        .atbdp_add_to_fav_listings{
+          margin: 4px !important;
+        }
+        // .atbd_listing_title{
+        //   margin-bottom: -4px !important;
+        // }
       }
     }
   }

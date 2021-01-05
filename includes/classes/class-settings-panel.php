@@ -206,7 +206,30 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'value'         => __(',', 'directorist'),
                     'description'   => __( 'Enter the currency thousand separator. Eg. , or . etc.', 'directorist' ),
                 ],
-    
+
+                'payment_decimal_separator' => [
+                    'type'          => 'text',
+                    'label'         => __('Decimal Separator', 'directorist'),
+                    'value'         => __('.', 'directorist'),
+                    'description' => __('Enter the currency decimal separator. Eg. "." or ",". Default is "."', 'directorist'),
+                ],
+
+                'payment_currency_position' => [
+                    'label'     => __('Currency Position', 'directorist'),
+                    'type'      => 'select',
+                    'value'     => 'before',
+                    'options'   => [
+                        [
+                            'value' => 'before',
+                            'label' => __('$5 - Before', 'directorist'),
+                        ],
+                        [
+                            'value' => 'after',
+                            'label' => __('After - 5$', 'directorist'),
+                        ]
+                    ],
+                    'description' => __('Select where you would like to show the currency symbol. Default is before. Eg. $5', 'directorist'),
+                ],
 
 
 
@@ -2217,6 +2240,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                         'default_gateway',
                                         'payment_currency',
                                         'payment_thousand_separator',
+                                        'payment_decimal_separator',
+                                        'payment_currency_position'
                                     ],
                                 ],
                             ] ),

@@ -479,6 +479,13 @@
                 right: -8px;
               }
             }
+            &.atbd_badge + .atbd_badge{
+              margin-left: 8px !important;
+              &.atbd_badge_open,
+              &.atbd_badge_close{
+                margin-left: 4px !important;
+              }
+            }
           }
         }
         .atbdp_add_to_fav_listings{
@@ -523,31 +530,10 @@
         .atbd_badge.atbd_badge_open{
           color: $success;
         }
-        // .atbd_badge + .atbd_badge{
-        //   margin-left: -5px !important;
-        // }
-        // .atbd_badge.atbd_badge_close + .atbd_badge,
-        // .atbd_badge.atbd_badge_open + .atbd_badge{
-        //   margin-left: 10px !important;
-        // }
+        
         .atbdp_add_to_fav_listings{
           margin-left: 8px !important;
         }
-        // .atbd_listing_price{
-        //   position: relative;
-        //   padding-left: 8px;
-        //   &:after{
-        //     width: 3px;
-        //     height: 3px;
-        //     position: absolute;
-        //     left: 0;
-        //     top: 50%;
-        //     transform: translateY(-50%);
-        //     content: '';
-        //     background-color: #B2B2B2;
-        //     border-radius: 50%;
-        //   }
-        // }
         .atbd_listing_average_pricing{
           span{
             font-weight: 700;
@@ -557,12 +543,17 @@
         .atbd_listing_meta,
         .atbd_listing_title,
         .atbd_badge,
-        .atbdp_add_to_fav_listings{
+        .atbdp_add_to_fav_listings,
+        .atdlc_compare-btn-container{
           margin: 4px !important;
         }
-        // .atbd_listing_title{
-        //   margin-bottom: -4px !important;
-        // }
+        .atdlc_compare-btn-container{
+          .atdlc-mark_compare_btn{
+            width: 30px;
+            height: 30px;
+          }
+        }
+        
       }
     }
   }

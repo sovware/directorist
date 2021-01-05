@@ -11,11 +11,14 @@ $loop_fields = $listings->loop['card_fields']['template_data']['grid_view_withou
 <div class="atbdp_column atbdp-col-<?php echo esc_attr( $listings->columns ); ?>">
 	<div class="atbd_single_listing atbd_listing_card <?php echo esc_attr( $listings->info_display_in_single_line ); ?>">
 		<article class="atbd_single_listing_wrapper <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
-
 			<div class="directorist-card-nothumb-area">
-				<div class="directorist-card-nothumb-1"><?php $listings->render_loop_fields($loop_fields['body']['avatar']); ?></div>
-				<div class="directorist-card-nothumb-2"><?php $listings->render_loop_fields($loop_fields['body']['title']); ?></div>
-				<div class="directorist-card-nothumb-3"><?php $listings->render_loop_fields($loop_fields['body']['quick_actions']); ?></div>
+				<div class="directorist-card-nothumb-area__left">
+					<div class="directorist-card-nothumb-1"><?php $listings->render_loop_fields($loop_fields['body']['avatar']); ?></div>
+					<div class="directorist-card-nothumb-2"><?php $listings->render_loop_fields($loop_fields['body']['title']); ?></div>
+				</div>
+				<div class="directorist-card-nothumb-area__right">
+					<div class="directorist-card-nothumb-3"><?php $listings->render_loop_fields($loop_fields['body']['quick_actions']); ?></div>
+				</div>
 			</div>
 
 			<div class="directorist-card-nothumb-info"><?php $listings->render_loop_fields($loop_fields['body']['quick_info']); ?></div>

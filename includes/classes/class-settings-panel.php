@@ -136,6 +136,16 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
             $business_hours_label = sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? '(Requires Business Hours extension)' : '');
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
+
+                'enable_monetization' => [
+                    'label' => __('Enable Monetization Feature', 'directorist'),
+                    'type'  => 'toggle',
+                    'value' => false,
+                    'description' => __('Choose whether you want to monetize your site or not. Monetization features will let you accept payment from your users if they submit listing based on different criteria. Default is NO.', 'directorist'),
+                ],
+
+
+
                 'new_listing_status' => [
                     'label' => __('New Listing Default Status', 'directorist'),
                     'type'  => 'select',
@@ -166,12 +176,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                             'value' => 'publish',
                         ],
                     ],
-                ],
-                'color' => [
-                    'label' => __('Color', 'directorist'),
-                    'type'  => 'color',
-                    'value' => '#ffffff',
-                    'description' => __('Select a color', 'directorist'),
                 ],
                 'fix_js_conflict' => [
                     'label' => __('Fix Conflict with Bootstrap JS', 'directorist'),
@@ -357,7 +361,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'value' => [
                         'search_text',
                         'search_category',
-                        'search_location',
+                        'search]location',
                         'search_price',
                         'search_price_range',
                         'search_rating',
@@ -1536,6 +1540,372 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                     'value' => __('Featured', 'directorist'),
                 ],
+                'display_popular_badge_cart' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Popular Badge', 'directorist'),
+                    'value' => true,
+                ],
+                'popular_badge_text' => [
+                    'type' => 'text',
+                    'label' => __('Popular Badge Text', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_popular_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => __('Popular', 'directorist'),
+                ],
+                'listing_popular_by' => [
+                    'label' => __('Popular Based on', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'view_count',
+                    'show_if' => [
+                        'where' => "self.display_popular_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'view_count',
+                            'label' => __('View Count', 'directorist'),
+                        ],
+                        [
+                            'value' => 'average_rating',
+                            'label' => __('Average Rating', 'directorist'),
+                        ],
+                        [
+                            'value' => 'both_view_rating',
+                            'label' => __('Both', 'directorist'),
+                        ]
+                    ],
+                ],
+                'views_for_popular' => [
+                    'type' => 'text',
+                    'label' => __('Threshold in Views Count', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.display_popular_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => 5,
+                ],
+                'average_review_for_popular' => [
+                    'label' => __('Threshold in Average Ratings (equal or grater than)', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '4',
+                    'min' => '.5',
+                    'max' => '4.5',
+                    'step' => '.5',
+                    'show_if' => [
+                        'where' => "self.display_popular_badge_cart",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'featured_listing_title' => [
+                    'type' => 'text',
+                    'label' => __('Title', 'directorist'),
+                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
+                    'value' => __('Featured', 'directorist'),
+                ],
+                'enable_review' => [
+                    'type' => 'toggle',
+                    'label' => __('Enable Reviews & Rating', 'directorist'),
+                    'value' => true,
+                ],
+                'enable_owner_review' => [
+                    'type' => 'toggle',
+                    'label' => __('Enable Owner Review', 'directorist'),
+                    'description' => __('Allow a listing owner to post a review on his/her own listing.', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'approve_immediately' => [
+                    'type' => 'toggle',
+                    'label' => __('Approve Immediately?', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'review_approval_text' => [
+                    'type' => 'textarea',
+                    'label' => __('Approval Notification Text', 'directorist'),
+                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
+                    'value' => __('We have received your review. It requires approval.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'enable_reviewer_img' => [
+                    'type' => 'toggle',
+                    'label' => __('Enable Reviewer Image', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'enable_reviewer_content' => [
+                    'type' => 'toggle',
+                    'label' => __('Enable Reviewer content', 'directorist'),
+                    'value' => true,
+                    'description' => __('Allow to display content of reviewer on single listing page.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'required_reviewer_content' => [
+                    'type' => 'toggle',
+                    'label' => __('Required Reviewer content', 'directorist'),
+                    'value' => true,
+                    'description' => __('Allow to Require the content of reviewer on single listing page.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'review_num' => [
+                    'label' => __('Number of Reviews', 'directorist'),
+                    'description' => __('Enter how many reviews to show on Single listing page.', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '5',
+                    'min' => '1',
+                    'max' => '20',
+                    'step' => '1',
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'guest_review' => [
+                    'type' => 'toggle',
+                    'label' => __('Guest Review Submission', 'directorist'),
+                    'value' => false,
+                    'show_if' => [
+                        'where' => "self.enable_review",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'select_listing_map' => [
+                    'label' => __('Select Map', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'openstreet',
+                    'options' => [
+                        [
+                            'value' => 'google',
+                            'label' => __('Google Map', 'directorist'),
+                        ],
+                        [
+                            'value' => 'openstreet',
+                            'label' => __('OpenStreetMap', 'directorist'),
+                        ],
+                    ],
+                ],
+                'map_api_key' => [
+                    'type' => 'text',
+                    'label' => __('Google Map API key', 'directorist'),
+                    'description' => sprintf(__('Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', 'directorist'), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'value' => '',
+                    'show_if' => [
+                        'where' => "self.select_listing_map",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'google'],
+                        ],
+                    ],
+                ],
+                'default_latitude'     => [
+                    'type'           => 'text',
+                    'label'          => __('Default Latitude', 'directorist'),
+                    'description'    => sprintf(__('You can find it %s.', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'value'          => '40.7127753',
+                ],
+                'default_longitude'    => [
+                    'type'          => 'text',
+                    'label'         => __('Default Longitude', 'directorist'),
+                    'description'   => sprintf(__('You can find it %s.', 'directorist'), '<a href="https://www.maps.ie/coordinates.html" target="_blank"> <strong style="color: red;">here</strong> </a>'),
+                    'value'         => '-74.0059728',
+                ],
+                'map_zoom_level'       => [
+                    'label'         => __('Zoom Level for Single Listing', 'directorist'),
+                    'description'   => __('Here 0 means 100% zoom-out. 22 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => '16',
+                    'min'           => '1',
+                    'max'           => '22',
+                    'step'          => '1',
+                ],
+                'map_view_zoom_level' => [
+                    'label'         => __('Zoom Level for Map View', 'directorist'),
+                    'description'   => __('Here 0 means 100% zoom-out. 18 means 100% zoom-in. Minimum Zoom Allowed = 1. Max Zoom Allowed = 22.', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => '1',
+                    'min'           => '1',
+                    'max'           => '18',
+                    'step'          => '1',
+                ],
+                'listings_map_height' => [
+                    'label'         => __('Map Height', 'directorist'),
+                    'description'   => __('In pixel.', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => '350',
+                    'min'           => '5',
+                    'max'           => '1200',
+                    'step'          => '5',
+                ],
+                'display_map_info' => [
+                    'type' => 'toggle',
+                    'label' => __('Guest Review Submission', 'directorist'),
+                    'value' => true,
+                ],
+                'display_image_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Preview Image', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_title_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Title', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_address_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Address', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'display_direction_map' => [
+                    'type' => 'toggle',
+                    'label' => __('Display Get Direction', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.display_map_info",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'my_listing_tab' => [
+                    'type' => 'toggle',
+                    'label' => __('Display My Listing Tab', 'directorist'),
+                    'value' => true,
+                ],
+                'my_listing_tab_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('"My Listing" Tab Label', 'directorist'),
+                    'value'         => __('My Listing', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.my_listing_tab",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'user_listings_pagination' => [
+                    'type'  => 'toggle',
+                    'label' => __('Listings Pagination', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.my_listing_tab",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'user_listings_per_page' => [
+                    'label'         => __('Listings Per Page', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => '9',
+                    'min'           => '1',
+                    'max'           => '30',
+                    'step'          => '1',
+                    'show_if' => [
+                        'where' => "self.my_listing_tab",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'my_profile_tab' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display My Profile Tab', 'directorist'),
+                    'value' => true,
+                ],
+                'my_profile_tab_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('"My Profile" Tab Label', 'directorist'),
+                    'value'         => __('My Profile', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.my_profile_tab",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'fav_listings_tab' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Favourite Listings Tab', 'directorist'),
+                    'value' => true,
+                ],
+                'fav_listings_tab_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('"Favourite Listings" Tab Label', 'directorist'),
+                    'value'         => __('Favorite Listings', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.fav_listings_tab",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'submit_listing_button' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Submit Listing Button', 'directorist'),
+                    'value' => true,
+                ],
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -1551,7 +1921,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('General Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'new_listing_status', 'edit_listing_status', 'color', 'fix_js_conflict', 'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
+                                        'new_listing_status', 'edit_listing_status', 'fix_js_conflict', 'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
                                     ],
                                 ],
                             ] ),
@@ -1584,6 +1954,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                         'badge' => [
                             'label' => __('Badge', 'directorist'),
+                            'icon' => '<i class="fa fa-certificate"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_badge_sections', [
                                 'badge_management' => [
                                     'title'       => __('Badge Management', 'directorist'),
@@ -1595,40 +1966,64 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                 'popular_badge' => [
                                     'title'       => __('Popular Badge', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [
+                                        'display_popular_badge_cart', 'popular_badge_text', 'listing_popular_by', 'views_for_popular', 'average_review_for_popular'
+                                    ],
+                                ],
+                                'featured_badge' => [
+                                    'title'       => __('Featured Badge', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'featured_listing_title'
+                                    ],
                                 ],
                             ] ),
                         ],
 
                         'review' => [
-                            'label' => __('Reveiw', 'directorist'),
+                            'label' => __('Review Setting', 'directorist'),
+                            'icon' => '<i class="fa fa-star"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
                                 'labels' => [
-                                    'title'       => __('Reveiw', 'directorist'),
+                                    'title'       => __('Review Setting', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [
+                                        'enable_review', 'enable_owner_review', 'approve_immediately', 'review_approval_text', 'enable_reviewer_img', 'enable_reviewer_content', 'required_reviewer_content', 'review_num', 'guest_review'
+                                    ],
                                 ],
                             ] ),
                         ],
-
                         'map' => [
                             'label' => __('Map', 'directorist'),
+                            'icon' => '<i class="fa fa-map-signs"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_map_sections', [
-                                'labels' => [
-                                    'title'       => __('Map', 'directorist'),
+                                'map_settings' => [
+                                    'title'       => __('Map Settings', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [
+                                        'select_listing_map', 'map_api_key', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
+                                    ],
+                                ],
+                                'map_info_window' => [
+                                    'title'       => __('Map Info Window Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'display_map_info', 'display_image_map', 'display_title_map', 'display_address_map', 'display_direction_map'
+                                    ],
                                 ],
                             ] ),
                         ],
 
                         'user_dashboard' => [
                             'label' => __('User Dashboard', 'directorist'),
+                            'icon' => '<i class="fa fa-chart-bar"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
                                 'labels' => [
                                     'title'       => __('User Dashboard', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [
+                                        'my_listing_tab', 'my_listing_tab_text', 'user_listings_pagination', 'user_listings_per_page', 'my_profile_tab', 'my_profile_tab_text', 'fav_listings_tab', 'fav_listings_tab_text', 'submit_listing_button'
+                                    ],
                                 ],
                             ] ),
                         ],
@@ -1667,6 +2062,106 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ]),
                 ],
 
+                'location_category' => [
+                    'label' => __( 'Location & Category', 'directorist' ),
+                    'icon' => '<i class="fa fa-list-alt directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_location_category_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'extension_settings' => [
+                    'label' => __( 'Extensions Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-magic directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_extension_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'email_settings' => [
+                    'label' => __( 'Email Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-envelope directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_email_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'login_registration_settings' => [
+                    'label' => __( 'Registration & Login', 'directorist' ),
+                    'icon' => '<i class="fa fa-align-right directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_login_registration_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'style_settings' => [
+                    'label' => __( 'Style Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-adjust directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_style_settings_submenu', [
+                       
+                    ]),
+                ],
+
+                'tools' => [
+                    'label' => __( 'Tools', 'directorist' ),
+                    'icon' => '<i class="fa fa-tools directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_tools_submenu', [
+                       
+                    ]),
+                ],
+
+                'monetization_settings' => [
+                    'label' => __( 'Monetization', 'directorist' ),
+                    'icon' => '<i class="fa fa-money-bill-alt directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_monetization_settings_submenu', [
+                        'monetization_general' => [
+                            'label' => __('Monetization Settings', 'directorist'),
+                            'icon' => '<i class="fa fa-home"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_monetization_general_sections', [
+                                'general' => [
+                                    'title'       => __('Monetization Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 'enable_monetization' ],
+                                ],
+                                'featured' => [
+                                    'title'       => __('Monetize by Featured Listing', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                                'plan_promo' => [
+                                    'title'       => __('Monetize by Listing Plans', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                            ] ),
+                        ],
+                        'gateway' => [
+                            'label' => __('Gateways Settings', 'directorist'),
+                            'icon' => '<i class="fa fa-bezier-curve"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_gateway_sections', [
+                                'gateway_general' => [
+                                    'title'       => __('Gateways General Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [],
+                                ],
+                            ] ),
+                        ],
+                        'offline_gateway' => [
+                            'label' => __('Offline Gateways Settings', 'directorist'),
+                            'icon' => '<i class="fa fa-university"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_offline_gateway_sections', [
+                                'offline_gateway_general' => [
+                                    'title'       => __('Gateways General Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        
+                                    ],
+                                ],
+                            ] ),
+                        ],
+                    ]),
+                ],
+
             ]);
 
             $this->config = [
@@ -1676,6 +2171,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'with' => [ 'action' => 'save_settings_data' ],
                 ],
             ];
+           
+        
         }
 
         // add_menu_pages

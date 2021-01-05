@@ -7,7 +7,44 @@ export default {
         }),
     },
 
+    watch: {
+        value() {
+            this.validate( { value: this.value, rules: this.rules } );
+        }
+    },
+
     methods: {
+        validate( args ) {
+            if ( ! args.rules ) { return; }
+
+            let validation_log = {};
+            let error_count    = 0;
+
+            for ( let rule in args.rules ) {
+                switch ( rule ) {
+                    case 'required':
+                        let status = this.checkRequired( args.value );
+
+                        if ( ! status.valid ) {
+                            validation_log[ 'required' ] = status.log;
+                            error_count++;
+                        }
+                        break;
+                }
+            }
+
+            let validation_status = {
+                hasError: ( error_count > 0 ) ? true : false,
+                log: validation_log,
+            }
+
+            console.log( { validation_status } );
+            
+            this.$emit( 'validate', validation_status );
+            
+            console.log( this.validationState );
+        },
+
         validateField( field_key ) {
             if ( ! this.fields[ field_key ].rules ) { return; }
             let value = this.fields[ field_key ].value;

@@ -275,8 +275,9 @@ export default {
                     message: 'The form has invalid data',
                 };
 
+                let self = this;
                 setTimeout( function() {
-                    this.status_message = null;
+                    self.status_message = null;
                 }, 5000 );
                 
                 return;

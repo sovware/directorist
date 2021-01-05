@@ -274,6 +274,10 @@ export default {
         updateFieldValue( field_key, value ) {
             this.$store.commit( 'updateFieldValue', { field_key, value } );
         },
+
+        updateFieldValidationState( field_key, value ) {
+            this.$store.commit( 'updateFieldData', { field_key, option_key: 'validationState', value } );
+        },
         
         getActiveClass( item_index, active_index ) {
             return ( item_index === active_index ) ? 'active' : '';

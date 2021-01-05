@@ -244,9 +244,16 @@ export default {
             }
 
             let field_list = [];
+            let error_count = 0;
+
             for ( let field_key in fields ) {
                 let new_value    = this.maybeJSON( fields[ field_key ] );
                 let cahced_value = this.maybeJSON( this.cached_fields[ field_key ].value );
+
+                if ( this.fields[ field_key ].validationState && this.fields[ field_key ].validationState.hasError ) {
+                    error_count++;
+                }
+                
 
                 if ( cahced_value == new_value ) { continue; }
 
@@ -260,6 +267,21 @@ export default {
             }
 
             form_data.append( 'field_list', JSON.stringify( field_list ) );
+
+            // console.log( error_count );
+            if ( error_count ) {
+                this.status_message = {
+                    type: 'error',
+                    message: 'The form has invalid data',
+                };
+
+                let self = this;
+                setTimeout( function() {
+                    self.status_message = null;
+                }, 5000 );
+                
+                return;
+            }
 
             // Before submit the form
             this.form_is_processing        = true;

@@ -17,7 +17,8 @@
                         :class="{['highlight-field']: getHighlightState( field ) }"
                         :key="field_key"
                         v-bind="fields[ field ]"
-                        @update="updateFieldValue( field, $event )">
+                        @update="updateFieldValue( field, $event )"
+                        @validate="updateFieldValidationState( field, $event )">
                     </component>
                 </template>
             </div>
@@ -27,14 +28,12 @@
 
 <script>
 import Vue from 'vue';
-import section_helpers from './../mixins/section-helpers';
-import general_helpers from './../mixins/general-helpers';
 import helpers from './../mixins/helpers';
 import { mapState } from 'vuex';
 
 export default {
     name: 'sections-module',
-    mixins: [ helpers, section_helpers, general_helpers ],
+    mixins: [ helpers ],
 
     props: {
         sections: {

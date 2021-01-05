@@ -1,70 +1,11 @@
-import validation from './../validation';
+import validator from './../validator';
+import props from './input-field-props.js';
 
 export default {
-    mixins: [ validation ],
+    mixins: [ props, validator ],
     model: {
         prop: 'value',
         event: 'input'
-    },
-    props: {
-        fieldId: {
-            type: [ String, Number ],
-            required: false,
-            default: '',
-        },
-        type: {
-            type: String,
-            required: false,
-            default: 'text',
-        },
-        min: {
-            type: Number,
-            required: false,
-            default: 0,
-        },
-        max: {
-            type: Number,
-            required: false,
-            default: 100,
-        },
-        step: {
-            type: Number,
-            required: false,
-            default: 1,
-        },
-        label: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        description: {
-            type: [ String ],
-            required: false,
-            default: '',
-        },
-        value: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        name: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        placeholder: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        validationFeedback: {
-            type: Object,
-            required: false,
-        },
-        validation: {
-            type: Array,
-            required: false,
-        },
     },
 
     created() {

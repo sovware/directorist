@@ -205,6 +205,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'placeholder' => '365',
                     'rules' => [
                         'required' => true,
+                        'min' => 3,
+                        'max' => 200,
                     ],
                 ],
                 'can_renew_listing' => [
@@ -1204,7 +1206,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'single_slider_background_color' => [
-                    'type' => 'text',
+                    'type' => 'color',
                     'label' => __('Slider Background Color', 'directorist'),
                     'show_if' => [
                         'where' => "self.single_slider_background_type",
@@ -1212,7 +1214,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                             ['key' => 'value', 'compare' => '=', 'value' => 'custom-color'],
                         ],
                     ],
-                    'value' => '#fff',
+                    'value' => '#ffffff',
                 ],
                 'dsiplay_thumbnail_img' => [
                     'type' => 'toggle',

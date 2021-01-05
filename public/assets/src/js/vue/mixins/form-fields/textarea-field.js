@@ -1,57 +1,13 @@
-import validation from './../validation';
+import validator from './../validation';
+import props from './input-field-props.js';
 
 export default {
-    mixins: [ validation ],
+    mixins: [ props, validator ],
     model: {
         prop: 'value',
         event: 'input'
     },
-    props: {
-        label: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        description: {
-            type: [ String ],
-            required: false,
-            default: '',
-        },
-        value: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        name: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        placeholder: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        cols: {
-            type: [String, Number],
-            required: false,
-            default: '30',
-        },
-        rows: {
-            type: [String, Number],
-            required: false,
-            default: '10',
-        },
-        validationFeedback: {
-            type: Object,
-            required: false,
-        },
-        validation: {
-            type: Array,
-            required: false,
-        },
-    },
-
+    
     computed: {
         input_type() {
             const supported_types = {

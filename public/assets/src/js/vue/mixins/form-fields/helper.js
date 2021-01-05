@@ -5,12 +5,6 @@ export default {
         ...mapState({
             config: 'config'
         }),
-
-        validationAlertMessages() {
-            if ( ! this.validationFeedback ) {
-                return false;
-            }
-        }
     },
 
     methods: {

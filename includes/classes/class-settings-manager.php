@@ -6565,7 +6565,6 @@ The Administrator of ==SITE_NAME==
                     'name' => 'shortcode-updated',
                     'label' => __('Upgrade/Regenerate Pages', 'directorist'),
                     'validation' => 'numeric',
-
                 ),
             ));
         }

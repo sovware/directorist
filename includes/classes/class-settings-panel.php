@@ -144,6 +144,95 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'description' => __('Choose whether you want to monetize your site or not. Monetization features will let you accept payment from your users if they submit listing based on different criteria. Default is NO.', 'directorist'),
                 ],
 
+                'enable_featured_listing' => [
+                    'label'         => __('Monetize by Featured Listing', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                    'description'   => __('You can enabled this option to collect payment from your user for making their listing featured.', 'directorist'),
+                ],
+
+                'featured_listing_price' => [
+                    'label'         => __('Price in ', 'directorist') . atbdp_get_payment_currency(),
+                    'type'          => 'number',
+                    'value'         => 19.99,
+                    'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
+                ],
+
+                'gateway_test_mode' =>[
+                    'label'         => __('Enable Test Mode', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => 1,
+                    'description'   => __('If you enable Test Mode, then no real transaction will occur. If you want to test the payment system of your website then you can set this option enabled. NOTE: Your payment gateway must support test mode eg. they should provide you a sandbox account to test. Otherwise, use only offline gateway to test.', 'directorist'),
+                ],
+
+                'active_gateways' => [
+                    'label'     => __('Active Gateways', 'directorist'),
+                    'type'      => 'checkbox',
+                    'value'     => [
+                            'bank-transfer',
+                        ],
+                    'options'   => [
+                        [
+                            'value' => 'bank-transfer',
+                            'label' => __('Bank Transfer (Offline Gateway)', 'directorist'),
+                        ],
+                    ],
+                    'description' => __('Check the gateway(s) you would like to use to collect payment from your users. A user will be use any of the active gateways during the checkout process ', 'directorist'),
+                ],
+
+                'default_gateway' => [
+                    'label'     => __('Default Gateway', 'directorist'),
+                    'type'      => 'select',
+                    'value'     => 'bank_transfer',
+                    'options'   => apply_filters('atbdp_default_gateways', [
+                        [
+                            'value' => 'bank_transfer',
+                            'label' => __('Bank Transfer (Offline Gateway)', 'directorist'),
+                        ]
+                    ] ),
+                    'description' => __('Select the default gateway you would like to show as a selected gateway on the checkout page', 'directorist'),
+                ],
+
+                'payment_currency' => [
+                    'type'          => 'text',
+                    'label'         => __('Currency Name', 'directorist'),
+                    'value'         => __('USD', 'directorist'),
+                    'description'   => __( 'Enter the Name of the currency eg. USD or GBP etc.', 'directorist' ),
+                ],
+
+                'payment_thousand_separator' => [
+                    'type'          => 'text',
+                    'label'         => __('Thousand Separator', 'directorist'),
+                    'value'         => __(',', 'directorist'),
+                    'description'   => __( 'Enter the currency thousand separator. Eg. , or . etc.', 'directorist' ),
+                ],
+
+                'payment_decimal_separator' => [
+                    'type'          => 'text',
+                    'label'         => __('Decimal Separator', 'directorist'),
+                    'value'         => __('.', 'directorist'),
+                    'description' => __('Enter the currency decimal separator. Eg. "." or ",". Default is "."', 'directorist'),
+                ],
+
+                'payment_currency_position' => [
+                    'label'     => __('Currency Position', 'directorist'),
+                    'type'      => 'select',
+                    'value'     => 'before',
+                    'options'   => [
+                        [
+                            'value' => 'before',
+                            'label' => __('$5 - Before', 'directorist'),
+                        ],
+                        [
+                            'value' => 'after',
+                            'label' => __('After - 5$', 'directorist'),
+                        ]
+                    ],
+                    'description' => __('Select where you would like to show the currency symbol. Default is before. Eg. $5', 'directorist'),
+                ],
+
+
+
 
 
                 'new_listing_status' => [
@@ -3254,12 +3343,15 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                 'featured' => [
                                     'title'       => __('Monetize by Featured Listing', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [ 
+                                        'enable_featured_listing',
+                                        'featured_listing_price'
+                                    ],
                                 ],
                                 'plan_promo' => [
                                     'title'       => __('Monetize by Listing Plans', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [ ],
                                 ],
                             ] ),
                         ],
@@ -3270,7 +3362,15 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                 'gateway_general' => [
                                     'title'       => __('Gateways General Settings', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [
+                                        'gateway_test_mode',
+                                        'active_gateways',
+                                        'default_gateway',
+                                        'payment_currency',
+                                        'payment_thousand_separator',
+                                        'payment_decimal_separator',
+                                        'payment_currency_position'
+                                    ],
                                 ],
                             ] ),
                         ],
@@ -3302,6 +3402,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
            
         
         }
+
 
         // add_menu_pages
         public function add_menu_pages()

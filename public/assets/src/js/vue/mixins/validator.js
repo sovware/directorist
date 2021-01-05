@@ -5,6 +5,28 @@ export default {
         ...mapState({
             fields: 'fields',
         }),
+
+        validationMessages() {
+            // console.log( this.validationState );
+
+            if ( ! this.validationState ) { return false; }
+            if ( ! this.validationState.log ) { return false; }
+            if ( typeof this.validationState.log !== 'object' ) { return false; }
+            if ( ! Object.keys( this.validationState.log ).length ) { return false; }
+
+            // console.log( this.validationState.log, Object.keys( this.validationState.log ) );
+
+            let messages = [];
+            for ( let log of this.validationState.log ) {
+                messages.push( { type: log.type, message: log.message, } );
+            }
+
+            console.log( messages );
+
+            return false;
+
+            return messages;
+        }
     },
 
     watch: {
@@ -38,11 +60,11 @@ export default {
                 log: validation_log,
             }
 
-            console.log( { validation_status } );
+            // console.log( { validation_status } );
             
             this.$emit( 'validate', validation_status );
             
-            console.log( this.validationState );
+            // console.log( this.validationState );
         },
 
         validateField( field_key ) {

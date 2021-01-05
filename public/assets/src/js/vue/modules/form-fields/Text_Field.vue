@@ -15,10 +15,5 @@ import props from './../../mixins/form-fields/input-field-props';
 export default {
     name: 'text-field',
     mixins: [ props, feild_helper ],
-    watch: {
-        validationState() {
-            console.log( this.validationState );
-        }
-    }
 }
 </script>

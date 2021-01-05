@@ -276,7 +276,6 @@ export default {
         },
 
         updateFieldValidationState( field_key, value ) {
-            console.log( field_key, value );
             this.$store.commit( 'updateFieldData', { field_key, option_key: 'validationState', value } );
         },
         

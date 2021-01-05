@@ -303,7 +303,7 @@ class ATBDP_Gateway{
         $default_gw = get_directorist_option('default_gateway', 'bank_transfer');
         if ( empty( $active_gateways ) ) return ''; // if the gateways are empty, vail out.
         
-        $format = <<<KAMAL
+        $format = '
         <li class="list-group-item">
             <div class="gateway_list">
                 <label for="##GATEWAY##">
@@ -311,8 +311,7 @@ class ATBDP_Gateway{
                 </label>
             </div>
             ##DESC##
-        </li>
-        KAMAL;
+        </li>';
 
         $markup = '<ul>';
         foreach ($active_gateways as $gw_name){

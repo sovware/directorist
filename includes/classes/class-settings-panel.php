@@ -1826,6 +1826,84 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                     ],
                 ],
+                'my_listing_tab' => [
+                    'type' => 'toggle',
+                    'label' => __('Display My Listing Tab', 'directorist'),
+                    'value' => true,
+                ],
+                'my_listing_tab_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('"My Listing" Tab Label', 'directorist'),
+                    'value'         => __('My Listing', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.my_listing_tab",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'user_listings_pagination' => [
+                    'type'  => 'toggle',
+                    'label' => __('Listings Pagination', 'directorist'),
+                    'value' => true,
+                    'show_if' => [
+                        'where' => "self.my_listing_tab",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'user_listings_per_page' => [
+                    'label'         => __('Listings Per Page', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => '9',
+                    'min'           => '1',
+                    'max'           => '30',
+                    'step'          => '1',
+                    'show_if' => [
+                        'where' => "self.my_listing_tab",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'my_profile_tab' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display My Profile Tab', 'directorist'),
+                    'value' => true,
+                ],
+                'my_profile_tab_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('"My Profile" Tab Label', 'directorist'),
+                    'value'         => __('My Profile', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.my_profile_tab",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'fav_listings_tab' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Favourite Listings Tab', 'directorist'),
+                    'value' => true,
+                ],
+                'fav_listings_tab_text'    => [
+                    'type'          => 'text',
+                    'label'         => __('"Favourite Listings" Tab Label', 'directorist'),
+                    'value'         => __('Favorite Listings', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.fav_listings_tab",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'submit_listing_button' => [
+                    'type'  => 'toggle',
+                    'label' => __('Display Submit Listing Button', 'directorist'),
+                    'value' => true,
+                ],
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -1936,11 +2014,14 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                         'user_dashboard' => [
                             'label' => __('User Dashboard', 'directorist'),
+                            'icon' => '<i class="fa fa-chart-bar"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
                                 'labels' => [
                                     'title'       => __('User Dashboard', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [],
+                                    'fields'      => [
+                                        'my_listing_tab', 'my_listing_tab_text', 'user_listings_pagination', 'user_listings_per_page', 'my_profile_tab', 'my_profile_tab_text', 'fav_listings_tab', 'fav_listings_tab_text', 'submit_listing_button'
+                                    ],
                                 ],
                             ] ),
                         ],

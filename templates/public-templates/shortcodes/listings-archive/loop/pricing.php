@@ -11,7 +11,7 @@ $price_range = get_post_meta( $id, '_price_range', true );
 $atbd_listing_pricing = get_post_meta( $id, '_atbd_listing_pricing', true );
 ?>
 
-<div class="atbd_listing_meta">
+<div class="atbd_listing_meta atbdp_info_list">
 	<?php
 	if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
 		echo atbdp_display_price_range($price_range);

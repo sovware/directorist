@@ -238,6 +238,9 @@
       .atbd-card-cover-top-left{
         left: 20px;
         top: 20px;
+        .atbd_badge {
+          display: block;
+        }
       }
       .atbd-card-cover-top-right{
         top: 20px;

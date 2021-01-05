@@ -3076,6 +3076,227 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'         => __('Search Result Page Meta Description', 'directorist'),
                     'value'         => '',
                 ],
+                //currency settings 
+                'g_currency_note'    => [
+                    'type'          => 'notebox',
+                    'label'         => __('Note About This Currency Settings:', 'directorist'),
+                    'description' => __('This currency settings lets you customize how you would like to display price amount in your website. However, you can accept currency in a different currency. Therefore, for accepting currency in a different currency, Go to Gateway Settings Tab.', 'directorist'),
+                ],
+                'g_currency'    => [
+                    'type'          => 'text',
+                    'label'         => __('Currency Name', 'directorist'),
+                    'description'   => __('Enter the Name of the currency eg. USD or GBP etc.', 'directorist'),
+                    'value'         => 'USD',
+                ],
+                'g_thousand_separator'    => [
+                    'type'          => 'text',
+                    'label'         => __('Thousand Separator', 'directorist'),
+                    'description'   => __('Enter the currency thousand separator. Eg. , or . etc.', 'directorist'),
+                    'value'         => ',',
+                ],
+                'allow_decimal' => [
+                    'label'         => __('Allow Decimal', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                ],
+                'g_decimal_separator'    => [
+                    'type'          => 'text',
+                    'label'         => __('Decimal Separator', 'directorist'),
+                    'description'   => __('Enter the currency decimal separator. Eg. "." or ",". Default is "."', 'directorist'),
+                    'value'         => '.',
+                ],
+                'g_currency_position' => [
+                    'label'        => __('Currency Position', 'directorist'),
+                    'type'        => 'select',
+                    'value'       => 'before',
+                    'description' => __('Select where you would like to show the currency symbol. Default is before. Eg. $5', 'directorist'),
+                    'options' => [
+                        [
+                            'value' => 'before',
+                            'label' => __('$5 - Before', 'directorist'),
+                        ],
+                        [
+                            'value' => 'after',
+                            'label' => __('After - 5$', 'directorist'),
+                        ],
+                    ],
+                ],
+                // categories settings 
+                'display_categories_as' => [
+                    'label'        => __('Default View', 'directorist'),
+                    'type'        => 'select',
+                    'value'       => 'grid',
+                    'options' => [
+                        [
+                            'value' => 'grid',
+                            'label' => __('Grid', 'directorist'),
+                        ],
+                        [
+                            'value' => 'list',
+                            'label' => __('List', 'directorist'),
+                        ],
+                    ],
+                ],
+                'categories_column_number' => [
+                    'label' => __('Number of  Columns', 'directorist'),
+                    'description' => __('Set how many columns to display on categories page.', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '4',
+                    'min' => '1',
+                    'max' => '5',
+                    'step' => '1',
+                ],
+                'categories_depth_number' => [
+                    'label' => __('Sub-category Depth', 'directorist'),
+                    'description' => __('Set how many sub-categories to display.', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '4',
+                    'min' => '1',
+                    'max' => '15',
+                    'step' => '2',
+                    'show_if' => [
+                        'where' => "self.display_categories_as",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'list'],
+                        ],
+                    ],
+                ],
+                'order_category_by' => [
+                    'label'        => __('Categories Order By', 'directorist'),
+                    'type'        => 'select',
+                    'value'       => 'id',
+                    'options' => [
+                        [
+                            'value' => 'id',
+                            'label' => __('ID', 'directorist'),
+                        ],
+                        [
+                            'value' => 'count',
+                            'label' => __('Count', 'directorist'),
+                        ],
+                        [
+                            'value' => 'name',
+                            'label' => __('Name', 'directorist'),
+                        ],
+                        [
+                            'value' => 'slug',
+                            'label' => __('Slug', 'directorist'),
+                        ],
+                    ],
+                ],
+                'sort_category_by' => [
+                    'label'       => __('Categories Sort By', 'directorist'),
+                    'type'        => 'select',
+                    'value'       => 'asc',
+                    'options' => [
+                        [
+                            'value' => 'asc',
+                            'label' => __('Ascending', 'directorist'),
+                        ],
+                        [
+                            'value' => 'desc',
+                            'label' => __('Descending', 'directorist'),
+                        ],
+                    ],
+                ],
+                'display_listing_count' => [
+                    'label'         => __('Display Listing Count', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                ],
+                'hide_empty_categories' => [
+                    'label'         => __('Hide Empty Categories', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                ],
+                // locations settings 
+                'display_locations_as' => [
+                    'label'        => __('Default View', 'directorist'),
+                    'type'        => 'select',
+                    'value'       => 'grid',
+                    'options' => [
+                        [
+                            'value' => 'grid',
+                            'label' => __('Grid', 'directorist'),
+                        ],
+                        [
+                            'value' => 'list',
+                            'label' => __('List', 'directorist'),
+                        ],
+                    ],
+                ],
+                'locations_column_number' => [
+                    'label'       => __('Number of  Columns', 'directorist'),
+                    'description' => __('Set how many columns to display on locations page.', 'directorist'),
+                    'type'        => 'number',
+                    'value'       => '4',
+                    'min'         => '1',
+                    'max'         => '5',
+                    'step'        => '1',
+                ],
+                'locations_depth_number' => [
+                    'label' => __('Sub-location Depth', 'directorist'),
+                    'description' => __('Set how many sub-locations to display.', 'directorist'),
+                    'type'  => 'number',
+                    'value' => '4',
+                    'min' => '1',
+                    'max' => '15',
+                    'step' => '2',
+                    'show_if' => [
+                        'where' => "self.display_locations_as",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'list'],
+                        ],
+                    ],
+                ],
+                'order_location_by' => [
+                    'label'        => __('Locations Order By', 'directorist'),
+                    'type'        => 'select',
+                    'value'       => 'id',
+                    'options' => [
+                        [
+                            'value' => 'id',
+                            'label' => __('ID', 'directorist'),
+                        ],
+                        [
+                            'value' => 'count',
+                            'label' => __('Count', 'directorist'),
+                        ],
+                        [
+                            'value' => 'name',
+                            'label' => __('Name', 'directorist'),
+                        ],
+                        [
+                            'value' => 'slug',
+                            'label' => __('Slug', 'directorist'),
+                        ],
+                    ],
+                ],
+                'sort_location_by' => [
+                    'label'       => __('Locations Sort By', 'directorist'),
+                    'type'        => 'select',
+                    'value'       => 'asc',
+                    'options' => [
+                        [
+                            'value' => 'asc',
+                            'label' => __('Ascending', 'directorist'),
+                        ],
+                        [
+                            'value' => 'desc',
+                            'label' => __('Descending', 'directorist'),
+                        ],
+                    ],
+                ],
+                'display_location_listing_count' => [
+                    'label'         => __('Display Listing Count', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                ],
+                'hide_empty_locations' => [
+                    'label'         => __('Hide Empty Locations', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => false,
+                ],
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -3275,15 +3496,44 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __( 'Currency Settings', 'directorist' ),
                     'icon' => '<i class="fa fa-money-bill directorist_danger"></i>',
                     'submenu' => apply_filters('atbdp_currency_settings_submenu', [
-                       
+                        'currency_settings' => [
+                            'label' => __('Currency Settings', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_currency_settings_sections', [
+                                'title_metas' => [
+                                    'title'       => __('Currency Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
+                                     ],
+                                ],
+                            ] ),
+                        ],
                     ]),
                 ],
 
-                'location_category' => [
+                'categories_locations' => [
                     'label' => __( 'Location & Category', 'directorist' ),
                     'icon' => '<i class="fa fa-list-alt directorist_danger"></i>',
                     'submenu' => apply_filters('atbdp_location_category_settings_submenu', [
-                       
+                        'categories_locations_settings' => [
+                            'label' => __('Categories & Locations Page Settings', 'directorist'),
+                            'sections' => apply_filters( 'atbdp_categories_settings_sections', [
+                                'categories_settings' => [
+                                    'title'       => __('Categories Page Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_categories_as', 'categories_column_number', 'categories_depth_number', 'order_category_by', 'sort_category_by', 'display_listing_count', 'hide_empty_categories'
+                                     ],
+                                ],
+                                'locations_settings' => [
+                                    'title'       => __('Locations Page Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_locations_as', 'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
+                                     ],
+                                ],
+                            ] ),
+                        ],
                     ]),
                 ],
 

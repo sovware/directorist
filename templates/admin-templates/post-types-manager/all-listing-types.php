@@ -85,13 +85,13 @@
             <h2 class="directorist_builder__title"><?php _e( 'All Directory Types', 'directorist' ); ?></h2>
             <div class="directorist_builder__content">
                 <div class="directorist_builder__content--left">
-                    <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="directorist_link-block">
+                    <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="directorist_link-block directorist_link-block-primary">
                         <span class="directorist_link-icon">
                             <i class="la la-plus"></i>
                         </span>
                         <span class="directorist_link-text"><?php _e( 'Create New Directory Type', 'directorist' ); ?></span>
                     </a>
-                    <a href="#" class="directorist_btn directorist_btn-success directorist_btn-import cptm-modal-toggle" data-target="cptm-import-directory-modal">
+                    <a href="#" class="directorist_link-block directorist_link-block-success directorist_btn-import cptm-modal-toggle" data-target="cptm-import-directory-modal">
                         <span class="directorist_link-icon">
                             <i class="la la-download"></i>
                         </span>

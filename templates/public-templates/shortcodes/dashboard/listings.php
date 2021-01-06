@@ -5,25 +5,22 @@
  * @version 6.6
  */
 ?>
-<div class="atbd_tab_inner tabContentActive" id="my_listings">
+<div class="atbd_tab_inner tabContentActive">
 	<div class="directorist_userDashboard-area">
 		<div class="directorist_userDashboard-tab">
 			<div class="atbd_tab_nav">
-				<ul>
+				<ul class="directorist-dashboard-listing-nav-js">
 					<li class="directorist_tab_nav--content-link">
-						<a href="#" target="all_llistings" class="atbd_tn_link tabItemActive"><?php esc_html_e( 'All Listings', 'directorist' ); ?></a>
+						<a href="#" data-tab="all" class="tabItemActive"><?php esc_html_e( 'All Listings', 'directorist' ); ?></a>
 					</li>
 					<li class="directorist_tab_nav--content-link">
-						<a href="#" target="published" class="atbd_tn_link"><?php esc_html_e( 'Published', 'directorist' ); ?></a>
+						<a href="#" data-tab="publish"><?php esc_html_e( 'Published', 'directorist' ); ?></a>
 					</li>
 					<li class="directorist_tab_nav--content-link">
-						<a href="#" target="pending" class="atbd_tn_link"><?php esc_html_e( 'Pending', 'directorist' ); ?></a>
+						<a href="#" data-tab="pending"><?php esc_html_e( 'Pending', 'directorist' ); ?></a>
 					</li>
 					<li class="directorist_tab_nav--content-link">
-						<a href="#" target="unpaid" class="atbd_tn_link"><?php esc_html_e( 'UnPaid', 'directorist' ); ?></a>
-					</li>
-					<li class="directorist_tab_nav--content-link">
-						<a href="#" target="expired" class="atbd_tn_link"><?php esc_html_e( 'Expired', 'directorist' ); ?></a>
+						<a href="#" data-tab="expired"><?php esc_html_e( 'Expired', 'directorist' ); ?></a>
 					</li>
 				</ul>
 				<div class="directorist_userDashboard-search">
@@ -35,7 +32,7 @@
 			</div>
 
 			<div class="directorist_userDashboard-tabcontent">
-				<div class="atbd_tab_inner tabContentActive" id="all_llistings">
+				<div class="atbd_tab_inner tabContentActive">
 					<div class="directorist_listing-table directorist_table-responsive">
 						<table class="directorist_table">
 
@@ -58,7 +55,7 @@
 						<div class="directorist-dashboard-pagination">
 							<div class="navigation pagination">
 								<div class="nav-links">
-									<?php $dashboard->listing_pagination(); ?>
+									<?php echo $dashboard->listing_pagination(); ?>
 								</div>	
 							</div>
 						</div>

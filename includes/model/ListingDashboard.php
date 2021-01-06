@@ -17,6 +17,7 @@ class Directorist_Listing_Dashboard {
 
 	private function __construct() {
 		$this->id = get_current_user_id();
+		add_action('wp_ajax_directorist_dashboard_listing_tab', array( $this, 'ajax_listing_tab' ) );
 	}
 
 	public static function instance() {
@@ -30,7 +31,26 @@ class Directorist_Listing_Dashboard {
 		return $this->id;
 	}
 
-	public function listings_query() {
+	public function ajax_listing_tab() {
+		$type = sanitize_text_field( $_POST['tab'] );
+		$query = $this->listings_query( $type );
+
+		$args = array(
+			'dashboard' => $this,
+			'query'     => $query,
+		);
+
+		$result = [
+			'content'    => atbdp_return_shortcode_template( 'dashboard/listing-row', $args ),
+			'pagination' => $this->listing_pagination(),
+		];
+
+		wp_send_json_success( $result );
+
+		wp_die();
+	}	
+
+	public function listings_query( $type = 'all' ) {
 		$pagination = get_directorist_option('user_listings_pagination',1);
 		$listings_per_page = get_directorist_option('user_listings_per_page',9);
 
@@ -41,7 +61,7 @@ class Directorist_Listing_Dashboard {
 			'posts_per_page' => (int) $listings_per_page,
 			'order'          => 'DESC',
 			'orderby'        => 'date',
-			'post_status'    => 'any',
+			'post_status'    => array('publish', 'pending', 'private'),
 		);
 
 		if( ! empty( $pagination) ) {
@@ -49,6 +69,21 @@ class Directorist_Listing_Dashboard {
 		}
 		else{
 			$args['no_found_rows'] = false;
+		}
+
+		if ( $type == 'publish' ) {
+			$args['post_status'] = 'publish';
+		}
+		if ( $type == 'pending' ) {
+			$args['post_status'] = 'pending';
+		}
+		elseif ( $type == 'expired' ) {
+			$args['meta_query'] = array(
+				array(
+					'key'   => '_listing_status',
+					'value' => 'expired'
+				),
+			);
 		}
 
 		$this->current_listings_query = new WP_Query( $args );
@@ -77,13 +112,13 @@ class Directorist_Listing_Dashboard {
 		return $exp_html;
 	}
 
-	public function listing_pagination() {
+	public function listing_pagination( $base = '' ) {
 		$query = $this->current_listings_query;
 		$paged = atbdp_get_paged_num();
 		$big   = 999999999;
 
 		$links = paginate_links(array(
-			'base'      => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+			'base'      => $base ? $base : str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
 			'format'    => '?paged=%#%',
 			'current'   => max(1, $paged),
 			'total'     => $query->max_num_pages,
@@ -91,7 +126,7 @@ class Directorist_Listing_Dashboard {
 			'next_text' => '<i class="la la-arrow-right"></i>',
 		));
 
-		echo $links;
+		return $links;
 	}
 
 

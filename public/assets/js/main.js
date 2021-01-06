@@ -1076,6 +1076,36 @@
     if(tabContentWidth < 650){
       $(".atbd_dashboard_wrapper .atbd_tab-content").addClass("atbd_tab-content--fix");
     }
+
+    // Dashboard Listing Tab Ajax
+    $('.directorist-dashboard-listing-nav-js a').on('click', function(event) {
+
+        var $item = $(this);
+
+    	if ($item.hasClass('tabItemActive')) {
+    		return false;
+    	}
+
+    	var tab = $item.data('tab');
+
+        $.ajax({
+            url: atbdp_public_data.ajaxurl,
+            type: 'POST',
+            data: {
+                'action': 'directorist_dashboard_listing_tab',
+                'tab': tab,
+            },
+            success: function success(response) {
+                $('.directorist-dashboard-listings-tbody').html(response.data.content);
+                $('.directorist-dashboard-pagination .nav-links').html(response.data.pagination);
+                $('.directorist-dashboard-listing-nav-js a').removeClass('tabItemActive');
+                $item.addClass('tabItemActive');
+            }
+        });
+
+    	return false;
+    });
+
 })(jQuery);
 
   // on load of the page: switch to the currently selected tab

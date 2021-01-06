@@ -2,12 +2,16 @@
     <div class="atbdp-cptm-tab-contents">
         <template v-for="( menu, menu_key ) in layouts">
             <div :id="menu_key" class="atbdp-tab-content-item" :key="menu_key" v-if="menu.active">
-                <!-- Main Menu Contents -->
-                <h2 class="cptm-menu-title" v-if="! menu.submenu">{{ menu.label }}</h2>
+                
+                <template v-if="! menu.submenu">
+                    <!-- Main Menu Contents -->
+                    <h2 class="cptm-menu-title">{{ menu.label }}</h2>
 
-                <div class="atbdp-tab-content-body" v-if="menu.sections && ! menu.submenu">
-                    <sections-module v-if="submenu.sections" :menu-key="menu_key" :sections="menu.sections"></sections-module>
-                </div>
+                    <div class="atbdp-tab-content-body" v-if="menu.sections">
+                        <sections-module v-if="menu.sections" :menu-key="menu_key" :sections="menu.sections"></sections-module>
+                    </div>
+                </template>
+                
 
                 <!-- Submenu Contents -->
                 <div class="atbdp-tab-sub-contents" v-if="menu.submenu">

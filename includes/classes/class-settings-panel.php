@@ -4387,27 +4387,22 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'page_settings' => [
                     'label' => __( 'Page Settings', 'directorist' ),
                     'icon' => '<i class="fa fa-chart-line directorist_wordpress"></i>',
-                    'submenu' => apply_filters('atbdp_page_settings_submenu', [
-                        'page_settings' => [
-                            'label' => __('Page Settings', 'directorist'),
-                            'sections' => apply_filters( 'atbdp_listing_settings_page_settings_sections', [
-                                'upgrade_pages' => [
-                                    'title'       => __('Upgrade/Regenerate Pages', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'regenerate_pages'
-                                     ],
-                                ],
-                                'pages_links_views' => [
-                                    'title'       => __('Page, Links & View Settings', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'add_listing_page', 'all_listing_page', 'single_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'custom_registration', 'user_login', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
-                                     ],
-                                ],
-                            ] ),
+                    'sections' => apply_filters( 'atbdp_listing_settings_page_settings_sections', [
+                        'upgrade_pages' => [
+                            'title'       => __('Upgrade/Regenerate Pages', 'directorist'),
+                            'description' => '',
+                            'fields'      => [ 
+                                'regenerate_pages'
+                             ],
                         ],
-                    ]),
+                        'pages_links_views' => [
+                            'title'       => __('Page, Links & View Settings', 'directorist'),
+                            'description' => '',
+                            'fields'      => [ 
+                                'add_listing_page', 'all_listing_page', 'single_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'custom_registration', 'user_login', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
+                             ],
+                        ],
+                    ] ),
                 ],
 
                 'seo_settings' => [

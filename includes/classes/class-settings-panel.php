@@ -3903,6 +3903,302 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 // email templates settings
+                'allow_email_header' => [
+                    'label'         => __('Email Header', 'directorist'),
+                    'type'          => 'toggle',
+                    'value'         => true,
+                ],
+                'email_header_color'    => [
+                    'type'           => 'color',
+                    'label'          => __('Email Header Color', 'directorist'),
+                    'value'          => '#8569fb',
+                    'show_if' => [
+                        'where' => "self.allow_email_header",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'email_sub_new_listing'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when a listing is submitted/received.', 'directorist'),
+                    'value'          => __('[==SITE_NAME==] : Listing "==LISTING_TITLE==" Received', 'directorist'),
+                ],
+                'email_tmpl_new_listing'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description' => __('Edit the email template for sending to the user when a listing is submitted/received. HTML content is allowed too.', 'directorist'),
+                    'value'          => __("
+                    Dear ==NAME==,
+                    
+                    This email is to notify you that your listing '==LISTING_TITLE==' has been received and it is under review now.
+                    It may take up to 24 hours to complete the review.
+                    
+                    Thanks,
+                    The Administrator of ==SITE_NAME==
+                    ", 'directorist'),
+                ],
+                'email_sub_pub_listing'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when a listing is approved/published.', 'directorist'),
+                    'value'          => __('[==SITE_NAME==] : Listing "==LISTING_TITLE==" published', 'directorist'),
+                ],
+                'email_tmpl_pub_listing'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Edit the email template for sending to the user when a listing is approved/published. HTML content is allowed too.', 'directorist'),
+                    'value'          => __("
+                    Dear ==NAME==,
+                    Congratulations! Your listing '==LISTING_TITLE==' has been approved/published. Now it is publicly available at ==LISTING_URL==
+                    
+                    Thanks,
+                    The Administrator of ==SITE_NAME==
+                    ", 'directorist'),
+                ],
+                'email_sub_edit_listing'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when a listing is edited.', 'directorist'),
+                    'value'          => __('[==SITE_NAME==] : Listing "==LISTING_TITLE==" Edited', 'directorist'),
+                ],
+                'email_tmpl_edit_listing'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Edit the email template for sending to the user when a listing is edited. HTML content is allowed too.', 'directorist'),
+                    'value'          => __("
+                    Dear ==NAME==,
+                    Congratulations! Your listing '==LISTING_TITLE==' has been edited. It is publicly available at ==LISTING_URL==
+                    
+                    Thanks,
+                    The Administrator of ==SITE_NAME==
+                    ", 'directorist'),
+                ],
+                'email_sub_to_expire_listing'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when a listing is ABOUT TO EXPIRE.', 'directorist'),
+                    'value'          => __('[==SITE_NAME==] : Your Listing "==LISTING_TITLE==" is about to expire.', 'directorist'),
+                ],
+                'email_tmpl_to_expire_listing'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Edit the email template for sending to the user when a listing is ABOUT TO EXPIRE. HTML content is allowed too.', 'directorist'),
+                    'value'          => __("
+                    Dear ==NAME==,
+                    Your listing '==LISTING_TITLE==' is about to expire. It will expire on ==EXPIRATION_DATE==. You can renew it at ==RENEWAL_LINK==
+                    
+                    Thanks,
+                    The Administrator of ==SITE_NAME==
+                    ", 'directorist'),
+                ],
+                'email_sub_expired_listing'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when a Listing HAS EXPIRED.', 'directorist'),
+                    'value'          => __("[==SITE_NAME==] : Your Listing '==LISTING_TITLE==' has expired.", 'directorist'),
+                ],
+                'email_tmpl_expired_listing'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Edit the email template for sending to the user when a Listing HAS EXPIRED. HTML content is allowed too.', 'directorist'),
+                    'value'          => __("
+                    Dear ==NAME==,
+                    Your listing '==LISTING_TITLE==' has expired on ==EXPIRATION_DATE==. You can renew it at ==RENEWAL_LINK==
+                    
+                    Thanks,
+                    The Administrator of ==SITE_NAME==
+                    ", 'directorist'),
+                ],
+                'email_sub_to_renewal_listing'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user to renew his/her listings.', 'directorist'),
+                    'value'          => __('[==SITE_NAME==] : A Reminder to Renew your listing "==LISTING_TITLE=="', 'directorist'),
+                ],
+                'email_tmpl_to_renewal_listing'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Edit the email template for sending to the user to renew his/her listings. HTML content is allowed too.', 'directorist'),
+                    'value'          => __("
+                    Dear ==NAME==,
+                    
+                    We have noticed that you might have forgot to renew your listing '==LISTING_TITLE==' at ==SITE_LINK==. We would like to remind you that it expired on ==EXPIRATION_DATE==. But please don't worry.  You can still renew it by clicking this link: ==RENEWAL_LINK==.
+                    
+                    Thanks,
+                    The Administrator of ==SITE_NAME==
+                    ", 'directorist'),
+                ],
+                'email_sub_renewed_listing'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user his/her listings has renewed successfully.', 'directorist'),
+                    'value'          => __('[==SITE_NAME==] : Your Listing "==LISTING_TITLE==" Has Renewed', 'directorist'),
+                ],
+                'email_tmpl_renewed_listing'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Edit the email template for sending to the user his/her listings has renewed successfully. HTML content is allowed too.', 'directorist'),
+                    'value'          => __("
+                    Dear ==NAME==,
+                    
+                    Congratulations!
+                    Your listing '==LISTING_LINK==' with the ID #==LISTING_ID== has been renewed successfully at ==SITE_LINK==.
+                    Your listing is now publicly viewable at ==LISTING_URL==
+                    
+                    Thanks,
+                    The Administrator of ==SITE_NAME==
+                    ", 'directorist'),
+                ],
+                'email_sub_deleted_listing'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when his/her listings has deleted successfully.', 'directorist'),
+                    'value'          => __('[==SITE_NAME==] : Your Listing "==LISTING_TITLE==" Has Been Deleted', 'directorist'),
+                ],
+                'email_tmpl_deleted_listing'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Edit the email template for sending to the user when his/her listings has deleted successfully. HTML content is allowed too.', 'directorist'),
+                    'value'          => __("
+                    Dear ==NAME==,
+                    
+                    Your listing '==LISTING_LINK==' with the ID #==LISTING_ID== has been deleted successfully at ==SITE_LINK==.
+                    
+                    Thanks,
+                    The Administrator of ==SITE_NAME==
+                    ", 'directorist'),
+                ],
+                'email_sub_new_order'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when an order is created.', 'directorist'),
+                    'value'          => __('[==SITE_NAME==] : Your Order (#==ORDER_ID==) Received.', 'directorist'),
+                ],
+                'email_tmpl_new_order'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Edit the email template for sending to the user when an order is created.', 'directorist'),
+                    'value'          => __("
+                    Dear ==NAME==,
+                    
+                    Thank you very much for your order.
+                    This email is to notify you that your order (#==ORDER_ID==) has been received. You can check your order details and progress by clicking the link below.
+                    
+                    Order Details Page: ==ORDER_RECEIPT_URL==
+                    
+                    Your order summery:
+                    ==ORDER_DETAILS==
+                    
+                    
+                    NB. You need to be logged in your account to access the order details page.
+                    
+                    Thanks,
+                    The Administrator of ==SITE_NAME==
+                    ", 'directorist'),
+                ],
+                'email_sub_offline_new_order'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when an order is created using offline payment like bank transfer.', 'directorist'),
+                    'value'          => __('[==SITE_NAME==] : Your Order (#==ORDER_ID==) Received.', 'directorist'),
+                ],
+                'email_tmpl_offline_new_order'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Edit the email template for sending to the user when an order is created using offline payment like bank transfer.', 'directorist'),
+                    'value'          => sprintf(__("
+                    Dear ==NAME==,
+                    
+                    Thank you very much for your order.
+                    This email is to notify you that your order (#==ORDER_ID==) has been received.
+                    
+                    %s
+                    
+                    You can check your order details and progress by clicking the link below.
+                    Order Details Page: ==ORDER_RECEIPT_URL==
+                    
+                    Your order summery:
+                    ==ORDER_DETAILS==
+                    
+                    
+                    NB. You need to be logged in your account to access the order details page.
+                    
+                    Thanks,
+                    The Administrator of ==SITE_NAME==
+                    ", 'directorist'), get_directorist_option('bank_transfer_instruction')),
+                ],
+                'email_sub_completed_order'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when an order is completed', 'directorist'),
+                    'value'          => __('[==SITE_NAME==] : Congratulation! Your Order #==ORDER_ID== Completed.', 'directorist'),
+                ],
+                'email_tmpl_completed_order'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Edit the email template for sending to the user when an order is completed.', 'directorist'),
+                    'value'          => __("
+                    Dear ==NAME==,
+                    
+                    Congratulation! This email is to notify you that your order #==ORDER_ID== has been completed.
+                    
+                    You can check your order details by clicking the link below.
+                    Order Details Page: ==ORDER_RECEIPT_URL==
+                    
+                    Your order summery:
+                    ==ORDER_DETAILS==
+                    
+                    
+                    NB. You need to be logged in your account to access the order details page.
+                    
+                    Thanks,
+                    The Administrator of ==SITE_NAME==
+                    ", 'directorist'),
+                ],
+                'email_sub_listing_contact_email'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when listing contact message send.', 'directorist'),
+                    'value'          => __('==SITE_NAME== Contact via ==LISTING_TITLE==', 'directorist'),
+                ],
+                'email_tmpl_listing_contact_email'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Edit the email template for sending to the user when when listing contact message send', 'directorist'),
+                    'value'          => __("
+                    Dear ==NAME==,
+                    
+                    You have received a message from your listing at ==LISTING_URL==.
+                    
+                    Name: ==SENDER_NAME==
+                    Email: ==SENDER_EMAIL==
+                    Message: ==MESSAGE==
+                    Time: ==NOW==
+                    
+                    Thanks,
+                    The Administrator of ==SITE_NAME==
+                    ", 'directorist'),
+                ],
+                'email_sub_registration_confirmation'    => [
+                    'type'           => 'text',
+                    'label'          => __('Email Subject', 'directorist'),
+                    'description'    => __('Edit the subject for sending to the user when listing contact message send.', 'directorist'),
+                    'value'          => __('Registration Confirmation!', 'directorist'),
+                ],
+                'email_tmpl_registration_confirmation'    => [
+                    'type'           => 'textarea',
+                    'label'          => __('Email Body', 'directorist'),
+                    'description'    => __('Note: Use ==USER_PASSWORD== to show a temporary password when password field is disable from registration page', 'directorist'),
+                    'value'          => __('
+                    Hi ==USERNAME==,
+                    
+                    Thanks for creating an account on <b>==SITE_NAME==</b>. Your username is <b>==USERNAME==</b>. You can access your account area to view listings, change your password, and more at: ==DASHBOARD_LINK==
+                    
+                    We look forward to seeing you soon', 'directorist'),
+                ],
+                
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -4174,98 +4470,98 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('General', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'allow_email_header', 'email_header_color'
                                      ],
                                 ],
                                 'new_listing' => [
                                     'title'       => __('For New Listing', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_new_listing', 'email_tmpl_new_listing'
                                      ],
                                 ],
                                 'approved_listings' => [
                                     'title'       => __('For Approved/Published Listings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_pub_listing', 'email_tmpl_pub_listing'
                                      ],
                                 ],
                                 'edited_listings' => [
                                     'title'       => __('For Edited Listings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_edit_listing', 'email_tmpl_edit_listing'
                                      ],
                                 ],
                                 'about_expire_listings' => [
-                                    'title'       => __('For About To Listings', 'directorist'),
+                                    'title'       => __('For About To Expire Listings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_to_expire_listing', 'email_tmpl_to_expire_listing'
                                      ],
                                 ],
                                 'expired_listings' => [
                                     'title'       => __('For Expired Listings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_expired_listing', 'email_tmpl_expired_listing'
                                      ],
                                 ],
                                 'remind_renewal_listings' => [
                                     'title'       => __('For Renewal Listings (Remind To Renew)', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_to_renewal_listing', 'email_tmpl_to_renewal_listing'
                                      ],
                                 ],
                                 'after_renewed_listings' => [
                                     'title'       => __('For Renewed Listings (After Renewed)', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_renewed_listing', 'email_tmpl_renewed_listing'
                                      ],
                                 ],
                                 'deleted_listings' => [
                                     'title'       => __('For Deleted/Trashed Listings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_deleted_listing', 'email_tmpl_deleted_listing'
                                      ],
                                 ],
                                 'new_order_created' => [
                                     'title'       => __('For New Order (Created)', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_new_order', 'email_tmpl_new_order'
                                      ],
                                 ],
                                 'new_order_offline_bank' => [
                                     'title'       => __('For New Order (Created Using Offline Bank Transfer)', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_offline_new_order', 'email_tmpl_offline_new_order'
                                      ],
                                 ],
                                 'completed_order' => [
                                     'title'       => __('For Completed Order', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_completed_order', 'email_tmpl_completed_order'
                                      ],
                                 ],
                                 'listing_contact_email' => [
                                     'title'       => __('For Listing Contact Email', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_listing_contact_email', 'email_tmpl_listing_contact_email'
                                      ],
                                 ],
                                 'registration_confirmation' => [
                                     'title'       => __('Registration Confirmation', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        ''
+                                        'email_sub_registration_confirmation', 'email_tmpl_registration_confirmation'
                                      ],
                                 ],
                             ] ),

@@ -6,7 +6,7 @@
  */
 ?>
 
-<div class="atbd_listing_meta">
+<div class="atbd_listing_meta atbdp_info_list">
     <span class="atbd_meta atbd_listing_rating atbd_listing_transparent">
         <?php echo $listings->loop['review']['review_stars']; ?>
         

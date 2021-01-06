@@ -64,8 +64,9 @@ if ( ! class_exists( 'ATBDP_Stylesheet' ) ):
             }
             .leaflet-pane .myDivIcon div.atbd_map_shape {
                 position: absolute;
-                top: 0;
-                left: 0;
+                top: -50px;
+                left: 50%;
+                margin-left: -26px;
             }
             <?php
 

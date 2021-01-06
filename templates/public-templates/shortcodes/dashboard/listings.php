@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author  AazzTech
  * @since   6.6
@@ -7,123 +6,118 @@
  */
 ?>
 <div class="atbd_tab_inner tabContentActive" id="my_listings">
-	<div class="row data-uk-masonry">
+	<div class="directorist_userDashboard-area">
+		<div class="directorist_userDashboard-tab">
+			<div class="atbd_tab_nav">
+				<ul>
+					<li class="directorist_tab_nav--content-link">
+						<a href="#" target="all_llistings" class="atbd_tn_link tabItemActive">All Listings</a>
+					</li>
+					<li class="directorist_tab_nav--content-link">
+						<a href="#" target="published" class="atbd_tn_link">Published</a>
+					</li>
+					<li class="directorist_tab_nav--content-link">
+						<a href="#" target="pending" class="atbd_tn_link">Pending</a>
+					</li>
+					<li class="directorist_tab_nav--content-link">
+						<a href="#" target="unpaid" class="atbd_tn_link">UnPaid</a>
+					</li>
+					<li class="directorist_tab_nav--content-link">
+						<a href="#" target="expired" class="atbd_tn_link">Expired</a>
+					</li>
+				</ul>
+				<div class="directorist_userDashboard-search">
+					<div class="directorist_userDashboard-search__icon">
+						<i class="la la-search"></i>
+					</div>
+					<input type="text" placeholder="Search listings">
+				</div>
+			</div>
 
-		<?php
-		if (!empty($listing_items)) {
-			foreach ($listing_items as $item) { ?>
-
-				<div class="col-lg-4 col-sm-6" id="listing_id_<?php echo esc_attr($item['id']); ?>">
-					<div class="atbd_single_listing atbd_listing_card">
-						<article class="atbd_single_listing_wrapper<?php echo esc_attr($featured_class); ?>">
-
-							<figure class="atbd_listing_thumbnail_area">
-								<div class="atbd_listing_image">
-									<a href="<?php echo esc_url($item['permalink']); ?>">
-										<?php
-										if ($item['has_thumbnail']) {
-											atbdp_thumbnail_card($item['thumbnail_img']);
-										}
-										?>
-									</a>
-
-									<figcaption class="atbd_thumbnail_overlay_content">
-										<div class="atbd_upper_badge">
-											<?php
-											if ($item['featured']) { ?>
-												<span class="atbd_badge atbd_badge_featured"><?php echo esc_html($featured_text); ?></span>
-											<?php
-											}
-											?>
-										</div>
-										<?php do_action('atbdp_after_user_dashboard_upper_badge', $item['id']); ?>
-									</figcaption>
-								</div>
-							</figure>
-
-							<div class="atbd_listing_info">
-								<div class="atbd_content_upper">
-									<div class="atbd_dashboard_title_metas">
-										<h4 class="atbd_listing_title"><a href="<?php echo esc_url($item['permalink']); ?>"><?php echo esc_html($item['title']); ?></a></h4>
-										<?php
-										/**
-										 * @since 1.0.0
-										 */
-										do_action('atbdp_after_listing_tagline');
-										?>
-									</div>
-								</div>
-
-								<div class="atbd_listing_bottom_content">
-									<div class="listing-meta">
-										<div class="listing-meta-content">
-											<?php
-											/**
-											 * @since 5.0.3
-											 */
-											do_action('atbdp_user_dashboard_listings_before_expiration', $item['id']);
-											?>
-
-											<p><span><?php esc_html_e('Expiration', 'directorist'); ?>:</span> <?php echo $item['exp_html']; ?></p>
-
-											<p><?php printf('<span class="%s">%s</span>', $item['status_label_class'], $item['status_label']) ?></p>
-
-										</div>
-
-										<?php
-										/**
-										 * @since 6.3.3
-										 */
-										do_action('atbdp_user_dashboard_before_button', $item['id']);
-										?>
-
-										<div class="db_btn_area">
-											<?php
-											if ('renewal' == $item['status'] || 'expired' == $item['status']) {
-												if ($can_renew) {
-													if (is_fee_manager_active()) {
-											?>
-														<a href="" data-target="<?php echo esc_attr($item['modal_id']); ?>" data-listing_id="<?php echo esc_attr($item['id']); ?>" class="directory_btn btn btn-outline-success atbdp_renew_with_plan"><?php esc_html_e('Renew', 'directorist'); ?></a>
-													<?php
-													} else { ?>
-														<a href="<?php echo add_query_arg('renew_from', 'dashboard', esc_url(ATBDP_Permalink::get_renewal_page_link($item['id']))) ?>" id="directorist-renew" data-listing_id="<?php echo esc_attr($item['id']); ?>" class="directory_btn btn btn-outline-success"><?php esc_html_e('Renew', 'directorist'); ?></a>
-													<?php
-													}
-												}
-											} else {
-												// show promotions if the featured is available
-												if ($featured_active && !$item['featured'] && !is_fee_manager_active()) { ?>
-													<div class="atbd_promote_btn_wrapper">
-														<a href="<?php echo esc_url(ATBDP_Permalink::get_checkout_page_link($item['id'])) ?>" data-listing_id="<?php echo $item['id']; ?>" class="directory_btn btn btn-primary"><?php esc_html_e('Promote', 'directorist'); ?></a>
+			<div class="directorist_userDashboard-tabcontent">
+				<div class="atbd_tab_inner tabContentActive" id="all_llistings">
+					<div class="directorist_listing-table directorist_table-responsive">
+						<table class="directorist_table">
+							<thead>
+								<tr>
+									<th class="directorist_table-listing">Listings</th>
+									<th class="directorist_table-plan">Plan</th>
+									<th class="directorist_table-ex-date">Expiration Date</th>
+									<th class="directorist_table-status">Status</th>
+									<th class="directorist_table-actions"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								if (!empty($listing_items)) {
+									foreach ($listing_items as $item) { ?>
+										<tr>
+											<td>
+												<div class="directorist_listing-info">
+													<div class="directorist_listing-info__img">
+														<img src="http://directoristfbuilder.local/wp-content/uploads/2020/12/4.jpg" alt="">
 													</div>
-											<?php
-												}
-											}
-											?>
-											<div>
-												<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link($item['id'])); ?>" class="directory_edit_btn edit_listing"><?php esc_html_e('Edit', 'directorist'); ?></a>
-												<a href="#" data-listing_id="<?php echo esc_attr($item['id']); ?>" class="directory_remove_btn remove_listing"><?php esc_html_e('Delete', 'directorist'); ?></a>
-											</div>
-
-										</div>
-									</div>
-								</div>
-
-							</div>
-
-						</article>
+													<div class="directorist_listing-info__content">
+														<h4 class="directorist_title"><?php echo esc_html($item['title']); ?></h4>
+														<span class="directorist_price">$275.20</span>
+													</div>
+												</div>
+											</td>
+											<td>
+												<span class="directorist_listing-plan">Super Plan</span>
+											</td>
+											<td>
+												<span class="directorist_ex-plan"> <?php echo $item['exp_html']; ?></span>
+											</td>
+											<td>
+												<span class="directorist_badge dashboard-badge success"><?php echo esc_html($item['status_label']); ?></span>
+											</td>
+											<td>
+												<div class="directorist_actions">
+													<a href="#" class="directorist_link-btn"><i class="la la-edit"></i>Edit</a>
+													<div class="directorist_dropdown">
+														<a href="#" class="directorist_btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
+														<div class="directorist_dropdown-menu">
+															<div class="directorist_dropdown-menu__list">
+																<a class="directorist_dropdown-item" href="#"><i class=""></i>Change Plan</a>
+																<a class="directorist_dropdown-item" href="#"><i class="la la-adversal"></i>Promote Listing</a>
+																<a class="directorist_dropdown-item" href="#"><i class="la la-amazon-pay"></i>Pay Now</a>
+															</div>
+															<div class="directorist_dropdown-menu__list">
+																<div class="directorist_custom-checkbox">
+																	<input type="checkbox" id="m-navigation" name="mark-navigation">
+																	<label for="m-navigation">
+																		Mark as Negotiation
+																	</label>
+																</div>
+																<div class="directorist_custom-checkbox">
+																	<input type="checkbox" id="m-sold" name="mark-sold">
+																	<label for="m-sold">
+																		Mark as Sold
+																	</label>
+																</div>
+															</div>
+															<div class="directorist_dropdown-menu__list">
+																<a class="directorist_dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</td>
+										</tr>
+										<?php
+									}
+								} else { ?>
+									<tr><td><?php esc_html_e("Looks like you have not created any listing yet!", 'directorist'); ?></td></tr>
+									<?php
+								}
+								?>
+							</tbody>
+						</table>
 					</div>
 				</div>
-			<?php
-			}
-		} else { ?>
-			<p class="col-12 atbdp_nlf"><?php esc_html_e("Looks like you have not created any listing yet!", 'directorist'); ?></p>
-		<?php
-		}
+			</div>
 
-		if ($has_pagination) { ?>
-			<div class="col-12"><?php echo atbdp_pagination($listings, $paged); ?></div>
-		<?php } ?>
-
+		</div>
 	</div>
 </div>

@@ -97,6 +97,7 @@ class Directorist_Listing_Dashboard {
 		}
 
 		$args = array(
+			'dashboard'       => $this,
 			'listings'        => $listings,
 			'listing_items'   => $listing_items,
 			'date_format'     => get_option( 'date_format' ),
@@ -263,6 +264,17 @@ class Directorist_Listing_Dashboard {
 		}
 
 		return apply_filters( 'atbdp_dashboard_tabs', $dashboard_tabs );
+	}
+
+	public function get_all_listings() {
+		$listings = ATBDP()->user->current_user_listings();
+		$list_found = $listings->found_posts;
+		return $list_found;
+	}
+
+	public function get_all_listings_count() {
+		$listings = ATBDP()->user->current_user_listings();
+		return $listings;
 	}
 
 	public function error_message_template() {

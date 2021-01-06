@@ -145,7 +145,6 @@ export default {
         saveData() {
             let options = this.$store.state.options;
             let fields  = this.$store.state.fields;
-            let config  = this.$store.state.config;
 
             let form_data = new FormData();
             form_data.append( 'action', 'save_post_type_data' );

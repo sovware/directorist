@@ -3912,6 +3912,7 @@ templateResult: selecWithIcon,
   //default directory type
   $('body').on('click', '.submitdefault', function (e) {
     e.preventDefault();
+    $( '.submitDefaultCheckbox' ).prop('checked', true);
     $.ajax({
       type: 'post',
       url: atbdp_admin_data.ajaxurl,
@@ -3920,10 +3921,13 @@ templateResult: selecWithIcon,
         type_id: $(this).data('type-id'),
       },
       success(response) {
-        $('.submitdefault').after(
+        $('.submitdefault').append(
           `<span class="atbd-listing-type-active-status">${response}</span>`
         );
-        location.reload();
+        setTimeout(function() {
+          location.reload();
+        }, 1500);
+        
       },
     });
   });
@@ -4129,24 +4133,26 @@ function assetsNeedToWorkInVirtualDom() {
       }
     });
 }
+
+
+
 })(jQuery);
-});
 
 
-
-// Helpers
-// -----------------------------------
 // toggle_section
 function toggle_section(show_if_value, subject_elm, terget_elm) {
   if (show_if_value === subject_elm.val()) { terget_elm.show(); }
   else { terget_elm.hide(); }
 }
-      /*
-          Plugin: PureScriptTab
-          Version: 1.0.0
-          License: MIT
-      */
-    (function () {
+
+// Helpers
+// -----------------------------------
+/*
+    Plugin: PureScriptTab
+    Version: 1.0.0
+    License: MIT
+*/
+    (function ($) {
       pureScriptTab = (selector1) => {
           var selector = document.querySelectorAll(selector1);
           selector.forEach((el, index) => {
@@ -4181,8 +4187,6 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
               });
           });
       };
-  })();
+  })(jQuery);
   
   pureScriptTab('.directorist_builder--tab');
-
-})(jQuery);

@@ -179,8 +179,29 @@
         }
       }
 
+      .atbd-list-cover-top-right{
+        margin: -3px;
+        .atbdp_add_to_fav_listings,
+        .atdlc_compare-btn-container,
+        .atbd_badge{
+          margin: 3px;
+        }
+        .atbdp_mark_as_fav,
+        .atdlc-mark_compare_btn{
+          background-color: #00000030;
+        }
+        .atbdp_mark_as_fav {
+          .atbd_fav_icon{
+            &:before{
+              color: #fff;
+            }
+          }
+        }
+      }
+
       .atbd-list-body-right {
         display: flex;
+        margin: -3px;
 
         .atdlc_compare-btn-container {
           margin: 0 3px;
@@ -192,12 +213,31 @@
           }
 
           .atdlc-mark_compare_btn {
-            background: rgba(0, 0, 0, 0.07);
 
             i {
               color: #9192a3;
             }
           }
+        }
+
+        .atbdp_mark_as_fav ,
+        .atdlc-mark_compare_btn{
+          background-color: #F2F2F2;
+          i,
+          svg{
+            color: #51526E;
+          }
+        }
+          
+        .atbdp_mark_as_fav{
+          &::before{
+            color: #51526E !important;
+          }
+        }
+
+        .atdlc_compare-btn-container,
+        .atbdp_add_to_fav_listings{
+          margin: 3px;
         }
       }
 
@@ -235,6 +275,183 @@
           color: $dark;
           font-weight: 700;
           padding: 0;
+        }
+
+        .atbdp_info_list {
+          position: relative;
+
+          &:not(:last-child) {
+            padding-right: 8px;
+
+            &:after {
+              position: absolute;
+              right: 0;
+              top: 50%;
+              transform: translateY(-50%);
+              border-radius: 10px;
+              width: 1px;
+              height: 15px;
+              content: '';
+              background-color: #E9E9E9;
+            }
+
+            &.atdlc_compare-btn-container,
+            &.atbdp_add_to_fav_listings{
+              &::after{
+                top: 56%;
+              }
+            }
+            &.atbd_badge {
+              margin-right: 7px !important;
+
+              &:after {
+                right: -8px;
+              }
+            }
+
+            &.atbd_badge+.atbd_badge {
+              margin-left: 8px !important;
+
+              &.atbd_badge_open,
+              &.atbd_badge_close {
+                margin-left: 4px !important;
+                padding-right: 0 !important;
+                padding-left: 4px !important;
+              }
+            }
+            &.atbd_badge +.atbdp_add_to_fav_listings,
+            &.atbd_badge +.atdlc_compare-btn-container{
+              margin-left: 8px !important;
+            }
+          }
+        }
+        .atbd_badge {
+          
+          &.atbd_badge_open,
+          &.atbd_badge_close {
+            padding-right: 0px !important;
+            padding-left: 0px !important;
+          }
+        }
+        .atbd_listing_transparent {
+          padding: 0;
+          background-color: #fff !important;
+          margin: -1.5px;
+
+          i,
+          svg {
+            font-size: 12px;
+            margin: 1.5px;
+            color: $warning;
+          }
+
+          .atbd_listing_avg {
+            font-size: 14px;
+            font-weight: 700;
+            color: #51526E;
+            margin: 0 3px 0 6px;
+          }
+        }
+
+        .atbd_listing_price {
+          font-size: 15px;
+          background-color: #fff !important;
+          color: $dark;
+          font-weight: 700;
+          padding: 0;
+
+        }
+
+        .atbd_badge.atbd_badge_open,
+        .atbd_badge.atbd_badge_close {
+          position: relative;
+          font-size: 12px;
+          font-weight: 500;
+          text-transform: capitalize;
+          background-color: #fff !important;
+        }
+
+        .atbd_badge.atbd_badge_close {
+          color: $danger;
+        }
+
+        .atbd_badge.atbd_badge_open {
+          color: $success;
+        }
+
+        .atbdp_add_to_fav_listings {
+          margin-left: 8px !important;
+        }
+
+        .atbd_listing_average_pricing {
+          span {
+            font-weight: 700;
+          }
+        }
+
+        .atbd_listing_meta,
+        .atbd_listing_meta,
+        .atbd_listing_title,
+        .atbd_badge,
+        .atbdp_add_to_fav_listings,
+        .atdlc_compare-btn-container {
+          margin: 4px !important;
+        }
+        .atdlc_compare-btn-container,
+        .atbdp_add_to_fav_listings {
+          display: inline-flex;
+        }
+      }
+
+      .atbd-list-cover-top-right,
+      .atbd-card-cover-top-left,
+      .atbd-list-cover-bottom-left,
+      .atbd-list-cover-bottom-right,
+      .atbd-list-body-top {
+        .atdlc_compare-btn-container {
+          .atdlc-mark_compare_wrapper.atdlc_list-btn-position {
+            position: relative;
+            right: 0;
+            top: 0;
+          }
+        }
+      }
+
+      .atbd_listing_bottom_content{
+        .atbd_content_right,
+        .atbd_content_left{
+          .atdlc-mark_compare_wrapper.atdlc_list-btn-position{
+            margin: 0;
+            position: relative;
+            right: 0;
+            top: 0;
+          }
+          .atdlc-mark_compare_btn{
+            margin: 0;
+          }
+          .atbdp_mark_as_fav,
+          .atdlc-mark_compare_btn{
+            background-color: #F2F2F2;
+            color: #51526E;
+          }
+
+          .atbd_fav_icon{
+            &:before{
+              color: #51526E;
+            }
+          }
+          .atbd_count{
+            span.la,
+            i{
+              position: relative;
+              top: 1px;
+            }
+          }
+        }
+        .atbd_content_right{
+          .atbd_count+.atbd_author {
+            margin-left: 20px;
+          }
         }
       }
     }
@@ -354,8 +571,7 @@
           padding: 0;
           text-transform: none;
           line-height: 1.2;
-          margin-bottom: 0 !important;
-
+          margin-bottom: 8px !important;
           a {
             font-size: 18px;
           }
@@ -546,10 +762,11 @@
       .atbd-card-body-top {
         margin: -4px;
 
-        .atdlc_compare-btn-container {
+        .atdlc_compare-btn-container,
+        .atbdp_add_to_fav_listings {
           display: inline-flex;
         }
-
+        
         .atbd_listing_meta {
           display: inline-flex;
           margin: 0;
@@ -616,10 +833,6 @@
           }
         }
 
-        .atbdp_add_to_fav_listings {
-          display: inline-flex;
-        }
-
         .atbd_listing_transparent {
           padding: 0;
           background-color: #fff !important;
@@ -684,6 +897,10 @@
         .atdlc_compare-btn-container {
           margin: 4px !important;
         }
+        
+        .atbd_listing_title{
+          margin-bottom: 8px !important;
+        }
 
         .atdlc_compare-btn-container {
           .atdlc-mark_compare_btn {
@@ -693,6 +910,11 @@
         }
 
       }
+    }
+
+    .atdlc-mark_compare_btn{
+      width: 30px;
+      height: 30px;
     }
   }
 

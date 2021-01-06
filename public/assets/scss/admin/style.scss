@@ -2751,6 +2751,10 @@ span.atbdp-tick-cross {
               td {
                 background-color: #F8F9FB;
 
+                .directorist_title{
+                  color: #3E62F5;
+                }
+
                 .directorist_listing-actions {
                   a {
                     color: #fff;
@@ -2760,7 +2764,10 @@ span.atbdp-tick-cross {
                     }
 
                     &.directorist_btn-danger {
-                      background-color: #FF272A;
+                      &.directorist_btn-transparent{
+                        color: #FF272A;
+                        background-color: rgba(#FF272A,0.10);
+                      }
                     }
                   }
                 }
@@ -2771,7 +2778,7 @@ span.atbdp-tick-cross {
               font-size: 14px;
               font-weight: 400;
               color: #5A5F7D;
-              padding: 20px 20px;
+              padding: 15px 20px;
 
               @media only screen and (max-width: 1399px) {
                 padding: 15px 5px;

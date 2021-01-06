@@ -2875,6 +2875,10 @@ span.atbdp-tick-cross {
   background-color: #F8F9FB;
 }
 
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_title {
+  color: #3E62F5;
+}
+
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a {
   color: #fff;
 }
@@ -2883,15 +2887,16 @@ span.atbdp-tick-cross {
   background-color: #3E62F5;
 }
 
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a.directorist_btn-danger {
-  background-color: #FF272A;
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a.directorist_btn-danger.directorist_btn-transparent {
+  color: #FF272A;
+  background-color: rgba(255, 39, 42, 0.1);
 }
 
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td {
   font-size: 14px;
   font-weight: 400;
   color: #5A5F7D;
-  padding: 20px 20px;
+  padding: 15px 20px;
 }
 
 @media only screen and (max-width: 1399px) {

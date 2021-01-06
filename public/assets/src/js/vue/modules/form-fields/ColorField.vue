@@ -3,8 +3,7 @@
         :is="getTheTheme( 'color-field' )" 
         v-bind="$props"
         @update="$emit( 'update', $event )"
-    >
-    </component>
+    />
 </template>
 
 <script>

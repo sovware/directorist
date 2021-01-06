@@ -10,6 +10,29 @@ export default {
     },
 
     methods: {
+        doAction( payload, component_key ) {
+            if ( ! payload.action ) { return; }
+
+            if ( this[ payload.component ] !== component_key ) { 
+                this.$emit( 'do-action', payload );
+                return;
+            }
+
+            if ( typeof this[ payload.action ] !== "function" ) { return; }
+
+            this[ payload.action ]( payload.args );
+        },
+
+        maybeJSON( data ) {
+            try {
+                JSON.parse( data );
+            } catch (e) {
+                return data;
+            }
+        
+            return JSON.parse( data );
+        },
+        
         isObject( the_var ) {
             if ( typeof the_var === 'undefined' ) { return false }
             if ( the_var === null ) { return false }

@@ -48,7 +48,7 @@
                 <sidebar-navigation :menu="layouts" />
 
                 <div class="settings-contents">
-                    <tabContents ref="tab_contents" />
+                    <tabContents @do-action="doAction( $event )" />
 
                     <div class="settings-footer">
                         <div class="settings-footer-actions">
@@ -176,6 +176,17 @@ export default {
         ...mapGetters([
             'getFieldsValue'
         ]),
+
+        doAction( payload ) {
+            if ( ! payload.action ) { return; }
+            if ( typeof this[ payload.action ] !== "function" ) { return; }
+
+            this[ payload.action ]( payload.args );
+        },
+
+        testTask( args ) {
+            console.log( 'Working...', args );
+        },
 
         resetStates() {
             this.$store.commit( 'resetHighlightedFieldKey' );

@@ -20,6 +20,14 @@ export default {
             required: false,
             default: '',
         },
+        exportFileName: {
+            type: String,
+            required: false,
+            default: 'data',
+        },
+        restorData: {
+            required: false,
+        },
         buttonLabelOnProcessing: {
             type: String,
             required: false,
@@ -29,6 +37,16 @@ export default {
             type: String,
             required: false,
             default: '',
+        },
+        url: {
+            type: String,
+            required: false,
+            default: '',
+        },
+        openInNewTab: {
+            type: Boolean,
+            required: false,
+            default: true,
         },
         title: {
             type: [ String ],

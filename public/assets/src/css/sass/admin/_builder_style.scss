@@ -84,6 +84,10 @@ $light-gray: #f4f5f7;
   padding: 10px;
 }
 
+.cptm-label-btn {
+  display: inline-block;
+}
+
 .cptm-btn,
 .cptm-btn.cptm-label-btn {
   margin: 0 5px 10px;
@@ -107,7 +111,7 @@ $light-gray: #f4f5f7;
 }
 
 
-.cptm-btn-primary {
+.cptm-btn.cptm-btn-primary {
   color: #fff;
   border-color: $primary;
   background-color: $primary;
@@ -116,7 +120,7 @@ $light-gray: #f4f5f7;
   }
 }
 
-.cptm-btn-secondery {
+.cptm-btn.cptm-btn-secondery {
   color: $primary;
   border-color: $primary;
   background-color: transparent;

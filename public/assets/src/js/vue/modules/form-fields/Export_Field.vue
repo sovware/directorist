@@ -1,56 +1,13 @@
 <template>
-<div class="cptm-form-group">
-    <label>{{ label }}</label>
-    
-    <div class="cptm-btn-group">
-        <button type="button" class="cptm-btn cptm-btn-secondery" @click="exportJSON()">
-            <span class="fa fa-upload"></span>
-            Export
-        </button>
-    </div>
-</div>
+    <component :is="getTheTheme( 'export-field' )" v-bind="$props"/>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import helpers from '../../mixins/helpers';
+import feild_helper from './../../mixins/form-fields/helper';
+import props from './../../mixins/form-fields/input-field-props';
 
 export default {
     name: 'export-field',
-    mixins: [ helpers ],
-    model: {
-        prop: 'value',
-        event: 'input'
-    },
-    props: {
-        label: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        validation: {
-            type: Array,
-            required: false,
-        },
-    },
-
-    methods: {
-        ...mapGetters([
-            'getFieldsValue'
-        ]),
-
-        exportJSON() {
-            // console.log( this.getFieldsValue() );
-            let dataStr = JSON.stringify( this.getFieldsValue() );
-            let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-
-            let exportFileDefaultName = 'directory.json';
-
-            let linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-        },
-    }
+    mixins: [ props, feild_helper ],
 }
 </script>

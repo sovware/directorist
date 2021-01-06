@@ -199,6 +199,14 @@ export default new Vuex.Store({
     updateGeneralSectionData: ( state, payload ) => {
       state.layouts.general.submenu.general.sections[ payload.section_key ].fields[ payload.field_key ].value = payload.value;
     },
+
+    importFields: ( state, importing_fields ) => {
+      for ( let field_key in importing_fields ) {
+        if ( typeof importing_fields[ field_key ] === 'undefined' ) { continue; }
+
+        Vue.set( state.fields[ field_key ], 'value' , importing_fields[ field_key ] );
+      }
+    },
   },
 
   getters: {

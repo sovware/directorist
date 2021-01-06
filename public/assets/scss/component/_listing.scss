@@ -95,6 +95,7 @@
     margin-bottom: 30px;
     background: $light;
     border-radius: 4px;
+    
     &.atbd_listing_list{
       .atbd_single_listing_wrapper{
         display: flex;
@@ -217,6 +218,7 @@
         }
       }
     }
+
     &.atbd_listing_no_image{
       .atbd_single_listing_wrapper{
         display: block;
@@ -236,6 +238,7 @@
         border-right: 0 none;
       }
     }
+
     .atbd_listing_thumbnail_area {
       margin: 0;
       position: relative;
@@ -276,6 +279,7 @@
         bottom: 30px;
       }
     }
+
     .atbd_listing_info {
       border: 1px solid $border-color;
       border-radius: 0 0 5px 5px;
@@ -391,6 +395,7 @@
         }
       }
     }
+
     &.atbd_listing_card{
       .atbd_listing_image{
         position: relative;
@@ -605,7 +610,6 @@
         box-shadow: 0 10px 20px #868EAE30;
       }
     }
-
   }
 
   .select2-selection__clear{

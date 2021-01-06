@@ -8,7 +8,12 @@
                     <h2 class="cptm-menu-title">{{ menu.label }}</h2>
 
                     <div class="atbdp-tab-content-body" v-if="menu.sections">
-                        <sections-module v-if="menu.sections" :menu-key="menu_key" :sections="menu.sections"></sections-module>
+                        <sections-module 
+                            v-if="menu.sections" 
+                            :menu-key="menu_key" 
+                            :sections="menu.sections"
+                            @do-action="doAction( $event, 'tab-contents' )"
+                        />
                     </div>
                 </template>
                 
@@ -19,7 +24,12 @@
                         <div :id="menu_key + '__' + submenu_key" class="atbdp-tab-content-item" v-if="submenu.active" :key="submenu_key">
                             <h2 class="cptm-menu-title cptm-submenu-title">{{ submenu.label }}</h2>
                             
-                            <sections-module v-if="submenu.sections" :menu-key="menu_key + '__' + submenu_key" :sections="submenu.sections"></sections-module>
+                            <sections-module 
+                                v-if="submenu.sections" 
+                                :menu-key="menu_key + '__' + submenu_key" 
+                                :sections="submenu.sections"
+                                @do-action="doAction( $event, 'tab-contents' )"
+                            />
                         </div>
                     </template>
                 </div>

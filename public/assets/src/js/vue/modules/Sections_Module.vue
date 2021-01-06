@@ -18,8 +18,9 @@
                         :key="field_key"
                         v-bind="fields[ field ]"
                         @update="updateFieldValue( field, $event )"
-                        @validate="updateFieldValidationState( field, $event )">
-                    </component>
+                        @validate="updateFieldValidationState( field, $event )"
+                        @do-action="doAction( $event, 'sections-module' )"
+                    />
                 </template>
             </div>
         </div>

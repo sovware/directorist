@@ -26,6 +26,26 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         public function initial_setup() {
             add_filter( 'atbdp_listing_type_settings_field_list', function( $fields ) {
                 
+                $fields['import_settings'] = [
+                    'type'         => 'import',
+                    'label'        => 'Import Settings',
+                    'button-label' => 'Import',
+                ];
+
+                $fields['export_settings'] = [
+                    'type'             => 'export',
+                    'label'            => 'Export Settings',
+                    'button-label'     => 'Export',
+                    'export-file-name' => 'settings',
+                ];
+
+                $fields['restore_default_settings'] = [
+                    'type'         => 'restore',
+                    'label'        => 'Restore Default Settings',
+                    'button-label' => 'Restore',
+                    'restor-data'  => [],
+                ];
+
                 $fields['regenerate_pages'] = [
                     'type'                       => 'ajax-action',
                     'action'                     => 'atbdp_upgrade_old_pages',
@@ -33,6 +53,14 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'button-label'               => 'Regenerate Pages',
                     'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
                     'data'                       => [],
+                ];
+
+                $fields['listing_export_button'] = [
+                    'type'            => 'button',
+                    'url'             => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
+                    'open-in-new-tab' => true,
+                    'label'           => __( 'CSV', 'directorist' ),
+                    'button-label'    => __( 'Run Importer', 'directorist' ),
                 ];
 
                 $c = '<b><span style="color:#c71585;">'; //color start
@@ -4402,7 +4430,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                 'add_listing_page', 'all_listing_page', 'single_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'custom_registration', 'user_login', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
                              ],
                         ],
-                    ] ),
+                    ]),
                 ],
 
                 'seo_settings' => [
@@ -4825,7 +4853,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'description'   => '',
                                     'fields'        => apply_filters('atbdp_csv_import_settings_fields', [
                                         [
-                                            //'csv_import'
+                                            'listing_export_button'
                                         ],
                                     ]),
                                 ),
@@ -4896,6 +4924,21 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                     ]),
                 ],
+
+                'settings_import_export' => [
+                    'label' => __( 'Settings Import/Export', 'directorist' ),
+                    'icon' => '<i class="fa fa-tools"></i>',
+                    'sections' => [
+                        'import_export' => [
+                            'title' => __( 'Import/Export', 'directorist' ),
+                            'fields' => [ 'import_settings', 'export_settings' ]
+                        ],
+                        'restore_default' => [
+                            'title' => __( 'Restore Default', 'directorist' ),
+                            'fields' => [ 'restore_default_settings' ]
+                        ],
+                    ],
+                ]
 
             ]);
 

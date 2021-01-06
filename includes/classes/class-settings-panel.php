@@ -5097,7 +5097,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('Locations Page Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        'display_locations_as', 'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
+                                        'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
                                      ],
                                 ],
                             ] ),
@@ -5109,7 +5109,17 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __( 'Extensions Settings', 'directorist' ),
                     'icon' => '<i class="fa fa-magic directorist_danger"></i>',
                     'submenu' => apply_filters('atbdp_extension_settings_submenu', [
-                       
+                        'extensions_general' => [
+                            'label' => __('Extensions General', 'directorist'),
+                            'icon' => '<i class="fa fa-home directorist_danger"></i>',
+                            'sections' => apply_filters( 'atbdp_extension_settings_controls', [
+                                'general_settings' => [
+                                    'title'       => __('Extensions General Settings', 'directorist'),
+                                    'description' => 'You can Customize Extensions-related settings here. You can enable or disable any extensions here. Here, YES means Enabled, and NO means disabled. After switching any option, Do not forget to save the changes.',
+                                    'fields'      =>  apply_filters( 'atbdp_extension_fields', [] ) ,
+                                ],
+                            ] ),
+                        ],
                     ]),
                 ],
 

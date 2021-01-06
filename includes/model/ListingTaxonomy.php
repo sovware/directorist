@@ -201,7 +201,7 @@ class Directorist_Listing_Taxonomy {
     		$image = get_term_meta($term->term_id, 'image', true);
     		if ( $image ) {
     			$image = atbdp_get_image_source($image, apply_filters("atbdp_{$this->type}_image_size", array('350', '280')));
-    			$image = !empty($image) ? $image : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg';
+    			$image = !empty($image) ? $image : '';
     		}
 
     		$child_terms = get_term_children($term->term_id, $this->tax);

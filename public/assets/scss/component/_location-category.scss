@@ -15,9 +15,11 @@
       border-radius: 3px;
       overflow: hidden;
       width: 100%;
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       padding: 35px 0 30px;
-      min-height: auto !important;
+      min-height: 180px !important;
       margin-bottom: 30px;
       background-color: #fff;
       box-shadow: 0 5px 25px rgba(143, 142, 159, 0.15);

@@ -1,6 +1,7 @@
 <template>
     <component 
         :is="getTheTheme( 'color-field' )" 
+        v-if="canShow"
         v-bind="$props"
         @update="$emit( 'update', $event )"
     />

@@ -33,7 +33,7 @@ export default {
             return this.thumbnail_src;
         },
 
-        buttonLabel() {
+        theButtonLabel() {
             if ( this.hasThumbnail ) {
                 return this.changeButtonLabel;
             }

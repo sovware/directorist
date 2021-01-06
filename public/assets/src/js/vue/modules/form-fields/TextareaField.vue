@@ -1,6 +1,7 @@
 <template>
     <component 
         :is="getTheTheme( 'textarea-field' )" 
+        v-if="canShow"
         v-bind="$props"
         @update="$emit( 'update', $event )"
     >

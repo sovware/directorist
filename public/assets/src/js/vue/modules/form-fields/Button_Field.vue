@@ -1,5 +1,5 @@
 <template>
-    <component :is="getTheTheme( 'button-field' )" v-bind="$props"/>
+    <component :is="getTheTheme( 'button-field' )" v-if="canShow" v-bind="$props"/>
 </template>
 
 <script>

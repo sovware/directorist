@@ -1,6 +1,8 @@
 <template>
     <component 
-        :is="getTheTheme( 'import-field' )" v-bind="$props"
+        :is="getTheTheme( 'import-field' )" 
+        v-if="canShow"
+        v-bind="$props"
         @do-action="$emit( 'do-action', $event )"
     />
 </template>

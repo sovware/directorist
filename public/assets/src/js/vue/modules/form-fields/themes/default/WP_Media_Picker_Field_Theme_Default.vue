@@ -19,7 +19,7 @@
             </span>
         </div>
 
-        <input type="button" @click.prevent="openMediaPicker" class="cptm-btn cptm-btn-primary" :value="buttonLabel">
+        <input type="button" @click.prevent="openMediaPicker" class="cptm-btn cptm-btn-primary" :value="theButtonLabel">
     </div>
 </template>
 

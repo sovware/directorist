@@ -1,6 +1,7 @@
 <template>
     <component 
         :is="getTheTheme( 'toggle-field' )" 
+        v-if="canShow"
         v-bind="$props"
         @update="$emit( 'update', $event )"
     />
@@ -8,10 +9,10 @@
 
 <script>
 import feild_helper from './../../mixins/form-fields/helper';
-import toggle_feild from './../../mixins/form-fields/toggle-field';
+import props from './../../mixins/form-fields/input-field-props';
 
 export default {
     name: 'toggle-field',
-    mixins: [ toggle_feild, feild_helper ]
+    mixins: [ props, feild_helper ],
 }
 </script>

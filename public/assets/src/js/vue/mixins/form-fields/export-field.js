@@ -1,5 +1,4 @@
 import props from './input-field-props.js';
-
 import { mapGetters } from 'vuex';
 import helpers from '../../mixins/helpers';
 

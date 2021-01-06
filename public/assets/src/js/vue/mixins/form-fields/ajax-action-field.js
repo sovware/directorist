@@ -1,11 +1,10 @@
 import validator from '../validator';
-import field_helper from './helper.js';
 import props from './input-field-props.js';
 import { mapState } from 'vuex';
 const axios = require('axios').default;
 
 export default {
-    mixins: [ props, validator, field_helper ],
+    mixins: [ props, validator ],
     model: {
         prop: 'value',
         event: 'input'

@@ -5,6 +5,9 @@ export default {
             required: false,
             default: '',
         },
+        showIf: {
+            required: false,
+        },
         type: {
             type: String,
             required: false,

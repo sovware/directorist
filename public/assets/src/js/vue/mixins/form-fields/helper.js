@@ -1,10 +1,25 @@
 import { mapState } from 'vuex';
+import helper from './../helpers';
 
 export default {
+    mixins: [ helper ],
     computed: {
         ...mapState({
-            config: 'config'
+            config: 'config',
+            fields: 'fields',
         }),
+
+        canShow() {
+            if ( this.showIf ) {
+                let show_if_cond = this.checkShowIfCondition({
+                    condition: this.showIf
+                });
+                
+                return  show_if_cond.status;
+            }
+
+            return true;
+        }
     },
 
     methods: {

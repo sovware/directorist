@@ -1,6 +1,7 @@
 <template>
     <component 
         :is="getTheTheme( 'ajax-action-field' )" 
+        v-if="canShow"
         v-bind="$props"
         @update="$emit( 'update', $event )"
         @validate="$emit( 'validate', $event )"

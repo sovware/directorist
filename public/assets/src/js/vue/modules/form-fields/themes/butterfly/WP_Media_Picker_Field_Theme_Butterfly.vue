@@ -8,22 +8,22 @@
 
             <div class="atbdp-col atbdp-col-8">
                 <div class="cptm-thumbnail">
-                <div class="cptm-thumbnail-img-wrap" v-if="thumbnailSrc.length">
-                    <img :src="thumbnailSrc" class="cptm-thumbnail-img" width="100%" height="auto"/>
+                    <div class="cptm-thumbnail-img-wrap" v-if="thumbnailSrc.length">
+                        <img :src="thumbnailSrc" class="cptm-thumbnail-img" width="100%" height="auto"/>
 
-                    <span v-if="hasThumbnail" class="cptm-thumbnail-action action-trash" @click="deleteThumbnail()">
-                        <i class="uil uil-trash-alt"></i>
+                        <span v-if="hasThumbnail" class="cptm-thumbnail-action action-trash" @click="deleteThumbnail()">
+                            <i class="uil uil-trash-alt"></i>
+                        </span>
+                    </div>
+
+                    <span v-if="! thumbnailSrc.length" class="cptm-thumbnail-placeholder">
+                        <span class="cptm-thumbnail-placeholder-icon">
+                            <i class="uil uil-image"></i>
+                        </span>
                     </span>
                 </div>
 
-                <span v-if="! thumbnailSrc.length" class="cptm-thumbnail-placeholder">
-                    <span class="cptm-thumbnail-placeholder-icon">
-                        <i class="uil uil-image"></i>
-                    </span>
-                </span>
-            </div>
-
-            <input type="button" @click.prevent="openMediaPicker" class="cptm-btn cptm-btn-primary" :value="buttonLabel">
+                <input type="button" @click.prevent="openMediaPicker" class="cptm-btn cptm-btn-primary" :value="theButtonLabel">
             </div>
         </div>
     </div>

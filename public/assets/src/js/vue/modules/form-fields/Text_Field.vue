@@ -2,10 +2,10 @@
     <component 
         :is="getTheTheme( 'text-field' )" 
         v-bind="$props"
+        v-if="canShow"
         @update="$emit( 'update', $event )"
         @validate="$emit( 'validate', $event )"
-    >
-    </component>
+    />
 </template>
 
 <script>

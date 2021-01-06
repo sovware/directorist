@@ -1,9 +1,8 @@
 import validator from './../validator';
-import field_helper from './helper.js';
 import props from './input-field-props.js';
 
 export default {
-    mixins: [ props, validator, field_helper ],
+    mixins: [ props, validator ],
     model: {
         prop: 'value',
         event: 'input'

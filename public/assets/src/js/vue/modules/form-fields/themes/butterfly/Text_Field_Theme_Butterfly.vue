@@ -9,7 +9,6 @@
             <div class="atbdp-col atbdp-col-8">
                 <input class="cptm-form-control" :class="formControlClass" v-if="( typeof value !== 'object' ) ? true : false" :type="input_type" :value="( value === false ) ? '' : value" :placeholder="placeholder" @input="$emit('update', $event.target.value)">
                 <input v-if="( typeof value === 'object' ) ? true : false" type="hidden" :value="JSON.stringify( value )">
-                <p v-html="description" class="cptm-form-group-info"></p>
 
                 <div class="cptm-form-group-feedback" v-if="validationMessages">
                     <div class="cptm-form-alert" :class="'cptm-' + validationMessages.type">

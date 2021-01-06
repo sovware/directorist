@@ -1,6 +1,7 @@
 <template>
     <component 
         :is="getTheTheme( 'select-field' )" 
+        v-if="canShow"
         v-bind="$props"
         @update="$emit( 'update', $event )"
     >

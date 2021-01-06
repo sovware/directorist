@@ -1,6 +1,7 @@
 <template>
     <component 
         :is="getTheTheme( 'wp-media-picker-field' )" 
+        v-if="canShow"
         v-bind="$props"
         @update="$emit( 'update', $event )"
     >

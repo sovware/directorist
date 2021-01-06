@@ -222,8 +222,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'toggle',
                     'value'         => false,
                     'description'   => __('You can enabled this option to collect payment from your user for making their listing featured.', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.enable_monetization",
+                    'show-if' => [
+                        'where' => "enable_monetization",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -235,8 +235,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'number',
                     'value'         => 19.99,
                     'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.enable_monetization",
+                    'show-if' => [
+                        'where' => "enable_monetization",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -403,8 +403,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'       => __('Button Example', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-primary.png',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
                         ],
@@ -414,8 +414,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#ffffff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
                         ],
@@ -425,8 +425,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#ffffff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
                         ],
@@ -436,8 +436,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
                         ],
@@ -447,8 +447,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#222222',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
                         ],
@@ -458,8 +458,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
                         ],
@@ -469,8 +469,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#222222',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
                         ],
@@ -481,8 +481,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'       => __('Button Example', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-secondary.png',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
                         ],
@@ -492,8 +492,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
                         ],
@@ -503,8 +503,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
                         ],
@@ -514,8 +514,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#122069',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
                         ],
@@ -525,8 +525,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#131469',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
                         ],
@@ -536,8 +536,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#131469',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
                         ],
@@ -547,8 +547,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#131469',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
                         ],
@@ -559,8 +559,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'       => __('Button Example', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-danger.png',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
                         ],
@@ -570,8 +570,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
                         ],
@@ -581,8 +581,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
                         ],
@@ -592,8 +592,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#e23636',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
                         ],
@@ -603,8 +603,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#c5001e',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
                         ],
@@ -614,8 +614,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#e23636',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
                         ],
@@ -625,8 +625,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#c5001e',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
                         ],
@@ -637,8 +637,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'       => __('Button Example', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-success.png',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
                         ],
@@ -648,8 +648,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
                         ],
@@ -659,8 +659,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
                         ],
@@ -670,8 +670,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#32cc6f',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
                         ],
@@ -681,8 +681,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#2ba251',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
                         ],
@@ -692,8 +692,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#32cc6f',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
                         ],
@@ -703,8 +703,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#2ba251',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
                         ],
@@ -715,8 +715,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'       => __('Button Example', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/outline-primary.png',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
                         ],
@@ -726,8 +726,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
                         ],
@@ -737,8 +737,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
                         ],
@@ -748,8 +748,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
                         ],
@@ -759,8 +759,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
                         ],
@@ -770,8 +770,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
                         ],
@@ -781,8 +781,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#9299b8',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
                         ],
@@ -793,8 +793,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'       => __('Button Example', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/outline-primary-light.png',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
                         ],
@@ -804,8 +804,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
                         ],
@@ -815,8 +815,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#ffffff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
                         ],
@@ -826,8 +826,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#ffffff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
                         ],
@@ -837,8 +837,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
                         ],
@@ -848,8 +848,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#e3e6ef',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
                         ],
@@ -859,8 +859,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
                         ],
@@ -871,8 +871,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'       => __('Button Example', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/outline-danger.png',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
                         ],
@@ -882,8 +882,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#e23636',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
                         ],
@@ -893,8 +893,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Text Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
                         ],
@@ -904,8 +904,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
                         ],
@@ -915,8 +915,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#e23636',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
                         ],
@@ -926,8 +926,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#e23636',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
                         ],
@@ -937,8 +937,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Border Hover Color', 'directorist'),
                     'type' => 'color',
                     'value' => '#e23636',
-                    'show_if' => [
-                        'where' => "self.button_type",
+                    'show-if' => [
+                        'where' => "button_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
                         ],
@@ -1431,8 +1431,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'view_as_text' => [
                     'type' => 'text',
                     'label' => __('"View As" Text', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_view_as",
+                    'show-if' => [
+                        'where' => "display_view_as",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1442,8 +1442,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'listings_view_as_items' => [
                     'label' => __('"View As" Dropdown', 'directorist'),
                     'type'  => 'checkbox',
-                    'show_if' => [
-                        'where' => "self.display_view_as",
+                    'show-if' => [
+                        'where' => "display_view_as",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1556,8 +1556,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Image Quality', 'directorist'),
                     'type'  => 'select',
                     'value' => 'large',
-                    'show_if' => [
-                        'where' => "self.display_preview_image",
+                    'show-if' => [
+                        'where' => "display_preview_image",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1581,8 +1581,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Image Size', 'directorist'),
                     'type'  => 'select',
                     'value' => 'cover',
-                    'show_if' => [
-                        'where' => "self.display_preview_image",
+                    'show-if' => [
+                        'where' => "display_preview_image",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1609,8 +1609,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-                    'show_if' => [
-                        'where' => "self.display_preview_image",
+                    'show-if' => [
+                        'where' => "display_preview_image",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1623,8 +1623,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-                    'show_if' => [
-                        'where' => "self.display_preview_image",
+                    'show-if' => [
+                        'where' => "display_preview_image",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1634,8 +1634,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Container Size By', 'directorist'),
                     'type'  => 'select',
                     'value' => 'px',
-                    'show_if' => [
-                        'where' => "self.display_preview_image",
+                    'show-if' => [
+                        'where' => "display_preview_image",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1655,8 +1655,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Background', 'directorist'),
                     'type'  => 'select',
                     'value' => 'blur',
-                    'show_if' => [
-                        'where' => "self.display_preview_image",
+                    'show-if' => [
+                        'where' => "display_preview_image",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1675,8 +1675,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'prv_background_color' => [
                     'type' => 'text',
                     'label' => __('Select Color', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.prv_background_type",
+                    'show-if' => [
+                        'where' => "prv_background_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'color'],
                         ],
@@ -1688,8 +1688,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'        => 'wp-media-picker',
                     'default-img' => ATBDP_PUBLIC_ASSETS . 'images/grid.jpg',
                     'value'       => '',
-                     'show_if' => [
-                        'where' => "self.display_preview_image",
+                     'show-if' => [
+                        'where' => "display_preview_image",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1723,8 +1723,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min' => '5',
                     'max' => '200',
                     'step' => '1',
-                    'show_if' => [
-                        'where' => "self.enable_excerpt",
+                    'show-if' => [
+                        'where' => "enable_excerpt",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1734,8 +1734,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Display Excerpt Readmore', 'directorist'),
                     'value' => false,
-                    'show_if' => [
-                        'where' => "self.enable_excerpt",
+                    'show-if' => [
+                        'where' => "enable_excerpt",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1744,8 +1744,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'readmore_text' => [
                     'type' => 'text',
                     'label' => __('Read More Text', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.enable_excerpt",
+                    'show-if' => [
+                        'where' => "enable_excerpt",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1777,8 +1777,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'value' => 'contact',
                     'description' => __('Choose which address you want to show on listings page', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_contact_info",
+                    'show-if' => [
+                        'where' => "display_contact_info",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1803,8 +1803,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Publish Date Format', 'directorist'),
                     'type'  => 'select',
                     'value' => 'time_ago',
-                    'show_if' => [
-                        'where' => "self.display_publish_date",
+                    'show-if' => [
+                        'where' => "display_publish_date",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -1863,8 +1863,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Template', 'directorist'),
                     'type'  => 'select',
                     'value' => 'current_theme_template',
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -1883,8 +1883,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'atbdp_listing_slug' => [
                     'type' => 'text',
                     'label' => __('Listing Slug', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -1896,8 +1896,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'value' => 'view_listing',
                     'description' => __('Select where user will be redirected after editing a listing on the frontend.', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -1916,8 +1916,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'listing_details_text' => [
                     'type' => 'text',
                     'label' => __('Section Title of Listing Details', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -1927,8 +1927,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'tags_section_lable' => [
                     'type' => 'text',
                     'label' => __('Section Title of Tags', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -1938,8 +1938,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'custom_section_lable' => [
                     'type' => 'text',
                     'label' => __('Section Title of Custom Fields', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -1949,8 +1949,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'listing_location_text' => [
                     'type' => 'text',
                     'label' => __('Section Title of Location', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -1960,8 +1960,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'contact_info_text' => [
                     'type' => 'text',
                     'label' => __('Section Title of Contact Info', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -1971,8 +1971,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'contact_listing_owner' => [
                     'type' => 'text',
                     'label' => __('Section Title of Contact Owner', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -1982,8 +1982,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'atbd_video_title' => [
                     'type' => 'text',
                     'label' => __('Section Title of Video', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -1993,8 +1993,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'atbd_author_info_title' => [
                     'type' => 'text',
                     'label' => __('Section Title of Author Info', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2005,8 +2005,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Show Back Link', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2017,8 +2017,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Show Slider Image', 'directorist'),
                     'value' => true,
                     'description' => __('Hide/show slider image from single listing page.', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2028,8 +2028,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Slider Image Size', 'directorist'),
                     'type'  => 'select',
                     'value' => 'cover',
-                    'show_if' => [
-                        'where' => "self.dsiplay_slider_single_page",
+                    'show-if' => [
+                        'where' => "dsiplay_slider_single_page",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2049,8 +2049,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Slider Background Type', 'directorist'),
                     'type'  => 'select',
                     'value' => 'custom-color',
-                    'show_if' => [
-                        'where' => "self.single_slider_image_size",
+                    'show-if' => [
+                        'where' => "single_slider_image_size",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'contain'],
                         ],
@@ -2069,8 +2069,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'single_slider_background_color' => [
                     'type' => 'color',
                     'label' => __('Slider Background Color', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.single_slider_background_type",
+                    'show-if' => [
+                        'where' => "single_slider_background_type",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'custom-color'],
                         ],
@@ -2082,8 +2082,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Show Slider Thumbnail', 'directorist'),
                     'value' => true,
                     'description' => __('Hide/show slider thumbnail from single listing page.', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2096,8 +2096,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-                    'show_if' => [
-                        'where' => "self.dsiplay_slider_single_page",
+                    'show-if' => [
+                        'where' => "dsiplay_slider_single_page",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2110,8 +2110,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min' => '1',
                     'max' => '1200',
                     'step' => '1',
-                    'show_if' => [
-                        'where' => "self.dsiplay_slider_single_page",
+                    'show-if' => [
+                        'where' => "dsiplay_slider_single_page",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2121,8 +2121,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Display Social Share Button', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2132,8 +2132,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Display Favourite Button', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2143,8 +2143,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Display Report Abuse', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2154,8 +2154,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Disable Listing Price', 'directorist'),
                     'value' => false,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2165,8 +2165,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Display Location', 'directorist'),
                     'value' => false,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2176,8 +2176,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Display Tag', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2187,8 +2187,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Disable Contact Information', 'directorist'),
                     'value' => false,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2198,8 +2198,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Address Linked with Map', 'directorist'),
                     'value' => false,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2209,8 +2209,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Disable Contact Listing Owner Form', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2221,8 +2221,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'value' => 'author',
                     'description' => __('Email recipient for receiving email from Contact Listing Owner Form.', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_contact_owner",
+                    'show-if' => [
+                        'where' => "disable_contact_owner",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2242,8 +2242,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Use rel="nofollow" in Website Link', 'directorist'),
                     'value' => false,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2253,8 +2253,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Disable Map', 'directorist'),
                     'value' => false,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2264,8 +2264,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Display Listing Video', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2275,8 +2275,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Display Related Listings', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2287,8 +2287,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'value' => 'OR',
                     'description' => __('Display related listings based on category and/or tag.', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.enable_rel_listing",
+                    'show-if' => [
+                        'where' => "enable_rel_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2307,8 +2307,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'rel_listing_title' => [
                     'type' => 'text',
                     'label' => __('Related Listings Title', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.enable_rel_listing",
+                    'show-if' => [
+                        'where' => "enable_rel_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2322,8 +2322,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min' => '1',
                     'max' => '10',
                     'step' => '1',
-                    'show_if' => [
-                        'where' => "self.enable_rel_listing",
+                    'show-if' => [
+                        'where' => "enable_rel_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2336,8 +2336,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min' => '1',
                     'max' => '10',
                     'step' => '1',
-                    'show_if' => [
-                        'where' => "self.enable_rel_listing",
+                    'show-if' => [
+                        'where' => "enable_rel_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2347,8 +2347,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Fix Repeated Thumbnail of Single Listing', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.disable_single_listing",
+                    'show-if' => [
+                        'where' => "disable_single_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -2363,8 +2363,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'new_badge_text' => [
                     'type' => 'text',
                     'label' => __('New Badge Text', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_new_badge_cart",
+                    'show-if' => [
+                        'where' => "display_new_badge_cart",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2378,8 +2378,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min' => '1',
                     'max' => '100',
                     'step' => '1',
-                    'show_if' => [
-                        'where' => "self.display_new_badge_cart",
+                    'show-if' => [
+                        'where' => "display_new_badge_cart",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2393,8 +2393,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'feature_badge_text' => [
                     'type' => 'text',
                     'label' => __('Featured Badge Text', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_feature_badge_cart",
+                    'show-if' => [
+                        'where' => "display_feature_badge_cart",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2409,8 +2409,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'popular_badge_text' => [
                     'type' => 'text',
                     'label' => __('Popular Badge Text', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_popular_badge_cart",
+                    'show-if' => [
+                        'where' => "display_popular_badge_cart",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2421,8 +2421,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Popular Based on', 'directorist'),
                     'type'  => 'select',
                     'value' => 'view_count',
-                    'show_if' => [
-                        'where' => "self.display_popular_badge_cart",
+                    'show-if' => [
+                        'where' => "display_popular_badge_cart",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2445,8 +2445,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'views_for_popular' => [
                     'type' => 'text',
                     'label' => __('Threshold in Views Count', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_popular_badge_cart",
+                    'show-if' => [
+                        'where' => "display_popular_badge_cart",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2460,8 +2460,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min' => '.5',
                     'max' => '4.5',
                     'step' => '.5',
-                    'show_if' => [
-                        'where' => "self.display_popular_badge_cart",
+                    'show-if' => [
+                        'where' => "display_popular_badge_cart",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2484,8 +2484,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Enable Owner Review', 'directorist'),
                     'description' => __('Allow a listing owner to post a review on his/her own listing.', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.enable_review",
+                    'show-if' => [
+                        'where' => "enable_review",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2495,8 +2495,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Approve Immediately?', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.enable_review",
+                    'show-if' => [
+                        'where' => "enable_review",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2507,8 +2507,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Approval Notification Text', 'directorist'),
                     'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
                     'value' => __('We have received your review. It requires approval.', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.enable_review",
+                    'show-if' => [
+                        'where' => "enable_review",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2518,8 +2518,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Enable Reviewer Image', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.enable_review",
+                    'show-if' => [
+                        'where' => "enable_review",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2530,8 +2530,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Enable Reviewer content', 'directorist'),
                     'value' => true,
                     'description' => __('Allow to display content of reviewer on single listing page.', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.enable_review",
+                    'show-if' => [
+                        'where' => "enable_review",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2542,8 +2542,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Required Reviewer content', 'directorist'),
                     'value' => true,
                     'description' => __('Allow to Require the content of reviewer on single listing page.', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.enable_review",
+                    'show-if' => [
+                        'where' => "enable_review",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2557,8 +2557,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min' => '1',
                     'max' => '20',
                     'step' => '1',
-                    'show_if' => [
-                        'where' => "self.enable_review",
+                    'show-if' => [
+                        'where' => "enable_review",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2568,8 +2568,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Guest Review Submission', 'directorist'),
                     'value' => false,
-                    'show_if' => [
-                        'where' => "self.enable_review",
+                    'show-if' => [
+                        'where' => "enable_review",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2596,8 +2596,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Google Map API key', 'directorist'),
                     'description' => sprintf(__('Please replace it by your own API. It\'s required to use Google Map. You can find detailed information %s.', 'directorist'), '<a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank"> <strong style="color: red;">here</strong> </a>'),
                     'value' => '',
-                    'show_if' => [
-                        'where' => "self.select_listing_map",
+                    'show-if' => [
+                        'where' => "select_listing_map",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'google'],
                         ],
@@ -2651,8 +2651,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Display Preview Image', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.display_map_info",
+                    'show-if' => [
+                        'where' => "display_map_info",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2662,8 +2662,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Display Title', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.display_map_info",
+                    'show-if' => [
+                        'where' => "display_map_info",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2673,8 +2673,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Display Address', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.display_map_info",
+                    'show-if' => [
+                        'where' => "display_map_info",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2684,8 +2684,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'toggle',
                     'label' => __('Display Get Direction', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.display_map_info",
+                    'show-if' => [
+                        'where' => "display_map_info",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2701,8 +2701,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('"My Listing" Tab Label', 'directorist'),
                     'value'         => __('My Listing', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.my_listing_tab",
+                    'show-if' => [
+                        'where' => "my_listing_tab",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2712,8 +2712,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'toggle',
                     'label' => __('Listings Pagination', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.my_listing_tab",
+                    'show-if' => [
+                        'where' => "my_listing_tab",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2726,8 +2726,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min'           => '1',
                     'max'           => '30',
                     'step'          => '1',
-                    'show_if' => [
-                        'where' => "self.my_listing_tab",
+                    'show-if' => [
+                        'where' => "my_listing_tab",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2742,8 +2742,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('"My Profile" Tab Label', 'directorist'),
                     'value'         => __('My Profile', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.my_profile_tab",
+                    'show-if' => [
+                        'where' => "my_profile_tab",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2758,8 +2758,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('"Favourite Listings" Tab Label', 'directorist'),
                     'value'         => __('Favorite Listings', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.fav_listings_tab",
+                    'show-if' => [
+                        'where' => "fav_listings_tab",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2866,8 +2866,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'toggle',
                     'label' => __('Display More Filters Icon', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.search_more_filter",
+                    'show-if' => [
+                        'where' => "search_more_filter",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2882,8 +2882,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'toggle',
                     'label' => __('Display Search Button Icon', 'directorist'),
                     'value' => true,
-                    'show_if' => [
-                        'where' => "self.search_button",
+                    'show-if' => [
+                        'where' => "search_button",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2893,8 +2893,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Open Filter Fields', 'directorist'),
                     'type'  => 'select',
                     'value' => 'sliding',
-                    'show_if' => [
-                        'where' => "self.search_more_filter",
+                    'show-if' => [
+                        'where' => "search_more_filter",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2917,8 +2917,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'search_more_filters_fields' => [
                     'type' => 'checkbox',
                     'label' => __('Open Filter Fields', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_more_filter",
+                    'show-if' => [
+                        'where' => "search_more_filter",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2985,8 +2985,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'search_filters' => [
                     'type' => 'checkbox',
                     'label' => __('Filters Button', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_more_filter",
+                    'show-if' => [
+                        'where' => "search_more_filter",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3013,8 +3013,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min'           => '0',
                     'max'           => '750',
                     'step'          => '1',
-                    'show_if' => [
-                        'where' => "self.search_more_filter",
+                    'show-if' => [
+                        'where' => "search_more_filter",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3024,8 +3024,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Search Button Text', 'directorist'),
                     'value'         => __('Search Listing', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_button",
+                    'show-if' => [
+                        'where' => "search_button",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3035,8 +3035,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('More Filters Button Text', 'directorist'),
                     'value'         => __('More Filters', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_more_filter",
+                    'show-if' => [
+                        'where' => "search_more_filter",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3046,8 +3046,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Reset Filters Button Text', 'directorist'),
                     'value'         => __('Reset Filters', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_more_filter",
+                    'show-if' => [
+                        'where' => "search_more_filter",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3057,8 +3057,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Apply Filters Button Text', 'directorist'),
                     'value'         => __('Apply Filters', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_more_filter",
+                    'show-if' => [
+                        'where' => "search_more_filter",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3073,8 +3073,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'toggle',
                     'label' => __('Display Connector', 'directorist'),
                     'description' => __('Whether to display a connector between Search Bar and Popular Categories.', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.show_popular_category",
+                    'show-if' => [
+                        'where' => "show_popular_category",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3085,8 +3085,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Connector Text', 'directorist'),
                     'value'         => __('Or', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.show_connector",
+                    'show-if' => [
+                        'where' => "show_connector",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3096,8 +3096,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Popular Categories Title', 'directorist'),
                     'value'         => __('Browse by popular categories', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.show_popular_category",
+                    'show-if' => [
+                        'where' => "show_popular_category",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3110,8 +3110,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min'           => '1',
                     'max'           => '30',
                     'step'          => '1',
-                    'show_if' => [
-                        'where' => "self.show_popular_category",
+                    'show-if' => [
+                        'where' => "show_popular_category",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3132,8 +3132,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'search_result_filters_button_display' => [
                     'type'  => 'toggle',
                     'label' => __('Display Filters Button', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3144,8 +3144,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Filters Button Text', 'directorist'),
                     'value'         => __('Filters', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3155,8 +3155,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Open Filter Fields', 'directorist'),
                     'type'  => 'select',
                     'value' => 'sliding',
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3175,8 +3175,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'search_result_filters_fields' => [
                     'type' => 'checkbox',
                     'label' => __('Filter Fields', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3259,8 +3259,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __('Location Source for Search', 'directorist'),
                     'type'  => 'select',
                     'value' => 'map_api',
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3283,8 +3283,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min'           => '0',
                     'max'           => '1000',
                     'step'          => '1',
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3294,8 +3294,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'checkbox',
                     'label' => __('Filters Button', 'directorist'),
                     'description' => '',
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3319,8 +3319,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Reset Filters Button text', 'directorist'),
                     'value'         => __('Reset Filters', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3330,8 +3330,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Apply Filters Button text', 'directorist'),
                     'value'         => __('Apply Filters', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3341,8 +3341,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Search Bar Placeholder', 'directorist'),
                     'value'         => __('What are you looking for?', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3352,8 +3352,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Category Placeholder', 'directorist'),
                     'value'         => __('Select a category', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3363,8 +3363,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Location Placeholder', 'directorist'),
                     'value'         => __('Select a location', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3373,8 +3373,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'search_view_as' => [
                     'type'  => 'toggle',
                     'label' => __('Display "View As" Dropdown', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3385,8 +3385,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('"View As" Text', 'directorist'),
                     'value'         => __('View As', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3396,8 +3396,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'checkbox',
                     'label' => __('View As" Dropdown', 'directorist'),
                     'description' => '',
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3425,8 +3425,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'search_sort_by' => [
                     'type'  => 'toggle',
                     'label' => __('Display "Sort By" Dropdown', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3437,8 +3437,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('"Sort By" Text', 'directorist'),
                     'value'         => __('Sort By', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3448,8 +3448,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type' => 'checkbox',
                     'label' => __('"Sort By" Dropdown', 'directorist'),
                     'description' => '',
-                    'show_if' => [
-                        'where' => "self.search_header",
+                    'show-if' => [
+                        'where' => "search_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -3879,8 +3879,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'         => __('Custom Meta Title', 'directorist'),
                     'description'   => __('Default the title of the page set as frontpage.', 'directorist'),
                     'value'         => '',
-                    'show_if' => [
-                        'where' => "self.meta_title_for_search_result",
+                    'show-if' => [
+                        'where' => "meta_title_for_search_result",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'custom'],
                         ],
@@ -3969,8 +3969,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min' => '1',
                     'max' => '15',
                     'step' => '2',
-                    'show_if' => [
-                        'where' => "self.display_categories_as",
+                    'show-if' => [
+                        'where' => "display_categories_as",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'list'],
                         ],
@@ -4057,8 +4057,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'min' => '1',
                     'max' => '15',
                     'step' => '2',
-                    'show_if' => [
-                        'where' => "self.display_locations_as",
+                    'show-if' => [
+                        'where' => "display_locations_as",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => 'list'],
                         ],
@@ -4127,8 +4127,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Label', 'directorist'),
                     'value'         => __('Password', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_password_reg",
+                    'show-if' => [
+                        'where' => "display_password_reg",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4138,8 +4138,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'         => __('Required', 'directorist'),
                     'type'          => 'toggle',
                     'value'         => true,
-                    'show_if' => [
-                        'where' => "self.display_password_reg",
+                    'show-if' => [
+                        'where' => "display_password_reg",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4159,8 +4159,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Label', 'directorist'),
                     'value'         => __('Website', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_website_reg",
+                    'show-if' => [
+                        'where' => "display_website_reg",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4170,8 +4170,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'         => __('Required', 'directorist'),
                     'type'          => 'toggle',
                     'value'         => false,
-                    'show_if' => [
-                        'where' => "self.display_website_reg",
+                    'show-if' => [
+                        'where' => "display_website_reg",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4186,8 +4186,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Label', 'directorist'),
                     'value'         => __('First Name', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_fname_reg",
+                    'show-if' => [
+                        'where' => "display_fname_reg",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4197,8 +4197,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'         => __('Required', 'directorist'),
                     'type'          => 'toggle',
                     'value'         => false,
-                    'show_if' => [
-                        'where' => "self.display_fname_reg",
+                    'show-if' => [
+                        'where' => "display_fname_reg",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4213,8 +4213,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Label', 'directorist'),
                     'value'         => __('Last Name', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_lname_reg",
+                    'show-if' => [
+                        'where' => "display_lname_reg",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4224,8 +4224,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'         => __('Required', 'directorist'),
                     'type'          => 'toggle',
                     'value'         => false,
-                    'show_if' => [
-                        'where' => "self.display_lname_reg",
+                    'show-if' => [
+                        'where' => "display_lname_reg",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4240,8 +4240,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Label', 'directorist'),
                     'value'         => __('About/bio', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_bio_reg",
+                    'show-if' => [
+                        'where' => "display_bio_reg",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4251,8 +4251,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'         => __('Required', 'directorist'),
                     'type'          => 'toggle',
                     'value'         => false,
-                    'show_if' => [
-                        'where' => "self.display_bio_reg",
+                    'show-if' => [
+                        'where' => "display_bio_reg",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4267,8 +4267,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Label', 'directorist'),
                     'value'         => __('I agree to the', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.registration_privacy",
+                    'show-if' => [
+                        'where' => "registration_privacy",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4278,8 +4278,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Linking Text', 'directorist'),
                     'value'         => __('Privacy & Policy', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.registration_privacy",
+                    'show-if' => [
+                        'where' => "registration_privacy",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4294,8 +4294,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Label', 'directorist'),
                     'value'         => __('I agree with all', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.regi_terms_condition",
+                    'show-if' => [
+                        'where' => "regi_terms_condition",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4305,8 +4305,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Linking Text', 'directorist'),
                     'value'         => __('terms & conditions', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.regi_terms_condition",
+                    'show-if' => [
+                        'where' => "regi_terms_condition",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4326,8 +4326,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Text', 'directorist'),
                     'value'         => __('Already have an account? Please login', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_login",
+                    'show-if' => [
+                        'where' => "display_login",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4337,8 +4337,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Linking Text', 'directorist'),
                     'value'         => __('Here', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_login",
+                    'show-if' => [
+                        'where' => "display_login",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4375,8 +4375,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Label', 'directorist'),
                     'value'         => __('Remember Me', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_rememberme",
+                    'show-if' => [
+                        'where' => "display_rememberme",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4396,8 +4396,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'textarea',
                     'label'         => __('Text', 'directorist'),
                     'value'         => __('Don\'t have an account?', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_signup",
+                    'show-if' => [
+                        'where' => "display_signup",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4407,8 +4407,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Linking Text', 'directorist'),
                     'value'         => __('Sign Up', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_signup",
+                    'show-if' => [
+                        'where' => "display_signup",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4423,8 +4423,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Name', 'directorist'),
                     'value'         => __('Recover Password', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_recpass",
+                    'show-if' => [
+                        'where' => "display_recpass",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4434,8 +4434,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'textarea',
                     'label'         => __('Description', 'directorist'),
                     'value'         => __('Lost your password? Please enter your email address. You will receive a link to create a new password via email.', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_recpass",
+                    'show-if' => [
+                        'where' => "display_recpass",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4445,8 +4445,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Email Label', 'directorist'),
                     'value'         => __('E-mail', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_recpass",
+                    'show-if' => [
+                        'where' => "display_recpass",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4456,8 +4456,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Username or Email Placeholder', 'directorist'),
                     'value'         => __('eg. mail@example.com', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_recpass",
+                    'show-if' => [
+                        'where' => "display_recpass",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4467,8 +4467,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'text',
                     'label'         => __('Button Text', 'directorist'),
                     'value'         => __('Get New Password', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.display_recpass",
+                    'show-if' => [
+                        'where' => "display_recpass",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -4491,8 +4491,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'          => __('Email\'s "From Name"', 'directorist'),
                     'description'    => __('The name should be used as From Name in the email generated by the plugin.', 'directorist'),
                     'value'         => get_option('blogname'),
-                    'show_if' => [
-                        'where' => "self.disable_email_notification",
+                    'show-if' => [
+                        'where' => "disable_email_notification",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -4503,8 +4503,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'          => __('Email\'s "From Email"', 'directorist'),
                     'description'    => __('The email should be used as From Email in the email generated by the plugin.', 'directorist'),
                     'value'          => get_option('admin_email'),
-                    'show_if' => [
-                        'where' => "self.disable_email_notification",
+                    'show-if' => [
+                        'where' => "disable_email_notification",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -4515,8 +4515,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'          => __('Admin Email Address(es)', 'directorist'),
                     'description' => __('Enter the one or more admin email addresses (comma separated) to send notification. Eg. admin1@example.com, admin2@example.com etc', 'directorist'),
                     'value'          => get_option('admin_email'),
-                    'show_if' => [
-                        'where' => "self.disable_email_notification",
+                    'show-if' => [
+                        'where' => "disable_email_notification",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -4528,8 +4528,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'value'       =>  $this->default_events_to_notify_admin(),
                     'options'     => $this->events_to_notify_admin(),
                     'description' => __('Select the situation when you would like to send an email to the Admin', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_email_notification",
+                    'show-if' => [
+                        'where' => "disable_email_notification",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -4541,8 +4541,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'value'       => $this->default_events_to_notify_user(),
                     'options'     => $this->events_to_notify_user(),
                     'description' => __('Select the situation when you would like to send an email to the Listing', 'directorist'),
-                    'show_if' => [
-                        'where' => "self.disable_email_notification",
+                    'show-if' => [
+                        'where' => "disable_email_notification",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => false],
                         ],
@@ -4558,8 +4558,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'           => 'color',
                     'label'          => __('Email Header Color', 'directorist'),
                     'value'          => '#8569fb',
-                    'show_if' => [
-                        'where' => "self.allow_email_header",
+                    'show-if' => [
+                        'where' => "allow_email_header",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],

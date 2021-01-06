@@ -1,6 +1,6 @@
 <template>
     <div class="cptm-tab-content" :class="containerClass">
-        <div class="cptm-section" :class="sectionClass( section )" v-for="( section, section_key ) in theSections" :key="section_key">
+        <div class="cptm-section" :class="sectionClass( section )" v-for="( section, section_key ) in sections" :key="section_key">
             <div class="cptm-title-area" :class="sectionTitleAreaClass( section )">
                 <h3 v-if="typeof section.title === 'string'" class="cptm-title" v-html="section.title"></h3>
                 <p v-if="typeof section.description === 'string'" v-html="section.description"></p>
@@ -52,8 +52,10 @@ export default {
 
     computed: {
         ...mapState([
-            'metaKeys'
+            'metaKeys',
+            'fields',
         ]),
+
         theSections() {
             let the_sections = JSON.parse( JSON.stringify( this.sections ) );
             
@@ -97,6 +99,12 @@ export default {
                 'tab-full-width': ( 'full-width' === this.container ) ? true : false,
             }
         },
+    },
+
+    watch: {
+        fields() {
+            console.log( 'updated' );
+        }
     },
 
     methods: {

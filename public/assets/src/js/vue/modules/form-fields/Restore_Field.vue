@@ -1,6 +1,7 @@
 <template>
     <component 
         :is="getTheTheme( 'restore-field' )" 
+        v-if="canShow"
         v-bind="$props"
         @do-action="$emit( 'do-action', $event )"
     />

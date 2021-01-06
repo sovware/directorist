@@ -1,6 +1,7 @@
 <template>
     <component 
         :is="getTheTheme( 'note-field' )" 
+        v-if="canShow"
         v-bind="$props"
         @update="$emit( 'update', $event )"
     >

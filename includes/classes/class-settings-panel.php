@@ -35,6 +35,38 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'data'                       => [],
                 ];
 
+                $c = '<span style="color:#c71585;">'; //color start
+                $e = '</span>'; // end color
+                $description = <<<SWBD
+                    You can use the following keywords/placeholder in any of your email bodies/templates or subjects to output dynamic value. **Usage: place the placeholder name between $c == $e and $c == $e **. For Example: use **{$c}==SITE_NAME=={$e}** to output The Your Website Name etc. <br/><br/>
+                    **{$c}==NAME=={$e}** : It outputs The listing owner's display name on the site<br/>
+                    **{$c}==USERNAME=={$e}** : It outputs The listing owner's user name on the site<br/>
+                    **{$c}==SITE_NAME=={$e}** : It outputs your site name<br/>
+                    **{$c}==SITE_LINK=={$e}** : It outputs your site name with link<br/>
+                    **{$c}==SITE_URL=={$e}** : It outputs your site url with link<br/>
+                    **{$c}==EXPIRATION_DATE=={$e}** : It outputs Expiration date<br/>
+                    **{$c}==CATEGORY_NAME=={$e}** : It outputs the category name that is going to expire<br/>
+                    **{$c}==LISTING_ID=={$e}** : It outputs the listing's ID<br/>
+                    **{$c}==RENEWAL_LINK=={$e}** : It outputs a link to renewal page<br/>
+                    **{$c}==LISTING_TITLE=={$e}** : It outputs the listing's title<br/>
+                    **{$c}==LISTING_LINK=={$e}** : It outputs the listing's title with link<br/>
+                    **{$c}==LISTING_URL=={$e}** : It outputs the listing's url with link<br/>
+                    **{$c}==ORDER_ID=={$e}** : It outputs the order id. It should be used for order related email only<br/>
+                    **{$c}==ORDER_RECEIPT_URL=={$e}** : It outputs a link to the order receipt page. It should be used for order related email only<br/>
+                    **{$c}==ORDER_DETAILS=={$e}** : It outputs order detailsc. It should be used for order related email only<br/>
+                    **{$c}==TODAY=={$e}** : It outputs the current date<br/>
+                    **{$c}==NOW=={$e}** : It outputs the current time<br/>
+                    **{$c}==DASHBOARD_LINK=={$e}** : It outputs the user dashboard page link<br/>
+                    **{$c}==USER_PASSWORD=={$e}** : It outputs new user's temporary passoword<br/><br/>
+                    **Additionally, you can also use HTML tags in your template.**
+                SWBD;
+
+                $fields['note'] = [
+                    'type'        => 'note',
+                    'title'       => 'You can use Placeholders to output dynamic value',
+                    'description' => $description,
+                ];
+
                 return $fields;
             });
         }
@@ -3862,7 +3894,10 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('General Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'new_listing_status', 'edit_listing_status', 'fix_js_conflict', 'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
+                                        'new_listing_status',
+                                        'edit_listing_status', 
+                                        'fix_js_conflict', 
+                                        'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
                                     ],
                                 ],
                             ] ),

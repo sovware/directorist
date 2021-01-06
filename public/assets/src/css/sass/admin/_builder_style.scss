@@ -14,6 +14,19 @@ $nav_icon_color: $primary;
 $gray: #eff0f3;
 $light-gray: #f4f5f7;
 
+.cptm-form-note {
+  margin-bottom: 30px;
+  padding: 30px;
+  background-color: $light-gray;
+  .cptm-form-note-title {
+    margin-top: 0;
+    color: $primary;
+  }
+  .cptm-form-note-content {
+    margin: 5px 0;
+  }
+}
+
 #atbdp_cpt_options_metabox {
   .inside {
     margin: 0;

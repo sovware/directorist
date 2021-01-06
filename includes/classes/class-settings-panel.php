@@ -214,6 +214,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'toggle',
                     'value' => false,
                     'description' => __('Choose whether you want to monetize your site or not. Monetization features will let you accept payment from your users if they submit listing based on different criteria. Default is NO.', 'directorist'),
+                    
                 ],
 
                 'enable_featured_listing' => [
@@ -221,6 +222,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'toggle',
                     'value'         => false,
                     'description'   => __('You can enabled this option to collect payment from your user for making their listing featured.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_monetization",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
 
                 'featured_listing_price' => [
@@ -228,6 +235,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'number',
                     'value'         => 19.99,
                     'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_monetization",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
 
                 'gateway_test_mode' =>[
@@ -241,11 +254,11 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'     => __('Active Gateways', 'directorist'),
                     'type'      => 'checkbox',
                     'value'     => [
-                            'bank-transfer',
+                            'bank_transfer',
                         ],
                     'options'   => [
                         [
-                            'value' => 'bank-transfer',
+                            'value' => 'bank_transfer',
                             'label' => __('Bank Transfer (Offline Gateway)', 'directorist'),
                         ],
                     ],
@@ -385,6 +398,555 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                     ]
                 ],
+                // solid primary color
+                'primary_example' => [
+                    'label'       => __('Button Example', 'directorist'),
+                    'type'        => 'wp-media-picker',
+                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-primary.png',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                        ],
+                    ],
+                ],
+                'primary_color' => [
+                    'label' => __('Text Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#ffffff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                        ],
+                    ],
+                ],
+                'primary_hover_color' => [
+                    'label' => __('Text Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#ffffff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                        ],
+                    ],
+                ],
+                'back_primary_color' => [
+                    'label' => __('Background Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#444752',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                        ],
+                    ],
+                ],
+                'back_primary_hover_color' => [
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#222222',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                        ],
+                    ],
+                ],
+                'border_primary_color' => [
+                    'label' => __('Border Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#444752',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                        ],
+                    ],
+                ],
+                'border_primary_hover_color' => [
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#222222',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_primary'],
+                        ],
+                    ],
+                ],
+                //solid secondary color
+                'secondary_example' => [
+                    'label'       => __('Button Example', 'directorist'),
+                    'type'        => 'wp-media-picker',
+                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-secondary.png',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                        ],
+                    ],
+                ],
+                'secondary_color' => [
+                    'label' => __('Text Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#fff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                        ],
+                    ],
+                ],
+                'secondary_hover_color' => [
+                    'label' => __('Text Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#fff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                        ],
+                    ],
+                ],
+                'back_secondary_color' => [
+                    'label' => __('Background Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#122069',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                        ],
+                    ],
+                ],
+                'back_secondary_hover_color' => [
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#131469',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                        ],
+                    ],
+                ],
+                'secondary_border_color' => [
+                    'label' => __('Border Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#131469',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                        ],
+                    ],
+                ],
+                'secondary_border_hover_color' => [
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#131469',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_secondary'],
+                        ],
+                    ],
+                ],
+                // solid danger color
+                'danger_example' => [
+                    'label'       => __('Button Example', 'directorist'),
+                    'type'        => 'wp-media-picker',
+                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-danger.png',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
+                        ],
+                    ],
+                ],
+                'danger_color' => [
+                    'label' => __('Text Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#fff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
+                        ],
+                    ],
+                ],
+                'danger_hover_color' => [
+                    'label' => __('Text Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#fff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
+                        ],
+                    ],
+                ],
+                'back_danger_color' => [
+                    'label' => __('Background Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#e23636',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
+                        ],
+                    ],
+                ],
+                'back_danger_hover_color' => [
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#c5001e',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
+                        ],
+                    ],
+                ],
+                'danger_border_color' => [
+                    'label' => __('Border Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#e23636',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
+                        ],
+                    ],
+                ],
+                'danger_border_hover_color' => [
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#c5001e',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_danger'],
+                        ],
+                    ],
+                ],
+                // solid success 
+                'success_example' => [
+                    'label'       => __('Button Example', 'directorist'),
+                    'type'        => 'wp-media-picker',
+                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/solid-success.png',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
+                        ],
+                    ],
+                ],
+                'success_color' => [
+                    'label' => __('Text Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#fff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
+                        ],
+                    ],
+                ],
+                'success_hover_color' => [
+                    'label' => __('Text Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#fff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
+                        ],
+                    ],
+                ],
+                'back_success_color' => [
+                    'label' => __('Background Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#32cc6f',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
+                        ],
+                    ],
+                ],
+                'back_success_hover_color' => [
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#2ba251',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
+                        ],
+                    ],
+                ],
+                'border_success_color' => [
+                    'label' => __('Border Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#32cc6f',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
+                        ],
+                    ],
+                ],
+                'border_success_hover_color' => [
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#2ba251',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'solid_success'],
+                        ],
+                    ],
+                ],
+                // primary outline 
+                'priout_example' => [
+                    'label'       => __('Button Example', 'directorist'),
+                    'type'        => 'wp-media-picker',
+                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/outline-primary.png',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
+                        ],
+                    ],
+                ],
+                'priout_color' => [
+                    'label' => __('Text Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#444752',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
+                        ],
+                    ],
+                ],
+                'priout_hover_color' => [
+                    'label' => __('Text Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#444752',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
+                        ],
+                    ],
+                ],
+                'back_priout_color' => [
+                    'label' => __('Background Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#fff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
+                        ],
+                    ],
+                ],
+                'back_priout_hover_color' => [
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#fff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
+                        ],
+                    ],
+                ],
+                'border_priout_color' => [
+                    'label' => __('Border Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#444752',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
+                        ],
+                    ],
+                ],
+                'border_priout_hover_color' => [
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#9299b8',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline'],
+                        ],
+                    ],
+                ],
+                 // primary outline light
+                 'prioutlight_example' => [
+                    'label'       => __('Button Example', 'directorist'),
+                    'type'        => 'wp-media-picker',
+                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/outline-primary-light.png',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
+                        ],
+                    ],
+                ],
+                'prioutlight_color' => [
+                    'label' => __('Text Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#444752',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
+                        ],
+                    ],
+                ],
+                'prioutlight_hover_color' => [
+                    'label' => __('Text Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#ffffff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
+                        ],
+                    ],
+                ],
+                'back_prioutlight_color' => [
+                    'label' => __('Background Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#ffffff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
+                        ],
+                    ],
+                ],
+                'back_prioutlight_hover_color' => [
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#444752',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
+                        ],
+                    ],
+                ],
+                'border_prioutlight_color' => [
+                    'label' => __('Border Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#e3e6ef',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
+                        ],
+                    ],
+                ],
+                'border_prioutlight_hover_color' => [
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#444752',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'primary_outline_light'],
+                        ],
+                    ],
+                ],
+                // Danger outline
+                'danout_example' => [
+                    'label'       => __('Button Example', 'directorist'),
+                    'type'        => 'wp-media-picker',
+                    'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/outline-danger.png',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
+                        ],
+                    ],
+                ],
+                'danout_color' => [
+                    'label' => __('Text Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#e23636',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
+                        ],
+                    ],
+                ],
+                'danout_hover_color' => [
+                    'label' => __('Text Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#fff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
+                        ],
+                    ],
+                ],
+                'back_danout_color' => [
+                    'label' => __('Background Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#fff',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
+                        ],
+                    ],
+                ],
+                'back_danout_hover_color' => [
+                    'label' => __('Background Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#e23636',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
+                        ],
+                    ],
+                ],
+                'border_danout_color' => [
+                    'label' => __('Border Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#e23636',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
+                        ],
+                    ],
+                ],
+                'border_danout_hover_color' => [
+                    'label' => __('Border Hover Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#e23636',
+                    'show_if' => [
+                        'where' => "self.button_type",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'danger_outline'],
+                        ],
+                    ],
+                ],
+
+
+
 
                 'open_back_color' => [
                     'label' => __('Open Background Color', 'directorist'),
@@ -500,12 +1062,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'default_expiration' => [
                     'label' => __('Default expiration in days', 'directorist'),
                     'type'  => 'number',
-                    'value' => 30,
+                    'value' => 365,
                     'placeholder' => '365',
                     'rules' => [
                         'required' => true,
                         'min' => 3,
-                        'max' => 200,
+                        'max' => 730,
                     ],
                 ],
                 'can_renew_listing' => [
@@ -2082,7 +2644,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 ],
                 'display_map_info' => [
                     'type' => 'toggle',
-                    'label' => __('Guest Review Submission', 'directorist'),
+                    'label' => __('Display Map Info Window', 'directorist'),
                     'value' => true,
                 ],
                 'display_image_map' => [
@@ -2417,6 +2979,30 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         [
                             'value' => 'radius_search',
                             'label' => __('Radius Search', 'directorist'),
+                        ],
+                    ],
+                ],
+                'search_filters' => [
+                    'type' => 'checkbox',
+                    'label' => __('Filters Button', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.search_more_filter",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => [
+                        'search_reset_filters',
+                        'search_apply_filters',
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'search_reset_filters',
+                            'label' => __('Reset', 'directorist'),
+                        ],
+                        [
+                            'value' => 'search_apply_filters',
+                            'label' => __('Apply', 'directorist'),
                         ],
                     ],
                 ],
@@ -4258,7 +4844,52 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     
                     We look forward to seeing you soon', 'directorist'),
                 ],
-                
+                // single template settings
+                'single_temp_max_width'    => [
+                    'type'           => 'text',
+                    'label'          => __('Maximum Width (px)', 'directorist'),
+                    'value'          => '1080',
+                ],
+                'single_temp_padding_top'    => [
+                    'type'           => 'text',
+                    'label'          => __('Top', 'directorist'),
+                    'value'          => '30',
+                ],
+                'single_temp_padding_bottom'    => [
+                    'type'           => 'text',
+                    'label'          => __('Bottom', 'directorist'),
+                    'value'          => '50',
+                ],
+                'single_temp_padding_left'  => [
+                    'type'           => 'text',
+                    'label'          => __('Left', 'directorist'),
+                    'value'          => '4',
+                ],
+                'single_temp_padding_right'    => [
+                    'type'           => 'text',
+                    'label'          => __('right', 'directorist'),
+                    'value'          => '4',
+                ],
+                'single_temp_margin_top' => [
+                    'type'           => 'text',
+                    'label'          => __('Top', 'directorist'),
+                    'value'          => '4',
+                ],
+                'single_temp_margin_bottom' => [
+                    'type'           => 'text',
+                    'label'          => __('Bottom', 'directorist'),
+                    'value'          => '50',
+                ],
+                'single_temp_margin_left'  => [
+                    'type'           => 'text',
+                    'label'          => __('Left', 'directorist'),
+                    'value'          => '4',
+                ],
+                'single_temp_margin_right'    => [
+                    'type'           => 'text',
+                    'label'          => __('right', 'directorist'),
+                    'value'          => '4',
+                ],
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -4397,7 +5028,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('Search Form Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        'search_title', 'search_subtitle', 'search_border', 'search_tsc_fields', 'search_location_address', 'require_search_text', 'require_search_category', 'require_search_location', 'search_placeholder', 'search_category_placeholder', 'search_location_placeholder', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_more_filters_fields', 'search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'show_connector', 'connectors_title', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
+                                        'search_title', 'search_subtitle', 'search_border', 'search_tsc_fields', 'search_location_address', 'require_search_text', 'require_search_category', 'require_search_location', 'search_placeholder', 'search_category_placeholder', 'search_location_placeholder', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_more_filters_fields', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'show_connector', 'connectors_title', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
                                      ],
                                 ],
                                 'search_result' => [
@@ -4789,7 +5420,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                 'button_type' => [
                                     'title' => __('Button Color', 'directorist'),
                                     'fields' => [
-                                        'button_type'
+                                        'button_type', 'primary_example', 'primary_color', 'primary_hover_color', 'back_primary_color', 'back_primary_hover_color', 'border_primary_color', 'border_primary_hover_color', 'secondary_example', 'secondary_color', 'secondary_hover_color', 'back_secondary_color', 'back_secondary_hover_color', 'secondary_border_color', 'secondary_border_hover_color', 'danger_example', 'danger_color', 'danger_hover_color', 'back_danger_color', 'back_danger_hover_color', 'danger_border_color', 'danger_border_hover_color', 'success_example', 'success_color', 'success_hover_color', 'back_success_color', 'back_success_hover_color', 'border_success_color', 'border_success_hover_color', 'priout_example', 'priout_color', 'priout_hover_color', 'back_priout_color', 'back_priout_hover_color', 'border_priout_color', 'border_priout_hover_color', 'prioutlight_example', 'prioutlight_color', 'prioutlight_hover_color', 'back_prioutlight_color', 'back_prioutlight_hover_color', 'border_prioutlight_color', 'border_prioutlight_hover_color', 'danout_example', 'danout_color', 'danout_hover_color', 'back_danout_color', 'back_danout_hover_color', 'border_danout_color', 'border_danout_hover_color'
                                     ]
                                 ],
 
@@ -4820,6 +5451,33 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     ])
                                 ),
                             ])
+                        ],
+                        'single_template' => [
+                            'label' => __('Single Template', 'directorist'),
+                            'icon' => '<i class="fa fa-swatchbook"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_single_template_sections', [
+                                'general' => [
+                                    'title'       => '',
+                                    'description' => '',
+                                    'fields'      => [
+                                        'single_temp_max_width'
+                                    ],
+                                ],
+                                'padding' => [
+                                    'title'       => __('Padding (PX)'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'single_temp_padding_top', 'single_temp_padding_bottom', 'single_temp_padding_left', 'single_temp_padding_right'
+                                    ],
+                                ],
+                                'margin' => [
+                                    'title'       => __('Margin (PX)'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'single_temp_margin_top', 'single_temp_margin_bottom', 'single_temp_margin_left', 'single_temp_margin_right'
+                                    ],
+                                ],
+                            ] ),
                         ],
                     ]),
                 ],

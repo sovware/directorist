@@ -619,9 +619,82 @@
                 });
             });
         };
+
+        pureScriptTabChild = (selector1) => {
+            var selector = document.querySelectorAll(selector1);
+            selector.forEach((el, index) => {
+                a = el.querySelectorAll('.pst_tn_link');
+
+
+                a.forEach((element, index) => {
+
+                    element.style.cursor = 'pointer';
+                    element.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        var ul = event.target.closest('.pst_tab_nav'),
+                            main = ul.nextElementSibling,
+                            item_a = ul.querySelectorAll('.pst_tn_link'),
+                            section = main.querySelectorAll('.pst_tab_inner');
+
+                        item_a.forEach((ela, ind) => {
+                            ela.classList.remove('pstItemActive');
+                        });
+                        event.target.classList.add('pstItemActive');
+
+
+                        section.forEach((element1, index) => {
+                            //console.log(element1);
+                            element1.classList.remove('pstContentActive');
+                        });
+                        var target = event.target.target;
+                        document.getElementById(target).classList.add('pstContentActive');
+                    });
+                });
+            });
+        };
+
+        pureScriptTabChild2 = (selector1) => {
+            var selector = document.querySelectorAll(selector1);
+            selector.forEach((el, index) => {
+                a = el.querySelectorAll('.pst_tn_link-2');
+
+
+                a.forEach((element, index) => {
+
+                    element.style.cursor = 'pointer';
+                    element.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        var ul = event.target.closest('.pst_tab_nav-2'),
+                            main = ul.nextElementSibling,
+                            item_a = ul.querySelectorAll('.pst_tn_link-2'),
+                            section = main.querySelectorAll('.pst_tab_inner-2');
+
+                        item_a.forEach((ela, ind) => {
+                            ela.classList.remove('pstItemActive2');
+                        });
+                        event.target.classList.add('pstItemActive2');
+
+
+                        section.forEach((element1, index) => {
+                            //console.log(element1);
+                            element1.classList.remove('pstContentActive2');
+                        });
+                        var target = event.target.target;
+                        document.getElementById(target).classList.add('pstContentActive2');
+                    });
+                });
+            });
+        };
+
     })();
     pureScriptTab('.atbd_tab');
     pureScriptTab('.directorist_userDashboard-tab');
+    pureScriptTabChild('.atbdp-bookings-tab');
+    pureScriptTabChild2('.atbdp-bookings-tab-inner');
 
 
     // Validate forms

@@ -444,7 +444,7 @@
             span.la,
             i{
               position: relative;
-              top: 1px;
+              top: 1.5px;
             }
           }
         }
@@ -640,7 +640,7 @@
               span.la,
               i{
                 position: relative;
-                top: 1px;
+                top: 1.5px;
               }
             }
             .atbd_listing_category+.atbd_author{
@@ -961,7 +961,8 @@
         }
       }
 
-      .atbd-card-body-top {
+      .atbd-card-body-top,
+      .directorist-card-nothumb-info {
         margin: -4px;
 
         .atdlc_compare-btn-container,
@@ -1219,7 +1220,7 @@
             span,
             i{
               position: relative;
-              top: 2px;
+              top: 1.5px;
             }
           }
         }

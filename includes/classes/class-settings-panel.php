@@ -4779,7 +4779,52 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     
                     We look forward to seeing you soon', 'directorist'),
                 ],
-                
+                // single template settings
+                'single_temp_max_width'    => [
+                    'type'           => 'text',
+                    'label'          => __('Maximum Width (px)', 'directorist'),
+                    'value'          => '1080',
+                ],
+                'single_temp_padding_top'    => [
+                    'type'           => 'text',
+                    'label'          => __('Top', 'directorist'),
+                    'value'          => '30',
+                ],
+                'single_temp_padding_bottom'    => [
+                    'type'           => 'text',
+                    'label'          => __('Bottom', 'directorist'),
+                    'value'          => '50',
+                ],
+                'single_temp_padding_left', 'single_temp_padding_right'    => [
+                    'type'           => 'text',
+                    'label'          => __('Left', 'directorist'),
+                    'value'          => '4',
+                ],
+                'single_temp_padding_right'    => [
+                    'type'           => 'text',
+                    'label'          => __('right', 'directorist'),
+                    'value'          => '4',
+                ],
+                'single_temp_margin_top' => [
+                    'type'           => 'text',
+                    'label'          => __('Top', 'directorist'),
+                    'value'          => '4',
+                ],
+                'single_temp_margin_bottom' => [
+                    'type'           => 'text',
+                    'label'          => __('Bottom', 'directorist'),
+                    'value'          => '50',
+                ],
+                'single_temp_margin_left'  => [
+                    'type'           => 'text',
+                    'label'          => __('Left', 'directorist'),
+                    'value'          => '4',
+                ],
+                'single_temp_margin_right'    => [
+                    'type'           => 'text',
+                    'label'          => __('right', 'directorist'),
+                    'value'          => '4',
+                ],
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -5346,6 +5391,33 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     ])
                                 ),
                             ])
+                        ],
+                        'single_template' => [
+                            'label' => __('Single Template', 'directorist'),
+                            'icon' => '<i class="fa fa-swatchbook"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_single_template_sections', [
+                                'general' => [
+                                    'title'       => '',
+                                    'description' => '',
+                                    'fields'      => [
+                                        'single_temp_max_width'
+                                    ],
+                                ],
+                                'padding' => [
+                                    'title'       => __('Padding (PX)'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'single_temp_padding_top', 'single_temp_padding_bottom', 'single_temp_padding_left', 'single_temp_padding_right'
+                                    ],
+                                ],
+                                'margin' => [
+                                    'title'       => __('Margin (PX)'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'single_temp_margin_top', 'single_temp_margin_bottom', 'single_temp_margin_left', 'single_temp_margin_right'
+                                    ],
+                                ],
+                            ] ),
                         ],
                     ]),
                 ],

@@ -33,6 +33,9 @@
         width: 100%;
         height: 100%;
         margin-bottom: 0;
+        img{
+          margin: auto auto 20px auto;
+        }
         figcaption{
           display: flex;
           align-items: center;
@@ -42,7 +45,7 @@
           min-height: auto !important;
           background: #fff;
           flex-wrap: wrap;
-          margin: 20px 0 0 0;
+          margin: 0;
           h3, p{
             margin: 0;
             text-align: center;

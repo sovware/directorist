@@ -9636,6 +9636,10 @@ span.atbd_get_loc_wid {
   margin-bottom: 0;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure img {
+  margin: auto auto 20px auto;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9652,7 +9656,7 @@ span.atbd_get_loc_wid {
   background: #fff;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin: 20px 0 0 0;
+  margin: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption h3, .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption p {

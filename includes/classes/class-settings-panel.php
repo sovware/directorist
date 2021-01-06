@@ -1034,12 +1034,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'default_expiration' => [
                     'label' => __('Default expiration in days', 'directorist'),
                     'type'  => 'number',
-                    'value' => 30,
+                    'value' => 365,
                     'placeholder' => '365',
                     'rules' => [
                         'required' => true,
                         'min' => 3,
-                        'max' => 200,
+                        'max' => 730,
                     ],
                 ],
                 'can_renew_listing' => [
@@ -2616,7 +2616,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 ],
                 'display_map_info' => [
                     'type' => 'toggle',
-                    'label' => __('Guest Review Submission', 'directorist'),
+                    'label' => __('Display Map Info Window', 'directorist'),
                     'value' => true,
                 ],
                 'display_image_map' => [
@@ -2951,6 +2951,30 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         [
                             'value' => 'radius_search',
                             'label' => __('Radius Search', 'directorist'),
+                        ],
+                    ],
+                ],
+                'search_filters' => [
+                    'type' => 'checkbox',
+                    'label' => __('Filters Button', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.search_more_filter",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => [
+                        'search_reset_filters',
+                        'search_apply_filters',
+                    ],
+                    'options' => [
+                        [
+                            'value' => 'search_reset_filters',
+                            'label' => __('Reset', 'directorist'),
+                        ],
+                        [
+                            'value' => 'search_apply_filters',
+                            'label' => __('Apply', 'directorist'),
                         ],
                     ],
                 ],
@@ -4808,7 +4832,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'          => __('Bottom', 'directorist'),
                     'value'          => '50',
                 ],
-                'single_temp_padding_left', 'single_temp_padding_right'    => [
+                'single_temp_padding_left'  => [
                     'type'           => 'text',
                     'label'          => __('Left', 'directorist'),
                     'value'          => '4',
@@ -4976,7 +5000,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('Search Form Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        'search_title', 'search_subtitle', 'search_border', 'search_tsc_fields', 'search_location_address', 'require_search_text', 'require_search_category', 'require_search_location', 'search_placeholder', 'search_category_placeholder', 'search_location_placeholder', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_more_filters_fields', 'search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'show_connector', 'connectors_title', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
+                                        'search_title', 'search_subtitle', 'search_border', 'search_tsc_fields', 'search_location_address', 'require_search_text', 'require_search_category', 'require_search_location', 'search_placeholder', 'search_category_placeholder', 'search_location_placeholder', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_more_filters_fields', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'show_connector', 'connectors_title', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
                                      ],
                                 ],
                                 'search_result' => [

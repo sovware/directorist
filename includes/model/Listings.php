@@ -240,15 +240,6 @@ class Directorist_Listings {
 	}
 
 	public function prepare_atts_data() {
-		$current_listing_type = $this->get_current_listing_type();
-		$general_config       = get_term_meta( $current_listing_type, 'general_config' )[0];
-		$enable_preview_image = ( isset( $general_config['enable_preview_image'] ) ) ? $general_config['enable_preview_image'] : null;
-		$enable_preview_image = ( is_null( $enable_preview_image ) ) ? true : $general_config['enable_preview_image'];
-
-		if ( empty( $this->options['display_preview_image'] ) ) {
-			$enable_preview_image = false;
-		}
-
 		$defaults = array(
 			'view'                     => $this->options['listing_view'],
 			'_featured'                => 1,
@@ -267,7 +258,7 @@ class Directorist_Listings {
 			'featured_only'            => '',
 			'popular_only'             => '',
 			'advanced_filter'          => $this->options['listing_filters_button'],
-			'display_preview_image'    => $enable_preview_image,
+			'display_preview_image'    => $this->options['display_preview_image'],
 			'action_before_after_loop' => 'yes',
 			'logged_in_user_only'      => '',
 			'redirect_page_url'        => '',
@@ -386,12 +377,8 @@ class Directorist_Listings {
 		$listing_type = $this->current_listing_type;
 		$card_fields  = get_term_meta( $listing_type, 'listings_card_grid_view', true );
 		$list_fields  = get_term_meta( $listing_type, 'listings_card_list_view', true );
-		// dvar_dump($card_fields);
 
-
-		
-
-		$data = array(
+		$this->loop = array(
 			'id'                   => $id,
 			'card_fields'          => $card_fields,
 			'list_fields'          => $list_fields,
@@ -418,8 +405,6 @@ class Directorist_Listings {
 			'avatar_img'              => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
 			'review'                  => $this->get_review_data(),
 		);
-
-		$this->loop = $data;
 	}
 
 	public function get_review_data() {
@@ -1163,7 +1148,20 @@ class Directorist_Listings {
 				 */
 				do_action( 'atbdp_listings_loop', $counter );
 				$this->set_loop_data();
-				atbdp_get_shortcode_template( "listings-archive/loop/" . $args['template'], array('listings' => $this) );
+
+				if ( $args['template'] == 'grid' ) {
+					$active_template = $this->loop['card_fields']['active_template'];
+					$template = $active_template == 'grid_view_with_thumbnail' ? 'grid' : 'grid-nothumb';
+				}
+				elseif ( $args['template'] == 'list' ) {
+					$active_template = $this->loop['list_fields']['active_template'];
+					$template = $active_template == 'list_view_with_thumbnail' ? 'list' : 'list-nothumb';
+				}
+				else {
+					$template = args['template'];
+				}
+
+				atbdp_get_shortcode_template( "listings-archive/loop/" . $template, array('listings' => $this) );
 			endforeach;
 
 			$GLOBALS['post'] = $original_post;

@@ -11,44 +11,7 @@
 
     <!-- cptm-preview-area -->
     <div class="cptm-preview-area">
-      <div class="cptm-card-preview-widget cptm-card-list-view">
-        <!-- cptm-listing-card-preview-header -->
-        <div class="cptm-listing-card-preview-header">
-          <div class="cptm-card-preview-thumbnail">
-            <div class="cptm-card-preview-thumbnail-overlay">
-              <!-- cptm-card-preview-bottom-left -->
-              <div class="cptm-card-preview-top-right">
-                <card-widget-placeholder
-                  containerClass="cptm-card-preview-bottom-left-placeholder cptm-card-dark"
-                  :label="local_layout.thumbnail.top_right.label"
-                  :availableWidgets="theAvailableWidgets"
-                  :activeWidgets="active_widgets"
-                  :acceptedWidgets="local_layout.thumbnail.top_right.acceptedWidgets"
-                  :selectedWidgets="local_layout.thumbnail.top_right.selectedWidgets"
-                  :maxWidget="local_layout.thumbnail.top_right.maxWidget"
-                  :showWidgetsPickerWindow="getActiveInsertWindowStatus('thumbnail_top_right')"
-                  :widgetDropable="widgetIsDropable(local_layout.thumbnail.top_right)"
-                  @insert-widget="insertWidget($event, local_layout.thumbnail.top_right)"
-                  @drag-widget="onDragStartWidget($event, local_layout.thumbnail.top_right)"
-                  @drop-widget="appendWidget($event, local_layout.thumbnail.top_right)"
-                  @dragend-widget="onDragEndWidget()"
-                  @edit-widget="editWidget($event)"
-                  @trash-widget="trashWidget($event, local_layout.thumbnail.top_right)"
-                  @placeholder-on-drop="handleDropOnPlaceholder(local_layout.thumbnail.top_right)"
-                  @placeholder-on-dragover="handleDragOverOnPlaceholder(local_layout.thumbnail.top_right)"
-                  @placeholder-on-dragenter="handleDragEnterOnPlaceholder(local_layout.thumbnail.top_right)"
-                  @open-widgets-picker-window="activeInsertWindow('thumbnail_top_right')"
-                  @close-widgets-picker-window="closeInsertWindow()"
-                />
-              </div>
-
-              <div class="cptm-card-preview-thumbnail-bg">
-                <span class="uil uil-scenery"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <div class="cptm-card-preview-widget cptm-card-list-view list-view-without-thumbnail">
         <div class="cptm-listing-card-content">
           <!-- cptm-listing-card-preview-body -->
           <div class="cptm-listing-card-preview-body">
@@ -218,7 +181,7 @@ import Vue from "vue";
 import helpers from '../../mixins/helpers';
 
 export default {
-  name: "card-builder-list-view-field",
+  name: "card-builder-list-view-without-field",
   mixins: [ helpers ],
   props: {
     value: {
@@ -233,13 +196,6 @@ export default {
       required: false,
       default: null,
     },
-  },
-
-  mounted() {
-    const self = this;
-    document.addEventListener('click', function( e ) {
-      self.closeInsertWindow();
-    });
   },
 
   created() {
@@ -402,13 +358,6 @@ export default {
 
       // Layout
       local_layout: {
-        thumbnail: {
-          top_right: {
-            label: "Bottom Left",
-            selectedWidgets: [],
-          },
-        },
-
         body: {
           top: {
             label: "Body Top",
@@ -694,8 +643,6 @@ export default {
         ...this.active_widgets[key].options,
       };
       this.widgetOptionsWindow.widget = key;
-
-      this.active_insert_widget_key = '';
     },
 
     updateWidgetOptionsData(data, widget) {
@@ -734,17 +681,13 @@ export default {
       }
     },
 
-    activeInsertWindow( current_item_key ) {
-      let self = this;
+    activeInsertWindow(current_item_key) {
+      if ( this.active_insert_widget_key === current_item_key ) {
+        this.active_insert_widget_key = '';
+        return;
+      }
 
-      setTimeout( function() {
-        if ( self.active_insert_widget_key === current_item_key ) {
-          self.active_insert_widget_key = '';
-          return;
-        }
-
-        self.active_insert_widget_key = current_item_key;
-      }, 0);
+      this.active_insert_widget_key = current_item_key;
     },
 
     insertWidget( payload, where ) {
@@ -755,8 +698,6 @@ export default {
 
       Vue.set( this.active_widgets, payload.key, { ...this.theAvailableWidgets[ payload.key ] } );
       Vue.set( where, 'selectedWidgets', payload.selected_widgets );
-
-      this.editWidget( payload.key );
     },
 
     closeInsertWindow(widget_insert_window) {

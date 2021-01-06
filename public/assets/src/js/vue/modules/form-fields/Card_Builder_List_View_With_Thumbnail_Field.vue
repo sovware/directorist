@@ -11,7 +11,7 @@
 
     <!-- cptm-preview-area -->
     <div class="cptm-preview-area">
-      <div class="cptm-card-preview-widget cptm-card-list-view">
+      <div class="cptm-card-preview-widget cptm-card-list-view list-view-with-thumbnail">
         <!-- cptm-listing-card-preview-header -->
         <div class="cptm-listing-card-preview-header">
           <div class="cptm-card-preview-thumbnail">
@@ -218,7 +218,7 @@ import Vue from "vue";
 import helpers from '../../mixins/helpers';
 
 export default {
-  name: "card-builder-list-view-field",
+  name: "card-builder-list-view-with-thumbnail-field",
   mixins: [ helpers ],
   props: {
     value: {
@@ -233,13 +233,6 @@ export default {
       required: false,
       default: null,
     },
-  },
-
-  mounted() {
-    const self = this;
-    document.addEventListener('click', function( e ) {
-      self.closeInsertWindow();
-    });
   },
 
   created() {
@@ -694,8 +687,6 @@ export default {
         ...this.active_widgets[key].options,
       };
       this.widgetOptionsWindow.widget = key;
-
-      this.active_insert_widget_key = '';
     },
 
     updateWidgetOptionsData(data, widget) {
@@ -734,17 +725,13 @@ export default {
       }
     },
 
-    activeInsertWindow( current_item_key ) {
-      let self = this;
+    activeInsertWindow(current_item_key) {
+      if ( this.active_insert_widget_key === current_item_key ) {
+        this.active_insert_widget_key = '';
+        return;
+      }
 
-      setTimeout( function() {
-        if ( self.active_insert_widget_key === current_item_key ) {
-          self.active_insert_widget_key = '';
-          return;
-        }
-
-        self.active_insert_widget_key = current_item_key;
-      }, 0);
+      this.active_insert_widget_key = current_item_key;
     },
 
     insertWidget( payload, where ) {
@@ -755,8 +742,6 @@ export default {
 
       Vue.set( this.active_widgets, payload.key, { ...this.theAvailableWidgets[ payload.key ] } );
       Vue.set( where, 'selectedWidgets', payload.selected_widgets );
-
-      this.editWidget( payload.key );
     },
 
     closeInsertWindow(widget_insert_window) {

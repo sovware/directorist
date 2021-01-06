@@ -192,6 +192,11 @@ export default {
             this.localSelectedWidgets = [ ...unique_selecte_widgets ];
         },
 
+        close() {
+            console.log( 'close' );
+            this.$emit( 'close' );
+        },
+
         decodeInfoText( data, text ) {
             let doceded = text.replace(/__DATA__/gi, data);
     

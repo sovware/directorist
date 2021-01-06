@@ -562,6 +562,27 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   flex-grow: 1;
 }
 
+.cptm-no-wrap {
+  flex-wrap: nowrap;
+}
+
+.cptm-card-top-area {
+  max-width: 450px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.cptm-card-placeholder-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.cptm-card-placeholder-col {
+  flex-grow: 1;
+  padding: 0 10px;
+}
+
 .cptm-form-builder-group-title-area__dropable-placeholder {
   margin-right: 15px;
 }
@@ -1833,6 +1854,12 @@ input[type="radio"].cptm-radio {
   }
 }
 
+.cptm-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
 .cptm-form-control,
 select.cptm-form-control,
 input[type="date"].cptm-form-control,
@@ -1848,6 +1875,8 @@ input[type="text"].cptm-form-control,
 input[type="time"].cptm-form-control,
 input[type="url"].cptm-form-control,
 input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
+  display: block;
+  width: 100%;
   padding: 11px 20px;
   font-size: 13px;
   color: #5a5f7d;
@@ -2102,6 +2131,9 @@ input[type=checkbox], input[type=radio]{
     height: 15px;
   }
 }
+
+
+
 
 
 // Sidebar

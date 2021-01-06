@@ -13,7 +13,7 @@
 
     <!-- cptm-preview-area -->
     <div class="cptm-preview-area">
-      <div class="cptm-card-preview-widget">
+      <div class="cptm-card-preview-widget grid-view-with-thumbnail">
         <!-- cptm-listing-card-preview-header -->
         <div class="cptm-listing-card-preview-header">
           <div class="cptm-card-preview-thumbnail">
@@ -289,7 +289,7 @@ import Vue from 'vue';
 import helpers from '../../mixins/helpers';
 
 export default {
-  name: "card-builder-grid-view-field",
+  name: "card-builder-grid-view-with-thumbnail-field",
   mixins: [ helpers ],
   props: {
     fieldId: {
@@ -308,13 +308,6 @@ export default {
       required: false,
       default: null,
     },
-  },
-
-  mounted() {
-    const self = this;
-    document.addEventListener('click', function( e ) {
-      self.closeInsertWindow();
-    });
   },
 
   created() {
@@ -490,7 +483,6 @@ export default {
 
   data() {
     return {
-      active_insert_widget_is_open: false,
       active_insert_widget_key: '',
 
       // Widget Options Window
@@ -572,7 +564,6 @@ export default {
       this.importLayout();
       this.importOldData();
     },
-    
 
     isTruthyObject( obj ) {
       if ( ! obj && typeof obj !== 'object' ) {
@@ -800,8 +791,6 @@ export default {
       let opt = this.active_widgets[ key ].options;
       this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...opt };
       this.widgetOptionsWindow.widget = key;
-
-      this.closeInsertWindow();
     },
 
     updateWidgetOptionsData( data, widget ) {
@@ -837,16 +826,12 @@ export default {
     },
 
     activeInsertWindow( current_item_key ) {
-      let self = this;
+      if ( this.active_insert_widget_key === current_item_key ) {
+        this.active_insert_widget_key = '';
+        return;
+      }
 
-      setTimeout( function() {
-        if ( self.active_insert_widget_key === current_item_key ) {
-          self.active_insert_widget_key = '';
-          return;
-        }
-
-        self.active_insert_widget_key = current_item_key;
-      }, 0);
+      this.active_insert_widget_key = current_item_key;
     },
 
     insertWidget( payload, where ) {
@@ -857,8 +842,6 @@ export default {
 
       Vue.set( this.active_widgets, payload.key, { ...this.theAvailableWidgets[ payload.key ] } );
       Vue.set( where, 'selectedWidgets', payload.selected_widgets );
-
-      this.editWidget( payload.key );
     },
 
     closeInsertWindow( widget_insert_window ) {

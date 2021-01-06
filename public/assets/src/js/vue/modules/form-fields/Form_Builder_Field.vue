@@ -618,13 +618,23 @@ export default {
 
       return this.active_field_collapse_states[field_key].collapsed ? true : false;
     },
+
     toggleActiveGroupCollapseState(group_key) {
+      // console.log( { group_key }, this.active_group_collapse_states[group_key] );
+
       if ( typeof this.active_group_collapse_states[group_key] === "undefined" ) {
         Vue.set(this.active_group_collapse_states, group_key, {});
         Vue.set( this.active_group_collapse_states[group_key], "collapsed", true );
+        // console.log( '123' );
       }
 
-      Vue.set( this.active_group_collapse_states[group_key], "collapsed", true );
+      let state = ! this.active_group_collapse_states[group_key];
+
+      // console.log( {state} );
+      // return; 
+      Vue.set( this.active_group_collapse_states[group_key], "collapsed", state );
+
+      // console.log( this.active_group_collapse_states[group_key], state );
     },
 
     getActiveGroupCollapseState(group_key) {

@@ -30,6 +30,11 @@ export default {
             required: false,
             default: '',
         },
+        title: {
+            type: [ String ],
+            required: false,
+            default: '',
+        },
         description: {
             type: [ String ],
             required: false,

@@ -186,6 +186,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'toggle',
                     'value' => false,
                     'description' => __('Choose whether you want to monetize your site or not. Monetization features will let you accept payment from your users if they submit listing based on different criteria. Default is NO.', 'directorist'),
+                    
                 ],
 
                 'enable_featured_listing' => [
@@ -193,6 +194,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'toggle',
                     'value'         => false,
                     'description'   => __('You can enabled this option to collect payment from your user for making their listing featured.', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_monetization",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
 
                 'featured_listing_price' => [
@@ -200,6 +207,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'          => 'number',
                     'value'         => 19.99,
                     'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
+                    'show_if' => [
+                        'where' => "self.enable_monetization",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
 
                 'gateway_test_mode' =>[
@@ -213,11 +226,11 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label'     => __('Active Gateways', 'directorist'),
                     'type'      => 'checkbox',
                     'value'     => [
-                            'bank-transfer',
+                            'bank_transfer',
                         ],
                     'options'   => [
                         [
-                            'value' => 'bank-transfer',
+                            'value' => 'bank_transfer',
                             'label' => __('Bank Transfer (Offline Gateway)', 'directorist'),
                         ],
                     ],

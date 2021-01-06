@@ -9611,9 +9611,17 @@ span.atbd_get_loc_wid {
   border-radius: 3px;
   overflow: hidden;
   width: 100%;
-  display: block;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   padding: 35px 0 30px;
-  min-height: auto !important;
+  min-height: 180px !important;
   margin-bottom: 30px;
   background-color: #fff;
   -webkit-box-shadow: 0 5px 25px rgba(143, 142, 159, 0.15);
@@ -9636,6 +9644,10 @@ span.atbd_get_loc_wid {
   margin-bottom: 0;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure img {
+  margin: auto auto 20px auto;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -9652,7 +9664,7 @@ span.atbd_get_loc_wid {
   background: #fff;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin: 20px 0 0 0;
+  margin: 0;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption h3, .atbd_content_active #directorist.atbd_wrapper .atbd_location_grid_wrap .atbd_location_grid figure figcaption p {

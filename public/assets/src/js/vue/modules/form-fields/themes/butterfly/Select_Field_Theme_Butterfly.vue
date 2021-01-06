@@ -14,6 +14,13 @@
                     
                     <div class="directorist_dropdown-option" v-if="theOptions" :class="{ ['--show']: show_option_modal }">
                         <ul>
+                            <li v-if="showDefaultOption && theDefaultOption">
+                                <a href="#" 
+                                    v-html="( theDefaultOption.label ) ? theDefaultOption.label : ''"
+                                    @click.prevent="updateOption( theDefaultOption.value )"
+                                >
+                                </a>
+                            </li>
                             <li v-for="( option, option_key ) in theOptions" :key="option_key">
                                 <a href="#" 
                                     v-html="( option.label ) ? option.label : ''"
@@ -26,7 +33,7 @@
                 </div>
 
                 <select @change="update_value( $event.target.value )" :value="local_value" class="cptm-d-none">
-                    <option v-if="showDefaultOption && default_option" :value="default_option.value">{{ default_option.label }}</option>
+                    <option v-if="showDefaultOption && theDefaultOption" :value="theDefaultOption.value">{{ theDefaultOption.label }}</option>
                     <template v-for="( option, option_key ) in theOptions">
                         <option :key="option_key" :value="option.value">{{ option.label }}</option>
                     </template>
@@ -44,7 +51,6 @@
 
 <script>
 import select_field from '../../../../mixins/form-fields/select-field';
-
 export default {
     name: 'select-field-theme-butterfly',
     mixins: [ select_field ],

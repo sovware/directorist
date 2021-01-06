@@ -15,8 +15,8 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         {
 
             add_action( 'admin_enqueue_scripts', [$this, 'register_scripts'] );
+            add_action( 'init', [$this, 'initial_setup'] );
             add_action( 'init', [$this, 'prepare_settings'] );
-            // add_action( 'init', [$this, 'initial_setup'] );
             add_action( 'admin_menu', [$this, 'add_menu_pages'] );
 
             add_action( 'wp_ajax_save_settings_data', [ $this, 'handle_save_settings_data_request' ] );
@@ -24,7 +24,19 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
         // initial_setup
         public function initial_setup() {
-            
+            add_filter( 'atbdp_listing_type_settings_field_list', function( $fields ) {
+                
+                $fields['regenerate_pages'] = [
+                    'type'                       => 'ajax-action',
+                    'action'                     => 'atbdp_upgrade_old_pages',
+                    'label'                      => 'Upgrade/Regenerate Pages',
+                    'button-label'               => 'Regenerate Pages',
+                    'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
+                    'data'                       => [],
+                ];
+
+                return $fields;
+            });
         }
 
         // handle_save_settings_data_request
@@ -2927,6 +2939,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_add_listing]</strong>'),
                     'value' => atbdp_get_option('add_listing_page', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'all_listing_page' => [
@@ -2934,6 +2947,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_all_listing]</strong>'),
                     'value' => atbdp_get_option('all_listing_page', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'single_listing_page' => [
@@ -2941,6 +2955,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcodes can be used for the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_tags][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]</strong>'),
                     'value' => atbdp_get_option('single_listing_page', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'user_dashboard' => [
@@ -2948,6 +2963,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_user_dashboard]</strong>'),
                     'value' => atbdp_get_option('user_dashboard', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'author_profile_page' => [
@@ -2955,6 +2971,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_author_profile]</strong>'),
                     'value' => atbdp_get_option('author_profile', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'all_categories_page' => [
@@ -2962,6 +2979,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_all_categories]</strong>'),
                     'value' => atbdp_get_option('all_categories', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'single_category_page' => [
@@ -2969,6 +2987,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_category]</strong>'),
                     'value' => atbdp_get_option('single_category_page', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'all_locations_page' => [
@@ -2976,6 +2995,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_all_locations]</strong>'),
                     'value' => atbdp_get_option('all_locations', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'single_location_page' => [
@@ -2983,6 +3003,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_location]</strong>'),
                     'value' => atbdp_get_option('single_location_page', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'single_tag_page' => [
@@ -2990,6 +3011,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_tag]</strong>'),
                     'value' => atbdp_get_option('single_tag_page', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'custom_registration' => [
@@ -2997,6 +3019,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_custom_registration]</strong>'),
                     'value' => atbdp_get_option('custom_registration', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'user_login' => [
@@ -3004,6 +3027,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_user_login]</strong>'),
                     'value' => atbdp_get_option('user_login', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'search_listing' => [
@@ -3011,6 +3035,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_search_listing]</strong>'),
                     'value' => atbdp_get_option('search_listing', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'search_result_page' => [
@@ -3018,6 +3043,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_search_result]</strong>'),
                     'value' => atbdp_get_option('search_result_page', 'atbdp_general'),
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'checkout_page' => [
@@ -3025,6 +3051,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_checkout]</strong>'),
                     'value' => '',
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'payment_receipt_page' => [
@@ -3032,6 +3059,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_payment_receipt]</strong>'),
                     'value' => '',
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'transaction_failure_page' => [
@@ -3039,18 +3067,21 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'  => 'select',
                     'description' => sprintf(__('Following shortcode must be in the selected page %s', 'directorist'), '<strong style="color: #ff4500;">[directorist_transaction_failure]</strong>'),
                     'value' => '',
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'privacy_policy' => [
                     'label' => __('Privacy Policy Page', 'directorist'),
                     'type'  => 'select',
                     'value' => '',
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 'terms_conditions' => [
                     'label' => __('Terms & Conditions Page', 'directorist'),
                     'type'  => 'select',
                     'value' => '',
+                    'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
                 // seo settings 
@@ -3977,7 +4008,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('Upgrade/Regenerate Pages', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        'shortcode-updated'
+                                        'regenerate_pages'
                                      ],
                                 ],
                                 'pages_links_views' => [

@@ -15,6 +15,21 @@ export default {
             required: false,
             default: '',
         },
+        buttonLabel: {
+            type: String,
+            required: false,
+            default: '',
+        },
+        buttonLabelOnProcessing: {
+            type: String,
+            required: false,
+            default: '',
+        },
+        action: {
+            type: String,
+            required: false,
+            default: '',
+        },
         description: {
             type: [ String ],
             required: false,

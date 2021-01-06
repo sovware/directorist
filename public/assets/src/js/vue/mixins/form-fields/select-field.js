@@ -31,9 +31,19 @@ export default {
             fields: 'fields',
         }),
 
+        theDefaultOption() {
+            if ( this.defaultOption && typeof this.defaultOption === 'object' ) {
+                return this.defaultOption;
+            }
+
+            return { value: '', label: 'Select...' };
+        },
+
         theCurrentOptionLabel() {
             if ( ! this.optionsInObject ) { return ''; }
-            if ( typeof this.optionsInObject[ this.value ] === 'undefined' ) { return ''; }
+            if ( typeof this.optionsInObject[ this.value ] === 'undefined' ) { 
+                return ( this.theDefaultOption.value == this.local_value && this.theDefaultOption.label ) ? this.theDefaultOption.label : '';
+            }
 
             return this.optionsInObject[ this.value ];
         },
@@ -116,11 +126,13 @@ export default {
                 this.default_option = this.defaultOption;
             }
 
-            if ( this.valueIsValid( this.value ) ) {
-                this.local_value = this.value;
-            }
-
             this.optionsInObject = this.convertOptionsToObject();
+
+            if ( false != this.value && this.valueIsValid( this.value ) ) {
+                this.local_value = this.value;
+            } else {
+                this.local_value = '';
+            }
 
             const self = this;
             document.addEventListener( 'click', function() {

@@ -232,6 +232,144 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 ],
 
 
+                'bank_transfer_title' => [
+                    'type' => 'text',
+                    'label' => __('Gateway Title', 'directorist'),
+                    'value' => __('Bank Transfer', 'directorist'),
+                    'description' => __('Enter the title of this gateway that should be displayed to the user on the front end.', 'directorist'),
+                ],
+
+                'announcement_to' => [
+                    'label'     => __('To', 'directorist'),
+                    'type'      => 'select',
+                    'value'     => 'all_user',
+                    'options'   => [
+                        [
+                            'value' => 'all_user',
+                            'label' => __( 'All User', 'directorist' )
+                        ],
+                        [
+                            'value' => 'selected_user',
+                            'label' => __( 'Selected User', 'directorist' )
+                        ]
+                    ]
+                ],
+
+                'announcement_subject' => [
+                    'label' => __('Subject', 'directorist'),
+                    'type'  => 'text',
+                    'value' => false                   
+                ],
+
+                'announcement_send_to_email' => [
+                    'label'   => __('Send a copy to email', 'directorist'),
+                    'type'    => 'toggle',
+                    'default' => true,
+                ],
+
+                /*'csv_import' => [
+                    'label' => __('CSV', 'directorist'),
+                    'type' => 'toggle',
+                    
+                ],*/
+
+
+                'button_type' => [
+                    'label'     => __('Button Type', 'directorist'),
+                    'type'      => 'select',
+                    'value'     => 'select_option',
+                    'options'   => [
+                        [
+                            'value' => 'select_option',
+                            'label' => __('Select Option', 'directorist'),
+                        ],
+                        [
+                            'value' => 'solid_primary',
+                            'label' => __('Solid Primary', 'directorist'),
+                        ],
+                        [
+                            'value' => 'solid_secondary',
+                            'label' => __('Solid Secondary', 'directorist'),
+                        ],
+                        [         
+                            'value' => 'solid_danger',
+                            'label' => __('Solid Danger', 'directorist'),
+                        ],
+                        [
+                            'value' => 'solid_success',
+                            'label' => __('Solid Success', 'directorist'),
+                        ],
+                        [
+                            'value' => 'primary_outline',
+                            'label' => __('Primary Outline', 'directorist'),
+                        ],
+                        [
+                            'value' => 'primary_outline_light',
+                            'label' => __('Primary Outline Light', 'directorist'),
+                        ],
+                        [
+                            'value' => 'danger_outline',
+                            'label' => __('Danger Outline', 'directorist'),
+                        ],
+                    ]
+                ],
+
+                'open_back_color' => [
+                    'label' => __('Open Background Color', 'directorist'),
+                    'type' => 'color',
+                    'value' => '#32cc6f',
+                ],
+
+                'closed_back_color' => [
+                    'type' => 'color',
+                    'label' => __('Closed Background Color', 'directorist'),
+                    'value' => '#e23636',
+                ],
+
+                'featured_back_color' => [
+                    'type' => 'color',
+                    'label' => __('Featured Background Color', 'directorist'),
+                    'value' => '#fa8b0c',
+                ],
+
+                'popular_back_color' => [
+                    'type' => 'color',
+                    'label' => __('Popular Background Color', 'directorist'),
+                    'value' => '#f51957',
+                ],
+
+                'new_back_color' => [
+                    'type' => 'color',
+                    'label' => __('New Background Color', 'directorist'),
+                    'value' => '#122069',
+                ],
+
+                'marker_shape_color' => [
+                    'type' => 'color',
+                    'label' => __('Marker Shape Color', 'directorist'),
+                    'value' => '#444752',
+                ],
+
+                'marker_icon_color' => [
+                    'type' => 'color',
+                    'label' => __('Marker Icon Color', 'directorist'),
+                    'value' => '#444752',
+                ],
+
+                'primary_dark_back_color' => [
+                    'type' => 'color',
+                    'label' => __('Background Color', 'directorist'),
+                    'default' => '#444752',
+                ],
+
+                'primary_dark_border_color' => [
+                    'type' => 'color',
+                    'label' => __('Border Color', 'directorist'),
+                    'default' => '#444752',
+                ],
+
+
+
 
 
 
@@ -4089,7 +4227,45 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __( 'Style Settings', 'directorist' ),
                     'icon' => '<i class="fa fa-adjust directorist_danger"></i>',
                     'submenu' => apply_filters('atbdp_style_settings_submenu', [
-                       
+                        'color_settings' => [
+                            'label' => __('Color', 'directorist'),
+                            'icon' => '',
+                            'sections'=> apply_filters('atbdp_style_settings_controls', [
+                                'button_type' => [
+                                    'title' => __('Button Color', 'directorist'),
+                                    'fields' => [
+                                        'button_type'
+                                    ]
+                                ],
+
+                                'badge_color' => [
+                                    'title' => __('Badge Color', 'directorist'),
+                                    'fields' => apply_filters('atbdp_badge_color', [
+                                        'open_back_color',
+                                        'closed_back_color',
+                                        'featured_back_color',
+                                        'popular_back_color',
+                                        'new_back_color',
+                                    ])
+                                ],
+
+                                'map_marker' => [
+                                    'title' => __('All Listings Map Marker', 'directorist'),
+                                    'fields' => apply_filters('atbdp_map_marker_color', [
+                                        'marker_shape_color',
+                                        'marker_icon_color'
+                                    ])
+                                ],
+
+                                'primary_color' => array(
+                                    'title' => __('Primary Color', 'directorist'),
+                                    'fields' => apply_filters('atbdp_primary_dark_color', [
+                                        'primary_dark_back_color',
+                                        'primary_dark_border_color'
+                                    ])
+                                ),
+                            ])
+                        ],
                     ]),
                 ],
 
@@ -4097,7 +4273,37 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'label' => __( 'Tools', 'directorist' ),
                     'icon' => '<i class="fa fa-tools directorist_danger"></i>',
                     'submenu' => apply_filters('atbdp_tools_submenu', [
-                       
+                        'announcement_settings' => [
+                            'label'     => __('Announcement', 'directorist'),
+                            'icon'      => '',
+                            'sections'  => apply_filters('atbdp_announcement_settings_controls', [
+                                'send-announcement'     => [
+                                    'title'         => __('Send Announcement', 'directorist'),
+                                    'description'   => '',
+                                    'fields'        => [
+                                        'announcement_to',
+                                        'announcement_subject',
+                                        'announcement_send_to_email',
+                                    ]
+                                ],
+                            ]),
+                        ],
+
+                        'listings_import' => [
+                            'label'     => __('Listings Import', 'directorist'),
+                            'icon'      => '',
+                            'sections'  => apply_filters('atbdp_listings_import_controls', [
+                                'import_methods' => array(
+                                    'title'         => __('CSV', 'directorist'),
+                                    'description'   => '',
+                                    'fields'        => apply_filters('atbdp_csv_import_settings_fields', [
+                                        [
+                                            //'csv_import'
+                                        ],
+                                    ]),
+                                ),
+                            ]),
+                        ],
                     ]),
                 ],
 
@@ -4156,7 +4362,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'       => __('Gateways General Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        
+                                        'bank_transfer_title',
                                     ],
                                 ],
                             ] ),

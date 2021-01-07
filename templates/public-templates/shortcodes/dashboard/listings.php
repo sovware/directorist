@@ -29,7 +29,7 @@
 						<i class="la la-search"></i>
 					</div>
 					<form id="directorist-dashboard-listing-searchform">
-						<input type="text" placeholder="Search listings">
+						<input type="text" placeholder="Search listings" name="searchtext">
 					</form>
 				</div>
 			</div>

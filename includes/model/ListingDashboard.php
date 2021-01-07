@@ -32,14 +32,14 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function ajax_listing_tab() {
-		$data    = array_filter( $_POST, 'sanitize_text_field' ); // sanitization
-		$type    = $data['tab'];
-		$paged   = $data['paged'];
-		$task    = $data['task'];
-		$postid  = $data['postid'];
+		$data     = array_filter( $_POST, 'sanitize_text_field' ); // sanitization
+		$type     = $data['tab'];
+		$paged    = $data['paged'];
+		$task     = $data['task'];
+		$taskdata = $data['taskdata'];
 
 		if ( $task ) {
-			$this->listing_task( $task, $postid );
+			$this->listing_task( $task, $taskdata );
 		}
 
 		$args = array(
@@ -57,9 +57,9 @@ class Directorist_Listing_Dashboard {
 		wp_die();
 	}
 
-	public function listing_task( $task, $postid ){
+	public function listing_task( $task, $taskdata ){
 		if ( $task == 'delete' ) {
-			wp_delete_post( $postid );
+			wp_delete_post( $taskdata );
 		}
 	}
 

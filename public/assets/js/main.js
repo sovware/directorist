@@ -1078,7 +1078,7 @@
     }
 
     // Dashboard Listing Tab Ajax
-    function directorist_dashboard_listing_ajax($activeTab,paged=1,task='',postid='') {
+    function directorist_dashboard_listing_ajax($activeTab,paged=1,task='',taskdata='') {
         var tab = $activeTab.data('tab');
         $.ajax({
             url: atbdp_public_data.ajaxurl,
@@ -1089,7 +1089,7 @@
                 'tab': tab,
                 'paged': paged,
                 'task': task,
-                'postid': postid,
+                'taskdata': taskdata,
             },
 			beforeSend: function () {
 				$('#directorist-dashboard-preloader').show();
@@ -1169,7 +1169,8 @@
     });
 
     // Dashboard Search
-    $( "#directorist-dashboard-listing-searchform" ).on('submit', function(event) {
+    $('#directorist-dashboard-listing-searchform').on('submit', function(event) {
+    	// var text = $(this).data('task');
     	return false;
     });
 

@@ -362,12 +362,9 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'button_type' => [
                     'label'     => __('Button Type', 'directorist'),
                     'type'      => 'select',
-                    'value'     => 'select_option',
+                    'value'     => '',
+                    'show-default-option'     => true,
                     'options'   => [
-                        [
-                            'value' => 'select_option',
-                            'label' => __('Select Option', 'directorist'),
-                        ],
                         [
                             'value' => 'solid_primary',
                             'label' => __('Solid Primary', 'directorist'),
@@ -5052,9 +5049,9 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         'pages_links_views' => [
                             'title'       => __('Page, Links & View Settings', 'directorist'),
                             'description' => '',
-                            'fields'      => [ 
+                            'fields'      => apply_filters( 'atbdp_pages_settings_fields', [ 
                                 'add_listing_page', 'all_listing_page', 'single_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'custom_registration', 'user_login', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
-                             ],
+                             ] ),
                         ],
                     ]),
                 ],

@@ -55,6 +55,15 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'data'                       => [],
                 ];
 
+                $fields['announcement'] = [
+                    'type'                       => 'ajax-action',
+                    'action'                     => 'atbdp_send_announcement',
+                    'label'                      => '',
+                    'button-label'               => 'Send',
+                    'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Sending',
+                    'fields'                     => [],
+                ];
+
                 $fields['listing_export_button'] = [
                     'type'            => 'button',
                     'url'             => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),

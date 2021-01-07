@@ -7,6 +7,7 @@
                 <template v-for="( option, option_key ) in option_group">
                     <component 
                         :is="option.type + '-field'"
+                        :root="option_group"
                         :key="option_key"
                         v-bind="getSanitizedOption( option )"
                         :validation="getValidation( option_key, option_group_key, option )"

@@ -10,6 +10,7 @@
                 <template v-for="( field, field_key ) in sectionFields( section )">
                     <component
                         v-if="fields[ field ]"
+                        :root="fields"
                         :is="getFormFieldName( fields[ field ].type )" 
                         :field-id="field"
                         :id="menuKey + '__' + section_key + '__' + field"

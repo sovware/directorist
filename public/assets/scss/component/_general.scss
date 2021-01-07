@@ -366,14 +366,14 @@ body.atbd_content_active #directorist.atbd_wrapper {
     .page-numbers {
       padding: 0;
       line-height: normal;
-      height: 35px;
-      width: 35px;
-      min-width: 35px;
+      height: 36px;
+      width: 36px;
+      min-width: 36px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid #d8d8d8;
-      border-radius: 300px;
+      border: 1px solid #E1E4EC;
+      border-radius: 6px;
       background: #fff;
       transition: 0.3s;
       color: #7a82a6;
@@ -390,10 +390,10 @@ body.atbd_content_active #directorist.atbd_wrapper {
     }
 
     .current {
-      border-radius: 300px;
-      background: $primary;
       box-shadow: none;
-      border-color: transparent;
+      border-color: #0A0B1E;
+      background-color: #fff;
+      border-width: 2px;
       color: #fff;
     }
 

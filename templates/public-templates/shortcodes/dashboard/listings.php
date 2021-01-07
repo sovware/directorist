@@ -28,7 +28,9 @@
 					<div class="directorist_userDashboard-search__icon">
 						<i class="la la-search"></i>
 					</div>
-					<input type="text" placeholder="Search listings">
+					<form id="directorist-dashboard-listing-searchform">
+						<input type="text" placeholder="Search listings">
+					</form>
 				</div>
 			</div>
 

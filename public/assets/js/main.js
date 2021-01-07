@@ -1168,6 +1168,11 @@
     	return false;
     });
 
+    // Dashboard Search
+    $( "#directorist-dashboard-listing-searchform" ).on('submit', function(event) {
+    	return false;
+    });
+
 
 })(jQuery);
 

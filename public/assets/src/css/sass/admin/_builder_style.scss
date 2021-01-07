@@ -2393,9 +2393,13 @@ input[type=checkbox], input[type=radio]{
           display: block;
           padding: 8px 10px;
           border-radius: 4px;
-          &:hover{
+          &:hover, &.active:hover {
             color: #fff;
             background-color: $primary;
+          }
+          &.active {
+            color: $primary;
+            background-color: #f2f2f2;
           }
         }
       }

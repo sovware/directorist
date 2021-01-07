@@ -23,6 +23,7 @@
                             </li>
                             <li v-for="( option, option_key ) in theOptions" :key="option_key">
                                 <a href="#" 
+                                    :class="{ active: ( option.value == value ) ? true : false }"
                                     v-html="( option.label ) ? option.label : ''"
                                     @click.prevent="updateOption( option.value )"
                                 >

@@ -5,6 +5,9 @@ export default {
             required: false,
             default: '',
         },
+        root: {
+            required: false,
+        },
         showIf: {
             required: false,
         },

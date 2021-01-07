@@ -10,10 +10,10 @@
 
 <script>
 import feild_helper from './../../mixins/form-fields/helper';
-import wp_media_picker_field from './../../mixins/form-fields/wp-media-picker-field';
+import props from './../../mixins/form-fields/input-field-props';
 
 export default {
     name: 'wp-media-picker-field',
-    mixins: [ feild_helper, wp_media_picker_field ],
+    mixins: [ props, feild_helper ],
 }
 </script>

@@ -6,41 +6,14 @@
 </template>
 
 <script>
+import props from './../../mixins/form-fields/input-field-props';
+
 export default {
     name: 'image-field',
+    mixins: [ props ],
     model: {
         prop: 'value',
         event: 'input'
-    },
-    props: {
-        type: {
-            type: String,
-            required: false,
-            default: 'text',
-        },
-        label: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        value: {
-            type: [ Boolean, String, Number ],
-            required: false,
-            default: '',
-        },
-        validation: {
-            type: Array,
-            required: false,
-        },
-    },
-    computed: {
-    
-    },
-
-    data() {
-        return {
-
-        }
     },
 }
 </script>

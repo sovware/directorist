@@ -12,7 +12,8 @@ export default {
         canShow() {
             if ( this.showIf ) {
                 let show_if_cond = this.checkShowIfCondition({
-                    condition: this.showIf
+                    condition: this.showIf,
+                    root: this.root,
                 });
                 
                 return  show_if_cond.status;

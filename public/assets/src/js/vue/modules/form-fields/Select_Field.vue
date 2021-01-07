@@ -10,10 +10,10 @@
 
 <script>
 import feild_helper from './../../mixins/form-fields/helper';
-import select_field from './../../mixins/form-fields/select-field';
+import props from './../../mixins/form-fields/input-field-props';
 
 export default {
     name: 'select-field',
-    mixins: [ feild_helper, select_field ],
+    mixins: [ props, feild_helper ],
 }
 </script>

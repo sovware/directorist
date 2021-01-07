@@ -36,14 +36,14 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'             => 'export',
                     'label'            => 'Export Settings',
                     'button-label'     => 'Export',
-                    'export-file-name' => 'settings',
+                    'export-file-name' => 'directory-settings',
                 ];
 
                 $fields['restore_default_settings'] = [
                     'type'         => 'restore',
                     'label'        => 'Restore Default Settings',
                     'button-label' => 'Restore',
-                    'restor-data'  => [],
+                    'restor-data'  => $this->get_simple_data_content( [ 'path' => 'directory/directory-settings.json' ] ),
                 ];
 
                 $fields['regenerate_pages'] = [
@@ -53,6 +53,15 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'button-label'               => 'Regenerate Pages',
                     'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
                     'data'                       => [],
+                ];
+
+                $fields['announcement'] = [
+                    'type'                       => 'ajax-action',
+                    'action'                     => 'atbdp_send_announcement',
+                    'label'                      => '',
+                    'button-label'               => 'Send',
+                    'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Sending',
+                    'fields'                     => [],
                 ];
 
                 $fields['listing_export_button'] = [
@@ -97,6 +106,26 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 return $fields;
             });
+        }
+
+        // get_simple_data_content
+        public function get_simple_data_content( array $args = [] ) {
+            $default = [ 'path' => '', 'json_decode' => true ];
+            $args = array_merge( $default,  $args );
+
+            $path = ( ! empty( $args['path'] ) ) ? $args['path'] : '';
+
+            // $path = 'directory/directory.json'
+            $file = trailingslashit( dirname( ATBDP_FILE ) ) . "admin/assets/simple-data/{$path}";
+            if ( ! file_exists( $file ) ) { return ''; }
+
+            $data = file_get_contents( $file );
+
+            if ( $args['json_decode'] ) {
+                $data = json_decode( $data, true );
+            }
+
+            return $data;
         }
 
         // handle_save_settings_data_request
@@ -352,18 +381,11 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'default' => true,
                 ],
 
-                /*'csv_import' => [
-                    'label' => __('CSV', 'directorist'),
-                    'type' => 'toggle',
-                    
-                ],*/
-
-
                 'button_type' => [
-                    'label'     => __('Button Type', 'directorist'),
-                    'type'      => 'select',
-                    'value'     => '',
-                    'show-default-option'     => true,
+                    'label' => __('Button Type', 'directorist'),
+                    'type'  => 'select',
+                    'value' => 'select_option',
+                    'show-default-option' => true,
                     'options'   => [
                         [
                             'value' => 'solid_primary',
@@ -395,6 +417,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                     ]
                 ],
+
                 // solid primary color
                 'primary_example' => [
                     'label'       => __('Button Example', 'directorist'),
@@ -709,7 +732,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 ],
                 // primary outline 
                 'priout_example' => [
-                    'label'       => __('Button Example', 'directorist'),
+                    'label'       => __('Button Example Outline', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/outline-primary.png',
                     'show-if' => [
@@ -720,7 +743,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'priout_color' => [
-                    'label' => __('Text Color', 'directorist'),
+                    'label' => __('Text Color Outline', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
                     'show-if' => [
@@ -731,7 +754,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'priout_hover_color' => [
-                    'label' => __('Text Hover Color', 'directorist'),
+                    'label' => __('Text Hover Color Outline', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
                     'show-if' => [
@@ -742,7 +765,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'back_priout_color' => [
-                    'label' => __('Background Color', 'directorist'),
+                    'label' => __('Background Color Outline', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
                     'show-if' => [
@@ -753,7 +776,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'back_priout_hover_color' => [
-                    'label' => __('Background Hover Color', 'directorist'),
+                    'label' => __('Background Hover Color Outline', 'directorist'),
                     'type' => 'color',
                     'value' => '#fff',
                     'show-if' => [
@@ -764,7 +787,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'border_priout_color' => [
-                    'label' => __('Border Color', 'directorist'),
+                    'label' => __('Border Color Outline', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
                     'show-if' => [
@@ -775,7 +798,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'border_priout_hover_color' => [
-                    'label' => __('Border Hover Color', 'directorist'),
+                    'label' => __('Border Hover Color Outline', 'directorist'),
                     'type' => 'color',
                     'value' => '#9299b8',
                     'show-if' => [
@@ -787,7 +810,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 ],
                  // primary outline light
                  'prioutlight_example' => [
-                    'label'       => __('Button Example', 'directorist'),
+                    'label'       => __('Button Example Outline Light', 'directorist'),
                     'type'        => 'wp-media-picker',
                     'default-img' => 'https://directorist.com/wp-content/uploads/2020/02/outline-primary-light.png',
                     'show-if' => [
@@ -798,7 +821,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'prioutlight_color' => [
-                    'label' => __('Text Color', 'directorist'),
+                    'label' => __('Text Color Outline Light', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
                     'show-if' => [
@@ -809,7 +832,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'prioutlight_hover_color' => [
-                    'label' => __('Text Hover Color', 'directorist'),
+                    'label' => __('Text Hover Color Outline Light', 'directorist'),
                     'type' => 'color',
                     'value' => '#ffffff',
                     'show-if' => [
@@ -820,7 +843,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'back_prioutlight_color' => [
-                    'label' => __('Background Color', 'directorist'),
+                    'label' => __('Background Color Outline Light', 'directorist'),
                     'type' => 'color',
                     'value' => '#ffffff',
                     'show-if' => [
@@ -831,7 +854,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'back_prioutlight_hover_color' => [
-                    'label' => __('Background Hover Color', 'directorist'),
+                    'label' => __('Background Hover Color Outline Light', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
                     'show-if' => [
@@ -842,7 +865,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'border_prioutlight_color' => [
-                    'label' => __('Border Color', 'directorist'),
+                    'label' => __('Border Color Outline Light', 'directorist'),
                     'type' => 'color',
                     'value' => '#e3e6ef',
                     'show-if' => [
@@ -853,7 +876,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ],
                 ],
                 'border_prioutlight_hover_color' => [
-                    'label' => __('Border Hover Color', 'directorist'),
+                    'label' => __('Border Hover Color Outline Light', 'directorist'),
                     'type' => 'color',
                     'value' => '#444752',
                     'show-if' => [

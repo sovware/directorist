@@ -4080,7 +4080,9 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ],
 
                 'import_export' => [
-                    'type'  => 'export',
+                    'button-label'     => 'Export',
+                    'export-file-name' => 'directory',
+                    'type'             => 'export',
                 ],
 
                 'default_expiration' => [

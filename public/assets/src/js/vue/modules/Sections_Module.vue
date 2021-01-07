@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import helpers from './../mixins/helpers';
 import { mapState } from 'vuex';
 
@@ -56,43 +55,6 @@ export default {
             'metaKeys',
             'fields',
         ]),
-
-        theSections() {
-            let the_sections = JSON.parse( JSON.stringify( this.sections ) );
-            
-            for ( let section in the_sections ) {
-                if ( ! Array.isArray( the_sections[ section ].fields )) { continue; }
-                
-                for ( let field of the_sections[ section ].fields ) {
-
-                    let field_index = the_sections[ section ].fields.indexOf( field );
-                    
-                    
-                    if ( typeof this.fields[ field ] === 'undefined' ) {
-                        the_sections[ section ].fields.splice( field_index, 1 );
-                        continue;
-                    }
-
-                    Vue.set( this.fields[ field ], 'hidden', false );
-
-                    if ( ! this.isObject( this.fields[ field ].show_if )  ) {
-                        continue;
-                    }
-
-                    let show_if_cond = this.checkShowIfCondition({
-                        condition: this.fields[ field ].show_if
-                    });
-                
-                    if ( ! show_if_cond.status ) {
-                        Vue.set( this.fields[ field ], 'hidden', true );
-
-                        the_sections[ section ].fields.splice( field_index, 1 );
-                    }
-                }   
-            }
-
-            return the_sections;
-        },
 
         containerClass() {
             return {

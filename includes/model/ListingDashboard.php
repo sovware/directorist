@@ -35,6 +35,7 @@ class Directorist_Listing_Dashboard {
 		$data     = array_filter( $_POST, 'sanitize_text_field' ); // sanitization
 		$type     = $data['tab'];
 		$paged    = $data['paged'];
+		$search   = $data['search'];
 		$task     = $data['task'];
 		$taskdata = $data['taskdata'];
 
@@ -44,7 +45,7 @@ class Directorist_Listing_Dashboard {
 
 		$args = array(
 			'dashboard' => $this,
-			'query'     => $this->listings_query( $type, $paged ),
+			'query'     => $this->listings_query( $type, $paged, $search ),
 		);
 
 		$result = [
@@ -63,7 +64,7 @@ class Directorist_Listing_Dashboard {
 		}
 	}
 
-	public function listings_query( $type = 'all', $paged = 1 ) {
+	public function listings_query( $type = 'all', $paged = 1, $search = '' ) {
 		$pagination = get_directorist_option('user_listings_pagination',1);
 		$listings_per_page = get_directorist_option('user_listings_per_page',9);
 
@@ -96,6 +97,10 @@ class Directorist_Listing_Dashboard {
 					'value' => 'expired'
 				),
 			);
+		}
+
+		if ( $search ) {
+			$args['s'] = $search;
 		}
 
 		$this->current_listings_query = new WP_Query( $args );

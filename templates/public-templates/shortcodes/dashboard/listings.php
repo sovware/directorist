@@ -5,7 +5,7 @@
  * @version 6.6
  */
 ?>
-<div class="atbd_tab_inner tabContentActive" id="my_listings" data-paged="1">
+<div class="atbd_tab_inner tabContentActive" id="my_listings" data-paged="1" data-search="">
 	<div id="directorist-dashboard-preloader" style="display:none"></div>
 	<div class="directorist_userDashboard-area">
 		<div class="directorist_userDashboard-tab">

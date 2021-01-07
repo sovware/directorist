@@ -201,7 +201,7 @@
 
 .settings-nav__item__icon {
     display: inline-block;
-    margin-right: 17px;
+    width: 28px;
 
     i {
         &.directorist_Blue {
@@ -238,10 +238,14 @@
     }
 }
 
+/* .settings-nav__item ul li {
+    margin-bottom: 25px;
+} */
+
 .settings-nav__item ul li a {
-    line-height: 50px;
-    padding: 0 25px 0 58px;
-    display: block;
+    line-height: 25px;
+    padding: 10px 25px 10px 58px;
+    display: flex;
     font-size: 14px;
     font-weight: 500;
     color: #5A5F7D;

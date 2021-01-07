@@ -85,13 +85,13 @@
             <h2 class="directorist_builder__title"><?php _e( 'All Directory Types', 'directorist' ); ?></h2>
             <div class="directorist_builder__content">
                 <div class="directorist_builder__content--left">
-                    <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="directorist_link-block">
+                    <a href="<?php echo esc_attr( $data['add_new_link'] ); ?>" class="directorist_link-block directorist_link-block-primary">
                         <span class="directorist_link-icon">
                             <i class="la la-plus"></i>
                         </span>
                         <span class="directorist_link-text"><?php _e( 'Create New Directory Type', 'directorist' ); ?></span>
                     </a>
-                    <a href="#" class="directorist_btn directorist_btn-success directorist_btn-import cptm-modal-toggle" data-target="cptm-import-directory-modal">
+                    <a href="#" class="directorist_link-block directorist_link-block-success directorist_btn-import cptm-modal-toggle" data-target="cptm-import-directory-modal">
                         <span class="directorist_link-icon">
                             <i class="la la-download"></i>
                         </span>
@@ -156,7 +156,7 @@
                                                         <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_btn directorist_btn-primary"><i class="la la-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>
                                                         <?php  
                                                         if( ! $default ) {  ?>
-                                                        <a href="<?php echo ! empty( $delete_link ) ? $delete_link : '#'; ?>" class="directorist_btn directorist_btn-danger"><i class="la la-trash"></i><?php _e( 'Delete', 'directorist' ); ?></a>
+                                                        <a href="<?php echo ! empty( $delete_link ) ? $delete_link : '#'; ?>" class="directorist_btn directorist_btn-danger directorist_btn-transparent"><i class="la la-trash"></i><?php _e( 'Delete', 'directorist' ); ?></a>
                                                         <?php  }
                                                         if( ! $default ) {  ?>
                                                             <div data-type-id="<?php echo absint( $listing_type->term_id ); ?>" class="directorist_listing-type-checkbox directorist_custom-checkbox submitdefault">

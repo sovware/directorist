@@ -2614,7 +2614,7 @@ span.atbdp-tick-cross {
 }
 
 .directorist_builder__content .directorist_builder__content--left .directorist_link-block {
-  min-width: 400px;
+  width: 100%;
   min-height: 126px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2629,7 +2629,6 @@ span.atbdp-tick-cross {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background-color: #fff;
   border-radius: 4px;
   -webkit-box-shadow: 0 5px 10px #ADB4D210;
           box-shadow: 0 5px 10px #ADB4D210;
@@ -2637,29 +2636,19 @@ span.atbdp-tick-cross {
   text-align: center;
 }
 
-@media only screen and (max-width: 1440px) {
-  .directorist_builder__content .directorist_builder__content--left .directorist_link-block {
-    min-width: 320px;
-  }
-}
-
-@media only screen and (max-width: 1399px) {
-  .directorist_builder__content .directorist_builder__content--left .directorist_link-block {
-    min-width: 200px;
-  }
-}
-
-@media only screen and (max-width: 1199px) {
-  .directorist_builder__content .directorist_builder__content--left .directorist_link-block {
-    min-width: 320px;
-  }
-}
-
 @media only screen and (max-width: 575px) {
   .directorist_builder__content .directorist_builder__content--left .directorist_link-block {
     min-width: 100%;
     margin: 0;
   }
+}
+
+.directorist_builder__content .directorist_builder__content--left .directorist_link-block.directorist_link-block-primary {
+  background-color: #3E62F5;
+}
+
+.directorist_builder__content .directorist_builder__content--left .directorist_link-block.directorist_link-block-success {
+  background-color: #08BF9C;
 }
 
 .directorist_builder__content .directorist_builder__content--left .directorist_link-block .directorist_link-icon {
@@ -2675,54 +2664,36 @@ span.atbdp-tick-cross {
   height: 25px;
   width: 25px;
   border-radius: 50%;
-  border: 2px solid #3E62F5;
+  border: 2px solid #fff;
 }
 
 .directorist_builder__content .directorist_builder__content--left .directorist_link-block .directorist_link-icon i {
   font-weight: 900;
+  color: #fff;
 }
 
 .directorist_builder__content .directorist_builder__content--left .directorist_link-block .directorist_link-text {
   display: block;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
-  color: #272B41;
+  color: #fff;
   margin-top: 15px;
 }
 
 .directorist_builder__content .directorist_builder__content--left .directorist_btn-import {
-  text-decoration: none;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  text-align: center;
-  font-size: 16px;
-  width: 100%;
-  min-height: 126px;
-  border-radius: 4px;
-  color: #fff;
-  padding: 0 20px;
   margin-top: 20px;
-  -webkit-box-shadow: 0 5px 10px #ADB4D210;
-          box-shadow: 0 5px 10px #ADB4D210;
 }
 
 .directorist_builder__content .directorist_builder__content--left .directorist_btn-import .directorist_link-icon {
-  margin-bottom: 10px;
+  border: 0 none;
 }
 
 .directorist_builder__content .directorist_builder__content--left .directorist_btn-import .directorist_link-icon i {
   font-size: 24px;
+}
+
+.directorist_builder__content .directorist_builder__content--left .directorist_btn-import .directorist_link-text {
+  margin-top: 12px;
 }
 
 .directorist_builder__content .directorist_builder__content--right {
@@ -2875,6 +2846,10 @@ span.atbdp-tick-cross {
   background-color: #F8F9FB;
 }
 
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_title {
+  color: #3E62F5;
+}
+
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a {
   color: #fff;
 }
@@ -2883,15 +2858,16 @@ span.atbdp-tick-cross {
   background-color: #3E62F5;
 }
 
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a.directorist_btn-danger {
-  background-color: #FF272A;
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr:hover td .directorist_listing-actions a.directorist_btn-danger.directorist_btn-transparent {
+  color: #FF272A;
+  background-color: rgba(255, 39, 42, 0.1);
 }
 
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td {
   font-size: 14px;
   font-weight: 400;
   color: #5A5F7D;
-  padding: 20px 20px;
+  padding: 15px 20px;
 }
 
 @media only screen and (max-width: 1399px) {

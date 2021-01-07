@@ -1158,7 +1158,7 @@ class Directorist_Listings {
 					$template = $active_template == 'list_view_with_thumbnail' ? 'list' : 'list-nothumb';
 				}
 				else {
-					$template = args['template'];
+					$template = $args['template'];
 				}
 
 				atbdp_get_shortcode_template( "listings-archive/loop/" . $template, array('listings' => $this) );

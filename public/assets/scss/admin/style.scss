@@ -2537,35 +2537,29 @@ span.atbdp-tick-cross {
     }
 
     .directorist_link-block {
-      min-width: 400px;
+      width: 100%;
       min-height: 126px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: column;
-      background-color: #fff;
       border-radius: 4px;
       box-shadow: 0 5px 10px #ADB4D210;
-
-      @media only screen and (max-width: 1440px) {
-        min-width: 320px;
-      }
-
-      @media only screen and (max-width: 1399px) {
-        min-width: 200px;
-      }
-
-      @media only screen and (max-width: 1199px) {
-        min-width: 320px;
-      }
+      text-decoration: none;
+      text-align: center;
 
       @media only screen and (max-width: 575px) {
         min-width: 100%;
         margin: 0;
       }
 
-      text-decoration: none;
-      text-align: center;
+      &.directorist_link-block-primary{
+        background-color: #3E62F5;
+      }
+      
+      &.directorist_link-block-success{
+        background-color: #08BF9C;
+      }
 
       .directorist_link-icon {
         display: inline-flex;
@@ -2574,44 +2568,36 @@ span.atbdp-tick-cross {
         height: 25px;
         width: 25px;
         border-radius: 50%;
-        border: 2px solid #3E62F5;
+        border: 2px solid #fff;
 
         i {
           font-weight: 900;
+          color: #fff;
         }
       }
 
       .directorist_link-text {
         display: block;
-        font-size: 15px;
+        font-size: 16px;
         font-weight: 500;
-        color: #272B41;
+        color: #fff;
         margin-top: 15px;
       }
     }
 
     .directorist_btn-import {
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      font-size: 16px;
-      width: 100%;
-      min-height: 126px;
-      border-radius: 4px;
-      color: #fff;
-      padding: 0 20px;
       margin-top: 20px;
-      box-shadow: 0 5px 10px #ADB4D210;
 
       .directorist_link-icon {
-        margin-bottom: 10px;
+        border: 0 none;
 
         i {
           font-size: 24px;
         }
+      }
+
+      .directorist_link-text{
+        margin-top: 12px;
       }
     }
   }
@@ -2751,6 +2737,10 @@ span.atbdp-tick-cross {
               td {
                 background-color: #F8F9FB;
 
+                .directorist_title{
+                  color: #3E62F5;
+                }
+
                 .directorist_listing-actions {
                   a {
                     color: #fff;
@@ -2760,7 +2750,10 @@ span.atbdp-tick-cross {
                     }
 
                     &.directorist_btn-danger {
-                      background-color: #FF272A;
+                      &.directorist_btn-transparent{
+                        color: #FF272A;
+                        background-color: rgba(#FF272A,0.10);
+                      }
                     }
                   }
                 }
@@ -2771,7 +2764,7 @@ span.atbdp-tick-cross {
               font-size: 14px;
               font-weight: 400;
               color: #5A5F7D;
-              padding: 20px 20px;
+              padding: 15px 20px;
 
               @media only screen and (max-width: 1399px) {
                 padding: 15px 5px;

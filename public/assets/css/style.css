@@ -1207,7 +1207,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper .pagination .nav-links .current {
   -webkit-box-shadow: none;
           box-shadow: none;
-  border-color: #0A0B1E;
+  border-color: #444752;
   background-color: #fff;
   border-width: 2px;
   color: #fff;
@@ -7558,6 +7558,7 @@ span.atbd_get_loc_wid {
   border-radius: 4px;
   color: #fff !important;
   font-size: 17px !important;
+  min-height: 118px;
 }
 
 .directorist-each-listing-type a .directorist-listing-type-icon {

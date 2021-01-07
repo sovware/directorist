@@ -9,7 +9,7 @@ if ( $query->have_posts() ) {
 	while ( $query->have_posts() ) {
 		$query->the_post();
 		?>
-		<tr>
+		<tr data-id="<?php the_ID(); ?>">
 			<td>
 				<div class="directorist_listing-info">
 					<div class="directorist_listing-info__img">
@@ -39,28 +39,9 @@ if ( $query->have_posts() ) {
 					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist_link-btn"><i class="la la-edit"></i><?php esc_html_e('Edit', 'directorist'); ?></a>
 					<div class="directorist_dropdown">
 						<a href="#" class="directorist_btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
-						<div class="directorist_dropdown-menu">
+						<div class="directorist_dropdown-menu directorist-dashboard-listing-actions">
 							<div class="directorist_dropdown-menu__list">
-								<a class="directorist_dropdown-item" href="#"><i class=""></i>Change Plan</a>
-								<a class="directorist_dropdown-item" href="#"><i class="la la-adversal"></i>Promote Listing</a>
-								<a class="directorist_dropdown-item" href="#"><i class="la la-amazon-pay"></i>Pay Now</a>
-							</div>
-							<div class="directorist_dropdown-menu__list">
-								<div class="directorist_custom-checkbox">
-									<input type="checkbox" id="m-navigation" name="mark-navigation">
-									<label for="m-navigation">
-										Mark as Negotiation
-									</label>
-								</div>
-								<div class="directorist_custom-checkbox">
-									<input type="checkbox" id="m-sold" name="mark-sold">
-									<label for="m-sold">
-										Mark as Sold
-									</label>
-								</div>
-							</div>
-							<div class="directorist_dropdown-menu__list">
-								<a class="directorist_dropdown-item" href="#"><i class="la la-trash"></i>Delete Listing</a>
+								<a class="directorist_dropdown-item" data-task="delete" href="#"><i class="la la-trash"></i><?php esc_html_e('Delete Listing', 'directorist'); ?></a>
 							</div>
 						</div>
 					</div>

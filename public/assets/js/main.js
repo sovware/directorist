@@ -1078,7 +1078,7 @@
     }
 
     // Dashboard Listing Tab Ajax
-    function directorist_dashboard_listing_ajax($activeTab,paged) {
+    function directorist_dashboard_listing_ajax($activeTab,paged=1,task='',postid='') {
         var tab = $activeTab.data('tab');
         $.ajax({
             url: atbdp_public_data.ajaxurl,
@@ -1088,6 +1088,8 @@
                 'action': 'directorist_dashboard_listing_tab',
                 'tab': tab,
                 'paged': paged,
+                'task': task,
+                'postid': postid,
             },
 			beforeSend: function () {
 				$('#directorist-dashboard-preloader').show();
@@ -1097,6 +1099,7 @@
                 $('.directorist-dashboard-pagination .nav-links').html(response.data.pagination);
                 $('.directorist-dashboard-listing-nav-js a').removeClass('tabItemActive');
                 $activeTab.addClass('tabItemActive');
+                $('#my_listings').data('paged',paged);
             },
 			complete: function () {
 				$('#directorist-dashboard-preloader').hide();
@@ -1111,7 +1114,7 @@
     		return false;
     	}
 
-        directorist_dashboard_listing_ajax($item,1);
+        directorist_dashboard_listing_ajax($item);
 
     	return false;
     });
@@ -1124,6 +1127,43 @@
 
         $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
         directorist_dashboard_listing_ajax($activeTab,paged);
+
+    	return false;
+    });
+
+    // Dashboard Tasks eg. delete
+    $('.directorist-dashboard-listings-tbody').on('click', '.directorist-dashboard-listing-actions a[data-task]', function(event) {
+    	var task       = $(this).data('task');
+    	var postid     = $(this).closest('tr').data('id');
+    	var $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
+    	var paged      = $('#my_listings').data('paged');
+
+		if (task=='delete') {
+	        swal({
+	            title: atbdp_public_data.listing_remove_title,
+	            text: atbdp_public_data.listing_remove_text,
+	            type: "warning",
+	            cancelButtonText: atbdp_public_data.review_cancel_btn_text,
+	            showCancelButton: true,
+	            confirmButtonColor: "#DD6B55",
+	            confirmButtonText: atbdp_public_data.listing_remove_confirm_text,
+	            showLoaderOnConfirm: true,
+	            closeOnConfirm: false
+	        },
+
+	        function (isConfirm) {
+	            if (isConfirm) {
+	            	directorist_dashboard_listing_ajax($activeTab,paged,task,postid);
+
+                    swal({
+                        title: atbdp_public_data.listing_delete,
+                        type: "success",
+                        timer: 200,
+                        showConfirmButton: false
+                    });
+	            }
+	        });
+		}
 
     	return false;
     });

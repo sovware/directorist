@@ -32,14 +32,19 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function ajax_listing_tab() {
-		$data  = array_filter( $_POST, 'sanitize_text_field' ); // sanitization
-		$type  = $data['tab'];
-		$paged = $data['paged'];
-		$query = $this->listings_query( $type, $paged );
+		$data    = array_filter( $_POST, 'sanitize_text_field' ); // sanitization
+		$type    = $data['tab'];
+		$paged   = $data['paged'];
+		$task    = $data['task'];
+		$postid  = $data['postid'];
+
+		if ( $task ) {
+			$this->listing_task( $task, $postid );
+		}
 
 		$args = array(
 			'dashboard' => $this,
-			'query'     => $query,
+			'query'     => $this->listings_query( $type, $paged ),
 		);
 
 		$result = [
@@ -50,7 +55,13 @@ class Directorist_Listing_Dashboard {
 		wp_send_json_success( $result );
 
 		wp_die();
-	}	
+	}
+
+	public function listing_task( $task, $postid ){
+		if ( $task == 'delete' ) {
+			wp_delete_post( $postid );
+		}
+	}
 
 	public function listings_query( $type = 'all', $paged = 1 ) {
 		$pagination = get_directorist_option('user_listings_pagination',1);

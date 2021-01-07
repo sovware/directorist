@@ -5658,7 +5658,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'config'  => $this->config,
             ];
 
-            $this->enqueue_scripts();
+            // $this->enqueue_scripts();
             wp_localize_script('atbdp_settings_manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data);
         
             /* $status = $this->update_settings_options([
@@ -5695,7 +5695,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         }
 
         // register_scripts
-        public function register_scripts()
+        public function register_scripts( $page = '' )
         {
             wp_register_style('atbdp-unicons', '//unicons.iconscout.com/release/v3.0.3/css/line.css', false);
             wp_register_style('atbdp-select2-style', '//cdn.bootcss.com/select2/4.0.0/css/select2.css', false);
@@ -5704,6 +5704,10 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
             wp_register_style( 'atbdp_admin_css', ATBDP_PUBLIC_ASSETS . 'css/admin_app.css', [], '1.0' );
             wp_register_script( 'atbdp_settings_manager', ATBDP_PUBLIC_ASSETS . 'js/settings_manager.js', ['jquery'], false, true );
+
+            if ( 'at_biz_dir_page_atbdp-settings' == $page ) {
+                $this->enqueue_scripts();
+            }
         }
 
         /**

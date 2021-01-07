@@ -17,20 +17,26 @@ if ( $query->have_posts() ) {
 					</div>
 					<div class="directorist_listing-info__content">
 						<h4 class="directorist_title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h4>
-						<span class="directorist_price">$275.20</span>
+						<?php if ( $dashboard->get_listing_price_html() ): ?>
+							<span class="directorist_price"><?php echo $dashboard->get_listing_price_html(); ?></span>
+						<?php endif; ?>
 					</div>
 				</div>
 			</td>
 
+			<?php do_action( 'directorist_dashboard_listing_td_2', $dashboard ); ?>
+
 			<td><span class="directorist_listing-plan"><?php echo $dashboard->get_listing_type(); ?></span></td>
 
-			<td><span class="directorist_ex-plan"> <?php echo $dashboard->get_listing_expired_html(); ?></span></td>
+			<td><span class="directorist_ex-plan"><?php echo $dashboard->get_listing_expired_html(); ?></span></td>
 
 			<td><?php echo $dashboard->get_listing_status_html(); ?></td>
 
+			<?php do_action( 'directorist_dashboard_listing_td_6', $dashboard ); ?>
+
 			<td>
 				<div class="directorist_actions">
-					<a href="#" class="directorist_link-btn"><i class="la la-edit"></i>Edit</a>
+					<a href="<?php echo esc_url(ATBDP_Permalink::get_edit_listing_page_link(get_the_ID())); ?>" class="directorist_link-btn"><i class="la la-edit"></i><?php esc_html_e('Edit', 'directorist'); ?></a>
 					<div class="directorist_dropdown">
 						<a href="#" class="directorist_btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
 						<div class="directorist_dropdown-menu">

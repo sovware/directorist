@@ -845,7 +845,7 @@
     atbdp_tooltip();
 
     // User Dashboard Table More Button
-    $('.directorist_btn-more').on("click", function(e){
+    $('.directorist-dashboard-listings-tbody').on("click", '.directorist_btn-more', function(e){
         e.preventDefault();
         $(this).toggleClass('active');
         $(".directorist_dropdown-menu").removeClass("active");
@@ -1078,33 +1078,49 @@
     }
 
     // Dashboard Listing Tab Ajax
-    $('.directorist-dashboard-listing-nav-js a').on('click', function(event) {
-
-        var $item = $(this);
-
-    	if ($item.hasClass('tabItemActive')) {
-    		return false;
-    	}
-
-    	var tab = $item.data('tab');
-
+    function directorist_dashboard_listing_ajax($activeTab,paged) {
+        var tab = $activeTab.data('tab');
         $.ajax({
             url: atbdp_public_data.ajaxurl,
             type: 'POST',
             data: {
                 'action': 'directorist_dashboard_listing_tab',
                 'tab': tab,
+                'paged': paged,
             },
             success: function success(response) {
                 $('.directorist-dashboard-listings-tbody').html(response.data.content);
                 $('.directorist-dashboard-pagination .nav-links').html(response.data.pagination);
                 $('.directorist-dashboard-listing-nav-js a').removeClass('tabItemActive');
-                $item.addClass('tabItemActive');
+                $activeTab.addClass('tabItemActive');
             }
         });
+    }
+
+    $('.directorist-dashboard-listing-nav-js a').on('click', function(event) {
+        var $item = $(this);
+
+    	if ($item.hasClass('tabItemActive')) {
+    		return false;
+    	}
+
+        directorist_dashboard_listing_ajax($item,1);
 
     	return false;
     });
+
+    $('.directorist-dashboard-pagination .nav-links').on('click', 'a', function(event) {
+        var $link = $(this);
+        var paged = $link.attr('href');
+        paged = paged.split('/page/')[1];
+        paged = parseInt(paged);
+
+        $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
+        directorist_dashboard_listing_ajax($activeTab,paged);
+
+    	return false;
+    });
+
 
 })(jQuery);
 

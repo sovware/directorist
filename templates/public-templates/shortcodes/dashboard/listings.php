@@ -39,9 +39,11 @@
 							<thead>
 								<tr>
 									<th class="directorist_table-listing"><?php esc_html_e( 'Listings', 'directorist' ); ?></th>
+									<?php do_action( 'directorist_dashboard_listing_th_2', $dashboard ); ?>
 									<th class="directorist_table-plan"><?php esc_html_e( 'Type', 'directorist' ); ?></th>
 									<th class="directorist_table-ex-date"><?php esc_html_e( 'Expiration Date', 'directorist' ); ?></th>
 									<th class="directorist_table-status"><?php esc_html_e( 'Status', 'directorist' ); ?></th>
+									<?php do_action( 'directorist_dashboard_listing_th_6', $dashboard ); ?>
 									<th class="directorist_table-actions"></th>
 								</tr>
 							</thead>

@@ -32,8 +32,9 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function ajax_listing_tab() {
-		$type = sanitize_text_field( $_POST['tab'] );
-		$query = $this->listings_query( $type );
+		$type  = sanitize_text_field( $_POST['tab'] );
+		$paged = sanitize_text_field( $_POST['paged'] );
+		$query = $this->listings_query( $type, $paged );
 
 		$args = array(
 			'dashboard' => $this,
@@ -42,7 +43,7 @@ class Directorist_Listing_Dashboard {
 
 		$result = [
 			'content'    => atbdp_return_shortcode_template( 'dashboard/listing-row', $args ),
-			'pagination' => $this->listing_pagination(),
+			'pagination' => $this->listing_pagination( 'page/%#%', $paged ),
 		];
 
 		wp_send_json_success( $result );
@@ -50,11 +51,10 @@ class Directorist_Listing_Dashboard {
 		wp_die();
 	}	
 
-	public function listings_query( $type = 'all' ) {
+	public function listings_query( $type = 'all', $paged = 1 ) {
 		$pagination = get_directorist_option('user_listings_pagination',1);
 		$listings_per_page = get_directorist_option('user_listings_per_page',9);
 
-		$paged = atbdp_get_paged_num();
 		$args  = array(
 			'author'         => get_current_user_id(),
 			'post_type'      => ATBDP_POST_TYPE,
@@ -101,6 +101,19 @@ class Directorist_Listing_Dashboard {
 		) );
 	}
 
+	public function get_listing_price_html() {
+		$id = get_the_ID();
+		$price = get_post_meta( $id, '_price', true );
+		$price_range = get_post_meta( $id, '_price_range', true );
+		$atbd_listing_pricing = get_post_meta( $id, '_atbd_listing_pricing', true );
+		if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
+			return atbdp_display_price_range( $price_range );
+		}
+		else {
+			return atbdp_display_price( $price );
+		}
+	}
+
 	public function get_listing_expired_html() {
 		$id = get_the_ID();
 		$date_format = get_option('date_format');
@@ -112,9 +125,9 @@ class Directorist_Listing_Dashboard {
 		return $exp_html;
 	}
 
-	public function listing_pagination( $base = '' ) {
+	public function listing_pagination( $base = '', $paged = '' ) {
 		$query = $this->current_listings_query;
-		$paged = atbdp_get_paged_num();
+		$paged = $paged ? $paged : atbdp_get_paged_num();
 		$big   = 999999999;
 
 		$links = paginate_links(array(

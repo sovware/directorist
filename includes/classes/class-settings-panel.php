@@ -36,14 +36,14 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'type'             => 'export',
                     'label'            => 'Export Settings',
                     'button-label'     => 'Export',
-                    'export-file-name' => 'settings',
+                    'export-file-name' => 'directory-settings',
                 ];
 
                 $fields['restore_default_settings'] = [
                     'type'         => 'restore',
                     'label'        => 'Restore Default Settings',
                     'button-label' => 'Restore',
-                    'restor-data'  => [],
+                    'restor-data'  => $this->get_simple_data_content( [ 'path' => 'directory/directory-settings.json' ] ),
                 ];
 
                 $fields['regenerate_pages'] = [
@@ -97,6 +97,26 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 return $fields;
             });
+        }
+
+        // get_simple_data_content
+        public function get_simple_data_content( array $args = [] ) {
+            $default = [ 'path' => '', 'json_decode' => true ];
+            $args = array_merge( $default,  $args );
+
+            $path = ( ! empty( $args['path'] ) ) ? $args['path'] : '';
+
+            // $path = 'directory/directory.json'
+            $file = trailingslashit( dirname( ATBDP_FILE ) ) . "admin/assets/simple-data/{$path}";
+            if ( ! file_exists( $file ) ) { return ''; }
+
+            $data = file_get_contents( $file );
+
+            if ( $args['json_decode'] ) {
+                $data = json_decode( $data, true );
+            }
+
+            return $data;
         }
 
         // handle_save_settings_data_request

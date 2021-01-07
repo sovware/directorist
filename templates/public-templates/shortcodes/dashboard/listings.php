@@ -5,7 +5,8 @@
  * @version 6.6
  */
 ?>
-<div class="atbd_tab_inner tabContentActive">
+<div class="atbd_tab_inner tabContentActive" id="my_listings">
+	<div id="directorist-dashboard-preloader" style="display:none"></div>
 	<div class="directorist_userDashboard-area">
 		<div class="directorist_userDashboard-tab">
 			<div class="atbd_tab_nav">
@@ -32,37 +33,35 @@
 			</div>
 
 			<div class="directorist_userDashboard-tabcontent">
-				<div class="atbd_tab_inner tabContentActive">
-					<div class="directorist_listing-table directorist_table-responsive">
-						<table class="directorist_table">
+				<div class="directorist_listing-table directorist_table-responsive">
+					<table class="directorist_table">
 
-							<thead>
-								<tr>
-									<th class="directorist_table-listing"><?php esc_html_e( 'Listings', 'directorist' ); ?></th>
-									<?php do_action( 'directorist_dashboard_listing_th_2', $dashboard ); ?>
-									<th class="directorist_table-plan"><?php esc_html_e( 'Type', 'directorist' ); ?></th>
-									<th class="directorist_table-ex-date"><?php esc_html_e( 'Expiration Date', 'directorist' ); ?></th>
-									<th class="directorist_table-status"><?php esc_html_e( 'Status', 'directorist' ); ?></th>
-									<?php do_action( 'directorist_dashboard_listing_th_6', $dashboard ); ?>
-									<th class="directorist_table-actions"></th>
-								</tr>
-							</thead>
+						<thead>
+							<tr>
+								<th class="directorist_table-listing"><?php esc_html_e( 'Listings', 'directorist' ); ?></th>
+								<?php do_action( 'directorist_dashboard_listing_th_2', $dashboard ); ?>
+								<th class="directorist_table-plan"><?php esc_html_e( 'Type', 'directorist' ); ?></th>
+								<th class="directorist_table-ex-date"><?php esc_html_e( 'Expiration Date', 'directorist' ); ?></th>
+								<th class="directorist_table-status"><?php esc_html_e( 'Status', 'directorist' ); ?></th>
+								<?php do_action( 'directorist_dashboard_listing_th_6', $dashboard ); ?>
+								<th class="directorist_table-actions"></th>
+							</tr>
+						</thead>
 
-							<tbody class="directorist-dashboard-listings-tbody">
-								<?php $dashboard->listing_row_template(); ?>
-							</tbody>
+						<tbody class="directorist-dashboard-listings-tbody">
+							<?php $dashboard->listing_row_template(); ?>
+						</tbody>
 
-						</table>
+					</table>
 
-						<div class="directorist-dashboard-pagination">
-							<div class="navigation pagination">
-								<div class="nav-links">
-									<?php echo $dashboard->listing_pagination(); ?>
-								</div>	
-							</div>
+					<div class="directorist-dashboard-pagination">
+						<div class="navigation pagination">
+							<div class="nav-links">
+								<?php echo $dashboard->listing_pagination(); ?>
+							</div>	
 						</div>
-
 					</div>
+
 				</div>
 			</div>
 

@@ -1083,17 +1083,24 @@
         $.ajax({
             url: atbdp_public_data.ajaxurl,
             type: 'POST',
+            dataType: 'json',
             data: {
                 'action': 'directorist_dashboard_listing_tab',
                 'tab': tab,
                 'paged': paged,
             },
+			beforeSend: function () {
+				$('#directorist-dashboard-preloader').show();
+			},
             success: function success(response) {
                 $('.directorist-dashboard-listings-tbody').html(response.data.content);
                 $('.directorist-dashboard-pagination .nav-links').html(response.data.pagination);
                 $('.directorist-dashboard-listing-nav-js a').removeClass('tabItemActive');
                 $activeTab.addClass('tabItemActive');
-            }
+            },
+			complete: function () {
+				$('#directorist-dashboard-preloader').hide();
+			}
         });
     }
 

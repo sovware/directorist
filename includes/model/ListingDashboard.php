@@ -32,8 +32,9 @@ class Directorist_Listing_Dashboard {
 	}
 
 	public function ajax_listing_tab() {
-		$type  = sanitize_text_field( $_POST['tab'] );
-		$paged = sanitize_text_field( $_POST['paged'] );
+		$data  = array_filter( $_POST, 'sanitize_text_field' ); // sanitization
+		$type  = $data['tab'];
+		$paged = $data['paged'];
 		$query = $this->listings_query( $type, $paged );
 
 		$args = array(

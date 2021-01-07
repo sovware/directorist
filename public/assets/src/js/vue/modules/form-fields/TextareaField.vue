@@ -10,10 +10,10 @@
 
 <script>
 import feild_helper from './../../mixins/form-fields/helper';
-import textarea_feild from './../../mixins/form-fields/textarea-field';
+import props from './../../mixins/form-fields/input-field-props';
 
 export default {
     name: 'textarea-field',
-    mixins: [ textarea_feild, feild_helper ],
+    mixins: [ props, feild_helper ],
 }
 </script>

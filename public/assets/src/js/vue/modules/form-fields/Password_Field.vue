@@ -3,41 +3,14 @@
 </template>
 
 <script>
+import props from './../../mixins/form-fields/input-field-props';
+
 export default {
     name: 'hidden-field',
+    mixins: [ props ],
     model: {
         prop: 'value',
         event: 'input'
-    },
-    props: {
-        label: {
-            type: String,
-            required: false,
-            default: 'Label',
-        },
-        value: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        name: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        placeholder: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        validationFeedback: {
-            type: Object,
-            required: false,
-        },
-        validation: {
-            type: Array,
-            required: false,
-        },
     },
 }
 </script>

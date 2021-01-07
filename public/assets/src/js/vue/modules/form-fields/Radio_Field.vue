@@ -9,10 +9,10 @@
 
 <script>
 import feild_helper from './../../mixins/form-fields/helper';
-import radio_feild from './../../mixins/form-fields/radio-field';
+import props from './../../mixins/form-fields/input-field-props';
 
 export default {
     name: 'radio-field',
-    mixins: [ radio_feild, feild_helper ]
+    mixins: [ props, feild_helper ]
 }
 </script>

@@ -10,10 +10,10 @@
 
 <script>
 import feild_helper from './../../mixins/form-fields/helper';
-import range_feild from './../../mixins/form-fields/range-field';
+import props from './../../mixins/form-fields/input-field-props';
 
 export default {
     name: 'range-field',
-    mixins: [ feild_helper, range_feild ],
+    mixins: [ props, feild_helper ],
 }
 </script>

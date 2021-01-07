@@ -5011,27 +5011,22 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'search_settings' => [
                     'label' => __( 'Search Settings', 'directorist' ),
                     'icon' => '<i class="fa fa-search directorist_warning"></i>',
-                    'submenu' => apply_filters('atbdp_search_settings_submenu', [
-                        'search_settings' => [
-                            'label' => __('Search Settings', 'directorist'),
-                            'sections' => apply_filters( 'atbdp_listing_settings_search_settings_sections', [
-                                'search_form' => [
-                                    'title'       => __('Search Form Settings', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'search_title', 'search_subtitle', 'search_border', 'search_tsc_fields', 'search_location_address', 'require_search_text', 'require_search_category', 'require_search_location', 'search_placeholder', 'search_category_placeholder', 'search_location_placeholder', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_more_filters_fields', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'show_connector', 'connectors_title', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
-                                     ],
-                                ],
-                                'search_result' => [
-                                    'title'       => __('Search Result Settings', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'search_header', 'search_result_filters_button_display', 'search_result_filter_button_text', 'search_result_display_filter', 'search_result_filters_fields', 'sresult_location_address', 'sresult_default_radius_distance', 'search_result_filters_button', 'sresult_reset_text', 'sresult_apply_text', 'search_result_search_text_placeholder', 'search_result_category_placeholder', 'search_result_location_placeholder', 'search_view_as', 'search_viewas_text', 'search_view_as_items', 'search_sort_by', 'search_sortby_text', 'search_sort_by_items', 'search_order_listing_by', 'search_sort_listing_by', 'search_listing_columns', 'paginate_search_results', 'search_posts_num', 'radius_search_unit'
-                                     ],
-                                ],
-                            ] ),
+                    'sections' => apply_filters( 'atbdp_listing_settings_search_settings_sections', [
+                        'search_form' => [
+                            'title'       => __('Search Form Settings', 'directorist'),
+                            'description' => '',
+                            'fields'      => [ 
+                                'search_title', 'search_subtitle', 'search_border', 'search_tsc_fields', 'search_location_address', 'require_search_text', 'require_search_category', 'require_search_location', 'search_placeholder', 'search_category_placeholder', 'search_location_placeholder', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_more_filters_fields', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'show_connector', 'connectors_title', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
+                             ],
                         ],
-                    ]),
+                        'search_result' => [
+                            'title'       => __('Search Result Settings', 'directorist'),
+                            'description' => '',
+                            'fields'      => [ 
+                                'search_header', 'search_result_filters_button_display', 'search_result_filter_button_text', 'search_result_display_filter', 'search_result_filters_fields', 'sresult_location_address', 'sresult_default_radius_distance', 'search_result_filters_button', 'sresult_reset_text', 'sresult_apply_text', 'search_result_search_text_placeholder', 'search_result_category_placeholder', 'search_result_location_placeholder', 'search_view_as', 'search_viewas_text', 'search_view_as_items', 'search_sort_by', 'search_sortby_text', 'search_sort_by_items', 'search_order_listing_by', 'search_sort_listing_by', 'search_listing_columns', 'paginate_search_results', 'search_posts_num', 'radius_search_unit'
+                             ],
+                        ],
+                    ] ),
                 ],
 
                 'page_settings' => [
@@ -5058,44 +5053,34 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'seo_settings' => [
                     'label' => __( 'SEO Settings', 'directorist' ),
                     'icon' => '<i class="fa fa-bolt directorist_green"></i>',
-                    'submenu' => apply_filters('atbdp_seo_settings_submenu', [
-                        'seo_settings' => [
-                            'label' => __('Titles & Metas', 'directorist'),
-                            'sections' => apply_filters( 'atbdp_seo_settings_sections', [
-                                'title_metas' => [
-                                    'title'       => __('Titles & Metas', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'atbdp_enable_seo', 'add_listing_page_meta_title', 'add_listing_page_meta_desc', 'all_listing_meta_title', 'all_listing_meta_desc', 'dashboard_meta_title', 'dashboard_meta_desc', 'author_profile_meta_title', 'author_page_meta_desc', 'category_meta_title', 'category_meta_desc', 'single_category_meta_title', 'single_category_meta_desc', 'all_locations_meta_title', 'all_locations_meta_desc', 'single_locations_meta_title', 'single_locations_meta_desc', 'registration_meta_title', 'registration_meta_desc', 'login_meta_title', 'login_meta_desc', 'homepage_meta_title', 'homepage_meta_desc', 'meta_title_for_search_result', 'search_result_meta_title', 'search_result_meta_desc'
-                                     ],
-                                ],
-                            ] ),
+                    'sections' => apply_filters( 'atbdp_seo_settings_sections', [
+                        'title_metas' => [
+                            'title'       => __('Titles & Metas', 'directorist'),
+                            'description' => '',
+                            'fields'      => [ 
+                                'atbdp_enable_seo', 'add_listing_page_meta_title', 'add_listing_page_meta_desc', 'all_listing_meta_title', 'all_listing_meta_desc', 'dashboard_meta_title', 'dashboard_meta_desc', 'author_profile_meta_title', 'author_page_meta_desc', 'category_meta_title', 'category_meta_desc', 'single_category_meta_title', 'single_category_meta_desc', 'all_locations_meta_title', 'all_locations_meta_desc', 'single_locations_meta_title', 'single_locations_meta_desc', 'registration_meta_title', 'registration_meta_desc', 'login_meta_title', 'login_meta_desc', 'homepage_meta_title', 'homepage_meta_desc', 'meta_title_for_search_result', 'search_result_meta_title', 'search_result_meta_desc'
+                             ],
                         ],
-                    ]),
+                    ] ),
                 ],
 
                 'currency_settings' => [
                     'label' => __( 'Currency Settings', 'directorist' ),
                     'icon' => '<i class="fa fa-money-bill directorist_danger"></i>',
-                    'submenu' => apply_filters('atbdp_currency_settings_submenu', [
-                        'currency_settings' => [
-                            'label' => __('Currency Settings', 'directorist'),
-                            'sections' => apply_filters( 'atbdp_currency_settings_sections', [
-                                'title_metas' => [
-                                    'title'       => __('Currency Settings', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
-                                     ],
-                                ],
-                            ] ),
+                    'sections' => apply_filters( 'atbdp_currency_settings_sections', [
+                        'title_metas' => [
+                            'title'       => __('Currency Settings', 'directorist'),
+                            'description' => '',
+                            'fields'      => [ 
+                                'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
+                             ],
                         ],
-                    ]),
+                    ] ),
                 ],
 
                 'categories_locations' => [
                     'label' => __( 'Location & Category', 'directorist' ),
-                    'icon' => '<i class="fa fa-list-alt directorist_danger"></i>',
+                    'icon' => '<i class="fa fa-list-alt directorist_Blue"></i>',
                     'submenu' => apply_filters('atbdp_location_category_settings_submenu', [
                         'categories_locations_settings' => [
                             'label' => __('Categories & Locations Page Settings', 'directorist'),
@@ -5121,7 +5106,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'extension_settings' => [
                     'label' => __( 'Extensions Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-magic directorist_danger"></i>',
+                    'icon' => '<i class="fa fa-magic directorist_success"></i>',
                     'submenu' => apply_filters('atbdp_extension_settings_submenu', [
                         'extensions_general' => [
                             'label' => __('Extensions General', 'directorist'),
@@ -5139,7 +5124,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'email_settings' => [
                     'label' => __( 'Email Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-envelope directorist_danger"></i>',
+                    'icon' => '<i class="fa fa-envelope directorist_info"></i>',
                     'submenu' => apply_filters('atbdp_email_settings_submenu', [
                         'email_general' => [
                             'label' => __('Email General', 'directorist'),
@@ -5261,7 +5246,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'login_registration_settings' => [
                     'label' => __( 'Registration & Login', 'directorist' ),
-                    'icon' => '<i class="fa fa-align-right directorist_danger"></i>',
+                    'icon' => '<i class="fa fa-align-right directorist_wordpress"></i>',
                     'submenu' => apply_filters('atbdp_login_registration_settings_submenu', [
                         'registration_settings' => [
                             'label' => __('Registration Form', 'directorist'),
@@ -5412,7 +5397,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'style_settings' => [
                     'label' => __( 'Style Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-adjust directorist_danger"></i>',
+                    'icon' => '<i class="fa fa-adjust directorist_pink"></i>',
                     'submenu' => apply_filters('atbdp_style_settings_submenu', [
                         'color_settings' => [
                             'label' => __('Color', 'directorist'),
@@ -5485,7 +5470,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'tools' => [
                     'label' => __( 'Tools', 'directorist' ),
-                    'icon' => '<i class="fa fa-tools directorist_danger"></i>',
+                    'icon' => '<i class="fa fa-tools directorist_info"></i>',
                     'submenu' => apply_filters('atbdp_tools_submenu', [
                         'announcement_settings' => [
                             'label'     => __('Announcement', 'directorist'),
@@ -5523,7 +5508,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 'monetization_settings' => [
                     'label' => __( 'Monetization', 'directorist' ),
-                    'icon' => '<i class="fa fa-money-bill-alt directorist_danger"></i>',
+                    'icon' => '<i class="fa fa-money-bill-alt directorist_success"></i>',
                     'submenu' => apply_filters('atbdp_monetization_settings_submenu', [
                         'monetization_general' => [
                             'label' => __('Monetization Settings', 'directorist'),

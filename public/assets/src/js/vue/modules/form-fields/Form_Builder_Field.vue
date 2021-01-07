@@ -620,13 +620,15 @@ export default {
 
       return this.active_field_collapse_states[field_key].collapsed ? true : false;
     },
+
     toggleActiveGroupCollapseState(group_key) {
       if ( typeof this.active_group_collapse_states[group_key] === "undefined" ) {
         Vue.set(this.active_group_collapse_states, group_key, {});
         Vue.set( this.active_group_collapse_states[group_key], "collapsed", true );
       }
 
-      Vue.set( this.active_group_collapse_states[group_key], "collapsed", true );
+      let state = ! this.active_group_collapse_states[group_key].collapsed;
+      Vue.set( this.active_group_collapse_states[group_key], "collapsed", state );
     },
 
     getActiveGroupCollapseState(group_key) {
@@ -638,12 +640,13 @@ export default {
       if ( typeof this.active_group_collapse_states[group_key] !== "undefined" ) {
         group_is_collapsed = this.active_group_collapse_states[group_key].collapsed;
       }
+
       let group_is_dragging = ('' !== this.current_dragging_group) ? true : false;
       let widget_group_is_dragging = ('' !== this.current_dragging_widget_group) ? true : false;
       // console.log( { group_is_collapsed,  group_is_dragging } );
-      if ( group_is_collapsed && ! group_is_dragging && ! widget_group_is_dragging ) {
-        return true;
-      }
+      
+      if ( group_is_collapsed ) { return true; }
+
       return false;
     },
     toggleActiveGroupOptionCollapseState(group_key) {

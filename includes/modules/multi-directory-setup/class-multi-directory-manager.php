@@ -4915,8 +4915,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'id'      => $listing_type_id,
             ];
 
-            $this->enqueue_scripts();
-
             if ( ! empty( $action ) && ('edit' === $action || 'add_new' === $action) ) {
                 wp_localize_script('atbdp_admin_app', 'cptm_data', $cptm_data);
                 atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
@@ -5012,7 +5010,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             $this->delete_listing_type($term_id);
 
-
             wp_redirect(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types'));
             exit;
         }
@@ -5056,7 +5053,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         }
 
         // enqueue_scripts
-        public function enqueue_scripts()
+        public function enqueue_scripts( $page = '' )
         {
             wp_enqueue_media();
             wp_enqueue_style('atbdp-unicons');
@@ -5071,7 +5068,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         }
 
         // register_scripts
-        public function register_scripts()
+        public function register_scripts( $page = '' )
         {
             wp_register_style('atbdp-unicons', '//unicons.iconscout.com/release/v3.0.3/css/line.css', false);
             wp_register_style('atbdp-select2-style', '//cdn.bootcss.com/select2/4.0.0/css/select2.css', false);
@@ -5082,6 +5079,10 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             wp_register_style( 'atbdp_admin_css', ATBDP_PUBLIC_ASSETS . 'css/admin_app.css', [], '1.0' );
             wp_register_script( 'atbdp_admin_app', ATBDP_PUBLIC_ASSETS . 'js/admin_app.js', ['jquery'], false, true );
+
+            if ( 'at_biz_dir_page_atbdp-directory-types' === $page ) {
+                $this->enqueue_scripts();
+            }
         }
     }
 }

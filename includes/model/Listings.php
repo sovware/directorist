@@ -42,6 +42,7 @@ class Directorist_Listings {
 	public $logged_in_user_only;
 	public $redirect_page_url;
 	public $listings_map_height;
+	public $map_zoom_level;
 
 	public $query;
 	public $loop;
@@ -262,6 +263,7 @@ class Directorist_Listings {
 			'logged_in_user_only'      => '',
 			'redirect_page_url'        => '',
 			'map_height'               => $this->options['listings_map_height'],
+			'map_zoom_level'		   => $this->options['map_view_zoom_level']  
 		);
 
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
@@ -289,6 +291,7 @@ class Directorist_Listings {
 		$this->logged_in_user_only      = $this->params['logged_in_user_only'] == 'yes' ? true : false;
 		$this->redirect_page_url        = $this->params['redirect_page_url'];
 		$this->listings_map_height      = ( ! empty( $this->params['map_height'] ) ) ? (int) $this->params['map_height'] : $defaults['map_height'];
+		$this->map_zoom_level           = ( ! empty( $this->params['map_zoom_level'] ) ) ? (int) $this->params['map_zoom_level'] : $defaults['map_zoom_level'];
 	}
 
 	public function prepare_data() {
@@ -374,12 +377,8 @@ class Directorist_Listings {
 		$listing_type = $this->current_listing_type;
 		$card_fields  = get_term_meta( $listing_type, 'listings_card_grid_view', true );
 		$list_fields  = get_term_meta( $listing_type, 'listings_card_list_view', true );
-		// dvar_dump($card_fields);
 
-
-		
-
-		$data = array(
+		$this->loop = array(
 			'id'                   => $id,
 			'card_fields'          => $card_fields,
 			'list_fields'          => $list_fields,
@@ -406,8 +405,6 @@ class Directorist_Listings {
 			'avatar_img'              => get_avatar( $author_id, apply_filters( 'atbdp_avatar_size', 32 ) ),
 			'review'                  => $this->get_review_data(),
 		);
-
-		$this->loop = $data;
 	}
 
 	public function get_review_data() {
@@ -1151,7 +1148,20 @@ class Directorist_Listings {
 				 */
 				do_action( 'atbdp_listings_loop', $counter );
 				$this->set_loop_data();
-				atbdp_get_shortcode_template( "listings-archive/loop/" . $args['template'], array('listings' => $this) );
+
+				if ( $args['template'] == 'grid' ) {
+					$active_template = $this->loop['card_fields']['active_template'];
+					$template = $active_template == 'grid_view_with_thumbnail' ? 'grid' : 'grid-nothumb';
+				}
+				elseif ( $args['template'] == 'list' ) {
+					$active_template = $this->loop['list_fields']['active_template'];
+					$template = $active_template == 'list_view_with_thumbnail' ? 'list' : 'list-nothumb';
+				}
+				else {
+					$template = $args['template'];
+				}
+
+				atbdp_get_shortcode_template( "listings-archive/loop/" . $template, array('listings' => $this) );
 			endforeach;
 
 			$GLOBALS['post'] = $original_post;
@@ -1188,11 +1198,11 @@ class Directorist_Listings {
 		global $wp;
 		$current_url =  home_url( $wp->request ) . '/';
 		$pattern = '/page\\/[0-9]+\\//i';
-		$actual_link = preg_replace($pattern, '', $current_url);
+		//$actual_link = preg_replace($pattern, '', $current_url);
+		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : '';
 		foreach ( $options as $value => $label ) {
 			$active_class = ( $value == $current_order ) ? ' active' : '';
 			$link         = add_query_arg( 'sort', $value, $actual_link );
-
 			$link_item['active_class'] = $active_class;
 			$link_item['link']         = $link;
 			$link_item['label']        = $label;
@@ -1365,7 +1375,7 @@ class Directorist_Listings {
 		$opt['display_title_map']     = $this->options['display_title_map'];
 		$opt['display_address_map']   = $this->options['display_address_map'];
 		$opt['display_direction_map'] = $this->options['display_direction_map'];
-		$opt['zoom']                  = $this->options['map_view_zoom_level'];
+		$opt['zoom']                  = $this->map_zoom_level;
 		$opt['default_image']         = $this->options['default_preview_image'];
 
 		$opt['disable_single_listing'] = $this->disable_single_listing;

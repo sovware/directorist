@@ -14,6 +14,8 @@ jQuery(document).ready(function ($) {
         });
     }
 
+    // @kowsar @todo rebuild validation
+    /*
     $('.listing_submit_btn').on('click', function (e) {
         $('.atbdp_required').css({display: "none"});
         var w_icon = '<span class="fa fa-exclamation-triangle"></span> ';
@@ -229,5 +231,6 @@ jQuery(document).ready(function ($) {
             }
         }
     });
+    */
 
 });

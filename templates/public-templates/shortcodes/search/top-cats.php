@@ -5,13 +5,7 @@
  * @version 6.6
  */
 ?>
-<div class="directory_home_category_area">
-
-	<?php if ($searchform->show_connector) { ?>
-		<span><?php echo esc_html( $searchform->connectors_title ); ?></span>
-	<?php } ?>
-
-	<p><?php echo esc_html($searchform->popular_cat_title); ?></p>
+<div class="directory_home_category_area atbdp_search-category">
 
 	<ul class="categories atbdp_listing_top_category">
 		<?php foreach ($top_categories as $cat) { ?>

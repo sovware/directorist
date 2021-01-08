@@ -56,6 +56,14 @@ endif;
             <strong><?php _e( "Featured", 'directorist' ); ?></strong>
         </label>
     </div>
-<?php } ?>
+<?php } 
 
+$listing_types = array();
+$all_types     = get_terms(
+    array(
+        'taxonomy'   => ATBDP_TYPE,
+        'hide_empty' => false,
+    )
+);
+?>
 <input type="hidden" name="listing_status" value="<?php echo !empty( $listing_status ) ? $listing_status : 'post_status'; ?>" />

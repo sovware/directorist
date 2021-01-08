@@ -58,10 +58,53 @@ if (!class_exists('ATBDP_Listing')):
             add_filter('post_thumbnail_html', array($this, 'post_thumbnail_html'), 10, 3);
             add_action('wp_head', array($this, 'og_metatags'));
             add_action('template_redirect', array($this, 'atbdp_listing_status_controller'));
-
+            // listing filter
+            add_action('restrict_manage_posts', array($this, 'atbdp_listings_filter'));
+            add_filter('parse_query', array($this, 'listing_type_search_query'));
         }
 
+        public function listing_type_search_query( $query )
+        {
+            global $pagenow;
+            $type = 'post';
+            if (isset($_GET['post_type'])) {
+                $type = $_GET['post_type'];
+            }
+            if ('at_biz_dir' == $type && is_admin() && $pagenow == 'edit.php' && isset($_GET['directory_type'])) {
+                $value = isset($_GET['directory_type']) ? sanitize_text_field($_GET['directory_type']) : '';
+                $tax_query = array(
+                    'relation' => 'AND',
+                    array(
+                        'taxonomy' => ATBDP_TYPE,
+                        'terms'    => $value,
+                    ),
+                );
+                $query->set( 'tax_query', $tax_query );
+            }
+        }
         
+        public function atbdp_listings_filter(  ) {
+            $type = 'post';
+            if (isset($_GET['post_type'])) {
+                $type = $_GET['post_type'];
+            }
+            //only add filter to post type you want
+            if ('at_biz_dir' == $type) { ?>
+                <select name="directory_type">
+                    <option value=""><?php _e('Filter by directory ', 'directorist-post-your-need'); ?></option>
+                    <?php
+                    $current_v = isset($_GET['directory_type']) ? $_GET['directory_type'] : '';
+                    $listing_types = get_terms([
+                        'taxonomy'   => 'atbdp_listing_types',
+                        'hide_empty' => false,
+                      ]);
+                      foreach ($listing_types as $listing_type) { ?>
+                        <option value="<?php echo esc_attr( $listing_type->term_id ); ?>" <?php echo $listing_type->term_id == $current_v ? ' selected="selected"' : ''; ?>><?php echo esc_attr( $listing_type->name ); ?></option>
+                        <?php } ?>
+                </select>
+            <?php
+            }
+        }
 
         /**
          * @since 6.3.5
@@ -79,8 +122,12 @@ if (!class_exists('ATBDP_Listing')):
                 $id = ( ! empty( $id ) ) ? $id : $listing_id;
                 $id = ( ! empty( $id ) ) ? $id : get_the_ID();
 
+                $directory_type = get_post_meta( $id, '_directory_type', true );
+                $new_l_status = get_term_meta( $directory_type, 'new_listing_status', true );
+                $edit_l_status = get_term_meta( $directory_type, 'edit_listing_status', true );
+
                 $edited = isset($_GET['edited']) ? esc_attr($_GET['edited']) : '';
-                $args = [ 'id' => $id, 'edited' => $edited ];
+                $args = [ 'id' => $id, 'edited' => $edited, 'new_l_status' => $new_l_status, 'edit_l_status' => $edit_l_status ];
                 $post_status = atbdp_get_listing_status_after_submission( $args );
 
                 $args = array(

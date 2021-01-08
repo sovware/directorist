@@ -1,0 +1,94 @@
+<template>
+    <div class="cptm-tab-content" :class="containerClass">
+        <div class="cptm-section" :class="sectionClass( section )" v-for="( section, section_key ) in sections" :key="section_key">
+            <div class="cptm-title-area" :class="sectionTitleAreaClass( section )">
+                <h3 v-if="typeof section.title === 'string'" class="cptm-title" v-html="section.title"></h3>
+                <p v-if="typeof section.description === 'string'" v-html="section.description"></p>
+            </div>
+            
+            <div class="cptm-form-fields" v-if="sectionFields( section )">
+                <template v-for="( field, field_key ) in sectionFields( section )">
+                    <component
+                        v-if="fields[ field ]"
+                        :root="fields"
+                        :is="getFormFieldName( fields[ field ].type )" 
+                        :field-id="field"
+                        :id="menuKey + '__' + section_key + '__' + field"
+                        :ref="field"
+                        :class="{['highlight-field']: getHighlightState( field ) }"
+                        :key="field_key"
+                        v-bind="fields[ field ]"
+                        @update="updateFieldValue( field, $event )"
+                        @validate="updateFieldValidationState( field, $event )"
+                        @do-action="doAction( $event, 'sections-module' )"
+                    />
+                </template>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import helpers from './../mixins/helpers';
+import { mapState } from 'vuex';
+
+export default {
+    name: 'sections-module',
+    mixins: [ helpers ],
+
+    props: {
+        sections: {
+            type: Object
+        },
+        container: {
+            type: String,
+            default: '',
+        },
+        menuKey: {
+            type: String,
+            default: ''
+        },
+    },
+
+    computed: {
+        ...mapState([
+            'metaKeys',
+            'fields',
+        ]),
+
+        containerClass() {
+            return {
+                'tab-wide': ( 'wide' === this.container ) ? true : false,
+                'tab-full-width': ( 'full-width' === this.container ) ? true : false,
+            }
+        },
+    },
+
+    watch: {
+        fields() {
+            console.log( 'updated' );
+        }
+    },
+
+    methods: {
+        sectionFields( section ) {
+            if ( ! this.isObject( section )) { return false; }
+            if ( ! Array.isArray( section.fields )) { return false; }
+
+            return section.fields;
+        },
+
+        sectionClass( section ) {
+            return {
+                'cptm-short-wide': ( 'short-width' === section.container ) ? true : false,
+            }
+        },
+
+        sectionTitleAreaClass( section ) {
+            return {
+                'cptm-text-center': ( 'center' === section.title_align ) ? true : false,
+            }
+        }
+    },
+}
+</script>

@@ -222,9 +222,19 @@ final class Directorist_Base
             add_action('widgets_init', array(self::$instance, 'register_widgets'));
 
             self::$instance->includes();
+
+            self::$instance->enquirer = new ATBDP_Enqueuer;
+            
+            // ATBDP_Listing_Type_Manager
+            self::$instance->multi_directory_manager = new ATBDP_Multi_Directory_Manager;
+            self::$instance->multi_directory_manager->run();
+
+            self::$instance->settings_panel = new ATBDP_Settings_Panel;
+            self::$instance->settings_panel->run();
+
             self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
-            self::$instance->enquirer = new ATBDP_Enqueuer;
+            
             self::$instance->hooks = new ATBDP_Hooks;
             self::$instance->metabox = new ATBDP_Metabox;
             self::$instance->ajax_handler = new ATBDP_Ajax_Handler;
@@ -233,7 +243,7 @@ final class Directorist_Base
             self::$instance->user = new ATBDP_User;
             self::$instance->roles = new ATBDP_Roles;
             self::$instance->gateway = new ATBDP_Gateway;
-            self::$instance->custom_field = new ATBDP_Custom_Field;
+            // self::$instance->custom_field = new ATBDP_Custom_Field;
             self::$instance->order = new ATBDP_Order;
             self::$instance->shortcode = new ATBDP_Shortcode;
             self::$instance->email = new ATBDP_Email;
@@ -244,6 +254,7 @@ final class Directorist_Base
             self::$instance->announcement = new ATBDP_Announcement;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
             self::$instance->update_database();
+
             // new settings
             new ATBDP_Settings_Manager();
             /*Extensions Link*/
@@ -278,6 +289,8 @@ final class Directorist_Base
             if (get_option('atbdp_meta_version') < 1) {
                 add_action('init', array(self::$instance, 'add_custom_meta_keys_for_old_listings'));
             }
+
+        
             // init offline gateway
             new ATBDP_Offline_Gateway;
             // Init Cron jobs to run some periodic tasks
@@ -434,6 +447,8 @@ final class Directorist_Base
         load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
         load_dependencies('all', ATBDP_INC_DIR . 'model/');
         load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
+        load_dependencies('all', ATBDP_INC_DIR . 'modules/');
+        load_dependencies('all', ATBDP_INC_DIR . 'modules/multi-directory-setup/');
 
         load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
         load_dependencies('all', ATBDP_MODEL_DIR); // load all php files from ATBDP_MODEL_DIR

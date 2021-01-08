@@ -18,7 +18,8 @@ do_action('atbdp_before_all_listings_list', $listings);
     <?php
     /**
      * @since 6.6
-     * @hooked Directorist_Listings::archive_header - 10
+     * @hooked Directorist_Listings::archive_type - 10
+     * @hooked Directorist_Listings::archive_header - 15
      */
     do_action( 'directorist_archive_header', $listings );
 

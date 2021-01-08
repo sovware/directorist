@@ -199,7 +199,14 @@ class ATBDP_Permalink{
     {
         $link = home_url();
         $id = get_directorist_option('add_listing_page');
-        if( $id ) $link = get_permalink( $id )."?plan=$plan_id";
+        if( $id ) {
+            $args = [
+                'listing_type' => isset( $_GET['listing_type'] ) ? $_GET['listing_type'] : '',
+                'plan' => $plan_id,
+            ];
+            $link = get_permalink( $id );
+            $link = add_query_arg( $args, $link);
+        } 
         return apply_filters('atbdp_add_listing_page_url', $link );
     }
 

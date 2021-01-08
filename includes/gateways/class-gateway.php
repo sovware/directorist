@@ -124,15 +124,6 @@ class ATBDP_Gateway{
                     'description' => __('You can enabled this option to collect payment from your user for making their listing featured.', 'directorist'),
                     'default' => '',
                 ),
-
-                array(
-                    'type' => 'textbox',
-                    'name' => 'featured_listing_title',
-                    'label' => __('Title', 'directorist'),
-                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
-                    'default' => __('Featured', 'directorist'),
-                ),
-
                 array(
                     'type' => 'textarea',
                     'name' => 'featured_listing_desc',
@@ -312,7 +303,7 @@ class ATBDP_Gateway{
         $default_gw = get_directorist_option('default_gateway', 'bank_transfer');
         if ( empty( $active_gateways ) ) return ''; // if the gateways are empty, vail out.
         
-        $format = <<<KAMAL
+        $format = '
         <li class="list-group-item">
             <div class="gateway_list">
                 <label for="##GATEWAY##">
@@ -320,8 +311,7 @@ class ATBDP_Gateway{
                 </label>
             </div>
             ##DESC##
-        </li>
-        KAMAL;
+        </li>';
 
         $markup = '<ul>';
         foreach ($active_gateways as $gw_name){

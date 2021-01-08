@@ -67,11 +67,96 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             // regenerate pages
             add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
+            // default listing type
+            add_action('wp_ajax_atbdp_listing_default_type', array($this, 'atbdp_listing_default_type'));
             
             // Guset Reception
             add_action('wp_ajax_atbdp_guest_reception', array($this, 'guest_reception'));
             add_action('wp_ajax_nopriv_atbdp_guest_reception', array($this, 'guest_reception'));
 
+            // custom field
+            add_action('wp_ajax_atbdp_custom_fields_listings',                 array($this, 'ajax_callback_custom_fields'), 10, 2);
+            add_action('wp_ajax_nopriv_atbdp_custom_fields_listings',          array($this, 'ajax_callback_custom_fields'), 10, 2);
+            // add_action('wp_ajax_atbdp_custom_fields_listings_front_selected',        array($this, 'ajax_callback_custom_fields'), 10, 2);
+            // add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
+            // add_action('wp_ajax_atbdp_custom_fields_listings',                       array($this, 'ajax_callback_custom_fields'), 10, 2 );
+            // add_action('wp_ajax_atbdp_custom_fields_listings_selected',              array($this, 'ajax_callback_custom_fields'), 10, 2 );
+            
+            add_action('wp_ajax_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
+            add_action('wp_ajax_nopriv_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
+        }
+
+        // atbdp_listing_types_form
+        public function atbdp_listing_types_form() {
+            $listing_type = !empty( $_POST['listing_type'] ) ? esc_attr( $_POST['listing_type'] ) : '';
+            $searchform = new Directorist_Listing_Search_Form( 'search_form', $listing_type, [] );
+            ob_start();
+            ?>
+            <div class="row atbdp-search-form atbdp-search-form-inline">
+                    <?php
+                    foreach ( $searchform->form_data[0]['fields'] as $field ){
+                        $searchform->field_template( $field );
+                    }
+                    if ( $searchform->more_filters_display !== 'always_open' ){
+                        $searchform->more_buttons_template();
+                    }
+                    ?>
+                </div>
+                <?php
+                if ( $searchform->more_filters_display == 'always_open' ){
+                    $searchform->advanced_search_form_fields_template();
+                }
+                else {
+
+                    if ($searchform->has_more_filters_button) { ?>
+                        <div class="<?php echo ('overlapping' === $searchform->more_filters_display ) ? 'ads_float' : 'ads_slide' ?>">
+                            <?php $searchform->advanced_search_form_fields_template();?>
+                        </div>
+                        <?php
+                    }
+                }
+            print ob_get_clean();
+            die;
+        }
+
+        public function atbdp_listing_default_type() {
+            $type_id = sanitize_key( $_POST[ 'type_id' ] );
+            $listing_types = get_terms([
+                'taxonomy'   => 'atbdp_listing_types',
+                'hide_empty' => false,
+              ]);
+              foreach ($listing_types as $listing_type) {
+                if( $listing_type->term_id !== (int) $type_id ){
+                    update_term_meta( $listing_type->term_id, '_default', false );
+                }
+              }
+            update_term_meta( $type_id, '_default', true );
+            wp_send_json( 'Updated Successfully!' );
+        }
+
+        public function ajax_callback_custom_fields() {
+
+            $listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
+            $categories = !empty( $_POST['term_id'] ) ? atbdp_sanitize_array( $_POST['term_id'] ) : '';
+            $post_id = !empty( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : '';
+            // wp_send_json($post_id);
+            $template = '';
+            if( $listing_type ){
+                $submission_form = get_term_meta( $listing_type, 'submission_form_fields', true );
+                $submission_form_fields = $submission_form['fields'];
+             }
+             foreach( $submission_form_fields as $key => $value ){
+                $value['request_from_no_admin'] = true;
+                $category = !empty( $value['category'] ) ? $value['category'] : '';
+                if( $category ) {
+                    if( in_array( $category, $categories ) ) {
+                        ob_start();
+                        Directorist_Listing_Forms::instance()->add_listing_category_custom_field_template( $value, $post_id );
+                        $template .= ob_get_clean();
+                    }      
+                }
+            }
+           wp_send_json( $template );
         }
 
         // guest_reception

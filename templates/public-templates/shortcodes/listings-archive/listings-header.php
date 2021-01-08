@@ -5,7 +5,6 @@
  * @version 6.6
  */
 ?>
-<!-- listings-archive > listings-header  -->
 <div class="atbd_header_bar">
 	<div class="<?php $listings->header_container_class();?>">
 		<div class="row">

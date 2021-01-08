@@ -22,7 +22,9 @@
          */
         do_action( 'directorist_dashboard_title_area', $display_title );
         ?>
-
+        <div class="atbd-dashboard-nav-toggle-icon">
+            <a href="" class="atbd-dashboard-nav-toggler"><i class="la la-bars"></i></a>
+        </div>
         <div class="atbd_dashboard_wrapper atbd_tab">
             <div class="atbd_user_dashboard_nav atbd_tab_nav">
 
@@ -46,14 +48,17 @@
                  */
                 do_action( 'directorist_dashboard_tab_contents');
                 ?>
-                
+
             </div>
         </div>
     </div>
 </div>
+
+
+
 <?php
 /**
  * @package Directorist
  * @since 5.9.3
  */
-do_action('atbdp_after_user_dashboard');
+do_action('directorist_after_user_dashboard');

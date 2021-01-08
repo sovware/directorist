@@ -16,8 +16,5 @@
 			}
 			?>
 		<?php endforeach; ?>
-		<li class="atbdp_tab_nav--content-link atbdp-tab-nav-last">
-			<a href="#" class="atbdp-tab-nav-link"><span class="fa fa-ellipsis-h"></span></a>
-		</li>
 	</ul>
 </div>

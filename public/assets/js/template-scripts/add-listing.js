@@ -137,12 +137,11 @@
                 $('#at_biz_dir-tags').select2({
                         placeholder: atbdp_add_listing.i18n_text.tag_selection,
                         allowClear: true,
-                        tags: true,
                         tokenSeparators: [','],
                 });
         }
         $('#at_biz_dir-categories').select2({
-                placeholder: atbdp_add_listing.cat_placeholder,
+                placeholder: atbdp_add_listing.i18n_text.cat_placeholder,
                 allowClear: true,
         });
 })(jQuery);
@@ -194,64 +193,81 @@ jQuery(function($) {
 
         // Load custom fields of the selected category in the custom post type "atbdp_listings"
         $('#at_biz_dir-categories').on('change', function() {
-                $('#atbdp-custom-fields-list').html('<div class="spinner"></div>');
+                var directory_type =  qs.listing_type ?  qs.listing_type : $('input[name="directory_type"]').val();
                 const length = $('#at_biz_dir-categories option:selected');
                 const id = [];
                 length.each((el, index) => {
                         id.push($(index).val());
                 });
                 const data = {
-                        action: 'atbdp_custom_fields_listings_front',
-                        post_id: $('#atbdp-custom-fields-list').data('post_id'),
-                        term_id: id,
+                        action          : 'atbdp_custom_fields_listings',
+                        post_id         : $('input[name="listing_id"]').val(),
+                        term_id         : id,
+                        directory_type  : directory_type,
                 };
+             
                 $.post(atbdp_add_listing.ajaxurl, data, function(response) {
-                        if (response == ' 0') {
-                                $('#atbdp-custom-fields-list').hide();
-                        } else {
-                                $('#atbdp-custom-fields-list').show();
-                        }
-                        $('#atbdp-custom-fields-list').html(response);
-                        function atbdp_tooltip(){
-                                var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
-                                atbd_tooltip.forEach(function(el){
-                                    if(el.getAttribute('aria-label') !== " "){
-                                        document.body.addEventListener('mouseover', function(e) {
-                                            for (var target = e.target; target && target != this; target = target.parentNode) {
-                                                if (target.matches('.atbd_tooltip')) {
-                                                    el.classList.add('atbd_tooltip_active');
+                       
+                       if( response ){
+                                $( '.atbdp_category_custom_fields' ).empty().append( response );
+                                function atbdp_tooltip(){
+                                        var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
+                                        atbd_tooltip.forEach(function(el){
+                                        if(el.getAttribute('aria-label') !== " "){
+                                                document.body.addEventListener('mouseover', function(e) {
+                                                for (var target = e.target; target && target != this; target = target.parentNode) {
+                                                        if (target.matches('.atbd_tooltip')) {
+                                                        el.classList.add('atbd_tooltip_active');
+                                                        }
                                                 }
-                                            }
-                                        }, false);
-                                    }
-                                });
+                                                }, false);
+                                        }
+                                        });
+                                }
+                                atbdp_tooltip();
+                        }else {
+                                $( '.atbdp_category_custom_fields' ).empty();
                         }
-                        atbdp_tooltip();
                 });
-
-                $('#atbdp-custom-fields-list-selected').hide();
         });
 
-        var length = $('#at_biz_dir-categories option:selected');
 
-        if (length) {
-                $('#atbdp-custom-fields-list-selected').html('<div class="spinnedsr"></div>');
-
-                var length = $('#at_biz_dir-categories option:selected');
+        // Load custom fields of the selected category in the custom post type "atbdp_listings"
+        $( document ).ready( function() {
+                var directory_type =  qs.listing_type ?  qs.listing_type : $('input[name="directory_type"]').val();
+                const length = $('#at_biz_dir-categories option:selected');
                 const id = [];
                 length.each((el, index) => {
                         id.push($(index).val());
                 });
                 const data = {
-                        action: 'atbdp_custom_fields_listings_front_selected',
-                        post_id: $('#atbdp-custom-fields-list-selected').data('post_id'),
-                        term_id: id,
+                        action          : 'atbdp_custom_fields_listings',
+                        post_id         : $('input[name="listing_id"]').val(),
+                        term_id         : id,
+                        directory_type  : directory_type,
                 };
-
                 $.post(atbdp_add_listing.ajaxurl, data, function(response) {
-                        $('#atbdp-custom-fields-list-selected').html(response);
+                       if( response ){
+                                $( '.atbdp_category_custom_fields' ).empty().append( response );
+                                function atbdp_tooltip(){
+                                        var atbd_tooltip = document.querySelectorAll('.atbd_tooltip');
+                                        atbd_tooltip.forEach(function(el){
+                                        if(el.getAttribute('aria-label') !== " "){
+                                                document.body.addEventListener('mouseover', function(e) {
+                                                for (var target = e.target; target && target != this; target = target.parentNode) {
+                                                        if (target.matches('.atbd_tooltip')) {
+                                                        el.classList.add('atbd_tooltip_active');
+                                                        }
+                                                }
+                                                }, false);
+                                        }
+                                        });
+                                }
+                                atbdp_tooltip();
+                        }
                 });
-        }
+        });
+
 
         function atbdp_is_checked(name) {
                 const is_checked = $(`input[name="${name}"]`).is(':checked');
@@ -259,6 +275,40 @@ jQuery(function($) {
                         return '1';
                 }
                 return '';
+        }
+
+        function setup_form_data( form_data, type, field ){
+                 //normal input
+                 if( ( type === 'hidden' ) || ( type === 'text' ) || ( type === 'number' ) || ( type === 'tel' ) || ( type === 'email' ) || ( type === 'date' ) || ( type === 'time' ) || ( type === 'url' ) ){
+                        form_data.append( field.name, field.value );   
+                }
+                //textarea
+                if( 'textarea' === type ){
+                        const value = $('#'+ field.name + '_ifr').length ? tinymce.get( field.name ).getContent() : atbdp_element_value( 'textarea[name="'+ field.name +'"]' );
+                        form_data.append( field.name, value );     
+                }
+                //radio
+                if( 'radio' === type ){
+                        form_data.append( field.name, atbdp_element_value( 'input[name="'+ field.name +'"]:checked' ) );
+                }
+                // checkbox
+                if( 'checkbox' === type ) {
+                        var values = [];
+                        var new_field = $('input[name^="'+ field.name +'"]:checked');
+                        if (new_field.length > 1) {
+                                new_field.each(function() {
+                                        var value = $(this).val();
+                                        values.push( value );
+                                });
+                                form_data.append( field.name , values);
+                        }else{
+                                form_data.append( field.name, atbdp_element_value( 'input[name="'+ field.name +'"]:checked' ) ); 
+                        }
+                }
+                //select
+                if( 'select-one' === type ){
+                        form_data.append( field.name, atbdp_element_value( 'select[name="'+ field.name +'"]' ) );
+                }
         }
 
         function atbdp_element_value(element) {
@@ -279,24 +329,25 @@ jQuery(function($) {
                 }
                 return b;
         })(window.location.search.substr(1).split('&'));
-
-        let listingMediaUploader = null;
-        if ($('#_listing_gallery').length) {
-                listingMediaUploader = new EzMediaUploader({
-                        containerID: '_listing_gallery',
-                });
-                listingMediaUploader.init();
+        const uploaders = atbdp_add_listing.media_uploader;
+        let mediaUploaders = [];
+        if( uploaders ){
+                let i = 0;
+                for( var uploader of uploaders ){
+                        if( $('#' + uploader['element_id'] ).length ) {
+                                let media_uploader = new EzMediaUploader({
+                                        containerID: uploader['element_id'],
+                                });
+                                mediaUploaders.push( {
+                                        media_uploader: media_uploader,
+                                        uploaders_data: uploader,
+                                } );
+                                mediaUploaders[i].media_uploader.init();
+                                i++;
+                        } 
+                }
         }
-
-        let listignsGalleryUploader = null;
-        if ($('#listing_gallery_ext').length) {
-                // gallery
-                listignsGalleryUploader = new EzMediaUploader({
-                        containerID: 'listing_gallery_ext',
-                });
-                listignsGalleryUploader.init();
-        }
-
+        
         const formID = $('#add-listing-form');
         let on_processing = false;
         let has_media = true;
@@ -305,159 +356,108 @@ jQuery(function($) {
                 e.preventDefault();
                 let error_count = 0;
                 const err_log = {};
-                if ($('#atbdp_front_media_wrap:visible').length == 0) {
-                        has_media = false;
-                }
+                // if ($('#atbdp_front_media_wrap:visible').length == 0) {
+                //         has_media = false;
+                // }
                 if (on_processing) {
                         $('.listing_submit_btn').attr('disabled', true);
                         return;
                 }
 
-                const form_data = new FormData();
+                let form_data = new FormData();
+                let field_list = [];
+                let field_list2 = [];
                 $('.listing_submit_btn').addClass('atbd_loading');
-
-                function atbdp_multi_select(field, name) {
-                        var field = $(`${field}[name^="${name}"]`);
-                        if (field.length) {
-                                if (field.length > 1) {
-                                        field.each(function(index, value) {
-                                                const type = $(value).attr('type');
-                                                if (type !== 'checkbox') {
-                                                        const name = $(this).attr('name');
-                                                        var value = $(this).val();
-                                                        form_data.append(name, value);
-                                                }
-                                        });
-                                } else {
-                                        var name = field.attr('name');
-                                        const value = field.val();
-                                        form_data.append(name, value);
-                                }
-                        }
-                }
-
-                // ajax action
                 form_data.append('action', 'add_listing_action');
+                const fieldValuePairs = $('#add-listing-form').serializeArray();
+                $.each( fieldValuePairs, function( index, fieldValuePair ) {
+                        const field = document.getElementsByName( fieldValuePair.name )[0];
+                        const type = field.type;
+                        field_list.push( { name: field.name, });   
+                        //array fields
+                        if ( field.name.indexOf('[') > -1 ){
+                                const field_name = field.name.substr(0, field.name.indexOf("["));
+                                const ele = $( "[name^='"+ field_name +"']" );
+                                // process tax input
+                                if( 'tax_input' !== field_name ){
+                                        if ( ele.length && ( ele.length > 1 ) ) {
+                                                ele.each(function(index, value) {
+                                                        const field_type = $(this).attr('type');
+                                                        var name = $(this).attr('name');
+                                                        if (field_type === 'radio') {
+                                                                if ($(this).is(':checked')) {
+                                                                        form_data.append(name, $(this).val());
+                                                                }
+                                                        } else if (field_type === 'checkbox') {
+                                                                const new_field = $('input[name^="'+ name +'"]:checked');
+                                                                if (new_field.length > 1) {
+                                                                        new_field.each(function() {
+                                                                                const name = $(this).attr('name');
+                                                                                const value = $(this).val();
+                                                                                form_data.append(name, value);
+                                                                        });
+                                                                } else {
+                                                                        var name = new_field.attr('name');
+                                                                        var value = new_field.val();
+                                                                        form_data.append(name, value);
+                                                                }
+                                                        } else {
+                                                                var name = $(this).attr('name');
+                                                                var value = $(this).val();
+                                                                if (!value) {
+                                                                        value = $(this).attr('data-time');
+                                                                }
+                                                                form_data.append(name, value);
+                                                        }
+                                                });
+                                        } else {
+                                                const name = ele.attr('name');
+                                                const value = ele.val();
+                                               
+                                                form_data.append( name, value );
+                                        } 
+                                }       
+                        }else{
+                                //  field_list2.push({ nam: name, val: value, field: field, type: type})
+                                setup_form_data( form_data, type, field );
+                        }        
+                });
 
-                if (listingMediaUploader && has_media) {
-                        var hasValidFiles = listingMediaUploader.hasValidFiles();
-                        if (hasValidFiles) {
-                                // files
-                                var files = listingMediaUploader.getTheFiles();
-                                if (files) {
-                                        for (var i = 0; i < files.length; i++) {
-                                                form_data.append('listing_img[]', files[i]);
-                                        }
-                                }
-                                var files_meta = listingMediaUploader.getFilesMeta();
-                                if (files_meta) {
-                                        for (var i = 0; i < files_meta.length; i++) {
-                                                var elm = files_meta[i];
-                                                for (var key in elm) {
-                                                        form_data.append(`files_meta[${i}][${key}]`, elm[key]);
+                // console.log( field_list2 );
+                // return;
+                // images
+                
+                if( mediaUploaders.length ){
+                        for ( var uploader of mediaUploaders ) {
+                        if (uploader.media_uploader && has_media) {
+                                var hasValidFiles = uploader.media_uploader.hasValidFiles();
+                                if (hasValidFiles) {
+                                        // files
+                                        var files = uploader.media_uploader.getTheFiles();
+                                        if (files) {
+                                                for (var i = 0; i < files.length; i++) {
+                                                        form_data.append( uploader.uploaders_data['meta_name']+'[]', files[i]);
                                                 }
                                         }
+                                        var files_meta = uploader.media_uploader.getFilesMeta();
+                                        if (files_meta) {
+                                                for (var i = 0; i < files_meta.length; i++) {
+                                                        var elm = files_meta[i];
+                                                        for (var key in elm) {
+                                                                form_data.append(`${uploader.uploaders_data['files_meta_name']}[${i}][${key}]`, elm[key]);
+                                                        }
+                                                }
+                                        }
+                                } else {
+                                        $('.listing_submit_btn').removeClass('atbd_loading');
+                                        err_log.listing_gallery = { msg: uploader.uploaders_data['error_msg'] };
+                                        error_count++;
+                                        scrollToEl('#'+ uploader.uploaders_data['element_id']);
                                 }
-                        } else {
-                                $('.listing_submit_btn').removeClass('atbd_loading');
-                                err_log.listing_gallery = { msg: 'Listing gallery has invalid files' };
-                                error_count++;
-
-                                scrollToEl('#_listing_gallery');
+                         }
                         }
                 }
 
-                if (listignsGalleryUploader) {
-                        var hasValidFiles = listignsGalleryUploader.hasValidFiles();
-                        if (hasValidFiles) {
-                                // gallery
-                                var files = listignsGalleryUploader.getTheFiles();
-                                if (files) {
-                                        for (var i = 0; i < files.length; i++) {
-                                                form_data.append('gallery_img[]', files[i]);
-                                        }
-                                }
-                                var files_meta = listignsGalleryUploader.getFilesMeta();
-                                if (files_meta) {
-                                        for (var i = 0; i < files_meta.length; i++) {
-                                                var elm = files_meta[i];
-                                                for (var key in elm) {
-                                                        form_data.append(`files_gallery_meta[${i}][${key}]`, elm[key]);
-                                                }
-                                        }
-                                }
-                        } else {
-                                $('.listing_submit_btn').removeClass('atbd_loading');
-                                err_log.listing_gallery = { msg: 'Listing gallery extension has invalid files' };
-                                error_count++;
-
-                                scrollToEl('#listing_gallery_ext');
-                        }
-                }
-                const iframe = $('#listing_content_ifr');
-                const serviceIframe = $('#service_offer_ifr');
-                const content = iframe.length
-                        ? tinymce.get('listing_content').getContent()
-                        : atbdp_element_value('textarea[name="listing_content"]');
-                const service_offer = serviceIframe.length ? tinymce.get('service_offer').getContent() : '';
-                const excerpt = atbdp_element_value('textarea#atbdp_excerpt');
-
-                form_data.append('add_listing_nonce', atbdp_add_listing.nonce);
-                // form_data.append('add_listing_form', $('input[name="add_listing_form"]').val());
-                form_data.append('listing_id', $('input[name="listing_id"]').val());
-                form_data.append('listing_title', $('input[name="listing_title"]').val());
-                form_data.append('listing_content', content);
-                form_data.append('service_offer', service_offer);
-                form_data.append('price', atbdp_element_value('input[name="price"]'));
-                form_data.append('atbdp_post_views_count', atbdp_element_value('input[name="atbdp_post_views_count"]'));
-                form_data.append('tagline', atbdp_element_value('input[name="tagline"]'));
-                form_data.append('excerpt', excerpt);
-                form_data.append(
-                        'atbd_listing_pricing',
-                        atbdp_element_value('input[name="atbd_listing_pricing"]:checked')
-                );
-                form_data.append('price_range', atbdp_element_value('select[name="price_range"]'));
-                // post your need
-                form_data.append('need_post', atbdp_element_value('input[name="need_post"]:checked'));
-                form_data.append('pyn_deadline', atbdp_element_value('input[name="pyn_deadline"]'));
-                form_data.append('is_hourly', atbdp_is_checked('is_hourly'));
-                // plans
-                form_data.append('listing_type', atbdp_element_value('input[name="listing_type"]:checked'));
-                form_data.append('plan', qs.plan);
-                // contact info
-                form_data.append('zip', atbdp_element_value('input[name="zip"]'));
-                form_data.append('hide_contact_info', atbdp_is_checked('hide_contact_info'));
-                form_data.append('address', atbdp_element_value('input[name="address"]'));
-                form_data.append('phone', atbdp_element_value('input[name="phone"]'));
-                form_data.append('phone2', atbdp_element_value('input[name="phone2"]'));
-                form_data.append('fax', atbdp_element_value('input[name="fax"]'));
-                form_data.append('email', atbdp_element_value('input[name="email"]'));
-                form_data.append('website', atbdp_element_value('input[name="website"]'));
-                form_data.append('manual_lat', atbdp_element_value('input[name="manual_lat"]'));
-                form_data.append('manual_lng', atbdp_element_value('input[name="manual_lng"]'));
-                form_data.append('manual_coordinate', atbdp_element_value('input[name="manual_coordinate"]'));
-                form_data.append('hide_map', atbdp_is_checked('hide_map'));
-                form_data.append('videourl', atbdp_element_value('input[name="videourl"]'));
-                form_data.append('guest_user_email', atbdp_element_value('input[name="guest_user_email"]'));
-                form_data.append('privacy_policy', atbdp_element_value('input[name="privacy_policy"]:checked'));
-                form_data.append('t_c_check', atbdp_element_value('input[name="t_c_check"]:checked'));
-                // custom fields
-                atbdp_multi_select('input', 'custom_field');
-                atbdp_multi_select('textarea', 'custom_field');
-                atbdp_multi_select('select', 'custom_field');
-
-                const field_checked = $('input[name^="custom_field"]:checked');
-                if (field_checked.length > 1) {
-                        field_checked.each(function() {
-                                const name = $(this).attr('name');
-                                const value = $(this).val();
-                                form_data.append(name, value);
-                        });
-                } else {
-                        var name = field_checked.attr('name');
-                        var value = field_checked.val();
-                        form_data.append(name, value);
-                }
                 // locations
                 const locaitons = $('#at_biz_dir-location').val();
                 if (Array.isArray(locaitons) && locaitons.length) {
@@ -492,104 +492,9 @@ jQuery(function($) {
                 if (typeof categories === 'string') {
                         form_data.append('tax_input[at_biz_dir-category][]', categories);
                 }
-
-                // social
-                if ($('select[name^="social"]').length) {
-                        $('select[name^="social"]').each(function() {
-                                const name = $(this).attr('name');
-                                const value = $(this).val();
-                                form_data.append(name, value);
-                        });
-                }
-                if ($('input[name^="social"]').length) {
-                        $('input[name^="social"]').each(function() {
-                                const name = $(this).attr('name');
-                                const value = $(this).val();
-                                form_data.append(name, value);
-                        });
-                }
-
-                // faqs
-                if ($('input[name^="faqs"]').length) {
-                        $('input[name^="faqs"]').each(function() {
-                                const name = $(this).attr('name');
-                                const value = $(this).val();
-                                form_data.append(name, value);
-                        });
-                }
-
-                // findbiz video
-                if ($('#atbdp_more_video').length) {
-                        $('input[name^="dservice_video"]').each(function() {
-                                const name = $(this).attr('name');
-                                const value = $(this).val();
-                                form_data.append(name, value);
-                        });
-                }
-
-                atbdp_multi_select('textarea', 'faqs');
-                // google recaptcha
-                atbdp_multi_select('textarea', 'g-recaptcha-response');
-                // business hours
-                form_data.append('disable_bz_hour_listing', atbdp_is_checked('disable_bz_hour_listing'));
-                form_data.append('enable247hour', atbdp_is_checked('enable247hour'));
-                const bh_field = $('input[name^="bdbh"]');
-                if (bh_field.length > 1) {
-                        bh_field.each(function(index, value) {
-                                const type = $(value).attr('type');
-                                if (type === 'radio') {
-                                        var name = $(this).attr('name');
-                                        if ($(this).is(':checked')) {
-                                                form_data.append(name, $(this).val());
-                                        }
-                                } else if (type === 'checkbox') {
-                                        var name = $(this).attr('name');
-                                        var value = atbdp_is_checked(name);
-                                        form_data.append(name, value);
-                                } else {
-                                        var name = $(this).attr('name');
-                                        var value = $(this).val();
-                                        if (!value) {
-                                                value = $(this).attr('data-time');
-                                        }
-                                        form_data.append(name, value);
-                                }
-                        });
-                } else {
-                        var name = bh_field.attr('name');
-                        var value = bh_field.val();
-                        form_data.append(name, value);
-                }
-                form_data.append('timezone', atbdp_element_value('select[name="timezone"]'));
-                // booking
-                const booking_field = $('.atbdb-wrapper').find('input[name^="bdb"]');
-                const booking_type = $('#bdb_booking_type').val();
-                if (booking_field.length > 1) {
-                        form_data.append('bdb_booking_type', booking_type);
-                        booking_field.each(function(index, value) {
-                                const type = $(value).attr('type');
-                                if (type === 'checkbox' || type === 'radio') {
-                                        var name = $(this).attr('name');
-                                        var value =
-                                                type === 'radio'
-                                                        ? atbdp_element_value(`input[name="${name}"]:checked`)
-                                                        : atbdp_is_checked(name);
-                                        form_data.append(name, value);
-                                } else {
-                                        var name = $(this).attr('name');
-                                        var value = $(this).val();
-                                        if (!value) {
-                                                value = $(this).attr('data-time');
-                                        }
-                                        form_data.append(name, value);
-                                }
-                        });
-                } else {
-                        var name = booking_field.attr('name');
-                        var value = booking_field.val();
-                        form_data.append(name, value);
-                }
-
+                var directory_type =  qs.listing_type ?  qs.listing_type : $('input[name="directory_type"]').val();
+                form_data.append('directory_type', directory_type );
+                form_data.append('plan_id', qs.plan);
                 if (error_count) {
                         on_processing = false;
                         $('.listing_submit_btn').attr('disabled', false);
@@ -598,9 +503,8 @@ jQuery(function($) {
                         return;
                 }
 
-                on_processing = true;
-                $('.listing_submit_btn').attr('disabled', true);
-
+                // on_processing = true;
+                // $('.listing_submit_btn').attr('disabled', true);
                 $.ajax({
                         method: 'POST',
                         processData: false,
@@ -608,27 +512,40 @@ jQuery(function($) {
                         url: atbdp_add_listing.ajaxurl,
                         data: form_data,
                         success(response) {
+                                // console.log( response );
+                                // return;
                                 // show the error notice
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {
-                                        $('#listing_notifier')
+                                     
+                                        if( response.error_msg.length > 1 ){
+                                                $('#listing_notifier').show();
+                                                for( var error in response.error_msg ){
+                                                       // console.log( error );
+                                                        $('#listing_notifier').append(`<span class="atbdp_error">${ response.error_msg[error] }</span>`);
+                                                }
+                                                $('.listing_submit_btn').removeClass('atbd_loading');
+                                        }else{
+                                                $('#listing_notifier')
                                                 .show()
-                                                .html(`<span>${response.error_msg}</span>`);
-                                        $('.listing_submit_btn').removeClass('atbd_loading');
+                                                .html(`<span class="atbdp_error">${ response.error_msg }</span>`);
+                                                $('.listing_submit_btn').removeClass('atbd_loading');
+                                        }
+                                        
                                 } else {
                                         // preview on and no need to redirect to payment
                                         if (response.preview_mode === true && response.need_payment !== true) {
                                                 if (response.edited_listing !== true) {
                                                         $('#listing_notifier')
                                                                 .show()
-                                                                .html(`<span>${response.success_msg}</span>`);
+                                                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                                         window.location.href = `${
                                                                 response.preview_url
                                                         }?preview=1&redirect=${response.redirect_url}`;
                                                 } else {
                                                         $('#listing_notifier')
                                                                 .show()
-                                                                .html(`<span>${response.success_msg}</span>`);
+                                                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                                         if (qs.redirect) {
                                                                 var is_pending = '?';
                                                                 window.location.href = `${response.preview_url +
@@ -653,12 +570,12 @@ jQuery(function($) {
                                                 if (response.need_payment === true) {
                                                         $('#listing_notifier')
                                                                 .show()
-                                                                .html(`<span>${response.success_msg}</span>`);
+                                                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                                         window.location.href = response.redirect_url;
                                                 } else {
                                                         $('#listing_notifier')
                                                                 .show()
-                                                                .html(`<span>${response.success_msg}</span>`);
+                                                                .html(`<span class="atbdp_success">${response.success_msg}</span>`);
                                                         window.location.href = response.redirect_url + is_edited;
                                                 }
                                         }
@@ -676,15 +593,15 @@ jQuery(function($) {
 
         // scrollToEl
         function scrollToEl(el) {
-                const element = typeof el === 'string' ? el : '';
-                let scroll_top = $(element).offset().top - 50;
-                scroll_top = scroll_top < 0 ? 0 : scroll_top;
+                // const element = typeof el === 'string' ? el : '';
+                // let scroll_top = $(element).offset().top - 50;
+                // scroll_top = scroll_top < 0 ? 0 : scroll_top;
 
-                $('html, body').animate(
-                        {
-                                scrollTop: scroll_top,
-                        },
-                        800
-                );
+                // $('html, body').animate(
+                //         {
+                //                 scrollTop: scroll_top,
+                //         },
+                //         800
+                // );
         }
 });

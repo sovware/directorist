@@ -23,7 +23,8 @@ class ATBDP_Shortcode {
 			'directorist_search_result'  => [ $this, 'search_result' ],
 
 			// Single
-			'directorist_listing_top_area'            => [ $this, 'directorist_listing_header' ],
+			'directorist_single_listing'              => [ $this, 'directorist_single_listing' ],
+			'directorist_listing_top_area'            => [ $this, 'directorist_single_listing' ],
 			'directorist_listing_tags'                => [ $this, 'directorist_tags' ],
 			'directorist_listing_custom_fields'       => [ $this, 'directorist_custom_field' ],
 			'directorist_listing_video'               => [ $this, 'directorist_listing_video' ],
@@ -54,12 +55,6 @@ class ATBDP_Shortcode {
 		foreach ( $shortcodes as $shortcode => $callback ) {
 			add_shortcode( $shortcode, $callback);
 		}
-
-    	// Ajax
-		add_action('wp_ajax_atbdp_custom_fields_listings_front',                 array($this, 'ajax_callback_custom_fields'), 10, 2);
-		add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front',          array($this, 'ajax_callback_custom_fields'), 10, 2);
-		add_action('wp_ajax_atbdp_custom_fields_listings_front_selected',        array($this, 'ajax_callback_custom_fields'), 10, 2);
-		add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
 	}
 
 	public function listing_archive( $atts ) {
@@ -99,61 +94,80 @@ class ATBDP_Shortcode {
 	}
 
 	public function search_listing($atts) {
-		$searchform = new Directorist_Listing_Search_Form( 'search_form', $atts );
+		$listing_type = '';
+		if (!empty($atts['listing_type'])) {
+			$listing_type = $atts['listing_type'];
+		}
+		$searchform = new Directorist_Listing_Search_Form( 'search_form', $listing_type, $atts );
 		return $searchform->render_search_shortcode();
 	}
 
 	public function search_result($atts) {
-		$listings = new Directorist_Listings( $atts, 'search' );
+		$listings = new Directorist_Listings( $atts, 'search_result' );
 		return $listings->render_shortcode();
 	}
 
+	public function directorist_single_listing() {
+		$listing = new Directorist_Single_Listing();
+		return $listing->render_shortcode_single_listing();
+	}
+
 	public function directorist_listing_header() {
+		return '';
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_top_area();
 	}
 
 	public function directorist_tags() {
+		return '';
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_tags();
 	}
 
 	public function directorist_custom_field() {
+		return '';
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_custom_fields();
 	}
 
 	public function directorist_listing_video() {
+		return '';
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_video();
 	}
 
 	public function directorist_listing_map() {
+		return '';
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_map();
 	}
 
 	public function directorist_listing_contact_information() {
+		return '';
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_contact_information();
 	}
 
 	public function directorist_listing_author_details() {
+		return '';
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_author_info();
 	}
 
 	public function directorist_listing_contact_owner() {
+		return '';
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_contact_owner();
 	}
 
 	public function directorist_listing_review() {
+		return '';
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_listing_review();
 	}
 	
 	public function directorist_related_listings() {
+		return '';
 		$listing = new Directorist_Single_Listing();
 		return $listing->render_shortcode_related_listings();
     	// @todo @kowsar filter=atbdp_related_listing_template in "Post Your Need" extention
@@ -170,7 +184,10 @@ class ATBDP_Shortcode {
 	}
 
 	public function add_listing($atts) {
-		$forms = Directorist_Listing_Forms::instance();
+		$url = $_SERVER['REQUEST_URI'];
+		$pattern = "/edit\/(\d+)/i";
+		$id = preg_match($pattern, $url, $matches) ? (int) $matches[1] : '';
+		$forms = Directorist_Listing_Forms::instance($id);
 		return $forms->render_shortcode_add_listing($atts);
 	}
 
@@ -184,93 +201,4 @@ class ATBDP_Shortcode {
 		return $forms->render_shortcode_user_login();
 	}
 
-	public function ajax_callback_custom_fields($post_id = 0, $term_id = array()) {
-		$ajax = false;
-		if (isset($_POST['term_id'])) {
-			$ajax = true;
-			$post_ID = !empty($_POST['post_id']) ? (int)$_POST['post_id'] : '';
-			$term_id = $_POST['term_id'];
-		}
-    	// Get custom fields
-		$categories = !empty($term_id) ? $term_id : array();
-		$args = array(
-			'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-			'posts_per_page' => -1,
-			'status' => 'published'
-		);
-		$meta_queries = array();
-
-		if ( ! empty( $categories ) && is_array( $categories )){
-			if ( count( $categories ) > 1) {
-				$sub_meta_queries = array();
-				foreach ($categories as $value) {
-					$sub_meta_queries[] = array(
-						'key' => 'category_pass',
-						'value' => $value,
-						'compare' => '='
-					);
-				}
-
-				$meta_queries[] = array_merge(array('relation' => 'OR'), $sub_meta_queries);
-			} else {
-				$meta_queries[] = array(
-					'key' => 'category_pass',
-					'value' => $categories[0],
-					'compare' => '='
-				);
-			}
-		}
-		$meta_queries[] = array(
-			array(
-				'relation' => 'OR',
-				array(
-					'key' => 'admin_use',
-					'compare' => 'NOT EXISTS'
-				),
-				array(
-					'key' => 'admin_use',
-					'value' => 1,
-					'compare' => '!='
-				),
-			)
-		);
-		$meta_queries[] = array(
-			array(
-				'key' => 'associate',
-				'value' => 'categories',
-				'compare' => 'LIKE',
-			),
-		);
-
-
-		$count_meta_queries = count($meta_queries);
-		if ($count_meta_queries) {
-			$args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
-		}
-
-		$atbdp_query = new WP_Query($args);
-
-		if ($atbdp_query->have_posts()) {
-      		// Start the Loop
-			global $post;
-      		// Process output
-			ob_start();
-			$include = apply_filters('include_style_settings', true);
-			include ATBDP_TEMPLATES_DIR . 'admin-templates/listing-form/add-listing-custom-field.php';
-            wp_reset_postdata(); // Restore global post data stomped by the_post()
-            $output = ob_get_clean();
-
-            print $output;
-
-            if ($ajax) {
-            	wp_die();
-            }
-        }
-        else {
-        	echo '<div class="custom_field_empty_area"></div>';
-        	if ($ajax) {
-        		wp_die();
-        	}
-        }
-    }
 }

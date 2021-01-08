@@ -129,16 +129,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             if ( apply_filters( 'atbdp_import_default_directory', $need_import_default ) ) {
                 $this->import_default_directory();
             }
-            
         }
 
         // import_default_directory
         public function import_default_directory() {
-            // var_dump( 'import_default_directory' );
-
             $file = trailingslashit( dirname( ATBDP_FILE ) )  . 'admin/assets/simple-data/directory/directory.json';
             if ( ! file_exists( $file ) ) { return; }
-
             $file_contents = file_get_contents( $file );
 
             $add_directory = $this->add_directory([
@@ -420,9 +416,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             }
             
             $fields = $args['fields_value'];
-            foreach ( $fields as $_field_key => $_field_value ) {
-                $fields[ $_field_key ] = $this->maybe_json( $_field_value );
+            if ( is_array( $fields ) ) {
+                foreach ( $fields as $_field_key => $_field_value ) {
+                    $fields[ $_field_key ] = $this->maybe_json( $_field_value );
+                }
             }
+
             $fields = apply_filters( 'cptm_fields_before_update', $fields );
 
             $directory_name = ( ! empty( $fields['name'] ) ) ? $fields['name'] : '';
@@ -560,84 +559,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $add_directory['term_id'] = $add_directory['term_id'];
 
             wp_send_json( $add_directory );
-
-            $mode              = 'create';
-            $listing_type_name = $_POST['name'];
-
-
-            if (!empty($_POST['listing_type_id']) && absint($_POST['listing_type_id'])) {
-                $mode  = 'edit';
-                $term_id = absint($_POST['listing_type_id']);
-                wp_update_term($term_id, 'atbdp_listing_types', ['name' => $listing_type_name]);
-            } else {
-                $term = wp_insert_term($listing_type_name, 'atbdp_listing_types');
-
-                if (is_wp_error($term)) {
-                    if (!empty($term->errors['term_exists'])) {
-                        wp_send_json([
-                            'status' => false,
-                            'status_log' => [
-                                'name_exists' => [
-                                    'type' => 'error',
-                                    'message' => 'The name already exists',
-                                ]
-                            ],
-                        ], 200);
-                    }
-                } else {
-                    $mode = 'edit';
-                    $term_id = $term['term_id'];
-                }
-            }
-
-            if ( empty( $term_id ) ) {
-                wp_send_json([
-                    'status' => false,
-                    'status_log' => [
-                        'invalid_id' => [
-                            'type' => 'error',
-                            'message' => 'Error found, please try again',
-                        ]
-                    ],
-                ], 200);
-            }
-
-            $created_message = ('create' == $mode) ? 'created' : 'updated';
-
-            if (empty($_POST['field_list'])) {
-                wp_send_json([
-                    'status' => false,
-                    'post_id' => $term_id,
-                    'status_log' => [
-                        'field_list_not_found' => [
-                            'type' => 'error',
-                            'message' => 'Field list not found',
-                        ],
-                    ],
-                ], 200);
-            }
-            
-            $field_list = $this->maybe_json($_POST['field_list']);
-            foreach ($field_list as $field_key) {
-                if (isset($_POST[$field_key]) && 'name' !==  $field_key) {
-                    $this->update_validated_term_meta($term_id, $field_key, $_POST[$field_key]);
-                }
-            }
-
-            $url = '';
-            $url = admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=edit&listing_type_id=' . $term_id);
-            
-            wp_send_json([
-                'status' => true,
-                'post_id' => $term_id,
-                'redirect_url' => $url,
-                'status_log' => [
-                    'post_created' => [
-                        'type' => 'success',
-                        'message' => 'The post type has been ' . $created_message . ' successfully'
-                    ]
-                ],
-            ], 200);
         }
 
         // update_validated_term_meta

@@ -595,7 +595,7 @@ class ATBDP_Multi_Directory_Migration {
             ];
         }
 
-        if ( ! empty( get_directorist_option( 'disable_contact_info', true ) ) && ! empty( $contact_info_group_field_keys ) ) {
+        if ( empty( get_directorist_option( 'disable_contact_info', false ) ) && ! empty( $contact_info_group_field_keys ) ) {
             $single_listings_groups[] = [
                 "label"                => get_directorist_option( 'contact_info_text', __( 'Contact Information', 'directorist' ) ),
                 "fields"               => $contact_info_group_field_keys,

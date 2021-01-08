@@ -4946,7 +4946,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 $all_term_meta = $migration->get_fields_data();
             }
 
-
             if ( 'array' !== getType( $all_term_meta ) ) { return; }
 
             foreach ( $all_term_meta as $meta_key => $meta_value ) {

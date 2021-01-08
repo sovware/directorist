@@ -267,6 +267,9 @@
 #directorist.atbd_wrapper{
   .atbd_dashboard_wrapper{
     display: flex;
+    @media (max-width: 1199px){
+      flex-direction: column;
+    }
     .atbd_user_dashboard_nav {
       width: 230px;
       padding: 20px 10px;
@@ -277,6 +280,9 @@
       border-radius: 4px;
       background-color: #fff;
       box-shadow: 0 5px 10px #8F8E9F05;
+      @media (max-width: 1199px){
+        margin-bottom: 50px;
+      }
       &.atbd-dashboard-nav-collapsed{
         width: 0 !important;
         height: 0;
@@ -335,6 +341,7 @@
       flex: 1;
       transition: 0.3s ease;
       margin-top: -57px;
+      width: 100%;
       @media (max-width: 767px){
         margin-top: 0;
       }
@@ -379,6 +386,9 @@
     display: inline-block;
     margin-bottom: 20px;
     outline: 0;
+    @media(max-width: 767px){
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -482,6 +492,7 @@
       position: absolute;
       left: 16px;
       top: 50%;
+      line-height: 1;
       transform: translateY(-50%);
       i,
       span{
@@ -495,6 +506,8 @@
       font-weight: 400;
       color: #8F8E9F;
       padding: 10px 18px 10px 40px;
+      min-width:  260px;
+      height: 36px;
       background-color: #F6F7F9;
       &:focus{
         outline: none;
@@ -527,18 +540,33 @@
         text-align: left;
         &.directorist_table-listing{
           min-width: 320px;
+          @media (max-width: 1399px){
+            min-width: 260px;
+          }
         }
         &.directorist_table-plan{
           min-width: 180px;
+          @media (max-width: 1399px){
+            min-width: 160px;
+          }
         }
         &.directorist_table-ex-date{
           min-width: 250px;
+          @media (max-width: 1399px){
+            min-width: 230px;
+          }
         }
         &.directorist_table-status{
           min-width: 160px;
+          @media (max-width: 1399px){
+            min-width: 150px;
+          }
         }
         &.directorist_table-actions{
           min-width: 200px;
+          @media (max-width: 1399px){
+            min-width: 170px;
+          }
         }
       }
     }
@@ -610,9 +638,9 @@
         color: $primary;
         background-color: rgba($primary, .15);
       }
-      &.success{
-        color: $success;
-        background-color: rgba($success, .15);
+      &.directorist_status_published{
+        color: #218A00;
+        background-color: rgba(#218A00, .15);
       }
       &.danger{
         color: $danger;
@@ -737,12 +765,27 @@
       }
     }
   }
-  .directorist_pagination{
+  .directorist-dashboard-pagination{
     display: flex;
     justify-content: flex-end;
     margin: 2px 22px 0 22px;
     padding: 25px 0 38px;
     border-top: 1px solid #EFF1F6;
+    .pagination .nav-links{
+      justify-content: flex-end;
+      margin: -4px;
+      .page-numbers{
+        margin: 4px;
+        &.current{
+          background-color: #fff !important;
+          color: #0A0B1E;
+        }
+        i.la,
+        svg{
+          color: #0A0B1E;
+        }
+      }
+    }
   }
 }
 
@@ -751,48 +794,6 @@
   width: 100%;
   overflow-x: auto;
   overflow-y: visible;
-}
-
-// Pagination Css
-.atbd_content_active #directorist.atbd_wrapper .directorist_pagination{
-  ul{
-      margin: -4px;
-      li{
-          display: inline-block;
-          margin: 4px;
-          a{
-              font-size: 14px;
-              display: inline-flex;
-              justify-content: center;
-              align-items: center;
-              line-height: 2.45;
-              padding: 0 13.72px;
-              border-radius: 6px;
-              border: 1px solid #E1E4EC;
-              background-color: #fff;
-              &.prev,
-              &.next{
-                  width: 36px;
-                  height: 36px;
-              }
-              &:hover,
-              &.active{
-                font-weight: 500;
-                  color: #0A0B1E;
-              }
-              &.active{
-                border-width: 2px;
-                border-color: #0A0B1E;
-              }
-              i{
-                  font-size: 14px;
-                  &:before{
-                      margin: 0;
-                  }
-              }
-          }
-      }
-  }
 }
 
 // Responsive Css

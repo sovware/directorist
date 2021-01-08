@@ -4930,8 +4930,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         // update_fields_with_old_data
         public function update_fields_with_old_data()
         {
-            
-
             $listing_type_id = absint($_REQUEST['listing_type_id']);
             $term      = get_term($listing_type_id, 'atbdp_listing_types');
             $term_name = ( $term ) ? $term->name : '';
@@ -4939,13 +4937,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             $this->options['name']['value'] = $term_name;
 
+            $all_term_meta = get_term_meta( $term_id );
             $test_migration = apply_filters( 'atbdp_test_migration', false );
-            if ( ! $test_migration ) {
-                $all_term_meta = get_term_meta( $term_id );
-            } else {
-                $args = [ 'multi_directory_manager' => $this ];
-                $migration = new ATBDP_Multi_Directory_Migration( $args );
 
+            if ( $test_migration ) {
+                $args          = [ 'multi_directory_manager' => $this ];
+                $migration     = new ATBDP_Multi_Directory_Migration( $args );
                 $all_term_meta = $migration->get_fields_data();
             }
 

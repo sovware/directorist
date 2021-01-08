@@ -93,7 +93,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                             'options' => $recepents,
                             'value'   => '',
                             'show-if' => [
-                                'where' => "self.announcement_to",
+                                'where' => "self.to",
                                 'conditions' => [
                                     ['key' => 'value', 'compare' => '=', 'value' => 'selected_user'],
                                 ],

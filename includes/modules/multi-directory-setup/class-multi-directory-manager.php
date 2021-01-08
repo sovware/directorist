@@ -4906,7 +4906,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             }
 
             $data = [
-                'add_new_link'          => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=add_new'),
+                'add_new_link' => admin_url('edit.php?post_type=at_biz_dir&page=atbdp-directory-types&action=add_new'),
             ];
 
             $cptm_data = [
@@ -4930,17 +4930,18 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         // update_fields_with_old_data
         public function update_fields_with_old_data()
         {
+            
+
+            $listing_type_id = absint($_REQUEST['listing_type_id']);
+            $term      = get_term($listing_type_id, 'atbdp_listing_types');
+            $term_name = ( $term ) ? $term->name : '';
+            $term_id   = ( $term ) ? $term->term_id : 0;
+
+            $this->options['name']['value'] = $term_name;
+
             $test_migration = apply_filters( 'atbdp_test_migration', false );
-
             if ( ! $test_migration ) {
-                $listing_type_id = absint($_REQUEST['listing_type_id']);
-                $term = get_term($listing_type_id, 'atbdp_listing_types');
-
-                if ( ! $term) { return; }
-
-                $this->options['name']['value'] = $term->name;
-                $all_term_meta = get_term_meta( $term->term_id );
-
+                $all_term_meta = get_term_meta( $term_id );
             } else {
                 $args = [ 'multi_directory_manager' => $this ];
                 $migration = new ATBDP_Multi_Directory_Migration( $args );

@@ -3,7 +3,6 @@ import Vue from 'vue';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 
-
 Vue.directive('click-outside', {
   priority: 700,
 

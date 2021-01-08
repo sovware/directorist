@@ -5061,8 +5061,8 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             wp_enqueue_style('atbdp-unicons');
             wp_enqueue_style('atbdp-font-awesome');
             wp_enqueue_style('atbdp-line-awesome');
-            wp_enqueue_style('atbdp-select2-style');
-            wp_enqueue_style('atbdp-select2-bootstrap-style');
+            // wp_enqueue_style('atbdp-select2-style');
+            // wp_enqueue_style('atbdp-select2-bootstrap-style');
             wp_enqueue_style('atbdp_admin_css');
 
             wp_localize_script('atbdp_admin_app', 'ajax_data', ['ajax_url' => admin_url('admin-ajax.php')]);

@@ -1,5 +1,11 @@
 <template>
-    <div class="cptm-form-group" :class="formGroupClass">
+    <div class="cptm-form-group">
+        <sub-fields-module
+            :option-fields="optionFields"
+            :value="value"
+            @update="updateOptionData( $event )"
+        />
+
         <div class="atbdp-row">
             <div class="atbdp-col atbdp-col-4">
                 <label v-if="( label.length )" :for="name">{{ label }}</label>

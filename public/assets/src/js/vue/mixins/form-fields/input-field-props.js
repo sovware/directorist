@@ -5,6 +5,13 @@ export default {
             required: false,
             default: '',
         },
+        optionFields: {
+            required: false,
+        },
+        saveOptionData: {
+            required: false,
+            default: false,
+        },
         root: {
             required: false,
         },
@@ -111,6 +118,15 @@ export default {
             type: [String, Number],
             required: false,
             default: '10',
+        },
+        min: {
+            required: false,
+        },
+        max: {
+            required: false,
+        },
+        step: {
+            required: false,
         },
         defaultImg: {
             required: false,

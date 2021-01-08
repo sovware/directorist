@@ -12,6 +12,7 @@
 <script>
 import feild_helper from './../../mixins/form-fields/helper';
 import props from './../../mixins/form-fields/input-field-props';
+
 export default {
     name: 'ajax-action-field',
     mixins: [ props, feild_helper ],

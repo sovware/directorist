@@ -314,7 +314,7 @@ if ( ! class_exists( 'ATBDP_Announcement' ) ) :
                 wp_mail( $recepents, $subject, $message );
             }
 
-            $status['status']  = true;
+            $status['success']  = true;
             $status['message'] = __( 'The announcement has been sent successfully' );
 
             wp_send_json( $status );

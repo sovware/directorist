@@ -24,6 +24,10 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
         // initial_setup
         public function initial_setup() {
+
+            // $test = get_directorist_option( 'announcement' );
+            // var_dump( $test );
+
             add_filter( 'atbdp_listing_type_settings_field_list', function( $fields ) {
                 
                 $fields['import_settings'] = [
@@ -55,13 +59,72 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'data'                       => [],
                 ];
 
+                $users = get_users([ 'role__not_in' => 'Administrator' ]); // Administrator | Subscriber
+                $recepents = [];
+
+                if ( ! empty( $users ) ) {
+                    foreach ( $users as $user ) {
+                        $recepents[] = [
+                            'value' => $user->user_email,
+                            'label' => ( ! empty( $user->display_name ) ) ? $user->display_name : $user->user_nicename,
+                        ];
+                    }
+                }
+
                 $fields['announcement'] = [
                     'type'                       => 'ajax-action',
                     'action'                     => 'atbdp_send_announcement',
                     'label'                      => '',
                     'button-label'               => 'Send',
                     'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Sending',
-                    'fields'                     => [],
+                    'option-fields' => [
+                        'to' => [
+                            'type' => 'select',
+                            'label' => 'To',
+                            'options' => [
+                                [ 'value' => 'all_user', 'label' => 'All User' ],
+                                [ 'value' => 'selected_user', 'label' => 'Selected User' ],
+                            ],
+                            'value' => 'all_user',
+                        ],
+                        'recepents' => [
+                            'type'    => 'checkbox',
+                            'label'   => 'Recepents',
+                            'options' => $recepents,
+                            'value'   => '',
+                            'show-if' => [
+                                'where' => "self.announcement_to",
+                                'conditions' => [
+                                    ['key' => 'value', 'compare' => '=', 'value' => 'selected_user'],
+                                ],
+                            ],
+                        ],
+                        'subject' => [
+                            'type'  => 'text',
+                            'label' => 'Subject',
+                            'value' => '',
+                        ],
+                        'message' => [
+                            'type'        => 'textarea',
+                            'label'       => 'Message',
+                            'description' => 'Maximum 400 characters are allowed',
+                            'value'       => '',
+                        ],
+                        'expiration' => [
+                            'type'  => 'range',
+                            'min'   => '0',
+                            'max'   => '365',
+                            'label' => 'Expires in Days',
+                            'value' => 0,
+                        ],
+                        'send_to_email' => [
+                            'type'  => 'toggle',
+                            'label' => 'Send a copy to email',
+                            'value' => true,
+                        ],
+                    ],
+                    'value' => '',
+                    'save-option-data' => false,
                 ];
 
                 $fields['listing_export_button'] = [
@@ -5509,9 +5572,10 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     'title'         => __('Send Announcement', 'directorist'),
                                     'description'   => '',
                                     'fields'        => [
-                                        'announcement_to',
-                                        'announcement_subject',
-                                        'announcement_send_to_email',
+                                        'announcement',
+                                        // 'announcement_to',
+                                        // 'announcement_subject',
+                                        // 'announcement_send_to_email',
                                     ]
                                 ],
                             ]),
@@ -5684,10 +5748,10 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         public function enqueue_scripts()
         {
             wp_enqueue_media();
-            wp_enqueue_style('atbdp-unicons');
+            // wp_enqueue_style('atbdp-unicons');
             wp_enqueue_style('atbdp-font-awesome');
-            wp_enqueue_style('atbdp-select2-style');
-            wp_enqueue_style('atbdp-select2-bootstrap-style');
+            // wp_enqueue_style('atbdp-select2-style');
+            // wp_enqueue_style('atbdp-select2-bootstrap-style');
             wp_enqueue_style('atbdp_admin_css');
 
             wp_localize_script('atbdp_settings_manager', 'ajax_data', ['ajax_url' => admin_url('admin-ajax.php')]);

@@ -938,8 +938,10 @@ input[type="radio"].cptm-radio {
 
 .cptm-checkbox-ui {
   display: inline-block;
-  margin-right: 5px;
   min-width: 16px;
+  position: relative;
+  z-index: 1;
+  margin-right: 12px;
   &::before {
     font-size: 10px;
     line-height: 1;
@@ -2539,6 +2541,7 @@ input[type=radio] {
           display: block;
           padding: 8px 10px;
           border-radius: 4px;
+          color: #5A5F7D;
           &:hover, &.active:hover {
             color: #fff;
             background-color: $primary;

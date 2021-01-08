@@ -584,7 +584,7 @@ class ATBDP_Multi_Directory_Migration {
             ];
         }
 
-        if ( ! empty( get_directorist_option( 'enable_single_location_taxonomy', true ) ) && ! empty( $map_group_field_keys ) ) {
+        if ( empty( get_directorist_option( 'disable_map', false )  ) && ! empty( $map_group_field_keys ) ) {
             $single_listings_groups[] = [
                 "label"  => get_directorist_option( 'listing_location_text', __( 'Location', 'directorist' ) ),
                 "fields" => $map_group_field_keys,

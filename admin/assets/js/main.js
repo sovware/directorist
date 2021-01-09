@@ -3926,7 +3926,7 @@ templateResult: selecWithIcon,
         );
         setTimeout(function() {
           location.reload();
-        }, 1500);
+        }, 500);
         
       },
     });

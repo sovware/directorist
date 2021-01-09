@@ -135,7 +135,6 @@
                                             if( $listing_types ) {
                                                 foreach( $listing_types as $listing_type) {
                                                     $default = get_term_meta( $listing_type->term_id, '_default', true );
-                                                    $default_type = $default ? '<span class="page-title-action directorist_badge directorist_badge-primary">Default</span>' : '';
                                                     $edit_link   = admin_url('edit.php' . '?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . absint( $listing_type->term_id ) . '&action=edit');
                                                     $delete_link = admin_url('admin-post.php' . '?listing_type_id=' . absint( $listing_type->term_id ) . '&action=delete_listing_type');
                                                     $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');
@@ -143,7 +142,7 @@
                                             ?>
                                             <tr>
                                                 <td>
-                                                    <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_title"><?php echo ! empty( $listing_type->name ) ? $listing_type->name . $default_type : '-'; ?></a>
+                                                    <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_title"><?php echo ! empty( $listing_type->name ) ? $listing_type->name : '-'; ?></a>
                                                 </td>
                                                 <td><span class="directorist_listing-count"><?php echo $listing_type->count; ?></span></td>
                                                 <td><?php 
@@ -167,7 +166,18 @@
                                                                     </span>
                                                                 </label>
                                                             </div>
-                                                        <?php } ?>
+                                                        <?php }else {
+                                                             ?>
+                                                             <div class="directorist_listing-type-checkbox directorist_custom-checkbox">
+                                                                 <input type="checkbox" checked name="check-1" id="check-1">
+                                                                 <label for="check-1">
+                                                                     <span class="checkbox-text">
+                                                                     <?php _e( 'Default', 'directorist' ); ?>
+                                                                     </span>
+                                                                 </label>
+                                                             </div>
+                                                         <?php
+                                                        } ?>
                                                     </div>
                                                 </td>
                                             </tr>

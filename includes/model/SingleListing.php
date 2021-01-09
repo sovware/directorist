@@ -70,7 +70,6 @@ class Directorist_Single_Listing {
 				$data['fields'][$key]['original_data'] = !empty( $submission_form_fields['fields'][$key] ) ? $submission_form_fields['fields'][$key] : [];
 			}
 		}
-		
 		if( !empty( $data['groups'] ) ) {
 			foreach ( $data['groups'] as $group ) {
 				$section           = $group;
@@ -96,19 +95,21 @@ class Directorist_Single_Listing {
 			'id'           => !empty( $section_data['custom_block_id'] ) ? $section_data['custom_block_id'] : '',
 			'class'        => !empty( $section_data['custom_block_classes'] ) ? $section_data['custom_block_classes'] : '',
 		);
-
+		
 		if ( $section_data['type'] == 'widget_group' ) {
 			$template = 'single-listing/section-'. $section_data['widget_name'];
 			$template = apply_filters( 'directorist_single_section_template', $template, $section_data );
 			atbdp_get_shortcode_template( $template, $args );
 		}
 		else {
+			e_var_dump($section_data);
 			atbdp_get_shortcode_template( 'single-listing/section-general', $args );
 		}
 	}
 
 	public function field_template( $data ) {
 		$value =  !empty( $data['field_key'] ) ? get_post_meta( $this->id, '_'.$data['field_key'], true ) : '';
+
 		if( 'tag' === $data['widget_name'] ) {
 			$tags = get_the_terms( $this->id, ATBDP_TAGS );
 			if( $tags ) {

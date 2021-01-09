@@ -741,7 +741,7 @@ if (!class_exists('ATBDP_Shortcode')):
             } else {
                 $options = [];
 
-                if ( 'rand' === $args['orderby'] ) {
+                if ( ! empty( $args['orderby'] ) && ( 'rand' === $args['orderby'] || 'meta_value_num rand' === $args['orderby'] ) ) {
                     $options['cache'] = false;
                 }
                 
@@ -1313,7 +1313,7 @@ if (!class_exists('ATBDP_Shortcode')):
             } else {
                 $options = [];
 
-                if ( !empty( $args['orderby'] ) && 'rand' === $args['orderby'] ) {
+                if ( ! empty( $args['orderby'] ) && ( 'rand' === $args['orderby'] || 'meta_value_num rand' === $args['orderby'] ) ) {
                     $options['cache'] = false;
                 }
 
@@ -1869,7 +1869,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 } else {
                     $options = [];
 
-                    if ( 'rand' === $args['orderby'] ) {
+                    if ( ! empty( $args['orderby'] ) && ( 'rand' === $args['orderby'] || 'meta_value_num rand' === $args['orderby'] ) ) {
                         $options['cache'] = false;
                     }
 
@@ -2100,6 +2100,8 @@ if (!class_exists('ATBDP_Shortcode')):
                 $map_height = !empty($atts['map_height']) ? $atts['map_height'] : '';
                 //for pagination
                 $paged = atbdp_get_paged_num();
+
+                
 
                 $has_featured = get_directorist_option('enable_featured_listing');
                 if ($has_featured || is_fee_manager_active()) {
@@ -2386,13 +2388,15 @@ if (!class_exists('ATBDP_Shortcode')):
                 } else {
                     $options = [];
 
-                    if ( 'rand' === $args['orderby'] ) {
+                    if ( ! empty( $args['orderby'] ) && ( 'rand' === $args['orderby'] || 'meta_value_num rand' === $args['orderby'] ) ) {
                         $options['cache'] = false;
                     }
 
                     $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args, $options );
                     $listing_count = '<span>' . $all_listings->total . '</span>';
                 }
+
+                
 
                 $display_header = !empty($display_header) ? $display_header : '';
                 $header_title = !empty($header_title) ? $listing_count . ' ' . $header_title : '';
@@ -2417,6 +2421,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $grid_container_fluid = apply_filters('atbdp_single_loc_grid_container_fluid', $listing_grid_container_fluid);
                 $listing_location_address = get_directorist_option('listing_location_address', 'map_api');
                 ob_start();
+                
                 $include = apply_filters('include_style_settings', true);
                 if ($include) {
                     include ATBDP_DIR . 'public/assets/css/style.php';
@@ -2425,6 +2430,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     $redirect = '<script>window.location="' . esc_url($redirect_page_url) . '"</script>';
                     return $redirect;
                 }
+                
                 if ('yes' == $logged_in_user_only) {
                     if (atbdp_logged_in_user()) {
                         if ('listings_with_map' == $view) {
@@ -2450,6 +2456,8 @@ if (!class_exists('ATBDP_Shortcode')):
                         include ATBDP_TEMPLATES_DIR . "front-end/all-listings/all-$view-listings.php";
                     }
                 }
+
+                
                 return ob_get_clean();
 
             }
@@ -2810,7 +2818,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 } else {
                     $options = [];
 
-                    if ( 'rand' === $args['orderby'] ) {
+                    if ( ! empty( $args['orderby'] ) && ( 'rand' === $args['orderby'] || 'meta_value_num rand' === $args['orderby'] ) ) {
                         $options['cache'] = false;
                     }
 

@@ -9624,6 +9624,17 @@ span.atbd_get_loc_wid {
   background-color: #e3e6ef;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_meta .atbd_listing_rating {
+  background-color: #fff !important;
+  color: #202428;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_meta .atbd_listing_rating i.la {
+  color: #ffaf00;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .atbd_author_listings_area {
   display: -webkit-box;
   display: -ms-flexbox;

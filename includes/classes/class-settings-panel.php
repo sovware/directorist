@@ -5173,45 +5173,22 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                 'categories_locations' => [
                     'label' => __( 'Location & Category', 'directorist' ),
                     'icon' => '<i class="fa fa-list-alt directorist_Blue"></i>',
-                    'submenu' => apply_filters('atbdp_location_category_settings_submenu', [
-                        'categories_locations_settings' => [
-                            'label' => __('Categories & Locations Page Settings', 'directorist'),
-                            'sections' => apply_filters( 'atbdp_categories_settings_sections', [
-                                'categories_settings' => [
-                                    'title'       => __('Categories Page Settings', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'display_categories_as', 'categories_column_number', 'categories_depth_number', 'order_category_by', 'sort_category_by', 'display_listing_count', 'hide_empty_categories'
-                                     ],
-                                ],
-                                'locations_settings' => [
-                                    'title'       => __('Locations Page Settings', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
-                                     ],
-                                ],
-                            ] ),
+                    'sections' => apply_filters( 'atbdp_categories_settings_sections', [
+                        'categories_settings' => [
+                            'title'       => __('Categories Page Settings', 'directorist'),
+                            'description' => '',
+                            'fields'      => [ 
+                                'display_categories_as', 'categories_column_number', 'categories_depth_number', 'order_category_by', 'sort_category_by', 'display_listing_count', 'hide_empty_categories'
+                             ],
                         ],
-                    ]),
-                ],
-
-                'extension_settings' => [
-                    'label' => __( 'Extensions Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-magic directorist_success"></i>',
-                    'submenu' => apply_filters('atbdp_extension_settings_submenu', [
-                        'extensions_general' => [
-                            'label' => __('Extensions General', 'directorist'),
-                            'icon' => '<i class="fa fa-home directorist_danger"></i>',
-                            'sections' => apply_filters( 'atbdp_extension_settings_controls', [
-                                'general_settings' => [
-                                    'title'       => __('Extensions General Settings', 'directorist'),
-                                    'description' => 'You can Customize Extensions-related settings here. You can enable or disable any extensions here. Here, YES means Enabled, and NO means disabled. After switching any option, Do not forget to save the changes.',
-                                    'fields'      =>  apply_filters( 'atbdp_extension_fields', [] ) ,
-                                ],
-                            ] ),
+                        'locations_settings' => [
+                            'title'       => __('Locations Page Settings', 'directorist'),
+                            'description' => '',
+                            'fields'      => [ 
+                                'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
+                             ],
                         ],
-                    ]),
+                    ] ),
                 ],
 
                 'email_settings' => [
@@ -5220,6 +5197,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'submenu' => apply_filters('atbdp_email_settings_submenu', [
                         'email_general' => [
                             'label' => __('Email General', 'directorist'),
+                            'icon' => '<i class="fa fa-envelope-open directorist_info"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
                                 'username' => [
                                     'title'       => __('Email General Settings', 'directorist'),
@@ -5232,6 +5210,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                         'email_templates' => [
                             'label' => __('Email Templates', 'directorist'),
+                            'icon' => '<i class="fa fa-mail-bulk directorist_info"></i>',
                             'sections' => apply_filters( 'atbdp_email_templates_settings_sections', [
                                 'general' => [
                                     'title'       => __('General', 'directorist'),
@@ -5342,6 +5321,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'submenu' => apply_filters('atbdp_login_registration_settings_submenu', [
                         'registration_settings' => [
                             'label' => __('Registration Form', 'directorist'),
+                            'icon' => '<i class="fa fa-wpforms directorist_info"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
                                 'username' => [
                                     'title'       => __('Username', 'directorist'),
@@ -5431,6 +5411,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                         'login_settings' => [
                             'label' => __('Login Form', 'directorist'),
+                            'icon' => '<i class="fa fa-wpforms directorist_info"></i>',
                             'sections' => apply_filters( 'atbdp_login_settings_sections', [
                                 'username' => [
                                     'title'       => __('Username', 'directorist'),
@@ -5493,7 +5474,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'submenu' => apply_filters('atbdp_style_settings_submenu', [
                         'color_settings' => [
                             'label' => __('Color', 'directorist'),
-                            'icon' => '',
+                            'icon' => '<i class="fa fa-palette directorist_info"></i>',
                             'sections'=> apply_filters('atbdp_style_settings_controls', [
                                 'button_type' => [
                                     'title' => __('Button Color', 'directorist'),
@@ -5532,7 +5513,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         ],
                         'single_template' => [
                             'label' => __('Single Template', 'directorist'),
-                            'icon' => '<i class="fa fa-swatchbook"></i>',
+                            'icon' => '<i class="fa fa-swatchbook directorist_info"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_single_template_sections', [
                                 'general' => [
                                     'title'       => '',
@@ -5556,45 +5537,6 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                                     ],
                                 ],
                             ] ),
-                        ],
-                    ]),
-                ],
-
-                'tools' => [
-                    'label' => __( 'Tools', 'directorist' ),
-                    'icon' => '<i class="fa fa-tools directorist_info"></i>',
-                    'submenu' => apply_filters('atbdp_tools_submenu', [
-                        'announcement_settings' => [
-                            'label'     => __('Announcement', 'directorist'),
-                            'icon'      => '',
-                            'sections'  => apply_filters('atbdp_announcement_settings_controls', [
-                                'send-announcement'     => [
-                                    'title'         => __('Send Announcement', 'directorist'),
-                                    'description'   => '',
-                                    'fields'        => [
-                                        'announcement',
-                                        // 'announcement_to',
-                                        // 'announcement_subject',
-                                        // 'announcement_send_to_email',
-                                    ]
-                                ],
-                            ]),
-                        ],
-
-                        'listings_import' => [
-                            'label'     => __('Listings Import', 'directorist'),
-                            'icon'      => '',
-                            'sections'  => apply_filters('atbdp_listings_import_controls', [
-                                'import_methods' => array(
-                                    'title'         => __('CSV', 'directorist'),
-                                    'description'   => '',
-                                    'fields'        => apply_filters('atbdp_csv_import_settings_fields', [
-                                        [
-                                            'listing_export_button'
-                                        ],
-                                    ]),
-                                ),
-                            ]),
                         ],
                     ]),
                 ],
@@ -5662,6 +5604,63 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     ]),
                 ],
 
+                'extension_settings' => [
+                    'label' => __( 'Extensions Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-magic directorist_success"></i>',
+                    'submenu' => apply_filters('atbdp_extension_settings_submenu', [
+                        'extensions_general' => [
+                            'label' => __('Extensions General', 'directorist'),
+                            'icon' => '<i class="fa fa-home"></i>',
+                            'sections' => apply_filters( 'atbdp_extension_settings_controls', [
+                                'general_settings' => [
+                                    'title'       => __('Extensions General Settings', 'directorist'),
+                                    'description' => 'You can Customize Extensions-related settings here. You can enable or disable any extensions here. Here, YES means Enabled, and NO means disabled. After switching any option, Do not forget to save the changes.',
+                                    'fields'      =>  apply_filters( 'atbdp_extension_fields', [] ) ,
+                                ],
+                            ] ),
+                        ],
+                    ]),
+                ],
+
+                'tools' => [
+                    'label' => __( 'Tools', 'directorist' ),
+                    'icon' => '<i class="fa fa-tools directorist_info"></i>',
+                    'submenu' => apply_filters('atbdp_tools_submenu', [
+                        'announcement_settings' => [
+                            'label'     => __('Announcement', 'directorist'),
+                            'icon' => '<i class="fa fa-bullhorn"></i>',
+                            'sections'  => apply_filters('atbdp_announcement_settings_controls', [
+                                'send-announcement'     => [
+                                    'title'         => __('Send Announcement', 'directorist'),
+                                    'description'   => '',
+                                    'fields'        => [
+                                        'announcement',
+                                        // 'announcement_to',
+                                        // 'announcement_subject',
+                                        // 'announcement_send_to_email',
+                                    ]
+                                ],
+                            ]),
+                        ],
+
+                        'listings_import' => [
+                            'label'     => __('Listings Import', 'directorist'),
+                            'icon' => '<i class="fa fa-upload"></i>',
+                            'sections'  => apply_filters('atbdp_listings_import_controls', [
+                                'import_methods' => array(
+                                    'title'         => __('CSV', 'directorist'),
+                                    'description'   => '',
+                                    'fields'        => apply_filters('atbdp_csv_import_settings_fields', [
+                                        [
+                                            'listing_export_button'
+                                        ],
+                                    ]),
+                                ),
+                            ]),
+                        ],
+                    ]),
+                ],
+
                 'settings_import_export' => [
                     'label' => __( 'Settings Import/Export', 'directorist' ),
                     'icon' => '<i class="fa fa-tools"></i>',
@@ -5696,12 +5695,12 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
         {
             add_submenu_page(
                 'edit.php?post_type=at_biz_dir',
-                'Settings Panel',
-                'Settings Panel',
+                'Settings',
+                'Settings',
                 'manage_options',
                 'atbdp-settings',
                 [ $this, 'menu_page_callback__settings_manager' ],
-                5
+                8
             );
         }
 

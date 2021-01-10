@@ -256,7 +256,7 @@ final class Directorist_Base
             self::$instance->update_database();
 
             // new settings
-            // new ATBDP_Settings_Manager();
+            new ATBDP_Settings_Manager();
             /*Extensions Link*/
             /*initiate extensions link*/
             new ATBDP_Extensions();

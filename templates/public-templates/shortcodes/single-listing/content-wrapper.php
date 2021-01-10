@@ -4,9 +4,16 @@
  * @since   6.6
  * @version 6.6
  */
+
 ?>
 <section id="directorist" class="directorist atbd_wrapper">
 	<div class="row">
+	<?php
+	if( $submission_confirmation && isset($_GET['p']) && isset($_GET['reviewed']) && ('no' === $_GET['edited'])){ ?>
+		<div class="alert alert-success alert-dismissable fade show" role="alert">
+			<?php echo $confirmation_msg; ?>
+		</div>
+	<?php } ?>
 		<div class="<?php echo esc_attr($class_col); ?> col-md-12 atbd_col_left">
 			<?php if (atbdp_logged_in_user() && $author_id == get_current_user_id()) { ?>
 				<div class="edit_btn_wrap">

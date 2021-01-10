@@ -7,6 +7,12 @@
 ?>
 <div class="row">
 	<div class="col-md-12">
+		<?php 
+		/**
+		 * @since 6.6
+		 */
+		do_action( 'atbdp_before_author_profile_section' );
+		?>
 		<div class="atbd_auhor_profile_area">
 			<div class="atbd_author_avatar">
 				<?php echo $avatar_img;?>

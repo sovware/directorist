@@ -161,6 +161,8 @@ if (!class_exists('ATBDP_Add_Listing')):
     
                 $title = !empty( $info['listing_title']) ? sanitize_text_field( $info['listing_title']) : '';
                 $content = !empty( $info['listing_content']) ? wp_kses( $info['listing_content'], wp_kses_allowed_html('post')) : '';
+                $listing_type = !empty($info['listing_type']) ? sanitize_text_field($info['listing_type']) : '';
+
                 if( !empty( $info['privacy_policy'] ) ) {
                     $metas[ '_privacy_policy' ] = $info['privacy_policy'] ? $info['privacy_policy'] : '';
                 }
@@ -290,7 +292,15 @@ if (!class_exists('ATBDP_Add_Listing')):
                             }
                             foreach ($location as $single_loc) {
                                 $locations = get_term_by('term_id', $single_loc, ATBDP_LOCATION);
-                                wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
+                                if( !$locations ){
+                                    $result = wp_insert_term( $single_loc, ATBDP_LOCATION );
+                                    if( !is_wp_error( $result ) ){
+                                        $term_id = $result['term_id'];
+                                        wp_set_object_terms($post_id, $term_id, ATBDP_LOCATION, $append);
+                                    }
+                                }else{
+                                    wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
+                                }
                             }
                         }else{
                             wp_set_object_terms($post_id, '', ATBDP_LOCATION);
@@ -440,8 +450,15 @@ if (!class_exists('ATBDP_Add_Listing')):
                                 }
                                 foreach ($location as $single_loc) {
                                     $locations = get_term_by('term_id', $single_loc, ATBDP_LOCATION);
-                                    wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
-                                }
+                                    if( !$locations ) {
+                                        $result = wp_insert_term( $single_loc, ATBDP_LOCATION );
+                                        if( !is_wp_error( $result ) ){
+                                            $term_id = $result['term_id'];
+                                            wp_set_object_terms($post_id, $term_id, ATBDP_LOCATION, $append);
+                                        }
+                                    } else {
+                                        wp_set_object_terms($post_id, $locations->name, ATBDP_LOCATION, $append);
+                                    }                                }
                             }else{
                                 wp_set_object_terms($post_id, '', ATBDP_LOCATION);
                             }
@@ -559,7 +576,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                     }
 
                     //no pay extension own yet let treat as general user
-                    if (get_directorist_option('enable_monetization') && !$info['listing_id'] && $featured_enabled && (!is_fee_manager_active())) {
+                    if (get_directorist_option('enable_monetization') && !$info['listing_id'] && $featured_enabled && (!is_fee_manager_active()) && ('featured' === $listing_type) ) {
                         $data['redirect_url'] = ATBDP_Permalink::get_checkout_page_link($post_id);
                         $data['need_payment'] = true;
                     } else {

@@ -6,7 +6,7 @@
  */
 
 ?>
-<div id="directorist" class="directorist atbd_wrapper directory_search_area atbdp-bg-white atbdp-style-meterial single_area ads-advaced--wrapper" style="background-image: url('<?php echo esc_url( $bgimg['url'] ); ?>')">
+<div id="directorist" class="directorist atbd_wrapper directory_search_area atbdp-bg-white atbdp-style-meterial single_area ads-advaced--wrapper" style="background-image: url('<?php echo !empty( $bgimg['url'] ) ? esc_url( $bgimg['url'] ) : ''; ?>')">
 	<div class="<?php echo esc_attr( $container_class ); ?>">
 
 		<?php

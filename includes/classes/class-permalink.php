@@ -325,12 +325,14 @@ class ATBDP_Permalink{
         $page_settings = get_directorist_option('single_category_page');
         $link = '/';
 
-        if ( atbdp_required_polylang_url() ) {
-            $translation_page = pll_get_post( $page_settings );
+        if ( $page_settings  ) {
+            if ( atbdp_required_polylang_url() ) {
+                $translation_page = pll_get_post( $page_settings );
 
-            if ( $translation_page ) {
-                $link = get_permalink( $translation_page ) . "?category={$term->slug}";
-                return apply_filters('atbdp_single_category', $link);
+                if ( $translation_page ) {
+                    $link = get_permalink( $translation_page ) . "?category={$term->slug}";
+                    return apply_filters('atbdp_single_category', $link);
+                }
             }
         }
         
@@ -361,13 +363,14 @@ class ATBDP_Permalink{
 
         $page_settings =  get_directorist_option('single_location_page');
         $link = '/';
+        if( $page_settings  ) {
+            if ( atbdp_required_polylang_url() ) {
+                $translation_page = pll_get_post( $page_settings );
 
-        if ( atbdp_required_polylang_url() ) {
-            $translation_page = pll_get_post( $page_settings );
-
-            if ( $translation_page ) {
-                $link = get_permalink( $translation_page ) . "?location={$term->slug}";
-                return apply_filters('atbdp_single_location', $link);
+                if ( $translation_page ) {
+                    $link = get_permalink( $translation_page ) . "?location={$term->slug}";
+                    return apply_filters('atbdp_single_location', $link);
+                }
             }
         }
 
@@ -401,12 +404,14 @@ class ATBDP_Permalink{
 
         $link = '/';
 
-        if ( atbdp_required_polylang_url() ) {
-            $translation_page = pll_get_post( $page_settings );
+        if ( $page_settings  ) {
+            if ( atbdp_required_polylang_url() ) {
+                $translation_page = pll_get_post( $page_settings );
 
-            if ( $translation_page ) {
-                $link = get_permalink( $translation_page ) . "?tag={$term->slug}";
-                return apply_filters('atbdp_single_tag', $link);
+                if ( $translation_page ) {
+                    $link = get_permalink( $translation_page ) . "?tag={$term->slug}";
+                    return apply_filters('atbdp_single_tag', $link);
+                }
             }
         }
 

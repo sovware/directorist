@@ -7,6 +7,8 @@ if (!class_exists('ATBDP_SEO')) :
     class ATBDP_SEO {
         public function __construct()
         {
+            if ( empty( get_directorist_option( 'atbdp_enable_seo' ) ) ) { return; }
+            
             if (atbdp_yoast_is_active()) {
                 add_filter('wpseo_title', array($this, 'wpseo_title'));
                 add_filter('wpseo_metadesc', array($this, 'wpseo_metadesc'));

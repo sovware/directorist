@@ -1,6 +1,6 @@
 <?php
-if ( ! class_exists( 'ATBDP_Listings_Model' ) ) :
-    class ATBDP_Listings_Model {
+if ( ! class_exists( 'ATBDP_Listings_Data_Store' ) ) :
+    class ATBDP_Listings_Data_Store {
         // get_archive_listings_query
         public static function get_archive_listings_query( array $query_args = [], array $custom_option = [] ) {
             $default_option = [

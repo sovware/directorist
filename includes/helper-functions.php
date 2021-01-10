@@ -1863,7 +1863,7 @@ function atbdp_listings_count_by_category($term_id)
         ),
     );
 
-    $total_categories = ATBDP_Listings_Model::get_listings( $args );
+    $total_categories = ATBDP_Listings_Data_Store::get_listings( $args );
 
     return count( $total_categories );
 }
@@ -1954,7 +1954,7 @@ function atbdp_listings_count_by_location($term_id)
         )
     );
 
-    $total_location = ATBDP_Listings_Model::get_listings( $args );
+    $total_location = ATBDP_Listings_Data_Store::get_listings( $args );
     return count( $total_location );
 }
 

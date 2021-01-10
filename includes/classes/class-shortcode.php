@@ -152,7 +152,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 $miles = __(' Miles', 'directorist');
             }
 
-            $all_listings_ids = ATBDP_Listings_Model::get_listings_ids();
+            $all_listings_ids = ATBDP_Listings_Data_Store::get_listings_ids();
 
             $default_radius_distance = get_directorist_option('sresult_default_radius_distance', 0);
             $listing_orderby = apply_filters('atbdp_default_listing_orderby', get_directorist_option('search_order_listing_by'));
@@ -745,7 +745,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     $options['cache'] = false;
                 }
                 
-                $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args, $options );
+                $all_listings = ATBDP_Listings_Data_Store::get_archive_listings_query( $args, $options );
 
                 $result = ( 1 < $all_listings->total ) ? __('results', 'directorist') : __('result', 'directorist');
                 $header_title = sprintf(__('%d %s %s %s', 'directorist'), $all_listings->total, $result, $for_cat, $in_loc);
@@ -1083,7 +1083,7 @@ if (!class_exists('ATBDP_Shortcode')):
                 );
             }
             
-            $listings_ids = ATBDP_Listings_Model::get_listings_ids();
+            $listings_ids = ATBDP_Listings_Data_Store::get_listings_ids();
 
             $rated = array();
             $listing_popular_by = get_directorist_option('listing_popular_by');
@@ -1317,7 +1317,7 @@ if (!class_exists('ATBDP_Shortcode')):
                     $options['cache'] = false;
                 }
 
-                $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $arguments, $options );
+                $all_listings = ATBDP_Listings_Data_Store::get_archive_listings_query( $arguments, $options );
                 $listing_count = '<span>' . $all_listings->total . '</span>';
             }
 
@@ -1734,7 +1734,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         };
                         break;
                     case 'views-desc' :
-                        $listings_ids = ATBDP_Listings_Model::get_listings_ids();
+                        $listings_ids = ATBDP_Listings_Data_Store::get_listings_ids();
                         $rated = array();
                         $listing_popular_by = get_directorist_option('listing_popular_by');
                         $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
@@ -1873,7 +1873,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         $options['cache'] = false;
                     }
 
-                    $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args, $options );
+                    $all_listings = ATBDP_Listings_Data_Store::get_archive_listings_query( $args, $options );
                     $listing_count = '<span>' . $all_listings->total . '</span>';
                 }
 
@@ -2248,7 +2248,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         };
                         break;
                     case 'views-desc' :
-                        $listings_ids = ATBDP_Listings_Model::get_listings_ids();
+                        $listings_ids = ATBDP_Listings_Data_Store::get_listings_ids();
                         $rated = array();
                         $listing_popular_by = get_directorist_option('listing_popular_by');
                         $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
@@ -2392,7 +2392,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         $options['cache'] = false;
                     }
 
-                    $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args, $options );
+                    $all_listings = ATBDP_Listings_Data_Store::get_archive_listings_query( $args, $options );
                     $listing_count = '<span>' . $all_listings->total . '</span>';
                 }
 
@@ -2685,7 +2685,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         };
                         break;
                     case 'views-desc' :
-                        $listings = ATBDP_Listings_Model::get_listings_ids();
+                        $listings = ATBDP_Listings_Data_Store::get_listings_ids();
                         $rated = array();
                         $listing_popular_by = get_directorist_option('listing_popular_by');
                         $average_review_for_popular = get_directorist_option('average_review_for_popular', 4);
@@ -2822,7 +2822,7 @@ if (!class_exists('ATBDP_Shortcode')):
                         $options['cache'] = false;
                     }
 
-                    $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args, $options );
+                    $all_listings = ATBDP_Listings_Data_Store::get_archive_listings_query( $args, $options );
                     $listing_count = '<span>' . $all_listings->total . '</span>';
                 }
 
@@ -3072,7 +3072,7 @@ if (!class_exists('ATBDP_Shortcode')):
             }
             
             // $all_listings = new WP_Query($args);
-            $all_listings = ATBDP_Listings_Model::get_archive_listings_query( $args, [ 'cache', false ] );
+            $all_listings = ATBDP_Listings_Data_Store::get_archive_listings_query( $args, [ 'cache', false ] );
 
             $data_for_template = compact('all_listings', 'paged', 'paginate', 'author_id');
             ob_start();

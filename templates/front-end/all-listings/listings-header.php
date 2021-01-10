@@ -319,7 +319,7 @@ if ($display_header == 'yes') { ?>
                                         )
                                     );
 
-                                    $tag_posts = ATBDP_Listings_Model::get_listings( $tag_args );
+                                    $tag_posts = ATBDP_Listings_Data_Store::get_listings( $tag_args );
 
                                     if(!empty($tag_posts)) {
                                         foreach ($tag_posts as $tag_post) {
@@ -330,7 +330,7 @@ if ($display_header == 'yes') { ?>
 
                                     
                                     if ( 'all_tags' == $listing_tags_field || empty( $category_select ) ) {
-                                        $terms = ATBDP_Terms_Model::get_tags_term();
+                                        $terms = ATBDP_Terms_Data_Store::get_tags_term();
                                     } else {
                                         $terms  = wp_get_object_terms( $tag_id, ATBDP_TAGS );
                                     }

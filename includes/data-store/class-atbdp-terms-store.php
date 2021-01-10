@@ -1,6 +1,6 @@
 <?php
-if ( ! class_exists( 'ATBDP_Terms_Model' ) ) :
-    class ATBDP_Terms_Model {
+if ( ! class_exists( 'ATBDP_Terms_Data_Store' ) ) :
+    class ATBDP_Terms_Data_Store {
         // get_categories_term
         public static function get_categories_term( array $args = [] ) {
             return get_terms( ATBDP_CATEGORY, $args );

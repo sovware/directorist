@@ -1,6 +1,6 @@
 <?php
-$categories = ATBDP_Terms_Model::get_categories_term(['hide_empty' => false]);
-$locations  = ATBDP_Terms_Model::get_locations_term(['hide_empty' => false]);
+$categories = ATBDP_Terms_Data_Store::get_categories_term(['hide_empty' => false]);
+$locations  = ATBDP_Terms_Data_Store::get_locations_term(['hide_empty' => false]);
 
 $search_placeholder          = get_directorist_option('search_placeholder', __('What are you looking for?', 'directorist'));
 $search_category_placeholder = get_directorist_option('search_category_placeholder', __('Select a category', 'directorist'));
@@ -273,7 +273,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                                         </div>
                                     <?php } ?>
                                     <?php if ('yes' == $tag_field) {
-                                        $terms = ATBDP_Terms_Model::get_tags_term();
+                                        $terms = ATBDP_Terms_Data_Store::get_tags_term();
                                         if (!empty($terms)) {
                                     ?>
                                             <div class="form-group ads-filter-tags">
@@ -378,7 +378,7 @@ $locations_fields = search_category_location_filter($query_args, ATBDP_LOCATION)
                         'no_found_rows' => true,                    // Skip SQL_CALC_FOUND_ROWS for performance (no pagination).
                     );
                     $args = apply_filters('atbdp_top_category_argument', $args);
-                    $top_categories = ATBDP_Terms_Model::get_categories_taxanomy($args);
+                    $top_categories = ATBDP_Terms_Data_Store::get_categories_taxanomy($args);
 
                     if (!empty($top_categories)) { ?>
                         <div class="directory_home_category_area">

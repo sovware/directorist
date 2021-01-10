@@ -4191,6 +4191,15 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
   // Dropdown
   (function ($) { 
+
+    $('body').on('click','.directorist_settings-trigger', function(){
+      $('.setting-left-sibebar').toggleClass('active');
+      $('.directorist_settings-panel-shade').toggleClass('active');
+    });
+    $('body').on('click','.directorist_settings-panel-shade', function(){
+      $('.setting-left-sibebar').removeClass('active');
+      $(this).removeClass('active');
+    });
     
     // $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function(){
     //   $('.directorist_dropdown-option').toggle();

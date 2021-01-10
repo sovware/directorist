@@ -287,7 +287,7 @@ if (!class_exists('ATBDP_Settings_Manager')):
                 ),
             ));
         }
-        
+
         /**
          * Get all the submenus for Style settings menu
          * @return array It returns an array of submenus
@@ -2683,7 +2683,7 @@ The Administrator of ==SITE_NAME==
                 'submenu_1' => array(
                     'title' => __('Extensions General', 'directorist'),
                     'name' => 'extensions_switch',
-                    'icon' => 'font-awesome:fa-home',
+                    'icon' => 'font-awesome:fa-swatchbook',
                     'controls' => apply_filters('atbdp_extension_settings_controls', array(
                         'extensions' => array(
                             'type' => 'section',
@@ -2932,7 +2932,7 @@ The Administrator of ==SITE_NAME==
 
             );
 
-            
+
 
             if ( atbdp_yoast_is_active() ) {
                 array_splice( $seo_settings, 1, 0, [[
@@ -2943,7 +2943,7 @@ The Administrator of ==SITE_NAME==
                     'default'     => 0,
                 ]]);
             }
-            
+
             $seo_settings = apply_filters( 'atbdp_seo_settings_fields', $seo_settings );
 
             return $seo_settings;
@@ -4655,7 +4655,7 @@ The Administrator of ==SITE_NAME==
          */
         function get_featured_badge_settings_fields()
         {
-            return apply_filters('atbdp_badge_settings_fields', array( 
+            return apply_filters('atbdp_badge_settings_fields', array(
                 array(
                     'type' => 'textbox',
                     'name' => 'featured_listing_title',

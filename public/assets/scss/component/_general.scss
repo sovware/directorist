@@ -314,8 +314,28 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
   #directorist-checkout-table {
     margin-bottom: 35px;
+
+    span {
+      display: block;
+      font-size: 13px;
+    }
+
+    label {
+      h4 {
+        margin: 0;
+        padding: 0;
+      }
+    }
   }
 }
+
+#directorist.atbd_wrapper {
+  .atbdp_ch_total_text {
+    font-size: 20px;
+    margin-bottom: 0 !important;
+  }
+}
+
 
 .atbd_rating_color {
   color: #fa8b0c;
@@ -391,7 +411,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
     .current {
       box-shadow: none;
-      border-color: #444752 ;
+      border-color: #444752;
       background-color: #fff;
       border-width: 2px;
       color: #fff;
@@ -1104,7 +1124,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   align-items: center;
   justify-content: center;
   position: relative;
-  top: -11px;
+  top: -10px;
 
   &:before {
     position: absolute;
@@ -1927,16 +1947,52 @@ input#privacy_policy,
   display: none;
 }
 
-// Not Found td 
-.directorist_not-found{
+// Not Found td
+.directorist_not-found {
   min-height: 350px;
   background-color: #fff;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  p{
+
+  p {
     font-size: 20px !important;
     font-weight: 600;
   }
+}
+
+.listing_preview_img_none .atbd_single_listing_wrapper {
+  border: 1px solid #e3e6ef !important;
+  border-bottom: 0 none !important;
+  border-radius: 4px;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.listing_preview_img_none .atbd_listing_thumbnail_area .atbdp_add_to_fav_listings {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.atbd_single_listing.atbd_listing_list.atbd_listing_no_image {
+  border-left: 1px solid #e3e6ef !important;
+  border-right: 1px solid #e3e6ef !important;
+}
+
+.atbd_authors_listing {
+  .atbdp_column {
+    width: 33.33%;
+
+    @media (max-width: 767px) {
+      width: 50%;
+    }
+
+    @media (max-width: 575px) {
+      width: 100%;
+    }
+  }
+}
+
+.atbd_author_listings_area .atbd_dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
 }

@@ -9,11 +9,16 @@
 <section id="directorist" class="directorist atbd_wrapper">
 	<div class="row">
 	<?php
-	if( $submission_confirmation && isset($_GET['p']) && isset($_GET['reviewed']) && ('no' === $_GET['edited'])){ ?>
-		<div class="alert alert-success alert-dismissable fade show" role="alert">
-			<?php echo $confirmation_msg; ?>
-		</div>
-	<?php } ?>
+        if( isset( $_GET['notice'] ) ){ ?>
+            <div class="col-lg-12">
+                <div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">
+                    <?php echo $confirmation_msg; ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <?php } ?>
 		<div class="<?php echo esc_attr($class_col); ?> col-md-12 atbd_col_left">
 			<?php if (atbdp_logged_in_user() && $author_id == get_current_user_id()) { ?>
 				<div class="edit_btn_wrap">

@@ -2019,10 +2019,21 @@ SWBD;
                     'label' => __('Show Submission Confirmation', 'directorist'),
                     'value' => true,
                 ],
-                'submission_confirmation_msg' => [
+                'publish_confirmation_msg' => [
                     'type' => 'textarea',
-                    'label' => __('Submission Confirmation Message', 'directorist'),
-                    'value' => __('Congratulations! Your listing has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist'),
+                    'label' => __('Publish Confirmation Message', 'directorist'),
+                    'value' => __('Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist'),
+                    'show-if' => [
+                        'where' => "submission_confirmation",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'pending_confirmation_msg' => [
+                    'type' => 'textarea',
+                    'label' => __('Pending Confirmation Message', 'directorist'),
+                    'value' => __('Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist'),
                     'show-if' => [
                         'where' => "submission_confirmation",
                         'conditions' => [
@@ -5068,7 +5079,7 @@ SWBD;
                                     'title'       => __('Single Listing', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'disable_single_listing', 'single_listing_template', 'atbdp_listing_slug', 'submission_confirmation', 'submission_confirmation_msg', 'edit_listing_redirect', 'listing_details_text', 'tags_section_lable', 'custom_section_lable', 'listing_location_text', 'contact_info_text', 'contact_listing_owner', 'atbd_video_title', 'atbd_author_info_title', 'display_back_link', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'dsiplay_thumbnail_img', 'gallery_crop_width', 'gallery_crop_height', 'enable_social_share', 'enable_favourite', 'enable_report_abuse', 'disable_list_price', 'enable_single_location_taxonomy', 'enable_single_tag', 'disable_contact_info', 'address_map_link', 'disable_contact_owner', 'user_email', 'use_nofollow', 'disable_map', 'atbd_video_url', 'enable_rel_listing', 'rel_listings_logic', 'rel_listing_title', 'rel_listing_num', 'rel_listing_column', 'fix_listing_double_thumb'
+                                        'disable_single_listing', 'single_listing_template', 'atbdp_listing_slug', 'submission_confirmation', 'publish_confirmation_msg', 'pending_confirmation_msg', 'edit_listing_redirect', 'listing_details_text', 'tags_section_lable', 'custom_section_lable', 'listing_location_text', 'contact_info_text', 'contact_listing_owner', 'atbd_video_title', 'atbd_author_info_title', 'display_back_link', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'dsiplay_thumbnail_img', 'gallery_crop_width', 'gallery_crop_height', 'enable_social_share', 'enable_favourite', 'enable_report_abuse', 'disable_list_price', 'enable_single_location_taxonomy', 'enable_single_tag', 'disable_contact_info', 'address_map_link', 'disable_contact_owner', 'user_email', 'use_nofollow', 'disable_map', 'atbd_video_url', 'enable_rel_listing', 'rel_listings_logic', 'rel_listing_title', 'rel_listing_num', 'rel_listing_column', 'fix_listing_double_thumb'
                                     ],
                                 ],
                             ] ),

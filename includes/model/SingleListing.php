@@ -87,6 +87,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function section_template( $section_data ) {
+		
 		$args = array(
 			'listing'      => $this,
 			'section_data' => $section_data,
@@ -116,9 +117,8 @@ class Directorist_Single_Listing {
 			}
 		}
 		if( 'map' === $data['widget_name'] ) {
-			$lat = get_post_meta( $this->id, '_manual_lat', true );
-			$lng = get_post_meta( $this->id, '_manual_lng', true );
-			if( $lat && $lng ) {
+			$address = get_post_meta( $this->id, '_address', true );
+			if( $address ) {
 				$value = true;
 			}
 		}

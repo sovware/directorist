@@ -159,7 +159,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     {$c}==DASHBOARD_LINK=={$e} : It outputs the user dashboard page link<br/>
                     {$c}==USER_PASSWORD=={$e} : It outputs new user's temporary passoword<br/><br/>
                     Additionally, you can also use HTML tags in your template.
-                SWBD;
+SWBD;
 
                 $fields['email_note'] = [
                     'type'        => 'note',

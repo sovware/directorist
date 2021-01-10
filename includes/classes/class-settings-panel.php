@@ -322,13 +322,52 @@ SWBD;
                     ],
                 ],
 
+                'featured_listing_title' => [
+                    'type' => 'text',
+                    'label' => __('Title', 'directorist'),
+                    'show-if' => [
+                        'where' => "enable_featured_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
+                    'value' => __('Featured', 'directorist'),
+                ],
+
+                'featured_listing_desc' => [
+                    'type' => 'textarea',
+                    'label' => __('Description', 'directorist'),
+                    'show-if' => [
+                        'where' => "enable_featured_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'description' => __('You can set some description for your user for upgrading to featured listing.', 'directorist'),
+                    'value' => __('(Top of the search result and listings pages for a number days and it requires an additional payment.)', 'directorist'),
+                ],
+
                 'featured_listing_price' => [
                     'label'         => __('Price in ', 'directorist') . atbdp_get_payment_currency(),
                     'type'          => 'number',
+                    'max'           => 0,
                     'value'         => 19.99,
                     'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
                     'show-if' => [
-                        'where' => "enable_monetization",
+                        'where' => "enable_featured_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+
+                'featured_listing_time' => [
+                    'label'         => __('Featured Duration in Days', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => 30,
+                    'show-if' => [
+                        'where' => "enable_featured_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -2550,12 +2589,7 @@ SWBD;
                         ],
                     ],
                 ],
-                'featured_listing_title' => [
-                    'type' => 'text',
-                    'label' => __('Title', 'directorist'),
-                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
-                    'value' => __('Featured', 'directorist'),
-                ],
+                
                 // review settings 
                 'enable_review' => [
                     'type' => 'toggle',
@@ -5559,7 +5593,10 @@ SWBD;
                                     'description' => '',
                                     'fields'      => [ 
                                         'enable_featured_listing',
-                                        'featured_listing_price'
+                                        'featured_listing_title',
+                                        'featured_listing_desc',
+                                        'featured_listing_price',
+                                        'featured_listing_time',
                                     ],
                                 ],
                                 'plan_promo' => [

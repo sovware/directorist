@@ -47,6 +47,7 @@ class Directorist_Template_Hooks {
 
 		// Single Listing content wrapper
 		add_filter('the_content', array( 'Directorist_Single_Listing', 'single_content_wrapper' ), 20 );
+
 	}
 
     // instance

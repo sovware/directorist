@@ -348,12 +348,12 @@ SWBD;
                     'value'     => [
                             'bank_transfer',
                         ],
-                    'options'   => [
+                    'options'   => apply_filters('atbdp_active_gateways', [
                         [
                             'value' => 'bank_transfer',
                             'label' => __('Bank Transfer (Offline Gateway)', 'directorist'),
                         ],
-                    ],
+                    ] ),
                     'description' => __('Check the gateway(s) you would like to use to collect payment from your users. A user will be use any of the active gateways during the checkout process ', 'directorist'),
                 ],
 

@@ -23,6 +23,12 @@ class ATBDP_Permalink{
     {
         $link = home_url();
         $id = get_directorist_option('search_result_page'); // get the page id of the search page.
+
+        if ( atbdp_required_polylang_url() && $id && pll_get_post( $id ) ) {
+            $link = get_permalink( pll_get_post( $id ) );
+            return apply_filters('atbdp_search_result_page_url', $link );
+        }
+
         if ( $id ) $link = get_permalink( $id );
 
         return apply_filters('atbdp_search_result_page_url', $link );

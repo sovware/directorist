@@ -1,6 +1,4 @@
-<?php ('after' == $c_position) ? $after = $symbol : $before = $symbol;
-// displaying data for checkout
-?>
+<?php ('after' == $c_position) ? $after = $symbol : $before = $symbol; ?>
 <div id="directorist" class="atbd_wrapper directorist directorist-checkout-form">
     <?php do_action('atbdp_before_checkout_form_start'); ?>
     <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="" role="form">
@@ -83,7 +81,7 @@
             ?>
             <tr class="atbdp_ch_subtotal">
                 <td colspan="2" class="text-right vertical-middle">
-                    <h4><?php echo __( 'Subtotal', 'directorist-coupon' ); ?></h4>
+                    <h4><?php echo __( 'Subtotal', 'directorist' ); ?></h4>
                 </td>
                 <td class="text-right vertical-middle">
                     <div id="atbdp_checkout_subtotal_amount"><?php

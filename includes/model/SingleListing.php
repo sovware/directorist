@@ -496,16 +496,17 @@ class Directorist_Single_Listing {
 			}
 			$header = get_term_meta( $type, 'single_listing_header', true );
 			$args = array(
-				'author_id'         => get_post_field('post_author', $id),
-				'content'           => $content,
-				'class_col'         => is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12',
-				'class_float'       => $redirect ? 'atbdp_float_active' : 'atbdp_float_none',
-				'display_back_link' => !empty( $header['options']['general']['back']['label'] ) ? $header['options']['general']['back']['label'] : '',
-				'edit_link'         => $edit_link,
-				'edit_text'         => apply_filters('atbdp_listing_edit_btn_text', __(' Edit', 'directorist')),
-				'url'               => $url,
-				'submit_text'       => apply_filters('atbdp_listing_preview_btn_text', $submit_text),
-				
+				'author_id'         	  => get_post_field('post_author', $id),
+				'content'           	  => $content,
+				'class_col'         	  => is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12',
+				'class_float'      		  => $redirect ? 'atbdp_float_active' : 'atbdp_float_none',
+				'display_back_link' 	  => !empty( $header['options']['general']['back']['label'] ) ? $header['options']['general']['back']['label'] : '',
+				'edit_link'         	  => $edit_link,
+				'edit_text'         	  => apply_filters('atbdp_listing_edit_btn_text', __(' Edit', 'directorist')),
+				'url'               	  => $url,
+				'submit_text'       	  => apply_filters('atbdp_listing_preview_btn_text', $submit_text),
+				'submission_confirmation' => get_directorist_option('submission_confirmation', 1 ),
+				'confirmation_msg' 		  => get_directorist_option('submission_confirmation_msg', __( 'Congratulations! Your listing has been received and it is under review now. It may take up to 24 hours to complete the review.', 'directorist' ) ),		
 			);
 			$html = atbdp_return_shortcode_template('single-listing/content-wrapper', $args);
 			return $html;

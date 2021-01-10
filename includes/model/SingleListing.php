@@ -102,7 +102,7 @@ class Directorist_Single_Listing {
 			atbdp_get_shortcode_template( $template, $args );
 		}
 		else {
-			e_var_dump($section_data);
+			// e_var_dump($section_data);
 			atbdp_get_shortcode_template( 'single-listing/section-general', $args );
 		}
 	}

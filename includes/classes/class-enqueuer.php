@@ -552,6 +552,8 @@ class ATBDP_Enqueuer {
         $tag_placeholder = !empty( $submission_form['fields']['tag']['placeholder'] ) ? $submission_form['fields']['tag']['placeholder'] : '';
         $loc_placeholder = !empty( $submission_form['fields']['location']['placeholder'] ) ? $submission_form['fields']['location']['placeholder'] : '';
         $cat_placeholder = !empty( $submission_form['fields']['category']['placeholder'] ) ? $submission_form['fields']['category']['placeholder'] : '';
+        $new_loc         = !empty( $submission_form['fields']['location']['create_new_loc'] ) ? $submission_form['fields']['location']['create_new_loc'] : '';
+        $max_loc_creation = !empty( $submission_form['fields']['location']['max_location_creation'] ) ? $submission_form['fields']['location']['max_location_creation'] : '';
         // Internationalization text for javascript file especially add-listing.js
 
         $i18n_text = array(
@@ -563,6 +565,8 @@ class ATBDP_Enqueuer {
             'location_selection'      => esc_attr( $loc_placeholder ),
             'tag_selection'           => esc_attr( $tag_placeholder ),
             'cat_placeholder'         => esc_attr( $cat_placeholder ),
+            'max_location_creation'   => esc_attr( $max_loc_creation ),
+            'max_location_msg'        => sprintf( __('You can only use %s', 'directorist'), $max_loc_creation ),
         );
 
         //get listing is if the screen in edit listing
@@ -582,6 +586,7 @@ class ATBDP_Enqueuer {
             'PublicAssetPath' => ATBDP_PUBLIC_ASSETS,
             'i18n_text'       => $i18n_text,
             'create_new_tag'  => $new_tag,
+            'create_new_loc'  => $new_loc,
             'image_notice'    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
         );
 

@@ -40,7 +40,7 @@
 												<div class="cat-info">
 													<h4 class="cat-name"><?php echo esc_html($category['name']); ?></h4>
 													<span class="cat-count">
-														<?php echo $category['grid_count_html'];?> <span><?php _e( 'listings', 'directorist' ); ?></span>
+														<?php echo $category['grid_count_html'];?> <span><?php echo ( ( $category['term']->count > 1 ) || ( $category['term']->count == 0 ) ) ? __( 'listings', 'directorist' ) : __( 'listing', 'directorist' ); ?></span>
 													</span>
 												</div>
 											</div>

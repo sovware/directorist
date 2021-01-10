@@ -1160,12 +1160,6 @@ SWBD;
                         ],
                     ],
                 ],
-                'fix_js_conflict' => [
-                    'label' => __('Fix Conflict with Bootstrap JS', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                    'description' => __('If you use a theme that uses Bootstrap Framework especially Bootstrap JS, then Check this setting to fix any conflict with theme bootstrap js.', 'directorist'),
-                ],
                 'font_type' => [
                     'label' => __('Icon Library', 'directorist'),
                     'type'  => 'select',
@@ -5052,7 +5046,6 @@ SWBD;
                                     'fields'      => [
                                         'new_listing_status',
                                         'edit_listing_status', 
-                                        'fix_js_conflict', 
                                         'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
                                     ],
                                 ],
@@ -5671,7 +5664,7 @@ SWBD;
 
                 'extension_settings' => [
                     'label' => __( 'Extensions Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-magic directorist_success"></i>',
+                    'icon' => '<i class="fa fa-magic directorist_warning"></i>',
                     'submenu' => apply_filters('atbdp_extension_settings_submenu', [
                         'extensions_general' => [
                             'label' => __('Extensions General', 'directorist'),
@@ -5680,7 +5673,9 @@ SWBD;
                                 'general_settings' => [
                                     'title'       => __('Extensions General Settings', 'directorist'),
                                     'description' => 'You can Customize Extensions-related settings here. You can enable or disable any extensions here. Here, YES means Enabled, and NO means disabled. After switching any option, Do not forget to save the changes.',
-                                    'fields'      =>  apply_filters( 'atbdp_extension_fields', [] ) ,
+                                    'fields'      =>  apply_filters( 'atbdp_extension_fields', [
+                                        // 'extension_note'
+                                    ] ) ,
                                 ],
                             ] ),
                         ],
@@ -5723,24 +5718,23 @@ SWBD;
                                 ),
                             ]),
                         ],
+
+                        'settings_import_export' => [
+                            'label' => __( 'Settings Import/Export', 'directorist' ),
+                            'icon' => '<i class="fa fa-tools"></i>',
+                            'sections'  => apply_filters('atbdp_settings_import_export_controls', [
+                                'import_export' => [
+                                    'title' => __( 'Import/Export', 'directorist' ),
+                                    'fields' => [ 'import_settings', 'export_settings' ]
+                                ],
+                                'restore_default' => [
+                                    'title' => __( 'Restore Default', 'directorist' ),
+                                    'fields' => [ 'restore_default_settings' ]
+                                ],
+                            ]),
+                        ],
                     ]),
                 ],
-
-                'settings_import_export' => [
-                    'label' => __( 'Settings Import/Export', 'directorist' ),
-                    'icon' => '<i class="fa fa-tools"></i>',
-                    'sections' => [
-                        'import_export' => [
-                            'title' => __( 'Import/Export', 'directorist' ),
-                            'fields' => [ 'import_settings', 'export_settings' ]
-                        ],
-                        'restore_default' => [
-                            'title' => __( 'Restore Default', 'directorist' ),
-                            'fields' => [ 'restore_default_settings' ]
-                        ],
-                    ],
-                ]
-
             ]);
 
             $this->config = [

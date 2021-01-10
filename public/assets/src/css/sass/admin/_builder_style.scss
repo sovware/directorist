@@ -157,6 +157,7 @@ $light-gray: #f4f5f7;
   display: block;
   margin-right: 50px;
   padding: 20px;
+  margin-bottom: 10px;
   text-align: center;
   background-color: #fff;
   transition: all ease-in-out 300ms;
@@ -316,6 +317,10 @@ $light-gray: #f4f5f7;
   background-color: #f4f5f7;
   position: relative;
   border-bottom: 2px solid transparent;
+
+  @media only screen and (max-width: 991px) {
+    padding: 25px 0;
+  }
 
   @media(max-width: 480px) {
     padding: 20px 0;
@@ -509,9 +514,13 @@ $light-gray: #f4f5f7;
   max-width: 700px;
   box-sizing: border-box;
 
+  @media only screen and (max-width: 991px) {
+    padding: 60px 25px;
+  }
+
   @media(max-width: 480px) {
     max-width: 100%;
-    padding: 60px 0;
+    padding: 15px 0;
   }
 
   &.tab-wide {
@@ -592,10 +601,23 @@ $light-gray: #f4f5f7;
   background-color: #f4f5f7;
   padding: 40px;
   border-radius: 6px;
+  @media only screen and (max-width: 991px) {
+    padding: 20px;
+  }
 }
 
 .cptm-form-builder-active-fields-footer {
   text-align: center;
+
+  @media only screen and (max-width: 991px) {
+    text-align: left;
+  }
+
+  .cptm-btn{
+    @media only screen and (max-width: 991px) {
+      margin-left: 0;
+    }
+  }
 }
 
 .cptm-form-builder-active-fields-group {
@@ -1979,6 +2001,8 @@ input[type="radio"].cptm-radio {
     padding-right: 10px;
     flex-grow: 1;
     margin-bottom: 0;
+    width: 100%;
+    margin-bottom: 20px;
   }
 }
 

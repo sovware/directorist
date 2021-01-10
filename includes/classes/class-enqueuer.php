@@ -165,6 +165,8 @@ class ATBDP_Enqueuer {
                 'ajaxurl'        => admin_url( 'admin-ajax.php' ),
                 'import_page_link'      => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
                 'nonceName'      => 'atbdp_nonce_js',
+                'countryRestriction'      => get_directorist_option( 'country_restriction' ),
+                'restricted_countries'    => get_directorist_option( 'restricted_countries' ),
                 'AdminAssetPath' => ATBDP_ADMIN_ASSETS,
                 'i18n_text'      => $i18n_text,
             );
@@ -954,9 +956,11 @@ class ATBDP_Enqueuer {
                 'select_listing_map' => $select_listing_map,
                 'Miles'              => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
             ),
-            'ajax_url'    => admin_url( 'admin-ajax.php' ),
-            'Miles'       => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
-            'default_val' => $default_radius_distance,
+            'ajax_url'              => admin_url( 'admin-ajax.php' ),
+            'Miles'                 => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
+            'default_val'           => $default_radius_distance,
+            'countryRestriction'    => get_directorist_option( 'country_restriction' ),
+            'restricted_countries'  => get_directorist_option( 'restricted_countries' ),
         );
         wp_enqueue_script( 'atbdp_search_listing' );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );

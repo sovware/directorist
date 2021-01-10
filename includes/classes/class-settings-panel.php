@@ -297,6 +297,15 @@ SWBD;
         // prepare_settings
         public function prepare_settings()
         {
+            $countries = [];
+            foreach (atbdp_country_code_to_name() as $code => $country_name) {
+                $country = [
+                    'value' => $code,
+                    'label' => $country_name,
+                ];
+                array_push( $countries, $country );
+            }
+            // e_var_dump($countries);
             $business_hours_label = sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? '(Requires Business Hours extension)' : '');
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
@@ -344,7 +353,6 @@ SWBD;
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
                     ],
-                    'description' => __('You can set some description for your user for upgrading to featured listing.', 'directorist'),
                     'value' => __('(Top of the search result and listings pages for a number days and it requires an additional payment.)', 'directorist'),
                 ],
 
@@ -2742,6 +2750,29 @@ SWBD;
                         ],
                     ],
                 ],
+                'country_restriction' => [
+                    'type' => 'toggle',
+                    'label' => __('Country Restriction', 'directorist'),
+                    'value' => false,
+                    'show-if' => [
+                        'where' => "select_listing_map",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'google'],
+                        ],
+                    ],
+                ],
+                'restricted_countries' => [
+                    'label' => __('Select Countries', 'directorist'),
+                    'type'  => 'checkbox',
+                    'value' => [],
+                    'show-if' => [
+                        'where' => "country_restriction",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => $countries,
+                ],
                 'default_latitude'     => [
                     'type'           => 'text',
                     'label'          => __('Default Latitude', 'directorist'),
@@ -5126,7 +5157,7 @@ SWBD;
                                     'title'       => __('Map Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'select_listing_map', 'map_api_key', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
+                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
                                     ],
                                 ],
                                 'map_info_window' => [
@@ -5695,9 +5726,6 @@ SWBD;
                                     'description'   => '',
                                     'fields'        => [
                                         'announcement',
-                                        // 'announcement_to',
-                                        // 'announcement_subject',
-                                        // 'announcement_send_to_email',
                                     ]
                                 ],
                             ]),

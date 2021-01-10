@@ -36,7 +36,12 @@
             $selected_product = 0;
 
             foreach ( $form_data as $key => $option ) {
-                if ( 'header' == $option['type'] ) { ?><?php } else { /* Display other type of item here */ ?>
+                if ( 'header' == $option['type'] ) { ?><?php } else { /* Display other type of item here */ 
+                    /**
+                     * @since 6.5.6
+                     */
+                    do_action( 'atbdp_before_checkout_total_tr', $form_data );
+                    ?>
                     <tr>
                         <td colspan="2" class="text-right vertical-middle">
                             <?php
@@ -62,7 +67,7 @@
                                 echo $input_field;
                             ?>
                             <?php if ( ! empty( $option['title'] ) ) echo "<label for='{$atts['id']}'><h4>" . esc_html($option['title']) . "</h4></label>"; ?>
-                            <?php if ( ! empty( $option['desc'] ) ) echo '<span>'. esc_html($option['desc']) . '</span>'; ?>
+                            <?php if ( ! empty( $option['desc'] ) ) echo '<small> - '. esc_html($option['desc']) . '</small>'; ?>
                         </td>
                         <td class="text-right vertical-middle">
                             <span class="atbd-plan-price">

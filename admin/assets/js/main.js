@@ -3046,7 +3046,7 @@ templateResult: selecWithIcon,
   }
 
   //Map setting options
-  var g_map_api = $("#map_api_key");
+  var g_map_api = $("#map_api_key, #country_restriction, #restricted_countries");
   g_map_api.hide();
   $('select[name="select_listing_map"]').on("change", function () {
     if ($(this).val() === "google") {
@@ -3057,6 +3057,20 @@ templateResult: selecWithIcon,
   });
   if ($('select[name="select_listing_map"]').val() === "google") {
     g_map_api.show();
+  }
+
+  //Map setting options
+  var restrict_countries = $("#restricted_countries");
+  restrict_countries.hide();
+  $('input[name="country_restriction"]').on("change", function () {
+      if($(this).is(":checked") === true){
+          restrict_countries.show();
+      }else{
+          restrict_countries.hide();
+      }
+  });
+  if($('input[name="country_restriction"]').is(":checked") === true){
+      restrict_countries.show();
   }
 
   //Category & Location default settings js

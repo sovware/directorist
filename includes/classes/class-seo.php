@@ -83,8 +83,11 @@ if (!class_exists('ATBDP_SEO')) :
 
         public function atbdp_title_update($title, $id = null)
         {
-            if (!in_the_loop() || !is_main_query()) {
-                return $title;
+            $category_page_id = get_directorist_option( 'single_category_page', 0 );
+            $location_page_id = get_directorist_option( 'single_location_page', 0 );
+
+            if ( ! ( $category_page_id == $id || $location_page_id == $id ) ) {
+                return;
             }
 
             // global $post;
@@ -92,7 +95,6 @@ if (!class_exists('ATBDP_SEO')) :
                 $term = $this->get_taxonomy_term();
                 $title = (!empty($term)) ? $term->name : $title;
             }
-
 
             return $title;
         }

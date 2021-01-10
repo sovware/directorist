@@ -2509,6 +2509,10 @@ input[type=radio] {
     color: #5A5F7D;
     border-radius: 4px;
     padding: 13px 15px;
+    &:focus{
+      outline: 0 none;
+      box-shadow: 0 0;
+    }
     &:before{
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
@@ -2540,7 +2544,7 @@ input[type=radio] {
           font-weight: 500;
           text-decoration: none;
           display: block;
-          padding: 8px 10px;
+          padding: 9px 10px;
           border-radius: 4px;
           color: #5A5F7D;
           &:hover, &.active:hover {

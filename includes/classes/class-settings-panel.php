@@ -358,11 +358,12 @@ SWBD;
 
             if ( 'string' !== gettype( $string )  ) { return $string; }
 
-            if (preg_match('/\\\\+/', $string_alt)) {
+            if ( preg_match( '/\\\\+/', $string_alt ) ) {
                 $string_alt = preg_replace('/\\\\+/', '', $string_alt);
-                $string_alt = json_decode($string_alt, true);
-                $string     = (!is_null($string_alt)) ? $string_alt : $string;
             }
+
+            $string_alt = json_decode($string_alt, true);
+            $string     = (!is_null($string_alt)) ? $string_alt : $string;
 
             return $string;
         }

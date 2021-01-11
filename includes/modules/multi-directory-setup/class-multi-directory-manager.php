@@ -1,5 +1,7 @@
 <?php
 
+use function PHPSTORM_META\type;
+
 if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
     class ATBDP_Multi_Directory_Manager
     {
@@ -109,7 +111,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $need_migration      = ( empty( $migrated ) && ! $has_multidirectory && ( $has_listings || $has_custom_fields ) ) ? true : false;
             $need_import_default = ( ! $has_multidirectory && ! ( $has_listings || $has_custom_fields ) ) ? true : false;
             
-            /* var_dump([
+            /* e_var_dump([
                'migrated'            => $migrated,
                'has_listings'        => $has_listings,
                'has_custom_fields'   => $has_custom_fields,
@@ -416,6 +418,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             }
             
             $fields = $args['fields_value'];
+
             if ( is_array( $fields ) ) {
                 foreach ( $fields as $_field_key => $_field_value ) {
                     $fields[ $_field_key ] = $this->maybe_json( $_field_value );
@@ -583,11 +586,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             if ( 'string' !== gettype( $string )  ) { return $string; }
 
-            if (preg_match('/\\\\+/', $string_alt)) {
+            if ( preg_match( '/\\\\+/', $string_alt ) ) {
                 $string_alt = preg_replace('/\\\\+/', '', $string_alt);
-                $string_alt = json_decode($string_alt, true);
-                $string     = (!is_null($string_alt)) ? $string_alt : $string;
             }
+
+            $string_alt = json_decode($string_alt, true);
+            $string     = (!is_null($string_alt)) ? $string_alt : $string;
 
             return $string;
         }
@@ -4950,10 +4954,10 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             // e_var_dump( $submission_form_fields['fields']['image_upload'] );
             // e_var_dump( $all_term_meta['fields']['image_upload'] );
             // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
-            // var_dump( $test['fields']['video'] );
+            // e_var_dump( $test['fields']['video'] );
             // e_var_dump( $test );
             // e_var_dump( $this->fields[ 'single_listings_contents' ] );
-            // var_dump( json_decode( $test ) );
+            // e_var_dump( json_decode( $test ) );
         }
 
         // handle_delete_listing_type_request

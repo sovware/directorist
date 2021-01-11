@@ -5,7 +5,7 @@
     if (!selected.id) {
       return selected.text;
     }
-    const $elem = $(`<span><span class='la ${selected.element.value}'></span> ${selected.text}</span>`);
+    const $elem = $(`<span><span class='${atbdp_admin_data.icon_type} ${selected.element.value}'></span> ${selected.text}</span>`);
     return $elem;
   }
 

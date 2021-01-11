@@ -302,6 +302,10 @@ export default {
             this.$store.commit( 'updateFieldData', { field_key, option_key: 'validationState', value } );
         },
         
+        updateFieldData( field_key, option_key, value ) {
+            this.$store.commit( 'updateFieldData', { field_key, option_key, value } );
+        },
+        
         getActiveClass( item_index, active_index ) {
             return ( item_index === active_index ) ? 'active' : '';
         },
@@ -332,6 +336,11 @@ export default {
                     }
                     
                     if ( typeof terget_field[ key ] === 'undefined' ) {
+                        terget_missmatched = true;
+                        break;
+                    }
+
+                    if ( typeof terget_field[ key ].isVisible !== 'undefined' && ! terget_field[ key ].isVisible ) {
                         terget_missmatched = true;
                         break;
                     }

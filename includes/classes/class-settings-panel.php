@@ -54,7 +54,7 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
 
                 $fields['enable_multi_directory'] = [
                     'type'           => 'toggle',
-                    'label'          => 'Enable Multi Directory Builder',
+                    'label'          => 'Enable Multi Directory',
                     'value'          => false,
                     'data-on-change' => [ 
                         'action' => 'updateData',

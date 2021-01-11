@@ -131,7 +131,7 @@ $warning_count = ! empty( $_count ) ? '( ' . $_count . ' )' : '';
         <div class="atbds_content__tab">
             <div class="atbds_warnings">
                 <div class="atbds_row">
-                <?php if( ! empty( $warnings) ) : 
+                <?php if( ! empty( $warnings) ) { 
                     foreach ( $warnings as $warning ) :	
                     ?>
                     <div class="atbds_col-4">
@@ -148,7 +148,9 @@ $warning_count = ! empty( $_count ) ? '( ' . $_count . ' )' : '';
                     </div>
                     <?php
                     endforeach;
-                endif; ?>
+                    } else { ?>
+                        <p><?php _e( 'No warning found!', 'directorist' ); ?></p>
+                    <?php } ?>
                     
                 </div>
             </div>

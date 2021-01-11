@@ -2961,6 +2961,15 @@ input#privacy_policy,
   color: #E80000;
 }
 
+.atbd-alert span.la,
+.atbd-alert span.fa {
+  margin-right: 5px;
+}
+
+.atbd-alert a {
+  padding: 0 5px;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: -webkit-box;
   display: -ms-flexbox;

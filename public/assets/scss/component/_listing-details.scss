@@ -127,22 +127,6 @@
           }
 
           .atbd_directory_social_wrap {
-            ul li {
-              a {
-                padding: 11px 20px;
-                display: block;
-
-                >span {
-                  @extend .atbd_color-primary;
-                  display: inline-block;
-                  margin-right: 5px;
-                }
-              }
-
-              &+li {
-                border-top: 1px solid $border-color;
-              }
-            }
 
             position: absolute;
             transition: $transition-base;
@@ -165,6 +149,27 @@
               width: 100%;
               top: -9px;
               left: 0;
+            }
+
+            ul li {
+              a {
+                padding: 11px 20px;
+                display: flex;
+                align-items: center;
+
+                >span {
+                  @extend .atbd_color-primary;
+                  margin-right: 5px;
+                }
+              }
+
+              &+li {
+                border-top: 1px solid $border-color;
+              }
+            }
+
+            .fa {
+              font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
             }
           }
         }

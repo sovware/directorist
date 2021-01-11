@@ -46,28 +46,28 @@ if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
          */
         do_action( 'directorist_dashboard_before_container' );
         if(isset($_GET['renew']) && ('token_expired' === $_GET['renew'])){?>
-        <div class="alert alert-danger alert-dismissable fade show" role="alert">
+        <div class="atbd-alert atbd-alert-danger atbd-alert-dismissable">
             <span class="fa fa-info-circle"></span>
             <?php esc_html_e('Link appears to be invalid.', 'directorist'); ?>
         </div>
         <?php }
         if(isset($_GET['renew']) && ('success' === $_GET['renew'])){ ?>
-        <div class="alert alert-success alert-dismissable fade show" role="alert">
+        <div class="atbd-alert atbd-alert-success atbd-alert-dismissable">
             <span class="fa fa-check"></span>
             <?php esc_html_e('Renewed successfully.', 'directorist'); ?>
         </div>
         <?php }
         if( isset( $_GET['renew_with_plan'] ) ){ ?>
-            <div class="alert alert-danger alert-dismissable fade show" role="alert">
+            <div class="atbd-alert atbd-alert-danger atbd-alert-dismissable">
                 <span class="fa fa-info-circle"></span>
                 <?php printf(__('Please select a plan for %s to continue.', 'directorist') , get_the_title( sanitize_text_field( $_GET['renew_with_plan'] ) )); ?>
             </div>
             <?php }
             if( isset( $_GET['notice'] ) ){ ?>
                 <div class="col-lg-12">
-                    <div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">
+                    <div class="atbd-alert atbd-alert-info atbd-alert-dismissible">
                         <?php echo $confirmation_msg; ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <button type="button" class="atbd-alert-close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>

@@ -224,7 +224,7 @@ final class Directorist_Base
             self::$instance->includes();
 
             self::$instance->enquirer = new ATBDP_Enqueuer;
-            
+
             // ATBDP_Listing_Type_Manager
             self::$instance->multi_directory_manager = new ATBDP_Multi_Directory_Manager;
             self::$instance->multi_directory_manager->run();
@@ -234,7 +234,7 @@ final class Directorist_Base
 
             self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
-            
+
             self::$instance->hooks = new ATBDP_Hooks;
             self::$instance->metabox = new ATBDP_Metabox;
             self::$instance->ajax_handler = new ATBDP_Ajax_Handler;
@@ -290,7 +290,7 @@ final class Directorist_Base
                 add_action('init', array(self::$instance, 'add_custom_meta_keys_for_old_listings'));
             }
 
-        
+
             // init offline gateway
             new ATBDP_Offline_Gateway;
             // Init Cron jobs to run some periodic tasks
@@ -361,7 +361,7 @@ final class Directorist_Base
 
         if ( $args[ 'current_lang' ] === $page_lang  ) {
             return $args['url'] . $args['term_query_var'];
-        } 
+        }
 
         return false;
     }
@@ -464,7 +464,7 @@ final class Directorist_Base
         /*Load payment related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'payments/');
         load_dependencies('all', ATBDP_INC_DIR . 'checkout/');
-        
+
 
     }
 
@@ -1393,7 +1393,7 @@ final class Directorist_Base
                     </div><!-- end .atbd_custom_fields_contents -->
                 <?php };
             } else { ?>
-                <div class="atbd_notice alert alert-info" role="alert">
+                <div class="atbd_notice atbd-alert atbd-alert-info">
                     <span class="<?php atbdp_icon_type(true); ?>-info-circle" aria-hidden="true"></span>
                     <?php
                     $login_url = apply_filters('atbdp_review_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Login', 'directorist') . "</a>");

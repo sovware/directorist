@@ -400,6 +400,7 @@ Please remember that your order may be canceled if you do not make your payment 
 KAMAL;
 
         $bank_payment_desc = __('You can make your payment directly to our bank account using this gateway. Please use your ORDER ID as a reference when making the payment. We will complete your order as soon as your deposit is cleared in our bank.', 'directorist');
+        $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
 
@@ -485,6 +486,11 @@ KAMAL;
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
                     ],
+                ],
+
+                'monetization_promotion'    => [
+                    'type'          => 'note',
+                    'description' => sprintf(__('Monetize your website by selling listing plans using %s extension.', 'directorist'), $pricing_plan),
                 ],
 
                 'paypal_gateway_promotion'    => [
@@ -5781,7 +5787,7 @@ KAMAL;
                                 'plan_promo' => [
                                     'title'       => __('Monetize by Listing Plans', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [ ],
+                                    'fields'      => [ 'monetization_promotion' ],
                                 ],
                             ] ),
                         ],

@@ -52,6 +52,27 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'restor-data'  => $this->get_simple_data_content( [ 'path' => 'directory/directory-settings.json' ] ),
                 ];
 
+                if( ! get_directorist_option( 'enable_multi_directory' ) ) {
+                    $fields['enable_multi_directory'] = [
+                        'type'                       => 'ajax-action',
+                        'action'                     => 'enable_multi_directory',
+                        'label'                      => 'Multi Directory Builder',
+                        'button-label'               => 'Enable',
+                        'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
+                        'data'                       => [],
+                    ];
+                } else {
+                    $fields['enable_multi_directory'] = [
+                        'type'                       => 'ajax-action',
+                        'action'                     => 'disable_multi_directory',
+                        'label'                      => 'Multi Directory Builder',
+                        'button-label'               => 'Disable',
+                        'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
+                        'data'                       => [],
+                    ];
+                }
+                
+
                 $fields['regenerate_pages'] = [
                     'type'                       => 'ajax-action',
                     'action'                     => 'atbdp_upgrade_old_pages',
@@ -5730,7 +5751,7 @@ KAMAL;
 
                 'extension_settings' => [
                     'label' => __( 'Extensions Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-magic directorist_success"></i>',
+                    'icon' => '<i class="fa fa-magic directorist_warning"></i>',
                     'submenu' => apply_filters('atbdp_extension_settings_submenu', [
                         'extensions_general' => [
                             'label' => __('Extensions General', 'directorist'),
@@ -5795,6 +5816,16 @@ KAMAL;
                                 'restore_default' => [
                                     'title' => __( 'Restore Default', 'directorist' ),
                                     'fields' => [ 'restore_default_settings' ]
+                                ],
+                            ]),
+                        ],
+
+                        'directory_type' => [
+                            'label' => __( 'Multi Directory', 'directorist' ),
+                            'icon' => '<i class="fa fa-plus"></i>',
+                            'sections'  => apply_filters('atbdp_directory_type_controls', [
+                                'restore_default' => [
+                                    'fields' => [ 'enable_multi_directory' ]
                                 ],
                             ]),
                         ],

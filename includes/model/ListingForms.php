@@ -608,7 +608,7 @@ class Directorist_Listing_Forms {
 		);
 		
 		$template = 'forms/fields/' . $field_data['widget_name'];
-		
+
 		$template = apply_filters( 'directorist_field_template', $template, $field_data );
 
 		if ( is_admin() ) {
@@ -703,31 +703,6 @@ class Directorist_Listing_Forms {
 				return atbdp_return_shortcode_template( 'forms/add-listing-error' );
 			}
 		}
-
-		// global $wp;
-		// global $pagenow;
-		// $current_url = home_url( add_query_arg( array(), $wp->request ) );
-
-		// $monetization_is_active    = is_fee_manager_active() && ! selected_plan_id();
-		// $pricing_plan_is_active    = class_exists( 'ATBDP_Pricing_Plans' );
-		// $wc_pricing_plan_is_active = class_exists( 'DWPP_Pricing_Plans' );
-		// $in_add_listing_page       = ( ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow === 'at_biz_dir' ) ) ? true : false;
-		// $show_packages             = ( $monetization_is_active && ! $in_add_listing_page ) ? true : false;
-
-		// // @todo @kowsar - extensions
-		// if ( $show_packages && $pricing_plan_is_active ) {
-		// 	ob_start();
-		// 	do_action( 'atbdp_before_pricing_plan_page_load' );
-		// 	ATBDP_Pricing_Plans()->load_template( 'fee-plans', array( 'atts' => $atts ) );
-		// 	return ob_get_clean();
-		// }
-
-		// if ( $show_packages && $wc_pricing_plan_is_active ) {
-		// 	ob_start();
-		// 	do_action( 'atbdp_before_pricing_plan_page_load' );
-		// 	DWPP_Pricing_Plans()->load_template( 'fee-plans', array( 'atts' => $atts ) );
-		// 	return ob_get_clean();
-		// }
 
 		$args = array(
 			'p_id'               => $p_id,

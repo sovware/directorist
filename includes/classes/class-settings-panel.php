@@ -297,6 +297,15 @@ SWBD;
         // prepare_settings
         public function prepare_settings()
         {
+            $countries = [];
+            foreach (atbdp_country_code_to_name() as $code => $country_name) {
+                $country = [
+                    'value' => $code,
+                    'label' => $country_name,
+                ];
+                array_push( $countries, $country );
+            }
+            // e_var_dump($countries);
             $business_hours_label = sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? '(Requires Business Hours extension)' : '');
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
@@ -322,13 +331,51 @@ SWBD;
                     ],
                 ],
 
+                'featured_listing_title' => [
+                    'type' => 'text',
+                    'label' => __('Title', 'directorist'),
+                    'show-if' => [
+                        'where' => "enable_featured_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
+                    'value' => __('Featured', 'directorist'),
+                ],
+
+                'featured_listing_desc' => [
+                    'type' => 'textarea',
+                    'label' => __('Description', 'directorist'),
+                    'show-if' => [
+                        'where' => "enable_featured_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => __('(Top of the search result and listings pages for a number days and it requires an additional payment.)', 'directorist'),
+                ],
+
                 'featured_listing_price' => [
                     'label'         => __('Price in ', 'directorist') . atbdp_get_payment_currency(),
                     'type'          => 'number',
+                    'max'           => 0,
                     'value'         => 19.99,
                     'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
                     'show-if' => [
-                        'where' => "enable_monetization",
+                        'where' => "enable_featured_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+
+                'featured_listing_time' => [
+                    'label'         => __('Featured Duration in Days', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => 30,
+                    'show-if' => [
+                        'where' => "enable_featured_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
@@ -348,12 +395,12 @@ SWBD;
                     'value'     => [
                             'bank_transfer',
                         ],
-                    'options'   => [
+                    'options'   => apply_filters('atbdp_active_gateways', [
                         [
                             'value' => 'bank_transfer',
                             'label' => __('Bank Transfer (Offline Gateway)', 'directorist'),
                         ],
-                    ],
+                    ] ),
                     'description' => __('Check the gateway(s) you would like to use to collect payment from your users. A user will be use any of the active gateways during the checkout process ', 'directorist'),
                 ],
 
@@ -1120,12 +1167,6 @@ SWBD;
                             'value' => 'publish',
                         ],
                     ],
-                ],
-                'fix_js_conflict' => [
-                    'label' => __('Fix Conflict with Bootstrap JS', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                    'description' => __('If you use a theme that uses Bootstrap Framework especially Bootstrap JS, then Check this setting to fix any conflict with theme bootstrap js.', 'directorist'),
                 ],
                 'font_type' => [
                     'label' => __('Icon Library', 'directorist'),
@@ -1942,6 +1983,7 @@ SWBD;
                     'label' => __('Disable Single Listing View'),
                     'value' => false,
                 ],
+
                 'single_listing_template' => [
                     'label' => __('Template', 'directorist'),
                     'type'  => 'select',
@@ -1973,6 +2015,33 @@ SWBD;
                         ],
                     ],
                     'value' => 'directory',
+                ],
+                'submission_confirmation' => [
+                    'type' => 'toggle',
+                    'label' => __('Show Submission Confirmation', 'directorist'),
+                    'value' => true,
+                ],
+                'publish_confirmation_msg' => [
+                    'type' => 'textarea',
+                    'label' => __('Publish Confirmation Message', 'directorist'),
+                    'value' => __('Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist'),
+                    'show-if' => [
+                        'where' => "submission_confirmation",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+                'pending_confirmation_msg' => [
+                    'type' => 'textarea',
+                    'label' => __('Pending Confirmation Message', 'directorist'),
+                    'value' => __('Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist'),
+                    'show-if' => [
+                        'where' => "submission_confirmation",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
                 'edit_listing_redirect' => [
                     'label' => __('Redirect after Editing a Listing', 'directorist'),
@@ -2550,12 +2619,7 @@ SWBD;
                         ],
                     ],
                 ],
-                'featured_listing_title' => [
-                    'type' => 'text',
-                    'label' => __('Title', 'directorist'),
-                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
-                    'value' => __('Featured', 'directorist'),
-                ],
+                
                 // review settings 
                 'enable_review' => [
                     'type' => 'toggle',
@@ -2685,6 +2749,29 @@ SWBD;
                             ['key' => 'value', 'compare' => '=', 'value' => 'google'],
                         ],
                     ],
+                ],
+                'country_restriction' => [
+                    'type' => 'toggle',
+                    'label' => __('Country Restriction', 'directorist'),
+                    'value' => false,
+                    'show-if' => [
+                        'where' => "select_listing_map",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'google'],
+                        ],
+                    ],
+                ],
+                'restricted_countries' => [
+                    'label' => __('Select Countries', 'directorist'),
+                    'type'  => 'checkbox',
+                    'value' => [],
+                    'show-if' => [
+                        'where' => "country_restriction",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'options' => $countries,
                 ],
                 'default_latitude'     => [
                     'type'           => 'text',
@@ -4990,7 +5077,6 @@ SWBD;
                                     'fields'      => [
                                         'new_listing_status',
                                         'edit_listing_status', 
-                                        'fix_js_conflict', 
                                         'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
                                     ],
                                 ],
@@ -5017,7 +5103,7 @@ SWBD;
                                     'title'       => __('Single Listing', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'disable_single_listing', 'single_listing_template', 'atbdp_listing_slug', 'edit_listing_redirect', 'listing_details_text', 'tags_section_lable', 'custom_section_lable', 'listing_location_text', 'contact_info_text', 'contact_listing_owner', 'atbd_video_title', 'atbd_author_info_title', 'display_back_link', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'dsiplay_thumbnail_img', 'gallery_crop_width', 'gallery_crop_height', 'enable_social_share', 'enable_favourite', 'enable_report_abuse', 'disable_list_price', 'enable_single_location_taxonomy', 'enable_single_tag', 'disable_contact_info', 'address_map_link', 'disable_contact_owner', 'user_email', 'use_nofollow', 'disable_map', 'atbd_video_url', 'enable_rel_listing', 'rel_listings_logic', 'rel_listing_title', 'rel_listing_num', 'rel_listing_column', 'fix_listing_double_thumb'
+                                        'disable_single_listing', 'single_listing_template', 'atbdp_listing_slug', 'submission_confirmation', 'publish_confirmation_msg', 'pending_confirmation_msg', 'edit_listing_redirect', 'listing_details_text', 'tags_section_lable', 'custom_section_lable', 'listing_location_text', 'contact_info_text', 'contact_listing_owner', 'atbd_video_title', 'atbd_author_info_title', 'display_back_link', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'dsiplay_thumbnail_img', 'gallery_crop_width', 'gallery_crop_height', 'enable_social_share', 'enable_favourite', 'enable_report_abuse', 'disable_list_price', 'enable_single_location_taxonomy', 'enable_single_tag', 'disable_contact_info', 'address_map_link', 'disable_contact_owner', 'user_email', 'use_nofollow', 'disable_map', 'atbd_video_url', 'enable_rel_listing', 'rel_listings_logic', 'rel_listing_title', 'rel_listing_num', 'rel_listing_column', 'fix_listing_double_thumb'
                                     ],
                                 ],
                             ] ),
@@ -5071,7 +5157,7 @@ SWBD;
                                     'title'       => __('Map Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'select_listing_map', 'map_api_key', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
+                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
                                     ],
                                 ],
                                 'map_info_window' => [
@@ -5559,7 +5645,10 @@ SWBD;
                                     'description' => '',
                                     'fields'      => [ 
                                         'enable_featured_listing',
-                                        'featured_listing_price'
+                                        'featured_listing_title',
+                                        'featured_listing_desc',
+                                        'featured_listing_price',
+                                        'featured_listing_time',
                                     ],
                                 ],
                                 'plan_promo' => [
@@ -5606,7 +5695,7 @@ SWBD;
 
                 'extension_settings' => [
                     'label' => __( 'Extensions Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-magic directorist_success"></i>',
+                    'icon' => '<i class="fa fa-magic directorist_warning"></i>',
                     'submenu' => apply_filters('atbdp_extension_settings_submenu', [
                         'extensions_general' => [
                             'label' => __('Extensions General', 'directorist'),
@@ -5615,7 +5704,9 @@ SWBD;
                                 'general_settings' => [
                                     'title'       => __('Extensions General Settings', 'directorist'),
                                     'description' => 'You can Customize Extensions-related settings here. You can enable or disable any extensions here. Here, YES means Enabled, and NO means disabled. After switching any option, Do not forget to save the changes.',
-                                    'fields'      =>  apply_filters( 'atbdp_extension_fields', [] ) ,
+                                    'fields'      =>  apply_filters( 'atbdp_extension_fields', [
+                                        // 'extension_note'
+                                    ] ) ,
                                 ],
                             ] ),
                         ],
@@ -5635,9 +5726,6 @@ SWBD;
                                     'description'   => '',
                                     'fields'        => [
                                         'announcement',
-                                        // 'announcement_to',
-                                        // 'announcement_subject',
-                                        // 'announcement_send_to_email',
                                     ]
                                 ],
                             ]),
@@ -5658,24 +5746,23 @@ SWBD;
                                 ),
                             ]),
                         ],
+
+                        'settings_import_export' => [
+                            'label' => __( 'Settings Import/Export', 'directorist' ),
+                            'icon' => '<i class="fa fa-tools"></i>',
+                            'sections'  => apply_filters('atbdp_settings_import_export_controls', [
+                                'import_export' => [
+                                    'title' => __( 'Import/Export', 'directorist' ),
+                                    'fields' => [ 'import_settings', 'export_settings' ]
+                                ],
+                                'restore_default' => [
+                                    'title' => __( 'Restore Default', 'directorist' ),
+                                    'fields' => [ 'restore_default_settings' ]
+                                ],
+                            ]),
+                        ],
                     ]),
                 ],
-
-                'settings_import_export' => [
-                    'label' => __( 'Settings Import/Export', 'directorist' ),
-                    'icon' => '<i class="fa fa-tools"></i>',
-                    'sections' => [
-                        'import_export' => [
-                            'title' => __( 'Import/Export', 'directorist' ),
-                            'fields' => [ 'import_settings', 'export_settings' ]
-                        ],
-                        'restore_default' => [
-                            'title' => __( 'Restore Default', 'directorist' ),
-                            'fields' => [ 'restore_default_settings' ]
-                        ],
-                    ],
-                ]
-
             ]);
 
             $this->config = [

@@ -5337,7 +5337,7 @@ KAMAL;
                                     'title'       => __('For New Listing', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        'email_sub_new_listing', 'email_tmpl_new_listing'
+                                        'email_note', 'email_sub_new_listing', 'email_tmpl_new_listing'
                                      ],
                                 ],
                                 'approved_listings' => [
@@ -5358,7 +5358,7 @@ KAMAL;
                                     'title'       => __('For About To Expire Listings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        'email_note', 'email_sub_to_expire_listing', 'email_tmpl_to_expire_listing'
+                                       'email_sub_to_expire_listing', 'email_tmpl_to_expire_listing'
                                      ],
                                 ],
                                 'expired_listings' => [

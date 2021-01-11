@@ -589,11 +589,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 $string     = (!is_null($string_alt)) ? $string_alt : $string;
             }
 
-            $test_json = json_decode($string, true);
-            if (!is_null($test_json)) {
-                $string = $test_json;
-            }
-
             return $string;
         }
 

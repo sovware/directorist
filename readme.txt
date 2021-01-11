@@ -1,14 +1,14 @@
 ﻿=== Directorist - Business Directory Plugin ===
-Contributors: AazzTech
+Contributors: wpwax
 Donate link: https://directorist.com/extensions/
-Tags: directory, listings, classifieds, directory plugin, business directory
+Tags: member directory, listings, classifieds, directory plugin, business directory
 Requires at least: 4.6
-Tested up to:  5.5
-Stable tag: 6.5.5
+Tested up to:  5.6
+Stable tag: 6.5.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-The most comprehensive directory plugin to create job listings, classified ads, booking directory, member directory, service directory, pets directory
+The most comprehensive directory plugin to create job listings, classified ads, booking directory, local directory, service directory, pets directory
 
 == Description ==
 
@@ -255,7 +255,7 @@ If you face any issues with managing this awesome business directory plugin in p
 
 == Contribute to Directorist - The Best Business Directory Plugin ==
 
-If you want to contribute to the project, you’re most welcome to make it happen. The full source code is available on [GitHub](https://github.com/aazztech/directorist). If you find anything improbable, feel free to shoot a bug report.
+If you want to contribute to the project, you’re most welcome to make it happen. The full source code is available on [GitHub](https://github.com/sovware/directorist). If you find anything improbable, feel free to shoot a bug report.
 
 == Installation ==
 
@@ -326,6 +326,34 @@ Directorist is a complete directory solution and in combination with its advance
 26. Directorist Settings Panel
 
 == Changelog ==
+
+= 6.5.7 - Dec 21, 2020 =
+
+* Add - Rank Math plugin compatibility
+* Add - Guest submission login modal for existing users
+* Add - All listing short code parameter "map_zoom_level"
+* Add - Option to restrict single listings for logged in user only
+* Add - WP 5.6 compatibility
+* Fix - Search result sort by feature
+* Fix - Listing bookmark issue
+* Improve - Contact listing owner confirmation message
+
+= 6.5.6 - Nov 27, 2020 =
+
+* Add - A form to send bulk announcement to directory user
+* Add - Featured listing auto fallback to normal
+* Add - Option to show Thank You notification after submitting a listing
+* Add - Country restriction in google map auto suggestion
+* Add - Featured listing auto fallback to general
+* Improve - Checkout system
+* Improve - User Dashboard Page
+* Improve - Payment Receipt Page
+* Fix - Undefined variable in all listings map view
+* Fix - Translation issue
+* Fix - Google map marker issue in admin add listing form
+* Fix - Title issue in single term pages
+* Tweak - Category icon in all listings page
+* Tweak - Order email notification
 
 = 6.5.5 - Oct 20, 2020 =
 

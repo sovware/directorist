@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Directorist - Business Directory Plugin
- * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
+ * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
  * Version: 6.6.0
- * Author: AazzTech
- * Author URI: https://aazztech.com
+ * Author: wpWax
+ * Author URI: https://wpwax.com
  * Text Domain: directorist
  * Domain Path: /languages
  */
@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-Copyright (c) 2020 AazzTech (website: aazztech.com). All rights reserved.
+Copyright (c) 2020 wpWax (website: wpwax.com). All rights reserved.
 */
 // prevent direct access to the file
 defined('ABSPATH') || die('No direct script access allowed!');
@@ -224,7 +224,7 @@ final class Directorist_Base
             self::$instance->includes();
 
             self::$instance->enquirer = new ATBDP_Enqueuer;
-            
+
             // ATBDP_Listing_Type_Manager
             self::$instance->multi_directory_manager = new ATBDP_Multi_Directory_Manager;
             self::$instance->multi_directory_manager->run();
@@ -234,7 +234,7 @@ final class Directorist_Base
 
             self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
-            
+
             self::$instance->hooks = new ATBDP_Hooks;
             self::$instance->metabox = new ATBDP_Metabox;
             self::$instance->ajax_handler = new ATBDP_Ajax_Handler;
@@ -290,7 +290,7 @@ final class Directorist_Base
                 add_action('init', array(self::$instance, 'add_custom_meta_keys_for_old_listings'));
             }
 
-        
+
             // init offline gateway
             new ATBDP_Offline_Gateway;
             // Init Cron jobs to run some periodic tasks
@@ -361,7 +361,7 @@ final class Directorist_Base
 
         if ( $args[ 'current_lang' ] === $page_lang  ) {
             return $args['url'] . $args['term_query_var'];
-        } 
+        }
 
         return false;
     }
@@ -464,7 +464,7 @@ final class Directorist_Base
         /*Load payment related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'payments/');
         load_dependencies('all', ATBDP_INC_DIR . 'checkout/');
-        
+
 
     }
 
@@ -1393,7 +1393,7 @@ final class Directorist_Base
                     </div><!-- end .atbd_custom_fields_contents -->
                 <?php };
             } else { ?>
-                <div class="atbd_notice alert alert-info" role="alert">
+                <div class="atbd_notice atbd-alert atbd-alert-info">
                     <span class="<?php atbdp_icon_type(true); ?>-info-circle" aria-hidden="true"></span>
                     <?php
                     $login_url = apply_filters('atbdp_review_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Login', 'directorist') . "</a>");

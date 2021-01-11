@@ -4,6 +4,7 @@
  * @since   6.7
  * @version 6.7
  */
+if( is_admin() ) return;
 $description = get_directorist_option('featured_listing_desc');
 ?>
 <div class="atbd_listing_type">

@@ -67,8 +67,14 @@ class ATBDP_Enqueuer {
         $select_listing_map = get_directorist_option( 'select_listing_map', 'openstreet' );
         // Admin Assets
         if ( is_admin() ) {
-            wp_register_script( 'extension-update', ATBDP_ADMIN_ASSETS . 'js/extension-update.js', array( 'jquery' ), ATBDP_VERSION, true );
-            wp_enqueue_script( 'extension-update' );
+            if( 'plugins.php' === $page ) {
+                wp_register_script( 'plugins', ATBDP_ADMIN_ASSETS . 'js/plugins.js', array( 'jquery' ), ATBDP_VERSION, true );
+                wp_register_style( 'plugins-css', ATBDP_ADMIN_ASSETS . 'css/plugins.css', array(), ATBDP_VERSION );
+
+                wp_enqueue_script( 'plugins' );
+                wp_enqueue_style( 'plugins-css' );
+
+            }
             if('at_biz_dir_page_tools' === $page){
                 wp_register_script( 'atbdp-import-export', ATBDP_ADMIN_ASSETS . 'js/import-export.js', array( 'jquery' ), ATBDP_VERSION, true );
                 wp_enqueue_script( 'atbdp-import-export' );
@@ -345,6 +351,7 @@ class ATBDP_Enqueuer {
             'upload_pro_pic_text'         => __( 'Use this Image', 'directorist' ),
             'payNow'                      => __( 'Pay Now', 'directorist' ),
             'completeSubmission'          => __( 'Complete Submission', 'directorist' ),
+            'waiting_msg'                 => __( 'Sending the message, please wait...', 'directorist' ),
             'plugin_url'                  => ATBDP_URL,
             'currentDate'                 => get_the_date(),
             'enable_reviewer_content'     => $enable_reviewer_content

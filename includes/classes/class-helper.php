@@ -519,7 +519,7 @@ if (!class_exists('ATBDP_Helper')) :
             $t = apply_filters('atbdp_unauthorized_access_message', $t);
             ?>
             <div class="notice_wrapper">
-                <div class="alert alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo $t; ?></div>
+                <div class="atbd-alert atbd-alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo $t; ?></div>
             </div>
             <?php
         }
@@ -608,7 +608,7 @@ if (!class_exists('ATBDP_Helper')) :
         public static function sanitize_html(string $subject = '', string $return_type = 'echo')
         {
             $subject = esc_html(stripslashes($subject));
-            
+
             if ('return' === $return_type) {
                 return $subject;
             }
@@ -639,7 +639,7 @@ if (!class_exists('ATBDP_Helper')) :
                 ob_start(); ?>
                 <section class="directory_wrapper single_area">
                     <div class="notice_wrapper">
-                        <div class="alert alert-warning">
+                        <div class="atbd-alert atbd-alert-warning">
                             <span class="fa fa-info-circle" aria-hidden="true"></span>
                             <?php _e('Nothing to show!'); ?>
                         </div>
@@ -660,7 +660,7 @@ if (!class_exists('ATBDP_Helper')) :
                 return $tel;
             }
 
-            echo $tel;   
+            echo $tel;
         }
 
         /**
@@ -705,7 +705,7 @@ if (!class_exists('ATBDP_Helper')) :
                                 <ul>
                                     <p class="info_title"><?php _e('Location:', 'directorist'); ?></p>
                                     <?php foreach ($locs as $loc) {
-                                        $location_count--; // reduce count to display comma for the right item 
+                                        $location_count--; // reduce count to display comma for the right item
                                     ?>
                                         <li>
                                             <span><?php if (is_object($loc)) { ?>

@@ -69,7 +69,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
             // default listing type
             add_action('wp_ajax_atbdp_listing_default_type', array($this, 'atbdp_listing_default_type'));
-            
+
             // Guset Reception
             add_action('wp_ajax_atbdp_guest_reception', array($this, 'guest_reception'));
             add_action('wp_ajax_nopriv_atbdp_guest_reception', array($this, 'guest_reception'));
@@ -81,7 +81,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             // add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
             // add_action('wp_ajax_atbdp_custom_fields_listings',                       array($this, 'ajax_callback_custom_fields'), 10, 2 );
             // add_action('wp_ajax_atbdp_custom_fields_listings_selected',              array($this, 'ajax_callback_custom_fields'), 10, 2 );
-            
+
             add_action('wp_ajax_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
             add_action('wp_ajax_nopriv_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
         }
@@ -153,7 +153,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         ob_start();
                         Directorist_Listing_Forms::instance()->add_listing_category_custom_field_template( $value, $post_id );
                         $template .= ob_get_clean();
-                    }      
+                    }
                 }
             }
            wp_send_json( $template );
@@ -188,7 +188,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         'error_log' => $error_log
                     ],
                 ];
-    
+
                 wp_send_json( $data, 200 );
             }
 
@@ -593,7 +593,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         $msg .= '</div>';
                     endforeach;
                 } else {
-                    $msg .= ' <div class="notice alert alert-info" role="alert" id="review_notice">
+                    $msg .= ' <div class="notice atbd-alert atbd-alert-info" id="review_notice">
                                 <span class="' . atbdp_icon_type(false) . '-info-circle" aria-hidden="true"></span> ' .
                         __('No reviews found. Be the first to post a review !', 'directorist') . '</div>';
                 }
@@ -1262,7 +1262,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             require ATBDP_TEMPLATES_DIR . 'custom-fields.php';
             wp_reset_postdata(); // Restore global post data stomped by the_post()
             $output = ob_get_clean();
-            
+
             echo $output;
 
             if ($ajax) {

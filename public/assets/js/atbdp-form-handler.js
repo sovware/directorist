@@ -107,7 +107,7 @@
                         handler.success(response, self);
                         return;
                     }
-    
+
                     self.onSuccess(response, form_key);
                 },
                 error: function () {
@@ -115,7 +115,7 @@
                         handler.error(error, self);
                         return;
                     }
-    
+
                     self.onError(response, form_key);
                 }
             });
@@ -154,7 +154,7 @@
                 return;
             }
 
-            // If has success response 
+            // If has success response
             if (('error' in response && !response.error) ||
                 ('success' in response && response.success)) {
 
@@ -205,7 +205,8 @@
             var alert_class = '.' + this.option.alertClass;
             var alert = $(form).find(alert_class);
 
-            var msg = '<div class="alert alert-' + type + '">' + message + '</div>';
+if( $renew_succeed ) { ?
+    var msg = '<div class="atbd-alert atbd-alert-' + type + '">' + message + '</div>';
             alert.html(msg);
         };
 

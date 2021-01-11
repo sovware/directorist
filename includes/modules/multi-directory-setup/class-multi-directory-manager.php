@@ -4819,7 +4819,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         public function add_menu_pages()
         {
             $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-            $page_title = 'Layout Builder';
+            $page_title = __( 'Builder', 'directorist' );
             $page_slug  = 'atbdp-layout-builder';
 
             if ( atbdp_is_truthy( $enable_multi_directory ) ) {
@@ -4834,7 +4834,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'manage_options',
                 $page_slug,
                 [$this, 'menu_page_callback__directory_types'],
-                5
+                6
             );
         }
 

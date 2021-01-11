@@ -91,8 +91,10 @@ if (!class_exists('ATBDP_Listing')):
             if (isset($_GET['post_type'])) {
                 $type = $_GET['post_type'];
             }
+            $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
+
             //only add filter to post type you want
-            if ('at_biz_dir' == $type) { ?>
+            if ( ( 'at_biz_dir' == $type ) && ( atbdp_is_truthy( $enable_multi_directory ) ) ) { ?>
                 <select name="directory_type">
                     <option value=""><?php _e('Filter by directory ', 'directorist-post-your-need'); ?></option>
                     <?php

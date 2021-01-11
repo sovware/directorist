@@ -5,7 +5,6 @@
  * @version 6.7
  */
 if( is_admin() ) return;
-$description = get_directorist_option('featured_listing_desc');
 ?>
 <div class="atbd_listing_type">
     <?php $listing_type = !empty($listing_info['listing_type']) ? $listing_info['listing_type'] : ''; ?>
@@ -22,7 +21,7 @@ $description = get_directorist_option('featured_listing_desc');
         <label for="featured" class="featured_listing_type_select">
             <?php echo esc_attr( $data['featured_label'] ); ?>
             <small class="atbdp_make_str_green"><?php
-            echo esc_attr( $description ) ;?>
+            echo esc_attr( $form->featured_listing_description() ) ;?>
             </small>
         </label>
     </div>

@@ -360,16 +360,19 @@ class ATBDP_Gateway{
         </li>';
 
         $markup = '<ul>';
-        foreach ($active_gateways as $gw_name){
-            $title = get_directorist_option($gw_name.'_title');
-            $desc = get_directorist_option($gw_name.'_description');
-            $desc = ! empty( $desc ) ? "<p class='text-muted'>{$desc}</p>" : '';
-            $checked = ( $gw_name == $default_gw ) ? ' checked': '';
-            $search = array("##GATEWAY##", "##LABEL##", "##DESC##", "##CHECKED##");
-            $replace = array($gw_name, $title, $desc, $checked);
-            $markup .= str_replace($search, $replace , $format);
-            /*@todo; Add a settings to select a default payment method.*/
+        if( !empty( $active_gateways ) ) {
+            foreach ($active_gateways as $gw_name){
+                $title = get_directorist_option($gw_name.'_title');
+                $desc = get_directorist_option($gw_name.'_description');
+                $desc = ! empty( $desc ) ? "<p class='text-muted'>{$desc}</p>" : '';
+                $checked = ( $gw_name == $default_gw ) ? ' checked': '';
+                $search = array("##GATEWAY##", "##LABEL##", "##DESC##", "##CHECKED##");
+                $replace = array($gw_name, $title, $desc, $checked);
+                $markup .= str_replace($search, $replace , $format);
+                /*@todo; Add a settings to select a default payment method.*/
+            }
         }
+        
         $markup .= '</ul>';
 
         return $markup;

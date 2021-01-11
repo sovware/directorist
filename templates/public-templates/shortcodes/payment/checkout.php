@@ -3,10 +3,10 @@
     <?php do_action('atbdp_before_checkout_form_start'); ?>
     <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="" role="form">
         <?php do_action('atbdp_after_checkout_form_start'); ?>
-        <div class="atbd-alert atbd-alert-info atbd-alert-dismissable">
+        <div class="alert alert-info alert-dismissable fade show" role="alert">
             <span class="fa fa-info-circle"></span>
             <?php esc_html_e('Your order details are given below. Please review it and click on Proceed to Payment to complete this order.', 'directorist'); ?>
-            <button type="button" class="atbd-alert-close">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>
         </div>
@@ -60,7 +60,7 @@
                                 echo $input_field;
                             ?>
                             <?php if ( ! empty( $option['title'] ) ) echo "<label for='{$atts['id']}'><h4>" . esc_html($option['title']) . "</h4></label>"; ?>
-                            <?php if ( ! empty( $option['desc'] ) ) echo '<small>'. esc_html($option['desc']) . '</small>'; ?>
+                            <?php if ( ! empty( $option['desc'] ) ) echo '<span>'. esc_html($option['desc']) . '</span>'; ?>
                         </td>
                         <td class="text-right vertical-middle">
                             <span class="atbd-plan-price">
@@ -141,7 +141,7 @@
         } else{
             $url = add_query_arg('listing_status', $new_l_status,  ATBDP_Permalink::get_dashboard_page_link().'?listing_id='.$listing_id );
         }
-        ?>
+        ?> 
         <input type="hidden" id="listing_id" name="listing_id" value="<?php echo $listing_id; ?>"/>
         <div class="pull-right" id="atbdp_pay_notpay_btn">
             <a href="<?php echo esc_url( apply_filters( 'atbdp_checkout_not_now_link', $url ) ); ?>" class="btn btn-danger atbdp_not_now_button"><?php _e('Not Now', 'directorist'); ?></a>

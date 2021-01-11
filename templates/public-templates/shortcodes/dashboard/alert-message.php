@@ -17,9 +17,9 @@ if( $renew_succeed ) { ?>
 
 if( $confirmation_msg ) { ?>
 	 <div class="col-lg-12">
-		<div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">
+		<div class="atbd-alert atbd-alert-info atbd-alert-dismissible">
 			<?php echo $confirmation_msg; ?>
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<button type="button" class="atbd-alert-close">
 				<span aria-hidden="true">&times;</span>
 			</button>
 		</div>

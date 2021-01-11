@@ -87,6 +87,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function section_template( $section_data ) {
+		
 		$args = array(
 			'listing'      => $this,
 			'section_data' => $section_data,
@@ -102,7 +103,6 @@ class Directorist_Single_Listing {
 			atbdp_get_shortcode_template( $template, $args );
 		}
 		else {
-			e_var_dump($section_data);
 			atbdp_get_shortcode_template( 'single-listing/section-general', $args );
 		}
 	}
@@ -113,6 +113,12 @@ class Directorist_Single_Listing {
 		if( 'tag' === $data['widget_name'] ) {
 			$tags = get_the_terms( $this->id, ATBDP_TAGS );
 			if( $tags ) {
+				$value = true;
+			}
+		}
+		if( 'map' === $data['widget_name'] ) {
+			$address = get_post_meta( $this->id, '_address', true );
+			if( $address ) {
 				$value = true;
 			}
 		}
@@ -129,7 +135,6 @@ class Directorist_Single_Listing {
 			'value'   => $value,
 			'icon'    => !empty( $data['icon'] ) ? $data['icon'] : '',
 		);
-
 		$template = 'single-listing/items/' . $data['widget_name'];
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 		if( $load_template )

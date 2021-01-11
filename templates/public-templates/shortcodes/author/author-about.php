@@ -4,7 +4,11 @@
  * @since   6.6
  * @version 6.6
  */
-?>
+
+/**
+ * @since 6.6.6
+ */
+do_action( 'atbdp_before_author_about_section' ); ?>
 <div class="row">
     <div class="col-md-8">
         <div class="atbd_author_module">
@@ -87,3 +91,8 @@
         </div>
     </div>
 </div>
+<?php 
+/**
+ * @since 6.6
+ */
+do_action( 'atbdp_author_listing_after_about_section' ); ?>

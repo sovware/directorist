@@ -13,11 +13,14 @@ $socials = get_post_meta( $listing->id, '_social', true);
 	<?php endif; ?>
 	<div class="directorist-single-info-value">
 		<div class="atbd_director_social_wrap">
-			<?php foreach ( $socials as $link ) { ?>
-				<a target='_blank' href="<?php echo esc_url($link['url']); ?>" class="<?php echo esc_attr($link['id']); ?>">
-					<span class="<?php atbdp_icon_type(true);?>-<?php echo esc_attr($link['id']); ?>"></span>
-				</a>
-				<?php
+			<?php 
+			if( !empty( $socials ) ) {
+				foreach ( $socials as $link ) { ?>
+					<a target='_blank' href="<?php echo esc_url($link['url']); ?>" class="<?php echo esc_attr($link['id']); ?>">
+						<span class="<?php atbdp_icon_type(true);?>-<?php echo esc_attr($link['id']); ?>"></span>
+					</a>
+					<?php
+				}
 			}
 			?>
 		</div>

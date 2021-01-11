@@ -30,7 +30,15 @@
             </div>
         </div>
 
-        <h4 class="atbdp-settings-manager__title"><?php _e( 'Settings', 'directorist' ) ?></h4>
+        <h4 class="atbdp-settings-manager__title">
+            <span><?php _e( 'Settings', 'directorist' ) ?></span>
+            <span class="directorist_settings-trigger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+        </h4>
+        <span class="directorist_settings-panel-shade"></span>
         <settings-manager />
     </div>
 </div>

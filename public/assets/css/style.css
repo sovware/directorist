@@ -4507,6 +4507,9 @@ input#privacy_policy,
   display: -ms-flexbox;
   display: flex;
   margin: -3px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_single_listing.atbd_listing_list .atbd-list-body-right .atdlc_compare-btn-container {
@@ -10431,7 +10434,8 @@ p.atbd-min {
     -o-text-overflow: ellipsis;
        text-overflow: ellipsis;
   }
-  .atbd_content_active .widget.atbd_widget .atbdp, .atbd_content_active .widget.atbd_widget .directorist,
+  .atbd_content_active .widget.atbd_widget .atbdp,
+  .atbd_content_active .widget.atbd_widget .directorist,
   .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .atbdp,
   .atbd_content_active #directorist.atbd_wrapper .widget.atbd_widget .directorist {
     padding: 20px 20px 15px;
@@ -10562,7 +10566,8 @@ p.atbd-min {
     padding-top: 30px;
     padding-bottom: 27px;
   }
-  .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar, .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_meta {
+  .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_avatar,
+  .atbd_content_active #directorist.atbd_wrapper .atbd_auhor_profile_area .atbd_author_meta {
     -webkit-box-flex: 0;
         -ms-flex: none;
             flex: none;
@@ -10796,6 +10801,12 @@ p.atbd-min {
         -ms-flex: 0 0 50%;
             flex: 0 0 50%;
   }
+  #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline {
+    padding-right: 0;
+  }
+  #directorist.atbd_wrapper .atbd_seach_fields_wrapper .atbdp-search-form.atbdp-search-form-inline .single_search_field {
+    border-right: 0;
+  }
 }
 
 @media (max-width: 400px) {
@@ -10843,7 +10854,9 @@ p.atbd-min {
 
 @media (max-width: 340px) {
   .atbd_content_active #directorist.atbd_wrapper .atbd_generic_header .atbd_listing_action_btn {
-    display: block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
   }
   .atbd_content_active #directorist.atbd_wrapper .atbd_listing_action_btn .dropdown {
     margin-top: 3px;

@@ -8,7 +8,7 @@
             
             <div class="atbdp-col atbdp-col-8">
                 <span class="cptm-input-toggle" :class="toggleClass" @click="toggleValue()"></span>
-                <input type="checkbox" :id="name" :name="name" style="display: none;" :checked="local_value">
+                <input type="checkbox" :id="name" :name="name" style="display: none;" v-model="local_value">
             </div>
         </div>
     </div>

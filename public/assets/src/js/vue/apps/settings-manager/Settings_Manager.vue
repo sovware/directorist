@@ -237,7 +237,7 @@ export default {
 
         },
 
-        updateData() {
+        updateData( args ) {
             if ( this.form_is_processing ) { console.log( 'Please wait...' ); return; }
             // console.log( 'updateData' );
 
@@ -318,6 +318,10 @@ export default {
                         setTimeout( function() {
                             self.status_message = null;
                         }, 5000 );
+                    }
+
+                    if ( args && args.reload_after_save ) {
+                        window.location.reload();
                     }
 
                 })

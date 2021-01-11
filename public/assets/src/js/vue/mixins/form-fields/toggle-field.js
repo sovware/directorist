@@ -34,6 +34,22 @@ export default {
         toggleValue() {
             this.local_value = ! this.local_value;
             this.$emit('update', this.local_value);
-        }
+
+            this.handleDataOnChange();
+        },
+
+        handleDataOnChange() {
+            let task = this.dataOnChange;
+            let cachedData = this.cachedData;
+
+            if ( ! cachedData ) { return; }
+            if ( cachedData.value == this.local_value ) { return; }
+
+            if ( ! ( task && typeof task === 'object' ) ) { return; }
+            if ( ! task.action ) { return; }
+            if ( typeof task.action !== 'string' ) { return; }
+
+            this.$emit( 'do-action', task );
+        },
     }
 }

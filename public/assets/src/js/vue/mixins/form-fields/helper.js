@@ -3,10 +3,18 @@ import helper from './../helpers';
 
 export default {
     mixins: [ helper ],
+
+    watch: {
+        // value() {
+        //     if ( this.dataOnChange ) {
+        //         this.handleDataOnChange();
+        //     }
+        // }
+    },
+
     computed: {
         ...mapState({
             config: 'config',
-            fields: 'fields',
         }),
 
         canShow() {

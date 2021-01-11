@@ -14,7 +14,6 @@ if( $renew_succeed ) { ?>
 	<div class="alert alert-info alert-dismissable fade show" role="alert"><span class="fa fa-info-circle"></span><?php esc_html_e('Renewed successfully.', 'directorist'); ?></div>
 	<?php
 }
-
 if( $confirmation_msg ) { ?>
 	 <div class="col-lg-12">
 		<div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">

@@ -130,7 +130,8 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
                 if ( ! $disable_map ) {wp_enqueue_script( 'atbdp-google-map-admin' );}
                 wp_enqueue_script( 'select2script' );
                 wp_enqueue_script( 'atbdp-admin-script' );
-
+                $font_type = get_directorist_option('font_type', 'line');
+                $icon_type = ( 'line' == $font_type ) ? 'la' : 'fa';
                 // Internationalization text for javascript file especially add-listing.js
                 $i18n_text = array(
                     'confirmation_text'       => __( 'Are you sure', 'directorist' ),
@@ -155,6 +156,7 @@ if ( ! class_exists( 'ATBDP_Enqueuer' ) ):
                     'restricted_countries'      => get_directorist_option( 'restricted_countries' ),
                     'AdminAssetPath' => ATBDP_ADMIN_ASSETS,
                     'i18n_text'      => $i18n_text,
+                    'icon_type'      => $icon_type
                 );
                 wp_localize_script( 'atbdp-admin-script', 'atbdp_admin_data', $data );
                 wp_enqueue_media();

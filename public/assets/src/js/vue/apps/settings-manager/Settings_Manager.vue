@@ -264,7 +264,6 @@ export default {
                 if ( this.fields[ field_key ].validationState && this.fields[ field_key ].validationState.hasError ) {
                     error_count++;
                 }
-                
 
                 if ( cahced_value == new_value ) { continue; }
 
@@ -310,7 +309,6 @@ export default {
                     self.form_is_processing        = false;
                     self.submit_button.is_disabled = false;
                     self.submit_button.label       = self.submit_button.label_default;
-
 
                     if ( response.data.status && response.data.status.status_log ) {
                         self.status_message = response.data.status.status_log;
@@ -365,8 +363,12 @@ export default {
         maybeJSON( data ) {
             let value = ( typeof data === 'undefined' ) ? '' : data;
 
-            if ( 'object' === typeof value ) {
+            if ( 'object' === typeof value && Object.keys( value ).length ) {
                 value = JSON.stringify( value );
+            }
+            
+            if ( 'object' === typeof value && ! Object.keys( value ).length ) {
+                value = '';
             }
 
             return value;

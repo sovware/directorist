@@ -129,13 +129,12 @@ export default {
         },
 
         filtereValue( value ) {
-            if ( ! value && typeof value !== 'object' ) {
-                return [];
-            }
+            if ( ! ( value && Array.isArray( value ) ) ) { return []; }
 
             let options_values = this.theOptions.map( option => {
                 if ( typeof option.value !== 'undefined' ) { return option.value; }
             });
+
             return value.filter( value_elm => {
                 return options_values.includes( value_elm );
             });

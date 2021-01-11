@@ -444,6 +444,12 @@ class Directorist_Listing_Forms {
 		return $text;
 	}
 
+	public function featured_listing_description() {
+		$description = get_directorist_option('featured_listing_desc', '(Top of the search result and listings pages for a number days and it requires an additional payment.)');
+		return $description;
+
+	}
+
 	public function add_listing_submit_template() {
 		$p_id              = $this->get_add_listing_id();
 		$type = $this->get_current_listing_type();
@@ -671,16 +677,17 @@ class Directorist_Listing_Forms {
 
 		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
 
-		foreach ( $submission_form_fields['groups'] as $group ) {
-			$section           = $group;
-			$section['fields'] = array();
-			foreach ( $group['fields'] as $field ) {
-				$section['fields'][ $field ] = $submission_form_fields['fields'][ $field ];
+		if( ! empty( $submission_form_fields['groups'] ) ) {
+			foreach ( $submission_form_fields['groups'] as $group ) {
+				$section           = $group;
+				$section['fields'] = array();
+				foreach ( $group['fields'] as $field ) {
+					$section['fields'][ $field ] = $submission_form_fields['fields'][ $field ];
+				}
+				$form_data[] = $section;
+	
 			}
-			$form_data[] = $section;
-
 		}
-
 		return $form_data;
 	}
 

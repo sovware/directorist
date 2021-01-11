@@ -265,7 +265,7 @@ export default {
                     error_count++;
                 }
 
-                if ( cahced_value == new_value ) { continue; }
+                if ( ! this.fields[ field_key ].forceUpdate && cahced_value == new_value ) { continue; }
 
                 form_data.append( field_key, new_value );
                 field_list.push( field_key );

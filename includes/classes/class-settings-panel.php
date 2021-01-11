@@ -276,18 +276,18 @@ SWBD;
         // handle_save_settings_data_request
         public function handle_save_settings_data_request()
         {
-            wp_send_json([
-                'status' => false,
-                'active_gateways' => $_POST['active_gateways'],
-                'active_gateways_decoded' => $this->maybe_json( $_POST['active_gateways'] ),
-                'active_gateways_decoded_type' => gettype( $this->maybe_json( $_POST['active_gateways'] ) ),
-                'status_log' => [
-                    'name_is_missing' => [
-                        'type' => 'error',
-                        'message' => 'Debugging',
-                    ],
-                ],
-            ], 200 );
+            // wp_send_json([
+            //     'status' => false,
+            //     'active_gateways' => $_POST['active_gateways'],
+            //     'active_gateways_decoded' => $this->maybe_json( $_POST['active_gateways'] ),
+            //     'active_gateways_decoded_type' => gettype( $this->maybe_json( $_POST['active_gateways'] ) ),
+            //     'status_log' => [
+            //         'name_is_missing' => [
+            //             'type' => 'error',
+            //             'message' => 'Debugging',
+            //         ],
+            //     ],
+            // ], 200 );
 
 
             $status = [ 'success' => false, 'status_log' => [] ];
@@ -5924,8 +5924,12 @@ KAMAL;
         {   
             // Get Saved Data
             $atbdp_options = get_option('atbdp_option');
+
             foreach( $this->fields as $field_key => $field_opt ) {
-                if ( ! isset(  $atbdp_options[ $field_key ] ) ) { continue; }
+                if ( ! isset(  $atbdp_options[ $field_key ] ) ) {
+                    $this->fields[ $field_key ]['forceUpdate'] = true;
+                    continue;
+                }
 
                 $this->fields[ $field_key ]['value'] = $atbdp_options[ $field_key ];
             }
@@ -5936,14 +5940,6 @@ KAMAL;
                 'config'  => $this->config,
             ];
 
-            // unset( $atbdp_options['active_gateways'] );
-            // update_option( 'atbdp_option', $atbdp_options );
-
-            $tst = get_directorist_option( 'active_gateways', '' );
-
-            // var_dump( $tst );
-
-            // $this->enqueue_scripts();
             wp_localize_script('atbdp_settings_manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data);
         
             /* $status = $this->update_settings_options([

@@ -2901,6 +2901,66 @@ input#privacy_policy,
   overflow-y: auto;
 }
 
+/* Alerts style */
+.atbd-alert {
+  font-size: 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 3px;
+  background: #f4f4f4;
+  padding: 15px 20px;
+}
+
+.atbd-alert .atbd-alert-close {
+  padding: 0;
+  font-size: 20px !important;
+  background: none;
+  text-decoration: none;
+  margin-left: auto !important;
+}
+
+.atbd-alert.atbd-alert-success {
+  background: #D9EFDC;
+  color: #009114;
+}
+
+.atbd-alert.atbd-alert-success .atbd-alert-close {
+  color: #009114;
+}
+
+.atbd-alert.atbd-alert-info {
+  background: #DCEBFE;
+  color: #157CF6;
+}
+
+.atbd-alert.atbd-alert-info .atbd-alert-close {
+  color: #157CF6;
+}
+
+.atbd-alert.atbd-alert-warning {
+  background: #FEE9D9;
+  color: #F56E00;
+}
+
+.atbd-alert.atbd-alert-warning .atbd-alert-close {
+  color: #F56E00;
+}
+
+.atbd-alert.atbd-alert-danger {
+  background: #FCD9D9;
+  color: #E80000;
+}
+
+.atbd-alert.atbd-alert-danger .atbd-alert-close {
+  color: #E80000;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: -webkit-box;
   display: -ms-flexbox;

@@ -5,10 +5,10 @@
     <?php do_action('atbdp_before_checkout_form_start'); ?>
     <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="" role="form">
         <?php do_action('atbdp_after_checkout_form_start'); ?>
-        <div class="alert alert-info alert-dismissable fade show" role="alert">
+        <div class="atbd-alert atbd-alert-info atbd-alert-dismissable">
             <span class="fa fa-info-circle"></span>
             <?php esc_html_e('Your order details are given below. Please review it and click on Proceed to Payment to complete this order.', 'directorist'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <button type="button" class="atbd-alert-close">
                 <span aria-hidden="true">×</span>
             </button>
         </div>
@@ -36,7 +36,7 @@
             $selected_product = 0;
 
             foreach ( $form_data as $key => $option ) {
-                if ( 'header' == $option['type'] ) { ?><?php } else { /* Display other type of item here */ 
+                if ( 'header' == $option['type'] ) { ?><?php } else { /* Display other type of item here */
                     /**
                      * @since 6.5.6
                      */

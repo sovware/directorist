@@ -12,7 +12,6 @@ export default {
     methods: {
         doAction( payload, component_key ) {
             if ( ! payload.action ) { return; }
-
             if ( this[ payload.component ] !== component_key ) { 
                 this.$emit( 'do-action', payload );
                 return;

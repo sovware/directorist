@@ -1,5 +1,5 @@
 <template>
-    <text-field v-bind="$props" @update="$emit('update', $event)"/>
+    <text-field v-bind="$props" @update="$emit('update', $event)" @do-action="$emit( 'do-action', $event )"/>
 </template>
 
 <script>

@@ -4,6 +4,7 @@
         v-if="canShow"
         v-bind="$props"
         @update="$emit( 'update', $event )"
+        @do-action="$emit( 'do-action', $event )"
         @validate="$emit( 'validate', $event )"
     >
     </component>

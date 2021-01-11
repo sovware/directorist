@@ -8,6 +8,12 @@ export default {
         optionFields: {
             required: false,
         },
+        cachedData: {
+            required: false,
+        },
+        dataOnChange: {
+            required: false,
+        },
         saveOptionData: {
             required: false,
             default: false,

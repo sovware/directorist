@@ -52,26 +52,15 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'restor-data'  => $this->get_simple_data_content( [ 'path' => 'directory/directory-settings.json' ] ),
                 ];
 
-                if( ! get_directorist_option( 'enable_multi_directory' ) ) {
-                    $fields['enable_multi_directory'] = [
-                        'type'                       => 'ajax-action',
-                        'action'                     => 'enable_multi_directory',
-                        'label'                      => 'Multi Directory Builder',
-                        'button-label'               => 'Enable',
-                        'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
-                        'data'                       => [],
-                    ];
-                } else {
-                    $fields['enable_multi_directory'] = [
-                        'type'                       => 'ajax-action',
-                        'action'                     => 'disable_multi_directory',
-                        'label'                      => 'Multi Directory Builder',
-                        'button-label'               => 'Disable',
-                        'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
-                        'data'                       => [],
-                    ];
-                }
-                
+                $fields['enable_multi_directory'] = [
+                    'type'           => 'toggle',
+                    'label'          => 'Enable Multi Directory Builder',
+                    'value'          => false,
+                    'data-on-change' => [ 
+                        'action' => 'updateData',
+                        'args'   => [ 'reload_after_save' => true ]
+                    ],
+                ];
 
                 $fields['regenerate_pages'] = [
                     'type'                       => 'ajax-action',

@@ -4793,7 +4793,8 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                     'input_style' => [
                         'class_names' => 'cptm-form-control-light'
-                    ]
+                    ],
+                    'is-hidden' => true
                 ],
             ];
 

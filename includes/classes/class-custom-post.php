@@ -19,7 +19,7 @@ if (!class_exists('ATBDP_Custom_Post')):
             /*make column sortable*/
             add_filter('manage_edit-' . ATBDP_POST_TYPE . '_sortable_columns', array($this, 'make_sortable_column'), 10, 1);
             add_filter('post_row_actions', array($this, 'add_listing_id_row'), 10, 2);
-
+            
             add_filter('enter_title_here', array($this, 'change_title_text'));
             add_filter('post_row_actions', array($this, 'add_row_actions_for_quick_view'), 10, 2);
             add_filter('load-edit.php', array($this, 'work_row_actions_for_quick_view'), 10, 2);
@@ -172,9 +172,9 @@ if (!class_exists('ATBDP_Custom_Post')):
             $columns = array();
             $columns['cb'] = '<input type="checkbox" />';
             $columns['title'] = __('Listing Name', 'directorist');
+            $columns['listing_type'] = __('Directory Type', 'directorist');
             $columns['atbdp_location'] = __('Location', 'directorist');
             $columns['atbdp_category'] = __('Categories', 'directorist');
-            $columns['listing_type'] = __('Directory Type', 'directorist');
             $columns['atbdp_author'] = __('Author', 'directorist');
             $columns['atbdp_status'] = __('Status', 'directorist');
             if ($featured_active || is_fee_manager_active()) {
@@ -231,7 +231,12 @@ if (!class_exists('ATBDP_Custom_Post')):
 
                 case 'listing_type':
                     $term_id = get_post_meta( $post_id, '_directory_type', true );
-                    $term_name = !empty( $term_id  ) ? get_term( $term_id )->name : ''; ?>
+                    $config = get_term_meta( $term_id, 'general_config', true );
+                    $icon   = is_array( $config ) ? $config['icon'] : '';
+                    $term_name = !empty( $term_id  ) ? get_term( $term_id )->name : '';
+                    if( !empty( $icon ) ) { ?>
+                    <span class="<?php echo esc_html( $icon );?>"></span>
+                    <?php } ?>
                     <span><?php echo esc_attr( $term_name ); ?></span>
                     <?php
                     break;

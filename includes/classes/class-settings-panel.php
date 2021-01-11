@@ -5744,7 +5744,6 @@ KAMAL;
                             'sections' => apply_filters( 'atbdp_extension_settings_controls', [
                                 'general_settings' => [
                                     'title'       => __('Extensions General Settings', 'directorist'),
-                                    'description' => 'You can Customize Extensions-related settings here. You can enable or disable any extensions here. Here, YES means Enabled, and NO means disabled. After switching any option, Do not forget to save the changes.',
                                     'fields'      =>  apply_filters( 'atbdp_extension_fields', [
                                          'extension_promotion'
                                     ] ) ,
@@ -5790,23 +5789,23 @@ KAMAL;
                                 ),
                             ]),
                         ],
+
+                        'settings_import_export' => [
+                            'label' => __( 'Settings Import/Export', 'directorist' ),
+                            'icon' => '<i class="fa fa-tools"></i>',
+                            'sections'  => apply_filters('atbdp_settings_import_export_controls', [
+                                'import_export' => [
+                                    'title' => __( 'Import/Export', 'directorist' ),
+                                    'fields' => [ 'import_settings', 'export_settings' ]
+                                ],
+                                'restore_default' => [
+                                    'title' => __( 'Restore Default', 'directorist' ),
+                                    'fields' => [ 'restore_default_settings' ]
+                                ],
+                            ]),
+                        ],
                     ]),
                 ],
-
-                'settings_import_export' => [
-                    'label' => __( 'Settings Import/Export', 'directorist' ),
-                    'icon' => '<i class="fa fa-tools"></i>',
-                    'sections' => [
-                        'import_export' => [
-                            'title' => __( 'Import/Export', 'directorist' ),
-                            'fields' => [ 'import_settings', 'export_settings' ]
-                        ],
-                        'restore_default' => [
-                            'title' => __( 'Restore Default', 'directorist' ),
-                            'fields' => [ 'restore_default_settings' ]
-                        ],
-                    ],
-                ]
 
             ]);
 

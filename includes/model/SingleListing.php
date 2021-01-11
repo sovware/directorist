@@ -87,6 +87,7 @@ class Directorist_Single_Listing {
 	}
 
 	public function section_template( $section_data ) {
+		
 		$args = array(
 			'listing'      => $this,
 			'section_data' => $section_data,
@@ -102,7 +103,6 @@ class Directorist_Single_Listing {
 			atbdp_get_shortcode_template( $template, $args );
 		}
 		else {
-			// e_var_dump($section_data);
 			atbdp_get_shortcode_template( 'single-listing/section-general', $args );
 		}
 	}
@@ -113,6 +113,12 @@ class Directorist_Single_Listing {
 		if( 'tag' === $data['widget_name'] ) {
 			$tags = get_the_terms( $this->id, ATBDP_TAGS );
 			if( $tags ) {
+				$value = true;
+			}
+		}
+		if( 'map' === $data['widget_name'] ) {
+			$address = get_post_meta( $this->id, '_address', true );
+			if( $address ) {
 				$value = true;
 			}
 		}
@@ -129,7 +135,6 @@ class Directorist_Single_Listing {
 			'value'   => $value,
 			'icon'    => !empty( $data['icon'] ) ? $data['icon'] : '',
 		);
-
 		$template = 'single-listing/items/' . $data['widget_name'];
 		$template = apply_filters( 'directorist_single_item_template', $template, $data );
 		if( $load_template )
@@ -489,18 +494,30 @@ class Directorist_Single_Listing {
 					$url = add_query_arg(array('atbdp_listing_id' => $pid, 'reviewed' => 'yes'), $_GET['redirect']);
 				}
 			}
-			$header = get_term_meta( $type, 'single_listing_header', true );
+			$header 				= get_term_meta( $type, 'single_listing_header', true );
+			$new_listing_status 	= get_directorist_option('new_listing_status', 'pending' );
+            $edit_listing_status 	= get_directorist_option('edit_listing_status', 'pending' );
+			$pending_msg 			= get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
+			$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
+
+			if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
+				$confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
+			}else{
+				$confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg; 
+			}
+			
 			$args = array(
-				'author_id'         => get_post_field('post_author', $id),
-				'content'           => $content,
-				'class_col'         => is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12',
-				'class_float'       => $redirect ? 'atbdp_float_active' : 'atbdp_float_none',
-				'display_back_link' => !empty( $header['options']['general']['back']['label'] ) ? $header['options']['general']['back']['label'] : '',
-				'edit_link'         => $edit_link,
-				'edit_text'         => apply_filters('atbdp_listing_edit_btn_text', __(' Edit', 'directorist')),
-				'url'               => $url,
-				'submit_text'       => apply_filters('atbdp_listing_preview_btn_text', $submit_text),
-				
+				'author_id'         	  => get_post_field('post_author', $id),
+				'content'           	  => $content,
+				'class_col'         	  => is_active_sidebar('right-sidebar-listing') ? 'col-lg-8' : 'col-lg-12',
+				'class_float'      		  => $redirect ? 'atbdp_float_active' : 'atbdp_float_none',
+				'display_back_link' 	  => !empty( $header['options']['general']['back']['label'] ) ? $header['options']['general']['back']['label'] : '',
+				'edit_link'         	  => $edit_link,
+				'edit_text'         	  => apply_filters('atbdp_listing_edit_btn_text', __(' Edit', 'directorist')),
+				'url'               	  => $url,
+				'submit_text'       	  => apply_filters('atbdp_listing_preview_btn_text', $submit_text),
+				'submission_confirmation' => get_directorist_option('submission_confirmation', 1 ),
+				'confirmation_msg' 		  => $confirmation_msg,		
 			);
 			$html = atbdp_return_shortcode_template('single-listing/content-wrapper', $args);
 			return $html;

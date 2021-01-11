@@ -99,9 +99,7 @@
                         types: ['geocode'],
                         componentRestrictions: {country: atbdp_search_listing.restricted_countries}
                        } : '';
-
                     var autocomplete = new google.maps.places.Autocomplete(input, options);
-                    
                     google.maps.event.addListener(autocomplete, 'place_changed', function () {
                         var place = autocomplete.getPlace();
                         document.getElementById('cityLat').value = place.geometry.location.lat();

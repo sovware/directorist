@@ -5,10 +5,55 @@
     }
 
     .atbdp-settings-manager__title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         font-size: 24px;
         font-weight: 500;
         color: $dark;
         margin-bottom: 40px;
+        .directorist_settings-trigger{
+            display: none;
+            @media only screen and (max-width: 575px) {
+                display: block;
+            }
+        }
+    }
+}
+
+// Settings Panle Grid
+.atbdp-settings-manager {
+    .settings-contents{
+        .atbdp-row{
+            .atbdp-col.atbdp-col-4{
+                @media only screen and (max-width: 767px) {
+                    width: 100%;
+                    flex-basis: 100%;
+                }
+            }
+        }
+        .cptm-form-group label{
+
+            @media only screen and (max-width: 767px) {
+                margin-bottom: 15px;
+            }
+        }
+    }
+}
+
+
+// Setting Panle Sidebar Trigger
+.directorist_settings-trigger{
+    display: inline-block;
+    cursor: pointer;
+    span{
+        display: block;
+        width: 20px;
+        height: 2px;
+        background-color: #272B41;
+        &:not(:last-child){
+            margin-bottom: 4px;
+        }
     }
 }
 
@@ -31,10 +76,16 @@
     flex-wrap: wrap;
     justify-content: space-between;
 
+    @media only screen and (max-width: 575px) {
+        flex-direction: column;
+    }
+
     .search-suggestions-list {
         border-radius: 5px;
         padding: 20px;
         box-shadow: 0 10px 40px #868EAE30;
+        height: 360px;
+        overflow-y: auto;
 
         .search-suggestions-list--link {
             padding: 8px 10px;
@@ -54,6 +105,15 @@
 .setting-top-bar__search-actions {
     display: flex;
     flex-wrap: wrap;
+    @media only screen and (max-width: 575px) {
+        margin-top: 15px;
+    }
+    .setting-response-feedback{
+
+        @media only screen and (max-width: 575px) {
+            margin-left: 0 !important;
+        }
+    }
 }
 
 .setting-response-feedback {
@@ -98,7 +158,7 @@
 
 .settings-contents {
     flex-grow: 1;
-    padding: 20px;
+    padding: 20px 20px 0;
     background-color: #fff;
 }
 
@@ -150,6 +210,38 @@
     max-width: 250px;
     background: #F6F6F6;
     border-right: 1px solid #f6f6f6;
+    @media only screen and (max-width: 767px) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        overflow-y: auto;
+        background-color: #fff;
+        transform: translateX(-250px);
+        transition: .35s;
+        z-index: 99999;
+    }
+    &.active{
+        transform: translateX(0px);
+    }
+}
+
+.directorist_settings-panel-shade{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #272B4130;
+    z-index: -1;
+    opacity: 0;
+    visibility: hidden;
+    &.active{
+        z-index: 999;
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 .settings-nav {
@@ -292,10 +384,10 @@ span.drop-toggle-caret:before {
 .settings-footer {
     display: flex;
     margin: 0 -20px;
-    padding: 15px 15px 0;
+    padding: 15px 15px 15px;
     flex-wrap: wrap;
     justify-content: flex-end;
-    border-top: 1px solid #d3d3d3;
+    background-color: #F8F9FB;
 
     .setting-response-feedback {
         color: #272b41;

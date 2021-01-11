@@ -649,7 +649,6 @@ if (!class_exists('ATBDP_Helper')) :
 
                 return ob_get_clean();
             }
-
             return '';
         }
 

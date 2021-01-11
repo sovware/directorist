@@ -1194,18 +1194,15 @@ class Directorist_Listings {
 		$link_list = array();
 
 		$options       = atbdp_get_listings_orderby_options( $this->sort_by_items );
-		$current_order = ! empty( $this->current_order ) ? $this->current_order : '';
-		global $wp;
-		$current_url =  home_url( $wp->request ) . '/';
-		$pattern = '/page\\/[0-9]+\\//i';
-		//$actual_link = preg_replace($pattern, '', $current_url);
+		$queryString = $_SERVER['QUERY_STRING'];
+		parse_str($queryString, $arguments);
 		$actual_link = !empty( $_SERVER['REQUEST_URI'] ) ? esc_url( $_SERVER['REQUEST_URI'] ) : '';
 		foreach ( $options as $value => $label ) {
-			$active_class = ( $value == $current_order ) ? ' active' : '';
-			$link         = add_query_arg( 'sort', $value, $actual_link );
-			$link_item['active_class'] = $active_class;
-			$link_item['link']         = $link;
+			$arguments['sort'] 		   = $value;
+			
+			$link_item['link']         = add_query_arg( $arguments, $actual_link );
 			$link_item['label']        = $label;
+			$link_item['key']          = $value;
 
 			array_push( $link_list, $link_item );
 		}

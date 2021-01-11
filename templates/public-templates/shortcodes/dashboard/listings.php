@@ -37,7 +37,6 @@
 			<div class="directorist_userDashboard-tabcontent">
 				<div class="directorist_listing-table directorist_table-responsive">
 					<table class="directorist_table">
-
 						<thead>
 							<tr>
 								<th class="directorist_table-listing"><?php esc_html_e( 'Listings', 'directorist' ); ?></th>
@@ -53,7 +52,6 @@
 						<tbody class="directorist-dashboard-listings-tbody">
 							<?php $dashboard->listing_row_template(); ?>
 						</tbody>
-
 					</table>
 
 					<div class="directorist-dashboard-pagination">

@@ -29,10 +29,56 @@ class ATBDP_Gateway{
 
         // add gateway submenu
         add_filter('atbdp_monetization_settings_submenus', array($this, 'gateway_settings_submenu'), 10, 1);
+        //fields widgets
+        add_filter('atbdp_form_preset_widgets', array($this, 'atbdp_form_builder_widgets'));
 
         $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Other Payment Gateways & Extensions', 'directorist'));
 
     }
+
+    public function atbdp_form_builder_widgets($widgets)
+        {
+            $featured_enable = get_directorist_option('enable_featured_listing');
+            if( !is_fee_manager_active() && $featured_enable ) {
+                $widgets['listing-type'] = [
+                    'label' => 'Listing Type',
+                    'icon' => 'la la-toggle-on',
+                    'show' => true,
+                    'options' => [
+                        'type' => [
+                            'type'  => 'hidden',
+                            'value' => 'radio',
+                        ],
+                        'field_key' => [
+                            'type'  => 'hidden',
+                            'value' => 'listing_type',
+                        ],
+                        'label' => [
+                            'type'  => 'text',
+                            'label' => 'Label',
+                            'value' => 'Select Listing Type',
+                        ],
+                        'general_label' => [
+                            'type'  => 'text',
+                            'label' => 'General label',
+                            'value' => 'General',
+                        ],
+                        'featured_label' => [
+                            'type'  => 'text',
+                            'label' => 'Featured label',
+                            'value' => 'Featured',
+                        ],
+                        'required' => [
+                            'type'  => 'toggle',
+                            'label'  => 'Required',
+                            'value' => true,
+                        ],
+                    ],
+                ];
+            }
+            
+            return $widgets;
+        }
 
     /**
      * Add Monetization menu

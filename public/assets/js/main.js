@@ -1177,6 +1177,7 @@
     });
 
     // Dashboard Search
+    $('#directorist-dashboard-listing-searchform input[name=searchtext').val(''); //onready
     $('#directorist-dashboard-listing-searchform').on('submit', function(event) {
     	var $activeTab = $('.directorist-dashboard-listing-nav-js a.tabItemActive');
     	var search = $(this).find('input[name=searchtext]').val();
@@ -1185,9 +1186,7 @@
     	return false;
     });
 
-
 })(jQuery);
-
   // on load of the page: switch to the currently selected tab
   var tab_url = window.location.href.split("/").pop();
   if (tab_url.startsWith("#active_")) {

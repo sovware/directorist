@@ -10,6 +10,7 @@
                 v-bind="option_fields[ field_key ]"
                 @update="updateOptionFieldValue( field_key, $event )"
                 @validate="updateOptionFieldValidationState( field_key, $event )"
+                @is-visible="updateOptionFieldData( field, 'isVisible' , $event )"
                 @do-action="doAction( $event, 'sub-fields' )"
             />
         </template>
@@ -57,6 +58,10 @@ export default {
 
         updateOptionFieldValidationState( option_key, value ) {
             Vue.set( this.option_fields[ option_key ], 'validationState', value );
+        },
+
+        updateOptionFieldData( field_key, option_key , value ) {
+            Vue.set( this.option_fields[ field_key ], option_key, value );
         },
 
         sync() {

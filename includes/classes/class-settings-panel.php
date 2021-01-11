@@ -196,6 +196,12 @@ SWBD;
                     'type'  => 'toggle',
                     'label' => __('Country Restriction', 'directorist'),
                     'value' => false,
+                    'show-if' => [
+                        'where' => "select_listing_map",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'google'],
+                        ],
+                    ],
                 ];
 
                 $countries = atbdp_country_code_to_name();
@@ -1259,7 +1265,7 @@ KAMAL;
                 'fix_js_conflict' => [
                     'label' => __('Fix Conflict with Bootstrap JS', 'directorist'),
                     'type'  => 'toggle',
-                    'value' => true,
+                    'value' => false,
                     'description' => __('If you use a theme that uses Bootstrap Framework especially Bootstrap JS, then Check this setting to fix any conflict with theme bootstrap js.', 'directorist'),
                 ],
                 'font_type' => [
@@ -1328,6 +1334,12 @@ KAMAL;
                     'rules' => [
                         'required' => true,
                     ],
+                    'show-if' => [
+                        'where' => "delete_expired_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
                 'deletion_mode' => [
                     'label' => __('Delete or Trash Expired Listings', 'directorist'),
@@ -1342,6 +1354,12 @@ KAMAL;
                         [
                             'value' => 'trash',
                             'label' => __('Move to Trash', 'directorist'),
+                        ],
+                    ],
+                    'show-if' => [
+                        'where' => "delete_expired_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
                     ],
                 ],
@@ -1399,13 +1417,25 @@ KAMAL;
                 ],
                 'all_listing_title' => [
                     'type' => 'text',
-                    'label' => __('Header Title', 'directorist'),
-                    'value' => __('Items Found', 'directorist'),
+                    'label'   => __('Header Title', 'directorist'),
+                    'value'   => __('Items Found', 'directorist'),
+                    'show-if' => [
+                        'where' => "display_listings_header",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
                 'listing_filters_button' => [
                     'type' => 'toggle',
                     'label' => __('Display Filters Button', 'directorist'),
                     'value' => true,
+                    'show-if' => [
+                        'where' => "display_listings_header",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
                 ],
                 'listing_filters_icon' => [
                     'type' => 'toggle',

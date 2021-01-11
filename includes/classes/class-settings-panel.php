@@ -1305,12 +1305,7 @@ KAMAL;
                         ],
                     ],
                 ],
-                'fix_js_conflict' => [
-                    'label' => __('Fix Conflict with Bootstrap JS', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => false,
-                    'description' => __('If you use a theme that uses Bootstrap Framework especially Bootstrap JS, then Check this setting to fix any conflict with theme bootstrap js.', 'directorist'),
-                ],
+               
                 'font_type' => [
                     'label' => __('Icon Library', 'directorist'),
                     'type'  => 'select',
@@ -5193,15 +5188,15 @@ KAMAL;
                             'icon' => '<i class="fa fa-sliders-h"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_general_sections', [
                                 'general_settings' => [
-                                    'title'       => __('General Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
+                                        'enable_multi_directory',
                                         'new_listing_status',
                                         'edit_listing_status', 
-                                        'fix_js_conflict', 
                                         'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
                                     ],
                                 ],
+                               
                             ] ),
                         ],
                         'listings_page' => [
@@ -5890,16 +5885,7 @@ KAMAL;
                                 ],
                             ]),
                         ],
-
-                        'directory_type' => [
-                            'label' => __( 'Multi Directory', 'directorist' ),
-                            'icon' => '<i class="fa fa-plus"></i>',
-                            'sections'  => apply_filters('atbdp_directory_type_controls', [
-                                'restore_default' => [
-                                    'fields' => [ 'enable_multi_directory' ]
-                                ],
-                            ]),
-                        ],
+         
                     ]),
                 ],
 

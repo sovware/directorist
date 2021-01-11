@@ -615,7 +615,6 @@ if (!class_exists('ATBDP_Add_Listing')):
                     $data['edited_listing'] = true;
                 }
                 wp_send_json( apply_filters( 'atbdp_listing_form_submission_info', $data ) );
-                die();
         }
 
 

@@ -488,7 +488,7 @@ class Directorist_Single_Listing {
 					if( 'view_listing' === $redirect_page){
 						$url = add_query_arg(array('p' => $pid, 'post_id' => $pid, 'reviewed' => 'yes', 'edited' => $edited ? 'yes' : 'no'), $redirect);
 					}else{
-						$url = ATBDP_Permalink::get_dashboard_page_link();
+						$url = $redirect;
 					}
 				} else {
 					$url = add_query_arg(array('atbdp_listing_id' => $pid, 'reviewed' => 'yes'), $_GET['redirect']);

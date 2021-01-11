@@ -7,29 +7,27 @@ if (!class_exists('ATBDP_SEO')) :
     class ATBDP_SEO {
         public function __construct()
         {
-            if (atbdp_yoast_is_active()) {
+            if ( empty( get_directorist_option( 'atbdp_enable_seo' ) ) ) { return; }
+
+            if ( atbdp_yoast_is_active() ) {
                 add_filter('wpseo_title', array($this, 'wpseo_title'));
                 add_filter('wpseo_metadesc', array($this, 'wpseo_metadesc'));
                 add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
                 add_filter('wpseo_opengraph_url', array($this, 'wpseo_canonical'));
                 add_filter('wpseo_opengraph_title', array($this, 'wpseo_opengraph_title'));
                 //add_filter('wpseo_opengraph_image', array($this, 'wpseo_opengraph_image'));
-            }
 
-            if (atbdp_can_overwrite_yoast()) {
                 remove_action('wp_head', 'rel_canonical');
-                if (atbdp_yoast_is_active()) {
-                    add_filter('wpseo_canonical', array($this, 'wpseo_canonical'));
-                } else {
-                    add_action('wp_head', array($this, 'atbdp_texonomy_canonical'));
-                }
 
                 add_filter('pre_get_document_title', array($this, 'atbdp_custom_page_title'), 100);
                 add_filter('wp_title', array($this, 'atbdp_custom_page_title'), 100, 2);
                 add_action('wp_head', array($this, 'atbdp_add_meta_keywords'), 100, 2);
                 add_action('wp_head', array($this, 'atbdp_add_og_meta'), 100, 2);
+            } else {
+                add_action('wp_head', array($this, 'atbdp_texonomy_canonical'));
             }
-            add_filter('the_title', array($this, 'atbdp_title_update'), 10, 2);
+
+            add_filter( 'the_title', array( $this, 'atbdp_title_update' ), 10, 2 );
         }
 
         // get_taxonomy_term
@@ -85,8 +83,11 @@ if (!class_exists('ATBDP_SEO')) :
 
         public function atbdp_title_update($title, $id = null)
         {
-            if (!in_the_loop() || !is_main_query()) {
-                return $title;
+            $category_page_id = get_directorist_option( 'single_category_page', 0 );
+            $location_page_id = get_directorist_option( 'single_location_page', 0 );
+
+            if ( ! ( $category_page_id == $id || $location_page_id == $id ) ) {
+                return;
             }
 
             // global $post;
@@ -94,7 +95,6 @@ if (!class_exists('ATBDP_SEO')) :
                 $term = $this->get_taxonomy_term();
                 $title = (!empty($term)) ? $term->name : $title;
             }
-
 
             return $title;
         }

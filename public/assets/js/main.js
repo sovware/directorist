@@ -345,7 +345,7 @@
     });
 
     /*USER DASHBOARD RELATED SCRIPTS*/
-    $(document).on('click', '.remove_listing', function (e) {
+    $(document).on('click', '#remove_listing', function (e) {
         e.preventDefault();
 
         var $this = $(this);
@@ -1185,6 +1185,16 @@
     	$('#my_listings').data('search',search);
     	return false;
     });
+
+    /* atbd alert dismiss */
+    if($('.atbd-alert-close') !== null){
+        $('.atbd-alert-close').each(function(i,e){
+            $(e).on('click', function(e){
+                e.preventDefault();
+                $(this).parent('.atbd-alert').remove();
+            });
+        });
+    }
 
 })(jQuery);
   // on load of the page: switch to the currently selected tab

@@ -1,14 +1,12 @@
-<?php ('after' == $c_position) ? $after = $symbol : $before = $symbol;
-// displaying data for checkout
-?>
+<?php ('after' == $c_position) ? $after = $symbol : $before = $symbol; ?>
 <div id="directorist" class="atbd_wrapper directorist directorist-checkout-form">
     <?php do_action('atbdp_before_checkout_form_start'); ?>
     <form id="atbdp-checkout-form" class="form-vertical clearfix" method="post" action="" role="form">
         <?php do_action('atbdp_after_checkout_form_start'); ?>
-        <div class="alert alert-info alert-dismissable fade show" role="alert">
+        <div class="atbd-alert atbd-alert-info atbd-alert-dismissable">
             <span class="fa fa-info-circle"></span>
             <?php esc_html_e('Your order details are given below. Please review it and click on Proceed to Payment to complete this order.', 'directorist'); ?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <button type="button" class="atbd-alert-close">
                 <span aria-hidden="true">×</span>
             </button>
         </div>
@@ -36,12 +34,7 @@
             $selected_product = 0;
 
             foreach ( $form_data as $key => $option ) {
-                if ( 'header' == $option['type'] ) { ?><?php } else { /* Display other type of item here */ 
-                    /**
-                     * @since 6.5.6
-                     */
-                    do_action( 'atbdp_before_checkout_total_tr', $form_data );
-                    ?>
+                if ( 'header' == $option['type'] ) { ?><?php } else { /* Display other type of item here */ ?>
                     <tr>
                         <td colspan="2" class="text-right vertical-middle">
                             <?php
@@ -67,7 +60,7 @@
                                 echo $input_field;
                             ?>
                             <?php if ( ! empty( $option['title'] ) ) echo "<label for='{$atts['id']}'><h4>" . esc_html($option['title']) . "</h4></label>"; ?>
-                            <?php if ( ! empty( $option['desc'] ) ) echo '<small> - '. esc_html($option['desc']) . '</small>'; ?>
+                            <?php if ( ! empty( $option['desc'] ) ) echo '<small>'. esc_html($option['desc']) . '</small>'; ?>
                         </td>
                         <td class="text-right vertical-middle">
                             <span class="atbd-plan-price">
@@ -88,7 +81,7 @@
             ?>
             <tr class="atbdp_ch_subtotal">
                 <td colspan="2" class="text-right vertical-middle">
-                    <h4><?php echo __( 'Subtotal', 'directorist-coupon' ); ?></h4>
+                    <h4><?php echo __( 'Subtotal', 'directorist' ); ?></h4>
                 </td>
                 <td class="text-right vertical-middle">
                     <div id="atbdp_checkout_subtotal_amount"><?php

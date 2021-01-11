@@ -718,7 +718,7 @@ class Directorist_Listings {
 
 			if ( is_array( $this->query_args['orderby'] ) ) {
 				foreach ( $this->query_args['orderby'] as $key => $value ) {
-					if ( 'rand' == $value ) {
+					if ( preg_match( '/rand/', $value ) ) {
 						$caching_options['cache'] = false;
 					}
 				}

@@ -55,6 +55,9 @@ if (!class_exists('ATBDP_Listing')):
             remove_action('wp_head', array($this, 'adjacent_posts_rel_link_wp_head', 10));
             add_action('plugins_loaded', array($this, 'manage_listings_status'));
             add_action('wp_head', array($this, 'track_post_views'));
+
+            // add_filter('the_content', array($this, 'the_content'), 20); // add the output of the single page when the content filter fires in our post type. This way is better than using a custom post template because it will not match the style of all theme.
+
             add_filter('post_thumbnail_html', array($this, 'post_thumbnail_html'), 10, 3);
             add_action('wp_head', array($this, 'og_metatags'));
             add_action('template_redirect', array($this, 'atbdp_listing_status_controller'));
@@ -250,6 +253,17 @@ if (!class_exists('ATBDP_Listing')):
         public function the_content($content)
         {
             $id = get_directorist_option('single_listing_page');
+            $submission_confirmation = get_directorist_option('submission_confirmation', 1 );
+            $pending_msg = get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
+            $publish_msg = get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
+            $new_listing_status = get_directorist_option('new_listing_status', 'pending' );
+            $edit_listing_status = get_directorist_option('edit_listing_status', 'pending' );
+            if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
+                $confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
+            }else{
+                $confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg; 
+            }
+
             if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
                 $include = apply_filters('include_style_settings', true);
                 if ($include) {
@@ -279,6 +293,17 @@ if (!class_exists('ATBDP_Listing')):
                     ?>
                     <section id="directorist" class="directorist atbd_wrapper">
                         <div class="row">
+                            <?php if( isset( $_GET['notice'] ) ){ ?>
+                            <div class="col-lg-12">
+                                <div class="alert alert-info alert-dismissible fade show" role="alert" style="width: 100%">
+                                    <?php echo $confirmation_msg; ?>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <?php } ?>
+
                             <div class="<?php echo apply_filters('atbdp_single_listing_sidebar_class', esc_attr($main_col_size)); ?> col-md-12 atbd_col_left">
 
                                 <?php

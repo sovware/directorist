@@ -14,7 +14,6 @@ if( $renew_succeed ) { ?>
 	<div class="atbd-alert atbd-alert-info atbd-alert-dismissable"><span class="fa fa-info-circle"></span><?php esc_html_e('Renewed successfully.', 'directorist'); ?></div>
 	<?php
 }
-
 if( $confirmation_msg ) { ?>
 	 <div class="col-lg-12">
 		<div class="atbd-alert atbd-alert-info atbd-alert-dismissible">

@@ -173,6 +173,12 @@ SWBD;
                     'type'  => 'toggle',
                     'label' => __('Country Restriction', 'directorist'),
                     'value' => false,
+                    'show-if' => [
+                        'where' => "select_listing_map",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => 'google'],
+                        ],
+                    ],
                 ];
 
                 $countries = atbdp_country_code_to_name();

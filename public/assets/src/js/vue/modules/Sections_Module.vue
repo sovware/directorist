@@ -20,6 +20,7 @@
                         v-bind="fields[ field ]"
                         @update="updateFieldValue( field, $event )"
                         @validate="updateFieldValidationState( field, $event )"
+                        @is-visible="updateFieldData( field, 'isVisible' , $event )"
                         @do-action="doAction( $event, 'sections-module' )"
                     />
                 </template>

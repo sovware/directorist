@@ -167,6 +167,70 @@ SWBD;
                     'description' => $description,
                 ];
 
+                
+                // Map Country Restriction Field
+                $fields['country_restriction'] = [
+                    'type'  => 'toggle',
+                    'label' => __('Country Restriction', 'directorist'),
+                    'value' => false,
+                ];
+
+                $countries = atbdp_country_code_to_name();
+                $items = array();
+
+                foreach ($countries as $country => $code) {
+                    $items[] = array(
+                        'value' => $country,
+                        'label' => $code,
+                    );
+                }
+
+                $fields['restricted_countries'] = [
+                    'type'    => 'checkbox',
+                    'label'   => __('Select Countries', 'directorist'),
+                    'options' => $items,
+                    'value'   => '',
+                    'show-if' => [
+                        'where' => "country_restriction",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ];
+
+
+                // Single Listings
+                $fields['submission_confirmation'] = [
+                    'type'  => 'toggle',
+                    'label' => __('Show Submission Confirmation', 'directorist'),
+                    'value' => true,
+                ];
+
+                $fields['pending_confirmation_msg'] = [
+                    'type'  => 'textarea',
+                    'label' => __('Pending Confirmation Message', 'directorist'),
+                    'value' => __('Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist'),
+                    'show-if' => [
+                        'where' => "submission_confirmation",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ];
+
+                $fields['publish_confirmation_msg'] = [
+                    'type'  => 'textarea',
+                    'label' => __('Publish Confirmation Message', 'directorist'),
+                    'value' => __('Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist'),
+                    'show-if' => [
+                        'where' => "submission_confirmation",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ];
+
+
                 return $fields;
             });
         }
@@ -194,16 +258,16 @@ SWBD;
         // handle_save_settings_data_request
         public function handle_save_settings_data_request()
         {
-            /* wp_send_json([
-                'status' => false,
-                'field_list' => $this->maybe_json( $_POST['field_list'] ),
-                'status_log' => [
-                    'name_is_missing' => [
-                        'type' => 'error',
-                        'message' => 'Debugging',
-                    ],
-                ],
-            ], 200 ); */
+            // wp_send_json([
+            //     'status' => false,
+            //     'field_list' => $this->maybe_json( $_POST['field_list'] ),
+            //     'status_log' => [
+            //         'name_is_missing' => [
+            //             'type' => 'error',
+            //             'message' => 'Debugging',
+            //         ],
+            //     ],
+            // ], 200 );
 
 
             $status = [ 'success' => false, 'status_log' => [] ];
@@ -278,11 +342,6 @@ SWBD;
                 $string_alt = preg_replace('/\\\\+/', '', $string_alt);
                 $string_alt = json_decode($string_alt, true);
                 $string     = (!is_null($string_alt)) ? $string_alt : $string;
-            }
-
-            $test_json = json_decode($string, true);
-            if (!is_null($test_json)) {
-                $string = $test_json;
             }
 
             return $string;
@@ -5017,7 +5076,7 @@ SWBD;
                                     'title'       => __('Single Listing', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'disable_single_listing', 'single_listing_template', 'atbdp_listing_slug', 'edit_listing_redirect', 'listing_details_text', 'tags_section_lable', 'custom_section_lable', 'listing_location_text', 'contact_info_text', 'contact_listing_owner', 'atbd_video_title', 'atbd_author_info_title', 'display_back_link', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'dsiplay_thumbnail_img', 'gallery_crop_width', 'gallery_crop_height', 'enable_social_share', 'enable_favourite', 'enable_report_abuse', 'disable_list_price', 'enable_single_location_taxonomy', 'enable_single_tag', 'disable_contact_info', 'address_map_link', 'disable_contact_owner', 'user_email', 'use_nofollow', 'disable_map', 'atbd_video_url', 'enable_rel_listing', 'rel_listings_logic', 'rel_listing_title', 'rel_listing_num', 'rel_listing_column', 'fix_listing_double_thumb'
+                                        'disable_single_listing', 'single_listing_template', 'atbdp_listing_slug', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'listing_details_text', 'tags_section_lable', 'custom_section_lable', 'listing_location_text', 'contact_info_text', 'contact_listing_owner', 'atbd_video_title', 'atbd_author_info_title', 'display_back_link', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'dsiplay_thumbnail_img', 'gallery_crop_width', 'gallery_crop_height', 'enable_social_share', 'enable_favourite', 'enable_report_abuse', 'disable_list_price', 'enable_single_location_taxonomy', 'enable_single_tag', 'disable_contact_info', 'address_map_link', 'disable_contact_owner', 'user_email', 'use_nofollow', 'disable_map', 'atbd_video_url', 'enable_rel_listing', 'rel_listings_logic', 'rel_listing_title', 'rel_listing_num', 'rel_listing_column', 'fix_listing_double_thumb'
                                     ],
                                 ],
                             ] ),
@@ -5071,7 +5130,7 @@ SWBD;
                                     'title'       => __('Map Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'select_listing_map', 'map_api_key', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
+                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
                                     ],
                                 ],
                                 'map_info_window' => [

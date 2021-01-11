@@ -269,7 +269,7 @@ class ATBDP_Checkout
                 // admin will mark the order completed manually once he get the payment on his bank.
                 // let's redirect the user to the payment receipt page.
                 $redirect_url = apply_filters('atbdp_payment_receipt_page_link', ATBDP_Permalink::get_payment_receipt_page_link($order_id), $order_id);
-                wp_redirect($redirect_url);
+                wp_safe_redirect($redirect_url);
                 exit();
             } else {
                 /**
@@ -295,7 +295,7 @@ class ATBDP_Checkout
                 )
             );
             $redirect_url = apply_filters('atbdp_payment_receipt_page_link', ATBDP_Permalink::get_payment_receipt_page_link($order_id), $order_id);
-            wp_redirect($redirect_url);
+            wp_safe_redirect($redirect_url);
             exit;
         }
     }

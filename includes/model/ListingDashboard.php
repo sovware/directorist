@@ -360,16 +360,14 @@ class Directorist_Listing_Dashboard {
 		else {
 			$renew_token_expired = $renew_succeed = false;
 		}
-
+		$confirmation_msg 		= '';
 		$new_listing_status 	= get_directorist_option('new_listing_status', 'pending' );
 		$edit_listing_status 	= get_directorist_option('edit_listing_status', 'pending' );
 		$pending_msg 			= get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 		$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
 
-		if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
+		if( isset( $_GET['notice'] ) ) {
 			$confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
-		}else{
-			$confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg; 
 		}
 
 		atbdp_get_shortcode_template( 'dashboard/alert-message', compact('renew_token_expired', 'renew_succeed', 'confirmation_msg') );

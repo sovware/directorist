@@ -36,12 +36,7 @@
             $selected_product = 0;
 
             foreach ( $form_data as $key => $option ) {
-                if ( 'header' == $option['type'] ) { ?><?php } else { /* Display other type of item here */ 
-                    /**
-                     * @since 6.5.6
-                     */
-                    do_action( 'atbdp_before_checkout_total_tr', $form_data );
-                    ?>
+                if ( 'header' == $option['type'] ) { ?><?php } else { /* Display other type of item here */ ?>
                     <tr>
                         <td colspan="2" class="text-right vertical-middle">
                             <?php
@@ -67,7 +62,7 @@
                                 echo $input_field;
                             ?>
                             <?php if ( ! empty( $option['title'] ) ) echo "<label for='{$atts['id']}'><h4>" . esc_html($option['title']) . "</h4></label>"; ?>
-                            <?php if ( ! empty( $option['desc'] ) ) echo '<small> - '. esc_html($option['desc']) . '</small>'; ?>
+                            <?php if ( ! empty( $option['desc'] ) ) echo '<small>'. esc_html($option['desc']) . '</small>'; ?>
                         </td>
                         <td class="text-right vertical-middle">
                             <span class="atbd-plan-price">
@@ -88,7 +83,7 @@
             ?>
             <tr class="atbdp_ch_subtotal">
                 <td colspan="2" class="text-right vertical-middle">
-                    <h4><?php echo __( 'Subtotal', 'directorist-coupon' ); ?></h4>
+                    <h4><?php echo __( 'Subtotal', 'directorist' ); ?></h4>
                 </td>
                 <td class="text-right vertical-middle">
                     <div id="atbdp_checkout_subtotal_amount"><?php
@@ -148,7 +143,7 @@
         } else{
             $url = add_query_arg('listing_status', $new_l_status,  ATBDP_Permalink::get_dashboard_page_link().'?listing_id='.$listing_id );
         }
-        ?>
+        ?> 
         <input type="hidden" id="listing_id" name="listing_id" value="<?php echo $listing_id; ?>"/>
         <div class="pull-right" id="atbdp_pay_notpay_btn">
             <a href="<?php echo esc_url( apply_filters( 'atbdp_checkout_not_now_link', $url ) ); ?>" class="btn btn-danger atbdp_not_now_button"><?php _e('Not Now', 'directorist'); ?></a>

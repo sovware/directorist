@@ -109,6 +109,7 @@
                             <td>
                                 <?php
                                 if( !empty( $order_item['price'] ) ){
+                                    $price = $order_item['price'];
                                     echo $before.atbdp_format_payment_amount($order_item['price']).$after;
                                     do_action('atbdp_payment_receipt_after_total_price', $o_metas);
                                     // increase the total amount

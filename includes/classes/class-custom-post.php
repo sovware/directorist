@@ -199,6 +199,19 @@ if (!class_exists('ATBDP_Custom_Post')):
             $date_format = get_option('date_format');
             $time_format = get_option('time_format');
             switch ($column_name) {
+                case 'listing_type':
+                    $term_id = get_post_meta( $post_id, '_directory_type', true );
+                    $config = get_term_meta( $term_id, 'general_config', true );
+                    $icon   = is_array( $config ) ? $config['icon'] : '';
+                    $term_name = !empty( $term_id  ) ? get_term( $term_id )->name : '';
+                    if( !empty( $icon ) ) { ?>
+                    <span class="<?php echo esc_html( $icon );?>"></span>
+                    <?php } ?>
+                    <span><?php echo esc_attr( $term_name ); ?></span>
+                    <?php
+                    break;
+                default:
+                    break;
                 case 'atbdp_location':
                     $terms = wp_get_post_terms($post_id, ATBDP_LOCATION);
                     if (!empty($terms) && is_array($terms)) {
@@ -229,34 +242,6 @@ if (!class_exists('ATBDP_Custom_Post')):
 
                     break;
 
-                case 'listing_type':
-                    $term_id = get_post_meta( $post_id, '_directory_type', true );
-                    $config = get_term_meta( $term_id, 'general_config', true );
-                    $icon   = is_array( $config ) ? $config['icon'] : '';
-                    $term_name = !empty( $term_id  ) ? get_term( $term_id )->name : '';
-                    if( !empty( $icon ) ) { ?>
-                    <span class="<?php echo esc_html( $icon );?>"></span>
-                    <?php } ?>
-                    <span><?php echo esc_attr( $term_name ); ?></span>
-                    <?php
-                    break;
-
-                    //code for multiselect category
-                    /*  case 'atbdp_category':
-                          $cats = wp_get_post_terms( $post_id, ATBDP_CATEGORY );
-                          if (!empty( $cats ) && is_array( $cats )){
-                              foreach ( $cats as $c ) {
-                          */ ?><!--
-                    <a href="<?/*= ATBDP_Permalink::get_category_archive( $c ); */ ?>">
-                        <i class="fa <?/*= get_cat_icon( $c->term_id ); */ ?>" aria-hidden="true"></i>
-                        <?/*= $c->name; */ ?>
-                    </a>
-                    --><?php
-                /*                        }
-                                    }
-                                    break;*/
-                default:
-                    break;
                 case 'atbdp_author':
                     the_author_posts_link();
                     break;

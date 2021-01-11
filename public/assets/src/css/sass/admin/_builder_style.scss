@@ -17,13 +17,27 @@ $light-gray: #f4f5f7;
 .cptm-form-note {
   margin-bottom: 30px;
   padding: 30px;
-  background-color: $light-gray;
+  background-color: #DCEBFE;
+  border-radius: 4px;
+  display: flex;
+
+  i {
+    font-size: 30px;
+    opacity: 0.2;
+    margin-right: 15px;
+  }
+
   .cptm-form-note-title {
     margin-top: 0;
-    color: $primary;
+    color: #157CF6;
   }
+
   .cptm-form-note-content {
     margin: 5px 0;
+
+    a {
+      color: #157CF6;
+    }
   }
 }
 
@@ -601,6 +615,7 @@ $light-gray: #f4f5f7;
   background-color: #f4f5f7;
   padding: 40px;
   border-radius: 6px;
+
   @media only screen and (max-width: 991px) {
     padding: 20px;
   }
@@ -613,7 +628,7 @@ $light-gray: #f4f5f7;
     text-align: left;
   }
 
-  .cptm-btn{
+  .cptm-btn {
     @media only screen and (max-width: 991px) {
       margin-left: 0;
     }
@@ -907,9 +922,9 @@ li[ class="cptm-form-builder-field-list-item"][ draggable="true"] {
   margin-right: 20px;
 }
 
-#listing_settings__listings_page{
-  .cptm-checkbox-item{
-    &:not(:last-child){
+#listing_settings__listings_page {
+  .cptm-checkbox-item {
+    &:not(:last-child) {
       margin-bottom: 10px;
     }
   }
@@ -928,7 +943,8 @@ input[type="checkbox"].cptm-checkbox {
       content: "\f00c";
       z-index: 22;
     }
-    &:after{
+
+    &:after {
       background-color: #00B158;
       border-color: #00B158;
       z-index: -1;
@@ -965,6 +981,7 @@ input[type="radio"].cptm-radio {
   position: relative;
   z-index: 1;
   margin-right: 12px;
+
   &::before {
     font-size: 10px;
     line-height: 1;
@@ -972,7 +989,8 @@ input[type="radio"].cptm-radio {
     display: inline-block;
     margin-left: 4px;
   }
-  &:after{
+
+  &:after {
     position: absolute;
     left: 0;
     top: 0;
@@ -2520,9 +2538,10 @@ input[type=radio] {
 // ====================
 // Dropdowwn
 // ====================
-.directorist_dropdown{
+.directorist_dropdown {
   position: relative;
-  .directorist_dropdown-toggle{
+
+  .directorist_dropdown-toggle {
     position: relative;
     text-decoration: none;
     display: block;
@@ -2533,11 +2552,13 @@ input[type=radio] {
     color: #5A5F7D;
     border-radius: 4px;
     padding: 13px 15px;
-    &:focus{
+
+    &:focus {
       outline: 0 none;
       box-shadow: 0 0;
     }
-    &:before{
+
+    &:before {
       font-family: "Font Awesome 5 Free";
       font-weight: 900;
       font-size: 18px;
@@ -2545,6 +2566,7 @@ input[type=radio] {
       content: '\f107';
     }
   }
+
   .directorist_dropdown-option {
     display: none;
     position: absolute;
@@ -2556,14 +2578,17 @@ input[type=radio] {
     box-shadow: 0 10px 40px #868EAE30;
     border-radius: 5px;
     z-index: 99999;
+
     &.--show {
       display: block;
     }
-    ul{
+
+    ul {
       margin: 0;
       padding: 0;
-      li{
-        a{
+
+      li {
+        a {
           font-size: 14px;
           font-weight: 500;
           text-decoration: none;
@@ -2571,10 +2596,13 @@ input[type=radio] {
           padding: 9px 10px;
           border-radius: 4px;
           color: #5A5F7D;
-          &:hover, &.active:hover {
+
+          &:hover,
+          &.active:hover {
             color: #fff;
             background-color: $primary;
           }
+
           &.active {
             color: $primary;
             background-color: #f2f2f2;

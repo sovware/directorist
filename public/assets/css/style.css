@@ -8042,15 +8042,9 @@ span.atbd_get_loc_wid {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-}
-
-@media (max-width: 1199px) {
-  #directorist.atbd_wrapper .atbd_dashboard_wrapper {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
+  /* @media (max-width: 1199px) {
+      flex-direction: column;
+    } */
 }
 
 #directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_user_dashboard_nav {
@@ -8155,6 +8149,10 @@ span.atbd_get_loc_wid {
   -o-transition: 0.3s ease;
   transition: 0.3s ease;
   margin-top: -57px;
+  width: calc(100% - 230px);
+}
+
+#directorist.atbd_wrapper .atbd_dashboard_wrapper .atbd_tab-content .atbd-message-tabs .atbd_tab-content {
   width: 100%;
 }
 
@@ -8210,7 +8208,7 @@ span.atbd_get_loc_wid {
   padding: 5px 10px;
   border-radius: 4px;
   display: inline-block;
-  margin-bottom: 20px;
+  margin-bottom: 20px !important;
   outline: 0;
 }
 
@@ -8273,14 +8271,12 @@ span.atbd_get_loc_wid {
           flex: 0 0 100% !important;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tab {
-  margin-top: 30px;
-}
-
 .atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tab .atbd_tab_nav {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -8340,7 +8336,7 @@ span.atbd_get_loc_wid {
 .atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tab .directorist_userDashboard-search {
   position: relative;
   border-radius: 18px;
-  padding-right: 16px;
+  margin: 16px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tab .directorist_userDashboard-search .directorist_userDashboard-search__icon {

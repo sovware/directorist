@@ -298,9 +298,9 @@
   .atbd_dashboard_wrapper {
     display: flex;
 
-    @media (max-width: 1199px) {
+    /* @media (max-width: 1199px) {
       flex-direction: column;
-    }
+    } */
 
     .atbd_user_dashboard_nav {
       width: 230px;
@@ -384,7 +384,13 @@
       flex: 1;
       transition: 0.3s ease;
       margin-top: -57px;
-      width: 100%;
+      width: calc(100% - 230px);
+
+      .atbd-message-tabs {
+        .atbd_tab-content {
+          width: 100%;
+        }
+      }
 
       @media (max-width: 767px) {
         margin-top: 0;
@@ -435,7 +441,7 @@
     padding: 5px 10px;
     border-radius: 4px;
     display: inline-block;
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
     outline: 0;
 
     @media(max-width: 767px) {
@@ -496,10 +502,9 @@
 
 // userDashboard Table
 .atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tab {
-  margin-top: 30px;
-
   .atbd_tab_nav {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     background-color: #fff;
@@ -554,7 +559,7 @@
   .directorist_userDashboard-search {
     position: relative;
     border-radius: 18px;
-    padding-right: 16px;
+    margin: 16px;
 
     .directorist_userDashboard-search__icon {
       position: absolute;

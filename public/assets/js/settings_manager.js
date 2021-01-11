@@ -14770,9 +14770,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'toggle-field-theme-butterfly',
+  name: "toggle-field-theme-butterfly",
   mixins: [_mixins_form_fields_note_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
@@ -15365,9 +15372,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'note-field-theme-default',
+  name: "note-field-theme-default",
   mixins: [_mixins_form_fields_note_field__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
@@ -26896,17 +26910,21 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "cptm-form-note" }, [
-    _c("h2", {
-      staticClass: "cptm-form-note-title",
-      domProps: { innerHTML: _vm._s(_vm.title) }
-    }),
+    _c("i", { staticClass: "fa fa-info-circle" }),
     _vm._v(" "),
-    _vm.description.length
-      ? _c("div", {
-          staticClass: "cptm-form-note-content",
-          domProps: { innerHTML: _vm._s(_vm.description) }
-        })
-      : _vm._e()
+    _c("div", [
+      _c("h2", {
+        staticClass: "cptm-form-note-title",
+        domProps: { innerHTML: _vm._s(_vm.title) }
+      }),
+      _vm._v(" "),
+      _vm.description.length
+        ? _c("div", {
+            staticClass: "cptm-form-note-content",
+            domProps: { innerHTML: _vm._s(_vm.description) }
+          })
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []
@@ -28136,17 +28154,21 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "cptm-form-note" }, [
-    _c("h2", {
-      staticClass: "cptm-form-note-title",
-      domProps: { innerHTML: _vm._s(_vm.title) }
-    }),
+    _c("i", { staticClass: "fa fa-info-circle" }),
     _vm._v(" "),
-    _vm.description.length
-      ? _c("div", {
-          staticClass: "cptm-form-note-content",
-          domProps: { innerHTML: _vm._s(_vm.description) }
-        })
-      : _vm._e()
+    _c("div", [
+      _c("h2", {
+        staticClass: "cptm-form-note-title",
+        domProps: { innerHTML: _vm._s(_vm.title) }
+      }),
+      _vm._v(" "),
+      _vm.description.length
+        ? _c("div", {
+            staticClass: "cptm-form-note-content",
+            domProps: { innerHTML: _vm._s(_vm.description) }
+          })
+        : _vm._e()
+    ])
   ])
 }
 var staticRenderFns = []

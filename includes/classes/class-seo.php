@@ -649,10 +649,12 @@ if (!class_exists('ATBDP_SEO')) :
                 
                 if ( empty( $seo_meta['image'] ) ) {
                     $listing_img_id = get_post_meta( get_the_ID(), '_listing_prv_img', true);
-                    if ( empty( $listing_img_id ) || ! is_string( $listing_img_id ) || ! is_int( $listing_img_id ) ) {
+                    
+                    if ( empty( $listing_img_id ) || ! is_string( $listing_img_id ) || ! is_numeric( $listing_img_id ) ) {
                         $listing_img_id = get_post_meta( get_the_ID(), '_listing_img', true );
                         $listing_img_id = ( ! empty( $listing_img_id ) ) ? $listing_img_id[0] : null;
                     }
+                    
                     $seo_meta['image'] = ( ! empty($listing_img_id) || is_string( $listing_img_id ) || is_int( $listing_img_id )) ? wp_get_attachment_url($listing_img_id) : '';
                 }
             }

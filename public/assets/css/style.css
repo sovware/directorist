@@ -1147,11 +1147,12 @@ body.atbd_content_active #directorist.atbd_wrapper {
 
 #directorist.atbd_wrapper .pagination {
   width: 100%;
+  max-width: 100%;
   margin: 0;
-  border-top: 0;
   text-align: center;
   -webkit-box-shadow: none;
           box-shadow: none;
+  border-top: 0;
 }
 
 #directorist.atbd_wrapper .pagination:before, #directorist.atbd_wrapper .pagination:after {
@@ -1188,6 +1189,7 @@ body.atbd_content_active #directorist.atbd_wrapper {
   padding: 0;
   line-height: normal;
   height: 36px;
+  min-height: 36px;
   width: 36px;
   min-width: 36px;
   display: -webkit-inline-box;
@@ -1211,6 +1213,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
   margin-left: 0;
   right: auto;
   float: none;
+  font-size: 15px;
+  text-decoration: none;
 }
 
 #directorist.atbd_wrapper .pagination .nav-links .current:last-child,
@@ -1222,9 +1226,8 @@ body.atbd_content_active #directorist.atbd_wrapper {
 #directorist.atbd_wrapper .pagination .nav-links .current {
   -webkit-box-shadow: none;
           box-shadow: none;
-  border-color: #444752;
   background-color: #fff;
-  border-width: 2px;
+  border: 0 none;
   color: #fff;
 }
 

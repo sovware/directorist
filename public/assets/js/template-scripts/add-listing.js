@@ -533,23 +533,27 @@ jQuery(function($) {
                                 // console.log( response );
                                 // return;
                                 // show the error notice
+                                $('.listing_submit_btn').attr('disabled', false);
+
                                 var is_pending = response.pending ? '&' : '?';
                                 if (response.error === true) {
-                                     
-                                        if( response.error_msg.length > 1 ){
-                                                $('#listing_notifier').show();
-                                                for( var error in response.error_msg ){
-                                                       // console.log( error );
-                                                        $('#listing_notifier').append(`<span class="atbdp_error">${ response.error_msg[error] }</span>`);
-                                                }
-                                                $('.listing_submit_btn').removeClass('atbd_loading');
-                                        }else{
-                                                $('#listing_notifier')
-                                                .show()
-                                                .html(`<span class="atbdp_error">${ response.error_msg }</span>`);
-                                                $('.listing_submit_btn').removeClass('atbd_loading');
+                                        $('#listing_notifier').show().html(`<span>${response.error_msg}</span>`);
+                                        $('.listing_submit_btn').removeClass('atbd_loading');
+                                        on_processing = false;
+
+                                        if ( response.quick_login_required ) {
+                                                var email = response.email;
+                                                console.log( 'Show login form' );
+
+                                                var modal = $( '#atbdp-quick-login' );
+                                                modal.addClass( 'show' );
+
+                                                modal.find( '.atbdp-email-label' ).html( email );
+
+                                                // Show Alert
+                                                var alert = '<div class="atbdp-alert atbdp-mb-10">'+ response.error_msg +'</div>';
+                                                modal.find( '.atbdp-modal-alerts-area' ).html( alert );
                                         }
-                                        
                                 } else {
                                         // preview on and no need to redirect to payment
                                         if (response.preview_mode === true && response.need_payment !== true) {

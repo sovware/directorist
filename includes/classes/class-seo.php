@@ -28,6 +28,22 @@ if (!class_exists('ATBDP_SEO')) :
             }
 
             add_filter( 'the_title', array( $this, 'atbdp_title_update' ), 10, 2 );
+
+            // Rank Math Integration
+            // --------------------------------------------
+            // Meta Title
+            add_filter( 'rank_math/frontend/title', function( $title ) {
+                $seo_data = $this->get_seo_meta_data();
+
+                return $seo_data['title'];
+            });
+
+            // Meta Description
+            add_filter( 'rank_math/frontend/description', function( $description ) {
+                $seo_data = $this->get_seo_meta_data();
+
+                return $seo_data['description'];
+            });
         }
 
         // get_taxonomy_term

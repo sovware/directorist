@@ -3064,43 +3064,19 @@ KAMAL;
                     'type'          => 'text',
                     'label'         => __('Search Bar Title', 'directorist'),
                     'description' => __('Enter the title for search bar on Home Page.', 'directorist'),
-                    'value'         => '',
+                    'value' => __('Search here', 'directorist'),
                 ],
                 'search_subtitle'    => [
                     'type'          => 'text',
                     'label'         => __('Search Bar Sub-title', 'directorist'),
-                    'value'         => '',
+                    'value'         => __( 'Find the best match of your interest', 'directorist' ),
                 ],
                 'search_border' => [
                     'type'  => 'toggle',
                     'label' => __('Search Bar Border', 'directorist'),
                     'value' => true,
                 ],
-                'search_tsc_fields' => [
-                    'type' => 'checkbox',
-                    'name' => 'package_list',
-                    'label' => __('Search Fields', 'directorist'),
-                    'description' => '',
-                    'value' => [
-                        'search_text',
-                        'search_category',
-                        'search_location',
-                    ],
-                    'options' => [
-                        [
-                            'value' => 'search_text',
-                            'label' => __('Text', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_category',
-                            'label' => __('Category', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_location',
-                            'label' => __('Location', 'directorist'),
-                        ],
-                    ],
-                ],
+             
                 'search_location_address' => [
                     'label' => __('Location Source for Search Field', 'directorist'),
                     'type'  => 'select',
@@ -5314,7 +5290,7 @@ KAMAL;
                             'title'       => __('Search Form Settings', 'directorist'),
                             'description' => '',
                             'fields'      => [ 
-                                'search_title', 'search_subtitle', 'search_border', 'search_tsc_fields', 'search_location_address', 'require_search_text', 'require_search_category', 'require_search_location', 'search_placeholder', 'search_category_placeholder', 'search_location_placeholder', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_more_filters_fields', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'show_connector', 'connectors_title', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
+                                'search_title', 'search_subtitle', 'search_border', 'search_location_address', 'require_search_text', 'require_search_category', 'require_search_location', 'search_placeholder', 'search_category_placeholder', 'search_location_placeholder', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_more_filters_fields', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'show_connector', 'connectors_title', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
                              ],
                         ],
                         'search_result' => [

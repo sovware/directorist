@@ -2736,7 +2736,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                             'value' => 'from_map_api',
                                         ],
                                     ],
-                                    'value' => 'from_listing_location',
+                                    'value' => 'from_map_api',
                                 ],
                             ]
                         ],

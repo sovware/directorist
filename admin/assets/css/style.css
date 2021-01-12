@@ -807,11 +807,11 @@ css for Custom Field
   }
 }
 
-.vp-wrap .vp-field .label .description.atbdp_settings_description p strong {
+.atbdp_shortcodes {
   position: relative;
 }
 
-.vp-wrap .vp-field .label .description.atbdp_settings_description p strong:after {
+.atbdp_shortcodes:after {
   content: "\f1a7";
   font-family: "LineAwesome";
   color: #000;
@@ -2388,6 +2388,28 @@ span.atbdp-tick-cross {
 
 .add_listing_form_wrapper .listing-img-container {
   margin: 40px 0 20px;
+  margin: -10px;
+}
+
+.add_listing_form_wrapper .listing-img-container .single_attachment {
+  display: inline-block;
+  margin: 10px;
+  position: relative;
+}
+
+.add_listing_form_wrapper .listing-img-container .single_attachment .remove_image {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #d3d1ec;
+  line-height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
+  cursor: pointer;
+  color: #ffffff;
 }
 
 .add_listing_form_wrapper .listing-img-container img {

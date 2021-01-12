@@ -222,6 +222,7 @@ final class Directorist_Base
             add_action('widgets_init', array(self::$instance, 'register_widgets'));
 
             add_action( 'template_redirect', [ self::$instance, 'check_single_listing_page_restrictions' ] );
+            add_action( 'atbdp_show_flush_messages', [ self::$instance, 'show_flush_messages' ] );
 
             self::$instance->includes();
 
@@ -306,6 +307,11 @@ final class Directorist_Base
         }
 
         return self::$instance;
+    }
+
+    // show_flush_messages
+    public function show_flush_messages() {
+        atbdp_get_flush_messages();
     }
 
     // check_single_listing_page_restrictions

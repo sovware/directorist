@@ -778,8 +778,8 @@ class Directorist_Listing_Forms {
 	
 	public function render_shortcode_user_login() {
 		if ( atbdp_logged_in_user() ) {
-			
-			atbdp_get_flush_messages();
+
+			do_action( 'atbdp_show_flush_messages' );
 
 			$error_message = sprintf( __( 'Login page is not for logged-in user. <a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );
 			ob_start();

@@ -553,7 +553,6 @@ class Directorist_Listing_Forms {
 			$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
 	
 		}
-
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
 		
@@ -587,9 +586,8 @@ class Directorist_Listing_Forms {
 
 	public function add_listing_field_template( $field_data ) {
 
-		if( !empty( $field_data['assign_to'] ) ) return;
+		if( !empty( $field_data['assign_to'] ) && ( $field_data['assign_to'] !== 'form' ) ) return;
 		$listing_id = $this->get_add_listing_id();
-		
 		$value = '';
 		
 		if ( ! empty( $listing_id ) ) {
@@ -615,8 +613,8 @@ class Directorist_Listing_Forms {
 		
 		$template = 'forms/fields/' . $field_data['widget_name'];
 
+		
 		$template = apply_filters( 'directorist_field_template', $template, $field_data );
-
 		if ( is_admin() ) {
 			$admin_template = 'listing-form/' . $field_data['widget_name'];
 			$admin_template = apply_filters( 'directorist_field_admin_template', $admin_template, $field_data );
@@ -629,6 +627,7 @@ class Directorist_Listing_Forms {
 			}
 		}
 		else {
+			
 			if ( empty( $field_data['only_for_admin'] ) ) {
 				atbdp_get_shortcode_template( $template, $args );
 			}

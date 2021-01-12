@@ -801,11 +801,11 @@ css for Custom Field
   }
 }
 
-.vp-wrap .vp-field .label .description.atbdp_settings_description p strong {
+.atbdp_shortcodes {
   position: relative;
 }
 
-.vp-wrap .vp-field .label .description.atbdp_settings_description p strong:after {
+.atbdp_shortcodes:after {
   content: "\f1a7";
   font-family: "LineAwesome";
   color: #000;

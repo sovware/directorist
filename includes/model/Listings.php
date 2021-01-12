@@ -835,10 +835,14 @@ class Directorist_Listings {
 		$tax_queries = array();
 
 		// Listings of current listing type
-		$tax_queries[] = array(
-			'taxonomy' => ATBDP_TYPE,
-			'terms'    => $this->current_listing_type,
-		);
+		if( !empty( $_GET['listing_type'] ) ) {
+			$tax_queries[] = array(
+				'taxonomy' => ATBDP_TYPE,
+				'field' => 'term_id',
+				'terms'    => (int)$this->current_listing_type,
+				'include_children' => false,
+			);
+		}
 
 		if (isset($_GET['in_cat']) && (int)$_GET['in_cat'] > 0) {
 			$tax_queries[] = array(
@@ -875,43 +879,6 @@ class Directorist_Listings {
 		$meta_queries = array();
 
 		$this->execute_meta_query_args($args, $meta_queries);
-
-		if (isset($_GET['custom_field'])) {
-			$cf = array_filter($_GET['custom_field']);
-			foreach ($cf as $key => $values) {
-				if (is_array($values)) {
-					if (count($values) > 1) {
-						$sub_meta_queries = array();
-						foreach ($values as $value) {
-							$sub_meta_queries[] = array(
-								'key' => $key,
-								'value' => sanitize_text_field($value),
-								'compare' => 'LIKE'
-							);
-						}
-						$meta_queries[] = array_merge(array('relation' => 'OR'), $sub_meta_queries);
-					}
-					else {
-
-						$meta_queries[] = array(
-							'key' => $key,
-							'value' => sanitize_text_field($values[0]),
-							'compare' => 'LIKE'
-						);
-					}
-				}
-				else {
-					// $field_type = get_post_meta($key, 'type', true);
-					// $operator = ('text' == $field_type || 'textarea' == $field_type || 'url' == $field_type) ? 'LIKE' : '=';
-					$meta_queries[] = array(
-						'key' => '_' . $key,
-						'value' => sanitize_text_field($values),
-						'compare' => 'LIKE'
-					);
-
-				}
-			}
-		}
 
 		if (isset($_GET['price'])) {
 			$price = array_filter($_GET['price']);
@@ -969,7 +936,6 @@ class Directorist_Listings {
 				'compare' => 'LIKE'
 			);
 		}
-
 
 		if (isset($_GET['phone'])) {
 			$phone = sanitize_text_field( $_GET['phone'] );

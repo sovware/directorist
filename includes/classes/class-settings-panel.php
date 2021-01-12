@@ -1488,21 +1488,6 @@ KAMAL;
                     'label' => __('Filters Button Text', 'directorist'),
                     'value' => __('Filters', 'directorist'),
                 ],
-                'listings_display_filter' => [
-                    'label' => __('Open Filter Fields', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'sliding',
-                    'options' => [
-                        [
-                            'value' => 'overlapping',
-                            'label' => __('Overlapping', 'directorist'),
-                        ],
-                        [
-                            'value' => 'sliding',
-                            'label' => __('Sliding', 'directorist'),
-                        ],
-                    ],
-                ],
                 'listing_filters_fields' => [
                     'type' => 'checkbox',
                     'label' => __('Filter Fields', 'directorist'),
@@ -3076,52 +3061,7 @@ KAMAL;
                     'label' => __('Search Bar Border', 'directorist'),
                     'value' => true,
                 ],
-             
-                'search_location_address' => [
-                    'label' => __('Location Source for Search Field', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'map_api',
-                    'options' => [
-                        [
-                            'value' => 'listing_location',
-                            'label' => __('Display from Listing Location', 'directorist'),
-                        ],
-                        [
-                            'value' => 'map_api',
-                            'label' => __('Display from Map API', 'directorist'),
-                        ],
-                    ],
-                ],
-                'require_search_text' => [
-                    'type'  => 'toggle',
-                    'label' => __('Required Text Field', 'directorist'),
-                    'value' => false,
-                ],
-                'require_search_category' => [
-                    'type'  => 'toggle',
-                    'label' => __('Required Category Field', 'directorist'),
-                    'value' => false,
-                ],
-                'require_search_location' => [
-                    'type'  => 'toggle',
-                    'label' => __('Required Location Field', 'directorist'),
-                    'value' => false,
-                ],
-                'search_placeholder'    => [
-                    'type'          => 'text',
-                    'label'         => __('Search Bar Placeholder', 'directorist'),
-                    'value'         => __('What are you looking for?', 'directorist'),
-                ],
-                'search_category_placeholder'    => [
-                    'type'          => 'text',
-                    'label'         => __('Category Placeholder', 'directorist'),
-                    'value'         => __('Select a category', 'directorist'),
-                ],
-                'search_location_placeholder'    => [
-                    'type'          => 'text',
-                    'label'         => __('Location Placeholder', 'directorist'),
-                    'value'         => __('location', 'directorist'),
-                ],
+                            
                 'search_more_filter' => [
                     'type'  => 'toggle',
                     'label' => __('Display More Filters', 'directorist'),
@@ -3334,29 +3274,7 @@ KAMAL;
                     'label' => __('Display Popular Categories', 'directorist'),
                     'value' => false,
                 ],
-                'show_connector' => [
-                    'type'  => 'toggle',
-                    'label' => __('Display Connector', 'directorist'),
-                    'description' => __('Whether to display a connector between Search Bar and Popular Categories.', 'directorist'),
-                    'show-if' => [
-                        'where' => "show_popular_category",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                    'value' => false,
-                ],
-                'connectors_title'    => [
-                    'type'          => 'text',
-                    'label'         => __('Connector Text', 'directorist'),
-                    'value'         => __('Or', 'directorist'),
-                    'show-if' => [
-                        'where' => "show_connector",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
+
                 'popular_cat_title'    => [
                     'type'          => 'text',
                     'label'         => __('Popular Categories Title', 'directorist'),
@@ -5186,7 +5104,7 @@ KAMAL;
                                     'title'       => __('Listings Page', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listings_display_filter', 'listing_filters_fields', 'listing_location_fields', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'listings_search_text_placeholder', 'listings_category_placeholder', 'listings_location_placeholder', 'display_sort_by', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'display_preview_image', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'display_title', 'enable_tagline', 'enable_excerpt', 'excerpt_limit', 'display_readmore', 'readmore_text', 'display_price', 'display_email', 'display_web_link', 'display_contact_info', 'address_location', 'display_publish_date', 'publish_date_format', 'display_category', 'display_mark_as_fav', 'display_view_count', 'display_author_image', 'paginate_all_listings', 'all_listing_page_items' 
+                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_filters_fields', 'listing_location_fields', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'listings_search_text_placeholder', 'listings_category_placeholder', 'listings_location_placeholder', 'display_sort_by', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'display_preview_image', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'display_title', 'enable_tagline', 'enable_excerpt', 'excerpt_limit', 'display_readmore', 'readmore_text', 'display_price', 'display_email', 'display_web_link', 'display_contact_info', 'address_location', 'display_publish_date', 'publish_date_format', 'display_category', 'display_mark_as_fav', 'display_view_count', 'display_author_image', 'paginate_all_listings', 'all_listing_page_items' 
                                     ],
                                 ],
                             ] ),
@@ -5290,7 +5208,7 @@ KAMAL;
                             'title'       => __('Search Form Settings', 'directorist'),
                             'description' => '',
                             'fields'      => [ 
-                                'search_title', 'search_subtitle', 'search_border', 'search_location_address', 'require_search_text', 'require_search_category', 'require_search_location', 'search_placeholder', 'search_category_placeholder', 'search_location_placeholder', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_more_filters_fields', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'show_connector', 'connectors_title', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
+                                'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_more_filters_fields', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
                              ],
                         ],
                         'search_result' => [

@@ -87,7 +87,7 @@ if (!class_exists('ATBDP_SEO')) :
             $location_page_id = get_directorist_option( 'single_location_page', 0 );
 
             if ( ! ( $category_page_id == $id || $location_page_id == $id ) ) {
-                return;
+                return $title;
             }
 
             // global $post;

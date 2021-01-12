@@ -124,7 +124,7 @@ class Directorist_Single_Listing {
 		}
 		$load_template = true;
 		$group = !empty( $data['original_data']['widget_group'] ) ? $data['original_data']['widget_group'] : '';
-		if( ( ( $group === 'custom' ) || ( $group === 'preset' ) ) && !$value ) {
+		if( ( ( $group === 'custom' ) || ( $group === 'preset_widgets' ) ) && !$value ) {
 			$load_template = false;
 		}
 		$data['value'] = $value;

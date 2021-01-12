@@ -2918,6 +2918,7 @@ input#privacy_policy,
   border-radius: 3px;
   background: #f4f4f4;
   padding: 15px 20px;
+  margin-bottom: 15px;
 }
 
 .atbd-alert .atbd-alert-close {
@@ -2926,6 +2927,9 @@ input#privacy_policy,
   background: none;
   text-decoration: none;
   margin-left: auto !important;
+  border: 0 none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .atbd-alert.atbd-alert-success {
@@ -7756,6 +7760,20 @@ span.atbd_get_loc_wid {
 
 .atbd-listing-type-list .atbdp_input_group label {
   margin-bottom: 0 !important;
+}
+
+#directorist.atbd_wrapper .directorist-checkbox-field input[name="budget"] {
+  margin-right: 5px;
+}
+
+#directorist.atbd_wrapper .directorist-checkbox-field input[name="budget"] + label {
+  margin-bottom: 0;
+}
+
+.directorist-listing-type-wrapper {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .atbd_content_active #directorist.atbd_wrapper.dashboard_area .db_btn_area {

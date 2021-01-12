@@ -593,3 +593,17 @@
     }
   }
 }
+
+#directorist.atbd_wrapper .directorist-checkbox-field {
+  input[name="budget"] {
+    margin-right: 5px;
+
+    &+label {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.directorist-listing-type-wrapper {
+  justify-content: center;
+}

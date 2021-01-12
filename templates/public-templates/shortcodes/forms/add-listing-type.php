@@ -7,7 +7,7 @@
 ?>
 <div id="directorist" class="directorist atbd_wrapper atbd_add_listing_wrapper">
 	<div class="<?php echo apply_filters('atbdp_add_listing_container_fluid', 'container-fluid'); ?>">
-		<div class="row">
+		<div class="row directorist-listing-type-wrapper">
 			<?php foreach ( $listing_types as $id => $value ): ?>
 				<div class="col-3">
 					<div class="directorist-each-listing-type">

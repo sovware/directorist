@@ -2,6 +2,16 @@
 // Prohibit direct script loading.
 defined('ABSPATH') || die('No direct script access allowed!');
 
+if ( ! function_exists( 'atbdp_is_truthy' ) ) {
+    function atbdp_is_truthy( $data ) {
+
+        if ( $data === true ||  $data === 'true'|| $data === 1 || $data === '1' ) {
+            return true;
+        }
+
+        return false;
+    }
+}
 
 if ( ! function_exists( 'e_var_dump' ) ) {
     function e_var_dump( $the_var = '' ) {

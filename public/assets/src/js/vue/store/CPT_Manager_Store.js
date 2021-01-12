@@ -213,8 +213,13 @@ export default new Vuex.Store({
     getFieldsValue: state => {
       const maybeJSON = function ( data ) {
           let value = ( typeof data === 'undefined' ) ? '' : data;
-          if ( 'object' === typeof value ) {
+
+          if ( 'object' === typeof value && Object.keys( value ).length ) {
               value = JSON.stringify( value );
+          }
+          
+          if ( 'object' === typeof value && ! Object.keys( value ).length ) {
+              value = '';
           }
 
           return value;

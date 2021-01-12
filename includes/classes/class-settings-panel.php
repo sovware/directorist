@@ -52,26 +52,15 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                     'restor-data'  => $this->get_simple_data_content( [ 'path' => 'directory/directory-settings.json' ] ),
                 ];
 
-                if( ! get_directorist_option( 'enable_multi_directory' ) ) {
-                    $fields['enable_multi_directory'] = [
-                        'type'                       => 'ajax-action',
-                        'action'                     => 'enable_multi_directory',
-                        'label'                      => 'Multi Directory Builder',
-                        'button-label'               => 'Enable',
-                        'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
-                        'data'                       => [],
-                    ];
-                } else {
-                    $fields['enable_multi_directory'] = [
-                        'type'                       => 'ajax-action',
-                        'action'                     => 'disable_multi_directory',
-                        'label'                      => 'Multi Directory Builder',
-                        'button-label'               => 'Disable',
-                        'button-label-on-processing' => '<i class="fas fa-circle-notch fa-spin"></i> Processing',
-                        'data'                       => [],
-                    ];
-                }
-                
+                $fields['enable_multi_directory'] = [
+                    'type'           => 'toggle',
+                    'label'          => 'Enable Multi Directory',
+                    'value'          => false,
+                    'data-on-change' => [ 
+                        'action' => 'updateData',
+                        'args'   => [ 'reload_after_save' => true ]
+                    ],
+                ];
 
                 $fields['regenerate_pages'] = [
                     'type'                       => 'ajax-action',
@@ -289,7 +278,9 @@ SWBD;
         {
             // wp_send_json([
             //     'status' => false,
-            //     'field_list' => $this->maybe_json( $_POST['field_list'] ),
+            //     'active_gateways' => $_POST['active_gateways'],
+            //     'active_gateways_decoded' => $this->maybe_json( $_POST['active_gateways'] ),
+            //     'active_gateways_decoded_type' => gettype( $this->maybe_json( $_POST['active_gateways'] ) ),
             //     'status_log' => [
             //         'name_is_missing' => [
             //             'type' => 'error',
@@ -367,11 +358,12 @@ SWBD;
 
             if ( 'string' !== gettype( $string )  ) { return $string; }
 
-            if (preg_match('/\\\\+/', $string_alt)) {
+            if ( preg_match( '/\\\\+/', $string_alt ) ) {
                 $string_alt = preg_replace('/\\\\+/', '', $string_alt);
-                $string_alt = json_decode($string_alt, true);
-                $string     = (!is_null($string_alt)) ? $string_alt : $string;
             }
+
+            $string_alt = json_decode($string_alt, true);
+            $string     = (!is_null($string_alt)) ? $string_alt : $string;
 
             return $string;
         }
@@ -400,6 +392,7 @@ Please remember that your order may be canceled if you do not make your payment 
 KAMAL;
 
         $bank_payment_desc = __('You can make your payment directly to our bank account using this gateway. Please use your ORDER ID as a reference when making the payment. We will complete your order as soon as your deposit is cleared in our bank.', 'directorist');
+        $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
 
             $this->fields = apply_filters('atbdp_listing_type_settings_field_list', [
 
@@ -424,17 +417,72 @@ KAMAL;
                     ],
                 ],
 
+                'featured_listing_title' => [
+                    'type' => 'text',
+                    'label' => __('Title', 'directorist'),
+                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
+                    'value' => __('Featured', 'directorist'),
+                    'show-if' => [
+                        'where' => "enable_featured_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+
                 'featured_listing_price' => [
                     'label'         => __('Price in ', 'directorist') . atbdp_get_payment_currency(),
                     'type'          => 'number',
                     'value'         => 19.99,
                     'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
                     'show-if' => [
-                        'where' => "enable_monetization",
+                        'where' => "enable_featured_listing",
                         'conditions' => [
                             ['key' => 'value', 'compare' => '=', 'value' => true],
                         ],
                     ],
+                ],
+                'featured_listing_desc' => [
+                    'type' => 'textarea',
+                    'label' => __('Description', 'directorist'),
+                    'show-if' => [
+                        'where' => "enable_featured_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                    'value' => __('(Top of the search result and listings pages for a number days and it requires an additional payment.)', 'directorist'),
+                ],
+
+                'featured_listing_price' => [
+                    'label'         => __('Price in ', 'directorist') . atbdp_get_payment_currency(),
+                    'type'          => 'number',
+                    'max'           => 0,
+                    'value'         => 15,
+                    'description'   => __('Set the price you want to charge a user if he/she wants to upgrade his/her listing to featured listing. Note: you can change the currency settings under the gateway settings', 'directorist'),
+                    'show-if' => [
+                        'where' => "enable_featured_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+
+                'featured_listing_time' => [
+                    'label'         => __('Featured Duration in Days', 'directorist'),
+                    'type'          => 'number',
+                    'value'         => 30,
+                    'show-if' => [
+                        'where' => "enable_featured_listing",
+                        'conditions' => [
+                            ['key' => 'value', 'compare' => '=', 'value' => true],
+                        ],
+                    ],
+                ],
+
+                'monetization_promotion'    => [
+                    'type'          => 'note',
+                    'description' => sprintf(__('Monetize your website by selling listing plans using %s extension.', 'directorist'), $pricing_plan),
                 ],
 
                 'paypal_gateway_promotion'    => [
@@ -453,9 +501,7 @@ KAMAL;
                 'active_gateways' => [
                     'label'     => __('Active Gateways', 'directorist'),
                     'type'      => 'checkbox',
-                    'value'     => [
-                            'bank_transfer',
-                        ],
+                    'value'     => ['bank_transfer'],
                     'options'   => [
                         [
                             'value' => 'bank_transfer',
@@ -1262,12 +1308,7 @@ KAMAL;
                         ],
                     ],
                 ],
-                'fix_js_conflict' => [
-                    'label' => __('Fix Conflict with Bootstrap JS', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => false,
-                    'description' => __('If you use a theme that uses Bootstrap Framework especially Bootstrap JS, then Check this setting to fix any conflict with theme bootstrap js.', 'directorist'),
-                ],
+               
                 'font_type' => [
                     'label' => __('Icon Library', 'directorist'),
                     'type'  => 'select',
@@ -2720,12 +2761,7 @@ KAMAL;
                         ],
                     ],
                 ],
-                'featured_listing_title' => [
-                    'type' => 'text',
-                    'label' => __('Title', 'directorist'),
-                    'description' => __('You can set the title for featured listing to show on the ORDER PAGE', 'directorist'),
-                    'value' => __('Featured', 'directorist'),
-                ],
+                
                 // review settings 
                 'enable_review' => [
                     'type' => 'toggle',
@@ -5155,15 +5191,15 @@ KAMAL;
                             'icon' => '<i class="fa fa-sliders-h"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_general_sections', [
                                 'general_settings' => [
-                                    'title'       => __('General Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
+                                        'enable_multi_directory',
                                         'new_listing_status',
                                         'edit_listing_status', 
-                                        'fix_js_conflict', 
                                         'font_type', 'default_expiration', 'can_renew_listing', 'email_to_expire_day', 'email_renewal_day', 'delete_expired_listing', 'delete_expired_listings_after', 'deletion_mode', 'paginate_author_listings', 'display_author_email', 'author_cat_filter', 'atbdp_enable_cache', 'atbdp_reset_cache', 'guest_listings', 
                                     ],
                                 ],
+                               
                             ] ),
                         ],
                         'listings_page' => [
@@ -5729,13 +5765,16 @@ KAMAL;
                                     'description' => '',
                                     'fields'      => [ 
                                         'enable_featured_listing',
-                                        'featured_listing_price'
+                                        'featured_listing_title',
+                                        'featured_listing_desc',
+                                        'featured_listing_price',
+                                        'featured_listing_time',
                                     ],
                                 ],
                                 'plan_promo' => [
                                     'title'       => __('Monetize by Listing Plans', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [ ],
+                                    'fields'      => [ 'monetization_promotion' ],
                                 ],
                             ] ),
                         ],
@@ -5849,16 +5888,7 @@ KAMAL;
                                 ],
                             ]),
                         ],
-
-                        'directory_type' => [
-                            'label' => __( 'Multi Directory', 'directorist' ),
-                            'icon' => '<i class="fa fa-plus"></i>',
-                            'sections'  => apply_filters('atbdp_directory_type_controls', [
-                                'restore_default' => [
-                                    'fields' => [ 'enable_multi_directory' ]
-                                ],
-                            ]),
-                        ],
+         
                     ]),
                 ],
 
@@ -5895,8 +5925,12 @@ KAMAL;
         {   
             // Get Saved Data
             $atbdp_options = get_option('atbdp_option');
+
             foreach( $this->fields as $field_key => $field_opt ) {
-                if ( ! isset(  $atbdp_options[ $field_key ] ) ) { continue; }
+                if ( ! isset(  $atbdp_options[ $field_key ] ) ) {
+                    $this->fields[ $field_key ]['forceUpdate'] = true;
+                    continue;
+                }
 
                 $this->fields[ $field_key ]['value'] = $atbdp_options[ $field_key ];
             }
@@ -5907,7 +5941,6 @@ KAMAL;
                 'config'  => $this->config,
             ];
 
-            // $this->enqueue_scripts();
             wp_localize_script('atbdp_settings_manager', 'atbdp_settings_manager_data', $atbdp_settings_manager_data);
         
             /* $status = $this->update_settings_options([

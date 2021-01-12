@@ -17,6 +17,7 @@
                         :ref="field"
                         :class="{['highlight-field']: getHighlightState( field ) }"
                         :key="field_key"
+                        :cached-data="cached_fields[ field ]"
                         v-bind="fields[ field ]"
                         @update="updateFieldValue( field, $event )"
                         @validate="updateFieldValidationState( field, $event )"
@@ -55,6 +56,7 @@ export default {
         ...mapState([
             'metaKeys',
             'fields',
+            'cached_fields',
         ]),
 
         containerClass() {

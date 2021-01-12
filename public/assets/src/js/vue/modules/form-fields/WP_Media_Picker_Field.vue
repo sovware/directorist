@@ -3,6 +3,7 @@
         :is="getTheTheme( 'wp-media-picker-field' )" 
         v-if="canShow"
         v-bind="$props"
+        @do-action="$emit( 'do-action', $event )"
         @update="$emit( 'update', $event )"
     >
     </component>

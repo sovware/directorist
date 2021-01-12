@@ -2,6 +2,7 @@
     <text-field 
         v-bind="$props" 
         @update="$emit('update', $event)" 
+        @do-action="$emit( 'do-action', $event )"
         @validate="$emit( 'validate', $event )"
     />
 </template>

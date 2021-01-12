@@ -237,7 +237,7 @@ export default {
 
         },
 
-        updateData() {
+        updateData( args ) {
             if ( this.form_is_processing ) { console.log( 'Please wait...' ); return; }
             // console.log( 'updateData' );
 
@@ -264,9 +264,8 @@ export default {
                 if ( this.fields[ field_key ].validationState && this.fields[ field_key ].validationState.hasError ) {
                     error_count++;
                 }
-                
 
-                if ( cahced_value == new_value ) { continue; }
+                if ( ! this.fields[ field_key ].forceUpdate && cahced_value == new_value ) { continue; }
 
                 form_data.append( field_key, new_value );
                 field_list.push( field_key );
@@ -311,13 +310,16 @@ export default {
                     self.submit_button.is_disabled = false;
                     self.submit_button.label       = self.submit_button.label_default;
 
-
                     if ( response.data.status && response.data.status.status_log ) {
                         self.status_message = response.data.status.status_log;
 
                         setTimeout( function() {
                             self.status_message = null;
                         }, 5000 );
+                    }
+
+                    if ( args && args.reload_after_save ) {
+                        window.location.reload();
                     }
 
                 })
@@ -361,8 +363,12 @@ export default {
         maybeJSON( data ) {
             let value = ( typeof data === 'undefined' ) ? '' : data;
 
-            if ( 'object' === typeof value ) {
+            if ( 'object' === typeof value && Object.keys( value ).length ) {
                 value = JSON.stringify( value );
+            }
+            
+            if ( 'object' === typeof value && ! Object.keys( value ).length ) {
+                value = '';
             }
 
             return value;

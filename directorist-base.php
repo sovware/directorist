@@ -243,7 +243,6 @@ final class Directorist_Base
             self::$instance->user = new ATBDP_User;
             self::$instance->roles = new ATBDP_Roles;
             self::$instance->gateway = new ATBDP_Gateway;
-            // self::$instance->custom_field = new ATBDP_Custom_Field;
             self::$instance->order = new ATBDP_Order;
             self::$instance->shortcode = new ATBDP_Shortcode;
             self::$instance->email = new ATBDP_Email;
@@ -435,7 +434,6 @@ final class Directorist_Base
     private function includes()
     {
         self::require_files([
-            ATBDP_LIB_DIR . 'vafpress/bootstrap',
             ATBDP_INC_DIR . 'helper-functions',
             ATBDP_INC_DIR . 'template-functions',
             ATBDP_INC_DIR . 'custom-actions',
@@ -452,15 +450,11 @@ final class Directorist_Base
 
         load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
         load_dependencies('all', ATBDP_MODEL_DIR); // load all php files from ATBDP_MODEL_DIR
-        load_dependencies('all', ATBDP_LIB_DIR); // load all php files from ATBDP_LIB_DIR
 
         /*LOAD Rating and Review functionality*/
         load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');
         /*Load gateway related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'gateways/');
-
-        /*Load custom field related stuff*/
-        load_dependencies('all', ATBDP_INC_DIR . 'custom-fields/');
         /*Load payment related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'payments/');
         load_dependencies('all', ATBDP_INC_DIR . 'checkout/');

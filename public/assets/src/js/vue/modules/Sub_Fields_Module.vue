@@ -10,7 +10,7 @@
                 v-bind="option_fields[ field_key ]"
                 @update="updateOptionFieldValue( field_key, $event )"
                 @validate="updateOptionFieldValidationState( field_key, $event )"
-                @is-visible="updateOptionFieldData( field, 'isVisible' , $event )"
+                @is-visible="updateOptionFieldData( field_key, 'isVisible' , $event )"
                 @do-action="doAction( $event, 'sub-fields' )"
             />
         </template>

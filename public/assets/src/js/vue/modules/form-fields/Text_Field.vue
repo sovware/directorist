@@ -4,6 +4,7 @@
         v-bind="$props"
         v-if="canShow"
         @update="$emit( 'update', $event )"
+        @do-action="$emit( 'do-action', $event )"
         @validate="$emit( 'validate', $event )"
     />
 </template>

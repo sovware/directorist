@@ -1,5 +1,7 @@
 <?php
 
+use function PHPSTORM_META\type;
+
 if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
     class ATBDP_Multi_Directory_Manager
     {
@@ -109,7 +111,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             $need_migration      = ( empty( $migrated ) && ! $has_multidirectory && ( $has_listings || $has_custom_fields ) ) ? true : false;
             $need_import_default = ( ! $has_multidirectory && ! ( $has_listings || $has_custom_fields ) ) ? true : false;
             
-            /* var_dump([
+            /* e_var_dump([
                'migrated'            => $migrated,
                'has_listings'        => $has_listings,
                'has_custom_fields'   => $has_custom_fields,
@@ -416,6 +418,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             }
             
             $fields = $args['fields_value'];
+
             if ( is_array( $fields ) ) {
                 foreach ( $fields as $_field_key => $_field_value ) {
                     $fields[ $_field_key ] = $this->maybe_json( $_field_value );
@@ -583,11 +586,12 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             if ( 'string' !== gettype( $string )  ) { return $string; }
 
-            if (preg_match('/\\\\+/', $string_alt)) {
+            if ( preg_match( '/\\\\+/', $string_alt ) ) {
                 $string_alt = preg_replace('/\\\\+/', '', $string_alt);
-                $string_alt = json_decode($string_alt, true);
-                $string     = (!is_null($string_alt)) ? $string_alt : $string;
             }
+
+            $string_alt = json_decode($string_alt, true);
+            $string     = (!is_null($string_alt)) ? $string_alt : $string;
 
             return $string;
         }
@@ -4793,7 +4797,8 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                     ],
                     'input_style' => [
                         'class_names' => 'cptm-form-control-light'
-                    ]
+                    ],
+                    'is-hidden' => true
                 ],
             ];
 
@@ -4817,26 +4822,52 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         // add_menu_pages
         public function add_menu_pages()
         {
+            $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
+            $page_title = __( 'Builder', 'directorist' );
+            $page_slug  = 'atbdp-layout-builder';
+
+            if ( atbdp_is_truthy( $enable_multi_directory ) ) {
+                $page_title = 'Directory Types';
+                $page_slug  = 'atbdp-directory-types';
+            }
+
             add_submenu_page(
                 'edit.php?post_type=at_biz_dir',
-                'Directory Types',
-                'Directory Types',
+                $page_title,
+                $page_title,
                 'manage_options',
-                'atbdp-directory-types',
+                $page_slug,
                 [$this, 'menu_page_callback__directory_types'],
-                5
+                6
             );
+        }
+
+        // get_default_directory_id
+        public function get_default_directory_id() {
+            $terms = get_terms([
+                'taxonomy' => ATBDP_DIRECTORY_TYPE,
+                'hide_empty' => false,
+            ]);
+
+            if ( is_wp_error( $terms  ) ) {
+                return 0;
+            }
+
+            return $terms[0]->term_id;
         }
 
         // menu_page_callback__directory_types
         public function menu_page_callback__directory_types()
         {
+            $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
+            $enable_multi_directory = atbdp_is_truthy( $enable_multi_directory );
+
             $action = isset( $_GET['action'] ) ? $_GET['action'] : '';
             $listing_type_id = 0;
 
-            if ( ! empty( $action ) && ( 'edit' === $action ) && ! empty( $_REQUEST['listing_type_id'] ) ) {
-                $listing_type_id = $_REQUEST['listing_type_id'];
-                $this->update_fields_with_old_data();
+            if ( ! $enable_multi_directory || ( ! empty( $action ) && ( 'edit' === $action ) && ! empty( $_REQUEST['listing_type_id'] ) ) ) {
+                $listing_type_id = ( ! $enable_multi_directory ) ? $this->get_default_directory_id() : $_REQUEST['listing_type_id'];
+                $this->update_fields_with_old_data( $listing_type_id );
             }
 
             $data = [
@@ -4850,21 +4881,23 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'options' => $this->options,
                 'id'      => $listing_type_id,
             ];
+            
 
-            if ( ! empty( $action ) && ('edit' === $action || 'add_new' === $action) ) {
+            if ( ! $enable_multi_directory || ( ! empty( $action ) && ('edit' === $action || 'add_new' === $action ) ) ) {
                 wp_localize_script('atbdp_admin_app', 'cptm_data', $cptm_data);
                 atbdp_load_admin_template('post-types-manager/edit-listing-type', $data);
-
                 return;
             }
 
             atbdp_load_admin_template('post-types-manager/all-listing-types', $data);
         }
 
+
+
         // update_fields_with_old_data
-        public function update_fields_with_old_data()
+        public function update_fields_with_old_data( $listing_type_id = 0 )
         {
-            $listing_type_id = absint($_REQUEST['listing_type_id']);
+            // $listing_type_id = absint($_REQUEST['listing_type_id']);
             $term      = get_term($listing_type_id, 'atbdp_listing_types');
             $term_name = ( $term ) ? $term->name : '';
             $term_id   = ( $term ) ? $term->term_id : 0;
@@ -4921,10 +4954,10 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             // e_var_dump( $submission_form_fields['fields']['image_upload'] );
             // e_var_dump( $all_term_meta['fields']['image_upload'] );
             // $test = get_term_meta( $listing_type_id, 'listings_card_grid_view' );
-            // var_dump( $test['fields']['video'] );
+            // e_var_dump( $test['fields']['video'] );
             // e_var_dump( $test );
             // e_var_dump( $this->fields[ 'single_listings_contents' ] );
-            // var_dump( json_decode( $test ) );
+            // e_var_dump( json_decode( $test ) );
         }
 
         // handle_delete_listing_type_request
@@ -5013,7 +5046,13 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
             wp_register_style( 'atbdp_admin_css', ATBDP_PUBLIC_ASSETS . 'css/admin_app.css', [], '1.0' );
             wp_register_script( 'atbdp_admin_app', ATBDP_PUBLIC_ASSETS . 'js/admin_app.js', ['jquery'], false, true );
 
-            if ( 'at_biz_dir_page_atbdp-directory-types' === $page ) {
+
+            $accepted_pages = [ 
+                'at_biz_dir_page_atbdp-layout-builder',
+                'at_biz_dir_page_atbdp-directory-types'
+            ];
+
+            if ( in_array( $page, $accepted_pages ) ) {
                 $this->enqueue_scripts();
             }
         }

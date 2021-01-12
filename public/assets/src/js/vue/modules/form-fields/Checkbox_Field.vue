@@ -3,16 +3,17 @@
         :is="getTheTheme( 'checkbox-field' )" 
         v-if="canShow"
         v-bind="$props"
+        @do-action="$emit( 'do-action', $event )"
         @update="$emit( 'update', $event )"
     />
 </template>
 
 <script>
 import feild_helper from './../../mixins/form-fields/helper';
-import checkbox_feild from './../../mixins/form-fields/checkbox-field';
+import props from './../../mixins/form-fields/input-field-props';
 
 export default {
     name: 'checkbox-field',
-    mixins: [ checkbox_feild, feild_helper ],
+    mixins: [ props, feild_helper ],
 }
 </script>

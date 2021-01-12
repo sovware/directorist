@@ -1,5 +1,10 @@
 <template>
-    <component :is="getTheTheme( 'export-field' )" v-if="canShow" v-bind="$props"/>
+    <component 
+        :is="getTheTheme( 'export-field' )"
+        @do-action="$emit( 'do-action', $event )"
+        v-if="canShow" 
+        v-bind="$props"
+    />
 </template>
 
 <script>

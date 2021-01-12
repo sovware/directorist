@@ -2320,10 +2320,26 @@ input[type="text"] {
 }
 
 
+.cptm-color-picker-wrap {
+  display: inline-flex;
+}
+
+.cptm-color-picker-label {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+
 // Utility
 .cptm-wdget-title {
   display: flex;
   justify-content: space-between;
+}
+
+.atbdp-flex-align-center {
+  display: flex;
+  align-items: center;
 }
 
 .cptm-px-5 {

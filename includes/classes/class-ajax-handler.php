@@ -127,7 +127,8 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
         // atbdp_listing_types_form
         public function atbdp_listing_types_form() {
             $listing_type = !empty( $_POST['listing_type'] ) ? esc_attr( $_POST['listing_type'] ) : '';
-            $searchform = new Directorist_Listing_Search_Form( 'search_form', $listing_type, [] );
+            $term = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
+            $searchform = new Directorist_Listing_Search_Form( 'search_form', $term->term_id, [] );
             ob_start();
             ?>
             <div class="row atbdp-search-form atbdp-search-form-inline">

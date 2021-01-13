@@ -524,7 +524,7 @@ class ATBDP_Enqueuer {
     }
 
     public function current_listing_type() {
-        $type = isset( $_GET['listing_type'] ) ? $_GET['listing_type'] : get_post_meta( $this->listing_id, '_directory_type', true );
+        $type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : get_post_meta( $this->listing_id, '_directory_type', true );
         return $type;
     }
 

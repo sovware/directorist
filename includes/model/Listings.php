@@ -454,7 +454,7 @@ class Directorist_Listings {
 			$current_order = atbdp_get_listings_current_order( $this->orderby . '-' . $this->order );
 		}
 
-		$meta_queries['listing_type'] = array(
+		$meta_queries['directory_type'] = array(
 			'key' => '_directory_type',
 			'value' => (int)$this->current_listing_type,
 			'compare' => '=',
@@ -865,7 +865,7 @@ class Directorist_Listings {
 		$this->execute_meta_query_args($args, $meta_queries);
 
 		// Listings of current listing type
-		if( !empty( $_GET['listing_type'] ) ) {
+		if( !empty( $_GET['directory_type'] ) ) {
 			$meta_queries[] = array(
 				'key' => '_directory_type',
 				'value' => (int)$this->current_listing_type,
@@ -1180,6 +1180,7 @@ class Directorist_Listings {
 
 		foreach ( $all_types as $type ) {
 			$listing_types[ $type->term_id ] = [
+				'term' => $type,
 				'name' => $type->name,
 				'data' => get_term_meta( $type->term_id, 'general_config', true ),
 			];
@@ -1193,8 +1194,8 @@ class Directorist_Listings {
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ) {
-			$current = $_GET['listing_type'];
+		if ( isset( $_GET['directory_type'] ) && array_key_exists( $_GET['directory_type'], $listing_types ) ) {
+			$current = $_GET['directory_type'];
 		}
 		else {
 			foreach ( $listing_types as $id => $type ) {

@@ -7,8 +7,16 @@
             </div>
             
             <div class="atbdp-col atbdp-col-8">
-                <div class="cptm-color-picker">
-                    <v-input-colorpicker v-model="local_value"/>
+                <div class="cptm-color-picker-wrap">
+                    <div class="cptm-color-picker">
+                        <v-input-colorpicker 
+                            v-model="local_value" 
+                            :value="local_value"
+                            picker="sketch"
+                        />
+                    </div>
+
+                    <div class="cptm-color-picker-label">{{ local_value }}</div>
                 </div>
                 
                 <div class="cptm-form-group-feedback" v-if="validationMessages">

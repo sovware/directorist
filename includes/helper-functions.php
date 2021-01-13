@@ -32,6 +32,92 @@ if ( ! function_exists( 'atbdp_console_log' ) ) {
     }
 }
 
+if ( ! function_exists( 'atbdp_redirect_after_login' ) ) {
+    // atbdp_redirect_after_login
+    function atbdp_redirect_after_login( array $args = [] ) {
+        $default = [ 'url' => '' ];
+        $args = array_merge( $default, $args );
+
+        if ( empty( $args['url'] ) ) { return; }
+
+        set_transient( 'atbdp_redirect_after_login', $args['url'] );
+    }
+}
+
+if ( ! function_exists( 'atbdp_add_flush_message' ) ) {
+    // atbdp_add_flush_message
+    function atbdp_add_flush_message( array $args = [] ) {
+        $default = [ 'key' => '', 'type' => 'info', 'message' => '' ];
+        $args = array_merge( $default, $args );
+
+        if ( empty( $args['key'] ) ) { return; }
+        if ( empty( $args['message'] ) ) { return; }
+
+        $get_previous_messages = get_transient( 'atbdp_flush_messages' );
+        $flush_messages = $get_previous_messages;
+
+        if ( empty( $flush_messages ) ) {
+            $flush_messages = [];
+        }
+
+        $key = $args[ 'key' ];
+        $flush_messages[ $key ] = $args;
+
+        set_transient( 'atbdp_flush_messages', $flush_messages );
+    }
+}
+
+if ( ! function_exists( 'atbdp_get_flush_messages' ) ) {
+    // atbdp_get_flush_messages
+    function atbdp_get_flush_messages( array $args = [] ) {
+        $flush_messages = get_transient( 'atbdp_flush_messages' );
+        if ( empty( $flush_messages  ) ) { return; }
+
+        delete_transient( 'atbdp_flush_messages' );
+
+        ob_start();
+
+        echo '<div class="atbdp-flush-message-container">';
+        foreach ( $flush_messages as $message_key => $messages ) { ?>
+            <div class="atbdp-flush-message-item type-<?php echo $messages['type'] ?>">
+                <?php echo $messages['message'] ?>
+            </div>
+        <?php }
+        echo '</div>';
+
+        $contents = apply_filters( 'atbdp_flush_message_content', ob_get_clean(), $flush_messages );
+        echo $contents;
+    }
+}
+
+if ( ! function_exists( 'atbdp_auth_guard' ) ) {
+    function atbdp_auth_guard( array $args = [] ) {
+        $flush_message = [
+            'key'     => 'logged_in_user_only',
+            'type'    => 'info',
+            'message' => __( 'You need to be logged in to view the content of this page', 'directorist' ),
+        ];
+
+        $default = [ 'flush_message' => $flush_message ];
+        $args = array_merge( $default, $args );
+
+        global $wp;
+
+        $current_page  = home_url( $wp->request );
+        $login_page_id = get_directorist_option( 'user_login' );
+        $login_page    = ( ! empty( $login_page_id ) ) ? get_page_link( $login_page_id ) : '';
+        $home_page     = home_url();
+        $redirect_link = ( ! empty( $login_page ) ) ? $login_page : $home_page;
+
+        atbdp_add_flush_message( $args['flush_message'] );
+
+        atbdp_redirect_after_login( [ 'url' => $current_page ] );
+        wp_redirect( $redirect_link );
+
+        die;
+    }
+}
+
 function atbdp_add_flush_alert( array $args = [] ) {
     $default = [
         'id'          => '',
@@ -3369,8 +3455,10 @@ function atbdp_guest_submission($guest_email)
     // Check if user exist by email
     if (email_exists($guest_email)) {
         wp_send_json(array(
-                'error' => true,
-                'error_msg' => __('Email already registered. Please login first', 'directorist'),
+                'error'                => true,
+                'quick_login_required' => true,
+                'email'                => $guest_email,
+                'error_msg'            => __('Email already registered. Please login first', 'directorist'),
         ));
         die();
     } else {

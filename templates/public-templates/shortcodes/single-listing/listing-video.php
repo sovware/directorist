@@ -21,6 +21,5 @@ if ($enable_video_url && !empty($videourl) && $plan_video) { ?>
 	</div>
 	<?php
 }
-if( empty( get_directorist_option('single_listing_page') ) ) {
-	do_action('atbdp_after_video_gallery');
-}
+
+do_action('atbdp_after_video_gallery');

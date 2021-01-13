@@ -28,6 +28,22 @@ if (!class_exists('ATBDP_SEO')) :
             }
 
             add_filter( 'the_title', array( $this, 'atbdp_title_update' ), 10, 2 );
+
+            // Rank Math Integration
+            // --------------------------------------------
+            // Meta Title
+            add_filter( 'rank_math/frontend/title', function( $title ) {
+                $seo_data = $this->get_seo_meta_data();
+
+                return $seo_data['title'];
+            });
+
+            // Meta Description
+            add_filter( 'rank_math/frontend/description', function( $description ) {
+                $seo_data = $this->get_seo_meta_data();
+
+                return $seo_data['description'];
+            });
         }
 
         // get_taxonomy_term
@@ -633,10 +649,12 @@ if (!class_exists('ATBDP_SEO')) :
                 
                 if ( empty( $seo_meta['image'] ) ) {
                     $listing_img_id = get_post_meta( get_the_ID(), '_listing_prv_img', true);
-                    if ( empty( $listing_img_id ) || ! is_string( $listing_img_id ) || ! is_int( $listing_img_id ) ) {
+                    
+                    if ( empty( $listing_img_id ) || ! is_string( $listing_img_id ) || ! is_numeric( $listing_img_id ) ) {
                         $listing_img_id = get_post_meta( get_the_ID(), '_listing_img', true );
                         $listing_img_id = ( ! empty( $listing_img_id ) ) ? $listing_img_id[0] : null;
                     }
+                    
                     $seo_meta['image'] = ( ! empty($listing_img_id) || is_string( $listing_img_id ) || is_int( $listing_img_id )) ? wp_get_attachment_url($listing_img_id) : '';
                 }
             }

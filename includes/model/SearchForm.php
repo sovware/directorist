@@ -330,6 +330,7 @@ class Directorist_Listing_Search_Form {
 
 		foreach ( $all_types as $type ) {
 			$listing_types[ $type->term_id ] = [
+				'term' => $type,
 				'name' => $type->name,
 				'data' => get_term_meta( $type->term_id, 'general_config', true ),
 			];

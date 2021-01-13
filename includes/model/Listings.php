@@ -1202,13 +1202,14 @@ class Directorist_Listings {
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( isset( $_GET['directory_type'] ) && array_key_exists( $_GET['directory_type'], $listing_types ) ) {
+		if ( isset( $_GET['directory_type'] ) ) {
 			$current = $_GET['directory_type'];
 		}
 		else if( $this->default_directory_type ) {
 			$current = $this->default_directory_type;
 		}
 		else {
+
 			foreach ( $listing_types as $id => $type ) {
 				$is_default = get_term_meta( $id, '_default', true );
 				if ( $is_default ) {
@@ -1218,6 +1219,11 @@ class Directorist_Listings {
 			}
 		}
 
+		if( ! is_numeric( $current ) ) {
+			$term = get_term_by( 'slug', $current, ATBDP_TYPE );
+			$current = $term->term_id;
+		}
+		
 		return (int) $current;
 	}
 

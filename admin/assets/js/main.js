@@ -1576,5 +1576,17 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                 $(data_target).slideToggle();
                 }
         });
+        
+        $('body').on('input','.directorist_slider-input', function (){
+                $(this).siblings('.directorist_range-bar').children('.directorist_range-fill').css("width", $(this).val() + "%");
+        });
+
+        window.onload = function() {
+                setTimeout(()=>{ 
+                        $('.directorist_slider-input').siblings('.directorist_range-bar').children('.directorist_range-fill').css("width", $('.directorist_slider-input').val() + "%")
+                },100)
+        }
+
+
 
 })(jQuery);

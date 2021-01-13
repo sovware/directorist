@@ -351,7 +351,6 @@ class Directorist_Single_Listing {
 	public static function single_content_wrapper($content)
 	{
 		$id = get_the_ID();
-		$single_page_id = get_directorist_option('single_listing_page');
 		$type = get_post_meta( $id, '_directory_type', true );
 
 		if (is_singular(ATBDP_POST_TYPE) && in_the_loop() && is_main_query()) {
@@ -367,109 +366,100 @@ class Directorist_Single_Listing {
 			 * It fires before single listing load
 			 */
 			do_action('atbdp_before_single_listing_load', $id);
+			ob_start();
+			$single_listing_shortcodes = apply_filters('single_listing_shortcodes', [
+				'directorist_listing_top_area' => [
+					'order'  => apply_filters('directorist_listing_top_area_order', 0),
+					'before' => '',
+					'after'  => '',
+				],
+				'directorist_listing_tags' => [
+					'order'  => apply_filters('directorist_listing_tags_order', 1),
+					'before' => '',
+					'after'  => function () {
+						/**
+						 * Fires after the title and sub title of the listing is rendered on the single listing page
+						 *
+						 * @since 1.0.0
+						 */
+						do_action('atbdp_after_listing_tagline');
+					},
+				],
+				'directorist_listing_custom_fields' => [
+					'order'  => apply_filters('directorist_listing_custom_fields_order', 2),
+					'before' => '',
+					'after'  => '',
+				],
+				'directorist_listing_video' => [
+					'order'  => apply_filters('directorist_listing_video_order', 3),
+					'before' => '',
+					'after'  => '',
+				],
+				'directorist_listing_map' => [
+					'order'  => apply_filters('directorist_listing_map_order', 4),
+					'before' => '',
+					'after'  => '',
+				],
+				'directorist_listing_contact_information' => [
+					'order'  => apply_filters('directorist_listing_contact_information_order', 5),
+					'before' => '',
+					'after'  => '',
+				],
+				'directorist_listing_contact_owner' => [
+					'order'  => apply_filters('directorist_listing_contact_owner_order', 6),
+					'before' => '',
+					'after'  => function ($id) {
+						/**
+						 * @since 5.0.5
+						 */
+						do_action('atbdp_after_contact_listing_owner_section', $id);
+					},
+				],
+				'directorist_listing_author_info' => [
+					'order'  => apply_filters('directorist_listing_author_info_order', 7),
+					'before' => '',
+					'after'  => '',
+				],
+				'directorist_listing_review' => [
+					'order'  => apply_filters('directorist_listing_review_order', 8),
+					'before' => '',
+					'after'  => '',
+				],
+				'directorist_related_listings' => [
+					'order'  => apply_filters('directorist_related_listings_order', 9),
+					'before' => '',
+					'after'  => '',
+				],
+			]);
 
-			if (!empty($single_page_id)) {
-				if (did_action('elementor/loaded') && \Elementor\Plugin::$instance->db->is_built_with_elementor($single_page_id)) {
-					$content = \Elementor\Plugin::$instance->frontend->get_builder_content_for_display($single_page_id);
-				} else {
-					$content = get_post_field('post_content', $single_page_id);
-					$content = do_shortcode($content);
-				}
-			} else {
-				ob_start();
-				$single_listing_shortcodes = apply_filters('single_listing_shortcodes', [
-					'directorist_listing_top_area' => [
-						'order'  => apply_filters('directorist_listing_top_area_order', 0),
-						'before' => '',
-						'after'  => '',
-					],
-					'directorist_listing_tags' => [
-						'order'  => apply_filters('directorist_listing_tags_order', 1),
-						'before' => '',
-						'after'  => function () {
-							/**
-							 * Fires after the title and sub title of the listing is rendered on the single listing page
-							 *
-							 * @since 1.0.0
-							 */
-							do_action('atbdp_after_listing_tagline');
-						},
-					],
-					'directorist_listing_custom_fields' => [
-						'order'  => apply_filters('directorist_listing_custom_fields_order', 2),
-						'before' => '',
-						'after'  => '',
-					],
-					'directorist_listing_video' => [
-						'order'  => apply_filters('directorist_listing_video_order', 3),
-						'before' => '',
-						'after'  => '',
-					],
-					'directorist_listing_map' => [
-						'order'  => apply_filters('directorist_listing_map_order', 4),
-						'before' => '',
-						'after'  => '',
-					],
-					'directorist_listing_contact_information' => [
-						'order'  => apply_filters('directorist_listing_contact_information_order', 5),
-						'before' => '',
-						'after'  => '',
-					],
-					'directorist_listing_contact_owner' => [
-						'order'  => apply_filters('directorist_listing_contact_owner_order', 6),
-						'before' => '',
-						'after'  => function ($id) {
-							/**
-							 * @since 5.0.5
-							 */
-							do_action('atbdp_after_contact_listing_owner_section', $id);
-						},
-					],
-					'directorist_listing_author_info' => [
-						'order'  => apply_filters('directorist_listing_author_info_order', 7),
-						'before' => '',
-						'after'  => '',
-					],
-					'directorist_listing_review' => [
-						'order'  => apply_filters('directorist_listing_review_order', 8),
-						'before' => '',
-						'after'  => '',
-					],
-					'directorist_related_listings' => [
-						'order'  => apply_filters('directorist_related_listings_order', 9),
-						'before' => '',
-						'after'  => '',
-					],
-				]);
-
-				// Sort the shortcodes
-				$sorted_shortcodes = [];
-				foreach ($single_listing_shortcodes as $shortcode => $arg) {
-					$sorted_shortcodes[$shortcode] = (isset($arg['order']) && is_numeric($arg['order'])) ? $arg['order'] : 0;
-				}
-				asort($sorted_shortcodes);
-
-				// Print the sorted shortcodes
-				foreach ($sorted_shortcodes as $shortcode_key => $value) {
-					$shortcode = $single_listing_shortcodes[$shortcode_key];
-
-					if (!empty($shortcode['before']) && is_callable($shortcode['before'])) {
-						$arg['before']($id);
-					}
-
-					do_action("before_{$shortcode_key}", $id);
-					echo "[{$shortcode_key}]";
-					do_action("after_{$shortcode_key}", $id);
-
-					if (!empty($shortcode['after']) && is_callable($shortcode['after'])) {
-						$shortcode['after']($id);
-					}
-					
-				}
-
-				$content = ob_get_clean();
-				$content = do_shortcode($content);
+			// Sort the shortcodes
+			$sorted_shortcodes = [];
+			foreach ($single_listing_shortcodes as $shortcode => $arg) {
+				$sorted_shortcodes[$shortcode] = (isset($arg['order']) && is_numeric($arg['order'])) ? $arg['order'] : 0;
 			}
+			asort($sorted_shortcodes);
+
+			// Print the sorted shortcodes
+			foreach ($sorted_shortcodes as $shortcode_key => $value) {
+				$shortcode = $single_listing_shortcodes[$shortcode_key];
+
+				if (!empty($shortcode['before']) && is_callable($shortcode['before'])) {
+					$arg['before']($id);
+				}
+
+				do_action("before_{$shortcode_key}", $id);
+				echo "[{$shortcode_key}]";
+				do_action("after_{$shortcode_key}", $id);
+
+				if (!empty($shortcode['after']) && is_callable($shortcode['after'])) {
+					$shortcode['after']($id);
+				}
+				
+			}
+
+			$content = ob_get_clean();
+			$content = do_shortcode($content);
+			
 
 			$payment   = isset($_GET['payment']) ? $_GET['payment'] : '';
 			$redirect  = isset($_GET['redirect']) ? $_GET['redirect'] : '';

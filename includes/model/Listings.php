@@ -457,6 +457,12 @@ class Directorist_Listings {
 			$current_order = atbdp_get_listings_current_order( $this->orderby . '-' . $this->order );
 		}
 
+		$meta_queries['listing_type'] = array(
+			'key' => '_directory_type',
+			'value' => (int)$this->current_listing_type,
+			'compare' => '=',
+		);
+		
 		$meta_queries['expired'] = array(
 			array(
 				'key'     => '_listing_status',
@@ -464,8 +470,6 @@ class Directorist_Listings {
 				'compare' => '!=',
 			),
 		);
-
-		$args['expired'] = $meta_queries;
 
 		if ( $this->has_featured ) {
 			if ( '_featured' == $this->filterby ) {
@@ -753,16 +757,6 @@ class Directorist_Listings {
 
 		$tax_queries = array();
 
-
-		// Listings of current listing type
-		$tax_queries['tax_query'] = array(
-			'relation' => 'AND',
-			array(
-				'taxonomy' => ATBDP_TYPE,
-				'terms'    => $this->current_listing_type,
-			),
-		);
-
 		if ( ! empty( $this->categories ) ) {
 			$tax_queries['tax_query'][] = array(
 				'taxonomy'         => ATBDP_CATEGORY,
@@ -837,16 +831,6 @@ class Directorist_Listings {
 
 		$tax_queries = array();
 
-		// Listings of current listing type
-		if( !empty( $_GET['listing_type'] ) ) {
-			$tax_queries[] = array(
-				'taxonomy' => ATBDP_TYPE,
-				'field' => 'term_id',
-				'terms'    => (int)$this->current_listing_type,
-				'include_children' => false,
-			);
-		}
-
 		if (isset($_GET['in_cat']) && (int)$_GET['in_cat'] > 0) {
 			$tax_queries[] = array(
 				'taxonomy' => ATBDP_CATEGORY,
@@ -883,6 +867,15 @@ class Directorist_Listings {
 
 		$this->execute_meta_query_args($args, $meta_queries);
 
+		// Listings of current listing type
+		if( !empty( $_GET['listing_type'] ) ) {
+			$meta_queries[] = array(
+				'key' => '_directory_type',
+				'value' => (int)$this->current_listing_type,
+				'compare' => '=',
+			);
+		}
+		
 		if (isset($_GET['price'])) {
 			$price = array_filter($_GET['price']);
 			if ($n = count($price)) {

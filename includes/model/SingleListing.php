@@ -485,15 +485,12 @@ class Directorist_Single_Listing {
 				}
 			}
 			$header 				= get_term_meta( $type, 'single_listing_header', true );
-			$new_listing_status 	= get_directorist_option('new_listing_status', 'pending' );
-            $edit_listing_status 	= get_directorist_option('edit_listing_status', 'pending' );
+		
 			$pending_msg 			= get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 			$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
-
-			if( isset( $_GET['edited'] ) && ( $_GET['edited'] === '1' ) ) {
-				$confirmation_msg = $edit_listing_status === 'publish' ? $publish_msg : $pending_msg;
-			}else{
-				$confirmation_msg = $new_listing_status === 'publish' ? $publish_msg : $pending_msg; 
+			$confirmation_msg = '';
+			if( isset( $_GET['notice'] ) ) {
+				$confirmation_msg = get_post_status( $pid ) === 'publish' ? $publish_msg : $pending_msg;
 			}
 			
 			$args = array(

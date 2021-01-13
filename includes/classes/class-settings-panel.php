@@ -3779,14 +3779,6 @@ KAMAL;
                     'showDefaultOption' => true,
                     'options' => $this->get_pages_vl_arrays(),
                 ],
-                'single_listing_page' => [
-                    'label' => __('Single Listing Page', 'directorist'),
-                    'type'  => 'select',
-                    'description' => sprintf(__('Following shortcodes can be used for the selected page %s', 'directorist'), '<div class="atbdp_shortcodes" style="color: #ff4500;">[directorist_listing_top_area][directorist_listing_tags][directorist_listing_custom_fields][directorist_listing_video][directorist_listing_map][directorist_listing_contact_information][directorist_listing_contact_owner][directorist_listing_author_info][directorist_listing_review][directorist_related_listings]</div>'),
-                    'value' => atbdp_get_option('single_listing_page', 'atbdp_general'),
-                    'showDefaultOption' => true,
-                    'options' => $this->get_pages_vl_arrays(),
-                ],
                 'user_dashboard' => [
                     'label' => __('Dashboard Page', 'directorist'),
                     'type'  => 'select',
@@ -5236,7 +5228,7 @@ KAMAL;
                             'title'       => __('Page, Links & View Settings', 'directorist'),
                             'description' => '',
                             'fields'      => apply_filters( 'atbdp_pages_settings_fields', [ 
-                                'add_listing_page', 'all_listing_page', 'single_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'custom_registration', 'user_login', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
+                                'add_listing_page', 'all_listing_page', 'user_dashboard', 'author_profile_page', 'all_categories_page', 'single_category_page', 'all_locations_page', 'single_location_page', 'single_tag_page', 'custom_registration', 'user_login', 'search_listing', 'search_result_page', 'checkout_page', 'payment_receipt_page', 'transaction_failure_page', 'privacy_policy', 'terms_conditions'
                              ] ),
                         ],
                     ]),

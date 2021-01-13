@@ -13,7 +13,6 @@ if(!empty($enable_uninstall)) {
     // Delete selected pages.
     wp_delete_post(get_directorist_option('add_listing_page'), true);
     wp_delete_post(get_directorist_option('all_listing_page'), true);
-    wp_delete_post(get_directorist_option('single_listing_page'), true);
     wp_delete_post(get_directorist_option('user_dashboard'), true);
     wp_delete_post(get_directorist_option('author_profile_page'), true);
     wp_delete_post(get_directorist_option('all_categories_page'), true);

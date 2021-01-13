@@ -1809,11 +1809,33 @@ input#privacy_policy,
 .atbdp-basic-search-fields {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-end;
 
   .atbdp-basic-search-fields-each {
     flex: 0 0 33.33%;
     width: 33.33%;
+  }
+
+  .custom-control {
+    display: flex;
+    align-items: center;
+  }
+
+  .single_search_field {
+    .custom-control-input[type="checkbox"] {
+      display: block !important;
+      position: static;
+
+      &+label {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .bads-tags {
+      .custom-control-input[type="checkbox"] {
+        display: none !important;
+      }
+    }
   }
 }
 
@@ -2294,7 +2316,7 @@ textarea.atbdp-form-control {
   display: block;
 }
 
-#directorist.atbd_wrapper  h3.atbdp-section-title {
+#directorist.atbd_wrapper h3.atbdp-section-title {
   margin-bottom: 25px;
 }
 
@@ -2333,22 +2355,26 @@ textarea.atbdp-form-control {
   margin: 0 -15px;
   flex-wrap: wrap;
 }
+
 .atbdp-card-list__item {
   width: 100%;
   max-width: 300px;
   padding: 0 15px;
 }
+
 .atbdp-card {
   display: block;
   background-color: #fff;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
   text-align: center;
 }
+
 .atbdp-card-header {
   display: block;
   margin-bottom: 20px;
 }
+
 .atbdp-card-body {
   display: block;
 }
@@ -2357,10 +2383,12 @@ textarea.atbdp-form-control {
 .atbdp-card-title {
   font-size: 1.3em;
 }
+
 .atbdp-card-icon {
   display: block;
   font-size: 4rem;
 }
+
 .atbdp-card-icon {
   display: block;
 }
@@ -2381,7 +2409,7 @@ textarea.atbdp-form-control {
   max-width: 400px;
   padding: 20px;
   border-radius: 4px;
-  box-shadow: 0 0 30px rgba(0,0,0,0.1);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
 
@@ -2392,9 +2420,11 @@ textarea.atbdp-form-control {
 .atbdp-form-header {
   display: block;
 }
+
 .atbdp-form-body {
   display: block;
 }
+
 .atbdp-form-footer {
   display: block;
   text-align: center;
@@ -2424,6 +2454,7 @@ input.atbdp-form-control {
   border: none;
   border-radius: 3px;
 }
+
 .atbdp-btn-primary {
   color: #fff;
   background: #6495ed;
@@ -2437,9 +2468,11 @@ input.atbdp-form-control {
 .atbdp-text-success {
   color: #0FB73B;
 }
+
 .atbdp-text-danger {
   color: #c81d1d;
 }
+
 .atbdp-text-muted {
   color: gray;
 }
@@ -2489,6 +2522,7 @@ input.atbdp-form-control {
   color: #555;
   background: #fff;
 }
+
 .atbdp-tab-nav-menu__link:active,
 .atbdp-tab-nav-menu__link:focus {
   outline: none;
@@ -2502,9 +2536,11 @@ input.atbdp-form-control {
 .atbdp-tab-content-area {
   display: block;
 }
+
 .atbdp-tab-content {
   display: none;
 }
+
 .atbdp-tab-content.active {
   display: block;
 }

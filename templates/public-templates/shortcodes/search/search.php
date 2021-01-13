@@ -38,8 +38,10 @@
 				do_action('atbdp_before_search_form');
 
 				$searchform->listing_type_template();
+				$term = get_term( $searchform->listing_type, ATBDP_TYPE );
+				$slug = $term->slug;
 				?>
-				<input type="hidden" name="listing_type" id="listing_type" value="<?php echo esc_attr( $searchform->listing_type ); ?>">
+				<input type="hidden" name="directory_type" id="listing_type" value="<?php echo esc_attr( $slug ); ?>">
 				<div class="atbdp-whole-search-form">
 					<div class="row atbdp-search-form atbdp-search-form-inline">
 						<?php

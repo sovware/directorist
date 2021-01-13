@@ -89,7 +89,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 $edit_l_status  = get_directorist_option('edit_listing_status');
 
                  // data validation
-                 $listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
+                 $listing_type = !empty( $info['directory_type'] ) ? sanitize_text_field( $info['directory_type'] ) : '';
                  $submission_form_fields = [];
                  $metas = [];
                  if( $listing_type ){
@@ -161,7 +161,6 @@ if (!class_exists('ATBDP_Add_Listing')):
     
                 $title = !empty( $info['listing_title']) ? sanitize_text_field( $info['listing_title']) : '';
                 $content = !empty( $info['listing_content']) ? wp_kses( $info['listing_content'], wp_kses_allowed_html('post')) : '';
-                $listing_type = !empty($info['listing_type']) ? sanitize_text_field($info['listing_type']) : '';
 
                 if( !empty( $info['privacy_policy'] ) ) {
                     $metas[ '_privacy_policy' ] = $info['privacy_policy'] ? $info['privacy_policy'] : '';

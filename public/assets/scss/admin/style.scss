@@ -3,6 +3,11 @@
 #directorist.atbd_wrapper {
   padding: 18px 20px;
 
+  a:focus, a:active {
+    box-shadow: unset;
+    outline: none;
+  }
+
   .atcc_pt_40 {
     padding-top: 40px;
   }
@@ -2339,6 +2344,31 @@ span.atbdp-tick-cross {
 
   .listing-img-container {
     margin: 40px 0 20px;
+    margin: -10px;
+
+
+    .single_attachment {
+      display: inline-block;
+      margin: 10px;
+      position: relative;
+
+      .remove_image {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background: #d3d1ec;
+        line-height: 26px;
+        width: 26px;
+        border-radius: 50%;
+        -webkit-transition: 0.2s;
+        -moz-transition: 0.2s;
+        -ms-transition: 0.2s;
+        -o-transition: 0.2s;
+        transition: 0.2s;
+        cursor: pointer;
+        color: #ffffff;
+      }
+    }
 
     img {
       max-width: 100px;

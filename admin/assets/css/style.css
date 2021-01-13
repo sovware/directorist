@@ -10,6 +10,12 @@ css for Custom Field
   for shortable field*/
 }
 
+#directorist.atbd_wrapper a:focus, #directorist.atbd_wrapper a:active {
+  -webkit-box-shadow: unset;
+          box-shadow: unset;
+  outline: none;
+}
+
 #directorist.atbd_wrapper .atcc_pt_40 {
   padding-top: 40px;
 }
@@ -2382,6 +2388,28 @@ span.atbdp-tick-cross {
 
 .add_listing_form_wrapper .listing-img-container {
   margin: 40px 0 20px;
+  margin: -10px;
+}
+
+.add_listing_form_wrapper .listing-img-container .single_attachment {
+  display: inline-block;
+  margin: 10px;
+  position: relative;
+}
+
+.add_listing_form_wrapper .listing-img-container .single_attachment .remove_image {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #d3d1ec;
+  line-height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  -webkit-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
+  cursor: pointer;
+  color: #ffffff;
 }
 
 .add_listing_form_wrapper .listing-img-container img {

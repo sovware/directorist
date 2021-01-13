@@ -65,6 +65,9 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_ajaxlogin', array($this, 'atbdp_ajax_login'));
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));
 
+            add_action('wp_ajax_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
+            add_action('wp_ajax_nopriv_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
+
             // regenerate pages
             add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
             // default listing type
@@ -84,6 +87,41 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             add_action('wp_ajax_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
             add_action('wp_ajax_nopriv_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
+        }
+
+        // atbdp_quick_ajax_login
+        public function atbdp_quick_ajax_login()
+        {
+            if ( is_user_logged_in() ) {
+                wp_send_json([
+                    'loggedin' => true,
+                    'message' => __('Your are already loggedin', 'directorist'),
+                ]);
+            }
+
+            $keep_signed_in = ( ! empty( $_POST['rememberme'] ) ) ? true : false;
+
+            $info = [];
+            $info['user_login']    = $_POST['username'];
+            $info['user_password'] = $_POST['password'];
+            $info['remember']      = $keep_signed_in;
+
+            $user_signon = wp_signon( $info, false );
+
+            if ( is_wp_error($user_signon) ) {
+                wp_send_json([
+                    'loggedin' => false,
+                    'message'  => __('Wrong username or password.', 'directorist')
+                ]);
+
+            } else {
+                wp_set_current_user($user_signon->ID);
+
+                wp_send_json([
+                    'loggedin' => true,
+                    'message'  => __('Login successful, redirecting...', 'directorist')
+                ]);
+            }
         }
 
         // atbdp_listing_types_form

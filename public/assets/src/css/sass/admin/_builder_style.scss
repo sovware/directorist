@@ -1403,7 +1403,7 @@ input[type="radio"].cptm-radio {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 0;
-  color: rgba(#fff, 0.4);
+  color: rgba(#fff, 0.40);
   font-size: 13px;
 
   &.hide {
@@ -2119,7 +2119,7 @@ input[type="week"].cptm-form-control input[type="text"].cptm-form-control {
   width: 100%;
   max-width: 100%;
   padding: 11px 20px;
-  font-size: 13px;
+  font-size: 14px;
   color: #5a5f7d;
   text-align: left;
   border: 0 none;
@@ -2155,7 +2155,7 @@ input[type="week"],
 input[type="text"] {
   &.cptm-form-control {
     padding: 11px 20px;
-    font-size: 13px;
+    font-size: 14px;
     color: #5a5f7d;
     text-align: left;
     border: 0 none;
@@ -2320,10 +2320,26 @@ input[type="text"] {
 }
 
 
+.cptm-color-picker-wrap {
+  display: inline-flex;
+}
+
+.cptm-color-picker-label {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+
 // Utility
 .cptm-wdget-title {
   display: flex;
   justify-content: space-between;
+}
+
+.atbdp-flex-align-center {
+  display: flex;
+  align-items: center;
 }
 
 .cptm-px-5 {

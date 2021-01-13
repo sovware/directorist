@@ -171,6 +171,7 @@
 
   input.select2-search__field {
     margin-top: 6px;
+    width: 100% !important;
   }
 
   .close {
@@ -416,6 +417,10 @@
   }
 }
 
+#directorist.atbd_wrapper .form-control {
+  background-image: none;
+}
+
 #directorist.atbd_wrapper .atbd_contact_information {
   .form-check {
     margin-bottom: 10px;
@@ -451,6 +456,10 @@
       }
     }
   }
+}
+
+#directorist.atbd_wrapper .select2-search.form-group {
+  width: 100%;
 }
 
 #_listing_gallery {
@@ -592,4 +601,18 @@
       margin-bottom: 0 !important;
     }
   }
+}
+
+#directorist.atbd_wrapper .directorist-checkbox-field {
+  input[name="budget"] {
+    margin-right: 5px;
+
+    &+label {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.directorist-listing-type-wrapper {
+  justify-content: center;
 }

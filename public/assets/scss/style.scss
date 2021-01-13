@@ -450,6 +450,34 @@
   }
 }
 
+/* Utility */
+.adbdp-d-none {
+  display: none;
+}
+
+.atbdp-px-5 {
+  padding: 0 5px !important;
+}
+
+.atbdp-mx-5 {
+  margin: 0 5px !important;
+}
+
+.atbdp-form-actions {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.atbdp-icon {
+  display: inline-block;
+}
+.atbdp-icon-large {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 3rem;
+  text-align: center;
+}
+
 @media (max-width: 400px) {
 
   .atbd_content_active #directorist.atbd_wrapper .atbd_contact_info ul li .atbd_info_title,

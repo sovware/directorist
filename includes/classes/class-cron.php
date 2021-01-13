@@ -34,10 +34,11 @@ if (!class_exists('ATBDP_Cron')) :
 
         public function atbdp_cron_init($schedules)
         {
-            $schedules['atbdp_listing_manage'] = array(
+            $schedules['atbdp_listing_manage'] = apply_filters( 'atbdp_cron_setup_args' , array(
                 'interval' => 300,
-                'display' => __('Every 5 minutes')
-            );
+                'display'  => __('Every 5 minutes')
+            ));
+            
             return $schedules;
         }
 
@@ -55,7 +56,14 @@ if (!class_exists('ATBDP_Cron')) :
             $this->delete_expired_listings(); // we will delete listings here certain days after expiration here.
             $this->featured_listing_followup();
             // for additional development
+            
+            
             do_action('atbdp_schedule_check');
+
+            /**
+             * @since 5.5.6
+             */
+            do_action( 'atbdp_schedule_task' );
         }
         /**
          * @since 5.0.1

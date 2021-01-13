@@ -553,7 +553,6 @@ class Directorist_Listing_Forms {
 			$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
 	
 		}
-
 		$field_data['value'] = $value;
 		$field_data['form'] = $this;
 		
@@ -587,9 +586,8 @@ class Directorist_Listing_Forms {
 
 	public function add_listing_field_template( $field_data ) {
 
-		if( !empty( $field_data['assign_to'] ) ) return;
+		if( !empty( $field_data['assign_to'] ) && ( $field_data['assign_to'] !== 'form' ) ) return;
 		$listing_id = $this->get_add_listing_id();
-		
 		$value = '';
 		
 		if ( ! empty( $listing_id ) ) {
@@ -615,8 +613,8 @@ class Directorist_Listing_Forms {
 		
 		$template = 'forms/fields/' . $field_data['widget_name'];
 
+		
 		$template = apply_filters( 'directorist_field_template', $template, $field_data );
-
 		if ( is_admin() ) {
 			$admin_template = 'listing-form/' . $field_data['widget_name'];
 			$admin_template = apply_filters( 'directorist_field_admin_template', $admin_template, $field_data );
@@ -629,6 +627,7 @@ class Directorist_Listing_Forms {
 			}
 		}
 		else {
+			
 			if ( empty( $field_data['only_for_admin'] ) ) {
 				atbdp_get_shortcode_template( $template, $args );
 			}
@@ -778,6 +777,9 @@ class Directorist_Listing_Forms {
 	
 	public function render_shortcode_user_login() {
 		if ( atbdp_logged_in_user() ) {
+
+			do_action( 'atbdp_show_flush_messages' );
+
 			$error_message = sprintf( __( 'Login page is not for logged-in user. <a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );
 			ob_start();
 			ATBDP()->helper->show_login_message( apply_filters( 'atbdp_login_page_loggedIn_msg', $error_message ) );

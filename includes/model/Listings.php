@@ -43,6 +43,8 @@ class Directorist_Listings {
 	public $redirect_page_url;
 	public $listings_map_height;
 	public $map_zoom_level;
+	public $directory_type;
+	public $default_directory_type;
 
 	public $query;
 	public $loop;
@@ -263,7 +265,9 @@ class Directorist_Listings {
 			'logged_in_user_only'      => '',
 			'redirect_page_url'        => '',
 			'map_height'               => $this->options['listings_map_height'],
-			'map_zoom_level'		   => $this->options['map_view_zoom_level']  
+			'map_zoom_level'		   => $this->options['map_view_zoom_level'],
+			'directory_type'	       => '',
+			'default_directory_type'   => ''    
 		);
 
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
@@ -292,6 +296,8 @@ class Directorist_Listings {
 		$this->redirect_page_url        = $this->params['redirect_page_url'];
 		$this->listings_map_height      = ( ! empty( $this->params['map_height'] ) ) ? (int) $this->params['map_height'] : $defaults['map_height'];
 		$this->map_zoom_level           = ( ! empty( $this->params['map_zoom_level'] ) ) ? (int) $this->params['map_zoom_level'] : $defaults['map_zoom_level'];
+		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
+		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 	}
 
 	public function prepare_data() {
@@ -1171,12 +1177,14 @@ class Directorist_Listings {
 
 	public function get_listing_types() {
 		$listing_types = array();
-		$all_types     = get_terms(
-			array(
-				'taxonomy'   => ATBDP_TYPE,
-				'hide_empty' => false,
-			)
+		$args          = array(
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false
 		);
+		if( $this->directory_type ) {
+			$args['slug'] = $this->directory_type;
+		}
+		$all_types     = get_terms( $args );
 
 		foreach ( $all_types as $type ) {
 			$listing_types[ $type->term_id ] = [
@@ -1194,7 +1202,11 @@ class Directorist_Listings {
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( isset( $_GET['directory_type'] ) && array_key_exists( $_GET['directory_type'], $listing_types ) ) {
+		if( $this->default_directory_type ) {
+			$current = $this->default_directory_type;
+		}
+		
+		else if ( isset( $_GET['directory_type'] ) && array_key_exists( $_GET['directory_type'], $listing_types ) ) {
 			$current = $_GET['directory_type'];
 		}
 		else {

@@ -1182,7 +1182,9 @@ class Directorist_Listings {
 			'hide_empty' => false
 		);
 		if( $this->directory_type ) {
-			$args['slug'] = $this->directory_type;
+			$args['slug']   = $this->directory_type;
+			$args['order']  = $args['slug'];
+			$args['ordery'] = $args['slug'];
 		}
 		$all_types     = get_terms( $args );
 
@@ -1200,11 +1202,12 @@ class Directorist_Listings {
 		$listing_type_count = count( $listing_types );
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
-		if( $this->default_directory_type ) {
-			$current = $this->default_directory_type;
-		}
-		else if ( isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ) {
+		
+		if ( isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ) {
 			$current = $_GET['listing_type'];
+		}
+		else if( $this->default_directory_type ) {
+			$current = $this->default_directory_type;
 		}
 		else {
 			foreach ( $listing_types as $id => $type ) {

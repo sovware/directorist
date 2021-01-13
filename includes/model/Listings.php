@@ -44,6 +44,7 @@ class Directorist_Listings {
 	public $listings_map_height;
 	public $map_zoom_level;
 	public $directory_type;
+	public $default_directory_type;
 
 	public $query;
 	public $loop;
@@ -265,7 +266,8 @@ class Directorist_Listings {
 			'redirect_page_url'        => '',
 			'map_height'               => $this->options['listings_map_height'],
 			'map_zoom_level'		   => $this->options['map_view_zoom_level'],
-			'directory_type'	       => ''  
+			'directory_type'	       => '',
+			'default_directory_type'   => ''    
 		);
 
 		$defaults  = apply_filters( 'atbdp_all_listings_params', $defaults );
@@ -294,7 +296,8 @@ class Directorist_Listings {
 		$this->redirect_page_url        = $this->params['redirect_page_url'];
 		$this->listings_map_height      = ( ! empty( $this->params['map_height'] ) ) ? (int) $this->params['map_height'] : $defaults['map_height'];
 		$this->map_zoom_level           = ( ! empty( $this->params['map_zoom_level'] ) ) ? (int) $this->params['map_zoom_level'] : $defaults['map_zoom_level'];
-		$this->directory_type               = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
+		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
+		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 	}
 
 	public function prepare_data() {
@@ -1197,8 +1200,10 @@ class Directorist_Listings {
 		$listing_type_count = count( $listing_types );
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
-
-		if ( isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ) {
+		if( $this->default_directory_type ) {
+			$current = $this->default_directory_type;
+		}
+		else if ( isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ) {
 			$current = $_GET['listing_type'];
 		}
 		else {

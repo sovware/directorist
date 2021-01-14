@@ -195,11 +195,10 @@ class Directorist_Single_Listing {
 			$show_gallery = is_plan_allowed_slider($this->fm_plan);
 		}
 
-		// Get the default image
-		$default_image = get_directorist_option(
-			'default_preview_image', ATBDP_PUBLIC_ASSETS . 'images/grid.jpg'
-		);
-		
+		$type          = get_post_meta( get_the_ID(), '_directory_type', true );
+		$type_general  = get_term_meta( $type, 'general_config', true );
+		$default_image = ( ! empty( $type_general['preview_image'] ) ) ? $type_general['preview_image'] : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' ;
+
 		// Get the preview images
 		$preview_img_id   = get_post_meta( $listing_id, '_listing_prv_img', true);
 		$preview_img_link = ! empty($preview_img_id) ? atbdp_get_image_source($preview_img_id, 'large') : '';

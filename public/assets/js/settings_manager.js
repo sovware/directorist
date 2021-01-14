@@ -45582,13 +45582,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     theThumbnail: function theThumbnail() {
-      return {
-        id: this.thumbnail_id,
-        url: this.thumbnailSrc
-      };
+      return this.thumbnailSrc;
     },
     hasThumbnail: function hasThumbnail() {
-      if (this.thumbnail_id && this.thumbnail_src.length) {
+      if (this.thumbnail_src.length) {
         return true;
       }
 
@@ -45620,15 +45617,13 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       file_frame: null,
-      thumbnail_id: null,
       thumbnail_src: ''
     };
   },
   methods: {
     setup: function setup() {
-      if (this.value && typeof this.value.id !== 'undefined' && this.value.url !== 'undefined') {
-        this.thumbnail_id = this.value.id;
-        this.thumbnail_src = this.value.url;
+      if (this.value && this.value.length) {
+        this.thumbnail_src = this.value;
       }
 
       this.createTheMediaFrame();
@@ -45647,7 +45642,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.file_frame.on('select', function () {
         var attachment = self.file_frame.state().get('selection').first().toJSON();
-        self.thumbnail_id = attachment.id;
         self.thumbnail_src = attachment.url;
       });
     },
@@ -45662,7 +45656,6 @@ __webpack_require__.r(__webpack_exports__);
       this.createTheMediaFrame();
     },
     deleteThumbnail: function deleteThumbnail() {
-      this.thumbnail_id = '';
       this.thumbnail_src = '';
     }
   }

@@ -1,6 +1,6 @@
 <template>
     <div class="cptm-fields" v-if="option_fields">
-        <template v-for="( field_key, field_index ) in Object.keys( option_fields ) ">
+        <div v-for="( field_key, field_index ) in Object.keys( option_fields )" :class="fieldWrapperClass( field_key, option_fields[ field_key ] )">
             <component
                 :root="option_fields"
                 :is="option_fields[ field_key ].type + '-field'" 
@@ -13,7 +13,7 @@
                 @is-visible="updateOptionFieldData( field_key, 'isVisible' , $event )"
                 @do-action="doAction( $event, 'sub-fields' )"
             />
-        </template>
+        </div>
     </div>
 </template>
 
@@ -26,9 +26,13 @@ export default {
     mixins: [ helper ],
 
     props: {
+        fieldId: {
+            required: false,
+            default: '',
+        },
         optionFields: {
             required: false
-        }
+        },
     },
 
     created() {
@@ -78,6 +82,16 @@ export default {
             }
 
             return fields_value;
+        },
+
+        fieldWrapperClass( field_key, field ) {
+            let type_class = ( field && field.type ) ? 'cptm-field-wraper-type-' + field.type : 'cptm-field-wraper';
+            let key_class = 'cptm-field-wraper-key_' + this.fieldId + '_' + field_key;
+
+            return {
+                [ type_class ]: true,
+                [ key_class ]: true,
+            }
         },
     },
 }

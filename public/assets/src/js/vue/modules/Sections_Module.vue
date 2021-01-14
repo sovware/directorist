@@ -7,7 +7,7 @@
             </div>
             
             <div class="cptm-form-fields" v-if="sectionFields( section )">
-                <template v-for="( field, field_key ) in sectionFields( section )">
+                <div v-for="( field, field_key ) in sectionFields( section )" :class="fieldWrapperClass( field, fields[ field ] )">
                     <component
                         v-if="fields[ field ]"
                         :root="fields"
@@ -24,7 +24,7 @@
                         @is-visible="updateFieldData( field, 'isVisible' , $event )"
                         @do-action="doAction( $event, 'sections-module' )"
                     />
-                </template>
+                </div>
             </div>
         </div>
     </div>
@@ -91,7 +91,17 @@ export default {
             return {
                 'cptm-text-center': ( 'center' === section.title_align ) ? true : false,
             }
-        }
+        },
+
+        fieldWrapperClass( field_key, field ) {
+            let type_class = ( field && field.type ) ? 'cptm-field-wraper-type-' + field.type : 'cptm-field-wraper';
+            let key_class = 'cptm-field-wraper-key-' + field_key;
+
+            return {
+                [ type_class ]: true,
+                [ key_class ]: true,
+            }
+        },
     },
 }
 </script>

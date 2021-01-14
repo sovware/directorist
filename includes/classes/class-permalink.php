@@ -214,7 +214,7 @@ class ATBDP_Permalink{
         $id = get_directorist_option('add_listing_page');
         if( $id ) {
             $args = [
-                'listing_type' => isset( $_GET['listing_type'] ) ? $_GET['listing_type'] : '',
+                'listing_type' => isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '',
                 'plan' => $plan_id,
             ];
             $link = get_permalink( $id );

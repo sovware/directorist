@@ -1526,6 +1526,15 @@ input[type="radio"].cptm-radio {
   }
 }
 
+.cptm-field-wraper-key-single_listing_header {
+
+  .cptm-card-preview-area-wrap,
+  .cptm-card-preview-widget {
+    max-width: 750px;
+  }
+}
+
+
 .cptm-listing-card-preview-header {
   display: block;
   flex-grow: 1;

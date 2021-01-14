@@ -646,6 +646,7 @@ class Directorist_Listing_Forms {
 
 		foreach ( $all_types as $type ) {
 			$listing_types[ $type->term_id ] = [
+				'term' => $type,
 				'name' => $type->name,
 				'data' => get_term_meta( $type->term_id, 'general_config', true ),
 			];
@@ -661,7 +662,7 @@ class Directorist_Listing_Forms {
 			$type = array_key_first( $listing_types );
 		}
 		else {
-			$type = isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ? $_GET['listing_type'] : '';
+			$type = isset( $_GET['directory_type'] ) && array_key_exists( $_GET['directory_type'], $listing_types ) ? $_GET['directory_type'] : '';
 		}
 
 		return (int) $type;

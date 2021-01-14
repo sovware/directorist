@@ -5,10 +5,6 @@
                 
                 <div class="atbdp-setting-top-bar-left">
                     <ul class="directorist_setting-panel__pages">
-                        <li>
-                            <a href="#" class="directorist_setting-panel__pages--link">Settings</a>
-                        </li>
-
                         <li v-for="( nav_item, nav_key ) in theBreadcrumbNav" :key="nav_key">
                             <a href="#" class="directorist_setting-panel__pages--link" :class="{active: nav_item.active}">
                                 {{ nav_item.label }}
@@ -118,7 +114,7 @@ export default {
         }),
 
         theBreadcrumbNav() {
-            let nav = [];
+            let nav = [{ label: 'Settings' }];
 
             for ( let menu_key in this.layouts ) {
                 if ( ! this.layouts[ menu_key ].active ) { continue; }

@@ -1181,7 +1181,8 @@ templateResult: selecWithIcon,
     // default directory type
     $('body').on('click', '.submitdefault', function (e) {
         e.preventDefault();
-        $('.submitDefaultCheckbox').prop('checked', true);
+        $(this).children('.submitDefaultCheckbox').prop('checked', true);
+        let defaultSubmitDom = $(this);
         $.ajax({
             type: 'post',
             url: atbdp_admin_data.ajaxurl,
@@ -1190,7 +1191,7 @@ templateResult: selecWithIcon,
                 type_id: $(this).data('type-id'),
             },
             success(response) {
-                $('.submitdefault').append(
+                defaultSubmitDom.append(
                     `<span class="atbd-listing-type-active-status">${response}</span>`
                 );
                 setTimeout(function () {

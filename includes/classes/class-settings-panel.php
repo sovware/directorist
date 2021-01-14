@@ -4367,6 +4367,12 @@ KAMAL;
                     'label'          => __('right', 'directorist'),
                     'value'          => '4',
                 ],
+                'enable_uninstall'    => [
+                    'type'           => 'toggle',
+                    'label'          => __('Remove Data on Uninstall?', 'directorist'),
+                    'description'=> __('Checked it if you would like Directorist to completely remove all of its data when the plugin is deleted.','directorist'),
+                    'value'          => false,
+                ],
             ]);
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
@@ -4436,26 +4442,7 @@ KAMAL;
                                 ],
                             ] ),
                         ],
-                        'map' => [
-                            'label' => __('Map', 'directorist'),
-                            'icon' => '<i class="fa fa-map-signs"></i>',
-                            'sections' => apply_filters( 'atbdp_listing_settings_map_sections', [
-                                'map_settings' => [
-                                    'title'       => __('Map Settings', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [
-                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
-                                    ],
-                                ],
-                                'map_info_window' => [
-                                    'title'       => __('Map Info Window Settings', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [
-                                        'display_map_info', 'display_image_map', 'display_title_map', 'display_address_map', 'display_direction_map'
-                                    ],
-                                ],
-                            ] ),
-                        ],
+                        
 
                         'review' => [
                             'label' => __('Review Setting', 'directorist'),
@@ -4481,6 +4468,27 @@ KAMAL;
                                     'fields'      => [ 
                                         'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
                                      ],
+                                ],
+                            ] ),
+                        ],
+
+                        'map' => [
+                            'label' => __('Map', 'directorist'),
+                            'icon' => '<i class="fa fa-map-signs"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_map_sections', [
+                                'map_settings' => [
+                                    'title'       => __('Map Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
+                                    ],
+                                ],
+                                'map_info_window' => [
+                                    'title'       => __('Map Info Window Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'display_map_info', 'display_image_map', 'display_title_map', 'display_address_map', 'display_direction_map'
+                                    ],
                                 ],
                             ] ),
                         ],
@@ -5121,10 +5129,10 @@ KAMAL;
                         'uninstall' => [
                             'label' => __( 'Uninstall Setting', 'directorist' ),
                             'icon' => '<i class="fa fa-trash"></i>',
-                            'sections'  => apply_filters('atbdp_uninstall_export_controls', [
+                            'sections'  => apply_filters('atbdp_uninstall_controls', [
                                 'uninstall' => [
                                     'title' => __( 'Uninstall', 'directorist' ),
-                                    'fields' => [  ]
+                                    'fields' => [ 'enable_uninstall' ]
                                 ],
                         
                             ]),

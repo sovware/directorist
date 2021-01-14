@@ -35,6 +35,7 @@
         margin-bottom: 28px;
         .directorist_settings-trigger{
             display: none;
+            margin: 8px 0 0 30px;
             @media only screen and (max-width: 575px) {
                 display: block;
             }
@@ -42,6 +43,22 @@
     }
 }
 
+// Settings Panel Buttons
+.atbdp-settings-manager {
+    .atbdp-tab-sub-contents{
+        .directorist_btn-start{
+            font-size: 14px;
+            font-weight: 500;
+            color: #2C99FF;
+            border-radius: 18px;
+            padding: 6px 20px;
+            text-decoration: none;
+            border-color: #2C99FF;
+            margin-bottom: 0;
+            margin-left: 20px;
+        }
+    }
+}
 // Settings Panle Grid
 .atbdp-settings-manager {
     .settings-contents{
@@ -97,7 +114,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
 
-    @media only screen and (max-width: 575px) {
+    @media only screen and (max-width: 767px) {
         flex-direction: column;
     }
 
@@ -105,6 +122,9 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        @media only screen and (max-width: 767px) {
+            margin-top: 15px;
+        }
         .setting-top-bar__search-field{
             margin-right: 5px;
             input{

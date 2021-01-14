@@ -1,7 +1,5 @@
 <?php
 
-use function PHPSTORM_META\type;
-
 if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
     class ATBDP_Multi_Directory_Manager
     {

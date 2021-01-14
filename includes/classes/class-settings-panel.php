@@ -4497,7 +4497,7 @@ KAMAL;
                 ],
 
                 'page_settings' => [
-                    'label' => __( 'Page', 'directorist' ),
+                    'label' => __( 'Page Setup', 'directorist' ),
                     'icon' => '<i class="fa fa-chart-line directorist_wordpress"></i>',
                     'sections' => apply_filters( 'atbdp_listing_settings_page_settings_sections', [
                         'upgrade_pages' => [

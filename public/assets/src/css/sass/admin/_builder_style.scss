@@ -1233,7 +1233,7 @@ input[type="radio"].cptm-radio {
   display: inline-block;
   padding: 0 10px;
   text-decoration: none;
-  color: darken($primary, 30);
+  color: #fff;
   transition: all ease-in-out 300ms;
   @extend .reset-pseudo-link;
 
@@ -1251,8 +1251,10 @@ input[type="radio"].cptm-radio {
 
 .cptm-option-card-header-title-section {
   display: flex;
+  align-items: center;
   color: #fff;
-  padding: 10px;
+  min-height: 56px;
+  padding: 0 15px 0 25px;
 }
 
 .cptm-option-card-header-title {
@@ -1297,12 +1299,16 @@ input[type="radio"].cptm-radio {
 }
 
 .cptm-option-card-body {
-  padding: 10px;
+  padding: 18px 25px 20px;
   border-radius: 5px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
   box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.2);
   background-color: #fff;
+
+  .cptm-form-group:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .cptm-widget-insert-area {

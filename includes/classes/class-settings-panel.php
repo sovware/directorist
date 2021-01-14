@@ -60,6 +60,14 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         'action' => 'updateData',
                         'args'   => [ 'reload_after_save' => true ]
                     ],
+                    'componets' => [
+                        'link' => [
+                            'label' => __( 'Start Building Directory', 'directorist' ),
+                            'type'  => 'success',
+                            'url'   => admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types' ),
+                            'show'  => get_directorist_option( 'enable_multi_directory', false ),
+                        ]
+                    ]
                 ];
 
                 $fields['regenerate_pages'] = [

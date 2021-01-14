@@ -140,6 +140,9 @@ export default {
             default: 1,
             required: false,
         },
+        componets: {
+            required: false,
+        },
         defaultImg: {
             required: false,
         },

@@ -25,7 +25,7 @@ class ATBDP_Status
      * @return void
      */
     public function status_menu() {
-        add_submenu_page( 'edit.php?post_type=at_biz_dir', __( 'Assistance', 'directorist' ),  __( 'Assistance', 'directorist' ) , 'manage_options', 'directorist-status', array( $this, 'tools_page' ) );
+        add_submenu_page( 'edit.php?post_type=at_biz_dir', __( 'Help & Support', 'directorist' ),  __( 'Help & Support', 'directorist' ) , 'manage_options', 'directorist-status', array( $this, 'tools_page' ) );
     }
     
     public function tools_page() {
@@ -36,7 +36,7 @@ class ATBDP_Status
 
         <div class='postbox'>
         <?php
-        _e( 'Assistance', 'directorist' );
+        _e( 'Help & Support', 'directorist' );
         new ATBDP_System_Info();
        ?>
         </div>

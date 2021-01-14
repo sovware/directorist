@@ -21,7 +21,7 @@ class Directorist_Listing_Taxonomy {
 	public $slug;
 	public $logged_in_user_only;
 	public $redirect_page_url;
-	public $directory_type = '';
+	public $directory_type;
 
 	public $show_count;
 	public $hide_empty;
@@ -55,7 +55,7 @@ class Directorist_Listing_Taxonomy {
 			'redirect_page_url'   => '',
 			'directory_type'	  => '',
 		), $atts);
-
+		
 		$this->atts                = $atts;
 		$this->type                = $type;
 		$this->tax                 = ($type == 'category') ? ATBDP_CATEGORY : ATBDP_LOCATION;
@@ -69,10 +69,11 @@ class Directorist_Listing_Taxonomy {
 		$this->logged_in_user_only = $atts['logged_in_user_only'];
 		$this->redirect_page_url   = $atts['redirect_page_url'];
 		$this->directory_type      = $atts['directory_type'];
-
+		
 		$this->show_count = ( 'category' == $type ) ? $categories_show_count : $locations_show_count;
 		$this->hide_empty = ( 'category' == $type ) ? $categories_hide_empty : $locations_hide_empty;
 		$this->depth      = ($type == 'category') ? get_directorist_option('categories_depth_number', 1) : get_directorist_option('locations_depth_number', 1);
+		
 		$this->taxonomy_from_directory_type();
 		$this->set_terms();
 		
@@ -280,6 +281,9 @@ class Directorist_Listing_Taxonomy {
 	}
 	
 	public function taxonomy_from_directory_type() {
+		if ( empty( $this->directory_type ) ) {
+			return;
+		}
 		$listings = new WP_Query( array(
 			'post_type'     => ATBDP_POST_TYPE,
 			'posts_per_page'=> -1,
@@ -307,7 +311,7 @@ class Directorist_Listing_Taxonomy {
 			endwhile;
 			wp_reset_query();
 		}
-		$this->slug = implode( ',', $slug );
+		$this->slug = ( $slug ) ? implode( ',', $slug ) : ' ';
 
 		return $slug;
 

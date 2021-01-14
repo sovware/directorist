@@ -4,21 +4,26 @@
       <div class="cptm-card-top-area cptm-text-center cptm-mb-20">
         <div class="form-group">
           <label class="cptm-label cptm-text-left">Template</label>
-          <select class="cptm-form-control" v-model="template_id">
-            <option :value="option.value" v-for="( option, option_key ) in theCardBiulderTemplateOptionList" :key="option_key">
-              {{ option.label }}
-            </option>
-          </select>
+          <div class="cptm-template-type-wrapper">
+            <select class="cptm-form-control" v-model="template_id">
+              <option
+                :value="option.value"
+                v-for="(option, option_key) in theCardBiulderTemplateOptionList"
+                :key="option_key"
+              >
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
-      
 
       <component
         :is="theCardBiulderTemplate"
         :field-id="fieldId"
         v-bind="theCurrentTemplateModel"
         :value="theCardBiulderValue"
-        @update="updateValue( $event )"
+        @update="updateValue($event)"
       >
       </component>
     </template>
@@ -31,7 +36,7 @@
         :widgets="widgets"
         :layout="layout"
         :card-options="cardOptions"
-        @update="$emit( 'update', $event )"
+        @update="$emit('update', $event)"
       >
       </component>
     </template>
@@ -39,15 +44,15 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import { mapState } from 'vuex';
+import Vue from "vue";
+import { mapState } from "vuex";
 
 export default {
   name: "card-builder",
   props: {
     fieldId: {
       required: false,
-      default: '',
+      default: "",
     },
     value: {
       required: false,
@@ -67,7 +72,7 @@ export default {
     },
     template: {
       required: false,
-      default: 'grid-view',
+      default: "grid-view",
     },
     card_templates: {
       required: false,
@@ -80,66 +85,84 @@ export default {
 
   computed: {
     ...mapState({
-      fields: 'fields'
+      fields: "fields",
     }),
 
     theCardBiulderTemplateOptionList() {
       var options = [];
-      if ( ! this.card_templates ) { return options; }
+      if (!this.card_templates) {
+        return options;
+      }
 
-      for ( let option in this.card_templates ) {
-        let label = this.card_templates[ option ].label;
-        options.push({ value: option, label: ( label ) ? label : '' });
+      for (let option in this.card_templates) {
+        let label = this.card_templates[option].label;
+        options.push({ value: option, label: label ? label : "" });
       }
 
       return options;
     },
 
     theCardBiulderTemplate() {
-      if ( ! this.theCurrentTemplateModel ) { return ''; }
+      if (!this.theCurrentTemplateModel) {
+        return "";
+      }
 
-      return 'card-builder-'+ this.theCurrentTemplateModel.template + '-field';
+      return "card-builder-" + this.theCurrentTemplateModel.template + "-field";
     },
 
     theCardBiulderValue() {
+      if (!this.card_templates) {
+        return "";
+      }
+      if (!this.value) {
+        return "";
+      }
+      if (!this.value.template_data) {
+        return "";
+      }
+      if (!this.value.template_data[this.template_id]) {
+        return "";
+      }
 
-      if ( ! this.card_templates ) { return ''; }
-      if ( ! this.value ) { return ''; }
-      if ( ! this.value.template_data ) { return ''; }
-      if ( ! this.value.template_data[ this.template_id ] ) { return ''; }
-
-      return this.value.template_data[ this.template_id ];
+      return this.value.template_data[this.template_id];
     },
 
     theCurrentTemplateModel() {
+      if (!this.card_templates) {
+        return false;
+      }
+      if (!this.template_id) {
+        return false;
+      }
+      if (!this.card_templates[this.template_id]) {
+        return false;
+      }
+      if (!this.card_templates[this.template_id].template) {
+        return false;
+      }
 
-      if ( ! this.card_templates ) { return false; }
-      if ( ! this.template_id ) { return false; }
-      if ( ! this.card_templates[ this.template_id ] ) { return false; }
-      if ( ! this.card_templates[ this.template_id ].template ) { return false; }
-
-      return this.card_templates[ this.template_id ];
+      return this.card_templates[this.template_id];
     },
 
     cardBiulderTemplate() {
       const card_biulder_templates = {
-        'grid-view': 'card-builder-grid-view-field',
-        'list-view': 'card-builder-list-view-field',
-        'listing-header': 'card-builder-listing-header-field',
+        "grid-view": "card-builder-grid-view-field",
+        "list-view": "card-builder-list-view-field",
+        "listing-header": "card-builder-listing-header-field",
       };
 
-      if ( typeof card_biulder_templates[ this.template ] === 'undefined' ) {
-        return 'card-builder-grid-view-field';
+      if (typeof card_biulder_templates[this.template] === "undefined") {
+        return "card-builder-grid-view-field";
       }
-      
-      return card_biulder_templates[ this.template ];
+
+      return card_biulder_templates[this.template];
     },
   },
 
   data() {
     return {
-      template_id: ''
-    }
+      template_id: "",
+    };
   },
 
   methods: {
@@ -148,46 +171,56 @@ export default {
     },
 
     syncTemplateSelectOption() {
-      var current_option = '';
+      var current_option = "";
 
       let card_template_keys = [];
-      if ( this.card_templates && typeof this.card_templates === 'object' ) {
-        card_template_keys = Object.keys( this.card_templates );
-        current_option = card_template_keys[ 0 ];
+      if (this.card_templates && typeof this.card_templates === "object") {
+        card_template_keys = Object.keys(this.card_templates);
+        current_option = card_template_keys[0];
       }
 
-      if ( this.value && this.value.active_template ) {
-        var template_key = 'card-builder-grid-view-with-thumbnail-field';
-        current_option = ( card_template_keys && card_template_keys.indexOf( this.value.active_template ) < 0 ) ? current_option : this.value.active_template;
+      if (this.value && this.value.active_template) {
+        var template_key = "card-builder-grid-view-with-thumbnail-field";
+        current_option =
+          card_template_keys &&
+          card_template_keys.indexOf(this.value.active_template) < 0
+            ? current_option
+            : this.value.active_template;
       }
 
       this.template_id = current_option;
     },
 
-    getCurrentTemplate( prop ) {
-      if ( ! this.theCurrentTemplateModel ) { return ''; }
-      if ( typeof this.theCurrentTemplateModel[ prop ] === 'undefined' ) { return ''; }
+    getCurrentTemplate(prop) {
+      if (!this.theCurrentTemplateModel) {
+        return "";
+      }
+      if (typeof this.theCurrentTemplateModel[prop] === "undefined") {
+        return "";
+      }
 
-      return this.theCurrentTemplateModel[ prop ];
+      return this.theCurrentTemplateModel[prop];
     },
 
-    updateValue( value ) {
+    updateValue(value) {
       var old_value = this.value;
 
       // If has no old value
-      if ( ! old_value ) { old_value = {}; }
+      if (!old_value) {
+        old_value = {};
+      }
 
       // Update Active Template ID
       old_value.active_template = this.template_id;
-      
+
       // Update Template Data
-      if ( ! old_value.template_data ) {
+      if (!old_value.template_data) {
         old_value.template_data = {};
       }
 
-      old_value.template_data[ this.template_id ] = value;
-      this.$emit( 'update', old_value );
-    }
+      old_value.template_data[this.template_id] = value;
+      this.$emit("update", old_value);
+    },
   },
 };
 </script>

@@ -4004,12 +4004,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'required' => false,
                     ],
                 ],
-
-                'enable_preview_image' => [
-                    'label' => __('Enable Preview Image', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                ],
                 'preview_image' => [
                     'button-label' => __('Select', 'directorist'),
                     'type'         => 'wp-media-picker',
@@ -4562,19 +4556,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     'description' => __('Export all the form, layout and settings', 'directorist'),
                                     'fields'      => [
                                         'import_export',
-                                    ],
-                                ],
-                            ],
-                        ],
-                        'preview_image' => [
-                            'label' => __('Preview Image', 'directorist'),
-                            'sections' => [
-                                'labels' => [
-                                    'title'       => __('Default Preview Image', 'directorist'),
-                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
-                                    'fields'      => [
-                                        'enable_preview_image',
-                                        'preview_image',
                                     ],
                                 ],
                             ],

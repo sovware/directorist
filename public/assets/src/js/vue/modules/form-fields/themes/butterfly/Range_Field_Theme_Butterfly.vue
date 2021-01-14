@@ -6,18 +6,25 @@
                 <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
             </div>
 
-            <div class="atbdp-col atbdp-col-4">
+            <div class="atbdp-col atbdp-col-8">
                 <div class="cptm-form-range-wrap">
                     <div class="cptm-form-range-bar">
-                        <input 
-                            type="range" 
-                            :id="fieldId"
-                            :step="step" 
-                            :min="min" 
-                            :max="max" 
-                            :name="name" 
-                            v-model="range_value"
-                        >
+                        <div class="directorist_slider-range">
+                            <span class="directorist_range-bar">
+                                <span class="directorist_range-fill" :style="rangeFillStyle"></span>
+                            </span>
+
+                            <input 
+                                type="range" 
+                                class="directorist_slider-input" 
+                                :id="fieldId"
+                                :step="theStep" 
+                                :min="theMin" 
+                                :max="theMax" 
+                                :name="name" 
+                                v-model="range_value"
+                            >
+                        </div>
                     </div>
 
                     <div class="cptm-form-range-output">

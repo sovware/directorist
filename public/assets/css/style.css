@@ -9077,7 +9077,10 @@ span.atbd_get_loc_wid {
 }
 
 .atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_listing-info__img img {
-  max-width: 44px;
+  width: 44px;
+  height: 44px;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 6px;
 }
 
@@ -9848,7 +9851,6 @@ span.atbd_get_loc_wid {
       -ms-flex: 1;
           flex: 1;
   margin: 0 -5px -10px;
-  width: 0;
 }
 
 .ads-advanced .price_ranges .range_single {

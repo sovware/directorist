@@ -376,7 +376,7 @@ class ATBDP_Permalink{
      * @param    object    $term    The term object.
      * @return   string             Term link.
      */
-    public static function atbdp_get_location_page( $term ) {
+    public static function atbdp_get_location_page( $term, $directory_type = '' ) {
 
         $page_settings =  get_directorist_option('single_location_page');
         $link = '/';
@@ -401,6 +401,10 @@ class ATBDP_Permalink{
             } else {
                 $link = add_query_arg( 'atbdp_location', $term->slug, $link );
             }
+        }
+
+        if( ! empty( $directory_type ) ) {
+            $link = $link . '?directory_type=' . $directory_type;
         }
 
         return apply_filters('atbdp_single_location', $link);

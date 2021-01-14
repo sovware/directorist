@@ -21,6 +21,7 @@ class Directorist_Listing_Taxonomy {
 	public $slug;
 	public $logged_in_user_only;
 	public $redirect_page_url;
+	public $directory_type = '';
 
 	public $show_count;
 	public $hide_empty;
@@ -28,6 +29,7 @@ class Directorist_Listing_Taxonomy {
 	public $terms;
 
 	public function __construct( $atts = array(), $type = 'category' ) {
+		
 		$categories_view = get_directorist_option('display_categories_as', 'grid');
 		$categories_orderby = get_directorist_option('order_category_by', 'id');
 		$categories_order = get_directorist_option('sort_category_by', 'asc');
@@ -50,7 +52,8 @@ class Directorist_Listing_Taxonomy {
 			'columns'             => ( 'category' == $type ) ? $categories_columns : $locations_columns,
 			'slug'                => '',
 			'logged_in_user_only' => '',
-			'redirect_page_url'   => ''
+			'redirect_page_url'   => '',
+			'directory_type'	  => '',
 		), $atts);
 
 		$this->atts                = $atts;
@@ -65,12 +68,15 @@ class Directorist_Listing_Taxonomy {
 		$this->slug                = $atts['slug'];
 		$this->logged_in_user_only = $atts['logged_in_user_only'];
 		$this->redirect_page_url   = $atts['redirect_page_url'];
+		$this->directory_type      = $atts['directory_type'];
 
 		$this->show_count = ( 'category' == $type ) ? $categories_show_count : $locations_show_count;
 		$this->hide_empty = ( 'category' == $type ) ? $categories_hide_empty : $locations_hide_empty;
 		$this->depth      = ($type == 'category') ? get_directorist_option('categories_depth_number', 1) : get_directorist_option('locations_depth_number', 1);
-
+		$this->taxonomy_from_directory_type();
 		$this->set_terms();
+		
+		
 	}
 
 	public function set_terms(){
@@ -89,7 +95,6 @@ class Directorist_Listing_Taxonomy {
 		else {
 			$args = apply_filters('atbdp_all_locations_argument', $args);
 		}
-
 		$terms = get_terms($this->tax, $args);
 		$terms = array_slice($terms, 0, $this->per_page);
 
@@ -161,7 +166,7 @@ class Directorist_Listing_Taxonomy {
     				if ($this->hide_empty && 0 == $count) continue;
     			}
 
-    			$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page($term) : ATBDP_Permalink::atbdp_get_location_page($term);
+    			$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page( $term, $this->directory_type ) : ATBDP_Permalink::atbdp_get_location_page( $term, $this->directory_type );
 
     			$html .= '<li>';
     			$html .= '<a href=" ' . $permalink . ' ">';
@@ -206,7 +211,7 @@ class Directorist_Listing_Taxonomy {
 
     		$child_terms = get_term_children($term->term_id, $this->tax);
 
-    		$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page($term) : ATBDP_Permalink::atbdp_get_location_page($term);
+    		$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page( $term, $this->directory_type ) : ATBDP_Permalink::atbdp_get_location_page( $term, $this->directory_type );
 
     		$data = array(
     			'term'      => $term,
@@ -272,5 +277,39 @@ class Directorist_Listing_Taxonomy {
     	else {
     		return __('<p>No Results found!</p>', 'directorist');
     	}
-    }
+	}
+	
+	public function taxonomy_from_directory_type() {
+		$listings = new WP_Query( array(
+			'post_type'     => ATBDP_POST_TYPE,
+			'posts_per_page'=> -1,
+			'post_status'    => 'public',
+			'tax_query'     => array(
+				array(
+					'taxonomy'         => ATBDP_DIRECTORY_TYPE,
+					'field'            => 'slug',
+					'terms'            => ! empty( $this->directory_type ) ? $this->directory_type : array(),
+				),
+			)
+			
+		) );
+		
+		$slug = [];		
+		if( $listings->have_posts() ) {
+			while( $listings->have_posts() ) : $listings->the_post();
+			global $post;
+			$terms  = get_the_terms( $post->id, $this->tax );
+			if( $terms ) {
+				foreach( $terms as $term ) {
+					$slug[] = $term->slug;
+				}
+			}
+			endwhile;
+			wp_reset_query();
+		}
+		$this->slug = implode( ',', $slug );
+
+		return $slug;
+
+	}
 }

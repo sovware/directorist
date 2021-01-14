@@ -1488,98 +1488,6 @@ KAMAL;
                     'label' => __('Filters Button Text', 'directorist'),
                     'value' => __('Filters', 'directorist'),
                 ],
-                'listing_filters_fields' => [
-                    'type' => 'checkbox',
-                    'label' => __('Filter Fields', 'directorist'),
-                    'value' => [
-                        'search_text',
-                        'search_category',
-                        'search_location',
-                        'search_price',
-                        'search_price_range',
-                        'search_rating',
-                        'search_tag',
-                        'search_custom_fields',
-                        'radius_search'
-                    ],
-                    'options' => [
-                        [
-                            'value' => 'search_text',
-                            'label' => __('Text', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_category',
-                            'label' => __('Category', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_location',
-                            'label' => __('Location', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_price',
-                            'label' => __('Price (Min - Max)', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_price_range',
-                            'label' => __('Price Range', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_rating',
-                            'label' => __('Rating', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_tag',
-                            'label' => __('Tag', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_open_now',
-                            'label' => $business_hours_label,
-                        ],
-                        [
-                            'value' => 'search_custom_fields',
-                            'label' => __('Custom Fields', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_website',
-                            'label' => __('Website', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_email',
-                            'label' => __('Email', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_phone',
-                            'label' => __('Phone', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_fax',
-                            'label' => __('Fax', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_zip_code',
-                            'label' => __('Zip/Post Code', 'directorist'),
-                        ],
-                        [
-                            'value' => 'radius_search',
-                            'label' => __('Radius Search', 'directorist'),
-                        ],
-                    ],
-                ],
-                'listing_location_fields' => [
-                    'label' => __('Location Source for Search', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'map_api',
-                    'options' => [
-                        [
-                            'value' => 'listing_location',
-                            'label' => __('Display from Listing Location', 'directorist'),
-                        ],
-                        [
-                            'value' => 'map_api',
-                            'label' => __('Display From Map API', 'directorist'),
-                        ],
-                    ],
-                ],
                 'listing_tags_field' => [
                     'label' => __('Tags Filter Source', 'directorist'),
                     'type'  => 'select',
@@ -1629,21 +1537,8 @@ KAMAL;
                     'label' => __('Apply Filters Button text', 'directorist'),
                     'value' => __('Apply Filters', 'directorist'),
                 ],
-                'listings_search_text_placeholder' => [
-                    'type' => 'text',
-                    'label' => __('Search Bar Placeholder', 'directorist'),
-                    'value' => __('What are you looking for?', 'directorist'),
-                ],
-                'listings_category_placeholder' => [
-                    'type' => 'text',
-                    'label' => __('Category Placeholder', 'directorist'),
-                    'default' => __('Select a category', 'directorist'),
-                ],
-                'listings_location_placeholder' => [
-                    'type' => 'text',
-                    'label' => __('Location Placeholder', 'directorist'),
-                    'value' => __('location', 'directorist'),
-                ],
+
+               
                 'display_sort_by' => [
                     'type' => 'toggle',
                     'label' => __('Display "Sort By" Dropdown', 'directorist'),
@@ -1975,88 +1870,12 @@ KAMAL;
                     'description' => __('Here Yes means display all the informations (i.e. title, tagline, excerpt etc.) of grid view on single line', 'directorist'),
                     'value' => false,
                 ],
-                'display_title' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Title', 'directorist'),
-                    'value' => true,
-                ],
-                'enable_tagline' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Tagline', 'directorist'),
-                    'value' => false,
-                ],
-                'enable_excerpt' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Excerpt', 'directorist'),
-                    'value' => false,
-                ],
-                'excerpt_limit' => [
-                    'label' => __('Excerpt Words Limit', 'directorist'),
-                    'type'  => 'number',
-                    'value' => '20',
-                    'min' => '5',
-                    'max' => '200',
-                    'step' => '1',
-                    'show-if' => [
-                        'where' => "enable_excerpt",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'display_readmore' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Excerpt Readmore', 'directorist'),
-                    'value' => false,
-                    'show-if' => [
-                        'where' => "enable_excerpt",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'readmore_text' => [
-                    'type' => 'text',
-                    'label' => __('Read More Text', 'directorist'),
-                    'show-if' => [
-                        'where' => "enable_excerpt",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                    'value' => __('Read More', 'directorist'),
-                ],
-                'display_price' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Price', 'directorist'),
-                    'value' => true,
-                ],
-                'display_email' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Email', 'directorist'),
-                    'value' => false,
-                ],
-                'display_web_link' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Web Link', 'directorist'),
-                    'value' => false,
-                ],
-                'display_contact_info' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Contact Information', 'directorist'),
-                    'value' => true,
-                ],
+            
                 'address_location' => [
                     'label' => __('Address', 'directorist'),
                     'type'  => 'select',
                     'value' => 'contact',
                     'description' => __('Choose which address you want to show on listings page', 'directorist'),
-                    'show-if' => [
-                        'where' => "display_contact_info",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                     'options' => [
                         [
                             'value' => 'location',
@@ -2068,21 +1887,11 @@ KAMAL;
                         ],
                     ],
                 ],
-                'display_publish_date' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Publish Date'),
-                    'value' => true,
-                ],
+
                 'publish_date_format' => [
                     'label' => __('Publish Date Format', 'directorist'),
                     'type'  => 'select',
                     'value' => 'time_ago',
-                    'show-if' => [
-                        'where' => "display_publish_date",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                     'options' => [
                         [
                             'value' => 'time_ago',
@@ -2094,26 +1903,7 @@ KAMAL;
                         ],
                     ],
                 ],
-                'display_category' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Category'),
-                    'value' => true,
-                ],
-                'display_mark_as_fav' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Mark as Favourite'),
-                    'value' => true,
-                ],
-                'display_view_count' => [
-                    'type' => 'toggle',
-                    'label' => __('Display View Count'),
-                    'value' => true,
-                ],
-                'display_author_image' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Author Image'),
-                    'value' => true,
-                ],
+             
                 'paginate_all_listings' => [
                     'type' => 'toggle',
                     'label' => __('Paginate Listings'),
@@ -2192,105 +1982,7 @@ KAMAL;
                         ],
                     ],
                 ],
-                'listing_details_text' => [
-                    'type' => 'text',
-                    'label' => __('Section Title of Listing Details', 'directorist'),
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                    'value' => __('Listing Details', 'directorist'),
-                ],
-                'tags_section_lable' => [
-                    'type' => 'text',
-                    'label' => __('Section Title of Tags', 'directorist'),
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                    'value' => __('Tags', 'directorist'),
-                ],
-                'custom_section_lable' => [
-                    'type' => 'text',
-                    'label' => __('Section Title of Custom Fields', 'directorist'),
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                    'value' => __('Features', 'directorist'),
-                ],
-                'listing_location_text' => [
-                    'type' => 'text',
-                    'label' => __('Section Title of Location', 'directorist'),
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                    'value' => __('Location', 'directorist'),
-                ],
-                'contact_info_text' => [
-                    'type' => 'text',
-                    'label' => __('Section Title of Contact Info', 'directorist'),
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                    'value' => __('Contact Information', 'directorist'),
-                ],
-                'contact_listing_owner' => [
-                    'type' => 'text',
-                    'label' => __('Section Title of Contact Owner', 'directorist'),
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                    'value' => __('Contact Listing Owner', 'directorist'),
-                ],
-                'atbd_video_title' => [
-                    'type' => 'text',
-                    'label' => __('Section Title of Video', 'directorist'),
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                    'value' => __('Video', 'directorist'),
-                ],
-                'atbd_author_info_title' => [
-                    'type' => 'text',
-                    'label' => __('Section Title of Author Info', 'directorist'),
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                    'value' => __('Author Info', 'directorist'),
-                ],
-                'display_back_link' => [
-                    'type' => 'toggle',
-                    'label' => __('Show Back Link', 'directorist'),
-                    'value' => true,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
+              
                 'dsiplay_slider_single_page' => [
                     'type' => 'toggle',
                     'label' => __('Show Slider Image', 'directorist'),
@@ -2356,18 +2048,7 @@ KAMAL;
                     ],
                     'value' => '#ffffff',
                 ],
-                'dsiplay_thumbnail_img' => [
-                    'type' => 'toggle',
-                    'label' => __('Show Slider Thumbnail', 'directorist'),
-                    'value' => true,
-                    'description' => __('Hide/show slider thumbnail from single listing page.', 'directorist'),
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
+            
                 'gallery_crop_width' => [
                     'label' => __('Image Width', 'directorist'),
                     'type'  => 'number',
@@ -2396,98 +2077,11 @@ KAMAL;
                         ],
                     ],
                 ],
-                'enable_social_share' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Social Share Button', 'directorist'),
-                    'value' => true,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
-                'enable_favourite' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Favourite Button', 'directorist'),
-                    'value' => true,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
-                'enable_report_abuse' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Report Abuse', 'directorist'),
-                    'value' => true,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
-                'disable_list_price' => [
-                    'type' => 'toggle',
-                    'label' => __('Disable Listing Price', 'directorist'),
-                    'value' => false,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
-                'enable_single_location_taxonomy' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Location', 'directorist'),
-                    'value' => false,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
-                'enable_single_tag' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Tag', 'directorist'),
-                    'value' => true,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
-                'disable_contact_info' => [
-                    'type' => 'toggle',
-                    'label' => __('Disable Contact Information', 'directorist'),
-                    'value' => false,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
+              
                 'address_map_link' => [
                     'type' => 'toggle',
                     'label' => __('Address Linked with Map', 'directorist'),
                     'value' => false,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
-                'disable_contact_owner' => [
-                    'type' => 'toggle',
-                    'label' => __('Disable Contact Listing Owner Form', 'directorist'),
-                    'value' => true,
                     'show-if' => [
                         'where' => "disable_single_listing",
                         'conditions' => [
@@ -2500,12 +2094,6 @@ KAMAL;
                     'type'  => 'select',
                     'value' => 'author',
                     'description' => __('Email recipient for receiving email from Contact Listing Owner Form.', 'directorist'),
-                    'show-if' => [
-                        'where' => "disable_contact_owner",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
                     'options' => [
                         [
                             'value' => 'author',
@@ -2517,61 +2105,11 @@ KAMAL;
                         ],
                     ],
                 ],
-                'use_nofollow' => [
-                    'type' => 'toggle',
-                    'label' => __('Use rel="nofollow" in Website Link', 'directorist'),
-                    'value' => false,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
-                'disable_map' => [
-                    'type' => 'toggle',
-                    'label' => __('Disable Map', 'directorist'),
-                    'value' => false,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
-                'atbd_video_url' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Listing Video', 'directorist'),
-                    'value' => true,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
-                'enable_rel_listing' => [
-                    'type' => 'toggle',
-                    'label' => __('Display Related Listings', 'directorist'),
-                    'value' => true,
-                    'show-if' => [
-                        'where' => "disable_single_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => false],
-                        ],
-                    ],
-                ],
                 'rel_listings_logic' => [
-                    'label' => __('Based on', 'directorist'),
+                    'label' => __('Related Listings Based on', 'directorist'),
                     'type'  => 'select',
                     'value' => 'OR',
                     'description' => __('Display related listings based on category and/or tag.', 'directorist'),
-                    'show-if' => [
-                        'where' => "enable_rel_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
                     'options' => [
                         [
                             'value' => 'OR',
@@ -2583,45 +2121,7 @@ KAMAL;
                         ],
                     ],
                 ],
-                'rel_listing_title' => [
-                    'type' => 'text',
-                    'label' => __('Related Listings Title', 'directorist'),
-                    'show-if' => [
-                        'where' => "enable_rel_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                    'value' => __('Related Listings', 'directorist'),
-                ],
-                'rel_listing_num' => [
-                    'label' => __('Number of Related Listings', 'directorist'),
-                    'type'  => 'number',
-                    'value' => '5',
-                    'min' => '1',
-                    'max' => '10',
-                    'step' => '1',
-                    'show-if' => [
-                        'where' => "enable_rel_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'rel_listing_column' => [
-                    'label' => __('Columns of Related Listings', 'directorist'),
-                    'type'  => 'number',
-                    'value' => '2',
-                    'min' => '1',
-                    'max' => '10',
-                    'step' => '1',
-                    'show-if' => [
-                        'where' => "enable_rel_listing",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
+            
                 'fix_listing_double_thumb' => [
                     'type' => 'toggle',
                     'label' => __('Fix Repeated Thumbnail of Single Listing', 'directorist'),
@@ -3119,74 +2619,6 @@ KAMAL;
                         ],
                     ],
                 ],
-                'search_more_filters_fields' => [
-                    'type' => 'checkbox',
-                    'label' => __('Open Filter Fields', 'directorist'),
-                    'show-if' => [
-                        'where' => "search_more_filter",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                    'value' => [
-                        'search_price',
-                        'search_price_range',
-                        'search_rating',
-                        'search_tag',
-                        'search_custom_fields',
-                        'radius_search'
-                    ],
-                    'options' => [
-                        [
-                            'value' => 'search_price',
-                            'label' => __('Price (Min - Max)', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_price_range',
-                            'label' => __('Price Range', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_rating',
-                            'label' => __('Rating', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_tag',
-                            'label' => __('Tag', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_open_now',
-                            'label' => $business_hours_label,
-                        ],
-                        [
-                            'value' => 'search_custom_fields',
-                            'label' => __('Custom Fields', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_website',
-                            'label' => __('Website', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_email',
-                            'label' => __('Email', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_phone',
-                            'label' => __('Phone', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_fax',
-                            'label' => __('Fax', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_zip_code',
-                            'label' => __('Zip/Post Code', 'directorist'),
-                        ],
-                        [
-                            'value' => 'radius_search',
-                            'label' => __('Radius Search', 'directorist'),
-                        ],
-                    ],
-                ],
                 'search_filters' => [
                     'type' => 'checkbox',
                     'label' => __('Filters Button', 'directorist'),
@@ -3355,110 +2787,6 @@ KAMAL;
                         ],
                     ],
                 ],
-                'search_result_filters_fields' => [
-                    'type' => 'checkbox',
-                    'label' => __('Filter Fields', 'directorist'),
-                    'show-if' => [
-                        'where' => "search_header",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                    'value' => [
-                        'search_text',
-                        'search_category',
-                        'search_location',
-                        'search_price',
-                        'search_price_range',
-                        'search_rating',
-                        'search_tag',
-                        'search_custom_fields',
-                        'radius_search'
-                    ],
-                    'options' => [
-                        [
-                            'value' => 'search_text',
-                            'label' => __('Text', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_category',
-                            'label' => __('Category', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_location',
-                            'label' => __('Location', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_price',
-                            'label' => __('Price (Min - Max)', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_price_range',
-                            'label' => __('Price Range', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_rating',
-                            'label' => __('Rating', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_tag',
-                            'label' => __('Tag', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_open_now',
-                            'label' => $business_hours_label,
-                        ],
-                        [
-                            'value' => 'search_custom_fields',
-                            'label' => __('Custom Fields', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_website',
-                            'label' => __('Website', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_email',
-                            'label' => __('Email', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_phone',
-                            'label' => __('Phone', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_fax',
-                            'label' => __('Fax', 'directorist'),
-                        ],
-                        [
-                            'value' => 'search_zip_code',
-                            'label' => __('Zip/Post Code', 'directorist'),
-                        ],
-                        [
-                            'value' => 'radius_search',
-                            'label' => __('Radius Search', 'directorist'),
-                        ],
-                    ],
-                ],
-                'sresult_location_address' => [
-                    'label' => __('Location Source for Search', 'directorist'),
-                    'type'  => 'select',
-                    'value' => 'map_api',
-                    'show-if' => [
-                        'where' => "search_header",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                    'options' => [
-                        [
-                            'value' => 'listing_location',
-                            'label' => __('Display from Listing Location', 'directorist'),
-                        ],
-                        [
-                            'value' => 'map_api',
-                            'label' => __('Display From Map API', 'directorist'),
-                        ],
-                    ],
-                ],
                 'sresult_default_radius_distance' => [
                     'label'         => __('Default Radius Distance', 'directorist'),
                     'type'          => 'number',
@@ -3520,39 +2848,7 @@ KAMAL;
                         ],
                     ],
                 ],
-                'search_result_search_text_placeholder'    => [
-                    'type'          => 'text',
-                    'label'         => __('Search Bar Placeholder', 'directorist'),
-                    'value'         => __('What are you looking for?', 'directorist'),
-                    'show-if' => [
-                        'where' => "search_header",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'search_result_category_placeholder'    => [
-                    'type'          => 'text',
-                    'label'         => __('Category Placeholder', 'directorist'),
-                    'value'         => __('Select a category', 'directorist'),
-                    'show-if' => [
-                        'where' => "search_header",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
-                'search_result_location_placeholder'    => [
-                    'type'          => 'text',
-                    'label'         => __('Location Placeholder', 'directorist'),
-                    'value'         => __('Select a location', 'directorist'),
-                    'show-if' => [
-                        'where' => "search_header",
-                        'conditions' => [
-                            ['key' => 'value', 'compare' => '=', 'value' => true],
-                        ],
-                    ],
-                ],
+              
                 'search_view_as' => [
                     'type'  => 'toggle',
                     'label' => __('Display "View As" Dropdown', 'directorist'),
@@ -5089,31 +4385,52 @@ KAMAL;
                             ] ),
                         ],
                         'listings_page' => [
-                            'label' => __('Listings Page', 'directorist'),
+                            'label' => __('All Listings Page', 'directorist'),
                             'icon' => '<i class="fa fa-archive"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
                                 'labels' => [
-                                    'title'       => __('Listings Page', 'directorist'),
+                                    'title'       => __('All Listings Page', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_filters_fields', 'listing_location_fields', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'listings_search_text_placeholder', 'listings_category_placeholder', 'listings_location_placeholder', 'display_sort_by', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'display_preview_image', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'display_title', 'enable_tagline', 'enable_excerpt', 'excerpt_limit', 'display_readmore', 'readmore_text', 'display_price', 'display_email', 'display_web_link', 'display_contact_info', 'address_location', 'display_publish_date', 'publish_date_format', 'display_category', 'display_mark_as_fav', 'display_view_count', 'display_author_image', 'paginate_all_listings', 'all_listing_page_items' 
+                                        'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'display_preview_image', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'address_location', 'publish_date_format', 'paginate_all_listings', 'all_listing_page_items' 
                                     ],
                                 ],
                             ] ),
                         ],
                         'single_listing' => [
-                            'label' => __('Single Listing', 'directorist'),
+                            'label' => __('Single Listings Page', 'directorist'),
                             'icon' => '<i class="fa fa-info"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
                                 'labels' => [
                                     'title'       => __('Single Listing', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
-                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'single_listing_template', 'atbdp_listing_slug', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'listing_details_text', 'tags_section_lable', 'custom_section_lable', 'listing_location_text', 'contact_info_text', 'contact_listing_owner', 'atbd_video_title', 'atbd_author_info_title', 'display_back_link', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'dsiplay_thumbnail_img', 'gallery_crop_width', 'gallery_crop_height', 'enable_social_share', 'enable_favourite', 'enable_report_abuse', 'disable_list_price', 'enable_single_location_taxonomy', 'enable_single_tag', 'disable_contact_info', 'address_map_link', 'disable_contact_owner', 'user_email', 'use_nofollow', 'disable_map', 'atbd_video_url', 'enable_rel_listing', 'rel_listings_logic', 'rel_listing_title', 'rel_listing_num', 'rel_listing_column', 'fix_listing_double_thumb'
+                                        'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'single_listing_template', 'atbdp_listing_slug', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height', 'address_map_link', 'rel_listings_logic', 'fix_listing_double_thumb'
                                     ],
                                 ],
                             ] ),
                         ],
+                        'categories_locations' => [
+                            'label' => __( 'Location & Category', 'directorist' ),
+                            'icon' => '<i class="fa fa-list-alt"></i>',
+                            'sections' => apply_filters( 'atbdp_categories_settings_sections', [
+                                'categories_settings' => [
+                                    'title'       => __('Categories Page Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_categories_as', 'categories_column_number', 'categories_depth_number', 'order_category_by', 'sort_category_by', 'display_listing_count', 'hide_empty_categories'
+                                     ],
+                                ],
+                                'locations_settings' => [
+                                    'title'       => __('Locations Page Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
+                                     ],
+                                ],
+                            ] ),
+                        ],
+
                         'badge' => [
                             'label' => __('Badge', 'directorist'),
                             'icon' => '<i class="fa fa-certificate"></i>',
@@ -5142,19 +4459,6 @@ KAMAL;
                             ] ),
                         ],
 
-                        'review' => [
-                            'label' => __('Review Setting', 'directorist'),
-                            'icon' => '<i class="fa fa-star"></i>',
-                            'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
-                                'labels' => [
-                                    'title'       => __('Review Setting', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [
-                                        'enable_review', 'enable_owner_review', 'approve_immediately', 'review_approval_text', 'enable_reviewer_img', 'enable_reviewer_content', 'required_reviewer_content', 'review_num', 'guest_review'
-                                    ],
-                                ],
-                            ] ),
-                        ],
                         'map' => [
                             'label' => __('Map', 'directorist'),
                             'icon' => '<i class="fa fa-map-signs"></i>',
@@ -5176,6 +4480,34 @@ KAMAL;
                             ] ),
                         ],
 
+                        'review' => [
+                            'label' => __('Review Setting', 'directorist'),
+                            'icon' => '<i class="fa fa-star"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
+                                'labels' => [
+                                    'title'       => __('Review Setting', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'enable_review', 'enable_owner_review', 'approve_immediately', 'review_approval_text', 'enable_reviewer_img', 'enable_reviewer_content', 'required_reviewer_content', 'review_num', 'guest_review'
+                                    ],
+                                ],
+                            ] ),
+                        ],
+
+                        'currency_settings' => [
+                            'label' => __( 'Listing Currency', 'directorist' ),
+                            'icon' => '<i class="fa fa-money-bill"></i>',
+                            'sections' => apply_filters( 'atbdp_currency_settings_sections', [
+                                'title_metas' => [
+                                    'title'       => __('Currency Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
+                                     ],
+                                ],
+                            ] ),
+                        ],
+
                         'user_dashboard' => [
                             'label' => __('User Dashboard', 'directorist'),
                             'icon' => '<i class="fa fa-chart-bar"></i>',
@@ -5190,27 +4522,6 @@ KAMAL;
                             ] ),
                         ],
                     ]),
-                ],
-
-                'search_settings' => [
-                    'label' => __( 'Search Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-search directorist_warning"></i>',
-                    'sections' => apply_filters( 'atbdp_listing_settings_search_settings_sections', [
-                        'search_form' => [
-                            'title'       => __('Search Form Settings', 'directorist'),
-                            'description' => '',
-                            'fields'      => [ 
-                                'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_more_filters_fields', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
-                             ],
-                        ],
-                        'search_result' => [
-                            'title'       => __('Search Result Settings', 'directorist'),
-                            'description' => '',
-                            'fields'      => [ 
-                                'search_header', 'search_result_filters_button_display', 'search_result_filter_button_text', 'search_result_display_filter', 'search_result_filters_fields', 'sresult_location_address', 'sresult_default_radius_distance', 'search_result_filters_button', 'sresult_reset_text', 'sresult_apply_text', 'search_result_search_text_placeholder', 'search_result_category_placeholder', 'search_result_location_placeholder', 'search_view_as', 'search_viewas_text', 'search_view_as_items', 'search_sort_by', 'search_sortby_text', 'search_sort_by_items', 'search_order_listing_by', 'search_sort_listing_by', 'search_listing_columns', 'paginate_search_results', 'search_posts_num', 'radius_search_unit'
-                             ],
-                        ],
-                    ] ),
                 ],
 
                 'page_settings' => [
@@ -5234,53 +4545,192 @@ KAMAL;
                     ]),
                 ],
 
-                'seo_settings' => [
-                    'label' => __( 'SEO Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-bolt directorist_green"></i>',
-                    'sections' => apply_filters( 'atbdp_seo_settings_sections', [
-                        'title_metas' => [
-                            'title'       => __('Titles & Metas', 'directorist'),
-                            'description' => '',
-                            'fields'      => [ 
-                                'atbdp_enable_seo', 'add_listing_page_meta_title', 'add_listing_page_meta_desc', 'all_listing_meta_title', 'all_listing_meta_desc', 'dashboard_meta_title', 'dashboard_meta_desc', 'author_profile_meta_title', 'author_page_meta_desc', 'category_meta_title', 'category_meta_desc', 'single_category_meta_title', 'single_category_meta_desc', 'all_locations_meta_title', 'all_locations_meta_desc', 'single_locations_meta_title', 'single_locations_meta_desc', 'registration_meta_title', 'registration_meta_desc', 'login_meta_title', 'login_meta_desc', 'homepage_meta_title', 'homepage_meta_desc', 'meta_title_for_search_result', 'search_result_meta_title', 'search_result_meta_desc'
-                             ],
+                'search_settings' => [
+                    'label' => __( 'Search Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-search directorist_warning"></i>',
+                    'submenu' => apply_filters('atbdp_email_settings_submenu', [
+                        'search_form' => [
+                            'label' => __('Search Listing Form', 'directorist'),
+                            'icon' => '<i class="fa fa-search"></i>',
+                            'sections' => apply_filters( 'atbdp_reg_settings_sections', [
+                                'search_form' => [
+                                    'title'       => __('Search Form Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
+                                     ],
+                                ],
+                            ] ),
                         ],
-                    ] ),
+    
+                        'search_result' => [
+                            'label' => __('Search Result Page', 'directorist'),
+                            'icon' => '<i class="fa fa-check"></i>',
+                            'sections' => apply_filters( 'atbdp_reg_settings_sections', [
+                                'search_result' => [
+                                    'title'       => __('Search Result Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'search_header', 'search_result_filters_button_display', 'search_result_filter_button_text', 'search_result_display_filter', 'sresult_default_radius_distance', 'search_result_filters_button', 'sresult_reset_text', 'sresult_apply_text', 'search_view_as', 'search_viewas_text', 'search_view_as_items', 'search_sort_by', 'search_sortby_text', 'search_sort_by_items', 'search_order_listing_by', 'search_sort_listing_by', 'search_listing_columns', 'paginate_search_results', 'search_posts_num', 'radius_search_unit'
+                                     ],
+                                ],
+                            ] ),
+                        ],
+                       
+                    ]),
                 ],
 
-                'currency_settings' => [
-                    'label' => __( 'Currency Settings', 'directorist' ),
-                    'icon' => '<i class="fa fa-money-bill directorist_danger"></i>',
-                    'sections' => apply_filters( 'atbdp_currency_settings_sections', [
-                        'title_metas' => [
-                            'title'       => __('Currency Settings', 'directorist'),
-                            'description' => '',
-                            'fields'      => [ 
-                                'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
-                             ],
+                'user_settings' => [
+                    'label' => __( 'User Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-users directorist_green"></i>',
+                    'submenu' => apply_filters('atbdp_user_settings_submenu', [
+                        'registration_form' => [
+                            'label' => __('Registration Form', 'directorist'),
+                            'icon' => '<i class="fa fa-envelope-open"></i>',
+                            'sections' => apply_filters( 'atbdp_reg_settings_sections', [
+                                'username' => [
+                                    'title'       => __('Username', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'reg_username'
+                                     ],
+                                ],
+                                'password' => [
+                                    'title'       => __('Password', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_password_reg', 'reg_password', 'require_password_reg'
+                                     ],
+                                ],
+                                'email' => [
+                                    'title'       => __('Email', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'reg_email'
+                                     ],
+                                ],
+                                'website' => [
+                                    'title'       => __('Website', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_website_reg', 'reg_website', 'require_website_reg'
+                                     ],
+                                ],
+                                'first_name' => [
+                                    'title'       => __('First Name', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_fname_reg', 'reg_fname', 'require_fname_reg'
+                                     ],
+                                ],
+                                'last_name' => [
+                                    'title'       => __('Last Name', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_lname_reg', 'reg_lname', 'require_lname_reg'
+                                     ],
+                                ],
+                                'about' => [
+                                    'title'       => __('About/Bio', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_bio_reg', 'reg_bio', 'require_bio_reg'
+                                     ],
+                                ],
+                                'privacy_policy' => [
+                                    'title'       => __('Privacy Policy', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'registration_privacy', 'registration_privacy_label', 'registration_privacy_label_link'
+                                     ],
+                                ],
+                                'terms_condition' => [
+                                    'title'       => __('Terms Conditions', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'regi_terms_condition', 'regi_terms_label', 'regi_terms_label_link'
+                                     ],
+                                ],
+                                'signup_button' => [
+                                    'title'       => __('Sign Up Button', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'reg_signup'
+                                     ],
+                                ],
+                                'login_message' => [
+                                    'title'       => __('Login Message', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_login', 'login_text', 'log_linkingmsg'
+                                     ],
+                                ],
+                                'redirection' => [
+                                    'title'       => __('', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'auto_login', 'redirection_after_reg'
+                                     ],
+                                ],
+                            ] ),
                         ],
-                    ] ),
-                ],
-
-                'categories_locations' => [
-                    'label' => __( 'Location & Category', 'directorist' ),
-                    'icon' => '<i class="fa fa-list-alt directorist_Blue"></i>',
-                    'sections' => apply_filters( 'atbdp_categories_settings_sections', [
-                        'categories_settings' => [
-                            'title'       => __('Categories Page Settings', 'directorist'),
-                            'description' => '',
-                            'fields'      => [ 
-                                'display_categories_as', 'categories_column_number', 'categories_depth_number', 'order_category_by', 'sort_category_by', 'display_listing_count', 'hide_empty_categories'
-                             ],
+                        'login_form' => [
+                            'label' => __('Login Form', 'directorist'),
+                            'icon' => '<i class="fa fa-mail-bulk"></i>',
+                            'sections' => apply_filters( 'atbdp_email_templates_settings_sections', [
+                                'username' => [
+                                    'title'       => __('Username', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'log_username'
+                                     ],
+                                ],
+                                'password' => [
+                                    'title'       => __('Password', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'log_password'
+                                     ],
+                                ],
+                                'remember_login_info' => [
+                                    'title'       => __('Remember Login Information', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_rememberme', 'log_rememberme'
+                                     ],
+                                ],
+                                'login_button' => [
+                                    'title'       => __('Login Button', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'log_button'
+                                     ],
+                                ],
+                                'signup_message' => [
+                                    'title'       => __('Sign Up Message', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_signup', 'reg_text', 'reg_linktxt'
+                                     ],
+                                ],
+                                'recover_password' => [
+                                    'title'       => __('Recover Password', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'display_recpass', 'recpass_text', 'recpass_desc', 'recpass_username', 'recpass_placeholder', 'recpass_button'
+                                     ],
+                                ],
+                                'login_redirect' => [
+                                    'title'       => '',
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'redirection_after_login'
+                                     ],
+                                ],
+                               
+                            ] ),
                         ],
-                        'locations_settings' => [
-                            'title'       => __('Locations Page Settings', 'directorist'),
-                            'description' => '',
-                            'fields'      => [ 
-                                'locations_column_number', 'locations_depth_number', 'order_location_by', 'sort_location_by', 'display_location_listing_count', 'hide_empty_locations'
-                             ],
-                        ],
-                    ] ),
+                    ]),
                 ],
 
                 'email_settings' => [
@@ -5407,156 +4857,74 @@ KAMAL;
                     ]),
                 ],
 
-                'login_registration_settings' => [
-                    'label' => __( 'Registration & Login', 'directorist' ),
-                    'icon' => '<i class="fa fa-align-right directorist_wordpress"></i>',
-                    'submenu' => apply_filters('atbdp_login_registration_settings_submenu', [
-                        'registration_settings' => [
-                            'label' => __('Registration Form', 'directorist'),
-                            'icon' => '<i class="fa fa-wpforms directorist_info"></i>',
-                            'sections' => apply_filters( 'atbdp_reg_settings_sections', [
-                                'username' => [
-                                    'title'       => __('Username', 'directorist'),
+                'monetization_settings' => [
+                    'label' => __( 'Monetization', 'directorist' ),
+                    'icon' => '<i class="fa fa-money-bill-alt directorist_success"></i>',
+                    'submenu' => apply_filters('atbdp_monetization_settings_submenu', [
+                        'monetization_general' => [
+                            'label' => __('Monetization Settings', 'directorist'),
+                            'icon' => '<i class="fa fa-home"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_monetization_general_sections', [
+                                'general' => [
+                                    'title'       => __('Monetization Settings', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [ 
-                                        'reg_username'
-                                     ],
+                                    'fields'      => [ 'enable_monetization' ],
                                 ],
-                                'password' => [
-                                    'title'       => __('Password', 'directorist'),
+                                'featured' => [
+                                    'title'       => __('Monetize by Featured Listing', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
-                                        'display_password_reg', 'reg_password', 'require_password_reg'
-                                     ],
+                                        'enable_featured_listing',
+                                        'featured_listing_title',
+                                        'featured_listing_desc',
+                                        'featured_listing_price',
+                                        'featured_listing_time',
+                                    ],
                                 ],
-                                'email' => [
-                                    'title'       => __('Email', 'directorist'),
+                                'plan_promo' => [
+                                    'title'       => __('Monetize by Listing Plans', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [ 
-                                        'reg_email'
-                                     ],
-                                ],
-                                'website' => [
-                                    'title'       => __('Website', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'display_website_reg', 'reg_website', 'require_website_reg'
-                                     ],
-                                ],
-                                'first_name' => [
-                                    'title'       => __('First Name', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'display_fname_reg', 'reg_fname', 'require_fname_reg'
-                                     ],
-                                ],
-                                'last_name' => [
-                                    'title'       => __('Last Name', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'display_lname_reg', 'reg_lname', 'require_lname_reg'
-                                     ],
-                                ],
-                                'about' => [
-                                    'title'       => __('About/Bio', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'display_bio_reg', 'reg_bio', 'require_bio_reg'
-                                     ],
-                                ],
-                                'privacy_policy' => [
-                                    'title'       => __('Privacy Policy', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'registration_privacy', 'registration_privacy_label', 'registration_privacy_label_link'
-                                     ],
-                                ],
-                                'terms_condition' => [
-                                    'title'       => __('Terms Conditions', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'regi_terms_condition', 'regi_terms_label', 'regi_terms_label_link'
-                                     ],
-                                ],
-                                'signup_button' => [
-                                    'title'       => __('Sign Up Button', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'reg_signup'
-                                     ],
-                                ],
-                                'login_message' => [
-                                    'title'       => __('Login Message', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'display_login', 'login_text', 'log_linkingmsg'
-                                     ],
-                                ],
-                                'redirection' => [
-                                    'title'       => __('', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'auto_login', 'redirection_after_reg'
-                                     ],
+                                    'fields'      => [ 'monetization_promotion' ],
                                 ],
                             ] ),
                         ],
-                        'login_settings' => [
-                            'label' => __('Login Form', 'directorist'),
-                            'icon' => '<i class="fa fa-wpforms directorist_info"></i>',
-                            'sections' => apply_filters( 'atbdp_login_settings_sections', [
-                                'username' => [
-                                    'title'       => __('Username', 'directorist'),
+                        'gateway' => [
+                            'label' => __('Gateways Settings', 'directorist'),
+                            'icon' => '<i class="fa fa-bezier-curve"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_gateway_sections', [
+                                'gateway_general' => [
+                                    'title'       => __('Gateways General Settings', 'directorist'),
                                     'description' => '',
-                                    'fields'      => [ 
-                                        'log_username'
-                                     ],
-                                ],
-                                'password' => [
-                                    'title'       => __('Password', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'log_password'
-                                     ],
-                                ],
-                                'remember_login_info' => [
-                                    'title'       => __('Remember Login Information', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'display_rememberme', 'log_rememberme'
-                                     ],
-                                ],
-                                'login_button' => [
-                                    'title'       => __('Login Button', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'log_button'
-                                     ],
-                                ],
-                                'signup_message' => [
-                                    'title'       => __('Sign Up Message', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'display_signup', 'reg_text', 'reg_linktxt'
-                                     ],
-                                ],
-                                'recover_password' => [
-                                    'title'       => __('Recover Password', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'display_recpass', 'recpass_text', 'recpass_desc', 'recpass_username', 'recpass_placeholder', 'recpass_button'
-                                     ],
-                                ],
-                                'login_redirect' => [
-                                    'title'       => '',
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'redirection_after_login'
-                                     ],
+                                    'fields'      => [
+                                        'paypal_gateway_promotion',
+                                        'gateway_test_mode',
+                                        'active_gateways',
+                                        'default_gateway',
+                                        'payment_currency_note',
+                                        'payment_currency',
+                                        'payment_thousand_separator',
+                                        'payment_decimal_separator',
+                                        'payment_currency_position'
+                                    ],
                                 ],
                             ] ),
                         ],
-                        
+                        'offline_gateway' => [
+                            'label' => __('Offline Gateways Settings', 'directorist'),
+                            'icon' => '<i class="fa fa-university"></i>',
+                            'sections' => apply_filters( 'atbdp_listing_settings_offline_gateway_sections', [
+                                'offline_gateway_general' => [
+                                    'title'       => __('Gateways General Settings', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [
+                                        'offline_payment_note',
+                                        'bank_transfer_title',
+                                        'bank_transfer_description',
+                                        'bank_transfer_instruction'
+                                    ],
+                                ],
+                            ] ),
+                        ],
                     ]),
                 ],
 
@@ -5633,77 +5001,6 @@ KAMAL;
                     ]),
                 ],
 
-                'monetization_settings' => [
-                    'label' => __( 'Monetization', 'directorist' ),
-                    'icon' => '<i class="fa fa-money-bill-alt directorist_success"></i>',
-                    'submenu' => apply_filters('atbdp_monetization_settings_submenu', [
-                        'monetization_general' => [
-                            'label' => __('Monetization Settings', 'directorist'),
-                            'icon' => '<i class="fa fa-home"></i>',
-                            'sections' => apply_filters( 'atbdp_listing_settings_monetization_general_sections', [
-                                'general' => [
-                                    'title'       => __('Monetization Settings', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 'enable_monetization' ],
-                                ],
-                                'featured' => [
-                                    'title'       => __('Monetize by Featured Listing', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 
-                                        'enable_featured_listing',
-                                        'featured_listing_title',
-                                        'featured_listing_desc',
-                                        'featured_listing_price',
-                                        'featured_listing_time',
-                                    ],
-                                ],
-                                'plan_promo' => [
-                                    'title'       => __('Monetize by Listing Plans', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [ 'monetization_promotion' ],
-                                ],
-                            ] ),
-                        ],
-                        'gateway' => [
-                            'label' => __('Gateways Settings', 'directorist'),
-                            'icon' => '<i class="fa fa-bezier-curve"></i>',
-                            'sections' => apply_filters( 'atbdp_listing_settings_gateway_sections', [
-                                'gateway_general' => [
-                                    'title'       => __('Gateways General Settings', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [
-                                        'paypal_gateway_promotion',
-                                        'gateway_test_mode',
-                                        'active_gateways',
-                                        'default_gateway',
-                                        'payment_currency_note',
-                                        'payment_currency',
-                                        'payment_thousand_separator',
-                                        'payment_decimal_separator',
-                                        'payment_currency_position'
-                                    ],
-                                ],
-                            ] ),
-                        ],
-                        'offline_gateway' => [
-                            'label' => __('Offline Gateways Settings', 'directorist'),
-                            'icon' => '<i class="fa fa-university"></i>',
-                            'sections' => apply_filters( 'atbdp_listing_settings_offline_gateway_sections', [
-                                'offline_gateway_general' => [
-                                    'title'       => __('Gateways General Settings', 'directorist'),
-                                    'description' => '',
-                                    'fields'      => [
-                                        'offline_payment_note',
-                                        'bank_transfer_title',
-                                        'bank_transfer_description',
-                                        'bank_transfer_instruction'
-                                    ],
-                                ],
-                            ] ),
-                        ],
-                    ]),
-                ],
-
                 'extension_settings' => [
                     'label' => __( 'Extensions Settings', 'directorist' ),
                     'icon' => '<i class="fa fa-magic directorist_warning"></i>',
@@ -5772,6 +5069,55 @@ KAMAL;
                                     'title' => __( 'Restore Default', 'directorist' ),
                                     'fields' => [ 'restore_default_settings' ]
                                 ],
+                            ]),
+                        ],
+         
+                    ]),
+                ],
+
+                'advanced' => [
+                    'label' => __( 'Advanced Settings', 'directorist' ),
+                    'icon' => '<i class="fa fa-filter directorist_danger"></i>',
+                    'submenu' => apply_filters('atbdp_advanced_submenu', [
+                        'seo_settings' => [
+                            'label' => __( 'Title & Meta (SEO)', 'directorist' ),
+                            'icon' => '<i class="fa fa-bolt"></i>',
+                            'sections' => apply_filters( 'atbdp_seo_settings_sections', [
+                                'title_metas' => [
+                                    'title'       => __('Title & Meta (SEO)', 'directorist'),
+                                    'description' => '',
+                                    'fields'      => [ 
+                                        'atbdp_enable_seo', 'add_listing_page_meta_title', 'add_listing_page_meta_desc', 'all_listing_meta_title', 'all_listing_meta_desc', 'dashboard_meta_title', 'dashboard_meta_desc', 'author_profile_meta_title', 'author_page_meta_desc', 'category_meta_title', 'category_meta_desc', 'single_category_meta_title', 'single_category_meta_desc', 'all_locations_meta_title', 'all_locations_meta_desc', 'single_locations_meta_title', 'single_locations_meta_desc', 'registration_meta_title', 'registration_meta_desc', 'login_meta_title', 'login_meta_desc', 'homepage_meta_title', 'homepage_meta_desc', 'meta_title_for_search_result', 'search_result_meta_title', 'search_result_meta_desc'
+                                     ],
+                                ],
+                            ] ),
+                        ],
+
+                        'caching' => [
+                            'label'     => __('Caching', 'directorist'),
+                            'icon' => '<i class="fa fa-power-off"></i>',
+                            'sections'  => apply_filters('atbdp_caching_controls', [
+                                'import_methods' => array(
+                                    'title'         => __('Caching', 'directorist'),
+                                    'description'   => '',
+                                    'fields'        => apply_filters('atbdp_caching_settings_fields', [
+                                        [
+
+                                        ],
+                                    ]),
+                                ),
+                            ]),
+                        ],
+
+                        'uninstall' => [
+                            'label' => __( 'Uninstall Setting', 'directorist' ),
+                            'icon' => '<i class="fa fa-trash"></i>',
+                            'sections'  => apply_filters('atbdp_uninstall_export_controls', [
+                                'uninstall' => [
+                                    'title' => __( 'Uninstall', 'directorist' ),
+                                    'fields' => [  ]
+                                ],
+                        
                             ]),
                         ],
          

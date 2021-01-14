@@ -43,6 +43,14 @@
     }
 }
 
+.directorist_vertical-align-m{
+    display: flex;
+    align-items: center;
+    .directorist_item{
+        display: flex;
+    }
+}
+
 // Settings Panel Buttons
 .atbdp-settings-manager {
     .atbdp-tab-sub-contents{
@@ -51,7 +59,7 @@
             font-weight: 500;
             color: #2C99FF;
             border-radius: 18px;
-            padding: 6px 20px;
+            padding: 6px 13px;
             text-decoration: none;
             border-color: #2C99FF;
             margin-bottom: 0;

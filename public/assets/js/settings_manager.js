@@ -15426,6 +15426,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'toggle-field-theme-butterfly',
@@ -15983,6 +15989,12 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_form_fields_toggle_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../../../../mixins/form-fields/toggle-field */ "./public/assets/src/js/vue/mixins/form-fields/toggle-field.js");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -28115,63 +28127,73 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "atbdp-col atbdp-col-8" }, [
-        _c("span", {
-          staticClass: "cptm-input-toggle",
-          class: _vm.toggleClass,
-          on: {
-            click: function($event) {
-              return _vm.toggleValue()
-            }
-          }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.local_value,
-              expression: "local_value"
-            }
-          ],
-          staticStyle: { display: "none" },
-          attrs: { type: "checkbox", id: _vm.name, name: _vm.name },
-          domProps: {
-            checked: Array.isArray(_vm.local_value)
-              ? _vm._i(_vm.local_value, null) > -1
-              : _vm.local_value
-          },
-          on: {
-            change: function($event) {
-              var $$a = _vm.local_value,
-                $$el = $event.target,
-                $$c = $$el.checked ? true : false
-              if (Array.isArray($$a)) {
-                var $$v = null,
-                  $$i = _vm._i($$a, $$v)
-                if ($$el.checked) {
-                  $$i < 0 && (_vm.local_value = $$a.concat([$$v]))
-                } else {
-                  $$i > -1 &&
-                    (_vm.local_value = $$a
-                      .slice(0, $$i)
-                      .concat($$a.slice($$i + 1)))
+        _c("div", { staticClass: "directorist_vertical-align-m" }, [
+          _c("div", { staticClass: "directorist_item" }, [
+            _c("span", {
+              staticClass: "cptm-input-toggle",
+              class: _vm.toggleClass,
+              on: {
+                click: function($event) {
+                  return _vm.toggleValue()
                 }
-              } else {
-                _vm.local_value = $$c
               }
-            }
-          }
-        }),
-        _vm._v(" "),
-        _vm.compLinkIsEnable
-          ? _c("a", {
-              staticClass: "cptm-btn cptm-btn-outline directorist_btn-start",
-              class: _vm.compLinkClass,
-              attrs: { href: _vm.comp.link.url, target: _vm.comp.link.target },
-              domProps: { innerHTML: _vm._s(_vm.comp.link.label) }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.local_value,
+                  expression: "local_value"
+                }
+              ],
+              staticStyle: { display: "none" },
+              attrs: { type: "checkbox", id: _vm.name, name: _vm.name },
+              domProps: {
+                checked: Array.isArray(_vm.local_value)
+                  ? _vm._i(_vm.local_value, null) > -1
+                  : _vm.local_value
+              },
+              on: {
+                change: function($event) {
+                  var $$a = _vm.local_value,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = null,
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 && (_vm.local_value = $$a.concat([$$v]))
+                    } else {
+                      $$i > -1 &&
+                        (_vm.local_value = $$a
+                          .slice(0, $$i)
+                          .concat($$a.slice($$i + 1)))
+                    }
+                  } else {
+                    _vm.local_value = $$c
+                  }
+                }
+              }
             })
-          : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "directorist_item" }, [
+            _vm.compLinkIsEnable
+              ? _c("a", {
+                  staticClass:
+                    "cptm-btn cptm-btn-outline directorist_btn-start",
+                  class: _vm.compLinkClass,
+                  attrs: {
+                    href: _vm.comp.link.url,
+                    target: _vm.comp.link.target
+                  },
+                  domProps: { innerHTML: _vm._s(_vm.comp.link.label) }
+                })
+              : _vm._e()
+          ])
+        ])
       ])
     ])
   ])
@@ -29326,30 +29348,72 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      _c("span", {
-        staticClass: "cptm-input-toggle",
-        class: _vm.toggleClass,
-        on: {
-          click: function($event) {
-            return _vm.toggleValue()
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c("input", {
-        staticStyle: { display: "none" },
-        attrs: { type: "checkbox", id: _vm.name, name: _vm.name },
-        domProps: { checked: _vm.local_value }
-      }),
-      _vm._v(" "),
-      _vm.compLinkIsEnable
-        ? _c("a", {
-            staticClass: "cptm-btn cptm-btn-outline directorist_btn-start",
-            class: _vm.compLinkClass,
-            attrs: { href: _vm.comp.link.url, target: _vm.comp.link.target },
-            domProps: { innerHTML: _vm._s(_vm.comp.link.label) }
+      _c("div", { staticClass: "directorist_vertical-align-m" }, [
+        _c("div", { staticClass: "directorist_item" }, [
+          _c("span", {
+            staticClass: "cptm-input-toggle",
+            class: _vm.toggleClass,
+            on: {
+              click: function($event) {
+                return _vm.toggleValue()
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.local_value,
+                expression: "local_value"
+              }
+            ],
+            staticStyle: { display: "none" },
+            attrs: { type: "checkbox", id: _vm.name, name: _vm.name },
+            domProps: {
+              checked: Array.isArray(_vm.local_value)
+                ? _vm._i(_vm.local_value, null) > -1
+                : _vm.local_value
+            },
+            on: {
+              change: function($event) {
+                var $$a = _vm.local_value,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 && (_vm.local_value = $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      (_vm.local_value = $$a
+                        .slice(0, $$i)
+                        .concat($$a.slice($$i + 1)))
+                  }
+                } else {
+                  _vm.local_value = $$c
+                }
+              }
+            }
           })
-        : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "directorist_item" }, [
+          _vm.compLinkIsEnable
+            ? _c("a", {
+                staticClass: "cptm-btn cptm-btn-outline directorist_btn-start",
+                class: _vm.compLinkClass,
+                attrs: {
+                  href: _vm.comp.link.url,
+                  target: _vm.comp.link.target
+                },
+                domProps: { innerHTML: _vm._s(_vm.comp.link.label) }
+              })
+            : _vm._e()
+        ])
+      ])
     ])
   ])
 }

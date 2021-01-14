@@ -4,17 +4,23 @@
             <label :for="name">{{ label }}</label>
             <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
 
-            <span class="cptm-input-toggle" :class="toggleClass" @click="toggleValue()"></span>
-            <input type="checkbox" :id="name" :name="name" style="display: none;" :checked="local_value">
+            <div class="directorist_vertical-align-m">
+                <div class="directorist_item">
+                    <span class="cptm-input-toggle" :class="toggleClass" @click="toggleValue()"></span>
+                    <input type="checkbox" :id="name" :name="name" style="display: none;" v-model="local_value">
+                </div>
 
-            <a 
-                class="cptm-btn cptm-btn-outline directorist_btn-start" 
-                v-if="compLinkIsEnable" 
-                :href="comp.link.url"
-                :target="comp.link.target"
-                :class="compLinkClass" 
-                v-html="comp.link.label">
-            </a>
+                <div class="directorist_item">
+                    <a 
+                        class="cptm-btn cptm-btn-outline directorist_btn-start" 
+                        v-if="compLinkIsEnable" 
+                        :href="comp.link.url"
+                        :target="comp.link.target"
+                        :class="compLinkClass" 
+                        v-html="comp.link.label">
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </template>

@@ -146,6 +146,9 @@
                 color: #ffffff50;
                 &.active{
                     color: #fff;
+                    &::before{
+                        color: #ffffff50;
+                    }
                 }
                 &:focus{
                     outline: 0 none;

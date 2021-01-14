@@ -4377,11 +4377,11 @@ KAMAL;
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
                 'listing_settings' => [
-                    'label' => __( 'Listing Settings', 'directorist' ),
+                    'label' => __( 'Listings', 'directorist' ),
                     'icon' => '<i class="fa fa-list directorist_Blue"></i>',
                     'submenu' => apply_filters('atbdp_listing_settings_submenu', [
                         'general' => [
-                            'label' => __('General Settings', 'directorist'),
+                            'label' => __('General', 'directorist'),
                             'icon' => '<i class="fa fa-sliders-h"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_general_sections', [
                                 'general_settings' => [
@@ -4397,7 +4397,7 @@ KAMAL;
                             ] ),
                         ],
                         'listings_page' => [
-                            'label' => __('All Listings Page', 'directorist'),
+                            'label' => __('All Listings', 'directorist'),
                             'icon' => '<i class="fa fa-archive"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
                                 'labels' => [
@@ -4410,7 +4410,7 @@ KAMAL;
                             ] ),
                         ],
                         'single_listing' => [
-                            'label' => __('Single Listings Page', 'directorist'),
+                            'label' => __('Single Listings', 'directorist'),
                             'icon' => '<i class="fa fa-info"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
                                 'labels' => [
@@ -4445,11 +4445,11 @@ KAMAL;
                         
 
                         'review' => [
-                            'label' => __('Review Setting', 'directorist'),
+                            'label' => __('Review', 'directorist'),
                             'icon' => '<i class="fa fa-star"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
                                 'labels' => [
-                                    'title'       => __('Review Setting', 'directorist'),
+                                    'title'       => __('Review', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
                                         'enable_review', 'enable_owner_review', 'approve_immediately', 'review_approval_text', 'enable_reviewer_img', 'enable_reviewer_content', 'required_reviewer_content', 'review_num', 'guest_review'
@@ -4477,7 +4477,7 @@ KAMAL;
                             'icon' => '<i class="fa fa-map-signs"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_map_sections', [
                                 'map_settings' => [
-                                    'title'       => __('Map Settings', 'directorist'),
+                                    'title'       => __('Map', 'directorist'),
                                     'description' => '',
                                     'fields'      => [
                                         'select_listing_map', 'map_api_key', 'country_restriction', 'restricted_countries', 'default_latitude', 'default_longitude', 'map_zoom_level', 'map_view_zoom_level', 'listings_map_height'
@@ -4497,7 +4497,7 @@ KAMAL;
                 ],
 
                 'page_settings' => [
-                    'label' => __( 'Page Settings', 'directorist' ),
+                    'label' => __( 'Page Setup', 'directorist' ),
                     'icon' => '<i class="fa fa-chart-line directorist_wordpress"></i>',
                     'sections' => apply_filters( 'atbdp_listing_settings_page_settings_sections', [
                         'upgrade_pages' => [
@@ -4518,15 +4518,14 @@ KAMAL;
                 ],
 
                 'search_settings' => [
-                    'label' => __( 'Search Settings', 'directorist' ),
+                    'label' => __( 'Search', 'directorist' ),
                     'icon' => '<i class="fa fa-search directorist_warning"></i>',
                     'submenu' => apply_filters('atbdp_email_settings_submenu', [
                         'search_form' => [
-                            'label' => __('Search Listing Form', 'directorist'),
+                            'label' => __('Search Listing', 'directorist'),
                             'icon' => '<i class="fa fa-search"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
                                 'search_form' => [
-                                    'title'       => __('Search Form Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
                                         'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
@@ -4536,11 +4535,10 @@ KAMAL;
                         ],
     
                         'search_result' => [
-                            'label' => __('Search Result Page', 'directorist'),
+                            'label' => __('Search Result', 'directorist'),
                             'icon' => '<i class="fa fa-check"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
                                 'search_result' => [
-                                    'title'       => __('Search Result Settings', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
                                         'search_header', 'search_result_filters_button_display', 'search_result_filter_button_text', 'search_result_display_filter', 'sresult_default_radius_distance', 'search_result_filters_button', 'sresult_reset_text', 'sresult_apply_text', 'search_view_as', 'search_viewas_text', 'search_view_as_items', 'search_sort_by', 'search_sortby_text', 'search_sort_by_items', 'search_order_listing_by', 'search_sort_listing_by', 'search_listing_columns', 'paginate_search_results', 'search_posts_num', 'radius_search_unit'
@@ -4553,7 +4551,7 @@ KAMAL;
                 ],
 
                 'user_settings' => [
-                    'label' => __( 'User Settings', 'directorist' ),
+                    'label' => __( 'User', 'directorist' ),
                     'icon' => '<i class="fa fa-users directorist_green"></i>',
                     'submenu' => apply_filters('atbdp_user_settings_submenu', [
                         'registration_form' => [
@@ -4719,7 +4717,7 @@ KAMAL;
                 ],
 
                 'email_settings' => [
-                    'label' => __( 'Email Settings', 'directorist' ),
+                    'label' => __( 'Email', 'directorist' ),
                     'icon' => '<i class="fa fa-envelope directorist_info"></i>',
                     'submenu' => apply_filters('atbdp_email_settings_submenu', [
                         'email_general' => [
@@ -5022,7 +5020,7 @@ KAMAL;
                 ],
 
                 'extension_settings' => [
-                    'label' => __( 'Extensions Settings', 'directorist' ),
+                    'label' => __( 'Extensions', 'directorist' ),
                     'icon' => '<i class="fa fa-magic directorist_warning"></i>',
                     'submenu' => apply_filters('atbdp_extension_settings_submenu', [
                         'extensions_general' => [
@@ -5092,7 +5090,7 @@ KAMAL;
                 ],
 
                 'advanced' => [
-                    'label' => __( 'Advanced Settings', 'directorist' ),
+                    'label' => __( 'Advanced', 'directorist' ),
                     'icon' => '<i class="fa fa-filter directorist_danger"></i>',
                     'submenu' => apply_filters('atbdp_advanced_submenu', [
                         'seo_settings' => [
@@ -5100,7 +5098,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-bolt"></i>',
                             'sections' => apply_filters( 'atbdp_seo_settings_sections', [
                                 'title_metas' => [
-                                    'title'       => __('Title & Meta (SEO)', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
                                         'atbdp_enable_seo', 'add_listing_page_meta_title', 'add_listing_page_meta_desc', 'all_listing_meta_title', 'all_listing_meta_desc', 'dashboard_meta_title', 'dashboard_meta_desc', 'author_profile_meta_title', 'author_page_meta_desc', 'category_meta_title', 'category_meta_desc', 'single_category_meta_title', 'single_category_meta_desc', 'all_locations_meta_title', 'all_locations_meta_desc', 'single_locations_meta_title', 'single_locations_meta_desc', 'registration_meta_title', 'registration_meta_desc', 'login_meta_title', 'login_meta_desc', 'homepage_meta_title', 'homepage_meta_desc', 'meta_title_for_search_result', 'search_result_meta_title', 'search_result_meta_desc'
@@ -5115,7 +5112,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-power-off"></i>',
                             'sections'  => apply_filters('atbdp_caching_controls', [
                                 'caching' => [
-                                    'title'       => __('Title & Meta (SEO)', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
                                         'atbdp_enable_cache', 'atbdp_reset_cache',

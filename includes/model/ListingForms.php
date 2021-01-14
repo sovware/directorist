@@ -13,11 +13,14 @@ class Directorist_Listing_Forms {
 
 	public $add_listing_id;
 	public $add_listing_post;
+	public $directory_type;
+	public $default_directory_type;
 
 	private function __construct( $id ) {
 		if ( $id ) {
 			$this->add_listing_id = $id;
 			$this->add_listing_post = get_post( $id );
+
 		}
 		else {
 			add_action( 'wp', array( $this, 'init' ) );
@@ -638,12 +641,14 @@ class Directorist_Listing_Forms {
 	public function get_listing_types() {
 		$enable_multi_directory = get_directorist_option( 'enable_multi_directory' );
 		$listing_types = array();
-		$all_types     = get_terms(
-			array(
-				'taxonomy'   => ATBDP_TYPE,
-				'hide_empty' => false,
-			)
+		$args = array(
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
 		);
+		if( $this->directory_type ) {
+			$args['slug'] = $this->directory_type;
+		}
+		$all_types     = get_terms( $args );
 
 		foreach ( $all_types as $type ) {
 			if(  empty( $enable_multi_directory ) ) {
@@ -727,7 +732,11 @@ class Directorist_Listing_Forms {
 				return atbdp_return_shortcode_template( 'forms/add-listing-error' );
 			}
 		}
+		$atts = shortcode_atts( array(
+			'directory_type'			  => '',
+		), $atts );
 
+		$this->directory_type           = !empty( $atts['directory_type'] ) ? explode( ',', $atts['directory_type'] ) : '';
 		$args = array(
 			'p_id'               => $p_id,
 			'listing_form'       => $this,

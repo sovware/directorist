@@ -22,6 +22,7 @@ if (!class_exists('ATBDP_Helper')) :
         // get_plasma_slider
         public static function get_plasma_slider($args)
         {
+            var_dump( $args );
             $data          = [];
             $default_image = get_directorist_option(
                 'default_preview_image',

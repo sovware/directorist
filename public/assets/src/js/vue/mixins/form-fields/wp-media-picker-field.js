@@ -11,14 +11,11 @@ export default {
 
     computed: {
         theThumbnail() {
-            return {
-                id: this.thumbnail_id,
-                url: this.thumbnailSrc,
-            }
+            return this.thumbnailSrc;
         },
 
         hasThumbnail() {
-            if ( this.thumbnail_id && this.thumbnail_src.length ) {
+            if ( this.thumbnail_src.length ) {
                 return true;
             }
 
@@ -55,16 +52,14 @@ export default {
     data() {
         return {
             file_frame: null,
-            thumbnail_id: null,
             thumbnail_src: '',
         }
     },
 
     methods: {
         setup() {
-            if ( this.value && typeof this.value.id !== 'undefined' && this.value.url !== 'undefined' ) {
-                this.thumbnail_id = this.value.id;
-                this.thumbnail_src = this.value.url;
+            if ( this.value && this.value.length ) {
+                this.thumbnail_src = this.value;
             }
 
             this.createTheMediaFrame();
@@ -86,8 +81,6 @@ export default {
             // When an image is selected, run a callback.
             this.file_frame.on( 'select', function() {
                 let attachment = self.file_frame.state().get('selection').first().toJSON();
-
-                self.thumbnail_id = attachment.id;
                 self.thumbnail_src = attachment.url;
             });
         },
@@ -104,7 +97,6 @@ export default {
         },
 
         deleteThumbnail() {
-            this.thumbnail_id = '';
             this.thumbnail_src = '';
         }
     }

@@ -65,6 +65,7 @@ class ATBDP_Multi_Directory_Migration {
             "plural_name"   => "listings",
             "permalink"     => "listing",
             "preview_mode"  => get_directorist_option( 'preview_enable', true ),
+            "preview_image" => get_directorist_option( 'default_preview_image', true ),
 
             "default_expiration"       => get_directorist_option( 'listing_expire_in_days', 365 ),
             "new_listing_status"       => get_directorist_option( 'new_listing_status', 'pending' ),

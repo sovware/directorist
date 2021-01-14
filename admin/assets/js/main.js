@@ -1614,9 +1614,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                         url: atbdp_admin_data.ajaxurl,
                         data: form_data,
                         beforeSend() {
-                                submit_button.prepend(
-                                        '<span class="atbdp-loading"><span class="fas fa-spinner fa-spin"></span></span> '
-                                );
+                                submit_button.prepend('<span class="atbdp-loading"><span class="fas fa-spinner fa-spin"></span></span>');
                                 submit_button.attr('disabled', true);
                         },
                         success(response) {
@@ -1633,13 +1631,10 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                                 if (response.status.log) {
                                         for (const feedback in response.status.log) {
                                                 console.log(response.status.log[feedback]);
-                                                const alert_type =
-                                                        response.status.log[feedback].type === 'success'
-                                                const alert =
-                                                        `<div class="atbdp-form-alert ${ 
-                                                                : 'atbdp-form-alert-danger';
-                                                const alert_message = response.status.log[feedback].message;
-                                                let alert = `<div class="atbdp-form-alert ${alert_type}">${alert_message}<div>`;
+                                                var alert_type = ( response.status.log[feedback].type === 'success' );
+                                                var alert = `<div class="atbdp-form-alert"`;
+                                                var alert_message = response.status.log[feedback].message;
+                                                alert = `<div class="atbdp-form-alert ${alert_type}">${alert_message}<div>`;
 
                                                 $('.atbdp-form-feedback').append(alert);
                                         }

@@ -39,13 +39,6 @@
             </span>
         </h4>
         <span class="directorist_settings-panel-shade"></span>
-
-        <div class="directorist_slider-range">
-            <span class="directorist_range-bar">
-                <span class="directorist_range-fill"></span>
-            </span>
-            <input id="directorist_slider-input" class="directorist_slider-input" type="range" min="0" max="100" value="50">
-        </div>
         
         <settings-manager />
     </div>

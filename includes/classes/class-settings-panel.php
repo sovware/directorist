@@ -5100,7 +5100,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-bolt"></i>',
                             'sections' => apply_filters( 'atbdp_seo_settings_sections', [
                                 'title_metas' => [
-                                    'title'       => __('Title & Meta (SEO)', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
                                         'atbdp_enable_seo', 'add_listing_page_meta_title', 'add_listing_page_meta_desc', 'all_listing_meta_title', 'all_listing_meta_desc', 'dashboard_meta_title', 'dashboard_meta_desc', 'author_profile_meta_title', 'author_page_meta_desc', 'category_meta_title', 'category_meta_desc', 'single_category_meta_title', 'single_category_meta_desc', 'all_locations_meta_title', 'all_locations_meta_desc', 'single_locations_meta_title', 'single_locations_meta_desc', 'registration_meta_title', 'registration_meta_desc', 'login_meta_title', 'login_meta_desc', 'homepage_meta_title', 'homepage_meta_desc', 'meta_title_for_search_result', 'search_result_meta_title', 'search_result_meta_desc'
@@ -5115,7 +5114,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-power-off"></i>',
                             'sections'  => apply_filters('atbdp_caching_controls', [
                                 'caching' => [
-                                    'title'       => __('Title & Meta (SEO)', 'directorist'),
                                     'description' => '',
                                     'fields'      => [ 
                                         'atbdp_enable_cache', 'atbdp_reset_cache',

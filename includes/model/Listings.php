@@ -1802,7 +1802,8 @@ class Directorist_Listings {
     	// Hooks ------------
 		public static function archive_type($listings) {
 			$count = count( $listings->listing_types );
-			if ( $count > 1 ) {
+			$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
+			if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
 				atbdp_get_shortcode_template( 'listings-archive/listing-types', array('listings' => $listings) );
 			}
 		}

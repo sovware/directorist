@@ -3,7 +3,28 @@
     .directorist_builder-header {
         margin-bottom: 30px;
     }
-
+    .atbdp-settings-manager__top{
+        max-width: 1200px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .directorist_builder-links{
+            margin: 0 ;
+            padding: 0;
+            li{
+                display: inline-block;
+                margin-bottom: 0;
+                &:not(:last-child){
+                    margin-right: 25px;
+                }
+                a{
+                    font-size: 14px;
+                    text-decoration: none;
+                    color: #5A5F7D;
+                }
+            }
+        }
+    }
     .atbdp-settings-manager__title {
         display: flex;
         align-items: center;
@@ -11,7 +32,7 @@
         font-size: 24px;
         font-weight: 500;
         color: $dark;
-        margin-bottom: 40px;
+        margin-bottom: 28px;
         .directorist_settings-trigger{
             display: none;
             @media only screen and (max-width: 575px) {
@@ -78,6 +99,46 @@
 
     @media only screen and (max-width: 575px) {
         flex-direction: column;
+    }
+
+    .atbdp-setting-top-bar-right{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .setting-top-bar__search-field{
+            margin-right: 5px;
+            input{
+                border-radius: 20px;
+            }
+        }
+    }
+
+    .directorist_setting-panel__pages{
+        margin: 0;
+        padding: 0;
+        li{
+            display: inline-block;
+            .directorist_setting-panel__pages--link{
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 400;
+                color: #ffffff50;
+                &.active{
+                    color: #fff;
+                }
+            }
+        }
+        
+        li + li{
+            .directorist_setting-panel__pages--link{
+                &:before{
+                    font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
+                    content: '\f105';
+                    margin-right: 2px;
+                    font-weight: 900;
+                }
+            }
+        }
     }
 
     .search-suggestions-list {
@@ -398,6 +459,13 @@ span.drop-toggle-caret:before {
     display: flex;
     flex-wrap: wrap;
     color: #272b41;
+}
+
+.atbdp-settings-panel{
+    .cptm-form-control,
+    .directorist_dropdown{
+        max-width: 500px !important;
+    }
 }
 
 // Directorist Range Slider

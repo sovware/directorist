@@ -662,7 +662,11 @@ class Directorist_Listing_Forms {
 			$type = array_key_first( $listing_types );
 		}
 		else {
-			$type = isset( $_GET['directory_type'] ) && array_key_exists( $_GET['directory_type'], $listing_types ) ? $_GET['directory_type'] : '';
+			$type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';
+		}
+		if( ! is_numeric( $type ) ) {
+			$term = get_term_by( 'slug', $type, ATBDP_TYPE );
+			$type = $term->term_id;
 		}
 
 		return (int) $type;

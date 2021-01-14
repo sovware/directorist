@@ -490,7 +490,8 @@ class Directorist_Single_Listing {
 			$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
 			$confirmation_msg = '';
 			if( isset( $_GET['notice'] ) ) {
-				$confirmation_msg = get_post_status( $pid ) === 'publish' ? $publish_msg : $pending_msg;
+				$listing_id = !empty( $pid ) ? $pid : $id;
+				$confirmation_msg = get_post_status( $listing_id ) === 'publish' ? $publish_msg : $pending_msg;
 			}
 			
 			$args = array(

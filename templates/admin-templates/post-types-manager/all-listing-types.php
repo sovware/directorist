@@ -52,7 +52,7 @@
                         </span>
                     </a>
                 </div>
-                <?php 
+                <?php
                     $all_items =  wp_count_terms('atbdp_listing_types');
                     $listing_types = get_terms([
                        'taxonomy'   => 'atbdp_listing_types',
@@ -83,14 +83,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php  
+                                            <?php
                                             if( $listing_types ) {
                                                 foreach( $listing_types as $listing_type) {
                                                     $default = get_term_meta( $listing_type->term_id, '_default', true );
                                                     $edit_link = admin_url('edit.php' . '?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . absint( $listing_type->term_id ) . '&action=edit');
                                                     $delete_link = admin_url('admin-post.php' . '?listing_type_id=' . absint( $listing_type->term_id ) . '&action=delete_listing_type');
                                                     $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');
-                                                    $created_time = get_term_meta( $listing_type->term_id, '_created_date', true );             
+                                                    $created_time = get_term_meta( $listing_type->term_id, '_created_date', true );
                                             ?>
                                             <tr>
                                                 <td>
@@ -99,7 +99,7 @@
                                                     </a>
                                                 </td>
                                                 <td><span class="directorist_listing-count"><?php echo $listing_type->count; ?></span></td>
-                                                <td><?php 
+                                                <td><?php
                                                 if( $created_time ) {
                                                     echo date( 'F j, Y', $created_time );
                                                 }
@@ -107,7 +107,7 @@
                                                 <td>
                                                     <div class="directorist_listing-actions">
                                                         <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_btn directorist_btn-primary"><i class="la la-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>
-                                                        <?php  
+                                                        <?php
                                                         if ( ! $default ) {  ?>
                                                         <a href="#" class="directorist_btn directorist_btn-danger directorist_btn-transparent cptm-modal-toggle atbdp-directory-delete-link-action" data-delete-link="<?php echo $delete_link; ?>" data-target="cptm-delete-directory-modal">
                                                             <i class="la la-trash"></i><?php _e( 'Delete', 'directorist' ); ?>
@@ -165,7 +165,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="cptm-modal-body cptm-center-content cptm-content-wide">
                     <form action="#" method="post" class="cptm-import-directory-form">
                         <div class="cptm-form-group cptm-mb-10">
@@ -216,15 +216,15 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="cptm-modal-body cptm-center-content cptm-content-wide">
                     <form action="#" method="post" class="cptm-import-directory-form">
                         <div class="cptm-form-group-feedback cptm-text-center cptm-mb-10"></div>
-                                        
+
                         <h2 class="cptm-title-2 cptm-text-center"><?php _e( 'Are you sure?', 'directorist' ) ?></h2>
 
                         <div class="cptm-file-input-wrap">
-                            <a href="#" class="cptm-btn cptm-btn-secondary  atbdp-directory-delete-cancel-link" data-target="cptm-delete-directory-modal">
+                            <a href="#" class="cptm-btn cptm-btn-secondary cptm-modal-toggle atbdp-directory-delete-cancel-link" data-target="cptm-delete-directory-modal">
                                 <?php _e( 'Cancel', 'directorist' ); ?>
                             </a>
 

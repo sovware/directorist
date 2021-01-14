@@ -974,9 +974,17 @@ li[ class="cptm-form-builder-field-list-item"][ draggable="true"] {
   display: flex;
   flex-direction: column;
   margin: 10px 0;
-  position: absolute;
   right: 0;
   left: 0;
+}
+
+
+.cptm-checkbox-area{
+  .cptm-checkbox-item{
+    &:not(:last-child){
+      margin-bottom: 10px;
+    }
+  }
 }
 
 @media (max-width: 1300px) {

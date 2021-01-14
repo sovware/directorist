@@ -118,6 +118,7 @@
         padding: 0;
         li{
             display: inline-block;
+            margin-bottom: 0;
             .directorist_setting-panel__pages--link{
                 text-decoration: none;
                 font-size: 14px;
@@ -125,6 +126,10 @@
                 color: #ffffff50;
                 &.active{
                     color: #fff;
+                }
+                &:focus{
+                    outline: 0 none;
+                    box-shadow: 0 0;
                 }
             }
         }
@@ -134,7 +139,7 @@
                 &:before{
                     font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
                     content: '\f105';
-                    margin-right: 2px;
+                    margin: 0 4px 0 3px;
                     font-weight: 900;
                 }
             }
@@ -354,9 +359,10 @@
 
 .settings-nav__item__icon {
     display: inline-block;
-    width: 28px;
+    width: 32px;
 
     i {
+        font-size: 15px;
         &.directorist_Blue {
             color: #3E62F5
         }
@@ -404,6 +410,10 @@
     color: #5A5F7D;
     transition: 0.3s ease;
     border-left: 2px solid transparent;
+    &:focus{
+        box-shadow: 0 0;
+        outline: 0 none;
+    }
 }
 
 .settings-nav__item ul li a.active {

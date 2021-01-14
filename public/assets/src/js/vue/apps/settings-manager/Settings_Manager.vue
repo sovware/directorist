@@ -8,11 +8,11 @@
                         <li>
                             <a href="#" class="directorist_setting-panel__pages--link">Settings</a>
                         </li>
-                        <li>
-                            <a href="#" class="directorist_setting-panel__pages--link">General</a>
-                        </li>
-                        <li>
-                            <a href="#" class="directorist_setting-panel__pages--link active">General Settings</a>
+
+                        <li v-for="( nav_item, nav_key ) in theBreadcrumbNav" :key="nav_key">
+                            <a href="#" class="directorist_setting-panel__pages--link" :class="{active: nav_item.active}">
+                                {{ nav_item.label }}
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -116,6 +116,33 @@ export default {
             cached_fields: 'cached_fields',
             layouts: 'layouts',
         }),
+
+        theBreadcrumbNav() {
+            let nav = [];
+
+            for ( let menu_key in this.layouts ) {
+                if ( ! this.layouts[ menu_key ].active ) { continue; }
+
+                let label = ( this.layouts[ menu_key ].label ) ? this.layouts[ menu_key ].label : '';
+                let menu_nav_args = { label: label };
+
+                if ( ! this.layouts[ menu_key ].submenu ) {
+                    menu_nav_args.active = true;
+                }
+
+                nav.push( menu_nav_args );
+
+                for ( let submenu_key in this.layouts[ menu_key ].submenu ) {
+                    if ( ! this.layouts[ menu_key ].submenu[ submenu_key ].active ) { continue; }
+
+                    let label = ( this.layouts[ menu_key ].submenu[ submenu_key ].label ) ? this.layouts[ menu_key ].submenu[ submenu_key ].label : '';
+                    let sub_nav_args = { label: label, active: true };
+                    nav.push( sub_nav_args );
+                }
+            }
+
+            return nav;
+        },
 
         searchSuggestions() {
             if ( ! this.search_query.length ) {

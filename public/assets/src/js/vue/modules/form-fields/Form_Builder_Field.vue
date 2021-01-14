@@ -96,8 +96,10 @@
                   class="cptm-form-builder-group-options"
                   v-if="getGroupOptions(group_key)"
                 >
-                  <template
+                  <div
                     v-for="(option, option_key) in getGroupOptions(group_key)"
+                    :class="fieldWrapperClass(option_key, option)"
+                    :key="option_key"
                   >
                     <component
                       :is="option.type + '-field'"
@@ -114,7 +116,7 @@
                       "
                     >
                     </component>
-                  </template>
+                  </div>
                 </div>
               </slide-up-down>
             </div>
@@ -220,10 +222,12 @@
                         class="cptm-form-builder-group-field-item-body"
                         v-if="getActiveFieldsSettings(field_key, 'options')"
                       >
-                        <template
+                        <div
                           v-for="(option, option_key) in getWidgetOptions(
                             field_key
                           )"
+                          :class="fieldWrapperClass(option_key, option)"
+                          :key="option_key"
                         >
                           <component
                             :is="option.type + '-field'"
@@ -243,7 +247,7 @@
                             "
                           >
                           </component>
-                        </template>
+                        </div>
                       </div>
                     </slide-up-down>
                   </dropable-element>
@@ -1057,6 +1061,19 @@ export default {
         Vue.set(this.groups[group_key], option_key, $event);
       }
       this.$emit("update", this.updated_value);
+    },
+
+    fieldWrapperClass(field_key, field) {
+      let type_class =
+        field && field.type
+          ? "cptm-field-wraper-type-" + field.type
+          : "cptm-field-wraper";
+      let key_class = "cptm-field-wraper-key_" + this.fieldId + "_" + field_key;
+
+      return {
+        [type_class]: true,
+        [key_class]: true,
+      };
     },
 
     getActiveGroupCollapseClass(group_key) {

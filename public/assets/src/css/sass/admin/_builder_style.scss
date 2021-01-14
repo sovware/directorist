@@ -700,6 +700,28 @@ div[draggable="true"].cptm-form-builder-group-title-area {
   max-width: 450px;
   margin: 0 auto;
   margin-bottom: 10px;
+
+  &>.form-group {
+    .cptm-form-control {
+      background: none;
+      border: 1px solid #C6D0DC;
+      height: 42px;
+    }
+
+    .cptm-template-type-wrapper {
+      position: relative;
+
+      &:before {
+        content: "\f110";
+        position: absolute;
+        font-family: "LineAwesome";
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
+    }
+  }
 }
 
 .cptm-card-placeholder-row {
@@ -838,6 +860,16 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-group-field-item-body {
   padding: 22px 25px 25px;
+
+  .cptm-field-wraper-type-toggle {
+    border-bottom: 1px solid #F1F2F6;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+
+    .cptm-form-group {
+      margin-bottom: 0;
+    }
+  }
 }
 
 .cptm-form-builder-field-list {

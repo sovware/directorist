@@ -178,25 +178,8 @@ class Directorist_Listings {
 		$this->options['feature_badge_text']              = get_directorist_option( 'feature_badge_text', __( 'Featured', 'directorist' ) );
 		$this->options['readmore_text']                   = get_directorist_option( 'readmore_text', __('Read More', 'directorist'));
 		$this->options['info_display_in_single_line']     = get_directorist_option( 'info_display_in_single_line', 0 ) ? 'atbd_single_line_card_info' : '';
-		$this->options['display_title']                   = get_directorist_option( 'display_title', 1 ) ? true : false;
-		$this->options['enable_review']                   = get_directorist_option( 'enable_review', 1 ) ? true : false;
-		$this->options['display_price']                   = get_directorist_option( 'display_price', 1 ) ? true : false;
-		$this->options['display_email']                   = get_directorist_option( 'display_email', 0 ) ? true : false;
-		$this->options['display_web_link']                = get_directorist_option( 'display_web_link', 0 ) ? true : false;
-		$this->options['display_category']                = get_directorist_option( 'display_category', 1 ) ? true : false;
-		$this->options['display_view_count']              = get_directorist_option( 'display_view_count', 1 ) ? true : false;
-		$this->options['display_mark_as_fav']             = get_directorist_option( 'display_mark_as_fav', 1 ) ? true : false;
-		$this->options['display_contact_info']            = get_directorist_option( 'display_contact_info', 1 ) ? true : false;
-		$this->options['display_feature_badge_cart']      = get_directorist_option( 'display_feature_badge_cart', 1 ) ? true : false;
-		$this->options['display_popular_badge_cart']      = get_directorist_option( 'display_popular_badge_cart', 1 ) ? true : false;
-		$this->options['enable_tagline']                  = get_directorist_option( 'enable_tagline' ) ? true : false;
-		$this->options['enable_excerpt']                  = get_directorist_option( 'enable_excerpt' ) ? true : false;
 		$this->options['display_author_image']            = get_directorist_option( 'display_author_image', 1 ) ? true : false;
 		$this->options['display_tagline_field']           = get_directorist_option( 'display_tagline_field', 0 ) ? true : false;
-		$this->options['display_pricing_field']           = get_directorist_option( 'display_pricing_field', 1 ) ? true : false;
-		$this->options['display_excerpt_field']           = get_directorist_option( 'display_excerpt_field', 0 ) ? true : false;
-		$this->options['display_address_field']           = get_directorist_option( 'display_address_field', 1 ) ? true : false;
-		$this->options['display_phone_field']             = get_directorist_option( 'display_phone_field', 1 ) ? true : false;
 		$this->options['display_readmore']                = get_directorist_option( 'display_readmore', 0) ? true : false;
 		$this->options['address_location']                = get_directorist_option( 'address_location', 'location' );
 		$this->options['excerpt_limit']                   = get_directorist_option( 'excerpt_limit', 20);
@@ -1202,13 +1185,14 @@ class Directorist_Listings {
 
 		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
 
-		if ( isset( $_GET['directory_type'] ) && array_key_exists( $_GET['directory_type'], $listing_types ) ) {
+		if ( isset( $_GET['directory_type'] ) ) {
 			$current = $_GET['directory_type'];
 		}
 		else if( $this->default_directory_type ) {
 			$current = $this->default_directory_type;
 		}
 		else {
+
 			foreach ( $listing_types as $id => $type ) {
 				$is_default = get_term_meta( $id, '_default', true );
 				if ( $is_default ) {
@@ -1218,6 +1202,11 @@ class Directorist_Listings {
 			}
 		}
 
+		if( ! is_numeric( $current ) ) {
+			$term = get_term_by( 'slug', $current, ATBDP_TYPE );
+			$current = $term->term_id;
+		}
+		
 		return (int) $current;
 	}
 

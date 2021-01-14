@@ -4004,12 +4004,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                         'required' => false,
                     ],
                 ],
-
-                'enable_preview_image' => [
-                    'label' => __('Enable Preview Image', 'directorist'),
-                    'type'  => 'toggle',
-                    'value' => true,
-                ],
                 'preview_image' => [
                     'button-label' => __('Select', 'directorist'),
                     'type'         => 'wp-media-picker',
@@ -4566,19 +4560,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 ],
                             ],
                         ],
-                        'preview_image' => [
-                            'label' => __('Preview Image', 'directorist'),
-                            'sections' => [
-                                'labels' => [
-                                    'title'       => __('Default Preview Image', 'directorist'),
-                                    'description' => __('This image will be used when listing preview image is not present. Leave empty to hide the preview image completely.', 'directorist'),
-                                    'fields'      => [
-                                        'enable_preview_image',
-                                        'preview_image',
-                                    ],
-                                ],
-                            ],
-                        ],
                         'packages' => [
                             'label' => 'Packages',
                             'sections' => [
@@ -4823,11 +4804,11 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
         public function add_menu_pages()
         {
             $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
-            $page_title = __( 'Builder', 'directorist' );
+            $page_title = __( 'Directory Builder', 'directorist' );
             $page_slug  = 'atbdp-layout-builder';
 
             if ( atbdp_is_truthy( $enable_multi_directory ) ) {
-                $page_title = 'Directory Types';
+                $page_title = 'Directory Builder';
                 $page_slug  = 'atbdp-directory-types';
             }
 

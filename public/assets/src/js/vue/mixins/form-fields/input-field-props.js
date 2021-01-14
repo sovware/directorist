@@ -126,12 +126,18 @@ export default {
             default: '10',
         },
         min: {
+            type: [String, Number],
+            default: 0,
             required: false,
         },
         max: {
+            type: [String, Number],
+            default: 100,
             required: false,
         },
         step: {
+            type: [String, Number],
+            default: 1,
             required: false,
         },
         defaultImg: {

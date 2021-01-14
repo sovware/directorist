@@ -5,15 +5,22 @@
 
         <div class="cptm-form-range-wrap">
             <div class="cptm-form-range-bar">
-                <input 
-                    type="range" 
-                    :id="fieldId"
-                    :step="step" 
-                    :min="min" 
-                    :max="max" 
-                    :name="name" 
-                    v-model="range_value"
-                >
+                <div class="directorist_slider-range">
+                    <span class="directorist_range-bar">
+                        <span class="directorist_range-fill" :style="rangeFillStyle"></span>
+                    </span>
+
+                    <input 
+                        type="range" 
+                        class="directorist_slider-input" 
+                        :id="fieldId"
+                        :step="theStep" 
+                        :min="theMin" 
+                        :max="theMax" 
+                        :name="name" 
+                        v-model="range_value"
+                    >
+                </div>
             </div>
 
             <div class="cptm-form-range-output">
@@ -30,10 +37,3 @@
 </template>
 
 <script>
-import range_feild from '../../../../mixins/form-fields/range-field';
-
-export default {
-    name: 'range-field-theme-default',
-    mixins: [ range_feild ],
-}
-</script>

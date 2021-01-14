@@ -664,7 +664,7 @@ class Directorist_Listing_Forms {
 		else {
 			$type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';
 		}
-		if( ! is_numeric( $type ) ) {
+		if( !empty( $type ) && ! is_numeric( $type ) ) {
 			$term = get_term_by( 'slug', $type, ATBDP_TYPE );
 			$type = $term->term_id;
 		}

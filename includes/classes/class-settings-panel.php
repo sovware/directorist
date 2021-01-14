@@ -4377,7 +4377,7 @@ KAMAL;
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
                 'listing_settings' => [
-                    'label' => __( 'Listing Settings', 'directorist' ),
+                    'label' => __( 'Listing', 'directorist' ),
                     'icon' => '<i class="fa fa-list directorist_Blue"></i>',
                     'submenu' => apply_filters('atbdp_listing_settings_submenu', [
                         'general' => [
@@ -4497,7 +4497,7 @@ KAMAL;
                 ],
 
                 'page_settings' => [
-                    'label' => __( 'Page Settings', 'directorist' ),
+                    'label' => __( 'Page', 'directorist' ),
                     'icon' => '<i class="fa fa-chart-line directorist_wordpress"></i>',
                     'sections' => apply_filters( 'atbdp_listing_settings_page_settings_sections', [
                         'upgrade_pages' => [
@@ -4518,7 +4518,7 @@ KAMAL;
                 ],
 
                 'search_settings' => [
-                    'label' => __( 'Search Settings', 'directorist' ),
+                    'label' => __( 'Search', 'directorist' ),
                     'icon' => '<i class="fa fa-search directorist_warning"></i>',
                     'submenu' => apply_filters('atbdp_email_settings_submenu', [
                         'search_form' => [
@@ -4553,7 +4553,7 @@ KAMAL;
                 ],
 
                 'user_settings' => [
-                    'label' => __( 'User Settings', 'directorist' ),
+                    'label' => __( 'User', 'directorist' ),
                     'icon' => '<i class="fa fa-users directorist_green"></i>',
                     'submenu' => apply_filters('atbdp_user_settings_submenu', [
                         'registration_form' => [
@@ -4719,7 +4719,7 @@ KAMAL;
                 ],
 
                 'email_settings' => [
-                    'label' => __( 'Email Settings', 'directorist' ),
+                    'label' => __( 'Email', 'directorist' ),
                     'icon' => '<i class="fa fa-envelope directorist_info"></i>',
                     'submenu' => apply_filters('atbdp_email_settings_submenu', [
                         'email_general' => [
@@ -5022,7 +5022,7 @@ KAMAL;
                 ],
 
                 'extension_settings' => [
-                    'label' => __( 'Extensions Settings', 'directorist' ),
+                    'label' => __( 'Extensions', 'directorist' ),
                     'icon' => '<i class="fa fa-magic directorist_warning"></i>',
                     'submenu' => apply_filters('atbdp_extension_settings_submenu', [
                         'extensions_general' => [
@@ -5092,7 +5092,7 @@ KAMAL;
                 ],
 
                 'advanced' => [
-                    'label' => __( 'Advanced Settings', 'directorist' ),
+                    'label' => __( 'Advanced', 'directorist' ),
                     'icon' => '<i class="fa fa-filter directorist_danger"></i>',
                     'submenu' => apply_filters('atbdp_advanced_submenu', [
                         'seo_settings' => [

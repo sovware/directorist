@@ -105,11 +105,14 @@
       justify-content: center;
       margin-left: -5px;
       margin-right: -5px;
-
+      margin-top: -5px;
+      margin-bottom: -5px;
       .single_search_field {
-        flex: 1;
+        min-width:200px;
+        flex: auto;
         padding-left: 5px !important;
         padding-right: 5px !important;
+        margin: 5px 0;
 
         .form-control {
           width: 100%;
@@ -194,6 +197,65 @@
   .atbd_search_title_area {
     h2.title {
       font-weight: 600;
+    }
+  }
+  .atbdp-search-form {
+    .single_search_field {
+      position: relative;
+      &.search_category,
+      &.search_location{
+        min-width: auto;
+      }
+
+      textarea{
+        padding: 10px 15px  !important;
+        resize: none;
+      }
+
+      .wp-picker-container,
+      .atbdp-range-slider-wrapper,
+      .bads-tags{
+        padding: 10px 15px;
+      }
+
+      .atbdp-range-slider-wrapper{
+        .atbd-current-value{
+          padding-right: 0 !important;
+        }
+      }
+
+      .wp-picker-container{
+        .wp-picker-input-wrap{
+          margin-left: 8px;
+        }
+      }
+
+      .wp-picker-holder{
+        position: absolute;
+        z-index: 22;
+      }
+
+      label{
+        display: none !important;
+      }
+
+      .custom-checkbox{
+        label{
+          display: block !important;
+          padding-left: 30px !important;
+          &:before{
+            display: none;
+          }
+        }
+        input[type=checkbox]{
+          display: none;
+        }
+      }
+    }
+  }
+  .ads-advanced{
+    .select2.select2-container{
+      width: 100% !important;
     }
   }
 }

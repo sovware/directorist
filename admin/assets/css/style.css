@@ -10,7 +10,8 @@ css for Custom Field
   for shortable field*/
 }
 
-#directorist.atbd_wrapper a:focus, #directorist.atbd_wrapper a:active {
+#directorist.atbd_wrapper a:focus,
+#directorist.atbd_wrapper a:active {
   -webkit-box-shadow: unset;
           box-shadow: unset;
   outline: none;
@@ -4576,6 +4577,46 @@ input.atbdp-form-control {
   width: 100%;
   overflow-x: auto;
   overflow-y: visible;
+}
+
+.cptm-delete-directory-modal .cptm-modal-header {
+  padding-left: 20px;
+}
+
+.cptm-delete-directory-modal .cptm-btn {
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  border: 1px solid;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+  vertical-align: top;
+}
+
+.cptm-delete-directory-modal .cptm-btn.cptm-btn-secondary {
+  color: #3e62f5;
+  border-color: #3e62f5;
+  background-color: transparent;
+}
+
+.cptm-delete-directory-modal .cptm-btn.cptm-btn-secondary:hover {
+  color: #fff;
+  background-color: #3e62f5;
+}
+
+.cptm-delete-directory-modal .cptm-btn.cptm-btn-danger {
+  color: #FF272A;
+  border-color: #FF272A;
+  background-color: transparent;
+}
+
+.cptm-delete-directory-modal .cptm-btn.cptm-btn-danger:hover {
+  color: #fff;
+  background-color: #FF272A;
 }
 
 /*# sourceMappingURL=map/style.css.map */

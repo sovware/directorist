@@ -3,7 +3,8 @@
 #directorist.atbd_wrapper {
   padding: 18px 20px;
 
-  a:focus, a:active {
+  a:focus,
+  a:active {
     box-shadow: unset;
     outline: none;
   }
@@ -2445,6 +2446,7 @@ span.atbdp-tick-cross {
 .announcement-feedback {
   margin-bottom: 15px;
 }
+
 /* --------------[ Announcment End ]--------------- */
 
 
@@ -4335,4 +4337,45 @@ input.atbdp-form-control {
   width: 100%;
   overflow-x: auto;
   overflow-y: visible;
+}
+
+.cptm-delete-directory-modal {
+  .cptm-modal-header {
+    padding-left: 20px;
+  }
+
+  .cptm-btn {
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    vertical-align: top;
+
+    &.cptm-btn-secondary {
+      color: #3e62f5;
+      border-color: #3e62f5;
+      background-color: transparent;
+
+      &:hover {
+        color: #fff;
+        background-color: #3e62f5;
+      }
+    }
+
+    &.cptm-btn-danger {
+      color: #FF272A;
+      border-color: #FF272A;
+      background-color: transparent;
+
+      &:hover {
+        color: #fff;
+        background-color: #FF272A;
+      }
+    }
+  }
 }

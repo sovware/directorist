@@ -39,6 +39,7 @@
             </span>
         </h4>
         <span class="directorist_settings-panel-shade"></span>
+        
         <settings-manager />
     </div>
 </div>

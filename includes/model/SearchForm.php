@@ -34,6 +34,8 @@ class Directorist_Listing_Search_Form {
 	public $popular_cat_title;
 	public $popular_cat_num;
 	public $show_popular_category;
+	public $directory_type; 
+	public $default_directory_type;
 
 	// Common - Search Shortcode and Listing Header
 	public $has_reset_filters_button;
@@ -55,19 +57,19 @@ class Directorist_Listing_Search_Form {
 		$this->type = $type;
 		$this->atts = $atts;
 
-		if ( $listing_type ) {
-			$this->listing_type = (int) $listing_type;
-		}
-		else {
-			$this->listing_type = $this->get_default_listing_type();
-		}
-
 		$this->set_default_options();
 
 		// Search form shortcode
 		if ( $type == 'search_form' ) {
 			$this->update_options_for_search_form();
 			$this->prepare_search_data($atts);
+		}
+
+		if ( $listing_type ) {
+			$this->listing_type = (int) $listing_type;
+		}
+		else {
+			$this->listing_type = $this->get_default_listing_type();
 		}
 
 		// Search result page
@@ -151,20 +153,22 @@ class Directorist_Listing_Search_Form {
 		}
 
 		$this->defaults = array(
-			'show_title_subtitle'    => 'yes',
-			'search_bar_title'       => get_directorist_option('search_title', __("Search here", 'directorist')),
-			'search_bar_sub_title'   => get_directorist_option('search_subtitle', __("Find the best match of your interest", 'directorist')),
-			'search_button'          => $this->options['search_button'],
-			'search_button_text'     => $this->options['search_listing_text'],
-			'more_filters_button'    => ( $this->options['more_filters_button'] ) ? 'yes' : '',
-			'more_filters_text'      => $this->options['search_more_filters'],
-			'reset_filters_button'   => $reset_filters_button,
-			'apply_filters_button'   => $apply_filters_button,
-			'reset_filters_text'     => $this->options['reset_filters_text'],
-			'apply_filters_text'     => $this->options['apply_filters_text'],
-			'logged_in_user_only'    => '',
-			'redirect_page_url'      => '',
-			'more_filters_display'   => $this->options['open_filter_fields'],
+			'show_title_subtitle'    		=> 'yes',
+			'search_bar_title'       		=> get_directorist_option('search_title', __("Search here", 'directorist')),
+			'search_bar_sub_title'  		=> get_directorist_option('search_subtitle', __("Find the best match of your interest", 'directorist')),
+			'search_button'          		=> $this->options['search_button'],
+			'search_button_text'     		=> $this->options['search_listing_text'],
+			'more_filters_button'    		=> ( $this->options['more_filters_button'] ) ? 'yes' : '',
+			'more_filters_text'      		=> $this->options['search_more_filters'],
+			'reset_filters_button'   		=> $reset_filters_button,
+			'apply_filters_button'   		=> $apply_filters_button,
+			'reset_filters_text'     		=> $this->options['reset_filters_text'],
+			'apply_filters_text'     		=> $this->options['apply_filters_text'],
+			'logged_in_user_only'    		=> '',
+			'redirect_page_url'      		=> '',
+			'more_filters_display'   		=> $this->options['open_filter_fields'],
+			'directory_type'         		=> '',
+			'default_directory_type'        => '',
 		);
 
 		$this->params = shortcode_atts( $this->defaults, $this->atts );
@@ -178,14 +182,16 @@ class Directorist_Listing_Search_Form {
 		$this->show_connector           = !empty( get_directorist_option('show_connector', 1) ) ? true : false;
 		$this->show_popular_category    = !empty( get_directorist_option('show_popular_category', 1) ) ? true : false;
 
-		$this->search_bar_title     = $this->params['search_bar_title'];
-		$this->search_bar_sub_title = $this->params['search_bar_sub_title'];
-		$this->search_button_text   = $this->params['search_button_text'];
-		$this->more_filters_text    = $this->params['more_filters_text'];
-		$this->reset_filters_text   = $this->params['reset_filters_text'];
-		$this->apply_filters_text   = $this->params['apply_filters_text'];
-		$this->more_filters_display = $this->params['more_filters_display'];
-		$this->redirect_page_url    = $this->params['redirect_page_url'];
+		$this->search_bar_title     	= $this->params['search_bar_title'];
+		$this->search_bar_sub_title 	= $this->params['search_bar_sub_title'];
+		$this->search_button_text   	= $this->params['search_button_text'];
+		$this->more_filters_text    	= $this->params['more_filters_text'];
+		$this->reset_filters_text   	= $this->params['reset_filters_text'];
+		$this->apply_filters_text   	= $this->params['apply_filters_text'];
+		$this->more_filters_display 	= $this->params['more_filters_display'];
+		$this->redirect_page_url    	= $this->params['redirect_page_url'];
+		$this->directory_type           = !empty( $this->params['directory_type'] ) ? explode( ',', $this->params['directory_type'] ) : '';
+		$this->default_directory_type   = !empty( $this->params['default_directory_type'] ) ? $this->params['default_directory_type'] : '';
 
 		$this->category_id             = 'at_biz_dir-category';
 		$this->category_class          = 'search_fields form-control';
@@ -225,6 +231,27 @@ class Directorist_Listing_Search_Form {
 			}
 		}
 
+		if( $this->default_directory_type ) {
+			$default_type = get_term_by( 'slug', $this->default_directory_type, ATBDP_TYPE );
+			$current 	  = $default_type ? $default_type->term_taxonomy_id : $current;
+		}
+		
+		if( $this->directory_type ) {
+			$current_id = true;
+			foreach( $this->directory_type as $value ) {
+				$default_type = get_term_by( 'slug', $value, ATBDP_TYPE );
+				$term_id      = $default_type->term_taxonomy_id;
+				if( $current == $term_id ) {
+					$current_id = null;
+					break;
+				} 
+			}
+			if( $current_id != null ) {
+				$directory_types =  get_term_by( 'slug', $this->directory_type[0], ATBDP_TYPE );
+				$current 		 = $directory_types->term_taxonomy_id;
+			}
+		}
+		
 		return (int) $current;
 	}
 
@@ -321,12 +348,15 @@ class Directorist_Listing_Search_Form {
 
 	public function get_listing_types() {
 		$listing_types = array();
-		$all_types     = get_terms(
-			array(
-				'taxonomy'   => ATBDP_TYPE,
-				'hide_empty' => false,
-			)
+		$args          = array(
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
 		);
+		if( $this->directory_type ) {
+			$args['slug']     = $this->directory_type;
+		}
+
+		$all_types     = get_terms( $args );
 
 		foreach ( $all_types as $type ) {
 			$listing_types[ $type->term_id ] = [

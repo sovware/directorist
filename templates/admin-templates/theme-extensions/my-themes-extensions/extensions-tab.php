@@ -88,7 +88,7 @@
         </div>
     </div><!-- ends: .ext-installed -->
 
-    <?php if (!empty($args['plugins_available_in_subscriptions'])) : ?>
+    <?php if (!empty($args['extensions_available_in_subscriptions'])) : ?>
         <div class="ext-available">
             <h4><?php _e('Available in your subscription', 'directorist')  ?></h4>
             <div class="ext-available-table">
@@ -112,7 +112,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($args['plugins_available_in_subscriptions'] as $extension_base => $extension) : ?>
+                                <?php foreach ($args['extensions_available_in_subscriptions'] as $extension_base => $extension) : ?>
                                     <tr>
                                         <td>
                                             <div class="extension-name">

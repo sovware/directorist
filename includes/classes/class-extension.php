@@ -1423,19 +1423,25 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 }
             }
 
-            $installed_extensions_keys = ( is_array( $installed_extensions ) ) ? array_keys( $installed_extensions ) : [];
-            $extensions_available_in_subscriptions = $this->get_extensions_available_in_subscriptions( $installed_extensions_keys );
-            $extension_promo_list = $this->get_extension_promo_list( $extensions_available_in_subscriptions );
+            // ---
+            $extensions_available_in_subscriptions = $this->get_extensions_available_in_subscriptions([ 
+                'installed_extensions' => $installed_extensions
+            ]);
+
+            // ---
+            $extensions_promo_list = $this->get_extensions_promo_list([
+                'extensions_available_in_subscriptions' => $extensions_available_in_subscriptions,
+                'installed_extensions' => $installed_extensions,
+            ]);
 
             $overview = [
                 'outdated_plugin_list'       => $outdated_plugins,
                 'outdated_plugins_key'       => $outdated_plugins_key,
                 'all_installed_plugins_list' => $all_installed_plugins_list,
                 'installed_extension_list'   => $installed_extensions,
-                'installed_extensions_keys'  => $installed_extensions_keys,
                 'total_active_extensions'    => $total_outdated_extensions,
                 'total_outdated_extensions'  => $total_outdated_extensions,
-                'extension_promo_list'       => $extension_promo_list,
+                'extensions_promo_list'      => $extensions_promo_list,
                 'extensions_available_in_subscriptions' => $extensions_available_in_subscriptions,
             ];
 
@@ -1443,15 +1449,9 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         }
 
         // get_extensions_available_in_subscriptions
-        public function get_extensions_available_in_subscriptions( array $installed_extensions_keys = [] ) {
-            if ( ! empty( $installed_extensions_keys ) && is_array( $installed_extensions_keys ) ) {
-                foreach( $installed_extensions_keys as $index => $key) {
-                    $new_key = preg_replace( '/\/.+/', '', $key );
-                    $new_key = preg_replace( '/(directorist-)/', '', $new_key );
-
-                    $installed_extensions_keys[ $index ] = $new_key;
-                }
-            }
+        public function get_extensions_available_in_subscriptions( array $args = [] ) {
+            $installed_extensions = ( ! empty( $args[ 'installed_extensions' ] ) ) ? $args[ 'installed_extensions' ] : [];
+            $installed_extensions_keys = $this->sanitize_extensions_keys( $installed_extensions );
 
             $extensions_available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
             $extensions_available_in_subscriptions = ( is_array( $extensions_available_in_subscriptions ) ) ? $extensions_available_in_subscriptions : [];
@@ -1465,28 +1465,59 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     }
                 }
             }
+            
 
             return $extensions_available_in_subscriptions;
         }
 
-        // get_extension_promo_list
-        public function get_extension_promo_list( $extensions_available_in_subscriptions = [] ) {
-            // Check Sassion
-            $has_subscriptions_sassion = get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
-            $is_logged_in = ( ! empty( $has_subscriptions_sassion ) ) ? true : false;
-            
-            // Filter all active extensions
+        // get_extensions_promo_list
+        public function get_extensions_promo_list( array $args = [] ) {
+            $installed_extensions = ( ! empty( $args[ 'installed_extensions' ] ) ) ? $args[ 'installed_extensions' ] : [];
+            $installed_extensions_keys = $this->sanitize_extensions_keys( $installed_extensions );
+
+            $extensions_available_in_subscriptions = ( ! empty( $args['extensions_available_in_subscriptions'] ) ) ? $args['extensions_available_in_subscriptions'] : [];
+            $extensions_available_in_subscriptions_keys = is_array( $extensions_available_in_subscriptions ) ? array_keys( $extensions_available_in_subscriptions ) : [];
+
+            // Filter extensions available in subscriptions
             $promo_extensions = $this->get_active_extensions();
-            if ( $is_logged_in && ! empty( $promo_extensions ) ) {
-                $extensions_available_in_subscriptions_keys = is_array( $extensions_available_in_subscriptions ) ? array_keys( $extensions_available_in_subscriptions ) : [];
+            if ( ! empty( $promo_extensions ) ) {
                 foreach ( $promo_extensions as $_extension_base => $_extension_args ) {
+                    $ext_key = preg_replace( '/(directorist-)/', '', $_extension_base );
+
+                    // Exclude Installed Extensions
+                    if ( is_array( $installed_extensions_keys ) && in_array( $ext_key, $installed_extensions_keys ) ) {
+                        unset( $promo_extensions[ $_extension_base ] );
+                    }
+
+                    // Exclude Subscripted Extensions
                     if ( in_array( $_extension_base, $extensions_available_in_subscriptions_keys ) ) {
                         unset( $promo_extensions[ $_extension_base ] );
                     }
                 }
             }
 
+            // atbdp_console_log([
+            //     'installed_extensions_keys' => $installed_extensions_keys,
+            //     'promo_extensions' => array_keys( $promo_extensions ),
+            // ]);
+
             return $promo_extensions;
+        }
+
+        // sanitize_extensions_keys
+        public function sanitize_extensions_keys( array $extensions_list = [] ) {
+            $extensions_keys = ( is_array( $extensions_list ) ) ? array_keys($extensions_list  ) : [];
+
+            if ( ! empty( $extensions_keys ) && is_array( $extensions_keys ) ) {
+                foreach( $extensions_keys as $index => $key) {
+                    $new_key = preg_replace( '/\/.+/', '', $key );
+                    $new_key = preg_replace( '/(directorist-)/', '', $new_key );
+
+                    $extensions_keys[ $index ] = $new_key;
+                }
+            }
+
+            return $extensions_keys;
         }
 
         // get_themes_overview
@@ -1577,25 +1608,16 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 $themes_available_in_subscriptions[ $_theme_key ] = $item;
             }
 
-
-            // Filter all active themes
-            $all_active_themes = $this->get_active_themes();
-            if ( $is_logged_in && ! empty( $all_active_themes ) ) {
-                $themes_available_in_subscriptions_keys = ( is_array( $themes_available_in_subscriptions ) ) ? array_keys( $themes_available_in_subscriptions ) : [];
-                foreach ( $all_active_themes as $_theme_base => $_extension_args ) {
-                    if ( in_array( $_theme_base, $themes_available_in_subscriptions_keys ) ) {
-                        unset( $all_active_themes[ $_theme_base ] );
-                    }
-                }
-            }
-
+            // themes_promo_list
+            $themes_promo_list = $this->get_themes_promo_list( $themes_available_in_subscriptions );
 
             $overview = [
-                'total_active_themes'               => $total_active_themes,       // $my_active_themes,
-                'total_outdated_themes'             => $total_outdated_themes,     // $my_outdated_themes,
-                'installed_theme_list'              => $installed_theme_list,      // $installed_theme_list,
-                'currrent_active_theme_info'        => $current_active_theme_info, // $active_theme,
-                'themes_available_in_subscriptions' => $themes_available_in_subscriptions,                         // $themes_available_in_subscriptions,
+                'total_active_themes'               => $total_active_themes,                 // $my_active_themes,
+                'total_outdated_themes'             => $total_outdated_themes,               // $my_outdated_themes,
+                'installed_theme_list'              => $installed_theme_list,                // $installed_theme_list,
+                'currrent_active_theme_info'        => $current_active_theme_info,           // $active_theme,
+                'themes_promo_list'                 => $themes_promo_list,                   // $themes_available_in_subscriptions,
+                'themes_available_in_subscriptions' => $themes_available_in_subscriptions,   // $themes_available_in_subscriptions,
             ];
 
 
@@ -1623,6 +1645,27 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             return $active_theme_info;
         }
 
+
+        // get_themes_promo_list
+        public function get_themes_promo_list( $themes_available_in_subscriptions = [] ) {
+            // Check Sassion
+            $has_subscriptions_sassion = get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
+            $is_logged_in = ( ! empty( $has_subscriptions_sassion ) ) ? true : false;
+
+            // Filter all active themes
+            $themes_promo_list = $this->get_active_themes();
+            if ( $is_logged_in && ! empty( $themes_promo_list ) ) {
+                $themes_available_in_subscriptions_keys = ( is_array( $themes_available_in_subscriptions ) ) ? array_keys( $themes_available_in_subscriptions ) : [];
+                foreach ( $themes_promo_list as $_theme_base => $_extension_args ) {
+                    if ( in_array( $_theme_base, $themes_available_in_subscriptions_keys ) ) {
+                        unset( $themes_promo_list[ $_theme_base ] );
+                    }
+                }
+            }
+
+            return $themes_promo_list;
+        }
+
         /**
          * It Loads Extension view
          */
@@ -1634,12 +1677,12 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $has_subscriptions_sassion = get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
             $is_logged_in = ( ! empty( $has_subscriptions_sassion ) ) ? true : false;
 
-            $settings_url           = admin_url( 'edit.php?post_type=at_biz_dir&page=aazztech_settings#_extensions_switch' );
+            $settings_url = admin_url( 'edit.php?post_type=at_biz_dir&page=aazztech_settings#_extensions_switch' );
 
             $extensions_overview = $this->get_extensions_overview();
-            $themes_overview = $this->get_themes_overview();
+            $themes_overview     = $this->get_themes_overview();
 
-            atbdp_console_log( ['extension_promo_list' => $extensions_overview['extension_promo_list']] );
+            // atbdp_console_log( ['extensions_promo_list' => $extensions_overview['extensions_promo_list']] );
 
             $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
             $hard_logout = ( $hard_logout ) ? 1 : 0;
@@ -1648,24 +1691,25 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 'is_logged_in' => $is_logged_in,
                 'hard_logout'  => $hard_logout,
 
-                'total_active_extensions'            => $extensions_overview['total_active_extensions'],
-                'total_outdated_extensions'          => $extensions_overview['total_outdated_extensions'],
-                'outdated_plugin_list'               => $extensions_overview['outdated_plugin_list'],
-                'installed_extension_list'           => $extensions_overview['installed_extension_list'],
-                'plugins_available_in_subscriptions' => $extensions_overview['extensions_available_in_subscriptions'],
-                'all_active_extensions'              => $extensions_overview['extension_promo_list'],
-
-                'total_active_themes'               => $themes_overview['total_active_themes'],   // $my_active_themes,
-                'total_outdated_themes'             => $themes_overview['total_outdated_themes'], // $my_outdated_themes,
-                'installed_theme_list'              => $themes_overview['installed_theme_list'],  // $installed_theme_list,
-                'currrent_active_theme'             => $themes_overview['currrent_active_theme'], // $active_theme,
-                'themes_available_in_subscriptions' => $themes_overview['themes_available_in_subscriptions'], // $themes_available_in_subscriptions,
+                'total_active_extensions'               => $extensions_overview['total_active_extensions'],
+                'total_outdated_extensions'             => $extensions_overview['total_outdated_extensions'],
+                'outdated_plugin_list'                  => $extensions_overview['outdated_plugin_list'],
+                'installed_extension_list'              => $extensions_overview['installed_extension_list'],
+                'extensions_available_in_subscriptions' => $extensions_overview['extensions_available_in_subscriptions'],
+                'extensions_promo_list'                 => $extensions_overview['extensions_promo_list'],
+                
+                'total_active_themes'               => $themes_overview['total_active_themes'],                 // $my_active_themes,
+                'total_outdated_themes'             => $themes_overview['total_outdated_themes'],               // $my_outdated_themes,
+                'installed_theme_list'              => $themes_overview['installed_theme_list'],                // $installed_theme_list,
+                'currrent_active_theme_info'        => $themes_overview['currrent_active_theme_info'],          // $active_theme,
+                'themes_available_in_subscriptions' => $themes_overview['themes_available_in_subscriptions'],   // $themes_available_in_subscriptions,
+                'themes_promo_list'                 => $themes_overview['themes_promo_list'],
                 
                 'extension_list' => $this->extensions,
                 'theme_list'     => $this->themes,
                 
-                'all_active_themes'     => $all_active_themes,
-                'all_purshased_themes'  => $all_purshased_themes,
+                // 'all_active_themes'     => $all_active_themes,
+                // 'all_purshased_themes'  => $all_purshased_themes,
                 'settings_url'          => $settings_url,
             ];
 

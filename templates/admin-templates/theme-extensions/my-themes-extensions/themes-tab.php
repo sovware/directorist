@@ -3,22 +3,22 @@
     <div class="theme-card-wrapper">
         <div class="theme-card">
             <figure>
-                <img src="<?php echo $args['currrent_active_theme']['thumbnail']; ?>" alt="">
+                <img src="<?php echo $args['currrent_active_theme_info']['thumbnail']; ?>" alt="">
                 <figcaption>
                     <div class="theme-title">
-                        <h5><?php echo $args['currrent_active_theme']['name']; ?></h5>
-                        <span class="theme-version">v<?php echo $args['currrent_active_theme']['version']; ?></span>
+                        <h5><?php echo $args['currrent_active_theme_info']['name']; ?></h5>
+                        <span class="theme-version">v<?php echo $args['currrent_active_theme_info']['version']; ?></span>
                     </div>
                     <div class="theme-action">
-                        <a href="<?php echo $args['currrent_active_theme']['customizer_link']; ?>" target="_blank" class="theme-action-btn btn-customize"><?php _e( 'Customize', 'directorist' ) ?></a>
+                        <a href="<?php echo $args['currrent_active_theme_info']['customizer_link']; ?>" target="_blank" class="theme-action-btn btn-customize"><?php _e( 'Customize', 'directorist' ) ?></a>
                     </div>
                 </figcaption>
             </figure>
 
-            <?php if ( $args['currrent_active_theme']['has_update'] ) : ?>
+            <?php if ( $args['currrent_active_theme_info']['has_update'] ) : ?>
             <div class="theme-card__footer">
                 <p class="theme-update theme-update--available"><?php _e( 'Update available', 'directorist' ) ?> <!-- <a hre="#" class="whats-new" data-target="whats-new-modal">What's new?</a> --></p> 
-                <a href="#" class="theme-update-btn" data-target="<?php echo $args['currrent_active_theme']['stylesheet'] ?>"><?php _e( 'Update', 'directorist' ) ?></a>
+                <a href="#" class="theme-update-btn" data-target="<?php echo $args['currrent_active_theme_info']['stylesheet'] ?>"><?php _e( 'Update', 'directorist' ) ?></a>
             </div>
             <?php endif; ?>
 

@@ -636,6 +636,7 @@ class Directorist_Listing_Forms {
 	}
 
 	public function get_listing_types() {
+		$enable_multi_directory = get_directorist_option( 'enable_multi_directory' );
 		$listing_types = array();
 		$all_types     = get_terms(
 			array(
@@ -645,11 +646,23 @@ class Directorist_Listing_Forms {
 		);
 
 		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = [
-				'term' => $type,
-				'name' => $type->name,
-				'data' => get_term_meta( $type->term_id, 'general_config', true ),
-			];
+			if(  empty( $enable_multi_directory ) ) {
+				$is_default = get_term_meta( $type->term_id, '_default', true );
+				if ( $is_default ) {
+					$listing_types[ $type->term_id ] = [
+						'term' => $type,
+						'name' => $type->name,
+						'data' => get_term_meta( $type->term_id, 'general_config', true ),
+					];
+					break;
+				}
+			} else {	
+				$listing_types[ $type->term_id ] = [
+					'term' => $type,
+					'name' => $type->name,
+					'data' => get_term_meta( $type->term_id, 'general_config', true ),
+				];
+			}
 		}
 		return $listing_types;
 	}

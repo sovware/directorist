@@ -1,2 +1,0 @@
-import './cpt_manager';
-

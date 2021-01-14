@@ -1,8 +1,8 @@
 <template>
-    <div class="cptm-form-group" :class="formGroupClass">
+    <div class="cptm-form-group">
         <div class="atbdp-row">
             <div class="atbdp-col atbdp-col-4">
-                <label v-if="( 'hidden' !== type && label.length )" :for="name">{{ label }}</label>
+                <label v-if="( label.length )" :for="name">{{ label }}</label>
                 <p class="cptm-form-group-info" v-if="description.length" v-html="description"></p>
             </div>
 

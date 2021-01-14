@@ -2,55 +2,7 @@
     <?php atbdp_show_flush_alerts( ['page' => 'all-listing-type'] ) ?>
 
     <hr class="wp-header-end">
-    <div class="cptm-modal-container cptm-import-directory-modal">
-        <div class="cptm-modal-wrap">
-            <div class="cptm-modal">
-                <div class="cptm-modal-content">
-                    <div class="cptm-modal-header">
-                        <h3 class="cptm-modal-header-title"><?php _e( 'Import', 'directorist' ); ?></h3>
-                        <div class="cptm-modal-actions">
-                            <a href="#" class="cptm-modal-action-link cptm-modal-toggle" data-target="cptm-import-directory-modal">
-                                <span class="fa fa-times"></span>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <div class="cptm-modal-body cptm-center-content cptm-content-wide">
-                        <form action="#" method="post" class="cptm-import-directory-form">
-                            <div class="cptm-form-group cptm-mb-10">
-                                <input type="text" name="directory-name" class="cptm-form-control cptm-text-center cptm-form-field" placeholder="Directory Name">
-                            </div>
 
-                            <div class="cptm-form-group-feedback cptm-text-center cptm-mb-10"></div>
-
-                            <div class="cptm-file-input-wrap">
-                                <label for="directory-import-file" class="cptm-btn cptm-btn-secondery"><?php _e( 'Select File', 'directorist' ); ?></label>
-                                <button type="submit" class="cptm-btn cptm-btn-primary">
-                                    <span class="cptm-loading-icon cptm-d-none">
-                                        <span class="fa fa-spin fa fa-spinner"></span>
-                                    </span>
-                                    <?php _e( 'Import', 'directorist' ); ?>
-                                </button>
-                                <input id="directory-import-file" name="directory-import-file" type="file" accept=".json" class="cptm-d-none cptm-form-field cptm-file-field">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="cptm-section-alert-area cptm-import-directory-modal-alert cptm-d-none">
-                    <div class="cptm-section-alert-content">
-                        <div class="cptm-section-alert-icon cptm-alert-success">
-                            <span class="fa fa-check"></span>
-                        </div>
-
-                        <div class="cptm-section-alert-message">
-                            <?php _e( 'The directory has been imported successfuly, redirecting...', 'directorist' ); ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="directorist_builder-wrap">
         <div class="directorist_builder-header">
             <div class="directorist_builder-header__left">
@@ -135,14 +87,16 @@
                                             if( $listing_types ) {
                                                 foreach( $listing_types as $listing_type) {
                                                     $default = get_term_meta( $listing_type->term_id, '_default', true );
-                                                    $edit_link   = admin_url('edit.php' . '?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . absint( $listing_type->term_id ) . '&action=edit');
+                                                    $edit_link = admin_url('edit.php' . '?post_type=at_biz_dir&page=atbdp-directory-types&listing_type_id=' . absint( $listing_type->term_id ) . '&action=edit');
                                                     $delete_link = admin_url('admin-post.php' . '?listing_type_id=' . absint( $listing_type->term_id ) . '&action=delete_listing_type');
                                                     $delete_link = wp_nonce_url( $delete_link, 'delete_listing_type');
                                                     $created_time = get_term_meta( $listing_type->term_id, '_created_date', true );             
                                             ?>
                                             <tr>
                                                 <td>
-                                                    <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_title"><?php echo ! empty( $listing_type->name ) ? $listing_type->name : '-'; ?></a>
+                                                    <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_title">
+                                                        <?php echo ! empty( $listing_type->name ) ? $listing_type->name : '-'; ?>
+                                                    </a>
                                                 </td>
                                                 <td><span class="directorist_listing-count"><?php echo $listing_type->count; ?></span></td>
                                                 <td><?php 
@@ -154,8 +108,10 @@
                                                     <div class="directorist_listing-actions">
                                                         <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_btn directorist_btn-primary"><i class="la la-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>
                                                         <?php  
-                                                        if( ! $default ) {  ?>
-                                                        <a href="<?php echo ! empty( $delete_link ) ? $delete_link : '#'; ?>" class="directorist_btn directorist_btn-danger directorist_btn-transparent"><i class="la la-trash"></i><?php _e( 'Delete', 'directorist' ); ?></a>
+                                                        if ( ! $default ) {  ?>
+                                                        <a href="#" class="directorist_btn directorist_btn-danger directorist_btn-transparent cptm-modal-toggle atbdp-directory-delete-link-action" data-delete-link="<?php echo $delete_link; ?>" data-target="cptm-delete-directory-modal">
+                                                            <i class="la la-trash"></i><?php _e( 'Delete', 'directorist' ); ?>
+                                                        </a>
                                                         <?php  }
                                                         if( ! $default ) {  ?>
                                                             <div data-type-id="<?php echo absint( $listing_type->term_id ); ?>" class="directorist_listing-type-checkbox directorist_custom-checkbox submitdefault">
@@ -190,6 +146,93 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model : Import Directory -->
+<div class="cptm-modal-container cptm-import-directory-modal">
+    <div class="cptm-modal-wrap">
+        <div class="cptm-modal">
+            <div class="cptm-modal-content">
+                <div class="cptm-modal-header">
+                    <h3 class="cptm-modal-header-title"><?php _e( 'Import', 'directorist' ); ?></h3>
+                    <div class="cptm-modal-actions">
+                        <a href="#" class="cptm-modal-action-link cptm-modal-toggle" data-target="cptm-import-directory-modal">
+                            <span class="fa fa-times"></span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="cptm-modal-body cptm-center-content cptm-content-wide">
+                    <form action="#" method="post" class="cptm-import-directory-form">
+                        <div class="cptm-form-group cptm-mb-10">
+                            <input type="text" name="directory-name" class="cptm-form-control cptm-text-center cptm-form-field" placeholder="Directory Name">
+                        </div>
+
+                        <div class="cptm-form-group-feedback cptm-text-center cptm-mb-10"></div>
+
+                        <div class="cptm-file-input-wrap">
+                            <label for="directory-import-file" class="cptm-btn cptm-btn-secondery"><?php _e( 'Select File', 'directorist' ); ?></label>
+                            <button type="submit" class="cptm-btn cptm-btn-primary">
+                                <span class="cptm-loading-icon cptm-d-none">
+                                    <span class="fa fa-spin fa fa-spinner"></span>
+                                </span>
+                                <?php _e( 'Import', 'directorist' ); ?>
+                            </button>
+                            <input id="directory-import-file" name="directory-import-file" type="file" accept=".json" class="cptm-d-none cptm-form-field cptm-file-field">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="cptm-section-alert-area cptm-import-directory-modal-alert cptm-d-none">
+                <div class="cptm-section-alert-content">
+                    <div class="cptm-section-alert-icon cptm-alert-success">
+                        <span class="fa fa-check"></span>
+                    </div>
+
+                    <div class="cptm-section-alert-message">
+                        <?php _e( 'The directory has been imported successfuly, redirecting...', 'directorist' ); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model : Delete Directory -->
+<div class="cptm-modal-container cptm-delete-directory-modal">
+    <div class="cptm-modal-wrap">
+        <div class="cptm-modal">
+            <div class="cptm-modal-content">
+                <div class="cptm-modal-header">
+                    <h3 class="cptm-modal-header-title"><?php _e( 'Delete Derectory', 'directorist' ); ?></h3>
+                    <div class="cptm-modal-actions">
+                        <a href="#" class="cptm-modal-action-link cptm-modal-toggle" data-target="cptm-delete-directory-modal">
+                            <span class="fa fa-times"></span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="cptm-modal-body cptm-center-content cptm-content-wide">
+                    <form action="#" method="post" class="cptm-import-directory-form">
+                        <div class="cptm-form-group-feedback cptm-text-center cptm-mb-10"></div>
+                                        
+                        <h2 class="cptm-title-2 cptm-text-center"><?php _e( 'Are you sure?', 'directorist' ) ?></h2>
+
+                        <div class="cptm-file-input-wrap">
+                            <a href="#" class="cptm-btn cptm-btn-secondary  atbdp-directory-delete-cancel-link" data-target="cptm-delete-directory-modal">
+                                <?php _e( 'Cancel', 'directorist' ); ?>
+                            </a>
+
+                            <a href="#" class="cptm-btn cptm-btn-danger atbdp-directory-delete-link">
+                                <?php _e( 'Delete', 'directorist' ); ?>
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

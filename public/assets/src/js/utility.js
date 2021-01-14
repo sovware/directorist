@@ -4,6 +4,11 @@ document.querySelectorAll('.la-icon i').forEach(function(item) {
     className.push(item.getAttribute('class'))
 });
 
+// Handle Disabled Link Action
+$('.atbdp-disabled').on( 'click', function( e ) {
+    e.preventDefault();
+});
+
 // Toggle Modal
 $( '.cptm-modal-toggle' ).on( 'click', function( e ) {
     e.preventDefault();
@@ -17,3 +22,5 @@ $('.cptm-file-field').on( 'change', function( e ) {
     let target_id = $( this ).attr( 'id' );
     $( 'label[for='+ target_id +']').text( 'Change' );
 });
+
+

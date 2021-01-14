@@ -710,7 +710,9 @@
       margin-right: 12px;
 
       img {
-        max-width: 44px;
+        width: 44px;
+        height: 44px;
+        object-fit: cover;
         border-radius: 6px;
       }
     }

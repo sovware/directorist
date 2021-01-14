@@ -72,7 +72,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
 
     .btn_search,
     .more-filter {
@@ -103,13 +103,35 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      margin-left: -5px;
-      margin-right: -5px;
+      margin: -5px;
+
+      .single_search_field,
+      .atbd_submit_btn_wrapper {
+        flex: 0 0 25%;
+      }
 
       .single_search_field {
-        flex: 1;
-        padding-left: 5px !important;
-        padding-right: 5px !important;
+        padding: 5px !important;
+
+        .custom-control {
+          padding: 0 20px;
+
+          .custom-control-input {
+            position: static;
+          }
+        }
+
+        .bads-tags {
+          .custom-control {
+            .custom-control-input {
+              display: none;
+            }
+          }
+        }
+
+        .atbdp-range-slider-wrapper {
+          padding: 0 20px;
+        }
 
         .form-control {
           width: 100%;
@@ -527,7 +549,6 @@
     align-items: center;
     flex: 1;
     margin: 0 -5px -10px;
-    width: 0;
 
     .range_single {
       padding: 0 5px;

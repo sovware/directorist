@@ -28,8 +28,8 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         {
             add_action( 'admin_menu', array($this, 'admin_menu'), 100 );
             add_action( 'init', array( $this, 'get_the_product_list') );
-            add_filter( 'atbdp_extension_list', array( $this, 'exclude_purchased_extensions'), 20, 1 );
-            add_filter( 'atbdp_theme_list', array( $this, 'exclude_purchased_themes'), 20, 1 );
+            // add_filter( 'atbdp_extension_list', array( $this, 'exclude_purchased_extensions'), 20, 1 );
+            // add_filter( 'atbdp_theme_list', array( $this, 'exclude_purchased_themes'), 20, 1 );
             
             // Ajax
             add_action( 'wp_ajax_atbdp_authenticate_the_customer', array($this, 'authenticate_the_customer') );
@@ -1535,11 +1535,21 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $active_theme_slug     = get_option('stylesheet');
             $installed_theme_list  = [];
             $total_active_themes   = 0;
-            $total_outdated_themes = 0;
+            $total_outdated_themes = 0; 
 
             foreach ( $all_themes as $theme_base => $theme_data ) {
                 if ( in_array( $theme_base, $sovware_themes ) ) {
-                    $installed_theme_list[ $theme_base ] = $theme_data;
+                    $customizer_link = "customize.php?theme={$theme_data->stylesheet}&return=%2Fwp-admin%2Fthemes.php";
+                    $customizer_link = admin_url( $customizer_link );
+
+                    $installed_theme_list[ $theme_base ] = [
+                        'name'            => $theme_data->name,
+                        'version'         => $theme_data->version,
+                        'thumbnail'       => $theme_data->get_screenshot(),
+                        'customizer_link' => $customizer_link,
+                        'has_update'      => ( in_array( $theme_data->stylesheet, $outdated_themes_keys ) ) ? true : false,
+                        'stylesheet'      => $theme_data->stylesheet,
+                    ];
 
                     if ( $active_theme_slug === $theme_base ) {
                         $total_active_themes++;
@@ -1551,48 +1561,34 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                 }
             }
 
-            // $purchased_products     = get_user_meta( get_current_user_id(), '_atbdp_purchased_products', true );
-            // $has_purchased_products = ( ! empty( $purchased_products )  ) ? true : false;
-
             $current_active_theme_info = $this->get_current_active_theme_info( [ 'outdated_themes_keys' => $outdated_themes_keys ] );
-
-            // Installed Installed Themes Info
-            $all_purshased_themes = [];
-            foreach ( $installed_theme_list as $theme_base => $purshased_theme ) {
-                if ( $current_active_theme_info[ 'stylesheet' ] === $theme_base ) { continue; }
-
-                $customizer_link = "customize.php?theme={$purshased_theme->stylesheet}&return=%2Fwp-admin%2Fthemes.php";
-                $customizer_link = admin_url( $customizer_link );
-
-                $all_purshased_themes[ $theme_base ] = [
-                    'name'            => $purshased_theme->name,
-                    'version'         => $purshased_theme->version,
-                    'thumbnail'       => $purshased_theme->get_screenshot(),
-                    'customizer_link' => $customizer_link,
-                    'has_update'      => ( in_array( $purshased_theme->stylesheet, $outdated_themes_keys ) ) ? true : false,
-                    'stylesheet'      => $purshased_theme->stylesheet,
-                ];
-            }
+            $installed_themes_keys = ( is_array( $installed_theme_list ) ) ? array_keys( $installed_theme_list ) : [];
+            
+            // Remove active theme from theme list
+            // if ( in_array( $current_active_theme_info[ 'stylesheet' ], $installed_themes_keys ) ) {
+            //     unset( $installed_theme_list[ 'stylesheet' ] );
+            // }
 
             // Themes available in subscriptions
-            $all_purshased_themes_keys = ( is_array( $all_purshased_themes ) ) ? array_keys( $all_purshased_themes ) : [];
             $_themes_available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
-            if ( ! empty( $_themes_available_in_subscriptions ) && ! empty( $all_purshased_themes_keys ) ) {
-                $_active_theme_key = $current_active_theme_info[ 'stylesheet' ];
-                unset( $_themes_available_in_subscriptions[ $_active_theme_key ] );
+            if ( ! empty( $_themes_available_in_subscriptions ) && ! empty( $installed_themes_keys ) ) {
+                // $_active_theme_key = $current_active_theme_info[ 'stylesheet' ];
+                // unset( $_themes_available_in_subscriptions[ $_active_theme_key ] );
 
                 foreach( $_themes_available_in_subscriptions as $base => $args ) {
-                    if ( in_array( $base, $all_purshased_themes_keys ) ) {
-                        unset( $_themes_available_in_subscriptions[ $base ] );
+                    if ( in_array( $base, $installed_themes_keys ) ) {
+                        // unset( $_themes_available_in_subscriptions[ $base ] );
+                        $_themes_available_in_subscriptions[ $base ][ 'is_installed' ] = true;
                     }
                 }
             }
+
             $_themes_available_in_subscriptions_keys = is_array($_themes_available_in_subscriptions) ? array_keys( $_themes_available_in_subscriptions ) : [];
             $themes_available_in_subscriptions = [];
 
             // Import themes which are installed
-            foreach ( $all_purshased_themes as $_theme_key => $_theme_atgs ) {
-                $item = $all_purshased_themes[ $_theme_key ];
+            foreach ( $installed_theme_list as $_theme_key => $_theme_atgs ) {
+                $item = $installed_theme_list[ $_theme_key ];
                 $item[ 'is_installed' ] = true;
 
                 $themes_available_in_subscriptions[ $_theme_key ] = $item;

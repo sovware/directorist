@@ -1224,6 +1224,7 @@
         });
     }
 
+
 })(jQuery);
   // on load of the page: switch to the currently selected tab
   var tab_url = window.location.href.split("/").pop();

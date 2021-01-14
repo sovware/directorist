@@ -4377,7 +4377,7 @@ KAMAL;
 
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
                 'listing_settings' => [
-                    'label' => __( 'Listing', 'directorist' ),
+                    'label' => __( 'Listings', 'directorist' ),
                     'icon' => '<i class="fa fa-list directorist_Blue"></i>',
                     'submenu' => apply_filters('atbdp_listing_settings_submenu', [
                         'general' => [

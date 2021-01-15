@@ -118,7 +118,7 @@ class ATBDP_Metabox {
 		$expire_in_days         = get_directorist_option('listing_expire_in_days');
 		$f_active               = get_directorist_option('enable_featured_listing');
 		$never_expire           = get_post_meta($post->ID, '_never_expire', true);
-		$never_expire           = !empty($never_expire) ? (int) $never_expire : (empty($expire_in_days) ? 1 : 0);
+		$never_expire           = !empty($never_expire) ? (int) $never_expire : '';
 
 		$e_d                    = get_post_meta($post->ID, '_expiry_date', true);
 		$e_d                    = !empty($e_d) ? $e_d : calc_listing_expiry_date();

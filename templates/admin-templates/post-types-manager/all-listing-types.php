@@ -128,7 +128,7 @@
                                                         <?php }else {
                                                              ?>
                                                              <div class="directorist_listing-type-checkbox-wrap">
-                                                                <div class="directorist_listing-type-checkbox directorist_custom-checkbox">
+                                                                <div class="directorist_listing-type-checkbox directorist_custom-checkbox directorist_listing-type-default">
                                                                     <input type="checkbox" checked name="check-1" id="check-1">
                                                                     <label for="check-1">
                                                                         <span class="checkbox-text">

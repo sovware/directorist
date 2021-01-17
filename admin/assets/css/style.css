@@ -4499,6 +4499,10 @@ input.atbdp-form-control {
   top: 25%;
 }
 
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap .directorist_listing-type-default {
+  pointer-events: none;
+}
+
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .atbd-listing-type-active-status {
   margin-top: 15px;
   margin-left: 0;

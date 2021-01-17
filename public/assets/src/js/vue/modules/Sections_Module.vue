@@ -2,8 +2,8 @@
     <div class="cptm-tab-content" :class="containerClass">
         <div class="cptm-section" :class="sectionClass( section )" v-for="( section, section_key ) in sections" :key="section_key">
             <div class="cptm-title-area" :class="sectionTitleAreaClass( section )">
-                <h3 v-if="typeof section.title === 'string'" class="cptm-title" v-html="section.title"></h3>
-                <p v-if="typeof section.description === 'string'" v-html="section.description"></p>
+                <h3 v-if="section.title" class="cptm-title" v-html="section.title"></h3>
+                <p v-if="section.description" v-html="section.description"></p>
             </div>
             
             <div class="cptm-form-fields" v-if="sectionFields( section )">
@@ -89,6 +89,7 @@ export default {
 
         sectionTitleAreaClass( section ) {
             return {
+                'directorist-no-header': ( ! section.title && ! section.description ),
                 'cptm-text-center': ( 'center' === section.title_align ) ? true : false,
             }
         },

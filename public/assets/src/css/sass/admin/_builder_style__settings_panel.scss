@@ -28,6 +28,11 @@ $settings-primary-color: #3e62f5;
             border-bottom: 1px solid #F1F2F6;
             padding-bottom: 8px;
             margin-bottom: 20px;
+            &.directorist-no-header{
+                border-bottom: 0 none;
+                margin-bottom: 0;
+                padding-bottom: 0;
+            }
             .cptm-title {
                 font-size: 18px;
                 font-weight: 500;

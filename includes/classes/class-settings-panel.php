@@ -4393,7 +4393,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-sliders-h"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_general_sections', [
                                 'general_settings' => [
-                                    'description' => '',
                                     'fields'      => [
                                         'enable_multi_directory',
                                         'new_listing_status',

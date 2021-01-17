@@ -13,7 +13,7 @@
                 <!-- atbdp-counter-list__item -->
                 <li class="atbdp-counter-list__item">
                     <span class="atbdp-counter-list__number">
-                        <?php echo count( $args[ 'installed_extension_list' ] ); ?>
+                        <?php echo $args[ 'total_available_extensions' ]; ?>
                     </span>
                     <span class="atbdp-counter-list__label">Available Extensions</span>
                 </li>
@@ -29,7 +29,7 @@
                 <!-- atbdp-counter-list__item -->
                 <li class="atbdp-counter-list__item">
                     <span class="atbdp-counter-list__number">
-                        <?php echo count( $args[ 'installed_theme_list' ] ); ?>
+                        <?php echo $args[ 'total_available_themes' ]; ?>
                     </span>
                     <span class="atbdp-counter-list__label">Available Theme</span>
                 </li>

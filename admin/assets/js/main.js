@@ -2076,6 +2076,8 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                 const data_key = $(this).data('key');
                 const data_type = $(this).data('type');
 
+                console.log( { data_key } );
+
                 const form_data = {
                         action: 'atbdp_install_file_from_subscriptions',
                         item_key: data_key,
@@ -2409,6 +2411,8 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                         const next_index = counter + 1;
 
                         // console.log( {counter, next_index, current_item, action_wrapper, install_btn} );
+
+                        console.log( { current_item } );
 
                         form_data = {
                                 action: 'atbdp_install_file_from_subscriptions',

@@ -22,7 +22,6 @@
                 <div class="atbdp-tab-sub-contents" v-if="menu.submenu">
                     <template v-for="( submenu, submenu_key ) in menu.submenu" >
                         <div :id="menu_key + '__' + submenu_key" class="atbdp-tab-content-item" v-if="submenu.active" :key="submenu_key">
-                            <h2 class="cptm-menu-title cptm-submenu-title">{{ submenu.label }}</h2>
                             
                             <sections-module 
                                 v-if="submenu.sections" 

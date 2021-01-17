@@ -4591,7 +4591,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                             'label' => 'Settings',
                             'sections' => apply_filters( 'atbdp_submission_form_settings', [
                                 'submittion_settings' => [
-                                    'title' => __('Submittion Settings', 'directorist'),
+                                    'title' => __('Submission Settings', 'directorist'),
                                     'container' => 'short-width',
                                     'fields' => [
                                         'preview_mode',
@@ -4599,7 +4599,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                     ],
                                 ],
                                 /* 'guest_submission' => [
-                                    'title' => __('Guest Submittion', 'directorist'),
+                                    'title' => __('Guest Submission', 'directorist'),
                                     'container' => 'short-width',
                                     'fields' => [
                                         'guest_email_label',
@@ -4757,7 +4757,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ];
 
                 $this->layouts['submission_form']['submenu']['settings']['sections']['guest_submission'] = [
-                    'title' => __('Guest Submittion', 'directorist'),
+                    'title' => __('Guest Submission', 'directorist'),
                     'container' => 'short-width',
                     'fields' => [
                         'guest_email_label',

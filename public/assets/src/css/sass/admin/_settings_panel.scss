@@ -3,7 +3,28 @@
     .directorist_builder-header {
         margin-bottom: 30px;
     }
-
+    .atbdp-settings-manager__top{
+        max-width: 1200px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .directorist_builder-links{
+            margin: 0 ;
+            padding: 0;
+            li{
+                display: inline-block;
+                margin-bottom: 0;
+                &:not(:last-child){
+                    margin-right: 25px;
+                }
+                a{
+                    font-size: 14px;
+                    text-decoration: none;
+                    color: #5A5F7D;
+                }
+            }
+        }
+    }
     .atbdp-settings-manager__title {
         display: flex;
         align-items: center;
@@ -11,9 +32,10 @@
         font-size: 24px;
         font-weight: 500;
         color: $dark;
-        margin-bottom: 40px;
+        margin-bottom: 28px;
         .directorist_settings-trigger{
             display: none;
+            margin: 8px 0 0 30px;
             @media only screen and (max-width: 575px) {
                 display: block;
             }
@@ -21,6 +43,30 @@
     }
 }
 
+.directorist_vertical-align-m{
+    display: flex;
+    align-items: center;
+    .directorist_item{
+        display: flex;
+    }
+}
+
+// Settings Panel Buttons
+.atbdp-settings-manager {
+    .atbdp-tab-sub-contents{
+        .directorist_btn-start{
+            font-size: 14px;
+            font-weight: 500;
+            color: #2C99FF;
+            border-radius: 18px;
+            padding: 6px 13px;
+            text-decoration: none;
+            border-color: #2C99FF;
+            margin-bottom: 0;
+            margin-left: 20px;
+        }
+    }
+}
 // Settings Panle Grid
 .atbdp-settings-manager {
     .settings-contents{
@@ -76,8 +122,61 @@
     flex-wrap: wrap;
     justify-content: space-between;
 
-    @media only screen and (max-width: 575px) {
+    @media only screen and (max-width: 767px) {
         flex-direction: column;
+    }
+
+    .atbdp-setting-top-bar-right{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        @media only screen and (max-width: 767px) {
+            margin-top: 15px;
+        }
+        .setting-top-bar__search-field{
+            margin-right: 5px;
+            input{
+                border-radius: 20px;
+            }
+        }
+    }
+
+    .directorist_setting-panel__pages{
+        margin: 0;
+        padding: 0;
+        li{
+            display: inline-block;
+            margin-bottom: 0;
+            .directorist_setting-panel__pages--link{
+                text-decoration: none;
+                font-size: 14px;
+                font-weight: 400;
+                color: #ffffff50;
+                &.active{
+                    color: #fff;
+                    &::before{
+                        color: #ffffff50;
+                    }
+                }
+                &:focus{
+                    outline: 0 none;
+                    box-shadow: 0 0;
+                }
+            }
+        }
+        
+        li + li{
+            .directorist_setting-panel__pages--link{
+                &:before{
+                    font-family: "Font Awesome 5 Free", "Font Awesome 5 Brands";
+                    content: '\f105';
+                    margin: 0px 2px 0 5px;
+                    font-weight: 900;
+                    position: relative;
+                    top: 1px;
+                }
+            }
+        }
     }
 
     .search-suggestions-list {
@@ -293,9 +392,10 @@
 
 .settings-nav__item__icon {
     display: inline-block;
-    width: 28px;
+    width: 32px;
 
     i {
+        font-size: 15px;
         &.directorist_Blue {
             color: #3E62F5
         }
@@ -343,6 +443,10 @@
     color: #5A5F7D;
     transition: 0.3s ease;
     border-left: 2px solid transparent;
+    &:focus{
+        box-shadow: 0 0;
+        outline: 0 none;
+    }
 }
 
 .settings-nav__item ul li a.active {
@@ -398,6 +502,13 @@ span.drop-toggle-caret:before {
     display: flex;
     flex-wrap: wrap;
     color: #272b41;
+}
+
+.atbdp-settings-panel{
+    .cptm-form-control,
+    .directorist_dropdown{
+        max-width: 500px !important;
+    }
 }
 
 // Directorist Range Slider

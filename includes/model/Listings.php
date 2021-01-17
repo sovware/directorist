@@ -322,28 +322,6 @@ class Directorist_Listings {
 		$this->is_disable_price           = $this->options['disable_list_price'];
 		$this->disable_single_listing     = $this->options['disable_single_listing'];
 		$this->disable_contact_info       = $this->options['disable_contact_info'];
-		$this->display_title              = $this->options['display_title'];
-		$this->display_review             = $this->options['enable_review'];
-		$this->display_price              = $this->options['display_price'];
-		$this->display_email              = $this->options['display_email'];
-		$this->display_web_link           = $this->options['display_web_link'];
-		$this->display_category           = $this->options['display_category'];
-		$this->display_mark_as_fav        = $this->options['display_mark_as_fav'];
-		$this->display_publish_date       = $this->options['display_publish_date'];
-		$this->display_contact_info       = $this->options['display_contact_info'];
-		$this->display_feature_badge_cart = $this->options['display_feature_badge_cart'];
-		$this->display_popular_badge_cart = $this->options['display_popular_badge_cart'];
-		$this->enable_tagline             = $this->options['enable_tagline'];
-		$this->enable_excerpt             = $this->options['enable_excerpt'];
-		$this->display_author_image       = $this->options['display_author_image'];
-		$this->display_tagline_field      = $this->options['display_tagline_field'];
-		$this->display_pricing_field      = $this->options['display_pricing_field'];
-		$this->display_excerpt_field      = $this->options['display_excerpt_field'];
-		$this->display_address_field      = $this->options['display_address_field'];
-		$this->display_phone_field        = $this->options['display_phone_field'];
-		$this->display_readmore           = $this->options['display_readmore'];
-		$this->address_location           = $this->options['address_location'];
-		$this->excerpt_limit              = $this->options['excerpt_limit'];
 		$this->display_map_info           = $this->options['display_map_info'];
 		$this->display_image_map          = $this->options['display_image_map'];
 		$this->display_title_map          = $this->options['display_title_map'];
@@ -1504,8 +1482,7 @@ class Directorist_Listings {
 		public function loop_get_the_thumbnail( $class='' ) {
 			$type              = $this->current_listing_type;
 			$type_general      = get_term_meta( $type, 'general_config', true );
-			$default_image_src = is_array( $type_general['preview_image'] ) ? $type_general['preview_image']['url'] : '';
-			$default_image_src = ( ! empty( $default_image_src ) ) ? $default_image_src : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' ;
+			$default_image_src = ( ! empty( $type_general['preview_image'] ) ) ? $type_general['preview_image'] : ATBDP_PUBLIC_ASSETS . 'images/grid.jpg' ;
 
 			$id = get_the_ID();
 			$image_quality     = get_directorist_option('preview_image_quality', 'large');
@@ -1532,7 +1509,7 @@ class Directorist_Listings {
 				$thumbnail_id = 0;
 			}
 
-			$image_src    = is_array($thumbnail_img) ? $thumbnail_img[0] : $thumbnail_img;
+			$image_src    = $thumbnail_img;
 			$image_alt = get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true);
 			$image_alt = ( ! empty( $image_alt ) ) ? esc_attr( $image_alt ) : esc_html( get_the_title( $thumbnail_id ) );
 			$image_alt = ( ! empty( $image_alt ) ) ? $image_alt : esc_html( get_the_title() );

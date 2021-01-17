@@ -60,6 +60,14 @@ if ( ! class_exists('ATBDP_Settings_Panel') ) {
                         'action' => 'updateData',
                         'args'   => [ 'reload_after_save' => true ]
                     ],
+                    'componets' => [
+                        'link' => [
+                            'label' => __( 'Start Building Directory', 'directorist' ),
+                            'type'  => 'success',
+                            'url'   => admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-directory-types' ),
+                            'show'  => get_directorist_option( 'enable_multi_directory', false ),
+                        ]
+                    ]
                 ];
 
                 $fields['regenerate_pages'] = [
@@ -4474,7 +4482,7 @@ KAMAL;
 
                         'map' => [
                             'label' => __('Map', 'directorist'),
-                            'icon' => '<i class="fa fa-map-signs"></i>',
+                            'icon' => '<i class="fa fa-map"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_map_sections', [
                                 'map_settings' => [
                                     'title'       => __('Map', 'directorist'),
@@ -4498,7 +4506,7 @@ KAMAL;
 
                 'page_settings' => [
                     'label' => __( 'Page Setup', 'directorist' ),
-                    'icon' => '<i class="fa fa-chart-line directorist_wordpress"></i>',
+                    'icon' => '<i class="fa fa-desktop directorist_wordpress"></i>',
                     'sections' => apply_filters( 'atbdp_listing_settings_page_settings_sections', [
                         'upgrade_pages' => [
                             'title'       => __('Upgrade/Regenerate Pages', 'directorist'),
@@ -4552,7 +4560,7 @@ KAMAL;
 
                 'user_settings' => [
                     'label' => __( 'User', 'directorist' ),
-                    'icon' => '<i class="fa fa-users directorist_green"></i>',
+                    'icon' => '<i class="fa fa-users-cog directorist_green"></i>',
                     'submenu' => apply_filters('atbdp_user_settings_submenu', [
                         'registration_form' => [
                             'label' => __('Registration Form', 'directorist'),
@@ -4718,7 +4726,7 @@ KAMAL;
 
                 'email_settings' => [
                     'label' => __( 'Email', 'directorist' ),
-                    'icon' => '<i class="fa fa-envelope directorist_info"></i>',
+                    'icon' => '<i class="fa fa-envelope directorist_Blue"></i>',
                     'submenu' => apply_filters('atbdp_email_settings_submenu', [
                         'email_general' => [
                             'label' => __('Email General', 'directorist'),
@@ -4842,7 +4850,7 @@ KAMAL;
 
                 'monetization_settings' => [
                     'label' => __( 'Monetization', 'directorist' ),
-                    'icon' => '<i class="fa fa-money-bill-alt directorist_success"></i>',
+                    'icon' => '<i class="fa fa-credit-card directorist_info"></i>',
                     'submenu' => apply_filters('atbdp_monetization_settings_submenu', [
                         'monetization_general' => [
                             'label' => __('General Settings', 'directorist'),
@@ -4919,7 +4927,7 @@ KAMAL;
 
                 'style_settings' => [
                     'label' => __( 'Personalization', 'directorist' ),
-                    'icon' => '<i class="fa fa-adjust directorist_pink"></i>',
+                    'icon' => '<i class="fa fa-paint-brush directorist_success"></i>',
                     'submenu' => apply_filters('atbdp_style_settings_submenu', [
                         'single_template' => [
                             'label' => __('Single Listing Template', 'directorist'),
@@ -5021,7 +5029,7 @@ KAMAL;
 
                 'extension_settings' => [
                     'label' => __( 'Extensions', 'directorist' ),
-                    'icon' => '<i class="fa fa-magic directorist_warning"></i>',
+                    'icon' => '<i class="fa fa-magic directorist_danger"></i>',
                     'submenu' => apply_filters('atbdp_extension_settings_submenu', [
                         'extensions_general' => [
                             'label' => __('Extensions General', 'directorist'),
@@ -5091,7 +5099,7 @@ KAMAL;
 
                 'advanced' => [
                     'label' => __( 'Advanced', 'directorist' ),
-                    'icon' => '<i class="fa fa-filter directorist_danger"></i>',
+                    'icon' => '<i class="fa fa-filter directorist_wordpress"></i>',
                     'submenu' => apply_filters('atbdp_advanced_submenu', [
                         'seo_settings' => [
                             'label' => __( 'Title & Meta (SEO)', 'directorist' ),

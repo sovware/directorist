@@ -2,45 +2,58 @@
     <div class="settings-wrapper atbdp-settings-panel">
         <form action="#" @submit.prevent="updateData">
             <div class="setting-top-bar">
-                <div class="setting-top-bar__search-field">
-                    <input 
-                        type="text" 
-                        class="setting-search-field__input" 
-                        placeholder="Search settings here..."
-                        v-model="search_query"
-                    >
-
-                    <div class="setting-search-suggestions" v-if="searchSuggestions">
-                        <ul class="search-suggestions-list">
-                            <li class="search-suggestions-list--list-item" v-for="( field_key, field_index ) in Object.keys( searchSuggestions )" :key="field_index">
-                                <a href="#" class="search-suggestions-list--link" @click.prevent="jumpToSearchResult( searchSuggestions[ field_key ] )">
-                                    {{ searchSuggestions[ field_key ].label }}
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                
+                <div class="atbdp-setting-top-bar-left">
+                    <ul class="directorist_setting-panel__pages">
+                        <li v-for="( nav_item, nav_key ) in theBreadcrumbNav" :key="nav_key">
+                            <a href="#" class="directorist_setting-panel__pages--link" :class="{active: nav_item.active}">
+                                {{ nav_item.label }}
+                            </a>
+                        </li>
+                    </ul>
                 </div>
+                <div class="atbdp-setting-top-bar-right">
+                    <div class="setting-top-bar__search-field">
+                        <input 
+                            type="text" 
+                            class="setting-search-field__input" 
+                            placeholder="Search settings here..."
+                            v-model="search_query"
+                        >
 
-                <div class="setting-top-bar__search-actions">
-                    <div class="setting-response-feedback">
-                        <div class="" v-if="status_message">
-                            <span class="atbdp-icon atbdp-icon-fill"
-                                :class="getIconClass( status_message.type )"
-                                v-html="getIconHTML( status_message.type )"
-                            >
-                            </span>
-
-                            {{ status_message.message }}
+                        <div class="setting-search-suggestions" v-if="searchSuggestions">
+                            <ul class="search-suggestions-list">
+                                <li class="search-suggestions-list--list-item" v-for="( field_key, field_index ) in Object.keys( searchSuggestions )" :key="field_index">
+                                    <a href="#" class="search-suggestions-list--link" @click.prevent="jumpToSearchResult( searchSuggestions[ field_key ] )">
+                                        {{ searchSuggestions[ field_key ].label }}
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
+                    <div class="setting-top-bar__search-actions">
+                        <div class="setting-response-feedback">
+                            <div class="" v-if="status_message">
+                                <span class="atbdp-icon atbdp-icon-fill"
+                                    :class="getIconClass( status_message.type )"
+                                    v-html="getIconHTML( status_message.type )"
+                                >
+                                </span>
 
-                    <button 
-                        type="submit" 
-                        class="settings-save-btn"
-                        :disabled="submit_button.is_disabled"
-                        v-html="submit_button.label">
-                    </button>
+                                {{ status_message.message }}
+                            </div>
+                        </div>
+
+                        <button 
+                            type="submit" 
+                            class="settings-save-btn"
+                            :disabled="submit_button.is_disabled"
+                            v-html="submit_button.label">
+                        </button>
+                    </div>
                 </div>
+
+                
                 
             </div>
 
@@ -99,6 +112,33 @@ export default {
             cached_fields: 'cached_fields',
             layouts: 'layouts',
         }),
+
+        theBreadcrumbNav() {
+            let nav = [{ label: 'Settings' }];
+
+            for ( let menu_key in this.layouts ) {
+                if ( ! this.layouts[ menu_key ].active ) { continue; }
+
+                let label = ( this.layouts[ menu_key ].label ) ? this.layouts[ menu_key ].label : '';
+                let menu_nav_args = { label: label };
+
+                if ( ! this.layouts[ menu_key ].submenu ) {
+                    menu_nav_args.active = true;
+                }
+
+                nav.push( menu_nav_args );
+
+                for ( let submenu_key in this.layouts[ menu_key ].submenu ) {
+                    if ( ! this.layouts[ menu_key ].submenu[ submenu_key ].active ) { continue; }
+
+                    let label = ( this.layouts[ menu_key ].submenu[ submenu_key ].label ) ? this.layouts[ menu_key ].submenu[ submenu_key ].label : '';
+                    let sub_nav_args = { label: label, active: true };
+                    nav.push( sub_nav_args );
+                }
+            }
+
+            return nav;
+        },
 
         searchSuggestions() {
             if ( ! this.search_query.length ) {

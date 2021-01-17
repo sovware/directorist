@@ -85,6 +85,11 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
                 $url = ATBDP_Permalink::atbdp_get_category_page($term);
             }
 
+            // Location
+            if (ATBDP_LOCATION == $taxonomy) {
+                $url = ATBDP_Permalink::atbdp_get_location_page($term);
+            }
+
             return $url;
         }
 

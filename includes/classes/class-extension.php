@@ -811,10 +811,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $item_id = ( ! empty( $license_item['item_id'] ) ) ? $license_item['item_id'] : 0;
             $license = ( ! empty( $license_item['license'] ) ) ? $license_item['license']: '';
             
-            // $activation_base_url = 'https://directorist.com?edd_action=activate_license&url=' . home_url();
-            $activation_base_url = 'https://directorist.com?edd_action=activate_license';
-            $query_args     = "&item_id={$item_id}&license={$license}";
-            $activation_url = $activation_base_url . $query_args;
+            $site_url = apply_filters( 'atbdp_membership_site_activation_url', home_url() );
+            $activation_base_url = 'https://directorist.com?edd_action=activate_license&url=' . $site_url;
+            $query_args          = "&item_id={$item_id}&license={$license}";
+            $activation_url      = $activation_base_url . $query_args;
+            // $activation_url      = 'https://directorist.com/?edd_action=activate_license&license=668acc8e211f4f88c7d226531225d65d&item_id=13795';
 
             $response        = wp_remote_get( $activation_url );
             $response_status = json_decode( $response['body'], true );
@@ -858,8 +859,6 @@ if ( ! class_exists('ATBDP_Extensions') ) {
         public function handle_file_install_request_from_subscriptions() {
             $item_key = ( isset( $_POST['item_key'] ) ) ? $_POST['item_key'] : '';
             $type     = ( isset( $_POST['type'] ) ) ? $_POST['type'] : '';
-
-            wp_send_json( [ '$item_key' => $item_key  ] );
             
             $installation_status = $this->install_file_from_subscriptions( [ 'item_key' => $item_key, 'type' => $type ] );
             wp_send_json( $installation_status );
@@ -921,6 +920,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             $installing_file = $available_in_subscriptions[ $item_key ];
             $activatation_status = $this->activate_license( $installing_file, $type );
+            $status[ 'log'] = $activatation_status;
 
             if ( ! $activatation_status[ 'success' ] ) {
                 $status[ 'success'] = false;
@@ -1673,6 +1673,16 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
             $hard_logout = ( $hard_logout ) ? 1 : 0;
+
+            // $status = $this->activate_license(
+            //     [ 
+            //         'item_id' => 32345,
+            //         'license' => 'df5dabf1d55eb6d9cda8e7a93982ad25',
+            //         'permalink' => 'https://directorist.com/product/directorist-social-login/'
+            //     ], 
+            //     'plugin'
+            // );
+            // atbdp_console_log( $status );
             
 
             $data = [

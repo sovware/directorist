@@ -2177,6 +2177,12 @@ span.atbdp-tick-cross {
   padding: 0 20px 20px;
 }
 
+#listing_form_info .directorist_loader {
+  position: absolute;
+  top: 0;
+  right: 80%;
+}
+
 .atbd-booking-information .atbd_area_title {
   padding: 0 20px;
 }
@@ -4475,15 +4481,26 @@ input.atbdp-form-control {
   color: #fff;
 }
 
-.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox {
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap {
+  position: relative;
   display: inline-block;
   margin: 5px 5px 5px 15px;
 }
 
 @media only screen and (max-width: 1399px) {
-  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap {
     margin: 5px;
   }
+}
+
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap .directorist_loader {
+  position: absolute;
+  right: -60px;
+  top: 25%;
+}
+
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_listing-type-checkbox-wrap .directorist_listing-type-default {
+  pointer-events: none;
 }
 
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .atbd-listing-type-active-status {
@@ -4617,6 +4634,45 @@ input.atbdp-form-control {
 .cptm-delete-directory-modal .cptm-btn.cptm-btn-danger:hover {
   color: #fff;
   background-color: #FF272A;
+}
+
+.directorist_loader {
+  position: relative;
+}
+
+.directorist_loader:before {
+  position: absolute;
+  content: '';
+  right: 10px;
+  top: 31%;
+  border: 2px solid #dddddd;
+  border-radius: 50%;
+  border-top: 2px solid #272B41;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: atbd_spin 2s linear infinite;
+  /* Safari */
+  animation: atbd_spin 2s linear infinite;
+}
+
+@-webkit-keyframes atbd_spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes atbd_spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 
 /*# sourceMappingURL=map/style.css.map */

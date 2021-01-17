@@ -2119,6 +2119,11 @@ span.atbdp-tick-cross {
       }
     }
   }
+  .directorist_loader{
+    position: absolute;
+    top: 0;
+    right: 80%;
+  }
 }
 
 .atbd-booking-information {
@@ -4229,12 +4234,21 @@ input.atbdp-form-control {
                   }
                 }
 
-                .directorist_listing-type-checkbox {
+                .directorist_listing-type-checkbox-wrap {
+                  position: relative;
                   display: inline-block;
                   margin: 5px 5px 5px 15px;
 
                   @media only screen and (max-width: 1399px) {
                     margin: 5px;
+                  }
+                  .directorist_loader{
+                    position: absolute;
+                    right: -60px;
+                    top: 25%;
+                  }
+                  .directorist_listing-type-default{
+                    pointer-events: none;
                   }
                 }
               }
@@ -4377,5 +4391,47 @@ input.atbdp-form-control {
         background-color: #FF272A;
       }
     }
+  }
+}
+
+
+// Loader
+.directorist_loader{
+  position: relative;
+
+  &:before {
+    position: absolute;
+    content: '';
+    right: 10px;
+    top: 31%;
+    border: 2px solid #dddddd;
+    border-radius: 50%;
+    border-top: 2px solid #272B41;
+    width: 20px;
+    height: 20px;
+    -webkit-animation: atbd_spin 2s linear infinite;
+    /* Safari */
+    animation: atbd_spin 2s linear infinite;
+  }
+}
+
+// keyframes
+@-webkit-keyframes atbd_spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes atbd_spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }

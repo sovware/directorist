@@ -114,23 +114,28 @@
                                                         </a>
                                                         <?php  }
                                                         if( ! $default ) {  ?>
-                                                            <div data-type-id="<?php echo absint( $listing_type->term_id ); ?>" class="directorist_listing-type-checkbox directorist_custom-checkbox submitdefault">
-                                                                <input class="submitDefaultCheckbox" type="checkbox" name="check-1" id="check-1">
-                                                                <label for="check-1">
-                                                                    <span class="checkbox-text">
-                                                                    <?php _e( 'Make It Default', 'directorist' ); ?>
-                                                                    </span>
-                                                                </label>
+                                                            <div class="directorist_listing-type-checkbox-wrap">
+                                                                <div data-type-id="<?php echo absint( $listing_type->term_id ); ?>" class="directorist_listing-type-checkbox directorist_custom-checkbox submitdefault">
+                                                                    <input class="submitDefaultCheckbox" type="checkbox" name="check-1" id="check-1">
+                                                                    <label for="check-1">
+                                                                        <span class="checkbox-text">
+                                                                        <?php _e( 'Make It Default', 'directorist' ); ?>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
+                                                                
                                                             </div>
                                                         <?php }else {
                                                              ?>
-                                                             <div class="directorist_listing-type-checkbox directorist_custom-checkbox">
-                                                                 <input type="checkbox" checked name="check-1" id="check-1">
-                                                                 <label for="check-1">
-                                                                     <span class="checkbox-text">
-                                                                     <?php _e( 'Default', 'directorist' ); ?>
-                                                                     </span>
-                                                                 </label>
+                                                             <div class="directorist_listing-type-checkbox-wrap">
+                                                                <div class="directorist_listing-type-checkbox directorist_custom-checkbox directorist_listing-type-default">
+                                                                    <input type="checkbox" checked name="check-1" id="check-1">
+                                                                    <label for="check-1">
+                                                                        <span class="checkbox-text">
+                                                                        <?php _e( 'Default', 'directorist' ); ?>
+                                                                        </span>
+                                                                    </label>
+                                                                </div>
                                                              </div>
                                                          <?php
                                                         } ?>

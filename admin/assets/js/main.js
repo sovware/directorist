@@ -1166,7 +1166,11 @@ templateResult: selecWithIcon,
                 admin_listing_form(directory_type);
         }
         $('body').on('change', 'select[name="directory_type"]', function() {
+                $(this)
+                        .parent('.inside')
+                        .append(`<span class="directorist_loader"></span>`);
                 admin_listing_form($(this).val());
+                
         });
 
         function admin_listing_form(directory_type) {
@@ -1183,6 +1187,9 @@ templateResult: selecWithIcon,
                                         .empty()
                                         .append(response);
                                 assetsNeedToWorkInVirtualDom();
+                                $('#listing_form_info')
+                                        .find('.directorist_loader')
+                                        .remove();
                         },
                 });
         }
@@ -1205,6 +1212,10 @@ templateResult: selecWithIcon,
                                 defaultSubmitDom.append(
                                         `<span class="atbd-listing-type-active-status">${response}</span>`
                                 );
+                                defaultSubmitDom
+                                .closest('.directorist_listing-type-checkbox-wrap')
+                                .append(`<span class="directorist_loader"></span>`);
+
                                 setTimeout(function() {
                                         location.reload();
                                 }, 500);

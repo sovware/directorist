@@ -125,7 +125,7 @@
               :active="getActiveGroupCollapseState(group_key)"
               :duration="500"
             >
-              <div class="cptm-form-builder-group-fields">
+              <div class="cptm-form-builder-group-fields" :class="getFormFieldsWrspperCaass( group_key )" @dragenter="handleFormFieldsDragEnterAction( group_key )" @dragleave="handleFormFieldsDragLeaveAction()">
                 <div
                   class="cptm-form-builder-group-field-item"
                   v-for="(field_key, field_index) in group.fields"
@@ -653,6 +653,7 @@ export default {
       active_group_drop_area: "",
       current_drag_enter_group_item: "",
       current_dragging_group: "",
+      current_dragenter_fields_group: "",
       current_dragging_widget_group: "",
       active_widget_groups: [],
       active_field_collapse_states: {},
@@ -1452,6 +1453,32 @@ export default {
         payload.value
       );
       this.$emit("update", this.updated_value);
+    },
+
+    handleFormFieldsDragEnterAction( group_key ) {
+      this.current_dragenter_fields_group = group_key;
+    },
+
+    handleFormFieldsDragLeaveAction() {
+      this.current_dragenter_fields_group = '';
+
+      console.log( this.current_dragenter_fields_group );
+    },
+
+    getFormFieldsWrspperCaass( group_key ) {
+      let state = ( ! this.current_dragging_group && this.current_dragenter_fields_group === group_key ) ? true : false;
+
+      
+        console.log( { current_dragenter_fields_group: this.current_dragenter_fields_group } );
+
+      if ( state ) {
+        console.log( { group_key, state } );
+      }
+
+      return {
+        disabled: state,
+        test: true,
+      }
     },
 
     addNewActiveFieldSection() {

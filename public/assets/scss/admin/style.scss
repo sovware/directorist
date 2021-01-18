@@ -2119,7 +2119,8 @@ span.atbdp-tick-cross {
       }
     }
   }
-  .directorist_loader{
+
+  .directorist_loader {
     position: absolute;
     top: 0;
     right: 80%;
@@ -4205,6 +4206,12 @@ input.atbdp-form-control {
 
               .directorist_listing-actions {
                 margin: -5px;
+                display: flex;
+                align-items: center;
+
+                @media only screen and (max-width: 1225px) {
+                  flex-wrap: wrap;
+                }
 
                 a {
                   color: #5A5F7D;
@@ -4242,12 +4249,14 @@ input.atbdp-form-control {
                   @media only screen and (max-width: 1399px) {
                     margin: 5px;
                   }
-                  .directorist_loader{
+
+                  .directorist_loader {
                     position: absolute;
                     right: -60px;
                     top: 6%;
                   }
-                  .directorist_listing-type-default{
+
+                  .directorist_listing-type-default {
                     pointer-events: none;
                   }
                 }
@@ -4395,10 +4404,10 @@ input.atbdp-form-control {
 }
 
 // Directorist Checkbox
-.directorist_checkbox{
+.directorist_checkbox {
   display: flex;
 
-  label{
+  label {
     position: relative;
     top: -5px;
     color: #605F74 !important;
@@ -4406,28 +4415,30 @@ input.atbdp-form-control {
     margin-bottom: 0 !important;
   }
 
-  input[type="checkbox"]{
+  input[type="checkbox"] {
     position: relative;
     width: 20px;
     height: 20px;
     border-radius: 3px;
     border: 2px solid #C6D0DC;
 
-    &:checked{
+    &:checked {
       background-color: #3e62f5 !important;
       border-color: #3e62f5 !important;
-      
-      &:before{
+
+      &:before {
         color: #fff;
         content: '\f147';
         font: normal 20px/1 dashicons;
         margin: 0;
       }
-      &+label{
+
+      &+label {
         color: $dark;
       }
     }
-    &:before{
+
+    &:before {
       position: absolute;
       width: auto;
       height: auto;
@@ -4435,20 +4446,23 @@ input.atbdp-form-control {
       left: -3px;
       top: -2px;
     }
-    &:focus{
+
+    &:focus {
       outline: 0 none;
       box-shadow: 0 0;
     }
   }
 }
-// Directorist Radio
-.directorist_radio{
 
-  label{
+// Directorist Radio
+.directorist_radio {
+
+  label {
     position: relative;
     margin-left: 0;
     padding-left: 35px;
-    &:before{
+
+    &:before {
       position: absolute;
       left: 0;
       top: 3px;
@@ -4462,20 +4476,20 @@ input.atbdp-form-control {
     }
   }
 
-  input[type="radio"]{
+  input[type="radio"] {
     display: none;
     position: relative;
 
-    &:checked{
-      &+label{
-        &:before{
+    &:checked {
+      &+label {
+        &:before {
           border-color: #3e62f5 !important;
           border-width: 5px;
         }
       }
     }
-    
-    &:focus{
+
+    &:focus {
       outline: 0 none;
       box-shadow: 0 0;
     }
@@ -4483,7 +4497,7 @@ input.atbdp-form-control {
 }
 
 // Loader
-.directorist_loader{
+.directorist_loader {
   position: relative;
 
   &:before {

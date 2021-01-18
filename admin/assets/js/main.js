@@ -2064,7 +2064,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                                 if (response.status.success) {
                                         $(self).html('Updated');
 
-                                        // location.reload();
+                                        location.reload();
                                 } else {
                                         $(self).html(button_default_html);
                                         alert(response.status.massage);
@@ -2089,15 +2089,11 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                 const data_key = $(this).data('key');
                 const data_type = $(this).data('type');
-
                 const form_data = {
                         action: 'atbdp_install_file_from_subscriptions',
                         item_key: data_key,
                         type: data_type,
                 };
-
-                // console.log( 'ext_is_installing' );
-
                 const btn_default_html = $(this).html();
 
                 ext_is_installing = true;
@@ -2116,7 +2112,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                                 $(self).prepend(icon);
                         },
                         success(response) {
-                                // console.log( response );
+                                console.log( response );
 
                                 if (response.status && !response.status.success && response.status.message) {
                                         alert(response.status.message);
@@ -2217,8 +2213,6 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                         },
                         success(response) {
                                 console.log(response);
-                                console.log(response.status);
-                                // location.reload();
 
                                 if (response.status.message) {
                                         var feedback_type = response.status.success ? 'success' : 'danger';
@@ -2424,6 +2418,8 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                         // console.log( {counter, next_index, current_item, action_wrapper, install_btn} );
 
+                        console.log( { current_item } );
+
                         form_data = {
                                 action: 'atbdp_install_file_from_subscriptions',
                                 item_key: current_item,
@@ -2440,7 +2436,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                                         );
                                 },
                                 success(response) {
-                                        // console.log( response );
+                                        console.log( response );
 
                                         if (response.status.success) {
                                                 install_btn.html('Installed');

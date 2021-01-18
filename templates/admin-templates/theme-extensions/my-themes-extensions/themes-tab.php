@@ -3,7 +3,10 @@
     <div class="theme-card-wrapper">
         <div class="theme-card">
             <figure>
+                <?php if ( ! empty( $args['currrent_active_theme_info']['thumbnail'] ) ) : ?>
                 <img src="<?php echo $args['currrent_active_theme_info']['thumbnail']; ?>" alt="">
+                <?php endif; ?>
+                
                 <figcaption>
                     <div class="theme-title">
                         <h5><?php echo $args['currrent_active_theme_info']['name']; ?></h5>
@@ -86,7 +89,10 @@
             <?php foreach( $args['themes_available_in_subscriptions'] as $_theme_base => $_theme_args ) : ?>
             <div class="available-theme-card">
                 <figure>
-                    <img src="<?php echo $_theme_args['thumbnail'] ?>" alt="">
+                    <?php if ( ! empty( $_theme_args['thumbnail'] ) ) : ?>
+                    <img src="<?php echo $_theme_args['thumbnail']; ?>" alt="">
+                    <?php endif; ?>
+
                     <figcaption>
                         <h5><?php echo $_theme_args['name'] ?></h5>
                         <div class="theme-action">
@@ -98,6 +104,7 @@
                                 <?php if ( ! empty( $_theme_args['customizer_link'] ) ) : ?>
                                     <a href="<?php echo $_theme_args['customizer_link'] ?>" target="_blank" class="theme-action-btn theme-preview-btn"><?php _e( 'Live Preview', 'directorist' ) ?></a>
                                 <?php endif; ?>
+
                             <?php else : ?>
                                 <a href="#" data-type="theme" data-key="<?php echo $_theme_base ?>" class="theme-action-btn file-install-btn">
                                     <i class="la la-download"></i> <?php _e( 'Install', 'directorist' ) ?>

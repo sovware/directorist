@@ -1156,6 +1156,7 @@
 .atbdb_content_module_contents {
   .directorist-single-info {
     display: flex;
+    align-items: center;
 
     &:not(:last-child) {
       margin-bottom: 10px;
@@ -1163,16 +1164,20 @@
 
     .directorist-single-info-label {
       flex: 0 0 25%;
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
 
       .directorist-icon {
         line-height: 35px;
         width: 35px;
-        margin-right: 10px;
         border-radius: 50%;
         color: #444752;
         background: #f1f3f8;
+        margin-right: 10px;
         font-size: 14px;
         text-align: center;
+        flex: none;
       }
     }
 

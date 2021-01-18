@@ -92,10 +92,11 @@ if (!class_exists('ATBDP_Add_Listing')):
                  $metas = [];
                  if( $directory_type ){
                     $term = get_term_by( 'slug', $directory_type, 'atbdp_listing_types' );
-                    $submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
-                    $new_l_status = get_term_meta( $term->term_id, 'new_listing_status', true );
-                    $edit_l_status = get_term_meta( $term->term_id, 'edit_listing_status', true );
-                    $preview_enable = get_term_meta( $term->term_id, 'preview_mode', true ) == '1' ? true : '';
+                    $directory_type = $term->term_id;
+                    $submission_form = get_term_meta( $directory_type, 'submission_form_fields', true );
+                    $new_l_status = get_term_meta( $directory_type, 'new_listing_status', true );
+                    $edit_l_status = get_term_meta( $directory_type, 'edit_listing_status', true );
+                    $preview_enable = get_term_meta( $directory_type, 'preview_mode', true ) == '1' ? true : '';
                     $submission_form_fields = $submission_form['fields'];
                  }
                 //isolate data
@@ -166,8 +167,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if( !empty( $info['t_c_check'] ) ) {
                     $metas[ '_t_c_check' ] = $info['t_c_check'] ? $info['t_c_check'] : '';
                 }
-                $metas['_directory_type'] = $info['directory_type'];
-                $directory_type = $term->term_id;
+                $metas['_directory_type'] = $directory_type;
                 // guest user
                 if (!atbdp_logged_in_user()) {
                     $guest_email = isset($info['guest_user_email']) ? esc_attr($info['guest_user_email']) : '';
@@ -421,11 +421,9 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                         //Every post with the published status should contain all the post meta keys so that we can include them in query.
                         if ('publish' == $new_l_status || 'pending' == $new_l_status) {
-                            $expire_in_days = get_directorist_option('listing_expire_in_days');
-                            $never_expire = empty($expire_in_days) ? 1 : 0;
                             $exp_dt = calc_listing_expiry_date();
                             update_post_meta($post_id, '_expiry_date', $exp_dt);
-                            update_post_meta($post_id, '_never_expire', $never_expire);
+                            update_post_meta($post_id, '_never_expire', 0);
                             update_post_meta($post_id, '_featured', 0);
                             update_post_meta($post_id, '_listing_status', 'post_status');
                             update_post_meta($post_id, '_admin_category_select', $admin_category_select);

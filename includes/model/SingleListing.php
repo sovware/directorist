@@ -487,13 +487,18 @@ class Directorist_Single_Listing {
 				}
 			}
 			$header 				= get_term_meta( $type, 'single_listing_header', true );
-		
+			
 			$pending_msg 			= get_directorist_option('pending_confirmation_msg', __( 'Thank you for your submission. Your listing is being reviewed and it may take up to 24 hours to complete the review.', 'directorist' ) );
 			$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
 			$confirmation_msg = '';
 			if( isset( $_GET['notice'] ) ) {
-				$listing_id = !empty( $pid ) ? $pid : $id;
-				$confirmation_msg = get_post_status( $listing_id ) === 'publish' ? $publish_msg : $pending_msg;
+				$new_listing_status 	= get_term_meta( $type, 'new_listing_status', true );
+				$edit_listing_status 	= get_term_meta( $type, 'edit_listing_status', true );
+				if( $_GET['edited'] === 'no' ) {
+					$confirmation_msg = 'publish' === $new_listing_status ? $publish_msg : $pending_msg;
+				}else {
+					$confirmation_msg = 'publish' === $edit_listing_status ? $publish_msg : $pending_msg;
+				}
 			}
 			
 			$args = array(

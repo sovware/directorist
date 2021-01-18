@@ -271,9 +271,8 @@ if (!class_exists('ATBDP_Custom_Post')):
                     break;
                     
                 case 'directory_type':
-                    $term_slug = get_post_meta( $post_id, '_directory_type', true );
-                    $term = get_term_by( is_numeric($term_slug) ? 'id' : 'slug', $term_slug, 'atbdp_listing_types' );
-                    $term_id = $term->term_id;
+                    $term_id = get_post_meta( $post_id, '_directory_type', true );
+                    $term = get_term_by( 'id', $term_id, 'atbdp_listing_types' );
                     $config = get_term_meta( $term_id, 'general_config', true );
                     $icon   = is_array( $config ) ? $config['icon'] : '';
                     $term_name = !empty( $term  ) ? $term->name : '';

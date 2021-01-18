@@ -25,9 +25,7 @@ class ATBDP_Metabox {
 	}
 
 	public function atbdp_dynamic_admin_listing_form() {
-		$directory_type = sanitize_text_field( $_POST['directory_type'] );
-		$term 			= get_term_by( 'slug', $directory_type, 'atbdp_listing_types' );
-		$term_id 		= $term->term_id;
+		$term_id 		= sanitize_text_field( $_POST['directory_type'] );
 		$listing_id    	= sanitize_text_field( $_POST['listing_id'] );
 		ob_start();
 		$this->render_listing_meta_fields( $term_id, $listing_id );
@@ -54,6 +52,7 @@ class ATBDP_Metabox {
 			'hide_empty' => false,
 		));
 		$current_type   =  get_post_meta( $post->ID, '_directory_type', true );
+		var_dump($current_type);
 		wp_nonce_field( 'listing_info_action', 'listing_info_nonce' );
 		?>
 		<label><?php _e( 'Listing Type', 'directorist' ); ?></label>
@@ -61,10 +60,10 @@ class ATBDP_Metabox {
 			<option value=""><?php _e( 'Select Listing Type', 'directorist' ); ?></option>
 			<?php foreach ( $all_types as $type ):
 			$default = get_term_meta( $type->term_id, '_default', true );
-			$selected = selected( $type->slug, $current_type );
+			$selected = selected( $type->term_id, $current_type );
 			$selected = !empty( $current_type ) ? $selected : ( $default ? ' selected="selected"' : '' );
 				?>
-				<option value="<?php echo esc_attr( $type->slug ); ?>" <?php echo $selected; ?> ><?php echo esc_attr( $type->name ); ?></option>
+				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo $selected; ?> ><?php echo esc_attr( $type->name ); ?></option>
 			<?php endforeach; ?>
 		</select>
 		<div class="form-group atbdp_category_custom_fields"></div>
@@ -143,14 +142,13 @@ class ATBDP_Metabox {
 	public function save_post_meta( $post_id, $post ) {
 		
 		if ( ! $this->passSecurity($post_id, $post) )  return; // vail if security check fails
-		$metas = array();
 		$expire_in_days = get_directorist_option('listing_expire_in_days');
 		$p = $_POST; // save some character
 		$listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
 		$submission_form_fields = [];
 		$metas = [];
 		if( $listing_type ){
-		$term = get_term_by( 'slug', $listing_type, 'atbdp_listing_types' );
+		$term = get_term_by( is_numeric( $listing_type ) ? 'id' : 'slug', $listing_type, ATBDP_TYPE );
 		$submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
 		$expiration = get_term_meta( $term->term_id, 'default_expiration', true );
 		$submission_form_fields = $submission_form['fields'];
@@ -176,11 +174,12 @@ class ATBDP_Metabox {
 		
 		$metas['_directory_type'] = $listing_type;
 		if( !empty( $metas['_directory_type'] ) ){
-			wp_set_object_terms($post_id, (int)$term->term_id, 'atbdp_listing_types');
+			wp_set_object_terms($post_id, (int)$listing_type, ATBDP_TYPE);
 		}
-		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
+
+		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : '';
 		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;
-		$exp_dt = !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']):array(); // get expiry date from the $_POST and then later sanitize it.
+		$exp_dt 					= !empty($p['exp_date']) ? atbdp_sanitize_array($p['exp_date']) : array(); // get expiry date from the $_POST and then later sanitize it.
 		//prepare expiry date, if we receive complete expire date from the submitted post, then use it, else use the default data
 		if (!is_empty_v($exp_dt) && !empty($exp_dt['aa'])){
 			$exp_dt = array(
@@ -198,11 +197,11 @@ class ATBDP_Metabox {
 		$metas['_expiry_date']  = $exp_dt;
 		$metas = apply_filters('atbdp_listing_meta_admin_submission', $metas);
 		// save the meta data to the database
-		// var_dump( $metas );
-		// die;
+
 		foreach ($metas as $meta_key => $meta_value) {
 			update_post_meta($post_id, $meta_key, $meta_value); // array value will be serialize automatically by update post meta
 		}
+
 		if (!empty($p['listing_prv_img'])){
 			set_post_thumbnail( $post_id, sanitize_text_field($p['listing_prv_img']) );
 		}else{
@@ -214,7 +213,7 @@ class ATBDP_Metabox {
 		$current_d = current_time('mysql');
 
 		// let's check is listing need to update
-		if (('expired' === $listing_status) && ('private' === $post_status)){
+		if ( empty( $listing_status ) || ('expired' === $listing_status) && ('private' === $post_status)){
 			// check is plans module active
 			if (is_fee_manager_active()){
 				$package_id = 'null' != $_POST['admin_plan'] ? esc_attr($_POST['admin_plan']):'';
@@ -231,19 +230,19 @@ class ATBDP_Metabox {
 							'ID'           => $post_id,
 							'post_status' => 'publish', // update the status to private so that we do not run this func a second time
 							'meta_input' => array(
-								'listing_status' => 'post_status',
+								'_listing_status' => 'post_status',
 							), // insert all meta data once to reduce update meta query
 						) );
 					}
 				}
 			}else{
 				// no plans extension active so update the listing status if admin manually change the listing expire date
-				if (($exp_dt > $current_d) || !empty($p['never_expire'])) {
+				if ( ( $exp_dt > $current_d ) || !empty( $p['never_expire'] ) ) {
 					wp_update_post( array(
 						'ID'           => $post_id,
 						'post_status' => 'publish', // update the status to private so that we do not run this func a second time
 						'meta_input' => array(
-							'listing_status' => 'post_status',
+							'_listing_status' => 'post_status',
 						), // insert all meta data once to reduce update meta query
 					) );
 				}

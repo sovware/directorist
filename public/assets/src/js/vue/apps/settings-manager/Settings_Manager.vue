@@ -205,7 +205,7 @@ export default {
 
             submit_button: {
                 label_default: 'Save Changes',
-                label_on_progress: '<i class="fas fa-circle-notch fa-spin"></i> Savivg...',
+                label_on_progress: '<i class="fas fa-circle-notch fa-spin"></i> Saving...',
                 label: 'Save Changes',
                 is_disabled: false,
             },

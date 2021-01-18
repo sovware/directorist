@@ -629,6 +629,8 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             if ( $previous_username === $username && $has_previous_subscriptions ) {
                 // Enable Sassion
                 update_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
+                $this->refresh_purchase_status( $args = [ 'password' => $password ] );
+                
                 wp_send_json( [ 'status' => $status, 'has_previous_subscriptions' => true ] );
             }
 
@@ -666,6 +668,7 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
             wp_send_json( $status );
         }
+        
 
         // refresh_purchase_status
         public function refresh_purchase_status( array $args = [] ) {
@@ -811,11 +814,10 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $item_id = ( ! empty( $license_item['item_id'] ) ) ? $license_item['item_id'] : 0;
             $license = ( ! empty( $license_item['license'] ) ) ? $license_item['license']: '';
             
-            $site_url = apply_filters( 'atbdp_membership_site_activation_url', home_url() );
+            $site_url            = apply_filters( 'atbdp_membership_site_activation_url', home_url() );
             $activation_base_url = 'https://directorist.com?edd_action=activate_license&url=' . $site_url;
             $query_args          = "&item_id={$item_id}&license={$license}";
             $activation_url      = $activation_base_url . $query_args;
-            // $activation_url      = 'https://directorist.com/?edd_action=activate_license&license=668acc8e211f4f88c7d226531225d65d&item_id=13795';
 
             $response        = wp_remote_get( $activation_url );
             $response_status = json_decode( $response['body'], true );
@@ -1517,64 +1519,54 @@ if ( ! class_exists('ATBDP_Extensions') ) {
                     }
                 }
             }
-
-            $current_active_theme_info = $this->get_current_active_theme_info( [ 'outdated_themes_keys' => $outdated_themes_keys ] );
-            $installed_themes_keys = ( is_array( $installed_theme_list ) ) ? array_keys( $installed_theme_list ) : [];
             
-            // Remove active theme from theme list
-            // if ( in_array( $current_active_theme_info[ 'stylesheet' ], $installed_themes_keys ) ) {
-            //     unset( $installed_theme_list[ 'stylesheet' ] );
-            // }
-
+            $installed_themes_keys = ( is_array( $installed_theme_list ) ) ? array_keys( $installed_theme_list ) : [];
+        
             // Themes available in subscriptions
-            $_themes_available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
-            if ( ! empty( $_themes_available_in_subscriptions ) && ! empty( $installed_themes_keys ) ) {
-                // $_active_theme_key = $current_active_theme_info[ 'stylesheet' ];
-                // unset( $_themes_available_in_subscriptions[ $_active_theme_key ] );
+            $themes_available_in_subscriptions = get_user_meta( get_current_user_id(), '_themes_available_in_subscriptions', true );
+            $themes_available_in_subscriptions = ( ! empty( $themes_available_in_subscriptions ) && is_array( $themes_available_in_subscriptions ) ) ? $themes_available_in_subscriptions : [];
 
-                foreach( $_themes_available_in_subscriptions as $base => $args ) {
-                    if ( in_array( $base, $installed_themes_keys ) ) {
-                        // unset( $_themes_available_in_subscriptions[ $base ] );
-                        $_themes_available_in_subscriptions[ $base ][ 'is_installed' ] = true;
+            if ( ! empty( $themes_available_in_subscriptions ) ) {
+                foreach( $themes_available_in_subscriptions as $base => $args ) {
+                    $item = $themes_available_in_subscriptions[ $base ];
+
+                    // Merge Local Theme Info
+                    if ( ! empty( $this->themes[ $base ] ) ) {
+                        $item = array_merge( $this->themes[ $base ], $item );
                     }
+
+                    // Merge Local Theme Info
+                    if ( in_array( $base, $installed_themes_keys ) ) {
+                        $item = array_merge( $installed_theme_list[ $base ], $item );
+                    }
+
+                    $is_installed = ( in_array( $base, $installed_themes_keys ) ) ? true : false;
+                    $item[ 'is_installed' ] = $is_installed;
+                    
+                    $themes_available_in_subscriptions[ $base ] = $item;
                 }
             }
 
-            $_themes_available_in_subscriptions_keys = is_array($_themes_available_in_subscriptions) ? array_keys( $_themes_available_in_subscriptions ) : [];
-            $themes_available_in_subscriptions = [];
-
-            // Import themes which are installed
-            foreach ( $installed_theme_list as $_theme_key => $_theme_atgs ) {
-                $item = $installed_theme_list[ $_theme_key ];
-                $item[ 'is_installed' ] = true;
-
-                $themes_available_in_subscriptions[ $_theme_key ] = $item;
-            }
-
-            // Import themes which are not installed
-            foreach ( $_themes_available_in_subscriptions_keys as $_theme_key ) {
-                if ( empty( $this->themes[ $_theme_key ] ) ) { continue; }
-
-                $item = $this->themes[ $_theme_key ];
-                $item[ 'is_installed' ] = false;
-
-                $themes_available_in_subscriptions[ $_theme_key ] = $item;
-            }
-
+            // total_available_themes
+            $total_available_themes = count( $themes_available_in_subscriptions );
+            
             // themes_promo_list
-            $themes_promo_list = $this->get_themes_promo_list( $themes_available_in_subscriptions );
+            $themes_promo_list = $this->get_themes_promo_list([
+                'installed_theme_list' => $installed_theme_list,
+                'themes_available_in_subscriptions' => $themes_available_in_subscriptions,
+            ]);
 
-            $total_installed_theme_list = count( $installed_theme_list );
-            $total_themes_available_in_subscriptions = count( $themes_available_in_subscriptions );
-            $total_available_themes = $total_installed_theme_list + $total_themes_available_in_subscriptions;
+            // current_active_theme_info
+            $current_active_theme_info = $this->get_current_active_theme_info( [ 'outdated_themes_keys' => $outdated_themes_keys ] );
+            $current_active_theme_info['stylesheet'];
 
+            $themes_available_in_subscriptions_keys = array_keys( $themes_available_in_subscriptions );
 
-            $available_in_subscriptions = get_user_meta( get_current_user_id(), '_plugins_available_in_subscriptions', true );
+            if ( in_array( $current_active_theme_info['stylesheet'], $themes_available_in_subscriptions_keys ) ) {
+                unset( $themes_available_in_subscriptions[ $current_active_theme_info['stylesheet'] ] );
+            }
 
-            // atbdp_console_log( $available_in_subscriptions );
-
-            // var_dump( $available_in_subscriptions );
-
+            atbdp_console_log(  $themes_available_in_subscriptions );
 
             $overview = [
                 'total_active_themes'               => $total_active_themes,
@@ -1614,18 +1606,11 @@ if ( ! class_exists('ATBDP_Extensions') ) {
 
         // get_themes_promo_list
         public function get_themes_promo_list( array $args = [] ) {
-
-            $installed_themes = ( ! empty( $args[ 'installed_themes' ] ) ) ? $args[ 'installed_themes' ] : [];
-            $installed_themes_keys = $this->get_sanitized_themes_keys( $installed_themes );
+            $installed_theme_list = ( ! empty( $args[ 'installed_theme_list' ] ) ) ? $args[ 'installed_theme_list' ] : [];
+            $installed_themes_keys = $this->get_sanitized_themes_keys( $installed_theme_list );
 
             $themes_available_in_subscriptions = ( ! empty( $args['themes_available_in_subscriptions'] ) ) ? $args['themes_available_in_subscriptions'] : [];
             $themes_available_in_subscriptions_keys = is_array( $themes_available_in_subscriptions ) ? array_keys( $themes_available_in_subscriptions ) : [];
-
-
-            // atbdp_console_log([ 
-            //     '$installed_themes_keys' => $installed_themes_keys,
-            //     '$themes_available_in_subscriptions_keys' => $themes_available_in_subscriptions_keys,
-            // ]);
 
             // Filter all active themes
             $themes_promo_list = $this->get_active_themes();
@@ -1664,27 +1649,14 @@ if ( ! class_exists('ATBDP_Extensions') ) {
             $has_subscriptions_sassion = get_user_meta( get_current_user_id(), '_atbdp_has_subscriptions_sassion', true );
             $is_logged_in = ( ! empty( $has_subscriptions_sassion ) ) ? true : false;
 
-            $settings_url = admin_url( 'edit.php?post_type=at_biz_dir&page=aazztech_settings#_extensions_switch' );
+            $settings_url = admin_url( 'edit.php?post_type=at_biz_dir&page=atbdp-settings#extension_settings__extensions_general' );
 
             $extensions_overview = $this->get_extensions_overview();
             $themes_overview     = $this->get_themes_overview();
 
-            // atbdp_console_log( ['extensions_promo_list' => $extensions_overview['extensions_promo_list']] );
-
             $hard_logout = apply_filters( 'atbdp_subscriptions_hard_logout', false );
             $hard_logout = ( $hard_logout ) ? 1 : 0;
-
-            // $status = $this->activate_license(
-            //     [ 
-            //         'item_id' => 32345,
-            //         'license' => 'df5dabf1d55eb6d9cda8e7a93982ad25',
-            //         'permalink' => 'https://directorist.com/product/directorist-social-login/'
-            //     ], 
-            //     'plugin'
-            // );
-            // atbdp_console_log( $status );
             
-
             $data = [
                 'is_logged_in' => $is_logged_in,
                 'hard_logout'  => $hard_logout,

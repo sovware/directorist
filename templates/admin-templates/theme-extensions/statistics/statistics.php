@@ -7,7 +7,7 @@
                     <span class="atbdp-counter-list__number atbdp-text-success">
                         <?php echo $args[ 'total_active_extensions' ] ?>
                     </span>
-                    <span class="atbdp-counter-list__label">Active Extensions</span>
+                    <span class="atbdp-counter-list__label"><?php _e( 'Active Extensions', 'directorist'); ?></span>
                 </li>
 
                 <!-- atbdp-counter-list__item -->
@@ -15,7 +15,7 @@
                     <span class="atbdp-counter-list__number">
                         <?php echo $args[ 'total_available_extensions' ]; ?>
                     </span>
-                    <span class="atbdp-counter-list__label">Available Extensions</span>
+                    <span class="atbdp-counter-list__label"><?php _e( 'Available Extensions', 'directorist'); ?></span>
                 </li>
 
                 <!-- atbdp-counter-list__item -->
@@ -23,7 +23,7 @@
                     <span class="atbdp-counter-list__number atbdp-text-success">
                         <?php echo $args[ 'total_active_themes' ] ?>
                     </span>
-                    <span class="atbdp-counter-list__label">Active Theme</span>
+                    <span class="atbdp-counter-list__label"><?php _e( 'Active Theme', 'directorist'); ?></span>
                 </li>
 
                 <!-- atbdp-counter-list__item -->
@@ -31,7 +31,7 @@
                     <span class="atbdp-counter-list__number">
                         <?php echo $args[ 'total_available_themes' ]; ?>
                     </span>
-                    <span class="atbdp-counter-list__label">Available Theme</span>
+                    <span class="atbdp-counter-list__label"><?php _e( 'Available Theme', 'directorist'); ?></span>
                 </li>
             </ul>
         </div>
@@ -46,13 +46,13 @@
                         <?php echo $args[ 'total_outdated_extensions' ]; ?>
                     </span>
                     
-                    <span class="atbdp-counter-list__label">Extensions updates Available</span>
+                    <span class="atbdp-counter-list__label"><?php _e( 'Extensions updates Available', 'directorist'); ?></span>
                     
                     <span class="atbdp-counter-list__actions">
                         <?php if ( ! empty( $args[ 'total_outdated_extensions' ] ) ) : ?>
-                            <button class="button button-primary ext-update-btn">Update All</button>
+                            <button class="button button-primary ext-update-btn"><?php _e( 'Update All', 'directorist'); ?></button>
                         <?php else: ?>
-                            <span class="atbdp-text-muted">All up to date</span>
+                            <span class="atbdp-text-muted"><?php _e( 'All up to date', 'directorist'); ?></span>
                         <?php endif ?>
                     </span>
                 </li>
@@ -62,12 +62,12 @@
                     <span class="atbdp-counter-list__number">
                         <?php echo $args[ 'total_outdated_themes' ]; ?>
                     </span>
-                    <span class="atbdp-counter-list__label">Theme updates Available</span>
+                    <span class="atbdp-counter-list__label"><?php _e( 'Theme updates Available', 'directorist'); ?></span>
                     <span class="atbdp-counter-list__actions">
                         <?php if ( ! empty( $args[ 'total_outdated_themes' ] ) ) : ?>
-                            <button class="button button-primary">Update All</button>
+                            <button class="button button-primary"><?php _e( 'Update All', 'directorist'); ?></button>
                         <?php else: ?>
-                            <span class="atbdp-text-muted">All up to date</span>
+                            <span class="atbdp-text-muted"><?php _e( 'All up to date', 'directorist'); ?></span>
                         <?php endif ?>
                     </span>
                 </li>

@@ -510,7 +510,7 @@ jQuery(function($) {
                 if (typeof categories === 'string') {
                         form_data.append('tax_input[at_biz_dir-category][]', categories);
                 }
-                var directory_type =  qs.listing_type ?  qs.listing_type : $('input[name="directory_type"]').val();
+                var directory_type =  qs.directory_type ?  qs.directory_type : $('input[name="directory_type"]').val();
                 form_data.append('directory_type', directory_type );
                 form_data.append('plan_id', qs.plan);
                 if (error_count) {

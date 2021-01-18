@@ -26,9 +26,11 @@ class ATBDP_Metabox {
 
 	public function atbdp_dynamic_admin_listing_form() {
 		$directory_type = sanitize_text_field( $_POST['directory_type'] );
-		$listing_id   = sanitize_text_field( $_POST['listing_id'] );
+		$term 			= get_term_by( 'slug', $directory_type, 'atbdp_listing_types' );
+		$term_id 		= $term->term_id;
+		$listing_id    	= sanitize_text_field( $_POST['listing_id'] );
 		ob_start();
-		$this->render_listing_meta_fields( $directory_type, $listing_id );
+		$this->render_listing_meta_fields( $term_id, $listing_id );
 		echo ob_get_clean();
 		die();
 	}
@@ -59,10 +61,10 @@ class ATBDP_Metabox {
 			<option value=""><?php _e( 'Select Listing Type', 'directorist' ); ?></option>
 			<?php foreach ( $all_types as $type ):
 			$default = get_term_meta( $type->term_id, '_default', true );
-			$selected = selected( $type->term_id, $current_type );
+			$selected = selected( $type->slug, $current_type );
 			$selected = !empty( $current_type ) ? $selected : ( $default ? ' selected="selected"' : '' );
 				?>
-				<option value="<?php echo esc_attr( $type->term_id ); ?>" <?php echo $selected; ?> ><?php echo esc_attr( $type->name ); ?></option>
+				<option value="<?php echo esc_attr( $type->slug ); ?>" <?php echo $selected; ?> ><?php echo esc_attr( $type->name ); ?></option>
 			<?php endforeach; ?>
 		</select>
 		<div class="form-group atbdp_category_custom_fields"></div>
@@ -148,7 +150,7 @@ class ATBDP_Metabox {
 		$submission_form_fields = [];
 		$metas = [];
 		if( $listing_type ){
-		$term = get_term_by( 'id', $listing_type, 'atbdp_listing_types' );
+		$term = get_term_by( 'slug', $listing_type, 'atbdp_listing_types' );
 		$submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
 		$expiration = get_term_meta( $term->term_id, 'default_expiration', true );
 		$submission_form_fields = $submission_form['fields'];
@@ -174,7 +176,7 @@ class ATBDP_Metabox {
 		
 		$metas['_directory_type'] = $listing_type;
 		if( !empty( $metas['_directory_type'] ) ){
-			wp_set_object_terms($post_id, (int)$metas['_directory_type'], 'atbdp_listing_types');
+			wp_set_object_terms($post_id, (int)$term->term_id, 'atbdp_listing_types');
 		}
 		$metas['_never_expire']      = !empty($p['never_expire']) ? (int) $p['never_expire'] : (empty($expire_in_days) ? 1 : 0);
 		$metas['_featured']          = !empty($p['featured'])? (int) $p['featured'] : 0;

@@ -41,10 +41,11 @@ class Directorist_Single_Listing {
 	public function prepare_data() {
 		$id = $this->id;
 
-		$this->post   = get_post( $id );
-		$this->title  = get_the_title( $id );
-
-		$this->type          = (int) get_post_meta( $id, '_directory_type', true);
+		$this->post   		 = get_post( $id );
+		$this->title  		 = get_the_title( $id );
+		$directory_type 	 = get_post_meta( $id, '_directory_type', true);
+		$term 				 = get_term_by( 'slug', $directory_type, 'atbdp_listing_types' );
+		$this->type          = (int) $term->term_id;
 		$this->header_data   = get_term_meta( $this->type, 'single_listing_header', true );
 		$this->content_data  = $this->build_content_data();
 		// dvar_dump($this->content_data);
@@ -167,20 +168,22 @@ class Directorist_Single_Listing {
 	}
 
 	public function quick_actions_template() {
+		$actions = ! empty( $this->header_data['listings_header']['quick_actions'] ) ? $this->header_data['listings_header']['quick_actions'] : '';
 		$args = array(
 			'listing'  => $this,
-			'actions'  => $this->header_data['listings_header']['quick_actions'],
+			'actions'  => $actions,
 		);
-		if( $this->header_data['listings_header']['quick_actions'] )
+		if( $actions )
 		atbdp_get_shortcode_template('single-listing/quick-actions', $args );
 	}
 
 	public function quick_info_template() {
+		$quick_info = ! empty( $this->header_data['listings_header']['quick_info'] ) ? $this->header_data['listings_header']['quick_info'] : '';
 		$args = array(
 			'listing' => $this,
-			'info'    => $this->header_data['listings_header']['quick_info'],
+			'info'    => $quick_info,
 		);
-		if( $this->header_data['listings_header']['quick_info'] )
+		if( $quick_info )
 		atbdp_get_shortcode_template('single-listing/quick-info', $args );
 	}
 

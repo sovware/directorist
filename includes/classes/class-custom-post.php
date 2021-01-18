@@ -272,10 +272,12 @@ if (!class_exists('ATBDP_Custom_Post')):
                     break;
                     
                 case 'directory_type':
-                    $term_id = get_post_meta( $post_id, '_directory_type', true );
+                    $term_slug = get_post_meta( $post_id, '_directory_type', true );
+                    $term = get_term_by( 'slug', $term_slug, 'atbdp_listing_types' );
+                    $term_id = $term->term_id;
                     $config = get_term_meta( $term_id, 'general_config', true );
                     $icon   = is_array( $config ) ? $config['icon'] : '';
-                    $term_name = !empty( $term_id  ) ? get_term( $term_id )->name : '';
+                    $term_name = !empty( $term  ) ? $term->name : '';
                     if( !empty( $icon ) ) { ?>
                     <span class="<?php echo esc_html( $icon );?>"></span>
                     <?php } ?>

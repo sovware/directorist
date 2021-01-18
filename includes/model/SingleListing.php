@@ -1014,12 +1014,15 @@ class Directorist_Single_Listing {
 
 		$meta_queries = array();
 		$meta_queries['expired'] = array(
-			array(
 				'key'     => '_listing_status',
 				'value'   => 'expired',
 				'compare' => '!=',
-			),
-		);
+			);
+		$meta_queries['directory_type'] = array(
+				'key'     => '_directory_type',
+				'value'   => $this->type,
+				'compare' => '=',
+			);
 
 		$meta_queries = apply_filters('atbdp_related_listings_meta_queries', $meta_queries);
 		$count_meta_queries = count($meta_queries);

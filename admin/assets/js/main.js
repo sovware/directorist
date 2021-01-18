@@ -1201,6 +1201,9 @@ templateResult: selecWithIcon,
                         .children('.submitDefaultCheckbox')
                         .prop('checked', true);
                 const defaultSubmitDom = $(this);
+                defaultSubmitDom
+                        .closest('.directorist_listing-type-checkbox-wrap')
+                        .append(`<span class="directorist_loader"></span>`);
                 $.ajax({
                         type: 'post',
                         url: atbdp_admin_data.ajaxurl,
@@ -1213,9 +1216,9 @@ templateResult: selecWithIcon,
                                         `<span class="atbd-listing-type-active-status">${response}</span>`
                                 );
                                 defaultSubmitDom
-                                .closest('.directorist_listing-type-checkbox-wrap')
-                                .append(`<span class="directorist_loader"></span>`);
-
+                                        .closest('.directorist_listing-type-checkbox-wrap')
+                                        .children('.directorist_loader')
+                                        .remove();
                                 setTimeout(function() {
                                         location.reload();
                                 }, 500);

@@ -125,7 +125,11 @@
               :active="getActiveGroupCollapseState(group_key)"
               :duration="500"
             >
-              <div class="cptm-form-builder-group-fields" :class="getFormFieldsWrspperCaass( group_key )" @dragenter="handleFormFieldsDragEnterAction( group_key )" @dragleave="handleFormFieldsDragLeaveAction()">
+              <div class="cptm-form-builder-group-fields">
+                <div class="cptm-restricted-area cptm-form-fields-restricted-area" v-if="(group.fields && group.fields.length) && formFieldsHasRestriction( group_key )">
+                  <h3 v-html="restrictedFieldsWarningText"></h3>
+                </div>
+
                 <div
                   class="cptm-form-builder-group-field-item"
                   v-for="(field_key, field_index) in group.fields"
@@ -355,6 +359,10 @@ export default {
     value: {
       required: false,
       default: "",
+    },
+    restrictedFieldsWarningText: {
+      required: false,
+      default: "You can not add in this section",
     },
     dependency: {
       required: false,
@@ -1455,30 +1463,10 @@ export default {
       this.$emit("update", this.updated_value);
     },
 
-    handleFormFieldsDragEnterAction( group_key ) {
-      this.current_dragenter_fields_group = group_key;
-    },
+    formFieldsHasRestriction( group_key ) {
+      let has_restriction = this.current_dragging_group !== "" || this.current_dragging_widget_group !== "";
 
-    handleFormFieldsDragLeaveAction() {
-      this.current_dragenter_fields_group = '';
-
-      console.log( this.current_dragenter_fields_group );
-    },
-
-    getFormFieldsWrspperCaass( group_key ) {
-      let state = ( ! this.current_dragging_group && this.current_dragenter_fields_group === group_key ) ? true : false;
-
-      
-        console.log( { current_dragenter_fields_group: this.current_dragenter_fields_group } );
-
-      if ( state ) {
-        console.log( { group_key, state } );
-      }
-
-      return {
-        disabled: state,
-        test: true,
-      }
+      return has_restriction;
     },
 
     addNewActiveFieldSection() {

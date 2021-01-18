@@ -768,6 +768,23 @@ div[draggable="true"].cptm-form-builder-group-title-area {
 
 .cptm-form-builder-group-fields {
   display: block;
+  position: relative;
+}
+
+.cptm-restricted-area {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  text-align: center;
+  background: rgba( 255, 255, 255, 0.8 );
 }
 
 .cptm-form-builder-group-field-item {

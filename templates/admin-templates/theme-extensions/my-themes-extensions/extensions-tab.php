@@ -90,7 +90,7 @@
 
     <?php if (!empty($args['extensions_available_in_subscriptions'])) : ?>
         <div class="ext-available">
-            <h4><?php _e('Available in your subscription', 'directorist')  ?></h4>
+            <h4><?php _e('Available in your subscription (' . count( array_keys( $args['extensions_available_in_subscriptions'] ) ) .')', 'directorist')  ?></h4>
             <div class="ext-available-table">
                 <div class="ext-table-responsive">
                     <form id="atbdp-my-subscribed-extensions-form" class="atbdp-my-subscribed-extensions-form" method="post">

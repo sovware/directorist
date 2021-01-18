@@ -3530,6 +3530,10 @@ input.atbdp-form-control {
   margin-left: auto;
 }
 
+#directorist.atbd_wrapper button.dashicons {
+  font-family: dashicons;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .edit_btn_wrap {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4757,6 +4761,9 @@ input.atbdp-form-control {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .atbdb_content_module_contents .directorist-single-info:not(:last-child) {
@@ -4767,17 +4774,27 @@ input.atbdp-form-control {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 25%;
           flex: 0 0 25%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-right: 15px;
 }
 
 .atbdb_content_module_contents .directorist-single-info .directorist-single-info-label .directorist-icon {
   line-height: 35px;
   width: 35px;
-  margin-right: 10px;
   border-radius: 50%;
   color: #444752;
   background: #f1f3f8;
+  margin-right: 10px;
   font-size: 14px;
   text-align: center;
+  -webkit-box-flex: 0;
+      -ms-flex: none;
+          flex: none;
 }
 
 .atbdb_content_module_contents .directorist-single-info .directorist-single-info-value {

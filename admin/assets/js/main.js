@@ -536,7 +536,7 @@ templateResult: selecWithIcon,
                         success(data) {
                                 if (data.success) {
                                         $('#atbdp-send-system-info-submit').html('Send Email');
-                                        $('.system_info_success').html('Successfully send');
+                                        $('.system_info_success').html('Successfully sent');
                                 }
                         },
                         error(data) {

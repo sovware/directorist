@@ -4408,8 +4408,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-archive"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_listings_page_sections', [
                                 'labels' => [
-                                    'title'       => __('All Listings Page', 'directorist'),
-                                    'description' => '',
                                     'fields'      => [
                                         'display_listings_header', 'all_listing_title', 'listing_filters_button', 'listing_filters_icon', 'listings_filter_button_text', 'listing_tags_field', 'listing_default_radius_distance', 'listings_filters_button', 'listings_reset_text', 'listings_apply_text', 'display_sort_by', 'listings_sort_by_items', 'display_view_as', 'view_as_text', 'listings_view_as_items', 'default_listing_view', 'grid_view_as', 'all_listing_columns', 'order_listing_by', 'sort_listing_by', 'display_preview_image', 'preview_image_quality', 'way_to_show_preview', 'crop_width', 'crop_height', 'prv_container_size_by', 'prv_background_type', 'prv_background_color', 'default_preview_image', 'info_display_in_single_line', 'address_location', 'publish_date_format', 'paginate_all_listings', 'all_listing_page_items' 
                                     ],
@@ -4421,8 +4419,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-info"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_listing_page_sections', [
                                 'labels' => [
-                                    'title'       => __('Single Listing', 'directorist'),
-                                    'description' => '',
                                     'fields'      => [
                                         'disable_single_listing', 'restrict_single_listing_for_logged_in_user', 'atbdp_listing_slug', 'edit_listing_redirect', 'submission_confirmation', 'pending_confirmation_msg', 'publish_confirmation_msg', 'dsiplay_slider_single_page', 'single_slider_image_size', 'single_slider_background_type', 'single_slider_background_color', 'gallery_crop_width', 'gallery_crop_height', 'address_map_link', 'rel_listings_logic', 'fix_listing_double_thumb'
                                     ],
@@ -4435,7 +4431,6 @@ KAMAL;
                             'sections' => apply_filters( 'atbdp_categories_settings_sections', [
                                 'categories_settings' => [
                                     'title'       => __('Categories Page Settings', 'directorist'),
-                                    'description' => '',
                                     'fields'      => [ 
                                         'display_categories_as', 'categories_column_number', 'categories_depth_number', 'order_category_by', 'sort_category_by', 'display_listing_count', 'hide_empty_categories'
                                      ],
@@ -4456,8 +4451,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-star"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_review_sections', [
                                 'labels' => [
-                                    'title'       => __('Review', 'directorist'),
-                                    'description' => '',
                                     'fields'      => [
                                         'enable_review', 'enable_owner_review', 'approve_immediately', 'review_approval_text', 'enable_reviewer_img', 'enable_reviewer_content', 'required_reviewer_content', 'review_num', 'guest_review'
                                     ],
@@ -4470,8 +4463,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-money-bill"></i>',
                             'sections' => apply_filters( 'atbdp_currency_settings_sections', [
                                 'title_metas' => [
-                                    'title'       => __('Currency Settings', 'directorist'),
-                                    'description' => '',
                                     'fields'      => [ 
                                         'g_currency_note', 'g_currency', 'g_thousand_separator', 'allow_decimal', 'g_decimal_separator', 'g_currency_position'
                                      ],
@@ -4533,7 +4524,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-search"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
                                 'search_form' => [
-                                    'description' => '',
                                     'fields'      => [ 
                                         'search_title', 'search_subtitle', 'search_border', 'search_more_filter', 'search_more_filter_icon', 'search_button', 'search_button_icon', 'home_display_filter', 'search_filters','search_default_radius_distance', 'search_listing_text', 'search_more_filters', 'search_reset_text', 'search_apply_filter', 'show_popular_category', 'popular_cat_title', 'popular_cat_num', 'search_home_bg'
                                      ],
@@ -4546,7 +4536,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-check"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
                                 'search_result' => [
-                                    'description' => '',
                                     'fields'      => [ 
                                         'search_header', 'search_result_filters_button_display', 'search_result_filter_button_text', 'search_result_display_filter', 'sresult_default_radius_distance', 'search_result_filters_button', 'sresult_reset_text', 'sresult_apply_text', 'search_view_as', 'search_viewas_text', 'search_view_as_items', 'search_sort_by', 'search_sortby_text', 'search_sort_by_items', 'search_order_listing_by', 'search_sort_listing_by', 'search_listing_columns', 'paginate_search_results', 'search_posts_num', 'radius_search_unit'
                                      ],
@@ -4712,8 +4701,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-chart-bar"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_user_dashboard_sections', [
                                 'labels' => [
-                                    'title'       => __('User Dashboard', 'directorist'),
-                                    'description' => '',
                                     'fields'      => [
                                         'my_listing_tab', 'my_listing_tab_text', 'user_listings_pagination', 'user_listings_per_page', 'my_profile_tab', 'my_profile_tab_text', 'fav_listings_tab', 'fav_listings_tab_text', 'submit_listing_button'
                                     ],
@@ -4732,8 +4719,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-envelope-open directorist_info"></i>',
                             'sections' => apply_filters( 'atbdp_reg_settings_sections', [
                                 'username' => [
-                                    'title'       => __('Email General Settings', 'directorist'),
-                                    'description' => '',
                                     'fields'      => [ 
                                         'disable_email_notification', 'email_from_name', 'email_from_email', 'admin_email_lists', 'notify_admin', 'notify_user'
                                      ],
@@ -4872,8 +4857,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-arrow-up"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_featured_sections', [
                                 'featured' => [
-                                    'title'       => __('Monetize by Featured Listing', 'directorist'),
-                                    'description' => '',
                                     'fields'      => [ 
                                         'enable_featured_listing',
                                         'featured_listing_title',
@@ -4889,8 +4872,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-bezier-curve"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_gateway_sections', [
                                 'gateway_general' => [
-                                    'title'       => __('Gateways General Settings', 'directorist'),
-                                    'description' => '',
                                     'fields'      => [
                                         'paypal_gateway_promotion',
                                         'gateway_test_mode',
@@ -4910,8 +4891,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-university"></i>',
                             'sections' => apply_filters( 'atbdp_listing_settings_offline_gateway_sections', [
                                 'offline_gateway_general' => [
-                                    'title'       => __('Gateways General Settings', 'directorist'),
-                                    'description' => '',
                                     'fields'      => [
                                         'offline_payment_note',
                                         'bank_transfer_title',
@@ -5035,7 +5014,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-home"></i>',
                             'sections' => apply_filters( 'atbdp_extension_settings_controls', [
                                 'general_settings' => [
-                                    'title'       => __('Extensions General Settings', 'directorist'),
                                     'fields'      =>  apply_filters( 'atbdp_extension_fields', [
                                          'extension_promotion'
                                     ] ) ,
@@ -5054,8 +5032,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-bullhorn"></i>',
                             'sections'  => apply_filters('atbdp_announcement_settings_controls', [
                                 'send-announcement'     => [
-                                    'title'         => __('Send Announcement', 'directorist'),
-                                    'description'   => '',
                                     'fields'        => [
                                         'announcement',
                                     ]
@@ -5068,7 +5044,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-upload"></i>',
                             'sections'  => apply_filters('atbdp_listings_import_controls', [
                                 'import_methods' => array(
-                                    'description'   => '',
                                     'fields'        => apply_filters('atbdp_csv_import_settings_fields', [
                                         [
                                             'listing_export_button'
@@ -5105,7 +5080,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-bolt"></i>',
                             'sections' => apply_filters( 'atbdp_seo_settings_sections', [
                                 'title_metas' => [
-                                    'description' => '',
                                     'fields'      => [ 
                                         'atbdp_enable_seo', 'add_listing_page_meta_title', 'add_listing_page_meta_desc', 'all_listing_meta_title', 'all_listing_meta_desc', 'dashboard_meta_title', 'dashboard_meta_desc', 'author_profile_meta_title', 'author_page_meta_desc', 'category_meta_title', 'category_meta_desc', 'single_category_meta_title', 'single_category_meta_desc', 'all_locations_meta_title', 'all_locations_meta_desc', 'single_locations_meta_title', 'single_locations_meta_desc', 'registration_meta_title', 'registration_meta_desc', 'login_meta_title', 'login_meta_desc', 'homepage_meta_title', 'homepage_meta_desc', 'meta_title_for_search_result', 'search_result_meta_title', 'search_result_meta_desc'
                                      ],
@@ -5119,7 +5093,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-power-off"></i>',
                             'sections'  => apply_filters('atbdp_caching_controls', [
                                 'caching' => [
-                                    'description' => '',
                                     'fields'      => [ 
                                         'atbdp_enable_cache', 'atbdp_reset_cache',
                                      ],
@@ -5134,7 +5107,6 @@ KAMAL;
                             'icon' => '<i class="fa fa-trash"></i>',
                             'sections'  => apply_filters('atbdp_uninstall_controls', [
                                 'uninstall' => [
-                                    'title' => __( 'Uninstall', 'directorist' ),
                                     'fields' => [ 'enable_uninstall' ]
                                 ],
                         

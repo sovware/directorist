@@ -492,11 +492,13 @@ class Directorist_Single_Listing {
 			$publish_msg 			= get_directorist_option('publish_confirmation_msg', __( 'Congratulations! Your listing has been approved/published. Now it is publicly available.', 'directorist' ) );
 			$confirmation_msg = '';
 			if( isset( $_GET['notice'] ) ) {
-				$new_listing_status 	= get_term_meta( $type, 'new_listing_status', true );
-				$edit_listing_status 	= get_term_meta( $type, 'edit_listing_status', true );
-				if( $_GET['edited'] === 'no' ) {
+				$new_listing_status  = get_term_meta( $type, 'new_listing_status', true );
+				$edit_listing_status = get_term_meta( $type, 'edit_listing_status', true );
+				$edited              = ( isset( $_GET['edited'] ) ) ? $_GET['edited'] : 'no';
+
+				if ( $edited === 'no' ) {
 					$confirmation_msg = 'publish' === $new_listing_status ? $publish_msg : $pending_msg;
-				}else {
+				} else {
 					$confirmation_msg = 'publish' === $edit_listing_status ? $publish_msg : $pending_msg;
 				}
 			}

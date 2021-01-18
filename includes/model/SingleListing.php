@@ -44,7 +44,7 @@ class Directorist_Single_Listing {
 		$this->post   		 = get_post( $id );
 		$this->title  		 = get_the_title( $id );
 		$directory_type 	 = get_post_meta( $id, '_directory_type', true);
-		$term 				 = get_term_by( 'slug', $directory_type, 'atbdp_listing_types' );
+		$term 				 = get_term_by( is_numeric($directory_type) ? 'id' : 'slug', $directory_type, 'atbdp_listing_types' );
 		$this->type          = (int) $term->term_id;
 		$this->header_data   = get_term_meta( $this->type, 'single_listing_header', true );
 		$this->content_data  = $this->build_content_data();

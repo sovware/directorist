@@ -29,7 +29,6 @@ if (!class_exists('ATBDP_Custom_Post')):
             add_action( 'save_post', array( $this, 'save_quick_edit_custom_box') );
         }
 
-
         public function save_quick_edit_custom_box( $post_id) {
 
             if( get_post_type( $post_id ) !== ATBDP_POST_TYPE ) return;
@@ -182,7 +181,7 @@ if (!class_exists('ATBDP_Custom_Post')):
             );
 
             // get the rewrite slug from the user settings, if exist use it.
-            $slug = get_directorist_option('atbdp_listing_slug', 'at_biz_dir');// default value is the post type at_biz_dir .
+            $slug = get_directorist_option('atbdp_listing_slug', 'directory');// default value is the post type at_biz_dir .
             if (!empty($slug)) {
                 $args['rewrite'] = array(
                     'slug' => $slug,

@@ -21,3 +21,4 @@
 	</select>
 
 </div>
+<div class="form-group atbdp_category_custom_fields"></div>

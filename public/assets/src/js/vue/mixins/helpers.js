@@ -4,10 +4,34 @@ export default {
     computed: {
         ...mapState({
             fields: 'fields',
+            cached_fields: 'cached_fields',
+            highlighted_field_key: 'highlighted_field_key',
         }),
     },
 
     methods: {
+        doAction( payload, component_key ) {
+            if ( ! payload.action ) { return; }
+            if ( this[ payload.component ] !== component_key ) { 
+                this.$emit( 'do-action', payload );
+                return;
+            }
+
+            if ( typeof this[ payload.action ] !== "function" ) { return; }
+
+            this[ payload.action ]( payload.args );
+        },
+
+        maybeJSON( data ) {
+            try {
+                JSON.parse( data );
+            } catch (e) {
+                return data;
+            }
+        
+            return JSON.parse( data );
+        },
+        
         isObject( the_var ) {
             if ( typeof the_var === 'undefined' ) { return false }
             if ( the_var === null ) { return false }
@@ -17,8 +41,13 @@ export default {
             return the_var;
         },
 
+        getHighlightState( field_key ) {
+            return this.highlighted_field_key === field_key;
+        },
+
         getOptionID( option, index ) {
-            return ( typeof option.id !== 'undefined' ) ? this.fieldId + '_' + index + '_' + option.id : this.fieldId + '_' + index;
+            let field_id = ( this.fieldId ) ? this.fieldId : '';
+            return ( typeof option.id !== 'undefined' ) ? field_id + '_' + index + '_' + option.id : field_id + '_' + index;
         },
 
         mapDataByMap( data, map ) {
@@ -267,6 +296,14 @@ export default {
         updateFieldValue( field_key, value ) {
             this.$store.commit( 'updateFieldValue', { field_key, value } );
         },
+
+        updateFieldValidationState( field_key, value ) {
+            this.$store.commit( 'updateFieldData', { field_key, option_key: 'validationState', value } );
+        },
+        
+        updateFieldData( field_key, option_key, value ) {
+            this.$store.commit( 'updateFieldData', { field_key, option_key, value } );
+        },
         
         getActiveClass( item_index, active_index ) {
             return ( item_index === active_index ) ? 'active' : '';
@@ -298,6 +335,11 @@ export default {
                     }
                     
                     if ( typeof terget_field[ key ] === 'undefined' ) {
+                        terget_missmatched = true;
+                        break;
+                    }
+
+                    if ( typeof terget_field[ key ].isVisible !== 'undefined' && ! terget_field[ key ].isVisible ) {
                         terget_missmatched = true;
                         break;
                     }

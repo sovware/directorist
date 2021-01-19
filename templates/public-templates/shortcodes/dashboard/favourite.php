@@ -39,7 +39,7 @@
 
             <?php else: ?>
 
-                <tr><td><p class="atbdp_nlf"><?php esc_html_e('Nothing found!', 'directorist'); ?></p></td></tr>
+                <tr><td><div class="directorist_not-found"><p class="atbdp_nlf"><?php esc_html_e('Nothing found!', 'directorist'); ?></p></div></td></tr>
 
             <?php endif; ?>
         </table>

@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Directorist - Business Directory Plugin
- * Plugin URI: https://aazztech.com/product/directorist-business-directory-plugin
+ * Plugin URI: https://wpwax.com
  * Description: A comprehensive solution to create professional looking directory site of any kind. Like Yelp, Foursquare, etc.
- * Version: 6.6.0
- * Author: AazzTech
- * Author URI: https://aazztech.com
+ * Version: 6.6
+ * Author: wpWax
+ * Author URI: https://wpwax.com
  * Text Domain: directorist
  * Domain Path: /languages
  */
@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-Copyright (c) 2020 AazzTech (website: aazztech.com). All rights reserved.
+Copyright (c) 2020 wpWax (website: wpwax.com). All rights reserved.
 */
 // prevent direct access to the file
 defined('ABSPATH') || die('No direct script access allowed!');
@@ -218,22 +218,26 @@ final class Directorist_Base
             self::$instance->setup_constants();
 
             add_action('plugins_loaded', array(self::$instance, 'load_textdomain'));
+            add_action('plugins_loaded', array(self::$instance, 'add_polylang_swicher_support') );
             add_action('widgets_init', array(self::$instance, 'register_widgets'));
+
+            add_action( 'template_redirect', [ self::$instance, 'check_single_listing_page_restrictions' ] );
+            add_action( 'atbdp_show_flush_messages', [ self::$instance, 'show_flush_messages' ] );
 
             self::$instance->includes();
 
             self::$instance->enquirer = new ATBDP_Enqueuer;
-            
-            // ATBDP_Listing_Type_Manager
-            self::$instance->cpt_manager = new ATBDP_Listing_Type_Manager;
-            self::$instance->cpt_manager->run();
 
-            // self::$instance->settings_panel = new ATBDP_Settings_Panel;
-            // self::$instance->settings_panel->run();
+            // ATBDP_Listing_Type_Manager
+            self::$instance->multi_directory_manager = new ATBDP_Multi_Directory_Manager;
+            self::$instance->multi_directory_manager->run();
+
+            self::$instance->settings_panel = new ATBDP_Settings_Panel;
+            self::$instance->settings_panel->run();
 
             self::$instance->custom_post = new ATBDP_Custom_Post; // create custom post
             self::$instance->taxonomy = new ATBDP_Custom_Taxonomy;
-            
+
             self::$instance->hooks = new ATBDP_Hooks;
             self::$instance->metabox = new ATBDP_Metabox;
             self::$instance->ajax_handler = new ATBDP_Ajax_Handler;
@@ -242,7 +246,6 @@ final class Directorist_Base
             self::$instance->user = new ATBDP_User;
             self::$instance->roles = new ATBDP_Roles;
             self::$instance->gateway = new ATBDP_Gateway;
-            self::$instance->custom_field = new ATBDP_Custom_Field;
             self::$instance->order = new ATBDP_Order;
             self::$instance->shortcode = new ATBDP_Shortcode;
             self::$instance->email = new ATBDP_Email;
@@ -250,11 +253,12 @@ final class Directorist_Base
             // self::$instance->validator = new ATBDP_Validator;
             // self::$instance->ATBDP_Single_Templates = new ATBDP_Single_Templates;
             self::$instance->tools = new ATBDP_Tools;
+            self::$instance->announcement = new ATBDP_Announcement;
             self::$instance->ATBDP_Review_Custom_Post = new ATBDP_Review_Custom_Post;
             self::$instance->update_database();
 
             // new settings
-            new ATBDP_Settings_Manager();
+            // new ATBDP_Settings_Manager();
             /*Extensions Link*/
             /*initiate extensions link*/
             new ATBDP_Extensions();
@@ -288,7 +292,7 @@ final class Directorist_Base
                 add_action('init', array(self::$instance, 'add_custom_meta_keys_for_old_listings'));
             }
 
-        
+
             // init offline gateway
             new ATBDP_Offline_Gateway;
             // Init Cron jobs to run some periodic tasks
@@ -303,6 +307,83 @@ final class Directorist_Base
         }
 
         return self::$instance;
+    }
+
+    // show_flush_messages
+    public function show_flush_messages() {
+        atbdp_get_flush_messages();
+    }
+
+    // check_single_listing_page_restrictions
+    public function check_single_listing_page_restrictions() {
+        $restricted_for_logged_in_user = get_directorist_option( 'restrict_single_listing_for_logged_in_user', false );
+        $current_user_id = get_current_user_id();
+
+        if ( is_singular( ATBDP_POST_TYPE ) && ! empty( $restricted_for_logged_in_user ) && empty( $current_user_id ) ) {
+
+            atbdp_auth_guard();
+
+            die;
+        }
+    }
+
+    // add_polylang_swicher_support
+    public function add_polylang_swicher_support() {
+        add_filter('pll_the_language_link', function($url, $current_lang) {
+            // Adjust the category link
+            $category_url = $this->get_polylang_swicher_link_for_term([
+                'term_type'            => 'category',
+                'term_default_page_id' => get_directorist_option('single_category_page'),
+                'term_query_var'       => ( ! empty( $_GET['category'] ) ) ? $_GET['category'] : get_query_var('atbdp_category'),
+                'current_lang'         => $current_lang,
+                'url'                  => $url,
+            ]);
+
+            if ( ! empty( $category_url ) ) { return $category_url; }
+
+            // Adjust the location link
+            $location_url = $this->get_polylang_swicher_link_for_term([
+                'term_type'            => 'location',
+                'term_default_page_id' => get_directorist_option('single_location_page'),
+                'term_query_var'       => ( ! empty( $_GET['location'] ) ) ? $_GET['location'] : get_query_var('atbdp_location'),
+                'current_lang'         => $current_lang,
+                'url'                  => $url,
+            ]);
+
+            if ( ! empty( $location_url ) ) { return $location_url; }
+
+            return $url;
+        }, 10, 2);
+    }
+
+    // get_polylang_swicher_link_for_term
+    public function get_polylang_swicher_link_for_term( $args ) {
+        $default = [
+            'term_type'            => '',
+            'term_query_var'       => '',
+            'term_default_page_id' => '',
+            'current_lang'         => '',
+            'url'                  => '',
+        ];
+
+        $args = array_merge( $default, $args );
+
+        if ( empty( $args[ 'term_query_var' ] ) ) { return false; }
+
+        // Get language slug of the default page
+        $page_lang = pll_get_post_language( $args[ 'term_default_page_id' ] );
+
+        // If current lang slug != default page
+        // modyfy the url
+        if ( $args[ 'current_lang' ] !== $page_lang ) {
+            return $args['url'] ."?". $args['term_type'] ."=". $args['term_query_var'];
+        }
+
+        if ( $args[ 'current_lang' ] === $page_lang  ) {
+            return $args['url'] . $args['term_query_var'];
+        }
+
+        return false;
     }
 
     /**
@@ -374,7 +455,6 @@ final class Directorist_Base
     private function includes()
     {
         self::require_files([
-            ATBDP_LIB_DIR . 'vafpress/bootstrap',
             ATBDP_INC_DIR . 'helper-functions',
             ATBDP_INC_DIR . 'template-functions',
             ATBDP_INC_DIR . 'custom-actions',
@@ -386,22 +466,20 @@ final class Directorist_Base
         load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
         load_dependencies('all', ATBDP_INC_DIR . 'model/');
         load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
+        load_dependencies('all', ATBDP_INC_DIR . 'modules/');
+        load_dependencies('all', ATBDP_INC_DIR . 'modules/multi-directory-setup/');
 
         load_dependencies('all', ATBDP_CLASS_DIR); // load all php files from ATBDP_CLASS_DIR
         load_dependencies('all', ATBDP_MODEL_DIR); // load all php files from ATBDP_MODEL_DIR
-        load_dependencies('all', ATBDP_LIB_DIR); // load all php files from ATBDP_LIB_DIR
 
         /*LOAD Rating and Review functionality*/
         load_dependencies('all', ATBDP_INC_DIR . 'review-rating/');
         /*Load gateway related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'gateways/');
-
-        /*Load custom field related stuff*/
-        load_dependencies('all', ATBDP_INC_DIR . 'custom-fields/');
         /*Load payment related stuff*/
         load_dependencies('all', ATBDP_INC_DIR . 'payments/');
         load_dependencies('all', ATBDP_INC_DIR . 'checkout/');
-        
+
 
     }
 
@@ -1330,7 +1408,7 @@ final class Directorist_Base
                     </div><!-- end .atbd_custom_fields_contents -->
                 <?php };
             } else { ?>
-                <div class="atbd_notice alert alert-info" role="alert">
+                <div class="atbd_notice atbd-alert atbd-alert-info">
                     <span class="<?php atbdp_icon_type(true); ?>-info-circle" aria-hidden="true"></span>
                     <?php
                     $login_url = apply_filters('atbdp_review_login_link', "<a href='" . ATBDP_Permalink::get_login_page_link() . "'> " . __('Login', 'directorist') . "</a>");

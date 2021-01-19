@@ -310,6 +310,13 @@ export default {
     },
   },
 
+  mounted() {
+    const self = this;
+    document.addEventListener('click', function( e ) {
+      self.closeInsertWindow();
+    });
+  },
+
   created() {
     this.init();
     this.$emit( 'update', this.output_data );
@@ -333,7 +340,7 @@ export default {
           continue;
         }
 
-        for (let section_area in layout[section]) {
+        for ( let section_area in layout[section] ) {
           output[section][section_area] = [];
 
           if (typeof layout[section][section_area] !== "object") {
@@ -483,6 +490,7 @@ export default {
 
   data() {
     return {
+      active_insert_widget_is_open: false,
       active_insert_widget_key: '',
 
       // Widget Options Window
@@ -564,6 +572,7 @@ export default {
       this.importLayout();
       this.importOldData();
     },
+    
 
     isTruthyObject( obj ) {
       if ( ! obj && typeof obj !== 'object' ) {
@@ -588,7 +597,7 @@ export default {
 
       if ( ! this.isTruthyObject( value ) ) { return; }
       let selectedWidgets = [];
-      
+
       // Get Active Widgets Data
       let active_widgets_data = {};
       for ( let section in value ) {
@@ -714,7 +723,7 @@ export default {
         return false;
       }
 
-       if ( path.selectedWidgets.includes( this._currentDraggingWidget.key ) ) {
+      if ( path.selectedWidgets.includes( this._currentDraggingWidget.key ) ) {
         return true;
       }
 
@@ -791,6 +800,8 @@ export default {
       let opt = this.active_widgets[ key ].options;
       this.widgetOptionsWindow = { ...this.widgetOptionsWindowDefault, ...opt };
       this.widgetOptionsWindow.widget = key;
+
+      this.closeInsertWindow();
     },
 
     updateWidgetOptionsData( data, widget ) {
@@ -826,12 +837,16 @@ export default {
     },
 
     activeInsertWindow( current_item_key ) {
-      if ( this.active_insert_widget_key === current_item_key ) {
-        this.active_insert_widget_key = '';
-        return;
-      }
+      let self = this;
 
-      this.active_insert_widget_key = current_item_key;
+      setTimeout( function() {
+        if ( self.active_insert_widget_key === current_item_key ) {
+          self.active_insert_widget_key = '';
+          return;
+        }
+
+        self.active_insert_widget_key = current_item_key;
+      }, 0);
     },
 
     insertWidget( payload, where ) {
@@ -842,6 +857,8 @@ export default {
 
       Vue.set( this.active_widgets, payload.key, { ...this.theAvailableWidgets[ payload.key ] } );
       Vue.set( where, 'selectedWidgets', payload.selected_widgets );
+
+      this.editWidget( payload.key );
     },
 
     closeInsertWindow( widget_insert_window ) {

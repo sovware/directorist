@@ -38,6 +38,11 @@
         </div>
     </div>
 </div>
+<?php 
+/**
+ * @since 6.6
+ */
+do_action( 'atbdp_author_listings_before_loop' ); ?>
 <div class="atbd_authors_listing">
 	<?php if ($display_listings) { ?>
 		<div class="row"<?php echo esc_attr($listings->masonary_grid_attr()); ?>>

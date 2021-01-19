@@ -2,12 +2,119 @@
 // Prohibit direct script loading.
 defined('ABSPATH') || die('No direct script access allowed!');
 
+if ( ! function_exists( 'atbdp_is_truthy' ) ) {
+    function atbdp_is_truthy( $data ) {
+
+        if ( $data === true ||  $data === 'true'|| $data === 1 || $data === '1' ) {
+            return true;
+        }
+
+        return false;
+    }
+}
 
 if ( ! function_exists( 'e_var_dump' ) ) {
     function e_var_dump( $the_var = '' ) {
         echo '<pre>';
         print_r( $the_var );
         echo '</pre>';
+    }
+}
+
+if ( ! function_exists( 'atbdp_console_log' ) ) {
+    function atbdp_console_log( array $data = [] ) {
+        $data = json_encode( $data ); ?>
+        <script>
+            var data = JSON.parse( '<?php echo $data ?>' );
+            console.log( data );
+        </script>
+        <?php
+    }
+}
+
+if ( ! function_exists( 'atbdp_redirect_after_login' ) ) {
+    // atbdp_redirect_after_login
+    function atbdp_redirect_after_login( array $args = [] ) {
+        $default = [ 'url' => '' ];
+        $args = array_merge( $default, $args );
+
+        if ( empty( $args['url'] ) ) { return; }
+
+        set_transient( 'atbdp_redirect_after_login', $args['url'] );
+    }
+}
+
+if ( ! function_exists( 'atbdp_add_flush_message' ) ) {
+    // atbdp_add_flush_message
+    function atbdp_add_flush_message( array $args = [] ) {
+        $default = [ 'key' => '', 'type' => 'info', 'message' => '' ];
+        $args = array_merge( $default, $args );
+
+        if ( empty( $args['key'] ) ) { return; }
+        if ( empty( $args['message'] ) ) { return; }
+
+        $get_previous_messages = get_transient( 'atbdp_flush_messages' );
+        $flush_messages = $get_previous_messages;
+
+        if ( empty( $flush_messages ) ) {
+            $flush_messages = [];
+        }
+
+        $key = $args[ 'key' ];
+        $flush_messages[ $key ] = $args;
+
+        set_transient( 'atbdp_flush_messages', $flush_messages );
+    }
+}
+
+if ( ! function_exists( 'atbdp_get_flush_messages' ) ) {
+    // atbdp_get_flush_messages
+    function atbdp_get_flush_messages( array $args = [] ) {
+        $flush_messages = get_transient( 'atbdp_flush_messages' );
+        if ( empty( $flush_messages  ) ) { return; }
+
+        delete_transient( 'atbdp_flush_messages' );
+
+        ob_start();
+
+        echo '<div class="atbdp-flush-message-container">';
+        foreach ( $flush_messages as $message_key => $messages ) { ?>
+            <div class="atbdp-flush-message-item type-<?php echo $messages['type'] ?>">
+                <?php echo $messages['message'] ?>
+            </div>
+        <?php }
+        echo '</div>';
+
+        $contents = apply_filters( 'atbdp_flush_message_content', ob_get_clean(), $flush_messages );
+        echo $contents;
+    }
+}
+
+if ( ! function_exists( 'atbdp_auth_guard' ) ) {
+    function atbdp_auth_guard( array $args = [] ) {
+        $flush_message = [
+            'key'     => 'logged_in_user_only',
+            'type'    => 'info',
+            'message' => __( 'You need to be logged in to view the content of this page', 'directorist' ),
+        ];
+
+        $default = [ 'flush_message' => $flush_message ];
+        $args = array_merge( $default, $args );
+
+        global $wp;
+
+        $current_page  = home_url( $wp->request );
+        $login_page_id = get_directorist_option( 'user_login' );
+        $login_page    = ( ! empty( $login_page_id ) ) ? get_page_link( $login_page_id ) : '';
+        $home_page     = home_url();
+        $redirect_link = ( ! empty( $login_page ) ) ? $login_page : $home_page;
+
+        atbdp_add_flush_message( $args['flush_message'] );
+
+        atbdp_redirect_after_login( [ 'url' => $current_page ] );
+        wp_redirect( $redirect_link );
+
+        die;
     }
 }
 
@@ -609,10 +716,18 @@ if(!function_exists('get_review_by_ids')) {
     }
  }
 
-if (!function_exists('get_fa_icons')) {
+if ( ! function_exists('get_fa_icons') ) {
     function get_fa_icons()
     {
-        return $iconsFA = array("none", "la-adjust", "la-adn", "la-align-center", "la-align-justify", "la-align-left", "la-align-right", "la-amazon", "la-ambulance", "la-anchor", "la-android", "la-angellist", "la-angle-double-down", "la-angle-double-left", "la-angle-double-right", "la-angle-double-up", "la-angle-down", "la-angle-left", "la-angle-right", "la-angle-up", "la-apple", "la-archive", "la-area-chart", "la-arrow-circle-down", "la-arrow-circle-left", "la-arrow-circle-o-down", "la-arrow-circle-o-left", "la-arrow-circle-o-right", "la-arrow-circle-o-up", "la-arrow-circle-right", "la-arrow-circle-up", "la-arrow-down", "la-arrow-left", "la-arrow-right", "la-arrow-up", "la-arrows", "la-arrows-alt", "la-arrows-h", "la-arrows-v", "la-asterisk", "la-at", "la-automobile", "la-backward", "la-balance-scale", "la-ban", "la-bank", "la-bar-chart", "la-bar-chart-o", "la-barcode", "la-bars", "la-battery-0", "la-battery-1", "la-battery-2", "la-battery-3", "la-battery-4", "la-battery-empty", "la-battery-full", "la-battery-half", "la-battery-quarter", "la-battery-three-quarters", "la-bed", "la-beer", "la-behance", "la-behance-square", "la-bell", "la-bell-o", "la-bell-slash", "la-bell-slash-o", "la-bicycle", "la-binoculars", "la-birthday-cake", "la-bitbucket", "la-bitbucket-square", "la-bitcoin", "la-black-tie", "la-bold", "la-bolt", "la-bomb", "la-book", "la-bookmark", "la-bookmark-o", "la-briefcase", "la-btc", "la-bug", "la-building", "la-building-o", "la-bullhorn", "la-bullseye", "la-bus", "la-buysellads", "la-cab", "la-calculator", "la-calendar", "la-calendar-check-o", "la-calendar-minus-o", "la-calendar-o", "la-calendar-plus-o", "la-calendar-times-o", "la-camera", "la-camera-retro", "la-caret-down", "la-caret-left", "la-caret-right", "la-caret-square-o-down", "la-toggle-down", "la-caret-square-o-left", "la-toggle-left", "la-caret-square-o-right", "la-toggle-right", "la-caret-square-o-up", "la-toggle-up", "la-caret-up", "la-cart-arrow-down", "la-cart-plus", "la-cc", "la-cc-amex", "la-cc-diners-club", "la-cc-discover", "la-cc-jcb", "la-cc-mastercard", "la-cc-paypal", "la-cc-stripe", "la-cc-visa", "la-certificate", "la-chain", "la-chain-broken", "la-check", "la-check-circle", "la-check-circle-o", "la-check-square", "la-check-square-o", "la-chevron-circle-down", "la-chevron-circle-left", "la-chevron-circle-right", "la-chevron-circle-up", "la-chevron-down", "la-chevron-left", "la-chevron-right", "la-chevron-up", "la-child", "la-chrome", "la-circle", "la-circle-o", "la-circle-o-notch", "la-circle-thin", "la-clipboard", "la-clock-o", "la-clone", "la-close", "la-cloud", "la-cloud-download", "la-cloud-upload", "la-cny", "la-code", "la-code-fork", "la-codepen", "la-coffee", "la-cog", "la-cogs", "la-columns", "la-comment", "la-comment-o", "la-commenting", "la-commenting-o", "la-comments", "la-comments-o", "la-compass", "la-compress", "la-connectdevelop", "la-contao", "la-copy", "la-copyright", "la-creative-commons", "la-credit-card", "la-crop", "la-crosshairs", "la-css3", "la-cube", "la-cubes", "la-cut", "la-cutlery", "la-dashboard", "la-dashcube", "la-database", "la-dedent", "la-delicious", "la-desktop", "la-deviantart", "la-diamond", "la-digg", "la-dollar", "la-dot-circle-o", "la-download", "la-dribbble", "la-dropbox", "la-drupal", "la-edit", "la-eject", "la-ellipsis-v", "la-empire", "la-ge", "la-envelope", "la-envelope-o", "la-envelope-square", "la-eraser", "la-eur", "la-euro", "la-exchange", "la-exclamation", "la-exclamation-circle", "la-exclamation-triangle", "la-expand", "la-expeditedssl", "la-external-link", "la-external-link-square", "la-eye", "la-eye-slash", "la-eyedropper", "la-facebook-f", "la-facebook", "la-facebook-official", "la-facebook-square", "la-fast-backward", "la-fast-forward", "la-fax", "la-female", "la-fighter-jet", "la-file", "la-file-archive-o", "la-file-audio-o", "la-file-code-o", "la-file-excel-o", "la-file-image-o", "la-file-movie-o", "la-file-o", "la-file-pdf-o", "la-file-photo-o", "la-file-picture-o", "la-file-powerpoint-o", "la-file-sound-o", "la-file-text", "la-file-text-o", "la-file-video-o", "la-file-word-o", "la-file-zip-o", "la-files-o", "la-film", "la-filter", "la-fire", "la-fire-extinguisher", "la-firefox", "la-flag", "la-flag-checkered", "la-flag-o", "la-flash", "la-flask", "la-flickr", "la-floppy-o", "la-folder", "la-folder-o", "la-folder-open", "la-folder-open-o", "la-font", "la-fonticons", "la-forumbee", "la-forward", "la-foursquare", "la-frown-o", "la-futbol-o", "la-soccer-ball-o", "la-gamepad", "la-gavel", "la-gbp", "la-gear", "la-gears", "la-genderless", "la-get-pocket", "la-gg", "la-gg-circle", "la-gift", "la-git", "la-git-square", "la-github", "la-github-alt", "la-github-square", "la-glass", "la-globe", "la-google", "la-google-plus", "la-google-plus-square", "la-google-wallet", "la-graduation-cap", "la-gittip", "la-gratipay", "la-group", "la-h-square", "la-hand-grab-o", "la-hand-lizard-o", "la-hand-o-down", "la-hand-o-left", "la-hand-o-right", "la-hand-o-up", "la-hand-paper-o", "la-hand-peace-o", "la-hand-pointer-o", "la-hand-rock-o", "la-hand-scissors-o", "la-hand-spock-o", "la-hand-stop-o", "la-hdd-o", "la-header", "la-headphones", "la-heart", "la-heart-o", "la-heartbeat", "la-history", "la-home", "la-hospital-o", "la-hotel", "la-hourglass", "la-hourglass-1", "la-hourglass-2", "la-hourglass-3", "la-hourglass-end", "la-hourglass-half", "la-hourglass-o", "la-hourglass-start", "la-houzz", "la-html5", "la-i-cursor", "la-ils", "la-image", "la-inbox", "la-indent", "la-industry", "la-info", "la-info-circle", "la-inr", "la-instagram", "la-institution", "la-internet-explorer", "la-ioxhost", "la-italic", "la-joomla", "la-jpy", "la-jsfiddle", "la-key", "la-keyboard-o", "la-krw", "la-language", "la-laptop", "la-lastfm", "la-lastfm-square", "la-leaf", "la-leanpub", "la-legal", "la-lemon-o", "la-level-down", "la-level-up", "la-life-bouy", "la-life-buoy", "la-life-ring", "la-support", "la-life-saver", "la-lightbulb-o", "la-line-chart", "la-link", "la-linkedin", "la-linkedin-square", "la-linux", "la-list", "la-list-alt", "la-list-ol", "la-list-ul", "la-location-arrow", "la-lock", "la-long-arrow-down", "la-long-arrow-left", "la-long-arrow-right", "la-long-arrow-up", "la-magic", "la-magnet", "la-mail-forward", "la-mail-reply", "la-mail-reply-all", "la-male", "la-map", "la-map-marker", "la-map-o", "la-map-pin", "la-map-signs", "la-mars", "la-mars-double", "la-mars-stroke", "la-mars-stroke-h", "la-mars-stroke-v", "la-meanpath", "la-medium", "la-medkit", "la-meh-o", "la-mercury", "la-microphone", "la-microphone-slash", "la-minus", "la-minus-circle", "la-minus-square", "la-minus-square-o", "la-mobile", "la-mobile-phone", "la-money", "la-moon-o", "la-mortar-board", "la-motorcycle", "la-mouse-pointer", "la-music", "la-navicon", "la-neuter", "la-newspaper-o", "la-object-group", "la-object-ungroup", "la-odnoklassniki", "la-odnoklassniki-square", "la-opencart", "la-openid", "la-opera", "la-optin-monster", "la-outdent", "la-pagelines", "la-paint-brush", "la-paper-plane", "la-send", "la-paper-plane-o", "la-send-o", "la-paperclip", "la-paragraph", "la-paste", "la-pause", "la-paw", "la-paypal", "la-pencil", "la-pencil-square", "la-pencil-square-o", "la-phone", "la-phone-square", "la-photo", "la-picture-o", "la-pie-chart", "la-pied-piper", "la-pied-piper-alt", "la-pinterest", "la-pinterest-p", "la-pinterest-square", "la-plane", "la-play", "la-play-circle", "la-play-circle-o", "la-plug", "la-plus", "la-plus-circle", "la-plus-square", "la-plus-square-o", "la-power-off", "la-print", "la-puzzle-piece", "la-qq", "la-qrcode", "la-question", "la-question-circle", "la-quote-left", "la-quote-right", "la-ra", "la-random", "la-rebel", "la-recycle", "la-reddit", "la-reddit-square", "la-refresh", "la-registered", "la-renren", "la-reorder", "la-repeat", "la-reply", "la-reply-all", "la-retweet", "la-rmb", "la-road", "la-rocket", "la-rotate-left", "la-rotate-right", "la-rouble", "la-feed", "la-rss", "la-rss-square", "la-rub", "la-ruble", "la-rupee", "la-save", "la-scissors", "la-search", "la-search-minus", "la-search-plus", "la-sellsy", "la-server", "la-share", "la-share-alt", "la-share-alt-square", "la-share-square", "la-share-square-o", "la-shekel", "la-sheqel", "la-shield", "la-ship", "la-shirtsinbulk", "la-shopping-cart", "la-sign-in", "la-sign-out", "la-signal", "la-simplybuilt", "la-sitemap", "la-skyatlas", "la-skype", "la-slack", "la-sliders", "la-slideshare", "la-smile-o", "la-sort", "la-unsorted", "la-sort-alpha-asc", "la-sort-alpha-desc", "la-sort-amount-asc", "la-sort-amount-desc", "la-sort-asc", "la-sort-up", "la-sort-desc", "la-sort-down", "la-sort-numeric-asc", "la-sort-numeric-desc", "la-soundcloud", "la-space-shuttle", "la-spinner", "la-spoon", "la-spotify", "la-square", "la-square-o", "la-stack-exchange", "la-stack-overflow", "la-star", "la-star-half", "la-star-half-empty", "la-star-half-full", "la-star-half-o", "la-star-o", "la-steam", "la-steam-square", "la-step-backward", "la-step-forward", "la-stethoscope", "la-sticky-note", "la-sticky-note-o", "la-stop", "la-street-view", "la-strikethrough", "la-stumbleupon", "la-stumbleupon-circle", "la-subscript", "la-subway", "la-suitcase", "la-sun-o", "la-superscript", "la-table", "la-tablet", "la-tachometer", "la-tag", "la-tags", "la-tasks", "la-taxi", "la-television", "la-tv", "la-tencent-weibo", "la-terminal", "la-text-height", "la-text-width", "la-th", "la-th-large", "la-th-list", "la-thumb-tack", "la-thumbs-down", "la-thumbs-o-down", "la-thumbs-o-up", "la-thumbs-up", "la-ticket", "la-remove", "la-times", "la-times-circle", "la-times-circle-o", "la-tint", "la-toggle-on", "la-trademark", "la-train", "la-intersex", "la-transgender", "la-transgender-alt", "la-trash", "la-trash-o", "la-tree", "la-trello", "la-tripadvisor", "la-trophy", "la-truck", "la-try", "la-tty", "la-tumblr", "la-tumblr-square", "la-turkish-lira", "la-twitch", "la-twitter", "la-twitter-square", "la-umbrella", "la-underline", "la-undo", "la-university", "la-unlink", "la-unlock", "la-unlock-alt", "la-upload", "la-usd", "la-user", "la-user-md", "la-user-plus", "la-user-secret", "la-user-times", "la-users", "la-venus", "la-venus-double", "la-venus-mars", "la-viacoin", "la-video-camera", "la-vimeo", "la-vimeo-square", "la-vine", "la-vk", "la-volume-down", "la-volume-off", "la-volume-up", "la-warning", "la-wechat", "la-weibo", "la-weixin", "la-whatsapp", "la-wheelchair", "la-wifi", "la-wikipedia-w", "la-windows", "la-won", "la-wordpress", "la-wrench", "la-xing", "la-xing-square", "la-y-combinator", "la-y-combinator-square", "la-yahoo", "la-yc", "la-yc-square", "la-yelp", "la-yen", "la-youtube", "la-youtube-play", "la-youtube-square", "fa-500px", "fa-address-book", "fa-address-book-o", "fa-address-card", "fa-address-card-o", "fa-adjust", "fa-adn", "fa-align-center", "fa-align-justify", "fa-align-left", "fa-align-right", "fa-amazon", "fa-ambulance", "fa-american-sign-language-interpreting", "fa-anchor", "fa-android", "fa-angellist", "fa-angle-double-down", "fa-angle-double-left", "fa-angle-double-right", "fa-angle-double-up", "fa-angle-down", "fa-angle-left", "fa-angle-right", "fa-angle-up", "fa-apple", "fa-archive", "fa-area-chart", "fa-arrow-circle-down", "fa-arrow-circle-left", "fa-arrow-circle-o-down", "fa-arrow-circle-o-left", "fa-arrow-circle-o-right", "fa-arrow-circle-o-up", "fa-arrow-circle-right", "fa-arrow-circle-up", "fa-arrow-down", "fa-arrow-left", "fa-arrow-right", "fa-arrow-up", "fa-arrows", "fa-arrows-alt", "fa-arrows-h", "fa-arrows-v", "fa-assistive-listening-systems", "fa-asterisk", "fa-at", "fa-audio-description", "fa-backward", "fa-balance-scale", "fa-ban", "fa-bandcamp", "fa-bar-chart", "fa-barcode", "fa-bars", "fa-bath", "fa-battery-empty", "fa-battery-full", "fa-battery-half", "fa-battery-quarter", "fa-battery-three-quarters", "fa-bed", "fa-beer", "fa-behance", "fa-behance-square", "fa-bell", "fa-bell-o", "fa-bell-slash", "fa-bell-slash-o", "fa-bicycle", "fa-binoculars", "fa-birthday-cake", "fa-bitbucket", "fa-bitbucket-square", "fa-black-tie", "fa-blind", "fa-bluetooth", "fa-bluetooth-b", "fa-bold", "fa-bolt", "fa-bomb", "fa-book", "fa-bookmark", "fa-bookmark-o", "fa-braille", "fa-briefcase", "fa-btc", "fa-bug", "fa-building", "fa-building-o", "fa-bullhorn", "fa-bullseye", "fa-bus", "fa-buysellads", "fa-calculator", "fa-calendar", "fa-calendar-check-o", "fa-calendar-minus-o", "fa-calendar-o", "fa-calendar-plus-o", "fa-calendar-times-o", "fa-camera", "fa-camera-retro", "fa-car", "fa-caret-down", "fa-caret-left", "fa-caret-right", "fa-caret-square-o-down", "fa-caret-square-o-left", "fa-caret-square-o-right", "fa-caret-square-o-up", "fa-caret-up", "fa-cart-arrow-down", "fa-cart-plus", "fa-cc", "fa-cc-amex", "fa-cc-diners-club", "fa-cc-discover", "fa-cc-jcb", "fa-cc-mastercard", "fa-cc-paypal", "fa-cc-stripe", "fa-cc-visa", "fa-certificate", "fa-chain-broken", "fa-check", "fa-check-circle", "fa-check-circle-o", "fa-check-square", "fa-check-square-o", "fa-chevron-circle-down", "fa-chevron-circle-left", "fa-chevron-circle-right", "fa-chevron-circle-up", "fa-chevron-down", "fa-chevron-left", "fa-chevron-right", "fa-chevron-up", "fa-child", "fa-chrome", "fa-circle", "fa-circle-o", "fa-circle-o-notch", "fa-circle-thin", "fa-clipboard", "fa-clock-o", "fa-clone", "fa-cloud", "fa-cloud-download", "fa-cloud-upload", "fa-code", "fa-code-fork", "fa-codepen", "fa-codiepie", "fa-coffee", "fa-cog", "fa-cogs", "fa-columns", "fa-comment", "fa-comment-o", "fa-commenting", "fa-commenting-o", "fa-comments", "fa-comments-o", "fa-compass", "fa-compress", "fa-connectdevelop", "fa-contao", "fa-copyright", "fa-creative-commons", "fa-credit-card", "fa-credit-card-alt", "fa-crop", "fa-crosshairs", "fa-css3", "fa-cube", "fa-cubes", "fa-cutlery", "fa-dashcube", "fa-database", "fa-deaf", "fa-delicious", "fa-desktop", "fa-deviantart", "fa-diamond", "fa-digg", "fa-dot-circle-o", "fa-download", "fa-dribbble", "fa-dropbox", "fa-drupal", "fa-edge", "fa-eercast", "fa-eject", "fa-ellipsis-h", "fa-ellipsis-v", "fa-empire", "fa-envelope", "fa-envelope-o", "fa-envelope-open", "fa-envelope-open-o", "fa-envelope-square", "fa-envira", "fa-eraser", "fa-etsy", "fa-eur", "fa-exchange", "fa-exclamation", "fa-exclamation-circle", "fa-exclamation-triangle", "fa-expand", "fa-expeditedssl", "fa-external-link", "fa-external-link-square", "fa-eye", "fa-eye-slash", "fa-eyedropper", "fa-facebook", "fa-facebook-official", "fa-facebook-square", "fa-fast-backward", "fa-fast-forward", "fa-fax", "fa-female", "fa-fighter-jet", "fa-file", "fa-file-archive-o", "fa-file-audio-o", "fa-file-code-o", "fa-file-excel-o", "fa-file-image-o", "fa-file-o", "fa-file-pdf-o", "fa-file-powerpoint-o", "fa-file-text", "fa-file-text-o", "fa-file-video-o", "fa-file-word-o", "fa-files-o", "fa-film", "fa-filter", "fa-fire", "fa-fire-extinguisher", "fa-firefox", "fa-first-order", "fa-flag", "fa-flag-checkered", "fa-flag-o", "fa-flask", "fa-flickr", "fa-floppy-o", "fa-folder", "fa-folder-o", "fa-folder-open", "fa-folder-open-o", "fa-font", "fa-font-awesome", "fa-fonticons", "fa-fort-awesome", "fa-forumbee", "fa-forward", "fa-foursquare", "fa-free-code-camp", "fa-frown-o", "fa-futbol-o", "fa-gamepad", "fa-gavel", "fa-gbp", "fa-genderless", "fa-get-pocket", "fa-gg", "fa-gg-circle", "fa-gift", "fa-git", "fa-git-square", "fa-github", "fa-github-alt", "fa-github-square", "fa-gitlab", "fa-glass", "fa-glide", "fa-glide-g", "fa-globe", "fa-google", "fa-google-plus", "fa-google-plus-official", "fa-google-plus-square", "fa-google-wallet", "fa-graduation-cap", "fa-gratipay", "fa-grav", "fa-h-square", "fa-hacker-news", "fa-hand-lizard-o", "fa-hand-o-down", "fa-hand-o-left", "fa-hand-o-right", "fa-hand-o-up", "fa-hand-paper-o", "fa-hand-peace-o", "fa-hand-pointer-o", "fa-hand-rock-o", "fa-hand-scissors-o", "fa-hand-spock-o", "fa-handshake-o", "fa-hashtag", "fa-hdd-o", "fa-header", "fa-headphones", "fa-heart", "fa-heart-o", "fa-heartbeat", "fa-history", "fa-home", "fa-hospital-o", "fa-hourglass", "fa-hourglass-end", "fa-hourglass-half", "fa-hourglass-o", "fa-hourglass-start", "fa-houzz", "fa-html5", "fa-i-cursor", "fa-id-badge", "fa-id-card", "fa-id-card-o", "fa-ils", "fa-imdb", "fa-inbox", "fa-indent", "fa-industry", "fa-info", "fa-info-circle", "fa-inr", "fa-instagram", "fa-internet-explorer", "fa-ioxhost", "fa-italic", "fa-joomla", "fa-jpy", "fa-jsfiddle", "fa-key", "fa-keyboard-o", "fa-krw", "fa-language", "fa-laptop", "fa-lastfm", "fa-lastfm-square", "fa-leaf", "fa-leanpub", "fa-lemon-o", "fa-level-down", "fa-level-up", "fa-life-ring", "fa-lightbulb-o", "fa-line-chart", "fa-link", "fa-linkedin", "fa-linkedin-square", "fa-linode", "fa-linux", "fa-list", "fa-list-alt", "fa-list-ol", "fa-list-ul", "fa-location-arrow", "fa-lock", "fa-long-arrow-down", "fa-long-arrow-left", "fa-long-arrow-right", "fa-long-arrow-up", "fa-low-vision", "fa-magic", "fa-magnet", "fa-male", "fa-map", "fa-map-marker", "fa-map-o", "fa-map-pin", "fa-map-signs", "fa-mars", "fa-mars-double", "fa-mars-stroke", "fa-mars-stroke-h", "fa-mars-stroke-v", "fa-maxcdn", "fa-meanpath", "fa-medium", "fa-medkit", "fa-meetup", "fa-meh-o", "fa-mercury", "fa-microchip", "fa-microphone", "fa-microphone-slash", "fa-minus", "fa-minus-circle", "fa-minus-square", "fa-minus-square-o", "fa-mixcloud", "fa-mobile", "fa-modx", "fa-money", "fa-moon-o", "fa-motorcycle", "fa-mouse-pointer", "fa-music", "fa-neuter", "fa-newspaper-o", "fa-object-group", "fa-object-ungroup", "fa-odnoklassniki", "fa-odnoklassniki-square", "fa-opencart", "fa-openid", "fa-opera", "fa-optin-monster", "fa-outdent", "fa-pagelines", "fa-paint-brush", "fa-paper-plane", "fa-paper-plane-o", "fa-paperclip", "fa-paragraph", "fa-pause", "fa-pause-circle", "fa-pause-circle-o", "fa-paw", "fa-paypal", "fa-pencil", "fa-pencil-square", "fa-pencil-square-o", "fa-percent", "fa-phone", "fa-phone-square", "fa-picture-o", "fa-pie-chart", "fa-pied-piper", "fa-pied-piper-alt", "fa-pied-piper-pp", "fa-pinterest", "fa-pinterest-p", "fa-pinterest-square", "fa-plane", "fa-play", "fa-play-circle", "fa-play-circle-o", "fa-plug", "fa-plus", "fa-plus-circle", "fa-plus-square", "fa-plus-square-o", "fa-podcast", "fa-power-off", "fa-print", "fa-product-hunt", "fa-puzzle-piece", "fa-qq", "fa-qrcode", "fa-question", "fa-question-circle", "fa-question-circle-o", "fa-quora", "fa-quote-left", "fa-quote-right", "fa-random", "fa-ravelry", "fa-rebel", "fa-recycle", "fa-reddit", "fa-reddit-alien", "fa-reddit-square", "fa-refresh", "fa-registered", "fa-renren", "fa-repeat", "fa-reply", "fa-reply-all", "fa-retweet", "fa-road", "fa-rocket", "fa-rss", "fa-rss-square", "fa-rub", "fa-safari", "fa-scissors", "fa-scribd", "fa-search", "fa-search-minus", "fa-search-plus", "fa-sellsy", "fa-server", "fa-share", "fa-share-alt", "fa-share-alt-square", "fa-share-square", "fa-share-square-o", "fa-shield", "fa-ship", "fa-shirtsinbulk", "fa-shopping-bag", "fa-shopping-basket", "fa-shopping-cart", "fa-shower", "fa-sign-in", "fa-sign-language", "fa-sign-out", "fa-signal", "fa-simplybuilt", "fa-sitemap", "fa-skyatlas", "fa-skype", "fa-slack", "fa-sliders", "fa-slideshare", "fa-smile-o", "fa-snapchat", "fa-snapchat-ghost", "fa-snapchat-square", "fa-snowflake-o", "fa-sort", "fa-sort-alpha-asc", "fa-sort-alpha-desc", "fa-sort-amount-asc", "fa-sort-amount-desc", "fa-sort-asc", "fa-sort-desc", "fa-sort-numeric-asc", "fa-sort-numeric-desc", "fa-soundcloud", "fa-space-shuttle", "fa-spinner", "fa-spoon", "fa-spotify", "fa-square", "fa-square-o", "fa-stack-exchange", "fa-stack-overflow", "fa-star", "fa-star-half", "fa-star-half-o", "fa-star-o", "fa-steam", "fa-steam-square", "fa-step-backward", "fa-step-forward", "fa-stethoscope", "fa-sticky-note", "fa-sticky-note-o", "fa-stop", "fa-stop-circle", "fa-stop-circle-o", "fa-street-view", "fa-strikethrough", "fa-stumbleupon", "fa-stumbleupon-circle", "fa-subscript", "fa-subway", "fa-suitcase", "fa-sun-o", "fa-superpowers", "fa-superscript", "fa-table", "fa-tablet", "fa-tachometer", "fa-tag", "fa-tags", "fa-tasks", "fa-taxi", "fa-telegram", "fa-television", "fa-tencent-weibo", "fa-terminal", "fa-text-height", "fa-text-width", "fa-th", "fa-th-large", "fa-th-list", "fa-themeisle", "fa-thermometer-empty", "fa-thermometer-full", "fa-thermometer-half", "fa-thermometer-quarter", "fa-thermometer-three-quarters", "fa-thumb-tack", "fa-thumbs-down", "fa-thumbs-o-down", "fa-thumbs-o-up", "fa-thumbs-up", "fa-ticket", "fa-times", "fa-times-circle", "fa-times-circle-o", "fa-tint", "fa-toggle-off", "fa-toggle-on", "fa-trademark", "fa-train", "fa-transgender", "fa-transgender-alt", "fa-trash", "fa-trash-o", "fa-tree", "fa-trello", "fa-tripadvisor", "fa-trophy", "fa-truck", "fa-try", "fa-tty", "fa-tumblr", "fa-tumblr-square", "fa-twitch", "fa-twitter", "fa-twitter-square", "fa-umbrella", "fa-underline", "fa-undo", "fa-universal-access", "fa-university", "fa-unlock", "fa-unlock-alt", "fa-upload", "fa-usb", "fa-usd", "fa-user", "fa-user-circle", "fa-user-circle-o", "fa-user-md", "fa-user-o", "fa-user-plus", "fa-user-secret", "fa-user-times", "fa-users", "fa-venus", "fa-venus-double", "fa-venus-mars", "fa-viacoin", "fa-viadeo", "fa-viadeo-square", "fa-video-camera", "fa-vimeo", "fa-vimeo-square", "fa-vine", "fa-vk", "fa-volume-control-phone", "fa-volume-down", "fa-volume-off", "fa-volume-up", "fa-weibo", "fa-weixin", "fa-whatsapp", "fa-wheelchair", "fa-wheelchair-alt", "fa-wifi", "fa-wikipedia-w", "fa-window-close", "fa-window-close-o", "fa-window-maximize", "fa-window-minimize", "fa-window-restore", "fa-windows", "fa-wordpress", "fa-wpbeginner", "fa-wpexplorer", "fa-wpforms", "fa-wrench", "fa-xing", "fa-xing-square", "fa-y-combinator", "fa-yahoo", "fa-yelp", "fa-yoast", "fa-youtube", "fa-youtube-play", "fa-youtube-square", "fa-bank", "fa-bars", "fa-battery-0", "fa-battery-4", "fa-cab", "fa-file-sound-o", "fa-flash", "fa-group", "fa-hotel", "fa-hourglass-3", "fa-image", "fa-mail-reply-all", "fa-mobile-phone", "fa-mortar-board", "fa-navicon", "fa-rouble", "fa-ruble", "fa-save", "fa-send-o", "fa-sheqel", "fa-signing", "fa-sort-up", "fa-star-half-empty", "fa-support", "fa-times-rectangle-o", "fa-toggle-up", "fa-turkish-lira", "fa-wechat", "fa-yen", "fa-battery-1", "fa-dollar", "fa-drivers-license", "fa-euro", "fa-fa", "fa-file-photo-o", "fa-file-zip-o", "fa-hard-of-hearing", "fa-id-card", "fa-institution", "fa-life-saver", "fa-reorder", "fa-ra", "fa-resistance", "fa-rupee", "fa-soccer-ball-o", "fa-sort-down", "fa-star-half-full", "fa-thermometer-2", "fa-thermometer-full", "fa-tv", "fa-unsorted", "fa-yc", "fa-asl-interpreting", "fa-bar-chart-o", "fa-bathtub", "fa-battery-2", "fa-dashboard", "fa-deafness", "fa-drivers-license-o", "fa-edit", "fa-file-movie-o", "fa-file-picture-o", "fa-gear", "fa-google-plus-circle", "fa-hourglass-1", "fa-legal", "fa-life-bouy", "fa-mail-forward", "fa-paste", "fa-photo", "fa-rotate-left", "fa-s15", "fa-thermometer", "fa-thermometer-3", "fa-toggle-down", "fa-unlink", "fa-vcard", "fa-won", "fa-yc-square", "fa-automobile", "fa-battery", "fa-battery-3", "fa-bitcoin", "fa-close", "fa-cny", "fa-dedent", "fa-facebook-f", "fa-gears", "fa-gittip", "fa-hand-grab-o", "fa-hand-stop-o", "fa-hourglass-2", "fa-intersex", "fa-life-buoy", "fa-remove", "fa-rmb", "fa-rotate-right", "fa-send", "fa-shekel", "fa-thermometer-0", "fa-thermometer-4", "fa-times-rectangle", "fa-toggle-left", "fa-toggle-right", "fa-vcard-o", "fa-warning", "fa-y-combinator-square");
+        $font_type = get_directorist_option('font_type', 'line');
+        $iconsLA = array("none", "la-adjust", "la-adn", "la-align-center", "la-align-justify", "la-align-left", "la-align-right", "la-amazon", "la-ambulance", "la-anchor", "la-android", "la-angellist", "la-angle-double-down", "la-angle-double-left", "la-angle-double-right", "la-angle-double-up", "la-angle-down", "la-angle-left", "la-angle-right", "la-angle-up", "la-apple", "la-archive", "la-area-chart", "la-arrow-circle-down", "la-arrow-circle-left", "la-arrow-circle-o-down", "la-arrow-circle-o-left", "la-arrow-circle-o-right", "la-arrow-circle-o-up", "la-arrow-circle-right", "la-arrow-circle-up", "la-arrow-down", "la-arrow-left", "la-arrow-right", "la-arrow-up", "la-arrows", "la-arrows-alt", "la-arrows-h", "la-arrows-v", "la-asterisk", "la-at", "la-automobile", "la-backward", "la-balance-scale", "la-ban", "la-bank", "la-bar-chart", "la-bar-chart-o", "la-barcode", "la-bars", "la-battery-0", "la-battery-1", "la-battery-2", "la-battery-3", "la-battery-4", "la-battery-empty", "la-battery-full", "la-battery-half", "la-battery-quarter", "la-battery-three-quarters", "la-bed", "la-beer", "la-behance", "la-behance-square", "la-bell", "la-bell-o", "la-bell-slash", "la-bell-slash-o", "la-bicycle", "la-binoculars", "la-birthday-cake", "la-bitbucket", "la-bitbucket-square", "la-bitcoin", "la-black-tie", "la-bold", "la-bolt", "la-bomb", "la-book", "la-bookmark", "la-bookmark-o", "la-briefcase", "la-btc", "la-bug", "la-building", "la-building-o", "la-bullhorn", "la-bullseye", "la-bus", "la-buysellads", "la-cab", "la-calculator", "la-calendar", "la-calendar-check-o", "la-calendar-minus-o", "la-calendar-o", "la-calendar-plus-o", "la-calendar-times-o", "la-camera", "la-camera-retro", "la-caret-down", "la-caret-left", "la-caret-right", "la-caret-square-o-down", "la-toggle-down", "la-caret-square-o-left", "la-toggle-left", "la-caret-square-o-right", "la-toggle-right", "la-caret-square-o-up", "la-toggle-up", "la-caret-up", "la-cart-arrow-down", "la-cart-plus", "la-cc", "la-cc-amex", "la-cc-diners-club", "la-cc-discover", "la-cc-jcb", "la-cc-mastercard", "la-cc-paypal", "la-cc-stripe", "la-cc-visa", "la-certificate", "la-chain", "la-chain-broken", "la-check", "la-check-circle", "la-check-circle-o", "la-check-square", "la-check-square-o", "la-chevron-circle-down", "la-chevron-circle-left", "la-chevron-circle-right", "la-chevron-circle-up", "la-chevron-down", "la-chevron-left", "la-chevron-right", "la-chevron-up", "la-child", "la-chrome", "la-circle", "la-circle-o", "la-circle-o-notch", "la-circle-thin", "la-clipboard", "la-clock-o", "la-clone", "la-close", "la-cloud", "la-cloud-download", "la-cloud-upload", "la-cny", "la-code", "la-code-fork", "la-codepen", "la-coffee", "la-cog", "la-cogs", "la-columns", "la-comment", "la-comment-o", "la-commenting", "la-commenting-o", "la-comments", "la-comments-o", "la-compass", "la-compress", "la-connectdevelop", "la-contao", "la-copy", "la-copyright", "la-creative-commons", "la-credit-card", "la-crop", "la-crosshairs", "la-css3", "la-cube", "la-cubes", "la-cut", "la-cutlery", "la-dashboard", "la-dashcube", "la-database", "la-dedent", "la-delicious", "la-desktop", "la-deviantart", "la-diamond", "la-digg", "la-dollar", "la-dot-circle-o", "la-download", "la-dribbble", "la-dropbox", "la-drupal", "la-edit", "la-eject", "la-ellipsis-v", "la-empire", "la-ge", "la-envelope", "la-envelope-o", "la-envelope-square", "la-eraser", "la-eur", "la-euro", "la-exchange", "la-exclamation", "la-exclamation-circle", "la-exclamation-triangle", "la-expand", "la-expeditedssl", "la-external-link", "la-external-link-square", "la-eye", "la-eye-slash", "la-eyedropper", "la-facebook-f", "la-facebook", "la-facebook-official", "la-facebook-square", "la-fast-backward", "la-fast-forward", "la-fax", "la-female", "la-fighter-jet", "la-file", "la-file-archive-o", "la-file-audio-o", "la-file-code-o", "la-file-excel-o", "la-file-image-o", "la-file-movie-o", "la-file-o", "la-file-pdf-o", "la-file-photo-o", "la-file-picture-o", "la-file-powerpoint-o", "la-file-sound-o", "la-file-text", "la-file-text-o", "la-file-video-o", "la-file-word-o", "la-file-zip-o", "la-files-o", "la-film", "la-filter", "la-fire", "la-fire-extinguisher", "la-firefox", "la-flag", "la-flag-checkered", "la-flag-o", "la-flash", "la-flask", "la-flickr", "la-floppy-o", "la-folder", "la-folder-o", "la-folder-open", "la-folder-open-o", "la-font", "la-fonticons", "la-forumbee", "la-forward", "la-foursquare", "la-frown-o", "la-futbol-o", "la-soccer-ball-o", "la-gamepad", "la-gavel", "la-gbp", "la-gear", "la-gears", "la-genderless", "la-get-pocket", "la-gg", "la-gg-circle", "la-gift", "la-git", "la-git-square", "la-github", "la-github-alt", "la-github-square", "la-glass", "la-globe", "la-google", "la-google-plus", "la-google-plus-square", "la-google-wallet", "la-graduation-cap", "la-gittip", "la-gratipay", "la-group", "la-h-square", "la-hand-grab-o", "la-hand-lizard-o", "la-hand-o-down", "la-hand-o-left", "la-hand-o-right", "la-hand-o-up", "la-hand-paper-o", "la-hand-peace-o", "la-hand-pointer-o", "la-hand-rock-o", "la-hand-scissors-o", "la-hand-spock-o", "la-hand-stop-o", "la-hdd-o", "la-header", "la-headphones", "la-heart", "la-heart-o", "la-heartbeat", "la-history", "la-home", "la-hospital-o", "la-hotel", "la-hourglass", "la-hourglass-1", "la-hourglass-2", "la-hourglass-3", "la-hourglass-end", "la-hourglass-half", "la-hourglass-o", "la-hourglass-start", "la-houzz", "la-html5", "la-i-cursor", "la-ils", "la-image", "la-inbox", "la-indent", "la-industry", "la-info", "la-info-circle", "la-inr", "la-instagram", "la-institution", "la-internet-explorer", "la-ioxhost", "la-italic", "la-joomla", "la-jpy", "la-jsfiddle", "la-key", "la-keyboard-o", "la-krw", "la-language", "la-laptop", "la-lastfm", "la-lastfm-square", "la-leaf", "la-leanpub", "la-legal", "la-lemon-o", "la-level-down", "la-level-up", "la-life-bouy", "la-life-buoy", "la-life-ring", "la-support", "la-life-saver", "la-lightbulb-o", "la-line-chart", "la-link", "la-linkedin", "la-linkedin-square", "la-linux", "la-list", "la-list-alt", "la-list-ol", "la-list-ul", "la-location-arrow", "la-lock", "la-long-arrow-down", "la-long-arrow-left", "la-long-arrow-right", "la-long-arrow-up", "la-magic", "la-magnet", "la-mail-forward", "la-mail-reply", "la-mail-reply-all", "la-male", "la-map", "la-map-marker", "la-map-o", "la-map-pin", "la-map-signs", "la-mars", "la-mars-double", "la-mars-stroke", "la-mars-stroke-h", "la-mars-stroke-v", "la-meanpath", "la-medium", "la-medkit", "la-meh-o", "la-mercury", "la-microphone", "la-microphone-slash", "la-minus", "la-minus-circle", "la-minus-square", "la-minus-square-o", "la-mobile", "la-mobile-phone", "la-money", "la-moon-o", "la-mortar-board", "la-motorcycle", "la-mouse-pointer", "la-music", "la-navicon", "la-neuter", "la-newspaper-o", "la-object-group", "la-object-ungroup", "la-odnoklassniki", "la-odnoklassniki-square", "la-opencart", "la-openid", "la-opera", "la-optin-monster", "la-outdent", "la-pagelines", "la-paint-brush", "la-paper-plane", "la-send", "la-paper-plane-o", "la-send-o", "la-paperclip", "la-paragraph", "la-paste", "la-pause", "la-paw", "la-paypal", "la-pencil", "la-pencil-square", "la-pencil-square-o", "la-phone", "la-phone-square", "la-photo", "la-picture-o", "la-pie-chart", "la-pied-piper", "la-pied-piper-alt", "la-pinterest", "la-pinterest-p", "la-pinterest-square", "la-plane", "la-play", "la-play-circle", "la-play-circle-o", "la-plug", "la-plus", "la-plus-circle", "la-plus-square", "la-plus-square-o", "la-power-off", "la-print", "la-puzzle-piece", "la-qq", "la-qrcode", "la-question", "la-question-circle", "la-quote-left", "la-quote-right", "la-ra", "la-random", "la-rebel", "la-recycle", "la-reddit", "la-reddit-square", "la-refresh", "la-registered", "la-renren", "la-reorder", "la-repeat", "la-reply", "la-reply-all", "la-retweet", "la-rmb", "la-road", "la-rocket", "la-rotate-left", "la-rotate-right", "la-rouble", "la-feed", "la-rss", "la-rss-square", "la-rub", "la-ruble", "la-rupee", "la-save", "la-scissors", "la-search", "la-search-minus", "la-search-plus", "la-sellsy", "la-server", "la-share", "la-share-alt", "la-share-alt-square", "la-share-square", "la-share-square-o", "la-shekel", "la-sheqel", "la-shield", "la-ship", "la-shirtsinbulk", "la-shopping-cart", "la-sign-in", "la-sign-out", "la-signal", "la-simplybuilt", "la-sitemap", "la-skyatlas", "la-skype", "la-slack", "la-sliders", "la-slideshare", "la-smile-o", "la-sort", "la-unsorted", "la-sort-alpha-asc", "la-sort-alpha-desc", "la-sort-amount-asc", "la-sort-amount-desc", "la-sort-asc", "la-sort-up", "la-sort-desc", "la-sort-down", "la-sort-numeric-asc", "la-sort-numeric-desc", "la-soundcloud", "la-space-shuttle", "la-spinner", "la-spoon", "la-spotify", "la-square", "la-square-o", "la-stack-exchange", "la-stack-overflow", "la-star", "la-star-half", "la-star-half-empty", "la-star-half-full", "la-star-half-o", "la-star-o", "la-steam", "la-steam-square", "la-step-backward", "la-step-forward", "la-stethoscope", "la-sticky-note", "la-sticky-note-o", "la-stop", "la-street-view", "la-strikethrough", "la-stumbleupon", "la-stumbleupon-circle", "la-subscript", "la-subway", "la-suitcase", "la-sun-o", "la-superscript", "la-table", "la-tablet", "la-tachometer", "la-tag", "la-tags", "la-tasks", "la-taxi", "la-television", "la-tv", "la-tencent-weibo", "la-terminal", "la-text-height", "la-text-width", "la-th", "la-th-large", "la-th-list", "la-thumb-tack", "la-thumbs-down", "la-thumbs-o-down", "la-thumbs-o-up", "la-thumbs-up", "la-ticket", "la-remove", "la-times", "la-times-circle", "la-times-circle-o", "la-tint", "la-toggle-on", "la-trademark", "la-train", "la-intersex", "la-transgender", "la-transgender-alt", "la-trash", "la-trash-o", "la-tree", "la-trello", "la-tripadvisor", "la-trophy", "la-truck", "la-try", "la-tty", "la-tumblr", "la-tumblr-square", "la-turkish-lira", "la-twitch", "la-twitter", "la-twitter-square", "la-umbrella", "la-underline", "la-undo", "la-university", "la-unlink", "la-unlock", "la-unlock-alt", "la-upload", "la-usd", "la-user", "la-user-md", "la-user-plus", "la-user-secret", "la-user-times", "la-users", "la-venus", "la-venus-double", "la-venus-mars", "la-viacoin", "la-video-camera", "la-vimeo", "la-vimeo-square", "la-vine", "la-vk", "la-volume-down", "la-volume-off", "la-volume-up", "la-warning", "la-wechat", "la-weibo", "la-weixin", "la-whatsapp", "la-wheelchair", "la-wifi", "la-wikipedia-w", "la-windows", "la-won", "la-wordpress", "la-wrench", "la-xing", "la-xing-square", "la-y-combinator", "la-y-combinator-square", "la-yahoo", "la-yc", "la-yc-square", "la-yelp", "la-yen", "la-youtube", "la-youtube-play", "la-youtube-square" );
+
+        $iconsFA = array( "none", "fa-500px", "fa-address-book", "fa-address-book-o", "fa-address-card", "fa-address-card-o", "fa-adjust", "fa-adn", "fa-align-center", "fa-align-justify", "fa-align-left", "fa-align-right", "fa-amazon", "fa-ambulance", "fa-american-sign-language-interpreting", "fa-anchor", "fa-android", "fa-angellist", "fa-angle-double-down", "fa-angle-double-left", "fa-angle-double-right", "fa-angle-double-up", "fa-angle-down", "fa-angle-left", "fa-angle-right", "fa-angle-up", "fa-apple", "fa-archive", "fa-area-chart", "fa-arrow-circle-down", "fa-arrow-circle-left", "fa-arrow-circle-o-down", "fa-arrow-circle-o-left", "fa-arrow-circle-o-right", "fa-arrow-circle-o-up", "fa-arrow-circle-right", "fa-arrow-circle-up", "fa-arrow-down", "fa-arrow-left", "fa-arrow-right", "fa-arrow-up", "fa-arrows", "fa-arrows-alt", "fa-arrows-h", "fa-arrows-v", "fa-assistive-listening-systems", "fa-asterisk", "fa-at", "fa-audio-description", "fa-backward", "fa-balance-scale", "fa-ban", "fa-bandcamp", "fa-bar-chart", "fa-barcode", "fa-bars", "fa-bath", "fa-battery-empty", "fa-battery-full", "fa-battery-half", "fa-battery-quarter", "fa-battery-three-quarters", "fa-bed", "fa-beer", "fa-behance", "fa-behance-square", "fa-bell", "fa-bell-o", "fa-bell-slash", "fa-bell-slash-o", "fa-bicycle", "fa-binoculars", "fa-birthday-cake", "fa-bitbucket", "fa-bitbucket-square", "fa-black-tie", "fa-blind", "fa-bluetooth", "fa-bluetooth-b", "fa-bold", "fa-bolt", "fa-bomb", "fa-book", "fa-bookmark", "fa-bookmark-o", "fa-braille", "fa-briefcase", "fa-btc", "fa-bug", "fa-building", "fa-building-o", "fa-bullhorn", "fa-bullseye", "fa-bus", "fa-buysellads", "fa-calculator", "fa-calendar", "fa-calendar-check-o", "fa-calendar-minus-o", "fa-calendar-o", "fa-calendar-plus-o", "fa-calendar-times-o", "fa-camera", "fa-camera-retro", "fa-car", "fa-caret-down", "fa-caret-left", "fa-caret-right", "fa-caret-square-o-down", "fa-caret-square-o-left", "fa-caret-square-o-right", "fa-caret-square-o-up", "fa-caret-up", "fa-cart-arrow-down", "fa-cart-plus", "fa-cc", "fa-cc-amex", "fa-cc-diners-club", "fa-cc-discover", "fa-cc-jcb", "fa-cc-mastercard", "fa-cc-paypal", "fa-cc-stripe", "fa-cc-visa", "fa-certificate", "fa-chain-broken", "fa-check", "fa-check-circle", "fa-check-circle-o", "fa-check-square", "fa-check-square-o", "fa-chevron-circle-down", "fa-chevron-circle-left", "fa-chevron-circle-right", "fa-chevron-circle-up", "fa-chevron-down", "fa-chevron-left", "fa-chevron-right", "fa-chevron-up", "fa-child", "fa-chrome", "fa-circle", "fa-circle-o", "fa-circle-o-notch", "fa-circle-thin", "fa-clipboard", "fa-clock-o", "fa-clone", "fa-cloud", "fa-cloud-download", "fa-cloud-upload", "fa-code", "fa-code-fork", "fa-codepen", "fa-codiepie", "fa-coffee", "fa-cog", "fa-cogs", "fa-columns", "fa-comment", "fa-comment-o", "fa-commenting", "fa-commenting-o", "fa-comments", "fa-comments-o", "fa-compass", "fa-compress", "fa-connectdevelop", "fa-contao", "fa-copyright", "fa-creative-commons", "fa-credit-card", "fa-credit-card-alt", "fa-crop", "fa-crosshairs", "fa-css3", "fa-cube", "fa-cubes", "fa-cutlery", "fa-dashcube", "fa-database", "fa-deaf", "fa-delicious", "fa-desktop", "fa-deviantart", "fa-diamond", "fa-digg", "fa-dot-circle-o", "fa-download", "fa-dribbble", "fa-dropbox", "fa-drupal", "fa-edge", "fa-eercast", "fa-eject", "fa-ellipsis-h", "fa-ellipsis-v", "fa-empire", "fa-envelope", "fa-envelope-o", "fa-envelope-open", "fa-envelope-open-o", "fa-envelope-square", "fa-envira", "fa-eraser", "fa-etsy", "fa-eur", "fa-exchange", "fa-exclamation", "fa-exclamation-circle", "fa-exclamation-triangle", "fa-expand", "fa-expeditedssl", "fa-external-link", "fa-external-link-square", "fa-eye", "fa-eye-slash", "fa-eyedropper", "fa-facebook", "fa-facebook-official", "fa-facebook-square", "fa-fast-backward", "fa-fast-forward", "fa-fax", "fa-female", "fa-fighter-jet", "fa-file", "fa-file-archive-o", "fa-file-audio-o", "fa-file-code-o", "fa-file-excel-o", "fa-file-image-o", "fa-file-o", "fa-file-pdf-o", "fa-file-powerpoint-o", "fa-file-text", "fa-file-text-o", "fa-file-video-o", "fa-file-word-o", "fa-files-o", "fa-film", "fa-filter", "fa-fire", "fa-fire-extinguisher", "fa-firefox", "fa-first-order", "fa-flag", "fa-flag-checkered", "fa-flag-o", "fa-flask", "fa-flickr", "fa-floppy-o", "fa-folder", "fa-folder-o", "fa-folder-open", "fa-folder-open-o", "fa-font", "fa-font-awesome", "fa-fonticons", "fa-fort-awesome", "fa-forumbee", "fa-forward", "fa-foursquare", "fa-free-code-camp", "fa-frown-o", "fa-futbol-o", "fa-gamepad", "fa-gavel", "fa-gbp", "fa-genderless", "fa-get-pocket", "fa-gg", "fa-gg-circle", "fa-gift", "fa-git", "fa-git-square", "fa-github", "fa-github-alt", "fa-github-square", "fa-gitlab", "fa-glass", "fa-glide", "fa-glide-g", "fa-globe", "fa-google", "fa-google-plus", "fa-google-plus-official", "fa-google-plus-square", "fa-google-wallet", "fa-graduation-cap", "fa-gratipay", "fa-grav", "fa-h-square", "fa-hacker-news", "fa-hand-lizard-o", "fa-hand-o-down", "fa-hand-o-left", "fa-hand-o-right", "fa-hand-o-up", "fa-hand-paper-o", "fa-hand-peace-o", "fa-hand-pointer-o", "fa-hand-rock-o", "fa-hand-scissors-o", "fa-hand-spock-o", "fa-handshake-o", "fa-hashtag", "fa-hdd-o", "fa-header", "fa-headphones", "fa-heart", "fa-heart-o", "fa-heartbeat", "fa-history", "fa-home", "fa-hospital-o", "fa-hourglass", "fa-hourglass-end", "fa-hourglass-half", "fa-hourglass-o", "fa-hourglass-start", "fa-houzz", "fa-html5", "fa-i-cursor", "fa-id-badge", "fa-id-card", "fa-id-card-o", "fa-ils", "fa-imdb", "fa-inbox", "fa-indent", "fa-industry", "fa-info", "fa-info-circle", "fa-inr", "fa-instagram", "fa-internet-explorer", "fa-ioxhost", "fa-italic", "fa-joomla", "fa-jpy", "fa-jsfiddle", "fa-key", "fa-keyboard-o", "fa-krw", "fa-language", "fa-laptop", "fa-lastfm", "fa-lastfm-square", "fa-leaf", "fa-leanpub", "fa-lemon-o", "fa-level-down", "fa-level-up", "fa-life-ring", "fa-lightbulb-o", "fa-line-chart", "fa-link", "fa-linkedin", "fa-linkedin-square", "fa-linode", "fa-linux", "fa-list", "fa-list-alt", "fa-list-ol", "fa-list-ul", "fa-location-arrow", "fa-lock", "fa-long-arrow-down", "fa-long-arrow-left", "fa-long-arrow-right", "fa-long-arrow-up", "fa-low-vision", "fa-magic", "fa-magnet", "fa-male", "fa-map", "fa-map-marker", "fa-map-o", "fa-map-pin", "fa-map-signs", "fa-mars", "fa-mars-double", "fa-mars-stroke", "fa-mars-stroke-h", "fa-mars-stroke-v", "fa-maxcdn", "fa-meanpath", "fa-medium", "fa-medkit", "fa-meetup", "fa-meh-o", "fa-mercury", "fa-microchip", "fa-microphone", "fa-microphone-slash", "fa-minus", "fa-minus-circle", "fa-minus-square", "fa-minus-square-o", "fa-mixcloud", "fa-mobile", "fa-modx", "fa-money", "fa-moon-o", "fa-motorcycle", "fa-mouse-pointer", "fa-music", "fa-neuter", "fa-newspaper-o", "fa-object-group", "fa-object-ungroup", "fa-odnoklassniki", "fa-odnoklassniki-square", "fa-opencart", "fa-openid", "fa-opera", "fa-optin-monster", "fa-outdent", "fa-pagelines", "fa-paint-brush", "fa-paper-plane", "fa-paper-plane-o", "fa-paperclip", "fa-paragraph", "fa-pause", "fa-pause-circle", "fa-pause-circle-o", "fa-paw", "fa-paypal", "fa-pencil", "fa-pencil-square", "fa-pencil-square-o", "fa-percent", "fa-phone", "fa-phone-square", "fa-picture-o", "fa-pie-chart", "fa-pied-piper", "fa-pied-piper-alt", "fa-pied-piper-pp", "fa-pinterest", "fa-pinterest-p", "fa-pinterest-square", "fa-plane", "fa-play", "fa-play-circle", "fa-play-circle-o", "fa-plug", "fa-plus", "fa-plus-circle", "fa-plus-square", "fa-plus-square-o", "fa-podcast", "fa-power-off", "fa-print", "fa-product-hunt", "fa-puzzle-piece", "fa-qq", "fa-qrcode", "fa-question", "fa-question-circle", "fa-question-circle-o", "fa-quora", "fa-quote-left", "fa-quote-right", "fa-random", "fa-ravelry", "fa-rebel", "fa-recycle", "fa-reddit", "fa-reddit-alien", "fa-reddit-square", "fa-refresh", "fa-registered", "fa-renren", "fa-repeat", "fa-reply", "fa-reply-all", "fa-retweet", "fa-road", "fa-rocket", "fa-rss", "fa-rss-square", "fa-rub", "fa-safari", "fa-scissors", "fa-scribd", "fa-search", "fa-search-minus", "fa-search-plus", "fa-sellsy", "fa-server", "fa-share", "fa-share-alt", "fa-share-alt-square", "fa-share-square", "fa-share-square-o", "fa-shield", "fa-ship", "fa-shirtsinbulk", "fa-shopping-bag", "fa-shopping-basket", "fa-shopping-cart", "fa-shower", "fa-sign-in", "fa-sign-language", "fa-sign-out", "fa-signal", "fa-simplybuilt", "fa-sitemap", "fa-skyatlas", "fa-skype", "fa-slack", "fa-sliders", "fa-slideshare", "fa-smile-o", "fa-snapchat", "fa-snapchat-ghost", "fa-snapchat-square", "fa-snowflake-o", "fa-sort", "fa-sort-alpha-asc", "fa-sort-alpha-desc", "fa-sort-amount-asc", "fa-sort-amount-desc", "fa-sort-asc", "fa-sort-desc", "fa-sort-numeric-asc", "fa-sort-numeric-desc", "fa-soundcloud", "fa-space-shuttle", "fa-spinner", "fa-spoon", "fa-spotify", "fa-square", "fa-square-o", "fa-stack-exchange", "fa-stack-overflow", "fa-star", "fa-star-half", "fa-star-half-o", "fa-star-o", "fa-steam", "fa-steam-square", "fa-step-backward", "fa-step-forward", "fa-stethoscope", "fa-sticky-note", "fa-sticky-note-o", "fa-stop", "fa-stop-circle", "fa-stop-circle-o", "fa-street-view", "fa-strikethrough", "fa-stumbleupon", "fa-stumbleupon-circle", "fa-subscript", "fa-subway", "fa-suitcase", "fa-sun-o", "fa-superpowers", "fa-superscript", "fa-table", "fa-tablet", "fa-tachometer", "fa-tag", "fa-tags", "fa-tasks", "fa-taxi", "fa-telegram", "fa-television", "fa-tencent-weibo", "fa-terminal", "fa-text-height", "fa-text-width", "fa-th", "fa-th-large", "fa-th-list", "fa-themeisle", "fa-thermometer-empty", "fa-thermometer-full", "fa-thermometer-half", "fa-thermometer-quarter", "fa-thermometer-three-quarters", "fa-thumb-tack", "fa-thumbs-down", "fa-thumbs-o-down", "fa-thumbs-o-up", "fa-thumbs-up", "fa-ticket", "fa-times", "fa-times-circle", "fa-times-circle-o", "fa-tint", "fa-toggle-off", "fa-toggle-on", "fa-trademark", "fa-train", "fa-transgender", "fa-transgender-alt", "fa-trash", "fa-trash-o", "fa-tree", "fa-trello", "fa-tripadvisor", "fa-trophy", "fa-truck", "fa-try", "fa-tty", "fa-tumblr", "fa-tumblr-square", "fa-twitch", "fa-twitter", "fa-twitter-square", "fa-umbrella", "fa-underline", "fa-undo", "fa-universal-access", "fa-university", "fa-unlock", "fa-unlock-alt", "fa-upload", "fa-usb", "fa-usd", "fa-user", "fa-user-circle", "fa-user-circle-o", "fa-user-md", "fa-user-o", "fa-user-plus", "fa-user-secret", "fa-user-times", "fa-users", "fa-venus", "fa-venus-double", "fa-venus-mars", "fa-viacoin", "fa-viadeo", "fa-viadeo-square", "fa-video-camera", "fa-vimeo", "fa-vimeo-square", "fa-vine", "fa-vk", "fa-volume-control-phone", "fa-volume-down", "fa-volume-off", "fa-volume-up", "fa-weibo", "fa-weixin", "fa-whatsapp", "fa-wheelchair", "fa-wheelchair-alt", "fa-wifi", "fa-wikipedia-w", "fa-window-close", "fa-window-close-o", "fa-window-maximize", "fa-window-minimize", "fa-window-restore", "fa-windows", "fa-wordpress", "fa-wpbeginner", "fa-wpexplorer", "fa-wpforms", "fa-wrench", "fa-xing", "fa-xing-square", "fa-y-combinator", "fa-yahoo", "fa-yelp", "fa-yoast", "fa-youtube", "fa-youtube-play", "fa-youtube-square", "fa-bank", "fa-bars", "fa-battery-0", "fa-battery-4", "fa-cab", "fa-file-sound-o", "fa-flash", "fa-group", "fa-hotel", "fa-hourglass-3", "fa-image", "fa-mail-reply-all", "fa-mobile-phone", "fa-mortar-board", "fa-navicon", "fa-rouble", "fa-ruble", "fa-save", "fa-send-o", "fa-sheqel", "fa-signing", "fa-sort-up", "fa-star-half-empty", "fa-support", "fa-times-rectangle-o", "fa-toggle-up", "fa-turkish-lira", "fa-wechat", "fa-yen", "fa-battery-1", "fa-dollar", "fa-drivers-license", "fa-euro", "fa-fa", "fa-file-photo-o", "fa-file-zip-o", "fa-hard-of-hearing", "fa-id-card", "fa-institution", "fa-life-saver", "fa-reorder", "fa-ra", "fa-resistance", "fa-rupee", "fa-soccer-ball-o", "fa-sort-down", "fa-star-half-full", "fa-thermometer-2", "fa-thermometer-full", "fa-tv", "fa-unsorted", "fa-yc", "fa-asl-interpreting", "fa-bar-chart-o", "fa-bathtub", "fa-battery-2", "fa-dashboard", "fa-deafness", "fa-drivers-license-o", "fa-edit", "fa-file-movie-o", "fa-file-picture-o", "fa-gear", "fa-google-plus-circle", "fa-hourglass-1", "fa-legal", "fa-life-bouy", "fa-mail-forward", "fa-paste", "fa-photo", "fa-rotate-left", "fa-s15", "fa-thermometer", "fa-thermometer-3", "fa-toggle-down", "fa-unlink", "fa-vcard", "fa-won", "fa-yc-square", "fa-automobile", "fa-battery", "fa-battery-3", "fa-bitcoin", "fa-close", "fa-cny", "fa-dedent", "fa-facebook-f", "fa-gears", "fa-gittip", "fa-hand-grab-o", "fa-hand-stop-o", "fa-hourglass-2", "fa-intersex", "fa-life-buoy", "fa-remove", "fa-rmb", "fa-rotate-right", "fa-send", "fa-shekel", "fa-thermometer-0", "fa-thermometer-4", "fa-times-rectangle", "fa-toggle-left", "fa-toggle-right", "fa-vcard-o", "fa-warning", "fa-y-combinator-square" );
+        if ( 'line' == $font_type ) {
+            return $iconsLA;
+        } else {
+            return $iconsFA;
+        }
     }
 }
 
@@ -1447,6 +1562,22 @@ function directorist_icon( $icon, $echo = true ) {
     }
     else {
         return $html;
+    }
+}
+
+if ( ! function_exists( 'atbdp_get_term_icon' ) ) {
+    function atbdp_get_term_icon( array $args = [] )
+    {  
+        $default = [ 'icon' => '', 'default' => 'la-folder-open', 'echo' => false ];
+        $args = array_merge( $default, $args );
+
+        $icon = ( ! empty($args['icon'] ) ) ? 'la ' . $args['icon'] : $args['default'];
+        $icon = ( ! empty( $icon ) ) ? 'la ' . $icon : '';
+        $icon = ( ! empty( $icon ) ) ? '<span class="'. $icon .'"></span>' : $icon;
+
+        if ( ! $args['echo'] ) { return $icon; } 
+
+        echo $icon;
     }
 }
 
@@ -2359,10 +2490,10 @@ function the_atbdp_favourites_link($post_id = 0)
         if (in_array($post_id, $favourites)) {
             return '<span class="' . atbdp_icon_type() . '-heart" style="color: red"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         } else {
-            return '<span class="' . atbdp_icon_type() . '-heart-o"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
+            return '<span class="' . atbdp_icon_type() . '-heart"></span><a href="javascript:void(0)" class="atbdp-favourites" data-post_id="' . $post_id . '"></a>';
         }
     } else {
-        return '<a href="javascript:void(0)" class="atbdp-require-login"><span class="' . atbdp_icon_type() . '-heart-o"></span></a>';
+        return '<a href="javascript:void(0)" class="atbdp-require-login"><span class="' . atbdp_icon_type() . '-heart"></span></a>';
     }
 }
 
@@ -2474,862 +2605,6 @@ function atbdp_image_cropping($attachmentId, $width, $height, $crop = true, $qua
     $resizer = new Atbdp_Image_resizer($attachmentId);
 
     return $resizer->resize($width, $height, $crop, $quality);
-}
-
-
-function listing_view_by_grid( $all_listings, $paginate = '', $is_disable_price = false )
-{
-    _deprecated_function( __FUNCTION__, '7.0' );
-    ?>
-    <div class="col-lg-12">
-        <div class="row" <?php echo (get_directorist_option('grid_view_as', 'normal_grid') !== 'masonry_grid') ? '' : 'data-uk-grid'; ?>>
-            <?php
-            $columns       = get_directorist_option('all_listing_columns', 3);
-            $column_width  = 100 / (int)$columns . '%';
-            $query_is_post = method_exists( $all_listings, 'have_posts' ) ? true : false;
-
-            $listings_have_post = false;
-            if ( $query_is_post ) {
-                $listings_have_post = ( $all_listings->have_posts() ) ? true : false;
-            } else {
-                $listings_have_post = ( ! empty( $all_listings ) ) ? true : false;
-            }
-
-            if ( $listings_have_post ) :
-                if ( $query_is_post ) {
-                    while ( $all_listings->have_posts() ) {
-                        $all_listings->the_post();
-                        view( 'listings-grid-loop' );
-                    }
-                } else {
-                    // Prime caches to reduce future queries.
-                    if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
-                        _prime_post_caches( $all_listings->ids );
-                    }
-
-                    $original_post = $GLOBALS['post'];
-                    foreach ( $all_listings->ids as $listings_id ) :
-                        $GLOBALS['post'] = get_post( $listings_id );
-                        setup_postdata( $GLOBALS['post'] );
-                        view( 'listings-grid-loop' );
-                    endforeach;
-    
-                    $GLOBALS['post'] = $original_post;
-                }
-                wp_reset_postdata();
-            else: ?>
-                <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
-            <?php endif; ?>
-
-        </div> <!--ends .row -->
-        <div class="row">
-            <div class="col-lg-12">
-                <?php if ( ! empty($paginate)) {
-                    $paged = atbdp_get_paged_num();
-                    echo atbdp_pagination( $all_listings, $paged );
-                } ?>
-            </div>
-        </div>
-    </div>
-    <?php
-    return true;
-}
-
-function related_listing_slider($all_listings, $pagenation, $is_disable_price, $templete = 'default')
-{
-    _deprecated_function( __FUNCTION__, '7.0' );
-
-    if ('default' != $templete) return;
-
-    wp_enqueue_script('atbdp-related-listings-slider');
-
-    $rel_listing_title = get_directorist_option('rel_listing_title', __('Related Listings', 'directorist'))
-    ?>
-    <div class="<?php echo is_directoria_active() ? 'containere' : 'containess-fluid'; ?>">
-        <div class="atbdp-related-listing-header">
-            <h4><?php echo $rel_listing_title; ?></h4>
-        </div>
-        <div class="atbd_margin_fix">
-            <div class="related__carousel">
-                <?php if ($all_listings->have_posts()) {
-                    while ($all_listings->have_posts()) {
-                        $all_listings->the_post();
-                        $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-                        $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
-                        $featured = get_post_meta(get_the_ID(), '_featured', true);
-                        $price = get_post_meta(get_the_ID(), '_price', true);
-                        $price_range = get_post_meta(get_the_ID(), '_price_range', true);
-                        $atbd_listing_pricing = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
-                        $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
-                        $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-                        $excerpt = get_post_meta(get_the_ID(), '_excerpt', true);
-                        $tagline = get_post_meta(get_the_ID(), '_tagline', true);
-                        $address = get_post_meta(get_the_ID(), '_address', true);
-                        $email = get_post_meta(get_the_ID(), '_email', true);
-                        $web = get_post_meta(get_the_ID(), '_website', true);
-                        $phone_number = get_post_meta(get_the_Id(), '_phone', true);
-                        $category = get_post_meta(get_the_Id(), '_admin_category_select', true);
-                        $post_view = get_post_meta(get_the_Id(), '_atbdp_post_views_count', true);
-                        $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
-                        $disable_contact_info = get_directorist_option('disable_contact_info', 0);
-                        $display_title = get_directorist_option('display_title', 1);
-                        $display_review = get_directorist_option('enable_review', 1);
-                        $display_price = get_directorist_option('display_price', 1);
-                        $display_email = get_directorist_option('display_email', 0);
-                        $display_web_link = get_directorist_option('display_web_link', 0);
-                        $display_category = get_directorist_option('display_category', 1);
-                        $display_view_count = get_directorist_option('display_view_count', 1);
-                        $display_mark_as_fav = get_directorist_option('display_mark_as_fav', 1);
-                        $display_author_image = get_directorist_option('display_author_image', 1);
-                        $display_publish_date = get_directorist_option('display_publish_date', 1);
-                        $display_contact_info = get_directorist_option('display_contact_info', 1);
-                        $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
-                        $display_popular_badge_cart = get_directorist_option('display_popular_badge_cart', 1);
-                        $popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
-                        $feature_badge_text = get_directorist_option('feature_badge_text', 'Featured');
-                        $enable_tagline = get_directorist_option('enable_tagline');
-                        $enable_excerpt = get_directorist_option('enable_excerpt');
-                        $address_location = get_directorist_option('address_location', 'location');
-                        /*Code for Business Hour Extensions*/
-                        $bdbh = get_post_meta(get_the_ID(), '_bdbh', true);
-                        $enable247hour = get_post_meta(get_the_ID(), '_enable247hour', true);
-                        $business_hours = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
-                        $disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
-                        $author_id = get_the_author_meta('ID');
-                        $u_pro_pic = get_user_meta($author_id, 'pro_pic', true);
-                        $u_pro_pic = wp_get_attachment_image_src($u_pro_pic, 'thumbnail');
-                        $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
-                        $display_tagline_field = get_directorist_option('display_tagline_field', 0);
-                        $display_pricing_field = get_directorist_option('display_pricing_field', 1);
-                        $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
-                        $display_address_field = get_directorist_option('display_address_field', 1);
-                        $display_phone_field = get_directorist_option('display_phone_field', 1);
-                        $display_image = !empty($display_image) ? $display_image : '';
-                        $listing_preview_img = empty(get_directorist_option('display_preview_image', 1)) || ('no' == $display_image) ? 'no' : 'yes';
-                        $listing_preview_img_class = ('no' == $listing_preview_img) ? ' listing_preview_img_none' : '';
-                        ?>
-                        <div class="related_single_carousel" style="margin: 0 10px;">
-                            <div class="atbd_single_listing atbd_listing_card 
-                            <?php echo get_directorist_option('info_display_in_single_line', 0) ? 'atbd_single_line_card_info' : ''; 
-                            echo esc_html($listing_preview_img_class);
-                            ?>">
-                                <article class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
-                                    <figure class="atbd_listing_thumbnail_area">
-                                        <div class="atbd_listing_image">
-                                            <?php
-                                            $disable_single_listing = get_directorist_option('disable_single_listing');
-                                            if ('yes' == $listing_preview_img) {
-                                                if (empty($disable_single_listing)){
-                                                ?>
-                                                <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php }
-                                                atbdp_thumbnail_card();
-                                                if (empty($disable_single_listing)) {
-                                                    echo '</a>';
-                                                }
-                                            }
-                                                if (!empty($display_author_image)) {
-                                                    $author = get_userdata($author_id);
-                                                    $class = !empty($author->first_name && $author->last_name)?'atbd_tooltip':'';
-                                                    ?>
-                                                    <div class="atbd_author">
-                                                        <a href="<?php echo ATBDP_Permalink::get_user_profile_page_link($author_id); ?>"
-                                                           class="<?php echo $class; ?>"
-                                                           aria-label="<?php echo $author->first_name . ' ' . $author->last_name; ?>"><?php if (empty($u_pro_pic)) {
-                                                                echo $avatar_img;
-                                                            }
-                                                            if (!empty($u_pro_pic)) { ?>
-                                                                <img
-                                                                src="<?php echo esc_url($u_pro_pic[0]); ?>"
-                                                                alt="Author Image"><?php } ?>
-                                                        </a>
-                                                    </div>
-                                                <?php } ?>
-
-                                        </div>
-
-                                        <?php
-                                        /**
-                                         * @since 5.0
-                                         * @hooked Directorist_Template_Hooks::business_hours_badge - 10
-                                         */
-                                        ?>
-                                        <span class="atbd_upper_badge bh_only"><?php echo apply_filters('atbdp_upper_badges', '');?></span>
-
-                                        <?php
-                                        /**
-                                         * @since 6.4.4
-                                         */
-                                        do_action( 'atbdp_related_post_before_lower_badge' );
-
-                                        /**
-                                         * @since 5.0
-                                         * @hooked Directorist_Template_Hooks::featured_badge - 10
-                                         * @hooked Directorist_Template_Hooks::popular_badge - 15
-                                         * @hooked Directorist_Template_Hooks::new_listing_badge - 20
-                                         */
-                                        ?>
-                                        <span class="atbd_lower_badge"><?php echo apply_filters('atbdp_grid_lower_badges', '');?></span>
-                                        
-                                        <?php
-                                        if (!empty($display_mark_as_fav)) {
-                                            echo atbdp_listings_mark_as_favourite(get_the_ID());
-                                        }
-                                        ?>
-                                    </figure>
-                                    <div class="atbd_listing_info">
-                                        <?php if (!empty($display_title) || !empty($enable_tagline) || !empty($display_review) || !empty($display_price)) { ?>
-                                            <div class="atbd_content_upper">
-                                                <?php if (!empty($display_title)) { ?>
-                                                    <h4 class="atbd_listing_title">
-                                                        <?php
-                                                        if (empty($disable_single_listing)) {
-                                                            ?>
-                                                            <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"><?php echo esc_html(stripslashes(get_the_title())); ?></a>
-                                                            <?php
-                                                        } else {
-                                                            echo esc_html(stripslashes(get_the_title()));
-                                                        } ?>
-                                                    </h4>
-                                                <?php }
-                                                if (!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) {
-
-                                                    ?>
-
-                                                    <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
-                                                <?php }
-                                                /**
-                                                 * Fires after the title and sub title of the listing is rendered
-                                                 *
-                                                 *
-                                                 * @since 1.0.0
-                                                 */
-                                                do_action('atbdp_after_listing_tagline');
-                                                ?>
-
-                                                <?php
-                                                $meta_html = '';
-                                                if (!empty($display_review) || !empty($display_price)) { ?>
-
-                                                    <?php
-                                                    $meta_html .= '<div class="atbd_listing_meta">';
-                                                    if ( !empty( $display_review ) ) {
-                                                    $average = ATBDP()->review->get_average(get_the_ID());
-                                                    $meta_html .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="' . atbdp_icon_type() . '-star"></i></span>';
-                                                    }
-                                                    $atbd_listing_pricing = !empty($atbd_listing_pricing) ? $atbd_listing_pricing : '';
-                                                    if (!empty($display_price) && !empty($display_pricing_field)) {
-                                                        if (!empty($price_range) && ('range' === $atbd_listing_pricing)) {
-                                                            $output = atbdp_display_price_range($price_range);
-                                                            $meta_html .= $output;
-                                                        } else {
-                                                            $meta_html .= atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
-                                                        }
-                                                    }
-                                                    /**
-                                                     * Fires after the price of the listing is rendered
-                                                     *
-                                                     *
-                                                     * @since 3.1.0
-                                                     */
-                                                    do_action('atbdp_after_listing_price');
-                                                    $meta_html .= '</div>';
-                                                }
-                                                /**
-                                                 * @since 5.0
-                                                 * universal action to fire after the price
-                                                 */
-                                                echo apply_filters('atbdp_listings_review_price', $meta_html);
-                                                ?>
-                                                <?php if (!empty($display_contact_info) || !empty($display_publish_date) || !empty($display_email) || !empty($display_web_link)) { ?>
-                                                    <div class="atbd_listing_data_list">
-                                                        <ul>
-                                                            <?php
-                                                            /**
-                                                             * @since 4.7.6
-                                                             */
-                                                            do_action('atbdp_listings_before_location');
-                                                            if (!empty($display_contact_info)) {
-                                                                if (!empty($address) && 'contact' == $address_location && !empty($display_address_field)) { ?>
-                                                                    <li><p>
-                                                                            <span class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php echo esc_html(stripslashes($address)); ?>
-                                                                        </p></li>
-                                                                <?php } elseif (!empty($locs) && 'location' == $address_location) {
-                                                                    $local_names = array();
-                                                                    $locals = array();
-                                                                    foreach ($locs as $term) {
-                                                                        $local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
-                                                                        ksort($local_names);
-                                                                        $locals = array_reverse($local_names);
-                                                                    }
-                                                                    $output = array();
-                                                                    foreach ($locals as $location) {
-                                                                        $term = get_term_by('slug', $location, ATBDP_LOCATION);
-                                                                        $link = ATBDP_Permalink::atbdp_get_location_page($term);
-                                                                        $space = str_repeat(' ', 1);
-                                                                        $output[] = "{$space}<a href='{$link}'>{$term->name}</a>";
-                                                                    }
-                                                                    ?>
-                                                                    <li>
-                                                                        <p>
-
-                                                    <span>
-                                                    <?php echo "<span class='" . atbdp_icon_type() . "-map-marker'></span>" . join(',', $output); ?>
-                                                </span>
-                                                                        </p>
-                                                                    </li>
-                                                                <?php }
-                                                                /**
-                                                                 * @since 4.7.6
-                                                                 */
-                                                                do_action('atbdp_listings_before_phone');
-                                                                ?>
-                                                                <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
-                                                                    <li><p>
-                                                                            <span class="<?php atbdp_icon_type(true); ?>-phone"></span>
-                                                                            <a href="tel:<?php ATBDP_Helper::sanitize_tel_attr( $phone_number ); ?>"><?php ATBDP_Helper::sanitize_html( $phone_number ); ?></a>
-                                                                        </p>
-                                                                    </li>
-                                                                    <?php
-                                                                }
-                                                            }
-                                                            /**
-                                                             * @since 4.7.6
-                                                             */
-                                                            do_action('atbdp_listings_before_post_date');
-                                                            if (!empty($display_publish_date)) { ?>
-                                                                <li><p>
-                                                                        <span class="<?php atbdp_icon_type(true); ?>-clock-o"></span><?php
-                                                                        $publish_date_format = get_directorist_option('publish_date_format', 'time_ago');
-                                                                        if ('time_ago' === $publish_date_format) {
-                                                                            printf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
-                                                                        } else {
-                                                                            echo get_the_date();
-                                                                        }
-                                                                        ?></p></li>
-                                                            <?php }
-                                                            /**
-                                                             * @since 4.7.6
-                                                             */
-                                                            do_action('atbdp_listings_after_post_date');
-                                                            if (!empty($email && $display_email)):
-                                                                echo '<li><p><span class="' . atbdp_icon_type() . '-envelope"></span><a target="_top" href="mailto:' . $email . '">' . $email . '</a></p></li>';
-                                                            endif;
-                                                            if (!empty($web && $display_web_link)):
-                                                                ?>
-                                                                <li><p>
-                                                                        <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
-                                                                        <a target="_blank"
-                                                                           href="<?php echo esc_url($web); ?>"
-                                                                            <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($web); ?></a>
-                                                                    </p></li>
-                                                            <?php
-                                                            endif;
-                                                            ?>
-
-                                                        </ul>
-                                                    </div><!-- End atbd listing meta -->
-                                                    <?php
-                                                }
-                                                if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) {
-                                                    $excerpt_limit = get_directorist_option('excerpt_limit', 20);
-                                                    ?>
-                                                    <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, $excerpt_limit)));
-                                                        /**
-                                                         * @since 5.0.9
-                                                         */
-                                                        do_action('atbdp_listings_after_exerpt');
-                                                        ?></p>
-                                                <?php } ?>
-                                            </div><!-- end ./atbd_content_upper -->
-
-                                        <?php }
-                                        if (!empty($display_category) || !empty($display_view_count)) { ?>
-                                            <div class="atbd_listing_bottom_content">
-                                                <?php
-                                                if (!empty($display_category)) {
-                                                    if (!empty($cats)) {
-                                                        $totalTerm = count($cats);
-                                                        ?>
-                                                        <div class="atbd_content_left">
-                                                            <div class="atbd_listing_category">
-                                                                <a href="<?php echo esc_url(ATBDP_Permalink::atbdp_get_category_page($cats[0])); ?>"><span class="<?php atbdp_icon_type(true); ?>-folder-open"></span><?php echo $cats[0]->name; ?>
-                                                                </a>
-                                                                <?php
-                                                                if ($totalTerm > 1) {
-                                                                    ?>
-                                                                    <div class="atbd_cat_popup">
-                                                                        <span>+<?php echo $totalTerm - 1; ?></span>
-                                                                        <div class="atbd_cat_popup_wrapper">
-                                                                            <?php
-                                                                            $output = array();
-                                                                            foreach (array_slice($cats, 1) as $cat) {
-                                                                                $link = ATBDP_Permalink::atbdp_get_category_page($cat);
-                                                                                $space = str_repeat(' ', 1);
-                                                                                $output [] = "{$space}<a href='{$link}'>{$cat->name}<span>,</span></a>";
-                                                                            } ?>
-                                                                            <span><?php echo join($output); ?></span>
-                                                                        </div>
-                                                                    </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                        </div>
-                                                    <?php } else {
-                                                        ?>
-                                                        <div class="atbd_content_left">
-                                                            <div class="atbd_listing_category">
-                                                                <a href=""><span
-                                                                            class="<?php atbdp_icon_type(true); ?>-folder-open"></span><?php echo __('Uncategorized', 'directorist'); ?>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-
-                                                    <?php }
-                                                }
-                                                if (!empty($display_view_count)) {
-                                                    /**
-                                                     * @since 5.5.0
-                                                     */
-                                                    $fotter_right = '<ul class="atbd_content_right">';
-                                                    $fotter_right .= '<li class="atbd_count">';
-                                                    $fotter_right .= '<span class="' . atbdp_icon_type() . '-eye"></span>';
-                                                    $fotter_right .= !empty($post_view) ? $post_view : 0;
-                                                    $fotter_right .= '</li>';
-                                                    $fotter_right .= '</ul>';
-                                                    echo apply_filters('atbdp_grid_footer_right_html', $fotter_right);
-                                                } ?>
-                                            </div><!-- end ./atbd_listing_bottom_content -->
-                                        <?php } ?>
-                                    </div>
-                                </article>
-                            </div>
-                        </div>
-
-                    <?php }
-                    wp_reset_postdata();
-                } else { ?>
-                    <p class="atbdp_nlf"><?php _e('No listing found.', 'directorist'); ?></p>
-                <?php } ?>
-
-            </div>
-        </div> <!--ends .row -->
-        <?php
-        if (1 == $pagenation) {
-            ?>
-            <div class="row">
-                <div class="col-md-12">
-                    <?php
-                    $paged = !empty($paged) ? $paged : '';
-                    echo atbdp_pagination($all_listings, $paged);
-                    ?>
-                </div>
-            </div>
-        <?php } ?>
-    </div>
-    <?php
-    return true;
-}
-
-function listing_view_by_list($all_listings, $display_image, $show_pagination, $paged)
-{
-    _deprecated_function( __FUNCTION__, '7.0' );
-    
-    $class_name = 'container-fluid';
-    $container = apply_filters('list_view_container', $class_name);
-
-    // Prime caches to reduce future queries.
-    if ( ! empty( $all_listings->ids ) && is_callable( '_prime_post_caches' ) ) {
-        _prime_post_caches( $all_listings->ids );
-    }
-
-    $original_post = $GLOBALS['post'];
-    ?>
-    <div class="<?php echo !empty($container) ? $container : 'container'; ?>">
-        <div class="row">
-            <div class="<?php echo apply_filters('atbdp_listing_list_view_html_class', 'col-md-12') ?>">
-                <?php
-                foreach ( $all_listings->ids as $listings_id ) :
-                    $GLOBALS['post'] = get_post( $listings_id );
-                    setup_postdata( $GLOBALS['post'] );
-                    
-                    $thumbnail_link_attr = " " . apply_filters( 'list_view_thumbnail_link_add_attr', '' );
-                    $thumbnail_link_attr = trim( $thumbnail_link_attr );
-
-                    $title_link_attr = " " . apply_filters( 'list_view_title_link_add_attr', '' );
-                    $title_link_attr = trim( $title_link_attr );
-
-                    $cats = get_the_terms(get_the_ID(), ATBDP_CATEGORY);
-                    $locs = get_the_terms(get_the_ID(), ATBDP_LOCATION);
-                    $featured = get_post_meta(get_the_ID(), '_featured', true);
-                    $price = get_post_meta(get_the_ID(), '_price', true);
-                    $price_range = get_post_meta(get_the_ID(), '_price_range', true);
-                    $listing_pricing = get_post_meta(get_the_ID(), '_atbd_listing_pricing', true);
-                    $listing_img = get_post_meta(get_the_ID(), '_listing_img', true);
-                    $listing_prv_img = get_post_meta(get_the_ID(), '_listing_prv_img', true);
-                    $excerpt = get_post_meta(get_the_ID(), '_excerpt', true);
-                    $tagline = get_post_meta(get_the_ID(), '_tagline', true);
-                    $address = get_post_meta(get_the_ID(), '_address', true);
-                    $phone_number = get_post_meta(get_the_Id(), '_phone', true);
-                    $email = get_post_meta(get_the_Id(), '_email', true);
-                    $web = get_post_meta(get_the_Id(), '_website', true);
-                    $category = get_post_meta(get_the_Id(), '_admin_category_select', true);
-                    $post_view = get_post_meta(get_the_Id(), '_atbdp_post_views_count', true);
-                    $hide_contact_info = get_post_meta(get_the_ID(), '_hide_contact_info', true);
-                    $disable_contact_info = get_directorist_option('disable_contact_info', 0);
-                    $display_title = get_directorist_option('display_title', 1);
-                    $display_review = get_directorist_option('enable_review', 1);
-                    $display_price = get_directorist_option('display_price', 1);
-                    $is_disable_price = get_directorist_option('disable_list_price');
-                    $display_category = get_directorist_option('display_category', 1);
-                    $display_view_count = get_directorist_option('display_view_count', 1);
-                    $display_mark_as_fav = get_directorist_option('display_mark_as_fav', 1);
-                    $display_author_image = get_directorist_option('display_author_image', 1);
-                    $display_publish_date = get_directorist_option('display_publish_date', 1);
-                    $display_email = get_directorist_option('display_email', 0);
-                    $display_web_link = get_directorist_option('display_web_link', 0);
-                    $display_contact_info = get_directorist_option('display_contact_info', 1);
-                    $display_feature_badge_cart = get_directorist_option('display_feature_badge_cart', 1);
-                    $display_popular_badge_cart = get_directorist_option('display_popular_badge_cart', 1);
-                    $popular_badge_text = get_directorist_option('popular_badge_text', 'Popular');
-                    $feature_badge_text = get_directorist_option('feature_badge_text', 'Featured');
-                    $enable_tagline = get_directorist_option('enable_tagline');
-                    $enable_excerpt = get_directorist_option('enable_excerpt');
-                    $address_location = get_directorist_option('address_location', 'location');
-                    /*Code for Business Hour Extensions*/
-                    $bdbh = get_post_meta(get_the_ID(), '_bdbh', true);
-                    $enable247hour = get_post_meta(get_the_ID(), '_enable247hour', true);
-                    $disable_bz_hour_listing = get_post_meta(get_the_ID(), '_disable_bz_hour_listing', true);
-                    $business_hours = !empty($bdbh) ? atbdp_sanitize_array($bdbh) : array(); // arrays of days and times if exist
-                    /*Code for Business Hour Extensions*/
-                    $author_id = get_the_author_meta('ID');
-                    $u_pro_pic_meta = get_user_meta($author_id, 'pro_pic', true);
-                    $u_pro_pic = wp_get_attachment_image_src($u_pro_pic_meta, 'thumbnail');
-                    $avatar_img = get_avatar($author_id, apply_filters('atbdp_avatar_size', 32));
-                    $display_tagline_field = get_directorist_option('display_tagline_field', 0);
-                    $display_pricing_field = get_directorist_option('display_pricing_field', 1);
-                    $display_excerpt_field = get_directorist_option('display_excerpt_field', 0);
-                    $display_address_field = get_directorist_option('display_address_field', 1);
-                    $display_phone_field = get_directorist_option('display_phone_field', 1);
-                    $display_image = !empty($display_image) ? $display_image : '';
-                    $listing_preview_img = empty(get_directorist_option('display_preview_image', 1)) || ('no' == $display_image) ? 'no' : 'yes';
-                    $no_preview =  ('no' == $listing_preview_img) ? ' atbd_listing_no_image' : '';
-                    ?>
-                    <div class="atbd_single_listing atbd_listing_list <?php echo $no_preview; ?>">
-                        <article
-                                class="atbd_single_listing_wrapper <?php echo ($featured) ? 'directorist-featured-listings' : ''; ?>">
-                            <figure class="atbd_listing_thumbnail_area">
-                                <?php
-                                $disable_single_listing = get_directorist_option('disable_single_listing');
-                                if('yes' == $listing_preview_img){
-                                    if (empty($disable_single_listing)){ ?>
-                                        <a href="<?php echo esc_url(get_post_permalink(get_the_ID())); ?>"<?php echo $thumbnail_link_attr; ?>>
-                                        <?php
-                                    }
-                                    atbdp_thumbnail_card();
-                                    if (empty($disable_single_listing)) {
-                                            echo '</a>';
-                                    }
-                                }
-                                    //Start lower badge
-                                    $l_badge_html = '<span class="atbd_lower_badge">';
-                                    if ($featured && !empty($display_feature_badge_cart)) {
-                                        $l_badge_html .= apply_filters( 'atbdp_featured_badge', '<span class="atbd_badge atbd_badge_featured">' . $feature_badge_text . '</span>' );
-                                    }
-                                    $popular_listing_id = atbdp_popular_listings(get_the_ID());
-                                    $badge = '<span class="atbd_badge atbd_badge_popular">' . $popular_badge_text . '</span>';
-                                    if ($popular_listing_id === get_the_ID() && !empty($display_popular_badge_cart)) {
-                                        $l_badge_html .= $badge;
-                                    }
-                                    //print the new badge
-                                    $l_badge_html .= new_badge();
-                                    $l_badge_html .= '</span>';
-
-                                    /**
-                                     * @since 5.0
-                                     */
-                                    echo apply_filters('atbdp_list_lower_badges', $l_badge_html); ?>
-                            </figure>
-                            <div class="atbd_listing_info">
-                                <div class="atbd_content_upper">
-                                    <?php do_action('atbdp_list_view_before_title'); ?>
-                                    <?php if (!empty($display_title)) { ?>
-                                        <h4 class="atbd_listing_title">
-                                            <?php
-                                            if (empty($disable_single_listing)) {
-                                                echo '<a href="'. esc_url(get_post_permalink(get_the_ID())) .'"'. $title_link_attr .'>'. esc_html(stripslashes(get_the_title())) .'</a>';
-                                            } else {
-                                                echo esc_html(stripslashes(get_the_title()));
-                                            } ?>
-                                        </h4>
-                                        <?php
-                                    }
-                                    /**
-                                     * @since 6.2.3
-                                     */
-                                    do_action('atbdp_list_view_after_title');
-                                    if (!empty($tagline) && !empty($enable_tagline) && !empty($display_tagline_field)) { ?>
-                                        <p class="atbd_listing_tagline"><?php echo esc_html(stripslashes($tagline)); ?></p>
-                                        <?php
-                                    }
-                                    /**
-                                     * Fires after the title and sub title of the listing is rendered
-                                     *
-                                     *
-                                     * @since 1.0.0
-                                     */
-                                    do_action('atbdp_after_listing_tagline');
-                                    ?>
-                                    <?php
-                                    $meta_html = '';
-                                    if (!empty($display_review) || (!empty($display_price) && (!empty($price) || !empty($price_range)))) {
-                                        $meta_html .= '<div class="atbd_listing_meta">';
-                                        if (!empty($display_review)) {
-                                            $average = ATBDP()->review->get_average(get_the_ID());
-                                            $meta_html .= '<span class="atbd_meta atbd_listing_rating">' . $average . '<i class="' . atbdp_icon_type() . '-star"></i></span>';
-                                        }
-                                        $listing_pricing = !empty($listing_pricing) ? $listing_pricing : '';
-                                        if (!empty($display_price) && !empty($display_pricing_field)) {
-                                            if (!empty($price_range) && ('range' === $listing_pricing)) {
-                                                $output = atbdp_display_price_range($price_range);
-                                                $meta_html .= $output;
-                                            } else {
-                                                $meta_html .= atbdp_display_price($price, $is_disable_price, $currency = null, $symbol = null, $c_position = null, $echo = false);
-                                            }
-                                        }
-                                        /**
-                                         * Fires after the price of the listing is rendered
-                                         *
-                                         *
-                                         * @since 3.1.0
-                                         */
-                                        do_action('atbdp_after_listing_price');
-                                        $plan_hours = true;
-                                        if (is_fee_manager_active()) {
-                                            $plan_hours = is_plan_allowed_business_hours(get_post_meta(get_the_ID(), '_fm_plans', true));
-                                        }
-                                        if (is_business_hour_active() && $plan_hours && empty($disable_bz_hour_listing)) {
-                                            //lets check is it 24/7
-                                            if (!empty($enable247hour)) {
-                                                $open = get_directorist_option('open_badge_text');
-                                                $meta_html .= '<span class="atbd_badge atbd_badge_open">' . $open . '</span>';
-                                            } else {
-                                                $bh_statement = BD_Business_Hour()->show_business_open_close($business_hours, false); // show the business hour in an unordered list
-                                                $meta_html .= $bh_statement;
-                                            }
-                                        }
-                                        $meta_html .= '</div>'; // End atbd listing meta
-                                    }
-                                    echo apply_filters('atbdp_listings_list_review_price', $meta_html);
-                                    if (!empty($display_contact_info) || !empty($display_publish_date) || !empty($display_email) || !empty($display_web_link)) { ?>
-                                        <div class="atbd_listing_data_list">
-                                            <ul>
-                                                <?php
-                                                /**
-                                                 * @since 4.7.6
-                                                 */
-                                                do_action('atbdp_listings_before_location');
-                                                if (!empty($display_contact_info)) {
-                                                    if (!empty($address) && 'contact' == $address_location && !empty($display_address_field)) { ?>
-                                                        <li><p>
-                                                                <span class="<?php atbdp_icon_type(true); ?>-map-marker"></span><?php echo esc_html(stripslashes($address)); ?>
-                                                            </p></li>
-                                                    <?php } elseif (!empty($locs) && 'location' == $address_location) {
-                                                        $local_names = array();
-                                                        $locals = array();
-                                                        foreach ($locs as $term) {
-                                                            $local_names[$term->term_id] = $term->parent == 0 ? $term->slug : $term->slug;
-                                                            ksort($local_names);
-                                                            $locals = array_reverse($local_names);
-                                                        }
-                                                        $output = array();
-                                                        foreach ($locals as $location) {
-                                                            $term = get_term_by('slug', $location, ATBDP_LOCATION);
-                                                            $link = ATBDP_Permalink::atbdp_get_location_page($term);
-                                                            $space = str_repeat(' ', 1);
-                                                            $output[] = "{$space}<a href='{$link}'>{$term->name}</a>";
-                                                        }
-                                                        ?>
-                                                        <li>
-                                                            <p>
-                                                   <span>
-                                                    <?php echo "<span class='" . atbdp_icon_type() . "-map-marker'></span>" . join(',', $output); ?>
-                                                </span>
-                                                            </p>
-                                                        </li>
-                                                    <?php }
-                                                    /**
-                                                     * @since 4.7.6
-                                                     */
-                                                    do_action('atbdp_listings_before_phone');
-                                                    ?>
-                                                    <?php if (!empty($phone_number) && !empty($display_phone_field)) { ?>
-                                                        <li><p>
-                                                                <span class="<?php atbdp_icon_type(true); ?>-phone"></span><a
-                                                                        href="tel:<?php echo esc_html(stripslashes($phone_number)); ?>"><?php echo esc_html(stripslashes($phone_number)); ?></a>
-
-                                                            </p></li>
-                                                        <?php
-                                                    }
-                                                }
-                                                /**
-                                                 * @since 4.7.6
-                                                 */
-                                                do_action('atbdp_listings_before_post_date');
-                                                if (!empty($display_publish_date)) { ?>
-                                                    <li><p>
-                                                            <span class="<?php atbdp_icon_type(true); ?>-clock-o"></span><?php
-                                                            $publish_date_format = get_directorist_option('publish_date_format', 'time_ago');
-                                                            if ('time_ago' === $publish_date_format) {
-                                                                printf(__('Posted %s ago', 'directorist'), human_time_diff(get_the_time('U'), current_time('timestamp')));
-                                                            } else {
-                                                                echo get_the_date();
-                                                            }
-                                                            ?></p></li>
-                                                <?php }
-                                                /**
-                                                 * @since 4.7.6
-                                                 */
-                                                do_action('atbdp_listings_after_post_date');
-                                                if (!empty($email && $display_email)) {
-                                                    echo '<li><p><span class="' . atbdp_icon_type() . '-envelope"></span><a target="_top" href="mailto:' . $email . '">' . $email . '</a></p></li>';
-                                                }
-                                                if (!empty($web && $display_web_link)):
-                                                    ?>
-                                                    <li><p>
-                                                            <span class="<?php atbdp_icon_type(true); ?>-globe"></span>
-                                                            <a target="_blank" href="<?php echo esc_url($web); ?>"
-                                                                <?php echo !empty($use_nofollow) ? 'rel="nofollow"' : ''; ?>><?php echo esc_html($web); ?></a>
-                                                        </p></li>
-                                                <?php
-                                                endif;
-                                                ?>
-                                            </ul>
-                                        </div><!-- End atbd listing meta -->
-                                        <?php
-                                    }
-                                    //show category and location info
-                                    ?>
-                                    <?php if (!empty($excerpt) && !empty($enable_excerpt) && !empty($display_excerpt_field)) {
-                                        $excerpt_limit = get_directorist_option('excerpt_limit', 20);
-                                        $excerpt_limit = get_directorist_option('excerpt_limit', 20);
-                                        $display_readmore = get_directorist_option('display_readmore', 0);
-                                        $readmore_text = get_directorist_option('readmore_text', __('Read More', 'directorist'));
-                                        ?>
-                                        <p class="atbd_excerpt_content"><?php echo esc_html(stripslashes(wp_trim_words($excerpt, $excerpt_limit)));
-                                        /**
-                                         * @since 5.0.9
-                                         */
-                                        do_action('atbdp_listings_after_exerpt');
-                                        if (!empty($display_readmore)) {
-                                            ?><a
-                                            href="<?php the_permalink(); ?>"><?php printf(__(' %s', 'directorist'), $readmore_text); ?></a></p>
-                                        <?php }
-                                    }
-
-                                    /**
-                                     * @since 6.4.4
-                                     */
-                                    do_action( 'atbdp_all_list_listings_before_favourite_icon' );
-
-                                    if (!empty($display_mark_as_fav)) {
-                                        $mark_as_fav_for_list_view = apply_filters('atbdp_mark_as_fav_for_list_view', atbdp_listings_mark_as_favourite(get_the_ID()));
-                                        echo $mark_as_fav_for_list_view;
-                                    }
-                                    ?>
-                                </div><!-- end ./atbd_content_upper -->
-                                <?php
-                                $catViewCountAuthor = '';
-                                if (!empty($display_category) || !empty($display_view_count) || !empty($display_author_image)) {
-                                    $catViewCountAuthor .= '<div class="atbd_listing_bottom_content">';
-                                    if (!empty($display_category)) {
-                                        if (!empty($cats)) {
-                                            $totalTerm = count($cats);
-                                            $catViewCountAuthor .= '<div class="atbd_content_left">';
-                                            $catViewCountAuthor .= '<div class="atbd_listing_category">';
-                                            $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::atbdp_get_category_page($cats[0]) . '">';
-                                            $catViewCountAuthor .= '<span class="' . atbdp_icon_type() . '-folder-open"></span>';
-                                            $catViewCountAuthor .= $cats[0]->name;
-                                            $catViewCountAuthor .= '</a>';
-                                            if ($totalTerm > 1) {
-                                                $totalTerm = $totalTerm - 1;
-                                                $catViewCountAuthor .= '<div class="atbd_cat_popup">';
-                                                $catViewCountAuthor .= '<span>+' . $totalTerm . '</span>';
-                                                $catViewCountAuthor .= '<div class="atbd_cat_popup_wrapper">';
-                                                $output = array();
-                                                foreach (array_slice($cats, 1) as $cat) {
-                                                    $link = ATBDP_Permalink::atbdp_get_category_page($cat);
-                                                    $space = str_repeat(' ', 1);
-                                                    $output [] = "{$space}<span><a href='{$link}'>{$cat->name}<span>,</span></a></span>";
-                                                }
-                                                $catViewCountAuthor .= '<span>' . join($output) . '</span>';
-                                                $catViewCountAuthor .= '</div>';
-                                                $catViewCountAuthor .= '</div>';
-                                            }
-                                            $catViewCountAuthor .= '</div>';
-                                            $catViewCountAuthor .= '</div>';
-                                        } else {
-                                            $catViewCountAuthor .= '<div class="atbd_content_left">';
-                                            $catViewCountAuthor .= '<div class="atbd_listing_category">';
-                                            $catViewCountAuthor .= '<a href="">';
-                                            $catViewCountAuthor .= '<span class="' . atbdp_icon_type() . '-folder-open"></span>';
-                                            $catViewCountAuthor .= __('Uncategorized', 'directorist');
-                                            $catViewCountAuthor .= '</a>';
-                                            $catViewCountAuthor .= '</div>';
-                                            $catViewCountAuthor .= '</div>';
-                                        }
-                                    }
-                                    if (!empty($display_view_count) || !empty($display_author_image)) {
-                                        $catViewCountAuthor .= '<ul class="atbd_content_right">';
-                                        if (!empty($display_view_count)) {
-                                            $catViewCountAuthor .= '<li class="atbd_count">';
-                                            $catViewCountAuthor .= '<span class="' . atbdp_icon_type() . '-eye"></span>';
-                                            $catViewCountAuthor .= !empty($post_view) ? $post_view : 0;
-                                            $catViewCountAuthor .= '</li>';
-                                        }
-                                        if (!empty($display_author_image)) {
-                                            $author = get_userdata($author_id);
-                                            $author_first_last_name = $author->first_name . ' ' . $author->last_name;
-                                            $class = !empty($author->first_name && $author->last_name)?'atbd_tooltip':'';
-                                            $catViewCountAuthor .= '<li class="atbd_author">';
-                                            $catViewCountAuthor .= '<a href="' . ATBDP_Permalink::get_user_profile_page_link($author_id) . '" class="'. $class .'" aria-label="' . $author_first_last_name . '">';
-                                            if (empty($u_pro_pic)) {
-                                                $catViewCountAuthor .= $avatar_img;
-                                            }
-                                            if (!empty($u_pro_pic)) {
-                                                $catViewCountAuthor .= '<img src="' . esc_url($u_pro_pic[0]) . '" alt="Author Image">';
-                                            }
-                                            $catViewCountAuthor .= '</a>';
-                                            $catViewCountAuthor .= '</li>';
-                                        }
-                                        $catViewCountAuthor .= ' </ul>';
-                                    }
-                                    $catViewCountAuthor .= ' </div>' //end ./atbd_listing_bottom_content
-                                    ?>
-                                <?php }
-                                echo apply_filters('atbdp_listings_list_cat_view_count_author', $catViewCountAuthor);
-                                ?>
-                            </div>
-                        </article>
-                    </div>
-                    <?php
-                endforeach;
-
-                $GLOBALS['post'] = $original_post;
-                wp_reset_postdata(); ?>
-                <?php
-                /**
-                 * @since 5.0
-                 */
-                do_action('atbdp_before_listings_pagination');
-
-                if ('yes' == $show_pagination) {
-                    echo atbdp_pagination($all_listings);
-                } ?>
-
-            </div>
-        </div>
-    </div>
-    <?php
-    return true;
 }
 
 if (!function_exists('is_fee_manager_active')) {
@@ -3902,20 +3177,24 @@ function atbdp_yoast_is_active() {
 
 /**arg
  *
- * @return    bool     $can_use_yoast    "true" if can use Yoast, "false" if not.
- * @since     5.5.2
+ * @return bool $can_use_yoast "true" if can use Yoast, "false" if not.
+ * @since 5.5.2
  *
  */
-function atbdp_disable_overwrite_yoast()
+function atbdp_can_overwrite_yoast()
 {
     $overwrite = false;
     $overwrite_yoast = get_directorist_option('overwrite_by_yoast');
-    if ( ! empty($overwrite_yoast) || ! atbdp_yoast_is_active() ) {
+    if ( ! empty( $overwrite_yoast ) || ! atbdp_yoast_is_active() ) {
         $overwrite = true;
     }
 
     return $overwrite;
 
+}
+
+function atbdp_disable_overwrite_yoast() {
+    atbdp_can_overwrite_yoast();
 }
 
 
@@ -4176,8 +3455,10 @@ function atbdp_guest_submission($guest_email)
     // Check if user exist by email
     if (email_exists($guest_email)) {
         wp_send_json(array(
-                'error' => true,
-                'error_msg' => __('Email already registered. Please login first', 'directorist'),
+                'error'                => true,
+                'quick_login_required' => true,
+                'email'                => $guest_email,
+                'error_msg'            => __('Email already registered. Please login first', 'directorist'),
         ));
         die();
     } else {
@@ -4802,4 +4083,22 @@ function dvar_dump($data){
     echo "<pre>";
     var_dump($data);
     echo "</pre>";
+}
+
+if( ! function_exists( 'atbdp_field_assigned_plan' ) ) {
+    function atbdp_field_assigned_plan( $field_data, $selected_plan = NULL ) {
+        if( ! $field_data ) return false;
+    
+        $quired_plan = ! empty( $_GET['plan'] ) ? sanitize_key( $_GET['plan'] ) : '';
+        $selected_plan = ! empty( $selected_plan ) ? $selected_plan : $quired_plan;
+        $plans = !empty( $field_data['plans'] ) ? $field_data['plans'] : [];
+        
+        if( $plans ) {
+            foreach ( $plans as $plan ) {
+                if( $plan['plan_id'] == $selected_plan ) {
+                    return $plan;
+                }
+            }
+        }
+    }
 }

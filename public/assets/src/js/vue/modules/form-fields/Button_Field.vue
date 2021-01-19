@@ -1,63 +1,18 @@
 <template>
-<div class="cptm-form-group">
-    <a :href="link" :target="target">
-        <button :id="id" :class="extra_class" :type="type"><span v-if="icon" :class="icon"></span> {{ label }}</button>
-    </a>
-</div>
+    <component 
+        :is="getTheTheme( 'button-field' )" 
+        v-if="canShow" 
+        v-bind="$props"
+        @do-action="$emit( 'do-action', $event )"
+    />
 </template>
 
 <script>
+import feild_helper from './../../mixins/form-fields/helper';
+import props from './../../mixins/form-fields/input-field-props';
+
 export default {
     name: 'button-field',
-    model: {
-        prop: 'value',
-        event: 'input'
-    },
-    props: {
-        type: {
-            type: String,
-            required: false,
-            default: 'button',
-        },
-        label: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        link: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        id: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        extra_class: {
-            type: String,
-            required: false,
-            default: 'cptm-btn cptm-btn-secondery',
-        },
-        icon: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        target: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        validation: {
-            type: Array,
-            required: false,
-        },
-    },
-    data() {
-        return {
-
-        }
-    },
+    mixins: [ props, feild_helper ],
 }
 </script>

@@ -29,10 +29,56 @@ class ATBDP_Gateway{
 
         // add gateway submenu
         add_filter('atbdp_monetization_settings_submenus', array($this, 'gateway_settings_submenu'), 10, 1);
+        //fields widgets
+        add_filter('atbdp_form_preset_widgets', array($this, 'atbdp_form_builder_widgets'));
 
         $this->extension_url = sprintf("<a target='_blank' href='%s'>%s</a>", esc_url(admin_url('edit.php?post_type=at_biz_dir&page=atbdp-extension')), __('Checkout Other Payment Gateways & Extensions', 'directorist'));
 
     }
+
+    public function atbdp_form_builder_widgets($widgets)
+        {
+            $featured_enable = get_directorist_option('enable_featured_listing');
+            if( !is_fee_manager_active() && $featured_enable ) {
+                $widgets['listing-type'] = [
+                    'label' => 'Listing Type',
+                    'icon' => 'la la-toggle-on',
+                    'show' => true,
+                    'options' => [
+                        'type' => [
+                            'type'  => 'hidden',
+                            'value' => 'radio',
+                        ],
+                        'field_key' => [
+                            'type'  => 'hidden',
+                            'value' => 'listing_type',
+                        ],
+                        'label' => [
+                            'type'  => 'text',
+                            'label' => 'Label',
+                            'value' => 'Select Listing Type',
+                        ],
+                        'general_label' => [
+                            'type'  => 'text',
+                            'label' => 'General label',
+                            'value' => 'General',
+                        ],
+                        'featured_label' => [
+                            'type'  => 'text',
+                            'label' => 'Featured label',
+                            'value' => 'Featured',
+                        ],
+                        'required' => [
+                            'type'  => 'toggle',
+                            'label'  => 'Required',
+                            'value' => true,
+                        ],
+                    ],
+                ];
+            }
+            
+            return $widgets;
+        }
 
     /**
      * Add Monetization menu
@@ -129,7 +175,7 @@ class ATBDP_Gateway{
                     'name' => 'featured_listing_desc',
                     'label' => __('Description', 'directorist'),
                     'description' => __('You can set some description for your user for upgrading to featured listing.', 'directorist'),
-                    'default' => __('You can make your listing featured. A Featured listing will appear on top of other listings.', 'directorist'),
+                    'default' => __('(Top of the search result and listings pages for a number days and it requires an additional payment.)', 'directorist'),
                 ),
                 array(
                     'type' => 'textbox',
@@ -301,34 +347,35 @@ class ATBDP_Gateway{
     {
         $active_gateways = get_directorist_option('active_gateways', array());
         $default_gw = get_directorist_option('default_gateway', 'bank_transfer');
-        if (empty($active_gateways)) return ''; // if the gateways are empty, vail out.
+        if ( empty( $active_gateways ) ) return ''; // if the gateways are empty, vail out.
+        
+        $format = '
+        <li class="list-group-item">
+            <div class="gateway_list">
+                <label for="##GATEWAY##">
+                    <input type="radio" id="##GATEWAY##" name="payment_gateway" value="##GATEWAY##" ##CHECKED##>##LABEL##
+                </label>
+            </div>
+            ##DESC##
+        </li>';
+
         $markup = '<ul>';
-        foreach ($active_gateways as $gw_name){
+        if( !empty( $active_gateways ) ) {
+            foreach ($active_gateways as $gw_name){
                 $title = get_directorist_option($gw_name.'_title');
                 $desc = get_directorist_option($gw_name.'_description');
-                $desc = !empty($desc) ? "<p class='text-muted'>{$desc}</p>" : '';
-                $checked = ($gw_name == $default_gw) ? ' checked': '';
-
-                $format = <<<KAMAL
-                <li class="list-group-item">
-                    <div class="gateway_list">
-                        <label for="##GATEWAY##">
-                            <input type="radio" id="##GATEWAY##" name="payment_gateway" value="##GATEWAY##" ##CHECKED##>##LABEL##
-                        </label>
-                    </div>
-                    ##DESC##
-                </li>
-KAMAL;
+                $desc = ! empty( $desc ) ? "<p class='text-muted'>{$desc}</p>" : '';
+                $checked = ( $gw_name == $default_gw ) ? ' checked': '';
                 $search = array("##GATEWAY##", "##LABEL##", "##DESC##", "##CHECKED##");
                 $replace = array($gw_name, $title, $desc, $checked);
-                $markup  .= str_replace($search, $replace , $format);
+                $markup .= str_replace($search, $replace , $format);
                 /*@todo; Add a settings to select a default payment method.*/
+            }
         }
+        
         $markup .= '</ul>';
 
         return $markup;
     }
 
 }
-
-

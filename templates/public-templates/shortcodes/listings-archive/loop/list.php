@@ -5,17 +5,15 @@
  * @version 6.7
  */
 
-$loop_fields = $listings->loop['list_fields'];
+$loop_fields = $listings->loop['list_fields']['template_data']['list_view_with_thumbnail'];
 ?>
-<div class="atbd_single_listing atbd_listing_list">
+<div class="atbd_single_listing atbd_listing_list directorist-list-with-thumb">
 	<article class="atbd_single_listing_wrapper <?php echo esc_attr( $listings->loop_wrapper_class() ); ?>">
 
-		<?php if ( $listings->display_preview_image ): ?>
-			<figure class="atbd_listing_thumbnail_area">
-				<?php $listings->loop_thumb_card_template(); ?>
-				<div class="atbd-list-cover-top-right"><?php $listings->render_loop_fields($loop_fields['thumbnail']['top_right']); ?></div>
-			</figure>
-		<?php endif; ?>
+		<figure class="atbd_listing_thumbnail_area">
+			<?php $listings->loop_thumb_card_template(); ?>
+			<div class="atbd-list-cover-top-right"><?php $listings->render_loop_fields($loop_fields['thumbnail']['top_right']); ?></div>
+		</figure>
 
 		<div class="atbd_listing_info">
 

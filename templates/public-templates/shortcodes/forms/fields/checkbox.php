@@ -9,6 +9,7 @@ $value = explode( ',', $data['value'] );
 
 <div class="form-group directorist-checkbox-field">
 	<?php $form->add_listing_label_template( $data );?>
+	
 	<div class="form-control">
 		<?php if( !empty( $data['options'] ) ) :
 		foreach ( $data['options'] as $option ): 
@@ -19,5 +20,6 @@ $value = explode( ',', $data['value'] );
 		endif;
 		?>
 	</div>
+
 	<?php $form->add_listing_description_template( $data ); ?>
 </div>

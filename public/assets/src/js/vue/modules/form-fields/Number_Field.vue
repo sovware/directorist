@@ -1,52 +1,21 @@
 <template>
-    <text-field v-bind="the_props" @update="$emit('update', $event)"/>
+    <text-field 
+        v-bind="$props" 
+        @update="$emit('update', $event)" 
+        @do-action="$emit( 'do-action', $event )"
+        @validate="$emit( 'validate', $event )"
+    />
 </template>
 
 <script>
+import props from './../../mixins/form-fields/input-field-props';
+
 export default {
-    name: 'hidden-field',
+    name: 'number-field',
+    mixins: [ props ],
     model: {
         prop: 'value',
         event: 'update'
-    },
-    props: {
-        label: {
-            type: String,
-            required: false,
-            default: 'Label',
-        },
-        value: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        name: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        placeholder: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        validation: {
-            type: Array,
-            required: false,
-        },
-    },
-
-    computed: {
-        the_props() {
-            return {
-                type: 'number-field',
-                label: this.label,
-                value: this.value,
-                name: this.name,
-                placeholder: this.placeholder,
-                validation: this.validation,
-            }
-        },
-    },
+    }
 }
 </script>

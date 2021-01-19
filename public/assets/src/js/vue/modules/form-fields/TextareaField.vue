@@ -1,101 +1,20 @@
 <template>
-<div class="cptm-form-group" :class="formGroupClass">
-    <label v-if="( 'hidden' !== input_type && label.length )" :for="name">{{ label }}</label>
-    <textarea name="" id="" :cols="cols" :rows="rows" :placeholder="placeholder" class="cptm-form-control" v-model="local_value"></textarea>
-
-    <div class="cptm-form-group-feedback" v-if="validationMessages">
-        <div class="cptm-form-alert" :class="'cptm-' + validationMessages.type">
-            {{ validationMessages.message }}
-        </div>
-    </div>
-</div>
+    <component 
+        :is="getTheTheme( 'textarea-field' )" 
+        v-if="canShow"
+        v-bind="$props"
+        @do-action="$emit( 'do-action', $event )"
+        @update="$emit( 'update', $event )"
+    >
+    </component>
 </template>
 
 <script>
-import validation from './../../mixins/validation';
+import feild_helper from './../../mixins/form-fields/helper';
+import props from './../../mixins/form-fields/input-field-props';
 
 export default {
     name: 'textarea-field',
-    mixins: [ validation ],
-    model: {
-        prop: 'value',
-        event: 'input'
-    },
-    props: {
-        label: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        value: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        name: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        placeholder: {
-            type: [String, Number],
-            required: false,
-            default: '',
-        },
-        cols: {
-            type: [String, Number],
-            required: false,
-            default: '30',
-        },
-        rows: {
-            type: [String, Number],
-            required: false,
-            default: '10',
-        },
-        validation: {
-            type: Array,
-            required: false,
-        },
-    },
-
-    computed: {
-        input_type() {
-            const supported_types = {
-                'text-field': 'text', 
-                'number-field': 'number', 
-                'password-field': 'password', 
-                'date-field': 'date',
-                'hidden-field': 'hidden', 
-            };
-
-            if ( typeof supported_types[ this.type ] !== 'undefined' ) {
-                return supported_types[ this.type ];
-            }
-            
-            return 'text';
-        },
-
-        formGroupClass() {
-            return {
-                ...this.validationClass,
-            }
-        },
-    },
-
-    watch: {
-        local_value() {
-            this.$emit( 'update', this.local_value );
-        }
-    },
-
-    created() {
-        this.local_value = this.value;
-    },
-
-    data() {
-        return {
-            local_value: '',
-        }
-    },
+    mixins: [ props, feild_helper ],
 }
 </script>

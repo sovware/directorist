@@ -13,10 +13,8 @@
 		</div>
 	</div>
 	<div class="atbdb_content_module_contents">
-		<?php
-		foreach ( $section_data['fields'] as $field ){
+		<?php foreach ( $section_data['fields'] as $field ){
 			Directorist_Listing_Forms::instance()->add_listing_field_template( $field );
-		}
-		?>
+		} ?>
 	</div>
 </div>

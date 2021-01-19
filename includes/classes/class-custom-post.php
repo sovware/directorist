@@ -23,7 +23,44 @@ if (!class_exists('ATBDP_Custom_Post')):
             add_filter('enter_title_here', array($this, 'change_title_text'));
             add_filter('post_row_actions', array($this, 'add_row_actions_for_quick_view'), 10, 2);
             add_filter('load-edit.php', array($this, 'work_row_actions_for_quick_view'), 10, 2);
+
+            // bulk directory type assign
+            add_filter('bulk_edit_custom_box', array($this, 'on_quick_edit_custom_box'), 10, 2);
+            add_action( 'save_post', array( $this, 'save_quick_edit_custom_box') );
         }
+
+        public function save_quick_edit_custom_box( $post_id) {
+
+            if( get_post_type( $post_id ) !== ATBDP_POST_TYPE ) return;
+            // if our current user can't edit this post, bail
+            if ( ! current_user_can( 'edit_posts' ) ) return;
+            // Make sure that it is set.
+            if ( !empty( $_REQUEST['directory_type'] ) ) {
+                update_post_meta( $post_id, '_directory_type', sanitize_text_field( $_REQUEST['directory_type'] ) );
+            }
+    }
+
+        public function on_quick_edit_custom_box( $column_name, $post_type ) {
+            if ( ( 'directory_type' === $column_name ) && ( $post_type == ATBDP_POST_TYPE ) ) { ?>
+            <fieldset class="inline-edit-col-right" style="margin-top: 0;">
+                <div class="inline-edit-group wp-clearfix">
+                    <span class="title"><?php _e( 'Directory Type', 'directorist' ); ?></span>				
+                    <select name="directory_type">
+                        <option value="">- <?php _e( 'Select', 'directorist' ); ?> -</option>		
+                        <?php 
+                        $listing_types = get_terms([
+                            'taxonomy'   => ATBDP_TYPE,
+                            'hide_empty' => false,
+                          ]);
+                          foreach ($listing_types as $listing_type) { ?>
+                            <option value="<?php echo esc_attr( $listing_type->term_id ); ?>"><?php echo esc_attr( $listing_type->name ); ?></option>
+                            <?php } ?>						
+                    </select>
+                </div>
+            </fieldset>
+            <?php };
+        }
+
 
         public function add_cpt_to_pll($post_types, $hide)
         {
@@ -144,7 +181,7 @@ if (!class_exists('ATBDP_Custom_Post')):
             );
 
             // get the rewrite slug from the user settings, if exist use it.
-            $slug = get_directorist_option('atbdp_listing_slug', 'at_biz_dir');// default value is the post type at_biz_dir .
+            $slug = get_directorist_option('atbdp_listing_slug', 'directory');// default value is the post type at_biz_dir .
             if (!empty($slug)) {
                 $args['rewrite'] = array(
                     'slug' => $slug,
@@ -169,12 +206,16 @@ if (!class_exists('ATBDP_Custom_Post')):
         public function add_new_listing_columns($columns)
         {
             $featured_active = get_directorist_option('enable_featured_listing');
+            $enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
+
             $columns = array();
             $columns['cb'] = '<input type="checkbox" />';
             $columns['title'] = __('Listing Name', 'directorist');
+            if ( atbdp_is_truthy( $enable_multi_directory ) ) {
+                $columns['directory_type'] = __('Directory Type', 'directorist');
+            }
             $columns['atbdp_location'] = __('Location', 'directorist');
             $columns['atbdp_category'] = __('Categories', 'directorist');
-            $columns['listing_type'] = __('Directory Type', 'directorist');
             $columns['atbdp_author'] = __('Author', 'directorist');
             $columns['atbdp_status'] = __('Status', 'directorist');
             if ($featured_active || is_fee_manager_active()) {
@@ -228,30 +269,20 @@ if (!class_exists('ATBDP_Custom_Post')):
                     }
 
                     break;
-
-                case 'listing_type':
+                    
+                case 'directory_type':
                     $term_id = get_post_meta( $post_id, '_directory_type', true );
-                    $term_name = !empty( $term_id  ) ? get_term( $term_id )->name : ''; ?>
+                    $term = get_term_by( 'id', $term_id, 'atbdp_listing_types' );
+                    $config = get_term_meta( $term_id, 'general_config', true );
+                    $icon   = is_array( $config ) ? $config['icon'] : '';
+                    $term_name = !empty( $term  ) ? $term->name : '';
+                    if( !empty( $icon ) ) { ?>
+                    <span class="<?php echo esc_html( $icon );?>"></span>
+                    <?php } ?>
                     <span><?php echo esc_attr( $term_name ); ?></span>
                     <?php
                     break;
-
-                    //code for multiselect category
-                    /*  case 'atbdp_category':
-                          $cats = wp_get_post_terms( $post_id, ATBDP_CATEGORY );
-                          if (!empty( $cats ) && is_array( $cats )){
-                              foreach ( $cats as $c ) {
-                          */ ?><!--
-                    <a href="<?/*= ATBDP_Permalink::get_category_archive( $c ); */ ?>">
-                        <i class="fa <?/*= get_cat_icon( $c->term_id ); */ ?>" aria-hidden="true"></i>
-                        <?/*= $c->name; */ ?>
-                    </a>
-                    --><?php
-                /*                        }
-                                    }
-                                    break;*/
-                default:
-                    break;
+                    
                 case 'atbdp_author':
                     the_author_posts_link();
                     break;

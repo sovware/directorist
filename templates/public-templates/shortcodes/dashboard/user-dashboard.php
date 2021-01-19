@@ -53,9 +53,12 @@
         </div>
     </div>
 </div>
+
+
+
 <?php
 /**
  * @package Directorist
  * @since 5.9.3
  */
-do_action('atbdp_after_user_dashboard');
+do_action('directorist_after_user_dashboard');

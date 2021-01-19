@@ -13,11 +13,14 @@ class Directorist_Listing_Forms {
 
 	public $add_listing_id;
 	public $add_listing_post;
+	public $directory_type;
+	public $default_directory_type;
 
 	private function __construct( $id ) {
 		if ( $id ) {
 			$this->add_listing_id = $id;
 			$this->add_listing_post = get_post( $id );
+
 		}
 		else {
 			add_action( 'wp', array( $this, 'init' ) );
@@ -444,6 +447,12 @@ class Directorist_Listing_Forms {
 		return $text;
 	}
 
+	public function featured_listing_description() {
+		$description = get_directorist_option('featured_listing_desc', '(Top of the search result and listings pages for a number days and it requires an additional payment.)');
+		return $description;
+
+	}
+
 	public function add_listing_submit_template() {
 		$p_id              = $this->get_add_listing_id();
 		$type = $this->get_current_listing_type();
@@ -475,7 +484,7 @@ class Directorist_Listing_Forms {
 			'submit_label'            => get_directorist_type_option( $type, 'submit_button_label', __( 'Save & Preview', 'directorist' ) ),
 		);
 
-		atbdp_get_shortcode_template( 'forms/add-listing-submit', $args );
+		atbdp_get_shortcode_template( 'forms/add-listing-submit', apply_filters( 'atbdp_add_listing_submission_template_args', $args ) );
 	}
 
 	public function add_listing_custom_fields_template() {
@@ -539,34 +548,27 @@ class Directorist_Listing_Forms {
 		atbdp_get_shortcode_template( 'forms/add-listing-section', $args );
 	}
 
-	public function add_listing_field_template( $field_data ) {
-		$listing_id = $this->get_add_listing_id();
 
+	public function add_listing_category_custom_field_template( $field_data, $listing_id = NULL ) {
 		$value = '';
-
 		if ( ! empty( $listing_id ) ) {
-			if ( $field_data['widget_name'] == 'title' ) {
-				$value = $this->add_listing_post->post_title;
-			}
-			elseif ( $field_data['widget_name'] == 'description' ) {
-				$value = $this->add_listing_post->post_content;
-			}
-			elseif ( !empty( $field_data['field_key'] ) ) {
-				$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
-			}
+
+			$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
+	
 		}
-
 		$field_data['value'] = $value;
-
+		$field_data['form'] = $this;
+		
 		$args = array(
 			'form'  => $this,
 			'data'  => $field_data,
 		);
-
+		
 		$template = 'forms/fields/' . $field_data['widget_name'];
+		
 		$template = apply_filters( 'directorist_field_template', $template, $field_data );
-
-		if ( is_admin() ) {
+		
+		if ( is_admin() && empty( $field_data['request_from_no_admin'] ) ) {
 			$admin_template = 'listing-form/' . $field_data['widget_name'];
 			$admin_template = apply_filters( 'directorist_field_admin_template', $admin_template, $field_data );
 
@@ -582,22 +584,90 @@ class Directorist_Listing_Forms {
 				atbdp_get_shortcode_template( $template, $args );
 			}
 		}
+		
+	}
+
+	public function add_listing_field_template( $field_data ) {
+
+		if( !empty( $field_data['assign_to'] ) && ( $field_data['assign_to'] !== 'form' ) ) return;
+		$listing_id = $this->get_add_listing_id();
+		$value = '';
+		
+		if ( ! empty( $listing_id ) ) {
+			if ( $field_data['widget_name'] == 'title' ) {
+				$value = $this->add_listing_post->post_title;
+			}
+			elseif ( $field_data['widget_name'] == 'description' ) {
+				$value = $this->add_listing_post->post_content;
+			}
+			elseif ( !empty( $field_data['field_key'] ) ) {
+				$value = get_post_meta( $listing_id, '_'.$field_data['field_key'], true );
+			}
+		}
+		
+		
+		$field_data['value'] = $value;
+		$field_data['form'] = $this;
+		
+		$args = array(
+			'form'  => $this,
+			'data'  => $field_data,
+		);
+		
+		$template = 'forms/fields/' . $field_data['widget_name'];
+
+		
+		$template = apply_filters( 'directorist_field_template', $template, $field_data );
+		if ( is_admin() ) {
+			$admin_template = 'listing-form/' . $field_data['widget_name'];
+			$admin_template = apply_filters( 'directorist_field_admin_template', $admin_template, $field_data );
+
+			if ( atbdp_has_admin_template( $admin_template ) ) {
+				atbdp_get_admin_template( $admin_template, $args );
+			}
+			else {
+				atbdp_get_shortcode_template( $template, $args );
+			}
+		}
+		else {
+			
+			if ( empty( $field_data['only_for_admin'] ) ) {
+				atbdp_get_shortcode_template( $template, $args );
+			}
+		}
+		
 	}
 
 	public function get_listing_types() {
+		$enable_multi_directory = get_directorist_option( 'enable_multi_directory' );
 		$listing_types = array();
-		$all_types     = get_terms(
-			array(
-				'taxonomy'   => ATBDP_TYPE,
-				'hide_empty' => false,
-			)
+		$args = array(
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false,
 		);
+		if( $this->directory_type ) {
+			$args['slug'] = $this->directory_type;
+		}
+		$all_types     = get_terms( $args );
 
 		foreach ( $all_types as $type ) {
-			$listing_types[ $type->term_id ] = [
-				'name' => $type->name,
-				'data' => get_term_meta( $type->term_id, 'general_config', true ),
-			];
+			if(  empty( $enable_multi_directory ) ) {
+				$is_default = get_term_meta( $type->term_id, '_default', true );
+				if ( $is_default ) {
+					$listing_types[ $type->term_id ] = [
+						'term' => $type,
+						'name' => $type->name,
+						'data' => get_term_meta( $type->term_id, 'general_config', true ),
+					];
+					break;
+				}
+			} else {	
+				$listing_types[ $type->term_id ] = [
+					'term' => $type,
+					'name' => $type->name,
+					'data' => get_term_meta( $type->term_id, 'general_config', true ),
+				];
+			}
 		}
 		return $listing_types;
 	}
@@ -610,29 +680,36 @@ class Directorist_Listing_Forms {
 			$type = array_key_first( $listing_types );
 		}
 		else {
-			$type = isset( $_GET['listing_type'] ) && array_key_exists( $_GET['listing_type'], $listing_types ) ? $_GET['listing_type'] : '';
+			$type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : '';
+		}
+		if( !empty( $type ) && ! is_numeric( $type ) ) {
+			$term = get_term_by( 'slug', $type, ATBDP_TYPE );
+			$type = $term->term_id;
 		}
 
 		return (int) $type;
 	}
 
 	public function build_form_data( $type ) {
-		$form_data              = array();
-		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
-		// e_var_dump($submission_form_fields);
+		$form_data = [];
 
-		foreach ( $submission_form_fields['groups'] as $group ) {
-			$section           = $group;
-			$section['fields'] = array();
-			foreach ( $group['fields'] as $field ) {
-				$section['fields'][ $field ] = $submission_form_fields['fields'][ $field ];
-			}
-			$form_data[] = $section;
-
+		if ( !$type ) {
+			return $form_data;
 		}
 
-		// e_var_dump($form_data);
+		$submission_form_fields = get_term_meta( $type, 'submission_form_fields', true );
 
+		if( ! empty( $submission_form_fields['groups'] ) ) {
+			foreach ( $submission_form_fields['groups'] as $group ) {
+				$section           = $group;
+				$section['fields'] = array();
+				foreach ( $group['fields'] as $field ) {
+					$section['fields'][ $field ] = $submission_form_fields['fields'][ $field ];
+				}
+				$form_data[] = $section;
+	
+			}
+		}
 		return $form_data;
 	}
 
@@ -655,32 +732,11 @@ class Directorist_Listing_Forms {
 				return atbdp_return_shortcode_template( 'forms/add-listing-error' );
 			}
 		}
+		$atts = shortcode_atts( array(
+			'directory_type'			  => '',
+		), $atts );
 
-		// global $wp;
-		// global $pagenow;
-		// $current_url = home_url( add_query_arg( array(), $wp->request ) );
-
-		// $monetization_is_active    = is_fee_manager_active() && ! selected_plan_id();
-		// $pricing_plan_is_active    = class_exists( 'ATBDP_Pricing_Plans' );
-		// $wc_pricing_plan_is_active = class_exists( 'DWPP_Pricing_Plans' );
-		// $in_add_listing_page       = ( ( strpos( $current_url, '/edit/' ) !== false ) && ( $pagenow === 'at_biz_dir' ) ) ? true : false;
-		// $show_packages             = ( $monetization_is_active && ! $in_add_listing_page ) ? true : false;
-
-		// // @todo @kowsar - extensions
-		// if ( $show_packages && $pricing_plan_is_active ) {
-		// 	ob_start();
-		// 	do_action( 'atbdp_before_pricing_plan_page_load' );
-		// 	ATBDP_Pricing_Plans()->load_template( 'fee-plans', array( 'atts' => $atts ) );
-		// 	return ob_get_clean();
-		// }
-
-		// if ( $show_packages && $wc_pricing_plan_is_active ) {
-		// 	ob_start();
-		// 	do_action( 'atbdp_before_pricing_plan_page_load' );
-		// 	DWPP_Pricing_Plans()->load_template( 'fee-plans', array( 'atts' => $atts ) );
-		// 	return ob_get_clean();
-		// }
-
+		$this->directory_type           = !empty( $atts['directory_type'] ) ? explode( ',', $atts['directory_type'] ) : '';
 		$args = array(
 			'p_id'               => $p_id,
 			'listing_form'       => $this,
@@ -734,7 +790,7 @@ class Directorist_Listing_Forms {
 				$args['form_data'] = $this->build_form_data( $type );
 				$args['single_directory'] = $type;
 				$template = atbdp_return_shortcode_template( 'forms/add-listing', $args );
-				return apply_filters( 'atbdp_add_listing_page_template', $template );
+				return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 			}
 			
 			// multiple directory available
@@ -742,12 +798,15 @@ class Directorist_Listing_Forms {
 				'listing_types' => $listing_types,
 			);
 			$template = atbdp_return_shortcode_template( 'forms/add-listing-type', $listing_type_args );
-			return apply_filters( 'atbdp_add_listing_page_template', $template );
+			return apply_filters( 'atbdp_add_listing_page_template', $template, $args );
 		}
 	}
 	
 	public function render_shortcode_user_login() {
 		if ( atbdp_logged_in_user() ) {
+
+			do_action( 'atbdp_show_flush_messages' );
+
 			$error_message = sprintf( __( 'Login page is not for logged-in user. <a href="%s">Go to Dashboard</a>', 'directorist' ), esc_url( ATBDP_Permalink::get_dashboard_page_link() ) );
 			ob_start();
 			ATBDP()->helper->show_login_message( apply_filters( 'atbdp_login_page_loggedIn_msg', $error_message ) );

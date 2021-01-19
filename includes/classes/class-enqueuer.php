@@ -67,8 +67,14 @@ class ATBDP_Enqueuer {
         $select_listing_map = get_directorist_option( 'select_listing_map', 'openstreet' );
         // Admin Assets
         if ( is_admin() ) {
-            wp_register_script( 'extension-update', ATBDP_ADMIN_ASSETS . 'js/extension-update.js', array( 'jquery' ), ATBDP_VERSION, true );
-            wp_enqueue_script( 'extension-update' );
+            if( 'plugins.php' === $page ) {
+                wp_register_script( 'plugins', ATBDP_ADMIN_ASSETS . 'js/plugins.js', array( 'jquery' ), ATBDP_VERSION, true );
+                wp_register_style( 'plugins-css', ATBDP_ADMIN_ASSETS . 'css/plugins.css', array(), ATBDP_VERSION );
+
+                wp_enqueue_script( 'plugins' );
+                wp_enqueue_style( 'plugins-css' );
+
+            }
             if('at_biz_dir_page_tools' === $page){
                 wp_register_script( 'atbdp-import-export', ATBDP_ADMIN_ASSETS . 'js/import-export.js', array( 'jquery' ), ATBDP_VERSION, true );
                 wp_enqueue_script( 'atbdp-import-export' );
@@ -145,7 +151,8 @@ class ATBDP_Enqueuer {
             if ( ! $disable_map ) {wp_enqueue_script( 'atbdp-google-map-admin' );}
             wp_enqueue_script( 'select2script' );
             wp_enqueue_script( 'atbdp-admin-script' );
-
+            $font_type = get_directorist_option( 'font_type', 'line' );
+            $icon_type = ( 'line' == $font_type ) ? 'la' : 'fa';
             // Internationalization text for javascript file especially add-listing.js
             $i18n_text = array(
                 'confirmation_text'       => __( 'Are you sure', 'directorist' ),
@@ -165,8 +172,11 @@ class ATBDP_Enqueuer {
                 'ajaxurl'        => admin_url( 'admin-ajax.php' ),
                 'import_page_link'      => admin_url( 'edit.php?post_type=at_biz_dir&page=tools' ),
                 'nonceName'      => 'atbdp_nonce_js',
+                'countryRestriction'      => get_directorist_option( 'country_restriction' ),
+                'restricted_countries'    => get_directorist_option( 'restricted_countries' ),
                 'AdminAssetPath' => ATBDP_ADMIN_ASSETS,
                 'i18n_text'      => $i18n_text,
+                'icon_type'      => $icon_type
             );
             wp_localize_script( 'atbdp-admin-script', 'atbdp_admin_data', $data );
             wp_enqueue_media();
@@ -343,6 +353,7 @@ class ATBDP_Enqueuer {
             'upload_pro_pic_text'         => __( 'Use this Image', 'directorist' ),
             'payNow'                      => __( 'Pay Now', 'directorist' ),
             'completeSubmission'          => __( 'Complete Submission', 'directorist' ),
+            'waiting_msg'                 => __( 'Sending the message, please wait...', 'directorist' ),
             'plugin_url'                  => ATBDP_URL,
             'currentDate'                 => get_the_date(),
             'enable_reviewer_content'     => $enable_reviewer_content
@@ -513,7 +524,7 @@ class ATBDP_Enqueuer {
     }
 
     public function current_listing_type() {
-        $type = isset( $_GET['listing_type'] ) ? $_GET['listing_type'] : get_post_meta( $this->listing_id, '_directory_type', true );
+        $type = isset( $_GET['directory_type'] ) ? $_GET['directory_type'] : get_post_meta( $this->listing_id, '_directory_type', true );
         return $type;
     }
 
@@ -552,6 +563,8 @@ class ATBDP_Enqueuer {
         $tag_placeholder = !empty( $submission_form['fields']['tag']['placeholder'] ) ? $submission_form['fields']['tag']['placeholder'] : '';
         $loc_placeholder = !empty( $submission_form['fields']['location']['placeholder'] ) ? $submission_form['fields']['location']['placeholder'] : '';
         $cat_placeholder = !empty( $submission_form['fields']['category']['placeholder'] ) ? $submission_form['fields']['category']['placeholder'] : '';
+        $new_loc         = !empty( $submission_form['fields']['location']['create_new_loc'] ) ? $submission_form['fields']['location']['create_new_loc'] : '';
+        $max_loc_creation = !empty( $submission_form['fields']['location']['max_location_creation'] ) ? $submission_form['fields']['location']['max_location_creation'] : '';
         // Internationalization text for javascript file especially add-listing.js
 
         $i18n_text = array(
@@ -563,6 +576,8 @@ class ATBDP_Enqueuer {
             'location_selection'      => esc_attr( $loc_placeholder ),
             'tag_selection'           => esc_attr( $tag_placeholder ),
             'cat_placeholder'         => esc_attr( $cat_placeholder ),
+            'max_location_creation'   => esc_attr( $max_loc_creation ),
+            'max_location_msg'        => sprintf( __('You can only use %s', 'directorist'), $max_loc_creation ),
         );
 
         //get listing is if the screen in edit listing
@@ -582,6 +597,7 @@ class ATBDP_Enqueuer {
             'PublicAssetPath' => ATBDP_PUBLIC_ASSETS,
             'i18n_text'       => $i18n_text,
             'create_new_tag'  => $new_tag,
+            'create_new_loc'  => $new_loc,
             'image_notice'    => __( 'Sorry! You have crossed the maximum image limit', 'directorist' ),
         );
 
@@ -949,9 +965,11 @@ class ATBDP_Enqueuer {
                 'select_listing_map' => $select_listing_map,
                 'Miles'              => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
             ),
-            'ajax_url'    => admin_url( 'admin-ajax.php' ),
-            'Miles'       => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
-            'default_val' => $default_radius_distance,
+            'ajax_url'              => admin_url( 'admin-ajax.php' ),
+            'Miles'                 => !empty( $_GET['miles'] ) ? $_GET['miles'] : $miles,
+            'default_val'           => $default_radius_distance,
+            'countryRestriction'    => get_directorist_option( 'country_restriction' ),
+            'restricted_countries'  => get_directorist_option( 'restricted_countries' ),
         );
         wp_enqueue_script( 'atbdp_search_listing' );
         wp_localize_script( 'atbdp_search_listing', 'atbdp_search_listing', $data );

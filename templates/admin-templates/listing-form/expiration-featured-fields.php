@@ -3,6 +3,7 @@ if (!empty($args['data']) ) extract($args['data']) ;
 // show the expiration date if never expiration is not set
 // display never expiration checkbox
 // Display featured checkbox
+// var_dump($never_expire);
  if( empty($never_expire) && isset( $expiry_date ) ) : ?>
     <div class="misc-pub-section misc-pub-atbdp-expiration-time">
 		<span id="atbdp-timestamp">

@@ -35,24 +35,21 @@ do_action('atbdp_before_all_listings_grid', $listings);
         }
         ?>
 
-        <div class="row"<?php echo esc_attr($listings->masonary_grid_attr()); ?>>
+        <div class="<?php echo apply_filters('all_listings_wrapper','row'); ?>"<?php echo esc_attr($listings->masonary_grid_attr()); ?>>
         	<?php $listings->setup_loop( ['template' => 'grid'] ); ?>
         </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <?php
-                /**
-                 * @since 5.0
-                 */
-                do_action('atbdp_before_listings_pagination');
+  
+        <?php
+        /**
+         * @since 5.0
+         */
+        do_action('atbdp_before_listings_pagination');
 
-                if ( $listings->show_pagination ) {
-                    echo atbdp_pagination( $listings->query_results );
-                }
-                ?>
-            </div>
-        </div>
+        if ( $listings->show_pagination ) {
+            echo atbdp_pagination( $listings->query_results );
+        }
+        ?>
 
         <?php
         /**

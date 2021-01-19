@@ -4,9 +4,21 @@
  * @since   6.6
  * @version 6.6
  */
+
 ?>
 <section id="directorist" class="directorist atbd_wrapper">
 	<div class="row">
+	<?php
+        if( isset( $_GET['notice'] ) ){ ?>
+            <div class="col-lg-12">
+                <div class="atbd-alert atbd-alert-info atbd-alert-dismissible">
+                    <?php echo $confirmation_msg; ?>
+                    <button type="button" class="atbd-alert-close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <?php } ?>
 		<div class="<?php echo esc_attr($class_col); ?> col-md-12 atbd_col_left">
 			<?php if (atbdp_logged_in_user() && $author_id == get_current_user_id()) { ?>
 				<div class="edit_btn_wrap">
@@ -38,7 +50,7 @@
 			?>
 
 		</div>
-		
+
 		<?php atbdp_get_shortcode_template( 'single-listing/sidebar' ); ?>
 	</div>
 </section>

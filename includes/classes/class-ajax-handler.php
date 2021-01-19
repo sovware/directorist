@@ -65,37 +65,79 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             add_action('wp_ajax_ajaxlogin', array($this, 'atbdp_ajax_login'));
             add_action('wp_ajax_nopriv_ajaxlogin', array($this, 'atbdp_ajax_login'));
 
+            add_action('wp_ajax_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
+            add_action('wp_ajax_nopriv_atbdp_ajax_quick_login', array($this, 'atbdp_quick_ajax_login'));
+
             // regenerate pages
             add_action('wp_ajax_atbdp_upgrade_old_pages', array($this, 'upgrade_old_pages'));
             // default listing type
             add_action('wp_ajax_atbdp_listing_default_type', array($this, 'atbdp_listing_default_type'));
-            
+
             // Guset Reception
             add_action('wp_ajax_atbdp_guest_reception', array($this, 'guest_reception'));
             add_action('wp_ajax_nopriv_atbdp_guest_reception', array($this, 'guest_reception'));
 
             // custom field
-            add_action('wp_ajax_atbdp_custom_fields_listings_front',                 array($this, 'ajax_callback_custom_fields'), 10, 2);
-            add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front',          array($this, 'ajax_callback_custom_fields'), 10, 2);
-            add_action('wp_ajax_atbdp_custom_fields_listings_front_selected',        array($this, 'ajax_callback_custom_fields'), 10, 2);
-            add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
-            add_action('wp_ajax_atbdp_custom_fields_listings',                       array($this, 'ajax_callback_custom_fields'), 10, 2 );
-            add_action('wp_ajax_atbdp_custom_fields_listings_selected',              array($this, 'ajax_callback_custom_fields'), 10, 2 );
-            
+            add_action('wp_ajax_atbdp_custom_fields_listings',                 array($this, 'ajax_callback_custom_fields'), 10, 2);
+            add_action('wp_ajax_nopriv_atbdp_custom_fields_listings',          array($this, 'ajax_callback_custom_fields'), 10, 2);
+            // add_action('wp_ajax_atbdp_custom_fields_listings_front_selected',        array($this, 'ajax_callback_custom_fields'), 10, 2);
+            // add_action('wp_ajax_nopriv_atbdp_custom_fields_listings_front_selected', array($this, 'ajax_callback_custom_fields'), 10, 2);
+            // add_action('wp_ajax_atbdp_custom_fields_listings',                       array($this, 'ajax_callback_custom_fields'), 10, 2 );
+            // add_action('wp_ajax_atbdp_custom_fields_listings_selected',              array($this, 'ajax_callback_custom_fields'), 10, 2 );
+
             add_action('wp_ajax_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
             add_action('wp_ajax_nopriv_atbdp_listing_types_form', array( $this, 'atbdp_listing_types_form' ) );
+        }
+
+        // atbdp_quick_ajax_login
+        public function atbdp_quick_ajax_login()
+        {
+            if ( is_user_logged_in() ) {
+                wp_send_json([
+                    'loggedin' => true,
+                    'message' => __('Your are already loggedin', 'directorist'),
+                ]);
+            }
+
+            $keep_signed_in = ( ! empty( $_POST['rememberme'] ) ) ? true : false;
+
+            $info = [];
+            $info['user_login']    = $_POST['username'];
+            $info['user_password'] = $_POST['password'];
+            $info['remember']      = $keep_signed_in;
+
+            $user_signon = wp_signon( $info, false );
+
+            if ( is_wp_error($user_signon) ) {
+                wp_send_json([
+                    'loggedin' => false,
+                    'message'  => __('Wrong username or password.', 'directorist')
+                ]);
+
+            } else {
+                wp_set_current_user($user_signon->ID);
+
+                wp_send_json([
+                    'loggedin' => true,
+                    'message'  => __('Login successful, redirecting...', 'directorist')
+                ]);
+            }
         }
 
         // atbdp_listing_types_form
         public function atbdp_listing_types_form() {
             $listing_type = !empty( $_POST['listing_type'] ) ? esc_attr( $_POST['listing_type'] ) : '';
-            $searchform = new Directorist_Listing_Search_Form( 'search_form', $listing_type, [] );
+            $term = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
+            $searchform = new Directorist_Listing_Search_Form( 'search_form', $term->term_id, [] );
             ob_start();
             ?>
-            <div class="row atbdp-search-form">
+            <div class="row atbdp-search-form atbdp-search-form-inline">
                     <?php
                     foreach ( $searchform->form_data[0]['fields'] as $field ){
                         $searchform->field_template( $field );
+                    }
+                    if ( $searchform->more_filters_display !== 'always_open' ){
+                        $searchform->more_buttons_template();
                     }
                     ?>
                 </div>
@@ -104,7 +146,6 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                     $searchform->advanced_search_form_fields_template();
                 }
                 else {
-                    $searchform->more_buttons_template();
 
                     if ($searchform->has_more_filters_button) { ?>
                         <div class="<?php echo ('overlapping' === $searchform->more_filters_display ) ? 'ads_float' : 'ads_slide' ?>">
@@ -132,94 +173,29 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             wp_send_json( 'Updated Successfully!' );
         }
 
-        public function ajax_callback_custom_fields($post_id = 0, $term_id = array()) {
-            $ajax = false;
-            if (isset($_POST['term_id'])) {
-                $ajax = true;
-                $post_ID = !empty($_POST['post_id']) ? (int)$_POST['post_id'] : '';
-                $term_id = $_POST['term_id'];
-            }
-            // Get custom fields
-            $categories = !empty($term_id) ? $term_id : array();
-            $args = array(
-                'post_type' => ATBDP_CUSTOM_FIELD_POST_TYPE,
-                'posts_per_page' => -1,
-                'status' => 'published'
-            );
-            $meta_queries = array();
-    
-            if ( ! empty( $categories ) && is_array( $categories )){
-                if ( count( $categories ) > 1) {
-                    $sub_meta_queries = array();
-                    foreach ($categories as $value) {
-                        $sub_meta_queries[] = array(
-                            'key' => 'category_pass',
-                            'value' => $value,
-                            'compare' => '='
-                        );
+        public function ajax_callback_custom_fields() {
+
+            $listing_type = !empty( $_POST['directory_type'] ) ? sanitize_text_field( $_POST['directory_type'] ) : '';
+            $categories = !empty( $_POST['term_id'] ) ? atbdp_sanitize_array( $_POST['term_id'] ) : '';
+            $post_id = !empty( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : '';
+            // wp_send_json($post_id);
+            $template = '';
+            if( $listing_type ){
+                $submission_form = get_term_meta( $listing_type, 'submission_form_fields', true );
+                $submission_form_fields = $submission_form['fields'];
+             }
+             foreach( $submission_form_fields as $key => $value ){
+                $value['request_from_no_admin'] = true;
+                $category = !empty( $value['category'] ) ? $value['category'] : '';
+                if( $category ) {
+                    if( in_array( $category, $categories ) ) {
+                        ob_start();
+                        Directorist_Listing_Forms::instance()->add_listing_category_custom_field_template( $value, $post_id );
+                        $template .= ob_get_clean();
                     }
-    
-                    $meta_queries[] = array_merge(array('relation' => 'OR'), $sub_meta_queries);
-                } else {
-                    $meta_queries[] = array(
-                        'key' => 'category_pass',
-                        'value' => $categories[0],
-                        'compare' => '='
-                    );
                 }
             }
-            $meta_queries[] = array(
-                array(
-                    'relation' => 'OR',
-                    array(
-                        'key' => 'admin_use',
-                        'compare' => 'NOT EXISTS'
-                    ),
-                    array(
-                        'key' => 'admin_use',
-                        'value' => 1,
-                        'compare' => '!='
-                    ),
-                )
-            );
-            $meta_queries[] = array(
-                array(
-                    'key' => 'associate',
-                    'value' => 'categories',
-                    'compare' => 'LIKE',
-                ),
-            );
-    
-    
-            $count_meta_queries = count($meta_queries);
-            if ($count_meta_queries) {
-                $args['meta_query'] = ($count_meta_queries > 1) ? array_merge(array('relation' => 'AND'), $meta_queries) : $meta_queries;
-            }
-    
-            $atbdp_query = new WP_Query($args);
-    
-            if ($atbdp_query->have_posts()) {
-                  // Start the Loop
-                global $post;
-                  // Process output
-                ob_start();
-                $include = apply_filters('include_style_settings', true);
-                include ATBDP_TEMPLATES_DIR . 'admin-templates/listing-form/add-listing-custom-field.php';
-                wp_reset_postdata(); // Restore global post data stomped by the_post()
-                $output = ob_get_clean();
-    
-                print $output;
-    
-                if ($ajax) {
-                    wp_die();
-                }
-            }
-            else {
-                echo '<div class="custom_field_empty_area"></div>';
-                if ($ajax) {
-                    wp_die();
-                }
-            }
+           wp_send_json( $template );
         }
 
         // guest_reception
@@ -251,7 +227,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         'error_log' => $error_log
                     ],
                 ];
-    
+
                 wp_send_json( $data, 200 );
             }
 
@@ -656,7 +632,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         $msg .= '</div>';
                     endforeach;
                 } else {
-                    $msg .= ' <div class="notice alert alert-info" role="alert" id="review_notice">
+                    $msg .= ' <div class="notice atbd-alert atbd-alert-info" id="review_notice">
                                 <span class="' . atbdp_icon_type(false) . '-info-circle" aria-hidden="true"></span> ' .
                         __('No reviews found. Be the first to post a review !', 'directorist') . '</div>';
                 }
@@ -831,7 +807,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 } elseif ($id = ATBDP()->review->db->add($data)) {
                     $this->atbdp_send_email_review_to_user();
                     $this->atbdp_send_email_review_to_admin();
-                    wp_send_json_success(array('id' => $id));
+                    wp_send_json_success(array( 'id' => $id, 'date' => date(get_option('date_format'))));
                 }
             } else {
                 echo 'Errors: make sure you wrote something about your review.';
@@ -1325,7 +1301,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             require ATBDP_TEMPLATES_DIR . 'custom-fields.php';
             wp_reset_postdata(); // Restore global post data stomped by the_post()
             $output = ob_get_clean();
-            
+
             echo $output;
 
             if ($ajax) {

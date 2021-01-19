@@ -22,6 +22,7 @@ if (!class_exists('ATBDP_Helper')) :
         // get_plasma_slider
         public static function get_plasma_slider($args)
         {
+            var_dump( $args );
             $data          = [];
             $default_image = get_directorist_option(
                 'default_preview_image',
@@ -392,9 +393,9 @@ if (!class_exists('ATBDP_Helper')) :
                 'instagram'      => __('Instagram', 'directorist'),
                 'tumblr'         => __('Tumblr', 'directorist'),
                 'flickr'         => __('Flickr', 'directorist'),
-                'snapchat-ghost' => __('Snapchat', 'directorist'),
+                'snapchat'       => __('Snapchat', 'directorist'),
                 'reddit'         => __('Reddit', 'directorist'),
-                'youtube-play'   => __('Youtube', 'directorist'),
+                'youtube'   => __('Youtube', 'directorist'),
                 'vimeo'          => __('Vimeo', 'directorist'),
                 'vine'           => __('Vine', 'directorist'),
                 'github'         => __('Github', 'directorist'),
@@ -519,7 +520,7 @@ if (!class_exists('ATBDP_Helper')) :
             $t = apply_filters('atbdp_unauthorized_access_message', $t);
             ?>
             <div class="notice_wrapper">
-                <div class="alert alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo $t; ?></div>
+                <div class="atbd-alert atbd-alert-warning"><span class="fa fa-info-circle" aria-hidden="true"></span> <?php echo $t; ?></div>
             </div>
             <?php
         }
@@ -608,7 +609,7 @@ if (!class_exists('ATBDP_Helper')) :
         public static function sanitize_html(string $subject = '', string $return_type = 'echo')
         {
             $subject = esc_html(stripslashes($subject));
-            
+
             if ('return' === $return_type) {
                 return $subject;
             }
@@ -639,7 +640,7 @@ if (!class_exists('ATBDP_Helper')) :
                 ob_start(); ?>
                 <section class="directory_wrapper single_area">
                     <div class="notice_wrapper">
-                        <div class="alert alert-warning">
+                        <div class="atbd-alert atbd-alert-warning">
                             <span class="fa fa-info-circle" aria-hidden="true"></span>
                             <?php _e('Nothing to show!'); ?>
                         </div>
@@ -649,7 +650,6 @@ if (!class_exists('ATBDP_Helper')) :
 
                 return ob_get_clean();
             }
-
             return '';
         }
 
@@ -661,7 +661,7 @@ if (!class_exists('ATBDP_Helper')) :
                 return $tel;
             }
 
-            echo $tel;   
+            echo $tel;
         }
 
         /**
@@ -706,7 +706,7 @@ if (!class_exists('ATBDP_Helper')) :
                                 <ul>
                                     <p class="info_title"><?php _e('Location:', 'directorist'); ?></p>
                                     <?php foreach ($locs as $loc) {
-                                        $location_count--; // reduce count to display comma for the right item 
+                                        $location_count--; // reduce count to display comma for the right item
                                     ?>
                                         <li>
                                             <span><?php if (is_object($loc)) { ?>

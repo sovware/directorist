@@ -1,40 +1,30 @@
 <template>
-  <div class="atbdp-sidebar-nav-area">
-    <ul class="atbdp-sidebar-nav">
-      <!-- atbdp-sidebar-nav-item -->
-      <li class="atbdp-sidebar-nav-item active atbdp-nav-item-general"
-        v-for="( nav, nav_key ) in navigation" :key="nav_key">
-        <a href="#" class="atbdp-nav-link">
-          <span class="atbdp-nav-icon">
-            <span :class="nav.icon"></span>
-          </span>
-          <span class="atbdp-nav-label">{{ nav.label }}</span>
+  <div class="setting-left-sibebar">
+    <ul class="settings-nav">
+      <li class="settings-nav__item" :class="{ active: meue_item.active }" v-for="( meue_item, menu_key ) in menu" :key="menu_key">
+        
+        <a href="#" class="settings-nav__item__link" :class="{ ['nav-has-dropdwon']: meue_item.submenu }" @click.prevent="swichToNav({ menu_key }, $event)">
+          <span class="settings-nav__item__icon" v-if="meue_item.icon" v-html="meue_item.icon"></span> 
+          {{ meue_item.label }} <span class="drop-toggle-caret" v-if="meue_item.submenu"></span>
         </a>
-
-        <!-- atbdp-sidebar-subnav -->
-        <ul class="atbdp-sidebar-subnav" v-if="nav.submenu">
-          <!-- atbdp-sidebar-subnav-item -->
-          <li class="atbdp-sidebar-subnav-item active" 
-            v-for="( subnav, subnav_key ) in nav.submenu"
-            :key="subnav_key"
-          >
-            <a href="#" class="atbdp-nav-link">
-              <span class="atbdp-nav-icon">
-                <span :class="subnav.icon"></span>
-              </span>
-              <span class="atbdp-nav-label">{{ subnav.label }}</span>
-            </a>
-          </li>
+        
+        <ul v-if="meue_item.submenu">
+            <li v-for="( submeue_item, submenu_key ) in meue_item.submenu" :key="submenu_key">
+              <a href="#" :class="{ active: submeue_item.active }" @click.prevent="swichToNav({ menu_key, submenu_key }, $event)">
+                <span class="settings-nav__item__icon" v-if="submeue_item.icon" v-html="submeue_item.icon"></span> 
+                {{ submeue_item.label }}
+              </a>
+            </li>
         </ul>
-      </li>
+      </li> 
     </ul>
   </div>
 </template>
 
 <script>
-
 export default {
   name: "sidebar-navigation",
+  props: [ 'menu' ],
 
   // computed
   computed: {
@@ -77,7 +67,10 @@ export default {
 
   // methods
   methods: {
-    
+    swichToNav( args, e ) {
+      e.preventDefault();
+      this.$store.commit( 'swichToNav', args );
+    }
   },
 };
 </script>

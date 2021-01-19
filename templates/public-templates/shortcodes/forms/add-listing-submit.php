@@ -12,7 +12,7 @@
     /*
      * @since 4.1.0
      */
-    do_action('atbdp_before_terms_and_conditions_font');
+    do_action('atbdp_before_terms_and_conditions_font', $args);
 
     if ( $display_guest_listings && !atbdp_logged_in_user() ) {
     	?>
@@ -66,4 +66,9 @@
     </div>
 
     <div class="clearfix"></div>
+	<?php 
+	/**
+	 * @since 6.5.7
+	 */
+	do_action( 'atbdp_after_submit_listing_frontend' ); ?>
 </div>

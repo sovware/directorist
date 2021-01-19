@@ -1,32 +1,38 @@
 <template>
     <div class="cptm-tab-content" :class="containerClass">
-        <div class="cptm-section" :class="sectionClass( section )" v-for="( section, section_key ) in theSections" :key="section_key">
+        <div class="cptm-section" :class="sectionClass( section )" v-for="( section, section_key ) in sections" :key="section_key">
             <div class="cptm-title-area" :class="sectionTitleAreaClass( section )">
-                <h3 v-if="typeof section.title === 'string'" class="cptm-title" v-html="section.title"></h3>
-                <p v-if="typeof section.description === 'string'" v-html="section.description"></p>
+                <h3 v-if="section.title" class="cptm-title" v-html="section.title"></h3>
+                <p v-if="section.description" v-html="section.description"></p>
             </div>
             
             <div class="cptm-form-fields" v-if="sectionFields( section )">
-                <template v-for="( field, field_key ) in sectionFields( section )">
+                <div v-for="( field, field_key ) in sectionFields( section )" :class="fieldWrapperClass( field, fields[ field ] )">
                     <component
                         v-if="fields[ field ]"
+                        :root="fields"
                         :is="getFormFieldName( fields[ field ].type )" 
                         :field-id="field"
+                        :id="menuKey + '__' + section_key + '__' + field"
+                        :ref="field"
+                        :class="{['highlight-field']: getHighlightState( field ) }"
                         :key="field_key"
+                        :cached-data="cached_fields[ field ]"
                         v-bind="fields[ field ]"
-                        @update="updateFieldValue( field, $event )">
-                    </component>
-                </template>
+                        @update="updateFieldValue( field, $event )"
+                        @validate="updateFieldValidationState( field, $event )"
+                        @is-visible="updateFieldData( field, 'isVisible' , $event )"
+                        @do-action="doAction( $event, 'sections-module' )"
+                    />
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import Vue from 'vue';
 import helpers from './../mixins/helpers';
 import { mapState } from 'vuex';
-
 
 export default {
     name: 'sections-module',
@@ -40,48 +46,18 @@ export default {
             type: String,
             default: '',
         },
+        menuKey: {
+            type: String,
+            default: ''
+        },
     },
 
     computed: {
         ...mapState([
-            'metaKeys'
+            'metaKeys',
+            'fields',
+            'cached_fields',
         ]),
-        theSections() {
-            let the_sections = JSON.parse( JSON.stringify( this.sections ) );
-            
-            for ( let section in the_sections ) {
-                if ( ! Array.isArray( the_sections[ section ].fields )) { continue; }
-                
-                for ( let field of the_sections[ section ].fields ) {
-
-                    let field_index = the_sections[ section ].fields.indexOf( field );
-                    
-                    
-                    if ( typeof this.fields[ field ] === 'undefined' ) {
-                        the_sections[ section ].fields.splice( field_index, 1 );
-                        continue;
-                    }
-
-                    Vue.set( this.fields[ field ], 'hidden', false );
-
-                    if ( ! this.isObject( this.fields[ field ].show_if )  ) {
-                        continue;
-                    }
-
-                    let show_if_cond = this.checkShowIfCondition({
-                        condition: this.fields[ field ].show_if
-                    });
-                
-                    if ( ! show_if_cond.status ) {
-                        Vue.set( this.fields[ field ], 'hidden', true );
-
-                        the_sections[ section ].fields.splice( field_index, 1 );
-                    }
-                }   
-            }
-
-            return the_sections;
-        },
 
         containerClass() {
             return {
@@ -89,6 +65,12 @@ export default {
                 'tab-full-width': ( 'full-width' === this.container ) ? true : false,
             }
         },
+    },
+
+    watch: {
+        fields() {
+            console.log( 'updated' );
+        }
     },
 
     methods: {
@@ -107,9 +89,20 @@ export default {
 
         sectionTitleAreaClass( section ) {
             return {
+                'directorist-no-header': ( ! section.title && ! section.description ),
                 'cptm-text-center': ( 'center' === section.title_align ) ? true : false,
             }
-        }
+        },
+
+        fieldWrapperClass( field_key, field ) {
+            let type_class = ( field && field.type ) ? 'cptm-field-wraper-type-' + field.type : 'cptm-field-wraper';
+            let key_class = 'cptm-field-wraper-key-' + field_key;
+
+            return {
+                [ type_class ]: true,
+                [ key_class ]: true,
+            }
+        },
     },
 }
 </script>

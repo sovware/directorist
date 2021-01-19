@@ -124,7 +124,7 @@ if ($enable_review && $allow_review) { ?>
 
 							<input type="hidden" name="approve_immediately" id="approve_immediately" value="<?php echo empty($approve_immediately) ? 'no' : 'yes';?>">
 							<input type="hidden" name="review_duplicate" id="review_duplicate" value="<?php echo !empty($review_duplicate) ? 'yes' : '';?>">
-							
+
 						</form>
 					</div>
 				</div>
@@ -132,7 +132,7 @@ if ($enable_review && $allow_review) { ?>
 			}
 		}
 		else { ?>
-			<div class="atbd_notice alert alert-info" role="alert">
+			<div class="atbd_notice atbd-alert atbd-alert-info">
 				<span class="<?php atbdp_icon_type(true); ?>-info-circle" aria-hidden="true"></span>
 				<?php printf(esc_html__('You need to %s or %s to submit a review', 'directorist'), $login_link, $register_link);?>
 			</div>

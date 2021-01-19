@@ -8,7 +8,7 @@ Vue.component('slide-up-down', SlideUpDown);
 import './global-component';
 
 import store from './vue/store/CPT_Manager_Store';
-import settings_manager_component from './vue/components/settings-manager/Settings_Manager.vue';
+import settings_manager_component from './vue/apps/settings-manager/Settings_Manager.vue';
 
 const settings_panel_el = document.getElementById( 'atbdp-settings-manager' );
 if ( settings_panel_el ) {

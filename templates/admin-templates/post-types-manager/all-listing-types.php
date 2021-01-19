@@ -97,9 +97,11 @@
                                                 <td>
                                                     <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_title">
                                                         <?php echo ! empty( $listing_type->name ) ? $listing_type->name : '-'; ?>
-                                                        <span class="directorist_badge">Default</span>
+                                                        <?php if( $default ) { ?>
+                                                        <span class="directorist_badge"><?php _e( 'Default', 'directorist' ); ?></span>
+                                                        <?php } ?>
                                                     </a>
-                                                    <span class="directorist_listing-id">ID: #20</span>
+                                                    <span class="directorist_listing-id">ID: #<?php echo ! empty( $listing_type->term_id ) ? $listing_type->term_id : ''; ?></span>
                                                 </td>
                                                 <td><span class="directorist_listing-slug"><?php echo $listing_type->slug; ?></span></td>
                                                 <td><span class="directorist_listing-count"><?php echo $listing_type->count; ?></span></td>
@@ -110,11 +112,8 @@
                                                 ?></td>
                                                 <td>
                                                     <div class="directorist_listing-actions">
-                                                        <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_btn directorist_btn-primary"><i class="la la-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>
-                                                        <?php
-                                                        if ( ! $default ) {  ?>
-                                                            
-                                                        <?php  }
+                                                        <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_btn directorist_btn-primary"><i class="la la-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>    
+                                                        <?php  
                                                         if( ! $default ) {  ?>
                                                             <div class="directorist_more-dropdown">
                                                                 <a href="#" class="directorist_more-dropdown-toggle">
@@ -142,20 +141,7 @@
                                                                     </ul>
                                                                 </div>
                                                             </div>
-                                                        <?php }else {
-                                                             ?>
-                                                             <div class="directorist_listing-type-checkbox-wrap">
-                                                                <div class="directorist_listing-type-checkbox directorist_custom-checkbox directorist_listing-type-default">
-                                                                    <input type="checkbox" checked name="check-1" id="check-1">
-                                                                    <label for="check-1">
-                                                                        <span class="checkbox-text">
-                                                                        <?php _e( 'Default', 'directorist' ); ?>
-                                                                        </span>
-                                                                    </label>
-                                                                </div>
-                                                             </div>
-                                                         <?php
-                                                        } ?>
+                                                        <?php } ?>      
                                                     </div>
                                                 </td>
                                             </tr>

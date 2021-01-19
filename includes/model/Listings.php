@@ -422,18 +422,16 @@ class Directorist_Listings {
 		}
 
 		$meta_queries['directory_type'] = array(
-			'key' => '_directory_type',
-			'value' => (int)$this->current_listing_type,
-			'compare' => '=',
-		);
+				'key'     => '_directory_type',
+				'value'   => $this->get_current_listing_type(),
+				'compare' => '=',
+			);
 		
 		$meta_queries['expired'] = array(
-			array(
 				'key'     => '_listing_status',
-				'value'   => 'expired',
-				'compare' => '!=',
-			),
-		);
+				'value'   => 'post_status',
+				'compare' => '=',
+			);
 
 		if ( $this->has_featured ) {
 			if ( '_featured' == $this->filterby ) {
@@ -748,7 +746,9 @@ class Directorist_Listings {
 			);
 		}
 
-		$args['tax_query'] = $tax_queries;
+		if( ! empty( $tax_queries ) ) {
+			$args['tax_query'] = $tax_queries;
+		}
 
 		$meta_queries = array();
 		$this->execute_meta_query_args($args, $meta_queries);
@@ -760,6 +760,8 @@ class Directorist_Listings {
 			$args['meta_query'] = array_merge( array( 'relation' => 'AND' ), $meta_queries );
 		}
 
+		// e_var_dump($args);
+		// die;
 		return apply_filters( 'atbdp_all_listings_query_arguments', $args );
 	}
 
@@ -831,15 +833,6 @@ class Directorist_Listings {
 
 		$this->execute_meta_query_args($args, $meta_queries);
 
-		// Listings of current listing type
-		if( !empty( $_GET['directory_type'] ) ) {
-			$meta_queries[] = array(
-				'key' => '_directory_type',
-				'value' => (int)$this->current_listing_type,
-				'compare' => '=',
-			);
-		}
-		
 		if (isset($_GET['price'])) {
 			$price = array_filter($_GET['price']);
 			if ($n = count($price)) {
@@ -1184,7 +1177,6 @@ class Directorist_Listings {
 			$term = get_term_by( 'slug', $current, ATBDP_TYPE );
 			$current = $term->term_id;
 		}
-		
 		return (int) $current;
 	}
 

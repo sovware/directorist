@@ -4066,6 +4066,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'submission_form_fields' => apply_filters( 'atbdp_listing_type_form_fields', [
                     'type'    => 'form-builder',
                     'widgets' => $form_field_widgets,
+                    'restricted-fields-warning-text' => __( 'You can not add in this section', 'directorist' ),
                     'group-options' => [
                         'label' => [
                             'type'  => 'text',
@@ -4156,6 +4157,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 'single_listings_contents' => [
                     'type'     => 'form-builder',
                     'widgets'  => $single_listings_contents_widgets,
+                    'restricted-fields-warning-text' => __( 'You can not add in this section', 'directorist' ),
                     'group-options' => [
                         'icon' => [
                             'type'  => 'icon',
@@ -4226,6 +4228,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
                 'search_form_fields' => [
                     'type'     => 'form-builder',
+                    'restricted-fields-warning-text' => __( 'You can not add in this section', 'directorist' ),
                     'widgets'  => $search_form_widgets,
                     'allow_add_new_section' => false,
                     'value' => [

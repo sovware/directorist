@@ -74,29 +74,39 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                 do_action('atbdp_before_processing_submitted_listing_frontend', $info);
                     
-                $guest = get_directorist_option('guest_listings', 0);
-                $display_title_for = get_directorist_option('display_title_for', 0);
-                $display_desc_for = get_directorist_option('display_desc_for', 0);
-                $featured_enabled = get_directorist_option('enable_featured_listing');
-                $display_prv_field = get_directorist_option('display_prv_field', 1);
-                $display_prv_img_for = get_directorist_option('display_prv_img_for', 0);
+                $guest                 = get_directorist_option('guest_listings', 0);
+                $display_title_for     = get_directorist_option('display_title_for', 0);
+                $display_desc_for      = get_directorist_option('display_desc_for', 0);
+                $featured_enabled      = get_directorist_option('enable_featured_listing');
+                $display_prv_field     = get_directorist_option('display_prv_field', 1);
+                $display_prv_img_for   = get_directorist_option('display_prv_img_for', 0);
                 $display_gallery_field = get_directorist_option('display_gallery_field', 1);
-                $display_glr_img_for = get_directorist_option('display_glr_img_for', 0);
-                $preview_enable = get_directorist_option('preview_enable', 1);
-                $new_l_status = get_directorist_option('new_listing_status', 'pending');
-                $edit_l_status  = get_directorist_option('edit_listing_status');
+                $display_glr_img_for   = get_directorist_option('display_glr_img_for', 0);
+                $preview_enable        = get_directorist_option('preview_mode', 1);
+                $new_l_status          = get_directorist_option('new_listing_status', 'pending');
+                $edit_l_status         = get_directorist_option('edit_listing_status');
 
                  // data validation
                  $directory_type = !empty( $info['directory_type'] ) ? sanitize_text_field( $info['directory_type'] ) : '';
                  $submission_form_fields = [];
                  $metas = [];
+
                  if( $directory_type ){
-                    $term = get_term_by( 'slug', $directory_type, 'atbdp_listing_types' );
-                    $submission_form = get_term_meta( $term->term_id, 'submission_form_fields', true );
-                    $new_l_status = get_term_meta( $term->term_id, 'new_listing_status', true );
-                    $edit_l_status = get_term_meta( $term->term_id, 'edit_listing_status', true );
-                    $preview_enable = get_term_meta( $term->term_id, 'preview_mode', true ) == '1' ? true : '';
+                    $term                   = get_term_by( 'id', $directory_type, 'atbdp_listing_types' );
+                    $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
+                    $new_l_status           = get_term_meta( $term->term_id, 'new_listing_status', true );
+                    $edit_l_status          = get_term_meta( $term->term_id, 'edit_listing_status', true );
+                    $preview_enable         = atbdp_is_truthy( get_term_meta( $term->term_id, 'preview_mode', true ) );
                     $submission_form_fields = $submission_form['fields'];
+
+                    // wp_send_json([
+                    //     'term'                   => $term,
+                    //     'submission_form'        => $submission_form,
+                    //     'new_l_status'           => $new_l_status,
+                    //     'edit_l_status'          => $edit_l_status,
+                    //     'preview_enable'         => $preview_enable,
+                    //     'submission_form_fields' => $submission_form_fields,
+                    // ]);
                  }
                 //isolate data
                 $error = [];
@@ -166,8 +176,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                 if( !empty( $info['t_c_check'] ) ) {
                     $metas[ '_t_c_check' ] = $info['t_c_check'] ? $info['t_c_check'] : '';
                 }
-                $metas['_directory_type'] = $info['directory_type'];
-                $directory_type = $term->term_id;
+                $metas['_directory_type'] = $directory_type;
                 // guest user
                 if (!atbdp_logged_in_user()) {
                     $guest_email = isset($info['guest_user_email']) ? esc_attr($info['guest_user_email']) : '';
@@ -421,11 +430,9 @@ if (!class_exists('ATBDP_Add_Listing')):
 
                         //Every post with the published status should contain all the post meta keys so that we can include them in query.
                         if ('publish' == $new_l_status || 'pending' == $new_l_status) {
-                            $expire_in_days = get_directorist_option('listing_expire_in_days');
-                            $never_expire = empty($expire_in_days) ? 1 : 0;
                             $exp_dt = calc_listing_expiry_date();
                             update_post_meta($post_id, '_expiry_date', $exp_dt);
-                            update_post_meta($post_id, '_never_expire', $never_expire);
+                            update_post_meta($post_id, '_never_expire', 0);
                             update_post_meta($post_id, '_featured', 0);
                             update_post_meta($post_id, '_listing_status', 'post_status');
                             update_post_meta($post_id, '_admin_category_select', $admin_category_select);

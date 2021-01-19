@@ -77,6 +77,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="directorist_listing-title"><?php _e( 'Title', 'directorist' ); ?></th>
+                                                <th class="directorist_listing-slug"><?php _e( 'Slug', 'directorist' ); ?></th>
                                                 <th class="directorist_listing-count"><span class="directorist_listing-count-title"><?php _e( 'Listings', 'directorist' ); ?></span></th>
                                                 <th class="directorist_listing-c-date"><?php _e( 'Created Date', 'directorist' ); ?></th>
                                                 <th class="directorist_listing-c-action"><?php _e( 'Action', 'directorist' ); ?></th>
@@ -98,6 +99,7 @@
                                                         <?php echo ! empty( $listing_type->name ) ? $listing_type->name : '-'; ?>
                                                     </a>
                                                 </td>
+                                                <td><span class="directorist_listing-slug"><?php echo $listing_type->slug; ?></span></td>
                                                 <td><span class="directorist_listing-count"><?php echo $listing_type->count; ?></span></td>
                                                 <td><?php
                                                 if( $created_time ) {

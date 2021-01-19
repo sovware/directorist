@@ -1536,6 +1536,22 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
         //   $('.directorist_dropdown-option').hide();
         // });
 
+        // Directorist More Dropdown
+        $('body').on('click', '.directorist_more-dropdown-toggle', function(e){
+                e.preventDefault();
+                $(this).toggleClass('active');
+                $(".directorist_more-dropdown-option").removeClass("active");
+                $(this).siblings(".directorist_more-dropdown-option").removeClass("active");
+                $(this).next(".directorist_more-dropdown-option").toggleClass("active");
+                e.stopPropagation();
+        })
+        $(document).on("click", function (e) {
+                if ($(e.target).is(".directorist_more-dropdown-toggle, .active") === false) {
+                        $(".directorist_more-dropdown-option").removeClass("active");
+                        $(".directorist_more-dropdown-toggle").removeClass("active");
+                }
+        });
+
         // Tab Content
         // ----------------------------------------------------------------------------------
         // Modular, classes has no styling, so reusable

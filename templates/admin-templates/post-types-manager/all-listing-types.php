@@ -97,7 +97,9 @@
                                                 <td>
                                                     <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_title">
                                                         <?php echo ! empty( $listing_type->name ) ? $listing_type->name : '-'; ?>
+                                                        <span class="directorist_badge">Default</span>
                                                     </a>
+                                                    <span class="directorist_listing-id">ID: #20</span>
                                                 </td>
                                                 <td><span class="directorist_listing-slug"><?php echo $listing_type->slug; ?></span></td>
                                                 <td><span class="directorist_listing-count"><?php echo $listing_type->count; ?></span></td>
@@ -111,21 +113,34 @@
                                                         <a href="<?php echo ! empty( $edit_link ) ? $edit_link : '#'; ?>" class="directorist_btn directorist_btn-primary"><i class="la la-edit"></i><?php _e( 'Edit', 'directorist' ); ?></a>
                                                         <?php
                                                         if ( ! $default ) {  ?>
-                                                        <a href="#" class="directorist_btn directorist_btn-danger directorist_btn-transparent cptm-modal-toggle atbdp-directory-delete-link-action" data-delete-link="<?php echo $delete_link; ?>" data-target="cptm-delete-directory-modal">
-                                                            <i class="la la-trash"></i><?php _e( 'Delete', 'directorist' ); ?>
-                                                        </a>
+                                                            
                                                         <?php  }
                                                         if( ! $default ) {  ?>
-                                                            <div class="directorist_listing-type-checkbox-wrap">
-                                                                <div data-type-id="<?php echo absint( $listing_type->term_id ); ?>" class="directorist_listing-type-checkbox directorist_custom-checkbox submitdefault">
-                                                                    <input class="submitDefaultCheckbox" type="checkbox" name="check-1" id="check-1">
-                                                                    <label for="check-1">
-                                                                        <span class="checkbox-text">
-                                                                        <?php _e( 'Make It Default', 'directorist' ); ?>
-                                                                        </span>
-                                                                    </label>
+                                                            <div class="directorist_more-dropdown">
+                                                                <a href="#" class="directorist_more-dropdown-toggle">
+                                                                    <i class="fa fa-ellipsis-h"></i>
+                                                                </a> 
+                                                                <div class="directorist_more-dropdown-option">
+                                                                    <ul>
+                                                                        <li>
+                                                                            <a href="#">
+                                                                                <div data-type-id="<?php echo absint( $listing_type->term_id ); ?>" class="directorist_listing-type-checkbox directorist_custom-checkbox submitdefault">
+                                                                                    <input class="submitDefaultCheckbox" type="checkbox" name="check-1" id="check-1">
+                                                                                    <label for="check-1">
+                                                                                        <span class="checkbox-text">
+                                                                                        <?php _e( 'Make It Default', 'directorist' ); ?>
+                                                                                        </span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </a>
+                                                                        </li>
+                                                                        <li>
+                                                                            <a href="#" class="cptm-modal-toggle atbdp-directory-delete-link-action" data-delete-link="<?php echo $delete_link; ?>" data-target="cptm-delete-directory-modal">
+                                                                                <i class="la la-trash"></i><?php _e( 'Delete', 'directorist' ); ?>
+                                                                            </a>
+                                                                        </li>
+                                                                    </ul>
                                                                 </div>
-                                                                
                                                             </div>
                                                         <?php }else {
                                                              ?>

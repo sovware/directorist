@@ -143,6 +143,7 @@
                                                             </div>
                                                         <?php } ?>      
                                                     </div>
+                                                    <div class="directorist_notifier"></div>
                                                 </td>
                                             </tr>
                                             <?php

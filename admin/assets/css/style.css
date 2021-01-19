@@ -4350,6 +4350,12 @@ input.atbdp-form-control {
   color: #5A5F7D;
 }
 
+@media only screen and (max-width: 1399px) {
+  .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th {
+    padding: 15px 10px;
+  }
+}
+
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th:first-child {
   border-radius: 6px 0 0 6px;
 }
@@ -4364,7 +4370,7 @@ input.atbdp-form-control {
 
 @media only screen and (max-width: 1599px) {
   .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table thead tr th.directorist_listing-title {
-    min-width: 180px;
+    min-width: 200px;
   }
 }
 
@@ -4432,7 +4438,7 @@ input.atbdp-form-control {
 
 @media only screen and (max-width: 1399px) {
   .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td {
-    padding: 15px 5px;
+    padding: 15px 10px;
   }
 }
 
@@ -4483,6 +4489,7 @@ input.atbdp-form-control {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  position: relative;
 }
 
 @media only screen and (max-width: 1225px) {
@@ -4490,6 +4497,12 @@ input.atbdp-form-control {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
   }
+}
+
+.directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_loader {
+  position: absolute;
+  right: 0;
+  top: 12px;
 }
 
 .directorist_builder__content .directorist_builder__content--right .directorist_builder--tabContent .directorist_table tbody tr td .directorist_listing-actions .directorist_custom-checkbox input[type=checkbox] + label {

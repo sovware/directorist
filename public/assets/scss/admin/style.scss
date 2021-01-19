@@ -4102,6 +4102,10 @@ input.atbdp-form-control {
               font-weight: 500;
               color: #5A5F7D;
 
+              @media only screen and (max-width: 1399px) {
+                padding: 15px 10px;
+              }
+
               &:first-child {
                 border-radius: 6px 0 0 6px;
               }
@@ -4114,7 +4118,7 @@ input.atbdp-form-control {
                 min-width: 300px;
 
                 @media only screen and (max-width: 1599px) {
-                  min-width: 180px;
+                  min-width: 200px;
                 }
               }
 
@@ -4187,7 +4191,7 @@ input.atbdp-form-control {
               padding: 15px 20px;
 
               @media only screen and (max-width: 1399px) {
-                padding: 15px 5px;
+                padding: 15px 10px;
               }
 
               &:first-child {
@@ -4232,9 +4236,15 @@ input.atbdp-form-control {
                 margin: -5px;
                 display: flex;
                 align-items: center;
+                position: relative;
 
                 @media only screen and (max-width: 1225px) {
                   flex-wrap: wrap;
+                }
+                .directorist_loader{
+                  position: absolute;
+                  right: 0;
+                  top: 12px;
                 }
                 .directorist_custom-checkbox input[type=checkbox] + label{
                   padding-top: 1px;

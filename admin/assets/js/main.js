@@ -1202,7 +1202,7 @@ templateResult: selecWithIcon,
                         .prop('checked', true);
                 const defaultSubmitDom = $(this);
                 defaultSubmitDom
-                        .closest('.directorist_listing-type-checkbox-wrap')
+                        .closest('.directorist_listing-actions')
                         .append(`<span class="directorist_loader"></span>`);
                 $.ajax({
                         type: 'post',
@@ -1212,11 +1212,14 @@ templateResult: selecWithIcon,
                                 type_id: $(this).data('type-id'),
                         },
                         success(response) {
-                                defaultSubmitDom.append(
+                                defaultSubmitDom
+                                .closest('.directorist_listing-actions')
+                                .siblings('.directorist_notifier')
+                                .append(
                                         `<span class="atbd-listing-type-active-status">${response}</span>`
                                 );
                                 defaultSubmitDom
-                                        .closest('.directorist_listing-type-checkbox-wrap')
+                                        .closest('.directorist_listing-actions')
                                         .children('.directorist_loader')
                                         .remove();
                                 setTimeout(function() {

@@ -1202,7 +1202,7 @@ templateResult: selecWithIcon,
                         .prop('checked', true);
                 const defaultSubmitDom = $(this);
                 defaultSubmitDom
-                        .closest('.directorist_listing-type-checkbox-wrap')
+                        .closest('.directorist_listing-actions')
                         .append(`<span class="directorist_loader"></span>`);
                 $.ajax({
                         type: 'post',
@@ -1212,11 +1212,14 @@ templateResult: selecWithIcon,
                                 type_id: $(this).data('type-id'),
                         },
                         success(response) {
-                                defaultSubmitDom.append(
+                                defaultSubmitDom
+                                .closest('.directorist_listing-actions')
+                                .siblings('.directorist_notifier')
+                                .append(
                                         `<span class="atbd-listing-type-active-status">${response}</span>`
                                 );
                                 defaultSubmitDom
-                                        .closest('.directorist_listing-type-checkbox-wrap')
+                                        .closest('.directorist_listing-actions')
                                         .children('.directorist_loader')
                                         .remove();
                                 setTimeout(function() {
@@ -1535,6 +1538,22 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
         //   if(!clickedDom.parents().hasClass('directorist_dropdown'))
         //   $('.directorist_dropdown-option').hide();
         // });
+
+        // Directorist More Dropdown
+        $('body').on('click', '.directorist_more-dropdown-toggle', function(e){
+                e.preventDefault();
+                $(this).toggleClass('active');
+                $(".directorist_more-dropdown-option").removeClass("active");
+                $(this).siblings(".directorist_more-dropdown-option").removeClass("active");
+                $(this).next(".directorist_more-dropdown-option").toggleClass("active");
+                e.stopPropagation();
+        })
+        $(document).on("click", function (e) {
+                if ($(e.target).is(".directorist_more-dropdown-toggle, .active") === false) {
+                        $(".directorist_more-dropdown-option").removeClass("active");
+                        $(".directorist_more-dropdown-toggle").removeClass("active");
+                }
+        });
 
         // Tab Content
         // ----------------------------------------------------------------------------------

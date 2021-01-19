@@ -368,6 +368,15 @@
       }
     }
   }
+
+  .directorist-radio-field,
+  .directorist-checkbox-field {
+    .form-control {
+      border: 0 none;
+      padding: 0;
+    }
+  }
+
 }
 
 

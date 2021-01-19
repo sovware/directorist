@@ -1769,7 +1769,9 @@ input#privacy_policy,
 }
 
 .directorist-listing-types {
-  .directorist-listing-types-link {
+
+  .directorist-listing-types-link,
+  .search_listing_types {
     display: inline-block;
     padding: 0 15px 15px;
     font-weight: 500 !important;
@@ -1794,6 +1796,10 @@ input#privacy_policy,
       .directorist-listing-types-link {
         border-bottom-color: $primary !important;
       }
+    }
+
+    .type_current {
+      border-bottom-color: $primary !important;
     }
   }
 }

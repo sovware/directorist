@@ -2642,7 +2642,8 @@ input#privacy_policy,
   outline: none;
 }
 
-.directorist-listing-types .directorist-listing-types-link {
+.directorist-listing-types .directorist-listing-types-link,
+.directorist-listing-types .search_listing_types {
   display: inline-block;
   padding: 0 15px 15px;
   font-weight: 500 !important;
@@ -2651,7 +2652,8 @@ input#privacy_policy,
   outline: 0;
 }
 
-.directorist-listing-types .directorist-listing-types-link span {
+.directorist-listing-types .directorist-listing-types-link span,
+.directorist-listing-types .search_listing_types span {
   display: inline-block;
   margin-right: 5px;
 }
@@ -2665,6 +2667,10 @@ input#privacy_policy,
 }
 
 .directorist-listing-types ul .current .directorist-listing-types-link {
+  border-bottom-color: #444752 !important;
+}
+
+.directorist-listing-types ul .type_current {
   border-bottom-color: #444752 !important;
 }
 
@@ -8125,6 +8131,12 @@ span.atbd_get_loc_wid {
 
 .atbd_content_active #directorist.atbd_wrapper .atbd_listing_type .atbd_listing_type_list label input[type="radio"] {
   height: auto;
+}
+
+.atbd_content_active #directorist.atbd_wrapper .directorist-radio-field .form-control,
+.atbd_content_active #directorist.atbd_wrapper .directorist-checkbox-field .form-control {
+  border: 0 none;
+  padding: 0;
 }
 
 .ezmu__titles-area p {

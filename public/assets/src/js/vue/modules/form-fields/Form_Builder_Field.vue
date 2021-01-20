@@ -392,6 +392,10 @@ export default {
     updated_value() {
       this.$emit("update", this.updated_value);
     },
+
+    theWidgetGroups() {
+      this.syncFieldsWithWidgets();
+    }
   },
   computed: {
     ...mapState({
@@ -475,27 +479,16 @@ export default {
       for (let widget_group in widgets) {
         // Template
         // Get widget keys from field list
-        let has_template =
-          typeof widgets[widget_group].template === "string" ? true : false;
-        has_template =
-          has_template && widgets[widget_group].template.length
-            ? widgets[widget_group].template
-            : false;
-        let template_field = has_template
-          ? this.getTergetFields({ path: has_template })
-          : null;
-        template_field = this.isObject(template_field)
-          ? JSON.parse(JSON.stringify(template_field))
-          : null;
-        let template_fields =
-          this.isObject(template_field) && template_field.value
-            ? template_field.value
-            : null;
-        template_fields =
-          this.isObject(template_fields) && template_fields.fields
-            ? template_fields.fields
-            : null;
-        if (has_template && this.isObject(template_fields)) {
+        let has_template = typeof widgets[widget_group].template === "string" ? true : false;
+        has_template = has_template && widgets[widget_group].template.length ? widgets[widget_group].template : false;
+        
+        let template_field = has_template ? this.getTergetFields({ path: has_template }) : null;
+        template_field = this.isObject(template_field) ? JSON.parse(JSON.stringify(template_field)) : null;
+        
+        let template_fields = this.isObject(template_field) && template_field.value ? template_field.value : null;
+        template_fields = this.isObject(template_fields) && template_fields.fields ? template_fields.fields : null;
+        
+        if ( has_template && this.isObject(template_fields) ) {
           let template_widgets = {};
           for (let widget_key in template_fields) {
             let _widget_name = template_fields[widget_key].widget_name;
@@ -576,24 +569,25 @@ export default {
       return widgets;
     },
 
-    theWidgetGroups() {
+    theFilteredWidgets() {
       // Add the widget group & name to all the widget fields
       let widgets = JSON.parse(JSON.stringify(this.theWidgets));
+      if ( ! ( widgets && typeof widgets === 'object' ) ) { return widgets; }
+
       for (let widget_group in widgets) {
         // Filter fields if required
         let filter_field_keys = null;
-        let has_filter_by =
-          typeof widgets[widget_group].filter_by === "string" ? true : false;
-        has_filter_by =
-          has_filter_by && widgets[widget_group].filter_by.length
-            ? widgets[widget_group].filter_by
-            : false;
+        let has_filter_by = typeof widgets[widget_group].filter_by === "string" ? true : false;
+        has_filter_by = has_filter_by && widgets[widget_group].filter_by.length ? widgets[widget_group].filter_by : false;
+        
         if (has_filter_by) {
           let filter_field = this.getTergetFields({ path: has_filter_by });
+          
           if (this.isObject(filter_field)) {
             filter_field_keys = Object.keys(filter_field);
           }
         }
+
         // ----------------
         for (let widget in widgets[widget_group].widgets) {
           // Filter fields if required
@@ -617,29 +611,63 @@ export default {
               continue;
             }
           }
-          // Check if allow multiple
-          let allow_multiple =
-            typeof widgets[widget_group].allow_multiple !== "undefined" &&
-            widgets[widget_group].allow_multiple
-              ? true
-              : false;
-          if (
-            !allow_multiple &&
-            typeof this.active_fields[widget] !== "undefined"
-          ) {
-            delete widgets[widget_group].widgets[widget];
-            continue;
-          }
 
-          if (!allow_multiple && this.active_widget_groups.includes(widget)) {
-            delete widgets[widget_group].widgets[widget];
-            continue;
-          }
+          // Check if allow multiple
+          // let allow_multiple = typeof widgets[widget_group].allow_multiple !== "undefined" && widgets[widget_group].allow_multiple ? true : false;
+            
+          // if ( ! allow_multiple && typeof this.active_fields[widget] !== "undefined" ) {
+          //   delete widgets[widget_group].widgets[widget];
+          //   continue;
+          // }
+
+          // if ( ! allow_multiple && this.active_widget_groups.includes(widget)) {
+          //   delete widgets[widget_group].widgets[widget];
+          //   continue;
+          // }
         }
       }
+
       return widgets;
     },
+
+
+    theWidgetGroups() {
+      let widgets = JSON.parse(JSON.stringify(this.theFilteredWidgets));
+      if ( ! ( widgets && typeof widgets === 'object' ) ) { return widget_group; }
+
+      for ( let widget_group_key in widgets ) {
+        if ( ! ( widgets[ widget_group_key ] && typeof widgets[ widget_group_key ] === 'object' ) ) {
+          continue;
+        }
+
+        let widget_group = widgets[ widget_group_key ];
+
+        if ( ! ( widget_group.widgets && typeof widget_group.widgets === 'object' ) ) {
+          continue;
+        }
+
+        // Check if allow multiple
+        let allow_multiple = typeof widgets[widget_group_key].allow_multiple !== "undefined" && widgets[widget_group_key].allow_multiple ? true : false;
+        if ( allow_multiple ) { continue; }
+        
+        let widget_keys = Object.keys( widget_group.widgets );
+        const self = this;
+
+        widget_keys.map( widget_key => {
+          if ( typeof self.active_fields[widget_key] !== "undefined" ) {
+            delete widgets[ widget_group_key ].widgets[widget_key];
+          }
+
+          if ( self.active_widget_groups.includes( widget_key )) {
+            delete widgets[ widget_group_key ].widgets[ widget_key ];
+          }
+        });
+      }
+
+      return widgets;
+    }
   },
+
   data() {
     return {
       default_groups: [{ label: "General", fields: [] }],
@@ -717,6 +745,56 @@ export default {
         this.active_fields_ref[widget_name].push(field);
       }
     },
+
+    syncFieldsWithWidgets() {
+      if ( ! ( this.active_fields && typeof this.active_fields === 'object' ) ) {
+        return;
+      }
+
+      const field_keys = Object.keys( this.active_fields );
+      if ( ! field_keys.length ) { return; }
+
+      if ( ! ( this.theFilteredWidgets && typeof this.theFilteredWidgets === 'object' ) ) {
+        return;
+      }
+
+      // Get All Widgets Keys
+      let widget_keys_groups = {};
+      for ( let widget_group_key in this.theFilteredWidgets ) {
+
+        if ( ! ( this.theFilteredWidgets[ widget_group_key ] && typeof this.theFilteredWidgets[ widget_group_key ] === 'object' ) ) {
+          continue;
+        }
+
+        let widget_group = this.theFilteredWidgets[ widget_group_key ];
+
+        if ( ! ( widget_group.widgets && typeof widget_group.widgets === 'object' ) ) {
+          continue;
+        }
+
+        let widgets_keys = Object.keys( widget_group.widgets );
+        if ( ! widgets_keys.length ) { continue; }
+
+        widget_keys_groups[ widget_group_key ] = widgets_keys;
+      }
+
+      for ( let field_key in this.active_fields ) {
+        let widget_group_key = this.active_fields[ field_key ].widget_group;
+        let widget_name = this.active_fields[ field_key ].widget_name;
+
+        if ( ! widget_keys_groups[ widget_group_key ] ) { 
+          this.removeActiveField( field_key, widget_name );
+          continue;
+        }
+
+        if ( ! widget_keys_groups[ widget_group_key ].includes( widget_name ) ) {
+          this.removeActiveField( field_key, widget_name );
+          continue;
+        }
+      }
+
+    },
+
     parseGroups() {
       let groups = this.default_groups;
       if (!groups.length) {
@@ -1100,6 +1178,33 @@ export default {
       return this.active_group_option_collapse_states[group_key].collapsed
         ? "action-collapse-up"
         : "action-collapse-down";
+    },
+
+    removeActiveField( field_key, widget_name ) {
+      // Remove field from groups
+      if ( this.groups && Array.isArray( this.groups ) && this.groups.length ) {
+        for ( let group in this.groups ) {
+          if ( ! this.groups[ group ].fields.length ) { continue; }
+          if ( ! this.groups[ group ].fields.includes( field_key ) ) { continue; }
+
+          const index = this.groups[ group ].fields.indexOf( field_key );
+          this.groups[ group ].fields.splice( index, 1 );
+
+          break;
+        }
+      }
+      
+      // active_fields
+      if ( this.active_fields[ field_key ] ) {
+        Vue.delete( this.active_fields, field_key);
+      }
+
+      // active_fields_ref
+      if ( this.active_fields_ref[ widget_name ] && this.active_fields_ref[ widget_name ].includes( field_key ) ) {
+        const index = this.active_fields_ref[ widget_name ].indexOf( field_key );
+        this.active_fields_ref[ widget_name ].splice( index, 1 );
+      }
+
     },
 
     trashActiveGroupItem(group_key) {

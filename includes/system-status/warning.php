@@ -16,8 +16,7 @@ $enable_featured_listing	= get_directorist_option( 'enable_featured_listing' );
 $select_listing_map			= get_directorist_option( 'select_listing_map' );
 $map_api_key				= get_directorist_option( 'map_api_key' );
 $host                       = gethostname();
-var_dump( $host );
-$connection                 =  @fsockopen( $host, 25,$errno, $errstr, 5) ;
+$connection                 =  @fsockopen( $host, 25, $errno, $errstr, 5 );
 $warnings = [];
 if( empty( $add_listing ) ) {
     $warnings[] = array(

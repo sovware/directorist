@@ -545,7 +545,10 @@ class Directorist_Listing_Forms {
 			'form'          => $this,
 			'section_data'  => $section_data,
 		);
-		atbdp_get_shortcode_template( 'forms/add-listing-section', $args );
+		$load_section = apply_filters( 'directorist_section_template', true, $section_data );
+		if( $load_section ) {
+			atbdp_get_shortcode_template( 'forms/add-listing-section', $args );
+		}
 	}
 
 

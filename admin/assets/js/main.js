@@ -1171,6 +1171,23 @@ templateResult: selecWithIcon,
                         .append(`<span class="directorist_loader"></span>`);
                 admin_listing_form($(this).val());
                 
+                $(this)
+                        .closest('#poststuff')
+                        .find('#publishing-action')
+                        .addClass('directorist_disable')
+        });
+
+        $( window ).load(function() {
+                console.log($('select[name="directory_type"]'));
+                $('select[name="directory_type"]')
+                        .parent('.inside')
+                        .append(`<span class="directorist_loader"></span>`);
+                admin_listing_form($('select[name="directory_type"]').val());
+
+                $('select[name="directory_type"]')
+                        .closest('#poststuff')
+                        .find('#publishing-action')
+                        .addClass('directorist_disable')
         });
 
         function admin_listing_form(directory_type) {
@@ -1187,9 +1204,14 @@ templateResult: selecWithIcon,
                                         .empty()
                                         .append(response);
                                 assetsNeedToWorkInVirtualDom();
+
                                 $('#listing_form_info')
                                         .find('.directorist_loader')
                                         .remove();
+                                $('select[name="directory_type"]')
+                                        .closest('#poststuff')
+                                        .find('#publishing-action')
+                                        .removeClass('directorist_disable')
                         },
                 });
         }

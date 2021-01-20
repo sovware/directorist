@@ -92,7 +92,7 @@ if (!class_exists('ATBDP_Add_Listing')):
                  $metas = [];
 
                  if( $directory_type ){
-                    $term                   = get_term_by( 'id', $directory_type, 'atbdp_listing_types' );
+                    $term                   = get_term_by( 'slug', $directory_type, 'atbdp_listing_types' );
                     $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );
                     $new_l_status           = get_term_meta( $term->term_id, 'new_listing_status', true );
                     $edit_l_status          = get_term_meta( $term->term_id, 'edit_listing_status', true );

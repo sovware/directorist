@@ -4814,6 +4814,15 @@ input.atbdp-form-control {
   animation: atbd_spin 2s linear infinite;
 }
 
+.directorist_disable {
+  pointer-events: none;
+}
+
+#publishing-action.directorist_disable input#publish {
+  cursor: not-allowed;
+  opacity: .3;
+}
+
 .directorist_more-dropdown {
   position: relative;
 }

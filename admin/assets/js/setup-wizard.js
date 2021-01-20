@@ -54,6 +54,7 @@ jQuery(document).ready(function($) {
                                                 window.location = response.url;
                                         }
                                         $('input[name="save_step"]').addClass("btn-hide");
+                                        $('.directorist-importer-length').css('width', response.percentage + '%');
                                 },
                                 error(response) {
                                         window.location = redirect_url;

@@ -5,6 +5,11 @@ export default {
             required: false,
             default: '',
         },
+        theme: {
+            type: String,
+            required: false,
+            default: 'default',
+        },
         optionFields: {
             required: false,
         },

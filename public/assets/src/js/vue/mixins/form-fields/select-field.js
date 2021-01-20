@@ -7,7 +7,7 @@ export default {
     mixins: [ props, helpers, validator ],
     model: {
         prop: 'value',
-        event: 'input'
+        event: 'update'
     },
 
     created() {

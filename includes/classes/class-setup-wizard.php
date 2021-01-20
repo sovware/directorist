@@ -26,7 +26,7 @@ class SetupWizard
      * Hook in tabs.
      */
     public function __construct() {
-        
+
             add_action( 'admin_menu', array( $this, 'admin_menus' ) );
             add_action( 'admin_init', array( $this, 'setup_wizard' ), 99 );
             add_action( 'admin_notices', array( $this, 'render_run_admin_setup_wizard_notice' ) );
@@ -192,7 +192,7 @@ class SetupWizard
                    $attachment_id = ATBDP_Tools::atbdp_insert_attachment_from_url($preview_url, $post_id);
                    update_post_meta($post_id, '_listing_prv_img', $attachment_id);
                 }
-                
+
                 //directory type
                 if( !empty( $directory_id ) ){
                     update_post_meta($post_id, '_directory_type', $directory_id);
@@ -667,7 +667,10 @@ class SetupWizard
                     </header>
                     <section>
                         <span class="importer-notice"><?php esc_html_e('Please don\'t reload the page', 'directorist')?></span>
-                        <progress class="directorist-importer-progress" max="100" value="0"></progress>
+                        <div class="directorist-importer-wrapper">
+                            <progress class="directorist-importer-progress" max="100" value="0"></progress>
+                            <span class="directorist-importer-length"></span>
+                        </div>
                         <span class="importer-details"></span>
                     </section>
                 </div>

@@ -1170,14 +1170,14 @@ templateResult: selecWithIcon,
                         .parent('.inside')
                         .append(`<span class="directorist_loader"></span>`);
                 admin_listing_form($(this).val());
-                
+
                 $(this)
                         .closest('#poststuff')
                         .find('#publishing-action')
-                        .addClass('directorist_disable')
+                        .addClass('directorist_disable');
         });
 
-        $( window ).load(function() {
+        $(window).load(function() {
                 console.log($('select[name="directory_type"]'));
                 $('select[name="directory_type"]')
                         .parent('.inside')
@@ -1187,7 +1187,7 @@ templateResult: selecWithIcon,
                 $('select[name="directory_type"]')
                         .closest('#poststuff')
                         .find('#publishing-action')
-                        .addClass('directorist_disable')
+                        .addClass('directorist_disable');
         });
 
         function admin_listing_form(directory_type) {
@@ -1211,7 +1211,7 @@ templateResult: selecWithIcon,
                                 $('select[name="directory_type"]')
                                         .closest('#poststuff')
                                         .find('#publishing-action')
-                                        .removeClass('directorist_disable')
+                                        .removeClass('directorist_disable');
                         },
                 });
         }
@@ -1235,11 +1235,9 @@ templateResult: selecWithIcon,
                         },
                         success(response) {
                                 defaultSubmitDom
-                                .closest('.directorist_listing-actions')
-                                .siblings('.directorist_notifier')
-                                .append(
-                                        `<span class="atbd-listing-type-active-status">${response}</span>`
-                                );
+                                        .closest('.directorist_listing-actions')
+                                        .siblings('.directorist_notifier')
+                                        .append(`<span class="atbd-listing-type-active-status">${response}</span>`);
                                 defaultSubmitDom
                                         .closest('.directorist_listing-actions')
                                         .children('.directorist_loader')
@@ -1562,18 +1560,22 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
         // });
 
         // Directorist More Dropdown
-        $('body').on('click', '.directorist_more-dropdown-toggle', function(e){
+        $('body').on('click', '.directorist_more-dropdown-toggle', function(e) {
                 e.preventDefault();
                 $(this).toggleClass('active');
-                $(".directorist_more-dropdown-option").removeClass("active");
-                $(this).siblings(".directorist_more-dropdown-option").removeClass("active");
-                $(this).next(".directorist_more-dropdown-option").toggleClass("active");
+                $('.directorist_more-dropdown-option').removeClass('active');
+                $(this)
+                        .siblings('.directorist_more-dropdown-option')
+                        .removeClass('active');
+                $(this)
+                        .next('.directorist_more-dropdown-option')
+                        .toggleClass('active');
                 e.stopPropagation();
-        })
-        $(document).on("click", function (e) {
-                if ($(e.target).is(".directorist_more-dropdown-toggle, .active") === false) {
-                        $(".directorist_more-dropdown-option").removeClass("active");
-                        $(".directorist_more-dropdown-toggle").removeClass("active");
+        });
+        $(document).on('click', function(e) {
+                if ($(e.target).is('.directorist_more-dropdown-toggle, .active') === false) {
+                        $('.directorist_more-dropdown-option').removeClass('active');
+                        $('.directorist_more-dropdown-toggle').removeClass('active');
                 }
         });
 
@@ -1669,7 +1671,9 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                         url: atbdp_admin_data.ajaxurl,
                         data: form_data,
                         beforeSend() {
-                                submit_button.prepend('<span class="atbdp-loading"><span class="fas fa-spinner fa-spin"></span></span>');
+                                submit_button.prepend(
+                                        '<span class="atbdp-loading"><span class="fas fa-spinner fa-spin"></span></span>'
+                                );
                                 submit_button.attr('disabled', true);
                         },
                         success(response) {
@@ -1686,9 +1690,9 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                                 if (response.status.log) {
                                         for (const feedback in response.status.log) {
                                                 console.log(response.status.log[feedback]);
-                                                var alert_type = ( response.status.log[feedback].type === 'success' );
-                                                var alert = `<div class="atbdp-form-alert"`;
-                                                var alert_message = response.status.log[feedback].message;
+                                                const alert_type = response.status.log[feedback].type === 'success';
+                                                let alert = `<div class="atbdp-form-alert"`;
+                                                const alert_message = response.status.log[feedback].message;
                                                 alert = `<div class="atbdp-form-alert ${alert_type}">${alert_message}<div>`;
 
                                                 $('.atbdp-form-feedback').append(alert);
@@ -1887,7 +1891,9 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                                                         const file_type = file_item.type;
 
                                                         const list_item = $(`.check-list-item-${file.item_id}`);
-                                                        const icon_elm = list_item.find('.atbdp-list-action .atbdp-icon');
+                                                        const icon_elm = list_item.find(
+                                                                '.atbdp-list-action .atbdp-icon'
+                                                        );
                                                         const list_checkbox = $(
                                                                 `.atbdp-${file_type}-checkbox-item-${file.item_id}`
                                                         );
@@ -1934,10 +1940,9 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                                                                                         );
                                                                                 }
                                                                         } else {
-                                                                                let msg =
-                                                                                        `<span class="atbdp-list-feedback atbdp-text-danger">${ 
-                                                                                        response.status.message 
-                                                                                        }</span>`;
+                                                                                const msg = `<span class="atbdp-list-feedback atbdp-text-danger">${
+                                                                                        response.status.message
+                                                                                }</span>`;
                                                                                 list_item.append(msg);
                                                                                 icon_elm.addClass('atbdp-text-danger');
                                                                                 icon_elm.html(
@@ -2153,7 +2158,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                                 $(self).prepend(icon);
                         },
                         success(response) {
-                                console.log( response );
+                                console.log(response);
 
                                 if (response.status && !response.status.success && response.status.message) {
                                         alert(response.status.message);
@@ -2459,7 +2464,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
 
                         // console.log( {counter, next_index, current_item, action_wrapper, install_btn} );
 
-                        console.log( { current_item } );
+                        console.log({ current_item });
 
                         form_data = {
                                 action: 'atbdp_install_file_from_subscriptions',
@@ -2477,7 +2482,7 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                                         );
                                 },
                                 success(response) {
-                                        console.log( response );
+                                        console.log(response);
 
                                         if (response.status.success) {
                                                 install_btn.html('Installed');

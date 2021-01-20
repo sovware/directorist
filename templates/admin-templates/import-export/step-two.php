@@ -82,7 +82,10 @@ $fields = $args['fields'];
 			</header>
 			<section>
 				<span class="importer-notice"><?php esc_html_e('Please don\'t reload the page', 'directorist')?></span>
-				<progress class="directorist-importer-progress" max="100" value="0"></progress>
+				<div class="directorist-importer-wrapper">
+					<progress class="directorist-importer-progress" max="100" value="0"></progress>
+					<span class="directorist-importer-length"></span>
+				</div>
 				<span class="importer-details"></span>
 			</section>
 		</div>

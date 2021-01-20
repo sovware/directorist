@@ -26,6 +26,8 @@
                 </div>
             </div>
         </div>
+
+        <confirmation-modal v-bind="confirmation" @cancel="confirmationOnCancel()" />
     </div>
 </template>
 

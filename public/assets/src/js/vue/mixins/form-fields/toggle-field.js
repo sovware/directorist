@@ -61,6 +61,11 @@ export default {
                     url: '#',
                     target: '_self',
                 }
+            },
+
+            confirmation: {
+                show: false,
+                onConfirm: null,
             }
         }
     },
@@ -68,6 +73,7 @@ export default {
     methods: {
         setup() {
             this.loadLinkComponentData();
+            this.setupConfirmationModal();
         },
 
         loadLinkComponentData() {
@@ -91,11 +97,59 @@ export default {
             }
         },
 
-        toggleValue() {
-            this.local_value = ! this.local_value;
-            this.$emit('update', this.local_value);
+        setupConfirmationModal() {
+            if ( ! ( this.confirmationModal && typeof this.confirmationModal === 'object') ) { return; }
+            if ( ! Object.keys( this.confirmationModal ) ) { return; }
 
-            this.handleDataOnChange();
+            let marged_data = { ...this.confirmation, ...this.confirmationModal };
+            this.confirmation = marged_data;
+        },
+
+        toggleValue() {
+            const self = this;
+            const updateData = function() {
+                self.local_value = ! self.local_value;
+                self.$emit('update', self.local_value);
+                self.handleDataOnChange();
+            };
+
+            this.handleDataBeforeChange( updateData );
+        },
+
+        handleDataBeforeChange( updateData ) {
+            // console.log( 'handleDataBeforeChange', this.confirmBeforeChange );
+
+            // Check Confirmation
+            if ( this.confirmBeforeChange ) {
+                this.getConfirmation( updateData );
+                return;
+
+                // const confirmation_status = this.getConfirmation( updateData );
+                // if ( ! confirmation_status ) { return; }
+            }
+
+            updateData();
+        },
+
+        getConfirmation( callback ) {
+            this.confirmation.show = true;
+            this.confirmation.onConfirm = callback;
+
+            // let confirmation = confirm( 'Are You Sure?' );
+            // if ( confirmation ) { return true; }
+            // return false;
+        },
+
+        confirmationOnConfirm( callback ) {
+            if ( typeof callback !== 'function' ) { return; }
+
+            console.log( 'confirmationOnConfirm' );
+            callback();
+        },
+
+        confirmationOnCancel() {
+            this.confirmation.show = false;
+            this.confirmation.onConfirm = null;
         },
 
         handleDataOnChange() {

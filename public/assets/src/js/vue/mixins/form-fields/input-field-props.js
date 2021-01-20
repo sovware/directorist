@@ -10,6 +10,12 @@ export default {
             required: false,
             default: 'default',
         },
+        confirmBeforeChange: {
+            required: false,
+        },
+        confirmationModal: {
+            required: false,
+        },
         optionFields: {
             required: false,
         },

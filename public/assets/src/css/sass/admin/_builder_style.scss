@@ -128,7 +128,7 @@ $light-gray: #f4f5f7;
   margin: 0 5px 10px;
   display: inline-block;
   text-align: center;
-  border: 1px solid;
+  border: 1px solid transparent;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -141,31 +141,38 @@ $light-gray: #f4f5f7;
   }
 }
 
-.cptm-btn.cptm-label-btn {
-  display: inline-block;
-  vertical-align: top;
-}
-
-
-.cptm-btn.cptm-btn-primary {
-  color: #fff;
-  border-color: $primary;
-  background-color: $primary;
-
-  &:hover {
-    background-color: darken($primary, $amount: 2);
+.cptm-btn {
+  @extend .reset-pseudo-link;
+  &.cptm-label-btn {
+    display: inline-block;
+    vertical-align: top;
   }
-}
 
-.cptm-btn.cptm-btn-secondery {
-  color: $primary;
-  border-color: $primary;
-  background-color: transparent;
+  &.cptm-btn-rounded {
+    border-radius: 30px;
+  }
 
-  &:hover {
+  &.cptm-btn-primary {
     color: #fff;
+    border-color: $primary;
     background-color: $primary;
+  
+    &:hover {
+      background-color: darken($primary, $amount: 2);
+    }
   }
+
+  &.cptm-btn-secondery {
+    color: $primary;
+    border-color: $primary;
+    background-color: transparent;
+  
+    &:hover {
+      color: #fff;
+      background-color: $primary;
+    }
+  }
+  
 }
 
 .cptm-file-input-wrap {
@@ -2337,6 +2344,7 @@ input[type="text"] {
 .cptm-modal-wrap {
   display: flex;
   padding: 20px;
+  height: 100%;
   min-height: calc(100% - 40px);
   justify-content: center;
   align-items: center;
@@ -2393,6 +2401,12 @@ input[type="text"] {
 
 .cptm-modal-body {
   // min-height: 200px;
+}
+
+.cptm-modal-confirmation-title {
+  margin: 30px auto;
+  font-size: 20px;
+  text-align: center;
 }
 
 

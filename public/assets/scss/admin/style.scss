@@ -4561,6 +4561,19 @@ input.atbdp-form-control {
   }
 }
 
+// Directorist Disable
+.directorist_disable{
+  pointer-events: none;
+}
+#publishing-action{
+  &.directorist_disable{
+    input#publish{
+      cursor: not-allowed;
+      opacity: .3;
+    }
+  }
+}
+
 // Directorist More Dropdown
 .directorist_more-dropdown{
   position: relative;

@@ -215,11 +215,12 @@
 
 <script>
 import Vue from "vue";
+import card_builder from './../../mixins/form-fields/card-builder';
 import helpers from '../../mixins/helpers';
 
 export default {
   name: "card-builder-list-view-field",
-  mixins: [ helpers ],
+  mixins: [ card_builder, helpers ],
   props: {
     value: {
       required: false,

@@ -16,5 +16,9 @@ import props from './../../mixins/form-fields/input-field-props';
 export default {
     name: 'select-field',
     mixins: [ props, feild_helper ],
+    model: {
+        prop: 'value',
+        event: 'update'
+    },
 }
 </script>

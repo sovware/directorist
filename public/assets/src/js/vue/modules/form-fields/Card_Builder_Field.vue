@@ -2,20 +2,7 @@
   <div class="">
     <template v-if="card_templates">
       <div class="cptm-card-top-area cptm-text-center cptm-mb-20">
-        <div class="form-group">
-          <label class="cptm-label cptm-text-left">Template</label>
-          <div class="cptm-template-type-wrapper">
-            <select class="cptm-form-control" v-model="template_id">
-              <option
-                :value="option.value"
-                v-for="(option, option_key) in theCardBiulderTemplateOptionList"
-                :key="option_key"
-              >
-                {{ option.label }}
-              </option>
-            </select>
-          </div>
-        </div>
+        <select-field theme="default" :options="theCardBiulderTemplateOptionList" v-model="template_id" />
       </div>
 
       <component

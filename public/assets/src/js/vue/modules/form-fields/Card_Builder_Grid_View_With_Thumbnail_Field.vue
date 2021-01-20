@@ -287,10 +287,11 @@
 <script>
 import Vue from 'vue';
 import helpers from '../../mixins/helpers';
+import card_builder from './../../mixins/form-fields/card-builder';
 
 export default {
   name: "card-builder-grid-view-with-thumbnail-field",
-  mixins: [ helpers ],
+  mixins: [ card_builder, helpers ],
   props: {
     fieldId: {
       required: false,
@@ -318,7 +319,7 @@ export default {
   watch: {
     output_data() {
       this.$emit( 'update', this.output_data );
-    }
+    },
   },
 
   computed: {

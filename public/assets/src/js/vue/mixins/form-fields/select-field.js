@@ -152,10 +152,16 @@ export default {
 
         toggleTheOptionModal() {
             let self = this;
+            
+            if ( this.show_option_modal ) {
+                this.show_option_modal = false;
+            } else {
+                this.show_option_modal = true;
 
-            setTimeout( function() {
-                self.show_option_modal = ! self.show_option_modal;
-            }, 0);
+                setTimeout( function() {
+                    self.show_option_modal = true;
+                }, 0);
+            }
         },
 
         valueIsValid( value ) {

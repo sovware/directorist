@@ -15,6 +15,9 @@ $enable_monetization	 	= get_directorist_option( 'enable_monetization' );
 $enable_featured_listing	= get_directorist_option( 'enable_featured_listing' );
 $select_listing_map			= get_directorist_option( 'select_listing_map' );
 $map_api_key				= get_directorist_option( 'map_api_key' );
+$host                       = gethostname();
+var_dump( $host );
+$connection                 =  @fsockopen( $host, 25,$errno, $errstr, 5) ;
 $warnings = [];
 if( empty( $add_listing ) ) {
     $warnings[] = array(
@@ -120,6 +123,12 @@ if( 'google' == $select_listing_map && empty( $map_api_key ) ) {
         'link_text'  => __( 'Give the Api', 'directorist' )
     );
 }
+if( ! is_resource( $connection ) ) {
+    $warnings[] = array(
+        'title'      => __( 'SMTP not configured', 'directorist'),
+        'desc'       => __( "SMTP is a TCP/IP protocol responsible for email deliveries. You must configure SMTP to send or receive emails.", 'directorist'),
+    );
+}
 $_count = count( $warnings );
 $warning_count = ! empty( $_count ) ? '( ' . $_count . ' )' : '';
 ?>
@@ -142,7 +151,9 @@ $warning_count = ! empty( $_count ) ? '( ' . $_count . ' )' : '';
                             <div class="atbds_warnigns__content">
                                 <h4><?php echo $warning['title']; ?></h4>
                                 <p><?php echo $warning['desc']; ?></p>
+                                <?php if( ! empty( $warning['link'] ) ) { ?>
                                 <a href="<?php echo $warning['link']; ?>" class="atbds_btnLink"><?php echo $warning['link_text']; ?> <i class="la la-angle-right"></i></a>
+                                <?php } ?>
                             </div>
                         </div><!-- ends: .atbds_warnings__single -->
                     </div>

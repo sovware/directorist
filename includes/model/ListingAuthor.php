@@ -1,11 +1,11 @@
 <?php
 /**
- * @author AazzTech
+ * @author wpWax
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace Directorist;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Listing_Author {
 
@@ -41,7 +41,7 @@ class Directorist_Listing_Author {
 			'posts_per_page' => -1,
 		);
 
-		$posts = ATBDP_Listings_Data_Store::get_archive_listings_query( $args, [ 'cache' => false ]);
+		$posts = \ATBDP_Listings_Data_Store::get_archive_listings_query( $args, [ 'cache' => false ]);
 		return $posts;
 	}
 
@@ -220,7 +220,7 @@ class Directorist_Listing_Author {
 			'listing_count_html' => $listing_count_html,
 		);
 
-		atbdp_get_shortcode_template( 'author/author-header', $args );
+		URI_Helper::get_template( 'author/author-header', $args );
 	}
 
 	public function about_template() {
@@ -255,7 +255,7 @@ class Directorist_Listing_Author {
 			'youtube'        => get_user_meta($author_id, 'youtube', true),
 		);
 
-		atbdp_get_shortcode_template( 'author/author-about', $args );
+		URI_Helper::get_template( 'author/author-about', $args );
 	}
 
     // @todo @kowsar do_action('atbdp_author_listings_html', $all_listings) in "Post Your Need" ext
@@ -273,7 +273,7 @@ class Directorist_Listing_Author {
 			'display_pagination' => get_directorist_option('paginate_author_listings', 1),
 		);
 
-		atbdp_get_shortcode_template( 'author/author-listings', $args );
+		URI_Helper::get_template( 'author/author-listings', $args );
 	}
 
 	public function render_shortcode_author_profile( $atts ) {
@@ -300,6 +300,6 @@ class Directorist_Listing_Author {
 
 		$container_fluid = apply_filters( 'atbdp_public_profile_container_fluid', 'container-fluid' );
 
-		return atbdp_return_shortcode_template( 'author/author-profile', compact( 'container_fluid' ) );
+		return URI_Helper::get_template_contents( 'author/author-profile', compact( 'container_fluid' ) );
 	}
 }

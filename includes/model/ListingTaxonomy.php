@@ -1,11 +1,11 @@
 <?php
 /**
- * @author AazzTech
+ * @author wpWax
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace Directorist;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Listing_Taxonomy {
 
@@ -273,7 +273,7 @@ class Directorist_Listing_Taxonomy {
     	}
 
     	if ( !empty( $this->terms ) && !is_wp_error( $this->terms ) ) {
-    		return atbdp_return_shortcode_template( $template_file, $args );
+    		return URI_Helper::get_template_contents( $template_file, $args );
     	}
     	else {
     		return __('<p>No Results found!</p>', 'directorist');

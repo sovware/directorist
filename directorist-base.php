@@ -247,7 +247,7 @@ final class Directorist_Base
             self::$instance->roles = new ATBDP_Roles;
             self::$instance->gateway = new ATBDP_Gateway;
             self::$instance->order = new ATBDP_Order;
-            self::$instance->shortcode = new ATBDP_Shortcode;
+            self::$instance->shortcode = new \Directorist\ATBDP_Shortcode;
             self::$instance->email = new ATBDP_Email;
             self::$instance->seo = new ATBDP_SEO;
             // self::$instance->validator = new ATBDP_Validator;
@@ -463,6 +463,7 @@ final class Directorist_Base
             ATBDP_INC_DIR . 'system-status/class-system-status'
         ]);
 
+        load_dependencies('all', ATBDP_INC_DIR . 'helpers/');
         load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
         load_dependencies('all', ATBDP_INC_DIR . 'model/');
         load_dependencies('all', ATBDP_INC_DIR . 'hooks/');

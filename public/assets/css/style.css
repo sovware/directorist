@@ -7846,6 +7846,91 @@ span.atbd_get_loc_wid {
   border-color: #444752 !important;
 }
 
+.directorist_checkbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.directorist_checkbox label {
+  position: relative;
+  top: 0px;
+  color: #605F74 !important;
+  margin-left: 10px !important;
+}
+
+.directorist_checkbox input[type="checkbox"] {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  border: 2px solid #C6D0DC;
+}
+
+.directorist_checkbox input[type="checkbox"]:checked {
+  background-color: #202428 !important;
+  border-color: #202428 !important;
+}
+
+.directorist_checkbox input[type="checkbox"]:checked:before {
+  color: #fff;
+  content: '\f147';
+  font: normal 20px/1 dashicons;
+  margin: 0;
+}
+
+.directorist_checkbox input[type="checkbox"]:checked + label {
+  color: #202428;
+}
+
+.directorist_checkbox input[type="checkbox"]:before {
+  width: auto;
+  height: auto;
+  margin: 0;
+  left: 12px;
+  top: -2px;
+}
+
+.directorist_checkbox input[type="checkbox"]:focus {
+  outline: 0 none;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
+}
+
+.directorist_radio label {
+  position: relative;
+  margin-left: 0;
+  padding-left: 35px;
+}
+
+.directorist_radio label:before {
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border-radius: 50%;
+  border: 1px solid #C6D0DC;
+  content: '';
+}
+
+.directorist_radio input[type="radio"] {
+  display: none;
+  position: relative;
+}
+
+.directorist_radio input[type="radio"]:checked + label:before {
+  border-color: #202428 !important;
+  border-width: 5px;
+}
+
+.directorist_radio input[type="radio"]:focus {
+  outline: 0 none;
+  -webkit-box-shadow: 0 0;
+          box-shadow: 0 0;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .select2-container--default.select2-container--focus .select2-selection--multiple {
   border-color: #e3e6ef;
 }
@@ -11306,6 +11391,152 @@ p.atbd-min {
   top: 0;
   /*rtl:ignore*/
   left: 0;
+}
+
+.directorist_dropdown {
+  border: 1px solid #EFF1F6;
+  border-radius: 5px;
+  height: 40px;
+  position: relative;
+}
+
+.directorist_dropdown .directorist_dropdown-toggle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 10px 15px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.directorist_dropdown .directorist_dropdown-toggle:before {
+  content: '\f347';
+  font: normal 12px/1 dashicons;
+}
+
+.directorist_dropdown .directorist_dropdown-toggle .directorist_dropdown-toggle__text {
+  -webkit-box-ordinal-group: 0;
+      -ms-flex-order: -1;
+          order: -1;
+}
+
+.directorist_dropdown .directorist_dropdown-option {
+  display: none;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 44px;
+  padding: 15px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 10px 40px rgba(134, 142, 174, 0.188235);
+          box-shadow: 0 10px 40px rgba(134, 142, 174, 0.188235);
+  border-radius: 5px;
+  z-index: 99999;
+}
+
+.directorist_dropdown .directorist_dropdown-option ul li a {
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  display: block;
+  padding: 9px 10px;
+  border-radius: 4px;
+  color: #5a5f7d;
+}
+
+.directorist_switch {
+  position: relative;
+  display: block;
+  min-height: 1.7rem;
+}
+
+.directorist_switch input[type=checkbox]:before {
+  display: none;
+}
+
+.directorist_switch .directorist_switch-input {
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  width: 1.6rem;
+  height: 1.65rem;
+  opacity: 0;
+}
+
+.directorist_switch .directorist_switch-input:checked + .directorist_switch-label {
+  color: #1A1B29;
+  font-weight: 500;
+}
+
+.directorist_switch .directorist_switch-input:checked + .directorist_switch-label:before {
+  background-color: #202428;
+}
+
+.directorist_switch .directorist_switch-input:checked + .directorist_switch-label:after {
+  -webkit-transform: translateX(2rem);
+      -ms-transform: translateX(2rem);
+          transform: translateX(2rem);
+}
+
+.directorist_switch .directorist_switch-label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 1.6rem;
+  font-size: 14px;
+  font-weight: 400;
+  padding-left: 65px;
+  margin-left: 0;
+  color: #51526E;
+}
+
+.directorist_switch .directorist_switch-label:before {
+  position: absolute;
+  top: 0.05rem;
+  left: 4px;
+  display: block;
+  width: 44px;
+  height: 24px;
+  border-radius: 15px;
+  pointer-events: all;
+  content: "";
+  background-color: #ECECEC;
+}
+
+.directorist_switch .directorist_switch-label:after {
+  position: absolute;
+  display: block;
+  content: "";
+  background: no-repeat 50% / 50% 50%;
+  top: calc(0.05rem + 4px);
+  left: calc(0px + 8px);
+  background-color: #fff !important;
+  width: calc(24px - 8px);
+  height: calc(24px - 8px);
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 4px rgba(143, 142, 159, 0.15);
+          box-shadow: 0 0 4px rgba(143, 142, 159, 0.15);
+  border-radius: 15px;
+  -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -o-transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
 
 .ads-advanced .bottom-inputs {

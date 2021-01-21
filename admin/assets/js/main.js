@@ -1579,6 +1579,28 @@ function toggle_section(show_if_value, subject_elm, terget_elm) {
                 }
         });
 
+        // Select Dropdown 
+        $('body').on('click', '.directorist_dropdown .directorist_dropdown-toggle', function(e){
+                e.preventDefault();
+                $(this).siblings('.directorist_dropdown-option').toggle();
+        });
+
+        // Select Option after click
+        $('body').on('click','.directorist_dropdown .directorist_dropdown-option ul li a', function(e){
+                e.preventDefault();
+                let optionText = $(this).html();
+                $(this).children('.directorist_dropdown-toggle__text').html(optionText)
+                $(this).closest('.directorist_dropdown-option').siblings('.directorist_dropdown-toggle').children('.directorist_dropdown-toggle__text').html(optionText);
+                $('.directorist_dropdown-option').hide();
+        });
+
+        // Hide Clicked Anywhere
+        $(document).bind('click', function(e) {
+                let clickedDom = $(e.target);
+                if(!clickedDom.parents().hasClass('directorist_dropdown'))
+                $('.directorist_dropdown-option').hide();
+        });
+
         // Tab Content
         // ----------------------------------------------------------------------------------
         // Modular, classes has no styling, so reusable

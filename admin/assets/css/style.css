@@ -4795,6 +4795,160 @@ input.atbdp-form-control {
           box-shadow: 0 0;
 }
 
+.directorist_switch {
+  position: relative;
+  display: block;
+  min-height: 1.7rem;
+}
+
+.directorist_switch input[type=checkbox]:before {
+  display: none;
+}
+
+.directorist_switch .directorist_switch-input {
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  width: 1.6rem;
+  height: 1.65rem;
+  opacity: 0;
+}
+
+.directorist_switch .directorist_switch-input:checked + .directorist_switch-label {
+  color: #1A1B29;
+  font-weight: 500;
+}
+
+.directorist_switch .directorist_switch-input:checked + .directorist_switch-label:before {
+  background-color: #202428;
+}
+
+.directorist_switch .directorist_switch-input:checked + .directorist_switch-label:after {
+  -webkit-transform: translateX(1.2rem);
+      -ms-transform: translateX(1.2rem);
+          transform: translateX(1.2rem);
+}
+
+.directorist_switch .directorist_switch-label {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 1.6rem;
+  font-size: 14px;
+  font-weight: 400;
+  padding-left: 65px;
+  margin-left: 0;
+  color: #51526E;
+}
+
+.directorist_switch .directorist_switch-label:before {
+  position: absolute;
+  top: 0.05rem;
+  left: 4px;
+  display: block;
+  width: 44px;
+  height: 24px;
+  border-radius: 15px;
+  pointer-events: all;
+  content: "";
+  background-color: #ECECEC;
+}
+
+.directorist_switch .directorist_switch-label:after {
+  position: absolute;
+  display: block;
+  content: "";
+  background: no-repeat 50% / 50% 50%;
+  top: calc(0.05rem + 4px);
+  left: calc(0px + 8px);
+  background-color: #fff !important;
+  width: calc(24px - 8px);
+  height: calc(24px - 8px);
+  background-color: #fff;
+  -webkit-box-shadow: 0 0 4px rgba(143, 142, 159, 0.15);
+          box-shadow: 0 0 4px rgba(143, 142, 159, 0.15);
+  border-radius: 15px;
+  -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+  -o-transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: transform 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+}
+
+.directorist_dropdown {
+  border: 1px solid #EFF1F6;
+  border-radius: 5px;
+  height: 40px;
+  position: relative;
+}
+
+.directorist_dropdown .directorist_dropdown-toggle {
+  text-decoration: none;
+  color: #7a82a6;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 10px 15px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.directorist_dropdown .directorist_dropdown-toggle:before {
+  content: '\f347';
+  font: normal 12px/1 dashicons;
+}
+
+.directorist_dropdown .directorist_dropdown-toggle .directorist_dropdown-toggle__text {
+  -webkit-box-ordinal-group: 0;
+      -ms-flex-order: -1;
+          order: -1;
+}
+
+.directorist_dropdown .directorist_dropdown-option {
+  display: none;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 44px;
+  padding: 15px;
+  background-color: #fff;
+  -webkit-box-shadow: 0 10px 40px rgba(134, 142, 174, 0.188235);
+          box-shadow: 0 10px 40px rgba(134, 142, 174, 0.188235);
+  border-radius: 5px;
+  z-index: 99999;
+}
+
+.directorist_dropdown .directorist_dropdown-option ul li a {
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  display: block;
+  padding: 9px 10px;
+  border-radius: 4px;
+  color: #5a5f7d;
+}
+
+.directorist_select .select2-container .select2-selection--single {
+  padding: 0 20px;
+  height: 38px;
+  border: 1px solid #C6D0DC;
+}
+
 .directorist_loader {
   position: relative;
 }

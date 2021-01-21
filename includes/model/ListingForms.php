@@ -5,6 +5,8 @@
 
 namespace Directorist;
 
+use \ATBDP_Permalink;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Listing_Forms {
@@ -81,7 +83,7 @@ class Directorist_Listing_Forms {
 		if ( $count_meta_queries ) {
 			$custom_fields['meta_query'] = ( $count_meta_queries > 1 ) ? array_merge( array( 'relation' => 'AND' ), $meta_queries ) : $meta_queries;
 		}
-		$custom_fields     = new WP_Query( $custom_fields );
+		$custom_fields     = new \WP_Query( $custom_fields );
 		$plan_custom_field = true;
 		if ( is_fee_manager_active() ) {
 			$plan_custom_field = is_plan_allowed_custom_fields( $fm_plan );

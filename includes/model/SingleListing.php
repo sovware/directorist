@@ -643,7 +643,7 @@ class Directorist_Single_Listing {
 			'query_args' => $args,
 			'cache'      => apply_filters('atbdp_cache_atbdp_all_custom_fields', 1),
 			'value'      => function ($data) {
-				return  new WP_Query($data['query_args']);
+				return  new \WP_Query($data['query_args']);
 			}
 		]);
 

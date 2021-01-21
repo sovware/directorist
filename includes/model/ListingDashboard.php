@@ -105,7 +105,7 @@ class Directorist_Listing_Dashboard {
 			$args['s'] = $search;
 		}
 
-		$this->current_listings_query = new WP_Query( $args );
+		$this->current_listings_query = new \WP_Query( $args );
 
 		return $this->current_listings_query;
 	}

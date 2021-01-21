@@ -286,7 +286,7 @@ class Directorist_Listing_Taxonomy {
 		if ( empty( $this->directory_type ) ) {
 			return;
 		}
-		$listings = new WP_Query( array(
+		$listings = new \WP_Query( array(
 			'post_type'     => ATBDP_POST_TYPE,
 			'posts_per_page'=> -1,
 			'post_status'    => 'public',

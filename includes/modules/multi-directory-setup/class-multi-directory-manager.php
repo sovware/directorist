@@ -23,6 +23,17 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
 
             add_action( 'wp_ajax_save_post_type_data', [ $this, 'save_post_type_data' ] );
             add_action( 'wp_ajax_save_imported_post_type_data', [ $this, 'save_imported_post_type_data' ] );
+            
+            add_filter( 'atbdp_listing_type_settings_layout', [$this, 'conditional_layouts'] );
+        }
+
+        public function conditional_layouts( $layouts ) {
+
+            if( ! get_directorist_option( 'enable_multi_directory', false ) ) {
+                unset( $layouts['listings_card_layout']['submenu']['other'] );
+                unset( $layouts['general'] );
+            }
+            return $layouts;
         }
 
         // get_cetagory_options
@@ -4514,10 +4525,6 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                 ],
 
             ]);
-
-            $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
-            $wc_pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-woocommerce-pricing-plans" target="_blank">WooCommerce Pricing Plans</a>';
-            $plan_promo = sprintf(__('Monetize your website by selling listing plans using %s or %s extensions.', 'directorist'), $pricing_plan, $wc_pricing_plan);
             
             $this->layouts = apply_filters('atbdp_listing_type_settings_layout', [
                 'general' => [
@@ -4561,15 +4568,7 @@ if ( ! class_exists('ATBDP_Multi_Directory_Manager') ) {
                                 ],
                             ],
                         ],
-                        'packages' => [
-                            'label' => 'Packages',
-                            'sections' => [
-                                'packages' => [
-                                    'title'       => 'Paid listing packages',
-                                    'description' => $plan_promo,
-                                ],
-                            ],
-                        ],
+                       
                     ]),
                 ],
 

@@ -331,7 +331,7 @@ $allow_decimal = get_directorist_option('allow_decimal', 1);
                         echo '</div>';
                         break;
                     case 'file'  :
-                        require ATBDP_TEMPLATES_DIR . 'file-uploader.php';
+                        require ATBDP_VIEWS_DIR . 'file-uploader.php';
                         break;
                 }
                 ?>

@@ -586,7 +586,7 @@ final class Directorist_Base
     public function load_template($name, $args = array(), $return_path = false)
     {
         global $post;
-        $path = ATBDP_TEMPLATES_DIR . $name . '.php';
+        $path = ATBDP_VIEWS_DIR . $name . '.php';
         if ($return_path) return $path;
         include($path);
     }

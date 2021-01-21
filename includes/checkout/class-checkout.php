@@ -117,13 +117,7 @@ class ATBDP_Checkout
             $before     = '';
             $after      = '';
             //displaying data for checkout
-
-            $template = atbdp_get_shortcode_template_path( 'payment/checkout' );
-            $template = apply_filters( 'atbdp_checkout_template_path', $template );
-
-            if ( file_exists( $template ) ) {
-                include $template;
-            }
+            \Directorist\URI_Helper::get_template( 'payment/checkout' );
         }
         return ob_get_clean();
     }
@@ -181,12 +175,7 @@ class ATBDP_Checkout
         $container_fluid = 'container-fluid';
         $order_id        = (!empty($order_id)) ? $order_id : '';
 
-        $template = atbdp_get_shortcode_template_path( 'payment/payment-receipt' );
-        $template = apply_filters( 'atbdp_payment_receipt_template_path', $template );
-
-        if ( file_exists( $template ) ) {
-            include $template;
-        }
+        \Directorist\URI_Helper::get_template( 'payment/payment-receipt' );
 
         return ob_get_clean();
     }
@@ -339,12 +328,7 @@ class ATBDP_Checkout
     public function transaction_failure()
     {
         ob_start();
-        $template = atbdp_get_shortcode_template_path( 'payment/transaction-failure' );
-        $template = apply_filters( 'atbdp_transaction_failure_template_path', $template );
-
-        if ( file_exists( $template ) ) {
-            include $template;
-        }
+        \Directorist\URI_Helper::get_template( 'payment/transaction-failure' );
 
         return ob_get_clean();
     }

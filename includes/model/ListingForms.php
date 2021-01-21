@@ -238,7 +238,7 @@ class Directorist_Listing_Forms {
 				echo '</div>';
 				break;
 			case 'file':
-				require ATBDP_TEMPLATES_DIR . 'file-uploader.php';
+				require ATBDP_VIEWS_DIR . 'file-uploader.php';
 				break;
 		}
 

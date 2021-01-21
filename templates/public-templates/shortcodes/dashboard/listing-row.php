@@ -41,7 +41,14 @@ if ( $query->have_posts() ) {
 						<a href="#" class="directorist_btn-more" type="button"><i class="la la-ellipsis-h"></i></a>
 						<div class="directorist_dropdown-menu directorist-dashboard-listing-actions">
 							<div class="directorist_dropdown-menu__list">
-								<a class="directorist_dropdown-item" data-task="delete" href="#"><i class="la la-trash"></i><?php esc_html_e('Delete Listing', 'directorist'); ?></a>
+							<?php
+							$dropdown_items = $dashboard->get_action_dropdown_item();
+							if( $dropdown_items ) {
+								foreach( $dropdown_items as $item ) {
+							?>
+									<a class="directorist_dropdown-item <?php echo $item['class']; ?>" <?php echo $item['data_attr']; ?> href="<?php echo $item['link']; ?>"><?php echo $item['field']; ?><?php echo $item['label']; ?></a>
+							<?php }
+							} ?>
 							</div>
 						</div>
 					</div>

@@ -159,7 +159,6 @@ class Directorist_Listing_Dashboard {
 		return $links;
 	}
 
-
 	public function get_listing_status_html() {
 		$id = get_the_ID();
 		$status_label = get_post_status_object( get_post_status( $id ) )->label;
@@ -435,5 +434,17 @@ class Directorist_Listing_Dashboard {
 		/*@todo; later show featured listing first on the user dashboard maybe??? */
 
 		return atbdp_return_shortcode_template( 'dashboard/user-dashboard', compact('display_title','container_fluid') );
+	}
+
+	public function get_action_dropdown_item() {
+		 $dropdown_items['delete'] = array(
+			'class'			    => '',
+			'data_attr'			=>	'data-task="delete"',
+			'link'				=>	'#',
+			'field'				=>  '<i class="la la-trash"></i>',
+			'label'				=>  __('Delete Listing', 'directorist')
+		 );
+
+		return apply_filters( 'atbdp_dashboard_listing_action_item', $dropdown_items );
 	}
 }

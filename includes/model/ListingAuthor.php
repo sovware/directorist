@@ -50,7 +50,7 @@ class Directorist_Listing_Author {
 		$this->id = intval( $id );
 
 		if ( ! $this->id ) {
-			return ATBDP_Helper::guard( [ 'type' => '404' ] );
+			return \ATBDP_Helper::guard( [ 'type' => '404' ] );
 		}
 		
 		$this->all_listings = $this->get_all_posts();

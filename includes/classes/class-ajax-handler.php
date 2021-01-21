@@ -180,6 +180,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $post_id = !empty( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : '';
             // wp_send_json($post_id);
             $template = '';
+            $submission_form_fields = [];
             if( $listing_type ){
                 $submission_form = get_term_meta( $listing_type, 'submission_form_fields', true );
                 $submission_form_fields = $submission_form['fields'];

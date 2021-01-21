@@ -23,7 +23,7 @@ $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlid
 
     <div class="plasmaSliderTempImage" style="padding-top: <?php echo $data['padding-top'] ."%;" ?>">
         <?php if ( ! empty( $data['images'] ) ) :
-            $img_src = $data['images'][0]['src'];
+            $img_src = $data['images'][0]['src']['url'];
             $img_alt = $data['images'][0]['alt'];
             if ( 'contain' === $data['background-size'] && $data['blur-background'] ) {
                 echo "<img class='plasmaSliderTempImgBlur' src='{$img_src}' alt='{$img_alt}'>";
@@ -37,7 +37,9 @@ $img_size_class = ( 'contain' === $data['background-size'] ) ? '' : ' plasmaSlid
         <?php
             if ( ! empty( $data['images'] )  ):
                 foreach ( $data['images'] as $image ) {
-                    echo "<span class='plasmaSliderImageItem' data-src='{$image['src']}' data-alt='{$image['alt']}'></span>" . "\n";
+                    $img_src = $data['images'][0]['src']['url'];
+                    $img_alt = $data['images'][0]['alt'];
+                    echo "<span class='plasmaSliderImageItem' data-src='{$img_src}' data-alt='{$img_alt}'></span>" . "\n";
                 }
             endif;
         ?>

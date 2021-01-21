@@ -1035,7 +1035,7 @@ class Directorist_Listings {
 		}
 
 		if ( $this->logged_in_user_only ) {
-			return ATBDP_Helper::guard([ 'type' => 'auth' ]);
+			return \ATBDP_Helper::guard([ 'type' => 'auth' ]);
 		}
 		
 		// Load the template

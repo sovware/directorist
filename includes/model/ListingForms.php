@@ -725,7 +725,7 @@ class Directorist_Listing_Forms {
 		$guest_submission = get_directorist_option( 'guest_listings', 0 );
 
 		if ( ! $guest_submission && ! atbdp_logged_in_user() ) {
-			return ATBDP_Helper::guard( array( 'type' => 'auth' ) );
+			return \ATBDP_Helper::guard( array( 'type' => 'auth' ) );
 		}
 
 		// Check if current user can access this page

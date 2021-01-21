@@ -198,7 +198,7 @@ function atbdp_render_the_flush_alert( array $alert = [] ) {
 
 // atbdp_load_admin_template
 function atbdp_load_admin_template( string $path = '', $data = [] ) {
-    $file = trailingslashit( ATBDP_DIR ) . "templates/admin-templates/$path.php";
+    $file = trailingslashit( ATBDP_VIEWS_DIR ) . "templates/admin-templates/$path.php";
 
     if ( file_exists( $file ) ) {
         include( $file );

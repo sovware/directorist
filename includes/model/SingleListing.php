@@ -5,6 +5,8 @@
 
 namespace Directorist;
 
+use \ATBDP_Permalink;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Single_Listing {

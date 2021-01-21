@@ -17,7 +17,7 @@ if (empty($enabled)) {
 }
 
 $query = $listing->related_listings_query( $number, $relationship );
-$related_listings = new Directorist_Listings(array(), 'related', $query, ['cache' => false]);
+$related_listings = new \Directorist\Directorist_Listings(array(), 'related', $query, ['cache' => false]);
 
 $listing->load_related_listings_script();
 ?>

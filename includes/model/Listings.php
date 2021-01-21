@@ -4,6 +4,7 @@
  */
 
 namespace Directorist;
+
 use \ATBDP_Listings_Data_Store;
 use \ATBDP_Permalink;
 

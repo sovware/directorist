@@ -868,12 +868,14 @@
         e.preventDefault();
         $(this).toggleClass('active');
         $(".directorist_dropdown-menu").removeClass("active");
-        $(this).siblings(".directorist_dropdown-menu").removeClass("active");
+        // $(this).siblings(".directorist_dropdown-menu").removeClass("active");
         $(this).next(".directorist_dropdown-menu").toggleClass("active");
         e.stopPropagation();
     });
-    $(document).on("click", function (e) {
-        if ($(e.target).is(".directorist_btn-more, .active") === false) {
+
+    $(document).bind("click", function (e) {
+        console.log($(e.target).parents().hasClass('directorist_dropdown-menu__list'))
+        if(!$(e.target).parents().hasClass('directorist_dropdown-menu__list')){
             $(".directorist_dropdown-menu").removeClass("active");
             $(".directorist_btn-more").removeClass("active");
         }

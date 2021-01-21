@@ -817,10 +817,20 @@
           color: #8F8E9F;
         }
       }
+      
+      .directorist_checkbox{
+        label{
+          margin-bottom: 0;
+          font-size: 14px;
+          font-weight: 400;
+          color: #51526E;
+        }
+      }
     }
 
     .directorist_dropdown {
       position: relative;
+      border: 0 none;
 
       .directorist_dropdown-menu {
         position: absolute;
@@ -862,7 +872,7 @@
           }
         }
 
-        a {
+        .directorist_dropdown-item {
           padding: 10px 20px;
           font-size: 14px;
           color: #51526E;
@@ -878,7 +888,8 @@
           }
 
           i {
-            margin-right: 6px;
+            font-size: 15px;
+            margin-right: 14px;
           }
         }
 

@@ -40,18 +40,20 @@
 // Directorist Checkbox
 .directorist_checkbox{
   display: flex;
+  align-items: center;
 
   label{
     position: relative;
-    top: 0px;
+    top: 1px;
     color: #605F74 !important;
     margin-left: 10px !important;
+    margin-bottom: 0 !important;
   }
 
   input[type="checkbox"]{
     position: relative;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     border-radius: 3px;
     border: 2px solid #C6D0DC;
 
@@ -60,9 +62,11 @@
       border-color: $dark !important;
       
       &:before{
+        top: 0;
+        left: 15px;
         color: #fff;
         content: '\f147';
-        font: normal 20px/1 dashicons;
+        font: normal 14px/1 dashicons;
         margin: 0;
       }
       &+label{

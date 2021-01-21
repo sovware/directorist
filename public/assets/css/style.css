@@ -7850,19 +7850,23 @@ span.atbd_get_loc_wid {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .directorist_checkbox label {
   position: relative;
-  top: 0px;
+  top: 1px;
   color: #605F74 !important;
   margin-left: 10px !important;
+  margin-bottom: 0 !important;
 }
 
 .directorist_checkbox input[type="checkbox"] {
   position: relative;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 3px;
   border: 2px solid #C6D0DC;
 }
@@ -7873,9 +7877,11 @@ span.atbd_get_loc_wid {
 }
 
 .directorist_checkbox input[type="checkbox"]:checked:before {
+  top: 0;
+  left: 15px;
   color: #fff;
   content: '\f147';
-  font: normal 20px/1 dashicons;
+  font: normal 14px/1 dashicons;
   margin: 0;
 }
 
@@ -9382,8 +9388,16 @@ span.atbd_get_loc_wid {
   color: #8F8E9F;
 }
 
+.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_actions .directorist_checkbox label {
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  color: #51526E;
+}
+
 .atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_dropdown {
   position: relative;
+  border: 0 none;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_dropdown .directorist_dropdown-menu {
@@ -9428,7 +9442,7 @@ span.atbd_get_loc_wid {
   content: '';
 }
 
-.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_dropdown-menu .directorist_dropdown-menu__list a {
+.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_dropdown-menu .directorist_dropdown-menu__list .directorist_dropdown-item {
   padding: 10px 20px;
   font-size: 14px;
   color: #51526E;
@@ -9436,16 +9450,17 @@ span.atbd_get_loc_wid {
   text-decoration: none;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_dropdown-menu .directorist_dropdown-menu__list a:hover {
+.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_dropdown-menu .directorist_dropdown-menu__list .directorist_dropdown-item:hover {
   background-color: #F6F7F9;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_dropdown-menu .directorist_dropdown-menu__list a:first-child {
+.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_dropdown-menu .directorist_dropdown-menu__list .directorist_dropdown-item:first-child {
   margin-top: 10px;
 }
 
-.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_dropdown-menu .directorist_dropdown-menu__list a i {
-  margin-right: 6px;
+.atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_dropdown-menu .directorist_dropdown-menu__list .directorist_dropdown-item i {
+  font-size: 15px;
+  margin-right: 14px;
 }
 
 .atbd_content_active #directorist.atbd_wrapper .directorist_userDashboard-tabcontent .directorist_listing-table .directorist_dropdown-menu .directorist_dropdown-menu__list .directorist_custom-checkbox {

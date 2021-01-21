@@ -4722,8 +4722,8 @@ input.atbdp-form-control {
 
 .directorist_checkbox input[type="checkbox"] {
   position: relative;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 3px;
   border: 2px solid #C6D0DC;
 }
@@ -4736,7 +4736,7 @@ input.atbdp-form-control {
 .directorist_checkbox input[type="checkbox"]:checked:before {
   color: #fff;
   content: '\f147';
-  font: normal 20px/1 dashicons;
+  font: normal 14px/1 dashicons;
   margin: 0;
 }
 

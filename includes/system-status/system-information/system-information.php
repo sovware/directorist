@@ -2,6 +2,9 @@
 /**
  * @author AazzTech
  */
+
+use Directorist\URI_Helper;
+
 class ATBDP_System_Info
 {
     public function __construct() { 
@@ -293,7 +296,7 @@ class ATBDP_System_Info
 		 */
 		$override_files     = array();
 		$outdated_templates = false;
-		$scan_files         = self::scan_template_files( ATBDP_TEMPLATES_DIR );
+		$scan_files         = self::scan_template_files( URI_Helper::template_directory() );
 		foreach ( $scan_files as $file ) {
 			$located = $file;
 

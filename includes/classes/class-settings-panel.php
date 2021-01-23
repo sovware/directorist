@@ -1445,6 +1445,12 @@ Please remember that your order may be canceled if you do not make your payment 
                     'type'  => 'toggle',
                     'value' => true,
                 ],
+                'atbdp_legacy_template' => [
+                    'type'  => 'toggle',
+                    'label' => __('Legacy Template Support', 'directorist'),
+                    'value' => false,
+                    'description'   => __('Use the old legacy templates, only activate if your site is broken. This support will be removed in future.', 'directorist'),
+                ],
                 'atbdp_enable_cache' => [
                     'label' => __('Enable Cache', 'directorist'),
                     'type'  => 'toggle',
@@ -5103,7 +5109,17 @@ Please remember that your order may be canceled if you do not make your payment 
                             ] ),
                         ],
 
-                     
+                        'legacy' => [
+                            'label' => __( 'Legacy Mode', 'directorist' ),
+                            'icon' => '<i class="fa fa-bolt"></i>',
+                            'sections' => apply_filters( 'atbdp_legacy_sections', [
+                                'legacy' => [
+                                    'fields'      => [ 
+                                        'atbdp_legacy_template'
+                                     ],
+                                ],
+                            ] ),
+                        ],
 
                         'uninstall' => [
                             'label' => __( 'Uninstall Setting', 'directorist' ),

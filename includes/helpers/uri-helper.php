@@ -15,14 +15,26 @@ class URI_Helper {
 		return ob_get_clean();
 	}
 
-	// \Directorist\URI_Helper::get_template
+	public static function template_directory() {
+		$legacy = get_directorist_option( 'atbdp_legacy_template', false );;
+
+		$dir = ATBDP_DIR. 'templates/';
+
+		if ( $legacy ) {
+			$dir = ATBDP_DIR. 'templates-v6/';
+		}
+
+		return $dir;
+	}
+
 	public static function get_template( $template_file, $args = array() ) {
 		if ( is_array( $args ) ) {
 			extract( $args );
 		}
 
-		$theme_template  = '/directorist/' . $template_file . '.php';
-		$plugin_template = ATBDP_TEMPLATES_DIR . $template_file . '.php';
+		$dir = apply_filters( 'directorist_template_directory', 'directorist' );
+		$theme_template  = '/' . $dir . '/' . $template_file . '.php';
+		$plugin_template = self::template_directory() . $template_file . '.php';
 
 		if ( file_exists( get_stylesheet_directory() . $theme_template ) ) {
 			$file = get_stylesheet_directory() . $theme_template;

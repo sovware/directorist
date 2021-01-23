@@ -18,7 +18,6 @@ if ( !defined('ATBDP_CLASS_DIR') ) { define('ATBDP_CLASS_DIR', ATBDP_DIR.'includ
 if ( !defined('ATBDP_MODEL_DIR') ) { define('ATBDP_MODEL_DIR', ATBDP_DIR.'includes/model/'); }
 
 // Plugin Template Path
-if ( !defined('ATBDP_TEMPLATES_DIR') ) { define('ATBDP_TEMPLATES_DIR', ATBDP_DIR.'templates/'); }
 if ( !defined('ATBDP_VIEWS_DIR') ) { define('ATBDP_VIEWS_DIR', ATBDP_DIR.'views/'); }
 
 // Plugin Admin Assets Path

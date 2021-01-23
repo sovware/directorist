@@ -115,7 +115,7 @@ function atbdp_get_shortcode_template_paths( $template_file ) {
     _deprecated_function( __FUNCTION__, '7.0', 'URI_Helper::get_template()' );
     $theme_template_file  = '/directorist/shortcodes/' . $template_file . '.php';
     $theme_template_path  = get_stylesheet_directory() . $theme_template_file;
-    $plugin_template_path = ATBDP_TEMPLATES_DIR . 'public-templates/shortcodes/' . $template_file . '.php';
+    $plugin_template_path = URI_Helper::template_directory() . 'public-templates/shortcodes/' . $template_file . '.php';
 
     return array(
         'theme'  => $theme_template_path,

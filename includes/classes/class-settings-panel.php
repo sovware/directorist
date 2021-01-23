@@ -391,7 +391,7 @@ SWBD;
         {
             $business_hours_label = sprintf(__('Open Now %s', 'directorist'), !class_exists('BD_Business_Hour') ? '(Requires Business Hours extension)' : '');
 
-            $bank_account = <<<KAMAL
+            $bank_transfer_instruction = "
 Please make your payment directly to our bank account and use your ORDER ID (#==ORDER_ID==) as a Reference. Our bank account information is given below.
 
 Account details :
@@ -400,8 +400,7 @@ Account Name : [Enter your Account Name]
 Account Number : [Enter your Account Number]
 Bank Name : [Enter your Bank Name]
 
-Please remember that your order may be canceled if you do not make your payment within next 72 hours.
-KAMAL;
+Please remember that your order may be canceled if you do not make your payment within next 72 hours.";
 
         $bank_payment_desc = __('You can make your payment directly to our bank account using this gateway. Please use your ORDER ID as a reference when making the payment. We will complete your order as soon as your deposit is cleared in our bank.', 'directorist');
         $pricing_plan = '<a style="color: red" href="https://directorist.com/product/directorist-pricing-plans" target="_blank">Pricing Plans</a>';
@@ -604,7 +603,7 @@ KAMAL;
                 'bank_transfer_instruction' => [
                     'type'          => 'textarea',
                     'label'         => __('Bank Information', 'directorist'),
-                    'value'         => $bank_payment_desc,
+                    'value'         => $bank_transfer_instruction,
                     'description'   => __('Enter your bank information below so that use can make payment directly to your bank account.', 'directorist'),
                 ],
 

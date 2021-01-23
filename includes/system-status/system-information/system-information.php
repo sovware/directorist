@@ -288,14 +288,14 @@ class ATBDP_System_Info
 		}
 
 		/**
-		 * Scan the theme directory for all WC templates to see if our theme
+		 * Scan the theme directory for all templates to see if our theme
 		 * overrides any of them.
 		 */
 		$override_files     = array();
 		$outdated_templates = false;
-		$scan_files         = self::scan_template_files( ATBDP_DIR . '/templates/public-templates/shortcodes/' );
+		$scan_files         = self::scan_template_files( ATBDP_TEMPLATES_DIR );
 		foreach ( $scan_files as $file ) {
-			$located = apply_filters( 'wc_get_template', $file, $file, array(), '/' . 'directorist/', ATBDP_DIR . '/templates/public-templates/shortcodes/' );
+			$located = $file;
 
 			if ( file_exists( $located ) ) {
 				$theme_file = $located;
@@ -312,7 +312,7 @@ class ATBDP_System_Info
 			}
 			
 			if ( ! empty( $theme_file ) ) {
-				$core_version  = self::get_file_version( ATBDP_DIR . '/templates/public-templates/shortcodes' . $file );
+				$core_version  = self::get_file_version( ATBDP_DIR . '/templates' . $file );
 				$theme_version = self::get_file_version( $theme_file );
 				if ( $core_version && ( empty( $theme_version ) || version_compare( $theme_version, $core_version, '<' ) ) ) {
 					if ( ! $outdated_templates ) {

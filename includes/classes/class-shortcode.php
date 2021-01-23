@@ -1,7 +1,11 @@
 <?php
 /**
- * @author AazzTech
+ * @author wpWax
  */
+
+namespace Directorist;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 class ATBDP_Shortcode {
 
@@ -45,9 +49,9 @@ class ATBDP_Shortcode {
 			'directorist_user_login'          => [ $this, 'custom_user_login' ],
 			
 			// Checkout
-			'directorist_checkout'            => [ new ATBDP_Checkout, 'display_checkout_content' ],
-			'directorist_payment_receipt'     => [ new ATBDP_Checkout, 'payment_receipt' ],
-			'directorist_transaction_failure' => [ new ATBDP_Checkout, 'transaction_failure' ],
+			'directorist_checkout'            => [ new \ATBDP_Checkout, 'display_checkout_content' ],
+			'directorist_payment_receipt'     => [ new \ATBDP_Checkout, 'payment_receipt' ],
+			'directorist_transaction_failure' => [ new \ATBDP_Checkout, 'transaction_failure' ],
 
 		]);
 

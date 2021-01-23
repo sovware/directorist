@@ -51,6 +51,6 @@
 
 		</div>
 
-		<?php atbdp_get_shortcode_template( 'single-listing/sidebar' ); ?>
+		<?php \Directorist\URI_Helper::get_template( 'single-listing/sidebar' ); ?>
 	</div>
 </section>

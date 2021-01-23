@@ -198,7 +198,7 @@ function atbdp_render_the_flush_alert( array $alert = [] ) {
 
 // atbdp_load_admin_template
 function atbdp_load_admin_template( string $path = '', $data = [] ) {
-    $file = trailingslashit( ATBDP_DIR ) . "templates/admin-templates/$path.php";
+    $file = trailingslashit( ATBDP_VIEWS_DIR ) . "admin-templates/$path.php";
 
     if ( file_exists( $file ) ) {
         include( $file );
@@ -1929,17 +1929,6 @@ function atbdp_display_price($price = '', $disable_price = false, $currency = ''
         return $p;
     }
 
-}
-
-/**
- * Get price meta html
- *
- * @return mixed
- */
-function atbdp_get_price_meta_html($args) {
-    ob_start();
-    atbdp_get_shortcode_template( 'global/price-meta', $args );
-    return apply_filters('atbdp_listings_review_price', ob_get_clean());
 }
 
 /**

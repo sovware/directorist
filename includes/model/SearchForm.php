@@ -1,11 +1,11 @@
 <?php
 /**
- * @author AazzTech
+ * @author wpWax
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace Directorist;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Listing_Search_Form {
 
@@ -279,13 +279,13 @@ class Directorist_Listing_Search_Form {
 
 	public function buttons_template() {
 		if ($this->has_reset_filters_button || $this->has_apply_filters_button) {
-			atbdp_get_shortcode_template( 'search/buttons', array('searchform' => $this) );
+			URI_Helper::get_template( 'search/buttons', array('searchform' => $this) );
 		}
 	}
 
 	public function open_now_template() {
 		if ($this->has_open_now_field && in_array('directorist-business-hours/bd-business-hour.php', apply_filters('active_plugins', get_option('active_plugins')))) {
-			atbdp_get_shortcode_template( 'search/open-now', array('searchform' => $this) );
+			URI_Helper::get_template( 'search/open-now', array('searchform' => $this) );
 		}
 	}
 
@@ -343,7 +343,7 @@ class Directorist_Listing_Search_Form {
 
 		$template = 'search/fields/' . $field_data['widget_name'];
 		$template = apply_filters( 'directorist_search_field_template', $template, $field_data );
-		atbdp_get_shortcode_template( $template, $args );
+		URI_Helper::get_template( $template, $args );
 	}
 
 	public function get_listing_types() {
@@ -375,7 +375,7 @@ class Directorist_Listing_Search_Form {
 			'searchform' 		=> $this,
 			'listing_types'     => $this->get_listing_types(),
 		);
-		atbdp_get_shortcode_template( 'search/listing-types', $args );
+		URI_Helper::get_template( 'search/listing-types', $args );
 	}
 
 	public function basic_fields_template() {
@@ -383,7 +383,7 @@ class Directorist_Listing_Search_Form {
 			'searchform' => $this,
 			'fields'     => $this->form_data[0]['fields'],
 		);
-		atbdp_get_shortcode_template( 'search/basic-fields', $args );
+		URI_Helper::get_template( 'search/basic-fields', $args );
 	}
 
 
@@ -403,7 +403,7 @@ class Directorist_Listing_Search_Form {
 				'search_button_icon' => $search_button_icon,
 			);
 
-			$html = atbdp_return_shortcode_template( 'search/more-buttons', $args );
+			$html = URI_Helper::get_template_contents( 'search/more-buttons', $args );
 		}
 
 		/**
@@ -414,7 +414,7 @@ class Directorist_Listing_Search_Form {
 	}
 
 	public function advanced_search_form_fields_template() {
-		atbdp_get_shortcode_template( 'search/adv-search', array('searchform' => $this) );
+		URI_Helper::get_template( 'search/adv-search', array('searchform' => $this) );
 	}
 
 	public function top_categories_template() {
@@ -426,7 +426,7 @@ class Directorist_Listing_Search_Form {
 					'searchform'      => $this,
 					'top_categories'  => $top_categories,
 				);
-				atbdp_get_shortcode_template( 'search/top-cats', $args );
+				URI_Helper::get_template( 'search/top-cats', $args );
 			}
 		}
 	}
@@ -504,7 +504,7 @@ class Directorist_Listing_Search_Form {
 			'border_inline_style' => empty($search_border) ? 'style="border: none;"' : '',
 		);
 
-		return atbdp_return_shortcode_template( 'search/search', $args );
+		return URI_Helper::get_template_contents( 'search/search', $args );
 	}
 
 	public function top_categories() {

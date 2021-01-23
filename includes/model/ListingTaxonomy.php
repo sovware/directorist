@@ -1,11 +1,13 @@
 <?php
 /**
- * @author AazzTech
+ * @author wpWax
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+namespace Directorist;
+
+use \ATBDP_Permalink;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 class Directorist_Listing_Taxonomy {
 
@@ -273,7 +275,7 @@ class Directorist_Listing_Taxonomy {
     	}
 
     	if ( !empty( $this->terms ) && !is_wp_error( $this->terms ) ) {
-    		return atbdp_return_shortcode_template( $template_file, $args );
+    		return URI_Helper::get_template_contents( $template_file, $args );
     	}
     	else {
     		return __('<p>No Results found!</p>', 'directorist');
@@ -284,7 +286,7 @@ class Directorist_Listing_Taxonomy {
 		if ( empty( $this->directory_type ) ) {
 			return;
 		}
-		$listings = new WP_Query( array(
+		$listings = new \WP_Query( array(
 			'post_type'     => ATBDP_POST_TYPE,
 			'posts_per_page'=> -1,
 			'post_status'    => 'public',

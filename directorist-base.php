@@ -247,7 +247,7 @@ final class Directorist_Base
             self::$instance->roles = new ATBDP_Roles;
             self::$instance->gateway = new ATBDP_Gateway;
             self::$instance->order = new ATBDP_Order;
-            self::$instance->shortcode = new ATBDP_Shortcode;
+            self::$instance->shortcode = new \Directorist\ATBDP_Shortcode;
             self::$instance->email = new ATBDP_Email;
             self::$instance->seo = new ATBDP_SEO;
             // self::$instance->validator = new ATBDP_Validator;
@@ -463,6 +463,7 @@ final class Directorist_Base
             ATBDP_INC_DIR . 'system-status/class-system-status'
         ]);
 
+        load_dependencies('all', ATBDP_INC_DIR . 'helpers/');
         load_dependencies('all', ATBDP_INC_DIR . 'data-store/');
         load_dependencies('all', ATBDP_INC_DIR . 'model/');
         load_dependencies('all', ATBDP_INC_DIR . 'hooks/');
@@ -585,7 +586,7 @@ final class Directorist_Base
     public function load_template($name, $args = array(), $return_path = false)
     {
         global $post;
-        $path = ATBDP_TEMPLATES_DIR . $name . '.php';
+        $path = ATBDP_VIEWS_DIR . $name . '.php';
         if ($return_path) return $path;
         include($path);
     }

@@ -180,6 +180,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
             $post_id = !empty( $_POST['post_id'] ) ? sanitize_text_field( $_POST['post_id'] ) : '';
             // wp_send_json($post_id);
             $template = '';
+            $submission_form_fields = [];
             if( $listing_type ){
                 $submission_form = get_term_meta( $listing_type, 'submission_form_fields', true );
                 $submission_form_fields = $submission_form['fields'];
@@ -1298,7 +1299,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
             // Process output
             ob_start();
-            require ATBDP_TEMPLATES_DIR . 'custom-fields.php';
+            require ATBDP_VIEWS_DIR . 'custom-fields.php';
             wp_reset_postdata(); // Restore global post data stomped by the_post()
             $output = ob_get_clean();
 

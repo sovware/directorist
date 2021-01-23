@@ -40,15 +40,6 @@ if (!class_exists('BD_Popular_Listing_Widget')) {
             if ( file_exists( $template_path ) ) {
                 include $template_path;
             }
-
-            /* if (!empty($single_only)) {
-                if(is_singular(ATBDP_POST_TYPE)) {
-                    include ATBDP_TEMPLATES_DIR . "widget-templates/popular-listings.php";
-                }
-            } else {
-                include ATBDP_TEMPLATES_DIR . "widget-templates/popular-listings.php";
-            } */
-
         }
 
         /**

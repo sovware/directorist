@@ -116,7 +116,7 @@ if ( !class_exists('BD_Search_Widget')) {
                 $defaults
             );
 
-            require ATBDP_TEMPLATES_DIR . 'search-widget-form.php';
+            require ATBDP_VIEWS_DIR . 'search-widget-form.php';
         }
 
         /**

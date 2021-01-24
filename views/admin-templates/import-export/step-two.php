@@ -15,8 +15,6 @@ $posts = csv_get_data($file, true, $delimiter);
 $total = count($posts);
 $delimiter = isset($_GET['delimiter']) ? wp_unslash($_GET['delimiter']) : ',';
 $update_existing = isset($_GET['update_existing']) ? sanitize_key($_GET['update_existing']) : false;
-$headers = $args['data'];
-$fields = $args['fields'];
 ?>
 <div class="csv-wrapper">
 	<div class="csv-center csv-fields">
@@ -30,49 +28,20 @@ $fields = $args['fields'];
 					<h3><?php printf(__('Total %s items selected ', 'directorist'), $total); ?></h3>
 					<?php
 					if( count( directory_types() ) > 1 ){ ?>
-						<div>
+						<div class="directory_type_wrapper">
 							<label for="directory_type"><?php esc_html_e('Select Directory', 'directorist'); ?></label>
 							<select name="directory_type" id="directory_type">
+								<option value="">--Select--</option>
 								<?php
-								foreach( $directory_types as $term ) {
+								foreach( directory_types() as $term ) {
 									$default = get_term_meta( $term->term_id, '_default', true ); ?>
-										<option <?php echo !empty( $default ) ? 'checked' : ''; ?> value="<?php echo esc_attr( $term->slug ); ?>"><?php echo esc_attr( $term->name ); ?></option>
+										<option <?php echo !empty( $default ) ? 'selected' : ''; ?> value="<?php echo esc_attr( $term->term_id); ?>"><?php echo esc_attr( $term->name ); ?></option>
 								<?php } ?>
 							</select>
 						</div>
-					<?php } ?>
-					<table class="widefat atbdp-importer-mapping-table">
-						<thead>
-							<tr>
-								<th><?php esc_html_e('Column name', 'directorist'); ?></th>
-								<th><?php esc_html_e('Map to field', 'directorist'); ?></th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-							foreach ($headers as $index => $name) : ?>
-								<tr>
-									<td class="atbdp-importer-mapping-table-name">
-										<p><?php echo esc_html($index); ?></p>
-										<?php if (!empty($name)) : ?>
-											<span class="description"><?php esc_html_e('Sample:', 'directorist'); ?> <code><?php echo esc_html($name); ?></code></span>
-										<?php endif; ?>
-									</td>
-									<td class="atbdp-importer-mapping-table-field">
-										<input type="hidden" name="map_from[<?php echo esc_attr($index); ?>]" value="<?php echo esc_attr($name); ?>" />
-										<select class="atbdp_map_to" name="<?php echo esc_attr($index); ?>">
-											<option value=""><?php esc_html_e('Do not import', 'woocommerce'); ?></option>
-											<option value="">--------------</option>
-											<?php foreach ($fields as $key => $value) : ?>
-												<option value="<?php echo esc_attr($key); ?>" <?php // selected( $mapped_value, $key );
-																								?>><?php echo esc_html($value); ?></option>
-											<?php endforeach ?>
-										</select>
-									</td>
-								</tr>
-							<?php endforeach; ?>
-						</tbody>
-					</table>
+					<?php } 
+					$this->tools->get_data_table();
+					?>
 				</section>
 			</div>
 			<div class="atbdp-actions">

@@ -4102,3 +4102,28 @@ if( !function_exists('directory_types') ){
           return $listing_types;
     }
 }
+if( !function_exists('default_directory_type') ){
+    function default_directory_type() {
+        $default_directory = '';
+        if( !empty( directory_types() ) ) {
+            foreach( directory_types() as $term ) {
+                return $term;
+                $default = get_term_meta( $term->term_id, '_default', true );
+                if( $default ) {
+                    $default_directory = $term->term_id;
+                    break;
+                }
+            }
+        }
+        return $default_directory;
+    }
+}
+
+if( !function_exists('directorist_get_form_fields_by_directory_type') ){
+    function directorist_get_form_fields_by_directory_type( $field = 'id', $value = '' ) {
+        $term                   = get_term_by( $field, $value, ATBDP_TYPE );
+        $submission_form        = get_term_meta( $term->term_id, 'submission_form_fields', true );   
+        $submission_form_fields = $submission_form['fields'];
+        return $submission_form_fields;
+    }
+}

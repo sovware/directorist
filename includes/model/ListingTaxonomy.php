@@ -110,7 +110,7 @@ class Directorist_Listing_Taxonomy {
 		$terms = get_terms($this->tax, $args);
 		$terms = array_slice($terms, 0, $this->per_page);
 
-		$this->terms = $terms;  
+		$this->terms = $terms;
 	}
 
 	public function grid_count_html($term,$total) {
@@ -209,15 +209,13 @@ class Directorist_Listing_Taxonomy {
     	foreach ($this->terms as $term) {
 			$directory_type_meta = get_term_meta( $term->term_id, 'directory_type', true );
 			$directory_type_meta = ! empty( $directory_type_meta ) ? $directory_type_meta : array();
-			$directory_type      = empty( $this->directory_type ) ? true : false;
-			$directory_type_attr = array();
-			if ( ! empty( $_GET['directory_type'] ) ) {
-				$directory_type = in_array( $_GET['directory_type'], $directory_type_meta );
+			$current_type		 = $this->current_listing_type;
+			if( $current_type ) {
+				$type    	   = get_term_by( 'id', $current_type, ATBDP_TYPE );
+				$current_slug  = $type->slug;
 			}
-			elseif( ! empty( $this->directory_type ) && ! empty( $directory_type_meta ) ) {
-				$directory_type_attr = array_intersect( $directory_type_meta, $this->directory_type );
-			} 
-			if( !empty( $directory_type ) || $directory_type_attr ) {
+
+			if( in_array( $current_slug, $directory_type_meta) ) {
 				$count = 0;
 				if ($this->hide_empty || $this->show_count) {
 					$count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category($term->term_id) : atbdp_listings_count_by_location($term->term_id);

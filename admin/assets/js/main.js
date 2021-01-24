@@ -1178,7 +1178,6 @@ templateResult: selecWithIcon,
         });
 
         $(window).load(function() {
-                console.log($('select[name="directory_type"]'));
                 $('select[name="directory_type"]')
                         .parent('.inside')
                         .append(`<span class="directorist_loader"></span>`);
@@ -1196,7 +1195,7 @@ templateResult: selecWithIcon,
                         url: atbdp_admin_data.ajaxurl,
                         data: {
                                 action: 'atbdp_dynamic_admin_listing_form',
-                                directory_type,
+                                directory_type: directory_type,
                                 listing_id: $('#directiost-listing-fields_wrapper').data('id'),
                         },
                         success(response) {

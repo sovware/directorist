@@ -4091,3 +4091,14 @@ if( ! function_exists( 'atbdp_field_assigned_plan' ) ) {
         }
     }
 }
+if( !function_exists('directory_types') ){
+    function directory_types() {
+        $listing_types = get_terms([
+            'taxonomy'   => ATBDP_TYPE,
+            'hide_empty' => false,
+            'orderby'    => 'date',
+            'order'      => 'DSCE',
+          ]);
+          return $listing_types;
+    }
+}

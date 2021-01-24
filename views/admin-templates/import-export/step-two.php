@@ -28,6 +28,19 @@ $fields = $args['fields'];
 			<div class="form-content">
 				<section class="atbdp-importer-mapping-table-wrapper">
 					<h3><?php printf(__('Total %s items selected ', 'directorist'), $total); ?></h3>
+					<?php
+					if( count( directory_types() ) > 1 ){ ?>
+						<div>
+							<label for="directory_type"><?php esc_html_e('Select Directory', 'directorist'); ?></label>
+							<select name="directory_type" id="directory_type">
+								<?php
+								foreach( $directory_types as $term ) {
+									$default = get_term_meta( $term->term_id, '_default', true ); ?>
+										<option <?php echo !empty( $default ) ? 'checked' : ''; ?> value="<?php echo esc_attr( $term->slug ); ?>"><?php echo esc_attr( $term->name ); ?></option>
+								<?php } ?>
+							</select>
+						</div>
+					<?php } ?>
 					<table class="widefat atbdp-importer-mapping-table">
 						<thead>
 							<tr>

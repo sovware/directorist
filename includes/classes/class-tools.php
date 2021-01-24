@@ -38,6 +38,9 @@
         protected $postilion = 0;
 
 
+        public $importable_fields = [];
+
+
         public function __construct()
         {
             add_action('admin_menu', array($this, 'add_tools_submenu'), 10);
@@ -207,7 +210,7 @@
 
         private function importable_fields()
         {
-            return apply_filters('atbdp_csv_listing_import_mapping_default_columns', array(
+            $this->importable_fields = apply_filters('atbdp_csv_listing_import_mapping_default_columns', array(
                 'title'                   => __('Title', 'directorist'),
                 'description'             => __('Description', 'directorist'),
                 '_tagline'                => __('Tagline', 'directorist'),
@@ -234,6 +237,7 @@
                 '_fm_plans'               => __('Pricing Plan (Requires Pricing Plan Extension)', 'directorist'),
                 '_claimed_by_admin'       => __('Claimed (Requires Claim Listing Extension)', 'directorist'),
             ));
+            return $this->importable_fields;
         }
 
         /**

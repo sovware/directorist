@@ -15,6 +15,9 @@ class Directorist_Listing_Taxonomy {
 	public $type;
 	public $tax;
 
+	public $listing_types;
+	public $current_listing_type;
+
 	public $view;
 	public $orderby;
 	public $order;
@@ -24,6 +27,8 @@ class Directorist_Listing_Taxonomy {
 	public $logged_in_user_only;
 	public $redirect_page_url;
 	public $directory_type;
+	public $directory_type_count;
+	public $default_directory_type;
 
 	public $show_count;
 	public $hide_empty;
@@ -46,37 +51,41 @@ class Directorist_Listing_Taxonomy {
 		$locations_show_count = !empty( get_directorist_option('display_location_listing_count', 1 ) ) ? true : false;
 		$locations_hide_empty = !empty( get_directorist_option('hide_empty_locations') ) ? true : false;
 		$atts = shortcode_atts(array(
-			'view'                => ( 'category' == $type ) ? $categories_view : $locations_view ,
-			'orderby'             => ( 'category' == $type ) ? $categories_orderby : $locations_orderby,
-			'order'               => ( 'category' == $type ) ? $categories_order : $locations_order,
-			'cat_per_page'        => 100,
-			'loc_per_page'        => 100,
-			'columns'             => ( 'category' == $type ) ? $categories_columns : $locations_columns,
-			'slug'                => '',
-			'logged_in_user_only' => '',
-			'redirect_page_url'   => '',
-			'directory_type'	  => '',
+			'view'                		  => ( 'category' == $type ) ? $categories_view : $locations_view ,
+			'orderby'            		  => ( 'category' == $type ) ? $categories_orderby : $locations_orderby,
+			'order'              		  => ( 'category' == $type ) ? $categories_order : $locations_order,
+			'cat_per_page'       		  => 100,
+			'loc_per_page'        		  => 100,
+			'columns'             		  => ( 'category' == $type ) ? $categories_columns : $locations_columns,
+			'slug'                		  => '',
+			'logged_in_user_only' 		  => '',
+			'redirect_page_url'   		  => '',
+			'directory_type'	  		  => '',
+			'default_directory_type'	  => '',
 		), $atts);
 		
 		$this->atts                = $atts;
 		$this->type                = $type;
 		$this->tax                 = ($type == 'category') ? ATBDP_CATEGORY : ATBDP_LOCATION;
 
-		$this->view                = $atts['view'];
-		$this->orderby             = $atts['orderby'];
-		$this->order               = $atts['order'];
-		$this->per_page            = ($type == 'category') ? $atts['cat_per_page'] : $atts['loc_per_page'];
-		$this->columns             = $atts['columns'];
-		$this->slug                = $atts['slug'];
-		$this->logged_in_user_only = $atts['logged_in_user_only'];
-		$this->redirect_page_url   = $atts['redirect_page_url'];
-		$this->directory_type      = $atts['directory_type'];
+		$this->view                	 	 = $atts['view'];
+		$this->orderby             	 	 = $atts['orderby'];
+		$this->order               	 	 = $atts['order'];
+		$this->per_page            	     = ($type == 'category') ? $atts['cat_per_page'] : $atts['loc_per_page'];
+		$this->columns              	 = $atts['columns'];
+		$this->slug                 	 = $atts['slug'];
+		$this->logged_in_user_only  	 = $atts['logged_in_user_only'];
+		$this->redirect_page_url    	 = $atts['redirect_page_url'];
+		$this->directory_type       	 = ! empty( $atts['directory_type'] ) ? explode( ',', $atts['directory_type'] ) : array();
+		$this->directory_type_count 	 = ! empty( $this->directory_type ) ? count( $this->directory_type ) : 0;
+		$this->default_directory_type    = $atts['default_directory_type'];
 		
 		$this->show_count = ( 'category' == $type ) ? $categories_show_count : $locations_show_count;
 		$this->hide_empty = ( 'category' == $type ) ? $categories_hide_empty : $locations_hide_empty;
 		$this->depth      = ($type == 'category') ? get_directorist_option('categories_depth_number', 1) : get_directorist_option('locations_depth_number', 1);
-		
-		$this->taxonomy_from_directory_type();
+		$this->listing_types              = $this->get_listing_types();
+		$this->current_listing_type       = $this->get_current_listing_type();
+		//$this->taxonomy_from_directory_type();
 		$this->set_terms();
 		
 		
@@ -101,7 +110,7 @@ class Directorist_Listing_Taxonomy {
 		$terms = get_terms($this->tax, $args);
 		$terms = array_slice($terms, 0, $this->per_page);
 
-		$this->terms = $terms;  
+		$this->terms = $terms;
 	}
 
 	public function grid_count_html($term,$total) {
@@ -160,6 +169,7 @@ class Directorist_Listing_Taxonomy {
     		$html .= '<ul class="list-unstyled atbdp_child_category">';
 
     		foreach ($terms as $term) {
+				
     			$child_category = get_term_children($term->term_id, $this->tax);
     			$plus_icon = !empty($child_category) ? '<span class="expander">+</span>' : '';
     			$count = 0;
@@ -167,9 +177,14 @@ class Directorist_Listing_Taxonomy {
     				$count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category($term->term_id) : atbdp_listings_count_by_location($term->term_id);
 
     				if ($this->hide_empty && 0 == $count) continue;
-    			}
+				}
+				if( ! empty( $_GET['directory_type'] ) ) {
+					$directory_type = $_GET['directory_type'];
+				} else {
+					$directory_type = ( 1 == $this->directory_type_count ) ? $this->directory_type[0] : '';
+				}
 
-    			$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page( $term, $this->directory_type ) : ATBDP_Permalink::atbdp_get_location_page( $term, $this->directory_type );
+    			$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page( $term, $directory_type ) : ATBDP_Permalink::atbdp_get_location_page( $term, $directory_type );
 
     			$html .= '<li>';
     			$html .= '<a href=" ' . $permalink . ' ">';
@@ -192,50 +207,66 @@ class Directorist_Listing_Taxonomy {
     	$result = array();
 
     	foreach ($this->terms as $term) {
-    		$count = 0;
-    		if ($this->hide_empty || $this->show_count) {
-    			$count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category($term->term_id) : atbdp_listings_count_by_location($term->term_id);
+			$directory_type_meta = get_term_meta( $term->term_id, 'directory_type', true );
+			$directory_type_meta = ! empty( $directory_type_meta ) ? $directory_type_meta : array();
+			$current_type		 = $this->current_listing_type;
+			if( $current_type ) {
+				$type    	   = get_term_by( 'id', $current_type, ATBDP_TYPE );
+				$current_slug  = $type->slug;
+			}
 
-    			if ($this->hide_empty && 0 == $count) {
-    				continue;
-    			}
-    		}
+			if( in_array( $current_slug, $directory_type_meta) ) {
+				$count = 0;
+				if ($this->hide_empty || $this->show_count) {
+					$count = ( $this->type == 'category' ) ? atbdp_listings_count_by_category($term->term_id) : atbdp_listings_count_by_location($term->term_id);
 
-    		$expired_listings = atbdp_get_expired_listings($this->tax, $term->term_id);
-    		$number_of_expired = $expired_listings->post_count;
-    		$number_of_expired = !empty($number_of_expired) ? $number_of_expired : '0';
-    		$total = ($count) ? ($count - $number_of_expired) : $count;
+					if ($this->hide_empty && 0 == $count) {
+						continue;
+					}
+				}
 
-    		$image = get_term_meta($term->term_id, 'image', true);
-    		if ( $image ) {
-    			$image = atbdp_get_image_source($image, apply_filters("atbdp_{$this->type}_image_size", array('350', '280')));
-    			$image = !empty($image) ? $image : '';
-    		}
+				$expired_listings = atbdp_get_expired_listings($this->tax, $term->term_id);
+				$number_of_expired = $expired_listings->post_count;
+				$number_of_expired = !empty($number_of_expired) ? $number_of_expired : '0';
+				$total = ($count) ? ($count - $number_of_expired) : $count;
 
-    		$child_terms = get_term_children($term->term_id, $this->tax);
+				$image = get_term_meta($term->term_id, 'image', true);
+				if ( $image ) {
+					$image = atbdp_get_image_source($image, apply_filters("atbdp_{$this->type}_image_size", array('350', '280')));
+					$image = !empty($image) ? $image : '';
+				}
 
-    		$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page( $term, $this->directory_type ) : ATBDP_Permalink::atbdp_get_location_page( $term, $this->directory_type );
+				$child_terms = get_term_children($term->term_id, $this->tax);
+				
+				if( ! empty( $_GET['directory_type'] ) ) {
+					$directory_type = $_GET['directory_type'];
+				} else {
+					$directory_type = ( 1 == $this->directory_type_count ) ? $this->directory_type[0] : '';
+				}
 
-    		$data = array(
-    			'term'      => $term,
-    			'has_child' => !empty($child_terms) ? true : false,
-    			'name'      => $term->name,
-    			'permalink' => $permalink,
-    			'count'     => $total,
-    			'grid_count_html' => $this->grid_count_html($term,$total),
-    			'list_count_html' => $this->list_count_html($term,$total),
-    			'img'        => $image,
-    			'subterm_html' => ($this->view == 'list') ? $this->subterms_html($term) : '',
-    		);
+				$permalink = ( $this->type == 'category' ) ? ATBDP_Permalink::atbdp_get_category_page( $term, $directory_type ) : ATBDP_Permalink::atbdp_get_location_page( $term, $directory_type );
 
-    		if ($this->type == 'category') {
-				$icon = get_term_meta($term->term_id, 'category_icon', true);
-				$icon_type = substr($icon, 0,2);
-    			$data['has_icon']  = ( !empty( $icon ) && ( 'none' != $icon ) ) ? true : false;
-				$data['icon_class'] = ('la' === $icon_type)? $icon_type.' '. $icon : 'fa '. $icon;
-    		}
+				$data = array(
+					'term'      => $term,
+					'has_child' => !empty($child_terms) ? true : false,
+					'name'      => $term->name,
+					'permalink' => $permalink,
+					'count'     => $total,
+					'grid_count_html' => $this->grid_count_html($term,$total),
+					'list_count_html' => $this->list_count_html($term,$total),
+					'img'        => $image,
+					'subterm_html' => ($this->view == 'list') ? $this->subterms_html($term) : '',
+				);
 
-    		$result[] = $data;
+				if ($this->type == 'category') {
+					$icon = get_term_meta($term->term_id, 'category_icon', true);
+					$icon_type = substr($icon, 0,2);
+					$data['has_icon']  = ( !empty( $icon ) && ( 'none' != $icon ) ) ? true : false;
+					$data['icon_class'] = ('la' === $icon_type)? $icon_type.' '. $icon : 'fa '. $icon;
+				}
+
+				$result[] = $data;
+			}
     	}
 
     	return $result;
@@ -317,5 +348,65 @@ class Directorist_Listing_Taxonomy {
 
 		return $slug;
 
+	}
+
+	public function get_listing_types() {
+		$listing_types = array();
+		$args          = array(
+			'taxonomy'   => ATBDP_TYPE,
+			'hide_empty' => false
+		);
+		if( $this->directory_type ) {
+			$args['slug']     = $this->directory_type;
+		}
+		$all_types     = get_terms( $args );
+
+		foreach ( $all_types as $type ) {
+			$listing_types[ $type->term_id ] = [
+				'term' => $type,
+				'name' => $type->name,
+				'data' => get_term_meta( $type->term_id, 'general_config', true ),
+			];
+		}
+		return $listing_types;
+	}
+
+	public function get_current_listing_type() {
+		$listing_types      = $this->get_listing_types();
+		$listing_type_count = count( $listing_types );
+
+		$current = !empty($listing_types) ? array_key_first( $listing_types ) : '';
+
+		if ( isset( $_GET['directory_type'] ) ) {
+			$current = $_GET['directory_type'];
+		}
+		else if( $this->default_directory_type ) {
+			$current = $this->default_directory_type;
+		}
+		else {
+
+			foreach ( $listing_types as $id => $type ) {
+				$is_default = get_term_meta( $id, '_default', true );
+				if ( $is_default ) {
+					$current = $id;
+					break;
+				}
+			}
+		}
+
+		if( ! is_numeric( $current ) ) {
+			$term = get_term_by( 'slug', $current, ATBDP_TYPE );
+			$current = $term->term_id;
+		}
+		return (int) $current;
+	}
+
+	// Hooks ------------
+	public static function archive_type($listings) {
+		$count = count( $listings->listing_types );
+		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
+		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
+			URI_Helper::get_template( 'listings-archive/listing-types', array('listings' => $listings) );
+		}
 	}
 }

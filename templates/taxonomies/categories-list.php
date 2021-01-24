@@ -10,20 +10,24 @@
     /**
      * @since 5.6.6
      */
-    do_action( 'atbdp_after_all_categories_loop' );
+    do_action( 'atbdp_before_all_categories_loop', $taxonomy );
     ?>
 	<div class="row atbdp-no-margin">
 		<?php
-		foreach ($categories as $category) {
-			$plus_icon = $category['has_child'] ? '<span class="expander">+</span>' : '';
-			?>
-			<div class="<?php echo esc_attr($list_col_class);?>">
-				<div class="atbd_category_wrapper">
-					<a href="<?php echo esc_url($category['permalink']);?>" class="atbd_parent_cat"><span><?php echo esc_html($category['name']);?></span><?php echo $category['list_count_html'];?></a><?php echo $plus_icon;?>
-					<?php echo $category['subterm_html'];?>
+		if( $categories ) {
+			foreach ($categories as $category) {
+				$plus_icon = $category['has_child'] ? '<span class="expander">+</span>' : '';
+				?>
+				<div class="<?php echo esc_attr($list_col_class);?>">
+					<div class="atbd_category_wrapper">
+						<a href="<?php echo esc_url($category['permalink']);?>" class="atbd_parent_cat"><span><?php echo esc_html($category['name']);?></span><?php echo $category['list_count_html'];?></a><?php echo $plus_icon;?>
+						<?php echo $category['subterm_html'];?>
+					</div>
 				</div>
-			</div>
-			<?php
+				<?php
+			}
+		} else {
+			_e('<p>No Results found!</p>', 'directorist');
 		}
 		?>
 	</div>

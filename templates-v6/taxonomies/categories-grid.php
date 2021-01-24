@@ -10,7 +10,7 @@
 	/**
 	 * @since 5.6.6
 	 */
-	do_action( 'atbdp_before_all_categories_loop' );
+	do_action( 'atbdp_before_all_categories_loop', $taxonomy );
 	?>
 	<div class="<?php echo esc_attr( $grid_container ); ?>">
 		<div class="col-md-12">

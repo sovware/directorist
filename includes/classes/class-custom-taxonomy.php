@@ -164,7 +164,10 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
         public function update_location_field($term_id, $tt_id)
         {
 
-
+            if ( isset( $_POST['directory_type'] ) ) {
+                $directory_type =  $_POST['directory_type'];
+                update_term_meta( $term_id, 'directory_type', $directory_type );
+            }
             //UPDATED location IMAGE
             if (isset($_POST['image']) && '' !== $_POST['image']) {
                 update_term_meta($term_id, 'image', (int)$_POST['image']);
@@ -240,9 +243,31 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
         public function edit_location_extra_field($term, $taxonomy)
         {
             //get current cat image
-            $image_id = get_term_meta($term->term_id, 'image', true);
-            $image_src = ($image_id) ? wp_get_attachment_url((int)$image_id) : '';
+            $image_id        = get_term_meta($term->term_id, 'image', true);
+            $directory_type  = get_term_meta($term->term_id, 'directory_type', true);
+            $value           = ! empty( $directory_type ) ? $directory_type : array();
+            $image_src       = ($image_id) ? wp_get_attachment_url((int)$image_id) : '';
+            $directory_types = get_terms( array(
+                'taxonomy'   => ATBDP_TYPE,
+                'hide_empty' => false,
+            ) );
             ?>
+            <tr class="form-field term-group-wrap">
+                <th scope="row"><label for="category_icon"><?php _e('Directory Type', 'directorist'); ?></label></th>
+                <td>
+                    <?php
+                    if( $directory_types ) {
+                        foreach( $directory_types as $type ) {
+                            $checked = in_array( $type->slug, $value ) ? 'checked' : '';
+                    ?>
+                        <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="directory_type" <?php echo $checked; ?>/>
+                        <label for="directory_type"><?php echo $type->name; ?></label>
+                    <?php 
+                        }
+                    }
+                    ?>
+                </td>
+            </tr>
             <tr class="form-field term-group-wrap">
                 <th scope="row">
                     <label for="atbdp-categories-image-id"><?php _e('Image', 'directorist'); ?></label>
@@ -283,6 +308,10 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
         {
             if (isset($_POST['image']) && '' !== $_POST['image']) {
                 add_term_meta($term_id, 'image', (int)$_POST['image'], true);
+            }
+            if ( isset( $_POST['directory_type'] ) ) {
+                $directory_type =  $_POST['directory_type'];
+                add_term_meta($term_id, 'directory_type', $directory_type, true);
             }
         }
 
@@ -331,7 +360,23 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
         public function add_extra_location_field($taxonomy)
         {
+            $directory_types = get_terms( array(
+                'taxonomy'   => ATBDP_TYPE,
+                'hide_empty' => false,
+            ) );
             ?>
+            <div class="form-field term-group">
+            <label for="directory_type"><?php _e('Directory Type', 'directorist'); ?></label>
+                <?php 
+                if( $directory_types ) {
+                    foreach( $directory_types as $type ) {
+                ?>
+                    <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="directory_type"/><?php echo $type->name; ?>
+                <?php 
+                    }
+                }
+                ?>
+            </div>
             <div class="form-field term-group">
                 <label for="atbdp-categories-image-id"><?php _e('Image', 'directorist'); ?></label>
                 <input type="hidden" id="atbdp-categories-image-id" name="image"/>

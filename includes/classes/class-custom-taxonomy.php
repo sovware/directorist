@@ -138,6 +138,10 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
          */
         public function update_category_icon($term_id, $tt_id)
         {
+            if ( isset( $_POST['directory_type'] ) ) {
+                $directory_type =  $_POST['directory_type'];
+                update_term_meta( $term_id, 'directory_type', $directory_type );
+            }
 
             if (!empty($_POST['category_icon'])) {
                 $category_icon = sanitize_text_field($_POST['category_icon']);
@@ -172,10 +176,31 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
         public function edit_category_icon_field($term, $taxonomy)
         {
             // get current group
-            $icon_name = get_term_meta($term->term_id, 'category_icon', true);
-
-            $fa_icons = get_fa_icons(); // returns the array of FA icon names
+            $icon_name       = get_term_meta($term->term_id, 'category_icon', true);
+            $directory_type  = get_term_meta($term->term_id, 'directory_type', true);
+            $value           = ! empty( $directory_type ) ? $directory_type : array();
+            $fa_icons        = get_fa_icons(); // returns the array of FA icon names
+            $directory_types = get_terms( array(
+                'taxonomy'   => ATBDP_TYPE,
+                'hide_empty' => false,
+            ) );
             ?>
+            <tr class="form-field term-group-wrap">
+                <th scope="row"><label for="category_icon"><?php _e('Directory Type', 'directorist'); ?></label></th>
+                <td>
+                    <?php
+                    if( $directory_types ) {
+                        foreach( $directory_types as $type ) {
+                            $checked = in_array( $type->slug, $value ) ? 'checked' : '';
+                    ?>
+                        <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="directory_type" <?php echo $checked; ?>/>
+                        <label for="directory_type"><?php echo $type->name; ?></label>
+                    <?php 
+                        }
+                    }
+                    ?>
+                </td>
+            </tr>
             <tr class="form-field term-group-wrap">
             <th scope="row"><label for="category_icon"><?php _e('Category Icon', 'directorist'); ?></label></th>
             <td><select class="postform" id="category_icon" name="category_icon">
@@ -248,6 +273,10 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
             if (isset($_POST['image']) && '' !== $_POST['image']) {
                 add_term_meta($term_id, 'image', (int)$_POST['image'], true);
             }
+            if ( isset( $_POST['directory_type'] ) ) {
+                $directory_type =  $_POST['directory_type'];
+                add_term_meta($term_id, 'directory_type', $directory_type, true);
+            }
         }
 
         public function save_location_extra_meta($term_id, $tt_id)
@@ -260,8 +289,24 @@ if (!class_exists('ATBDP_Custom_Taxonomy')):
 
         public function add_category_icon_field($taxonomy)
         {
-            $fa_icons = get_fa_icons(); // returns the array of FA icon names
+            $fa_icons       = get_fa_icons(); // returns the array of FA icon names
+            $directory_types = get_terms( array(
+                'taxonomy'   => ATBDP_TYPE,
+                'hide_empty' => false,
+            ) );
             ?>
+            <div class="form-field term-group">
+            <label for="directory_type"><?php _e('Directory Type', 'directorist'); ?></label>
+                <?php 
+                if( $directory_types ) {
+                    foreach( $directory_types as $type ) {
+                ?>
+                    <input type="checkbox" class="postform" name="directory_type[]" value='<?php echo $type->slug; ?>' id="directory_type"/><?php echo $type->name; ?>
+                <?php 
+                    }
+                }
+                ?>
+            </div>
             <div class="form-field term-group">
                 <label for="category_icon"><?php _e('Category Icon', 'directorist'); ?></label>
                 <select class="postform" id="category_icon" name="category_icon">

@@ -406,7 +406,7 @@ class Directorist_Listing_Taxonomy {
 		$count = count( $listings->listing_types );
 		$enable_multi_directory = get_directorist_option( 'enable_multi_directory', false );
 		if ( $count > 1 && ! empty( $enable_multi_directory ) ) {
-			URI_Helper::get_template( 'listings-archive/listing-types', array('listings' => $listings) );
+			URI_Helper::get_template( 'archive/listing-types', array('listings' => $listings) );
 		}
 	}
 }

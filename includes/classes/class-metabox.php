@@ -1,7 +1,8 @@
 <?php
 /**
- * @author AazzTech
+ * @author wpWax
  */
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -40,7 +41,7 @@ class ATBDP_Metabox {
 	public function render_listing_meta_fields( $type, $id ) {
 		$form_data = $this->build_form_data( $type );
 		foreach ( $form_data as $section ) {
-			Directorist_Listing_Forms::instance($id)->add_listing_section_template( $section );
+			\Directorist\Directorist_Listing_Forms::instance($id)->add_listing_section_template( $section );
 		}
 	}
 

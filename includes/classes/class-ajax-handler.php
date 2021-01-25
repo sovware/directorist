@@ -191,7 +191,7 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                 if( $category ) {
                     if( in_array( $category, $categories ) ) {
                         ob_start();
-                        Directorist_Listing_Forms::instance()->add_listing_category_custom_field_template( $value, $post_id );
+                        \Directorist\Directorist_Listing_Forms::instance()->add_listing_category_custom_field_template( $value, $post_id );
                         $template .= ob_get_clean();
                     }
                 }

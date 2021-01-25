@@ -209,7 +209,6 @@ class SetupWizard
         $data['failed']        = $failed;
 
         wp_send_json($data);
-        die();
     }
 
     public function read_csv($file){

@@ -28,10 +28,16 @@ jQuery(document).ready(function($) {
                                 delimiter: delimiter,
                                 file: file,
                         },
+                        beforeSend: function () {
+                                $('#directorist-type-preloader').show();
+                        },
                         success(response) {
                                 $('.atbdp-importer-mapping-table').remove();
                                 $('.directory_type_wrapper').after( response );
                         },
+                        complete: function () {
+                                $('#directorist-type-preloader').hide();
+                        }
                 });
         }
 

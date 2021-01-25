@@ -419,6 +419,13 @@
             background-color: #E9E9E9;
             color: #0A0B1E;
           }
+          .directorist_menuItem-text{
+            display: flex;
+            align-items: center;
+            .directorist_menuItem-icon{
+              margin-right: 10px;
+            }
+          }
         }
 
         ul {
@@ -427,7 +434,15 @@
 
           li {
             a {
-              padding-left: 40px;
+              padding-left: 35px;
+              .submenu-text{
+                display: flex;
+                align-items: center;
+                i,
+                svg{
+                  margin-right: 10px;
+                }
+              }
             }
           }
         }

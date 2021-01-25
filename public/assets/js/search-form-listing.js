@@ -23,7 +23,10 @@
                                 if (response) {
                                         $('.atbdp-whole-search-form')
                                                 .empty()
-                                                .html(response);
+                                                .html( response.data['search_form'] );
+                                        $('.atbdp_listing_top_category')
+                                                .empty()
+                                                .html( response.data['popular_categories'] );
                                 }
                                 $('.atbdp-whole-search-form').removeClass('atbdp-form-fade');
                         },

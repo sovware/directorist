@@ -126,9 +126,12 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
 
         // atbdp_listing_types_form
         public function atbdp_listing_types_form() {
-            $listing_type = !empty( $_POST['listing_type'] ) ? esc_attr( $_POST['listing_type'] ) : '';
-            $term = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
-            $searchform = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $term->term_id, [] );
+            $listing_type   = !empty( $_POST['listing_type'] ) ? esc_attr( $_POST['listing_type'] ) : '';
+            $term           = get_term_by( 'slug', $listing_type, ATBDP_TYPE );
+            $searchform     = new \Directorist\Directorist_Listing_Search_Form( 'search_form', $term->term_id, [] );
+            $top_categories = $searchform->top_categories();
+
+            // search form
             ob_start();
             ?>
             <div class="row atbdp-search-form atbdp-search-form-inline">
@@ -154,7 +157,34 @@ if (!class_exists('ATBDP_Ajax_Handler')) :
                         <?php
                     }
                 }
-            print ob_get_clean();
+            $search_form =  ob_get_clean();
+
+
+            // top categories 
+            $counter = 0;
+            foreach ($top_categories as $cat) { 
+                apply_filters('atbdp_popular_category_loop', $counter++, $cat);
+                $directory_type 	 = get_term_meta( $cat->term_id, '_directory_type', true );
+                $directory_type 	 = ! empty( $directory_type ) ? $directory_type : array();
+                $listing_type_slug   = $listing_type;
+                if( in_array( $listing_type_slug, $directory_type ) ) {
+                ob_start();   
+                ?>
+                <li>
+                    <a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat); ?>" <?php do_action('search_home_popular_category', $counter); ?> >
+                        <span class="<?php echo esc_attr($searchform->category_icon_class($cat)); ?>" aria-hidden="true"></span>
+                        <p><?php echo esc_html( $cat->name ); ?></p>
+                    </a>
+                </li>
+            <?php
+                $popular_categories = ob_get_clean();
+                } 
+            }
+
+            wp_send_json_success( array( 
+                'search_form' => $search_form,
+                'popular_categories'     => $popular_categories
+             ) );
             die;
         }
 

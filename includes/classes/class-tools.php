@@ -40,6 +40,8 @@
 
         public $importable_fields = [];
 
+        private $default_directory;
+
 
         public function __construct()
         {
@@ -158,9 +160,7 @@
             $data['total']         = $total_length;
             $data['imported']      = $imported;
             $data['failed']        = $failed;
-
             wp_send_json($data);
-            die();
         }
 
 
@@ -195,18 +195,6 @@
 
         public function atbdp_csv_import_controller()
         {
-            // Displaying this page triggers Ajax action to run the import with a valid nonce,
-            // therefore this page needs to be nonce protected as well.
-            // step one
-
-            // $post = new WP_Query(array(
-            //     'post_type' => ATBDP_POST_TYPE,
-            //     'posts_per_page' => -1
-            // ));
-            // foreach ($post->posts as $post) {
-            //     wp_delete_post($post->ID, true);
-            // }
-
             if (isset($_POST['atbdp_save_csv_step'])) {
                 check_admin_referer('directorist-csv-importer');
                 // redirect to step two || data mapping
@@ -225,12 +213,13 @@
 
 
         public function prepare_data(){
+            $this->default_directory = default_directory_type();
             $this->setup_fields();
         }
 
 
         public function setup_fields( $directory = '' ) {
-                $directory      = $directory ? $directory : 2;
+                $directory      = $directory ? $directory : $this->default_directory;
                 $fields         = directorist_get_form_fields_by_directory_type( 'id', $directory );
                 foreach( $fields as $field ){
                 $field_key  = !empty( $field['field_key'] ) ? $field['field_key'] : '';
@@ -239,10 +228,18 @@
                 if( 'admin_category_select[]'           == $field_key ) {  $field_key = 'category';  }
                 if( 'tax_input[at_biz_dir-tags][]'      == $field_key ) { $field_key = 'tag'; }
                 if( 'pricing' == $field['widget_name'] ) {  
-                    $field_key  = 'price';
+                    $this->importable_fields[ 'price' ] = 'Price';
+                    $this->importable_fields[ 'price_range' ] = 'Price Range';
+                    continue;
+                    }
+                if( 'map' == $field['widget_name'] ) {  
+                    $this->importable_fields[ 'manual_lat' ] = 'Map Latitude';
+                    $this->importable_fields[ 'manual_lng' ] = 'Map Longitude';
+                    $this->importable_fields[ 'hide_map' ]   = 'Hide Map';
+                    continue;
                     }
 
-                $this->importable_fields[ $field_key ] = $label;
+                apply_filters( 'directorist_importable_fields', $this->importable_fields[ $field_key ] = $label );
             }
         }
 

@@ -4107,7 +4107,6 @@ if( !function_exists('default_directory_type') ){
         $default_directory = '';
         if( !empty( directory_types() ) ) {
             foreach( directory_types() as $term ) {
-                return $term;
                 $default = get_term_meta( $term->term_id, '_default', true );
                 if( $default ) {
                     $default_directory = $term->term_id;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @author  AazzTech
+ * @author  wpWax
  * @since   6.6
  * @version 6.6
  */

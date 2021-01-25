@@ -43,7 +43,7 @@ class ATBDP_Multi_Directory_Migration {
                   ]);
                   if( !empty( $term_data ) ) {
                       foreach( $term_data as $data ) {
-                          update_term_meta( $data->term_id, '_directory_type', $directory_slug );
+                          update_term_meta( $data->term_id, '_directory_type', [ $directory_slug ] );
                       }
                   }
             }

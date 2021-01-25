@@ -48,7 +48,15 @@
                  */
                 do_action( 'directorist_dashboard_tab_contents');
                 ?>
-
+                <div class="atbd_tab_inner" id="tab1">
+                    <p>Empty Content</p>
+                </div>
+                <div class="atbd_tab_inner" id="tab2">
+                    <p>Empty Content</p>
+                </div>
+                <div class="atbd_tab_inner" id="tab3">
+                    <p>Empty Content</p>
+                </div>
             </div>
         </div>
     </div>

@@ -1177,18 +1177,6 @@ templateResult: selecWithIcon,
                         .addClass('directorist_disable');
         });
 
-        $(window).load(function() {
-                $('select[name="directory_type"]')
-                        .parent('.inside')
-                        .append(`<span class="directorist_loader"></span>`);
-                admin_listing_form($('select[name="directory_type"]').val());
-
-                $('select[name="directory_type"]')
-                        .closest('#poststuff')
-                        .find('#publishing-action')
-                        .addClass('directorist_disable');
-        });
-
         function admin_listing_form(directory_type) {
                 $.ajax({
                         type: 'post',

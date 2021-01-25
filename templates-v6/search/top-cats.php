@@ -12,6 +12,11 @@
 		 $counter = 0;
 		foreach ($top_categories as $cat) { 
 			apply_filters('atbdp_popular_category_loop', $counter++, $cat);
+			$directory_type 	 = get_term_meta( $cat->term_id, '_directory_type', true );
+			$directory_type 	 = ! empty( $directory_type ) ? $directory_type : array();
+			$listing_type_id     = $searchform->listing_type;
+			$listing_type_slug   = get_term_by( 'id', $listing_type_id, ATBDP_TYPE );
+			if( in_array( $listing_type_slug->slug, $directory_type ) ) {
 			?>
 			<li>
 				<a href="<?php echo ATBDP_Permalink::atbdp_get_category_page($cat); ?>" <?php do_action('search_home_popular_category', $counter); ?> >
@@ -19,7 +24,7 @@
 					<p><?php echo esc_html( $cat->name ); ?></p>
 				</a>
 			</li>
-		<?php } ?>
+		<?php } } ?>
 	</ul>
 	
 	<?php do_action('atbdp_search_after_popular_categories');?>

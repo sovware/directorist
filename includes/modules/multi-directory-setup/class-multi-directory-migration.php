@@ -24,6 +24,9 @@ class ATBDP_Multi_Directory_Migration {
             'directory_name' => 'General',
             'fields_value'   => $fields,
         ]);
+        $term           = get_term_by( 'id', $add_directory['term_id'], ATBDP_TYPE );
+        $directory_slug = $term->slug;
+
         
         if ( $add_directory['status']['success'] ) {
             update_term_meta( $add_directory['term_id'], '_default', true );
@@ -40,11 +43,11 @@ class ATBDP_Multi_Directory_Migration {
                   ]);
                   if( !empty( $term_data ) ) {
                       foreach( $term_data as $data ) {
-                          update_term_meta( $data->term_id, '_directory_type', $add_directory['slug'] );
+                          update_term_meta( $data->term_id, '_directory_type', $directory_slug );
                       }
                   }
             }
-            
+
             // Add directory type to all listings
             $listings = new WP_Query([
                 'post_type'      => ATBDP_POST_TYPE,

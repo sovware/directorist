@@ -1181,9 +1181,34 @@ span.atbdp-tick-cross {
           margin-top: 0;
         }
 
+        .directory_type_wrapper{
+          margin-bottom: 25px;
+
+          label{
+            width: 100%;
+            display: block;
+            margin-bottom: 15px;
+          }
+
+          #directory_type{
+            border: 1px solid #c6d0dc;
+            border-radius: 4px;
+            line-height: 40px;
+            padding: 0 15px;
+            width: 100%;
+          }
+        }
+
         .atbdp-importer-mapping-table {
           border: 0 none;
           box-shadow: none;
+
+          tr{
+            td,
+            th{
+              width: 50%;
+            }
+          }
 
           thead {
             background: #f4f5f7;
@@ -1219,6 +1244,7 @@ span.atbdp-tick-cross {
                 border-radius: 4px;
                 line-height: 40px;
                 padding: 0 15px;
+                width: 100%;
               }
             }
           }
@@ -2619,10 +2645,13 @@ input.atbdp-form-control {
   border: 0 none;
   padding: 0 15px;
   background: #f4f5f7;
+  &:focus{
+    border-color: #f4f5f7;
+  }
 }
 
 .atbdp-form-feedback {
-  margin: 10px 0;
+  margin: 10px;
 }
 
 .atbdp-form-actions {
@@ -3175,18 +3204,27 @@ input.atbdp-form-control {
 
 .et-auth-section-wrap {
   display: flex;
+  align-items: center;
   padding: 1px;
   flex-grow: 1;
   flex-wrap: nowrap;
   overflow: hidden;
+  .atbdp-btn{
+    padding: 8px 16px;
+    &:focus{
+      outline: none !important;
+    }
+  }
 }
 
 .atbdp-input-group-wrap {
   display: flex;
+  align-items: center;
 }
 
 .atbdp-input-group-append {
   display: flex;
+  align-items: center;
 }
 
 #directorist.atbd_wrapper .ext-action-btn {
@@ -3451,6 +3489,7 @@ input.atbdp-form-control {
     margin: 12px 5px;
 
     button {
+      position: relative;
       display: block;
       width: 100%;
       border: 0 none;
@@ -3463,6 +3502,14 @@ input.atbdp-form-control {
       font-weight: 500;
       color: #fff;
       cursor: pointer;
+
+      &:focus{
+        outline: none;
+      }
+      .atbdp-loading{
+        position: absolute;
+        right: 20px;
+      }
     }
   }
 }

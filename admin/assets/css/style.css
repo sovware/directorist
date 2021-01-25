@@ -1206,10 +1206,33 @@ span.atbdp-tick-cross {
   margin-top: 0;
 }
 
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .directory_type_wrapper {
+  margin-bottom: 25px;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .directory_type_wrapper label {
+  width: 100%;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .directory_type_wrapper #directory_type {
+  border: 1px solid #c6d0dc;
+  border-radius: 4px;
+  line-height: 40px;
+  padding: 0 15px;
+  width: 100%;
+}
+
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table {
   border: 0 none;
   -webkit-box-shadow: none;
           box-shadow: none;
+}
+
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tr td,
+.csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table tr th {
+  width: 50%;
 }
 
 .csv-wrapper form .form-content .atbdp-importer-mapping-table-wrapper .atbdp-importer-mapping-table thead {
@@ -1246,6 +1269,7 @@ span.atbdp-tick-cross {
   border-radius: 4px;
   line-height: 40px;
   padding: 0 15px;
+  width: 100%;
 }
 
 .csv-wrapper form .atbdp-actions {
@@ -2683,8 +2707,12 @@ input.atbdp-form-control {
   background: #f4f5f7;
 }
 
+input.atbdp-form-control:focus {
+  border-color: #f4f5f7;
+}
+
 .atbdp-form-feedback {
-  margin: 10px 0;
+  margin: 10px;
 }
 
 .atbdp-form-actions {
@@ -3288,6 +3316,9 @@ input.atbdp-form-control {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 1px;
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
@@ -3297,16 +3328,30 @@ input.atbdp-form-control {
   overflow: hidden;
 }
 
+.et-auth-section-wrap .atbdp-btn {
+  padding: 8px 16px;
+}
+
+.et-auth-section-wrap .atbdp-btn:focus {
+  outline: none !important;
+}
+
 .atbdp-input-group-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .atbdp-input-group-append {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #directorist.atbd_wrapper .ext-action-btn {
@@ -3605,6 +3650,7 @@ input.atbdp-form-control {
 }
 
 #directorist.atbd_wrapper .account-connect__form-btn button {
+  position: relative;
   display: block;
   width: 100%;
   border: 0 none;
@@ -3618,6 +3664,15 @@ input.atbdp-form-control {
   font-weight: 500;
   color: #fff;
   cursor: pointer;
+}
+
+#directorist.atbd_wrapper .account-connect__form-btn button:focus {
+  outline: none;
+}
+
+#directorist.atbd_wrapper .account-connect__form-btn button .atbdp-loading {
+  position: absolute;
+  right: 20px;
 }
 
 /* extension and themes column */
